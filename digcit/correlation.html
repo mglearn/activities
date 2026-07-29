@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>TEKS Correlation Guide — Digital Citizenship Breakouts</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="assets/site.webmanifest">
+<meta name="theme-color" content="#0a2e63">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Citizenship Breakouts">
+<meta property="og:title" content="TEKS Correlation Guide — Digital Citizenship Breakouts">
+<meta property="og:description" content="Critical Thinking Online Breakouts for Digital Citizenship — grades K–8, TEKS-aligned, in 7 languages. Runs in the browser; no logins, no data collected.">
+<meta property="og:image" content="https://breakouts.example.org/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TEKS Correlation Guide — Digital Citizenship Breakouts">
+<meta name="twitter:description" content="Critical Thinking Online Breakouts for Digital Citizenship — grades K–8, TEKS-aligned, in 7 languages. Runs in the browser; no logins, no data collected.">
+<meta name="twitter:image" content="https://breakouts.example.org/assets/og.png">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>:root{--navy:#0a2e63;--navy-d:#061f45;--red:#c1121f;--red-d:#8b0d16;--gold:#f5b800;--gold-d:#c08e00;--paper:#f4f8fd;--ink:#14203a;--ink-soft:#4b5a78;--card:#fff;--line:#dbe6f5;--good:#2f9e44;--bad:#e03131;--c1:#0a2e63;--c2:#2f6fe0;--c3:#16697a;--c4:#f5b800;--c5:#0d47a1;--bg-a:rgba(245,184,0,.12);--bg-b:rgba(10,46,99,.10)}</style>
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  .wrap{position:relative}
+  .topnav{position:absolute;top:14px;right:16px;z-index:60;display:flex;gap:10px;align-items:center}
+  @media(max-width:680px){.topnav{position:static;justify-content:flex-end;flex-wrap:wrap;margin:0 0 10px}}
+  .teacher-menu{position:relative;font-family:'Nunito',sans-serif}
+  .teacher-menu>summary{list-style:none;cursor:pointer;background:var(--navy);color:#fff;font-weight:800;font-size:.85rem;padding:8px 14px;border-radius:100px;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(10,46,99,.28)}
+  .teacher-menu>summary::-webkit-details-marker{display:none}
+  .teacher-menu[open]>summary{background:var(--navy-d)}
+  .teacher-menu .tm-panel{position:absolute;right:0;margin-top:8px;background:#fff;border:2px solid var(--line);border-radius:14px;box-shadow:0 16px 40px rgba(10,20,60,.18);padding:8px;min-width:236px;display:flex;flex-direction:column;gap:2px}
+  .teacher-menu .tm-h{font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);font-weight:800;padding:6px 12px 3px}
+  .teacher-menu .tm-panel a{display:flex;justify-content:space-between;gap:12px;padding:9px 12px;border-radius:9px;color:var(--ink);font-weight:700;font-size:.9rem;text-decoration:none}
+  .teacher-menu .tm-panel a:hover{background:var(--bg-b);color:var(--navy)}
+  @media(max-width:680px){.teacher-menu{position:static;margin:0 0 12px;text-align:right}.teacher-menu .tm-panel{left:auto}}
+  .clear-grid{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+  .clear-row{display:flex;gap:14px;align-items:flex-start;background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px 16px}
+  .clear-badge{flex:0 0 auto;width:46px;height:46px;border-radius:12px;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.6rem;display:flex;align-items:center;justify-content:center}
+  .clear-body h4{margin:.1rem 0 .3rem;font-size:1.05rem;color:var(--navy)}
+  .clear-body .clear-q{font-weight:600;color:var(--ink-soft);font-size:.9rem}
+  .clear-body ul{margin:.2rem 0 0;padding-left:1.1rem}
+  .clear-body li{font-size:.9rem;color:var(--ink);margin:.1rem 0}
+  .site-langbar{position:static;display:flex;align-items:center;gap:6px}
+  .site-langbar .globe{font-size:1.1rem}
+  .site-langbar select{font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem;color:var(--navy);background:#fff;border:2px solid var(--line);border-radius:100px;padding:6px 12px;cursor:pointer}
+  .site-langbar select:focus{outline:none;border-color:var(--navy)}
+  @media(max-width:680px){.site-langbar{position:static;margin:0 0 10px}}
+  .statstrip{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0 6px}
+  .stat{flex:1 1 110px;background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px 12px;text-align:center}
+  .stat.hl{background:var(--bg-b);border-color:var(--navy)}
+  .statn{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.9rem;color:var(--navy);line-height:1}
+  .statl{font-size:.74rem;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-top:6px}</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+<nav class="topnav" aria-label="Site tools"><div class="site-langbar"><span class="globe" aria-hidden="true">🌐</span><div data-i18n-picker></div></div>
+<details class="teacher-menu">
+  <summary><span aria-hidden="true">👩‍🏫</span> Teachers <span aria-hidden="true">▾</span></summary>
+  <div class="tm-panel">
+    <div class="tm-h">Teacher resources</div>
+    <a href="guide.html">Curriculum Guide<span aria-hidden="true">📘</span></a>
+    <a href="scope.html">Scope &amp; Sequence<span aria-hidden="true">🗺️</span></a>
+    <a href="lessons.html">Lesson-Plan Guide<span aria-hidden="true">📝</span></a>
+    <a href="correlation.html">TEKS Correlation<span aria-hidden="true">📊</span></a>
+    <a href="udl.html">UDL Supports<span aria-hidden="true">♿</span></a>
+    <a href="elps.html">ELPS Supports<span aria-hidden="true">🌎</span></a>
+    <a href="answer-key.html">Answer Key<span aria-hidden="true">🔐</span></a>
+  </div>
+</details></nav>
+<main id="main">
+  <div class="crumb" role="navigation" aria-label="Breadcrumb"><a href="index.html" data-i18n="t1cfyq6l">‹ Suite home</a></div>
+  <div class="hero">
+    <div class="eyebrow" data-i18n="t1ok080l">Standards correlation</div>
+    <h1 data-i18n="t1aixd5a">TEKS Correlation Guide</h1>
+    <p class="lede" data-i18n="twebt3z">How each breakout aligns to the Texas TEKS Technology Applications Digital Citizenship strand (adopted 2022, implemented 2024–25, required K–8).</p>
+  </div>
+  <div class="panel tip"><strong><span data-i18n="t851kd2">Substrands:</span></strong> <span class="pill sub">(c)(8)</span> <span data-i18n="t96mz13">Social interactions</span> &nbsp; <span class="pill sub">(c)(9)</span> <span data-i18n="t1478vwq">Ethics &amp; laws</span> &nbsp; <span class="pill sub">(c)(10)</span> <span data-i18n="t157n0df">Privacy, safety &amp; security</span></div>
+  <h2 data-i18n="t1grhcbt">Grades K–2</h2>
+  <div class="tbl-wrap"><table>
+    <caption data-i18n="tww1xni">Activity · locks &amp; reasoning focus · TEKS section</caption>
+    <thead><tr><th data-i18n="t1ps4iq0">Activity</th><th data-i18n="tzfy7dl">Locks (reasoning focus · substrand)</th><th data-i18n="t1gnk14b">TEKS §</th></tr></thead>
+    <tbody>
+    <tr>
+        <td><span class="lk"><span data-i18n="ti0yjpx">Safe &amp; Kind Online</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> K · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="tnl7b5n">Who Do You Ask?</span></span> — <span data-i18n="t1s0bk2o">Choosing a trusted grown-up to ask</span> <span class="pill sub">(c)(8)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="t1q7s3y4">Kind or Unkind?</span></span> — <span data-i18n="t1gf0rhd">Telling kind from unkind messages</span> <span class="pill sub">(c)(8)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="t1xo6itu">Keep It Safe</span></span> — <span data-i18n="tqquhjb">Keeping personal information private</span> <span class="pill sub">(c)(10)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="t10mmyym">Something Feels Unsafe</span></span> — <span data-i18n="t1uowkdg">Safe vs. unsafe things to tap</span> <span class="pill sub">(c)(10)</span></div></td>
+        <td><strong>§126.5</strong><br><span class="small">(c)(8)(9)(10)</span></td>
+      </tr>
+    <tr>
+        <td><span class="lk"><span data-i18n="t16s19jf">Smart Choices Online</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> 1 · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="tzr4iej">Your Password</span></span> — <span data-i18n="tp5gjwt">Keeping a password private</span> <span class="pill sub">(c)(10)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="tb2zvg3">Be an Upstander</span></span> — <span data-i18n="t1xli3tc">Being kind and an upstander</span> <span class="pill sub">(c)(8)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="t1futfe">Before You Tap</span></span> — <span data-i18n="t1l294h5">Asking a grown-up before you tap</span> <span class="pill sub">(c)(10)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="t12slz20">What Is OK to Share?</span></span> — <span data-i18n="t1yvfho0">Deciding what is okay to share</span> <span class="pill sub">(c)(10)</span></div></td>
+        <td><strong>§126.6</strong><br><span class="small">(c)(8)(9)(10)</span></td>
+      </tr>
+    <tr>
+        <td><span class="lk"><span data-i18n="t5r4sru">Fair, Safe &amp; Kind</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> 2 · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="t1rel9d8">Your Digital Trail</span></span> — <span data-i18n="tt3us99">Recognizing your digital trail</span> <span class="pill sub">(c)(10)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="tamabb1">Being Fair With Work</span></span> — <span data-i18n="tju060g">Giving credit for someone’s work</span> <span class="pill sub">(c)(9)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="t1u0k3bs">A Good Password</span></span> — <span data-i18n="t1kgsmmq">Telling a strong password from a weak one</span> <span class="pill sub">(c)(10)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="t1yspy">Reporting a Mean Message</span></span> — <span data-i18n="t11xqljw">Reporting an unkind message</span> <span class="pill sub">(c)(8)</span></div></td>
+        <td><strong>§126.7</strong><br><span class="small">(c)(8)(9)(10)</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+  <h2 data-i18n="t1grtuae">Grades 3–5</h2>
+  <div class="tbl-wrap"><table>
+    <caption data-i18n="tww1xni">Activity · locks &amp; reasoning focus · TEKS section</caption>
+    <thead><tr><th data-i18n="t1ps4iq0">Activity</th><th data-i18n="tzfy7dl">Locks (reasoning focus · substrand)</th><th data-i18n="t1gnk14b">TEKS §</th></tr></thead>
+    <tbody>
+    <tr>
+        <td><span class="lk"><span data-i18n="thvnphz">Your First Digital Footprint</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> 3 · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="t1e0q1c6">The Safe Choice</span></span> — <span data-i18n="t7ecjcv">Choosing safe links</span> <span class="pill sub">(c)(10)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="tpedj35">Part of the Footprint</span></span> — <span data-i18n="tp55eyk">Recognizing a digital footprint</span> <span class="pill sub">(c)(10)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="t7cpmwl">Give Credit</span></span> — <span data-i18n="t1rxm89d">Giving credit for creative work</span> <span class="pill sub">(c)(9)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="tmnqhlp">The Right Steps</span></span> — <span data-i18n="tvcid4o">Responding to an unkind message</span> <span class="pill sub">(c)(8)</span></div></td>
+        <td><strong>§126.8</strong><br><span class="small">(c)(8)(9)(10)</span></td>
+      </tr>
+    <tr>
+        <td><span class="lk"><span data-i18n="tcggv1n">The Permanent Record</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> 4 · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="tcggv1n">The Permanent Record</span></span> — <span data-i18n="t1mbi1v8">Digital footprint permanence</span> <span class="pill sub">(c)(10)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="t1qt6lj5">Good Online Manners</span></span> — <span data-i18n="thy6k1v">Etiquette across text, email &amp; chat</span> <span class="pill sub">(c)(8)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="t94eujr">Fair to the Creator</span></span> — <span data-i18n="ts2zoux">Creator rights &amp; giving credit</span> <span class="pill sub">(c)(9)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="tb2zvg3">Be an Upstander</span></span> — <span data-i18n="tiqg7m1">Being an upstander to cyberbullying</span> <span class="pill sub">(c)(8)</span></div></td>
+        <td><strong>§126.9</strong><br><span class="small">(c)(8)(9)(10)</span></td>
+      </tr>
+    <tr>
+        <td><span class="lk"><span data-i18n="t1ojxk3c">Track the Trackers</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> 5 · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="t15unx9u">Parts of the Footprint</span></span> — <span data-i18n="twskex4">Components of a digital footprint</span> <span class="pill sub">(c)(10)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="tgjnl4j">Match Your Audience</span></span> — <span data-i18n="tlbjvt3">Audience-appropriate etiquette</span> <span class="pill sub">(c)(8)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="tiv5ism">The Secure Code</span></span> — <span data-i18n="t1a1g2yh">Secured connections (HTTPS)</span> <span class="pill sub">(c)(10)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="tq55dup">The Fair Way to Borrow</span></span> — <span data-i18n="taij7oj">Copyright consequences &amp; permission</span> <span class="pill sub">(c)(9)</span></div></td>
+        <td><strong>§126.10</strong><br><span class="small">(c)(8)(9)(10)</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+  <h2 data-i18n="t1grtyfy">Grades 6–8</h2>
+  <div class="tbl-wrap"><table>
+    <caption data-i18n="tww1xni">Activity · locks &amp; reasoning focus · TEKS section</caption>
+    <thead><tr><th data-i18n="t1ps4iq0">Activity</th><th data-i18n="tzfy7dl">Locks (reasoning focus · substrand)</th><th data-i18n="t1gnk14b">TEKS §</th></tr></thead>
+    <tbody>
+    <tr>
+        <td><span class="lk"><span data-i18n="tfdv3c7">Fair Use Detective</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> 6 · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="t1ilw9so">Free For Anyone</span></span> — <span data-i18n="tyx9sub">IP terms: public domain &amp; fair use</span> <span class="pill sub">(c)(9)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="ttwy8cg">Spot The Spin</span></span> — <span data-i18n="tugup5w">Spotting exaggerated claims; citing sources</span> <span class="pill sub">(c)(9)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="t13d8ols">Read The Bait</span></span> — <span data-i18n="t1i6gtq1">Phishing, malware &amp; identity theft</span> <span class="pill sub">(c)(10)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="tgqlxpo">Reuse It Right</span></span> — <span data-i18n="t1ox3k2i">Legally reusing &amp; citing a work</span> <span class="pill sub">(c)(9)</span></div></td>
+        <td><strong>§126.17</strong><br><span class="small">(c)(8)(9)(10)</span></td>
+      </tr>
+    <tr>
+        <td><span class="lk"><span data-i18n="tjhrnxc">Spot the Spin</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> 7 · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="t1ncnyzf">The Real Consequence</span></span> — <span data-i18n="t1jla3mp">Consequences of IP law</span> <span class="pill sub">(c)(9)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="t13nhw84">Red Flags of Spin</span></span> — <span data-i18n="t1q1jn4b">Evaluating media spin &amp; misrepresentation</span> <span class="pill sub">(c)(9)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="t1otggh5">Model the Defense</span></span> — <span data-i18n="t3ejgwu">Defending against cyberattacks</span> <span class="pill sub">(c)(10)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="tx8du3a">Answer the Harm</span></span> — <span data-i18n="tzn1sj5">Impact of &amp; response to cyberbullying</span> <span class="pill sub">(c)(8)</span></div></td>
+        <td><strong>§126.18</strong><br><span class="small">(c)(8)(9)(10)</span></td>
+      </tr>
+    <tr>
+        <td><span class="lk"><span data-i18n="t15anxcq">Evaluate the Source</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> 8 · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="tpazkrs">Signs of a Reliable Source</span></span> — <span data-i18n="trd8q7d">Evaluating source bias &amp; reliability</span> <span class="pill sub">(c)(9)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="t1qh2tb">Name the Slant</span></span> — <span data-i18n="t9dmllr">Naming bias in a digital source</span> <span class="pill sub">(c)(9)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="toe44qv">The Creator's Rights</span></span> — <span data-i18n="t2s6qgc">IP law when creating &amp; publishing</span> <span class="pill sub">(c)(9)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="t1k1ynqh">Respond to the Breach</span></span> — <span data-i18n="t1c1r3fk">Cybersecurity breach response</span> <span class="pill sub">(c)(10)</span></div></td>
+        <td><strong>§126.19</strong><br><span class="small">(c)(8)(9)(10)</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+  <div class="disclaimer" data-i18n-html="tpxlhs8">Skills are <strong>paraphrased</strong> to respect TEA’s copyright — no official standard text is reproduced. Cite the § number and read the source at <a href="https://tea.texas.gov" target="_blank" rel="noopener">tea.texas.gov</a>. Alignment is a good-faith mapping for planning and is not legal advice.</div>
+<footer>
+  <span data-i18n="t192od3r">Digital Citizenship Breakouts · Aligned to Texas TEKS Technology Applications (adopted 2022, required K–8). Paraphrased alignment — not legal advice.</span><br>
+  <a href="index.html" data-i18n="t11pmpv8">Suite home</a> · <a href="library.html" data-i18n="tg842sa">Library</a> · <a href="guide.html" data-i18n="t1tzufeb">Teacher guide</a> · <a href="scope.html" data-i18n="tmuk1xy">Scope &amp; sequence</a> · <a href="lessons.html" data-i18n="tqtkwbx">Lesson plans</a> · <a href="correlation.html" data-i18n="tyit8fo">TEKS correlation</a> · <a href="udl.html" data-i18n="t376g6w">UDL</a> · <a href="elps.html" data-i18n="tyjgnn3">ELPS</a>
+</footer>
+</main>
+<script src="assets/site-i18n-data.js"></script>
+<script src="assets/i18n.js"></script>
+<script>BreakoutI18n.register('site', window.SITE_I18N_DATA);</script>
+</div>
+</body>
+</html>

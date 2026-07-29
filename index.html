@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>TCEA Activities Hub</title>
+<meta name="description" content="The TCEA Activities Hub — a single home for self-contained, browser-based classroom activities in seven languages: Critical Thinking Breakouts (CTOBs), Problem-Solving Teaching units, Relic Rooms, Digital Citizenship, and Gen AI Literacy. No logins, no data collected.">
+<meta property="og:title" content="TCEA Activities Hub">
+<meta property="og:description" content="Self-contained, browser-based classroom activities in seven languages — breakouts, problem-based units, relic-room investigations, digital citizenship, and AI literacy.">
+<meta property="og:image" content="https://mglearn.github.io/activities/activities_hero.png">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#054c8c;--navy-d:#023266;--gold:#fbd239;--gold-d:#d9a010;
+    --paper:#f4f8fc;--ink:#161c2e;--ink-soft:#516079;--card:#fff;--line:#dbe6f2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:'Nunito',sans-serif;color:var(--ink);background:
+    radial-gradient(ellipse 60% 45% at 85% -5%,rgba(251,210,57,.16)0%,transparent 60%),
+    radial-gradient(ellipse 55% 45% at 0% 100%,rgba(5,76,140,.12)0%,transparent 60%),var(--paper);
+    min-height:100vh;line-height:1.55}
+  a{color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:30px 20px 90px}
+  header.top{text-align:center;padding:6px 0}
+  .hero{display:block;width:100%;height:auto;border-radius:16px;
+    box-shadow:0 10px 30px rgba(5,76,140,.18);margin-bottom:6px}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .eyebrow{display:inline-block;background:var(--gold);color:var(--navy-d);font-family:'Fredoka',sans-serif;font-weight:700;
+    font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;padding:6px 18px;border-radius:100px;margin:14px 0 10px}
+  h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,6vw,3.2rem);color:var(--navy);line-height:1.04}
+  h1 .g{color:var(--gold-d)}
+  .sub{color:var(--ink-soft);font-weight:600;margin:12px auto 0;max-width:640px}
+  .tally{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-top:20px}
+  .tally .n{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.7rem;color:var(--navy);line-height:1}
+  .tally .l{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin-top:3px}
+
+  h2.sec{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.15rem;margin:38px 0 14px;display:flex;align-items:center;gap:10px}
+  h2.sec::after{content:"";flex:1;height:2px;background:var(--line)}
+
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media(max-width:720px){.cards{grid-template-columns:1fr}}
+  .card{position:relative;display:flex;flex-direction:column;background:var(--card);border:2px solid var(--line);
+    border-top:6px solid var(--accent,#054c8c);border-radius:16px;padding:22px 22px 20px;text-decoration:none;
+    box-shadow:0 4px 16px rgba(10,36,99,.05);transition:transform .18s cubic-bezier(.2,.7,.3,1),border-color .18s,box-shadow .2s}
+  .card:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(10,36,99,.13);border-color:var(--gold)}
+  .card:focus-visible{outline:3px solid var(--accent,#054c8c);outline-offset:3px}
+  .card .ico{font-size:1.9rem;line-height:1;margin-bottom:10px}
+  .card h3{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.2rem;margin-bottom:4px}
+  .card .band{font-family:'Fredoka',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--accent,#054c8c);margin-bottom:8px}
+  .card p{font-weight:600;color:var(--ink-soft);font-size:.9rem;flex-grow:1}
+  .card .go{margin-top:14px;font-family:'Fredoka',sans-serif;font-weight:700;font-size:.85rem;color:var(--navy);
+    display:inline-flex;align-items:center;gap:6px}
+  .card .go .arr{transition:transform .18s}
+  .card:hover .go .arr{transform:translateX(4px)}
+
+  h2.sec.tools{margin-top:40px}
+  .toolrow{display:flex;flex-wrap:wrap;gap:10px}
+  .toolrow a{font-family:'Fredoka',sans-serif;font-weight:600;font-size:.84rem;text-decoration:none;
+    padding:9px 15px;border-radius:10px;border:1.5px solid var(--line);color:var(--navy);background:#fff;transition:.15s}
+  .toolrow a:hover{border-color:var(--gold-d);transform:translateY(-1px)}
+
+  footer{text-align:center;margin-top:44px;font-size:.8rem;color:var(--ink-soft);font-weight:600;line-height:1.7}
+  footer a{color:var(--navy);font-weight:700}
+  @media (prefers-reduced-motion:reduce){.card,.card .go .arr,.toolrow a{transition:none}.card:hover{transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <img class="hero" src="activities_hero.png" width="2172" height="724"
+         alt="TCEA Activities Hub — a searchable home for classroom activities in seven languages: critical-thinking breakouts, relic-room investigations, math tools, and map puzzles. No logins, no data collected.">
+    <div class="eyebrow">A TCEA educator resource</div>
+    <h1>TCEA <span class="g">Activities</span> Hub</h1>
+    <p class="sub">One home for self-contained, browser-based classroom activities — in seven languages, with no logins and no data collected. Pick an area to begin.</p>
+    <div class="tally">
+      <div><div class="n">5</div><div class="l">Activity areas</div></div>
+      <div><div class="n">7</div><div class="l">Languages</div></div>
+      <div><div class="n">K–12</div><div class="l">Grade bands</div></div>
+    </div>
+  </header>
+
+  <h2 class="sec">Choose an activity area</h2>
+  <div class="cards">
+
+    <a class="card" style="--accent:#054c8c" href="ctobs/">
+      <div class="ico" aria-hidden="true">🕵️</div>
+      <div class="band">Grades K–12 · Seven languages</div>
+      <h3>Critical Thinking Breakouts</h3>
+      <p>The CTOB library — self-contained reasoning escapes where students open clues, weigh evidence, and crack the locks. Includes the CLEAR system, Fourth of July, July 5 &amp; Black Freedom Holidays, Bible as Literature, Science, and Idioms, plus a searchable catalog.</p>
+      <span class="go">Open the breakout library <span class="arr">→</span></span>
+    </a>
+
+    <a class="card" style="--accent:#4f3a8c" href="pst/">
+      <div class="ico" aria-hidden="true">🧩</div>
+      <div class="band">Grades 3–8 · Seven languages</div>
+      <h3>Problem-Solving Teaching</h3>
+      <p>Problem-Based Learning units for the Texas history and social-studies classroom — real, ill-structured problems students work as stakeholders, built deliberately from surface to deep to transfer learning. Aligned to the social studies TEKS.</p>
+      <span class="go">Open the PBL units <span class="arr">→</span></span>
+    </a>
+
+    <a class="card" style="--accent:#5b3fa5" href="relic-rooms/">
+      <div class="ico" aria-hidden="true">🏺</div>
+      <div class="band">Seven languages</div>
+      <h3>Relic Rooms</h3>
+      <p>Investigation activities where students examine nine mystery exhibits in three steps — identify, understand, connect. Aligned to the Texas Essential Knowledge and Skills.</p>
+      <span class="go">Enter the relic rooms <span class="arr">→</span></span>
+    </a>
+
+    <a class="card" style="--accent:#0a2e63" href="digcit/">
+      <div class="ico" aria-hidden="true">🛡️</div>
+      <div class="band">Grades K–8 · Seven languages</div>
+      <h3>Digital Citizenship Breakouts</h3>
+      <p>Breakout-style activities on being safe, kind, and responsible online — privacy, digital footprints, media balance, and standing up to unkindness — for the elementary and middle-grades classroom.</p>
+      <span class="go">Open digital citizenship <span class="arr">→</span></span>
+    </a>
+
+    <a class="card" style="--accent:#4338ca" href="genailit/">
+      <div class="ico" aria-hidden="true">🤖</div>
+      <div class="band">Grades K–8 · Seven languages</div>
+      <h3>Gen AI Literacy Breakouts</h3>
+      <p>Breakout-style activities that build a grounded understanding of generative AI — how it works, where it errs, and how to use it thoughtfully and ethically — for younger learners.</p>
+      <span class="go">Open AI literacy <span class="arr">→</span></span>
+    </a>
+
+  </div>
+
+  <h2 class="sec tools">More TCEA tools</h2>
+  <div class="toolrow">
+    <a href="/tcea/digitalmathtools/">🔢 Digital Math Tools (PreK–12)</a>
+    <a href="/tcea/tools/mappuzzle/">🗺️ Map Puzzle Generator</a>
+    <a href="/tcea/">🏠 TCEA project home</a>
+  </div>
+
+  <footer>
+    TCEA Activities Hub · A TCEA educator resource · CC BY 4.0 (content) · MIT (code)<br>
+    Self-contained &amp; browser-based · No logins · No data collected · Seven languages
+  </footer>
+</div>
+</body>
+</html>

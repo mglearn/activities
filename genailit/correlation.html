@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>TEKS Correlation Guide — Gen AI Literacy Breakouts</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="assets/site.webmanifest">
+<meta name="theme-color" content="#4338ca">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Gen AI Literacy Breakouts">
+<meta property="og:title" content="TEKS Correlation Guide — Gen AI Literacy Breakouts">
+<meta property="og:description" content="Critical Thinking Online Breakouts for Generative AI Literacy — grades K–8, TEKS-aligned, in 7 languages. Runs in the browser; no logins, no data collected.">
+<meta property="og:image" content="https://ai-breakouts.example.org/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TEKS Correlation Guide — Gen AI Literacy Breakouts">
+<meta name="twitter:description" content="Critical Thinking Online Breakouts for Generative AI Literacy — grades K–8, TEKS-aligned, in 7 languages. Runs in the browser; no logins, no data collected.">
+<meta name="twitter:image" content="https://ai-breakouts.example.org/assets/og.png">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>:root{--navy:#4338ca;--navy-d:#312e81;--red:#c1121f;--red-d:#8b0d16;--gold:#06b6d4;--gold-d:#0e7490;--paper:#f5f6ff;--ink:#14203a;--ink-soft:#4b5a78;--card:#fff;--line:#e0e7ff;--good:#2f9e44;--bad:#e03131;--c1:#4338ca;--c2:#7c3aed;--c3:#0e7490;--c4:#06b6d4;--c5:#6d28d9;--bg-a:rgba(6,182,212,.12);--bg-b:rgba(67,56,202,.10)}</style>
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  .wrap{position:relative}
+  .topnav{position:absolute;top:14px;right:16px;z-index:60;display:flex;gap:10px;align-items:center}
+  @media(max-width:680px){.topnav{position:static;justify-content:flex-end;flex-wrap:wrap;margin:0 0 10px}}
+  .teacher-menu{position:relative;font-family:'Nunito',sans-serif}
+  .teacher-menu>summary{list-style:none;cursor:pointer;background:var(--navy);color:#fff;font-weight:800;font-size:.85rem;padding:8px 14px;border-radius:100px;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(67,56,202,.28)}
+  .teacher-menu>summary::-webkit-details-marker{display:none}
+  .teacher-menu[open]>summary{background:var(--navy-d)}
+  .teacher-menu .tm-panel{position:absolute;right:0;margin-top:8px;background:#fff;border:2px solid var(--line);border-radius:14px;box-shadow:0 16px 40px rgba(10,20,60,.18);padding:8px;min-width:236px;display:flex;flex-direction:column;gap:2px}
+  .teacher-menu .tm-h{font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);font-weight:800;padding:6px 12px 3px}
+  .teacher-menu .tm-panel a{display:flex;justify-content:space-between;gap:12px;padding:9px 12px;border-radius:9px;color:var(--ink);font-weight:700;font-size:.9rem;text-decoration:none}
+  .teacher-menu .tm-panel a:hover{background:var(--bg-b);color:var(--navy)}
+  @media(max-width:680px){.teacher-menu{position:static;margin:0 0 12px;text-align:right}.teacher-menu .tm-panel{left:auto}}
+  .clear-grid{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+  .clear-row{display:flex;gap:14px;align-items:flex-start;background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px 16px}
+  .clear-badge{flex:0 0 auto;width:46px;height:46px;border-radius:12px;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.6rem;display:flex;align-items:center;justify-content:center}
+  .clear-body h4{margin:.1rem 0 .3rem;font-size:1.05rem;color:var(--navy)}
+  .clear-body .clear-q{font-weight:600;color:var(--ink-soft);font-size:.9rem}
+  .clear-body ul{margin:.2rem 0 0;padding-left:1.1rem}
+  .clear-body li{font-size:.9rem;color:var(--ink);margin:.1rem 0}
+  .site-langbar{position:static;display:flex;align-items:center;gap:6px}
+  .site-langbar .globe{font-size:1.1rem}
+  .site-langbar select{font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem;color:var(--navy);background:#fff;border:2px solid var(--line);border-radius:100px;padding:6px 12px;cursor:pointer}
+  .site-langbar select:focus{outline:none;border-color:var(--navy)}
+  @media(max-width:680px){.site-langbar{position:static;margin:0 0 10px}}
+  .statstrip{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0 6px}
+  .stat{flex:1 1 110px;background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px 12px;text-align:center}
+  .stat.hl{background:var(--bg-b);border-color:var(--navy)}
+  .statn{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.9rem;color:var(--navy);line-height:1}
+  .statl{font-size:.74rem;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-top:6px}</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+<nav class="topnav" aria-label="Site tools"><div class="site-langbar"><span class="globe" aria-hidden="true">🌐</span><div data-i18n-picker></div></div>
+<details class="teacher-menu">
+  <summary><span aria-hidden="true">👩‍🏫</span> Teachers <span aria-hidden="true">▾</span></summary>
+  <div class="tm-panel">
+    <div class="tm-h">Teacher resources</div>
+    <a href="guide.html">Curriculum Guide<span aria-hidden="true">📘</span></a>
+    <a href="scope.html">Scope &amp; Sequence<span aria-hidden="true">🗺️</span></a>
+    <a href="lessons.html">Lesson-Plan Guide<span aria-hidden="true">📝</span></a>
+    <a href="correlation.html">TEKS Correlation<span aria-hidden="true">📊</span></a>
+    <a href="udl.html">UDL Supports<span aria-hidden="true">♿</span></a>
+    <a href="elps.html">ELPS Supports<span aria-hidden="true">🌎</span></a>
+    <a href="answer-key.html">Answer Key<span aria-hidden="true">🔐</span></a>
+  </div>
+</details></nav>
+<main id="main">
+  <div class="crumb" role="navigation" aria-label="Breadcrumb"><a href="index.html" data-i18n="t1cfyq6l">‹ Suite home</a></div>
+  <div class="hero">
+    <div class="eyebrow" data-i18n="t1ok080l">Standards correlation</div>
+    <h1 data-i18n="t1aixd5a">TEKS Correlation Guide</h1>
+    <p class="lede" data-i18n-html="tog7xr5">How each breakout aligns to the Texas TEKS Technology Applications AI-adjacent strands (Computational Thinking; Creativity &amp; Innovation; Data Literacy; and Practical Technology Concepts) — adopted 2022, implemented 2024–25, required K–8. This suite deliberately complements, rather than duplicates, the Digital Citizenship strand.</p>
+  </div>
+  <div class="panel tip"><strong><span data-i18n="t1prvb55">Substrands used across the suite:</span></strong><div><span class="pill sub">(c)(1)</span> <span data-i18n="twer9zt">Computational Thinking — Foundations</span></div><div><span class="pill sub">(c)(2)</span> <span data-i18n="t1m0drjc">Computational Thinking — Applications</span></div><div><span class="pill sub">(c)(3)</span> <span data-i18n="t1u2nral">Creativity &amp; Innovation — Innovative Design</span></div><div><span class="pill sub">(c)(4)</span> <span data-i18n="taogcjc">Creativity &amp; Innovation — Emerging Technologies</span></div><div><span class="pill sub">(c)(5)</span> <span data-i18n="tdn2fzm">Data Literacy — Collect Data</span></div><div><span class="pill sub">(c)(6)</span> <span data-i18n="t8s3js8">Data Literacy — Analyze Data</span></div><div><span class="pill sub">(c)(7)</span> <span data-i18n="t13xqf3f">Data Literacy — Communicate Results</span></div><div><span class="pill sub">(c)(11)</span> <span data-i18n="t11wcap6">Practical Technology Concepts — Processes</span></div><div><span class="pill sub">(c)(12)</span> <span data-i18n="t1l6ztlk">Practical Technology Concepts — Skills &amp; Tools</span></div></div>
+  <h2 data-i18n="t1grhcbt">Grades K–2</h2>
+  <div class="tbl-wrap"><table>
+    <caption data-i18n="tww1xni">Activity · locks &amp; reasoning focus · TEKS section</caption>
+    <thead><tr><th data-i18n="t1ps4iq0">Activity</th><th data-i18n="tzfy7dl">Locks (reasoning focus · substrand)</th><th data-i18n="t1gnk14b">TEKS §</th></tr></thead>
+    <tbody>
+    <tr>
+        <td><span class="lk"><span data-i18n="t79cv7v">Meet AI, Ask a Grown-Up</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> K · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="ti1amlu">Helper or Living?</span></span> — <span data-i18n="t1hhrdal">Telling an AI helper from a living thing</span> <span class="pill sub">(c)(1)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="t1kwj4gm">True About AI</span></span> — <span data-i18n="tdb9p1z">Knowing an AI can be wrong</span> <span class="pill sub">(c)(11)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="t1xo6itu">Keep It Safe</span></span> — <span data-i18n="tuxgbfj">Keeping private things private from a bot</span> <span class="pill sub">(c)(11)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="t1g528om">Ask a Grown-Up</span></span> — <span data-i18n="teylr1d">Asking a grown-up before using AI</span> <span class="pill sub">(c)(11)</span></div></td>
+        <td><strong>§126.5</strong><br><span class="small">(c)(1) (c)(11)</span></td>
+      </tr>
+    <tr>
+        <td><span class="lk"><span data-i18n="taxn9by">Check the Robot</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> 1 · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="t1ud8o9n">Where Guesses Come From</span></span> — <span data-i18n="t1belv9s">AI makes guesses from examples</span> <span class="pill sub">(c)(5)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="t2o3pl3">Good Ways to Check</span></span> — <span data-i18n="t1ha9vw8">Checking an AI answer</span> <span class="pill sub">(c)(11)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="twnvlmn">Say It Clearly</span></span> — <span data-i18n="t1oiuq1h">Telling AI clearly what you want</span> <span class="pill sub">(c)(2)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="t1rd3upj">When It Might Be Wrong</span></span> — <span data-i18n="tdglwik">AI can make mistakes</span> <span class="pill sub">(c)(1)</span></div></td>
+        <td><strong>§126.6</strong><br><span class="small">(c)(1) (c)(11) (c)(2) (c)(5)</span></td>
+      </tr>
+    <tr>
+        <td><span class="lk"><span data-i18n="tl540c0">Use AI Honestly</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> 2 · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="t1elt8be">Who Made It?</span></span> — <span data-i18n="t1ceqkvp">Telling AI-made from human-made</span> <span class="pill sub">(c)(4)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="tm3azc6">Double-Check It</span></span> — <span data-i18n="t52pjxc">Double-checking an AI answer</span> <span class="pill sub">(c)(11)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="ta6dhaa">Name the Ask</span></span> — <span data-i18n="tzlso1k">Writing a clear instruction (prompt)</span> <span class="pill sub">(c)(2)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="t7cpmwl">Give Credit</span></span> — <span data-i18n="t1uju1sx">Saying when AI helped you</span> <span class="pill sub">(c)(3)</span></div></td>
+        <td><strong>§126.7</strong><br><span class="small">(c)(11) (c)(2) (c)(3) (c)(4)</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+  <h2 data-i18n="t1grtuae">Grades 3–5</h2>
+  <div class="tbl-wrap"><table>
+    <caption data-i18n="tww1xni">Activity · locks &amp; reasoning focus · TEKS section</caption>
+    <thead><tr><th data-i18n="t1ps4iq0">Activity</th><th data-i18n="tzfy7dl">Locks (reasoning focus · substrand)</th><th data-i18n="t1gnk14b">TEKS §</th></tr></thead>
+    <tbody>
+    <tr>
+        <td><span class="lk"><span data-i18n="t1emo9d4">Meet the Machine that Guesses</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> 3 · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="t17onjjp">What AI Really Does</span></span> — <span data-i18n="tgrs8al">What an AI actually does (pattern-guessing)</span> <span class="pill sub">(c)(1)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="t1ko4hdm">How AI Learns</span></span> — <span data-i18n="t14vgzjj">Learning from examples called data</span> <span class="pill sub">(c)(5)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="t18uc1ex">Trust, but Verify</span></span> — <span data-i18n="tns5eo9">Verifying an AI answer</span> <span class="pill sub">(c)(12)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="t1ffkenp">Use an AI Helper Well</span></span> — <span data-i18n="t16uoi5s">Using an AI helper well</span> <span class="pill sub">(c)(11)</span></div></td>
+        <td><strong>§126.8</strong><br><span class="small">(c)(1) (c)(11) (c)(12) (c)(5)</span></td>
+      </tr>
+    <tr>
+        <td><span class="lk"><span data-i18n="t1qouk9s">Garbage In, Garbage Out</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> 4 · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="t1xwqfiw">Why It Was Wrong</span></span> — <span data-i18n="todpe79">One-sided data leads to wrong guesses</span> <span class="pill sub">(c)(6)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="t1n7ttmo">Name the Examples</span></span> — <span data-i18n="tjp5du">Naming the examples an AI learns from (data)</span> <span class="pill sub">(c)(5)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="t12l6v62">Make It Better</span></span> — <span data-i18n="ty95zzj">Improving fairness with better data</span> <span class="pill sub">(c)(6)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="t1las1gl">Fix the Report</span></span> — <span data-i18n="trixd6z">Fixing an AI hallucination against a source</span> <span class="pill sub">(c)(11)</span></div></td>
+        <td><strong>§126.9</strong><br><span class="small">(c)(11) (c)(5) (c)(6)</span></td>
+      </tr>
+    <tr>
+        <td><span class="lk"><span data-i18n="tuvbujb">The Prompt Lab</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> 5 · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="t1l8sfo9">Why Clear Wins</span></span> — <span data-i18n="t1s3fou8">Why clear, specific prompts work</span> <span class="pill sub">(c)(2)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="t1y4cs52">The Three Parts</span></span> — <span data-i18n="t113d0tj">The parts of a strong prompt</span> <span class="pill sub">(c)(2)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="t1ryj08t">Smart Prompt Habits</span></span> — <span data-i18n="t1vyd922">Habits of a smart prompt writer</span> <span class="pill sub">(c)(11)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="t1odm48f">Improve the Result</span></span> — <span data-i18n="tciysyx">Refining a prompt and verifying facts</span> <span class="pill sub">(c)(3)</span></div></td>
+        <td><strong>§126.10</strong><br><span class="small">(c)(11) (c)(2) (c)(3)</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+  <h2 data-i18n="t1grtyfy">Grades 6–8</h2>
+  <div class="tbl-wrap"><table>
+    <caption data-i18n="tww1xni">Activity · locks &amp; reasoning focus · TEKS section</caption>
+    <thead><tr><th data-i18n="t1ps4iq0">Activity</th><th data-i18n="tzfy7dl">Locks (reasoning focus · substrand)</th><th data-i18n="t1gnk14b">TEKS §</th></tr></thead>
+    <tbody>
+    <tr>
+        <td><span class="lk"><span data-i18n="tuijx76">Real or Generated?</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> 6 · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="t18vjpbl">What 'AI-Generated' Means</span></span> — <span data-i18n="t1vzkllh">What "AI-generated" media means</span> <span class="pill sub">(c)(4)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="trdbl0">Signs of a Fake</span></span> — <span data-i18n="tkk0fdd">Spotting the signs of a fake</span> <span class="pill sub">(c)(7)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="t232bgj">Name the Error</span></span> — <span data-i18n="t1imzrqb">Naming a hallucination</span> <span class="pill sub">(c)(2)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="tt12xas">Check Before You Share</span></span> — <span data-i18n="tp19but">Verifying before you share</span> <span class="pill sub">(c)(7)</span></div></td>
+        <td><strong>§126.17</strong><br><span class="small">(c)(2) (c)(4) (c)(7)</span></td>
+      </tr>
+    <tr>
+        <td><span class="lk"><span data-i18n="ttrtzlz">Bias in the Machine</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> 7 · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="t1jyef0l">Where Bias Begins</span></span> — <span data-i18n="t1c25cy5">Where AI bias begins</span> <span class="pill sub">(c)(5)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="t1iy8v7f">Sources of Bias</span></span> — <span data-i18n="t1o6n0pn">Sources of bias in an AI</span> <span class="pill sub">(c)(6)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="t1fpw2wd">Name the Harm</span></span> — <span data-i18n="t1o8fdok">Naming a stereotype</span> <span class="pill sub">(c)(4)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="ttoicd7">Evaluate the Answer</span></span> — <span data-i18n="tw88z4">Evaluating a one-sided answer</span> <span class="pill sub">(c)(6)</span></div></td>
+        <td><strong>§126.18</strong><br><span class="small">(c)(4) (c)(5) (c)(6)</span></td>
+      </tr>
+    <tr>
+        <td><span class="lk"><span data-i18n="t1fqa8a5">Build with AI, Responsibly</span></span><br><span class="small"><span data-i18n="t3fwk34">Grade</span> 8 · <span data-i18n="tyiwqmu">full</span></span></td>
+        <td><div class="lk"><span data-i18n="tyjqxse">Lock</span> 1: <span style="font-weight:600"><span data-i18n="t15swnqh">The Responsible Move</span></span> — <span data-i18n="tqid77a">The responsible move when creating with AI</span> <span class="pill sub">(c)(12)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 2: <span style="font-weight:600"><span data-i18n="t2w5u2s">Responsible Habits</span></span> — <span data-i18n="t13sqvph">Responsible habits with AI tools</span> <span class="pill sub">(c)(11)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 3: <span style="font-weight:600"><span data-i18n="t15y1fjt">Be Honest About It</span></span> — <span data-i18n="t14zqncp">Disclosing that AI helped</span> <span class="pill sub">(c)(3)</span></div><div class="lk"><span data-i18n="tyjqxse">Lock</span> 4: <span style="font-weight:600"><span data-i18n="t13zxg0p">Create Responsibly</span></span> — <span data-i18n="t11q75r9">A responsible create-with-AI process</span> <span class="pill sub">(c)(3)</span></div></td>
+        <td><strong>§126.19</strong><br><span class="small">(c)(11) (c)(12) (c)(3)</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+  <div class="disclaimer" data-i18n-html="tpxlhs8">Skills are <strong>paraphrased</strong> to respect TEA’s copyright — no official standard text is reproduced. Cite the § number and read the source at <a href="https://tea.texas.gov" target="_blank" rel="noopener">tea.texas.gov</a>. Alignment is a good-faith mapping for planning and is not legal advice.</div>
+<footer>
+  <span data-i18n="t1sykje8">Gen AI Literacy Breakouts · Aligned to Texas TEKS Technology Applications (adopted 2022, required K–8). Paraphrased alignment — not legal advice.</span><br>
+  <a href="index.html" data-i18n="t11pmpv8">Suite home</a> · <a href="library.html" data-i18n="tg842sa">Library</a> · <a href="guide.html" data-i18n="t1tzufeb">Teacher guide</a> · <a href="scope.html" data-i18n="tmuk1xy">Scope &amp; sequence</a> · <a href="lessons.html" data-i18n="tqtkwbx">Lesson plans</a> · <a href="correlation.html" data-i18n="tyit8fo">TEKS correlation</a> · <a href="udl.html" data-i18n="t376g6w">UDL</a> · <a href="elps.html" data-i18n="tyjgnn3">ELPS</a>
+</footer>
+</main>
+<script src="assets/site-i18n-data.js"></script>
+<script src="assets/i18n.js"></script>
+<script>BreakoutI18n.register('site', window.SITE_I18N_DATA);</script>
+</div>
+</body>
+</html>
