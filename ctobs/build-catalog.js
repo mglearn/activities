@@ -225,7 +225,7 @@ const SUITES = [
     landing: '../relic-rooms/index.html', activity: true },
   { id: 'digitalmathtools', name: 'Digital Math Tools (PreK–12)', accent: '#3f2a78',
     desc: 'A searchable library of self-contained, browser-based math tools for every grade band, PreK through 12, in seven languages. No logins, no data collected, works offline.',
-    landing: '/tcea/digitalmathtools/index.html', activity: true },
+    landing: '../digitalmathtools/index.html', activity: true },
   { id: 'mappuzzle', name: 'Map Puzzle Generator', accent: '#1e398d',
     desc: 'Turn any map into a drag-and-drop jigsaw puzzle — a quick, browser-based geography and spatial-reasoning activity. No logins, no data collected.',
     landing: '/tcea/tools/mappuzzle/index.html', activity: true },
