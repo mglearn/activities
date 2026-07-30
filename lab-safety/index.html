@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>Lab Safety Certification — TCEA Activities</title>
+<meta name="description" content="TEKS-aligned science lab safety activities for Texas middle and high school students, in seven languages. Earn a certification badge. No logins, no data collected.">
+<meta property="og:title" content="Lab Safety Certification — TCEA Activities">
+<meta property="og:description" content="Interactive, TEKS-aligned lab safety modules for grades 6–12, in seven languages. Earn a printable certification badge.">
+<meta property="og:image" content="https://mglearn.github.io/activities/lab-safety/assets/hero.png">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#054c8c;--navy-d:#023266;--gold:#fbd239;--gold-d:#d9a010;
+    --paper:#f4f8fc;--ink:#161c2e;--ink-soft:#516079;--card:#fff;--line:#dbe6f2;
+    --ok:#1f7a34;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{font-family:'Nunito',sans-serif;color:var(--ink);background:
+    radial-gradient(ellipse 60% 45% at 85% -5%,rgba(251,210,57,.16)0%,transparent 60%),
+    radial-gradient(ellipse 55% 45% at 0% 100%,rgba(5,76,140,.12)0%,transparent 60%),var(--paper);
+    min-height:100vh;line-height:1.55}
+  a{color:inherit}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  .topbar{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:10px 20px}
+  .backlink{font-family:'Fredoka',sans-serif;font-weight:600;font-size:.85rem;text-decoration:none;color:var(--navy);
+    display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+  .backlink:hover{border-color:var(--gold-d)}
+  .topbar .spacer{flex:1}
+  .lang-picker select{font-family:'Nunito',sans-serif;font-weight:700;font-size:.85rem;color:var(--navy);
+    background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;cursor:pointer}
+  .lang-picker select:hover{border-color:var(--gold-d)}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 20px 90px}
+
+  header.hero{text-align:center;padding:6px 0 2px}
+  .herowrap{border-radius:18px;overflow:hidden;box-shadow:0 12px 30px rgba(5,76,140,.18);margin-bottom:16px}
+  .hero-img{display:block;width:100%;height:auto}
+  .hero .sub{color:var(--ink-soft);font-weight:600;margin:6px auto 0;max-width:640px}
+  .tally{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-top:20px}
+  .tally .n{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.9rem;color:var(--navy);line-height:1}
+  .tally .l{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin-top:4px}
+
+  .strip{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:26px 0 4px}
+  .strip a{display:inline-flex;align-items:center;gap:7px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:.8rem;
+    text-decoration:none;color:var(--navy);background:#fff;border:1.5px solid var(--line);border-radius:100px;padding:7px 14px;transition:.15s}
+  .strip a:hover{border-color:var(--gold-d);transform:translateY(-1px)}
+  .strip .pnum{font-size:.66rem;color:var(--gold-d);font-weight:700}
+
+  h2.sec{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.15rem;margin:40px 0 6px;display:flex;align-items:center;gap:12px}
+  h2.sec::before{content:attr(data-band);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-d);
+    font-weight:700;background:#fff6d6;border:1px solid var(--gold);border-radius:100px;padding:3px 10px}
+  h2.sec::after{content:"";flex:1;height:2px;background:var(--line)}
+  .track-tag{font-family:'Fredoka',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:var(--gold-d);display:block;margin:6px 0 2px}
+  .sec-sub{color:var(--ink-soft);font-weight:600;font-size:.92rem;max-width:720px;margin-bottom:6px}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:16px}
+  .card{position:relative;display:flex;flex-direction:column;gap:8px;background:var(--card);border:2px solid var(--line);
+    border-top:6px solid var(--navy);border-radius:16px;padding:20px 20px 18px;text-decoration:none;color:inherit;
+    box-shadow:0 4px 16px rgba(10,36,99,.05);transition:transform .18s cubic-bezier(.2,.7,.3,1),border-color .18s,box-shadow .2s;overflow:hidden}
+  a.card:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(10,36,99,.13);border-color:var(--gold)}
+  a.card:focus-visible{outline:3px solid var(--navy);outline-offset:3px}
+  .card.locked{border-top-color:var(--line);opacity:.85}
+  .card .mnum{font-family:'Fredoka',sans-serif;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-d);font-weight:700}
+  .card .mtitle{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.2rem;font-weight:700;line-height:1.12}
+  .card .mdesc{font-weight:600;color:var(--ink-soft);font-size:.88rem;flex-grow:1}
+  .card .mteks{font-size:.68rem;letter-spacing:.03em;color:var(--ink-soft);font-weight:700;opacity:.8}
+  .card .mfoot{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+  .card .status{font-family:'Fredoka',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;display:inline-flex;align-items:center;gap:7px}
+  .status .dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+  .status-open{color:var(--navy)}.status-done{color:var(--ok)}.status-soon{color:var(--ink-soft)}
+  .card .arr{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);font-size:1.1rem;transition:transform .18s}
+  a.card:hover .arr{transform:translateX(4px)}
+  .card .wm{position:absolute;bottom:-16px;right:-2px;font-family:'Fredoka',sans-serif;font-size:5rem;font-weight:700;line-height:1;color:var(--navy);opacity:.05;pointer-events:none}
+
+  .cert-panel{background:#fff;border:2px solid var(--line);border-radius:18px;padding:30px 28px;margin-top:16px;box-shadow:0 4px 16px rgba(10,36,99,.05)}
+  .cert-panel h3{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.4rem;margin-bottom:8px}
+  .cert-panel .cp-lede{color:var(--ink-soft);font-weight:600;font-size:.92rem;max-width:640px}
+
+  /* sample (watermarked) certificate preview */
+  .sample-wrap{margin:22px 0 6px}
+  .sample-cap{font-family:'Fredoka',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-d);margin-bottom:8px}
+  .sample-cert{position:relative;overflow:hidden;background:#fffdf6;color:var(--navy-d);border:5px double var(--gold-d);border-radius:12px;
+    padding:26px 24px;text-align:center;max-width:520px;filter:saturate(.92)}
+  .sample-cert .c-seal{font-size:2rem}
+  .sample-cert .c-eyebrow{font-family:'Fredoka',sans-serif;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-d);font-weight:700;margin-top:2px}
+  .sample-cert .c-title{font-family:'Fredoka',sans-serif;font-size:1.15rem;font-weight:700;color:var(--navy);margin:6px 0}
+  .sample-cert .c-name{font-family:'Fredoka',sans-serif;font-size:1.3rem;font-weight:700;border-bottom:2px solid var(--gold-d);display:inline-block;padding:2px 24px 5px;margin:6px 0}
+  .sample-cert .c-body{font-weight:600;font-size:.8rem;color:var(--ink-soft);max-width:420px;margin:8px auto 0}
+  .sample-ribbon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-20deg);
+    font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2.6rem,9vw,4.4rem);letter-spacing:.14em;
+    color:rgba(5,76,140,.13);border:5px solid rgba(5,76,140,.13);border-radius:12px;padding:6px 26px;pointer-events:none;white-space:nowrap}
+  .sample-note{font-weight:600;font-size:.82rem;color:var(--ink-soft);margin-top:10px;max-width:560px}
+
+  .progress-track{margin:18px 0 6px}
+  .progress-meta{display:flex;justify-content:space-between;font-family:'Fredoka',sans-serif;font-weight:600;font-size:.82rem;color:var(--ink-soft);margin-bottom:6px}
+  .progress-bar-outer{height:12px;border-radius:100px;background:#eef2f8;overflow:hidden;border:1px solid var(--line)}
+  .progress-bar-inner{height:100%;width:0;background:linear-gradient(90deg,var(--navy),#2f7fc4);border-radius:100px;transition:width .6s ease}
+
+  .gate{margin-top:22px;padding:18px 18px 16px;border:2px dashed var(--line);border-radius:14px;background:#fbfdff}
+  .gate .glabel{font-family:'Fredoka',sans-serif;font-weight:600;font-size:.9rem;color:var(--navy);margin-bottom:10px;display:block}
+  .cert-form{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .cert-form input{font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:600;padding:11px 15px;
+    background:#fff;border:2px solid var(--line);border-radius:10px;color:var(--ink)}
+  .cert-form input:focus{outline:none;border-color:var(--navy)}
+  #class-code{min-width:150px;max-width:190px;letter-spacing:.04em}
+  #student-name{flex:1;min-width:200px}
+  .btn{display:inline-flex;align-items:center;gap:7px;padding:11px 20px;border-radius:10px;font-family:'Fredoka',sans-serif;
+    font-weight:600;font-size:.88rem;text-decoration:none;border:none;cursor:pointer;transition:filter .18s,transform .15s}
+  .btn-primary{background:var(--navy);color:#fff}
+  .btn-primary:hover:not(:disabled){filter:brightness(1.1);transform:translateY(-1px)}
+  .btn-primary:disabled{background:#c7d2e0;color:#8595ab;cursor:not-allowed}
+  .btn-gold{background:var(--gold);color:var(--navy-d)}
+  .btn-gold:hover{filter:brightness(1.05);transform:translateY(-1px)}
+  .cert-hint{font-family:'Fredoka',sans-serif;font-weight:600;font-size:.8rem;color:var(--gold-d);margin-top:12px}
+  .cert-hint.good{color:var(--ok)}
+  .cert-hint.bad{color:#c0392b}
+
+  .certificate{display:none;margin-top:24px;background:#fffdf6;color:var(--navy-d);border-radius:14px;padding:40px 36px;text-align:center;border:6px double var(--gold-d);position:relative}
+  .certificate.show{display:block}
+  .certificate .c-seal{font-size:2.6rem;margin-bottom:4px}
+  .certificate .c-eyebrow{font-family:'Fredoka',sans-serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d);font-weight:700}
+  .certificate .c-title{font-family:'Fredoka',sans-serif;font-size:1.9rem;font-weight:700;margin:10px 0;color:var(--navy)}
+  .certificate .c-name{font-family:'Fredoka',sans-serif;font-size:1.9rem;font-weight:700;border-bottom:2px solid var(--gold-d);display:inline-block;padding:4px 30px 8px;margin:12px 0}
+  .certificate .c-body{font-weight:600;font-size:.95rem;max-width:520px;margin:12px auto;color:var(--ink)}
+  .certificate .c-meta{display:flex;justify-content:center;gap:36px;margin-top:20px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:.78rem;color:var(--ink-soft);flex-wrap:wrap}
+  .cert-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+
+  footer{text-align:center;margin-top:48px;padding-top:22px;border-top:2px solid var(--line);font-size:.8rem;color:var(--ink-soft);font-weight:600;line-height:1.7}
+  footer .flinks{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
+  footer a{color:var(--navy);font-weight:700;text-decoration:none}
+  footer a:hover{text-decoration:underline}
+
+  #back-to-top{position:fixed;bottom:26px;right:26px;z-index:300;width:44px;height:44px;border-radius:50%;background:var(--navy);
+    color:#fff;border:none;display:flex;align-items:center;justify-content:center;font-size:1.1rem;cursor:pointer;text-decoration:none;
+    opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s,filter .2s;box-shadow:0 6px 20px rgba(5,76,140,.35)}
+  #back-to-top.visible{opacity:1;transform:translateY(0)}
+  #back-to-top:hover{filter:brightness(1.1)}
+
+  [dir="rtl"] .card .wm{right:auto;left:-2px}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}a.card:hover{transform:none}}
+  @media print{
+    .topbar,.strip,.hero,.tally,footer,#back-to-top,.cert-form,.gate,.progress-track,.cert-panel h3,.cert-panel .cp-lede,.cert-actions,.cert-hint,h2.sec,.track-tag,.sec-sub,.cards,.sample-wrap{display:none!important}
+    body{background:#fff}
+    .certificate{display:block!important}
+    .cert-panel{border:none;box-shadow:none;padding:0}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../" class="backlink" data-i18n="nav_back">← Activities</a>
+  <div class="spacer"></div>
+  <div class="lang-picker" data-i18n-picker></div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero" id="top">
+    <div class="herowrap">
+      <img class="hero-img" src="assets/hero.png" width="1672" height="941"
+        alt="Lab Safety Certification — Texas science students in goggles and aprons doing hands-on lab work and earning a Lab Safety Certified badge. Learn safe, think smart, get certified. Grades 6–12, hands-on safety, TEKS-aligned.">
+    </div>
+    <h1 class="sr-only"><span data-i18n="hero_t1">Lab Safety</span> <span data-i18n="hero_t2">Certification</span></h1>
+    <p class="sub" data-i18n="hero_desc">Interactive activities that teach Texas students how to work safely in the science classroom — and earn a certification badge along the way. Built for grades 6–12, aligned to the 2024–25 science TEKS.</p>
+    <div class="tally">
+      <div><div class="n">9</div><div class="l" data-i18n="tally_mods">Modules</div></div>
+      <div><div class="n">2</div><div class="l" data-i18n="tally_badges">Badges</div></div>
+      <div><div class="n">7</div><div class="l" data-i18n="tally_teks">TEKS Codes</div></div>
+    </div>
+  </header>
+
+  <div class="strip">
+    <a href="#ms"><span class="pnum">01</span> <span data-i18n="pill_ms">Middle School</span></a>
+    <a href="#hs"><span class="pnum">02</span> <span data-i18n="pill_hs">High School</span></a>
+    <a href="#cert"><span class="pnum">03</span> <span data-i18n="pill_cert">Certificate</span></a>
+    <a href="teks-correlations.html"><span class="pnum">04</span> <span data-i18n="pill_teks">TEKS &amp; Standards</span></a>
+  </div>
+
+  <!-- MIDDLE SCHOOL -->
+  <h2 class="sec" id="ms" data-band="A" data-i18n="div_ms">Track A · Grades 6–8</h2>
+  <span class="track-tag" data-i18n="ms_tag">Lab Safety Ranger</span>
+  <p class="sec-sub" data-i18n="ms_sub">Five short modules build the habits every Texas science student needs: rules, gear, emergency equipment, hazard signs, and spotting danger. Finish all five to earn the Ranger badge.</p>
+  <div class="cards" id="ms-grid"></div>
+
+  <!-- HIGH SCHOOL -->
+  <h2 class="sec" id="hs" data-band="B" data-i18n="div_hs">Track B · Grades 9–12</h2>
+  <span class="track-tag" data-i18n="hs_tag">Lab Safety Specialist</span>
+  <p class="sec-sub" data-i18n="hs_sub">Higher-rigor modules for Biology, Chemistry, Physics, and IPC: read Safety Data Sheets, classify hazards with GHS pictograms, judge chemical compatibility, and critique a flawed procedure before it becomes an accident.</p>
+  <div class="cards" id="hs-grid"></div>
+
+  <!-- CERTIFICATE -->
+  <h2 class="sec" id="cert" data-band="★" data-i18n="div_cert">Certification</h2>
+  <div class="cert-panel">
+    <h3 data-i18n="cert_h">Your Certificate</h3>
+    <p class="cp-lede" data-i18n="cert_p">Progress is saved on this device only — nothing is uploaded or shared. Complete every module in a track to unlock its certificate. Print it or save it as a PDF for your teacher.</p>
+
+    <!-- Watermarked sample preview -->
+    <div class="sample-wrap">
+      <div class="sample-cap" data-i18n="sample_h">What you'll earn</div>
+      <div class="sample-cert" aria-hidden="true">
+        <div class="sample-ribbon" data-i18n="sample_ribbon">SAMPLE</div>
+        <div class="c-seal">🛡️</div>
+        <div class="c-eyebrow" data-i18n="c_eyebrow">Science Lab Safety · TEKS-Aligned</div>
+        <div class="c-title"><span data-i18n="cert_word">Certificate</span> — <span data-i18n="cert_ranger">Lab Safety Ranger</span></div>
+        <div class="c-name">Alex Rivera</div>
+        <div class="c-body">Alex Rivera <span data-i18n="cbody_ms">has completed all five middle school safety modules and demonstrated understanding of safe practices, personal protective equipment, and emergency procedures.</span></div>
+      </div>
+      <p class="sample-note" data-i18n="sample_note">This is an example. Your real certificate unlocks after you finish every module in a track and enter the class code from your teacher.</p>
+    </div>
+
+    <div class="progress-track">
+      <div class="progress-meta"><span data-i18n="prog_ms">Ranger track (6–8)</span><span id="ms-count">0 / 5</span></div>
+      <div class="progress-bar-outer"><div class="progress-bar-inner" id="ms-bar"></div></div>
+    </div>
+    <div class="progress-track">
+      <div class="progress-meta"><span data-i18n="prog_hs">Specialist track (9–12)</span><span id="hs-count">0 / 4</span></div>
+      <div class="progress-bar-outer"><div class="progress-bar-inner" id="hs-bar"></div></div>
+    </div>
+
+    <div class="gate">
+      <label class="glabel" for="class-code" data-i18n="code_prompt">Enter the class code from your teacher, then generate your certificate.</label>
+      <div class="cert-form">
+        <input type="text" id="class-code" data-i18n-placeholder="code_ph" placeholder="Class code" maxlength="40" autocomplete="off" aria-label="Class code">
+        <input type="text" id="student-name" data-i18n-placeholder="name_ph" placeholder="Type your name for the certificate" maxlength="60" aria-label="Student name">
+        <button class="btn btn-primary" id="gen-ms" onclick="makeCert('ms')" disabled data-i18n="gen_ms">Get Ranger Certificate</button>
+        <button class="btn btn-primary" id="gen-hs" onclick="makeCert('hs')" disabled data-i18n="gen_hs">Get Specialist Certificate</button>
+      </div>
+      <div class="cert-hint" id="cert-hint" data-i18n="cert_locked">🔒 Finish every module in a track and enter the class code to generate its certificate.</div>
+    </div>
+
+    <div class="certificate" id="certificate">
+      <div class="c-seal">🛡️</div>
+      <div class="c-eyebrow" data-i18n="c_eyebrow">Science Lab Safety · TEKS-Aligned</div>
+      <div class="c-title" id="c-title" data-i18n="c_title_static">Certificate of Lab Safety</div>
+      <div data-i18n="c_awarded" style="font-weight:600;font-size:.9rem">This certifies that</div>
+      <div class="c-name" id="c-name">—</div>
+      <div class="c-body" id="c-body"></div>
+      <div class="c-meta">
+        <span data-i18n="c_std">Aligned: S.6–8.1.C / TEC §38.005</span>
+        <span id="c-date">—</span>
+      </div>
+    </div>
+    <div class="cert-actions" id="cert-actions" style="display:none">
+      <button class="btn btn-gold" onclick="window.print()" data-i18n="print_btn">🖨 Print / Save PDF</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="flinks">
+      <a href="../" data-i18n="f_activities">Activities</a>
+      <a href="teks-correlations.html" data-i18n="f_teks">TEKS &amp; Standards</a>
+      <a href="https://blog.tcea.org" data-i18n="f_blog">TCEA Blog</a>
+    </div>
+    <div data-i18n="f_copy">Content licensed CC BY 4.0 · Code licensed MIT · Miguel Guhlin · Built for Texas educators</div>
+  </footer>
+</div>
+
+<a href="#top" id="back-to-top" aria-label="Back to top">↑</a>
+
+<script src="assets/i18n.js" defer></script>
+<script src="assets/i18n-index.js" defer></script>
+<script defer>
+document.addEventListener('DOMContentLoaded',function(){
+  const MODULES = {
+    ms: [
+      {id:'ms1', file:'ms-01-rules-of-the-room.html', teks:'S.6.1.C · S.7.1.C · S.8.1.C', live:true},
+      {id:'ms2', file:'ms-02-suit-up.html',           teks:'TEC §38.005 · S.6–8.1.C',    live:false},
+      {id:'ms3', file:'ms-03-know-your-exits.html',    teks:'S.6–8.1.C',                  live:false},
+      {id:'ms4', file:'ms-04-read-the-signs.html',     teks:'S.6–8.1.C',                  live:false},
+      {id:'ms5', file:'ms-05-spot-the-hazard.html',    teks:'S.6–8.1.C · S.6–8.1.B',      live:false}
+    ],
+    hs: [
+      {id:'hs1', file:'hs-01-sds-decoded.html',        teks:'CHEM.1.C · IPC.1.C',         live:false},
+      {id:'hs2', file:'hs-02-ghs-pictograms.html',     teks:'CHEM.1.C · BIO.1.C',         live:false},
+      {id:'hs3', file:'hs-03-compatibility.html',      teks:'CHEM.1.C · IPC.1.C',         live:false},
+      {id:'hs4', file:'hs-04-procedure-critique.html', teks:'BIO/CHEM/PHY/IPC .1.C',      live:false}
+    ]
+  };
+  const NAMES = {ms1:'m_ms1',ms2:'m_ms2',ms3:'m_ms3',ms4:'m_ms4',ms5:'m_ms5',hs1:'m_hs1',hs2:'m_hs2',hs3:'m_hs3',hs4:'m_hs4'};
+  const DATE_LOCALE = {en:'en-US',es:'es-US',vi:'vi-VN',ar:'ar',hi:'hi-IN',ur:'ur',zh:'zh-CN'};
+  // Teacher-issued class codes (case-insensitive). Share with students only after the track is complete.
+  const CODES = {ms:'safetyranger', hs:'safetyspecialist'};
+
+  const I18N = window.BreakoutI18n;
+  I18N.register('labsafety-index', window.LS_DICT_INDEX || {en:{}});
+  const t = (k)=> I18N.t(k);
+  const lang = ()=> I18N.getLang();
+
+  function getDone(id){ try{return localStorage.getItem('labsafety_'+id)==='done';}catch(e){return false;} }
+  function trackComplete(track){ return MODULES[track].every(m=>getDone(m.id)); }
+  function enteredCode(){ const el=document.getElementById('class-code'); return el?el.value.trim().toLowerCase():''; }
+
+  function renderTrack(track){
+    const grid=document.getElementById(track+'-grid'); grid.innerHTML='';
+    MODULES[track].forEach((m,i)=>{
+      const done=getDone(m.id), base=NAMES[m.id];
+      const status=done?'done':(m.live?'open':'soon');
+      const stText=done?t('st_done'):(m.live?t('st_open'):t('st_soon'));
+      const card=document.createElement(m.live?'a':'div');
+      if(m.live) card.href=m.file;
+      card.className='card'+(m.live?'':' locked');
+      card.innerHTML=`
+        <div class="mnum">${track.toUpperCase()} · ${String(i+1).padStart(2,'0')}</div>
+        <div class="mtitle">${t(base+'_t')}</div>
+        <div class="mdesc">${t(base+'_d')}</div>
+        <div class="mteks">${m.teks}</div>
+        <div class="mfoot">
+          <span class="status status-${status}"><span class="dot"></span>${stText}</span>
+          ${m.live?'<span class="arr">→</span>':''}
+        </div>
+        <div class="wm">${String(i+1).padStart(2,'0')}</div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  function refreshGate(){
+    let anyReady=false, badCode=false;
+    const code=enteredCode();
+    ['ms','hs'].forEach(track=>{
+      const list=MODULES[track], done=list.filter(m=>getDone(m.id)).length, total=list.length;
+      document.getElementById(track+'-count').textContent=done+' / '+total;
+      document.getElementById(track+'-bar').style.width=(done/total*100)+'%';
+      const complete=trackComplete(track);
+      const ready = complete && code===CODES[track];
+      document.getElementById('gen-'+track).disabled = !ready;
+      if(ready) anyReady=true;
+      if(complete && code && code!==CODES[track]) badCode=true;
+    });
+    const hint=document.getElementById('cert-hint');
+    if(anyReady){ hint.textContent=t('code_ok'); hint.className='cert-hint good'; }
+    else if(badCode){ hint.textContent=t('code_bad'); hint.className='cert-hint bad'; }
+    else { hint.textContent=t('cert_locked'); hint.className='cert-hint'; }
+  }
+
+  window.makeCert=function(track){
+    if(!trackComplete(track) || enteredCode()!==CODES[track]) return;
+    const name=document.getElementById('student-name').value.trim();
+    if(!name){document.getElementById('student-name').focus();return;}
+    const title=track==='ms'?t('cert_ranger'):t('cert_specialist');
+    const body=track==='ms'?t('cbody_ms'):t('cbody_hs');
+    document.getElementById('c-title').textContent=t('cert_word')+' — '+title;
+    document.getElementById('c-name').textContent=name;
+    document.getElementById('c-body').textContent=name+' '+body;
+    const d=new Date();
+    let ds; try{ds=d.toLocaleDateString(DATE_LOCALE[lang()]||'en-US',{year:'numeric',month:'long',day:'numeric'});}catch(e){ds=d.toISOString().slice(0,10);}
+    document.getElementById('c-date').textContent=t('date_word')+': '+ds;
+    document.getElementById('certificate').classList.add('show');
+    document.getElementById('cert-actions').style.display='flex';
+    document.getElementById('certificate').scrollIntoView({behavior:'smooth',block:'center'});
+  };
+
+  function renderAll(){ renderTrack('ms'); renderTrack('hs'); refreshGate(); }
+  renderAll();
+  const codeEl=document.getElementById('class-code');
+  if(codeEl) codeEl.addEventListener('input', refreshGate);
+  window.addEventListener('breakout-i18n:changed', renderAll);
+
+  const btt=document.getElementById('back-to-top');
+  window.addEventListener('scroll',()=>btt.classList.toggle('visible',scrollY>500),{passive:true});
+});
+</script>
+</body>
+</html>

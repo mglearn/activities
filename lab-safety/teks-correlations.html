@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>Standards Correlation — Lab Safety · TCEA Activities</title>
+<meta name="description" content="How the Lab Safety Certification maps to the 2024–25 Texas science TEKS, the statutes behind them, ELPS, UDL, and CCSS literacy — in seven languages.">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#054c8c;--navy-d:#023266;--gold:#fbd239;--gold-d:#d9a010;
+    --paper:#f4f8fc;--ink:#161c2e;--ink-soft:#516079;--card:#fff;--line:#dbe6f2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{font-family:'Nunito',sans-serif;color:var(--ink);background:
+    radial-gradient(ellipse 60% 45% at 85% -5%,rgba(251,210,57,.14)0%,transparent 60%),
+    radial-gradient(ellipse 55% 45% at 0% 100%,rgba(5,76,140,.10)0%,transparent 60%),var(--paper);
+    min-height:100vh;line-height:1.55}
+  a{color:inherit}
+
+  .topbar{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:10px 20px}
+  .backlink{font-family:'Fredoka',sans-serif;font-weight:600;font-size:.85rem;text-decoration:none;color:var(--navy);
+    display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+  .backlink:hover{border-color:var(--gold-d)}
+  .topbar .spacer{flex:1}
+  .lang-picker select{font-family:'Nunito',sans-serif;font-weight:700;font-size:.85rem;color:var(--navy);
+    background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;cursor:pointer}
+  .lang-picker select:hover{border-color:var(--gold-d)}
+
+  .wrap{max-width:1000px;margin:0 auto;padding:12px 20px 80px}
+  header.hero{text-align:center;padding:26px 0 8px}
+  .eyebrow{display:inline-block;background:var(--gold);color:var(--navy-d);font-family:'Fredoka',sans-serif;font-weight:700;
+    font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;padding:6px 18px;border-radius:100px;margin-bottom:14px}
+  .hero h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.9rem,5vw,3rem);color:var(--navy);line-height:1.05}
+  .hero p{color:var(--ink-soft);font-weight:600;margin:12px auto 0;max-width:680px;font-size:.95rem}
+
+  .divider{display:flex;align-items:center;gap:14px;margin:44px 0 10px}
+  .divider .lbl{font-family:'Fredoka',sans-serif;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-d);font-weight:700;
+    background:#fff6d6;border:1px solid var(--gold);border-radius:100px;padding:4px 12px;white-space:nowrap}
+  .divider .line{flex:1;height:2px;background:var(--line)}
+  h2.sec{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.35rem;font-weight:700;margin:6px 0 4px}
+  .sec-intro{color:var(--ink-soft);font-weight:600;font-size:.92rem;margin-bottom:14px;max-width:760px}
+
+  .tbl-wrap{overflow-x:auto;margin:14px 0}
+  table{width:100%;border-collapse:collapse;background:#fff;border:2px solid var(--line);border-radius:12px;overflow:hidden;font-size:.9rem}
+  thead th{background:var(--navy);color:#fff;font-family:'Fredoka',sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.02em;
+    text-align:left;padding:11px 14px}
+  tbody td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:top;font-weight:600;color:var(--ink)}
+  tbody tr:nth-child(even){background:#f7f9ff}
+  tbody tr:hover{background:#eef4ff}
+  .code{font-family:'Fredoka',sans-serif;font-weight:700;font-size:.82rem;color:var(--navy);white-space:nowrap}
+  .q{color:var(--ink-soft);font-style:italic;font-weight:600}
+  .src{font-size:.78rem;color:var(--ink-soft);font-weight:600;margin-top:8px}
+  .src a{color:var(--navy);font-weight:700;text-decoration:none}
+  .src a:hover{text-decoration:underline}
+
+  .flag{border-left:4px solid var(--gold-d);background:#fff8e6;border-radius:0 12px 12px 0;padding:16px 20px;margin:24px 0 0;
+    font-weight:600;font-size:.88rem;color:var(--ink)}
+  .flag strong{color:var(--gold-d)}
+
+  .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:16px}
+  .info-card{background:#fff;border:2px solid var(--line);border-radius:16px;padding:22px 20px;box-shadow:0 4px 16px rgba(10,36,99,.05)}
+  .info-card h4{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.05rem;font-weight:700;margin-bottom:8px}
+  .info-card p{font-weight:600;color:var(--ink-soft);font-size:.86rem}
+  .info-card ul{list-style:none;margin-top:8px}
+  .info-card li{font-weight:600;color:var(--ink-soft);font-size:.84rem;padding:5px 0 5px 18px;position:relative}
+  .info-card li::before{content:'▸';position:absolute;left:0;color:var(--gold-d)}
+  [dir="rtl"] .info-card li{padding:5px 18px 5px 0}
+  [dir="rtl"] .info-card li::before{left:auto;right:0}
+  .feat-chip{display:inline-block;font-size:.7rem;font-weight:700;color:var(--navy);background:#eef4ff;border:1px solid var(--line);border-radius:100px;padding:3px 11px;margin:6px 4px 0 0}
+
+  footer{text-align:center;margin-top:40px;padding-top:22px;border-top:2px solid var(--line);font-size:.8rem;color:var(--ink-soft);font-weight:600}
+  footer a{color:var(--navy);font-weight:700;text-decoration:none}
+  footer a:hover{text-decoration:underline}
+
+  [dir="rtl"] thead th,[dir="rtl"] tbody td{text-align:right}
+  @media(max-width:640px){table{font-size:.82rem}thead th,tbody td{padding:9px 10px}}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="backlink" data-i18n="nav_back">← Hub</a>
+  <div class="spacer"></div>
+  <div class="lang-picker" data-i18n-picker></div>
+</div>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="eyebrow" data-i18n="eyebrow">Standards Correlation</span>
+    <h1 data-i18n="title">TEKS &amp; Standards Alignment</h1>
+    <p data-i18n="lede">Every module in the Lab Safety Certification maps to the 2021-adopted Texas science TEKS (implemented 2024–25), the statutes behind them, and supports for emergent bilingual learners and universal access.</p>
+  </header>
+
+  <div class="divider"><span class="lbl">01 · TEKS</span><div class="line"></div></div>
+  <h2 class="sec" data-i18n="s1_h">Science TEKS — the safety expectation</h2>
+  <p class="sec-intro" data-i18n="s1_p">In the current TEKS, lab safety lives in Strand 1, Scientific and Engineering Practices. The same student expectation repeats at every grade and course. Its full text: “use appropriate safety equipment and practices during laboratory, classroom, and field investigations as outlined in Texas Education Agency-approved safety standards.”</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th data-i18n="th_level">Grade / Course</th><th data-i18n="th_code">TEKS Code</th><th data-i18n="th_focus">Safety focus at this level</th></tr></thead>
+    <tbody>
+      <tr><td data-i18n="r_g6">Grade 6</td><td class="code">S.6.1.C</td><td data-i18n="r_g6d">Identify and use everyday safety equipment and practices; follow the safety contract.</td></tr>
+      <tr><td data-i18n="r_g7">Grade 7</td><td class="code">S.7.1.C</td><td data-i18n="r_g7d">Apply safe practices across more independent investigations; recognize hazard signs.</td></tr>
+      <tr><td data-i18n="r_g8">Grade 8</td><td class="code">S.8.1.C</td><td data-i18n="r_g8d">Select appropriate PPE and emergency equipment for a given investigation.</td></tr>
+      <tr><td data-i18n="r_bio">Biology</td><td class="code">BIO.1.C</td><td data-i18n="r_biod">Biological/biohazard handling, disposal, and aseptic technique context.</td></tr>
+      <tr><td data-i18n="r_chem">Chemistry</td><td class="code">CHEM.1.C</td><td data-i18n="r_chemd">SDS interpretation, GHS pictograms, chemical compatibility and storage.</td></tr>
+      <tr><td data-i18n="r_phy">Physics</td><td class="code">PHY.1.C</td><td data-i18n="r_phyd">Electrical, mechanical, thermal, and optical (laser) safety in investigations.</td></tr>
+      <tr><td data-i18n="r_ipc">IPC</td><td class="code">IPC.1.C</td><td data-i18n="r_ipcd">Combined physical/chemical hazards; SDS hazard classes (flammable, corrosive, reactive).</td></tr>
+    </tbody>
+  </table></div>
+  <div class="src">Source: Texas Education Agency / TEKS Guide (19 TAC §§112.25–112.28 middle school; §§112.41–112.51 high school), 2021 adopted, implemented 2024–25.</div>
+
+  <div class="divider"><span class="lbl">02 · Law</span><div class="line"></div></div>
+  <h2 class="sec" data-i18n="s2_h">The statutes and rules behind “TEA-approved safety standards”</h2>
+  <p class="sec-intro" data-i18n="s2_p">The TEKS point to outside authority for the specifics. These are the sources that define what “appropriate safety equipment and practices” actually means in a Texas classroom.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th data-i18n="th_auth">Authority</th><th data-i18n="th_req">What it requires</th></tr></thead>
+    <tbody>
+      <tr><td class="code">TEC §38.005</td><td data-i18n="l_eye">Each teacher and student must wear industrial-quality eye-protective devices (Z87+) in appropriate situations as determined by district policy.</td></tr>
+      <tr><td class="code">TEA Safety Standards K–12</td><td data-i18n="l_std">The Charles A. Dana Center guide (funded by TEA) — the “TEA-approved safety standards” the TEKS reference. Covers PPE, emergency equipment, chemical safety, facilities, and training.</td></tr>
+      <tr><td class="code">19 TAC Ch. 112</td><td data-i18n="l_112">The science TEKS themselves, including the requirement that 40% of instructional time be hands-on lab and field investigation.</td></tr>
+      <tr><td class="code">19 TAC Ch. 61</td><td data-i18n="l_61">Facility and space standards for science classrooms and laboratories (overcrowding affects safety).</td></tr>
+      <tr><td class="code">19 TAC Ch. 247</td><td data-i18n="l_247">Educators’ Code of Ethics — duty to comply with safety laws, rules, and policies.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="src">Sources: Texas Education Code Ch. 38; Texas Administrative Code Title 19; TEA <em>Texas Safety Standards: Kindergarten through Grade 12</em>.</div>
+
+  <div class="divider"><span class="lbl">03 · Modules</span><div class="line"></div></div>
+  <h2 class="sec" data-i18n="s3_h">Module-by-module alignment</h2>
+  <p class="sec-intro" data-i18n="s3_p">Each activity is tagged to a primary TEKS code and the concrete safety content it teaches.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th data-i18n="th_mod">Module</th><th data-i18n="th_teks">Primary TEKS</th><th data-i18n="th_learn">Students learn to…</th></tr></thead>
+    <tbody>
+      <tr><td>MS 1 · <span data-i18n="mm1">Rules of the Room</span></td><td class="code">S.6–8.1.C</td><td data-i18n="mm1d">Follow conduct rules before, during, and after a lab; report hazards.</td></tr>
+      <tr><td>MS 2 · <span data-i18n="mm2">Suit Up</span></td><td class="code">S.6–8.1.C · TEC §38.005</td><td data-i18n="mm2d">Choose and wear goggles, aprons, and gloves correctly.</td></tr>
+      <tr><td>MS 3 · <span data-i18n="mm3">Know Your Exits</span></td><td class="code">S.6–8.1.C</td><td data-i18n="mm3d">Locate and describe the use of eyewash, shower, fire blanket, and extinguisher.</td></tr>
+      <tr><td>MS 4 · <span data-i18n="mm4">Read the Signs</span></td><td class="code">S.6–8.1.C</td><td data-i18n="mm4d">Interpret hazard symbols and warning labels before handling materials.</td></tr>
+      <tr><td>MS 5 · <span data-i18n="mm5">Spot the Hazard</span></td><td class="code">S.6–8.1.C · .1.B</td><td data-i18n="mm5d">Analyze a scene, find safety errors, and justify why each is dangerous.</td></tr>
+      <tr><td>HS 1 · <span data-i18n="mh1">SDS Decoded</span></td><td class="code">CHEM/IPC.1.C</td><td data-i18n="mh1d">Locate hazards, first aid, storage, and disposal on a Safety Data Sheet.</td></tr>
+      <tr><td>HS 2 · <span data-i18n="mh2">GHS Pictograms</span></td><td class="code">CHEM/BIO.1.C</td><td data-i18n="mh2d">Classify substances by the nine GHS pictograms and match handling rules.</td></tr>
+      <tr><td>HS 3 · <span data-i18n="mh3">Compatibility &amp; Storage</span></td><td class="code">CHEM/IPC.1.C</td><td data-i18n="mh3d">Judge chemical incompatibilities and assign safe storage groups.</td></tr>
+      <tr><td>HS 4 · <span data-i18n="mh4">Procedure Critique</span></td><td class="code">All .1.C</td><td data-i18n="mh4d">Run a risk assessment on a procedure and correct every flaw.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="divider"><span class="lbl">04 · ELPS</span><div class="line"></div></div>
+  <h2 class="sec" data-i18n="s4_h">ELPS — English Language Proficiency Standards</h2>
+  <p class="sec-intro" data-i18n="s4_p">The activities embed cross-curricular ELPS supports (19 TAC §74.4) across all four language domains, scaffolded for Beginning through Advanced High proficiency.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th data-i18n="th_dom">Domain / ELPS</th><th data-i18n="th_supp">How the modules support it</th></tr></thead>
+    <tbody>
+      <tr><td class="code">§74.4(c)(1)<br><span class="q" data-i18n="e_ls">Learning strategies</span></td><td data-i18n="e_lsd">Bilingual word bank and visuals let students use prior knowledge to make meaning of new safety terms.</td></tr>
+      <tr><td class="code">§74.4(c)(2)<br><span class="q" data-i18n="e_li">Listening</span></td><td data-i18n="e_lid">Optional video with visual context; key terms paired with icons.</td></tr>
+      <tr><td class="code">§74.4(c)(3)<br><span class="q" data-i18n="e_sp">Speaking</span></td><td data-i18n="e_spd">Sentence stems support “turn and talk” discussion of each scenario.</td></tr>
+      <tr><td class="code">§74.4(c)(4)<br><span class="q" data-i18n="e_rd">Reading</span></td><td data-i18n="e_rdd">Full Spanish/English toggle; short, chunked prompts; symbols beside vocabulary.</td></tr>
+      <tr><td class="code">§74.4(c)(5)<br><span class="q" data-i18n="e_wr">Writing</span></td><td data-i18n="e_wrd">Typed-response items include a sentence stem for the “prove it” explanation.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="divider"><span class="lbl">05 · UDL</span><div class="line"></div></div>
+  <h2 class="sec" data-i18n="s5_h">UDL — Universal Design for Learning (CAST)</h2>
+  <p class="sec-intro" data-i18n="s5_p">Each module is built on the three UDL principles so more learners can access, engage with, and demonstrate the content.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th data-i18n="th_prin">Principle</th><th data-i18n="th_how">In the modules</th></tr></thead>
+    <tbody>
+      <tr><td data-i18n="ud_r">Multiple means of Representation</td><td data-i18n="ud_rd">Ideas shown as text, icon, color, and video; hazards named in two languages.</td></tr>
+      <tr><td data-i18n="ud_a">Multiple means of Action &amp; Expression</td><td data-i18n="ud_ad">Students respond by sorting, sequencing, selecting, and typing — not one fixed format.</td></tr>
+      <tr><td data-i18n="ud_e">Multiple means of Engagement</td><td data-i18n="ud_ed">Short goals, immediate “prove-it” feedback, and a visible badge sustain effort.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="divider"><span class="lbl">06 · Cross-walk</span><div class="line"></div></div>
+  <h2 class="sec" data-i18n="s6_h">Common Core literacy cross-walk (optional)</h2>
+  <p class="sec-intro" data-i18n="s6_p">For teams outside Texas or reporting to literacy frameworks, these science-literacy standards map naturally to the reading-heavy modules.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th data-i18n="th_cc">CCSS (Science &amp; Technical)</th><th data-i18n="th_ccm">Maps to</th></tr></thead>
+    <tbody>
+      <tr><td class="code">RST.6–8.3 / RST.9–10.3</td><td data-i18n="cc1">Following a multistep procedure precisely — “Rules of the Room,” “Procedure Critique.”</td></tr>
+      <tr><td class="code">RST.6–8.4 / RST.9–10.4</td><td data-i18n="cc2">Determining the meaning of symbols and domain terms — “Read the Signs,” “GHS Pictograms.”</td></tr>
+      <tr><td class="code">RST.6–8.7 / RST.9–10.7</td><td data-i18n="cc3">Integrating text with visual information — SDS reading and hazard labels.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="flag">
+    <strong data-i18n="flag_h">Before you cite these for formal documentation:</strong>
+    <span data-i18n="flag_b"> Confirm every code against your district-adopted TEKS version. The 2021-adopted science TEKS took effect 2024–25; a district may still reference prior codes in older documents, and SBOE review cycles can change specifics. ELPS sub-letters and CCSS-RST codes should be verified against your local framework. These correlations are a planning aid, not a compliance guarantee.</span>
+  </div>
+
+  <div class="divider"><span class="lbl">07 · Access</span><div class="line"></div></div>
+  <h2 class="sec" data-i18n="access_head">Designed for every learner</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <h4 data-i18n="udl_h">UDL — Universal Design for Learning</h4>
+      <p data-i18n="udl_p">Every module offers more than one way in, following the three CAST UDL principles:</p>
+      <ul>
+        <li data-i18n="udl_1">Representation: text, icons, color, and video for each idea</li>
+        <li data-i18n="udl_2">Action &amp; Expression: click, sort, sequence, and type responses</li>
+        <li data-i18n="udl_3">Engagement: short goals, instant feedback, a visible badge to earn</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4 data-i18n="elps_h">ELPS — Emergent Bilingual Support</h4>
+      <p data-i18n="elps_p">Supports for English learners across all four language domains:</p>
+      <ul>
+        <li data-i18n="elps_1">Full seven-language switch</li>
+        <li data-i18n="elps_2">Visuals paired with every key term</li>
+        <li data-i18n="elps_3">Sentence stems for written and spoken responses</li>
+        <li data-i18n="elps_4">A bilingual safety word bank in each module</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4 data-i18n="priv_h">Privacy First</h4>
+      <p data-i18n="priv_p">No accounts. No servers. No tracking. Progress and your name live only in this browser (localStorage) and never leave your device. Clearing your browser data resets everything.</p>
+      <div style="margin-top:6px">
+        <span class="feat-chip">FERPA-aware</span><span class="feat-chip">COPPA-aware</span><span class="feat-chip">No data collection</span>
+      </div>
+    </div>
+  </div>
+  <div class="flag" style="border-left-color:var(--navy);background:#eef4ff">
+    <strong data-i18n="note_lbl" style="color:var(--navy)">Teacher note:</strong> <span data-i18n="note_body">These activities teach and reinforce safety knowledge. They do not replace your district's required safety training, safety contract, or hands-on demonstration of equipment. Confirm TEKS codes against your district-adopted version before formal documentation.</span>
+  </div>
+
+  <footer>
+    <span data-i18n="f_copy">Content CC BY 4.0 · Code MIT · Miguel Guhlin · </span><a href="index.html">Lab Safety Hub</a>
+  </footer>
+</div>
+
+<script src="assets/i18n.js" defer></script>
+<script src="assets/i18n-teks.js" defer></script>
+<script defer>
+document.addEventListener('DOMContentLoaded',function(){
+  window.BreakoutI18n.register('labsafety-teks', window.LS_DICT_TEKS || {en:{}});
+});
+</script>
+</body>
+</html>
