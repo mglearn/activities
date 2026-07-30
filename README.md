@@ -1,4 +1,4 @@
-# TCEA Activities Hub
+# Learning Activities Hub
 
 A single home for self-contained, browser-based classroom activities in seven
 languages — no logins, no data collected. Published at
