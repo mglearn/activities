@@ -77,6 +77,17 @@
   footer{text-align:center;margin-top:44px;font-size:.8rem;color:var(--ink-soft);font-weight:600;line-height:1.7}
   footer a{color:var(--navy);font-weight:700}
   @media (prefers-reduced-motion:reduce){.card,.card .go .arr,.toolrow a{transition:none}.card:hover{transform:none}}
+
+  .searchwrap{margin:2px 0 0}
+  .searchwrap input{width:100%;font-family:'Nunito',sans-serif;font-weight:600;font-size:1rem;color:var(--ink);
+    background:#fff;border:2px solid var(--line);border-radius:12px;padding:12px 16px;transition:border-color .15s}
+  .searchwrap input::placeholder{color:#9aa8bd}
+  .searchwrap input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(5,76,140,.12)}
+  .qinfo{min-height:18px;margin:8px 2px 12px;font-size:.82rem;font-weight:700;color:var(--ink-soft)}
+  .card.hide{display:none}
+  .noresults{background:#fff;border:2px dashed var(--line);border-radius:14px;padding:26px 20px;text-align:center;
+    color:var(--ink-soft);font-weight:600}
+  .noresults b{color:var(--navy)}
 </style>
 </head>
 <body>
@@ -89,16 +100,21 @@
     <h1 class="sr-only">Learning Activities Hub</h1>
     <p class="sub">One home for self-contained, browser-based classroom activities — in seven languages, with no logins and no data collected. Pick an area to begin.</p>
     <div class="tally">
-      <div><div class="n">7</div><div class="l">Activity areas</div></div>
+      <div><div class="n" id="t-areas">8</div><div class="l">Activity areas</div></div>
+      <div><div class="n" id="t-acts">311</div><div class="l">Activities</div></div>
       <div><div class="n">7</div><div class="l">Languages</div></div>
       <div><div class="n">K–12</div><div class="l">Grade bands</div></div>
     </div>
   </header>
 
   <h2 class="sec">Choose an activity area</h2>
+  <div class="searchwrap">
+    <input id="q" type="search" placeholder="Search activities — try “fractions”, “Juneteenth”, “privacy”, “GHS”…" aria-label="Search activities" autocomplete="off">
+  </div>
+  <div class="qinfo" id="qinfo" aria-live="polite"></div>
   <div class="cards">
 
-    <a class="card" style="--accent:#054c8c" href="ctobs/">
+    <a class="card" data-count="205" data-kw="critical thinking breakout escape room clues locks reasoning evidence deduction clear fourth of july independence declaration liberty juneteenth july 5 black freedom holidays bible as literature science teks idioms figurative language" style="--accent:#054c8c" href="ctobs/">
       <div class="ico" aria-hidden="true">🕵️</div>
       <div class="band">Grades K–12 · Seven languages</div>
       <h3>Critical Thinking Breakouts</h3>
@@ -106,7 +122,7 @@
       <span class="go">Open the breakout library <span class="arr">→</span></span>
     </a>
 
-    <a class="card" style="--accent:#4f3a8c" href="pst/">
+    <a class="card" data-count="23" data-kw="problem based learning pbl problem solving teaching texas history social studies stakeholders inquiry units project" style="--accent:#4f3a8c" href="pst/">
       <div class="ico" aria-hidden="true">🧩</div>
       <div class="band">Grades 3–8 · Seven languages</div>
       <h3>Problem-Solving Teaching</h3>
@@ -114,7 +130,7 @@
       <span class="go">Open the PBL units <span class="arr">→</span></span>
     </a>
 
-    <a class="card" style="--accent:#5b3fa5" href="relic-rooms/">
+    <a class="card" data-count="9" data-kw="relic room investigation exhibits artifacts mystery identify understand connect extinct creatures inventions minerals transportation communications endangered cloud detective" style="--accent:#5b3fa5" href="relic-rooms/">
       <div class="ico" aria-hidden="true">🏺</div>
       <div class="band">Seven languages</div>
       <h3>Relic Rooms</h3>
@@ -122,7 +138,7 @@
       <span class="go">Enter the relic rooms <span class="arr">→</span></span>
     </a>
 
-    <a class="card" style="--accent:#0a2e63" href="digcit/">
+    <a class="card" data-count="9" data-kw="digital citizenship online safety privacy digital footprint media balance kindness cyberbullying responsibility internet" style="--accent:#0a2e63" href="digcit/">
       <div class="ico" aria-hidden="true">🛡️</div>
       <div class="band">Grades K–8 · Seven languages</div>
       <h3>Digital Citizenship Breakouts</h3>
@@ -130,7 +146,7 @@
       <span class="go">Open digital citizenship <span class="arr">→</span></span>
     </a>
 
-    <a class="card" style="--accent:#4338ca" href="genailit/">
+    <a class="card" data-count="9" data-kw="generative ai literacy artificial intelligence machine learning ethics bias hallucination how ai works chatbot prompts" style="--accent:#4338ca" href="genailit/">
       <div class="ico" aria-hidden="true">🤖</div>
       <div class="band">Grades K–8 · Seven languages</div>
       <h3>Gen AI Literacy Breakouts</h3>
@@ -138,7 +154,7 @@
       <span class="go">Open AI literacy <span class="arr">→</span></span>
     </a>
 
-    <a class="card" style="--accent:#3f2a78" href="digitalmathtools/">
+    <a class="card" data-count="5" data-kw="math number line manipulatives fractions counting critters shapes measurement graphing sorting snack shop pet parade playground" style="--accent:#3f2a78" href="digitalmathtools/">
       <div class="ico" aria-hidden="true">🔢</div>
       <div class="band">Grades PreK–12 · Seven languages</div>
       <h3>Digital Math Tools</h3>
@@ -146,7 +162,7 @@
       <span class="go">Open the math tools <span class="arr">→</span></span>
     </a>
 
-    <a class="card" style="--accent:#0d9488" href="/gtky/">
+    <a class="card" data-count="42" data-kw="getting to know you back to school icebreakers all about me classroom community ela math science social studies fine arts worksheets printable" style="--accent:#0d9488" href="/gtky/">
       <div class="ico" aria-hidden="true">👋</div>
       <div class="band">Elementary · Seven languages</div>
       <h3>Getting to Know You</h3>
@@ -154,7 +170,7 @@
       <span class="go">Open the worksheets <span class="arr">→</span></span>
     </a>
 
-    <a class="card" style="--accent:#15803d" href="lab-safety/">
+    <a class="card" data-count="9" data-kw="lab safety science goggles ppe personal protective equipment hazard sds safety data sheet ghs pictograms chemical compatibility procedure emergency equipment teks ranger specialist badge" style="--accent:#15803d" href="lab-safety/">
       <div class="ico" aria-hidden="true">🥽</div>
       <div class="band">Grades 6–12 · Seven languages</div>
       <h3>Lab Safety Certification</h3>
@@ -163,6 +179,8 @@
     </a>
 
   </div>
+
+  <p class="noresults" id="noresults" hidden>No areas match “<b id="noterm"></b>”. Try another word, or browse all areas above.</p>
 
   <h2 class="sec tools">More TCEA tools</h2>
   <div class="toolrow">
@@ -175,5 +193,26 @@
     Self-contained &amp; browser-based · No logins · No data collected · Seven languages
   </footer>
 </div>
+<script>
+(function(){
+  var cards=[].slice.call(document.querySelectorAll('.cards .card'));
+  var ta=document.getElementById('t-areas'),tc=document.getElementById('t-acts');
+  var acts=cards.reduce(function(s,c){return s+(parseInt(c.getAttribute('data-count'),10)||0);},0);
+  if(ta)ta.textContent=cards.length;
+  if(tc)tc.textContent=acts.toLocaleString();
+  cards.forEach(function(c){c._h=(c.textContent+' '+(c.getAttribute('data-kw')||'')).toLowerCase();});
+  var q=document.getElementById('q'),info=document.getElementById('qinfo'),
+      nr=document.getElementById('noresults'),nt=document.getElementById('noterm');
+  function run(){
+    var term=(q.value||'').trim().toLowerCase();
+    if(!term){cards.forEach(function(c){c.classList.remove('hide');});info.textContent='';nr.hidden=true;return;}
+    var n=0;
+    cards.forEach(function(c){var m=c._h.indexOf(term)>-1;c.classList.toggle('hide',!m);if(m)n++;});
+    info.textContent=n+(n===1?' area matches “':' areas match “')+q.value.trim()+'”';
+    nr.hidden=n>0;if(nt)nt.textContent=q.value.trim();
+  }
+  if(q)q.addEventListener('input',run);
+})();
+</script>
 </body>
 </html>
