@@ -253,6 +253,50 @@
     </div>
   </div>
 
+  <style>
+  .poster-dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:18px;margin-top:10px}
+  .pcard{margin:0;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:9px;transition:border-color .15s,transform .15s,box-shadow .15s}
+  .pcard:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 12px 26px rgba(10,36,99,.12)}
+  .pcard img{width:100%;height:auto;aspect-ratio:8.5/11;object-fit:cover;object-position:top;border-radius:8px;border:1px solid var(--line);display:block;box-shadow:0 3px 10px rgba(10,36,99,.1)}
+  .pcard figcaption{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:.95rem;text-align:center;line-height:1.2}
+  .pdl-links{display:flex;gap:8px;justify-content:center;margin-top:auto}
+  .pdl-links a{flex:1;text-align:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;color:var(--navy);background:var(--paper);border:1.5px solid var(--line);border-radius:8px;padding:6px 0;text-decoration:none;transition:background .12s,border-color .12s}
+  .pdl-links a:hover{background:var(--gold);border-color:var(--gold-d);color:var(--navy-d)}
+  .pdl-links a:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+  .poster-all{text-align:center;margin-top:22px}
+  @media print{.poster-dl,.poster-all,#posters{display:none!important}}
+  </style>
+  <h2 class="sec" id="posters" data-band="🖼" data-i18n="posters_h">Printable Classroom Posters</h2>
+  <p class="sec-sub" data-i18n="posters_p">Five print-ready posters (US Letter) that capture the big ideas of both tracks. Download a PNG image or a print-perfect PDF — or grab all five as a single PDF.</p>
+  <div class="poster-dl">
+    <figure class="pcard">
+      <a href="assets/posters/poster-1-core-rules.pdf" target="_blank" rel="noopener"><img src="assets/posters/poster-1-core-rules.png" alt="Core Lab Rules poster" loading="lazy"></a>
+      <figcaption>The Core Lab Rules</figcaption>
+      <div class="pdl-links"><a href="assets/posters/poster-1-core-rules.png" download>PNG</a><a href="assets/posters/poster-1-core-rules.pdf" download>PDF</a></div>
+    </figure>
+    <figure class="pcard">
+      <a href="assets/posters/poster-2-ppe.pdf" target="_blank" rel="noopener"><img src="assets/posters/poster-2-ppe.png" alt="Gear Up: PPE poster" loading="lazy"></a>
+      <figcaption>Gear Up: PPE</figcaption>
+      <div class="pdl-links"><a href="assets/posters/poster-2-ppe.png" download>PNG</a><a href="assets/posters/poster-2-ppe.pdf" download>PDF</a></div>
+    </figure>
+    <figure class="pcard">
+      <a href="assets/posters/poster-3-emergency.pdf" target="_blank" rel="noopener"><img src="assets/posters/poster-3-emergency.png" alt="Emergency Equipment poster" loading="lazy"></a>
+      <figcaption>Emergency Equipment</figcaption>
+      <div class="pdl-links"><a href="assets/posters/poster-3-emergency.png" download>PNG</a><a href="assets/posters/poster-3-emergency.pdf" download>PDF</a></div>
+    </figure>
+    <figure class="pcard">
+      <a href="assets/posters/poster-4-ghs.pdf" target="_blank" rel="noopener"><img src="assets/posters/poster-4-ghs.png" alt="GHS Hazard Pictograms poster" loading="lazy"></a>
+      <figcaption>GHS Pictograms</figcaption>
+      <div class="pdl-links"><a href="assets/posters/poster-4-ghs.png" download>PNG</a><a href="assets/posters/poster-4-ghs.pdf" download>PDF</a></div>
+    </figure>
+    <figure class="pcard">
+      <a href="assets/posters/poster-5-chemicals.pdf" target="_blank" rel="noopener"><img src="assets/posters/poster-5-chemicals.png" alt="Handle Chemicals Right poster" loading="lazy"></a>
+      <figcaption>Handle Chemicals Right</figcaption>
+      <div class="pdl-links"><a href="assets/posters/poster-5-chemicals.png" download>PNG</a><a href="assets/posters/poster-5-chemicals.pdf" download>PDF</a></div>
+    </figure>
+  </div>
+  <div class="poster-all"><a class="btn btn-primary" href="assets/posters/lab-safety-posters-all.pdf" download data-i18n="posters_all">⬇ Download all five (PDF)</a></div>
+
   <footer>
     <div class="flinks">
       <a href="../" data-i18n="f_activities">Activities</a>
