@@ -83,6 +83,9 @@ header.top{text-align:center;padding:6px 0}
 .acard p{font-weight:600;color:var(--ink-soft);font-size:.86rem;flex-grow:1}
 .ac-mats{margin-top:9px;font-size:.74rem;color:var(--ink-soft);font-weight:600;border-top:1px dashed var(--line);padding-top:7px}
 .strand-sec.hide{display:none}
+.strand-banner{display:block;width:100%;height:auto;max-height:160px;object-fit:cover;border-radius:14px;
+  margin:30px 0 4px;box-shadow:0 6px 20px rgba(5,76,140,.10)}
+.strand-banner+.sec{margin-top:10px}
 
 /* badges per strand */
 .badge{display:inline-flex;align-items:center;gap:5px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:.68rem;

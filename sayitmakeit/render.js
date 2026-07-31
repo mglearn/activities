@@ -140,6 +140,7 @@ ${actScript}
       if (!items.length) return;
       sections += `
       <section class="strand-sec" data-strand="${s}">
+        <img class="strand-banner" src="assets/strand-${s}.png" alt="" loading="lazy" onerror="this.style.display='none'">
         <h2 class="sec" style="--accent:${STRANDS[s].accent}">${STRANDS[s].icon} <span data-i18n="strand_${s}"></span> <span class="sec-n">${items.length}</span></h2>
         <div class="grid">${items.map(card).join('')}</div>
       </section>`;
