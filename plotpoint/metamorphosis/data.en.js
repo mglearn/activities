@@ -244,7 +244,7 @@ window.__ROOM__ = {
       intro: "Seven instructional reconstructions of objects from Gregor's room and household. Each is a teaching recreation, not a copyrighted illustration. Investigate what each object shows — and what it hides.",
       artifacts: [
         {
-          id: "door", name: "The Bedroom Door (one of three)", image: "images/door.png",
+          id: "door", name: "The Bedroom Door (one of three)", image: "images/door.webp",
           clues: ["Gregor's room opens onto the rest of the home through more than one door.", "He is in the habit of locking his doors, even at home.", "Early on, the family and a visitor speak to him through the closed door."],
           identify: { q: "What is this object?", choices: ["A locked interior door of Gregor's bedroom", "The front door of a shop", "A garden gate", "A wardrobe door"] },
           purpose: { q: "What is its likely purpose in the household?", choices: ["To give Gregor privacy and separate his room from shared space", "To keep out the weather", "To display the family's wealth", "To store the sample case"] },
@@ -254,7 +254,7 @@ window.__ROOM__ = {
           ace: "Articulate what the door does to Gregor's contact with his family; connect it to the theme of alienation; extend it to a barrier people put up today."
         },
         {
-          id: "picture", name: "The Framed Picture of the Woman in Furs", image: "images/picture.png",
+          id: "picture", name: "The Framed Picture of the Woman in Furs", image: "images/picture.webp",
           clues: ["Gregor cut this image from a magazine.", "He built a frame for it himself.", "When his room is being emptied, he desperately protects this one object."],
           identify: { q: "What is this object?", choices: ["A magazine picture Gregor framed and hung himself", "A family portrait", "A wanted poster", "A train timetable"] },
           purpose: { q: "What is its likely purpose for Gregor?", choices: ["A small personal pleasure and a claim to an identity of his own", "A tool for his job", "A gift for his boss", "A map for travel"] },
@@ -264,7 +264,7 @@ window.__ROOM__ = {
           ace: "Articulate why Gregor protects this picture; connect it to his humanity; extend it to an object that would represent your own identity."
         },
         {
-          id: "apple", name: "The Wedged Apple", image: "images/apple.png",
+          id: "apple", name: "The Wedged Apple", image: "images/apple.webp",
           clues: ["Gregor's father throws fruit at him during a confrontation.", "One piece strikes and lodges in Gregor's body.", "The wound is never treated and festers over time."],
           identify: { q: "What is this object?", choices: ["An apple the father threw that becomes lodged in Gregor's back", "A snack Grete left him", "A decoration", "A gift from the lodgers"] },
           purpose: { q: "How does it function in the scene?", choices: ["As a weapon the father uses against his transformed son", "As food for the family", "As a toy", "As payment"] },
@@ -274,7 +274,7 @@ window.__ROOM__ = {
           ace: "Articulate what the apple does to Gregor; connect the wound to the theme of rejection; extend it to how harm from family differs from harm by strangers."
         },
         {
-          id: "samplecase", name: "The Traveling Salesman's Sample Case", image: "images/samplecase.png",
+          id: "samplecase", name: "The Traveling Salesman's Sample Case", image: "images/samplecase.webp",
           clues: ["Gregor's job requires constant travel by early train.", "He carries goods to show to customers.", "His first worry on the fateful morning is missing work, not his own body."],
           identify: { q: "What is this object?", choices: ["The sample case Gregor carries for his traveling-salesman work", "A suitcase for vacation", "A doctor's bag", "A toolbox"] },
           purpose: { q: "What is its purpose in Gregor's life?", choices: ["It is the instrument of the job that defines and exhausts him", "It holds his savings", "It stores his picture", "It is a gift for Grete"] },
@@ -284,7 +284,7 @@ window.__ROOM__ = {
           ace: "Articulate how the job shaped Gregor; connect his labor to his alienation; extend it to how work can define a person today."
         },
         {
-          id: "food", name: "The Tray of Fresh Food and Spoiled Scraps", image: "images/food.png",
+          id: "food", name: "The Tray of Fresh Food and Spoiled Scraps", image: "images/food.webp",
           clues: ["At first Gregor is brought fresh milk and food.", "He discovers he now prefers old, rotting scraps.", "Later, his food is delivered carelessly and grows scarce."],
           identify: { q: "What is this object?", choices: ["The changing food Grete brings that Gregor can and cannot eat", "A feast for guests", "A market stall", "A picnic"] },
           purpose: { q: "What is its purpose in the story?", choices: ["To track Grete's care for Gregor and how it fades", "To show the family is rich", "To describe local cuisine", "To measure time of day"] },
@@ -294,7 +294,7 @@ window.__ROOM__ = {
           ace: "Articulate what the food shows about Gregor's change; connect it to Grete's role; extend it to how small daily acts reveal care in real relationships."
         },
         {
-          id: "violin", name: "Grete's Violin", image: "images/violin.png",
+          id: "violin", name: "Grete's Violin", image: "images/violin.webp",
           clues: ["Grete plays the violin.", "The family's lodgers ask to hear her play.", "The music draws Gregor out of his room toward the others."],
           identify: { q: "What is this object?", choices: ["The violin Grete plays for the household and its lodgers", "A radio", "A music box", "A toy"] },
           purpose: { q: "What is its purpose in the scene?", choices: ["To create a moment of beauty that pulls Gregor toward human connection", "To wake the neighbors", "To earn money for the debt", "To signal danger"] },
@@ -304,7 +304,7 @@ window.__ROOM__ = {
           ace: "Articulate why the music matters to Gregor; connect it to his humanity; extend it to something that still moves a person others have written off."
         },
         {
-          id: "clock", name: "The Alarm Clock", image: "images/clock.png",
+          id: "clock", name: "The Alarm Clock", image: "images/clock.webp",
           clues: ["Gregor's mornings are ruled by early train times.", "On the first morning he realizes the alarm has already passed.", "His panic is about work and schedule, not his body."],
           identify: { q: "What is this object?", choices: ["The alarm clock that governs Gregor's working mornings", "A wall calendar", "A pocket watch of his father's", "A sundial"] },
           purpose: { q: "What is its purpose in Gregor's life?", choices: ["To enforce the relentless schedule his job demands", "To decorate the room", "To wake the whole family", "To time Grete's music"] },

@@ -343,7 +343,7 @@
     var layout = el('div', 'artifact');
     var frame = el('div', 'frame');
     if (a.image) frame.innerHTML = '<img src="' + esc(a.image) + '" alt="' + esc(a.alt || a.name) + '" onerror="this.parentNode.innerHTML=\'<div class=&quot;ph&quot;>' + esc(t('relic.placeholder')) + '<small>' + esc(a.image) + '</small></div>\'">';
-    else frame.innerHTML = '<div class="ph">' + esc(t('relic.placeholder')) + '<small>' + esc('images/' + a.id + '.png') + '</small></div>';
+    else frame.innerHTML = '<div class="ph">' + esc(t('relic.placeholder')) + '<small>' + esc('images/' + a.id + '.webp') + '</small></div>';
     var info = el('div');
     info.appendChild(el('span', 'eyebrow', esc(t('relic.artifact', { n: i + 1 }))));
     info.appendChild(el('h2', 'stitle', esc(a.name)));
