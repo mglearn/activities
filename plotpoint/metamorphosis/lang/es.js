@@ -2,6 +2,12 @@
 window.__ROOM_LANGS__ = window.__ROOM_LANGS__ || {};
 window.__ROOM_LANGS__.es = {
   ui: {
+    "enter.readListen": "Leer y escuchar — gratis",
+    "enter.readListenTitle": "Consigue el texto completo y el audio",
+    "enter.readListenNote": "Este libro es de dominio público. Estos recursos externos y gratuitos se abren en una pestaña nueva; verifica el enlace y la edición antes de asignarlos.",
+    "enter.read": "Leer el texto completo (Project Gutenberg)",
+    "enter.listen": "Escuchar — audiolibro (LibriVox)",
+    "enter.readAloud": "¿Prefieres una lectura en voz alta? Los estudiantes también pueden usar la lectura en voz alta de su dispositivo o una herramienta de IA aprobada por el distrito con el texto de dominio público.",
     /* chrome */
     "skip": "Ir a la actividad",
     "brand.tag": "Lee · Razona · Juega",

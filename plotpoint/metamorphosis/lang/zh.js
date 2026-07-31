@@ -2,6 +2,12 @@
 window.__ROOM_LANGS__ = window.__ROOM_LANGS__ || {};
 window.__ROOM_LANGS__.zh = {
   ui: {
+    "enter.readListen": "阅读与收听 — 免费",
+    "enter.readListenTitle": "获取全文和有声版",
+    "enter.readListenNote": "本书属于公共领域。这些免费的外部资源会在新标签页中打开——布置前请核实链接和版本。",
+    "enter.read": "阅读全文（Project Gutenberg）",
+    "enter.listen": "收听 — 有声书（LibriVox）",
+    "enter.readAloud": "想要朗读版？学生也可以使用设备自带的朗读功能，或在公共领域文本上使用学区批准的 AI 工具。",
     /* chrome */
     "skip": "跳转到活动",
     "brand.tag": "阅读 · 思考 · 探索",

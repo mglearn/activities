@@ -134,6 +134,25 @@
     p.appendChild(g2);
     root.appendChild(p);
 
+    // Read & Listen — free public-domain full text + audiobook.
+    // URLs are language-neutral, so fall back to the English meta if a translation
+    // pack predates these fields (labels still come from the translated UI).
+    var enMeta = (CONTENT.en && CONTENT.en.meta) || {};
+    var gutenberg = m.gutenberg || enMeta.gutenberg;
+    var audio = m.audio || enMeta.audio;
+    if (gutenberg || audio) {
+      var pr = el('div', 'panel');
+      pr.appendChild(el('span', 'eyebrow', esc(t('enter.readListen'))));
+      pr.appendChild(el('h2', 'stitle', esc(t('enter.readListenTitle'))));
+      pr.appendChild(el('p', 'lead', esc(t('enter.readListenNote'))));
+      var row = el('div', 'btn-row');
+      if (gutenberg) { var a1 = el('a', 'btn ghost'); a1.href = gutenberg; a1.target = '_blank'; a1.rel = 'noopener noreferrer'; a1.innerHTML = '📖 ' + esc(t('enter.read')); row.appendChild(a1); }
+      if (audio) { var a2 = el('a', 'btn ghost'); a2.href = audio; a2.target = '_blank'; a2.rel = 'noopener noreferrer'; a2.innerHTML = '🎧 ' + esc(t('enter.listen')); row.appendChild(a2); }
+      pr.appendChild(row);
+      var note2 = el('div', 'note'); note2.style.marginTop = '10px'; note2.textContent = t('enter.readAloud'); pr.appendChild(note2);
+      root.appendChild(pr);
+    }
+
     // learning goals
     var pg = el('div', 'panel');
     pg.appendChild(el('h2', 'stitle', esc(t('enter.goals'))));
@@ -299,7 +318,17 @@
       card.innerHTML = '<div class="thumb">' + (a.image ? '<img src="' + esc(a.image) + '" alt="" onerror="this.style.display=\'none\'">' : '🗝️') + '</div>' +
         '<div class="nm">' + esc(a.name) + '</div>' +
         '<div class="st">' + esc(state.done['relic.' + a.id] ? t('relic.reviewed') : t('relic.investigate')) + '</div>';
-      function open() { openArtifact(a, i, detail); grid.querySelectorAll('.relic-card').forEach(function (x) { x.style.outline = ''; }); card.style.outline = '3px solid var(--plum)'; }
+      function open() {
+        openArtifact(a, i, detail);
+        grid.querySelectorAll('.relic-card').forEach(function (x) { x.classList.remove('active'); });
+        card.classList.add('active');
+        // Make the click visibly "do something": bring the opened artifact into view and focus it.
+        var h = detail.querySelector('.stitle');
+        if (h) { h.setAttribute('tabindex', '-1'); }
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        try { detail.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); } catch (_) { try { detail.scrollIntoView(); } catch (__) {} }
+        if (h) { try { h.focus({ preventScroll: true }); } catch (_) { h.focus(); } }
+      }
       card.addEventListener('click', open);
       card.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
       grid.appendChild(card);

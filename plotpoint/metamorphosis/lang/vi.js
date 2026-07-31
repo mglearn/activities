@@ -2,6 +2,12 @@
 window.__ROOM_LANGS__ = window.__ROOM_LANGS__ || {};
 window.__ROOM_LANGS__.vi = {
   ui: {
+    "enter.readListen": "Đọc & Nghe — miễn phí",
+    "enter.readListenTitle": "Lấy toàn văn và bản âm thanh",
+    "enter.readListenNote": "Cuốn sách này thuộc phạm vi công cộng. Các tài nguyên bên ngoài miễn phí này mở trong tab mới — hãy kiểm tra liên kết và ấn bản trước khi giao bài.",
+    "enter.read": "Đọc toàn văn (Project Gutenberg)",
+    "enter.listen": "Nghe — sách nói (LibriVox)",
+    "enter.readAloud": "Thích nghe đọc to? Học sinh cũng có thể dùng tính năng đọc to của thiết bị hoặc một công cụ AI được học khu phê duyệt với văn bản thuộc phạm vi công cộng.",
     /* chrome */
     "skip": "Chuyển đến hoạt động",
     "brand.tag": "Đọc · Lập luận · Chơi",

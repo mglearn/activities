@@ -2,6 +2,12 @@
 window.__ROOM_LANGS__ = window.__ROOM_LANGS__ || {};
 window.__ROOM_LANGS__.ur = {
   ui: {
+    "enter.readListen": "پڑھیں اور سنیں — مفت",
+    "enter.readListenTitle": "مکمل متن اور آڈیو حاصل کریں",
+    "enter.readListenNote": "یہ کتاب پبلک ڈومین میں ہے۔ یہ مفت بیرونی وسائل نئے ٹیب میں کھلتے ہیں — تفویض سے پہلے لنک اور ایڈیشن کی تصدیق کریں۔",
+    "enter.read": "مکمل متن پڑھیں (Project Gutenberg)",
+    "enter.listen": "سنیں — آڈیو کتاب (LibriVox)",
+    "enter.readAloud": "پڑھ کر سنانا پسند ہے؟ طلبہ پبلک ڈومین متن کے لیے اپنے آلے کی ریڈ-اَلاؤڈ سہولت یا ضلع سے منظور شدہ AI ٹول بھی استعمال کر سکتے ہیں۔",
     /* chrome */
     "skip": "سرگرمی پر جائیں",
     "brand.tag": "پڑھیں · سوچیں · کھیلیں",

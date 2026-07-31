@@ -44,6 +44,12 @@ window.__ROOM__ = {
     "enter.aceEyebrow": "Thinking routine",
     "enter.ace": "The ACE Framework",
     "enter.aceIntro": "Every task in this room asks you to Articulate, Connect, and Extend your thinking.",
+    "enter.readListen": "Read & Listen — free",
+    "enter.readListenTitle": "Get the full text and audio",
+    "enter.readListenNote": "This book is in the public domain. These free, external resources open in a new tab — verify the link and edition before assigning.",
+    "enter.read": "Read the full text (Project Gutenberg)",
+    "enter.listen": "Listen — audiobook (LibriVox)",
+    "enter.readAloud": "Prefer a read-aloud? Students may also use their device's built-in read-aloud or a district-approved AI tool on the public-domain text.",
     "ace.articulate": "A · Articulate", "ace.connect": "C · Connect", "ace.extend": "E · Extend",
 
     /* vocab */
@@ -189,7 +195,9 @@ window.__ROOM__ = {
       rights: "Original German (1915) is public domain",
       textAccess: "Students need access to a public-domain or openly licensed English translation, or the German original. This room does not reproduce the text.",
       copyright: "The 1915 German text is public domain; some English translations remain under copyright. Verify your edition before sharing.",
-      contentNote: "Themes include isolation, family conflict, and death. Preview for maturity and align with local policy."
+      contentNote: "Themes include isolation, family conflict, and death. Preview for maturity and align with local policy.",
+      gutenberg: "https://www.gutenberg.org/ebooks/5200",
+      audio: "https://librivox.org/the-metamorphosis-by-franz-kafka/"
     },
     hook: "One ordinary morning, Gregor Samsa wakes to find his body completely changed — and discovers how quickly a person can be reduced to what they can no longer provide.",
     goals: [
