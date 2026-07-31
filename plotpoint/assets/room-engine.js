@@ -153,6 +153,10 @@
     cnote.innerHTML = '<strong>' + esc(t('enter.contentReview')) + ':</strong> ' + esc(m.contentNote || t('enter.contentDefault'));
     g2.appendChild(cnote);
     p.appendChild(g2);
+
+    // Copyright / independent-companion disclaimer (used by copyrighted-work rooms).
+    var disclaimer = m.disclaimer || enMeta0.disclaimer;
+    if (disclaimer) { p.appendChild(el('div', 'disclaimer', esc(disclaimer))); }
     root.appendChild(p);
 
     // Read & Listen — free public-domain full text + audiobook.
