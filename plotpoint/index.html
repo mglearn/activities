@@ -389,7 +389,12 @@ document.addEventListener('DOMContentLoaded', function(){
     // fill the browse-prompt counts (updates on language change)
     var live = TITLES.filter(function(x){ return x.status==='live'; }).length;
     var bpc = document.getElementById('bp-counts');
-    if(bpc) bpc.textContent = t('browse.counts', { live: live, total: TITLES.length });
+    if(bpc){
+      var cnt = t('browse.counts', { live: live, total: TITLES.length });
+      // Defensive: if a stale cached dictionary lacks the key, show readable text, never the raw key.
+      if(cnt === 'browse.counts') cnt = live + ' ready now · ' + TITLES.length + ' in the collection.';
+      bpc.textContent = cnt;
+    }
     run();
   }
 
