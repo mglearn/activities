@@ -18,22 +18,26 @@ Deployment note: PlotPoint lives in the **`activities/`** repo and ships at
 | 0 | Inspect repo; reuse PST / Relic Rooms / CTOB patterns | ✅ Done |
 | 1 | Shared system: hub + language engine + one working title room | ✅ Done |
 | 2 | Seven-language support wired end to end | ✅ Done (see review flags) |
-| 3 | Remaining title rooms | 🔄 In progress — **6 rooms live** |
+| 3 | Remaining title rooms | 🔄 In progress — **10 rooms live** |
 
-### Live rooms (6) — all seven languages, deployed, headless-validated
+### Live rooms (10) — all seven languages, deployed, headless-validated
 **Public-domain literature (4):**
 1. **The Metamorphosis** — Kafka · flagship
 2. **The Canterbury Tales** — Chaucer
 3. **Dracula** — Stoker
 4. **Selected Myths (Bulfinch)** — Bulfinch
 
-**Philosophy sub-collection (2)** — added at the user's request, CLT-aligned,
+**Philosophy sub-collection (6)** — added at the user's request, CLT-aligned,
 public domain:
-5. **The Apology** — Plato (the trial of Socrates)
-6. **The Allegory of the Cave** — Plato (Republic, Book VII)
+5. **The Apology** — Plato (the trial of Socrates) — arcade: Argument or Appeal? (logos vs. pathos)
+6. **The Allegory of the Cave** — Plato (Republic, Book VII) — arcade: appearance vs. reality
+7. **Meditations** — Marcus Aurelius (Stoicism) — arcade: In Your Control?
+8. **The Enchiridion** — Epictetus (Stoicism) — arcade: Fact or Judgment?
+9. **Nicomachean Ethics (Selections)** — Aristotle — arcade: The Golden Mean
+10. **The Consolation of Philosophy** — Boethius — arcade: Fortune's Wheel
 
 Every live room carries the free **Read & Listen** panel (Project Gutenberg text
-+ LibriVox audiobook) in Enter the Story.
++ LibriVox audiobook) in Enter the Story. The seeded philosophy set is complete.
 
 ### Direction change
 The 9 copyrighted literature titles from `plan.md` (The Giver, Orient Express,
@@ -43,17 +47,12 @@ suitable for schools (the CLT canon). They remain in `titles.js` as "coming
 soon"; if built later they must paraphrase only (no reproduced text) and carry a
 content/copyright-review note.
 
-### Philosophy — queued next (in `titles.js` as "coming soon")
-- **Meditations** — Marcus Aurelius
-- **The Enchiridion** — Epictetus
-- **Nicomachean Ethics (Selections)** — Aristotle
-- **The Consolation of Philosophy** — Boethius
+### Philosophy — candidate future additions (not yet carded)
+All public domain, from the CLT canon: Augustine's *Confessions*, Cicero
+*On Duties / On Friendship*, Seneca's *Letters*, Aesop's *Fables*, Frederick
+Douglass's *Narrative*, the *Federalist Papers*, Thomas More's *Utopia*.
 
-Candidate future additions from the CLT canon (all public domain): Augustine's
-*Confessions*, Cicero *On Duties / On Friendship*, Seneca's *Letters*, Aesop's
-*Fables*, Frederick Douglass's *Narrative*, the *Federalist Papers*.
-
-**Hub totals:** 19 title cards · 6 live · a new "Philosophy" genre filter.
+**Hub totals:** 19 title cards · **10 live** · a "Philosophy" genre filter.
 
 ---
 
