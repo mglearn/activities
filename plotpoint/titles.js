@@ -35,6 +35,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "myths",
+    clt: true,
     title: "Selected Myths (Bulfinch)",
     author: "Thomas Bulfinch",
     href: "myths/",
@@ -312,6 +313,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "canterbury",
+    clt: true,
     title: "The Canterbury Tales",
     author: "Geoffrey Chaucer",
     href: "canterbury/",
@@ -340,6 +342,7 @@ window.PLOTPOINT_TITLES = [
   // ── Philosophy sub-collection (public-domain, CLT-aligned) ──
   {
     id: "apology",
+    clt: true,
     title: "The Apology",
     author: "Plato",
     href: "apology/",
@@ -366,6 +369,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "cave",
+    clt: true,
     title: "The Allegory of the Cave",
     author: "Plato",
     href: "cave/",
@@ -392,6 +396,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "meditations",
+    clt: true,
     title: "Meditations",
     author: "Marcus Aurelius",
     href: "meditations/",
@@ -418,6 +423,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "enchiridion",
+    clt: true,
     title: "The Enchiridion",
     author: "Epictetus",
     href: "enchiridion/",
@@ -444,6 +450,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "ethics",
+    clt: true,
     title: "Nicomachean Ethics (Selections)",
     author: "Aristotle",
     href: "ethics/",
@@ -470,6 +477,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "consolation",
+    clt: true,
     title: "The Consolation of Philosophy",
     author: "Boethius",
     href: "consolation/",

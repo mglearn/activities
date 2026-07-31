@@ -7,6 +7,9 @@
    published form). Missing keys fall back to the English base in titles.js. */
 window.__PLOTPOINT_HUB_DICT__ = {
   "en": {
+    "clt.title": "The CLT Reading Room",
+    "clt.sub": "Public-domain classics from the classical / CLT canon — Plato, Aristotle, the Stoics, Chaucer, and more — organized by grade level.",
+    "clt.cta": "Open the CLT rooms →",
     "skip": "Skip to the collection",
     "brand.tag": "Read · Reason · Play",
     "hero.alt": "PlotPoint — a literature learning arcade for grades 6 to 12. Students investigate artifacts, crack breakouts, and play literary games.",
@@ -79,6 +82,9 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "Copyrighted"
   },
   "es": {
+    "clt.title": "La Sala de Lectura CLT",
+    "clt.sub": "Clásicos de dominio público del canon clásico / CLT — Platón, Aristóteles, los estoicos, Chaucer y más — organizados por nivel de grado.",
+    "clt.cta": "Abrir las salas CLT →",
     "skip": "Ir a la colección",
     "brand.tag": "Lee · Razona · Juega",
     "hero.alt": "PlotPoint — una sala de juegos literarios para los grados 6 al 12. Los estudiantes investigan artefactos, resuelven breakouts y juegan juegos literarios.",
@@ -151,6 +157,9 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "Con derechos de autor"
   },
   "vi": {
+    "clt.title": "Phòng Đọc CLT",
+    "clt.sub": "Các tác phẩm kinh điển thuộc phạm vi công cộng từ tuyển tập cổ điển / CLT — Plato, Aristotle, các nhà Khắc kỷ, Chaucer và hơn thế — được sắp xếp theo cấp lớp.",
+    "clt.cta": "Mở các phòng CLT →",
     "skip": "Chuyển đến bộ sưu tập",
     "brand.tag": "Đọc · Suy luận · Chơi",
     "hero.alt": "PlotPoint — khu vui chơi học văn học dành cho học sinh lớp 6 đến 12. Học sinh khám phá hiện vật, giải breakout và chơi trò chơi văn học.",
@@ -223,6 +232,9 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "Có bản quyền"
   },
   "ar": {
+    "clt.title": "قاعة القراءة CLT",
+    "clt.sub": "روائع من الملك العام ضمن القائمة الكلاسيكية / CLT — أفلاطون وأرسطو والرواقيون وتشوسر وغيرهم — مرتبة حسب المستوى الدراسي.",
+    "clt.cta": "افتح قاعات CLT ←",
     "skip": "الانتقال إلى المجموعة",
     "brand.tag": "اقرأ · فكّر · العب",
     "hero.alt": "PlotPoint — ساحة ألعاب تعليمية أدبية للصفوف من 6 إلى 12. يستكشف الطلاب القطع الأثرية، ويحلّون الـ breakout، ويلعبون ألعاباً أدبية.",
@@ -295,6 +307,9 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "محمي بحقوق النشر"
   },
   "hi": {
+    "clt.title": "CLT रीडिंग रूम",
+    "clt.sub": "शास्त्रीय / CLT कैनन से सार्वजनिक-डोमेन क्लासिक्स — प्लेटो, अरस्तू, स्टोइक विचारक, चॉसर और अधिक — ग्रेड स्तर के अनुसार व्यवस्थित।",
+    "clt.cta": "CLT कमरे खोलें →",
     "skip": "संग्रह पर जाएं",
     "brand.tag": "पढ़ें · सोचें · खेलें",
     "hero.alt": "PlotPoint — कक्षा 6 से 12 के लिए एक साहित्यिक लर्निंग आर्केड। छात्र कलाकृतियों की जांच करते हैं, breakout हल करते हैं और साहित्यिक खेल खेलते हैं।",
@@ -367,6 +382,9 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "कॉपीराइट"
   },
   "ur": {
+    "clt.title": "CLT ریڈنگ روم",
+    "clt.sub": "کلاسیکی / CLT کینن سے پبلک ڈومین کلاسیکس — افلاطون، ارسطو، رواقی مفکرین، چاوسر اور مزید — گریڈ کی سطح کے مطابق ترتیب دیے گئے۔",
+    "clt.cta": "CLT کمرے کھولیں ←",
     "skip": "مجموعے پر جائیں",
     "brand.tag": "پڑھیں · سوچیں · کھیلیں",
     "hero.alt": "PlotPoint — جماعت 6 سے 12 کے لیے ایک ادبی تعلیمی آرکیڈ۔ طلبا نوادرات کی تحقیق کرتے ہیں، breakout حل کرتے ہیں اور ادبی کھیل کھیلتے ہیں۔",
@@ -439,6 +457,9 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "کاپی رائٹ"
   },
   "zh": {
+    "clt.title": "CLT 阅读室",
+    "clt.sub": "来自古典 / CLT 经典书目的公共领域名著——柏拉图、亚里士多德、斯多葛学派、乔叟等——按年级整理。",
+    "clt.cta": "打开 CLT 房间 →",
     "skip": "跳至书目集合",
     "brand.tag": "阅读 · 思考 · 游戏",
     "hero.alt": "PlotPoint — 面向6至12年级的文学学习游乐场。学生探索文物、破解breakout，并玩文学游戏。",

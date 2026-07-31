@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>The CLT Reading Room — PlotPoint</title>
+<meta name="description" content="Public-domain classics from the classical / CLT reading canon, as self-contained PlotPoint learning rooms — organized by grade level. Plato, Aristotle, Marcus Aurelius, Epictetus, Boethius, Chaucer, and classical myths. Seven languages, free full text and audiobook, no logins.">
+<meta property="og:title" content="The CLT Reading Room — PlotPoint">
+<meta property="og:description" content="Public-domain classics from the classical / CLT canon as PlotPoint learning rooms, organized by grade level. Seven languages, free text + audio, no logins.">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1c2247;--navy-d:#12163a;--plum:#7a4fce;--plum-d:#5a34a6;
+    --gold:#f5c542;--gold-d:#c99a12;
+    --paper:#f5f4fb;--ink:#191d33;--ink-soft:#5b6079;--card:#fff;--line:#e0def0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:'Nunito',sans-serif;color:var(--ink);background:
+    radial-gradient(ellipse 60% 45% at 88% -8%,rgba(245,197,66,.14)0%,transparent 60%),
+    radial-gradient(ellipse 55% 45% at 0% 100%,rgba(122,79,206,.12)0%,transparent 60%),var(--paper);
+    min-height:100vh;line-height:1.55}
+  a{color:inherit}
+  .wrap{max-width:1000px;margin:0 auto;padding:22px 20px 90px}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .topbar{display:flex;align-items:center;gap:14px;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap}
+  .wordmark{display:flex;align-items:center;gap:10px;font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);font-size:1.2rem;text-decoration:none}
+  .wordmark .dot{width:14px;height:14px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(245,197,66,.28)}
+  .wordmark small{display:block;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--plum);font-weight:700}
+  .backlink{font-family:'Fredoka',sans-serif;font-weight:600;font-size:.85rem;color:var(--plum-d);text-decoration:none;
+    border:2px solid var(--line);border-radius:10px;padding:8px 14px;transition:.14s;white-space:nowrap}
+  .backlink:hover{border-color:var(--plum)}
+
+  header.hero{border-radius:18px;overflow:hidden;background:linear-gradient(120deg,var(--navy-d),var(--plum-d) 70%,#8a5bd6);
+    padding:34px clamp(20px,4vw,44px);color:#fff;box-shadow:0 12px 34px rgba(28,34,71,.18)}
+  header.hero .eyebrow{display:inline-block;background:var(--gold);color:var(--navy-d);font-family:'Fredoka',sans-serif;font-weight:700;
+    font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;padding:6px 15px;border-radius:100px;margin-bottom:12px}
+  header.hero h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,4vw,2.7rem);line-height:1.04}
+  header.hero p{color:#e2ddf5;font-weight:600;max-width:64ch;margin-top:10px}
+
+  .note{margin:18px 0 6px;padding:12px 16px;border-inline-start:4px solid var(--gold);background:rgba(245,197,66,.10);
+    border-radius:0 10px 10px 0;font-weight:600;font-size:.86rem;color:var(--ink)}
+  .note b{color:var(--navy)}
+
+  .tally{display:flex;gap:26px;flex-wrap:wrap;margin:18px 2px 6px}
+  .tally .n{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.4rem;color:var(--navy);line-height:1}
+  .tally .l{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin-top:3px}
+
+  h2.grade{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.15rem;margin:34px 0 4px;display:flex;align-items:center;gap:12px}
+  h2.grade .band{font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--plum);
+    padding:5px 12px;border-radius:100px}
+  h2.grade::after{content:"";flex:1;height:2px;background:var(--line)}
+  .glist{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
+  @media(max-width:640px){.glist{grid-template-columns:1fr}}
+
+  a.room{display:flex;flex-direction:column;background:var(--card);border:2px solid var(--line);
+    border-inline-start:6px solid var(--accent,var(--plum));border-radius:14px;padding:16px 18px;text-decoration:none;
+    box-shadow:0 4px 14px rgba(20,30,80,.05);transition:transform .16s,border-color .16s,box-shadow .18s}
+  a.room:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 12px 28px rgba(20,30,80,.13)}
+  a.room:focus-visible{outline:3px solid var(--accent,var(--plum));outline-offset:3px}
+  a.room h3{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.1rem;line-height:1.12}
+  a.room .by{font-weight:700;color:var(--ink-soft);font-size:.82rem;margin:2px 0 8px}
+  a.room p{font-weight:600;color:var(--ink-soft);font-size:.85rem;flex-grow:1}
+  a.room .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  a.room .tags span{font-size:.66rem;font-weight:700;color:var(--plum-d);background:rgba(122,79,206,.09);border-radius:100px;padding:3px 9px}
+  a.room .go{margin-top:10px;font-family:'Fredoka',sans-serif;font-weight:700;font-size:.82rem;color:var(--navy);display:inline-flex;align-items:center;gap:6px}
+  a.room:hover .go{color:var(--plum-d)}
+
+  footer{text-align:center;margin-top:42px;font-size:.8rem;color:var(--ink-soft);font-weight:600;line-height:1.7}
+  footer a{color:var(--plum-d);font-weight:700}
+  @media (prefers-reduced-motion:reduce){a.room{transition:none}a.room:hover{transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="wordmark" href="../">
+      <span class="dot" aria-hidden="true"></span>
+      <span>PlotPoint<small>Read · Reason · Play</small></span>
+    </a>
+    <a class="backlink" href="../">← All PlotPoint rooms</a>
+  </div>
+
+  <header class="hero">
+    <span class="eyebrow">Classical reading canon</span>
+    <h1>The CLT Reading Room</h1>
+    <p>Public-domain classics from the classical reading canon — the kind of works featured on the Classic Learning Test — as self-contained PlotPoint learning rooms, organized by grade level. Every room includes the free full text and an audiobook, works in seven languages, and collects no student data.</p>
+  </header>
+
+  <p class="note"><b>Note:</b> These rooms are <b>aligned to</b> the classical / CLT reading canon and are <b>not affiliated with or endorsed by</b> the Classic Learning Test. Every title here is in the public domain; suggested grade ranges are starting points — review for your students.</p>
+
+  <div class="tally">
+    <div><div class="n" id="t-rooms">0</div><div class="l">Rooms</div></div>
+    <div><div class="n">7</div><div class="l">Languages</div></div>
+    <div><div class="n">Free</div><div class="l">Text + audio</div></div>
+    <div><div class="n">$0</div><div class="l">No logins</div></div>
+  </div>
+
+  <main id="grades"></main>
+
+  <footer>
+    PlotPoint · The CLT Reading Room · public-domain classics · CC BY 4.0 (content) · MIT (code)<br>
+    Not affiliated with the Classic Learning Test. · <a href="../">Browse all PlotPoint rooms →</a>
+  </footer>
+</div>
+
+<script src="../titles.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var TITLES = (window.PLOTPOINT_TITLES || []).filter(function(t){ return t.clt && t.status === 'live'; });
+  var GENRE_LABEL = { philosophy:'Philosophy', mythology:'Mythology', nonfiction:'Nonfiction',
+    fiction:'Fiction', poetry:'Poetry', classic:'Classic' };
+  var ACT_LABEL = { relic:'Relic Room', ctob:'Breakout', arcade:'Arcade', vocab:'Vocabulary',
+    analysis:'Analysis', extend:'Extend', print:'Printables' };
+
+  // Group by grade band, in a sensible order; each distinct `grades` value gets a section.
+  var ORDER = ['6–9','7–9','8–10','9–12','10–12','11–12'];
+  var groups = {};
+  TITLES.forEach(function(t){ (groups[t.grades] = groups[t.grades] || []).push(t); });
+  var gradeKeys = Object.keys(groups).sort(function(a,b){
+    var ia = ORDER.indexOf(a), ib = ORDER.indexOf(b);
+    return (ia<0?99:ia) - (ib<0?99:ib);
+  });
+
+  var host = document.getElementById('grades');
+  gradeKeys.forEach(function(g){
+    var h = document.createElement('h2'); h.className='grade';
+    h.innerHTML = '<span class="band">Grades '+g+'</span> ' +
+      (parseInt(g,10) <= 8 ? 'Middle &amp; early high school' : 'High school');
+    host.appendChild(h);
+    var list = document.createElement('div'); list.className='glist';
+    groups[g].forEach(function(t){
+      var a = document.createElement('a'); a.className='room'; a.href = '../' + t.href;
+      a.style.setProperty('--accent', t.accent || '#7a4fce');
+      var gtag = (t.genre||[]).map(function(x){return GENRE_LABEL[x];}).filter(Boolean)[0] || '';
+      var acts = ['relic','ctob','arcade'].filter(function(k){ return (t.activities||[]).indexOf(k)>-1; })
+        .map(function(k){ return '<span>'+ACT_LABEL[k]+'</span>'; }).join('');
+      a.innerHTML = '<h3>'+t.title+'</h3>' +
+        '<div class="by">by '+t.author+(gtag?' · '+gtag:'')+'</div>' +
+        '<p>'+t.desc+'</p>' +
+        '<div class="tags">'+acts+'<span>Free text + audio</span></div>' +
+        '<span class="go">Open room →</span>';
+      list.appendChild(a);
+    });
+    host.appendChild(list);
+  });
+
+  document.getElementById('t-rooms').textContent = TITLES.length;
+  if(!TITLES.length){ host.innerHTML = '<p class="note">Rooms are coming soon.</p>'; }
+});
+</script>
+</body>
+</html>

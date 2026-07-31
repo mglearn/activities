@@ -71,6 +71,17 @@
     border:2px solid var(--plum);border-radius:10px;padding:8px 14px;transition:.15s}
   .ace .cta:hover{background:var(--plum);color:#fff}
 
+  .cltbanner{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:12px 0 6px;padding:14px 20px;border-radius:14px;
+    background:linear-gradient(100deg,rgba(28,34,71,.05),rgba(122,79,206,.08));border:2px solid var(--line);text-decoration:none}
+  .cltbanner .ic{font-size:1.5rem;line-height:1}
+  .cltbanner .txt{flex:1;min-width:200px}
+  .cltbanner .txt b{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1rem}
+  .cltbanner .txt span{display:block;font-weight:600;color:var(--ink-soft);font-size:.86rem}
+  .cltbanner .go{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--plum-d);white-space:nowrap;
+    border:2px solid var(--plum);border-radius:10px;padding:8px 14px;transition:.15s}
+  .cltbanner:hover .go{background:var(--plum);color:#fff}
+  html[dir="rtl"] .cltbanner .go .arr{display:inline-block;transform:scaleX(-1)}
+
   h2.sec{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.1rem;margin:30px 0 12px;display:flex;align-items:center;gap:10px}
   h2.sec::after{content:"";flex:1;height:2px;background:var(--line)}
 
@@ -79,16 +90,25 @@
     background:#fff;border:2px solid var(--line);border-radius:12px;padding:12px 16px;transition:border-color .15s}
   .searchwrap input::placeholder{color:#9a9fb8}
   .searchwrap input:focus{outline:none;border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,79,206,.14)}
-  .filters{margin-top:14px;display:flex;flex-direction:column;gap:12px}
-  .fgroup{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
-  .fgroup .flabel{font-family:'Fredoka',sans-serif;font-weight:600;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
-    color:var(--ink-soft);min-width:96px}
-  html[dir="rtl"] .fgroup .flabel{text-align:right}
-  .chip{font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem;color:var(--navy);background:#fff;border:2px solid var(--line);
-    border-radius:100px;padding:6px 13px;cursor:pointer;transition:.13s}
-  .chip:hover{border-color:var(--plum)}
-  .chip[aria-pressed="true"]{background:var(--plum);border-color:var(--plum);color:#fff}
-  .chip:focus-visible{outline:3px solid var(--plum);outline-offset:2px}
+  /* compact dropdown filters */
+  .filters{margin-top:12px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+  .filter-dd{position:relative}
+  .dd-toggle{display:inline-flex;align-items:center;gap:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.86rem;color:var(--navy);
+    background:#fff;border:2px solid var(--line);border-radius:12px;padding:9px 14px;cursor:pointer;transition:.13s;white-space:nowrap}
+  .dd-toggle:hover{border-color:var(--plum)}
+  .dd-toggle:focus-visible{outline:3px solid var(--plum);outline-offset:2px}
+  .filter-dd.open .dd-toggle,.dd-toggle.has{border-color:var(--plum)}
+  .dd-toggle .caret{font-size:.62rem;color:var(--ink-soft);transition:transform .15s}
+  .filter-dd.open .dd-toggle .caret{transform:rotate(180deg)}
+  .dd-toggle .cnt{display:none;min-width:20px;height:20px;padding:0 6px;border-radius:100px;background:var(--plum);color:#fff;
+    font-family:'Fredoka',sans-serif;font-size:.72rem;font-weight:700;align-items:center;justify-content:center;line-height:1}
+  .dd-toggle.has .cnt{display:inline-flex}
+  .dd-panel{position:absolute;z-index:20;top:calc(100% + 6px);inset-inline-start:0;min-width:210px;max-height:340px;overflow:auto;
+    background:#fff;border:2px solid var(--line);border-radius:14px;box-shadow:0 14px 34px rgba(20,30,80,.18);padding:8px;display:none}
+  .filter-dd.open .dd-panel{display:block}
+  .dd-opt{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;cursor:pointer;font-weight:600;font-size:.9rem;color:var(--ink)}
+  .dd-opt:hover{background:rgba(122,79,206,.08)}
+  .dd-opt input{width:17px;height:17px;accent-color:var(--plum);cursor:pointer;flex-shrink:0}
   .filterbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;flex-wrap:wrap}
   .qinfo{font-size:.82rem;font-weight:700;color:var(--ink-soft)}
   .clearbtn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:.8rem;color:var(--plum-d);background:none;border:none;cursor:pointer;
@@ -175,6 +195,15 @@
     <a class="cta" href="#" id="ace-link" data-i18n="ace.cta">Think first, then Gen AI →</a>
   </div>
 
+  <a class="cltbanner" href="clt/">
+    <span class="ic" aria-hidden="true">📜</span>
+    <span class="txt">
+      <b data-i18n="clt.title">The CLT Reading Room</b>
+      <span data-i18n="clt.sub">Public-domain classics from the classical / CLT canon — Plato, Aristotle, the Stoics, Chaucer, and more — organized by grade level.</span>
+    </span>
+    <span class="go" data-i18n="clt.cta">Open the CLT rooms →</span>
+  </a>
+
   <h2 class="sec" id="collection" data-i18n="collection.title">Choose a book to open its room</h2>
 
   <div class="searchwrap">
@@ -210,6 +239,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   function lang(){ return I18N ? I18N.getLang() : 'en'; }
   function t(k, vars){ return I18N ? I18N.t(k, vars) : k; }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; }); }
   // Per-language card overrides (desc / facet value labels), else fall back to English base.
   function ov(id){ var packs = window.__PLOTPOINT_TITLES__ || {}; return (packs[lang()]||{})[id] || {}; }
   function label(kind, val){
@@ -244,37 +274,51 @@ document.addEventListener('DOMContentLoaded', function(){
     return vals;
   }
 
+  // Each facet is a compact dropdown of checkboxes (multi-select within a group).
   function buildFilters(){
     var host = document.getElementById('filters');
     host.innerHTML = '';
     FACETS.forEach(function(f){
-      var row = document.createElement('div'); row.className='fgroup';
-      var lab = document.createElement('span'); lab.className='flabel'; lab.textContent = t(f.labelKey);
-      row.appendChild(lab);
-      valuesFor(f).forEach(function(v){
-        var b = document.createElement('button');
-        b.type='button'; b.className='chip'; b.textContent = label(f.key, v);
-        b.setAttribute('aria-pressed', active[f.key] && active[f.key].has(v) ? 'true':'false');
-        b.addEventListener('click', function(){ toggle(f, v, b); });
-        row.appendChild(b);
+      var vals = valuesFor(f); if(!vals.length) return;
+      var n = (active[f.key] && active[f.key].size) || 0;
+      var dd = document.createElement('div'); dd.className = 'filter-dd';
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'dd-toggle' + (n?' has':'');
+      btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-haspopup', 'true');
+      btn.innerHTML = '<span>'+esc(t(f.labelKey))+'</span>' +
+        '<span class="cnt">'+n+'</span><span class="caret" aria-hidden="true">▾</span>';
+      var panel = document.createElement('div'); panel.className = 'dd-panel';
+      panel.setAttribute('role','group'); panel.setAttribute('aria-label', t(f.labelKey));
+      panel.addEventListener('click', function(e){ e.stopPropagation(); });
+      vals.forEach(function(v){
+        var checked = active[f.key] && active[f.key].has(v);
+        var lab = document.createElement('label'); lab.className='dd-opt';
+        lab.innerHTML = '<input type="checkbox"'+(checked?' checked':'')+'><span>'+esc(label(f.key,v))+'</span>';
+        lab.querySelector('input').addEventListener('change', function(e){ setVal(f, v, e.target.checked, btn); });
+        panel.appendChild(lab);
       });
-      host.appendChild(row);
+      btn.addEventListener('click', function(e){ e.stopPropagation(); toggleDD(dd); });
+      dd.appendChild(btn); dd.appendChild(panel); host.appendChild(dd);
     });
   }
 
-  function toggle(f, v, btn){
+  function setVal(f, v, on, btn){
     if(!active[f.key]) active[f.key] = new Set();
-    var set = active[f.key];
-    if(!f.multi){ // single-select: clear siblings
-      var was = set.has(v); set.clear();
-      if(!was) set.add(v);
-      // reset sibling buttons visually
-      btn.parentNode.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed','false');});
-    } else {
-      if(set.has(v)) set.delete(v); else set.add(v);
-    }
-    btn.setAttribute('aria-pressed', set.has(v)?'true':'false');
+    if(on) active[f.key].add(v); else active[f.key].delete(v);
+    if(!active[f.key].size) delete active[f.key];
+    var n = (active[f.key] && active[f.key].size) || 0;
+    btn.classList.toggle('has', !!n); btn.querySelector('.cnt').textContent = n;
     run();
+  }
+  function toggleDD(dd){
+    var wasOpen = dd.classList.contains('open');
+    closeAllDD();
+    if(!wasOpen){ dd.classList.add('open'); dd.querySelector('.dd-toggle').setAttribute('aria-expanded','true'); }
+  }
+  function closeAllDD(){
+    document.querySelectorAll('.filter-dd.open').forEach(function(d){
+      d.classList.remove('open'); d.querySelector('.dd-toggle').setAttribute('aria-expanded','false');
+    });
   }
 
   function matches(tt){
@@ -368,6 +412,10 @@ document.addEventListener('DOMContentLoaded', function(){
     e.preventDefault();
     alert(t('ace.tip'));
   });
+
+  // Close any open filter dropdown when clicking elsewhere or pressing Escape.
+  document.addEventListener('click', closeAllDD);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeAllDD(); });
 
   buildFilters();
   render();
