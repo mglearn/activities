@@ -3,7 +3,7 @@
 **PlotPoint · Read. Reason. Play.** — a privacy-first, multilingual, accessible,
 static literature learning hub for grades 6–12. Built per `plan.md`, in phases.
 
-Last updated: 2026-07-30
+Last updated: 2026-07-31
 
 Deployment note: PlotPoint lives in the **`activities/`** repo and ships at
 `/activities/plotpoint/`. (The reference links in `plan.md` point at the old
@@ -18,10 +18,27 @@ Deployment note: PlotPoint lives in the **`activities/`** repo and ships at
 | 0 | Inspect repo; reuse PST / Relic Rooms / CTOB patterns | ✅ Done |
 | 1 | Shared system: hub + language engine + one working title room | ✅ Done |
 | 2 | Seven-language support wired end to end | ✅ Done (see review flags) |
-| 3 | Remaining 12 title rooms | ⏳ Not started (hub lists them as "In production") |
+| 3 | Remaining title rooms | 🔄 In progress — **4 of 13 live** |
 
-The shared system works with one live title, so per the plan we stopped here and
-did **not** mass-generate every title before the framework was proven.
+### Live title rooms (4 of 13) — all seven languages, deployed
+1. **The Metamorphosis** — Kafka (public domain) · flagship
+2. **The Canterbury Tales** — Chaucer (public domain)
+3. **Dracula** — Stoker (public domain)
+4. **Selected Myths (Bulfinch)** — Bulfinch (public domain)
+
+All four public-domain titles are done, each with the free **Read & Listen**
+panel (Project Gutenberg text + LibriVox audiobook) in Enter the Story.
+
+### Remaining title rooms (9 of 13) — copyrighted, not yet built
+The Giver · Murder on the Orient Express · The House on Mango Street · The
+Martian Chronicles · Maus I · In the Time of the Butterflies · Kindred · Brave
+New World · Just Mercy.
+
+**These require extra care** (per `plan.md`): they are under copyright, so their
+rooms must **paraphrase only** (never reproduce text or invent quotations), carry
+a content/copyright-review note, and get **no** Gutenberg/LibriVox links. Maus I
+and Just Mercy specifically require content review before any historically
+sensitive imagery.
 
 ---
 
