@@ -67,7 +67,7 @@ ${actScript}
 <main class="wrap article" style="--accent:${st.accent}">
   <p class="eyebrow"><span data-i18n="activity_word">Activity</span> ${a.num} · <span data-i18n="strand_${a.strand}"></span></p>
   <h1>${esc(a.title)}</h1>
-  <div class="art-hero"><img src="../assets/act/${a.slug}.png" alt="${esc(a.title)}" onerror="this.closest('.art-hero').style.display='none'"></div>
+  <div class="art-hero"><img src="../assets/act/${a.slug}.webp" alt="${esc(a.title)}" onerror="this.closest('.art-hero').style.display='none'"></div>
   <div class="metarow">
     <div><span class="mk" data-i18n="grades_lbl">Grades</span><span>${esc(a.grades)}</span></div>
     <div><span class="mk" data-i18n="subjects_lbl">STEAM</span><span>${st.icon} ${esc(st.label)}</span></div>
@@ -127,7 +127,7 @@ ${actScript}
     const card = (a) => `
       <a class="acard b-${a.strand}" href="a/${a.slug}.html" data-strand="${a.strand}" data-grades="${esc(a.grades)}"
          data-search="${esc((a.title + ' ' + a.summary + ' ' + (a.skills || []).join(' ') + ' ' + (a.materials || '')).toLowerCase())}">
-        <div class="ac-img"><img src="assets/act/${a.slug}.png" alt="" loading="lazy" onerror="this.closest('.ac-img').style.display='none'"></div>
+        <div class="ac-img"><img src="assets/act/${a.slug}.webp" alt="" loading="lazy" onerror="this.closest('.ac-img').style.display='none'"></div>
         <div class="ac-top"><span class="ac-num">${a.num}</span>${strandBadge(a.strand)}</div>
         <h3>${esc(a.title)}</h3>
         <p>${esc(a.summary).slice(0, 120)}${a.summary.length > 120 ? '…' : ''}</p>
@@ -140,7 +140,7 @@ ${actScript}
       if (!items.length) return;
       sections += `
       <section class="strand-sec" data-strand="${s}">
-        <img class="strand-banner" src="assets/strand-${s}.png" alt="" loading="lazy" onerror="this.style.display='none'">
+        <img class="strand-banner" src="assets/strand-${s}.webp" alt="" loading="lazy" onerror="this.style.display='none'">
         <h2 class="sec" style="--accent:${STRANDS[s].accent}">${STRANDS[s].icon} <span data-i18n="strand_${s}"></span> <span class="sec-n">${items.length}</span></h2>
         <div class="grid">${items.map(card).join('')}</div>
       </section>`;
@@ -156,7 +156,7 @@ ${actScript}
 <div class="wrap">
   <header class="top">
     <div class="herowrap">
-      <img class="hero" src="assets/hero.png" width="1600" height="800" alt="" onerror="this.style.display='none'">
+      <img class="hero" src="assets/hero.webp" width="1600" height="800" alt="" onerror="this.style.display='none'">
       <div class="herotitle">
         <div class="htinner">
           <span class="eyebrow" data-i18n="hero_eyebrow">A STEAM educator resource</span>
