@@ -1,0 +1,60 @@
+/* Say It, Make It — TEKS/NGSS correlations page chrome (7 languages). Extends the
+ * 'sayitmakeit' widget. Falls back to English for any missing key. */
+window.SIMK_TEKS = {
+  en: {
+    teks_eyebrow: "Standards Correlation",
+    teks_title: "TEKS & NGSS Alignment",
+    teks_lede: "How Say It, Make It maps to the Texas Essential Knowledge and Skills and the Next Generation Science Standards. Every activity exercises communicating precise information; the STEAM strands add content-specific alignment.",
+    teks_caveat: "Verify every code against your district-adopted TEKS before formal documentation. The 2021 Science TEKS took effect 2024–25. NGSS is a national reference offered as a connection, not a Texas adoption.",
+    teks_sep: "Across all 106 activities — NGSS SEP-8: Obtaining, Evaluating & Communicating Information. Describing something precisely enough for a partner to rebuild it is scientific communication.",
+    th_activity: "Activity", th_ngss: "NGSS focus", teks_open: "TEKS & standards",
+  },
+  es: {
+    teks_eyebrow: "Correlación de estándares",
+    teks_title: "Alineación con TEKS y NGSS",
+    teks_lede: "Cómo se alinea Say It, Make It con los Texas Essential Knowledge and Skills y los Next Generation Science Standards. Cada actividad ejercita la comunicación precisa; las áreas STEAM añaden alineación por contenido.",
+    teks_caveat: "Verifica cada código con los TEKS adoptados por tu distrito antes de documentarlo formalmente. Los TEKS de Ciencias de 2021 entraron en vigor en 2024–25. NGSS es una referencia nacional ofrecida como conexión, no una adopción de Texas.",
+    teks_sep: "En las 106 actividades — NGSS SEP-8: obtener, evaluar y comunicar información. Describir algo con la precisión suficiente para que un compañero lo reconstruya es comunicación científica.",
+    th_activity: "Actividad", th_ngss: "Enfoque NGSS", teks_open: "TEKS y estándares",
+  },
+  vi: {
+    teks_eyebrow: "Đối chiếu chuẩn",
+    teks_title: "Liên kết TEKS & NGSS",
+    teks_lede: "Cách Say It, Make It gắn với bộ chuẩn Texas Essential Knowledge and Skills và Next Generation Science Standards. Mỗi hoạt động rèn kỹ năng truyền đạt thông tin chính xác; các lĩnh vực STEAM bổ sung liên kết theo nội dung.",
+    teks_caveat: "Hãy đối chiếu mỗi mã với bộ TEKS mà học khu của bạn áp dụng trước khi dùng chính thức. Bộ chuẩn Khoa học TEKS 2021 có hiệu lực năm 2024–25. NGSS là tài liệu tham chiếu quốc gia, chỉ mang tính liên hệ, không phải chuẩn của Texas.",
+    teks_sep: "Trong cả 106 hoạt động — NGSS SEP-8: Thu thập, Đánh giá & Truyền đạt Thông tin. Mô tả một điều đủ chính xác để bạn cùng nhóm dựng lại chính là giao tiếp khoa học.",
+    th_activity: "Hoạt động", th_ngss: "Trọng tâm NGSS", teks_open: "TEKS & chuẩn",
+  },
+  ar: {
+    teks_eyebrow: "مواءمة المعايير",
+    teks_title: "المواءمة مع TEKS وNGSS",
+    teks_lede: "كيف تتوافق Say It, Make It مع معايير Texas Essential Knowledge and Skills ومعايير Next Generation Science Standards. كل نشاط يُمرِّن على توصيل معلومات دقيقة؛ وتضيف مجالات STEAM مواءمةً حسب المحتوى.",
+    teks_caveat: "تحقّق من كل رمز مقابل معايير TEKS المعتمدة في منطقتك قبل التوثيق الرسمي. بدأ العمل بمعايير العلوم TEKS لعام 2021 في 2024–25. ومعايير NGSS مرجع وطني يُقدَّم كصلة، وليس اعتمادًا في تكساس.",
+    teks_sep: "في جميع الأنشطة الـ106 — NGSS SEP-8: الحصول على المعلومات وتقييمها وتوصيلها. وصف شيء بدقة تكفي لأن يعيد الشريك بناءه هو تواصل علمي.",
+    th_activity: "النشاط", th_ngss: "تركيز NGSS", teks_open: "TEKS والمعايير",
+  },
+  hi: {
+    teks_eyebrow: "मानक सहसंबंध",
+    teks_title: "TEKS व NGSS संरेखण",
+    teks_lede: "Say It, Make It किस तरह Texas Essential Knowledge and Skills और Next Generation Science Standards से जुड़ता है। हर गतिविधि सटीक जानकारी संप्रेषित करने का अभ्यास कराती है; STEAM क्षेत्र विषय-विशिष्ट संरेखण जोड़ते हैं।",
+    teks_caveat: "औपचारिक दस्तावेज़ीकरण से पहले प्रत्येक कोड को अपने ज़िले द्वारा अपनाए गए TEKS से मिलाएँ। 2021 के विज्ञान TEKS 2024–25 में लागू हुए। NGSS एक राष्ट्रीय संदर्भ है, जो संबंध के रूप में दिया गया है — टेक्सास द्वारा अपनाया गया नहीं।",
+    teks_sep: "सभी 106 गतिविधियों में — NGSS SEP-8: जानकारी प्राप्त करना, मूल्यांकन करना व संप्रेषित करना। किसी चीज़ का इतना सटीक वर्णन कि साथी उसे दोबारा बना सके, वैज्ञानिक संप्रेषण है।",
+    th_activity: "गतिविधि", th_ngss: "NGSS केंद्र", teks_open: "TEKS व मानक",
+  },
+  ur: {
+    teks_eyebrow: "معیارات کی ہم آہنگی",
+    teks_title: "TEKS اور NGSS ہم آہنگی",
+    teks_lede: "Say It, Make It کس طرح Texas Essential Knowledge and Skills اور Next Generation Science Standards سے جُڑتا ہے۔ ہر سرگرمی درست معلومات پہنچانے کی مشق کراتی ہے؛ STEAM شعبے مواد کے لحاظ سے ہم آہنگی بڑھاتے ہیں۔",
+    teks_caveat: "رسمی دستاویز سازی سے پہلے ہر کوڈ کو اپنے ضلع کے اختیار کردہ TEKS سے جانچیں۔ 2021 کے سائنس TEKS 2024–25 میں نافذ ہوئے۔ NGSS ایک قومی حوالہ ہے جو تعلق کے طور پر پیش کیا گیا ہے، ٹیکساس کی منظوری نہیں۔",
+    teks_sep: "تمام 106 سرگرمیوں میں — NGSS SEP-8: معلومات حاصل کرنا، جانچنا اور پہنچانا۔ کسی چیز کو اتنی درستگی سے بیان کرنا کہ ساتھی اسے دوبارہ بنا لے، سائنسی ابلاغ ہے۔",
+    th_activity: "سرگرمی", th_ngss: "NGSS مرکز", teks_open: "TEKS اور معیارات",
+  },
+  zh: {
+    teks_eyebrow: "标准对应",
+    teks_title: "TEKS 与 NGSS 对应",
+    teks_lede: "Say It, Make It 如何对应德州 Texas Essential Knowledge and Skills 与 Next Generation Science Standards。每个活动都练习准确地传达信息；各 STEAM 领域再补充与内容相关的对应。",
+    teks_caveat: "在正式存档前，请对照本学区采用的 TEKS 核对每个代码。2021 版科学 TEKS 于 2024–25 学年实施。NGSS 为全国参考，仅作关联提供，并非德州采用标准。",
+    teks_sep: "贯穿全部 106 个活动——NGSS SEP-8：获取、评估与传达信息。把一件事描述到同伴能照着重建的程度，就是科学传达。",
+    th_activity: "活动", th_ngss: "NGSS 重点", teks_open: "TEKS 与标准",
+  },
+};

@@ -15,8 +15,9 @@ module.exports = function render({ acts, STRANDS, STRAND_ORDER, esc, ROOT }) {
   const DEF_EASIER = 'Allow yes/no clarifying questions, agree on a shared starting piece, and let the Builder peek once before the barrier goes up.';
 
   /* ---------- head + chrome shared bits ---------- */
-  const headCommon = (title, desc, depth) => {
+  const headCommon = (title, desc, depth, extra) => {
     const up = depth === 1 ? '../' : '';
+    const extras = (extra || []).map((s) => `<script src="${up}${s}" defer></script>`).join('\n');
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,6 +30,7 @@ module.exports = function render({ acts, STRANDS, STRAND_ORDER, esc, ROOT }) {
 <link rel="stylesheet" href="${up}assets/app.css">
 <script src="${up}assets/i18n.js" defer></script>
 <script src="${up}assets/i18n-chrome.js" defer></script>
+${extras}
 <script src="${up}assets/app.js" defer></script>
 </head>`;
   };
@@ -101,6 +103,7 @@ ${actScript}
 
   <h2 data-i18n="sec_standards">Standards &amp; alignment</h2>
   ${standards}
+  <p class="std-more no-print"><a href="../teks-correlations.html" data-i18n="teks_open">TEKS &amp; standards →</a></p>
 
   <div class="actions no-print">
     <button class="btn btn-primary" onclick="window.print()" data-i18n="print_btn">Print / Save as PDF</button>
@@ -175,6 +178,7 @@ ${actScript}
       <button class="tbtn" id="surprise" data-i18n="tool_surprise">🎲 Surprise me</button>
       <button class="tbtn" id="assign" data-i18n="tool_roles">👥 Assign roles</button>
       <button class="tbtn" id="timer" data-i18n="tool_timer">⏱️ Round timer</button>
+      <a class="tbtn tbtn-teks" href="teks-correlations.html" data-i18n="teks_open">📋 TEKS &amp; standards</a>
     </div>
     <div class="qinfo" id="qinfo" aria-live="polite"></div>
   </div>
@@ -189,11 +193,58 @@ ${actScript}
 </html>`;
   }
 
+  /* ---------- TEKS & NGSS correlations ---------- */
+  function teksPage() {
+    const rowsFor = (s) => acts.filter((a) => a.strand === s).sort((x, y) => x.num - y.num).map((a) => {
+      const spec = (a.ngss || []).filter((x) => !/SEP-8/.test(x));
+      const focus = spec.length ? spec.map(esc).join('; ') : 'SEP-8: communicating information';
+      return `<tr><td><span class="tnum">${a.num}</span> ${esc(a.title)}</td><td>${esc(a.grades)}</td><td>${focus}</td></tr>`;
+    }).join('');
+    let sections = '';
+    STRAND_ORDER.forEach((s) => {
+      const items = acts.filter((a) => a.strand === s);
+      if (!items.length) return;
+      const teks = (items[0].teks || []).map(esc).join(' · ');
+      sections += `
+      <section class="tsec">
+        <h2 class="sec" style="--accent:${STRANDS[s].accent}">${STRANDS[s].icon} <span data-i18n="strand_${s}"></span> <span class="sec-n">${items.length}</span></h2>
+        <p class="sec-intro"><span class="std-k">TEKS</span> ${teks}</p>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th data-i18n="th_activity">Activity</th><th data-i18n="grades_lbl">Grades</th><th data-i18n="th_ngss">NGSS focus</th></tr></thead>
+          <tbody>${rowsFor(s)}</tbody>
+        </table></div>
+      </section>`;
+    });
+    return `${headCommon('TEKS & NGSS Alignment — Say It, Make It', 'TEKS and NGSS correlations for the 106 Say It, Make It STEAM communication activities.', 0, ['assets/i18n-teks.js'])}
+<body>
+<div class="topbar">
+  <a href="index.html" class="backlink" data-i18n="nav_back_area">← Say It, Make It</a>
+  <div class="nav-mid nav-brand" data-i18n="teks_title">TEKS &amp; NGSS Alignment</div>
+  ${picker}
+</div>
+<main class="wrap article">
+  <p class="eyebrow" data-i18n="teks_eyebrow">Standards Correlation</p>
+  <h1 data-i18n="teks_title">TEKS &amp; NGSS Alignment</h1>
+  <p class="lede" data-i18n="teks_lede">How Say It, Make It maps to the Texas Essential Knowledge and Skills and the Next Generation Science Standards.</p>
+  <div class="callout warn"><p data-i18n="teks_caveat">Verify every code against your district-adopted TEKS before formal documentation.</p></div>
+  <div class="callout sep"><p data-i18n="teks_sep">Across all 106 activities — NGSS SEP-8: Obtaining, Evaluating &amp; Communicating Information.</p></div>
+  ${sections}
+  <div class="actions no-print">
+    <button class="btn btn-primary" onclick="window.print()" data-i18n="print_btn">Print / Save as PDF</button>
+    <a class="btn btn-ghost" href="index.html" data-i18n="all_activities">All activities</a>
+  </div>
+  <footer><span data-i18n="footer_copy">Say It, Make It · A TCEA educator resource · CC BY 4.0 (content) · MIT (code)</span></footer>
+</main>
+</body>
+</html>`;
+  }
+
   /* ---------- write ---------- */
   fs.mkdirSync(path.join(A, 'a'), { recursive: true });
   // clean old generated pages
   for (const f of fs.readdirSync(path.join(A, 'a'))) if (f.endsWith('.html')) fs.unlinkSync(path.join(A, 'a', f));
   acts.forEach((a) => fs.writeFileSync(path.join(A, 'a', `${a.slug}.html`), activityPage(a)));
   fs.writeFileSync(path.join(A, 'index.html'), indexPage());
-  console.log(`Rendered index.html + ${acts.length} activity pages.`);
+  fs.writeFileSync(path.join(A, 'teks-correlations.html'), teksPage());
+  console.log(`Rendered index.html + teks-correlations.html + ${acts.length} activity pages.`);
 };

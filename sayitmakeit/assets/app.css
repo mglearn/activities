@@ -135,6 +135,23 @@ header.top{text-align:center;padding:6px 0}
 .btn-ghost{background:#fff;border:2px solid var(--line);color:var(--navy)}
 .btn-ghost:hover{border-color:var(--gold-d)}
 
+/* TEKS correlations page */
+.callout.warn{background:#fdf7ef;border-color:#f0c9a5}
+.callout.sep{background:#eef4fb;border-color:#cfe0f2}
+.callout.warn p,.callout.sep p{font-weight:600;margin:0}
+.sec-intro{color:var(--ink-soft);font-weight:600;margin:2px 0 12px}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;font-size:.9rem;background:#fff}
+thead th{background:#eef4fb;color:var(--navy);font-family:'Fredoka',sans-serif;font-weight:700;text-align:left;padding:10px 12px;font-size:.8rem;position:sticky;top:0}
+tbody td{padding:9px 12px;border-top:1px solid var(--line);font-weight:600;vertical-align:top}
+tbody tr:nth-child(even) td{background:#fafcff}
+.tnum{display:inline-block;min-width:26px;font-family:'Fredoka',sans-serif;font-weight:700;color:var(--ink-soft)}
+.tsec{margin-top:22px}
+.std-more{margin-top:12px}
+.std-more a{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);text-decoration:none}
+.std-more a:hover{color:var(--gold-d)}
+.tbtn-teks{text-decoration:none;display:inline-flex;align-items:center}
+[dir="rtl"] thead th,[dir="rtl"] tbody td{text-align:right}
 .noresults{background:#fff;border:2px dashed var(--line);border-radius:14px;padding:26px 20px;text-align:center;color:var(--ink-soft);font-weight:600}
 footer{text-align:center;margin-top:40px;padding-top:20px;border-top:2px solid var(--line);font-size:.8rem;color:var(--ink-soft);font-weight:600;line-height:1.7}
 footer a{color:var(--navy);font-weight:700}

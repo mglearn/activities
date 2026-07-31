@@ -5,6 +5,7 @@
     var I18N = window.BreakoutI18n;
     if (I18N && window.SIMK_CHROME) { I18N.register('sayitmakeit', window.SIMK_CHROME); }
     if (I18N && window.SIMK_ACT) { I18N.extend('sayitmakeit', window.SIMK_ACT); }
+    if (I18N && window.SIMK_TEKS) { I18N.extend('sayitmakeit', window.SIMK_TEKS); }
     var t = function(k,v){ return I18N ? I18N.t(k,v) : k; };
 
     /* ---------- catalog page only ---------- */
