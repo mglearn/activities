@@ -14,12 +14,13 @@
 <script src="assets/app.js" defer></script>
 </head>
 <body>
+<a class="skip" href="#main" data-i18n="skip">Skip to activities</a>
 <div class="topbar">
   <a href="../index.html" class="backlink" data-i18n="nav_back_hub">← Activities</a>
   <div class="nav-mid nav-brand" data-i18n="brand">Say It, Make It</div>
   <div class="lang-picker" data-i18n-picker></div>
 </div>
-<div class="wrap">
+<main class="wrap" id="main">
   <header class="top">
     <div class="herowrap">
       <img class="hero" src="assets/hero.webp" width="1600" height="800" alt="" onerror="this.style.display='none'">
@@ -40,7 +41,7 @@
 
   <div class="controls no-print">
     <input id="q" type="search" data-i18n-placeholder="search_ph" placeholder="Search activities…" aria-label="Search" autocomplete="off">
-    <div class="chips"><button class="chip active" data-strand="all" data-i18n="filter_all">All</button><button class="chip" data-strand="science" style="--accent:#0a6b52"><span class="bl">S</span> <span data-i18n="strand_science"></span></button><button class="chip" data-strand="technology" style="--accent:#2563a8"><span class="bl">T</span> <span data-i18n="strand_technology"></span></button><button class="chip" data-strand="engineering" style="--accent:#b45309"><span class="bl">E</span> <span data-i18n="strand_engineering"></span></button><button class="chip" data-strand="arts" style="--accent:#b83280"><span class="bl">A</span> <span data-i18n="strand_arts"></span></button><button class="chip" data-strand="math" style="--accent:#3f2a78"><span class="bl">M</span> <span data-i18n="strand_math"></span></button><button class="chip" data-strand="facilitation" style="--accent:#516079"><span class="bl">★</span> <span data-i18n="strand_facilitation"></span></button></div>
+    <div class="chips"><button class="chip active" data-strand="all" aria-pressed="true" data-i18n="filter_all">All</button><button class="chip" data-strand="science" aria-pressed="false" style="--accent:#0a6b52"><span class="bl">S</span> <span data-i18n="strand_science">Science</span></button><button class="chip" data-strand="technology" aria-pressed="false" style="--accent:#2563a8"><span class="bl">T</span> <span data-i18n="strand_technology">Technology</span></button><button class="chip" data-strand="engineering" aria-pressed="false" style="--accent:#b45309"><span class="bl">E</span> <span data-i18n="strand_engineering">Engineering</span></button><button class="chip" data-strand="arts" aria-pressed="false" style="--accent:#b83280"><span class="bl">A</span> <span data-i18n="strand_arts">Arts &amp; Design</span></button><button class="chip" data-strand="math" aria-pressed="false" style="--accent:#3f2a78"><span class="bl">M</span> <span data-i18n="strand_math">Mathematics</span></button><button class="chip" data-strand="facilitation" aria-pressed="false" style="--accent:#516079"><span class="bl">★</span> <span data-i18n="strand_facilitation">Facilitation Modes</span></button></div>
     <div class="toolrow2">
       <button class="tbtn" id="surprise" data-i18n="tool_surprise">🎲 Surprise me</button>
       <button class="tbtn" id="assign" data-i18n="tool_roles">👥 Assign roles</button>
@@ -53,7 +54,7 @@
   <div id="results">
       <section class="strand-sec" data-strand="science">
         <img class="strand-banner" src="assets/strand-science.webp" alt="" loading="lazy" onerror="this.style.display='none'">
-        <h2 class="sec" style="--accent:#0a6b52">🔬 <span data-i18n="strand_science"></span> <span class="sec-n">12</span></h2>
+        <h2 class="sec" style="--accent:#0a6b52">🔬 <span data-i18n="strand_science">Science</span> <span class="sec-n">12</span></h2>
         <div class="grid">
       <a class="acard b-science" href="a/create-a-habitat.html" data-strand="science" data-grades="3–8"
          data-search="create a habitat one student constructs a habitat scene. the partner recreates it while discussing where organisms belong. habitat vocabulary ecological relationships position habitat backgrounds and animal, plant, water, shelter, and food pieces.">
@@ -154,7 +155,7 @@
       </section>
       <section class="strand-sec" data-strand="technology">
         <img class="strand-banner" src="assets/strand-technology.webp" alt="" loading="lazy" onerror="this.style.display='none'">
-        <h2 class="sec" style="--accent:#2563a8">🤖 <span data-i18n="strand_technology"></span> <span class="sec-n">3</span></h2>
+        <h2 class="sec" style="--accent:#2563a8">🤖 <span data-i18n="strand_technology">Technology</span> <span class="sec-n">3</span></h2>
         <div class="grid">
       <a class="acard b-technology" href="a/grid-robot-programmer.html" data-strand="technology" data-grades="2–8"
          data-search="grid robot programmer the programmer gives step-by-step commands to move a token through the grid. the operator follows the commands exactly. algorithms sequencing debugging grid mats, tokens, and obstacle cards.">
@@ -183,7 +184,7 @@
       </section>
       <section class="strand-sec" data-strand="engineering">
         <img class="strand-banner" src="assets/strand-engineering.webp" alt="" loading="lazy" onerror="this.style.display='none'">
-        <h2 class="sec" style="--accent:#b45309">🏗️ <span data-i18n="strand_engineering"></span> <span class="sec-n">17</span></h2>
+        <h2 class="sec" style="--accent:#b45309">🏗️ <span data-i18n="strand_engineering">Engineering</span> <span class="sec-n">17</span></h2>
         <div class="grid">
       <a class="acard b-engineering" href="a/hidden-cup-structure.html" data-strand="engineering" data-grades="K–5"
          data-search="hidden cup structure build a structure using four to eight cups. one student describes it while a partner recreates it without seeing the original. compare cup position, orientation, spacing, and order. spatial vocabulary sequencing listening clarification two identical sets of cups and a cardboard screen.">
@@ -324,7 +325,7 @@
       </section>
       <section class="strand-sec" data-strand="arts">
         <img class="strand-banner" src="assets/strand-arts.webp" alt="" loading="lazy" onerror="this.style.display='none'">
-        <h2 class="sec" style="--accent:#b83280">🎨 <span data-i18n="strand_arts"></span> <span class="sec-n">32</span></h2>
+        <h2 class="sec" style="--accent:#b83280">🎨 <span data-i18n="strand_arts">Arts &amp; Design</span> <span class="sec-n">32</span></h2>
         <div class="grid">
       <a class="acard b-arts" href="a/back-to-back-drawing.html" data-strand="arts" data-grades="K–8"
          data-search="back-to-back drawing partners sit back-to-back. one describes a picture while the other draws it without seeing the original. descriptive language listening visualization simple line drawings, paper, and pencils.">
@@ -585,7 +586,7 @@
       </section>
       <section class="strand-sec" data-strand="math">
         <img class="strand-banner" src="assets/strand-math.webp" alt="" loading="lazy" onerror="this.style.display='none'">
-        <h2 class="sec" style="--accent:#3f2a78">📐 <span data-i18n="strand_math"></span> <span class="sec-n">26</span></h2>
+        <h2 class="sec" style="--accent:#3f2a78">📐 <span data-i18n="strand_math">Mathematics</span> <span class="sec-n">26</span></h2>
         <div class="grid">
       <a class="acard b-math" href="a/bead-pattern-barrier.html" data-strand="math" data-grades="2–8"
          data-search="bead-pattern barrier one student creates a color, shape, or size sequence and describes it for a partner to reproduce. patterns ordinal language attributes matching beads, strings, and a barrier.">
@@ -798,7 +799,7 @@
       </section>
       <section class="strand-sec" data-strand="facilitation">
         <img class="strand-banner" src="assets/strand-facilitation.webp" alt="" loading="lazy" onerror="this.style.display='none'">
-        <h2 class="sec" style="--accent:#516079">🔁 <span data-i18n="strand_facilitation"></span> <span class="sec-n">16</span></h2>
+        <h2 class="sec" style="--accent:#516079">🔁 <span data-i18n="strand_facilitation">Facilitation Modes</span> <span class="sec-n">16</span></h2>
         <div class="grid">
       <a class="acard b-facilitation" href="a/no-questions-round.html" data-strand="facilitation" data-grades="K–8"
          data-search="no-questions round the listener may not interrupt or ask for clarification.  ">
@@ -933,6 +934,6 @@
 
   <footer><span data-i18n="footer_copy">Say It, Make It · A TCEA educator resource · CC BY 4.0 (content) · MIT (code)</span><br>
   <span data-i18n="footer_sub">Self-contained · No logins · No data collected · Seven languages · Print-friendly</span></footer>
-</div>
+</main>
 </body>
 </html>

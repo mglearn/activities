@@ -3,7 +3,7 @@
  * Missing keys fall back to English via the shared engine. */
 window.SIMK_CHROME = {
   en: {
-    nav_back_hub: "← Activities", nav_back_area: "← Say It, Make It", brand: "Say It, Make It",
+    nav_back_hub: "← Activities", nav_back_area: "← Say It, Make It", brand: "Say It, Make It", skip: "Skip to activities",
     hero_eyebrow: "A STEAM educator resource", hero_t1: "Say It,", hero_t2: "Make It",
     hero_sub: "One partner describes a hidden model, drawing, pattern, or setup — using words only. The other builds it. Then compare, and talk about what made the words work. 106 STEAM activities.",
     tally_activities: "Activities", tally_strands: "STEAM strands", tally_langs: "Languages",
@@ -37,7 +37,7 @@ window.SIMK_CHROME = {
     refl_4: "How could diagrams, coordinates, labels, or shared vocabulary improve the task?"
   },
   es: {
-    nav_back_hub: "← Actividades", nav_back_area: "← Say It, Make It", brand: "Say It, Make It",
+    nav_back_hub: "← Actividades", nav_back_area: "← Say It, Make It", brand: "Say It, Make It", skip: "Saltar a las actividades",
     hero_eyebrow: "Un recurso educativo STEAM", hero_t1: "Dilo,", hero_t2: "Créalo",
     hero_sub: "Una persona describe un modelo, dibujo, patrón o montaje oculto — solo con palabras. La otra lo construye. Luego comparan y hablan sobre qué hizo que las palabras funcionaran. 106 actividades STEAM.",
     tally_activities: "Actividades", tally_strands: "Áreas STEAM", tally_langs: "Idiomas",
@@ -71,7 +71,7 @@ window.SIMK_CHROME = {
     refl_4: "¿Cómo podrían los diagramas, coordenadas, etiquetas o un vocabulario común mejorar la tarea?"
   },
   vi: {
-    nav_back_hub: "← Hoạt động", nav_back_area: "← Say It, Make It", brand: "Say It, Make It",
+    nav_back_hub: "← Hoạt động", nav_back_area: "← Say It, Make It", brand: "Say It, Make It", skip: "Chuyển đến hoạt động",
     hero_eyebrow: "Tài nguyên giáo dục STEAM", hero_t1: "Nói ra,", hero_t2: "Tạo nên",
     hero_sub: "Một bạn mô tả một mô hình, bản vẽ, mẫu hình hoặc bố cục ẩn — chỉ bằng lời nói. Bạn kia dựng lại. Sau đó so sánh và bàn về điều gì làm cho lời nói hiệu quả. 106 hoạt động STEAM.",
     tally_activities: "Hoạt động", tally_strands: "Lĩnh vực STEAM", tally_langs: "Ngôn ngữ",
@@ -105,7 +105,7 @@ window.SIMK_CHROME = {
     refl_4: "Sơ đồ, tọa độ, nhãn hoặc từ vựng chung có thể cải thiện nhiệm vụ ra sao?"
   },
   ar: {
-    nav_back_hub: "← الأنشطة", nav_back_area: "← Say It, Make It", brand: "Say It, Make It",
+    nav_back_hub: "← الأنشطة", nav_back_area: "← Say It, Make It", brand: "Say It, Make It", skip: "تخطَّ إلى الأنشطة",
     hero_eyebrow: "مورد تعليمي STEAM", hero_t1: "قُلها،", hero_t2: "اصنعها",
     hero_sub: "يصف أحد الشريكين نموذجًا أو رسمًا أو نمطًا مخفيًّا — بالكلمات فقط. ويبنيه الآخر. ثم قارِنا وتحدّثا عمّا جعل الكلمات ناجحة. ١٠٦ أنشطة STEAM.",
     tally_activities: "الأنشطة", tally_strands: "مجالات STEAM", tally_langs: "اللغات",
@@ -139,7 +139,7 @@ window.SIMK_CHROME = {
     refl_4: "كيف يمكن للرسوم أو الإحداثيات أو التسميات أو المفردات المشتركة تحسين المهمة؟"
   },
   hi: {
-    nav_back_hub: "← गतिविधियाँ", nav_back_area: "← Say It, Make It", brand: "Say It, Make It",
+    nav_back_hub: "← गतिविधियाँ", nav_back_area: "← Say It, Make It", brand: "Say It, Make It", skip: "गतिविधियों पर जाएँ",
     hero_eyebrow: "एक STEAM शैक्षिक संसाधन", hero_t1: "कहो,", hero_t2: "बनाओ",
     hero_sub: "एक साथी किसी छिपे मॉडल, चित्र, पैटर्न या रचना का वर्णन करता है — केवल शब्दों से। दूसरा उसे बनाता है। फिर तुलना करें और बात करें कि शब्द क्यों काम आए। 106 STEAM गतिविधियाँ।",
     tally_activities: "गतिविधियाँ", tally_strands: "STEAM क्षेत्र", tally_langs: "भाषाएँ",
@@ -173,7 +173,7 @@ window.SIMK_CHROME = {
     refl_4: "आरेख, निर्देशांक, लेबल या साझा शब्दावली से कार्य कैसे बेहतर हो सकता है?"
   },
   ur: {
-    nav_back_hub: "← سرگرمیاں", nav_back_area: "← Say It, Make It", brand: "Say It, Make It",
+    nav_back_hub: "← سرگرمیاں", nav_back_area: "← Say It, Make It", brand: "Say It, Make It", skip: "سرگرمیوں پر جائیں",
     hero_eyebrow: "ایک STEAM تعلیمی وسیلہ", hero_t1: "کہو،", hero_t2: "بناؤ",
     hero_sub: "ایک ساتھی کسی چھپے ماڈل، خاکے، نمونے یا ترتیب کو بیان کرتا ہے — صرف الفاظ سے۔ دوسرا اسے بناتا ہے۔ پھر موازنہ کریں اور بات کریں کہ الفاظ کیوں کارگر ہوئے۔ 106 STEAM سرگرمیاں۔",
     tally_activities: "سرگرمیاں", tally_strands: "STEAM شعبے", tally_langs: "زبانیں",
@@ -207,7 +207,7 @@ window.SIMK_CHROME = {
     refl_4: "خاکے، محورِ نقاط، لیبل یا مشترکہ الفاظ کام کو کیسے بہتر بنا سکتے ہیں؟"
   },
   zh: {
-    nav_back_hub: "← 活动", nav_back_area: "← Say It, Make It", brand: "Say It, Make It",
+    nav_back_hub: "← 活动", nav_back_area: "← Say It, Make It", brand: "Say It, Make It", skip: "跳到活动",
     hero_eyebrow: "STEAM 教育资源", hero_t1: "说出来，", hero_t2: "做出来",
     hero_sub: "一名同伴仅用语言描述一个看不见的模型、图画、图案或布置，另一名同伴据此搭建。然后比较结果，讨论哪些说法有效。106 个 STEAM 活动。",
     tally_activities: "活动", tally_strands: "STEAM 领域", tally_langs: "语言",

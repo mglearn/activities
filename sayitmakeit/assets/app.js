@@ -39,8 +39,8 @@
     if (q) q.addEventListener('input', apply);
     chips.forEach(function (ch) {
       ch.addEventListener('click', function () {
-        chips.forEach(function (x) { x.classList.remove('active'); });
-        ch.classList.add('active');
+        chips.forEach(function (x) { x.classList.remove('active'); x.setAttribute('aria-pressed', 'false'); });
+        ch.classList.add('active'); ch.setAttribute('aria-pressed', 'true');
         strand = ch.getAttribute('data-strand') || 'all';
         apply();
       });

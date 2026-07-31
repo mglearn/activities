@@ -59,13 +59,14 @@ ${extras}
     return `${headCommon(`${a.num}. ${a.title} — Say It, Make It`, `${a.title}: a STEAM barrier-communication activity. Describe it, build it, compare, reflect. Seven languages, print-friendly.`, 1)}
 <body>
 ${actScript}
+<a class="skip" href="#main" data-i18n="skip">Skip to activities</a>
 <div class="topbar">
   <a href="../index.html" class="backlink" data-i18n="nav_back_area">← Say It, Make It</a>
   <div class="nav-mid">${strandBadge(a.strand)}</div>
   ${picker}
 </div>
-<main class="wrap article" style="--accent:${st.accent}">
-  <p class="eyebrow"><span data-i18n="activity_word">Activity</span> ${a.num} · <span data-i18n="strand_${a.strand}"></span></p>
+<main class="wrap article" id="main" style="--accent:${st.accent}">
+  <p class="eyebrow"><span data-i18n="activity_word">Activity</span> ${a.num} · <span data-i18n="strand_${a.strand}">${esc(st.label)}</span></p>
   <h1>${esc(a.title)}</h1>
   <div class="art-hero"><img src="../assets/act/${a.slug}.webp" alt="${esc(a.title)}" onerror="this.closest('.art-hero').style.display='none'"></div>
   <div class="metarow">
@@ -120,8 +121,8 @@ ${actScript}
   function indexPage() {
     const chips = ['all', ...STRAND_ORDER].map((s) =>
       s === 'all'
-        ? `<button class="chip active" data-strand="all" data-i18n="filter_all">All</button>`
-        : `<button class="chip" data-strand="${s}" style="--accent:${STRANDS[s].accent}"><span class="bl">${STRANDS[s].letter}</span> <span data-i18n="strand_${s}"></span></button>`
+        ? `<button class="chip active" data-strand="all" aria-pressed="true" data-i18n="filter_all">All</button>`
+        : `<button class="chip" data-strand="${s}" aria-pressed="false" style="--accent:${STRANDS[s].accent}"><span class="bl">${STRANDS[s].letter}</span> <span data-i18n="strand_${s}">${esc(STRANDS[s].label)}</span></button>`
     ).join('');
 
     const card = (a) => `
@@ -141,19 +142,20 @@ ${actScript}
       sections += `
       <section class="strand-sec" data-strand="${s}">
         <img class="strand-banner" src="assets/strand-${s}.webp" alt="" loading="lazy" onerror="this.style.display='none'">
-        <h2 class="sec" style="--accent:${STRANDS[s].accent}">${STRANDS[s].icon} <span data-i18n="strand_${s}"></span> <span class="sec-n">${items.length}</span></h2>
+        <h2 class="sec" style="--accent:${STRANDS[s].accent}">${STRANDS[s].icon} <span data-i18n="strand_${s}">${esc(STRANDS[s].label)}</span> <span class="sec-n">${items.length}</span></h2>
         <div class="grid">${items.map(card).join('')}</div>
       </section>`;
     });
 
     return `${headCommon('Say It, Make It — STEAM barrier & communication activities', 'A STEAM library of 106 barrier / blind-build / communication activities for K–8 — describe it, build it, compare, reflect. Seven languages, print-friendly, TEKS + NGSS aligned. No logins, no data collected.', 0)}
 <body>
+<a class="skip" href="#main" data-i18n="skip">Skip to activities</a>
 <div class="topbar">
   <a href="../index.html" class="backlink" data-i18n="nav_back_hub">← Activities</a>
   <div class="nav-mid nav-brand" data-i18n="brand">Say It, Make It</div>
   ${picker}
 </div>
-<div class="wrap">
+<main class="wrap" id="main">
   <header class="top">
     <div class="herowrap">
       <img class="hero" src="assets/hero.webp" width="1600" height="800" alt="" onerror="this.style.display='none'">
@@ -189,7 +191,7 @@ ${actScript}
 
   <footer><span data-i18n="footer_copy">Say It, Make It · A TCEA educator resource · CC BY 4.0 (content) · MIT (code)</span><br>
   <span data-i18n="footer_sub">Self-contained · No logins · No data collected · Seven languages · Print-friendly</span></footer>
-</div>
+</main>
 </body>
 </html>`;
   }
@@ -208,22 +210,23 @@ ${actScript}
       const teks = (items[0].teks || []).map(esc).join(' · ');
       sections += `
       <section class="tsec">
-        <h2 class="sec" style="--accent:${STRANDS[s].accent}">${STRANDS[s].icon} <span data-i18n="strand_${s}"></span> <span class="sec-n">${items.length}</span></h2>
+        <h2 class="sec" style="--accent:${STRANDS[s].accent}">${STRANDS[s].icon} <span data-i18n="strand_${s}">${esc(STRANDS[s].label)}</span> <span class="sec-n">${items.length}</span></h2>
         <p class="sec-intro"><span class="std-k">TEKS</span> ${teks}</p>
         <div class="tbl-wrap"><table>
-          <thead><tr><th data-i18n="th_activity">Activity</th><th data-i18n="grades_lbl">Grades</th><th data-i18n="th_ngss">NGSS focus</th></tr></thead>
+          <thead><tr><th scope="col" data-i18n="th_activity">Activity</th><th scope="col" data-i18n="grades_lbl">Grades</th><th scope="col" data-i18n="th_ngss">NGSS focus</th></tr></thead>
           <tbody>${rowsFor(s)}</tbody>
         </table></div>
       </section>`;
     });
     return `${headCommon('TEKS & NGSS Alignment — Say It, Make It', 'TEKS and NGSS correlations for the 106 Say It, Make It STEAM communication activities.', 0, ['assets/i18n-teks.js'])}
 <body>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 <div class="topbar">
   <a href="index.html" class="backlink" data-i18n="nav_back_area">← Say It, Make It</a>
   <div class="nav-mid nav-brand" data-i18n="teks_title">TEKS &amp; NGSS Alignment</div>
   ${picker}
 </div>
-<main class="wrap article">
+<main class="wrap article" id="main">
   <p class="eyebrow" data-i18n="teks_eyebrow">Standards Correlation</p>
   <h1 data-i18n="teks_title">TEKS &amp; NGSS Alignment</h1>
   <p class="lede" data-i18n="teks_lede">How Say It, Make It maps to the Texas Essential Knowledge and Skills and the Next Generation Science Standards.</p>
