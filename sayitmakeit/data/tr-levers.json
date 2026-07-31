@@ -1,0 +1,98 @@
+{
+  "h_eng": {
+    "es": "Comunicación en un solo sentido: prohíbe las preguntas y añade un límite de 30 palabras; exige longitudes medidas con unidades.",
+    "vi": "Chỉ nói một chiều — cấm đặt câu hỏi — và thêm giới hạn 30 từ; yêu cầu độ dài được đo kèm đơn vị.",
+    "ar": "تواصل في اتجاه واحد — امنع الأسئلة — وأضف حدًّا أقصى قدره 30 كلمة؛ واطلب أطوالًا مقيسة بوحداتها.",
+    "hi": "एकतरफ़ा संवाद करें — प्रश्न पूछना मना करें — और 30 शब्दों की सीमा जोड़ें; इकाइयों के साथ मापी गई लंबाई माँगें।",
+    "ur": "یک طرفہ رابطہ کریں — سوالات پر پابندی لگائیں — اور 30 الفاظ کی حد شامل کریں؛ اکائیوں کے ساتھ ناپی گئی لمبائیاں طلب کریں۔",
+    "zh": "只能单向传达——禁止提问——并加上30个词的限制；要求给出带单位的精确长度。"
+  },
+  "e_eng": {
+    "es": "Permite preguntas de sí/no, acuerden una pieza base compartida y deja que el Constructor mire una vez antes de colocar la barrera.",
+    "vi": "Cho phép câu hỏi có/không, thống nhất một mảnh gốc chung, và để Người xây được nhìn một lần trước khi dựng vách ngăn.",
+    "ar": "اسمح بأسئلة نعم/لا، واتفقوا على قطعة أساس مشتركة، ودع البنّاء يلقي نظرة واحدة قبل وضع الحاجز.",
+    "hi": "हाँ/नहीं वाले प्रश्नों की अनुमति दें, एक साझा आधार टुकड़े पर सहमत हों, और अवरोध लगने से पहले निर्माता को एक बार देखने दें।",
+    "ur": "ہاں/نہیں والے سوالات کی اجازت دیں، ایک مشترکہ بنیادی ٹکڑے پر اتفاق کریں، اور رکاوٹ کھڑی کرنے سے پہلے بنانے والے کو ایک بار دیکھنے دیں۔",
+    "zh": "允许是/否问题，商定一个共享的基础部件，并让搭建者在隔板竖起前偷看一次。"
+  },
+  "h_math": {
+    "es": "Exige coordenadas, unidades y cantidades exactas; describe en un solo turno ininterrumpido y sin preguntas.",
+    "vi": "Yêu cầu tọa độ, đơn vị và số lượng chính xác; mô tả trong một lượt liền mạch, không đặt câu hỏi.",
+    "ar": "اطلب إحداثيات ووحدات وكميات دقيقة؛ وصِف في دور واحد متواصل دون أسئلة.",
+    "hi": "निर्देशांक, इकाइयाँ और सटीक मात्राएँ माँगें; एक ही निर्बाध बारी में बिना प्रश्नों के वर्णन करें।",
+    "ur": "کوآرڈینیٹس، اکائیاں اور درست مقداریں طلب کریں؛ ایک ہی مسلسل باری میں بغیر سوالات کے وضاحت کریں۔",
+    "zh": "要求提供坐标、单位和精确数量；在一次不间断的表述中完成，不得提问。"
+  },
+  "e_math": {
+    "es": "Permite preguntas de sí/no y proporciona una cuadrícula o recta numérica etiquetada como referencia compartida.",
+    "vi": "Cho phép câu hỏi có/không và cung cấp một lưới ô hoặc trục số có ghi nhãn làm tham chiếu chung.",
+    "ar": "اسمح بأسئلة نعم/لا وقدّم شبكة أو خط أعداد موسومًا كمرجع مشترك.",
+    "hi": "हाँ/नहीं वाले प्रश्नों की अनुमति दें और साझा संदर्भ के रूप में एक लेबल की गई ग्रिड या संख्या रेखा प्रदान करें।",
+    "ur": "ہاں/نہیں والے سوالات کی اجازت دیں اور مشترکہ حوالے کے طور پر ایک لیبل شدہ گرڈ یا نمبر لائن فراہم کریں۔",
+    "zh": "允许是/否问题，并提供带标签的网格或数轴作为共享参照。"
+  },
+  "h_sci": {
+    "es": "Usa solo vocabulario científico preciso; comunicación en un solo sentido, sin preguntas permitidas.",
+    "vi": "Chỉ dùng từ vựng khoa học chính xác; truyền đạt một chiều, không được đặt câu hỏi.",
+    "ar": "استخدم فقط مفردات علمية دقيقة؛ توصيل في اتجاه واحد، ولا يُسمح بالأسئلة.",
+    "hi": "केवल सटीक विज्ञान शब्दावली का उपयोग करें; एकतरफ़ा संवाद, कोई प्रश्न नहीं।",
+    "ur": "صرف درست سائنسی الفاظ استعمال کریں؛ یک طرفہ ترسیل، کوئی سوال کی اجازت نہیں۔",
+    "zh": "只使用精确的科学术语；单向传达，不允许提问。"
+  },
+  "e_sci": {
+    "es": "Permite un diagrama etiquetado y preguntas aclaratorias de sí/no.",
+    "vi": "Cho phép một sơ đồ có ghi nhãn và các câu hỏi làm rõ có/không.",
+    "ar": "اسمح برسم تخطيطي موسوم وبأسئلة توضيحية بنعم/لا.",
+    "hi": "एक लेबल किए गए आरेख और हाँ/नहीं वाले स्पष्टीकरण प्रश्नों की अनुमति दें।",
+    "ur": "ایک لیبل شدہ خاکے اور ہاں/نہیں والے وضاحتی سوالات کی اجازت دیں۔",
+    "zh": "允许使用带标签的图示和是/否的澄清问题。"
+  },
+  "h_tech": {
+    "es": "Da todo el algoritmo por adelantado como pasos numerados; sin preguntas ni correcciones en vivo.",
+    "vi": "Đưa ra toàn bộ thuật toán ngay từ đầu dưới dạng các bước được đánh số; không hỏi hay sửa trực tiếp.",
+    "ar": "قدّم الخوارزمية كاملة مسبقًا كخطوات مرقّمة؛ دون أسئلة أو تصحيحات مباشرة.",
+    "hi": "पूरा एल्गोरिदम पहले से क्रमांकित चरणों के रूप में दें; कोई तत्काल प्रश्न या सुधार नहीं।",
+    "ur": "پورا الگورتھم پہلے ہی نمبر شدہ مراحل کے طور پر دیں؛ کوئی فوری سوال یا اصلاح نہیں۔",
+    "zh": "一开始就把整个算法作为编号步骤全部给出；不得现场提问或纠正。"
+  },
+  "e_tech": {
+    "es": "Permite que el Constructor confirme y ejecute una instrucción a la vez.",
+    "vi": "Cho phép Người xây xác nhận và thực hiện từng chỉ dẫn một.",
+    "ar": "اسمح للبنّاء بتأكيد كل تعليمة وتنفيذها واحدة تلو الأخرى.",
+    "hi": "निर्माता को एक बार में एक निर्देश की पुष्टि करने और उस पर कार्य करने दें।",
+    "ur": "بنانے والے کو ایک وقت میں ایک ہدایت کی تصدیق کرنے اور اس پر عمل کرنے دیں۔",
+    "zh": "允许搭建者一次确认并执行一条指令。"
+  },
+  "h_arts": {
+    "es": "Describe usando solo palabras de forma, posición y color: sin gestos, sin preguntas.",
+    "vi": "Mô tả chỉ bằng các từ về hình dạng, vị trí và màu sắc — không cử chỉ, không câu hỏi.",
+    "ar": "صِف باستخدام كلمات الشكل والموضع واللون فقط — دون إيماءات ودون أسئلة.",
+    "hi": "केवल आकार, स्थिति और रंग के शब्दों का उपयोग करके वर्णन करें — कोई इशारे नहीं, कोई प्रश्न नहीं।",
+    "ur": "صرف شکل، مقام اور رنگ کے الفاظ استعمال کرتے ہوئے وضاحت کریں — نہ اشارے، نہ سوال۔",
+    "zh": "只用形状、位置和颜色的词语来描述——不能用手势，不能提问。"
+  },
+  "e_arts": {
+    "es": "Permite preguntas de sí/no y acuerden una forma inicial o punto de anclaje compartido.",
+    "vi": "Cho phép câu hỏi có/không và thống nhất một hình dạng khởi đầu hoặc điểm neo chung.",
+    "ar": "اسمح بأسئلة نعم/لا واتفقوا على شكل بداية مشترك أو نقطة ارتكاز.",
+    "hi": "हाँ/नहीं वाले प्रश्नों की अनुमति दें और एक साझा प्रारंभिक आकार या आधार बिंदु पर सहमत हों।",
+    "ur": "ہاں/نہیں والے سوالات کی اجازت دیں اور ایک مشترکہ ابتدائی شکل یا مرکزی نقطے پر اتفاق کریں۔",
+    "zh": "允许是/否问题，并商定一个共享的起始形状或锚点。"
+  },
+  "h_def": {
+    "es": "Comunicación en un solo sentido —sin preguntas permitidas— o limita al Describidor a treinta palabras. Añade un Mensajero que no pueda ver ninguno de los dos modelos.",
+    "vi": "Chỉ nói một chiều — không được đặt câu hỏi — hoặc giới hạn Người mô tả ở ba mươi từ. Thêm một Người đưa tin không thể nhìn thấy cả hai mô hình.",
+    "ar": "تواصل في اتجاه واحد — لا يُسمح بالأسئلة — أو حُدّ الواصف بثلاثين كلمة. أضِف رسولًا لا يستطيع رؤية أيٍّ من النموذجين.",
+    "hi": "एकतरफ़ा संवाद करें — कोई प्रश्न नहीं — या वर्णनकर्ता को तीस शब्दों तक सीमित करें। एक संदेशवाहक जोड़ें जो दोनों में से कोई भी मॉडल न देख सके।",
+    "ur": "یک طرفہ رابطہ کریں — کوئی سوال کی اجازت نہیں — یا بیان کرنے والے کو تیس الفاظ تک محدود کریں۔ ایک پیغام رساں شامل کریں جو دونوں میں سے کوئی ماڈل نہ دیکھ سکے۔",
+    "zh": "只能单向传达——不允许提问——或将描述者限制在三十个词以内。加入一名看不到任何一个模型的传信者。"
+  },
+  "e_def": {
+    "es": "Permite preguntas aclaratorias de sí/no, acuerden una pieza inicial compartida y deja que el Constructor mire una vez antes de colocar la barrera.",
+    "vi": "Cho phép câu hỏi làm rõ có/không, thống nhất một mảnh khởi đầu chung, và để Người xây được nhìn một lần trước khi dựng vách ngăn.",
+    "ar": "اسمح بأسئلة توضيحية بنعم/لا، واتفقوا على قطعة بداية مشتركة، ودع البنّاء يلقي نظرة واحدة قبل وضع الحاجز.",
+    "hi": "हाँ/नहीं वाले स्पष्टीकरण प्रश्नों की अनुमति दें, एक साझा प्रारंभिक टुकड़े पर सहमत हों, और अवरोध लगने से पहले निर्माता को एक बार देखने दें।",
+    "ur": "ہاں/نہیں والے وضاحتی سوالات کی اجازت دیں، ایک مشترکہ ابتدائی ٹکڑے پر اتفاق کریں، اور رکاوٹ کھڑی کرنے سے پہلے بنانے والے کو ایک بار دیکھنے دیں۔",
+    "zh": "允许是/否的澄清问题，商定一个共享的起始部件，并让搭建者在隔板竖起前偷看一次。"
+  }
+}

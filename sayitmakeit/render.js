@@ -6,6 +6,8 @@ const path = require('path');
 
 module.exports = function render({ acts, STRANDS, STRAND_ORDER, esc, ROOT }) {
   const A = (ROOT && ROOT) || __dirname;
+  let TR = {};
+  try { TR = JSON.parse(fs.readFileSync(path.join(A, 'data', 'translations.json'), 'utf8')); } catch (e) {}
   const strandBadge = (s) => `<span class="badge b-${s}"><span class="bl">${STRANDS[s].letter}</span> ${esc(STRANDS[s].label)}</span>`;
   const skillTags = (sk) => (sk || []).map((k) => `<span class="tag">${esc(k)}</span>`).join('');
 
@@ -36,6 +38,11 @@ module.exports = function render({ acts, STRANDS, STRAND_ORDER, esc, ROOT }) {
   /* ---------- guided page ---------- */
   function activityPage(a) {
     const st = STRANDS[a.strand];
+    const tr = TR[a.num] || {};
+    const enBody = { a_summary: a.summary, a_materials: a.materials || '', a_example: a.example || '', a_harder: a.harder || DEF_HARDER, a_easier: a.easier || DEF_EASIER };
+    const actDict = { en: enBody };
+    ['es', 'vi', 'ar', 'hi', 'ur', 'zh'].forEach((l) => { if (tr[l]) actDict[l] = tr[l]; });
+    const actScript = `<script>window.SIMK_ACT=${JSON.stringify(actDict).replace(/</g, '\\u003c')}</script>`;
     const roles = ['role_describer','role_builder','role_clarifier','role_messenger','role_observer','role_checker']
       .map((k) => `<li data-i18n="${k}"></li>`).join('');
     const steps = [1,2,3,4,5,6,7].map((n) => `<li data-i18n="step_${n}"></li>`).join('');
@@ -49,6 +56,7 @@ module.exports = function render({ acts, STRANDS, STRAND_ORDER, esc, ROOT }) {
 
     return `${headCommon(`${a.num}. ${a.title} — Say It, Make It`, `${a.title}: a STEAM barrier-communication activity. Describe it, build it, compare, reflect. Seven languages, print-friendly.`, 1)}
 <body>
+${actScript}
 <div class="topbar">
   <a href="../index.html" class="backlink" data-i18n="nav_back_area">← Say It, Make It</a>
   <div class="nav-mid">${strandBadge(a.strand)}</div>
@@ -63,11 +71,11 @@ module.exports = function render({ acts, STRANDS, STRAND_ORDER, esc, ROOT }) {
     <div><span class="mk" data-i18n="subjects_lbl">STEAM</span><span>${st.icon} ${esc(st.label)}</span></div>
   </div>
 
-  ${a.materials ? `<div class="callout mats"><span class="mk" data-i18n="materials_lbl">Materials</span> ${esc(a.materials)}</div>` : ''}
+  ${a.materials ? `<div class="callout mats"><span class="mk" data-i18n="materials_lbl">Materials</span> <span data-i18n="a_materials">${esc(a.materials)}</span></div>` : ''}
 
   <h2 data-i18n="sec_describe">What to describe</h2>
-  <p class="lede">${esc(a.summary)}</p>
-  ${a.example ? `<p class="example"><span data-i18n="example_lbl">Example</span>: ${esc(a.example)}</p>` : ''}
+  <p class="lede" data-i18n="a_summary">${esc(a.summary)}</p>
+  ${a.example ? `<p class="example"><span data-i18n="example_lbl">Example</span>: <span data-i18n="a_example">${esc(a.example)}</span></p>` : ''}
 
   <div class="cols">
     <section>
@@ -82,8 +90,8 @@ module.exports = function render({ acts, STRANDS, STRAND_ORDER, esc, ROOT }) {
 
   <h2 data-i18n="sec_levers">Make it harder or easier</h2>
   <div class="levers">
-    <div class="lever up"><span class="lk" data-i18n="harder_lbl">Harder</span><p>${esc(a.harder || DEF_HARDER)}</p></div>
-    <div class="lever down"><span class="lk" data-i18n="easier_lbl">Easier</span><p>${esc(a.easier || DEF_EASIER)}</p></div>
+    <div class="lever up"><span class="lk" data-i18n="harder_lbl">Harder</span><p data-i18n="a_harder">${esc(a.harder || DEF_HARDER)}</p></div>
+    <div class="lever down"><span class="lk" data-i18n="easier_lbl">Easier</span><p data-i18n="a_easier">${esc(a.easier || DEF_EASIER)}</p></div>
   </div>
 
   <h2 data-i18n="sec_reflect">Reflect</h2>

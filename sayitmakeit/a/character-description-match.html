@@ -13,6 +13,7 @@
 <script src="../assets/app.js" defer></script>
 </head>
 <body>
+<script>window.SIMK_ACT={"en":{"a_summary":"The Describer details a labeled figure from a diagram — a scientist at work, parts of a machine — so the Builder matches or reconstructs the correct one.","a_materials":"Sets of character cards with similar features.","a_example":"","a_harder":"Describe using only shape, position, and color words — no gestures, no questions.","a_easier":"Allow yes/no questions and agree on a shared starting shape or anchor point."},"es":{"a_summary":"El Descriptor detalla una figura etiquetada de un diagrama —un científico trabajando, las partes de una máquina— para que el Constructor identifique o reconstruya la correcta.","a_materials":"Juegos de tarjetas de personajes con rasgos similares.","a_harder":"Describe usando solo palabras de forma, posición y color: sin gestos, sin preguntas.","a_easier":"Permite preguntas de sí/no y acuerden una forma inicial o punto de anclaje compartido."},"vi":{"a_summary":"Người mô tả trình bày chi tiết một hình có nhãn từ một sơ đồ — một nhà khoa học đang làm việc, các bộ phận của một cỗ máy — để Người xây dựng ghép khớp hoặc tái dựng đúng hình.","a_materials":"Các bộ thẻ nhân vật có đặc điểm tương tự nhau.","a_harder":"Mô tả chỉ bằng các từ về hình dạng, vị trí và màu sắc — không cử chỉ, không câu hỏi.","a_easier":"Cho phép câu hỏi có/không và thống nhất một hình dạng khởi đầu hoặc điểm neo chung."},"ar":{"a_summary":"يصف الواصف تفاصيل شكل مُعنوَن من رسم تخطيطي — عالِم أثناء العمل، أو أجزاء آلة — حتى يطابق البنّاء الشكل الصحيح أو يعيد بناءه.","a_materials":"مجموعات من بطاقات الشخصيات ذات الملامح المتشابهة.","a_harder":"صِف باستخدام كلمات الشكل والموضع واللون فقط — دون إيماءات ودون أسئلة.","a_easier":"اسمح بأسئلة نعم/لا واتفقوا على شكل بداية مشترك أو نقطة ارتكاز."},"hi":{"a_summary":"वर्णनकर्ता किसी आरेख से एक लेबल किए हुए चित्र — काम करता हुआ एक वैज्ञानिक, किसी मशीन के भाग — का विवरण देता है, ताकि बिल्डर सही वाले का मिलान या पुनर्निर्माण कर सके।","a_materials":"समान विशेषताओं वाले पात्र कार्डों के सेट।","a_harder":"केवल आकार, स्थिति और रंग के शब्दों का उपयोग करके वर्णन करें — कोई इशारे नहीं, कोई प्रश्न नहीं।","a_easier":"हाँ/नहीं वाले प्रश्नों की अनुमति दें और एक साझा प्रारंभिक आकार या आधार बिंदु पर सहमत हों।"},"ur":{"a_summary":"وضاحت کرنے والا خاکے سے کسی لیبل شدہ شکل — کام کرتا سائنسدان، مشین کے حصے — کی تفصیل بتاتا ہے تاکہ بلڈر درست شکل کو ملائے یا دوبارہ بنائے۔","a_materials":"ملتی جلتی خصوصیات والے کردار کارڈوں کے سیٹ۔","a_harder":"صرف شکل، مقام اور رنگ کے الفاظ استعمال کرتے ہوئے وضاحت کریں — نہ اشارے، نہ سوال۔","a_easier":"ہاں/نہیں والے سوالات کی اجازت دیں اور ایک مشترکہ ابتدائی شکل یا مرکزی نقطے پر اتفاق کریں۔"},"zh":{"a_summary":"描述者详细讲解示意图中一个带标注的形象——一位正在工作的科学家、机器的各个部件——使建造者匹配或重构出正确的那个。","a_materials":"一组特征相似的人物卡。","a_harder":"只用形状、位置和颜色的词语来描述——不能用手势，不能提问。","a_easier":"允许是/否问题，并商定一个共享的起始形状或锚点。"}}</script>
 <div class="topbar">
   <a href="../index.html" class="backlink" data-i18n="nav_back_area">← Say It, Make It</a>
   <div class="nav-mid"><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
@@ -27,10 +28,10 @@
     <div><span class="mk" data-i18n="subjects_lbl">STEAM</span><span>🎨 Arts &amp; Design</span></div>
   </div>
 
-  <div class="callout mats"><span class="mk" data-i18n="materials_lbl">Materials</span> Sets of character cards with similar features.</div>
+  <div class="callout mats"><span class="mk" data-i18n="materials_lbl">Materials</span> <span data-i18n="a_materials">Sets of character cards with similar features.</span></div>
 
   <h2 data-i18n="sec_describe">What to describe</h2>
-  <p class="lede">The Describer details a labeled figure from a diagram — a scientist at work, parts of a machine — so the Builder matches or reconstructs the correct one.</p>
+  <p class="lede" data-i18n="a_summary">The Describer details a labeled figure from a diagram — a scientist at work, parts of a machine — so the Builder matches or reconstructs the correct one.</p>
   
 
   <div class="cols">
@@ -46,8 +47,8 @@
 
   <h2 data-i18n="sec_levers">Make it harder or easier</h2>
   <div class="levers">
-    <div class="lever up"><span class="lk" data-i18n="harder_lbl">Harder</span><p>Describe using only shape, position, and color words — no gestures, no questions.</p></div>
-    <div class="lever down"><span class="lk" data-i18n="easier_lbl">Easier</span><p>Allow yes/no questions and agree on a shared starting shape or anchor point.</p></div>
+    <div class="lever up"><span class="lk" data-i18n="harder_lbl">Harder</span><p data-i18n="a_harder">Describe using only shape, position, and color words — no gestures, no questions.</p></div>
+    <div class="lever down"><span class="lk" data-i18n="easier_lbl">Easier</span><p data-i18n="a_easier">Allow yes/no questions and agree on a shared starting shape or anchor point.</p></div>
   </div>
 
   <h2 data-i18n="sec_reflect">Reflect</h2>

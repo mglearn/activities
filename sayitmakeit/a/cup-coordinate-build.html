@@ -13,6 +13,7 @@
 <script src="../assets/app.js" defer></script>
 </head>
 <body>
+<script>window.SIMK_ACT={"en":{"a_summary":"Students describe each cup using grid coordinates, orientation, and relationship to neighboring cups.","a_materials":"Cups and grid mats.","a_example":"\"Place an upside-down cup at B3. Put an upright cup directly above it.\"","a_harder":"Go one-way — ban questions — and add a 30-word limit; require measured lengths and units.","a_easier":"Allow yes/no questions, agree on a shared base piece, and let the Builder peek once before the barrier goes up."},"es":{"a_summary":"Los estudiantes describen cada vaso usando coordenadas de cuadrícula, orientación y la relación con los vasos vecinos.","a_materials":"Vasos y tapetes con cuadrícula.","a_example":"«Coloca un vaso boca abajo en B3. Pon un vaso boca arriba directamente encima de él.»","a_harder":"Comunicación en un solo sentido: prohíbe las preguntas y añade un límite de 30 palabras; exige longitudes medidas con unidades.","a_easier":"Permite preguntas de sí/no, acuerden una pieza base compartida y deja que el Constructor mire una vez antes de colocar la barrera."},"vi":{"a_summary":"Học sinh mô tả từng chiếc cốc bằng tọa độ trên lưới, hướng và mối quan hệ với các cốc lân cận.","a_materials":"Cốc và thảm lưới.","a_example":"\"Đặt một chiếc cốc úp ngược tại ô B3. Đặt một chiếc cốc dựng thẳng ngay phía trên nó.\"","a_harder":"Chỉ nói một chiều — cấm đặt câu hỏi — và thêm giới hạn 30 từ; yêu cầu độ dài được đo kèm đơn vị.","a_easier":"Cho phép câu hỏi có/không, thống nhất một mảnh gốc chung, và để Người xây được nhìn một lần trước khi dựng vách ngăn."},"ar":{"a_summary":"يصف الطلاب كل كوب باستخدام إحداثيات الشبكة والاتجاه والعلاقة بالأكواب المجاورة.","a_materials":"أكواب وحصائر شبكية.","a_example":"«ضع كوباً مقلوباً عند B3. ضع كوباً منتصباً مباشرة فوقه.»","a_harder":"تواصل في اتجاه واحد — امنع الأسئلة — وأضف حدًّا أقصى قدره 30 كلمة؛ واطلب أطوالًا مقيسة بوحداتها.","a_easier":"اسمح بأسئلة نعم/لا، واتفقوا على قطعة أساس مشتركة، ودع البنّاء يلقي نظرة واحدة قبل وضع الحاجز."},"hi":{"a_summary":"छात्र प्रत्येक कप का वर्णन ग्रिड निर्देशांक, दिशा और पड़ोसी कप से संबंध का उपयोग करके करते हैं।","a_materials":"कप और ग्रिड मैट।","a_example":"\"B3 पर एक उल्टा कप रखें। उसके ठीक ऊपर एक सीधा कप रखें।\"","a_harder":"एकतरफ़ा संवाद करें — प्रश्न पूछना मना करें — और 30 शब्दों की सीमा जोड़ें; इकाइयों के साथ मापी गई लंबाई माँगें।","a_easier":"हाँ/नहीं वाले प्रश्नों की अनुमति दें, एक साझा आधार टुकड़े पर सहमत हों, और अवरोध लगने से पहले निर्माता को एक बार देखने दें।"},"ur":{"a_summary":"طلبہ ہر کپ کی وضاحت گرڈ کوآرڈینیٹ، سمت، اور پڑوسی کپوں سے تعلق کے ذریعے کرتے ہیں۔","a_materials":"کپ اور گرڈ میٹ۔","a_example":"\"B3 پر ایک الٹا کپ رکھیں۔ اس کے بالکل اوپر ایک سیدھا کپ رکھیں۔\"","a_harder":"یک طرفہ رابطہ کریں — سوالات پر پابندی لگائیں — اور 30 الفاظ کی حد شامل کریں؛ اکائیوں کے ساتھ ناپی گئی لمبائیاں طلب کریں۔","a_easier":"ہاں/نہیں والے سوالات کی اجازت دیں، ایک مشترکہ بنیادی ٹکڑے پر اتفاق کریں، اور رکاوٹ کھڑی کرنے سے پہلے بنانے والے کو ایک بار دیکھنے دیں۔"},"zh":{"a_summary":"学生使用网格坐标、朝向以及与相邻杯子的关系来描述每个杯子。","a_materials":"杯子和网格垫。","a_example":"“在 B3 放一个倒扣的杯子。在它正上方放一个正立的杯子。”","a_harder":"只能单向传达——禁止提问——并加上30个词的限制；要求给出带单位的精确长度。","a_easier":"允许是/否问题，商定一个共享的基础部件，并让搭建者在隔板竖起前偷看一次。"}}</script>
 <div class="topbar">
   <a href="../index.html" class="backlink" data-i18n="nav_back_area">← Say It, Make It</a>
   <div class="nav-mid"><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
@@ -27,11 +28,11 @@
     <div><span class="mk" data-i18n="subjects_lbl">STEAM</span><span>🏗️ Engineering</span></div>
   </div>
 
-  <div class="callout mats"><span class="mk" data-i18n="materials_lbl">Materials</span> Cups and grid mats.</div>
+  <div class="callout mats"><span class="mk" data-i18n="materials_lbl">Materials</span> <span data-i18n="a_materials">Cups and grid mats.</span></div>
 
   <h2 data-i18n="sec_describe">What to describe</h2>
-  <p class="lede">Students describe each cup using grid coordinates, orientation, and relationship to neighboring cups.</p>
-  <p class="example"><span data-i18n="example_lbl">Example</span>: &quot;Place an upside-down cup at B3. Put an upright cup directly above it.&quot;</p>
+  <p class="lede" data-i18n="a_summary">Students describe each cup using grid coordinates, orientation, and relationship to neighboring cups.</p>
+  <p class="example"><span data-i18n="example_lbl">Example</span>: <span data-i18n="a_example">&quot;Place an upside-down cup at B3. Put an upright cup directly above it.&quot;</span></p>
 
   <div class="cols">
     <section>
@@ -46,8 +47,8 @@
 
   <h2 data-i18n="sec_levers">Make it harder or easier</h2>
   <div class="levers">
-    <div class="lever up"><span class="lk" data-i18n="harder_lbl">Harder</span><p>Go one-way — ban questions — and add a 30-word limit; require measured lengths and units.</p></div>
-    <div class="lever down"><span class="lk" data-i18n="easier_lbl">Easier</span><p>Allow yes/no questions, agree on a shared base piece, and let the Builder peek once before the barrier goes up.</p></div>
+    <div class="lever up"><span class="lk" data-i18n="harder_lbl">Harder</span><p data-i18n="a_harder">Go one-way — ban questions — and add a 30-word limit; require measured lengths and units.</p></div>
+    <div class="lever down"><span class="lk" data-i18n="easier_lbl">Easier</span><p data-i18n="a_easier">Allow yes/no questions, agree on a shared base piece, and let the Builder peek once before the barrier goes up.</p></div>
   </div>
 
   <h2 data-i18n="sec_reflect">Reflect</h2>

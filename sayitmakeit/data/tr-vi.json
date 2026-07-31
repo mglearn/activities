@@ -1,0 +1,411 @@
+{
+  "1": {
+    "a_summary": "Xây dựng một cấu trúc bằng bốn đến tám chiếc cốc. Một học sinh mô tả trong khi bạn cùng nhóm tái tạo lại mà không nhìn thấy bản gốc. So sánh vị trí, hướng, khoảng cách và thứ tự của các cốc.",
+    "a_materials": "Hai bộ cốc giống hệt nhau và một tấm chắn bằng bìa cứng."
+  },
+  "2": {
+    "a_summary": "Kiến trúc sư xem mô hình cốc. Người đưa tin di chuyển đến chỗ Người xây dựng và lặp lại hướng dẫn. Người đưa tin không được nhìn thấy phần việc của Người xây dựng.",
+    "a_materials": "Cốc, hai tấm chắn và không gian lớp học trống trải."
+  },
+  "3": {
+    "a_summary": "Người mô tả nghiên cứu mô hình và chỉ được đưa ra một loạt chỉ dẫn liên tục không bị gián đoạn. Người xây dựng không được đặt câu hỏi cho đến khi phần mô tả hoàn tất.",
+    "a_materials": "Các bộ cốc tương xứng và một tấm chắn."
+  },
+  "4": {
+    "a_summary": "Người xây dựng nhận được ba thẻ câu hỏi. Mỗi câu hỏi làm rõ tốn một thẻ.",
+    "a_materials": "Các bộ cốc tương xứng và thẻ câu hỏi."
+  },
+  "5": {
+    "a_summary": "Học sinh mô tả từng chiếc cốc bằng tọa độ trên lưới, hướng và mối quan hệ với các cốc lân cận.",
+    "a_materials": "Cốc và thảm lưới.",
+    "a_example": "\"Đặt một chiếc cốc úp ngược tại ô B3. Đặt một chiếc cốc dựng thẳng ngay phía trên nó.\""
+  },
+  "6": {
+    "a_summary": "Người mô tả biết thiết kế dự định. Người xây dựng nhận được một cấu trúc gần như đúng và phải làm theo chỉ dẫn để tìm và sửa lỗi.",
+    "a_materials": "Hai cấu trúc cốc tương xứng, một cái chứa lỗi."
+  },
+  "7": {
+    "a_summary": "Một học sinh mô tả mô hình ẩn bằng cách gọi tên màu sắc, kích thước, hướng và điểm gắn kết của từng viên gạch.",
+    "a_materials": "Hai bộ LEGO hoặc khối lắp ghép giống hệt nhau."
+  },
+  "8": {
+    "a_summary": "Kiến trúc sư nhìn thấy cấu trúc. Người đưa tin chuyển thông tin bằng lời nói đến Người xây dựng nhưng không được nhìn thấy mô hình nào khi tiếp nhận hoặc truyền đạt chỉ dẫn.",
+    "a_materials": "Khối lắp ghép, tấm chắn và thẻ vai trò."
+  },
+  "9": {
+    "a_summary": "Kiến trúc sư không được nói. Kiến trúc sư viết chỉ dẫn cho Người xây dựng, người không được nhìn thấy mô hình.",
+    "a_materials": "Khối lắp ghép, giấy và bút chì."
+  },
+  "10": {
+    "a_summary": "Một học sinh nhìn hình vẽ theo hướng nhìn từ trên, từ trước hoặc từ bên và mô tả để Người xây dựng có thể tạo ra mô hình ba chiều.",
+    "a_materials": "Khối lắp ghép và một bản vẽ hoặc sơ đồ đơn giản."
+  },
+  "11": {
+    "a_summary": "Các bạn cùng nhóm tái tạo một cấu trúc hình học ẩn bằng cách mô tả bằng lời độ dài, góc, đỉnh và các mối nối.",
+    "a_materials": "Ống hút và các khớp nối tái sử dụng hoặc đất nặn."
+  },
+  "12": {
+    "a_summary": "Một bạn tạo ra hoặc xem một hình ghép từ khối họa tiết và giải thích cách tái tạo lại.",
+    "a_materials": "Các bộ khối họa tiết giống hệt nhau."
+  },
+  "13": {
+    "a_summary": "Người mô tả giải thích vị trí và cách đặt từng mảnh tangram mà không gọi tên hình hoàn chỉnh.",
+    "a_materials": "Hai bộ tangram giống hệt nhau và tấm chắn."
+  },
+  "14": {
+    "a_summary": "Học sinh mô tả một mô hình gạch từ tính phẳng hoặc ba chiều được giấu kín.",
+    "a_materials": "Các bộ gạch từ tính tương xứng."
+  },
+  "15": {
+    "a_summary": "Kiến trúc sư xem một cấu trúc làm từ các tấm thẻ được gấp hoặc nối lại. Người xây dựng tái tạo lại từ chỉ dẫn bằng lời.",
+    "a_materials": "Thẻ ghi chú, kẹp và băng dính."
+  },
+  "16": {
+    "a_summary": "Tạo ra một \"cỗ máy\" trừu tượng từ các đồ vật thông thường trong lớp học. Một bạn cùng nhóm phải tái tạo lại cách sắp xếp.",
+    "a_materials": "Bút chì, cục tẩy, thước kẻ, kẹp, cốc và giấy."
+  },
+  "17": {
+    "a_summary": "Các bạn ngồi quay lưng vào nhau. Một người mô tả một bức tranh trong khi người kia vẽ lại mà không nhìn thấy bản gốc.",
+    "a_materials": "Các bản vẽ nét đơn giản, giấy và bút chì."
+  },
+  "18": {
+    "a_summary": "Vòng một không cho phép đặt câu hỏi. Vòng hai cho phép đặt câu hỏi làm rõ. Học sinh so sánh độ chính xác giữa các vòng.",
+    "a_materials": "Hai bức vẽ có độ khó tương đương."
+  },
+  "19": {
+    "a_summary": "Người mô tả chỉ được dùng từ ngữ về hình dạng, kích thước, đường nét, góc và vị trí. Người mô tả không được gọi tên các đồ vật quen thuộc.",
+    "a_materials": "Các bản vẽ hình học và giấy."
+  },
+  "20": {
+    "a_summary": "Một học sinh mô tả đầu, thân, bảng điều khiển, cánh tay và các đặc điểm của một robot. Bạn cùng nhóm vẽ lại.",
+    "a_materials": "Các bản vẽ robot được ghép từ những hình đơn giản."
+  },
+  "21": {
+    "a_summary": "Học sinh mô tả một sinh vật tưởng tượng bằng từ vựng về số lượng, kích thước, màu sắc, hình dạng và vị trí.",
+    "a_materials": "Thẻ quái vật do giáo viên tạo ra."
+  },
+  "22": {
+    "a_summary": "Người mô tả giải thích hình dạng, màu sắc, tỷ lệ và cách bố trí. Bạn cùng nhóm vẽ lá cờ.",
+    "a_materials": "Các thiết kế lá cờ tưởng tượng, giấy, thước kẻ và bút chì màu."
+  },
+  "23": {
+    "a_summary": "Học sinh mô tả vị trí và hình dạng của mắt, miệng, lông mày và các đặc điểm khác mà không gọi tên cảm xúc.",
+    "a_materials": "Thẻ khuôn mặt hoặc biểu tượng đơn giản do giáo viên tạo ra."
+  },
+  "24": {
+    "a_summary": "Người mô tả đưa ra chỉ dẫn về tọa độ và màu sắc cho từng ô vuông hoặc vùng một lần.",
+    "a_materials": "Giấy kẻ ô trống và một thiết kế pixel đã hoàn thiện."
+  },
+  "25": {
+    "a_summary": "Một học sinh nhìn thấy thiết kế hoàn chỉnh và hướng dẫn bạn cùng nhóm hoàn thành nửa còn thiếu.",
+    "a_materials": "Các thiết kế đối xứng đã hoàn thành một nửa."
+  },
+  "26": {
+    "a_summary": "Người mô tả giải thích một biểu tượng mà không gọi tên nó đại diện cho điều gì. Bạn cùng nhóm vẽ lại.",
+    "a_materials": "Các thiết kế biểu tượng đơn giản, phi thương mại."
+  },
+  "27": {
+    "a_summary": "Một học sinh mô tả một sơ đồ có nhãn hoặc không có nhãn. Bạn cùng nhóm tái tạo lại cấu trúc và các mối quan hệ của nó.",
+    "a_materials": "Một sơ đồ khoa học, toán học hoặc xã hội học đơn giản."
+  },
+  "28": {
+    "a_summary": "Học sinh làm theo chỉ dẫn bằng văn bản để vẽ một hình, sau đó so sánh các bản vẽ của mình và chỉnh sửa những chỉ dẫn chưa rõ ràng.",
+    "a_materials": "Các thẻ chỉ dẫn bằng văn bản."
+  },
+  "29": {
+    "a_summary": "Một học sinh sắp xếp các đồ vật và giải thích cách bạn cùng nhóm tạo ra cách sắp xếp giống hệt.",
+    "a_materials": "Các bộ gồm năm đến tám đồ vật trong lớp học giống hệt nhau."
+  },
+  "30": {
+    "a_summary": "Học sinh mô tả nơi đặt bàn học, bàn, cửa, kệ và người.",
+    "a_materials": "Các hình cắt nội thất nhỏ hoặc học cụ và thảm phòng."
+  },
+  "31": {
+    "a_summary": "Một học sinh tạo ra khung cảnh sân chơi và hướng dẫn bạn cùng nhóm đặt cầu trượt, cây, ghế dài, lối đi và các khu vui chơi.",
+    "a_materials": "Thảm sân chơi và các mảnh hình tương xứng."
+  },
+  "32": {
+    "a_summary": "Người mô tả đặt cây, thùng tái chế, vườn, trạm nước và các đặc điểm môi trường sống, rồi giải thích vị trí của chúng.",
+    "a_materials": "Thảm sân trường và các thẻ đặc điểm môi trường giống hệt nhau."
+  },
+  "33": {
+    "a_summary": "Một học sinh mặc quần áo cho một nhân vật và giải thích các lựa chọn trang phục cùng vị trí cho bạn cùng nhóm.",
+    "a_materials": "Các nhân vật giấy và mảnh trang phục tương xứng."
+  },
+  "34": {
+    "a_summary": "Người mô tả tạo ra một khuôn mặt và hướng dẫn bạn cùng nhóm ghép các đặc điểm cho khớp.",
+    "a_materials": "Thảm khuôn mặt và các mảnh đặc điểm khuôn mặt tương xứng."
+  },
+  "35": {
+    "a_summary": "Một học sinh dựng một khung cảnh môi trường sống. Bạn cùng nhóm tái tạo lại trong khi thảo luận về nơi các sinh vật thuộc về.",
+    "a_materials": "Nền môi trường sống và các mảnh động vật, thực vật, nước, nơi trú ẩn và thức ăn."
+  },
+  "36": {
+    "a_summary": "Người mô tả bố trí một khung cảnh lịch sử và hướng dẫn bạn cùng nhóm sao chép lại.",
+    "a_materials": "Thảm nền và các thẻ người, tòa nhà, đồ vật phù hợp với lịch sử."
+  },
+  "37": {
+    "a_summary": "Học sinh tạo ra và sao chép một khung cảnh từ một câu chuyện quen thuộc. Sau đó, các em thuật lại điều có thể đang xảy ra.",
+    "a_materials": "Thảm bối cảnh truyện và các mảnh nhân vật hoặc đồ vật."
+  },
+  "38": {
+    "a_summary": "Người mô tả đưa ra chỉ dẫn để sắp xếp các hành tinh, mặt trăng, tàu vũ trụ hoặc quỹ đạo.",
+    "a_materials": "Thảm vũ trụ tương xứng và thẻ hành tinh."
+  },
+  "39": {
+    "a_summary": "Một học sinh tạo ra một bữa ăn hoặc đĩa dinh dưỡng và hướng dẫn bạn cùng nhóm sao chép lại.",
+    "a_materials": "Đĩa giấy và các thẻ thức ăn tương xứng."
+  },
+  "40": {
+    "a_summary": "Người mô tả đặt một trường học, bệnh viện, trạm cứu hỏa, công viên, thư viện và các cửa hàng. Bạn cùng nhóm ghép khớp cách sắp xếp.",
+    "a_materials": "Bản đồ đường phố trống và các thẻ tòa nhà tương xứng."
+  },
+  "41": {
+    "a_summary": "Một học sinh tạo ra một chuỗi màu sắc, hình dạng hoặc kích thước và mô tả để bạn cùng nhóm tái tạo lại.",
+    "a_materials": "Hạt, dây tương xứng và một tấm chắn."
+  },
+  "42": {
+    "a_summary": "Người mô tả giải thích một đoàn tàu khối lập phương bằng màu sắc, thứ tự và vị trí.",
+    "a_materials": "Các khối lập phương màu tương xứng."
+  },
+  "43": {
+    "a_summary": "Một học sinh tạo ra một họa tiết cắm chốt. Bạn cùng nhóm tái tạo lại bằng chỉ dẫn về hàng, cột, màu sắc và vị trí.",
+    "a_materials": "Bảng cắm chốt tương xứng và các chốt màu."
+  },
+  "44": {
+    "a_summary": "Người mô tả sắp xếp các con số theo một quy luật và giải thích chuỗi số mà không nêu trực tiếp quy luật. Bạn cùng nhóm tái tạo lại và xác định quy luật.",
+    "a_materials": "Thẻ số."
+  },
+  "45": {
+    "a_summary": "Một học sinh sắp xếp các phân số tương đương hoặc kết hợp và giải thích cách đặt cùng các mối quan hệ.",
+    "a_materials": "Các thẻ phân số tương xứng."
+  },
+  "46": {
+    "a_summary": "Người mô tả tạo ra một con số và giải thích cách sắp xếp hàng trăm, hàng chục và hàng đơn vị.",
+    "a_materials": "Khối cơ số mười và thảm giá trị theo vị trí."
+  },
+  "47": {
+    "a_summary": "Một học sinh phân loại các vật vào các nhóm và mô tả quy tắc phân loại để bạn cùng nhóm có thể tạo ra các nhóm giống hệt.",
+    "a_materials": "Các bộ đồ vật hoặc thẻ giống hệt nhau."
+  },
+  "48": {
+    "a_summary": "Người mô tả giải thích mỗi vật thuộc về đâu nhưng không được nêu tên nhãn phân loại. Bạn cùng nhóm suy luận ra quy tắc.",
+    "a_materials": "Các bộ thẻ từ, hình ảnh, hình dạng hoặc số tương xứng."
+  },
+  "49": {
+    "a_summary": "Một học sinh sắp xếp các nhạc cụ theo một trình tự và mô tả thứ tự. Sau đó học sinh biểu diễn trình tự đó.",
+    "a_materials": "Các thẻ nhạc cụ tương xứng hoặc nhạc cụ gõ nhỏ."
+  },
+  "50": {
+    "a_summary": "Một học sinh nhìn hoặc thực hiện một tiết tấu. Bạn cùng nhóm tái tạo lại từ cách đếm hoặc âm tiết tiết tấu bằng lời.",
+    "a_materials": "Thẻ tiết tấu hoặc nhạc cụ gõ."
+  },
+  "51": {
+    "a_summary": "Một học sinh vẽ một tuyến đường và mô tả nó. Bạn cùng nhóm làm theo chỉ dẫn và vẽ đúng đường đó.",
+    "a_materials": "Các bản đồ giống hệt nhau và bút chì."
+  },
+  "52": {
+    "a_summary": "Người mô tả dẫn dắt bạn cùng nhóm từ điểm xuất phát đến kho báu ẩn mà không tiết lộ điểm đến.",
+    "a_materials": "Bản đồ lưới tương xứng có chướng ngại vật và các mốc định hướng."
+  },
+  "53": {
+    "a_summary": "Người mô tả nêu tên các cặp tọa độ có thứ tự hoặc chỉ dẫn di chuyển. Bạn cùng nhóm vẽ và nối các điểm.",
+    "a_materials": "Lưới tọa độ."
+  },
+  "54": {
+    "a_summary": "Một học sinh hướng dẫn bạn cùng nhóm đi từ một địa điểm trong trường đến địa điểm khác bằng hành lang, các lượt rẽ và các mốc định hướng.",
+    "a_materials": "Bản đồ trường học đơn giản hóa."
+  },
+  "55": {
+    "a_summary": "Học sinh đặt các đồ vật về phía bắc, nam, đông, tây, đông bắc, tây bắc, đông nam hoặc tây nam của một vị trí trung tâm.",
+    "a_materials": "Thảm la bàn và thẻ đồ vật."
+  },
+  "56": {
+    "a_summary": "Người mô tả đặt núi, sông, hồ, thung lũng và đồng bằng. Bạn cùng nhóm sao chép lại bản đồ.",
+    "a_materials": "Bản đồ trống và các biểu tượng địa hình."
+  },
+  "57": {
+    "a_summary": "Người lập trình đưa ra các lệnh từng bước để di chuyển một quân cờ qua lưới. Người vận hành làm theo các lệnh một cách chính xác.",
+    "a_materials": "Thảm lưới, quân cờ và thẻ chướng ngại vật."
+  },
+  "58": {
+    "a_summary": "Một học sinh đóng vai một robot và làm theo các lệnh chính xác như tiến lên, xoay, dừng lại và nhặt lên.",
+    "a_materials": "Lưới trên sàn hoặc đường vượt chướng ngại vật an toàn."
+  },
+  "59": {
+    "a_summary": "Người mô tả gọi tên một vật STEAM ẩn — một khối hình học, một dụng cụ thí nghiệm, một mẫu vật có nhãn — bằng từ vựng chính xác cho đến khi Người xây dựng chọn được vật khớp từ một bộ chung.",
+    "a_materials": "Hai bộ đồ vật hoặc thẻ liên quan đến chương trình học giống hệt nhau."
+  },
+  "60": {
+    "a_summary": "Người mô tả phải truyền đạt một thuật ngữ STEAM (như \"song song\", \"mạch điện\" hoặc \"đối xứng\") mà không nói ra từ đó, chỉ dùng các thuộc tính định nghĩa, để Người xây dựng nhận diện hoặc dựng nó.",
+    "a_materials": "Thẻ từ vựng có ghi các từ gợi ý bị cấm."
+  },
+  "61": {
+    "a_summary": "Người mô tả trình bày chi tiết một hình có nhãn từ một sơ đồ — một nhà khoa học đang làm việc, các bộ phận của một cỗ máy — để Người xây dựng ghép khớp hoặc tái dựng đúng hình.",
+    "a_materials": "Các bộ thẻ nhân vật có đặc điểm tương tự nhau."
+  },
+  "62": {
+    "a_summary": "Từ một bộ các sơ đồ hoặc biểu đồ khoa học tương tự nhau, Người mô tả nêu rõ một cái chính xác đủ để Người xây dựng chọn đúng cái đang được mô tả.",
+    "a_materials": "Các bộ hình ảnh có liên quan chặt chẽ với nhau."
+  },
+  "63": {
+    "a_summary": "Các bạn cùng nhóm xây dựng một câu quy trình khớp nhau từng bước — chuỗi chỉ dẫn có thứ tự của một quá trình khoa học hoặc kỹ thuật — nơi thứ tự từ ngữ làm thay đổi kết quả.",
+    "a_materials": "Các thẻ từ hoặc cụm từ tương xứng."
+  },
+  "64": {
+    "a_summary": "Người mô tả truyền đạt đúng thứ tự của một quá trình khoa học hoặc quy trình dựng kỹ thuật; Người xây dựng sắp xếp các bước cho khớp.",
+    "a_materials": "Các bộ thẻ sự kiện trong câu chuyện tương xứng."
+  },
+  "65": {
+    "a_summary": "Người mô tả tái dựng một sơ đồ quy trình có nhãn — các giai đoạn của một vòng đời hoặc một quy trình dựng — từng ô một chỉ bằng lời nói.",
+    "a_materials": "Các ô truyện tranh tương xứng."
+  },
+  "66": {
+    "a_summary": "Người mô tả sắp xếp một luận điểm và bằng chứng hỗ trợ (lập luận khoa học) để Người xây dựng tái tạo cùng một cấu trúc ý chính và phần hỗ trợ.",
+    "a_materials": "Các thẻ ý tưởng và chi tiết tương xứng."
+  },
+  "67": {
+    "a_summary": "Người mô tả dựng lại một sơ đồ tư duy về một chủ đề STEAM — ý tưởng trung tâm và các thuật ngữ liên kết — để mạng lưới của Người xây dựng khớp từng nút một.",
+    "a_materials": "Thẻ từ vựng hoặc mẫu sơ đồ tư duy trống."
+  },
+  "68": {
+    "a_summary": "Người mô tả đọc rõ một quy trình thí nghiệm hoặc kỹ thuật; Người xây dựng viết lại thành các bước được đánh số, có thể lặp lại, rồi đối chiếu với bản gốc.",
+    "a_materials": "Một công trình hoặc bản vẽ đã hoàn thành đơn giản."
+  },
+  "69": {
+    "a_summary": "Một học sinh sắp xếp các hình và mô tả vị trí, hướng và mối quan hệ của chúng.",
+    "a_materials": "Các hình học tương xứng."
+  },
+  "70": {
+    "a_summary": "Người mô tả nhìn một đa giác và giải thích nó có bao nhiêu cạnh, đỉnh, các cạnh bằng nhau hoặc góc vuông. Người xây dựng tái tạo lại.",
+    "a_materials": "Que thủ công hoặc bảng đinh."
+  },
+  "71": {
+    "a_summary": "Một học sinh mô tả vị trí các đinh và đường đi của dây thun trong khi bạn cùng nhóm dựng cùng một hình.",
+    "a_materials": "Bảng đinh tương xứng và dây thun."
+  },
+  "72": {
+    "a_summary": "Người mô tả sắp xếp một phương trình hoặc biểu thức và giải thích thứ tự mà không cho xem.",
+    "a_materials": "Các thẻ số và phép tính."
+  },
+  "73": {
+    "a_summary": "Một học sinh tạo ra một mảng và mô tả các hàng, cột, tổng số và hướng của nó.",
+    "a_materials": "Vật đếm và thảm lưới."
+  },
+  "74": {
+    "a_summary": "Một học sinh tạo ra một mô hình tương đương và giải thích cách các mảnh phủ những lượng bằng nhau.",
+    "a_materials": "Hình tròn hoặc dải phân số."
+  },
+  "75": {
+    "a_summary": "Người mô tả giải thích một phép tịnh tiến, phép quay hoặc phép đối xứng. Bạn cùng nhóm thực hiện phép biến hình.",
+    "a_materials": "Thẻ hình và lưới tọa độ."
+  },
+  "76": {
+    "a_summary": "Một học sinh mô tả một biểu đồ cột, biểu đồ điểm hoặc biểu đồ hình. Bạn cùng nhóm dựng lại.",
+    "a_materials": "Các biểu đồ trống và một biểu đồ đã hoàn thành."
+  },
+  "77": {
+    "a_summary": "Người mô tả nhìn một mạch điện đơn giản và giải thích các kết nối. Người xây dựng lắp ráp hoặc vẽ sơ đồ nó.",
+    "a_materials": "Các linh kiện mạch điện an toàn hoặc thẻ ký hiệu mạch điện."
+  },
+  "78": {
+    "a_summary": "Một học sinh mô tả các loại nguyên tử, số lượng, liên kết và cách sắp xếp.",
+    "a_materials": "Bộ mô hình phân tử tương xứng hoặc đất nặn màu và que."
+  },
+  "79": {
+    "a_summary": "Người mô tả sắp xếp một chuỗi hoặc lưới thức ăn và giải thích dòng năng lượng.",
+    "a_materials": "Các thẻ sinh vật và mũi tên tương xứng."
+  },
+  "80": {
+    "a_summary": "Một học sinh sắp xếp các giai đoạn theo thứ tự và giải thích trình tự cho bạn cùng nhóm.",
+    "a_materials": "Các thẻ vòng đời tương xứng."
+  },
+  "81": {
+    "a_summary": "Người mô tả sắp xếp các tầng địa chất, hóa thạch và đứt gãy. Bạn cùng nhóm tái tạo lại mặt cắt.",
+    "a_materials": "Các dải màu hoặc thẻ tầng trầm tích."
+  },
+  "82": {
+    "a_summary": "Một học sinh đặt các biểu tượng front, hệ thống áp suất, lượng mưa và nhiệt độ. Bạn cùng nhóm sao chép lại bản đồ.",
+    "a_materials": "Bản đồ trống và các thẻ biểu tượng thời tiết."
+  },
+  "83": {
+    "a_summary": "Người mô tả đặt các bào quan và giải thích vị trí cùng mối quan hệ của chúng.",
+    "a_materials": "Thảm tế bào và các mảnh bào quan."
+  },
+  "84": {
+    "a_summary": "Một học sinh xem một bố trí thí nghiệm đã hoàn thành và đưa ra chỉ dẫn để lắp ráp hoặc vẽ sơ đồ nó.",
+    "a_materials": "Thiết bị khoa học an toàn trong lớp học hoặc thẻ hình ảnh."
+  },
+  "85": {
+    "a_summary": "Người mô tả truyền đạt một dòng thời gian có thứ tự của một quá trình khoa học hoặc công nghệ — lịch sử của một phát minh, hoặc các sự kiện địa chất — và Người xây dựng đặt các sự kiện theo đúng trình tự và khoảng cách.",
+    "a_materials": "Các thẻ sự kiện tương xứng."
+  },
+  "86": {
+    "a_summary": "Người mô tả giải thích cấu trúc của một hệ thống — các cấp độ của một hệ sinh thái, hoặc các hệ thống con của một cỗ máy — để Người xây dựng dựng lại cùng một hệ thống phân cấp các bộ phận.",
+    "a_materials": "Các thẻ nhánh, vai trò và trách nhiệm."
+  },
+  "87": {
+    "a_summary": "Người mô tả truyền đạt một tuyến đường hoặc mạng lưới trên một bản đồ tọa độ — một dòng năng lượng hoặc chuỗi cung ứng — bằng cách dùng phương hướng và tọa độ để Người xây dựng vẽ theo chính xác.",
+    "a_materials": "Các bản đồ tương xứng và thẻ hàng hóa."
+  },
+  "88": {
+    "a_summary": "Người mô tả truyền đạt một sơ đồ mặt bằng dưới các ràng buộc — không gian, tài nguyên và quy tắc — để Người xây dựng bố trí cùng một thiết kế kỹ thuật.",
+    "a_materials": "Thảm cảnh quan và các thẻ tòa nhà hoặc tài nguyên."
+  },
+  "89": {
+    "a_summary": "Người mô tả sắp xếp các mẫu vật hoặc bằng chứng có nhãn theo các thuộc tính đo lường được; Người xây dựng phân loại và sắp thứ tự chúng cho khớp.",
+    "a_materials": "Các thẻ hiện vật lịch sử tương xứng."
+  },
+  "90": {
+    "a_summary": "Người mô tả bố trí một chuỗi nhân quả trong một hệ thống — đầu vào, các thay đổi và đầu ra — để Người xây dựng dựng lại cùng một chuỗi liên kết.",
+    "a_materials": "Các thẻ sự kiện lịch sử tương xứng và mũi tên."
+  },
+  "91": {
+    "a_summary": "Người nghe không được ngắt lời hoặc yêu cầu làm rõ."
+  },
+  "92": {
+    "a_summary": "Người nghe có thể đặt bao nhiêu câu hỏi làm rõ tùy nhu cầu."
+  },
+  "93": {
+    "a_summary": "Người nghe có thể đặt câu hỏi, nhưng Người mô tả chỉ được trả lời có hoặc không."
+  },
+  "94": {
+    "a_summary": "Người mô tả không được dùng quá ba mươi từ."
+  },
+  "95": {
+    "a_summary": "Người xây dựng phải hoàn thành và xác nhận từng bước trước khi nhận chỉ dẫn tiếp theo."
+  },
+  "96": {
+    "a_summary": "Người đưa tin không được ghi chú và mỗi lượt chỉ được mang theo một thông điệp."
+  },
+  "97": {
+    "a_summary": "Kiến trúc sư viết từng thông điệp. Người đưa tin chuyển giao mà không giải thích."
+  },
+  "98": {
+    "a_summary": "Thông tin đi qua hai hoặc ba học sinh trước khi đến Người xây dựng."
+  },
+  "99": {
+    "a_summary": "Hai học sinh cung cấp chỉ dẫn, nhưng chỉ một người có thông tin chính xác."
+  },
+  "100": {
+    "a_summary": "Các đội có thời gian lập kế hoạch để tạo ra các cách viết tắt, tọa độ, nhãn hoặc thuật ngữ chung trước khi nhìn thấy cấu trúc."
+  },
+  "101": {
+    "a_summary": "Các đội được điểm khi khớp chính xác và bị trừ điểm khi hoàn thành có lỗi."
+  },
+  "102": {
+    "a_summary": "Các đội cố gắng hoàn thành nhanh chóng, sau đó tính điểm độ chính xác."
+  },
+  "103": {
+    "a_summary": "Một Người quan sát ghi lại các ví dụ về ngôn ngữ rõ ràng, chỉ dẫn mơ hồ, câu hỏi và sự chỉnh sửa."
+  },
+  "104": {
+    "a_summary": "Sau mỗi chỉ dẫn, Người xây dựng phải nhắc lại trước khi hành động."
+  },
+  "105": {
+    "a_summary": "Giáo viên bí mật di chuyển hoặc thay thế một mảnh trong quá trình hoạt động. Đội phải phát hiện và sửa chữa sự khác biệt."
+  },
+  "106": {
+    "a_summary": "Học sinh tạo ra các mô hình, bản vẽ, bản đồ hoặc họa tiết để các nhóm khác tái tạo lại."
+  }
+}

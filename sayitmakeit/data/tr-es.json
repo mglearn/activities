@@ -1,0 +1,411 @@
+{
+  "1": {
+    "a_summary": "Construye una estructura con cuatro a ocho vasos. Un estudiante la describe mientras su compañero la recrea sin ver la original. Comparen la posición, la orientación, el espaciado y el orden de los vasos.",
+    "a_materials": "Dos juegos idénticos de vasos y una pantalla de cartón."
+  },
+  "2": {
+    "a_summary": "El Arquitecto observa el modelo de vasos. Un Mensajero se dirige al Constructor y repite las instrucciones. El Mensajero no puede ver el trabajo del Constructor.",
+    "a_materials": "Vasos, dos barreras y espacio abierto en el aula."
+  },
+  "3": {
+    "a_summary": "El Descriptor estudia el modelo y solo puede dar una serie de indicaciones sin interrupciones. El Constructor no puede hacer preguntas hasta que la descripción esté completa.",
+    "a_materials": "Juegos de vasos idénticos y una barrera."
+  },
+  "4": {
+    "a_summary": "El Constructor recibe tres fichas de pregunta. Cada pregunta aclaratoria cuesta una ficha.",
+    "a_materials": "Juegos de vasos idénticos y fichas de pregunta."
+  },
+  "5": {
+    "a_summary": "Los estudiantes describen cada vaso usando coordenadas de cuadrícula, orientación y la relación con los vasos vecinos.",
+    "a_materials": "Vasos y tapetes con cuadrícula.",
+    "a_example": "«Coloca un vaso boca abajo en B3. Pon un vaso boca arriba directamente encima de él.»"
+  },
+  "6": {
+    "a_summary": "El Descriptor conoce el diseño previsto. El Constructor recibe una estructura casi correcta y debe seguir las indicaciones para encontrar y corregir el error.",
+    "a_materials": "Dos estructuras de vasos idénticas, una con un error."
+  },
+  "7": {
+    "a_summary": "Un estudiante describe un modelo oculto nombrando el color, el tamaño, la orientación y el punto de unión de cada pieza.",
+    "a_materials": "Dos juegos idénticos de LEGO o bloques de construcción."
+  },
+  "8": {
+    "a_summary": "El Arquitecto ve la estructura. El Mensajero lleva la información hablada al Constructor, pero no puede ver ninguno de los modelos mientras recibe o transmite las indicaciones.",
+    "a_materials": "Bloques de construcción, barreras y tarjetas de roles."
+  },
+  "9": {
+    "a_summary": "El Arquitecto no puede hablar. El Arquitecto escribe las indicaciones para un Constructor que no puede ver el modelo.",
+    "a_materials": "Bloques, papel y lápices."
+  },
+  "10": {
+    "a_summary": "Un estudiante ve un dibujo de vista superior, frontal o lateral y lo describe para que el Constructor pueda producir el modelo tridimensional.",
+    "a_materials": "Bloques y un plano o diagrama sencillo."
+  },
+  "11": {
+    "a_summary": "Los compañeros recrean una estructura geométrica oculta usando descripciones habladas de longitudes, ángulos, vértices y conexiones.",
+    "a_materials": "Popotes y conectores reutilizables o plastilina para modelar."
+  },
+  "12": {
+    "a_summary": "Un compañero crea o ve una imagen con bloques de patrones y explica cómo reproducirla.",
+    "a_materials": "Juegos idénticos de bloques de patrones."
+  },
+  "13": {
+    "a_summary": "El Descriptor explica dónde y cómo colocar cada pieza del tangram sin nombrar la imagen terminada.",
+    "a_materials": "Dos juegos idénticos de tangram y barreras."
+  },
+  "14": {
+    "a_summary": "Los estudiantes describen un modelo oculto de mosaicos magnéticos, plano o tridimensional.",
+    "a_materials": "Juegos idénticos de mosaicos magnéticos."
+  },
+  "15": {
+    "a_summary": "El Arquitecto observa una estructura hecha con tarjetas dobladas o unidas. El Constructor la recrea a partir de instrucciones verbales.",
+    "a_materials": "Tarjetas de fichas, clips y cinta adhesiva."
+  },
+  "16": {
+    "a_summary": "Crea una «máquina» abstracta con objetos comunes del aula. Un compañero debe reproducir la disposición.",
+    "a_materials": "Lápices, gomas de borrar, reglas, clips, vasos y papel."
+  },
+  "17": {
+    "a_summary": "Los compañeros se sientan espalda con espalda. Uno describe una imagen mientras el otro la dibuja sin ver la original.",
+    "a_materials": "Dibujos sencillos de líneas, papel y lápices."
+  },
+  "18": {
+    "a_summary": "En la primera ronda no se permiten preguntas. En la segunda ronda sí se permiten preguntas aclaratorias. Los estudiantes comparan la precisión entre rondas.",
+    "a_materials": "Dos dibujos comparables."
+  },
+  "19": {
+    "a_summary": "El Descriptor solo puede usar palabras de forma, tamaño, línea, ángulo y posición. El Descriptor no puede nombrar objetos familiares.",
+    "a_materials": "Dibujos geométricos y papel."
+  },
+  "20": {
+    "a_summary": "Un estudiante describe la cabeza, el cuerpo, los controles, los brazos y las características de un robot. El compañero lo dibuja.",
+    "a_materials": "Dibujos de robots compuestos de formas sencillas."
+  },
+  "21": {
+    "a_summary": "Los estudiantes describen una criatura ficticia usando vocabulario de cantidad, tamaño, color, forma y posición.",
+    "a_materials": "Tarjetas de monstruos creadas por el docente."
+  },
+  "22": {
+    "a_summary": "El Descriptor explica las formas, los colores, las proporciones y la colocación. El compañero dibuja la bandera.",
+    "a_materials": "Diseños de banderas ficticias, papel, reglas y lápices de colores."
+  },
+  "23": {
+    "a_summary": "Los estudiantes describen la ubicación y la forma de los ojos, la boca, las cejas y otros rasgos sin nombrar la emoción.",
+    "a_materials": "Tarjetas sencillas de caras o símbolos creadas por el docente."
+  },
+  "24": {
+    "a_summary": "El Descriptor da instrucciones de coordenadas y color, un cuadro o región a la vez.",
+    "a_materials": "Papel cuadriculado en blanco y un diseño de píxeles terminado."
+  },
+  "25": {
+    "a_summary": "Un estudiante ve el diseño completo y guía a su compañero para completar la mitad que falta.",
+    "a_materials": "Diseños simétricos completados a la mitad."
+  },
+  "26": {
+    "a_summary": "El Descriptor explica un símbolo sin nombrar lo que representa. El compañero lo dibuja.",
+    "a_materials": "Diseños de símbolos sencillos y no comerciales."
+  },
+  "27": {
+    "a_summary": "Un estudiante describe un diagrama con o sin etiquetas. El compañero recrea su estructura y sus relaciones.",
+    "a_materials": "Un diagrama sencillo de ciencias, matemáticas o estudios sociales."
+  },
+  "28": {
+    "a_summary": "Los estudiantes siguen instrucciones escritas para dibujar una imagen, luego comparan sus dibujos y revisan las indicaciones poco claras.",
+    "a_materials": "Tarjetas con indicaciones escritas."
+  },
+  "29": {
+    "a_summary": "Un estudiante organiza los objetos y explica cómo debe su compañero crear la misma disposición.",
+    "a_materials": "Juegos idénticos de cinco a ocho objetos del aula."
+  },
+  "30": {
+    "a_summary": "Los estudiantes describen dónde colocar pupitres, mesas, puertas, estantes y personas.",
+    "a_materials": "Recortes de muebles o manipulables y tapetes de aula."
+  },
+  "31": {
+    "a_summary": "Un estudiante crea una escena de parque infantil y dirige a su compañero para colocar toboganes, árboles, bancas, senderos y áreas de juego.",
+    "a_materials": "Tapetes de parque infantil y piezas de imágenes coincidentes."
+  },
+  "32": {
+    "a_summary": "El Descriptor coloca árboles, contenedores de reciclaje, jardines, estaciones de agua y elementos de hábitat, y luego explica sus ubicaciones.",
+    "a_materials": "Tapetes de patio escolar y tarjetas idénticas de elementos ambientales."
+  },
+  "33": {
+    "a_summary": "Un estudiante viste a un personaje y explica a su compañero las elecciones y ubicaciones de la ropa.",
+    "a_materials": "Personajes de papel y piezas de ropa coincidentes."
+  },
+  "34": {
+    "a_summary": "El Descriptor crea una cara y guía a su compañero para que coincida con los rasgos.",
+    "a_materials": "Tapetes de caras y piezas de rasgos faciales coincidentes."
+  },
+  "35": {
+    "a_summary": "Un estudiante construye una escena de hábitat. El compañero la recrea mientras conversan sobre dónde pertenecen los organismos.",
+    "a_materials": "Fondos de hábitat y piezas de animales, plantas, agua, refugio y alimento."
+  },
+  "36": {
+    "a_summary": "El Descriptor organiza una escena histórica y dirige a su compañero para duplicarla.",
+    "a_materials": "Tapetes de fondo y tarjetas de personas, edificios y objetos históricamente apropiados."
+  },
+  "37": {
+    "a_summary": "Los estudiantes crean y copian una escena de un cuento conocido. Después, narran lo que podría estar sucediendo.",
+    "a_materials": "Tapetes de escenario del cuento y piezas de personajes u objetos."
+  },
+  "38": {
+    "a_summary": "El Descriptor da indicaciones para organizar planetas, lunas, naves espaciales o trayectorias orbitales.",
+    "a_materials": "Tapetes espaciales y tarjetas de planetas coincidentes."
+  },
+  "39": {
+    "a_summary": "Un estudiante crea un plato de comida o de nutrición y dirige a su compañero para duplicarlo.",
+    "a_materials": "Platos de papel y tarjetas de alimentos coincidentes."
+  },
+  "40": {
+    "a_summary": "El Descriptor coloca una escuela, un hospital, una estación de bomberos, un parque, una biblioteca y tiendas. El compañero reproduce la disposición.",
+    "a_materials": "Mapas de calles en blanco y tarjetas de edificios coincidentes."
+  },
+  "41": {
+    "a_summary": "Un estudiante crea una secuencia de color, forma o tamaño y la describe para que su compañero la reproduzca.",
+    "a_materials": "Cuentas y cordones coincidentes y una barrera."
+  },
+  "42": {
+    "a_summary": "El Descriptor explica un tren de cubos usando color, orden y posición.",
+    "a_materials": "Cubos de colores coincidentes."
+  },
+  "43": {
+    "a_summary": "Un estudiante produce un patrón de clavijas. El compañero lo recrea usando instrucciones de fila, columna, color y posición.",
+    "a_materials": "Tableros de clavijas coincidentes y clavijas de colores."
+  },
+  "44": {
+    "a_summary": "El Descriptor organiza números según una regla y explica la secuencia sin enunciar la regla directamente. El compañero la recrea e identifica el patrón.",
+    "a_materials": "Tarjetas de números."
+  },
+  "45": {
+    "a_summary": "Un estudiante organiza fracciones equivalentes o combinadas y explica la colocación y las relaciones.",
+    "a_materials": "Fichas de fracciones coincidentes."
+  },
+  "46": {
+    "a_summary": "El Descriptor construye un número y explica la disposición de centenas, decenas y unidades.",
+    "a_materials": "Bloques de base diez y tapetes de valor posicional."
+  },
+  "47": {
+    "a_summary": "Un estudiante clasifica objetos en grupos y describe la regla de clasificación para que su compañero cree los mismos grupos.",
+    "a_materials": "Colecciones idénticas de objetos o tarjetas."
+  },
+  "48": {
+    "a_summary": "El Descriptor explica dónde pertenece cada objeto, pero no puede enunciar las etiquetas de las categorías. El compañero deduce la regla.",
+    "a_materials": "Juegos coincidentes de tarjetas de palabras, imágenes, formas o números."
+  },
+  "49": {
+    "a_summary": "Un estudiante organiza instrumentos en una secuencia y describe el orden. Luego los estudiantes interpretan la secuencia.",
+    "a_materials": "Tarjetas de instrumentos coincidentes o pequeños instrumentos de percusión."
+  },
+  "50": {
+    "a_summary": "Un estudiante ve o interpreta un ritmo. Un compañero lo reproduce a partir de un conteo hablado o de sílabas rítmicas.",
+    "a_materials": "Tarjetas de ritmo o instrumentos de percusión."
+  },
+  "51": {
+    "a_summary": "Un estudiante dibuja una ruta y la describe. El compañero sigue las indicaciones y dibuja el mismo trayecto.",
+    "a_materials": "Mapas idénticos y lápices."
+  },
+  "52": {
+    "a_summary": "El Descriptor guía a su compañero desde el punto de partida hasta un tesoro oculto sin revelar el destino.",
+    "a_materials": "Mapas de cuadrícula coincidentes con obstáculos y puntos de referencia."
+  },
+  "53": {
+    "a_summary": "El Descriptor nombra pares ordenados o instrucciones de movimiento. El compañero traza y une los puntos.",
+    "a_materials": "Cuadrículas de coordenadas."
+  },
+  "54": {
+    "a_summary": "Un estudiante dirige a su compañero de un lugar de la escuela a otro usando pasillos, giros y puntos de referencia.",
+    "a_materials": "Mapas escolares simplificados."
+  },
+  "55": {
+    "a_summary": "Los estudiantes colocan objetos al norte, sur, este, oeste, noreste, noroeste, sureste o suroeste de una ubicación central.",
+    "a_materials": "Tapetes de brújula y tarjetas de objetos."
+  },
+  "56": {
+    "a_summary": "El Descriptor coloca montañas, ríos, lagos, valles y llanuras. El compañero duplica el mapa.",
+    "a_materials": "Mapas en blanco y símbolos de accidentes geográficos."
+  },
+  "57": {
+    "a_summary": "El Programador da comandos paso a paso para mover una ficha por la cuadrícula. El Operador sigue los comandos con exactitud.",
+    "a_materials": "Tapetes de cuadrícula, fichas y tarjetas de obstáculos."
+  },
+  "58": {
+    "a_summary": "Un estudiante actúa como un robot y sigue comandos precisos como avanzar, girar, detenerse y recoger.",
+    "a_materials": "Cuadrícula en el suelo o circuito de obstáculos seguro."
+  },
+  "59": {
+    "a_summary": "El Descriptor nombra un objeto STEAM oculto —un sólido geométrico, una herramienta de laboratorio, un espécimen etiquetado— usando vocabulario preciso hasta que el Constructor selecciona el correspondiente de un conjunto compartido.",
+    "a_materials": "Dos juegos idénticos de objetos o tarjetas relacionados con el currículo."
+  },
+  "60": {
+    "a_summary": "El Descriptor debe transmitir un término STEAM (como «paralelo», «circuito» o «simetría») sin decir la palabra misma, usando solo atributos que lo definan, para que el Constructor lo identifique o lo construya.",
+    "a_materials": "Tarjetas de vocabulario con palabras clave prohibidas."
+  },
+  "61": {
+    "a_summary": "El Descriptor detalla una figura etiquetada de un diagrama —un científico trabajando, las partes de una máquina— para que el Constructor identifique o reconstruya la correcta.",
+    "a_materials": "Juegos de tarjetas de personajes con rasgos similares."
+  },
+  "62": {
+    "a_summary": "De un conjunto de diagramas o gráficas científicas similares, el Descriptor especifica uno con la precisión suficiente para que el Constructor elija exactamente el que se describe.",
+    "a_materials": "Juegos de imágenes estrechamente relacionadas."
+  },
+  "63": {
+    "a_summary": "Los compañeros construyen paso a paso una oración de procedimiento coincidente —las instrucciones ordenadas de un proceso científico o de ingeniería— donde el orden de las palabras cambia el resultado.",
+    "a_materials": "Tarjetas de palabras o frases coincidentes."
+  },
+  "64": {
+    "a_summary": "El Descriptor transmite el orden correcto de un proceso científico o de una construcción de ingeniería; el Constructor secuencia los pasos para que coincidan.",
+    "a_materials": "Juegos coincidentes de tarjetas de eventos de la historia."
+  },
+  "65": {
+    "a_summary": "El Descriptor reconstruye un diagrama de proceso etiquetado —las etapas de un ciclo de vida o de una construcción— viñeta por viñeta solo con palabras.",
+    "a_materials": "Viñetas de cómic coincidentes."
+  },
+  "66": {
+    "a_summary": "El Descriptor organiza una afirmación y su evidencia de apoyo (argumentación científica) para que el Constructor recree la misma estructura de idea principal y apoyo.",
+    "a_materials": "Tarjetas de idea y detalle coincidentes."
+  },
+  "67": {
+    "a_summary": "El Descriptor reconstruye un mapa conceptual de un tema STEAM —idea central y términos vinculados— para que la red del Constructor coincida nodo por nodo.",
+    "a_materials": "Tarjetas de vocabulario o plantillas de mapa conceptual en blanco."
+  },
+  "68": {
+    "a_summary": "El Descriptor dicta un procedimiento claro de laboratorio o de ingeniería; el Constructor lo escribe como pasos numerados y repetibles, y luego lo cotejan con el original.",
+    "a_materials": "Una construcción o dibujo sencillo ya terminado."
+  },
+  "69": {
+    "a_summary": "Un estudiante organiza formas y describe sus posiciones, orientaciones y relaciones.",
+    "a_materials": "Formas geométricas coincidentes."
+  },
+  "70": {
+    "a_summary": "El Descriptor ve un polígono y explica cuántos lados, vértices, longitudes iguales o ángulos rectos tiene. El Constructor lo recrea.",
+    "a_materials": "Palitos de manualidades o geoplanos."
+  },
+  "71": {
+    "a_summary": "Un estudiante describe las ubicaciones de las clavijas y los trayectos de las bandas mientras su compañero construye la misma figura.",
+    "a_materials": "Geoplanos coincidentes y ligas."
+  },
+  "72": {
+    "a_summary": "El Descriptor organiza una ecuación o expresión y explica el orden sin mostrarla.",
+    "a_materials": "Fichas de números y operaciones."
+  },
+  "73": {
+    "a_summary": "Un estudiante crea un arreglo y describe sus filas, columnas, total y orientación.",
+    "a_materials": "Contadores y tapetes de cuadrícula."
+  },
+  "74": {
+    "a_summary": "Un estudiante crea un modelo de equivalencia y explica cómo las piezas cubren cantidades iguales.",
+    "a_materials": "Círculos o tiras de fracciones."
+  },
+  "75": {
+    "a_summary": "El Descriptor explica una traslación, rotación o reflexión. El compañero realiza la transformación.",
+    "a_materials": "Tarjetas de formas y cuadrículas de coordenadas."
+  },
+  "76": {
+    "a_summary": "Un estudiante describe una gráfica de barras, un diagrama de puntos o un pictograma. El compañero lo reconstruye.",
+    "a_materials": "Gráficas en blanco y una gráfica terminada."
+  },
+  "77": {
+    "a_summary": "El Descriptor ve un circuito sencillo y explica las conexiones. El Constructor lo arma o lo diagrama.",
+    "a_materials": "Componentes de circuito seguros o tarjetas de símbolos de circuito."
+  },
+  "78": {
+    "a_summary": "Un estudiante describe los tipos de átomos, las cantidades, los enlaces y la disposición.",
+    "a_materials": "Kits de modelos moleculares coincidentes o plastilina de colores y palitos."
+  },
+  "79": {
+    "a_summary": "El Descriptor organiza una cadena o red alimentaria y explica el flujo de energía.",
+    "a_materials": "Tarjetas de organismos coincidentes y flechas."
+  },
+  "80": {
+    "a_summary": "Un estudiante coloca las etapas en orden y explica la secuencia a su compañero.",
+    "a_materials": "Tarjetas de ciclo de vida coincidentes."
+  },
+  "81": {
+    "a_summary": "El Descriptor organiza capas geológicas, fósiles y fallas. El compañero reproduce el corte transversal.",
+    "a_materials": "Tiras de colores o tarjetas de capas de sedimento."
+  },
+  "82": {
+    "a_summary": "Un estudiante coloca frentes, sistemas de presión, precipitación y símbolos de temperatura. El compañero duplica el mapa.",
+    "a_materials": "Mapas en blanco y tarjetas de símbolos meteorológicos."
+  },
+  "83": {
+    "a_summary": "El Descriptor coloca los organelos y explica sus posiciones y relaciones.",
+    "a_materials": "Tapetes de célula y piezas de organelos."
+  },
+  "84": {
+    "a_summary": "Un estudiante ve un montaje experimental terminado y da indicaciones para armarlo o diagramarlo.",
+    "a_materials": "Equipo de ciencias seguro del aula o tarjetas ilustradas."
+  },
+  "85": {
+    "a_summary": "El Descriptor transmite una línea de tiempo ordenada de un proceso científico o tecnológico —la historia de un invento o eventos geológicos— y el Constructor coloca los eventos en la secuencia y el espaciado exactos.",
+    "a_materials": "Tarjetas de eventos coincidentes."
+  },
+  "86": {
+    "a_summary": "El Descriptor explica la estructura de un sistema —los niveles de un ecosistema o los subsistemas de una máquina— para que el Constructor reconstruya la misma jerarquía de partes.",
+    "a_materials": "Tarjetas de ramas, roles y responsabilidades."
+  },
+  "87": {
+    "a_summary": "El Descriptor comunica una ruta o red a través de un mapa de coordenadas —un flujo de energía o una vía de suministro— usando direcciones y coordenadas para que el Constructor la trace con exactitud.",
+    "a_materials": "Mapas coincidentes y tarjetas de productos."
+  },
+  "88": {
+    "a_summary": "El Descriptor transmite un plano de sitio bajo restricciones —espacio, recursos y reglas— para que el Constructor disponga el mismo diseño de ingeniería.",
+    "a_materials": "Tapetes de paisaje y tarjetas de edificios o recursos."
+  },
+  "89": {
+    "a_summary": "El Descriptor organiza especímenes o evidencias etiquetadas según atributos medibles; el Constructor los clasifica y ordena para que coincidan.",
+    "a_materials": "Tarjetas de artefactos históricos coincidentes."
+  },
+  "90": {
+    "a_summary": "El Descriptor expone una cadena de causa y efecto en un sistema —entradas, cambios y salidas— para que el Constructor reconstruya la misma secuencia vinculada.",
+    "a_materials": "Tarjetas de eventos históricos coincidentes y flechas."
+  },
+  "91": {
+    "a_summary": "El Oyente no puede interrumpir ni pedir aclaraciones."
+  },
+  "92": {
+    "a_summary": "El Oyente puede hacer tantas preguntas aclaratorias como necesite."
+  },
+  "93": {
+    "a_summary": "El Oyente puede hacer preguntas, pero el Descriptor solo puede responder sí o no."
+  },
+  "94": {
+    "a_summary": "El Descriptor no puede usar más de treinta palabras."
+  },
+  "95": {
+    "a_summary": "El Constructor debe completar y confirmar cada paso antes de recibir la siguiente indicación."
+  },
+  "96": {
+    "a_summary": "El Mensajero no puede tomar notas y solo puede llevar un mensaje por viaje."
+  },
+  "97": {
+    "a_summary": "El Arquitecto escribe cada mensaje. El Mensajero lo entrega sin explicación."
+  },
+  "98": {
+    "a_summary": "La información pasa por dos o tres estudiantes antes de llegar al Constructor."
+  },
+  "99": {
+    "a_summary": "Dos estudiantes dan indicaciones, pero solo uno tiene información correcta."
+  },
+  "100": {
+    "a_summary": "Los equipos reciben tiempo de planificación para crear abreviaturas, coordenadas, etiquetas o términos compartidos antes de ver la estructura."
+  },
+  "101": {
+    "a_summary": "Los equipos reciben puntos por coincidencias exactas y pierden puntos por terminar con errores."
+  },
+  "102": {
+    "a_summary": "Los equipos intentan terminar rápidamente y luego calculan una puntuación de precisión."
+  },
+  "103": {
+    "a_summary": "Un Observador registra ejemplos de lenguaje claro, indicaciones vagas, preguntas y correcciones."
+  },
+  "104": {
+    "a_summary": "Después de cada indicación, el Constructor debe repetirla antes de actuar."
+  },
+  "105": {
+    "a_summary": "El docente mueve o reemplaza en secreto una pieza durante la actividad. El equipo debe detectar y corregir la discrepancia."
+  },
+  "106": {
+    "a_summary": "Los estudiantes crean modelos, dibujos, mapas o patrones para que otros grupos los reproduzcan."
+  }
+}
