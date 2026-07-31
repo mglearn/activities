@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>Standards Correlations (TEKS · ELPS · UDL) — PlotPoint</title>
+<meta name="description" content="How PlotPoint's learning rooms align to Texas TEKS (ELAR), the ELPS English language proficiency standards, CAST's UDL 3.0 principles, and the Common Core. Alignment is described, not reproduced; confirm codes against your current adoption.">
+<meta property="og:title" content="PlotPoint — Standards Correlations (TEKS · ELPS · UDL)">
+<meta property="og:description" content="How PlotPoint aligns to TEKS ELAR, ELPS, UDL 3.0, and the Common Core, activity by activity.">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1c2247;--navy-d:#12163a;--plum:#7a4fce;--plum-d:#5a34a6;
+    --gold:#f5c542;--gold-d:#c99a12;
+    --paper:#f5f4fb;--ink:#191d33;--ink-soft:#5b6079;--card:#fff;--line:#e0def0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:'Nunito',sans-serif;color:var(--ink);background:
+    radial-gradient(ellipse 60% 45% at 88% -8%,rgba(245,197,66,.14)0%,transparent 60%),
+    radial-gradient(ellipse 55% 45% at 0% 100%,rgba(122,79,206,.12)0%,transparent 60%),var(--paper);
+    min-height:100vh;line-height:1.55}
+  a{color:inherit}
+  .wrap{max-width:1000px;margin:0 auto;padding:22px 20px 90px}
+  .topbar{display:flex;align-items:center;gap:14px;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap}
+  .wordmark{display:flex;align-items:center;gap:10px;font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);font-size:1.2rem;text-decoration:none}
+  .wordmark .dot{width:14px;height:14px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(245,197,66,.28)}
+  .wordmark small{display:block;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--plum);font-weight:700}
+  .backlink{font-family:'Fredoka',sans-serif;font-weight:600;font-size:.85rem;color:var(--plum-d);text-decoration:none;
+    border:2px solid var(--line);border-radius:10px;padding:8px 14px;transition:.14s;white-space:nowrap}
+  .backlink:hover{border-color:var(--plum)}
+
+  header.hero{position:relative;border-radius:18px;overflow:hidden;background:linear-gradient(120deg,var(--navy-d),var(--plum-d) 70%,#8a5bd6);
+    padding:34px clamp(20px,4vw,44px);color:#fff;box-shadow:0 12px 34px rgba(28,34,71,.18);min-height:180px}
+  header.hero .heroimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  header.hero .heroshade{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(90deg,rgba(18,22,58,.94)0%,rgba(18,22,58,.82)34%,rgba(18,22,58,.45)60%,rgba(18,22,58,.15)100%)}
+  header.hero .hc{position:relative;z-index:2}
+  header.hero .eyebrow{display:inline-block;background:var(--gold);color:var(--navy-d);font-family:'Fredoka',sans-serif;font-weight:700;
+    font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;padding:6px 15px;border-radius:100px;margin-bottom:12px}
+  header.hero h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,4vw,2.6rem);line-height:1.04;text-shadow:0 2px 16px rgba(6,10,30,.5)}
+  header.hero p{color:#e8e3fb;font-weight:600;max-width:66ch;margin-top:10px}
+
+  .note{margin:18px 0 6px;padding:12px 16px;border-inline-start:4px solid var(--gold);background:rgba(245,197,66,.10);
+    border-radius:0 10px 10px 0;font-weight:600;font-size:.86rem;color:var(--ink)}
+  .note b{color:var(--navy)}
+
+  h2.sec{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.3rem;margin:34px 0 6px;display:flex;align-items:center;gap:12px}
+  h2.sec .band{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--plum);padding:5px 12px;border-radius:100px}
+  h2.sec::after{content:"";flex:1;height:2px;background:var(--line)}
+  h3.sub{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.02rem;margin:18px 0 6px}
+  p.lead{font-weight:600;color:var(--ink);font-size:.94rem;margin:6px 0}
+  p.lead.soft{color:var(--ink-soft)}
+  ul.clean{list-style:none;margin:8px 0}
+  ul.clean li{position:relative;padding-inline-start:22px;margin:6px 0;font-weight:600;color:var(--ink);font-size:.9rem}
+  ul.clean li::before{content:"◆";position:absolute;inset-inline-start:0;color:var(--plum);font-size:.7rem;top:3px}
+  ul.clean li b{color:var(--navy)}
+
+  .tablewrap{overflow-x:auto;margin:12px 0;border:2px solid var(--line);border-radius:14px}
+  table{border-collapse:collapse;width:100%;min-width:640px;background:#fff}
+  th,td{text-align:start;padding:10px 14px;border-bottom:1px solid var(--line);font-size:.86rem;vertical-align:top}
+  thead th{background:rgba(122,79,206,.08);color:var(--navy);font-family:'Fredoka',sans-serif;font-weight:700;font-size:.8rem;
+    letter-spacing:.02em;position:sticky;top:0}
+  tbody tr:last-child td{border-bottom:none}
+  td b,th b{color:var(--navy)}
+  td.k{font-weight:800;color:var(--plum-d);white-space:nowrap}
+  .pill{display:inline-block;font-size:.66rem;font-weight:700;color:var(--plum-d);background:rgba(122,79,206,.10);border-radius:100px;padding:2px 9px;margin:2px 3px 0 0}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:12px}
+  @media(max-width:680px){.grid2{grid-template-columns:1fr}}
+  .box{background:#fff;border:2px solid var(--line);border-radius:14px;padding:16px 18px}
+  .box h4{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:.98rem;margin-bottom:6px}
+  .box p{font-weight:600;color:var(--ink-soft);font-size:.86rem}
+
+  footer{text-align:center;margin-top:42px;font-size:.8rem;color:var(--ink-soft);font-weight:600;line-height:1.7}
+  footer a{color:var(--plum-d);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="wordmark" href="../">
+      <span class="dot" aria-hidden="true"></span>
+      <span>PlotPoint<small>Read · Reason · Play</small></span>
+    </a>
+    <a class="backlink" href="../">← All PlotPoint rooms</a>
+  </div>
+
+  <header class="hero">
+    <img class="heroimg" src="images/hero.webp" alt="" onerror="this.remove();document.querySelector('.heroshade').style.background='none'">
+    <div class="heroshade"></div>
+    <div class="hc">
+      <span class="eyebrow">Standards alignment</span>
+      <h1>Standards Correlations</h1>
+      <p>How PlotPoint's learning rooms align to the Texas <b>TEKS</b> for English Language Arts and Reading, the <b>ELPS</b> English language proficiency standards, CAST's <b>UDL&nbsp;3.0</b> principles, and the <b>Common Core</b>. Alignment is <em>described, not reproduced</em>.</p>
+    </div>
+  </header>
+
+  <p class="note"><b>Please read:</b> PlotPoint is <b>aligned to</b>, not reproduced from, the standards below. Standards codes and language change by state and adoption year. The <b>TEKS</b> and <b>ELPS</b> correlations here are described at the strand/domain level and are marked <i>Needs review</i> — confirm exact student-expectation codes against your district's current adoption. Each room's <b>Teacher Guide</b> lists the specific Common Core (CCSS) codes it targets.</p>
+
+  <!-- HOW ACTIVITIES MAP -->
+  <h2 class="sec">How each activity maps to standards</h2>
+  <p class="lead soft">Every room uses the same ten-part structure. Each part develops specific skills that align across frameworks.</p>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>PlotPoint activity</th><th>What students do</th><th>TEKS ELAR strand</th><th>CCSS focus</th><th>ELPS domain</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="k">Enter the Story</td><td>Set purpose, preview vocabulary, learn the ACE routine</td><td>Foundational language skills; inquiry</td><td>Reading anchor 1, 10</td><td>Reading; Listening</td></tr>
+        <tr><td class="k">Vocabulary</td><td>Study, match, and use terms in context</td><td>Vocabulary; foundational skills</td><td>Language 4, 6</td><td>Reading; Speaking</td></tr>
+        <tr><td class="k">Relic Room</td><td>Analyze artifacts; identify, explain purpose &amp; significance</td><td>Comprehension; author's purpose &amp; craft</td><td>Reading 1–5</td><td>Reading; Writing</td></tr>
+        <tr><td class="k">Crack the Case</td><td>Use evidence to open locks; sequence and infer</td><td>Response to text; evidence &amp; inference</td><td>Reading 1; RH 1</td><td>Reading</td></tr>
+        <tr><td class="k">Arcade Game</td><td>Sort and justify with reasoning</td><td>Analysis; synthesis</td><td>Reading 2–6</td><td>Reading; Speaking</td></tr>
+        <tr><td class="k">Analyze the Text</td><td>Answer evidence questions; write short &amp; paragraph responses</td><td>Author's purpose &amp; craft; composition</td><td>Reading 1–6; Writing 1</td><td>Reading; Writing</td></tr>
+        <tr><td class="k">Extend the Idea</td><td>Transfer the theme to a new situation with evidence</td><td>Composition; inquiry &amp; research</td><td>Writing 1–2; Reading 7–9</td><td>Writing; Speaking</td></tr>
+        <tr><td class="k">Gen AI Partner</td><td>Optional, accountable AI use with a thinking receipt</td><td>Inquiry; digital citizenship</td><td>Writing 6; Speaking 1</td><td>Writing; Speaking</td></tr>
+        <tr><td class="k">Print Materials</td><td>Complete a no-login paper packet</td><td>Composition</td><td>Writing 4</td><td>Writing</td></tr>
+        <tr><td class="k">Teacher Guide</td><td>Pathways, answer keys, standards, review items</td><td>—</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TEKS -->
+  <h2 class="sec"><span class="band">Texas</span> TEKS · English Language Arts &amp; Reading</h2>
+  <p class="lead">Across grades 6–12, PlotPoint rooms address the recurring ELAR strands (19 TAC Chapter 110). Specific student expectations vary by grade and course — confirm against your adoption.</p>
+  <ul class="clean">
+    <li><b>Developing &amp; sustaining foundational language skills</b> — vocabulary study, listening, and academic discussion.</li>
+    <li><b>Comprehension</b> — self-monitoring, making inferences, and using evidence (Relic Room, Crack the Case).</li>
+    <li><b>Response skills</b> — interacting with sources and responding through writing and discussion (Analyze, Extend).</li>
+    <li><b>Author's purpose &amp; craft</b> — analyzing structure, point of view, and rhetorical choices (Analyze, Arcade).</li>
+    <li><b>Composition</b> — planning and writing evidence-based responses (Analyze, Extend, Print).</li>
+    <li><b>Inquiry &amp; research</b> — generating questions and gathering evidence, including responsible tool use (Gen AI Partner).</li>
+    <li><b>Multiple genres</b> — fiction, drama, poetry, memoir, argument, and informational texts across the collection.</li>
+  </ul>
+  <p class="note"><b>Needs review:</b> TEKS student-expectation codes are grade- and course-specific. Each room's Teacher Guide describes its TEKS alignment; verify the exact codes for your course and year.</p>
+
+  <!-- ELPS -->
+  <h2 class="sec"><span class="band">Texas</span> ELPS · English Language Proficiency Standards</h2>
+  <p class="lead">PlotPoint is built to widen access for emergent bilingual students, supporting all four ELPS language domains.</p>
+  <div class="grid2">
+    <div class="box"><h4>Listening</h4><p>Read-aloud options, audiobooks (public-domain rooms), and clear spoken-language routines.</p></div>
+    <div class="box"><h4>Speaking</h4><p>Discussion prompts, arcade justifications, and partner interviews in the Gen AI alternative.</p></div>
+    <div class="box"><h4>Reading</h4><p>Seven-language chrome, visuals, vocabulary supports, and evidence-based comprehension tasks.</p></div>
+    <div class="box"><h4>Writing</h4><p>Scaffolded short and extended responses, organizers, and a printable packet.</p></div>
+  </div>
+  <p class="lead soft" style="margin-top:10px">Seven-language interface (English, Spanish, Vietnamese, Arabic, Hindi, Urdu, Chinese) with full right-to-left support for Arabic and Urdu widens access at every proficiency level.</p>
+  <p class="note"><b>Needs review:</b> ELPS proficiency-level descriptors (beginning, intermediate, advanced, advanced high) should be matched to your students. Machine-assisted translations are flagged for human review.</p>
+
+  <!-- UDL -->
+  <h2 class="sec"><span class="band">CAST</span> UDL 3.0 · Universal Design for Learning</h2>
+  <p class="lead">Every room is designed around the three UDL principles.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>UDL principle</th><th>How PlotPoint provides it</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Multiple means of<br>Engagement</td><td>Choice of pathway (Quick Play, Investigation, Complete Case); no timers; no lives system; low-stakes retries; relevant, authentic texts; optional Gen AI.</td></tr>
+        <tr><td class="k">Multiple means of<br>Representation</td><td>Seven languages; visuals and relic images; plain-language directions; vocabulary in study/match/context modes; correct/incorrect shown with text <b>and</b> a color bar (never color alone).</td></tr>
+        <tr><td class="k">Multiple means of<br>Action &amp; Expression</td><td>Keyboard, touch, and mouse; sequence buttons instead of drag-only; typed or printed responses; visible focus; live regions announce progress; responsive on phones; reduced-motion support.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CCSS + rooms -->
+  <h2 class="sec">Common Core &amp; the rooms at a glance</h2>
+  <p class="lead soft">Each room targets specific CCSS reading, writing, and language standards, listed in its Teacher Guide. Live rooms, grouped by grade band:</p>
+  <div id="rooms"></div>
+  <p class="note"><b>Reminder:</b> Content is aligned to — not copied from — any standard. Copyrighted-work rooms are independent companions that reproduce no text; public-domain rooms link to free text and audio. Always review each title for your students and community.</p>
+
+  <footer>
+    PlotPoint · Standards Correlations · CC BY 4.0 (content) · MIT (code)<br>
+    Aligned to, not reproduced from, TEKS · ELPS · UDL 3.0 · CCSS. · <a href="../">Browse all PlotPoint rooms →</a>
+  </footer>
+</div>
+
+<script src="../titles.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var TITLES = (window.PLOTPOINT_TITLES || []).filter(function(t){ return t.status === 'live'; });
+  var BAND_LABEL = { '6-8':'Grades 6–8 · Middle school', '9-12':'Grades 9–12 · High school' };
+  var BAND_ORDER = ['6-8','9-12'];
+  var groups = {};
+  TITLES.forEach(function(t){ (groups[t.gradeBand] = groups[t.gradeBand] || []).push(t); });
+  var host = document.getElementById('rooms');
+  BAND_ORDER.concat(Object.keys(groups).filter(function(b){return BAND_ORDER.indexOf(b)<0;})).forEach(function(band){
+    var list = groups[band]; if(!list || !list.length) return;
+    var h = document.createElement('h3'); h.className='sub'; h.textContent = BAND_LABEL[band] || ('Grades '+band);
+    host.appendChild(h);
+    var tw = document.createElement('div'); tw.className='tablewrap';
+    var rows = list.map(function(t){
+      var rights = t.rights === 'copyrighted' ? '<span class="pill">Companion · no text</span>' : '<span class="pill">Public domain</span>';
+      return '<tr><td><b>'+t.title+'</b><br><span style="color:var(--ink-soft);font-weight:700;font-size:.8rem">'+t.author+'</span></td>'+
+             '<td>'+t.grades+'</td>'+
+             '<td>'+((t.genre||[]).map(function(g){return g.replace(/-/g,' ');}).join(', '))+'</td>'+
+             '<td>'+rights+'</td></tr>';
+    }).join('');
+    tw.innerHTML = '<table><thead><tr><th>Room</th><th>Grades</th><th>Genre</th><th>Text rights</th></tr></thead><tbody>'+rows+'</tbody></table>';
+    host.appendChild(tw);
+  });
+  if(!TITLES.length){ host.innerHTML = '<p class="lead soft">Rooms are coming soon.</p>'; }
+});
+</script>
+</body>
+</html>

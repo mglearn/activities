@@ -7,6 +7,10 @@
    published form). Missing keys fall back to the English base in titles.js. */
 window.__PLOTPOINT_HUB_DICT__ = {
   "en": {
+    "nav.guides": "Guides",
+    "nav.correlations": "Standards Correlations",
+    "nav.clt": "CLT Reading Room",
+    "nav.ace": "The ACE Framework",
     "browse.prompt": "Search above or choose a filter to find a room.",
     "browse.counts": "{live} ready now · {total} in the collection.",
     "clt.title": "The CLT Reading Room",
@@ -84,6 +88,10 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "Copyrighted"
   },
   "es": {
+    "nav.guides": "Guías",
+    "nav.correlations": "Correlación de estándares",
+    "nav.clt": "Sala de lectura CLT",
+    "nav.ace": "El marco ACE",
     "browse.prompt": "Busca arriba o elige un filtro para encontrar una sala.",
     "browse.counts": "{live} disponibles ahora · {total} en la colección.",
     "clt.title": "La Sala de Lectura CLT",
@@ -161,6 +169,10 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "Con derechos de autor"
   },
   "vi": {
+    "nav.guides": "Hướng dẫn",
+    "nav.correlations": "Đối chiếu chuẩn",
+    "nav.clt": "Phòng đọc CLT",
+    "nav.ace": "Khung ACE",
     "browse.prompt": "Tìm ở trên hoặc chọn một bộ lọc để tìm một phòng.",
     "browse.counts": "{live} sẵn sàng · {total} trong bộ sưu tập.",
     "clt.title": "Phòng Đọc CLT",
@@ -238,6 +250,10 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "Có bản quyền"
   },
   "ar": {
+    "nav.guides": "أدلة",
+    "nav.correlations": "مطابقة المعايير",
+    "nav.clt": "غرفة قراءة CLT",
+    "nav.ace": "إطار ACE",
     "browse.prompt": "ابحث في الأعلى أو اختر عامل تصفية للعثور على غرفة.",
     "browse.counts": "{live} متاحة الآن · {total} في المجموعة.",
     "clt.title": "قاعة القراءة CLT",
@@ -315,6 +331,10 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "محمي بحقوق النشر"
   },
   "hi": {
+    "nav.guides": "मार्गदर्शिका",
+    "nav.correlations": "मानक सहसंबंध",
+    "nav.clt": "CLT रीडिंग रूम",
+    "nav.ace": "ACE ढांचा",
     "browse.prompt": "कोई कक्ष खोजने के लिए ऊपर खोजें या फ़िल्टर चुनें।",
     "browse.counts": "{live} अभी उपलब्ध · कुल {total}।",
     "clt.title": "CLT रीडिंग रूम",
@@ -392,6 +412,10 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "कॉपीराइट"
   },
   "ur": {
+    "nav.guides": "رہنمائی",
+    "nav.correlations": "معیارات کی مطابقت",
+    "nav.clt": "CLT ریڈنگ روم",
+    "nav.ace": "ACE فریم ورک",
     "browse.prompt": "کمرہ تلاش کرنے کے لیے اوپر تلاش کریں یا فلٹر منتخب کریں۔",
     "browse.counts": "{live} ابھی دستیاب · مجموعے میں {total}۔",
     "clt.title": "CLT ریڈنگ روم",
@@ -469,6 +493,10 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "کاپی رائٹ"
   },
   "zh": {
+    "nav.guides": "指南",
+    "nav.correlations": "标准对照",
+    "nav.clt": "CLT 阅读室",
+    "nav.ace": "ACE 框架",
     "browse.prompt": "在上方搜索或选择筛选条件来查找房间。",
     "browse.counts": "现有 {live} 个 · 共 {total} 个。",
     "clt.title": "CLT 阅读室",

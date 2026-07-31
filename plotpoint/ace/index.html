@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>The ACE Framework — PlotPoint</title>
+<meta name="description" content="The ACE Framework — Articulate, Connect, Extend — is a simple thinking routine you can use with any text. It builds from surface understanding to transfer, maps to the SOLO Taxonomy, and keeps optional Gen AI use accountable. Reusable prompts included.">
+<meta property="og:title" content="The ACE Framework — Articulate · Connect · Extend">
+<meta property="og:description" content="A simple thinking routine for any text: Articulate, Connect, Extend. Maps to SOLO Taxonomy; keeps Gen AI accountable. Reusable prompts included.">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1c2247;--navy-d:#12163a;--plum:#7a4fce;--plum-d:#5a34a6;
+    --gold:#f5c542;--gold-d:#c99a12;
+    --paper:#f5f4fb;--ink:#191d33;--ink-soft:#5b6079;--card:#fff;--line:#e0def0;
+    --a:#3f7f8c;--c:#7a4fce;--e:#c99a12;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:'Nunito',sans-serif;color:var(--ink);background:
+    radial-gradient(ellipse 60% 45% at 88% -8%,rgba(245,197,66,.14)0%,transparent 60%),
+    radial-gradient(ellipse 55% 45% at 0% 100%,rgba(122,79,206,.12)0%,transparent 60%),var(--paper);
+    min-height:100vh;line-height:1.55}
+  a{color:inherit}
+  .wrap{max-width:1000px;margin:0 auto;padding:22px 20px 90px}
+  .topbar{display:flex;align-items:center;gap:14px;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap}
+  .wordmark{display:flex;align-items:center;gap:10px;font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);font-size:1.2rem;text-decoration:none}
+  .wordmark .dot{width:14px;height:14px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(245,197,66,.28)}
+  .wordmark small{display:block;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--plum);font-weight:700}
+  .backlink{font-family:'Fredoka',sans-serif;font-weight:600;font-size:.85rem;color:var(--plum-d);text-decoration:none;
+    border:2px solid var(--line);border-radius:10px;padding:8px 14px;transition:.14s;white-space:nowrap}
+  .backlink:hover{border-color:var(--plum)}
+
+  header.hero{position:relative;border-radius:18px;overflow:hidden;background:linear-gradient(120deg,var(--navy-d),var(--plum-d) 70%,#8a5bd6);
+    padding:34px clamp(20px,4vw,44px);color:#fff;box-shadow:0 12px 34px rgba(28,34,71,.18);min-height:180px}
+  header.hero .heroimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  header.hero .heroshade{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(90deg,rgba(18,22,58,.94)0%,rgba(18,22,58,.82)34%,rgba(18,22,58,.45)60%,rgba(18,22,58,.15)100%)}
+  header.hero .hc{position:relative;z-index:2}
+  header.hero .eyebrow{display:inline-block;background:var(--gold);color:var(--navy-d);font-family:'Fredoka',sans-serif;font-weight:700;
+    font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;padding:6px 15px;border-radius:100px;margin-bottom:12px}
+  header.hero h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,4vw,2.6rem);line-height:1.04;text-shadow:0 2px 16px rgba(6,10,30,.5)}
+  header.hero p{color:#e8e3fb;font-weight:600;max-width:66ch;margin-top:10px}
+
+  .note{margin:18px 0 6px;padding:12px 16px;border-inline-start:4px solid var(--gold);background:rgba(245,197,66,.10);
+    border-radius:0 10px 10px 0;font-weight:600;font-size:.86rem;color:var(--ink)}
+  .note b{color:var(--navy)}
+
+  h2.sec{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.3rem;margin:34px 0 8px;display:flex;align-items:center;gap:12px}
+  h2.sec::after{content:"";flex:1;height:2px;background:var(--line)}
+  p.lead{font-weight:600;color:var(--ink);font-size:.96rem;margin:8px 0}
+  p.lead.soft{color:var(--ink-soft)}
+
+  .ace3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:16px 0}
+  @media(max-width:760px){.ace3{grid-template-columns:1fr}}
+  .acard{background:#fff;border:2px solid var(--line);border-top:6px solid var(--k);border-radius:16px;padding:18px 18px 16px}
+  .acard.a{--k:var(--a)} .acard.c{--k:var(--c)} .acard.e{--k:var(--e)}
+  .acard .letter{font-family:'Fredoka',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+    color:#fff;background:var(--k);border-radius:100px;padding:5px 13px;display:inline-block}
+  .acard h3{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.16rem;margin:12px 0 4px}
+  .acard .goal{font-weight:700;color:var(--k);font-size:.9rem;margin-bottom:8px}
+  .acard ul{list-style:none} .acard li{position:relative;padding-inline-start:18px;margin:5px 0;font-weight:600;color:var(--ink-soft);font-size:.85rem}
+  .acard li::before{content:"›";position:absolute;inset-inline-start:0;color:var(--k);font-weight:800}
+  .acard .solo{margin-top:10px;font-size:.72rem;font-weight:700;color:var(--ink-soft)}
+  .acard .solo b{color:var(--navy)}
+
+  .tablewrap{overflow-x:auto;margin:12px 0;border:2px solid var(--line);border-radius:14px}
+  table{border-collapse:collapse;width:100%;min-width:640px;background:#fff}
+  th,td{text-align:start;padding:10px 14px;border-bottom:1px solid var(--line);font-size:.86rem;vertical-align:top}
+  thead th{background:rgba(122,79,206,.08);color:var(--navy);font-family:'Fredoka',sans-serif;font-weight:700;font-size:.8rem}
+  tbody tr:last-child td{border-bottom:none}
+  td.k{font-weight:800;color:var(--plum-d);white-space:nowrap}
+  td b{color:var(--navy)}
+
+  ol.steps{margin:10px 0 6px;padding-inline-start:0;list-style:none;counter-reset:s}
+  ol.steps li{position:relative;padding-inline-start:40px;margin:10px 0;font-weight:600;color:var(--ink);font-size:.92rem}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;inset-inline-start:0;top:-2px;width:26px;height:26px;
+    border-radius:50%;background:var(--plum);color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:.85rem;
+    display:flex;align-items:center;justify-content:center}
+  ol.steps li b{color:var(--navy)}
+
+  .prompt{background:#fff;border:2px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;font-weight:600;color:var(--ink);font-size:.9rem}
+  .prompt .tag{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;
+    color:#fff;border-radius:100px;padding:3px 11px;margin-bottom:7px}
+  .prompt.a .tag{background:var(--a)} .prompt.c .tag{background:var(--c)} .prompt.e .tag{background:var(--e)}
+  .prompt code{background:rgba(122,79,206,.08);border-radius:5px;padding:1px 5px;font-family:'Nunito',sans-serif;color:var(--plum-d);font-weight:700}
+
+  .rule{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:14px 0;padding:16px 20px;border-radius:14px;
+    background:linear-gradient(100deg,rgba(122,79,206,.10),rgba(245,197,66,.12));border:2px solid var(--line)}
+  .rule .badge{font-family:'Fredoka',sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;
+    color:#fff;background:var(--plum);padding:6px 14px;border-radius:100px;white-space:nowrap}
+  .rule .body{flex:1;min-width:220px;font-weight:700;color:var(--navy);font-size:.96rem}
+
+  footer{text-align:center;margin-top:42px;font-size:.8rem;color:var(--ink-soft);font-weight:600;line-height:1.7}
+  footer a{color:var(--plum-d);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="wordmark" href="../">
+      <span class="dot" aria-hidden="true"></span>
+      <span>PlotPoint<small>Read · Reason · Play</small></span>
+    </a>
+    <a class="backlink" href="../">← All PlotPoint rooms</a>
+  </div>
+
+  <header class="hero">
+    <img class="heroimg" src="images/hero.webp" alt="" onerror="this.remove();document.querySelector('.heroshade').style.background='none'">
+    <div class="heroshade"></div>
+    <div class="hc">
+      <span class="eyebrow">Thinking routine</span>
+      <h1>The ACE Framework</h1>
+      <p>Every PlotPoint room runs on <b>ACE</b> — a simple <em>Articulate · Connect · Extend</em> routine, with the SOLO Taxonomy and optional, accountable Gen AI use built in. You can use it with <b>any text</b>, in any classroom.</p>
+    </div>
+  </header>
+
+  <h2 class="sec">What ACE is</h2>
+  <p class="lead">ACE is a three-stage thinking routine that moves students from <b>surface understanding</b> to <b>deep transfer</b>. It is not three separate skills but one path: you <b>Articulate</b> an idea, <b>Connect</b> it to other ideas, then <b>Extend</b> it to something new. Because the stages are the same every time, students learn the moves once and reuse them with any story, poem, article, or primary source.</p>
+  <p class="lead soft">ACE pairs naturally with the <b>SOLO Taxonomy</b> (Structure of Observed Learning Outcomes), which describes how understanding deepens — from one idea, to several ideas, to connected ideas, to ideas that transfer.</p>
+
+  <!-- THREE STAGES -->
+  <h2 class="sec">The three stages</h2>
+  <div class="ace3">
+    <div class="acard a">
+      <span class="letter">A · Articulate</span>
+      <h3>Explain it in your own words</h3>
+      <div class="goal">Goal: put one idea into your own words.</div>
+      <ul>
+        <li>Identify, define, describe, or summarize</li>
+        <li>Name one relevant idea — or list several</li>
+        <li>Explain a term using an example</li>
+      </ul>
+      <div class="solo"><b>SOLO:</b> Uni-structural → Multi-structural (surface understanding)</div>
+    </div>
+    <div class="acard c">
+      <span class="letter">C · Connect</span>
+      <h3>Show how ideas fit together</h3>
+      <div class="goal">Goal: link ideas and explain why it matters.</div>
+      <ul>
+        <li>Connect character &amp; conflict, symbol &amp; theme, cause &amp; effect</li>
+        <li>Compare perspectives; explain how evidence supports a reading</li>
+        <li>Link an author's choices to their effect on the reader</li>
+      </ul>
+      <div class="solo"><b>SOLO:</b> Relational (ideas connected and explained)</div>
+    </div>
+    <div class="acard e">
+      <span class="letter">E · Extend</span>
+      <h3>Apply it in a new situation</h3>
+      <div class="goal">Goal: transfer the learning somewhere new.</div>
+      <ul>
+        <li>Transfer a theme to another situation or text</li>
+        <li>Test an interpretation; offer a new perspective</li>
+        <li>Name where a comparison stops working</li>
+      </ul>
+      <div class="solo"><b>SOLO:</b> Extended abstract (ideas that transfer)</div>
+    </div>
+  </div>
+
+  <!-- SOLO MAP -->
+  <h2 class="sec">How ACE maps to SOLO — and to Gen AI</h2>
+  <p class="lead soft">As understanding deepens, the ACE stage advances — and the appropriate role for an optional AI tool changes with it. Think first; use Gen AI after effort, never before it.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>SOLO level</th><th>Student understanding</th><th>ACE stage</th><th>Appropriate Gen AI role</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Pre-structural</td><td>Little or no understanding yet</td><td>Before ACE</td><td>Do not send to Gen AI — read and think first</td></tr>
+        <tr><td class="k">Uni-structural</td><td>One relevant idea or fact</td><td><b>Articulate</b> begins</td><td>May clarify a word or give one example</td></tr>
+        <tr><td class="k">Multi-structural</td><td>Several ideas, not yet connected</td><td><b>Articulate</b> develops</td><td>May quiz, organize notes, or summarize</td></tr>
+        <tr><td class="k">Relational</td><td>Ideas connected and explained</td><td><b>Connect</b></td><td>May ask why/how, compare, challenge, give feedback</td></tr>
+        <tr><td class="k">Extended abstract</td><td>Ideas transfer to a new situation</td><td><b>Extend</b></td><td>May brainstorm, critique, simulate, or test a solution</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- USE WITH ANY TEXT -->
+  <h2 class="sec">Use ACE with any text</h2>
+  <p class="lead">ACE is not tied to any one book. Here is a simple protocol you can run with any reading — a novel, a short story, a poem, an article, or a primary source.</p>
+  <ol class="steps">
+    <li><b>Read and think first.</b> Students read (or listen) and jot a first impression before any tool or discussion.</li>
+    <li><b>Articulate.</b> Each student explains one key idea in their own words, with one detail from the text as support.</li>
+    <li><b>Connect.</b> Students link that idea to another idea, moment, or choice in the text — and explain why the connection matters.</li>
+    <li><b>Extend.</b> Students apply the idea to a new text or a real situation, and name where the comparison holds and where it breaks down.</li>
+    <li><b>Reflect.</b> If Gen AI was used, students complete a thinking receipt so the reasoning stays theirs.</li>
+  </ol>
+
+  <!-- REUSABLE PROMPTS -->
+  <h2 class="sec">Reusable ACE prompts (any text)</h2>
+  <p class="lead soft">Copy these into any lesson. Replace the bracketed parts with your text and topic.</p>
+  <div class="prompt a"><span class="tag">Articulate</span><br>Explain in your own words <code>[one key idea]</code> from <code>[the text]</code>. Include one detail from the text that helped you understand it.</div>
+  <div class="prompt c"><span class="tag">Connect</span><br>Connect <code>[idea one]</code> to <code>[idea two]</code> in <code>[the text]</code>. Explain how putting them together deepens your understanding of a character, a theme, or the author's purpose.</div>
+  <div class="prompt e"><span class="tag">Extend</span><br>Apply <code>[the idea]</code> to <code>[a new text or real situation]</code>. Explain what transfers, what changes, and where the comparison stops working.</div>
+  <div class="prompt c"><span class="tag">ACE reflection</span><br>Articulate the text's central idea in your own words. Connect two moments that develop it. Extend it to the present, and name where the comparison becomes hard to hold.</div>
+
+  <!-- GEN AI RULE -->
+  <h2 class="sec">Keeping Gen AI accountable</h2>
+  <div class="rule">
+    <span class="badge">The rule</span>
+    <p class="body">Think first. Use Gen AI after effort, not before it. Never let Gen AI replace your reasoning.</p>
+  </div>
+  <p class="lead soft">In PlotPoint, Gen AI supports are <b>off by default</b> and enabled only by a teacher, on that device. When used, students complete a <b>thinking receipt</b> — recording their first explanation and evidence, what they asked, what they accepted, changed, or rejected, and why — so the thinking stays their own. A non-AI alternative (trading receipts with a partner) is always offered. Nothing students write is ever transmitted; it stays in their browser.</p>
+
+  <p class="note"><b>For teachers:</b> Every PlotPoint room already builds ACE into its tasks — the Enter tab introduces it, the Relic Room and Analysis sections ask for ACE responses, and the printable packet includes an ACE organizer. Use this page to teach the routine directly, then let students practice it in any room.</p>
+
+  <footer>
+    PlotPoint · The ACE Framework · Articulate · Connect · Extend · CC BY 4.0 (content) · MIT (code)<br>
+    <a href="../">Browse all PlotPoint rooms →</a>
+  </footer>
+</div>
+</body>
+</html>
