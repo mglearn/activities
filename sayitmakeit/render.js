@@ -57,6 +57,7 @@ module.exports = function render({ acts, STRANDS, STRAND_ORDER, esc, ROOT }) {
 <main class="wrap article" style="--accent:${st.accent}">
   <p class="eyebrow"><span data-i18n="activity_word">Activity</span> ${a.num} · <span data-i18n="strand_${a.strand}"></span></p>
   <h1>${esc(a.title)}</h1>
+  <div class="art-hero"><img src="../assets/act/${a.slug}.png" alt="${esc(a.title)}" onerror="this.closest('.art-hero').style.display='none'"></div>
   <div class="metarow">
     <div><span class="mk" data-i18n="grades_lbl">Grades</span><span>${esc(a.grades)}</span></div>
     <div><span class="mk" data-i18n="subjects_lbl">STEAM</span><span>${st.icon} ${esc(st.label)}</span></div>
@@ -115,6 +116,7 @@ module.exports = function render({ acts, STRANDS, STRAND_ORDER, esc, ROOT }) {
     const card = (a) => `
       <a class="acard b-${a.strand}" href="a/${a.slug}.html" data-strand="${a.strand}" data-grades="${esc(a.grades)}"
          data-search="${esc((a.title + ' ' + a.summary + ' ' + (a.skills || []).join(' ') + ' ' + (a.materials || '')).toLowerCase())}">
+        <div class="ac-img"><img src="assets/act/${a.slug}.png" alt="" loading="lazy" onerror="this.closest('.ac-img').style.display='none'"></div>
         <div class="ac-top"><span class="ac-num">${a.num}</span>${strandBadge(a.strand)}</div>
         <h3>${esc(a.title)}</h3>
         <p>${esc(a.summary).slice(0, 120)}${a.summary.length > 120 ? '…' : ''}</p>
