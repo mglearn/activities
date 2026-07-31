@@ -18,10 +18,12 @@ Deployment note: PlotPoint lives in the **`activities/`** repo and ships at
 | 0 | Inspect repo; reuse PST / Relic Rooms / CTOB patterns | ✅ Done |
 | 1 | Shared system: hub + language engine + one working title room | ✅ Done |
 | 2 | Seven-language support wired end to end | ✅ Done (see review flags) |
-| 3 | Remaining title rooms | 🔄 In progress — **18 rooms live** |
+| 3 | Remaining title rooms | 🔄 In progress — **24 rooms live** |
 | 4 | CLT-canon reading room + separate `/clt/` page | ✅ Done |
+| 5 | Copyrighted paraphrase-only companions | ✅ 6 live (Kindred + 5) |
+| 6 | Guide pages + hub nav (Correlations · CLT · ACE) | ✅ Done |
 
-### Live rooms (18) — all seven languages, deployed, headless-validated
+### Live rooms (24) — all seven languages, deployed, headless-validated
 
 **Public-domain literature (5):**
 1. **The Metamorphosis** — Kafka · flagship
@@ -44,26 +46,43 @@ Deployment note: PlotPoint lives in the **`activities/`** repo and ships at
 16. **Utopia** — Thomas More — arcade: Utopia or Europe?
 17. **Narrative of the Life of Frederick Douglass** — Douglass — arcade: Chains and Keys
 
-**Copyrighted companion — paraphrase-only, disclaimered (1):**
-18. **Kindred** — Octavia Butler — independent educational companion; reproduces **no**
-    text, carries a per-work copyright/affiliation disclaimer, no Gutenberg/LibriVox links.
+**One more public-domain literature room (1):**
+18. **The Tell-Tale Heart** — Edgar Allan Poe — arcade: Sanity or Madness? (unreliable narrator)
+
+**Copyrighted companions — paraphrase-only, disclaimered (6):** independent educational
+companions; each reproduces **no** text, carries a per-work CC BY 4.0 disclaimer, and has
+no source links. Facts verified against a lawful copy, then deleted.
+19. **Kindred** — Octavia Butler
+20. **In the Time of the Butterflies** — Julia Alvarez
+21. **Brave New World** — Aldous Huxley
+22. **The Diary of a Young Girl** — Anne Frank
+23. **Separate Is Never Equal** — Duncan Tonatiuh
+24. **Between the World and Me** — Ta-Nehisi Coates
 
 Every **public-domain** room carries the free **Read & Listen** panel (Project
 Gutenberg text + LibriVox audiobook) in Enter the Story. The CLT canon (15 rooms
 flagged `clt:true`, all live) also has its own **`/clt/` reading room** organized by
-grade band, in addition to full front-page access, linking out to cltexam.com.
+grade band, linking out to cltexam.com.
 
-### On hold — copyrighted literature (8 planned cards)
-`giver, orient, mango, martian, maus, butterflies, bnw, justmercy` remain in
-`titles.js` as "coming soon." The user redirected toward public-domain philosophy
-(the CLT canon); **Maus I** and **Just Mercy** were explicitly dropped from the build
-queue. If any are built later they must, like **Kindred**, **paraphrase only** (no
-reproduced text) and carry a content/copyright-review disclaimer. Source texts the user
-supplies for fact-checking live in `plotpoint/copyrighted_texts_do_not_upload/`, which is
-**git-ignored and must never be committed or published**.
+### Guide pages + hub navigation
+- **`/correlations/`** — TEKS / ELPS / UDL 3.0 / CCSS alignment, activity-by-activity, with
+  a live rooms-by-grade-band table. **`/ace/`** — generic ACE Framework explainer (usable
+  with any text; SOLO map, reusable prompts, Gen AI guardrails). **`/clt/`** — CLT Reading Room.
+- Hub top-right **Guides dropdown** (left of the language switcher) links all three. The old
+  CLT banner box above the search was removed; the Teaching-Companion CTA now links to `/ace/`
+  (previously a dead alert popup). All three guide pages accept an optional `images/hero.webp`.
 
-**Hub totals:** 26 title cards · **18 live** · faceted search + a "Philosophy" genre
-filter · cards hidden until the user searches/filters (keeps the front page calm).
+### Not built (no source text / declined)
+The `giver, orient, mango, martian, maus, justmercy` planned cards were **removed** (no
+source text). The mature/explicit titles (Forever, MaddAddam, The Handmaid's Tale, A
+Clockwork Orange, ACOMAF, Breathless, Last Night at the Telegraph Club) were **declined**
+for a grades 6–12 product. Any future copyrighted build must follow the companion pattern
+(paraphrase only, disclaimer, never commit the source). Short-story backlog + copyright
+triage is captured in **`SHORT_STORIES_PLAN.md`**.
+
+**Hub totals:** 24 title cards · **all 24 live** (0 "coming soon") · 15 CLT-canon rooms ·
+6 copyrighted companions · faceted search · Guides dropdown · cards hidden until the user
+searches/filters (keeps the front page calm).
 
 ---
 
