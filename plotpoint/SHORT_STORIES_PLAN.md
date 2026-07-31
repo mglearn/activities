@@ -38,12 +38,24 @@ Two build modes (same as the novels):
 
 ---
 
+## ✅ BUILT SO FAR (public-domain full rooms, all 7 languages, live)
+- **The Lady, or the Tiger?** — Stockton — `ladytiger/` (Gutenberg #396 + LibriVox)
+- **The Ransom of Red Chief** — O. Henry — `ransom/` (Gutenberg #1595 Whirligigs + LibriVox)
+- **The Gift of the Magi** — O. Henry — `magi/` (Gutenberg #7256 + LibriVox)
+- **The Monkey's Paw** — W. W. Jacobs — `monkeyspaw/` (Gutenberg #28731 + LibriVox)
+
+A **`short-story`** genre facet (plus **`humor`**) now filters these on the hub.
+
+**Deferred:** *The Most Dangerous Game* (Connell) — PD in the US since 2020 but **not
+catalogued on Project Gutenberg**, so it has no verified free full-text link. Build once a
+reliable PD text source is confirmed (or as a no-text companion).
+
 ## A. Named by the user — build queue with copyright status
 
 | # | Story | Author | ~Year | Status | Build mode | Link the user gave |
 |---|-------|--------|-------|--------|-----------|--------------------|
-| 1 | The Lady, or the Tiger? | Frank R. Stockton | 1882 | **PD** | Full room | owleyes.org (text) |
-| 2 | The Ransom of Red Chief | O. Henry | 1907 | **PD** | Full room | loa-shared (PDF) |
+| 1 | The Lady, or the Tiger? | Frank R. Stockton | 1882 | **PD ✅ BUILT** | Full room | owleyes.org (text) |
+| 2 | The Ransom of Red Chief | O. Henry | 1907 | **PD ✅ BUILT** | Full room | loa-shared (PDF) |
 | 3 | Leiningen Versus the Ants | Carl Stephenson | 1938 | **Copyrighted** (likely) | Companion, or skip | classicshorts.com |
 | 4 | The Scholarship Jacket | Marta Salinas | ~1980s | **Copyrighted** | Companion (needs lawful text) | nowcomment.com |
 | 5 | The Medicine Bag | Virginia Driving Hawk Sneve | 1975 | **Copyrighted** | Companion (needs lawful text) | btboces PDF |
