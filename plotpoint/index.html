@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>PlotPoint — Read. Reason. Play.</title>
+<meta name="description" content="PlotPoint is a literature learning arcade for grades 6–12. Students investigate artifacts, crack evidence-based breakouts, play literary arcade games, analyze texts, and explain their thinking through the ACE Framework. Seven languages. No logins, no data collected.">
+<meta property="og:title" content="PlotPoint — A Literature Learning Arcade for Grades 6–12">
+<meta property="og:description" content="Investigate artifacts, crack breakouts, play literary arcade games, and reason with evidence — across acclaimed books. Seven languages, no logins, no data collected.">
+<meta property="og:image" content="https://mglearn.github.io/activities/plotpoint/assets/plotpoint_hero.png">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1c2247;--navy-d:#12163a;--plum:#7a4fce;--plum-d:#5a34a6;
+    --gold:#f5c542;--gold-d:#c99a12;
+    --paper:#f5f4fb;--ink:#191d33;--ink-soft:#5b6079;--card:#fff;--line:#e0def0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:'Nunito',sans-serif;color:var(--ink);background:
+    radial-gradient(ellipse 60% 45% at 88% -8%,rgba(245,197,66,.16)0%,transparent 60%),
+    radial-gradient(ellipse 55% 45% at 0% 100%,rgba(122,79,206,.14)0%,transparent 60%),var(--paper);
+    min-height:100vh;line-height:1.55}
+  html[dir="rtl"] body{font-family:'Nunito','Segoe UI',Tahoma,sans-serif}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:22px 20px 90px}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  /* top bar */
+  .topbar{display:flex;align-items:center;gap:14px;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap}
+  .wordmark{display:flex;align-items:center;gap:10px;font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);font-size:1.3rem}
+  .wordmark .dot{width:16px;height:16px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(245,197,66,.28)}
+  .wordmark small{display:block;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--plum);font-weight:600}
+  .langbar{display:flex;align-items:center;gap:8px}
+  .langbar .globe{font-size:1.15rem}
+  .breakout-i18n-switcher{min-height:42px;padding:8px 12px;font-family:'Nunito',sans-serif;font-weight:700;color:var(--navy);
+    background:#fff;border:2px solid var(--line);border-radius:10px}
+  .breakout-i18n-switcher:focus{outline:none;border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,79,206,.15)}
+
+  /* hero */
+  .herowrap{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 12px 34px rgba(28,34,71,.20);
+    background:linear-gradient(120deg,var(--navy-d),var(--plum-d) 62%,#8a5bd6)}
+  .hero{display:block;width:100%;height:auto}
+  .herotitle{position:absolute;inset:0;display:flex;align-items:center;padding:0 0 0 5%;
+    background:linear-gradient(90deg,rgba(18,22,58,.95)0%,rgba(18,22,58,.86)26%,rgba(18,22,58,.5)44%,rgba(18,22,58,.08)56%,transparent 66%)}
+  html[dir="rtl"] .herotitle{padding:0 5% 0 0;background:linear-gradient(270deg,rgba(18,22,58,.95)0%,rgba(18,22,58,.86)26%,rgba(18,22,58,.5)44%,rgba(18,22,58,.08)56%,transparent 66%)}
+  .htinner{display:flex;flex-direction:column;gap:12px;max-width:46%}
+  .eyebrow{display:inline-block;align-self:flex-start;background:var(--gold);color:var(--navy-d);font-family:'Fredoka',sans-serif;font-weight:700;
+    font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;padding:6px 16px;border-radius:100px}
+  .herotitle h1{color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.5rem,4vw,3rem);line-height:1.02;
+    text-shadow:0 2px 18px rgba(6,10,30,.6)}
+  .herotitle h1 .g{color:var(--gold)}
+  .herotitle .tag{color:#e9e3ff;font-weight:700;font-size:clamp(.9rem,1.6vw,1.15rem);letter-spacing:.02em}
+  .herotitle .lede{color:#d7d2ee;font-weight:600;font-size:.92rem;max-width:34ch}
+  @media(max-width:720px){.herotitle{padding-left:6%;background:linear-gradient(90deg,rgba(18,22,58,.96)0%,rgba(18,22,58,.9)44%,rgba(18,22,58,.5)72%,transparent 100%)}
+    .htinner{max-width:82%}.herotitle .lede{display:none}}
+
+  .tally{display:flex;gap:26px;flex-wrap:wrap;justify-content:center;margin:18px 0 6px}
+  .tally .n{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.6rem;color:var(--navy);line-height:1}
+  .tally .l{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin-top:3px;text-align:center}
+
+  /* ACE callout */
+  .ace{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:22px 0 6px;padding:16px 20px;border-radius:14px;
+    background:linear-gradient(100deg,rgba(122,79,206,.10),rgba(245,197,66,.12));border:2px solid var(--line)}
+  .ace .badge{font-family:'Fredoka',sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;
+    color:#fff;background:var(--plum);padding:6px 14px;border-radius:100px;white-space:nowrap}
+  .ace .body{flex:1;min-width:220px;font-weight:600;color:var(--ink);font-size:.92rem}
+  .ace .body strong{color:var(--plum-d)}
+  .ace .cta{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--plum-d);text-decoration:none;white-space:nowrap;
+    border:2px solid var(--plum);border-radius:10px;padding:8px 14px;transition:.15s}
+  .ace .cta:hover{background:var(--plum);color:#fff}
+
+  h2.sec{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.1rem;margin:30px 0 12px;display:flex;align-items:center;gap:10px}
+  h2.sec::after{content:"";flex:1;height:2px;background:var(--line)}
+
+  /* search + filters */
+  .searchwrap input{width:100%;font-family:'Nunito',sans-serif;font-weight:600;font-size:1rem;color:var(--ink);
+    background:#fff;border:2px solid var(--line);border-radius:12px;padding:12px 16px;transition:border-color .15s}
+  .searchwrap input::placeholder{color:#9a9fb8}
+  .searchwrap input:focus{outline:none;border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,79,206,.14)}
+  .filters{margin-top:14px;display:flex;flex-direction:column;gap:12px}
+  .fgroup{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+  .fgroup .flabel{font-family:'Fredoka',sans-serif;font-weight:600;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--ink-soft);min-width:96px}
+  html[dir="rtl"] .fgroup .flabel{text-align:right}
+  .chip{font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem;color:var(--navy);background:#fff;border:2px solid var(--line);
+    border-radius:100px;padding:6px 13px;cursor:pointer;transition:.13s}
+  .chip:hover{border-color:var(--plum)}
+  .chip[aria-pressed="true"]{background:var(--plum);border-color:var(--plum);color:#fff}
+  .chip:focus-visible{outline:3px solid var(--plum);outline-offset:2px}
+  .filterbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;flex-wrap:wrap}
+  .qinfo{font-size:.82rem;font-weight:700;color:var(--ink-soft)}
+  .clearbtn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:.8rem;color:var(--plum-d);background:none;border:none;cursor:pointer;
+    text-decoration:underline;padding:4px}
+  .clearbtn[hidden]{display:none}
+
+  /* cards */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
+  @media(max-width:920px){.cards{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.cards{grid-template-columns:1fr}}
+  .card{position:relative;display:flex;flex-direction:column;background:var(--card);border:2px solid var(--line);
+    border-top:6px solid var(--accent,var(--plum));border-radius:16px;padding:18px 18px 16px;text-decoration:none;
+    box-shadow:0 4px 16px rgba(20,30,80,.05);transition:transform .18s cubic-bezier(.2,.7,.3,1),border-color .18s,box-shadow .2s}
+  a.card:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(20,30,80,.14);border-color:var(--gold)}
+  a.card:focus-visible{outline:3px solid var(--accent,var(--plum));outline-offset:3px}
+  .card.soon{opacity:.82;cursor:default}
+  .card .top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+  .card .grades{font-family:'Fredoka',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    color:#fff;background:var(--accent,var(--plum));padding:4px 10px;border-radius:100px;white-space:nowrap}
+  .card .status{font-family:'Fredoka',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-soft);border:1.5px solid var(--line);padding:3px 9px;border-radius:100px;white-space:nowrap}
+  .card .status.live{color:#1a7a4a;border-color:#a7e0c1;background:#eafaf1}
+  .card h3{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.16rem;line-height:1.1;margin:12px 0 2px}
+  .card .by{font-weight:700;color:var(--ink-soft);font-size:.82rem;margin-bottom:8px}
+  .card p.d{font-weight:600;color:var(--ink-soft);font-size:.86rem;flex-grow:1}
+  .card .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+  .card .tags span{font-size:.66rem;font-weight:700;color:var(--plum-d);background:rgba(122,79,206,.09);
+    border-radius:100px;padding:3px 9px}
+  .card .go{margin-top:12px;font-family:'Fredoka',sans-serif;font-weight:700;font-size:.84rem;color:var(--navy);
+    display:inline-flex;align-items:center;gap:6px}
+  .card .go .arr{transition:transform .18s}
+  a.card:hover .go .arr{transform:translateX(4px)}
+  html[dir="rtl"] .card .go .arr{transform:scaleX(-1)}
+  html[dir="rtl"] a.card:hover .go .arr{transform:scaleX(-1) translateX(4px)}
+  .card.hide{display:none}
+  .noresults{grid-column:1/-1;background:#fff;border:2px dashed var(--line);border-radius:14px;padding:26px 20px;text-align:center;
+    color:var(--ink-soft);font-weight:600}
+  .noresults b{color:var(--navy)}
+
+  footer{text-align:center;margin-top:40px;font-size:.8rem;color:var(--ink-soft);font-weight:600;line-height:1.7}
+  footer a{color:var(--plum-d);font-weight:700}
+  @media (prefers-reduced-motion:reduce){.card,.card .go .arr{transition:none}a.card:hover{transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="sr-only" href="#collection" data-i18n="skip">Skip to the collection</a>
+
+  <div class="topbar">
+    <div class="wordmark">
+      <span class="dot" aria-hidden="true"></span>
+      <span>PlotPoint<small data-i18n="brand.tag">Read · Reason · Play</small></span>
+    </div>
+    <div class="langbar">
+      <span class="globe" aria-hidden="true">🌐</span>
+      <div data-i18n-picker></div>
+    </div>
+  </div>
+
+  <header class="herowrap">
+    <img class="hero" src="assets/plotpoint_hero.png" width="1600" height="720" alt=""
+         data-i18n-alt="hero.alt"
+         onerror="this.style.display='none';this.parentNode.style.minHeight='240px'">
+    <div class="herotitle">
+      <div class="htinner">
+        <span class="eyebrow" data-i18n="hero.eyebrow">A Literature Learning Arcade · Grades 6–12</span>
+        <h1 data-i18n-html="hero.title">Plot<span class="g">Point</span></h1>
+        <p class="tag" data-i18n="hero.tag">Read. Reason. Play.</p>
+        <p class="lede" data-i18n="hero.lede">Investigate artifacts, crack evidence-based breakouts, play literary arcade games, and explain your thinking — across acclaimed books.</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="tally">
+    <div><div class="n" id="t-titles">13</div><div class="l" data-i18n="tally.titles">Title rooms</div></div>
+    <div><div class="n" id="t-live">1</div><div class="l" data-i18n="tally.live">Ready now</div></div>
+    <div><div class="n">7</div><div class="l" data-i18n="tally.langs">Languages</div></div>
+    <div><div class="n">6–12</div><div class="l" data-i18n="tally.grades">Grade bands</div></div>
+  </div>
+
+  <div class="ace">
+    <span class="badge" data-i18n="ace.badge">Teaching companion</span>
+    <p class="body" data-i18n-html="ace.body">Every room runs on the <strong>ACE Framework</strong> — a simple <em>Articulate · Connect · Extend</em> routine, with the SOLO Taxonomy and optional, accountable Gen AI use built in.</p>
+    <a class="cta" href="#" id="ace-link" data-i18n="ace.cta">Think first, then Gen AI →</a>
+  </div>
+
+  <h2 class="sec" id="collection" data-i18n="collection.title">Choose a book to open its room</h2>
+
+  <div class="searchwrap">
+    <input id="q" type="search" data-i18n-placeholder="search.placeholder" data-i18n-aria-label="search.aria"
+           placeholder="Search by title, author, or idea — try “mystery”, “Kafka”, “dystopian”…" autocomplete="off">
+  </div>
+
+  <div class="filters" id="filters" aria-label="Filters"></div>
+
+  <div class="filterbar">
+    <span class="qinfo" id="qinfo" aria-live="polite"></span>
+    <button class="clearbtn" id="clearbtn" type="button" hidden data-i18n="filters.clear">Clear all filters</button>
+  </div>
+
+  <div class="cards" id="cards"></div>
+
+  <footer>
+    <span data-i18n-html="footer.line1">PlotPoint · A literature learning arcade for grades 6–12 · CC BY 4.0 (content) · MIT (code)</span><br>
+    <span data-i18n="footer.line2">Self-contained &amp; browser-based · No logins · No accounts · No data collected · Seven languages</span><br>
+    <a href="/activities/" data-i18n="footer.hub">← Learning Activities Hub</a>
+  </footer>
+</div>
+
+<script src="../ctobs/assets/i18n.js" defer></script>
+<script src="titles.js" defer></script>
+<script src="plotpoint-i18n.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var TITLES = window.PLOTPOINT_TITLES || [];
+  var I18N = window.BreakoutI18n;
+  // Register chrome dictionary (from plotpoint-i18n.js).
+  if (I18N && window.__PLOTPOINT_HUB_DICT__) I18N.register('plotpointHub', window.__PLOTPOINT_HUB_DICT__);
+
+  function lang(){ return I18N ? I18N.getLang() : 'en'; }
+  function t(k, vars){ return I18N ? I18N.t(k, vars) : k; }
+  // Per-language card overrides (desc / facet value labels), else fall back to English base.
+  function ov(id){ var packs = window.__PLOTPOINT_TITLES__ || {}; return (packs[lang()]||{})[id] || {}; }
+  function label(kind, val){
+    var key = 'val.' + val;
+    var s = t(key);
+    return (s && s !== key) ? s : val.replace(/-/g,' ').replace(/\b\w/g, function(c){return c.toUpperCase();});
+  }
+
+  // ---- Facet configuration: which fields become filter groups, in order. ----
+  var FACETS = [
+    { key:'gradeBand', labelKey:'facet.grade', multi:false, order:['6-8','9-12'] },
+    { key:'genre',     labelKey:'facet.genre', multi:true },
+    { key:'activities',labelKey:'facet.activity', multi:true,
+      order:['relic','ctob','arcade','vocab','analysis','extend','print'] },
+    { key:'reading',   labelKey:'facet.reading', multi:true, order:['before','during','after'] },
+    { key:'time',      labelKey:'facet.time', multi:false, order:['15-25','30-45','60-90'] },
+    { key:'rights',    labelKey:'facet.rights', multi:false, order:['public-domain','copyrighted'] },
+  ];
+  var active = {}; // facetKey -> Set of values
+
+  function valuesFor(f){
+    var seen = {};
+    TITLES.forEach(function(tt){
+      var v = tt[f.key];
+      (Array.isArray(v)?v:[v]).forEach(function(x){ if(x!=null) seen[x]=true; });
+    });
+    var vals = Object.keys(seen);
+    if (f.order) vals.sort(function(a,b){
+      var ia=f.order.indexOf(a), ib=f.order.indexOf(b);
+      return (ia<0?99:ia)-(ib<0?99:ib);
+    });
+    return vals;
+  }
+
+  function buildFilters(){
+    var host = document.getElementById('filters');
+    host.innerHTML = '';
+    FACETS.forEach(function(f){
+      var row = document.createElement('div'); row.className='fgroup';
+      var lab = document.createElement('span'); lab.className='flabel'; lab.textContent = t(f.labelKey);
+      row.appendChild(lab);
+      valuesFor(f).forEach(function(v){
+        var b = document.createElement('button');
+        b.type='button'; b.className='chip'; b.textContent = label(f.key, v);
+        b.setAttribute('aria-pressed', active[f.key] && active[f.key].has(v) ? 'true':'false');
+        b.addEventListener('click', function(){ toggle(f, v, b); });
+        row.appendChild(b);
+      });
+      host.appendChild(row);
+    });
+  }
+
+  function toggle(f, v, btn){
+    if(!active[f.key]) active[f.key] = new Set();
+    var set = active[f.key];
+    if(!f.multi){ // single-select: clear siblings
+      var was = set.has(v); set.clear();
+      if(!was) set.add(v);
+      // reset sibling buttons visually
+      btn.parentNode.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed','false');});
+    } else {
+      if(set.has(v)) set.delete(v); else set.add(v);
+    }
+    btn.setAttribute('aria-pressed', set.has(v)?'true':'false');
+    run();
+  }
+
+  function matches(tt){
+    for(var i=0;i<FACETS.length;i++){
+      var f = FACETS[i], set = active[f.key];
+      if(!set || set.size===0) continue;
+      var v = tt[f.key]; var arr = Array.isArray(v)?v:[v];
+      var ok = false;
+      set.forEach(function(sel){ if(arr.indexOf(sel)>-1) ok = true; });
+      if(!ok) return false;
+    }
+    // text search
+    var term = (document.getElementById('q').value||'').trim().toLowerCase();
+    if(term){
+      var hay = (tt._hay||'');
+      if(hay.indexOf(term)<0) return false;
+    }
+    return true;
+  }
+
+  function cardHTML(tt){
+    var o = ov(tt.id);
+    var isLive = tt.status === 'live';
+    var tag = document.createElement(isLive ? 'a' : 'div');
+    tag.className = 'card' + (isLive?'':' soon');
+    tag.style.setProperty('--accent', tt.accent || '#7a4fce');
+    if(isLive){ tag.href = tt.href; }
+    var chips = (tt.genre||[]).slice(0,2).map(function(g){return '<span>'+label('genre',g)+'</span>';}).join('');
+    var extra = [];
+    if(tt.printable) extra.push('<span>'+t('tag.printable')+'</span>');
+    if(tt.genai==='optional') extra.push('<span>'+t('tag.genai')+'</span>');
+    var statusTxt = isLive ? t('status.live') : t('status.soon');
+    tag.innerHTML =
+      '<div class="top"><span class="grades">'+t('tag.grades',{g:tt.grades})+'</span>'+
+        '<span class="status '+(isLive?'live':'')+'">'+statusTxt+'</span></div>'+
+      '<h3>'+tt.title+'</h3>'+
+      '<div class="by">'+t('card.by',{a:tt.author})+'</div>'+
+      '<p class="d">'+(o.desc||tt.desc)+'</p>'+
+      '<div class="tags">'+chips+extra.join('')+'</div>'+
+      (isLive
+        ? '<span class="go">'+t('card.open')+' <span class="arr">→</span></span>'
+        : '<span class="go" style="color:var(--ink-soft)">'+t('card.soon')+'</span>');
+    return tag;
+  }
+
+  function render(){
+    // rebuild search haystack per language
+    TITLES.forEach(function(tt){
+      var o = ov(tt.id);
+      tt._hay = [tt.title, tt.author, (o.desc||tt.desc), (tt.genre||[]).join(' '),
+                 tt.relicRoom, tt.ctob, tt.arcade].join(' ').toLowerCase();
+    });
+    var host = document.getElementById('cards');
+    host.innerHTML = '';
+    TITLES.forEach(function(tt){ host.appendChild(cardHTML(tt)); });
+    var nr = document.createElement('p'); nr.className='noresults'; nr.id='noresults'; nr.hidden=true;
+    host.appendChild(nr);
+    run();
+  }
+
+  function run(){
+    var n=0;
+    var cards = document.querySelectorAll('#cards .card');
+    var idx=0;
+    TITLES.forEach(function(tt){
+      var el = cards[idx++]; if(!el) return;
+      var show = matches(tt);
+      el.classList.toggle('hide', !show);
+      if(show) n++;
+    });
+    var anyFilter = Object.keys(active).some(function(k){return active[k]&&active[k].size;}) ||
+                    (document.getElementById('q').value||'').trim();
+    var info = document.getElementById('qinfo');
+    info.textContent = anyFilter ? t('results.count', {n:n, total:TITLES.length}) : '';
+    document.getElementById('clearbtn').hidden = !anyFilter;
+    var nr = document.getElementById('noresults');
+    if(nr){ nr.hidden = n>0; nr.innerHTML = t('results.none'); }
+  }
+
+  function clearAll(){
+    active = {};
+    document.getElementById('q').value='';
+    buildFilters(); run();
+  }
+
+  document.getElementById('t-titles').textContent = TITLES.length;
+  document.getElementById('t-live').textContent = TITLES.filter(function(x){return x.status==='live';}).length;
+  document.getElementById('q').addEventListener('input', run);
+  document.getElementById('clearbtn').addEventListener('click', clearAll);
+  document.getElementById('ace-link').addEventListener('click', function(e){
+    e.preventDefault();
+    alert(t('ace.tip'));
+  });
+
+  buildFilters();
+  render();
+  if(I18N) I18N.refresh();
+
+  // Re-render on language change (chrome, facet labels, descriptions, RTL).
+  window.addEventListener('breakout-i18n:changed', function(){ buildFilters(); render(); });
+});
+</script>
+</body>
+</html>
