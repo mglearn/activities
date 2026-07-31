@@ -185,7 +185,9 @@ window.__ROOM__ = {
       copyright: "The Latin original and older translations (such as H. R. James's) are public domain; some recent translations remain under copyright. Verify your edition.",
       contentNote: "The work is set in prison as its author awaits execution and reflects calmly on suffering, injustice, and death. Preview for maturity and align with local policy.",
       gutenberg: "https://www.gutenberg.org/ebooks/14328",
-      audio: "https://librivox.org/the-consolation-of-philosophy-by-boethius/"
+      audio: "https://librivox.org/the-consolation-of-philosophy-by-boethius/",
+      hero: "images/hero.webp",
+      heroAlt: "An instructional illustration evoking Boethius's Consolation — a prison cell and the wheel of Fortune."
     },
     hook: "Condemned and awaiting execution, Boethius is visited in prison by Lady Philosophy. Through their dialogue he asks how anyone can be at peace when fortune turns, the innocent suffer, and everything we own can be taken away.",
     goals: [

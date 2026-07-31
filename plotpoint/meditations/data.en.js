@@ -185,7 +185,9 @@ window.__ROOM__ = {
       copyright: "The Greek original and older translations (such as George Long's) are public domain; some recent translations remain under copyright. Verify your edition.",
       contentNote: "Reflective philosophy that discusses death, duty, and hardship in a calm, thoughtful way. Preview for reading level and align with local policy.",
       gutenberg: "https://www.gutenberg.org/ebooks/2680",
-      audio: "https://librivox.org/the-meditations-of-marcus-aurelius/"
+      audio: "https://librivox.org/the-meditations-of-marcus-aurelius/",
+      hero: "images/hero.webp",
+      heroAlt: "An instructional illustration evoking Marcus Aurelius's Meditations — a lamplit journal at a frontier camp."
     },
     hook: "The most powerful man in the Roman world wrote a private notebook — not to publish, but to remind himself how to be patient, just, and calm. The Meditations is Stoic philosophy in practice.",
     goals: [

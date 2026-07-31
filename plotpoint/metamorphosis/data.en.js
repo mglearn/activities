@@ -197,7 +197,9 @@ window.__ROOM__ = {
       copyright: "The 1915 German text is public domain; some English translations remain under copyright. Verify your edition before sharing.",
       contentNote: "Themes include isolation, family conflict, and death. Preview for maturity and align with local policy.",
       gutenberg: "https://www.gutenberg.org/ebooks/5200",
-      audio: "https://librivox.org/the-metamorphosis-by-franz-kafka/"
+      audio: "https://librivox.org/the-metamorphosis-by-franz-kafka/",
+      hero: "images/hero.webp",
+      heroAlt: "An instructional illustration evoking The Metamorphosis — a dim bedroom at dawn."
     },
     hook: "One ordinary morning, Gregor Samsa wakes to find his body completely changed — and discovers how quickly a person can be reduced to what they can no longer provide.",
     goals: [

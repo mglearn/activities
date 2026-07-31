@@ -185,7 +185,9 @@ window.__ROOM__ = {
       copyright: "The Greek original and older translations (such as Elizabeth Carter's) are public domain; some recent translations remain under copyright. Verify your edition.",
       contentNote: "Practical philosophy that discusses loss, death, and self-control in a calm, matter-of-fact way. Preview for reading level and align with local policy.",
       gutenberg: "https://www.gutenberg.org/ebooks/45109",
-      audio: "https://librivox.org/the-enchiridion-by-epictetus/"
+      audio: "https://librivox.org/the-enchiridion-by-epictetus/",
+      hero: "images/hero.webp",
+      heroAlt: "An instructional illustration evoking Epictetus's handbook — a simple lamp and an open book."
     },
     hook: "Epictetus was born a slave and became one of Rome's most respected teachers. His 'handbook' is a short set of rules for staying free inside — no matter what happens outside.",
     goals: [

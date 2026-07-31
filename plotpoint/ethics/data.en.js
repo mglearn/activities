@@ -185,7 +185,9 @@ window.__ROOM__ = {
       copyright: "The Greek original and older translations are public domain; some recent translations remain under copyright. Verify your edition.",
       contentNote: "A demanding philosophical text best read in short selections with discussion. Preview for reading level and align with local policy.",
       gutenberg: "https://www.gutenberg.org/ebooks/8438",
-      audio: "https://librivox.org/the-nicomachean-ethics-by-aristotle/"
+      audio: "https://librivox.org/the-nicomachean-ethics-by-aristotle/",
+      hero: "images/hero.webp",
+      heroAlt: "An instructional illustration evoking Aristotle's ethics — a balanced scale and a flourishing plant."
     },
     hook: "What is a good life, and how do we get one? Aristotle argues that happiness is the highest goal, that virtue is a skill built by practice, and that the right choice usually lies in a balanced middle between too much and too little.",
     goals: [

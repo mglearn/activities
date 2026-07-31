@@ -61,6 +61,14 @@ html[dir="rtl"] .navbtn{text-align:right}
 .eyebrow{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
   color:#fff;background:var(--accent,var(--plum));padding:5px 13px;border-radius:100px}
 h1.rtitle{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);font-size:clamp(1.5rem,3.2vw,2.3rem);line-height:1.06;margin:12px 0 4px}
+.enter-head{display:flex;gap:22px;align-items:flex-start}
+.enter-head-txt{flex:1;min-width:0}
+.enter-hero{flex:0 0 34%;max-width:300px}
+.enter-hero img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:14px;border:2px solid var(--line);box-shadow:0 6px 18px rgba(20,30,80,.10)}
+.enter-hero.ph{aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  border:2px dashed var(--line);border-radius:14px;background:linear-gradient(135deg,#efe9fb,#e3ddf6);color:var(--ink-soft);font-weight:700;font-size:.8rem;padding:14px}
+.enter-hero.ph small{display:block;margin-top:6px;font-family:monospace;font-size:.7rem;opacity:.8;word-break:break-all}
+@media(max-width:640px){.enter-head{flex-direction:column-reverse}.enter-hero{flex:none;max-width:none;width:100%}}
 h2.stitle{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);font-size:1.3rem;margin:0 0 4px}
 h3{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy)}
 .lead{color:var(--ink-soft);font-weight:600;margin:8px 0}

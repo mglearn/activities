@@ -185,7 +185,9 @@ window.__ROOM__ = {
       copyright: "Bulfinch's 19th-century retellings are public domain; specific modern retellings or translations may carry their own copyright. Verify your edition.",
       contentNote: "Some myths include violence or mature themes. Preview selections for your grade and align with local policy.",
       gutenberg: "https://www.gutenberg.org/ebooks/4928",
-      audio: "https://librivox.org/bulfinch-age-of-fable/"
+      audio: "https://librivox.org/bulfinch-age-of-fable/",
+      hero: "images/hero.webp",
+      heroAlt: "An instructional illustration evoking Greek and Roman myths — a hero, gods, and a quest."
     },
     hook: "Long before novels, people explained the world with stories about gods, heroes, and monsters. These myths still echo in the movies, games, and words we use today.",
     goals: [

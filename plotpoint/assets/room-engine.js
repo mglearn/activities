@@ -111,9 +111,11 @@
     var c = content(), m = c.meta || {};
     root.innerHTML = '';
     var p = el('div', 'panel');
-    p.appendChild(el('span', 'eyebrow', esc(t('enter.eyebrow'))));
-    p.appendChild(el('h1', 'rtitle', esc(m.title) + ' <span style="color:var(--ink-soft);font-size:.6em;font-weight:600">' + esc(t('enter.by', { a: m.author })) + '</span>'));
-    if (c.hook) p.appendChild(el('p', 'lead', esc(c.hook)));
+    var head = el('div', 'enter-head');
+    var txt = el('div', 'enter-head-txt');
+    txt.appendChild(el('span', 'eyebrow', esc(t('enter.eyebrow'))));
+    txt.appendChild(el('h1', 'rtitle', esc(m.title) + ' <span style="color:var(--ink-soft);font-size:.6em;font-weight:600">' + esc(t('enter.by', { a: m.author })) + '</span>'));
+    if (c.hook) txt.appendChild(el('p', 'lead', esc(c.hook)));
 
     var pills = el('div', 'pill-row');
     [['grades', m.grades], ['genre', m.genre], ['time', m.time]].forEach(function (x) {
@@ -121,7 +123,26 @@
     });
     if (m.spoiler) pills.appendChild(el('span', 'pill warn', esc(t('enter.spoiler') + ': ' + m.spoiler)));
     if (m.rights) pills.appendChild(el('span', 'pill', esc(m.rights)));
-    p.appendChild(pills);
+    txt.appendChild(pills);
+    head.appendChild(txt);
+
+    // Optional hero image in the upper-right of Enter the Story. URLs/paths are
+    // language-neutral, so fall back to the English meta for translations.
+    var enMeta0 = (CONTENT.en && CONTENT.en.meta) || {};
+    var hero = m.hero || enMeta0.hero;
+    if (hero) {
+      var fig = el('div', 'enter-hero');
+      var img = document.createElement('img');
+      img.src = hero; img.alt = m.heroAlt || m.title || '';
+      img.loading = 'lazy';
+      img.addEventListener('error', function () {
+        fig.classList.add('ph');
+        fig.innerHTML = '<span>' + esc(t('relic.placeholder')) + '</span><small>' + esc(hero) + '</small>';
+      });
+      fig.appendChild(img);
+      head.appendChild(fig);
+    }
+    p.appendChild(head);
 
     var g2 = el('div', 'grid2');
     var access = el('div', 'note');

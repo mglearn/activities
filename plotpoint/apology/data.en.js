@@ -186,7 +186,9 @@ window.__ROOM__ = {
       copyright: "The ancient Greek original and older English translations (such as Jowett's) are public domain; some recent translations remain under copyright. Verify your edition.",
       contentNote: "The dialogue depicts a trial ending in a death sentence and discusses death and duty. Preview for maturity and align with local policy.",
       gutenberg: "https://www.gutenberg.org/ebooks/1656",
-      audio: "https://librivox.org/the-apology-of-socrates-by-plato/"
+      audio: "https://librivox.org/the-apology-of-socrates-by-plato/",
+      hero: "images/hero.webp",
+      heroAlt: "An instructional illustration evoking the trial of Socrates in ancient Athens."
     },
     hook: "On trial for his life, Socrates refuses to beg, flatter, or stop asking hard questions. Plato's Apology is his defense — and a lasting argument that an unexamined life is not worth living.",
     goals: [

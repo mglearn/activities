@@ -185,7 +185,9 @@ window.__ROOM__ = {
       copyright: "The Greek original and older translations (such as Jowett's) are public domain; some recent translations remain under copyright. Verify your edition.",
       contentNote: "An abstract philosophical allegory. Preview for reading level and align with local policy.",
       gutenberg: "https://www.gutenberg.org/ebooks/1497",
-      audio: "https://librivox.org/platos_republic/"
+      audio: "https://librivox.org/platos_republic/",
+      hero: "images/hero.webp",
+      heroAlt: "An instructional illustration evoking Plato's cave — shadows, firelight, and a distant opening."
     },
     hook: "Imagine people who have spent their whole lives chained in a cave, seeing only shadows on a wall — and believing those shadows are the whole world. Plato uses this scene to ask what education, truth, and reality really are.",
     goals: [

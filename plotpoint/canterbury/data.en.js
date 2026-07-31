@@ -185,7 +185,9 @@ window.__ROOM__ = {
       copyright: "The Middle English original is public domain; many modern English translations remain under copyright. Verify your edition before sharing.",
       contentNote: "This room focuses on the General Prologue. Some individual tales contain bawdy or mature material — preview any tales you assign and align with local policy.",
       gutenberg: "https://www.gutenberg.org/ebooks/2383",
-      audio: "https://librivox.org/the-canterbury-tales-by-geoffrey-chaucer/"
+      audio: "https://librivox.org/the-canterbury-tales-by-geoffrey-chaucer/",
+      hero: "images/hero.webp",
+      heroAlt: "An instructional illustration evoking The Canterbury Tales — pilgrims on a medieval road."
     },
     hook: "Twenty-nine strangers meet at an inn and agree to a storytelling contest on the road to Canterbury. Before a single tale is told, Chaucer's narrator sizes up each pilgrim — and quietly reveals who they really are.",
     goals: [

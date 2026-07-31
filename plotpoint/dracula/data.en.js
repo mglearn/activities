@@ -185,7 +185,9 @@ window.__ROOM__ = {
       copyright: "The 1897 first edition is public domain; some annotated, abridged, or translated editions carry their own copyright. Verify your edition before sharing.",
       contentNote: "Gothic horror with themes of death, illness, and menace. Preview for maturity and align with local policy.",
       gutenberg: "https://www.gutenberg.org/ebooks/345",
-      audio: "https://librivox.org/dracula-by-bram-stoker/"
+      audio: "https://librivox.org/dracula-by-bram-stoker/",
+      hero: "images/hero.webp",
+      heroAlt: "An instructional illustration evoking Dracula — a storm-lashed ship and a distant castle."
     },
     hook: "There is no single narrator to trust. Dracula reaches us only as a stack of letters, diaries, telegrams, and ship's logs — and the reader must assemble the truth from the documents, just as the characters do.",
     goals: [
