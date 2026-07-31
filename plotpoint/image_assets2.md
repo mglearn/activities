@@ -11,7 +11,17 @@ built since**, plus **proposed CLT-canon titles** not yet built.
   period-appropriate objects and scenes.
 - Neutral, uncluttered backgrounds; soft editorial / "museum" lighting.
 - Every image is **optional**: pages render a labeled placeholder if a file is missing.
-- Save optimized PNG/WebP at the size given, inside that room's `images/` folder.
+- **Output format: WebP.** Drop PNGs if that's what your generator makes, then convert
+  to `.webp` (the rooms reference `.webp` paths). Photorealistic PNGs shrink ~95% as
+  WebP with no visible loss at display size. Convert + rewire in place:
+  ```bash
+  python3 - <<'PY'
+  from PIL import Image; import glob, os
+  for f in glob.glob('**/images/*.png', recursive=True) + glob.glob('assets/*hero*.png'):
+      Image.open(f).convert('RGB').save(f[:-4]+'.webp','WEBP',quality=84,method=6); os.remove(f)
+  PY
+  ```
+  Then update the room's `data.en.js` (`images/<id>.png` → `.webp`) and any hero `src`.
 
 **Relic still-life style spec** (append to any single-object prompt below):
 > Photorealistic museum still-life of a single object, centered, on a soft neutral
