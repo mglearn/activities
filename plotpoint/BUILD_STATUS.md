@@ -18,27 +18,42 @@ Deployment note: PlotPoint lives in the **`activities/`** repo and ships at
 | 0 | Inspect repo; reuse PST / Relic Rooms / CTOB patterns | ✅ Done |
 | 1 | Shared system: hub + language engine + one working title room | ✅ Done |
 | 2 | Seven-language support wired end to end | ✅ Done (see review flags) |
-| 3 | Remaining title rooms | 🔄 In progress — **4 of 13 live** |
+| 3 | Remaining title rooms | 🔄 In progress — **6 rooms live** |
 
-### Live title rooms (4 of 13) — all seven languages, deployed
-1. **The Metamorphosis** — Kafka (public domain) · flagship
-2. **The Canterbury Tales** — Chaucer (public domain)
-3. **Dracula** — Stoker (public domain)
-4. **Selected Myths (Bulfinch)** — Bulfinch (public domain)
+### Live rooms (6) — all seven languages, deployed, headless-validated
+**Public-domain literature (4):**
+1. **The Metamorphosis** — Kafka · flagship
+2. **The Canterbury Tales** — Chaucer
+3. **Dracula** — Stoker
+4. **Selected Myths (Bulfinch)** — Bulfinch
 
-All four public-domain titles are done, each with the free **Read & Listen**
-panel (Project Gutenberg text + LibriVox audiobook) in Enter the Story.
+**Philosophy sub-collection (2)** — added at the user's request, CLT-aligned,
+public domain:
+5. **The Apology** — Plato (the trial of Socrates)
+6. **The Allegory of the Cave** — Plato (Republic, Book VII)
 
-### Remaining title rooms (9 of 13) — copyrighted, not yet built
-The Giver · Murder on the Orient Express · The House on Mango Street · The
-Martian Chronicles · Maus I · In the Time of the Butterflies · Kindred · Brave
-New World · Just Mercy.
+Every live room carries the free **Read & Listen** panel (Project Gutenberg text
++ LibriVox audiobook) in Enter the Story.
 
-**These require extra care** (per `plan.md`): they are under copyright, so their
-rooms must **paraphrase only** (never reproduce text or invent quotations), carry
-a content/copyright-review note, and get **no** Gutenberg/LibriVox links. Maus I
-and Just Mercy specifically require content review before any historically
-sensitive imagery.
+### Direction change
+The 9 copyrighted literature titles from `plan.md` (The Giver, Orient Express,
+Mango Street, Martian Chronicles, Maus I, Butterflies, Kindred, Brave New World,
+Just Mercy) are **on hold** — the user redirected toward public-domain philosophy
+suitable for schools (the CLT canon). They remain in `titles.js` as "coming
+soon"; if built later they must paraphrase only (no reproduced text) and carry a
+content/copyright-review note.
+
+### Philosophy — queued next (in `titles.js` as "coming soon")
+- **Meditations** — Marcus Aurelius
+- **The Enchiridion** — Epictetus
+- **Nicomachean Ethics (Selections)** — Aristotle
+- **The Consolation of Philosophy** — Boethius
+
+Candidate future additions from the CLT canon (all public domain): Augustine's
+*Confessions*, Cicero *On Duties / On Friendship*, Seneca's *Letters*, Aesop's
+*Fables*, Frederick Douglass's *Narrative*, the *Federalist Papers*.
+
+**Hub totals:** 19 title cards · 6 live · a new "Philosophy" genre filter.
 
 ---
 
