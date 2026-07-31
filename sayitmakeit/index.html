@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>Say It, Make It — STEAM barrier &amp; communication activities</title>
+<meta name="description" content="A STEAM library of 106 barrier / blind-build / communication activities for K–8 — describe it, build it, compare, reflect. Seven languages, print-friendly, TEKS + NGSS aligned. No logins, no data collected.">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/i18n.js" defer></script>
+<script src="assets/i18n-chrome.js" defer></script>
+<script src="assets/app.js" defer></script>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="backlink" data-i18n="nav_back_hub">← Activities</a>
+  <div class="nav-mid nav-brand" data-i18n="brand">Say It, Make It</div>
+  <div class="lang-picker" data-i18n-picker></div>
+</div>
+<div class="wrap">
+  <header class="top">
+    <div class="herowrap">
+      <img class="hero" src="assets/hero.png" width="1600" height="800" alt="" onerror="this.style.display='none'">
+      <div class="herotitle">
+        <div class="htinner">
+          <span class="eyebrow" data-i18n="hero_eyebrow">A STEAM educator resource</span>
+          <h1><span data-i18n="hero_t1">Say It,</span> <span class="g" data-i18n="hero_t2">Make It</span></h1>
+        </div>
+      </div>
+    </div>
+    <p class="sub" data-i18n="hero_sub">One partner describes a hidden model, drawing, pattern, or setup — using words only. The other builds it. Then compare, and talk about what made the words work. 106 STEAM activities.</p>
+    <div class="tally">
+      <div><div class="n">106</div><div class="l" data-i18n="tally_activities">Activities</div></div>
+      <div><div class="n">5</div><div class="l" data-i18n="tally_strands">STEAM strands</div></div>
+      <div><div class="n">7</div><div class="l" data-i18n="tally_langs">Languages</div></div>
+    </div>
+  </header>
+
+  <div class="controls no-print">
+    <input id="q" type="search" data-i18n-placeholder="search_ph" placeholder="Search activities…" aria-label="Search" autocomplete="off">
+    <div class="chips"><button class="chip active" data-strand="all" data-i18n="filter_all">All</button><button class="chip" data-strand="science" style="--accent:#0a6b52"><span class="bl">S</span> <span data-i18n="strand_science"></span></button><button class="chip" data-strand="technology" style="--accent:#2563a8"><span class="bl">T</span> <span data-i18n="strand_technology"></span></button><button class="chip" data-strand="engineering" style="--accent:#b45309"><span class="bl">E</span> <span data-i18n="strand_engineering"></span></button><button class="chip" data-strand="arts" style="--accent:#b83280"><span class="bl">A</span> <span data-i18n="strand_arts"></span></button><button class="chip" data-strand="math" style="--accent:#3f2a78"><span class="bl">M</span> <span data-i18n="strand_math"></span></button><button class="chip" data-strand="facilitation" style="--accent:#516079"><span class="bl">★</span> <span data-i18n="strand_facilitation"></span></button></div>
+    <div class="toolrow2">
+      <button class="tbtn" id="surprise" data-i18n="tool_surprise">🎲 Surprise me</button>
+      <button class="tbtn" id="assign" data-i18n="tool_roles">👥 Assign roles</button>
+      <button class="tbtn" id="timer" data-i18n="tool_timer">⏱️ Round timer</button>
+    </div>
+    <div class="qinfo" id="qinfo" aria-live="polite"></div>
+  </div>
+
+  <div id="results">
+      <section class="strand-sec" data-strand="science">
+        <h2 class="sec" style="--accent:#0a6b52">🔬 <span data-i18n="strand_science"></span> <span class="sec-n">9</span></h2>
+        <div class="grid">
+      <a class="acard b-science" href="a/create-a-habitat.html" data-strand="science" data-grades="K–8"
+         data-search="create a habitat one student constructs a habitat scene. the partner recreates it while discussing where organisms belong. habitat vocabulary ecological relationships position habitat backgrounds and animal, plant, water, shelter, and food pieces.">
+        <div class="ac-top"><span class="ac-num">35</span><span class="badge b-science"><span class="bl">S</span> Science</span></div>
+        <h3>Create a Habitat</h3>
+        <p>One student constructs a habitat scene. The partner recreates it while discussing where organisms belong.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Habitat backgrounds and animal, plant, water, shelter, and food pieces.</div>
+      </a>
+      <a class="acard b-science" href="a/solar-system-placement.html" data-strand="science" data-grades="K–8"
+         data-search="solar-system placement the describer gives directions for arranging planets, moons, spacecraft, or orbital paths. sequence relative distance science vocabulary matching space mats and planet cards.">
+        <div class="ac-top"><span class="ac-num">38</span><span class="badge b-science"><span class="bl">S</span> Science</span></div>
+        <h3>Solar-System Placement</h3>
+        <p>The Describer gives directions for arranging planets, moons, spacecraft, or orbital paths.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching space mats and planet cards.</div>
+      </a>
+      <a class="acard b-science" href="a/molecule-model-match.html" data-strand="science" data-grades="K–8"
+         data-search="molecule model match one student describes atom types, quantities, bonds, and arrangement. molecular structure scientific vocabulary matching molecular-model kits or colored clay and sticks.">
+        <div class="ac-top"><span class="ac-num">78</span><span class="badge b-science"><span class="bl">S</span> Science</span></div>
+        <h3>Molecule Model Match</h3>
+        <p>One student describes atom types, quantities, bonds, and arrangement.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching molecular-model kits or colored clay and sticks.</div>
+      </a>
+      <a class="acard b-science" href="a/food-chain-builder.html" data-strand="science" data-grades="K–8"
+         data-search="food-chain builder the describer arranges a food chain or web and explains the flow of energy. ecosystem relationships cause and effect matching organism cards and arrows.">
+        <div class="ac-top"><span class="ac-num">79</span><span class="badge b-science"><span class="bl">S</span> Science</span></div>
+        <h3>Food-Chain Builder</h3>
+        <p>The Describer arranges a food chain or web and explains the flow of energy.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching organism cards and arrows.</div>
+      </a>
+      <a class="acard b-science" href="a/life-cycle-sequence.html" data-strand="science" data-grades="K–8"
+         data-search="life-cycle sequence one student places the stages in order and explains the sequence to a partner. scientific sequencing transition language matching life-cycle cards.">
+        <div class="ac-top"><span class="ac-num">80</span><span class="badge b-science"><span class="bl">S</span> Science</span></div>
+        <h3>Life-Cycle Sequence</h3>
+        <p>One student places the stages in order and explains the sequence to a partner.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching life-cycle cards.</div>
+      </a>
+      <a class="acard b-science" href="a/rock-layer-reconstruction.html" data-strand="science" data-grades="K–8"
+         data-search="rock-layer reconstruction the describer arranges geological layers, fossils, and faults. the partner reproduces the cross-section. relative position geology vocabulary chronological reasoning colored strips or sediment-layer cards.">
+        <div class="ac-top"><span class="ac-num">81</span><span class="badge b-science"><span class="bl">S</span> Science</span></div>
+        <h3>Rock-Layer Reconstruction</h3>
+        <p>The Describer arranges geological layers, fossils, and faults. The partner reproduces the cross-section.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Colored strips or sediment-layer cards.</div>
+      </a>
+      <a class="acard b-science" href="a/weather-map-match.html" data-strand="science" data-grades="K–8"
+         data-search="weather-map match one student places fronts, pressure systems, precipitation, and temperature symbols. the partner duplicates the map. weather vocabulary maps interpretation blank maps and weather-symbol cards.">
+        <div class="ac-top"><span class="ac-num">82</span><span class="badge b-science"><span class="bl">S</span> Science</span></div>
+        <h3>Weather-Map Match</h3>
+        <p>One student places fronts, pressure systems, precipitation, and temperature symbols. The partner duplicates the map.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Blank maps and weather-symbol cards.</div>
+      </a>
+      <a class="acard b-science" href="a/cell-model-arrangement.html" data-strand="science" data-grades="K–8"
+         data-search="cell model arrangement the describer places organelles and explains their positions and relationships. cell vocabulary spatial relationships systems cell mats and organelle pieces.">
+        <div class="ac-top"><span class="ac-num">83</span><span class="badge b-science"><span class="bl">S</span> Science</span></div>
+        <h3>Cell Model Arrangement</h3>
+        <p>The Describer places organelles and explains their positions and relationships.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Cell mats and organelle pieces.</div>
+      </a>
+      <a class="acard b-science" href="a/experimental-setup-build.html" data-strand="science" data-grades="K–8"
+         data-search="experimental-setup build one student views a completed experimental setup and gives directions for assembling or diagramming it. --- laboratory vocabulary procedure safety communication safe classroom science equipment or picture cards.">
+        <div class="ac-top"><span class="ac-num">84</span><span class="badge b-science"><span class="bl">S</span> Science</span></div>
+        <h3>Experimental-Setup Build</h3>
+        <p>One student views a completed experimental setup and gives directions for assembling or diagramming it. ---</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Safe classroom science equipment or picture cards.</div>
+      </a></div>
+      </section>
+      <section class="strand-sec" data-strand="technology">
+        <h2 class="sec" style="--accent:#2563a8">🤖 <span data-i18n="strand_technology"></span> <span class="sec-n">3</span></h2>
+        <div class="grid">
+      <a class="acard b-technology" href="a/grid-robot-programmer.html" data-strand="technology" data-grades="K–8"
+         data-search="grid robot programmer the programmer gives step-by-step commands to move a token through the grid. the operator follows the commands exactly. algorithms sequencing debugging grid mats, tokens, and obstacle cards.">
+        <div class="ac-top"><span class="ac-num">57</span><span class="badge b-technology"><span class="bl">T</span> Technology</span></div>
+        <h3>Grid Robot Programmer</h3>
+        <p>The Programmer gives step-by-step commands to move a token through the grid. The Operator follows the commands exactly.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Grid mats, tokens, and obstacle cards.</div>
+      </a>
+      <a class="acard b-technology" href="a/human-robot-course.html" data-strand="technology" data-grades="K–8"
+         data-search="human robot course one student acts as a robot and follows precise commands such as move forward, rotate, stop, and pick up. --- computational thinking precise instructions debugging floor grid or safe obstacle course.">
+        <div class="ac-top"><span class="ac-num">58</span><span class="badge b-technology"><span class="bl">T</span> Technology</span></div>
+        <h3>Human Robot Course</h3>
+        <p>One student acts as a robot and follows precise commands such as move forward, rotate, stop, and pick up. ---</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Floor grid or safe obstacle course.</div>
+      </a>
+      <a class="acard b-technology" href="a/circuit-description-challenge.html" data-strand="technology" data-grades="K–8"
+         data-search="circuit description challenge the describer views a simple circuit and explains the connections. the builder assembles or diagrams it. circuit vocabulary systems thinking sequencing safe circuit components or circuit-symbol cards.">
+        <div class="ac-top"><span class="ac-num">77</span><span class="badge b-technology"><span class="bl">T</span> Technology</span></div>
+        <h3>Circuit Description Challenge</h3>
+        <p>The Describer views a simple circuit and explains the connections. The Builder assembles or diagrams it.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Safe circuit components or circuit-symbol cards.</div>
+      </a></div>
+      </section>
+      <section class="strand-sec" data-strand="engineering">
+        <h2 class="sec" style="--accent:#b45309">🏗️ <span data-i18n="strand_engineering"></span> <span class="sec-n">16</span></h2>
+        <div class="grid">
+      <a class="acard b-engineering" href="a/hidden-cup-structure.html" data-strand="engineering" data-grades="K–8"
+         data-search="hidden cup structure build a structure using four to eight cups. one student describes it while a partner recreates it without seeing the original. compare cup position, orientation, spacing, and order. spatial vocabulary sequencing listening clarification two identical sets of cups and a cardboard screen.">
+        <div class="ac-top"><span class="ac-num">1</span><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
+        <h3>Hidden Cup Structure</h3>
+        <p>Build a structure using four to eight cups. One student describes it while a partner recreates it without seeing the ori…</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Two identical sets of cups and a cardboard screen.</div>
+      </a>
+      <a class="acard b-engineering" href="a/cup-structure-relay.html" data-strand="engineering" data-grades="K–8"
+         data-search="cup structure relay the architect views the cup model. a messenger travels to the builder and repeats the instructions. the messenger may not see the builder's work. information retention concise speaking teamwork cups, two barriers, and open classroom space.">
+        <div class="ac-top"><span class="ac-num">2</span><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
+        <h3>Cup Structure Relay</h3>
+        <p>The Architect views the cup model. A Messenger travels to the Builder and repeats the instructions. The Messenger may no…</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Cups, two barriers, and open classroom space.</div>
+      </a>
+      <a class="acard b-engineering" href="a/one-message-cup-challenge.html" data-strand="engineering" data-grades="K–8"
+         data-search="one-message cup challenge the describer studies the model and may give only one uninterrupted set of directions. the builder cannot ask questions until the description is complete. planning procedural language working memory matching cup sets and a barrier.">
+        <div class="ac-top"><span class="ac-num">3</span><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
+        <h3>One-Message Cup Challenge</h3>
+        <p>The Describer studies the model and may give only one uninterrupted set of directions. The Builder cannot ask questions …</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching cup sets and a barrier.</div>
+      </a>
+      <a class="acard b-engineering" href="a/question-limited-cup-challenge.html" data-strand="engineering" data-grades="K–8"
+         data-search="question-limited cup challenge the builder receives three question tokens. each clarifying question costs one token. strategic questioning listening for missing information matching cup sets and question tokens.">
+        <div class="ac-top"><span class="ac-num">4</span><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
+        <h3>Question-Limited Cup Challenge</h3>
+        <p>The Builder receives three question tokens. Each clarifying question costs one token.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching cup sets and question tokens.</div>
+      </a>
+      <a class="acard b-engineering" href="a/cup-coordinate-build.html" data-strand="engineering" data-grades="K–8"
+         data-search="cup coordinate build students describe each cup using grid coordinates, orientation, and relationship to neighboring cups. coordinates positional language precision cups and grid mats.">
+        <div class="ac-top"><span class="ac-num">5</span><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
+        <h3>Cup Coordinate Build</h3>
+        <p>Students describe each cup using grid coordinates, orientation, and relationship to neighboring cups.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Cups and grid mats.</div>
+      </a>
+      <a class="acard b-engineering" href="a/cup-tower-troubleshooting.html" data-strand="engineering" data-grades="K–8"
+         data-search="cup tower troubleshooting the describer knows the intended design. the builder receives a nearly correct structure and must follow directions to find and repair the mistake. error analysis comparison corrective feedback two matching cup structures, one containing an error.">
+        <div class="ac-top"><span class="ac-num">6</span><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
+        <h3>Cup Tower Troubleshooting</h3>
+        <p>The Describer knows the intended design. The Builder receives a nearly correct structure and must follow directions to f…</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Two matching cup structures, one containing an error.</div>
+      </a>
+      <a class="acard b-engineering" href="a/lego-copy-build.html" data-strand="engineering" data-grades="K–8"
+         data-search="lego copy build one student describes a hidden model by naming each brick's color, size, orientation, and attachment point. attributes spatial reasoning technical communication two identical lego or building-block sets.">
+        <div class="ac-top"><span class="ac-num">7</span><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
+        <h3>LEGO Copy Build</h3>
+        <p>One student describes a hidden model by naming each brick's color, size, orientation, and attachment point.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Two identical LEGO or building-block sets.</div>
+      </a>
+      <a class="acard b-engineering" href="a/architect-messenger-builder.html" data-strand="engineering" data-grades="K–8"
+         data-search="architect–messenger–builder the architect sees the structure. the messenger carries spoken information to the builder but may not see either model while receiving or delivering directions. communication systems memory teamwork building blocks, barriers, and role cards.">
+        <div class="ac-top"><span class="ac-num">8</span><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
+        <h3>Architect–Messenger–Builder</h3>
+        <p>The Architect sees the structure. The Messenger carries spoken information to the Builder but may not see either model w…</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Building blocks, barriers, and role cards.</div>
+      </a>
+      <a class="acard b-engineering" href="a/silent-architect.html" data-strand="engineering" data-grades="K–8"
+         data-search="silent architect the architect cannot speak. the architect writes directions for a builder who cannot see the model. procedural writing editing precision blocks, paper, and pencils.">
+        <div class="ac-top"><span class="ac-num">9</span><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
+        <h3>Silent Architect</h3>
+        <p>The Architect cannot speak. The Architect writes directions for a Builder who cannot see the model.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Blocks, paper, and pencils.</div>
+      </a>
+      <a class="acard b-engineering" href="a/blueprint-to-building.html" data-strand="engineering" data-grades="K–8"
+         data-search="blueprint to building one student sees a top, front, or side-view drawing and describes it so the builder can produce the three-dimensional model. visualizing three-dimensional objects perspective geometry blocks and a simple blueprint or diagram.">
+        <div class="ac-top"><span class="ac-num">10</span><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
+        <h3>Blueprint to Building</h3>
+        <p>One student sees a top, front, or side-view drawing and describes it so the Builder can produce the three-dimensional mo…</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Blocks and a simple blueprint or diagram.</div>
+      </a>
+      <a class="acard b-engineering" href="a/straw-and-connector-structure.html" data-strand="engineering" data-grades="K–8"
+         data-search="straw-and-connector structure partners recreate a hidden geometric structure using spoken descriptions of lengths, angles, vertices, and connections. geometry vocabulary angles three-dimensional reasoning straws and reusable connectors or modeling clay.">
+        <div class="ac-top"><span class="ac-num">11</span><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
+        <h3>Straw-and-Connector Structure</h3>
+        <p>Partners recreate a hidden geometric structure using spoken descriptions of lengths, angles, vertices, and connections.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Straws and reusable connectors or modeling clay.</div>
+      </a>
+      <a class="acard b-engineering" href="a/pattern-block-picture.html" data-strand="engineering" data-grades="K–8"
+         data-search="pattern-block picture one partner creates or views a pattern-block image and explains how to reproduce it. shape attributes transformations symmetry identical sets of pattern blocks.">
+        <div class="ac-top"><span class="ac-num">12</span><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
+        <h3>Pattern-Block Picture</h3>
+        <p>One partner creates or views a pattern-block image and explains how to reproduce it.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Identical sets of pattern blocks.</div>
+      </a>
+      <a class="acard b-engineering" href="a/tangram-talk.html" data-strand="engineering" data-grades="K–8"
+         data-search="tangram talk the describer explains where and how to place each tangram piece without naming the finished image. rotation reflection orientation geometry two identical tangram sets and barriers.">
+        <div class="ac-top"><span class="ac-num">13</span><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
+        <h3>Tangram Talk</h3>
+        <p>The Describer explains where and how to place each tangram piece without naming the finished image.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Two identical tangram sets and barriers.</div>
+      </a>
+      <a class="acard b-engineering" href="a/magnetic-tile-model.html" data-strand="engineering" data-grades="K–8"
+         data-search="magnetic-tile model students describe a hidden flat or three-dimensional magnetic-tile model. shape vocabulary faces edges spatial relationships matching magnetic-tile sets.">
+        <div class="ac-top"><span class="ac-num">14</span><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
+        <h3>Magnetic-Tile Model</h3>
+        <p>Students describe a hidden flat or three-dimensional magnetic-tile model.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching magnetic-tile sets.</div>
+      </a>
+      <a class="acard b-engineering" href="a/index-card-construction.html" data-strand="engineering" data-grades="K–8"
+         data-search="index-card construction the architect views a structure made from folded or connected cards. the builder recreates it from verbal instructions. engineering communication sequencing structural reasoning index cards, clips, and tape.">
+        <div class="ac-top"><span class="ac-num">15</span><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
+        <h3>Index-Card Construction</h3>
+        <p>The Architect views a structure made from folded or connected cards. The Builder recreates it from verbal instructions.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Index cards, clips, and tape.</div>
+      </a>
+      <a class="acard b-engineering" href="a/classroom-materials-machine.html" data-strand="engineering" data-grades="K–8"
+         data-search="classroom-materials machine create an abstract &quot;machine&quot; from common classroom objects. a partner must reproduce the arrangement. --- object attributes relative position detailed description pencils, erasers, rulers, clips, cups, and paper.">
+        <div class="ac-top"><span class="ac-num">16</span><span class="badge b-engineering"><span class="bl">E</span> Engineering</span></div>
+        <h3>Classroom-Materials Machine</h3>
+        <p>Create an abstract &quot;machine&quot; from common classroom objects. A partner must reproduce the arrangement. ---</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Pencils, erasers, rulers, clips, cups, and paper.</div>
+      </a></div>
+      </section>
+      <section class="strand-sec" data-strand="arts">
+        <h2 class="sec" style="--accent:#b83280">🎨 <span data-i18n="strand_arts"></span> <span class="sec-n">38</span></h2>
+        <div class="grid">
+      <a class="acard b-arts" href="a/back-to-back-drawing.html" data-strand="arts" data-grades="K–8"
+         data-search="back-to-back drawing partners sit back-to-back. one describes a picture while the other draws it without seeing the original. descriptive language listening visualization simple line drawings, paper, and pencils.">
+        <div class="ac-top"><span class="ac-num">17</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Back-to-Back Drawing</h3>
+        <p>Partners sit back-to-back. One describes a picture while the other draws it without seeing the original.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Simple line drawings, paper, and pencils.</div>
+      </a>
+      <a class="acard b-arts" href="a/one-way-versus-two-way-drawing.html" data-strand="arts" data-grades="K–8"
+         data-search="one-way versus two-way drawing round one prohibits questions. round two permits clarifying questions. students compare accuracy between rounds. feedback questioning communication analysis two comparable drawings.">
+        <div class="ac-top"><span class="ac-num">18</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>One-Way Versus Two-Way Drawing</h3>
+        <p>Round one prohibits questions. Round two permits clarifying questions. Students compare accuracy between rounds.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Two comparable drawings.</div>
+      </a>
+      <a class="acard b-arts" href="a/shape-only-drawing.html" data-strand="arts" data-grades="K–8"
+         data-search="shape-only drawing the describer may use only shape, size, line, angle, and position words. the describer cannot name familiar objects. geometry vocabulary precise language geometric drawings and paper.">
+        <div class="ac-top"><span class="ac-num">19</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Shape-Only Drawing</h3>
+        <p>The Describer may use only shape, size, line, angle, and position words. The Describer cannot name familiar objects.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Geometric drawings and paper.</div>
+      </a>
+      <a class="acard b-arts" href="a/mystery-robot.html" data-strand="arts" data-grades="K–8"
+         data-search="mystery robot one student describes a robot's head, body, controls, arms, and features. the partner draws it. attributes symmetry spatial relationships robot drawings composed of simple shapes.">
+        <div class="ac-top"><span class="ac-num">20</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Mystery Robot</h3>
+        <p>One student describes a robot's head, body, controls, arms, and features. The partner draws it.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Robot drawings composed of simple shapes.</div>
+      </a>
+      <a class="acard b-arts" href="a/monster-match.html" data-strand="arts" data-grades="K–8"
+         data-search="monster match students describe a fictional creature using number, size, color, shape, and position vocabulary. adjectives body-part vocabulary listening teacher-created monster cards.">
+        <div class="ac-top"><span class="ac-num">21</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Monster Match</h3>
+        <p>Students describe a fictional creature using number, size, color, shape, and position vocabulary.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Teacher-created monster cards.</div>
+      </a>
+      <a class="acard b-arts" href="a/describe-the-flag.html" data-strand="arts" data-grades="K–8"
+         data-search="describe the flag the describer explains shapes, colors, proportions, and placement. the partner draws the flag. fractions proportions geometry color vocabulary fictional flag designs, paper, rulers, and colored pencils.">
+        <div class="ac-top"><span class="ac-num">22</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Describe the Flag</h3>
+        <p>The Describer explains shapes, colors, proportions, and placement. The partner draws the flag.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Fictional flag designs, paper, rulers, and colored pencils.</div>
+      </a>
+      <a class="acard b-arts" href="a/hidden-emoji-design.html" data-strand="arts" data-grades="K–8"
+         data-search="hidden emoji design students describe the location and shape of eyes, mouth, eyebrows, and other features without naming the emotion. facial-feature vocabulary inference position teacher-created simple face or symbol cards.">
+        <div class="ac-top"><span class="ac-num">23</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Hidden Emoji Design</h3>
+        <p>Students describe the location and shape of eyes, mouth, eyebrows, and other features without naming the emotion.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Teacher-created simple face or symbol cards.</div>
+      </a>
+      <a class="acard b-arts" href="a/pixel-art-dictation.html" data-strand="arts" data-grades="K–8"
+         data-search="pixel-art dictation the describer gives coordinate and color instructions one square or region at a time. coordinates coding concepts accuracy blank grid paper and a completed pixel design.">
+        <div class="ac-top"><span class="ac-num">24</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Pixel-Art Dictation</h3>
+        <p>The Describer gives coordinate and color instructions one square or region at a time.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Blank grid paper and a completed pixel design.</div>
+      </a>
+      <a class="acard b-arts" href="a/symmetry-drawing.html" data-strand="arts" data-grades="K–8"
+         data-search="symmetry drawing one student sees the complete design and directs a partner in completing the missing half. reflection symmetry measurement half-completed symmetrical designs.">
+        <div class="ac-top"><span class="ac-num">25</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Symmetry Drawing</h3>
+        <p>One student sees the complete design and directs a partner in completing the missing half.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Half-completed symmetrical designs.</div>
+      </a>
+      <a class="acard b-arts" href="a/logo-without-the-name.html" data-strand="arts" data-grades="K–8"
+         data-search="logo without the name the describer explains a symbol without naming what it represents. the partner draws it. shape description abstraction visual communication simple, noncommercial symbol designs.">
+        <div class="ac-top"><span class="ac-num">26</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Logo Without the Name</h3>
+        <p>The Describer explains a symbol without naming what it represents. The partner draws it.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Simple, noncommercial symbol designs.</div>
+      </a>
+      <a class="acard b-arts" href="a/diagram-dictation.html" data-strand="arts" data-grades="K–8"
+         data-search="diagram dictation one student describes a labeled or unlabeled diagram. the partner recreates its structure and relationships. academic vocabulary diagram interpretation a simple science, math, or social studies diagram.">
+        <div class="ac-top"><span class="ac-num">27</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Diagram Dictation</h3>
+        <p>One student describes a labeled or unlabeled diagram. The partner recreates its structure and relationships.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: A simple science, math, or social studies diagram.</div>
+      </a>
+      <a class="acard b-arts" href="a/drawing-from-written-directions.html" data-strand="arts" data-grades="K–8"
+         data-search="drawing from written directions students follow written instructions to draw an image, then compare their drawings and revise unclear directions. --- procedural writing editing interpretation written direction cards.">
+        <div class="ac-top"><span class="ac-num">28</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Drawing from Written Directions</h3>
+        <p>Students follow written instructions to draw an image, then compare their drawings and revise unclear directions. ---</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Written direction cards.</div>
+      </a>
+      <a class="acard b-arts" href="a/desk-object-arrangement.html" data-strand="arts" data-grades="K–8"
+         data-search="desk-object arrangement one student arranges the objects and explains how a partner should create the same arrangement. prepositions orientation relative position identical sets of five to eight classroom objects.">
+        <div class="ac-top"><span class="ac-num">29</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Desk-Object Arrangement</h3>
+        <p>One student arranges the objects and explains how a partner should create the same arrangement.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Identical sets of five to eight classroom objects.</div>
+      </a>
+      <a class="acard b-arts" href="a/miniature-classroom-scene.html" data-strand="arts" data-grades="K–8"
+         data-search="miniature classroom scene students describe where to place desks, tables, doors, shelves, and people. map language location words classroom vocabulary small furniture cutouts or manipulatives and room mats.">
+        <div class="ac-top"><span class="ac-num">30</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Miniature Classroom Scene</h3>
+        <p>Students describe where to place desks, tables, doors, shelves, and people.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Small furniture cutouts or manipulatives and room mats.</div>
+      </a>
+      <a class="acard b-arts" href="a/playground-designer.html" data-strand="arts" data-grades="K–8"
+         data-search="playground designer one student creates a playground scene and directs a partner to place slides, trees, benches, paths, and play areas. location planning community vocabulary playground mats and matching picture pieces.">
+        <div class="ac-top"><span class="ac-num">31</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Playground Designer</h3>
+        <p>One student creates a playground scene and directs a partner to place slides, trees, benches, paths, and play areas.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Playground mats and matching picture pieces.</div>
+      </a>
+      <a class="acard b-arts" href="a/eco-friendly-schoolyard.html" data-strand="arts" data-grades="K–8"
+         data-search="eco-friendly schoolyard the describer places trees, recycling bins, gardens, water stations, and habitat features, then explains their locations. environmental vocabulary spatial language cause and effect schoolyard mats and identical environmental feature cards.">
+        <div class="ac-top"><span class="ac-num">32</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Eco-Friendly Schoolyard</h3>
+        <p>The Describer places trees, recycling bins, gardens, water stations, and habitat features, then explains their locations…</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Schoolyard mats and identical environmental feature cards.</div>
+      </a>
+      <a class="acard b-arts" href="a/dress-the-character.html" data-strand="arts" data-grades="K–8"
+         data-search="dress the character one student dresses a character and explains the clothing choices and locations to a partner. clothing vocabulary sequencing attributes matching paper characters and clothing pieces.">
+        <div class="ac-top"><span class="ac-num">33</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Dress the Character</h3>
+        <p>One student dresses a character and explains the clothing choices and locations to a partner.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching paper characters and clothing pieces.</div>
+      </a>
+      <a class="acard b-arts" href="a/build-a-face.html" data-strand="arts" data-grades="K–8"
+         data-search="build a face the describer creates a face and guides a partner in matching the features. body vocabulary emotions positional language matching face mats and facial-feature pieces.">
+        <div class="ac-top"><span class="ac-num">34</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Build a Face</h3>
+        <p>The Describer creates a face and guides a partner in matching the features.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching face mats and facial-feature pieces.</div>
+      </a>
+      <a class="acard b-arts" href="a/historical-scene-builder.html" data-strand="arts" data-grades="K–8"
+         data-search="historical scene builder the describer arranges a historical scene and directs a partner to duplicate it. historical vocabulary setting evidence-based description background mats and historically appropriate people, buildings, and object cards.">
+        <div class="ac-top"><span class="ac-num">36</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Historical Scene Builder</h3>
+        <p>The Describer arranges a historical scene and directs a partner to duplicate it.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Background mats and historically appropriate people, buildings, and object cards.</div>
+      </a>
+      <a class="acard b-arts" href="a/story-scene-match.html" data-strand="arts" data-grades="K–8"
+         data-search="story scene match students create and copy a scene from a familiar story. afterward, they narrate what might be happening. oral language story elements sequencing story setting mats and character or object pieces.">
+        <div class="ac-top"><span class="ac-num">37</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Story Scene Match</h3>
+        <p>Students create and copy a scene from a familiar story. Afterward, they narrate what might be happening.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Story setting mats and character or object pieces.</div>
+      </a>
+      <a class="acard b-arts" href="a/food-plate-arrangement.html" data-strand="arts" data-grades="K–8"
+         data-search="food-plate arrangement one student creates a meal or nutrition plate and directs a partner in duplicating it. food groups fractions positional vocabulary paper plates and matching food cards.">
+        <div class="ac-top"><span class="ac-num">39</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Food-Plate Arrangement</h3>
+        <p>One student creates a meal or nutrition plate and directs a partner in duplicating it.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Paper plates and matching food cards.</div>
+      </a>
+      <a class="acard b-arts" href="a/community-map-builder.html" data-strand="arts" data-grades="K–8"
+         data-search="community map builder the describer places a school, hospital, fire station, park, library, and stores. the partner matches the arrangement. --- community vocabulary maps location blank street maps and matching building cards.">
+        <div class="ac-top"><span class="ac-num">40</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Community Map Builder</h3>
+        <p>The Describer places a school, hospital, fire station, park, library, and stores. The partner matches the arrangement. -…</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Blank street maps and matching building cards.</div>
+      </a>
+      <a class="acard b-arts" href="a/vocabulary-object-match.html" data-strand="arts" data-grades="K–8"
+         data-search="vocabulary object match the describer explains an item without saying its name. the listener identifies the matching item. definitions attributes academic vocabulary two identical sets of curriculum-related objects or cards.">
+        <div class="ac-top"><span class="ac-num">59</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Vocabulary Object Match</h3>
+        <p>The Describer explains an item without saying its name. The Listener identifies the matching item.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Two identical sets of curriculum-related objects or cards.</div>
+      </a>
+      <a class="acard b-arts" href="a/forbidden-word-description.html" data-strand="arts" data-grades="K–8"
+         data-search="forbidden-word description students describe a term without using the term or several obvious related words. paraphrasing vocabulary depth flexible thinking vocabulary cards with prohibited clue words.">
+        <div class="ac-top"><span class="ac-num">60</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Forbidden-Word Description</h3>
+        <p>Students describe a term without using the term or several obvious related words.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Vocabulary cards with prohibited clue words.</div>
+      </a>
+      <a class="acard b-arts" href="a/character-description-match.html" data-strand="arts" data-grades="K–8"
+         data-search="character description match one student describes a character. the partner selects the exact matching card. adjectives evidence attention to detail sets of character cards with similar features.">
+        <div class="ac-top"><span class="ac-num">61</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Character Description Match</h3>
+        <p>One student describes a character. The partner selects the exact matching card.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Sets of character cards with similar features.</div>
+      </a>
+      <a class="acard b-arts" href="a/which-picture-am-i-describing.html" data-strand="arts" data-grades="K–8"
+         data-search="which picture am i describing? the speaker describes one image while the listener identifies it from several similar choices. distinguishing details comparison listening closely related image sets.">
+        <div class="ac-top"><span class="ac-num">62</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Which Picture Am I Describing?</h3>
+        <p>The Speaker describes one image while the Listener identifies it from several similar choices.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Closely related image sets.</div>
+      </a>
+      <a class="acard b-arts" href="a/sentence-building-barrier.html" data-strand="arts" data-grades="K–8"
+         data-search="sentence-building barrier one student constructs a sentence and describes the card order and punctuation to a partner. syntax grammar sentence structure matching word or phrase cards.">
+        <div class="ac-top"><span class="ac-num">63</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Sentence-Building Barrier</h3>
+        <p>One student constructs a sentence and describes the card order and punctuation to a partner.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching word or phrase cards.</div>
+      </a>
+      <a class="acard b-arts" href="a/story-sequence-match.html" data-strand="arts" data-grades="K–8"
+         data-search="story-sequence match one student arranges events and explains their order. the partner recreates the sequence. chronology transition words narrative structure matching sets of story-event cards.">
+        <div class="ac-top"><span class="ac-num">64</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Story-Sequence Match</h3>
+        <p>One student arranges events and explains their order. The partner recreates the sequence.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching sets of story-event cards.</div>
+      </a>
+      <a class="acard b-arts" href="a/comic-strip-reconstruction.html" data-strand="arts" data-grades="K–8"
+         data-search="comic-strip reconstruction the describer arranges panels and explains the sequence without showing the images. cause and effect sequencing inference matching comic panels.">
+        <div class="ac-top"><span class="ac-num">65</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Comic-Strip Reconstruction</h3>
+        <p>The Describer arranges panels and explains the sequence without showing the images.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching comic panels.</div>
+      </a>
+      <a class="acard b-arts" href="a/main-idea-organizer.html" data-strand="arts" data-grades="K–8"
+         data-search="main-idea organizer one student arranges a main idea with supporting details. the partner recreates the organizer from the explanation. main idea supporting evidence organization matching idea and detail cards.">
+        <div class="ac-top"><span class="ac-num">66</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Main-Idea Organizer</h3>
+        <p>One student arranges a main idea with supporting details. The partner recreates the organizer from the explanation.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching idea and detail cards.</div>
+      </a>
+      <a class="acard b-arts" href="a/word-web-replication.html" data-strand="arts" data-grades="K–8"
+         data-search="word-web replication the describer explains a concept map, including which ideas connect and how. relationships categorization academic language vocabulary cards or blank concept-map templates.">
+        <div class="ac-top"><span class="ac-num">67</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Word-Web Replication</h3>
+        <p>The Describer explains a concept map, including which ideas connect and how.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Vocabulary cards or blank concept-map templates.</div>
+      </a>
+      <a class="acard b-arts" href="a/oral-to-written-procedure.html" data-strand="arts" data-grades="K–8"
+         data-search="oral-to-written procedure one student gives oral directions. the listener writes them rather than completing the task. a third student later follows the written directions. --- speaking note-taking procedural writing a simple completed construction or drawing.">
+        <div class="ac-top"><span class="ac-num">68</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Oral-to-Written Procedure</h3>
+        <p>One student gives oral directions. The Listener writes them rather than completing the task. A third student later follo…</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: A simple completed construction or drawing.</div>
+      </a>
+      <a class="acard b-arts" href="a/timeline-reconstruction.html" data-strand="arts" data-grades="K–8"
+         data-search="timeline reconstruction one student arranges events chronologically and describes the sequence without showing dates. chronology cause and effect historical language matching event cards.">
+        <div class="ac-top"><span class="ac-num">85</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Timeline Reconstruction</h3>
+        <p>One student arranges events chronologically and describes the sequence without showing dates.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching event cards.</div>
+      </a>
+      <a class="acard b-arts" href="a/government-structure-match.html" data-strand="arts" data-grades="K–8"
+         data-search="government-structure match the describer arranges a government diagram and explains the relationships. civic vocabulary organizational structure branch, role, and responsibility cards.">
+        <div class="ac-top"><span class="ac-num">86</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Government-Structure Match</h3>
+        <p>The Describer arranges a government diagram and explains the relationships.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Branch, role, and responsibility cards.</div>
+      </a>
+      <a class="acard b-arts" href="a/trade-route-map.html" data-strand="arts" data-grades="K–8"
+         data-search="trade-route map one student plots a historical trade route and explains its path, stops, and exchanged goods. geography economics sequencing matching maps and commodity cards.">
+        <div class="ac-top"><span class="ac-num">87</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Trade-Route Map</h3>
+        <p>One student plots a historical trade route and explains its path, stops, and exchanged goods.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching maps and commodity cards.</div>
+      </a>
+      <a class="acard b-arts" href="a/settlement-planner.html" data-strand="arts" data-grades="K–8"
+         data-search="settlement planner the describer creates a settlement near selected resources and explains each location. human geography resources decision-making landscape mats and building or resource cards.">
+        <div class="ac-top"><span class="ac-num">88</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Settlement Planner</h3>
+        <p>The Describer creates a settlement near selected resources and explains each location.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Landscape mats and building or resource cards.</div>
+      </a>
+      <a class="acard b-arts" href="a/artifact-arrangement.html" data-strand="arts" data-grades="K–8"
+         data-search="artifact arrangement one student sorts artifacts by era, use, material, or culture and explains the arrangement. classification evidence historical reasoning matching historical artifact cards.">
+        <div class="ac-top"><span class="ac-num">89</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Artifact Arrangement</h3>
+        <p>One student sorts artifacts by era, use, material, or culture and explains the arrangement.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching historical artifact cards.</div>
+      </a>
+      <a class="acard b-arts" href="a/cause-and-effect-chain.html" data-strand="arts" data-grades="K–8"
+         data-search="cause-and-effect chain the describer constructs a chain of causes and consequences. the partner recreates it. --- causal reasoning sequencing historical explanation matching historical event cards and arrows.">
+        <div class="ac-top"><span class="ac-num">90</span><span class="badge b-arts"><span class="bl">A</span> Arts &amp; Design</span></div>
+        <h3>Cause-and-Effect Chain</h3>
+        <p>The Describer constructs a chain of causes and consequences. The partner recreates it. ---</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching historical event cards and arrows.</div>
+      </a></div>
+      </section>
+      <section class="strand-sec" data-strand="math">
+        <h2 class="sec" style="--accent:#3f2a78">📐 <span data-i18n="strand_math"></span> <span class="sec-n">24</span></h2>
+        <div class="grid">
+      <a class="acard b-math" href="a/bead-pattern-barrier.html" data-strand="math" data-grades="K–8"
+         data-search="bead-pattern barrier one student creates a color, shape, or size sequence and describes it for a partner to reproduce. patterns ordinal language attributes matching beads, strings, and a barrier.">
+        <div class="ac-top"><span class="ac-num">41</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Bead-Pattern Barrier</h3>
+        <p>One student creates a color, shape, or size sequence and describes it for a partner to reproduce.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching beads, strings, and a barrier.</div>
+      </a>
+      <a class="acard b-math" href="a/linking-cube-train.html" data-strand="math" data-grades="K–8"
+         data-search="linking-cube train the describer explains a cube train using color, order, and position. sequencing patterns ordinal numbers matching colored cubes.">
+        <div class="ac-top"><span class="ac-num">42</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Linking-Cube Train</h3>
+        <p>The Describer explains a cube train using color, order, and position.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching colored cubes.</div>
+      </a>
+      <a class="acard b-math" href="a/pegboard-pattern.html" data-strand="math" data-grades="K–8"
+         data-search="pegboard pattern one student produces a peg pattern. the partner recreates it using row, column, color, and position instructions. coordinates visual patterns precision matching pegboards and colored pegs.">
+        <div class="ac-top"><span class="ac-num">43</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Pegboard Pattern</h3>
+        <p>One student produces a peg pattern. The partner recreates it using row, column, color, and position instructions.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching pegboards and colored pegs.</div>
+      </a>
+      <a class="acard b-math" href="a/number-sequence-build.html" data-strand="math" data-grades="K–8"
+         data-search="number-sequence build the describer arranges numbers according to a rule and explains the sequence without stating the rule directly. the partner recreates it and identifies the pattern. number patterns mathematical reasoning number cards.">
+        <div class="ac-top"><span class="ac-num">44</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Number-Sequence Build</h3>
+        <p>The Describer arranges numbers according to a rule and explains the sequence without stating the rule directly. The part…</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Number cards.</div>
+      </a>
+      <a class="acard b-math" href="a/fraction-tile-arrangement.html" data-strand="math" data-grades="K–8"
+         data-search="fraction-tile arrangement one student arranges equivalent or combined fractions and explains the placement and relationships. fraction vocabulary equivalence comparison matching fraction tiles.">
+        <div class="ac-top"><span class="ac-num">45</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Fraction-Tile Arrangement</h3>
+        <p>One student arranges equivalent or combined fractions and explains the placement and relationships.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching fraction tiles.</div>
+      </a>
+      <a class="acard b-math" href="a/base-ten-model-match.html" data-strand="math" data-grades="K–8"
+         data-search="base-ten model match the describer builds a number and explains the hundreds, tens, and ones arrangement. place value mathematical language base-ten blocks and place-value mats.">
+        <div class="ac-top"><span class="ac-num">46</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Base-Ten Model Match</h3>
+        <p>The Describer builds a number and explains the hundreds, tens, and ones arrangement.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Base-ten blocks and place-value mats.</div>
+      </a>
+      <a class="acard b-math" href="a/sort-it-the-same.html" data-strand="math" data-grades="K–8"
+         data-search="sort-it-the-same one student sorts items into groups and describes the sorting rule so a partner can create the same groups. classification attributes reasoning identical collections of objects or cards.">
+        <div class="ac-top"><span class="ac-num">47</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Sort-It-the-Same</h3>
+        <p>One student sorts items into groups and describes the sorting rule so a partner can create the same groups.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Identical collections of objects or cards.</div>
+      </a>
+      <a class="acard b-math" href="a/mystery-sorting-rule.html" data-strand="math" data-grades="K–8"
+         data-search="mystery sorting rule the describer explains where each item belongs but cannot state the category labels. the partner infers the rule. inductive reasoning classification vocabulary matching sets of word, image, shape, or number cards.">
+        <div class="ac-top"><span class="ac-num">48</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Mystery Sorting Rule</h3>
+        <p>The Describer explains where each item belongs but cannot state the category labels. The partner infers the rule.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching sets of word, image, shape, or number cards.</div>
+      </a>
+      <a class="acard b-math" href="a/musical-instrument-sequence.html" data-strand="math" data-grades="K–8"
+         data-search="musical instrument sequence one student arranges instruments in a sequence and describes the order. students then perform the sequence. sequence instrument vocabulary listening matching instrument cards or small percussion instruments.">
+        <div class="ac-top"><span class="ac-num">49</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Musical Instrument Sequence</h3>
+        <p>One student arranges instruments in a sequence and describes the order. Students then perform the sequence.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching instrument cards or small percussion instruments.</div>
+      </a>
+      <a class="acard b-math" href="a/rhythm-replication.html" data-strand="math" data-grades="K–8"
+         data-search="rhythm replication one student sees or performs a rhythm. a partner reproduces it from spoken counting or rhythmic syllables. --- rhythm listening pattern recognition rhythm cards or percussion instruments.">
+        <div class="ac-top"><span class="ac-num">50</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Rhythm Replication</h3>
+        <p>One student sees or performs a rhythm. A partner reproduces it from spoken counting or rhythmic syllables. ---</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Rhythm cards or percussion instruments.</div>
+      </a>
+      <a class="acard b-math" href="a/route-on-a-map.html" data-strand="math" data-grades="K–8"
+         data-search="route on a map one student draws a route and describes it. the partner follows the directions and draws the same path. cardinal directions landmarks sequencing identical maps and pencils.">
+        <div class="ac-top"><span class="ac-num">51</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Route on a Map</h3>
+        <p>One student draws a route and describes it. The partner follows the directions and draws the same path.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Identical maps and pencils.</div>
+      </a>
+      <a class="acard b-math" href="a/treasure-map-directions.html" data-strand="math" data-grades="K–8"
+         data-search="treasure-map directions the describer guides a partner from the starting point to hidden treasure without revealing the destination. coordinates direction problem-solving matching grid maps with obstacles and landmarks.">
+        <div class="ac-top"><span class="ac-num">52</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Treasure-Map Directions</h3>
+        <p>The Describer guides a partner from the starting point to hidden treasure without revealing the destination.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching grid maps with obstacles and landmarks.</div>
+      </a>
+      <a class="acard b-math" href="a/coordinate-plane-journey.html" data-strand="math" data-grades="K–8"
+         data-search="coordinate-plane journey the describer names ordered pairs or movement instructions. the partner plots and connects the points. ordered pairs coordinate geometry accuracy coordinate grids.">
+        <div class="ac-top"><span class="ac-num">53</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Coordinate-Plane Journey</h3>
+        <p>The Describer names ordered pairs or movement instructions. The partner plots and connects the points.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Coordinate grids.</div>
+      </a>
+      <a class="acard b-math" href="a/school-navigation-challenge.html" data-strand="math" data-grades="K–8"
+         data-search="school navigation challenge one student directs a partner from one school location to another using hallways, turns, and landmarks. functional directions spatial awareness simplified school maps.">
+        <div class="ac-top"><span class="ac-num">54</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>School Navigation Challenge</h3>
+        <p>One student directs a partner from one school location to another using hallways, turns, and landmarks.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Simplified school maps.</div>
+      </a>
+      <a class="acard b-math" href="a/cardinal-direction-builder.html" data-strand="math" data-grades="K–8"
+         data-search="cardinal-direction builder students place objects north, south, east, west, northeast, northwest, southeast, or southwest of a central location. cardinal and intermediate directions compass mats and object cards.">
+        <div class="ac-top"><span class="ac-num">55</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Cardinal-Direction Builder</h3>
+        <p>Students place objects north, south, east, west, northeast, northwest, southeast, or southwest of a central location.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Compass mats and object cards.</div>
+      </a>
+      <a class="acard b-math" href="a/landform-map-match.html" data-strand="math" data-grades="K–8"
+         data-search="landform map match the describer places mountains, rivers, lakes, valleys, and plains. the partner duplicates the map. geography vocabulary map symbols relative location blank maps and landform symbols.">
+        <div class="ac-top"><span class="ac-num">56</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Landform Map Match</h3>
+        <p>The Describer places mountains, rivers, lakes, valleys, and plains. The partner duplicates the map.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Blank maps and landform symbols.</div>
+      </a>
+      <a class="acard b-math" href="a/hidden-shape-arrangement.html" data-strand="math" data-grades="K–8"
+         data-search="hidden shape arrangement one student arranges shapes and describes their positions, orientations, and relationships. shape properties geometry vocabulary matching geometric shapes.">
+        <div class="ac-top"><span class="ac-num">69</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Hidden Shape Arrangement</h3>
+        <p>One student arranges shapes and describes their positions, orientations, and relationships.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching geometric shapes.</div>
+      </a>
+      <a class="acard b-math" href="a/polygon-builder.html" data-strand="math" data-grades="K–8"
+         data-search="polygon builder the describer sees a polygon and explains how many sides, vertices, equal lengths, or right angles it has. the builder recreates it. polygon classification properties precision craft sticks or geoboards.">
+        <div class="ac-top"><span class="ac-num">70</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Polygon Builder</h3>
+        <p>The Describer sees a polygon and explains how many sides, vertices, equal lengths, or right angles it has. The Builder r…</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Craft sticks or geoboards.</div>
+      </a>
+      <a class="acard b-math" href="a/geoboard-copy.html" data-strand="math" data-grades="K–8"
+         data-search="geoboard copy one student describes peg locations and band paths while a partner builds the same figure. coordinates polygons spatial reasoning matching geoboards and rubber bands.">
+        <div class="ac-top"><span class="ac-num">71</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Geoboard Copy</h3>
+        <p>One student describes peg locations and band paths while a partner builds the same figure.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Matching geoboards and rubber bands.</div>
+      </a>
+      <a class="acard b-math" href="a/equation-tile-match.html" data-strand="math" data-grades="K–8"
+         data-search="equation tile match the describer arranges an equation or expression and explains the order without showing it. mathematical syntax operations equality number and operation tiles.">
+        <div class="ac-top"><span class="ac-num">72</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Equation Tile Match</h3>
+        <p>The Describer arranges an equation or expression and explains the order without showing it.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Number and operation tiles.</div>
+      </a>
+      <a class="acard b-math" href="a/array-builder.html" data-strand="math" data-grades="K–8"
+         data-search="array builder one student creates an array and describes its rows, columns, total, and orientation. multiplication arrays mathematical vocabulary counters and grid mats.">
+        <div class="ac-top"><span class="ac-num">73</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Array Builder</h3>
+        <p>One student creates an array and describes its rows, columns, total, and orientation.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Counters and grid mats.</div>
+      </a>
+      <a class="acard b-math" href="a/equivalent-fraction-model.html" data-strand="math" data-grades="K–8"
+         data-search="equivalent-fraction model one student creates an equivalence model and explains how the pieces cover equal amounts. fraction equivalence justification fraction circles or strips.">
+        <div class="ac-top"><span class="ac-num">74</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Equivalent-Fraction Model</h3>
+        <p>One student creates an equivalence model and explains how the pieces cover equal amounts.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Fraction circles or strips.</div>
+      </a>
+      <a class="acard b-math" href="a/transformation-challenge.html" data-strand="math" data-grades="K–8"
+         data-search="transformation challenge the describer explains a translation, rotation, or reflection. the partner performs the transformation. transformations direction coordinate language shape cards and coordinate grids.">
+        <div class="ac-top"><span class="ac-num">75</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Transformation Challenge</h3>
+        <p>The Describer explains a translation, rotation, or reflection. The partner performs the transformation.</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Shape cards and coordinate grids.</div>
+      </a>
+      <a class="acard b-math" href="a/data-display-replication.html" data-strand="math" data-grades="K–8"
+         data-search="data-display replication one student describes a bar graph, line plot, or pictograph. the partner reconstructs it. --- data interpretation scale labels comparison blank graphs and a completed graph.">
+        <div class="ac-top"><span class="ac-num">76</span><span class="badge b-math"><span class="bl">M</span> Mathematics</span></div>
+        <h3>Data-Display Replication</h3>
+        <p>One student describes a bar graph, line plot, or pictograph. The partner reconstructs it. ---</p>
+        <div class="ac-mats"><span data-i18n="materials_lbl">Materials</span>: Blank graphs and a completed graph.</div>
+      </a></div>
+      </section>
+      <section class="strand-sec" data-strand="facilitation">
+        <h2 class="sec" style="--accent:#516079">🔁 <span data-i18n="strand_facilitation"></span> <span class="sec-n">16</span></h2>
+        <div class="grid">
+      <a class="acard b-facilitation" href="a/no-questions-round.html" data-strand="facilitation" data-grades="K–8"
+         data-search="no-questions round the listener may not interrupt or ask for clarification.  ">
+        <div class="ac-top"><span class="ac-num">91</span><span class="badge b-facilitation"><span class="bl">★</span> Facilitation Modes</span></div>
+        <h3>No-Questions Round</h3>
+        <p>The Listener may not interrupt or ask for clarification.</p>
+        
+      </a>
+      <a class="acard b-facilitation" href="a/questions-allowed-round.html" data-strand="facilitation" data-grades="K–8"
+         data-search="questions-allowed round the listener may ask as many clarifying questions as needed.  ">
+        <div class="ac-top"><span class="ac-num">92</span><span class="badge b-facilitation"><span class="bl">★</span> Facilitation Modes</span></div>
+        <h3>Questions-Allowed Round</h3>
+        <p>The Listener may ask as many clarifying questions as needed.</p>
+        
+      </a>
+      <a class="acard b-facilitation" href="a/yes-or-no-questions-only.html" data-strand="facilitation" data-grades="K–8"
+         data-search="yes-or-no questions only the listener may ask questions, but the describer can answer only yes or no.  ">
+        <div class="ac-top"><span class="ac-num">93</span><span class="badge b-facilitation"><span class="bl">★</span> Facilitation Modes</span></div>
+        <h3>Yes-or-No Questions Only</h3>
+        <p>The Listener may ask questions, but the Describer can answer only yes or no.</p>
+        
+      </a>
+      <a class="acard b-facilitation" href="a/thirty-word-limit.html" data-strand="facilitation" data-grades="K–8"
+         data-search="thirty-word limit the describer may use no more than thirty words.  ">
+        <div class="ac-top"><span class="ac-num">94</span><span class="badge b-facilitation"><span class="bl">★</span> Facilitation Modes</span></div>
+        <h3>Thirty-Word Limit</h3>
+        <p>The Describer may use no more than thirty words.</p>
+        
+      </a>
+      <a class="acard b-facilitation" href="a/one-direction-at-a-time.html" data-strand="facilitation" data-grades="K–8"
+         data-search="one direction at a time the builder must complete and confirm each step before receiving the next direction.  ">
+        <div class="ac-top"><span class="ac-num">95</span><span class="badge b-facilitation"><span class="bl">★</span> Facilitation Modes</span></div>
+        <h3>One Direction at a Time</h3>
+        <p>The Builder must complete and confirm each step before receiving the next direction.</p>
+        
+      </a>
+      <a class="acard b-facilitation" href="a/memory-messenger.html" data-strand="facilitation" data-grades="K–8"
+         data-search="memory messenger the messenger cannot take notes and may carry only one message per trip.  ">
+        <div class="ac-top"><span class="ac-num">96</span><span class="badge b-facilitation"><span class="bl">★</span> Facilitation Modes</span></div>
+        <h3>Memory Messenger</h3>
+        <p>The Messenger cannot take notes and may carry only one message per trip.</p>
+        
+      </a>
+      <a class="acard b-facilitation" href="a/written-messenger.html" data-strand="facilitation" data-grades="K–8"
+         data-search="written messenger the architect writes each message. the messenger delivers it without explanation.  ">
+        <div class="ac-top"><span class="ac-num">97</span><span class="badge b-facilitation"><span class="bl">★</span> Facilitation Modes</span></div>
+        <h3>Written Messenger</h3>
+        <p>The Architect writes each message. The Messenger delivers it without explanation.</p>
+        
+      </a>
+      <a class="acard b-facilitation" href="a/multiple-messengers.html" data-strand="facilitation" data-grades="K–8"
+         data-search="multiple messengers information passes through two or three students before reaching the builder.  ">
+        <div class="ac-top"><span class="ac-num">98</span><span class="badge b-facilitation"><span class="bl">★</span> Facilitation Modes</span></div>
+        <h3>Multiple Messengers</h3>
+        <p>Information passes through two or three students before reaching the Builder.</p>
+        
+      </a>
+      <a class="acard b-facilitation" href="a/competing-voices.html" data-strand="facilitation" data-grades="K–8"
+         data-search="competing voices two students provide directions, but only one has accurate information.  ">
+        <div class="ac-top"><span class="ac-num">99</span><span class="badge b-facilitation"><span class="bl">★</span> Facilitation Modes</span></div>
+        <h3>Competing Voices</h3>
+        <p>Two students provide directions, but only one has accurate information.</p>
+        
+      </a>
+      <a class="acard b-facilitation" href="a/communication-code-challenge.html" data-strand="facilitation" data-grades="K–8"
+         data-search="communication-code challenge teams receive planning time to create abbreviations, coordinates, labels, or shared terms before seeing the structure.  ">
+        <div class="ac-top"><span class="ac-num">100</span><span class="badge b-facilitation"><span class="bl">★</span> Facilitation Modes</span></div>
+        <h3>Communication-Code Challenge</h3>
+        <p>Teams receive planning time to create abbreviations, coordinates, labels, or shared terms before seeing the structure.</p>
+        
+      </a>
+      <a class="acard b-facilitation" href="a/accuracy-before-speed.html" data-strand="facilitation" data-grades="K–8"
+         data-search="accuracy before speed teams receive points for exact matches and lose points for finishing with errors.  ">
+        <div class="ac-top"><span class="ac-num">101</span><span class="badge b-facilitation"><span class="bl">★</span> Facilitation Modes</span></div>
+        <h3>Accuracy Before Speed</h3>
+        <p>Teams receive points for exact matches and lose points for finishing with errors.</p>
+        
+      </a>
+      <a class="acard b-facilitation" href="a/speed-before-accuracy.html" data-strand="facilitation" data-grades="K–8"
+         data-search="speed before accuracy teams try to finish quickly, then calculate an accuracy score.  ">
+        <div class="ac-top"><span class="ac-num">102</span><span class="badge b-facilitation"><span class="bl">★</span> Facilitation Modes</span></div>
+        <h3>Speed Before Accuracy</h3>
+        <p>Teams try to finish quickly, then calculate an accuracy score.</p>
+        
+      </a>
+      <a class="acard b-facilitation" href="a/observer-feedback-round.html" data-strand="facilitation" data-grades="K–8"
+         data-search="observer feedback round an observer records examples of clear language, vague directions, questions, and corrections.  ">
+        <div class="ac-top"><span class="ac-num">103</span><span class="badge b-facilitation"><span class="bl">★</span> Facilitation Modes</span></div>
+        <h3>Observer Feedback Round</h3>
+        <p>An Observer records examples of clear language, vague directions, questions, and corrections.</p>
+        
+      </a>
+      <a class="acard b-facilitation" href="a/teach-back-rule.html" data-strand="facilitation" data-grades="K–8"
+         data-search="teach-back rule after each direction, the builder must restate it before acting.  ">
+        <div class="ac-top"><span class="ac-num">104</span><span class="badge b-facilitation"><span class="bl">★</span> Facilitation Modes</span></div>
+        <h3>Teach-Back Rule</h3>
+        <p>After each direction, the Builder must restate it before acting.</p>
+        
+      </a>
+      <a class="acard b-facilitation" href="a/error-recovery-challenge.html" data-strand="facilitation" data-grades="K–8"
+         data-search="error-recovery challenge the teacher secretly moves or replaces one piece during the activity. the team must detect and repair the discrepancy.  ">
+        <div class="ac-top"><span class="ac-num">105</span><span class="badge b-facilitation"><span class="bl">★</span> Facilitation Modes</span></div>
+        <h3>Error-Recovery Challenge</h3>
+        <p>The teacher secretly moves or replaces one piece during the activity. The team must detect and repair the discrepancy.</p>
+        
+      </a>
+      <a class="acard b-facilitation" href="a/student-designed-challenge.html" data-strand="facilitation" data-grades="K–8"
+         data-search="student-designed challenge students create models, drawings, maps, or patterns for other groups to reproduce. ---  ">
+        <div class="ac-top"><span class="ac-num">106</span><span class="badge b-facilitation"><span class="bl">★</span> Facilitation Modes</span></div>
+        <h3>Student-Designed Challenge</h3>
+        <p>Students create models, drawings, maps, or patterns for other groups to reproduce. ---</p>
+        
+      </a></div>
+      </section></div>
+  <p class="noresults" id="noresults" hidden data-i18n="no_match">No activities match your search. Try another word or strand.</p>
+
+  <footer><span data-i18n="footer_copy">Say It, Make It · A TCEA educator resource · CC BY 4.0 (content) · MIT (code)</span><br>
+  <span data-i18n="footer_sub">Self-contained · No logins · No data collected · Seven languages · Print-friendly</span></footer>
+</div>
+</body>
+</html>

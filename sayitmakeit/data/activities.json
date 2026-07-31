@@ -1,0 +1,2473 @@
+[
+  {
+    "num": 1,
+    "title": "Hidden Cup Structure",
+    "slug": "hidden-cup-structure",
+    "category": "Building and Construction Activities",
+    "strand": "engineering",
+    "materials": "Two identical sets of cups and a cardboard screen.",
+    "example": "",
+    "summary": "Build a structure using four to eight cups. One student describes it while a partner recreates it without seeing the original. Compare cup position, orientation, spacing, and order.",
+    "skills": [
+      "Spatial vocabulary",
+      "sequencing",
+      "listening",
+      "clarification"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Engineering"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 2,
+    "title": "Cup Structure Relay",
+    "slug": "cup-structure-relay",
+    "category": "Building and Construction Activities",
+    "strand": "engineering",
+    "materials": "Cups, two barriers, and open classroom space.",
+    "example": "",
+    "summary": "The Architect views the cup model. A Messenger travels to the Builder and repeats the instructions. The Messenger may not see the Builder's work.",
+    "skills": [
+      "Information retention",
+      "concise speaking",
+      "teamwork"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Engineering"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 3,
+    "title": "One-Message Cup Challenge",
+    "slug": "one-message-cup-challenge",
+    "category": "Building and Construction Activities",
+    "strand": "engineering",
+    "materials": "Matching cup sets and a barrier.",
+    "example": "",
+    "summary": "The Describer studies the model and may give only one uninterrupted set of directions. The Builder cannot ask questions until the description is complete.",
+    "skills": [
+      "Planning",
+      "procedural language",
+      "working memory"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Engineering"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 4,
+    "title": "Question-Limited Cup Challenge",
+    "slug": "question-limited-cup-challenge",
+    "category": "Building and Construction Activities",
+    "strand": "engineering",
+    "materials": "Matching cup sets and question tokens.",
+    "example": "",
+    "summary": "The Builder receives three question tokens. Each clarifying question costs one token.",
+    "skills": [
+      "Strategic questioning",
+      "listening for missing information"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Engineering"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 5,
+    "title": "Cup Coordinate Build",
+    "slug": "cup-coordinate-build",
+    "category": "Building and Construction Activities",
+    "strand": "engineering",
+    "materials": "Cups and grid mats.",
+    "example": "\"Place an upside-down cup at B3. Put an upright cup directly above it.\"",
+    "summary": "Students describe each cup using grid coordinates, orientation, and relationship to neighboring cups.",
+    "skills": [
+      "Coordinates",
+      "positional language",
+      "precision"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Engineering"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 6,
+    "title": "Cup Tower Troubleshooting",
+    "slug": "cup-tower-troubleshooting",
+    "category": "Building and Construction Activities",
+    "strand": "engineering",
+    "materials": "Two matching cup structures, one containing an error.",
+    "example": "",
+    "summary": "The Describer knows the intended design. The Builder receives a nearly correct structure and must follow directions to find and repair the mistake.",
+    "skills": [
+      "Error analysis",
+      "comparison",
+      "corrective feedback"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Engineering"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 7,
+    "title": "LEGO Copy Build",
+    "slug": "lego-copy-build",
+    "category": "Building and Construction Activities",
+    "strand": "engineering",
+    "materials": "Two identical LEGO or building-block sets.",
+    "example": "",
+    "summary": "One student describes a hidden model by naming each brick's color, size, orientation, and attachment point.",
+    "skills": [
+      "Attributes",
+      "spatial reasoning",
+      "technical communication"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Engineering"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 8,
+    "title": "Architect–Messenger–Builder",
+    "slug": "architect-messenger-builder",
+    "category": "Building and Construction Activities",
+    "strand": "engineering",
+    "materials": "Building blocks, barriers, and role cards.",
+    "example": "",
+    "summary": "The Architect sees the structure. The Messenger carries spoken information to the Builder but may not see either model while receiving or delivering directions.",
+    "skills": [
+      "Communication systems",
+      "memory",
+      "teamwork"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Engineering"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 9,
+    "title": "Silent Architect",
+    "slug": "silent-architect",
+    "category": "Building and Construction Activities",
+    "strand": "engineering",
+    "materials": "Blocks, paper, and pencils.",
+    "example": "",
+    "summary": "The Architect cannot speak. The Architect writes directions for a Builder who cannot see the model.",
+    "skills": [
+      "Procedural writing",
+      "editing",
+      "precision"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Engineering"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 10,
+    "title": "Blueprint to Building",
+    "slug": "blueprint-to-building",
+    "category": "Building and Construction Activities",
+    "strand": "engineering",
+    "materials": "Blocks and a simple blueprint or diagram.",
+    "example": "",
+    "summary": "One student sees a top, front, or side-view drawing and describes it so the Builder can produce the three-dimensional model.",
+    "skills": [
+      "Visualizing three-dimensional objects",
+      "perspective",
+      "geometry"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Engineering"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 11,
+    "title": "Straw-and-Connector Structure",
+    "slug": "straw-and-connector-structure",
+    "category": "Building and Construction Activities",
+    "strand": "engineering",
+    "materials": "Straws and reusable connectors or modeling clay.",
+    "example": "",
+    "summary": "Partners recreate a hidden geometric structure using spoken descriptions of lengths, angles, vertices, and connections.",
+    "skills": [
+      "Geometry vocabulary",
+      "angles",
+      "three-dimensional reasoning"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Engineering"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 12,
+    "title": "Pattern-Block Picture",
+    "slug": "pattern-block-picture",
+    "category": "Building and Construction Activities",
+    "strand": "engineering",
+    "materials": "Identical sets of pattern blocks.",
+    "example": "",
+    "summary": "One partner creates or views a pattern-block image and explains how to reproduce it.",
+    "skills": [
+      "Shape attributes",
+      "transformations",
+      "symmetry"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Engineering"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 13,
+    "title": "Tangram Talk",
+    "slug": "tangram-talk",
+    "category": "Building and Construction Activities",
+    "strand": "engineering",
+    "materials": "Two identical tangram sets and barriers.",
+    "example": "",
+    "summary": "The Describer explains where and how to place each tangram piece without naming the finished image.",
+    "skills": [
+      "Rotation",
+      "reflection",
+      "orientation",
+      "geometry"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Engineering"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 14,
+    "title": "Magnetic-Tile Model",
+    "slug": "magnetic-tile-model",
+    "category": "Building and Construction Activities",
+    "strand": "engineering",
+    "materials": "Matching magnetic-tile sets.",
+    "example": "",
+    "summary": "Students describe a hidden flat or three-dimensional magnetic-tile model.",
+    "skills": [
+      "Shape vocabulary",
+      "faces",
+      "edges",
+      "spatial relationships"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Engineering"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 15,
+    "title": "Index-Card Construction",
+    "slug": "index-card-construction",
+    "category": "Building and Construction Activities",
+    "strand": "engineering",
+    "materials": "Index cards, clips, and tape.",
+    "example": "",
+    "summary": "The Architect views a structure made from folded or connected cards. The Builder recreates it from verbal instructions.",
+    "skills": [
+      "Engineering communication",
+      "sequencing",
+      "structural reasoning"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Engineering"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 16,
+    "title": "Classroom-Materials Machine",
+    "slug": "classroom-materials-machine",
+    "category": "Building and Construction Activities",
+    "strand": "engineering",
+    "materials": "Pencils, erasers, rulers, clips, cups, and paper.",
+    "example": "",
+    "summary": "Create an abstract \"machine\" from common classroom objects. A partner must reproduce the arrangement. ---",
+    "skills": [
+      "Object attributes",
+      "relative position",
+      "detailed description"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Engineering"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 17,
+    "title": "Back-to-Back Drawing",
+    "slug": "back-to-back-drawing",
+    "category": "Drawing and Visual Communication Activities",
+    "strand": "arts",
+    "materials": "Simple line drawings, paper, and pencils.",
+    "example": "",
+    "summary": "Partners sit back-to-back. One describes a picture while the other draws it without seeing the original.",
+    "skills": [
+      "Descriptive language",
+      "listening",
+      "visualization"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 18,
+    "title": "One-Way Versus Two-Way Drawing",
+    "slug": "one-way-versus-two-way-drawing",
+    "category": "Drawing and Visual Communication Activities",
+    "strand": "arts",
+    "materials": "Two comparable drawings.",
+    "example": "",
+    "summary": "Round one prohibits questions. Round two permits clarifying questions. Students compare accuracy between rounds.",
+    "skills": [
+      "Feedback",
+      "questioning",
+      "communication analysis"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 19,
+    "title": "Shape-Only Drawing",
+    "slug": "shape-only-drawing",
+    "category": "Drawing and Visual Communication Activities",
+    "strand": "arts",
+    "materials": "Geometric drawings and paper.",
+    "example": "",
+    "summary": "The Describer may use only shape, size, line, angle, and position words. The Describer cannot name familiar objects.",
+    "skills": [
+      "Geometry vocabulary",
+      "precise language"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 20,
+    "title": "Mystery Robot",
+    "slug": "mystery-robot",
+    "category": "Drawing and Visual Communication Activities",
+    "strand": "arts",
+    "materials": "Robot drawings composed of simple shapes.",
+    "example": "",
+    "summary": "One student describes a robot's head, body, controls, arms, and features. The partner draws it.",
+    "skills": [
+      "Attributes",
+      "symmetry",
+      "spatial relationships"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 21,
+    "title": "Monster Match",
+    "slug": "monster-match",
+    "category": "Drawing and Visual Communication Activities",
+    "strand": "arts",
+    "materials": "Teacher-created monster cards.",
+    "example": "",
+    "summary": "Students describe a fictional creature using number, size, color, shape, and position vocabulary.",
+    "skills": [
+      "Adjectives",
+      "body-part vocabulary",
+      "listening"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 22,
+    "title": "Describe the Flag",
+    "slug": "describe-the-flag",
+    "category": "Drawing and Visual Communication Activities",
+    "strand": "arts",
+    "materials": "Fictional flag designs, paper, rulers, and colored pencils.",
+    "example": "",
+    "summary": "The Describer explains shapes, colors, proportions, and placement. The partner draws the flag.",
+    "skills": [
+      "Fractions",
+      "proportions",
+      "geometry",
+      "color vocabulary"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 23,
+    "title": "Hidden Emoji Design",
+    "slug": "hidden-emoji-design",
+    "category": "Drawing and Visual Communication Activities",
+    "strand": "arts",
+    "materials": "Teacher-created simple face or symbol cards.",
+    "example": "",
+    "summary": "Students describe the location and shape of eyes, mouth, eyebrows, and other features without naming the emotion.",
+    "skills": [
+      "Facial-feature vocabulary",
+      "inference",
+      "position"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 24,
+    "title": "Pixel-Art Dictation",
+    "slug": "pixel-art-dictation",
+    "category": "Drawing and Visual Communication Activities",
+    "strand": "arts",
+    "materials": "Blank grid paper and a completed pixel design.",
+    "example": "",
+    "summary": "The Describer gives coordinate and color instructions one square or region at a time.",
+    "skills": [
+      "Coordinates",
+      "coding concepts",
+      "accuracy"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 25,
+    "title": "Symmetry Drawing",
+    "slug": "symmetry-drawing",
+    "category": "Drawing and Visual Communication Activities",
+    "strand": "arts",
+    "materials": "Half-completed symmetrical designs.",
+    "example": "",
+    "summary": "One student sees the complete design and directs a partner in completing the missing half.",
+    "skills": [
+      "Reflection",
+      "symmetry",
+      "measurement"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 26,
+    "title": "Logo Without the Name",
+    "slug": "logo-without-the-name",
+    "category": "Drawing and Visual Communication Activities",
+    "strand": "arts",
+    "materials": "Simple, noncommercial symbol designs.",
+    "example": "",
+    "summary": "The Describer explains a symbol without naming what it represents. The partner draws it.",
+    "skills": [
+      "Shape description",
+      "abstraction",
+      "visual communication"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 27,
+    "title": "Diagram Dictation",
+    "slug": "diagram-dictation",
+    "category": "Drawing and Visual Communication Activities",
+    "strand": "arts",
+    "materials": "A simple science, math, or social studies diagram.",
+    "example": "",
+    "summary": "One student describes a labeled or unlabeled diagram. The partner recreates its structure and relationships.",
+    "skills": [
+      "Academic vocabulary",
+      "diagram interpretation"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 28,
+    "title": "Drawing from Written Directions",
+    "slug": "drawing-from-written-directions",
+    "category": "Drawing and Visual Communication Activities",
+    "strand": "arts",
+    "materials": "Written direction cards.",
+    "example": "",
+    "summary": "Students follow written instructions to draw an image, then compare their drawings and revise unclear directions. ---",
+    "skills": [
+      "Procedural writing",
+      "editing",
+      "interpretation"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 29,
+    "title": "Desk-Object Arrangement",
+    "slug": "desk-object-arrangement",
+    "category": "Arrangement and Scene Activities",
+    "strand": "arts",
+    "materials": "Identical sets of five to eight classroom objects.",
+    "example": "",
+    "summary": "One student arranges the objects and explains how a partner should create the same arrangement.",
+    "skills": [
+      "Prepositions",
+      "orientation",
+      "relative position"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 30,
+    "title": "Miniature Classroom Scene",
+    "slug": "miniature-classroom-scene",
+    "category": "Arrangement and Scene Activities",
+    "strand": "arts",
+    "materials": "Small furniture cutouts or manipulatives and room mats.",
+    "example": "",
+    "summary": "Students describe where to place desks, tables, doors, shelves, and people.",
+    "skills": [
+      "Map language",
+      "location words",
+      "classroom vocabulary"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 31,
+    "title": "Playground Designer",
+    "slug": "playground-designer",
+    "category": "Arrangement and Scene Activities",
+    "strand": "arts",
+    "materials": "Playground mats and matching picture pieces.",
+    "example": "",
+    "summary": "One student creates a playground scene and directs a partner to place slides, trees, benches, paths, and play areas.",
+    "skills": [
+      "Location",
+      "planning",
+      "community vocabulary"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 32,
+    "title": "Eco-Friendly Schoolyard",
+    "slug": "eco-friendly-schoolyard",
+    "category": "Arrangement and Scene Activities",
+    "strand": "arts",
+    "materials": "Schoolyard mats and identical environmental feature cards.",
+    "example": "",
+    "summary": "The Describer places trees, recycling bins, gardens, water stations, and habitat features, then explains their locations.",
+    "skills": [
+      "Environmental vocabulary",
+      "spatial language",
+      "cause and effect"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 33,
+    "title": "Dress the Character",
+    "slug": "dress-the-character",
+    "category": "Arrangement and Scene Activities",
+    "strand": "arts",
+    "materials": "Matching paper characters and clothing pieces.",
+    "example": "",
+    "summary": "One student dresses a character and explains the clothing choices and locations to a partner.",
+    "skills": [
+      "Clothing vocabulary",
+      "sequencing",
+      "attributes"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 34,
+    "title": "Build a Face",
+    "slug": "build-a-face",
+    "category": "Arrangement and Scene Activities",
+    "strand": "arts",
+    "materials": "Matching face mats and facial-feature pieces.",
+    "example": "",
+    "summary": "The Describer creates a face and guides a partner in matching the features.",
+    "skills": [
+      "Body vocabulary",
+      "emotions",
+      "positional language"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 35,
+    "title": "Create a Habitat",
+    "slug": "create-a-habitat",
+    "category": "Arrangement and Scene Activities",
+    "strand": "science",
+    "materials": "Habitat backgrounds and animal, plant, water, shelter, and food pieces.",
+    "example": "",
+    "summary": "One student constructs a habitat scene. The partner recreates it while discussing where organisms belong.",
+    "skills": [
+      "Habitat vocabulary",
+      "ecological relationships",
+      "position"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Science"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 36,
+    "title": "Historical Scene Builder",
+    "slug": "historical-scene-builder",
+    "category": "Arrangement and Scene Activities",
+    "strand": "arts",
+    "materials": "Background mats and historically appropriate people, buildings, and object cards.",
+    "example": "",
+    "summary": "The Describer arranges a historical scene and directs a partner to duplicate it.",
+    "skills": [
+      "Historical vocabulary",
+      "setting",
+      "evidence-based description"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 37,
+    "title": "Story Scene Match",
+    "slug": "story-scene-match",
+    "category": "Arrangement and Scene Activities",
+    "strand": "arts",
+    "materials": "Story setting mats and character or object pieces.",
+    "example": "",
+    "summary": "Students create and copy a scene from a familiar story. Afterward, they narrate what might be happening.",
+    "skills": [
+      "Oral language",
+      "story elements",
+      "sequencing"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 38,
+    "title": "Solar-System Placement",
+    "slug": "solar-system-placement",
+    "category": "Arrangement and Scene Activities",
+    "strand": "science",
+    "materials": "Matching space mats and planet cards.",
+    "example": "",
+    "summary": "The Describer gives directions for arranging planets, moons, spacecraft, or orbital paths.",
+    "skills": [
+      "Sequence",
+      "relative distance",
+      "science vocabulary"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Science"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 39,
+    "title": "Food-Plate Arrangement",
+    "slug": "food-plate-arrangement",
+    "category": "Arrangement and Scene Activities",
+    "strand": "arts",
+    "materials": "Paper plates and matching food cards.",
+    "example": "",
+    "summary": "One student creates a meal or nutrition plate and directs a partner in duplicating it.",
+    "skills": [
+      "Food groups",
+      "fractions",
+      "positional vocabulary"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 40,
+    "title": "Community Map Builder",
+    "slug": "community-map-builder",
+    "category": "Arrangement and Scene Activities",
+    "strand": "arts",
+    "materials": "Blank street maps and matching building cards.",
+    "example": "",
+    "summary": "The Describer places a school, hospital, fire station, park, library, and stores. The partner matches the arrangement. ---",
+    "skills": [
+      "Community vocabulary",
+      "maps",
+      "location"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 41,
+    "title": "Bead-Pattern Barrier",
+    "slug": "bead-pattern-barrier",
+    "category": "Patterns, Sequences, and Classification Activities",
+    "strand": "math",
+    "materials": "Matching beads, strings, and a barrier.",
+    "example": "",
+    "summary": "One student creates a color, shape, or size sequence and describes it for a partner to reproduce.",
+    "skills": [
+      "Patterns",
+      "ordinal language",
+      "attributes"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 42,
+    "title": "Linking-Cube Train",
+    "slug": "linking-cube-train",
+    "category": "Patterns, Sequences, and Classification Activities",
+    "strand": "math",
+    "materials": "Matching colored cubes.",
+    "example": "",
+    "summary": "The Describer explains a cube train using color, order, and position.",
+    "skills": [
+      "Sequencing",
+      "patterns",
+      "ordinal numbers"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 43,
+    "title": "Pegboard Pattern",
+    "slug": "pegboard-pattern",
+    "category": "Patterns, Sequences, and Classification Activities",
+    "strand": "math",
+    "materials": "Matching pegboards and colored pegs.",
+    "example": "",
+    "summary": "One student produces a peg pattern. The partner recreates it using row, column, color, and position instructions.",
+    "skills": [
+      "Coordinates",
+      "visual patterns",
+      "precision"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 44,
+    "title": "Number-Sequence Build",
+    "slug": "number-sequence-build",
+    "category": "Patterns, Sequences, and Classification Activities",
+    "strand": "math",
+    "materials": "Number cards.",
+    "example": "",
+    "summary": "The Describer arranges numbers according to a rule and explains the sequence without stating the rule directly. The partner recreates it and identifies the pattern.",
+    "skills": [
+      "Number patterns",
+      "mathematical reasoning"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 45,
+    "title": "Fraction-Tile Arrangement",
+    "slug": "fraction-tile-arrangement",
+    "category": "Patterns, Sequences, and Classification Activities",
+    "strand": "math",
+    "materials": "Matching fraction tiles.",
+    "example": "",
+    "summary": "One student arranges equivalent or combined fractions and explains the placement and relationships.",
+    "skills": [
+      "Fraction vocabulary",
+      "equivalence",
+      "comparison"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 46,
+    "title": "Base-Ten Model Match",
+    "slug": "base-ten-model-match",
+    "category": "Patterns, Sequences, and Classification Activities",
+    "strand": "math",
+    "materials": "Base-ten blocks and place-value mats.",
+    "example": "",
+    "summary": "The Describer builds a number and explains the hundreds, tens, and ones arrangement.",
+    "skills": [
+      "Place value",
+      "mathematical language"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 47,
+    "title": "Sort-It-the-Same",
+    "slug": "sort-it-the-same",
+    "category": "Patterns, Sequences, and Classification Activities",
+    "strand": "math",
+    "materials": "Identical collections of objects or cards.",
+    "example": "",
+    "summary": "One student sorts items into groups and describes the sorting rule so a partner can create the same groups.",
+    "skills": [
+      "Classification",
+      "attributes",
+      "reasoning"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 48,
+    "title": "Mystery Sorting Rule",
+    "slug": "mystery-sorting-rule",
+    "category": "Patterns, Sequences, and Classification Activities",
+    "strand": "math",
+    "materials": "Matching sets of word, image, shape, or number cards.",
+    "example": "",
+    "summary": "The Describer explains where each item belongs but cannot state the category labels. The partner infers the rule.",
+    "skills": [
+      "Inductive reasoning",
+      "classification",
+      "vocabulary"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 49,
+    "title": "Musical Instrument Sequence",
+    "slug": "musical-instrument-sequence",
+    "category": "Patterns, Sequences, and Classification Activities",
+    "strand": "math",
+    "materials": "Matching instrument cards or small percussion instruments.",
+    "example": "",
+    "summary": "One student arranges instruments in a sequence and describes the order. Students then perform the sequence.",
+    "skills": [
+      "Sequence",
+      "instrument vocabulary",
+      "listening"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 50,
+    "title": "Rhythm Replication",
+    "slug": "rhythm-replication",
+    "category": "Patterns, Sequences, and Classification Activities",
+    "strand": "math",
+    "materials": "Rhythm cards or percussion instruments.",
+    "example": "",
+    "summary": "One student sees or performs a rhythm. A partner reproduces it from spoken counting or rhythmic syllables. ---",
+    "skills": [
+      "Rhythm",
+      "listening",
+      "pattern recognition"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 51,
+    "title": "Route on a Map",
+    "slug": "route-on-a-map",
+    "category": "Map and Direction Activities",
+    "strand": "math",
+    "materials": "Identical maps and pencils.",
+    "example": "",
+    "summary": "One student draws a route and describes it. The partner follows the directions and draws the same path.",
+    "skills": [
+      "Cardinal directions",
+      "landmarks",
+      "sequencing"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 52,
+    "title": "Treasure-Map Directions",
+    "slug": "treasure-map-directions",
+    "category": "Map and Direction Activities",
+    "strand": "math",
+    "materials": "Matching grid maps with obstacles and landmarks.",
+    "example": "",
+    "summary": "The Describer guides a partner from the starting point to hidden treasure without revealing the destination.",
+    "skills": [
+      "Coordinates",
+      "direction",
+      "problem-solving"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 53,
+    "title": "Coordinate-Plane Journey",
+    "slug": "coordinate-plane-journey",
+    "category": "Map and Direction Activities",
+    "strand": "math",
+    "materials": "Coordinate grids.",
+    "example": "",
+    "summary": "The Describer names ordered pairs or movement instructions. The partner plots and connects the points.",
+    "skills": [
+      "Ordered pairs",
+      "coordinate geometry",
+      "accuracy"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 54,
+    "title": "School Navigation Challenge",
+    "slug": "school-navigation-challenge",
+    "category": "Map and Direction Activities",
+    "strand": "math",
+    "materials": "Simplified school maps.",
+    "example": "",
+    "summary": "One student directs a partner from one school location to another using hallways, turns, and landmarks.",
+    "skills": [
+      "Functional directions",
+      "spatial awareness"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 55,
+    "title": "Cardinal-Direction Builder",
+    "slug": "cardinal-direction-builder",
+    "category": "Map and Direction Activities",
+    "strand": "math",
+    "materials": "Compass mats and object cards.",
+    "example": "",
+    "summary": "Students place objects north, south, east, west, northeast, northwest, southeast, or southwest of a central location.",
+    "skills": [
+      "Cardinal and intermediate directions"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 56,
+    "title": "Landform Map Match",
+    "slug": "landform-map-match",
+    "category": "Map and Direction Activities",
+    "strand": "math",
+    "materials": "Blank maps and landform symbols.",
+    "example": "",
+    "summary": "The Describer places mountains, rivers, lakes, valleys, and plains. The partner duplicates the map.",
+    "skills": [
+      "Geography vocabulary",
+      "map symbols",
+      "relative location"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 57,
+    "title": "Grid Robot Programmer",
+    "slug": "grid-robot-programmer",
+    "category": "Map and Direction Activities",
+    "strand": "technology",
+    "materials": "Grid mats, tokens, and obstacle cards.",
+    "example": "",
+    "summary": "The Programmer gives step-by-step commands to move a token through the grid. The Operator follows the commands exactly.",
+    "skills": [
+      "Algorithms",
+      "sequencing",
+      "debugging"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Technology"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 58,
+    "title": "Human Robot Course",
+    "slug": "human-robot-course",
+    "category": "Map and Direction Activities",
+    "strand": "technology",
+    "materials": "Floor grid or safe obstacle course.",
+    "example": "",
+    "summary": "One student acts as a robot and follows precise commands such as move forward, rotate, stop, and pick up. ---",
+    "skills": [
+      "Computational thinking",
+      "precise instructions",
+      "debugging"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Technology"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 59,
+    "title": "Vocabulary Object Match",
+    "slug": "vocabulary-object-match",
+    "category": "Language and Literacy Activities",
+    "strand": "arts",
+    "materials": "Two identical sets of curriculum-related objects or cards.",
+    "example": "",
+    "summary": "The Describer explains an item without saying its name. The Listener identifies the matching item.",
+    "skills": [
+      "Definitions",
+      "attributes",
+      "academic vocabulary"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 60,
+    "title": "Forbidden-Word Description",
+    "slug": "forbidden-word-description",
+    "category": "Language and Literacy Activities",
+    "strand": "arts",
+    "materials": "Vocabulary cards with prohibited clue words.",
+    "example": "",
+    "summary": "Students describe a term without using the term or several obvious related words.",
+    "skills": [
+      "Paraphrasing",
+      "vocabulary depth",
+      "flexible thinking"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 61,
+    "title": "Character Description Match",
+    "slug": "character-description-match",
+    "category": "Language and Literacy Activities",
+    "strand": "arts",
+    "materials": "Sets of character cards with similar features.",
+    "example": "",
+    "summary": "One student describes a character. The partner selects the exact matching card.",
+    "skills": [
+      "Adjectives",
+      "evidence",
+      "attention to detail"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 62,
+    "title": "Which Picture Am I Describing?",
+    "slug": "which-picture-am-i-describing",
+    "category": "Language and Literacy Activities",
+    "strand": "arts",
+    "materials": "Closely related image sets.",
+    "example": "",
+    "summary": "The Speaker describes one image while the Listener identifies it from several similar choices.",
+    "skills": [
+      "Distinguishing details",
+      "comparison",
+      "listening"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 63,
+    "title": "Sentence-Building Barrier",
+    "slug": "sentence-building-barrier",
+    "category": "Language and Literacy Activities",
+    "strand": "arts",
+    "materials": "Matching word or phrase cards.",
+    "example": "",
+    "summary": "One student constructs a sentence and describes the card order and punctuation to a partner.",
+    "skills": [
+      "Syntax",
+      "grammar",
+      "sentence structure"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 64,
+    "title": "Story-Sequence Match",
+    "slug": "story-sequence-match",
+    "category": "Language and Literacy Activities",
+    "strand": "arts",
+    "materials": "Matching sets of story-event cards.",
+    "example": "",
+    "summary": "One student arranges events and explains their order. The partner recreates the sequence.",
+    "skills": [
+      "Chronology",
+      "transition words",
+      "narrative structure"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 65,
+    "title": "Comic-Strip Reconstruction",
+    "slug": "comic-strip-reconstruction",
+    "category": "Language and Literacy Activities",
+    "strand": "arts",
+    "materials": "Matching comic panels.",
+    "example": "",
+    "summary": "The Describer arranges panels and explains the sequence without showing the images.",
+    "skills": [
+      "Cause and effect",
+      "sequencing",
+      "inference"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 66,
+    "title": "Main-Idea Organizer",
+    "slug": "main-idea-organizer",
+    "category": "Language and Literacy Activities",
+    "strand": "arts",
+    "materials": "Matching idea and detail cards.",
+    "example": "",
+    "summary": "One student arranges a main idea with supporting details. The partner recreates the organizer from the explanation.",
+    "skills": [
+      "Main idea",
+      "supporting evidence",
+      "organization"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 67,
+    "title": "Word-Web Replication",
+    "slug": "word-web-replication",
+    "category": "Language and Literacy Activities",
+    "strand": "arts",
+    "materials": "Vocabulary cards or blank concept-map templates.",
+    "example": "",
+    "summary": "The Describer explains a concept map, including which ideas connect and how.",
+    "skills": [
+      "Relationships",
+      "categorization",
+      "academic language"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 68,
+    "title": "Oral-to-Written Procedure",
+    "slug": "oral-to-written-procedure",
+    "category": "Language and Literacy Activities",
+    "strand": "arts",
+    "materials": "A simple completed construction or drawing.",
+    "example": "",
+    "summary": "One student gives oral directions. The Listener writes them rather than completing the task. A third student later follows the written directions. ---",
+    "skills": [
+      "Speaking",
+      "note-taking",
+      "procedural writing"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 69,
+    "title": "Hidden Shape Arrangement",
+    "slug": "hidden-shape-arrangement",
+    "category": "Mathematics Activities",
+    "strand": "math",
+    "materials": "Matching geometric shapes.",
+    "example": "",
+    "summary": "One student arranges shapes and describes their positions, orientations, and relationships.",
+    "skills": [
+      "Shape properties",
+      "geometry vocabulary"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 70,
+    "title": "Polygon Builder",
+    "slug": "polygon-builder",
+    "category": "Mathematics Activities",
+    "strand": "math",
+    "materials": "Craft sticks or geoboards.",
+    "example": "",
+    "summary": "The Describer sees a polygon and explains how many sides, vertices, equal lengths, or right angles it has. The Builder recreates it.",
+    "skills": [
+      "Polygon classification",
+      "properties",
+      "precision"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 71,
+    "title": "Geoboard Copy",
+    "slug": "geoboard-copy",
+    "category": "Mathematics Activities",
+    "strand": "math",
+    "materials": "Matching geoboards and rubber bands.",
+    "example": "",
+    "summary": "One student describes peg locations and band paths while a partner builds the same figure.",
+    "skills": [
+      "Coordinates",
+      "polygons",
+      "spatial reasoning"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 72,
+    "title": "Equation Tile Match",
+    "slug": "equation-tile-match",
+    "category": "Mathematics Activities",
+    "strand": "math",
+    "materials": "Number and operation tiles.",
+    "example": "",
+    "summary": "The Describer arranges an equation or expression and explains the order without showing it.",
+    "skills": [
+      "Mathematical syntax",
+      "operations",
+      "equality"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 73,
+    "title": "Array Builder",
+    "slug": "array-builder",
+    "category": "Mathematics Activities",
+    "strand": "math",
+    "materials": "Counters and grid mats.",
+    "example": "",
+    "summary": "One student creates an array and describes its rows, columns, total, and orientation.",
+    "skills": [
+      "Multiplication",
+      "arrays",
+      "mathematical vocabulary"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 74,
+    "title": "Equivalent-Fraction Model",
+    "slug": "equivalent-fraction-model",
+    "category": "Mathematics Activities",
+    "strand": "math",
+    "materials": "Fraction circles or strips.",
+    "example": "",
+    "summary": "One student creates an equivalence model and explains how the pieces cover equal amounts.",
+    "skills": [
+      "Fraction equivalence",
+      "justification"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 75,
+    "title": "Transformation Challenge",
+    "slug": "transformation-challenge",
+    "category": "Mathematics Activities",
+    "strand": "math",
+    "materials": "Shape cards and coordinate grids.",
+    "example": "",
+    "summary": "The Describer explains a translation, rotation, or reflection. The partner performs the transformation.",
+    "skills": [
+      "Transformations",
+      "direction",
+      "coordinate language"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 76,
+    "title": "Data-Display Replication",
+    "slug": "data-display-replication",
+    "category": "Mathematics Activities",
+    "strand": "math",
+    "materials": "Blank graphs and a completed graph.",
+    "example": "",
+    "summary": "One student describes a bar graph, line plot, or pictograph. The partner reconstructs it. ---",
+    "skills": [
+      "Data interpretation",
+      "scale",
+      "labels",
+      "comparison"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Mathematics"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 77,
+    "title": "Circuit Description Challenge",
+    "slug": "circuit-description-challenge",
+    "category": "Science Activities",
+    "strand": "technology",
+    "materials": "Safe circuit components or circuit-symbol cards.",
+    "example": "",
+    "summary": "The Describer views a simple circuit and explains the connections. The Builder assembles or diagrams it.",
+    "skills": [
+      "Circuit vocabulary",
+      "systems thinking",
+      "sequencing"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Technology"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 78,
+    "title": "Molecule Model Match",
+    "slug": "molecule-model-match",
+    "category": "Science Activities",
+    "strand": "science",
+    "materials": "Matching molecular-model kits or colored clay and sticks.",
+    "example": "",
+    "summary": "One student describes atom types, quantities, bonds, and arrangement.",
+    "skills": [
+      "Molecular structure",
+      "scientific vocabulary"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Science"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 79,
+    "title": "Food-Chain Builder",
+    "slug": "food-chain-builder",
+    "category": "Science Activities",
+    "strand": "science",
+    "materials": "Matching organism cards and arrows.",
+    "example": "",
+    "summary": "The Describer arranges a food chain or web and explains the flow of energy.",
+    "skills": [
+      "Ecosystem relationships",
+      "cause and effect"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Science"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 80,
+    "title": "Life-Cycle Sequence",
+    "slug": "life-cycle-sequence",
+    "category": "Science Activities",
+    "strand": "science",
+    "materials": "Matching life-cycle cards.",
+    "example": "",
+    "summary": "One student places the stages in order and explains the sequence to a partner.",
+    "skills": [
+      "Scientific sequencing",
+      "transition language"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Science"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 81,
+    "title": "Rock-Layer Reconstruction",
+    "slug": "rock-layer-reconstruction",
+    "category": "Science Activities",
+    "strand": "science",
+    "materials": "Colored strips or sediment-layer cards.",
+    "example": "",
+    "summary": "The Describer arranges geological layers, fossils, and faults. The partner reproduces the cross-section.",
+    "skills": [
+      "Relative position",
+      "geology vocabulary",
+      "chronological reasoning"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Science"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 82,
+    "title": "Weather-Map Match",
+    "slug": "weather-map-match",
+    "category": "Science Activities",
+    "strand": "science",
+    "materials": "Blank maps and weather-symbol cards.",
+    "example": "",
+    "summary": "One student places fronts, pressure systems, precipitation, and temperature symbols. The partner duplicates the map.",
+    "skills": [
+      "Weather vocabulary",
+      "maps",
+      "interpretation"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Science"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 83,
+    "title": "Cell Model Arrangement",
+    "slug": "cell-model-arrangement",
+    "category": "Science Activities",
+    "strand": "science",
+    "materials": "Cell mats and organelle pieces.",
+    "example": "",
+    "summary": "The Describer places organelles and explains their positions and relationships.",
+    "skills": [
+      "Cell vocabulary",
+      "spatial relationships",
+      "systems"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Science"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 84,
+    "title": "Experimental-Setup Build",
+    "slug": "experimental-setup-build",
+    "category": "Science Activities",
+    "strand": "science",
+    "materials": "Safe classroom science equipment or picture cards.",
+    "example": "",
+    "summary": "One student views a completed experimental setup and gives directions for assembling or diagramming it. ---",
+    "skills": [
+      "Laboratory vocabulary",
+      "procedure",
+      "safety communication"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Science"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 85,
+    "title": "Timeline Reconstruction",
+    "slug": "timeline-reconstruction",
+    "category": "Social Studies Activities",
+    "strand": "arts",
+    "materials": "Matching event cards.",
+    "example": "",
+    "summary": "One student arranges events chronologically and describes the sequence without showing dates.",
+    "skills": [
+      "Chronology",
+      "cause and effect",
+      "historical language"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 86,
+    "title": "Government-Structure Match",
+    "slug": "government-structure-match",
+    "category": "Social Studies Activities",
+    "strand": "arts",
+    "materials": "Branch, role, and responsibility cards.",
+    "example": "",
+    "summary": "The Describer arranges a government diagram and explains the relationships.",
+    "skills": [
+      "Civic vocabulary",
+      "organizational structure"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 87,
+    "title": "Trade-Route Map",
+    "slug": "trade-route-map",
+    "category": "Social Studies Activities",
+    "strand": "arts",
+    "materials": "Matching maps and commodity cards.",
+    "example": "",
+    "summary": "One student plots a historical trade route and explains its path, stops, and exchanged goods.",
+    "skills": [
+      "Geography",
+      "economics",
+      "sequencing"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 88,
+    "title": "Settlement Planner",
+    "slug": "settlement-planner",
+    "category": "Social Studies Activities",
+    "strand": "arts",
+    "materials": "Landscape mats and building or resource cards.",
+    "example": "",
+    "summary": "The Describer creates a settlement near selected resources and explains each location.",
+    "skills": [
+      "Human geography",
+      "resources",
+      "decision-making"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 89,
+    "title": "Artifact Arrangement",
+    "slug": "artifact-arrangement",
+    "category": "Social Studies Activities",
+    "strand": "arts",
+    "materials": "Matching historical artifact cards.",
+    "example": "",
+    "summary": "One student sorts artifacts by era, use, material, or culture and explains the arrangement.",
+    "skills": [
+      "Classification",
+      "evidence",
+      "historical reasoning"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 90,
+    "title": "Cause-and-Effect Chain",
+    "slug": "cause-and-effect-chain",
+    "category": "Social Studies Activities",
+    "strand": "arts",
+    "materials": "Matching historical event cards and arrows.",
+    "example": "",
+    "summary": "The Describer constructs a chain of causes and consequences. The partner recreates it. ---",
+    "skills": [
+      "Causal reasoning",
+      "sequencing",
+      "historical explanation"
+    ],
+    "purpose": "",
+    "grades": "K–8",
+    "subjects": [
+      "Arts & Design"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 91,
+    "title": "No-Questions Round",
+    "slug": "no-questions-round",
+    "category": "Team Communication Variations",
+    "strand": "facilitation",
+    "materials": "",
+    "example": "",
+    "summary": "The Listener may not interrupt or ask for clarification.",
+    "skills": [],
+    "purpose": "Demonstrate the limits of one-way communication",
+    "grades": "K–8",
+    "subjects": [
+      "Facilitation Modes"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 92,
+    "title": "Questions-Allowed Round",
+    "slug": "questions-allowed-round",
+    "category": "Team Communication Variations",
+    "strand": "facilitation",
+    "materials": "",
+    "example": "",
+    "summary": "The Listener may ask as many clarifying questions as needed.",
+    "skills": [],
+    "purpose": "Practice feedback and confirmation",
+    "grades": "K–8",
+    "subjects": [
+      "Facilitation Modes"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 93,
+    "title": "Yes-or-No Questions Only",
+    "slug": "yes-or-no-questions-only",
+    "category": "Team Communication Variations",
+    "strand": "facilitation",
+    "materials": "",
+    "example": "",
+    "summary": "The Listener may ask questions, but the Describer can answer only yes or no.",
+    "skills": [],
+    "purpose": "Improve strategic questioning",
+    "grades": "K–8",
+    "subjects": [
+      "Facilitation Modes"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 94,
+    "title": "Thirty-Word Limit",
+    "slug": "thirty-word-limit",
+    "category": "Team Communication Variations",
+    "strand": "facilitation",
+    "materials": "",
+    "example": "",
+    "summary": "The Describer may use no more than thirty words.",
+    "skills": [],
+    "purpose": "Encourage concise and prioritized directions",
+    "grades": "K–8",
+    "subjects": [
+      "Facilitation Modes"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 95,
+    "title": "One Direction at a Time",
+    "slug": "one-direction-at-a-time",
+    "category": "Team Communication Variations",
+    "strand": "facilitation",
+    "materials": "",
+    "example": "",
+    "summary": "The Builder must complete and confirm each step before receiving the next direction.",
+    "skills": [],
+    "purpose": "Practice pacing and checking for understanding",
+    "grades": "K–8",
+    "subjects": [
+      "Facilitation Modes"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 96,
+    "title": "Memory Messenger",
+    "slug": "memory-messenger",
+    "category": "Team Communication Variations",
+    "strand": "facilitation",
+    "materials": "",
+    "example": "",
+    "summary": "The Messenger cannot take notes and may carry only one message per trip.",
+    "skills": [],
+    "purpose": "Build working memory and message clarity",
+    "grades": "K–8",
+    "subjects": [
+      "Facilitation Modes"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 97,
+    "title": "Written Messenger",
+    "slug": "written-messenger",
+    "category": "Team Communication Variations",
+    "strand": "facilitation",
+    "materials": "",
+    "example": "",
+    "summary": "The Architect writes each message. The Messenger delivers it without explanation.",
+    "skills": [],
+    "purpose": "Compare written and oral communication",
+    "grades": "K–8",
+    "subjects": [
+      "Facilitation Modes"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 98,
+    "title": "Multiple Messengers",
+    "slug": "multiple-messengers",
+    "category": "Team Communication Variations",
+    "strand": "facilitation",
+    "materials": "",
+    "example": "",
+    "summary": "Information passes through two or three students before reaching the Builder.",
+    "skills": [],
+    "purpose": "Examine how messages change during transmission",
+    "grades": "K–8",
+    "subjects": [
+      "Facilitation Modes"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 99,
+    "title": "Competing Voices",
+    "slug": "competing-voices",
+    "category": "Team Communication Variations",
+    "strand": "facilitation",
+    "materials": "",
+    "example": "",
+    "summary": "Two students provide directions, but only one has accurate information.",
+    "skills": [],
+    "purpose": "Evaluate sources, seek confirmation, and manage conflicting information",
+    "grades": "K–8",
+    "subjects": [
+      "Facilitation Modes"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 100,
+    "title": "Communication-Code Challenge",
+    "slug": "communication-code-challenge",
+    "category": "Team Communication Variations",
+    "strand": "facilitation",
+    "materials": "",
+    "example": "",
+    "summary": "Teams receive planning time to create abbreviations, coordinates, labels, or shared terms before seeing the structure.",
+    "skills": [],
+    "purpose": "Develop communication systems and shared vocabulary",
+    "grades": "K–8",
+    "subjects": [
+      "Facilitation Modes"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 101,
+    "title": "Accuracy Before Speed",
+    "slug": "accuracy-before-speed",
+    "category": "Team Communication Variations",
+    "strand": "facilitation",
+    "materials": "",
+    "example": "",
+    "summary": "Teams receive points for exact matches and lose points for finishing with errors.",
+    "skills": [],
+    "purpose": "Shift attention from speed to quality",
+    "grades": "K–8",
+    "subjects": [
+      "Facilitation Modes"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 102,
+    "title": "Speed Before Accuracy",
+    "slug": "speed-before-accuracy",
+    "category": "Team Communication Variations",
+    "strand": "facilitation",
+    "materials": "",
+    "example": "",
+    "summary": "Teams try to finish quickly, then calculate an accuracy score.",
+    "skills": [],
+    "purpose": "Discuss tradeoffs between efficiency and precision",
+    "grades": "K–8",
+    "subjects": [
+      "Facilitation Modes"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 103,
+    "title": "Observer Feedback Round",
+    "slug": "observer-feedback-round",
+    "category": "Team Communication Variations",
+    "strand": "facilitation",
+    "materials": "",
+    "example": "",
+    "summary": "An Observer records examples of clear language, vague directions, questions, and corrections.",
+    "skills": [],
+    "purpose": "Make communication behaviors visible",
+    "grades": "K–8",
+    "subjects": [
+      "Facilitation Modes"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 104,
+    "title": "Teach-Back Rule",
+    "slug": "teach-back-rule",
+    "category": "Team Communication Variations",
+    "strand": "facilitation",
+    "materials": "",
+    "example": "",
+    "summary": "After each direction, the Builder must restate it before acting.",
+    "skills": [],
+    "purpose": "Check understanding and prevent assumptions",
+    "grades": "K–8",
+    "subjects": [
+      "Facilitation Modes"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 105,
+    "title": "Error-Recovery Challenge",
+    "slug": "error-recovery-challenge",
+    "category": "Team Communication Variations",
+    "strand": "facilitation",
+    "materials": "",
+    "example": "",
+    "summary": "The teacher secretly moves or replaces one piece during the activity. The team must detect and repair the discrepancy.",
+    "skills": [],
+    "purpose": "Troubleshooting, resilience, and collaborative correction",
+    "grades": "K–8",
+    "subjects": [
+      "Facilitation Modes"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  },
+  {
+    "num": 106,
+    "title": "Student-Designed Challenge",
+    "slug": "student-designed-challenge",
+    "category": "Team Communication Variations",
+    "strand": "facilitation",
+    "materials": "",
+    "example": "",
+    "summary": "Students create models, drawings, maps, or patterns for other groups to reproduce. ---",
+    "skills": [],
+    "purpose": "Apply understanding by designing clear but challenging tasks",
+    "grades": "K–8",
+    "subjects": [
+      "Facilitation Modes"
+    ],
+    "teks": [],
+    "ngss": [],
+    "harder": "",
+    "easier": ""
+  }
+]

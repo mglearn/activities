@@ -24,26 +24,34 @@ Privacy-first, client-side only: no accounts, no server, no data collection.
 
 ---
 
-## 2. STEM focus & standards approach
+## 2. STEAM focus & standards approach
 
-The source set spans many subjects. Per direction, the area is organized **STEM-forward**: the
-STEM strands lead and carry standards alignment; the cross-curricular activities are kept as a
-clearly-secondary section (they are still excellent language/communication practice).
+The area is organized as **STEAM** — Science, Technology, Engineering, **Arts**, Mathematics. The
+Arts strand is a first-class part of the frame, not an afterthought: this activity family is
+fundamentally about *describing and recreating* visual/spatial things, which is as much design and
+representation as it is math and science. Every activity lives under one of the five STEAM strands
+(plus "facilitation modes" for the team variations). Where a category was previously "non-STEM"
+(language, social studies), it is placed in its natural STEAM home (usually **Arts / language
+arts**) and its examples are reframed toward STEAM contexts.
 
-### Category → strand map
+### Category → STEAM strand map
 
-| Source category (from `activities.md`) | Activities | Hub strand | Primary standards lens |
+| Source category (from `activities.md`) | Activities | STEAM strand | Primary standards lens |
 |---|---|---|---|
-| Building and Construction | 1–16 | **Engineering & Construction** | Engineering design (NGSS ETS1); geometry/spatial (Math TEKS) |
-| Drawing and Visual Communication | 17–28 | **Geometry & Representation** | Math TEKS geometry; 2-D/3-D & perspective |
-| Arrangement and Scene | 29–40 | **Spatial & Systems** | Positional/spatial reasoning; some science systems (habitat, solar system, food plate) |
-| Patterns, Sequences, Classification | 41–50 | **Patterns & Data** | Algebraic reasoning, classification, data (Math + Science practices) |
-| Map and Direction | 51–58 | **Maps & Coordinates** | Coordinate plane (Math TEKS); mapping/directions (science & social studies) |
-| Mathematics | 69–76 | **Mathematics** | Math TEKS (geometry, fractions, arrays, transformations, data) |
-| Science | 77–84 | **Science** | 2021 Science TEKS + NGSS (circuits, molecules, food chains, life cycles, rock layers, weather, cells, experimental setup) |
-| Language and Literacy | 59–68 | Cross-curricular (secondary) | ELAR TEKS (vocabulary, sequence, main idea) |
-| Social Studies | 85–90 | Cross-curricular (secondary) | Social Studies TEKS (timelines, government, trade routes, settlement) |
-| Team Communication Variations | 91–106 | **Facilitation modes** (applied to any activity) | SEL / speaking-listening; not standalone content |
+| Building and Construction | 1–16 | **E · Engineering** | Engineering design (NGSS ETS1); geometry/spatial (Math TEKS) |
+| Drawing and Visual Communication | 17–28 | **A · Arts & Design** | Visual art + Math TEKS geometry; 2-D/3-D & perspective |
+| Arrangement and Scene | 29–40 | **A · Arts & Design** (science systems where apt) | Composition/design; some science systems (habitat, solar system, food plate) |
+| Patterns, Sequences, Classification | 41–50 | **M · Mathematics** | Algebraic reasoning, classification, data (Math + Science practices) |
+| Map and Direction | 51–58 | **M · Mathematics** (+ **T** for robot/coding) | Coordinate plane (Math TEKS); grid programming = CS/Technology |
+| Mathematics | 69–76 | **M · Mathematics** | Math TEKS (geometry, fractions, arrays, transformations, data) |
+| Science | 77–84 | **S · Science** (circuit → **T**) | 2021 Science TEKS + NGSS (molecules, food chains, life cycles, rock layers, weather, cells, experimental setup); circuits → Technology |
+| Language and Literacy | 59–68 | **A · Arts** (language arts) | ELAR TEKS (vocabulary, sequence, main idea) — reframed to STEAM examples |
+| Social Studies | 85–90 | **A · Arts** / cross-curricular | Social Studies TEKS (timelines, government, trade routes, settlement) — reframed toward STEAM |
+| Team Communication Variations | 91–106 | **Facilitation modes** (apply to any activity) | SEL / speaking-listening; not standalone content |
+
+**The five strands** used across the site: **S** Science · **T** Technology (coding, robotics,
+circuits — e.g. Grid Robot Programmer #57, Human Robot Course #58, Circuit Challenge #77) ·
+**E** Engineering · **A** Arts & Design · **M** Mathematics.
 
 ### Alignment method (per activity, on its page)
 
@@ -58,9 +66,9 @@ clearly-secondary section (they are still excellent language/communication pract
   is a national reference, not Texas-adopted — presented as a "connects to" aid, not a claim of
   adoption.
 
-> Open scope question flagged for the user in the plan review: should the two cross-curricular
-> strands (Language, Social Studies) be **kept as a secondary section** (current plan) or **dropped**
-> for a pure-STEM area? Default = keep, clearly secondary.
+> **Resolved (user):** keep all 106 and **reframe** the former non-STEM activities toward STEAM.
+> Under a STEAM frame the Arts strand gives Language/Literacy and the design-oriented activities a
+> natural home, so nothing is dropped; their examples are rewritten in STEAM contexts.
 
 ---
 
