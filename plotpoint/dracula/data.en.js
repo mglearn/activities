@@ -234,7 +234,7 @@ window.__ROOM__ = {
       intro: "Seven instructional reconstructions of the documents and objects through which Dracula's story reaches us — teaching recreations, not copyrighted illustrations. Investigate what each record shows, and what it cannot.",
       artifacts: [
         {
-          id: "log", name: "The Demeter's Captain's Log", image: "images/log.png",
+          id: "log", name: "The Demeter's Captain's Log", image: "images/log.webp",
           clues: ["This record is kept aboard the ship carrying Dracula's cargo to England.", "Its entries grow more fearful as crew members vanish one by one.", "The captain is found dead, lashed to the wheel, with the log telling what happened."],
           identify: { q: "What is this document?", choices: ["The captain's log of the ship Demeter", "Harker's journal", "A doctor's prescription", "A newspaper advertisement"] },
           purpose: { q: "What is its purpose?", choices: ["To record the ship's voyage and events at sea", "To sell tickets to passengers", "To map the London streets", "To list Dracula's servants"] },
@@ -244,7 +244,7 @@ window.__ROOM__ = {
           ace: "Articulate what the log lets the reader witness; connect it to the epistolary structure; extend it to how a recovered recording can make a story feel real today."
         },
         {
-          id: "earthbox", name: "A Box of Transylvanian Earth", image: "images/earthbox.png",
+          id: "earthbox", name: "A Box of Transylvanian Earth", image: "images/earthbox.webp",
           clues: ["Dracula ships a large number of heavy wooden boxes to England.", "Each is filled with soil from his homeland.", "He must rest on this native earth, so the boxes become his hiding places."],
           identify: { q: "What is this object?", choices: ["One of Dracula's boxes of native earth", "A coffin-maker's sample", "A crate of books", "A shipment of tea"] },
           purpose: { q: "What is its purpose for Dracula?", choices: ["A resting place of native soil he needs to survive in England", "A gift for Harker", "Ballast for the ship", "A donation to a church"] },
@@ -254,7 +254,7 @@ window.__ROOM__ = {
           ace: "Articulate why the earth matters; connect the boxes to the hunt's strategy; extend it to how a monster with rules changes a story's tension."
         },
         {
-          id: "journal", name: "Jonathan Harker's Shorthand Journal", image: "images/journal.png",
+          id: "journal", name: "Jonathan Harker's Shorthand Journal", image: "images/journal.webp",
           clues: ["This traveler keeps a private journal in shorthand.", "He records his growing realization that he is a prisoner in the castle.", "Because it is in shorthand, others cannot easily read it at first."],
           identify: { q: "Whose document is this?", choices: ["Jonathan Harker's private journal", "The Demeter captain's log", "Dr. Seward's case notes", "Mina's recipe book"] },
           purpose: { q: "What is its purpose?", choices: ["To privately record what he witnesses at the castle", "To advertise a property", "To bill a client", "To chart the stars"] },
@@ -264,7 +264,7 @@ window.__ROOM__ = {
           ace: "Articulate the value of Harker's journal; connect private writing to shared evidence; extend it to how a personal record can later matter to others."
         },
         {
-          id: "newspaper", name: "The Whitby Newspaper Clipping", image: "images/newspaper.png",
+          id: "newspaper", name: "The Whitby Newspaper Clipping", image: "images/newspaper.webp",
           clues: ["A great storm drives a strange ship aground at an English seaside town.", "A local paper reports the wreck and the dead captain.", "The clipping is pasted into the characters' collected records."],
           identify: { q: "What is this document?", choices: ["A newspaper report of the storm and shipwreck at Whitby", "A love letter", "A ship's manifest", "A medical chart"] },
           purpose: { q: "What is its purpose in the archive?", choices: ["To supply a public, outside account of the ship's arrival", "To advertise the asylum", "To record Harker's journey home", "To list Dracula's boxes"] },
@@ -274,7 +274,7 @@ window.__ROOM__ = {
           ace: "Articulate what the clipping adds; connect public and private records; extend it to how news coverage shapes belief in an event today."
         },
         {
-          id: "phonograph", name: "Dr. Seward's Phonograph Diary", image: "images/phonograph.png",
+          id: "phonograph", name: "Dr. Seward's Phonograph Diary", image: "images/phonograph.webp",
           clues: ["This doctor records his diary by speaking into a phonograph.", "He runs an asylum and observes a patient obsessed with consuming life.", "His spoken recordings are later transcribed to join the written records."],
           identify: { q: "Whose document is this?", choices: ["Dr. Seward's spoken diary on phonograph", "Harker's shorthand journal", "The Demeter's log", "Lucy's letter"] },
           purpose: { q: "What is its purpose?", choices: ["To record his observations, including his strange patient", "To play music for patients", "To sell recordings", "To send telegrams"] },
@@ -284,7 +284,7 @@ window.__ROOM__ = {
           ace: "Articulate why the phonograph diary matters; connect technology to credibility; extend it to how recordings serve as evidence now."
         },
         {
-          id: "letter", name: "The Letters of Mina and Lucy", image: "images/letter.png",
+          id: "letter", name: "The Letters of Mina and Lucy", image: "images/letter.webp",
           clues: ["Two close friends write to each other about their lives and worries.", "Their letters record ordinary events just before danger arrives.", "The contrast between their warmth and what follows deepens the dread."],
           identify: { q: "What are these documents?", choices: ["Personal letters between Mina and Lucy", "The captain's log", "A newspaper clipping", "A property contract"] },
           purpose: { q: "What is their purpose?", choices: ["To share news and feelings between friends", "To advertise a house", "To record a voyage", "To bill a client"] },
@@ -294,7 +294,7 @@ window.__ROOM__ = {
           ace: "Articulate what the letters establish; connect ordinary life to rising dread; extend it to how everyday messages read differently once we know what came next."
         },
         {
-          id: "medbag", name: "Van Helsing's Medical Bag and Notes", image: "images/medbag.png",
+          id: "medbag", name: "Van Helsing's Medical Bag and Notes", image: "images/medbag.webp",
           clues: ["A learned doctor arrives with both modern medicine and old knowledge.", "His bag holds instruments for transfusions and remedies against the threat.", "He takes the villagers' 'superstitions' seriously as evidence."],
           identify: { q: "Whose belongings are these?", choices: ["Professor Van Helsing's medical bag and notes", "Harker's luggage", "The captain's sea chest", "Renfield's box"] },
           purpose: { q: "What is their purpose?", choices: ["To treat the victims and combat the threat with knowledge old and new", "To sell medicine", "To chart the coast", "To record music"] },

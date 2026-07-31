@@ -234,7 +234,7 @@ window.__ROOM__ = {
       intro: "Seven instructional reconstructions of objects from famous fables — teaching recreations, not copyrighted illustrations. Investigate which fable each comes from, what happens, and the moral it teaches.",
       artifacts: [
         {
-          id: "grapes", name: "The High Grapes", image: "images/grapes.png",
+          id: "grapes", name: "The High Grapes", image: "images/grapes.webp",
           clues: ["A hungry fox spots a bunch of ripe grapes hanging high on a vine.", "He jumps again and again but cannot reach them.", "He walks away telling himself the grapes were probably sour anyway."],
           identify: { q: "Which fable is this from?", choices: ["The Fox and the Grapes", "The Tortoise and the Hare", "The Ant and the Grasshopper", "The Lion and the Mouse"] },
           purpose: { q: "What happens with the grapes?", choices: ["The fox cannot reach them, so he decides they must be sour", "The fox shares them with friends", "The fox trades them for cheese", "The fox plants a vine"] },
@@ -244,7 +244,7 @@ window.__ROOM__ = {
           ace: "Articulate the fox's excuse; connect it to 'sour grapes' behavior; extend it to a time someone downplayed what they couldn't have."
         },
         {
-          id: "tortoise", name: "The Tortoise's Shell", image: "images/tortoise.png",
+          id: "tortoise", name: "The Tortoise's Shell", image: "images/tortoise.webp",
           clues: ["A speedy hare mocks a slow tortoise, then challenges him to a race.", "So sure of winning, the hare stops to nap partway through.", "The tortoise plods on steadily and crosses the finish line first."],
           identify: { q: "Which fable is this from?", choices: ["The Tortoise and the Hare", "The Fox and the Grapes", "The Crow and the Pitcher", "The Boy Who Cried Wolf"] },
           purpose: { q: "How does the race end?", choices: ["The steady tortoise wins while the overconfident hare naps", "The hare wins easily", "They finish in a tie", "Neither one finishes"] },
@@ -254,7 +254,7 @@ window.__ROOM__ = {
           ace: "Articulate why the tortoise wins; connect steadiness to real goals; extend it to a task where slow, steady effort would beat rushing."
         },
         {
-          id: "ant", name: "The Ant's Grain", image: "images/ant.png",
+          id: "ant", name: "The Ant's Grain", image: "images/ant.webp",
           clues: ["All summer, an ant works to store away food.", "A grasshopper sings and plays instead of preparing.", "When winter comes, the grasshopper is hungry while the ant has plenty."],
           identify: { q: "Which fable is this from?", choices: ["The Ant and the Grasshopper", "The Lion and the Mouse", "The Fox and the Grapes", "The Tortoise and the Hare"] },
           purpose: { q: "What happens when winter comes?", choices: ["The prepared ant has food; the unprepared grasshopper does not", "Both have plenty of food", "The grasshopper shares with the ant", "They both move south"] },
@@ -264,7 +264,7 @@ window.__ROOM__ = {
           ace: "Articulate the ant's wisdom; connect preparation to a real deadline; extend it to something worth preparing for now."
         },
         {
-          id: "fleece", name: "The Wolf's Disguise", image: "images/fleece.png",
+          id: "fleece", name: "The Wolf's Disguise", image: "images/fleece.webp",
           clues: ["A wolf wants to get close to a flock of sheep.", "He wraps himself in a sheep's fleece as a disguise.", "By pretending to be harmless, he fools the flock."],
           identify: { q: "Which fable is this from?", choices: ["The Wolf in Sheep's Clothing", "The Ant and the Grasshopper", "The Crow and the Pitcher", "The Lion and the Mouse"] },
           purpose: { q: "Why does the wolf wear the fleece?", choices: ["To disguise himself as harmless and deceive the sheep", "To stay warm in winter", "To join the flock as a friend", "To trade with the shepherd"] },
@@ -274,7 +274,7 @@ window.__ROOM__ = {
           ace: "Articulate the wolf's trick; connect it to 'a wolf in sheep's clothing'; extend it to how appearances can mislead people today."
         },
         {
-          id: "pitcher", name: "The Crow's Pitcher", image: "images/pitcher.png",
+          id: "pitcher", name: "The Crow's Pitcher", image: "images/pitcher.webp",
           clues: ["A thirsty crow finds a pitcher with a little water at the bottom.", "The water is too low for his beak to reach.", "One by one, he drops pebbles in until the water rises high enough to drink."],
           identify: { q: "Which fable is this from?", choices: ["The Crow and the Pitcher", "The Fox and the Grapes", "The Tortoise and the Hare", "The Wolf in Sheep's Clothing"] },
           purpose: { q: "How does the crow reach the water?", choices: ["He drops in pebbles until the water rises to his beak", "He tips the pitcher over", "He waits for rain", "He calls other crows for help"] },
@@ -284,7 +284,7 @@ window.__ROOM__ = {
           ace: "Articulate the crow's solution; connect small steps to solving a problem; extend it to a problem you could solve 'pebble by pebble.'"
         },
         {
-          id: "mouse", name: "The Gnawed Net", image: "images/mouse.png",
+          id: "mouse", name: "The Gnawed Net", image: "images/mouse.webp",
           clues: ["A great lion catches a tiny mouse but lets the mouse go free.", "Later the lion is trapped in a hunter's net.", "The little mouse gnaws through the ropes and sets the lion free."],
           identify: { q: "Which fable is this from?", choices: ["The Lion and the Mouse", "The Ant and the Grasshopper", "The Crow and the Pitcher", "The Fox and the Grapes"] },
           purpose: { q: "How does the mouse repay the lion?", choices: ["The mouse gnaws through the net and frees the trapped lion", "The mouse brings the lion food", "The mouse scares off the hunters", "The mouse does nothing"] },
@@ -294,7 +294,7 @@ window.__ROOM__ = {
           ace: "Articulate how the mouse repays the lion; connect it to 'no kindness is wasted'; extend it to a time a small act of kindness mattered."
         },
         {
-          id: "horn", name: "The Shepherd Boy's Horn", image: "images/horn.png",
+          id: "horn", name: "The Shepherd Boy's Horn", image: "images/horn.webp",
           clues: ["A bored shepherd boy shouts 'Wolf!' to trick the villagers, twice, for fun.", "Each time they rush to help and find no wolf.", "When a real wolf finally comes, no one believes his cries."],
           identify: { q: "Which fable is this from?", choices: ["The Boy Who Cried Wolf", "The Tortoise and the Hare", "The Lion and the Mouse", "The Wolf in Sheep's Clothing"] },
           purpose: { q: "What happens when a real wolf comes?", choices: ["No one believes the boy's cries anymore, because he had lied before", "The villagers come at once", "The wolf runs away on its own", "The boy scares the wolf with his horn"] },

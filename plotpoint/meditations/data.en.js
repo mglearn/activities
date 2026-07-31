@@ -234,7 +234,7 @@ window.__ROOM__ = {
       intro: "Seven instructional reconstructions of objects from Marcus Aurelius's world — teaching recreations, not copyrighted illustrations. Investigate what each is, its role for the emperor, and the Stoic idea it stands for.",
       artifacts: [
         {
-          id: "journal", name: "The Private Notebook", image: "images/journal.png",
+          id: "journal", name: "The Private Notebook", image: "images/journal.webp",
           clues: ["These are notes the emperor wrote to himself.", "They were never meant to be published or read by others.", "They read like reminders and advice he gives his own mind."],
           identify: { q: "What is this?", choices: ["Marcus Aurelius's private notebook of reminders to himself", "A public speech to the Senate", "A book of laws", "A letter to an enemy"] },
           purpose: { q: "What was its role for Marcus?", choices: ["A place to remind and steady himself in how to live well", "A way to boast to the public", "A record of his wealth", "A battle map"] },
@@ -244,7 +244,7 @@ window.__ROOM__ = {
           ace: "Articulate why Marcus wrote to himself; connect it to philosophy as practice; extend it to how writing to yourself might help you today."
         },
         {
-          id: "camp", name: "The Campaign Tent", image: "images/camp.png",
+          id: "camp", name: "The Campaign Tent", image: "images/camp.webp",
           clues: ["Much of the notebook was written far from home.", "The emperor spent years on military campaigns at the frontier.", "He reflected on duty and calm in the middle of war and hardship."],
           identify: { q: "What is this?", choices: ["A military campaign tent at the frontier where Marcus wrote", "A palace throne room", "A market stall", "A temple"] },
           purpose: { q: "What was its role?", choices: ["A harsh, demanding setting where Marcus practiced his philosophy under pressure", "A place for luxury and rest", "A school for students", "A courtroom"] },
@@ -254,7 +254,7 @@ window.__ROOM__ = {
           ace: "Articulate the setting of the writing; connect hardship to the value of Stoic calm; extend it to staying steady under pressure today."
         },
         {
-          id: "dichotomy", name: "The Dividing Line", image: "images/dichotomy.png",
+          id: "dichotomy", name: "The Dividing Line", image: "images/dichotomy.webp",
           clues: ["A central Stoic idea sorts everything into two groups.", "One group is what we can control; the other is what we cannot.", "The Stoics say our peace depends on telling the two apart."],
           identify: { q: "What does this line represent?", choices: ["The Stoic division between what is in our control and what is not", "A border between two countries", "A crack in a wall", "A ruler for measuring"] },
           purpose: { q: "What is its role in Stoic thinking?", choices: ["To help decide where to put your effort and where to accept what happens", "To measure distances", "To divide land", "To keep score in a game"] },
@@ -264,7 +264,7 @@ window.__ROOM__ = {
           ace: "Articulate the dividing line; connect it to where you spend your worry; extend it to a situation where sorting control from acceptance would help."
         },
         {
-          id: "crown", name: "The Emperor's Crown, Set Aside", image: "images/crown.png",
+          id: "crown", name: "The Emperor's Crown, Set Aside", image: "images/crown.webp",
           clues: ["Marcus held the highest power in the Roman world.", "Yet he reminds himself not to be corrupted by luxury or pride.", "He treats his power as a responsibility, not a prize."],
           identify: { q: "What is this?", choices: ["The emperor's crown, which Marcus treats as a duty rather than a prize", "A soldier's helmet", "A merchant's hat", "A crown he stole"] },
           purpose: { q: "What is its role for Marcus?", choices: ["A reminder to use great power humbly and for others, not for himself", "A way to show off wealth", "A tool of war", "A gift to the gods"] },
@@ -274,7 +274,7 @@ window.__ROOM__ = {
           ace: "Articulate how Marcus views his power; connect it to the idea of 'indifferents'; extend it to how someone might handle sudden power or fame today."
         },
         {
-          id: "cosmos", name: "The View from Above", image: "images/cosmos.png",
+          id: "cosmos", name: "The View from Above", image: "images/cosmos.webp",
           clues: ["Marcus often pictures the whole cosmos and his small place in it.", "From that distance, quarrels and fame look tiny.", "He reminds himself that all people share one reason and one world."],
           identify: { q: "What does this image represent?", choices: ["Marcus's 'view from above' — seeing himself as a small part of the whole cosmos", "A map for a sea voyage", "A star chart for farming", "A picture of his palace"] },
           purpose: { q: "What is its role in his thinking?", choices: ["To gain perspective, shrinking petty worries and pride", "To predict the future", "To plan a war", "To measure time"] },
@@ -284,7 +284,7 @@ window.__ROOM__ = {
           ace: "Articulate the 'view from above'; connect it to perspective on problems; extend it to a worry that would shrink if you zoomed out."
         },
         {
-          id: "hourglass", name: "The Hourglass", image: "images/hourglass.png",
+          id: "hourglass", name: "The Hourglass", image: "images/hourglass.webp",
           clues: ["Marcus reminds himself that time is always running out.", "He says the present moment is the only time we truly have.", "He urges himself to act well now, not later."],
           identify: { q: "What is this object?", choices: ["An hourglass marking how short and present-focused life is", "A water jug", "A game timer", "A compass"] },
           purpose: { q: "What is its role in his reflections?", choices: ["To remind him that life is brief, so he should live well in the present", "To schedule meetings", "To measure a race", "To tell fortunes"] },
@@ -294,7 +294,7 @@ window.__ROOM__ = {
           ace: "Articulate what the hourglass reminds Marcus of; connect it to living in the present; extend it to how focusing on 'now' could change a habit of yours."
         },
         {
-          id: "flower", name: "A Fading Flower", image: "images/flower.png",
+          id: "flower", name: "A Fading Flower", image: "images/flower.webp",
           clues: ["Marcus reflects that everything blooms and then fades.", "Empires, fame, and lives all pass away in time.", "He tries to accept this change calmly rather than fear it."],
           identify: { q: "What does this represent?", choices: ["Impermanence — that all things, like a flower, bloom and fade", "A gift for a friend", "A symbol of victory", "A medicine"] },
           purpose: { q: "What is its role in his thinking?", choices: ["To help him accept change and loss with calm", "To celebrate a festival", "To decorate the palace", "To predict the weather"] },

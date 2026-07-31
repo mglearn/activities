@@ -234,7 +234,7 @@ window.__ROOM__ = {
       intro: "Seven instructional reconstructions of parts of Plato's allegory — teaching recreations, not copyrighted illustrations. Investigate what each part is, its role, and what it symbolizes in Plato's argument.",
       artifacts: [
         {
-          id: "chains", name: "The Chains", image: "images/chains.png",
+          id: "chains", name: "The Chains", image: "images/chains.webp",
           clues: ["The prisoners have been bound since childhood.", "They cannot turn their heads and can look only at the wall in front of them.", "They have never seen the fire or the world behind them."],
           identify: { q: "What are these in the allegory?", choices: ["The chains binding the prisoners so they see only the wall", "Ropes for climbing out", "Decorations in a temple", "Tools for building"] },
           purpose: { q: "What is their role?", choices: ["To fix the prisoners' gaze on the shadows and keep them from turning around", "To help the prisoners escape", "To carry objects", "To light the cave"] },
@@ -244,7 +244,7 @@ window.__ROOM__ = {
           ace: "Articulate what the chains do; connect them to how ignorance is maintained; extend it to habits that limit what people today are willing to see."
         },
         {
-          id: "shadows", name: "The Shadows on the Wall", image: "images/shadows.png",
+          id: "shadows", name: "The Shadows on the Wall", image: "images/shadows.webp",
           clues: ["The prisoners watch shapes moving on the wall in front of them.", "They give these shapes names and talk about them.", "They believe the shadows are the only real things."],
           identify: { q: "What are these in the allegory?", choices: ["The shadows the prisoners mistake for reality", "The real objects outside", "The sun", "The philosopher"] },
           purpose: { q: "What is their role?", choices: ["To be the only 'world' the prisoners can see and name", "To guide the prisoners out", "To cast light", "To carry messages"] },
@@ -254,7 +254,7 @@ window.__ROOM__ = {
           ace: "Articulate what the shadows are; connect them to the idea of appearance versus reality; extend it to 'shadows' people accept as real today."
         },
         {
-          id: "fire", name: "The Fire", image: "images/fire.png",
+          id: "fire", name: "The Fire", image: "images/fire.webp",
           clues: ["Behind and above the prisoners burns a fire.", "Its light is what casts the shadows on the wall.", "A prisoner who turns toward it is dazzled and pained by the brightness."],
           identify: { q: "What is this in the allegory?", choices: ["The fire inside the cave that casts the shadows", "The sun outside", "A prisoner", "A shadow"] },
           purpose: { q: "What is its role?", choices: ["To provide the light that creates the shadows the prisoners see", "To cook food", "To bind the prisoners", "To block the exit"] },
@@ -264,7 +264,7 @@ window.__ROOM__ = {
           ace: "Articulate the fire's role; connect it to a partial or early stage of understanding; extend it to a 'first light' that reveals a little but not everything."
         },
         {
-          id: "objects", name: "The Carried Objects", image: "images/objects.png",
+          id: "objects", name: "The Carried Objects", image: "images/objects.webp",
           clues: ["Along a raised walkway, people carry statues and figures.", "The fire behind them casts these objects' shadows onto the wall.", "The prisoners see only the shadows, never the objects themselves."],
           identify: { q: "What are these in the allegory?", choices: ["The real objects whose shadows appear on the wall", "The shadows themselves", "The chains", "The sun"] },
           purpose: { q: "What is their role?", choices: ["To be the true things that cast the shadows the prisoners mistake for reality", "To free the prisoners", "To put out the fire", "To narrate the story"] },
@@ -274,7 +274,7 @@ window.__ROOM__ = {
           ace: "Articulate the objects' role; connect them to the idea of degrees of reality; extend it to how a copy can be mistaken for the real thing today."
         },
         {
-          id: "ascent", name: "The Steep Ascent", image: "images/ascent.png",
+          id: "ascent", name: "The Steep Ascent", image: "images/ascent.webp",
           clues: ["A freed prisoner is dragged up a rough, steep path.", "The climb is difficult and the light grows painfully bright.", "Only by continuing does the prisoner reach the world outside."],
           identify: { q: "What is this in the allegory?", choices: ["The steep, painful climb out of the cave", "A shadow on the wall", "The fire", "A pair of chains"] },
           purpose: { q: "What is its role?", choices: ["To bring the freed prisoner from the darkness up to the daylight", "To keep the prisoner trapped", "To cast shadows", "To carry objects"] },
@@ -284,7 +284,7 @@ window.__ROOM__ = {
           ace: "Articulate what the ascent represents; connect the difficulty to real learning; extend it to a time when understanding something was hard but worth it."
         },
         {
-          id: "sun", name: "The Sun", image: "images/sun.png",
+          id: "sun", name: "The Sun", image: "images/sun.webp",
           clues: ["Outside the cave, the freed prisoner is at first blinded by brightness.", "Slowly the eyes adjust — first shadows, then reflections, then real things.", "At last the prisoner can look at the sun itself, the source of all the light."],
           identify: { q: "What is this in the allegory?", choices: ["The sun outside the cave, seen last of all", "The fire inside the cave", "A shadow", "A chain"] },
           purpose: { q: "What is its role?", choices: ["To be the ultimate source of light that makes everything visible", "To cast shadows on the wall", "To bind the prisoners", "To carry objects"] },
@@ -294,7 +294,7 @@ window.__ROOM__ = {
           ace: "Articulate what the sun stands for; connect it to the goal of learning; extend it to what a 'source of truth' might mean in a field you care about."
         },
         {
-          id: "return", name: "The Returning Prisoner", image: "images/return.png",
+          id: "return", name: "The Returning Prisoner", image: "images/return.webp",
           clues: ["Having seen the real world, the freed prisoner goes back into the cave.", "In the dark again, the prisoner stumbles and seems foolish to the others.", "The prisoners mock the returner and resist being freed themselves."],
           identify: { q: "Who is this in the allegory?", choices: ["The freed prisoner who returns to help the others", "One of the object-carriers", "The fire-tender", "A guard"] },
           purpose: { q: "What is this figure's role?", choices: ["To bring knowledge back and try to free the other prisoners", "To put out the sun", "To build the cave", "To carry statues"] },

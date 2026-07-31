@@ -235,7 +235,7 @@ window.__ROOM__ = {
       intro: "Seven instructional reconstructions of pieces from Socrates' trial in Athens — teaching recreations, not copyrighted illustrations. Investigate what each shows about the case and about Socrates' defense.",
       artifacts: [
         {
-          id: "charges", name: "The Written Indictment", image: "images/charges.png",
+          id: "charges", name: "The Written Indictment", image: "images/charges.webp",
           clues: ["This document lists the formal accusations against Socrates.", "It names two offenses against the city.", "The case is brought by citizens, chiefly a man named Meletus."],
           identify: { q: "What is this document?", choices: ["The formal indictment listing the charges against Socrates", "A shopping list", "A map of Athens", "A poem about the gods"] },
           purpose: { q: "What is its role in the trial?", choices: ["To state the accusations Socrates must answer", "To sell goods in the market", "To honor a hero", "To record a voyage"] },
@@ -245,7 +245,7 @@ window.__ROOM__ = {
           ace: "Articulate the two charges; connect them to why Socrates had made enemies; extend it to how vague accusations can be used against someone today."
         },
         {
-          id: "oracle", name: "The Oracle's Reply at Delphi", image: "images/oracle.png",
+          id: "oracle", name: "The Oracle's Reply at Delphi", image: "images/oracle.webp",
           clues: ["A friend of Socrates asked the oracle a question.", "The oracle answered that no one was wiser than Socrates.", "Socrates was puzzled, since he felt he knew nothing."],
           identify: { q: "What is this?", choices: ["The oracle's reply that no one is wiser than Socrates", "A guilty verdict", "A jury ballot", "A cup of poison"] },
           purpose: { q: "Why does Socrates tell this story?", choices: ["To explain how his questioning mission began", "To brag about his intelligence", "To insult the jury", "To describe a battle"] },
@@ -255,7 +255,7 @@ window.__ROOM__ = {
           ace: "Articulate what the oracle prompts Socrates to do; connect it to his idea of wisdom; extend it to why admitting 'I don't know' can be a strength today."
         },
         {
-          id: "gadfly", name: "The Gadfly", image: "images/gadfly.png",
+          id: "gadfly", name: "The Gadfly", image: "images/gadfly.webp",
           clues: ["Socrates compares the city of Athens to a large, sluggish horse.", "He compares himself to a small fly that stings it awake.", "He says the city may swat him rather than thank him."],
           identify: { q: "What does this insect represent?", choices: ["Socrates' image of himself as a gadfly rousing Athens", "A real pest in the courtroom", "A gift to the jury", "A symbol of the gods"] },
           purpose: { q: "Why does Socrates use this comparison?", choices: ["To argue that his questioning benefits the city even when it annoys people", "To complain about insects", "To flatter the jury", "To describe farming"] },
@@ -265,7 +265,7 @@ window.__ROOM__ = {
           ace: "Articulate what the gadfly stands for; connect it to Socrates' mission; extend it to a modern 'gadfly' who challenges the powerful."
         },
         {
-          id: "ballot", name: "The Jurors' Voting Tokens", image: "images/ballot.png",
+          id: "ballot", name: "The Jurors' Voting Tokens", image: "images/ballot.webp",
           clues: ["Socrates is judged not by one judge but by a large jury of Athenian citizens.", "Each juror casts a token to vote guilty or not guilty.", "A majority of the tokens decides his fate."],
           identify: { q: "What are these objects?", choices: ["Voting tokens cast by the citizen jurors", "Coins to pay the accuser", "Pieces of a board game", "Offerings to the gods"] },
           purpose: { q: "What is their role in the trial?", choices: ["To record each juror's guilty or not-guilty vote", "To buy Socrates' freedom", "To decorate the court", "To measure time"] },
@@ -275,7 +275,7 @@ window.__ROOM__ = {
           ace: "Articulate how Socrates was judged; connect the jury system to the risk of persuasion by emotion; extend it to how public opinion can decide fairness today."
         },
         {
-          id: "agora", name: "The Agora (Marketplace)", image: "images/agora.png",
+          id: "agora", name: "The Agora (Marketplace)", image: "images/agora.webp",
           clues: ["Socrates did not teach in a private school for pay.", "He questioned people in the open, public heart of the city.", "There he examined politicians, poets, and craftsmen about what they claimed to know."],
           identify: { q: "What place is this?", choices: ["The Agora, the public marketplace where Socrates questioned people", "A private classroom", "A temple", "A prison cell"] },
           purpose: { q: "Why did Socrates work here?", choices: ["To question ordinary citizens in public, for free", "To sell his teachings", "To hide from the city", "To worship the gods"] },
@@ -285,7 +285,7 @@ window.__ROOM__ = {
           ace: "Articulate where and how Socrates practiced philosophy; connect the public setting to the enemies he made; extend it to what 'questioning in public' looks like today."
         },
         {
-          id: "sign", name: "The Inner Sign (Daimonion)", image: "images/sign.png",
+          id: "sign", name: "The Inner Sign (Daimonion)", image: "images/sign.webp",
           clues: ["Socrates describes an inner voice or sign he has had since childhood.", "It never tells him what to do — only warns him when he is about to do wrong.", "He says it did not stop him from making his defense as he did."],
           identify: { q: "What is this?", choices: ["Socrates' inner sign, or 'daimonion,' that warns him against wrongdoing", "A trumpet used in court", "A gift from Meletus", "A weapon"] },
           purpose: { q: "What role does it play for Socrates?", choices: ["It warns him away from wrong action, guiding his conscience", "It predicts the future for money", "It commands him to attack", "It chooses the jury"] },
@@ -295,7 +295,7 @@ window.__ROOM__ = {
           ace: "Articulate what the inner sign does; connect it to the idea of conscience; extend it to how people describe an inner sense of right and wrong today."
         },
         {
-          id: "hemlock", name: "The Cup of Hemlock", image: "images/hemlock.png",
+          id: "hemlock", name: "The Cup of Hemlock", image: "images/hemlock.webp",
           clues: ["After being found guilty, Socrates is sentenced to death.", "The method of execution is a cup of poison.", "He drinks it calmly rather than flee or beg for mercy."],
           identify: { q: "What is this object?", choices: ["The cup of hemlock poison used for Socrates' execution", "A cup of wine for celebration", "A jury token", "A medicine that heals"] },
           purpose: { q: "What is its role in the story?", choices: ["It carries out the death sentence the court hands down", "It cures Socrates", "It pays his accuser", "It summons the oracle"] },

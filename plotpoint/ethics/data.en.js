@@ -234,7 +234,7 @@ window.__ROOM__ = {
       intro: "Seven instructional reconstructions of images from Aristotle's argument — teaching recreations, not copyrighted illustrations. Investigate what each is, its role in his reasoning, and the idea it stands for.",
       artifacts: [
         {
-          id: "tools", name: "The Craftsman's Tools", image: "images/tools.png",
+          id: "tools", name: "The Craftsman's Tools", image: "images/tools.webp",
           clues: ["Aristotle says we learn virtue the way we learn a craft.", "A builder becomes a builder by building; a harpist by playing.", "In the same way, we become just by doing just acts."],
           identify: { q: "What do these tools represent?", choices: ["Aristotle's idea that virtue is learned by practice, like a craft", "A carpenter's real workshop", "A set of weapons", "Farming equipment"] },
           purpose: { q: "What is their role in his argument?", choices: ["To show that we become good by repeatedly acting well, not by theory alone", "To build houses", "To measure land", "To decorate a temple"] },
@@ -244,7 +244,7 @@ window.__ROOM__ = {
           ace: "Articulate the craft comparison; connect practice to becoming virtuous; extend it to a good habit you built by repetition."
         },
         {
-          id: "scale", name: "The Balance", image: "images/scale.png",
+          id: "scale", name: "The Balance", image: "images/scale.webp",
           clues: ["A virtue sits at a balance point between two faults.", "On one side is too much; on the other, too little.", "Aristotle calls the balanced point the 'mean.'"],
           identify: { q: "What does this balance represent?", choices: ["The doctrine of the mean — virtue as a balance between excess and deficiency", "A merchant's scale for weighing gold", "A seesaw for children", "A tool for cooking"] },
           purpose: { q: "What is its role in his argument?", choices: ["To locate each virtue between two vices, too much and too little", "To weigh coins", "To measure temperature", "To divide land"] },
@@ -254,7 +254,7 @@ window.__ROOM__ = {
           ace: "Articulate the balance image; connect it to a specific virtue and its extremes; extend it to a choice where balance is hard to find."
         },
         {
-          id: "target", name: "The Archer's Target", image: "images/target.png",
+          id: "target", name: "The Archer's Target", image: "images/target.webp",
           clues: ["Aristotle says it is easy to miss a target and hard to hit the center.", "There are many ways to miss but only one bullseye.", "So too there are many ways to go wrong and one way to act rightly."],
           identify: { q: "What does the target illustrate?", choices: ["That hitting the mean is hard, like hitting a bullseye — many ways to miss, one to hit", "A game of darts", "A soldier's training", "A hunting method"] },
           purpose: { q: "What is its role in his argument?", choices: ["To show that acting rightly is difficult and takes skill and aim", "To teach archery", "To measure distance", "To frighten enemies"] },
@@ -264,7 +264,7 @@ window.__ROOM__ = {
           ace: "Articulate the target comparison; connect difficulty to the need for practice; extend it to a skill where hitting the center took real effort."
         },
         {
-          id: "path", name: "The Well-Worn Path", image: "images/path.png",
+          id: "path", name: "The Well-Worn Path", image: "images/path.webp",
           clues: ["A path is worn into the ground by walking it again and again.", "Aristotle says character is formed the same way.", "Each good action makes the next one a little easier."],
           identify: { q: "What does this path represent?", choices: ["Virtue as a habit worn in by repeated action", "A road between two cities", "A river's course", "A crack in the earth"] },
           purpose: { q: "What is its role in his argument?", choices: ["To show that repeated actions gradually shape our character", "To map a journey", "To mark a border", "To drain water"] },
@@ -274,7 +274,7 @@ window.__ROOM__ = {
           ace: "Articulate how the path forms; connect repetition to character; extend it to a habit — good or bad — that has become a 'path' for you."
         },
         {
-          id: "rule", name: "The Measuring Rule", image: "images/rule.png",
+          id: "rule", name: "The Measuring Rule", image: "images/rule.webp",
           clues: ["The mean is not the same amount for everyone.", "Finding it takes good judgment in the actual situation.", "Aristotle calls this judgment practical wisdom."],
           identify: { q: "What does this measuring rule represent?", choices: ["Practical wisdom, which judges the right amount in each situation", "A carpenter's ruler for wood", "A king's scepter", "A game piece"] },
           purpose: { q: "What is its role in his argument?", choices: ["To show that reason and judgment, not a fixed formula, locate the mean", "To measure boards", "To weigh gold", "To tell time"] },
@@ -284,7 +284,7 @@ window.__ROOM__ = {
           ace: "Articulate what practical wisdom does; connect it to the mean being 'relative to us'; extend it to a decision that required judgment, not a formula."
         },
         {
-          id: "handshake", name: "Clasped Hands", image: "images/handshake.png",
+          id: "handshake", name: "Clasped Hands", image: "images/handshake.webp",
           clues: ["Aristotle spends much of the Ethics on friendship.", "He names three kinds: friendships of use, of pleasure, and of virtue.", "The best and most lasting is friendship based on good character."],
           identify: { q: "What do these clasped hands represent?", choices: ["Aristotle's account of friendship and its three kinds", "A business contract", "A wrestling match", "A royal oath"] },
           purpose: { q: "What is their role in his argument?", choices: ["To show that a good life includes good friendships, especially of virtue", "To seal a sale", "To start a fight", "To crown a king"] },
@@ -294,7 +294,7 @@ window.__ROOM__ = {
           ace: "Articulate the three kinds of friendship; connect the best kind to good character; extend it to a friendship in your life and which kind it is."
         },
         {
-          id: "flourishing", name: "The Flourishing Plant", image: "images/flourishing.png",
+          id: "flourishing", name: "The Flourishing Plant", image: "images/flourishing.webp",
           clues: ["Aristotle's word for the highest good is often translated 'happiness' or 'flourishing.'", "It is not a passing feeling but a whole life lived well.", "Like a healthy plant, a person flourishes by fulfilling their nature."],
           identify: { q: "What does this flourishing plant represent?", choices: ["Eudaimonia — happiness as flourishing, a whole life lived well", "A gardener's hobby", "A symbol of wealth", "A festival decoration"] },
           purpose: { q: "What is its role in his argument?", choices: ["To picture the highest good as a full life of virtuous activity", "To describe farming", "To predict the weather", "To measure time"] },

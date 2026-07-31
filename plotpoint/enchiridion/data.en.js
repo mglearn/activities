@@ -234,7 +234,7 @@ window.__ROOM__ = {
       intro: "Seven instructional reconstructions of objects and images from Epictetus's teaching — teaching recreations, not copyrighted illustrations. Investigate what each is, its role for Epictetus, and the Stoic idea it stands for.",
       artifacts: [
         {
-          id: "handbook", name: "The Handbook (Enchiridion)", image: "images/handbook.png",
+          id: "handbook", name: "The Handbook (Enchiridion)", image: "images/handbook.webp",
           clues: ["This small book gathers Epictetus's most practical teachings.", "It was compiled by his student from his lessons.", "Its Greek name means 'something kept ready to hand.'"],
           identify: { q: "What is this?", choices: ["The Enchiridion, a short handbook of Epictetus's teachings", "A book of Roman laws", "A merchant's ledger", "A collection of poems"] },
           purpose: { q: "What is its role?", choices: ["To give short, practical rules a person can use every day", "To entertain readers with stories", "To record the emperor's decrees", "To map the empire"] },
@@ -244,7 +244,7 @@ window.__ROOM__ = {
           ace: "Articulate what a 'handbook for living' is; connect it to philosophy as practice; extend it to a short rule you could actually use."
         },
         {
-          id: "chain", name: "The Broken Shackle", image: "images/chain.png",
+          id: "chain", name: "The Broken Shackle", image: "images/chain.webp",
           clues: ["Epictetus was born into slavery before he was freed.", "He taught that a person can be free inside even when not free outside.", "He located real freedom in the mind, not in the body's circumstances."],
           identify: { q: "What does this broken shackle represent?", choices: ["The idea that true freedom is inner, not outer — Epictetus was once enslaved", "A prisoner's escape from jail", "A soldier's broken weapon", "A blacksmith's tool"] },
           purpose: { q: "What is its role in his teaching?", choices: ["To show that freedom of mind does not depend on outer circumstances", "To boast about escaping", "To measure strength", "To decorate the school"] },
@@ -254,7 +254,7 @@ window.__ROOM__ = {
           ace: "Articulate what 'inner freedom' means; connect it to controlling your judgments; extend it to a situation where someone stays free in spirit despite hard limits."
         },
         {
-          id: "mask", name: "The Actor's Mask", image: "images/mask.png",
+          id: "mask", name: "The Actor's Mask", image: "images/mask.webp",
           clues: ["Epictetus compares life to a play.", "You do not get to choose which role you are given.", "Your job is only to play well the part you have."],
           identify: { q: "What does this mask represent?", choices: ["Epictetus's image of life as a play in which you play your assigned role", "A disguise for a thief", "A festival decoration", "A soldier's helmet"] },
           purpose: { q: "What is its role in his teaching?", choices: ["To teach that we should focus on playing our role well, not on choosing it", "To hide the actor's face", "To frighten enemies", "To win a prize"] },
@@ -264,7 +264,7 @@ window.__ROOM__ = {
           ace: "Articulate the play metaphor; connect it to focusing on effort over circumstance; extend it to a 'role' you did not choose but can still play well."
         },
         {
-          id: "cup", name: "The Clay Cup", image: "images/cup.png",
+          id: "cup", name: "The Clay Cup", image: "images/cup.webp",
           clues: ["Epictetus says that when you love a cup, remember it is only a cup.", "Then, if it breaks, you will not be shattered.", "He applies the same idea to bigger things we love and can lose."],
           identify: { q: "What lesson does this cup teach?", choices: ["Love things while remembering they are breakable and may be lost", "That cups are worthless", "That you should never own anything", "That clay is stronger than gold"] },
           purpose: { q: "What is its role in his teaching?", choices: ["To train us to care about things without being crushed when we lose them", "To sell pottery", "To measure liquids", "To decorate a table"] },
@@ -274,7 +274,7 @@ window.__ROOM__ = {
           ace: "Articulate the cup lesson; connect it to non-attachment; extend it to something you value but cannot fully control."
         },
         {
-          id: "handles", name: "The Two Handles", image: "images/handles.png",
+          id: "handles", name: "The Two Handles", image: "images/handles.webp",
           clues: ["Epictetus says everything has two handles.", "By one handle a thing can be carried; by the other it cannot.", "He advises taking hold of the handle by which it can be borne."],
           identify: { q: "What does this image of two handles teach?", choices: ["That we can choose how to 'take hold of' an event — in a way we can bear", "That jars are hard to carry", "That two hands are better than one", "That handles should be replaced"] },
           purpose: { q: "What is its role in his teaching?", choices: ["To show that our response to an event is a choice, like which handle we grip", "To describe pottery-making", "To warn about broken pots", "To measure weight"] },
@@ -284,7 +284,7 @@ window.__ROOM__ = {
           ace: "Articulate the two-handles image; connect it to choosing your judgment; extend it to a hard situation and the 'handle' by which you could carry it."
         },
         {
-          id: "lamp", name: "The Clay Lamp", image: "images/lamp.png",
+          id: "lamp", name: "The Clay Lamp", image: "images/lamp.webp",
           clues: ["Epictetus tells a story about a lamp of his that was stolen.", "Rather than be upset, he reflected on the price of keeping his peace.", "He replaced it with a plain clay lamp and let the loss go."],
           identify: { q: "What does this lamp story illustrate?", choices: ["Not letting the loss of a possession disturb your peace", "How to light a room", "How to catch a thief", "How to make pottery"] },
           purpose: { q: "What is its role in his teaching?", choices: ["To model calmly accepting the loss of things outside our control", "To warn against buying lamps", "To praise expensive objects", "To explain how fire works"] },
@@ -294,7 +294,7 @@ window.__ROOM__ = {
           ace: "Articulate the lamp story's lesson; connect it to valuing peace over possessions; extend it to a loss you could choose to let go of."
         },
         {
-          id: "archer", name: "The Archer's Target", image: "images/archer.png",
+          id: "archer", name: "The Archer's Target", image: "images/archer.webp",
           clues: ["A skilled archer does everything in their power to aim well.", "But once the arrow flies, the result is no longer in their hands.", "Epictetus uses this to separate effort from outcome."],
           identify: { q: "What does the archer teach in Stoic thought?", choices: ["Do your best in what is up to you, then accept the outcome, which is not", "That aiming does not matter", "That winning is all that counts", "That archery is dangerous"] },
           purpose: { q: "What is its role in his teaching?", choices: ["To separate our effort (up to us) from the result (not fully up to us)", "To teach a sport", "To measure distance", "To frighten enemies"] },

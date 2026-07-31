@@ -234,7 +234,7 @@ window.__ROOM__ = {
       intro: "Seven instructional reconstructions of belongings from Chaucer's pilgrims — teaching recreations, not copyrighted illustrations. Investigate what each object reveals about its owner's role and character, and what the narrator's description hides.",
       artifacts: [
         {
-          id: "cloth", name: "The Wife of Bath's Cloth and Headdress", image: "images/cloth.png",
+          id: "cloth", name: "The Wife of Bath's Cloth and Headdress", image: "images/cloth.webp",
           clues: ["This pilgrim is a skilled cloth-maker from near Bath.", "Her Sunday headdresses are famously elaborate and heavy.", "She wears fine scarlet stockings and has traveled on many pilgrimages."],
           identify: { q: "Whose belongings are these?", choices: ["The Wife of Bath — an expert cloth-maker", "The Prioress", "A nameless servant", "The Knight's wife"] },
           purpose: { q: "What do these fine textiles show about her?", choices: ["Her success and independence in a skilled trade", "That she is poor", "That she is a cloistered nun", "That she cannot travel"] },
@@ -244,7 +244,7 @@ window.__ROOM__ = {
           ace: "Articulate what her clothing shows about her; connect it to the theme of who gets to claim authority; extend it to how appearance signals status today."
         },
         {
-          id: "relics", name: "The Pardoner's Bag of 'Relics'", image: "images/relics.png",
+          id: "relics", name: "The Pardoner's Bag of 'Relics'", image: "images/relics.webp",
           clues: ["This pilgrim sells pardons for sin.", "His bag holds objects he claims are holy relics.", "He is known to profit from the faith of simple people."],
           identify: { q: "Whose belongings are these?", choices: ["The Pardoner — a seller of pardons and relics", "The Parson", "The Monk", "A pilgrim guide"] },
           purpose: { q: "What is their purpose for him?", choices: ["To make money by selling forgiveness and fake holy objects", "To heal the sick for free", "To lead the group in prayer", "To carry the company's food"] },
@@ -254,7 +254,7 @@ window.__ROOM__ = {
           ace: "Articulate what the fake relics reveal; connect them to Chaucer's satire of the church; extend it to how trust is sold today."
         },
         {
-          id: "tunic", name: "The Knight's Stained Tunic", image: "images/tunic.png",
+          id: "tunic", name: "The Knight's Stained Tunic", image: "images/tunic.webp",
           clues: ["This pilgrim has just returned from long military campaigns.", "His coarse tunic is marked where his armor pressed and rusted against it.", "He is described as truthful, honorable, and modest."],
           identify: { q: "Whose belongings are these?", choices: ["The Knight — newly returned from his campaigns", "The Squire", "The Yeoman", "A merchant"] },
           purpose: { q: "What is its likely purpose?", choices: ["Plain travel clothing worn straight from war to pilgrimage", "A costume for the contest", "A disguise", "A gift for the shrine"] },
@@ -264,7 +264,7 @@ window.__ROOM__ = {
           ace: "Articulate what the plain tunic shows; connect it to the ideal of chivalry; extend it to what modest, unshowy virtue looks like today."
         },
         {
-          id: "bagpipe", name: "The Miller's Bagpipe", image: "images/bagpipe.png",
+          id: "bagpipe", name: "The Miller's Bagpipe", image: "images/bagpipe.webp",
           clues: ["This brawny pilgrim leads the company out of town playing music.", "He is loud, crude, and fond of wrestling.", "He is said to have a 'thumb of gold' — a joke about millers cheating their customers."],
           identify: { q: "Whose belongings are these?", choices: ["The Miller — a loud, brawny tradesman", "The Cook", "The Host", "The Clerk"] },
           purpose: { q: "What is its purpose on the road?", choices: ["To make noise and set a rowdy tone for the journey", "To signal prayer times", "To pay the innkeeper", "To carry grain"] },
@@ -274,7 +274,7 @@ window.__ROOM__ = {
           ace: "Articulate what the bagpipe suggests about him; connect it to Chaucer's satire of the trades; extend it to how public behavior signals character today."
         },
         {
-          id: "brooch", name: "The Prioress's Brooch and Rosary", image: "images/brooch.png",
+          id: "brooch", name: "The Prioress's Brooch and Rosary", image: "images/brooch.webp",
           clues: ["This pilgrim is the head of a convent with very refined table manners.", "She wears a coral rosary and a gold brooch.", "The brooch is engraved with the Latin motto 'Amor vincit omnia' — 'Love conquers all.'"],
           identify: { q: "Whose belongings are these?", choices: ["The Prioress (Madame Eglantine)", "The Wife of Bath", "A queen", "A merchant's wife"] },
           purpose: { q: "What is their likely purpose?", choices: ["Jewelry and manners that display courtly refinement", "Tools for farm work", "Weapons for defense", "Payment for lodging"] },
@@ -284,7 +284,7 @@ window.__ROOM__ = {
           ace: "Articulate the tension in her belongings; connect the sacred and worldly in her portrait; extend it to how people today blend their public role with private taste."
         },
         {
-          id: "books", name: "The Clerk of Oxford's Books", image: "images/books.png",
+          id: "books", name: "The Clerk of Oxford's Books", image: "images/books.webp",
           clues: ["This thin, threadbare pilgrim is a student at Oxford.", "He spends what little money he has on books rather than clothes.", "He speaks rarely, and only with moral and learned purpose."],
           identify: { q: "Whose belongings are these?", choices: ["The Clerk of Oxford — a devoted student", "The Pardoner", "The Miller", "The Franklin"] },
           purpose: { q: "What is their purpose for him?", choices: ["To study and pursue learning above comfort or wealth", "To sell at market", "To pay off debts", "To entertain the group"] },
@@ -294,7 +294,7 @@ window.__ROOM__ = {
           ace: "Articulate what the books reveal; connect his poverty to Chaucer's idea of true worth; extend it to what people sacrifice for a calling today."
         },
         {
-          id: "tabard", name: "The Tabard Inn Sign and the Host", image: "images/tabard.png",
+          id: "tabard", name: "The Tabard Inn Sign and the Host", image: "images/tabard.webp",
           clues: ["The company gathers at this inn in Southwark before setting out.", "Its keeper is a bold, cheerful man named Harry Bailly.", "He proposes the storytelling contest and appoints himself judge and guide."],
           identify: { q: "What place — and whose idea — is this?", choices: ["The Tabard Inn and its Host, Harry Bailly", "A church", "The shrine at Canterbury", "The Knight's castle"] },
           purpose: { q: "What is its purpose in the poem?", choices: ["The gathering place and the origin of the tale-telling contest", "A place to buy relics", "A monastery", "A courtroom"] },

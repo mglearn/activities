@@ -234,7 +234,7 @@ window.__ROOM__ = {
       intro: "Seven instructional reconstructions of objects from famous myths — teaching recreations, not copyrighted illustrations. Investigate which myth each comes from, what it did in the story, and the lesson it carries.",
       artifacts: [
         {
-          id: "fire", name: "A Stolen Ember", image: "images/fire.png",
+          id: "fire", name: "A Stolen Ember", image: "images/fire.webp",
           clues: ["In this myth, a Titan pities humans living in cold and darkness.", "He carries fire down from the heavens as a gift to people.", "For this gift, the gods punish him severely."],
           identify: { q: "Which myth is this from?", choices: ["The myth of Prometheus, who brought fire to humans", "The myth of King Midas", "The myth of Icarus", "The myth of Pandora"] },
           purpose: { q: "What does this fire do in the myth?", choices: ["It gives humans warmth, tools, and the start of progress", "It turns everything to gold", "It lets people fly", "It traps a monster"] },
@@ -244,7 +244,7 @@ window.__ROOM__ = {
           ace: "Articulate what the fire stands for; connect the gift to its punishment; extend it to a modern discovery that helped people but also brought risk."
         },
         {
-          id: "sandals", name: "Winged Sandals", image: "images/sandals.png",
+          id: "sandals", name: "Winged Sandals", image: "images/sandals.webp",
           clues: ["These sandals have small wings at the heels.", "They let their wearer fly swiftly.", "A hero borrows them for his quest to defeat the snake-haired Medusa."],
           identify: { q: "Which myth are these from?", choices: ["Winged sandals of Hermes, lent to the hero Perseus", "Ariadne's thread", "Pandora's jar", "Midas's crown"] },
           purpose: { q: "What is their role in the myth?", choices: ["To let the hero move swiftly on his quest", "To turn things to gold", "To trap a monster", "To predict the future"] },
@@ -254,7 +254,7 @@ window.__ROOM__ = {
           ace: "Articulate what the sandals do; connect them to the helper archetype; extend it to a 'gift' that helps a modern hero in a story you know."
         },
         {
-          id: "thread", name: "A Ball of Thread", image: "images/thread.png",
+          id: "thread", name: "A Ball of Thread", image: "images/thread.webp",
           clues: ["A simple ball of thread becomes a lifesaving tool.", "A clever princess gives it to a hero entering a deadly maze.", "By unwinding it as he goes, the hero can find his way back out."],
           identify: { q: "Which myth is this from?", choices: ["Ariadne's thread, which helps Theseus escape the labyrinth", "The fire of Prometheus", "The wings of Icarus", "The gold of Midas"] },
           purpose: { q: "What is its role in the myth?", choices: ["To guide the hero safely out of the labyrinth", "To fly over the maze", "To turn the maze to gold", "To feed the monster"] },
@@ -264,7 +264,7 @@ window.__ROOM__ = {
           ace: "Articulate how the thread saves the hero; connect it to the helper archetype; extend it to a small but crucial help in a modern story."
         },
         {
-          id: "wings", name: "Wax-and-Feather Wings", image: "images/wings.png",
+          id: "wings", name: "Wax-and-Feather Wings", image: "images/wings.webp",
           clues: ["An inventor builds wings from feathers and wax to escape imprisonment.", "He warns his son not to fly too high or too low.", "The son ignores the warning, flies too near the sun, and falls."],
           identify: { q: "Which myth are these from?", choices: ["The wax wings of Daedalus and Icarus", "Hermes's sandals", "Pandora's jar", "Daphne's laurel"] },
           purpose: { q: "What is their role in the myth?", choices: ["To let father and son escape by flying to freedom", "To turn the sky to gold", "To trap a monster", "To tell the future"] },
@@ -274,7 +274,7 @@ window.__ROOM__ = {
           ace: "Articulate the warning in this myth; connect it to the idea of hubris; extend it to a modern example of overreaching that ends badly."
         },
         {
-          id: "jar", name: "A Sealed Jar", image: "images/jar.png",
+          id: "jar", name: "A Sealed Jar", image: "images/jar.webp",
           clues: ["A curious person is given a sealed container and told never to open it.", "Unable to resist, they open it.", "All the troubles of the world escape — but one thing, hope, remains inside."],
           identify: { q: "Which myth is this from?", choices: ["Pandora's jar (often called a 'box')", "Ariadne's thread", "Prometheus's ember", "Midas's cup"] },
           purpose: { q: "What is its role in the myth?", choices: ["To hold back the world's troubles until curiosity releases them", "To store gold", "To guide a hero", "To let someone fly"] },
@@ -284,7 +284,7 @@ window.__ROOM__ = {
           ace: "Articulate what escapes the jar and what remains; connect the myth to a lesson about curiosity; extend it to a modern 'opened box' with unexpected results."
         },
         {
-          id: "laurel", name: "A Laurel Branch", image: "images/laurel.png",
+          id: "laurel", name: "A Laurel Branch", image: "images/laurel.webp",
           clues: ["A young woman is pursued by the god Apollo.", "To escape, she is transformed into a tree.", "Its evergreen leaves become a symbol of honor and victory."],
           identify: { q: "Which myth is this from?", choices: ["The laurel tree that Daphne becomes", "Icarus's wings", "Midas's gold", "Pandora's jar"] },
           purpose: { q: "What does this transformation do in the myth?", choices: ["It lets Daphne escape and explains where the laurel's meaning comes from", "It turns her to gold", "It gives her wings", "It traps a monster"] },
@@ -294,7 +294,7 @@ window.__ROOM__ = {
           ace: "Articulate what changes in this myth; connect transformation to explaining the world; extend it to a modern symbol and the story behind it."
         },
         {
-          id: "gold", name: "A Golden Touch", image: "images/gold.png",
+          id: "gold", name: "A Golden Touch", image: "images/gold.webp",
           clues: ["A king wishes that everything he touches would turn to gold.", "At first he is delighted with his new power.", "Then he cannot eat or drink, because his food and cup turn to metal too."],
           identify: { q: "Which myth is this from?", choices: ["King Midas and his golden touch", "Prometheus's fire", "Ariadne's thread", "Daphne's laurel"] },
           purpose: { q: "What does the golden touch reveal about the wish?", choices: ["That getting exactly what you wish for can become a curse", "That gold is always good", "That kings are always wise", "That food does not matter"] },

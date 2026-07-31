@@ -234,7 +234,7 @@ window.__ROOM__ = {
       intro: "Seven instructional reconstructions of images from Boethius's dialogue — teaching recreations, not copyrighted illustrations. Investigate what each is, its role in the dialogue, and the idea it stands for.",
       artifacts: [
         {
-          id: "cell", name: "The Prison Cell", image: "images/cell.png",
+          id: "cell", name: "The Prison Cell", image: "images/cell.webp",
           clues: ["Boethius wrote this work while imprisoned.", "He had fallen from high office and was condemned to death.", "The entire dialogue takes place as he awaits his execution."],
           identify: { q: "What is this place?", choices: ["The prison cell where Boethius writes while awaiting execution", "A royal palace", "A university lecture hall", "A marketplace"] },
           purpose: { q: "What is its role in the work?", choices: ["It is the desperate setting that makes his search for consolation urgent", "A comfortable retreat for study", "A courtroom for his trial", "A temple for worship"] },
@@ -244,7 +244,7 @@ window.__ROOM__ = {
           ace: "Articulate why the setting matters; connect the prison to the urgency of his questions; extend it to seeking meaning during a personal hardship."
         },
         {
-          id: "philosophy", name: "Lady Philosophy", image: "images/philosophy.png",
+          id: "philosophy", name: "Lady Philosophy", image: "images/philosophy.webp",
           clues: ["A dignified woman appears to the grieving prisoner.", "She is not a real person but a personification of philosophy itself.", "She gently reasons with him and leads him out of despair."],
           identify: { q: "Who is this figure?", choices: ["Lady Philosophy, a personification of philosophy who consoles Boethius", "The emperor's messenger", "Boethius's wife", "A prison guard"] },
           purpose: { q: "What is her role in the dialogue?", choices: ["To lead Boethius by reason from despair toward understanding", "To announce his release", "To accuse him of crimes", "To bring him food"] },
@@ -254,7 +254,7 @@ window.__ROOM__ = {
           ace: "Articulate who Lady Philosophy is; connect personification to the book's method; extend it to a time reason helped you through a hard feeling."
         },
         {
-          id: "wheel", name: "The Wheel of Fortune", image: "images/wheel.png",
+          id: "wheel", name: "The Wheel of Fortune", image: "images/wheel.webp",
           clues: ["Fortune is pictured turning a great wheel.", "As it turns, some are raised up and others cast down.", "Philosophy says this rising and falling is simply Fortune's nature."],
           identify: { q: "What is this?", choices: ["The wheel of Fortune, which raises people up and casts them down", "A water wheel for a mill", "A ship's steering wheel", "A potter's wheel"] },
           purpose: { q: "What is its role in the argument?", choices: ["To show that Fortune's gifts are always changing and never secure", "To grind grain", "To power a machine", "To decorate the cell"] },
@@ -264,7 +264,7 @@ window.__ROOM__ = {
           ace: "Articulate the wheel's meaning; connect it to why Fortune's gifts are unreliable; extend it to something people chase today that Fortune could remove."
         },
         {
-          id: "falsegoods", name: "The Crown and Coins", image: "images/falsegoods.png",
+          id: "falsegoods", name: "The Crown and Coins", image: "images/falsegoods.webp",
           clues: ["Philosophy examines the things people usually chase: wealth, power, honor, fame, pleasure.", "She argues each one is incomplete and can be lost.", "None of them, by itself, makes a person truly happy."],
           identify: { q: "What do these represent?", choices: ["The 'false goods' — wealth, power, and fame that cannot bring true happiness", "The true highest good", "Tools for escape", "Gifts from Philosophy"] },
           purpose: { q: "What is their role in the argument?", choices: ["To be examined and shown to be partial, insecure goods", "To reward Boethius", "To bribe the guards", "To prove Fortune is kind"] },
@@ -274,7 +274,7 @@ window.__ROOM__ = {
           ace: "Articulate why these are 'false goods'; connect their insecurity to Fortune's wheel; extend it to a 'false good' people pursue now."
         },
         {
-          id: "good", name: "The Highest Good", image: "images/good.png",
+          id: "good", name: "The Highest Good", image: "images/good.webp",
           clues: ["Philosophy argues that all the partial goods point toward one complete good.", "This highest good is perfect and cannot be lost.", "In it, true happiness is finally found."],
           identify: { q: "What does this radiant good represent?", choices: ["The highest good, in which true and lasting happiness is found", "A pile of gold", "A crown of office", "A moment of pleasure"] },
           purpose: { q: "What is its role in the argument?", choices: ["To be the true goal that the false goods only imitate", "To reward Fortune", "To decorate the cell", "To measure time"] },
@@ -284,7 +284,7 @@ window.__ROOM__ = {
           ace: "Articulate what the highest good is; connect it to why it cannot be lost; extend it to what you would call a good that fortune cannot take."
         },
         {
-          id: "eternity", name: "The Eternal Circle", image: "images/eternity.png",
+          id: "eternity", name: "The Eternal Circle", image: "images/eternity.webp",
           clues: ["The dialogue asks how humans can be free if a higher mind foreknows everything.", "Philosophy answers that the divine view is eternal — outside of time.", "From that view, all moments are seen at once, in a single present."],
           identify: { q: "What does this timeless circle represent?", choices: ["The eternal, timeless view from which all moments are seen at once", "A clock that ticks in prison", "A ring of keys", "A wheel for grinding"] },
           purpose: { q: "What problem does it help solve?", choices: ["How free will can coexist with a higher foreknowledge", "How to escape the cell", "How to measure the hours", "How to bribe a judge"] },
@@ -294,7 +294,7 @@ window.__ROOM__ = {
           ace: "Articulate the 'eternal present' idea; connect it to preserving free will; extend it to a modern question about prediction and choice."
         },
         {
-          id: "verse", name: "The Poem in the Margin", image: "images/verse.png",
+          id: "verse", name: "The Poem in the Margin", image: "images/verse.webp",
           clues: ["The Consolation alternates between prose arguments and short poems.", "After a difficult argument, a poem lets the ideas settle.", "The mix of reason and verse is part of how the book comforts."],
           identify: { q: "What does this poem represent?", choices: ["The verses woven between the prose arguments throughout the work", "A prisoner's escape plan", "A legal document", "A letter home"] },
           purpose: { q: "What is its role in the work?", choices: ["To pause, reflect, and let each argument sink in through beauty as well as logic", "To hide a secret code", "To record the trial", "To pass the time only"] },
