@@ -7,6 +7,8 @@
    published form). Missing keys fall back to the English base in titles.js. */
 window.__PLOTPOINT_HUB_DICT__ = {
   "en": {
+    "browse.prompt": "Search above or choose a filter to find a room.",
+    "browse.counts": "{live} ready now · {total} in the collection.",
     "clt.title": "The CLT Reading Room",
     "clt.sub": "Public-domain classics from the classical / CLT canon — Plato, Aristotle, the Stoics, Chaucer, and more — organized by grade level.",
     "clt.cta": "Open the CLT rooms →",
@@ -82,6 +84,8 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "Copyrighted"
   },
   "es": {
+    "browse.prompt": "Busca arriba o elige un filtro para encontrar una sala.",
+    "browse.counts": "{live} disponibles ahora · {total} en la colección.",
     "clt.title": "La Sala de Lectura CLT",
     "clt.sub": "Clásicos de dominio público del canon clásico / CLT — Platón, Aristóteles, los estoicos, Chaucer y más — organizados por nivel de grado.",
     "clt.cta": "Abrir las salas CLT →",
@@ -157,6 +161,8 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "Con derechos de autor"
   },
   "vi": {
+    "browse.prompt": "Tìm ở trên hoặc chọn một bộ lọc để tìm một phòng.",
+    "browse.counts": "{live} sẵn sàng · {total} trong bộ sưu tập.",
     "clt.title": "Phòng Đọc CLT",
     "clt.sub": "Các tác phẩm kinh điển thuộc phạm vi công cộng từ tuyển tập cổ điển / CLT — Plato, Aristotle, các nhà Khắc kỷ, Chaucer và hơn thế — được sắp xếp theo cấp lớp.",
     "clt.cta": "Mở các phòng CLT →",
@@ -232,6 +238,8 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "Có bản quyền"
   },
   "ar": {
+    "browse.prompt": "ابحث في الأعلى أو اختر عامل تصفية للعثور على غرفة.",
+    "browse.counts": "{live} متاحة الآن · {total} في المجموعة.",
     "clt.title": "قاعة القراءة CLT",
     "clt.sub": "روائع من الملك العام ضمن القائمة الكلاسيكية / CLT — أفلاطون وأرسطو والرواقيون وتشوسر وغيرهم — مرتبة حسب المستوى الدراسي.",
     "clt.cta": "افتح قاعات CLT ←",
@@ -307,6 +315,8 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "محمي بحقوق النشر"
   },
   "hi": {
+    "browse.prompt": "कोई कक्ष खोजने के लिए ऊपर खोजें या फ़िल्टर चुनें।",
+    "browse.counts": "{live} अभी उपलब्ध · कुल {total}।",
     "clt.title": "CLT रीडिंग रूम",
     "clt.sub": "शास्त्रीय / CLT कैनन से सार्वजनिक-डोमेन क्लासिक्स — प्लेटो, अरस्तू, स्टोइक विचारक, चॉसर और अधिक — ग्रेड स्तर के अनुसार व्यवस्थित।",
     "clt.cta": "CLT कमरे खोलें →",
@@ -382,6 +392,8 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "कॉपीराइट"
   },
   "ur": {
+    "browse.prompt": "کمرہ تلاش کرنے کے لیے اوپر تلاش کریں یا فلٹر منتخب کریں۔",
+    "browse.counts": "{live} ابھی دستیاب · مجموعے میں {total}۔",
     "clt.title": "CLT ریڈنگ روم",
     "clt.sub": "کلاسیکی / CLT کینن سے پبلک ڈومین کلاسیکس — افلاطون، ارسطو، رواقی مفکرین، چاوسر اور مزید — گریڈ کی سطح کے مطابق ترتیب دیے گئے۔",
     "clt.cta": "CLT کمرے کھولیں ←",
@@ -457,6 +469,8 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.copyrighted": "کاپی رائٹ"
   },
   "zh": {
+    "browse.prompt": "在上方搜索或选择筛选条件来查找房间。",
+    "browse.counts": "现有 {live} 个 · 共 {total} 个。",
     "clt.title": "CLT 阅读室",
     "clt.sub": "来自古典 / CLT 经典书目的公共领域名著——柏拉图、亚里士多德、斯多葛学派、乔叟等——按年级整理。",
     "clt.cta": "打开 CLT 房间 →",

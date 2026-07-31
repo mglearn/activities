@@ -144,6 +144,11 @@
   html[dir="rtl"] .card .go .arr{transform:scaleX(-1)}
   html[dir="rtl"] a.card:hover .go .arr{transform:scaleX(-1) translateX(4px)}
   .card.hide{display:none}
+  .browseprompt{display:flex;align-items:center;justify-content:center;gap:12px;background:#fff;border:2px dashed var(--line);
+    border-radius:14px;padding:22px 20px;margin-top:14px;color:var(--ink-soft);font-weight:600;text-align:center}
+  .browseprompt[hidden]{display:none}
+  .browseprompt .ic{font-size:1.4rem;line-height:1}
+  .browseprompt .bp-txt b{color:var(--navy)}
   .noresults{grid-column:1/-1;background:#fff;border:2px dashed var(--line);border-radius:14px;padding:26px 20px;text-align:center;
     color:var(--ink-soft);font-weight:600}
   .noresults b{color:var(--navy)}
@@ -217,6 +222,11 @@
     <span class="qinfo" id="qinfo" aria-live="polite"></span>
     <button class="clearbtn" id="clearbtn" type="button" hidden data-i18n="filters.clear">Clear all filters</button>
   </div>
+
+  <p class="browseprompt" id="browseprompt">
+    <span class="ic" aria-hidden="true">🔎</span>
+    <span class="bp-txt"><span data-i18n="browse.prompt">Search above or choose a filter to find a room.</span> <span id="bp-counts"></span></span>
+  </p>
 
   <div class="cards" id="cards"></div>
 
@@ -376,25 +386,39 @@ document.addEventListener('DOMContentLoaded', function(){
     TITLES.forEach(function(tt){ host.appendChild(cardHTML(tt)); });
     var nr = document.createElement('p'); nr.className='noresults'; nr.id='noresults'; nr.hidden=true;
     host.appendChild(nr);
+    // fill the browse-prompt counts (updates on language change)
+    var live = TITLES.filter(function(x){ return x.status==='live'; }).length;
+    var bpc = document.getElementById('bp-counts');
+    if(bpc) bpc.textContent = t('browse.counts', { live: live, total: TITLES.length });
     run();
   }
 
   function run(){
-    var n=0;
+    var q = (document.getElementById('q').value||'').trim();
+    var anyFilter = Object.keys(active).some(function(k){return active[k]&&active[k].size;}) || q;
     var cards = document.querySelectorAll('#cards .card');
-    var idx=0;
+    var info = document.getElementById('qinfo');
+    var nr = document.getElementById('noresults');
+    var bp = document.getElementById('browseprompt');
+    // Front page stays uncluttered: show cards only once the visitor searches or filters.
+    if(!anyFilter){
+      for(var i=0;i<cards.length;i++) cards[i].classList.add('hide');
+      if(nr) nr.hidden = true;
+      if(bp) bp.hidden = false;
+      info.textContent = '';
+      document.getElementById('clearbtn').hidden = true;
+      return;
+    }
+    if(bp) bp.hidden = true;
+    var n=0, idx=0;
     TITLES.forEach(function(tt){
       var el = cards[idx++]; if(!el) return;
       var show = matches(tt);
       el.classList.toggle('hide', !show);
       if(show) n++;
     });
-    var anyFilter = Object.keys(active).some(function(k){return active[k]&&active[k].size;}) ||
-                    (document.getElementById('q').value||'').trim();
-    var info = document.getElementById('qinfo');
-    info.textContent = anyFilter ? t('results.count', {n:n, total:TITLES.length}) : '';
-    document.getElementById('clearbtn').hidden = !anyFilter;
-    var nr = document.getElementById('noresults');
+    info.textContent = t('results.count', {n:n, total:TITLES.length});
+    document.getElementById('clearbtn').hidden = false;
     if(nr){ nr.hidden = n>0; nr.innerHTML = t('results.none'); }
   }
 
