@@ -46,9 +46,11 @@ Two build modes (same as the novels):
 
 A **`short-story`** genre facet (plus **`humor`**) now filters these on the hub.
 
-**Deferred:** *The Most Dangerous Game* (Connell) — PD in the US since 2020 but **not
-catalogued on Project Gutenberg**, so it has no verified free full-text link. Build once a
-reliable PD text source is confirmed (or as a no-text companion).
+**Dropped (per user, 2026-07-31):**
+- *The Most Dangerous Game* (Connell) — dropped.
+- All six **copyrighted middle-school staples** — *Thank You, M'am*; *The Medicine Bag*;
+  *The Scholarship Jacket*; *The Treasure of Lemon Brown*; *Stop the Sun*; *Born Worker* —
+  dropped (no companion rooms). Direction: **public-domain full rooms only** from here.
 
 ## A. Named by the user — build queue with copyright status
 
