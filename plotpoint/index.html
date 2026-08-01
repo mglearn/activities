@@ -131,6 +131,23 @@
   .clearbtn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:.8rem;color:var(--plum-d);background:none;border:none;cursor:pointer;
     text-decoration:underline;padding:4px}
   .clearbtn[hidden]{display:none}
+  .viewall-btn{margin-inline-start:auto;font-family:'Fredoka',sans-serif;font-weight:600;font-size:.82rem;color:var(--navy);
+    background:#fff;border:2px solid var(--line);border-radius:9px;cursor:pointer;padding:7px 12px;transition:.13s}
+  .viewall-btn:hover{border-color:var(--plum)}
+  .viewall-btn:focus-visible{outline:3px solid var(--plum);outline-offset:2px}
+  .viewall-btn[aria-pressed="true"]{background:var(--plum);border-color:var(--plum);color:#fff}
+  .alltable-wrap{margin-top:16px;overflow-x:auto;border:2px solid var(--line);border-radius:14px;background:#fff}
+  .alltable-wrap[hidden]{display:none}
+  table.alltable{width:100%;border-collapse:collapse;font-size:.88rem}
+  table.alltable caption{text-align:start;font-weight:700;color:var(--ink-soft);font-size:.8rem;padding:12px 14px 0}
+  table.alltable th,table.alltable td{text-align:start;padding:9px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.alltable thead th{position:sticky;top:0;background:var(--paper,#f5f4fb);font-family:'Fredoka',sans-serif;color:var(--navy);
+    font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;z-index:1}
+  table.alltable tbody tr:hover{background:rgba(122,79,206,.05)}
+  table.alltable td.tt a{color:var(--plum-d);font-weight:700;text-decoration:none}
+  table.alltable td.tt a:hover{text-decoration:underline}
+  table.alltable .rgt{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:20px;background:#eef;color:var(--navy)}
+  table.alltable .soonpill{font-size:.7rem;font-weight:700;color:var(--ink-soft)}
 
   /* cards */
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
@@ -203,10 +220,10 @@
   </div>
 
   <header class="herowrap">
-    <img class="hero" src="assets/plotpoint_hero.webp" width="1600" height="720" alt=""
+    <img class="hero" src="assets/plotpoint_hero.webp" width="1600" height="1067" alt=""
          data-i18n-alt="hero.alt"
          onerror="this.style.display='none';this.parentNode.style.minHeight='240px'">
-    <div class="herotitle">
+    <div class="herotitle sr-only">
       <div class="htinner">
         <span class="eyebrow" data-i18n="hero.eyebrow">A Literature Learning Arcade · Grades 6–12</span>
         <h1 data-i18n-html="hero.title">Plot<span class="g">Point</span></h1>
@@ -241,6 +258,7 @@
   <div class="filterbar">
     <span class="qinfo" id="qinfo" aria-live="polite"></span>
     <button class="clearbtn" id="clearbtn" type="button" hidden data-i18n="filters.clear">Clear all filters</button>
+    <button class="viewall-btn" id="viewallbtn" type="button" aria-pressed="false">▦ View all as a table</button>
   </div>
 
   <p class="browseprompt" id="browseprompt">
@@ -249,6 +267,8 @@
   </p>
 
   <div class="cards" id="cards"></div>
+
+  <div class="alltable-wrap" id="alltable" hidden></div>
 
   <footer>
     <span data-i18n-html="footer.line1">PlotPoint · A literature learning arcade for grades 6–12 · CC BY 4.0 (content) · MIT (code)</span><br>
@@ -281,9 +301,8 @@ document.addEventListener('DOMContentLoaded', function(){
   // ---- Facet configuration: which fields become filter groups, in order. ----
   var FACETS = [
     { key:'gradeBand', labelKey:'facet.grade', multi:false, order:['6-8','9-12'] },
-    { key:'genre',     labelKey:'facet.genre', multi:true },
-    { key:'activities',labelKey:'facet.activity', multi:true,
-      order:['relic','ctob','arcade','vocab','analysis','extend','print'] },
+    { key:'genre',     labelKey:'facet.genre', multi:true, alpha:true },
+    { key:'activities',labelKey:'facet.activity', multi:true, alpha:true },
     { key:'reading',   labelKey:'facet.reading', multi:true, order:['before','during','after'] },
     { key:'time',      labelKey:'facet.time', multi:false, order:['15-25','30-45','60-90'] },
     { key:'rights',    labelKey:'facet.rights', multi:false, order:['public-domain','copyrighted'] },
@@ -297,7 +316,10 @@ document.addEventListener('DOMContentLoaded', function(){
       (Array.isArray(v)?v:[v]).forEach(function(x){ if(x!=null) seen[x]=true; });
     });
     var vals = Object.keys(seen);
-    if (f.order) vals.sort(function(a,b){
+    if (f.alpha) vals.sort(function(a,b){
+      return label(f.key,a).localeCompare(label(f.key,b));
+    });
+    else if (f.order) vals.sort(function(a,b){
       var ia=f.order.indexOf(a), ib=f.order.indexOf(b);
       return (ia<0?99:ia)-(ib<0?99:ib);
     });
@@ -419,6 +441,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   function run(){
+    if(tableOpen){ buildTable(); var bpT=document.getElementById('browseprompt'); if(bpT) bpT.hidden=true; return; }
     var q = (document.getElementById('q').value||'').trim();
     var anyFilter = Object.keys(active).some(function(k){return active[k]&&active[k].size;}) || q;
     var cards = document.querySelectorAll('#cards .card');
@@ -452,6 +475,42 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('q').value='';
     buildFilters(); run();
   }
+
+  // ---- "View all as a table": a compact, all-in-one view of every room. ----
+  // Respects any active filters/search (so it doubles as a compressed results table).
+  var tableOpen = false;
+  function buildTable(){
+    var host = document.getElementById('alltable');
+    var rows = TITLES.filter(matches).slice().sort(function(a,b){
+      return String(a.title).localeCompare(String(b.title));
+    });
+    var thTitle = t('collection.th.title'); if(!thTitle || thTitle==='collection.th.title') thTitle='Title';
+    var html = '<table class="alltable"><caption>'+esc(t('results.count',{n:rows.length,total:TITLES.length}))+'</caption>'+
+      '<thead><tr><th>'+esc(t('facet.grade'))+'</th><th>'+esc(t('facet.genre'))+'</th>'+
+      '<th>'+esc(thTitle)+'</th><th>'+esc(t('facet.rights'))+'</th></tr></thead><tbody>';
+    rows.forEach(function(tt){
+      var o = ov(tt.id);
+      var g = (tt.genre||[]).map(function(x){return esc(label('genre',x));}).join(', ');
+      var titleCell = tt.status==='live'
+        ? '<a href="'+esc(tt.href)+'">'+esc(tt.title)+'</a>'
+        : esc(tt.title)+' <span class="soonpill">'+esc(t('status.soon'))+'</span>';
+      titleCell += '<div style="font-size:.78rem;color:var(--ink-soft)">'+esc(t('card.by',{a:tt.author}))+'</div>';
+      html += '<tr><td>'+esc(t('tag.grades',{g:tt.grades}))+'</td><td>'+g+'</td>'+
+        '<td class="tt">'+titleCell+'</td>'+
+        '<td><span class="rgt">'+esc(label('rights',tt.rights))+'</span></td></tr>';
+    });
+    host.innerHTML = html + '</tbody></table>';
+  }
+  function setTableOpen(on){
+    tableOpen = on;
+    var btn = document.getElementById('viewallbtn');
+    btn.setAttribute('aria-pressed', on?'true':'false');
+    btn.textContent = on ? '▦ Hide table' : '▦ View all as a table';
+    document.getElementById('alltable').hidden = !on;
+    document.getElementById('cards').style.display = on ? 'none' : '';
+    run();
+  }
+  document.getElementById('viewallbtn').addEventListener('click', function(){ setTableOpen(!tableOpen); });
 
   document.getElementById('t-titles').textContent = TITLES.length;
   document.getElementById('t-live').textContent = TITLES.filter(function(x){return x.status==='live';}).length;
