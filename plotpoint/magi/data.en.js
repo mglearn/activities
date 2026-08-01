@@ -186,6 +186,7 @@ window.__ROOM__ = {
       contentNote: "A gentle, tender story about a poor young couple and sacrifice at Christmas. No mature content. Suitable for middle and early high school; preview and align with local policy.",
       gutenberg: "https://www.gutenberg.org/ebooks/7256",
       audio: "https://librivox.org/the-gift-of-the-magi-by-o-henry/",
+      aiAudio: "https://archive.org/download/synapseml_gutenberg_the_gift_of_the_magi_by_o_henry/the_gift_of_the_magi_by_o_henry.mp3",
       hero: "images/hero.webp",
       heroAlt: "An instructional illustration evoking The Gift of the Magi — a pocket watch and a hair comb resting on a small table beside a few coins at Christmas."
     },

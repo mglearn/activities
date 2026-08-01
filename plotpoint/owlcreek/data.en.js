@@ -187,6 +187,7 @@ window.__ROOM__ = {
       copyright: "Written in 1890, An Occurrence at Owl Creek Bridge is in the public domain. This room paraphrases and reproduces no full passages.",
       contentNote: "A Civil War story that opens with a man about to be hanged and ends with his death. War, execution, and a grim twist; no graphic gore. Best for high school; preview and align with local policy.",
       gutenberg: "https://www.gutenberg.org/ebooks/375",
+      aiAudio: "https://archive.org/download/synapseml_gutenberg_an_occurrence_at_owl_creek_bridge_by_bie/an_occurrence_at_owl_creek_bridge_by_bie.mp3",
       hero: "images/hero.webp",
       heroAlt: "An instructional illustration evoking An Occurrence at Owl Creek Bridge — a wooden railroad bridge over a slow creek at dawn, with a dangling rope."
     },

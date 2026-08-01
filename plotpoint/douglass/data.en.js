@@ -186,6 +186,7 @@ window.__ROOM__ = {
       contentNote: "A firsthand account of American slavery that describes its brutality, including violence and whippings. It is a foundational American text; preview carefully, prepare students, and align with local policy.",
       gutenberg: "https://www.gutenberg.org/ebooks/23",
       audio: "https://librivox.org/narrative-of-the-life-of-frederick-douglass-by-frederick-douglass/",
+      aiAudio: "https://archive.org/download/synapseml_gutenberg_narrative_of_the_life_of_frederick_dougl/narrative_of_the_life_of_frederick_dougl.mp3",
       hero: "images/hero.webp",
       heroAlt: "An instructional illustration evoking Douglass's Narrative — an open primer and a broken chain in morning light."
     },

@@ -165,7 +165,11 @@
     var enMeta = (CONTENT.en && CONTENT.en.meta) || {};
     var gutenberg = m.gutenberg || enMeta.gutenberg;
     var audio = m.audio || enMeta.audio;
-    if (gutenberg || audio) {
+    var aiAudio = m.aiAudio || enMeta.aiAudio;
+    // Use a translated key if present, else a default string — so a new pillbox works
+    // in every language without editing all lang packs.
+    function tf(key, fallback){ var s = t(key); return (s && s !== key) ? s : fallback; }
+    if (gutenberg || audio || aiAudio) {
       var pr = el('div', 'panel');
       pr.appendChild(el('span', 'eyebrow', esc(t('enter.readListen'))));
       pr.appendChild(el('h2', 'stitle', esc(t('enter.readListenTitle'))));
@@ -173,8 +177,10 @@
       var row = el('div', 'btn-row');
       if (gutenberg) { var a1 = el('a', 'btn ghost'); a1.href = gutenberg; a1.target = '_blank'; a1.rel = 'noopener noreferrer'; a1.innerHTML = '📖 ' + esc(t('enter.read')); row.appendChild(a1); }
       if (audio) { var a2 = el('a', 'btn ghost'); a2.href = audio; a2.target = '_blank'; a2.rel = 'noopener noreferrer'; a2.innerHTML = '🎧 ' + esc(t('enter.listen')); row.appendChild(a2); }
+      if (aiAudio) { var a3 = el('a', 'btn ghost'); a3.href = aiAudio; a3.target = '_blank'; a3.rel = 'noopener noreferrer'; a3.innerHTML = '🤖 ' + esc(tf('enter.aiListen', 'Listen — AI narration')); row.appendChild(a3); }
       pr.appendChild(row);
       var note2 = el('div', 'note'); note2.style.marginTop = '10px'; note2.textContent = t('enter.readAloud'); pr.appendChild(note2);
+      if (aiAudio) { var note3 = el('div', 'note'); note3.style.marginTop = '6px'; note3.textContent = tf('enter.aiNote', 'AI-generated narration of the public-domain text (Project Gutenberg, via an open AI reading). It may contain reading errors — preview before assigning.'); pr.appendChild(note3); }
       root.appendChild(pr);
     }
 

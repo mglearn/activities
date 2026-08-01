@@ -186,6 +186,7 @@ window.__ROOM__ = {
       contentNote: "Short, gentle animal tales with clear morals — broadly appropriate. A few fables involve harm to characters; preview any you assign.",
       gutenberg: "https://www.gutenberg.org/ebooks/11339",
       audio: "https://librivox.org/aesops-fables-volume-1-fables-1-25/",
+      aiAudio: "https://archive.org/download/synapseml_gutenberg_aesop_s_fables_by_aesop/aesop_s_fables_by_aesop.mp3",
       hero: "images/hero.webp",
       heroAlt: "An instructional illustration evoking Aesop's Fables — a fox, a tortoise, and a crow."
     },

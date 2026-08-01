@@ -187,6 +187,7 @@ window.__ROOM__ = {
       contentNote: "The dialogue depicts a trial ending in a death sentence and discusses death and duty. Preview for maturity and align with local policy.",
       gutenberg: "https://www.gutenberg.org/ebooks/1656",
       audio: "https://librivox.org/the-apology-of-socrates-by-plato/",
+      aiAudio: "https://archive.org/download/synapseml_gutenberg_apology_by_plato/apology_by_plato.mp3",
       hero: "images/hero.webp",
       heroAlt: "An instructional illustration evoking the trial of Socrates in ancient Athens."
     },
