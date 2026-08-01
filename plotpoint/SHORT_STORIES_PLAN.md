@@ -77,33 +77,53 @@ Notes:
 
 ---
 
-## B. High-value PUBLIC-DOMAIN short stories (candidates for full rooms)
+## B. PUBLIC-DOMAIN short stories — status + FUTURE EXPANSION QUEUE
 
-Commonly taught in middle/high school across public, private/charter, and Catholic
-schools; all PD in the US. These are strong "full room" candidates (text + audio links).
+All public domain in the US; all follow the standard 10-section PlotPoint room + 7
+languages. Sources listed so a build can start immediately. "Gut #" = Project Gutenberg
+ebook id; audio = LibriVox where a clean recording is confirmed, else text-only (the
+engine hides the audio button gracefully).
 
-**Middle school leaning**
-- The Ransom of Red Chief — O. Henry (1907) — humor, irony
-- The Gift of the Magi — O. Henry (1905) — irony, situational
-- The Lady, or the Tiger? — Frank Stockton (1882) — ambiguity, argument
-- The Monkey's Paw — W. W. Jacobs (1902) — suspense, foreshadowing
-- The Tell-Tale Heart — Poe (1843) — **being built now** (Poe room)
-- After Twenty Years — O. Henry (1906) — irony, loyalty vs. duty
+### ✅ Built and live (7)
+| Story | Author | Room id | Source |
+|-------|--------|---------|--------|
+| The Lady, or the Tiger? | Stockton (1882) | `ladytiger` | Gut #396 + LibriVox |
+| The Ransom of Red Chief | O. Henry (1907) | `ransom` | Gut #1595 + LibriVox |
+| The Gift of the Magi | O. Henry (1905) | `magi` | Gut #7256 + LibriVox |
+| The Monkey's Paw | W. W. Jacobs (1902) | `monkeyspaw` | Gut #28731 + LibriVox |
+| The Cask of Amontillado | Poe (1846) | `cask` | Gut #1063 + LibriVox |
+| An Occurrence at Owl Creek Bridge | Bierce (1890) | `owlcreek` | Gut #375 (text-only) |
+| The Bet | Chekhov (1889) | `bet` | Gut #55283 + LibriVox |
 
-**High school leaning**
-- The Most Dangerous Game — Richard Connell (1924, PD 2020) — conflict, suspense
-- To Build a Fire — Jack London (1908) — naturalism, man vs. nature
-- The Cask of Amontillado — Poe (1846) — revenge, unreliable narrator
-- An Occurrence at Owl Creek Bridge — Ambrose Bierce (1890) — time, POV
-- The Story of an Hour — Kate Chopin (1894) — irony, freedom
-- The Yellow Wallpaper — Charlotte Perkins Gilman (1892) — POV, symbolism (mature; review)
-- The Necklace — Guy de Maupassant (1884) — irony, pride
-- The Open Window — Saki (1914) — humor, unreliable narration
-- The Bet — Anton Chekhov (1889) — values, argument
-- The Interlopers — Saki (1919) — irony, conflict
+(Poe's **The Tell-Tale Heart** is also live as its own room, `poe`.)
 
-(Each would follow the standard 10-section PlotPoint room + 7 languages, like the other
-public-domain rooms.)
+### 🔜 Future expansion queue — not built yet (verified public-domain, sourced)
+Build order roughly easiest-sourced first. Confirm each edition before shipping.
+
+| # | Story | Author | ~Year | Gut # | Notes / teaching focus |
+|---|-------|--------|-------|-------|------------------------|
+| 1 | The Yellow Wallpaper | Charlotte Perkins Gilman | 1892 | **1952** (standalone) | POV, symbolism, unreliable narrator. **Mature — review** (mental illness). |
+| 2 | To Build a Fire | Jack London | 1908 | **2429** (in *Lost Face*) | Naturalism, man vs. nature, irony. |
+| 3 | After Twenty Years | O. Henry | 1906 | **2776 / 22442** (in *The Four Million*) | Irony, loyalty vs. duty; short & MS-friendly. |
+| 4 | The Open Window | Saki (H. H. Munro) | 1914 | **269** (in *Beasts and Super-Beasts*) | Humor, unreliable narration, framing. |
+| 5 | The Interlopers | Saki (H. H. Munro) | 1919 | **1477** (in *The Toys of Peace*) | Irony, conflict, nature vs. feud. |
+| 6 | The Necklace | Guy de Maupassant | 1884 | **3080 / 3083** (in *Original Short Stories*) | Irony, pride, class; find single-story edition or note the collection. |
+| 7 | The Story of an Hour | Kate Chopin | 1894 | *verify source* (Chopin collections) | Irony, freedom; very short. Confirm a clean PD text link first. |
+
+Notes:
+- #1–#5 have solid standalone or clearly-titled Gutenberg sources and can be built now.
+- #6 (Necklace) and #7 (Story of an Hour) live inside multi-story collections — locate a
+  single-story or small-collection edition, or link the collection with a "verify edition"
+  note, before building.
+- The Most Dangerous Game (Connell) and the six copyrighted middle-school staples were
+  **dropped** per user (see the "Dropped" box above).
+
+### Room-build recipe (reminder)
+Copy an existing PD short-story room (e.g. `cask/`) → replace `data.en.js` (10 sections,
+facts verified against the Gutenberg text, no reproduced passages) → render-test with
+jsdom → 6 Sonnet translation agents (reference `cicero/lang/*`) → parity check → add a
+`titles.js` card with `genre:["fiction","short-story",...]` → commit → deploy → poll 200.
+Then add an entry to the image doc so hero + 7 relic images can be generated.
 
 ---
 
