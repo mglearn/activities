@@ -187,6 +187,21 @@
     color:var(--ink-soft);font-weight:600}
   .noresults b{color:var(--navy)}
 
+  /* copyrighted collection access */
+  .copyright-access{margin-top:16px;padding:22px;background:linear-gradient(120deg,rgba(28,34,71,.06),rgba(122,79,206,.10));
+    border:2px solid var(--line);border-radius:16px}
+  .copyright-access p{font-weight:600;color:var(--ink-soft);margin-bottom:14px}
+  .copyright-form{display:flex;align-items:end;gap:10px;flex-wrap:wrap}
+  .copyright-field{flex:1;min-width:210px}
+  .copyright-field label{display:block;font-weight:800;color:var(--navy);margin-bottom:5px}
+  .copyright-field input{width:100%;font:600 1rem 'Nunito',sans-serif;border:2px solid var(--line);border-radius:10px;padding:10px 13px}
+  .copyright-field input:focus{outline:none;border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,79,206,.14)}
+  .copyright-unlock,.copyright-request{font-family:'Fredoka',sans-serif;font-weight:700;border:2px solid var(--plum);border-radius:10px;padding:10px 15px}
+  .copyright-unlock{cursor:pointer;background:var(--plum);color:#fff}
+  .copyright-request{display:inline-block;text-decoration:none;color:var(--plum-d);background:#fff}
+  .copyright-error{min-height:1.4em;margin:8px 0 0!important;color:#a4262c!important;font-weight:800!important;font-size:.88rem}
+  #copyrighted-cards[hidden],#copyright-access[hidden]{display:none}
+
   footer{text-align:center;margin-top:40px;font-size:.8rem;color:var(--ink-soft);font-weight:600;line-height:1.7}
   footer a{color:var(--plum-d);font-weight:700}
   @media (prefers-reduced-motion:reduce){.card,.card .go .arr{transition:none}a.card:hover{transform:none}}
@@ -270,6 +285,21 @@
 
   <div class="alltable-wrap" id="alltable" hidden></div>
 
+  <h2 class="sec" id="copyrighted-collection">Copyrighted works</h2>
+  <section class="copyright-access" id="copyright-access" aria-labelledby="copyrighted-collection">
+    <p>These independent educational companions reproduce no copyrighted text. Enter the collection passcode, or request access using the form.</p>
+    <form class="copyright-form" id="copyright-form">
+      <div class="copyright-field">
+        <label for="copyright-passcode">Passcode</label>
+        <input id="copyright-passcode" type="password" autocomplete="current-password" required>
+      </div>
+      <button class="copyright-unlock" type="submit">Unlock collection</button>
+      <a class="copyright-request" href="https://docs.google.com/forms/d/e/1FAIpQLSdz41GKfI4kAbPUEutQnbNIbmQuk4MgWOzhq2ZURbFjrv35xQ/viewform?usp=header" target="_blank" rel="noopener noreferrer">Request access →</a>
+    </form>
+    <p class="copyright-error" id="copyright-error" role="alert"></p>
+  </section>
+  <div class="cards" id="copyrighted-cards" hidden></div>
+
   <footer>
     <span data-i18n-html="footer.line1">PlotPoint · A literature learning arcade for grades 6–12 · CC BY 4.0 (content) · MIT (code)</span><br>
     <span data-i18n="footer.line2">Self-contained &amp; browser-based · No logins · No accounts · No data collected · Seven languages</span><br>
@@ -280,9 +310,12 @@
 <script src="../ctobs/assets/i18n.js" defer></script>
 <script src="titles.js" defer></script>
 <script src="plotpoint-i18n.js" defer></script>
+<script src="assets/copyright-gate.js" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   var TITLES = window.PLOTPOINT_TITLES || [];
+  var PUBLIC_TITLES = TITLES.filter(function(x){ return x.rights !== 'copyrighted'; });
+  var COPYRIGHTED_TITLES = TITLES.filter(function(x){ return x.rights === 'copyrighted'; });
   var I18N = window.BreakoutI18n;
   // Register chrome dictionary (from plotpoint-i18n.js).
   if (I18N && window.__PLOTPOINT_HUB_DICT__) I18N.register('plotpointHub', window.__PLOTPOINT_HUB_DICT__);
@@ -311,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   function valuesFor(f){
     var seen = {};
-    TITLES.forEach(function(tt){
+    PUBLIC_TITLES.forEach(function(tt){
       var v = tt[f.key];
       (Array.isArray(v)?v:[v]).forEach(function(x){ if(x!=null) seen[x]=true; });
     });
@@ -418,23 +451,23 @@ document.addEventListener('DOMContentLoaded', function(){
 
   function render(){
     // rebuild search haystack per language
-    TITLES.forEach(function(tt){
+    PUBLIC_TITLES.forEach(function(tt){
       var o = ov(tt.id);
       tt._hay = [tt.title, tt.author, (o.desc||tt.desc), (tt.genre||[]).join(' '),
                  tt.relicRoom, tt.ctob, tt.arcade].join(' ').toLowerCase();
     });
     var host = document.getElementById('cards');
     host.innerHTML = '';
-    TITLES.forEach(function(tt){ host.appendChild(cardHTML(tt)); });
+    PUBLIC_TITLES.forEach(function(tt){ host.appendChild(cardHTML(tt)); });
     var nr = document.createElement('p'); nr.className='noresults'; nr.id='noresults'; nr.hidden=true;
     host.appendChild(nr);
     // fill the browse-prompt counts (updates on language change)
-    var live = TITLES.filter(function(x){ return x.status==='live'; }).length;
+    var live = PUBLIC_TITLES.filter(function(x){ return x.status==='live'; }).length;
     var bpc = document.getElementById('bp-counts');
     if(bpc){
-      var cnt = t('browse.counts', { live: live, total: TITLES.length });
+      var cnt = t('browse.counts', { live: live, total: PUBLIC_TITLES.length });
       // Defensive: if a stale cached dictionary lacks the key, show readable text, never the raw key.
-      if(cnt === 'browse.counts') cnt = live + ' ready now · ' + TITLES.length + ' in the collection.';
+      if(cnt === 'browse.counts') cnt = live + ' ready now · ' + PUBLIC_TITLES.length + ' in the public collection.';
       bpc.textContent = cnt;
     }
     run();
@@ -459,13 +492,13 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     if(bp) bp.hidden = true;
     var n=0, idx=0;
-    TITLES.forEach(function(tt){
+    PUBLIC_TITLES.forEach(function(tt){
       var el = cards[idx++]; if(!el) return;
       var show = matches(tt);
       el.classList.toggle('hide', !show);
       if(show) n++;
     });
-    info.textContent = t('results.count', {n:n, total:TITLES.length});
+    info.textContent = t('results.count', {n:n, total:PUBLIC_TITLES.length});
     document.getElementById('clearbtn').hidden = false;
     if(nr){ nr.hidden = n>0; nr.innerHTML = t('results.none'); }
   }
@@ -481,11 +514,11 @@ document.addEventListener('DOMContentLoaded', function(){
   var tableOpen = false;
   function buildTable(){
     var host = document.getElementById('alltable');
-    var rows = TITLES.filter(matches).slice().sort(function(a,b){
+    var rows = PUBLIC_TITLES.filter(matches).slice().sort(function(a,b){
       return String(a.title).localeCompare(String(b.title));
     });
     var thTitle = t('collection.th.title'); if(!thTitle || thTitle==='collection.th.title') thTitle='Title';
-    var html = '<table class="alltable"><caption>'+esc(t('results.count',{n:rows.length,total:TITLES.length}))+'</caption>'+
+    var html = '<table class="alltable"><caption>'+esc(t('results.count',{n:rows.length,total:PUBLIC_TITLES.length}))+'</caption>'+
       '<thead><tr><th>'+esc(t('facet.grade'))+'</th><th>'+esc(t('facet.genre'))+'</th>'+
       '<th>'+esc(thTitle)+'</th><th>'+esc(t('facet.rights'))+'</th></tr></thead><tbody>';
     rows.forEach(function(tt){
@@ -516,6 +549,30 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('t-live').textContent = TITLES.filter(function(x){return x.status==='live';}).length;
   document.getElementById('q').addEventListener('input', run);
   document.getElementById('clearbtn').addEventListener('click', clearAll);
+
+  function showCopyrightedCollection(){
+    var access = document.getElementById('copyright-access');
+    var host = document.getElementById('copyrighted-cards');
+    access.hidden = true;
+    host.hidden = false;
+    host.innerHTML = '';
+    COPYRIGHTED_TITLES.forEach(function(tt){ host.appendChild(cardHTML(tt)); });
+  }
+  var copyrightForm = document.getElementById('copyright-form');
+  copyrightForm.addEventListener('submit', function(event){
+    event.preventDefault();
+    var input = document.getElementById('copyright-passcode');
+    var error = document.getElementById('copyright-error');
+    if(window.PlotPointCopyrightAccess && window.PlotPointCopyrightAccess.submit(input.value)){
+      error.textContent = '';
+      showCopyrightedCollection();
+    }else{
+      error.textContent = 'That passcode is not correct.';
+      input.select();
+    }
+  });
+  if(window.PlotPointCopyrightAccess && window.PlotPointCopyrightAccess.hasAccess()) showCopyrightedCollection();
+  window.addEventListener('plotpoint:copyright-access-granted', showCopyrightedCollection);
 
   // Guides menu (Correlations · CLT · ACE), top-right.
   var gdd = document.getElementById('guides-dd');
