@@ -35,7 +35,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "myths",
-    clt: true,
+    classic: true,
     title: "Selected Myths (Bulfinch)",
     author: "Thomas Bulfinch",
     href: "myths/",
@@ -62,7 +62,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "aesop",
-    clt: true,
+    classic: true,
     title: "Aesop's Fables (Selections)",
     author: "Aesop",
     href: "aesop/",
@@ -297,7 +297,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "canterbury",
-    clt: true,
+    classic: true,
     title: "The Canterbury Tales",
     author: "Geoffrey Chaucer",
     href: "canterbury/",
@@ -323,10 +323,10 @@ window.PLOTPOINT_TITLES = [
     desc: "Match traveler and object, analyze motivation, identify satire, interpret social roles, and connect frame story and tale.",
   },
 
-  // ── Philosophy sub-collection (public-domain, CLT-aligned) ──
+  // ── Philosophy sub-collection (public-domain classics) ──
   {
     id: "apology",
-    clt: true,
+    classic: true,
     title: "The Apology",
     author: "Plato",
     href: "apology/",
@@ -353,7 +353,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "cave",
-    clt: true,
+    classic: true,
     title: "The Allegory of the Cave",
     author: "Plato",
     href: "cave/",
@@ -380,7 +380,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "meditations",
-    clt: true,
+    classic: true,
     title: "Meditations",
     author: "Marcus Aurelius",
     href: "meditations/",
@@ -407,7 +407,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "enchiridion",
-    clt: true,
+    classic: true,
     title: "The Enchiridion",
     author: "Epictetus",
     href: "enchiridion/",
@@ -434,7 +434,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "ethics",
-    clt: true,
+    classic: true,
     title: "Nicomachean Ethics (Selections)",
     author: "Aristotle",
     href: "ethics/",
@@ -461,7 +461,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "consolation",
-    clt: true,
+    classic: true,
     title: "The Consolation of Philosophy",
     author: "Boethius",
     href: "consolation/",
@@ -488,7 +488,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "confessions",
-    clt: true,
+    classic: true,
     title: "Confessions (Selections)",
     author: "Augustine",
     href: "confessions/",
@@ -515,7 +515,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "seneca",
-    clt: true,
+    classic: true,
     title: "Letters from a Stoic (Selections)",
     author: "Seneca",
     href: "seneca/",
@@ -542,7 +542,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "douglass",
-    clt: true,
+    classic: true,
     title: "Narrative of the Life of Frederick Douglass",
     author: "Frederick Douglass",
     href: "douglass/",
@@ -569,7 +569,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "federalist",
-    clt: true,
+    classic: true,
     title: "The Federalist Papers (Selections)",
     author: "Publius (Hamilton, Madison, Jay)",
     href: "federalist/",
@@ -596,7 +596,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "cicero",
-    clt: true,
+    classic: true,
     title: "On Friendship (Laelius de Amicitia)",
     author: "Marcus Tullius Cicero",
     href: "cicero/",
@@ -623,7 +623,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "utopia",
-    clt: true,
+    classic: true,
     title: "Utopia",
     author: "Thomas More",
     href: "utopia/",
@@ -1750,4 +1750,20 @@ window.PLOTPOINT_TITLES = [
     relicRoom: "The Four Freedoms Gallery", ctob: "Four Locks of Freedom", arcade: "Vision or Tyranny?",
     desc: "FDR builds a universal vision through four repeated freedoms and contrasts it with tyranny. Studied for enumeration, anaphora, parallelism, antithesis, and tone. Public domain (1941).",
   },
+];
+
+/* Future companions are intentionally kept separate from the live catalog so
+   hub totals continue to describe rooms that are actually available. */
+window.PLOTPOINT_COPYRIGHTED_PLANNED = [
+  { title: "Bridge to Terabithia", author: "Katherine Paterson" },
+  { title: "I Know Why the Caged Bird Sings", author: "Maya Angelou" },
+  { title: "Of Mice and Men", author: "John Steinbeck" },
+  { title: "Slaughterhouse-Five", author: "Kurt Vonnegut" },
+  { title: "The Catcher in the Rye", author: "J. D. Salinger" },
+  { title: "The Color Purple", author: "Alice Walker" },
+  { title: "The Grapes of Wrath", author: "John Steinbeck" }
+];
+
+window.PLOTPOINT_PUBLIC_PLANNED = [
+  { title: "Adventures of Huckleberry Finn", author: "Mark Twain" }
 ];

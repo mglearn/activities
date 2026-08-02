@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
-<title>The CLT Reading Room — PlotPoint</title>
-<meta name="description" content="Public-domain classics from the classical / CLT reading canon, as self-contained PlotPoint learning rooms — organized by grade level. Plato, Aristotle, Marcus Aurelius, Epictetus, Boethius, Chaucer, and classical myths. Seven languages, free full text and audiobook, no logins.">
-<meta property="og:title" content="The CLT Reading Room — PlotPoint">
-<meta property="og:description" content="Public-domain classics from the classical / CLT canon as PlotPoint learning rooms, organized by grade level. Seven languages, free text + audio, no logins.">
+<title>The Classics Reading Room — PlotPoint</title>
+<meta name="description" content="Public-domain classics as self-contained PlotPoint learning rooms organized by grade level. Plato, Aristotle, Marcus Aurelius, Epictetus, Boethius, Chaucer, and classical myths. Seven languages, free full text and audiobook, no logins.">
+<meta property="og:title" content="The Classics Reading Room — PlotPoint">
+<meta property="og:description" content="Public-domain classics as PlotPoint learning rooms, organized by grade level. Seven languages, free text and audio, no logins.">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -90,12 +90,12 @@
     <div class="heroshade"></div>
     <div class="hc">
       <span class="eyebrow">Classical reading canon</span>
-      <h1>The CLT Reading Room</h1>
-      <p>Public-domain classics from the classical reading canon — the kind of works featured on the <a href="https://www.cltexam.com/" target="_blank" rel="noopener noreferrer" style="color:#fff;text-decoration:underline">Classic Learning Test (CLT)</a> — as self-contained PlotPoint learning rooms, organized by grade level. Every room includes the free full text and an audiobook, works in seven languages, and collects no student data.</p>
+      <h1>The Classics Reading Room</h1>
+      <p>Public-domain classics from enduring traditions of literature and philosophy, presented as self-contained PlotPoint learning rooms organized by grade level. Every room includes access to free full text and audio resources when available, works in seven languages, and collects no student data.</p>
     </div>
   </header>
 
-  <p class="note"><b>Note:</b> These rooms are <b>aligned to</b> the classical / CLT reading canon and are <b>not affiliated with or endorsed by</b> the Classic Learning Test. Every title here is in the public domain; suggested grade ranges are starting points — review for your students.</p>
+  <p class="note"><b>Note:</b> Every title here is in the public domain. Suggested grade ranges are starting points — review each work and edition for your students.</p>
 
   <div class="tally">
     <div><div class="n" id="t-rooms">0</div><div class="l">Rooms</div></div>
@@ -107,15 +107,15 @@
   <main id="grades"></main>
 
   <footer>
-    PlotPoint · The CLT Reading Room · public-domain classics · CC BY 4.0 (content) · MIT (code)<br>
-    Not affiliated with the <a href="https://www.cltexam.com/" target="_blank" rel="noopener noreferrer">Classic Learning Test</a>. · <a href="../">Browse all PlotPoint rooms →</a>
+    PlotPoint · The Classics Reading Room · public-domain classics · CC BY 4.0 (content) · MIT (code)<br>
+    <a href="../">Browse all PlotPoint rooms →</a>
   </footer>
 </div>
 
 <script src="../titles.js" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-  var TITLES = (window.PLOTPOINT_TITLES || []).filter(function(t){ return t.clt && t.status === 'live'; });
+  var TITLES = (window.PLOTPOINT_TITLES || []).filter(function(t){ return t.classic && t.status === 'live'; });
   var GENRE_LABEL = { philosophy:'Philosophy', mythology:'Mythology', fables:'Fables', nonfiction:'Nonfiction',
     fiction:'Fiction', poetry:'Poetry', classic:'Classic' };
   var ACT_LABEL = { relic:'Relic Room', ctob:'Breakout', arcade:'Arcade', vocab:'Vocabulary',

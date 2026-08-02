@@ -19,9 +19,9 @@ Deployment note: PlotPoint lives in the **`activities/`** repo and ships at
 | 1 | Shared system: hub + language engine + one working title room | ✅ Done |
 | 2 | Seven-language support wired end to end | ✅ Done (see review flags) |
 | 3 | Texas 2026 short-form rooms | ✅ Done — poems, scripture, short stories, speeches/documents |
-| 4 | CLT-canon reading room + separate `/clt/` page | ✅ Done |
+| 4 | Classics reading room + separate `/classics/` page | ✅ Done |
 | 5 | Copyrighted paraphrase-only companions | ✅ 6 live (Kindred + 5) |
-| 6 | Guide pages + hub nav (Correlations · CLT · ACE) | ✅ Done |
+| 6 | Guide pages + hub nav (Correlations · Classics · ACE) | ✅ Done |
 
 ### Current catalog — 71 rooms, all seven languages
 
@@ -31,7 +31,7 @@ awaiting its image pass, commit, deployment, and production HTTP verification.
 
 Major completed groups:
 
-- Original literature, philosophy/CLT, and copyrighted companion collection
+- Original literature, philosophy/classics, and copyrighted companion collection
 - Seven public-domain short-story expansion rooms, plus five Texas 2026 short stories
 - Nine scripture/literary Bible rooms, including all four Texas 2026 passages
 - All 17 Texas 2026 poem rooms
@@ -57,7 +57,7 @@ corresponding source is labeled **Not available** instead of linking to a generi
 4. **Selected Myths (Bulfinch)** — Bulfinch
 5. **Aesop's Fables (Selections)** — Aesop
 
-**Philosophy & foundational texts — the CLT canon (12), public domain:**
+**Philosophy and foundational classics (12), public domain:**
 6. **The Apology** — Plato — arcade: Argument or Appeal? (logos vs. pathos)
 7. **The Allegory of the Cave** — Plato — arcade: appearance vs. reality
 8. **Meditations** — Marcus Aurelius — arcade: In Your Control?
@@ -85,16 +85,16 @@ no source links. Facts verified against a lawful copy, then deleted.
 24. **Between the World and Me** — Ta-Nehisi Coates
 
 Every **public-domain** room carries the free **Read & Listen** panel (Project
-Gutenberg text + LibriVox audiobook) in Enter the Story. The CLT canon (15 rooms
-flagged `clt:true`, all live) also has its own **`/clt/` reading room** organized by
-grade band, linking out to cltexam.com.
+Gutenberg text + LibriVox audiobook) in Enter the Story. The classics collection (15 rooms
+flagged `classic:true`, all live) also has its own **`/classics/` reading room** organized
+by grade band.
 
 ### Guide pages + hub navigation
 - **`/correlations/`** — TEKS / ELPS / UDL 3.0 / CCSS alignment, activity-by-activity, with
   a live rooms-by-grade-band table. **`/ace/`** — generic ACE Framework explainer (usable
-  with any text; SOLO map, reusable prompts, Gen AI guardrails). **`/clt/`** — CLT Reading Room.
+  with any text; SOLO map, reusable prompts, Gen AI guardrails). **`/classics/`** — Classics Reading Room.
 - Hub top-right **Guides dropdown** (left of the language switcher) links all three. The old
-  CLT banner box above the search was removed; the Teaching-Companion CTA now links to `/ace/`
+  The old reading-room banner above the search was removed; the Teaching-Companion CTA now links to `/ace/`
   (previously a dead alert popup). All three guide pages accept an optional `images/hero.webp`.
 
 ### Not built (no source text / declined)
@@ -105,7 +105,7 @@ for a grades 6–12 product. Any future copyrighted build must follow the compan
 (paraphrase only, disclaimer, never commit the source). Short-story backlog + copyright
 triage is captured in **`SHORT_STORIES_PLAN.md`**.
 
-**Hub totals:** 71 title cards · **all 71 live-status** (0 "coming soon") · 15 CLT-canon rooms ·
+**Hub totals:** 71 title cards · **all 71 live-status** (0 "coming soon") · 15 classics rooms ·
 6 copyrighted companions · faceted search · Guides dropdown · cards hidden until the user
 searches/filters (keeps the front page calm).
 
@@ -117,14 +117,13 @@ searches/filters (keeps the front page calm).
 - `index.html` — hero, tagline, ACE callout, live tallies, and a searchable grid with
   **compact dropdown-checkbox facets** (grade band, genre, activity, reading stage, time,
   text rights). Cards stay hidden behind a browse prompt until a search or filter is
-  applied. CLT banner links to the `/clt/` page.
+  applied. The Classics guide link opens the `/classics/` page.
 - `titles.js` (`window.PLOTPOINT_TITLES`) — single source of truth for all **71** titles
-  (metadata + facets + `clt` flag + live/planned status). Flip `status:"live"` + set
+  (metadata + facets + `classic` flag + live/planned status). Flip `status:"live"` + set
   `href` when a room ships.
-- `plotpoint-i18n.js` — hub chrome dictionary, **7 languages** (incl. `val.*`, `clt.*`,
+- `plotpoint-i18n.js` — hub chrome dictionary, **7 languages** (including `val.*`, `classics.*`,
   `browse.*` keys).
-- `clt/index.html` — CLT Reading Room: lists every `clt && live` title grouped by grade,
-  links to the Classic Learning Test (cltexam.com).
+- `classics/index.html` — Classics Reading Room: lists every `classic && live` title grouped by grade.
 
 ### Shared room framework (`assets/`)
 - `plotpoint.css` — all 10 sections, nav rail, interactive components, the optional Enter
