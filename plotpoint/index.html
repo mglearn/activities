@@ -187,10 +187,24 @@
     color:var(--ink-soft);font-weight:600}
   .noresults b{color:var(--navy)}
 
-  /* copyrighted collection access */
-  .copyright-access{margin-top:16px;padding:22px;background:linear-gradient(120deg,rgba(28,34,71,.06),rgba(122,79,206,.10));
-    border:2px solid var(--line);border-radius:16px}
-  .copyright-access p{font-weight:600;color:var(--ink-soft);margin-bottom:14px}
+  /* copyrighted companion access */
+  .copyright-pill-wrap{display:flex;justify-content:center;margin:18px 0 4px}
+  .copyright-pill{display:inline-flex;align-items:center;gap:9px;border:2px solid var(--plum);border-radius:999px;padding:10px 18px;
+    background:#fff;color:var(--plum-d);font:700 .9rem 'Fredoka',sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(20,30,80,.07)}
+  .copyright-pill:hover{background:var(--plum);color:#fff}
+  .copyright-pill:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+  .copyright-dialog{width:min(620px,calc(100% - 32px));max-height:calc(100% - 32px);margin:auto;padding:0;border:3px solid var(--gold);
+    border-radius:18px;background:#fff;color:var(--ink);box-shadow:0 24px 70px rgba(12,16,48,.35)}
+  .copyright-dialog::backdrop{background:rgba(18,22,58,.72);backdrop-filter:blur(3px)}
+  .copyright-dialog-inner{padding:25px}
+  .copyright-dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+  .copyright-dialog h2{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.45rem;line-height:1.15}
+  .copyright-dialog p{font-weight:600;color:var(--ink-soft);margin:8px 0 14px}
+  .copyright-close{border:0;background:none;color:var(--ink-soft);font-size:1.5rem;line-height:1;cursor:pointer;padding:2px 5px}
+  .copyright-list{margin:0 0 18px 20px;columns:2;column-gap:28px;color:var(--navy)}
+  .copyright-list li{break-inside:avoid;margin:0 0 7px;font-weight:800}
+  .copyright-list .by{display:block;color:var(--ink-soft);font-size:.78rem;font-weight:600}
+  @media(max-width:620px){.copyright-list{columns:1}}
   .copyright-form{display:flex;align-items:end;gap:10px;flex-wrap:wrap}
   .copyright-field{flex:1;min-width:210px}
   .copyright-field label{display:block;font-weight:800;color:var(--navy);margin-bottom:5px}
@@ -200,7 +214,6 @@
   .copyright-unlock{cursor:pointer;background:var(--plum);color:#fff}
   .copyright-request{display:inline-block;text-decoration:none;color:var(--plum-d);background:#fff}
   .copyright-error{min-height:1.4em;margin:8px 0 0!important;color:#a4262c!important;font-weight:800!important;font-size:.88rem}
-  #copyrighted-cards[hidden],#copyright-access[hidden]{display:none}
 
   footer{text-align:center;margin-top:40px;font-size:.8rem;color:var(--ink-soft);font-weight:600;line-height:1.7}
   footer a{color:var(--plum-d);font-weight:700}
@@ -261,6 +274,10 @@
     <a class="cta" href="ace/" data-i18n="ace.cta">Learn the ACE Framework →</a>
   </div>
 
+  <div class="copyright-pill-wrap">
+    <button class="copyright-pill" id="copyright-pill" type="button"><span aria-hidden="true">🔒</span> Companion Activities for Copyrighted Works</button>
+  </div>
+
   <h2 class="sec" id="collection" data-i18n="collection.title">Choose a book to open its room</h2>
 
   <div class="searchwrap">
@@ -285,9 +302,12 @@
 
   <div class="alltable-wrap" id="alltable" hidden></div>
 
-  <h2 class="sec" id="copyrighted-collection">Copyrighted works</h2>
-  <section class="copyright-access" id="copyright-access" aria-labelledby="copyrighted-collection">
-    <p>These independent educational companions reproduce no copyrighted text. Enter the collection passcode, or request access using the form.</p>
+  <dialog class="copyright-dialog" id="copyright-dialog" aria-labelledby="copyright-dialog-title">
+    <div class="copyright-dialog-inner">
+    <div class="copyright-dialog-head"><h2 id="copyright-dialog-title">Companion Activities for Copyrighted Works</h2><button class="copyright-close" id="copyright-close" type="button" aria-label="Close">×</button></div>
+    <p>These independent educational companions reproduce no copyrighted text. Enter the passcode to open the protected collection.</p>
+    <p><strong>Available activities:</strong></p>
+    <ul class="copyright-list" id="copyright-title-list"></ul>
     <form class="copyright-form" id="copyright-form">
       <div class="copyright-field">
         <label for="copyright-passcode">Passcode</label>
@@ -297,8 +317,8 @@
       <a class="copyright-request" href="https://docs.google.com/forms/d/e/1FAIpQLSdz41GKfI4kAbPUEutQnbNIbmQuk4MgWOzhq2ZURbFjrv35xQ/viewform?usp=header" target="_blank" rel="noopener noreferrer">Request access →</a>
     </form>
     <p class="copyright-error" id="copyright-error" role="alert"></p>
-  </section>
-  <div class="cards" id="copyrighted-cards" hidden></div>
+    </div>
+  </dialog>
 
   <footer>
     <span data-i18n-html="footer.line1">PlotPoint · A literature learning arcade for grades 6–12 · CC BY 4.0 (content) · MIT (code)</span><br>
@@ -338,13 +358,13 @@ document.addEventListener('DOMContentLoaded', function(){
     { key:'activities',labelKey:'facet.activity', multi:true, alpha:true },
     { key:'reading',   labelKey:'facet.reading', multi:true, order:['before','during','after'] },
     { key:'time',      labelKey:'facet.time', multi:false, order:['15-25','30-45','60-90'] },
-    { key:'rights',    labelKey:'facet.rights', multi:false, order:['public-domain','copyrighted'] },
+    { key:'rights',    labelKey:'facet.rights', multi:false, order:['public-domain','public-domain-source','copyrighted'] },
   ];
   var active = {}; // facetKey -> Set of values
 
   function valuesFor(f){
     var seen = {};
-    PUBLIC_TITLES.forEach(function(tt){
+    TITLES.forEach(function(tt){
       var v = tt[f.key];
       (Array.isArray(v)?v:[v]).forEach(function(x){ if(x!=null) seen[x]=true; });
     });
@@ -462,15 +482,16 @@ document.addEventListener('DOMContentLoaded', function(){
     var nr = document.createElement('p'); nr.className='noresults'; nr.id='noresults'; nr.hidden=true;
     host.appendChild(nr);
     // fill the browse-prompt counts (updates on language change)
-    var live = PUBLIC_TITLES.filter(function(x){ return x.status==='live'; }).length;
+    var live = TITLES.filter(function(x){ return x.status==='live'; }).length;
     var bpc = document.getElementById('bp-counts');
     if(bpc){
-      var cnt = t('browse.counts', { live: live, total: PUBLIC_TITLES.length });
+      var cnt = t('browse.counts', { live: live, total: TITLES.length });
       // Defensive: if a stale cached dictionary lacks the key, show readable text, never the raw key.
-      if(cnt === 'browse.counts') cnt = live + ' ready now · ' + PUBLIC_TITLES.length + ' in the public collection.';
+      if(cnt === 'browse.counts') cnt = live + ' ready now · ' + TITLES.length + ' in the collection.';
       bpc.textContent = cnt;
     }
     run();
+    buildCopyrightList();
   }
 
   function run(){
@@ -514,11 +535,11 @@ document.addEventListener('DOMContentLoaded', function(){
   var tableOpen = false;
   function buildTable(){
     var host = document.getElementById('alltable');
-    var rows = PUBLIC_TITLES.filter(matches).slice().sort(function(a,b){
+    var rows = TITLES.filter(matches).slice().sort(function(a,b){
       return String(a.title).localeCompare(String(b.title));
     });
     var thTitle = t('collection.th.title'); if(!thTitle || thTitle==='collection.th.title') thTitle='Title';
-    var html = '<table class="alltable"><caption>'+esc(t('results.count',{n:rows.length,total:PUBLIC_TITLES.length}))+'</caption>'+
+    var html = '<table class="alltable"><caption>'+esc(t('results.count',{n:rows.length,total:TITLES.length}))+'</caption>'+
       '<thead><tr><th>'+esc(t('facet.grade'))+'</th><th>'+esc(t('facet.genre'))+'</th>'+
       '<th>'+esc(thTitle)+'</th><th>'+esc(t('facet.rights'))+'</th></tr></thead><tbody>';
     rows.forEach(function(tt){
@@ -550,14 +571,25 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('q').addEventListener('input', run);
   document.getElementById('clearbtn').addEventListener('click', clearAll);
 
-  function showCopyrightedCollection(){
-    var access = document.getElementById('copyright-access');
-    var host = document.getElementById('copyrighted-cards');
-    access.hidden = true;
-    host.hidden = false;
-    host.innerHTML = '';
-    COPYRIGHTED_TITLES.forEach(function(tt){ host.appendChild(cardHTML(tt)); });
+  function buildCopyrightList(){
+    var copyrightList = document.getElementById('copyright-title-list');
+    copyrightList.innerHTML = '';
+    COPYRIGHTED_TITLES.forEach(function(tt){
+      var item = document.createElement('li');
+      item.innerHTML = esc(tt.title) + '<span class="by">' + esc(t('card.by',{a:tt.author})) + '</span>';
+      copyrightList.appendChild(item);
+    });
   }
+  var copyrightDialog = document.getElementById('copyright-dialog');
+  document.getElementById('copyright-pill').addEventListener('click', function(){
+    if(window.PlotPointCopyrightAccess && window.PlotPointCopyrightAccess.hasAccess()){
+      window.location.href = 'copyrighted/';
+      return;
+    }
+    copyrightDialog.showModal();
+    document.getElementById('copyright-passcode').focus();
+  });
+  document.getElementById('copyright-close').addEventListener('click', function(){ copyrightDialog.close(); });
   var copyrightForm = document.getElementById('copyright-form');
   copyrightForm.addEventListener('submit', function(event){
     event.preventDefault();
@@ -565,14 +597,12 @@ document.addEventListener('DOMContentLoaded', function(){
     var error = document.getElementById('copyright-error');
     if(window.PlotPointCopyrightAccess && window.PlotPointCopyrightAccess.submit(input.value)){
       error.textContent = '';
-      showCopyrightedCollection();
+      window.location.href = 'copyrighted/';
     }else{
       error.textContent = 'That passcode is not correct.';
       input.select();
     }
   });
-  if(window.PlotPointCopyrightAccess && window.PlotPointCopyrightAccess.hasAccess()) showCopyrightedCollection();
-  window.addEventListener('plotpoint:copyright-access-granted', showCopyrightedCollection);
 
   // Guides menu (Correlations · CLT · ACE), top-right.
   var gdd = document.getElementById('guides-dd');

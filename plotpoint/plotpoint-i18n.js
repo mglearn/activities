@@ -85,6 +85,7 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.30-45": "30–45 min",
     "val.60-90": "60–90 min",
     "val.public-domain": "Public domain",
+    "val.public-domain-source": "Public-domain work · specified translation copyrighted",
     "val.copyrighted": "Copyrighted"
   },
   "es": {
@@ -166,6 +167,7 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.30-45": "30–45 min",
     "val.60-90": "60–90 min",
     "val.public-domain": "Dominio público",
+    "val.public-domain-source": "Obra de dominio público · traducción especificada protegida",
     "val.copyrighted": "Con derechos de autor"
   },
   "vi": {
@@ -247,6 +249,7 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.30-45": "30–45 phút",
     "val.60-90": "60–90 phút",
     "val.public-domain": "Miền công cộng",
+    "val.public-domain-source": "Tác phẩm thuộc phạm vi công cộng · bản dịch được chỉ định có bản quyền",
     "val.copyrighted": "Có bản quyền"
   },
   "ar": {
@@ -328,6 +331,7 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.30-45": "30–45 دقيقة",
     "val.60-90": "60–90 دقيقة",
     "val.public-domain": "ملك عام",
+    "val.public-domain-source": "العمل في الملك العام · الترجمة المحددة محمية بحقوق النشر",
     "val.copyrighted": "محمي بحقوق النشر"
   },
   "hi": {
@@ -409,6 +413,7 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.30-45": "30–45 मिनट",
     "val.60-90": "60–90 मिनट",
     "val.public-domain": "सार्वजनिक डोमेन",
+    "val.public-domain-source": "सार्वजनिक-डोमेन कृति · निर्दिष्ट अनुवाद कॉपीराइटयुक्त",
     "val.copyrighted": "कॉपीराइट"
   },
   "ur": {
@@ -490,6 +495,7 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.30-45": "30–45 منٹ",
     "val.60-90": "60–90 منٹ",
     "val.public-domain": "عوامی ملکیت",
+    "val.public-domain-source": "عوامی ملکیت کا متن · مخصوص ترجمہ کاپی رائٹ شدہ",
     "val.copyrighted": "کاپی رائٹ"
   },
   "zh": {
@@ -571,6 +577,7 @@ window.__PLOTPOINT_HUB_DICT__ = {
     "val.30-45": "30–45 分钟",
     "val.60-90": "60–90 分钟",
     "val.public-domain": "公共领域",
+    "val.public-domain-source": "公版作品 · 指定译本受版权保护",
     "val.copyrighted": "受版权保护"
   }
 };

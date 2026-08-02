@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>Copyrighted Work Companions — PlotPoint</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1c2247;--plum:#7a4fce;--gold:#f5c542;--paper:#f5f4fb;--ink:#191d33;--soft:#5b6079;--line:#e0def0}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Nunito,sans-serif;color:var(--ink);background:radial-gradient(ellipse at 90% 0,rgba(245,197,66,.18),transparent 42%),var(--paper)}
+.wrap{max-width:1080px;margin:auto;padding:24px 20px 70px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.brand{font:700 1.25rem Fredoka,sans-serif;color:var(--navy);text-decoration:none}.back{color:var(--plum);font-weight:800;text-decoration:none}
+header{margin:34px 0 24px;padding:28px;border-radius:18px;background:linear-gradient(120deg,#12163a,#653caf);color:#fff;box-shadow:0 12px 34px rgba(28,34,71,.2)}
+.kicker{display:inline-block;padding:5px 12px;border-radius:999px;background:var(--gold);color:var(--navy);font:700 .72rem Fredoka,sans-serif;text-transform:uppercase;letter-spacing:.1em}h1{margin:12px 0 7px;font:700 clamp(1.8rem,5vw,2.8rem) Fredoka,sans-serif;line-height:1.05}header p{margin:0;color:#e5ddfa;font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{display:flex;flex-direction:column;padding:18px;border:2px solid var(--line);border-top:6px solid var(--accent);border-radius:16px;background:#fff;color:inherit;text-decoration:none;box-shadow:0 4px 16px rgba(20,30,80,.06)}.card:hover{border-color:var(--gold);transform:translateY(-2px)}.card h2{margin:8px 0 2px;font:700 1.15rem/1.12 Fredoka,sans-serif;color:var(--navy)}.by{font-size:.82rem;color:var(--soft);font-weight:700}.desc{flex:1;color:var(--soft);font-size:.87rem}.open{font:700 .85rem Fredoka,sans-serif;color:var(--plum)}
+@media(max-width:850px){.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.cards{grid-template-columns:1fr}}
+</style>
+<script src="../titles.js" defer></script>
+<script src="../assets/copyright-gate.js" data-protect-room defer></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a class="brand" href="../">● PlotPoint</a><a class="back" href="../">← All PlotPoint titles</a></div>
+  <header><span class="kicker">Protected collection</span><h1>Companion Activities for Copyrighted Works</h1><p>Independent educational companions that reproduce no copyrighted text. Students need lawful access to the assigned work.</p></header>
+  <main class="cards" id="cards" aria-label="Copyrighted work companion activities"></main>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var host=document.getElementById('cards');
+  (window.PLOTPOINT_TITLES||[]).filter(function(x){return x.rights==='copyrighted';}).forEach(function(x){
+    var a=document.createElement('a');a.className='card';a.href='../'+x.href;a.style.setProperty('--accent',x.accent||'#7a4fce');
+    a.innerHTML='<h2>'+x.title+'</h2><div class="by">by '+x.author+'</div><p class="desc">'+x.desc+'</p><span class="open">Open companion →</span>';host.appendChild(a);
+  });
+});
+</script>
+</body>
+</html>
