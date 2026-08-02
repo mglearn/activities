@@ -167,42 +167,37 @@
     var audio = m.audio || enMeta.audio;
     var aiAudio = m.aiAudio || enMeta.aiAudio;
     // Older and newly added public-domain rooms may predate explicit resource URLs.
-    // Give those rooms a useful discovery route without pretending a particular
-    // edition or recording has been verified. Exact room-level URLs still win.
+    // Never turn a missing resource into a search link: show a clear unavailable
+    // state unless the room records a verified direct URL.
     var rightsText = String(m.rights || enMeta.rights || '');
     var isPublicDomain = /public domain/i.test(rightsText) && !/copyrighted|licensed/i.test(rightsText);
-    var workTitle = String(m.title || enMeta.title || '');
-    var workAuthor = String(m.author || enMeta.author || '');
-    var searchTerms = [workTitle, workAuthor].filter(Boolean).join(' ');
-    var gutenbergSearch = false, audioSearch = false, aiAudioBrowse = false;
-    if (isPublicDomain && !gutenberg) {
-      gutenberg = 'https://www.gutenberg.org/ebooks/search/?query=' + encodeURIComponent(searchTerms);
-      gutenbergSearch = true;
-    }
-    if (isPublicDomain && !audio) {
-      audio = 'https://librivox.org/search?title=' + encodeURIComponent(workTitle) + '&author=' + encodeURIComponent(workAuthor);
-      audioSearch = true;
-    }
-    if (isPublicDomain && !aiAudio) {
-      aiAudio = 'https://marhamilresearch4.blob.core.windows.net/gutenberg-public/Website/browse.html';
-      aiAudioBrowse = true;
-    }
     // Use a translated key if present, else a default string — so a new pillbox works
     // in every language without editing all lang packs.
     function tf(key, fallback){ var s = t(key); return (s && s !== key) ? s : fallback; }
-    if (gutenberg || audio || aiAudio) {
+    if (gutenberg || audio || aiAudio || isPublicDomain) {
       var pr = el('div', 'panel');
       pr.appendChild(el('span', 'eyebrow', esc(t('enter.readListen'))));
       pr.appendChild(el('h2', 'stitle', esc(t('enter.readListenTitle'))));
-      var discoveryMode = gutenbergSearch || audioSearch || aiAudioBrowse;
-      pr.appendChild(el('p', 'lead', esc(discoveryMode ? tf('enter.discoveryNote', 'This work is in the public domain. Use these free catalogs to locate an appropriate text or recording, and verify the edition and link before assigning.') : t('enter.readListenNote'))));
+      pr.appendChild(el('p', 'lead', esc(t('enter.readListenNote'))));
       var row = el('div', 'btn-row');
-      if (gutenberg) { var a1 = el('a', 'btn ghost'); a1.href = gutenberg; a1.target = '_blank'; a1.rel = 'noopener noreferrer'; a1.innerHTML = '📖 ' + esc(gutenbergSearch ? tf('enter.findRead', 'Find text on Project Gutenberg') : t('enter.read')); row.appendChild(a1); }
-      if (audio) { var a2 = el('a', 'btn ghost'); a2.href = audio; a2.target = '_blank'; a2.rel = 'noopener noreferrer'; a2.innerHTML = '🎧 ' + esc(audioSearch ? tf('enter.findListen', 'Find audio on LibriVox') : t('enter.listen')); row.appendChild(a2); }
-      if (aiAudio) { var a3 = el('a', 'btn ghost'); a3.href = aiAudio; a3.target = '_blank'; a3.rel = 'noopener noreferrer'; a3.innerHTML = '🤖 ' + esc(aiAudioBrowse ? tf('enter.browseAi', 'Browse Project Gutenberg Audiobooks') : tf('enter.aiListen', 'Listen — AI narration')); row.appendChild(a3); }
+      function resource(url, icon, available, unavailable) {
+        if (url) {
+          var a = el('a', 'btn ghost'); a.href = url; a.target = '_blank';
+          a.rel = 'noopener noreferrer'; a.innerHTML = icon + ' ' + esc(available);
+          row.appendChild(a);
+        } else {
+          var span = el('span', 'btn ghost'); span.setAttribute('aria-disabled', 'true');
+          span.style.opacity = '.68'; span.style.cursor = 'not-allowed';
+          span.innerHTML = icon + ' ' + esc(unavailable + ' — ' + tf('enter.notAvailable', 'Not available.'));
+          row.appendChild(span);
+        }
+      }
+      resource(gutenberg, '📖', t('enter.read'), tf('enter.gutenbergName', 'Project Gutenberg text'));
+      resource(audio, '🎧', t('enter.listen'), tf('enter.librivoxName', 'LibriVox audio'));
+      resource(aiAudio, '🤖', tf('enter.aiListen', 'Listen — AI narration'), tf('enter.gutenbergAudioName', 'Project Gutenberg Audiobooks'));
       pr.appendChild(row);
       var note2 = el('div', 'note'); note2.style.marginTop = '10px'; note2.textContent = t('enter.readAloud'); pr.appendChild(note2);
-      if (aiAudio) { var note3 = el('div', 'note'); note3.style.marginTop = '6px'; note3.textContent = aiAudioBrowse ? tf('enter.aiBrowseNote', 'The open audiobook catalog uses AI narration and may not contain this exact work or edition. Search the catalog and preview any recording before assigning.') : tf('enter.aiNote', 'AI-generated narration of the public-domain text (Project Gutenberg, via an open AI reading). It may contain reading errors — preview before assigning.'); pr.appendChild(note3); }
+      if (aiAudio) { var note3 = el('div', 'note'); note3.style.marginTop = '6px'; note3.textContent = tf('enter.aiNote', 'AI-generated narration of the public-domain text (Project Gutenberg, via an open AI reading). It may contain reading errors — preview before assigning.'); pr.appendChild(note3); }
       root.appendChild(pr);
     }
 

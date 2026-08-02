@@ -44,9 +44,9 @@ and **The Four Freedoms**. Each has English source content, six machine-assisted
 packs, a policy page, and a live-status hub card.
 
 Every public-domain room now receives a free-resource panel. Verified direct links are
-used where recorded in room metadata; otherwise the shared engine provides clearly labeled
-discovery links to Project Gutenberg, LibriVox, and the Project Gutenberg Open Audiobook
-Collection. Catalog-discovery links do not claim that an exact edition or recording exists.
+used only where recorded in room metadata. If Project Gutenberg text, LibriVox audio, or
+Project Gutenberg Open Audiobook narration has not been verified for that room, the
+corresponding source is labeled **Not available** instead of linking to a generic search.
 
 ### Earlier baseline (24 rooms)
 
