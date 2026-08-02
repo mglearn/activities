@@ -68,15 +68,9 @@
   .card .go .arr{transition:transform .18s}
   .card:hover .go .arr{transform:translateX(4px)}
 
-  h2.sec.tools{margin-top:40px}
-  .toolrow{display:flex;flex-wrap:wrap;gap:10px}
-  .toolrow a{font-family:'Fredoka',sans-serif;font-weight:600;font-size:.84rem;text-decoration:none;
-    padding:9px 15px;border-radius:10px;border:1.5px solid var(--line);color:var(--navy);background:#fff;transition:.15s}
-  .toolrow a:hover{border-color:var(--gold-d);transform:translateY(-1px)}
-
   footer{text-align:center;margin-top:44px;font-size:.8rem;color:var(--ink-soft);font-weight:600;line-height:1.7}
   footer a{color:var(--navy);font-weight:700}
-  @media (prefers-reduced-motion:reduce){.card,.card .go .arr,.toolrow a{transition:none}.card:hover{transform:none}}
+  @media (prefers-reduced-motion:reduce){.card,.card .go .arr{transition:none}.card:hover{transform:none}}
 
   .searchwrap{margin:2px 0 0}
   .searchwrap input{width:100%;font-family:'Nunito',sans-serif;font-weight:600;font-size:1rem;color:var(--ink);
@@ -109,7 +103,7 @@
 
   <h2 class="sec">Choose an activity area</h2>
   <div class="searchwrap">
-    <input id="q" type="search" placeholder="Search activities — try “fractions”, “Juneteenth”, “privacy”, “GHS”…" aria-label="Search activities" autocomplete="off">
+    <input id="q" type="search" placeholder="Search activities — try “literature”, “fractions”, “privacy”, “GHS”…" aria-label="Search activities" autocomplete="off">
   </div>
   <div class="qinfo" id="qinfo" aria-live="polite"></div>
   <div class="cards">
@@ -120,6 +114,14 @@
       <h3>Critical Thinking Breakouts</h3>
       <p>The CTOB library — self-contained reasoning escapes where students open clues, weigh evidence, and crack the locks. Includes the CLEAR system, Fourth of July, July 5 &amp; Black Freedom Holidays, Bible as Literature, Science, and Idioms, plus a searchable catalog.</p>
       <span class="go">Open the breakout library <span class="arr">→</span></span>
+    </a>
+
+    <a class="card" data-count="0" data-kw="bible as literature biblical stories academic literary analysis close reading critical thinking breakout ctob sequence theme genre archetype allusion evidence teks" style="--accent:#8a5a24" href="ctobs/bible/">
+      <div class="ico" aria-hidden="true">📜</div>
+      <div class="band">Grades K–12 · 31 breakouts · Seven languages</div>
+      <h3>Bible as Literature</h3>
+      <p>Academic, nondevotional study of adopted Bible texts through story, history, genre, theme, archetype, and allusion. Students open clues, weigh evidence, distinguish text from belief, and crack the locks.</p>
+      <span class="go">Open Bible as Literature <span class="arr">→</span></span>
     </a>
 
     <a class="card" data-count="23" data-kw="problem based learning pbl problem solving teaching texas history social studies stakeholders inquiry units project" style="--accent:#4f3a8c" href="pst/">
@@ -186,15 +188,17 @@
       <span class="go">Open Say It, Make It <span class="arr">→</span></span>
     </a>
 
+    <a class="card" data-count="75" data-kw="plotpoint literature reading ela literary analysis evidence reasoning ace framework artifacts breakouts arcade games classic texts poetry speeches fiction nonfiction" style="--accent:#7a4fce" href="plotpoint/">
+      <div class="ico" aria-hidden="true">📚</div>
+      <div class="band">Grades 6–12 · Seven languages</div>
+      <h3>PlotPoint</h3>
+      <p>A literature learning arcade where students investigate artifacts, crack evidence-based breakouts, play literary games, analyze acclaimed texts, and explain their thinking through the ACE Framework.</p>
+      <span class="go">Open PlotPoint <span class="arr">→</span></span>
+    </a>
+
   </div>
 
   <p class="noresults" id="noresults" hidden>No areas match “<b id="noterm"></b>”. Try another word, or browse all areas above.</p>
-
-  <h2 class="sec tools">More TCEA tools</h2>
-  <div class="toolrow">
-    <a href="/tcea/tools/mappuzzle/">🗺️ Map Puzzle Generator</a>
-    <a href="/tcea/">🏠 TCEA project home</a>
-  </div>
 
   <footer>
     Learning Activities Hub · A TCEA educator resource · CC BY 4.0 (content) · MIT (code)<br>
