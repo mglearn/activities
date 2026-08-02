@@ -120,6 +120,11 @@ template (see §D). Effort/complexity rises down this list.
 
 ## C. Coverage-by-course scorecard (for the correlations page)
 
+**Progress update — 2026-08-02:** the planned scripture, poem, short-story, and
+speech/document batches are complete locally in all seven languages. The hub will contain
+71 live-status rooms when the current speech batch is deployed. The remaining approved
+Texas build phase is the 14 long works in §B5, to be built one at a time.
+
 | Course | Texas PD items | Live now | Queued | To build |
 |---|---|---|---|---|
 | Grade 6 | 5 | 0 | 0 | 5 |
@@ -184,34 +189,27 @@ requiring the *listed* text word-for-word must license it.
 
 ---
 
-## F. Recommended build sequencing (await user greenlight before starting)
+## F. Build sequencing and current status
 
 Phased so early phases are fast, high-coverage, and low-risk:
 
-1. **Phase 0 — reuse (hours):** confirm & document that `federalist` satisfies Fed 10/51;
-   decide on **Fed 78** (extend room) and **The Raven** (new poem room). Update
-   `correlations/` to cross-tag Texas-2026.
-2. **Phase 1 — Poems (17):** fastest per-room; knocks out big chunks of every course.
-3. **Phase 2 — Speeches/documents (8) + short stories (5):** all narrative-or-rhetorical,
-   engine fits directly; pairs the Hawthorne stories with existing gothic branding.
-4. **Phase 3 — Scripture (4):** build together with one shared literary-framing style +
-   content review before publish.
-5. **Phase 4 — Long works (14):** novels/plays/nonfiction; one at a time, selection-scoped
-   where noted; highest effort — spread out.
+1. **Phase 0 — reuse:** ✅ complete; Federalist selections documented and The Raven built.
+2. **Phase 1 — Poems (17):** ✅ complete in seven languages.
+3. **Phase 2a — Short stories (5):** ✅ complete in seven languages and deployed.
+4. **Phase 2b — Speeches/documents (8):** ✅ complete locally in seven languages; images,
+   commit, deployment, and production URL checks remain.
+5. **Phase 3 — Scripture (4):** ✅ complete in seven languages with neutral literary framing.
+6. **Phase 4 — Long works (14):** ⏭ next; build one at a time, selection-scoped where
+   noted, after the speech/document batch is live.
 
 Each room still follows the standard pipeline: build `data.en.js` (facts verified, no
 reproduced passages) → jsdom render-test → 6 Sonnet translation agents (7 languages) →
 parity check → `titles.js` card (`genre` per type; add a `standards`/grade tag) → commit →
 deploy → poll 200 → add hero+relic prompts to an image doc.
 
-## G. Open questions for the user
-1. **Scope confirm:** build the whole list (~44 new rooms is a multi-month effort), or a
-   subset (e.g. just Grades 6–8, or just English I–II) first?
-2. **Scripture:** OK to build Psalm 23 / Beatitudes / Ecclesiastes 3 / Lamentations 3 as
-   neutral *literary* rooms with a content-review pass? (Say no and I'll skip them.)
-3. **Federalist 78 & The Raven:** extend the existing `federalist` room / add a standalone
-   `raven` room — yes?
-4. **Truncated table:** please paste the rest of the "copyrighted listed versions" table
-   (it cut off after Antigone) so §E is complete.
-5. **Grade tagging:** want a new **"Texas 2026"** facet/badge on the hub + a course-by-grade
-   view, or keep these blended into existing genre facets with a note in `correlations/`?
+## G. Remaining review items
+
+1. The source's copyrighted-version table remains truncated after Antigone; recover it
+   before a long-work choice depends on a named translation.
+2. Verify the exact Texas course/adoption placement and TEKS/ELPS statements before district use.
+3. Review all machine-assisted translations with fluent educators.

@@ -3,7 +3,7 @@
 **PlotPoint · Read. Reason. Play.** — a privacy-first, multilingual, accessible,
 static literature learning hub for grades 6–12. Built per `plan.md`, in phases.
 
-Last updated: 2026-07-31
+Last updated: 2026-08-02
 
 Deployment note: PlotPoint lives in the **`activities/`** repo and ships at
 `/activities/plotpoint/`. (The reference links in `plan.md` point at the old
@@ -18,12 +18,37 @@ Deployment note: PlotPoint lives in the **`activities/`** repo and ships at
 | 0 | Inspect repo; reuse PST / Relic Rooms / CTOB patterns | ✅ Done |
 | 1 | Shared system: hub + language engine + one working title room | ✅ Done |
 | 2 | Seven-language support wired end to end | ✅ Done (see review flags) |
-| 3 | Remaining title rooms | 🔄 In progress — **24 rooms live** |
+| 3 | Texas 2026 short-form rooms | ✅ Done — poems, scripture, short stories, speeches/documents |
 | 4 | CLT-canon reading room + separate `/clt/` page | ✅ Done |
 | 5 | Copyrighted paraphrase-only companions | ✅ 6 live (Kindred + 5) |
 | 6 | Guide pages + hub nav (Correlations · CLT · ACE) | ✅ Done |
 
-### Live rooms (24) — all seven languages, deployed, headless-validated
+### Current catalog — 71 rooms, all seven languages
+
+The catalog contains **71 live-status room cards**. Sixty-three are currently committed
+and deployed; the final eight-room Texas speech/document batch is complete locally and is
+awaiting its image pass, commit, deployment, and production HTTP verification.
+
+Major completed groups:
+
+- Original literature, philosophy/CLT, and copyrighted companion collection
+- Seven public-domain short-story expansion rooms, plus five Texas 2026 short stories
+- Nine scripture/literary Bible rooms, including all four Texas 2026 passages
+- All 17 Texas 2026 poem rooms
+- All eight Texas 2026 speech/document rooms
+
+The eight newest rooms are **The Gettysburg Address**, **General Order No. 108**,
+**Letter to the Hebrew Congregation at Newport**, **The Man in the Arena**,
+**We Choose to Go to the Moon**, **First Inaugural Address**, **The Lyceum Address**,
+and **The Four Freedoms**. Each has English source content, six machine-assisted language
+packs, a policy page, and a live-status hub card.
+
+Every public-domain room now receives a free-resource panel. Verified direct links are
+used where recorded in room metadata; otherwise the shared engine provides clearly labeled
+discovery links to Project Gutenberg, LibriVox, and the Project Gutenberg Open Audiobook
+Collection. Catalog-discovery links do not claim that an exact edition or recording exists.
+
+### Earlier baseline (24 rooms)
 
 **Public-domain literature (5):**
 1. **The Metamorphosis** — Kafka · flagship
@@ -80,7 +105,7 @@ for a grades 6–12 product. Any future copyrighted build must follow the compan
 (paraphrase only, disclaimer, never commit the source). Short-story backlog + copyright
 triage is captured in **`SHORT_STORIES_PLAN.md`**.
 
-**Hub totals:** 24 title cards · **all 24 live** (0 "coming soon") · 15 CLT-canon rooms ·
+**Hub totals:** 71 title cards · **all 71 live-status** (0 "coming soon") · 15 CLT-canon rooms ·
 6 copyrighted companions · faceted search · Guides dropdown · cards hidden until the user
 searches/filters (keeps the front page calm).
 
@@ -93,7 +118,7 @@ searches/filters (keeps the front page calm).
   **compact dropdown-checkbox facets** (grade band, genre, activity, reading stage, time,
   text rights). Cards stay hidden behind a browse prompt until a search or filter is
   applied. CLT banner links to the `/clt/` page.
-- `titles.js` (`window.PLOTPOINT_TITLES`) — single source of truth for all **26** titles
+- `titles.js` (`window.PLOTPOINT_TITLES`) — single source of truth for all **71** titles
   (metadata + facets + `clt` flag + live/planned status). Flip `status:"live"` + set
   `href` when a room ships.
 - `plotpoint-i18n.js` — hub chrome dictionary, **7 languages** (incl. `val.*`, `clt.*`,
@@ -160,17 +185,15 @@ searches/filters (keeps the front page calm).
   ELAR** and **ELPS** alignments are flagged "Needs review"; confirm against your adoption.
 - **Edition / copyright** — public-domain *works* are safe, but some modern translations
   and annotated editions carry their own copyright. Verify the edition you assign.
-- **Images** — see **`images4.md`** for the six newest rooms (48 hero + relic prompts) and
-  `image-assets-needed.md`, `image_assets2.md`, `image3.md`, `Aesop.md` for earlier rooms.
-  Pages render labeled placeholders until images are dropped in; no code changes needed.
+- **Images** — image generation through `images11.md` is in progress. See **`images12.md`**
+  for the eight speech/document rooms. Pages render labeled placeholders until assets are
+  dropped into each room's `images/` directory; no room-data changes are needed.
 
 ---
 
 ## Next steps
-1. Generate the outstanding images from `images4.md` (Confessions, Seneca, Douglass,
-   Federalist, Cicero, Utopia — none have images yet) and the earlier image docs.
-2. Have a fluent educator review the machine-assisted translations per language.
-3. If any on-hold copyrighted titles are built, follow the **Kindred** pattern: paraphrase
-   only, per-work disclaimer, no text reproduction, never commit the source texts.
-4. Add a `?lang=` completeness + word-lock/hint consistency check to CI if a build step is
-   introduced (the checks are already scripted ad hoc during each room build).
+1. Finish the image pass through `images12.md`, then visually verify filenames and crops.
+2. Commit, push, deploy, and HTTP-check the eight speech/document rooms and their assets.
+3. Have fluent educators review machine-assisted translations; English remains authoritative.
+4. Build the 14 Texas 2026 long works one at a time, starting only after this batch is live.
+5. Add the existing syntax/parity/lock/resource checks to CI when a build step is introduced.
