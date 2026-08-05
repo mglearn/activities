@@ -211,6 +211,11 @@ answer keys, and editable blanks for local curriculum vocabulary.
 
 ## Phase 5 — Social Studies and Systems
 
+**Status: ✅ complete locally (2026-08-05).** All six Phase 5 packs use explicit
+historical/geographic scope, checked dates and terminology, original or generic source
+content, evidence/uncertainty cautions, and manifest-driven activity-page links. Their
+42 PDF/PNG pages pass the release validation gate; deployment is tracked separately.
+
 | Activity | Pack contents |
 |---|---|
 | 85. Timeline Reconstruction | neutral/public-domain event sets, timeline mats, date-hidden challenge cards |
