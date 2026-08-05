@@ -1,0 +1,19 @@
+name: Say It Make It printables
+on:
+  push:
+    paths: ['sayitmakeit/**', '.github/workflows/sayitmakeit-printables.yml']
+  pull_request:
+    paths: ['sayitmakeit/**', '.github/workflows/sayitmakeit-printables.yml']
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install PDF validator
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+      - name: Check generated files and printable artifacts
+        working-directory: sayitmakeit
+        run: npm run check

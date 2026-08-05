@@ -245,5 +245,19 @@ for (const [slug,p] of Object.entries(packs)) {
       'classroom review recommended'
   });
 }
-fs.writeFileSync(path.join(ROOT,'manifest.json'), JSON.stringify({version:1, generated:'2026-08-05', packs:manifest}, null, 2)+'\n');
+const activities=JSON.parse(fs.readFileSync(path.join(path.dirname(ROOT),'data','activities.json'),'utf8'));
+const completed=new Map(manifest.map(p=>[p.activity,p]));
+const teacherSupplied=new Set([1,2,3,6,7,9,11,12,13,14,15,16,29,41,42,43,69,70,71]);
+const coverage=activities.map(a=>{
+  const pack=completed.get(a.num);
+  if(pack)return {activity:a.num,slug:a.slug,title:a.title,status:'complete',note:'Classroom-ready printable pack linked from the activity page.',pdf:pack.pdf};
+  if(teacherSupplied.has(a.num))return {activity:a.num,slug:a.slug,title:a.title,status:'teacher-supplied',note:'Runs with common classroom manipulatives; no custom printable is required.'};
+  return {activity:a.num,slug:a.slug,title:a.title,status:'not-needed',note:'Facilitation mode applied to other activities; no separate material set is required.'};
+});
+const out={version:2,generated:'2026-08-05',packs:manifest,coverage};
+fs.writeFileSync(path.join(ROOT,'manifest.json'),JSON.stringify(out,null,2)+'\n');
+const counts=coverage.reduce((o,x)=>(o[x.status]=(o[x.status]||0)+1,o),{});
+const rows=coverage.map(x=>`<tr><td>${x.activity}</td><td><a href="a/${x.slug}.html">${x.title}</a></td><td><span class="s ${x.status}">${x.status}</span></td><td>${x.note}${x.pdf?` <a href="${x.pdf}">PDF</a>`:''}</td></tr>`).join('');
+const report=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Printable Coverage · Say It, Make It</title><style>body{font:16px/1.5 system-ui;margin:auto;max-width:1100px;padding:24px;color:#172033}a{color:#054c8c}h1{color:#054c8c}table{border-collapse:collapse;width:100%}th,td{padding:9px;border:1px solid #ccd6e2;text-align:left}th{background:#edf4fa}.s{font-weight:700}.complete{color:#167044}.teacher-supplied{color:#805300}.not-needed{color:#596579}.summary{display:flex;gap:20px;flex-wrap:wrap}.summary b{font-size:1.4rem}@media(max-width:700px){table{font-size:13px}th,td{padding:5px}}</style></head><body><p><a href="index.html">← Say It, Make It</a></p><h1>Printable Coverage</h1><p>Every activity has a documented materials decision. Generated ${out.generated}.</p><div class="summary"><span><b>${coverage.length}</b> activities</span><span><b>${counts.complete||0}</b> complete packs</span><span><b>${counts['teacher-supplied']||0}</b> teacher-supplied</span><span><b>${counts['not-needed']||0}</b> not needed</span></div><table><thead><tr><th>#</th><th>Activity</th><th>Status</th><th>Decision</th></tr></thead><tbody>${rows}</tbody></table></body></html>`;
+fs.writeFileSync(path.join(path.dirname(ROOT),'printable-coverage.html'),report);
 console.log(`Generated ${Object.keys(packs).length} printable packs.`);

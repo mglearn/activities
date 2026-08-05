@@ -1,5 +1,10 @@
 # Say It, Make It — Printable Materials Expansion Roadmap
 
+**Roadmap status: ✅ complete (2026-08-05).** All 106 activities have a documented
+materials decision: 71 complete printable packs, 19 teacher-supplied activities, and
+16 facilitation modes requiring no separate pack. The collection includes 510 validated
+PDF/PNG pages, reproducible build/export commands, a public coverage report, and CI.
+
 ## Goal
 
 Give every activity that depends on custom cards, mats, diagrams, maps, grids, tokens,
@@ -272,20 +277,18 @@ content.
 14. Commit and deploy one coherent batch.
 15. Verify live activity pages and PDFs by HTTP status and file signature.
 
-## Automation and Validation Backlog
+## Automation and Validation — Complete
 
-- Add `npm` or shell commands for build, PDF export, PNG export, and validation.
-- Fail validation when a manifest entry points to a missing file.
-- Fail validation when an activity marked `complete` lacks HTML, PDF, or PNG pages.
-- Compare normalized Set A and Set B contents automatically.
-- Check that PDFs are US Letter and that PNGs are 300 DPI dimensions
-  (2550×3300 portrait or 3300×2550 landscape).
-- Check every generated activity page for its PDF link.
-- Produce a coverage report with statuses: `teacher-supplied`, `planned`, `in-review`,
-  `complete`, or `not-needed`.
-- Add the build and coverage checks to CI after the local pipeline is stable.
+- `npm run build`, `npm run export`, `npm run validate`, and `npm run check` provide
+  reproducible commands; `export-printables.sh <slug>` can rebuild one pack.
+- Validation fails on missing manifest targets, incomplete pack artifacts, Set A/B
+  mismatches, incorrect PDF signatures/page counts/US Letter size, incorrect PNG pixel
+  dimensions, missing activity-page links, incomplete coverage, or unfinished statuses.
+- `printable-coverage.html` publishes all 106 decisions from the machine-readable manifest.
+- `.github/workflows/sayitmakeit-printables.yml` rebuilds generated files and runs the
+  complete artifact/coverage validator for relevant pushes and pull requests.
 
-## Recommended Release Order
+## Completed Release Order
 
 1. **Release 4:** Activity 77 Circuit Description Challenge.
 2. **Release 5:** Activities 79, 81, 82, 83, and 84 science packs.

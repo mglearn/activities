@@ -9,9 +9,11 @@ module.exports = function render({ acts, STRANDS, STRAND_ORDER, esc, ROOT }) {
   let TR = {};
   try { TR = JSON.parse(fs.readFileSync(path.join(A, 'data', 'translations.json'), 'utf8')); } catch (e) {}
   let printableByActivity = new Map();
+  let coverageByActivity = new Map();
   try {
     const manifest = JSON.parse(fs.readFileSync(path.join(A, 'printables', 'manifest.json'), 'utf8'));
     printableByActivity = new Map((manifest.packs || []).filter((p) => p.status === 'complete').map((p) => [p.activity, p]));
+    coverageByActivity = new Map((manifest.coverage || []).map((p) => [p.activity, p]));
   } catch (e) {}
   const strandBadge = (s) => `<span class="badge b-${s}"><span class="bl">${STRANDS[s].letter}</span> ${esc(STRANDS[s].label)}</span>`;
   const skillTags = (sk) => (sk || []).map((k) => `<span class="tag">${esc(k)}</span>`).join('');
@@ -61,6 +63,7 @@ ${extras}
         <p class="std-note" data-i18n="std_note"></p>
       </div>` : `<p class="std-note" data-i18n="std_pending"></p>`;
     const printable = printableByActivity.get(a.num);
+    const coverage = coverageByActivity.get(a.num);
 
     return `${headCommon(`${a.num}. ${a.title} — Say It, Make It`, `${a.title}: a STEAM barrier-communication activity. Describe it, build it, compare, reflect. Seven languages, print-friendly.`, 1)}
 <body>
@@ -81,6 +84,7 @@ ${actScript}
   </div>
 
   ${a.materials ? `<div class="callout mats"><span class="mk" data-i18n="materials_lbl">Materials</span> <span data-i18n="a_materials">${esc(a.materials)}</span></div>` : ''}
+${coverage && coverage.status !== 'complete' ? `  <div class="callout mats"><span class="mk">Materials decision</span> ${esc(coverage.note)}</div>\n` : ''}
 
   <h2 data-i18n="sec_describe">What to describe</h2>
   <p class="lede" data-i18n="a_summary">${esc(a.summary)}</p>
@@ -116,6 +120,7 @@ ${actScript}
     <button class="btn btn-primary" onclick="window.print()" data-i18n="print_btn">Print / Save as PDF</button>
 ${printable ? `    <a class="btn btn-primary" href="../${esc(printable.pdf)}" download>Download printable pack (PDF)</a>
 ` : ''}    <a class="btn btn-ghost" href="../index.html" data-i18n="all_activities">All activities</a>
+    <a class="btn btn-ghost" href="../printable-coverage.html">Printable coverage</a>
   </div>
 
   <footer><span data-i18n="footer_copy">Say It, Make It · A TCEA educator resource · CC BY 4.0 (content) · MIT (code)</span></footer>
@@ -197,7 +202,8 @@ ${printable ? `    <a class="btn btn-primary" href="../${esc(printable.pdf)}" do
   <p class="noresults" id="noresults" hidden data-i18n="no_match">No activities match your search. Try another word or strand.</p>
 
   <footer><span data-i18n="footer_copy">Say It, Make It · A TCEA educator resource · CC BY 4.0 (content) · MIT (code)</span><br>
-  <span data-i18n="footer_sub">Self-contained · No logins · No data collected · Seven languages · Print-friendly</span></footer>
+  <span data-i18n="footer_sub">Self-contained · No logins · No data collected · Seven languages · Print-friendly</span><br>
+  <a href="printable-coverage.html">Printable coverage</a></footer>
 </main>
 </body>
 </html>`;

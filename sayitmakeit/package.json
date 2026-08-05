@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "node printables/build-printables.js && RENDER=1 node build.js",
+    "export": "bash export-printables.sh all",
+    "validate": "node printables/validate-printables.js",
+    "check": "npm run build && git diff --exit-code && npm run validate"
+  }
+}

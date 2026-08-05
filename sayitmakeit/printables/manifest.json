@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "generated": "2026-08-05",
   "packs": [
     {
@@ -1485,6 +1485,821 @@
       "pngDirectory": "printables/data-display-replication/png-pages",
       "pageCount": 10,
       "review": "classroom review recommended"
+    }
+  ],
+  "coverage": [
+    {
+      "activity": 1,
+      "slug": "hidden-cup-structure",
+      "title": "Hidden Cup Structure",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 2,
+      "slug": "cup-structure-relay",
+      "title": "Cup Structure Relay",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 3,
+      "slug": "one-message-cup-challenge",
+      "title": "One-Message Cup Challenge",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 4,
+      "slug": "question-limited-cup-challenge",
+      "title": "Question-Limited Cup Challenge",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/question-limited-cup-challenge/question-limited-cup-challenge-complete-pack.pdf"
+    },
+    {
+      "activity": 5,
+      "slug": "cup-coordinate-build",
+      "title": "Cup Coordinate Build",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/cup-coordinate-build/cup-coordinate-build-complete-pack.pdf"
+    },
+    {
+      "activity": 6,
+      "slug": "cup-tower-troubleshooting",
+      "title": "Cup Tower Troubleshooting",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 7,
+      "slug": "lego-copy-build",
+      "title": "LEGO Copy Build",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 8,
+      "slug": "architect-messenger-builder",
+      "title": "Architect–Messenger–Builder",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/architect-messenger-builder/architect-messenger-builder-complete-pack.pdf"
+    },
+    {
+      "activity": 9,
+      "slug": "silent-architect",
+      "title": "Silent Architect",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 10,
+      "slug": "blueprint-to-building",
+      "title": "Blueprint to Building",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/blueprint-to-building/blueprint-to-building-complete-pack.pdf"
+    },
+    {
+      "activity": 11,
+      "slug": "straw-and-connector-structure",
+      "title": "Straw-and-Connector Structure",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 12,
+      "slug": "pattern-block-picture",
+      "title": "Pattern-Block Picture",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 13,
+      "slug": "tangram-talk",
+      "title": "Tangram Talk",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 14,
+      "slug": "magnetic-tile-model",
+      "title": "Magnetic-Tile Model",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 15,
+      "slug": "index-card-construction",
+      "title": "Index-Card Construction",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 16,
+      "slug": "classroom-materials-machine",
+      "title": "Classroom-Materials Machine",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 17,
+      "slug": "back-to-back-drawing",
+      "title": "Back-to-Back Drawing",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/back-to-back-drawing/back-to-back-drawing-complete-pack.pdf"
+    },
+    {
+      "activity": 18,
+      "slug": "one-way-versus-two-way-drawing",
+      "title": "One-Way Versus Two-Way Drawing",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/one-way-versus-two-way-drawing/one-way-versus-two-way-drawing-complete-pack.pdf"
+    },
+    {
+      "activity": 19,
+      "slug": "shape-only-drawing",
+      "title": "Shape-Only Drawing",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/shape-only-drawing/shape-only-drawing-complete-pack.pdf"
+    },
+    {
+      "activity": 20,
+      "slug": "mystery-robot",
+      "title": "Mystery Robot",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/mystery-robot/mystery-robot-complete-pack.pdf"
+    },
+    {
+      "activity": 21,
+      "slug": "monster-match",
+      "title": "Monster Match",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/monster-match/monster-match-complete-pack.pdf"
+    },
+    {
+      "activity": 22,
+      "slug": "describe-the-flag",
+      "title": "Describe the Flag",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/describe-the-flag/describe-the-flag-complete-pack.pdf"
+    },
+    {
+      "activity": 23,
+      "slug": "hidden-emoji-design",
+      "title": "Hidden Emoji Design",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/hidden-emoji-design/hidden-emoji-design-complete-pack.pdf"
+    },
+    {
+      "activity": 24,
+      "slug": "pixel-art-dictation",
+      "title": "Pixel-Art Dictation",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/pixel-art-dictation/pixel-art-dictation-complete-pack.pdf"
+    },
+    {
+      "activity": 25,
+      "slug": "symmetry-drawing",
+      "title": "Symmetry Drawing",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/symmetry-drawing/symmetry-drawing-complete-pack.pdf"
+    },
+    {
+      "activity": 26,
+      "slug": "logo-without-the-name",
+      "title": "Logo Without the Name",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/logo-without-the-name/logo-without-the-name-complete-pack.pdf"
+    },
+    {
+      "activity": 27,
+      "slug": "diagram-dictation",
+      "title": "Diagram Dictation",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/diagram-dictation/diagram-dictation-complete-pack.pdf"
+    },
+    {
+      "activity": 28,
+      "slug": "drawing-from-written-directions",
+      "title": "Drawing from Written Directions",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/drawing-from-written-directions/drawing-from-written-directions-complete-pack.pdf"
+    },
+    {
+      "activity": 29,
+      "slug": "desk-object-arrangement",
+      "title": "Desk-Object Arrangement",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 30,
+      "slug": "miniature-classroom-scene",
+      "title": "Miniature Classroom Scene",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/miniature-classroom-scene/miniature-classroom-scene-complete-pack.pdf"
+    },
+    {
+      "activity": 31,
+      "slug": "playground-designer",
+      "title": "Playground Designer",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/playground-designer/playground-designer-complete-pack.pdf"
+    },
+    {
+      "activity": 32,
+      "slug": "eco-friendly-schoolyard",
+      "title": "Eco-Friendly Schoolyard",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/eco-friendly-schoolyard/eco-friendly-schoolyard-complete-pack.pdf"
+    },
+    {
+      "activity": 33,
+      "slug": "dress-the-character",
+      "title": "Dress the Character",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/dress-the-character/dress-the-character-complete-pack.pdf"
+    },
+    {
+      "activity": 34,
+      "slug": "build-a-face",
+      "title": "Build a Face",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/build-a-face/build-a-face-complete-pack.pdf"
+    },
+    {
+      "activity": 35,
+      "slug": "create-a-habitat",
+      "title": "Create a Habitat",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/create-a-habitat/create-a-habitat-complete-pack.pdf"
+    },
+    {
+      "activity": 36,
+      "slug": "historical-scene-builder",
+      "title": "Historical Scene Builder",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/historical-scene-builder/historical-scene-builder-complete-pack.pdf"
+    },
+    {
+      "activity": 37,
+      "slug": "story-scene-match",
+      "title": "Story Scene Match",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/story-scene-match/story-scene-match-complete-pack.pdf"
+    },
+    {
+      "activity": 38,
+      "slug": "solar-system-placement",
+      "title": "Solar-System Placement",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/solar-system-placement/solar-system-placement-complete-pack.pdf"
+    },
+    {
+      "activity": 39,
+      "slug": "food-plate-arrangement",
+      "title": "Food-Plate Arrangement",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/food-plate-arrangement/food-plate-arrangement-complete-pack.pdf"
+    },
+    {
+      "activity": 40,
+      "slug": "community-map-builder",
+      "title": "Community Map Builder",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/community-map-builder/community-map-builder-complete-pack.pdf"
+    },
+    {
+      "activity": 41,
+      "slug": "bead-pattern-barrier",
+      "title": "Bead-Pattern Barrier",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 42,
+      "slug": "linking-cube-train",
+      "title": "Linking-Cube Train",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 43,
+      "slug": "pegboard-pattern",
+      "title": "Pegboard Pattern",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 44,
+      "slug": "number-sequence-build",
+      "title": "Number-Sequence Build",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/number-sequence-build/number-sequence-build-complete-pack.pdf"
+    },
+    {
+      "activity": 45,
+      "slug": "fraction-tile-arrangement",
+      "title": "Fraction-Tile Arrangement",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/fraction-tile-arrangement/fraction-tile-arrangement-complete-pack.pdf"
+    },
+    {
+      "activity": 46,
+      "slug": "base-ten-model-match",
+      "title": "Base-Ten Model Match",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/base-ten-model-match/base-ten-model-match-complete-pack.pdf"
+    },
+    {
+      "activity": 47,
+      "slug": "sort-it-the-same",
+      "title": "Sort-It-the-Same",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/sort-it-the-same/sort-it-the-same-complete-pack.pdf"
+    },
+    {
+      "activity": 48,
+      "slug": "mystery-sorting-rule",
+      "title": "Mystery Sorting Rule",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/mystery-sorting-rule/mystery-sorting-rule-complete-pack.pdf"
+    },
+    {
+      "activity": 49,
+      "slug": "musical-instrument-sequence",
+      "title": "Musical Instrument Sequence",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/musical-instrument-sequence/musical-instrument-sequence-complete-pack.pdf"
+    },
+    {
+      "activity": 50,
+      "slug": "rhythm-replication",
+      "title": "Rhythm Replication",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/rhythm-replication/rhythm-replication-complete-pack.pdf"
+    },
+    {
+      "activity": 51,
+      "slug": "route-on-a-map",
+      "title": "Route on a Map",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/route-on-a-map/route-on-a-map-complete-pack.pdf"
+    },
+    {
+      "activity": 52,
+      "slug": "treasure-map-directions",
+      "title": "Treasure-Map Directions",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/treasure-map-directions/treasure-map-directions-complete-pack.pdf"
+    },
+    {
+      "activity": 53,
+      "slug": "coordinate-plane-journey",
+      "title": "Coordinate-Plane Journey",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/coordinate-plane-journey/coordinate-plane-journey-complete-pack.pdf"
+    },
+    {
+      "activity": 54,
+      "slug": "school-navigation-challenge",
+      "title": "School Navigation Challenge",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/school-navigation-challenge/school-navigation-challenge-complete-pack.pdf"
+    },
+    {
+      "activity": 55,
+      "slug": "cardinal-direction-builder",
+      "title": "Cardinal-Direction Builder",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/cardinal-direction-builder/cardinal-direction-builder-complete-pack.pdf"
+    },
+    {
+      "activity": 56,
+      "slug": "landform-map-match",
+      "title": "Landform Map Match",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/landform-map-match/landform-map-match-complete-pack.pdf"
+    },
+    {
+      "activity": 57,
+      "slug": "grid-robot-programmer",
+      "title": "Grid Robot Programmer",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/grid-robot-programmer/grid-robot-programmer-complete-pack.pdf"
+    },
+    {
+      "activity": 58,
+      "slug": "human-robot-course",
+      "title": "Human Robot Course",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/human-robot-course/human-robot-course-complete-pack.pdf"
+    },
+    {
+      "activity": 59,
+      "slug": "vocabulary-object-match",
+      "title": "Vocabulary Object Match",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/vocabulary-object-match/vocabulary-object-match-complete-pack.pdf"
+    },
+    {
+      "activity": 60,
+      "slug": "forbidden-word-description",
+      "title": "Forbidden-Word Description",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/forbidden-word-description/forbidden-word-description-complete-pack.pdf"
+    },
+    {
+      "activity": 61,
+      "slug": "character-description-match",
+      "title": "Character Description Match",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/character-description-match/character-description-match-complete-pack.pdf"
+    },
+    {
+      "activity": 62,
+      "slug": "which-picture-am-i-describing",
+      "title": "Which Picture Am I Describing?",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/which-picture-am-i-describing/which-picture-am-i-describing-complete-pack.pdf"
+    },
+    {
+      "activity": 63,
+      "slug": "sentence-building-barrier",
+      "title": "Sentence-Building Barrier",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/sentence-building-barrier/sentence-building-barrier-complete-pack.pdf"
+    },
+    {
+      "activity": 64,
+      "slug": "story-sequence-match",
+      "title": "Story-Sequence Match",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/story-sequence-match/story-sequence-match-complete-pack.pdf"
+    },
+    {
+      "activity": 65,
+      "slug": "comic-strip-reconstruction",
+      "title": "Comic-Strip Reconstruction",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/comic-strip-reconstruction/comic-strip-reconstruction-complete-pack.pdf"
+    },
+    {
+      "activity": 66,
+      "slug": "main-idea-organizer",
+      "title": "Main-Idea Organizer",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/main-idea-organizer/main-idea-organizer-complete-pack.pdf"
+    },
+    {
+      "activity": 67,
+      "slug": "word-web-replication",
+      "title": "Word-Web Replication",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/word-web-replication/word-web-replication-complete-pack.pdf"
+    },
+    {
+      "activity": 68,
+      "slug": "oral-to-written-procedure",
+      "title": "Oral-to-Written Procedure",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/oral-to-written-procedure/oral-to-written-procedure-complete-pack.pdf"
+    },
+    {
+      "activity": 69,
+      "slug": "hidden-shape-arrangement",
+      "title": "Hidden Shape Arrangement",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 70,
+      "slug": "polygon-builder",
+      "title": "Polygon Builder",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 71,
+      "slug": "geoboard-copy",
+      "title": "Geoboard Copy",
+      "status": "teacher-supplied",
+      "note": "Runs with common classroom manipulatives; no custom printable is required."
+    },
+    {
+      "activity": 72,
+      "slug": "equation-tile-match",
+      "title": "Equation Tile Match",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/equation-tile-match/equation-tile-match-complete-pack.pdf"
+    },
+    {
+      "activity": 73,
+      "slug": "array-builder",
+      "title": "Array Builder",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/array-builder/array-builder-complete-pack.pdf"
+    },
+    {
+      "activity": 74,
+      "slug": "equivalent-fraction-model",
+      "title": "Equivalent-Fraction Model",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/equivalent-fraction-model/equivalent-fraction-model-complete-pack.pdf"
+    },
+    {
+      "activity": 75,
+      "slug": "transformation-challenge",
+      "title": "Transformation Challenge",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/transformation-challenge/transformation-challenge-complete-pack.pdf"
+    },
+    {
+      "activity": 76,
+      "slug": "data-display-replication",
+      "title": "Data-Display Replication",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/data-display-replication/data-display-replication-complete-pack.pdf"
+    },
+    {
+      "activity": 77,
+      "slug": "circuit-description-challenge",
+      "title": "Circuit Description Challenge",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/circuit-description-challenge/circuit-description-challenge-complete-pack.pdf"
+    },
+    {
+      "activity": 78,
+      "slug": "molecule-model-match",
+      "title": "Molecule Model Match",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/molecule-model-match/molecule-model-match-complete-pack.pdf"
+    },
+    {
+      "activity": 79,
+      "slug": "food-chain-builder",
+      "title": "Food-Chain Builder",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/food-chain-builder/food-chain-builder-complete-pack.pdf"
+    },
+    {
+      "activity": 80,
+      "slug": "life-cycle-sequence",
+      "title": "Life-Cycle Sequence",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/life-cycle-sequence/life-cycle-sequence-complete-pack.pdf"
+    },
+    {
+      "activity": 81,
+      "slug": "rock-layer-reconstruction",
+      "title": "Rock-Layer Reconstruction",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/rock-layer-reconstruction/rock-layer-reconstruction-complete-pack.pdf"
+    },
+    {
+      "activity": 82,
+      "slug": "weather-map-match",
+      "title": "Weather-Map Match",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/weather-map-match/weather-map-match-complete-pack.pdf"
+    },
+    {
+      "activity": 83,
+      "slug": "cell-model-arrangement",
+      "title": "Cell Model Arrangement",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/cell-model-arrangement/cell-model-arrangement-complete-pack.pdf"
+    },
+    {
+      "activity": 84,
+      "slug": "experimental-setup-build",
+      "title": "Experimental-Setup Build",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/experimental-setup-build/experimental-setup-build-complete-pack.pdf"
+    },
+    {
+      "activity": 85,
+      "slug": "timeline-reconstruction",
+      "title": "Timeline Reconstruction",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/timeline-reconstruction/timeline-reconstruction-complete-pack.pdf"
+    },
+    {
+      "activity": 86,
+      "slug": "government-structure-match",
+      "title": "Government-Structure Match",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/government-structure-match/government-structure-match-complete-pack.pdf"
+    },
+    {
+      "activity": 87,
+      "slug": "trade-route-map",
+      "title": "Trade-Route Map",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/trade-route-map/trade-route-map-complete-pack.pdf"
+    },
+    {
+      "activity": 88,
+      "slug": "settlement-planner",
+      "title": "Settlement Planner",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/settlement-planner/settlement-planner-complete-pack.pdf"
+    },
+    {
+      "activity": 89,
+      "slug": "artifact-arrangement",
+      "title": "Artifact Arrangement",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/artifact-arrangement/artifact-arrangement-complete-pack.pdf"
+    },
+    {
+      "activity": 90,
+      "slug": "cause-and-effect-chain",
+      "title": "Cause-and-Effect Chain",
+      "status": "complete",
+      "note": "Classroom-ready printable pack linked from the activity page.",
+      "pdf": "printables/cause-and-effect-chain/cause-and-effect-chain-complete-pack.pdf"
+    },
+    {
+      "activity": 91,
+      "slug": "no-questions-round",
+      "title": "No-Questions Round",
+      "status": "not-needed",
+      "note": "Facilitation mode applied to other activities; no separate material set is required."
+    },
+    {
+      "activity": 92,
+      "slug": "questions-allowed-round",
+      "title": "Questions-Allowed Round",
+      "status": "not-needed",
+      "note": "Facilitation mode applied to other activities; no separate material set is required."
+    },
+    {
+      "activity": 93,
+      "slug": "yes-or-no-questions-only",
+      "title": "Yes-or-No Questions Only",
+      "status": "not-needed",
+      "note": "Facilitation mode applied to other activities; no separate material set is required."
+    },
+    {
+      "activity": 94,
+      "slug": "thirty-word-limit",
+      "title": "Thirty-Word Limit",
+      "status": "not-needed",
+      "note": "Facilitation mode applied to other activities; no separate material set is required."
+    },
+    {
+      "activity": 95,
+      "slug": "one-direction-at-a-time",
+      "title": "One Direction at a Time",
+      "status": "not-needed",
+      "note": "Facilitation mode applied to other activities; no separate material set is required."
+    },
+    {
+      "activity": 96,
+      "slug": "memory-messenger",
+      "title": "Memory Messenger",
+      "status": "not-needed",
+      "note": "Facilitation mode applied to other activities; no separate material set is required."
+    },
+    {
+      "activity": 97,
+      "slug": "written-messenger",
+      "title": "Written Messenger",
+      "status": "not-needed",
+      "note": "Facilitation mode applied to other activities; no separate material set is required."
+    },
+    {
+      "activity": 98,
+      "slug": "multiple-messengers",
+      "title": "Multiple Messengers",
+      "status": "not-needed",
+      "note": "Facilitation mode applied to other activities; no separate material set is required."
+    },
+    {
+      "activity": 99,
+      "slug": "competing-voices",
+      "title": "Competing Voices",
+      "status": "not-needed",
+      "note": "Facilitation mode applied to other activities; no separate material set is required."
+    },
+    {
+      "activity": 100,
+      "slug": "communication-code-challenge",
+      "title": "Communication-Code Challenge",
+      "status": "not-needed",
+      "note": "Facilitation mode applied to other activities; no separate material set is required."
+    },
+    {
+      "activity": 101,
+      "slug": "accuracy-before-speed",
+      "title": "Accuracy Before Speed",
+      "status": "not-needed",
+      "note": "Facilitation mode applied to other activities; no separate material set is required."
+    },
+    {
+      "activity": 102,
+      "slug": "speed-before-accuracy",
+      "title": "Speed Before Accuracy",
+      "status": "not-needed",
+      "note": "Facilitation mode applied to other activities; no separate material set is required."
+    },
+    {
+      "activity": 103,
+      "slug": "observer-feedback-round",
+      "title": "Observer Feedback Round",
+      "status": "not-needed",
+      "note": "Facilitation mode applied to other activities; no separate material set is required."
+    },
+    {
+      "activity": 104,
+      "slug": "teach-back-rule",
+      "title": "Teach-Back Rule",
+      "status": "not-needed",
+      "note": "Facilitation mode applied to other activities; no separate material set is required."
+    },
+    {
+      "activity": 105,
+      "slug": "error-recovery-challenge",
+      "title": "Error-Recovery Challenge",
+      "status": "not-needed",
+      "note": "Facilitation mode applied to other activities; no separate material set is required."
+    },
+    {
+      "activity": 106,
+      "slug": "student-designed-challenge",
+      "title": "Student-Designed Challenge",
+      "status": "not-needed",
+      "note": "Facilitation mode applied to other activities; no separate material set is required."
     }
   ]
 }
