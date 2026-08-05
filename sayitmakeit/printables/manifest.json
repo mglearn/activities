@@ -605,6 +605,237 @@
       "review": "classroom review recommended"
     },
     {
+      "activity": 44,
+      "slug": "number-sequence-build",
+      "title": "Number-Sequence Build",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/number-sequence-build/number-sequence-build-complete-pack.html",
+      "pdf": "printables/number-sequence-build/number-sequence-build-complete-pack.pdf",
+      "pngDirectory": "printables/number-sequence-build/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 48,
+      "slug": "mystery-sorting-rule",
+      "title": "Mystery Sorting Rule",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/mystery-sorting-rule/mystery-sorting-rule-complete-pack.html",
+      "pdf": "printables/mystery-sorting-rule/mystery-sorting-rule-complete-pack.pdf",
+      "pngDirectory": "printables/mystery-sorting-rule/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 59,
+      "slug": "vocabulary-object-match",
+      "title": "Vocabulary Object Match",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/vocabulary-object-match/vocabulary-object-match-complete-pack.html",
+      "pdf": "printables/vocabulary-object-match/vocabulary-object-match-complete-pack.pdf",
+      "pngDirectory": "printables/vocabulary-object-match/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 60,
+      "slug": "forbidden-word-description",
+      "title": "Forbidden-Word Description",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/forbidden-word-description/forbidden-word-description-complete-pack.html",
+      "pdf": "printables/forbidden-word-description/forbidden-word-description-complete-pack.pdf",
+      "pngDirectory": "printables/forbidden-word-description/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 61,
+      "slug": "character-description-match",
+      "title": "Character Description Match",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/character-description-match/character-description-match-complete-pack.html",
+      "pdf": "printables/character-description-match/character-description-match-complete-pack.pdf",
+      "pngDirectory": "printables/character-description-match/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 62,
+      "slug": "which-picture-am-i-describing",
+      "title": "Which Picture Am I Describing?",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/which-picture-am-i-describing/which-picture-am-i-describing-complete-pack.html",
+      "pdf": "printables/which-picture-am-i-describing/which-picture-am-i-describing-complete-pack.pdf",
+      "pngDirectory": "printables/which-picture-am-i-describing/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 63,
+      "slug": "sentence-building-barrier",
+      "title": "Sentence-Building Barrier",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/sentence-building-barrier/sentence-building-barrier-complete-pack.html",
+      "pdf": "printables/sentence-building-barrier/sentence-building-barrier-complete-pack.pdf",
+      "pngDirectory": "printables/sentence-building-barrier/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 64,
+      "slug": "story-sequence-match",
+      "title": "Story-Sequence Match",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/story-sequence-match/story-sequence-match-complete-pack.html",
+      "pdf": "printables/story-sequence-match/story-sequence-match-complete-pack.pdf",
+      "pngDirectory": "printables/story-sequence-match/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 65,
+      "slug": "comic-strip-reconstruction",
+      "title": "Comic-Strip Reconstruction",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/comic-strip-reconstruction/comic-strip-reconstruction-complete-pack.html",
+      "pdf": "printables/comic-strip-reconstruction/comic-strip-reconstruction-complete-pack.pdf",
+      "pngDirectory": "printables/comic-strip-reconstruction/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 66,
+      "slug": "main-idea-organizer",
+      "title": "Main-Idea Organizer",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/main-idea-organizer/main-idea-organizer-complete-pack.html",
+      "pdf": "printables/main-idea-organizer/main-idea-organizer-complete-pack.pdf",
+      "pngDirectory": "printables/main-idea-organizer/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 67,
+      "slug": "word-web-replication",
+      "title": "Word-Web Replication",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/word-web-replication/word-web-replication-complete-pack.html",
+      "pdf": "printables/word-web-replication/word-web-replication-complete-pack.pdf",
+      "pngDirectory": "printables/word-web-replication/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
       "activity": 5,
       "slug": "cup-coordinate-build",
       "title": "Cup Coordinate Build",

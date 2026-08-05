@@ -187,6 +187,11 @@ commercial logos, recognizable in grayscale, and suitable across the stated grad
 
 ## Phase 4 — Language, Literacy, and Thinking Tools
 
+**Status: ✅ complete locally (2026-08-05).** All 11 Phase 4 packs use original
+sample content, editable write-in cards, paired materials, reading/accessibility
+supports, answer-key guidance, and manifest-driven activity-page links. Their 77
+PDF/PNG pages pass the release validation gate; deployment is tracked separately.
+
 | Activity | Pack contents |
 |---|---|
 | 44. Number-Sequence Build | number cards, pattern cards, teacher-created sequence blanks |
