@@ -8,6 +8,11 @@ module.exports = function render({ acts, STRANDS, STRAND_ORDER, esc, ROOT }) {
   const A = (ROOT && ROOT) || __dirname;
   let TR = {};
   try { TR = JSON.parse(fs.readFileSync(path.join(A, 'data', 'translations.json'), 'utf8')); } catch (e) {}
+  let printableByActivity = new Map();
+  try {
+    const manifest = JSON.parse(fs.readFileSync(path.join(A, 'printables', 'manifest.json'), 'utf8'));
+    printableByActivity = new Map((manifest.packs || []).filter((p) => p.status === 'complete').map((p) => [p.activity, p]));
+  } catch (e) {}
   const strandBadge = (s) => `<span class="badge b-${s}"><span class="bl">${STRANDS[s].letter}</span> ${esc(STRANDS[s].label)}</span>`;
   const skillTags = (sk) => (sk || []).map((k) => `<span class="tag">${esc(k)}</span>`).join('');
 
@@ -55,6 +60,7 @@ ${extras}
         ${a.ngss.length ? `<div class="std-row"><span class="std-k">NGSS</span> <span>${a.ngss.map(esc).join(' · ')}</span></div>` : ''}
         <p class="std-note" data-i18n="std_note"></p>
       </div>` : `<p class="std-note" data-i18n="std_pending"></p>`;
+    const printable = printableByActivity.get(a.num);
 
     return `${headCommon(`${a.num}. ${a.title} — Say It, Make It`, `${a.title}: a STEAM barrier-communication activity. Describe it, build it, compare, reflect. Seven languages, print-friendly.`, 1)}
 <body>
@@ -108,7 +114,7 @@ ${actScript}
 
   <div class="actions no-print">
     <button class="btn btn-primary" onclick="window.print()" data-i18n="print_btn">Print / Save as PDF</button>
-${[21,35,38,78,80].includes(a.num) ? `    <a class="btn btn-primary" href="../printables/${a.slug}/${a.slug}-complete-pack.pdf" download>Download printable pack (PDF)</a>
+${printable ? `    <a class="btn btn-primary" href="../${esc(printable.pdf)}" download>Download printable pack (PDF)</a>
 ` : ''}    <a class="btn btn-ghost" href="../index.html" data-i18n="all_activities">All activities</a>
   </div>
 

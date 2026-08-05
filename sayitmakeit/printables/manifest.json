@@ -1,0 +1,503 @@
+{
+  "version": 1,
+  "generated": "2026-08-04",
+  "packs": [
+    {
+      "activity": 21,
+      "slug": "monster-match",
+      "title": "Monster Match",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges"
+      ],
+      "html": "printables/monster-match/monster-match-complete-pack.html",
+      "pdf": "printables/monster-match/monster-match-complete-pack.pdf",
+      "pngDirectory": "printables/monster-match/png-pages",
+      "pageCount": 6,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 80,
+      "slug": "life-cycle-sequence",
+      "title": "Life-Cycle Sequence",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference"
+      ],
+      "html": "printables/life-cycle-sequence/life-cycle-sequence-complete-pack.html",
+      "pdf": "printables/life-cycle-sequence/life-cycle-sequence-complete-pack.pdf",
+      "pngDirectory": "printables/life-cycle-sequence/png-pages",
+      "pageCount": 9,
+      "review": "science/safety source review completed 2026-08-04; educator review recommended"
+    },
+    {
+      "activity": 35,
+      "slug": "create-a-habitat",
+      "title": "Create a Habitat",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference"
+      ],
+      "html": "printables/create-a-habitat/create-a-habitat-complete-pack.html",
+      "pdf": "printables/create-a-habitat/create-a-habitat-complete-pack.pdf",
+      "pngDirectory": "printables/create-a-habitat/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 38,
+      "slug": "solar-system-placement",
+      "title": "Solar-System Placement",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges"
+      ],
+      "html": "printables/solar-system-placement/solar-system-placement-complete-pack.html",
+      "pdf": "printables/solar-system-placement/solar-system-placement-complete-pack.pdf",
+      "pngDirectory": "printables/solar-system-placement/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 78,
+      "slug": "molecule-model-match",
+      "title": "Molecule Model Match",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges"
+      ],
+      "html": "printables/molecule-model-match/molecule-model-match-complete-pack.html",
+      "pdf": "printables/molecule-model-match/molecule-model-match-complete-pack.pdf",
+      "pngDirectory": "printables/molecule-model-match/png-pages",
+      "pageCount": 8,
+      "review": "science/safety source review completed 2026-08-04; educator review recommended"
+    },
+    {
+      "activity": 77,
+      "slug": "circuit-description-challenge",
+      "title": "Circuit Description Challenge",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/circuit-description-challenge/circuit-description-challenge-complete-pack.html",
+      "pdf": "printables/circuit-description-challenge/circuit-description-challenge-complete-pack.pdf",
+      "pngDirectory": "printables/circuit-description-challenge/png-pages",
+      "pageCount": 7,
+      "review": "science/safety source review completed 2026-08-04; educator review recommended"
+    },
+    {
+      "activity": 79,
+      "slug": "food-chain-builder",
+      "title": "Food-Chain Builder",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/food-chain-builder/food-chain-builder-complete-pack.html",
+      "pdf": "printables/food-chain-builder/food-chain-builder-complete-pack.pdf",
+      "pngDirectory": "printables/food-chain-builder/png-pages",
+      "pageCount": 10,
+      "review": "science/safety source review completed 2026-08-04; educator review recommended"
+    },
+    {
+      "activity": 81,
+      "slug": "rock-layer-reconstruction",
+      "title": "Rock-Layer Reconstruction",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/rock-layer-reconstruction/rock-layer-reconstruction-complete-pack.html",
+      "pdf": "printables/rock-layer-reconstruction/rock-layer-reconstruction-complete-pack.pdf",
+      "pngDirectory": "printables/rock-layer-reconstruction/png-pages",
+      "pageCount": 7,
+      "review": "science/safety source review completed 2026-08-04; educator review recommended"
+    },
+    {
+      "activity": 82,
+      "slug": "weather-map-match",
+      "title": "Weather-Map Match",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/weather-map-match/weather-map-match-complete-pack.html",
+      "pdf": "printables/weather-map-match/weather-map-match-complete-pack.pdf",
+      "pngDirectory": "printables/weather-map-match/png-pages",
+      "pageCount": 7,
+      "review": "science/safety source review completed 2026-08-04; educator review recommended"
+    },
+    {
+      "activity": 83,
+      "slug": "cell-model-arrangement",
+      "title": "Cell Model Arrangement",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/cell-model-arrangement/cell-model-arrangement-complete-pack.html",
+      "pdf": "printables/cell-model-arrangement/cell-model-arrangement-complete-pack.pdf",
+      "pngDirectory": "printables/cell-model-arrangement/png-pages",
+      "pageCount": 8,
+      "review": "science/safety source review completed 2026-08-04; educator review recommended"
+    },
+    {
+      "activity": 84,
+      "slug": "experimental-setup-build",
+      "title": "Experimental-Setup Build",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/experimental-setup-build/experimental-setup-build-complete-pack.html",
+      "pdf": "printables/experimental-setup-build/experimental-setup-build-complete-pack.pdf",
+      "pngDirectory": "printables/experimental-setup-build/png-pages",
+      "pageCount": 7,
+      "review": "science/safety source review completed 2026-08-04; educator review recommended"
+    },
+    {
+      "activity": 5,
+      "slug": "cup-coordinate-build",
+      "title": "Cup Coordinate Build",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/cup-coordinate-build/cup-coordinate-build-complete-pack.html",
+      "pdf": "printables/cup-coordinate-build/cup-coordinate-build-complete-pack.pdf",
+      "pngDirectory": "printables/cup-coordinate-build/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 24,
+      "slug": "pixel-art-dictation",
+      "title": "Pixel-Art Dictation",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/pixel-art-dictation/pixel-art-dictation-complete-pack.html",
+      "pdf": "printables/pixel-art-dictation/pixel-art-dictation-complete-pack.pdf",
+      "pngDirectory": "printables/pixel-art-dictation/png-pages",
+      "pageCount": 9,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 40,
+      "slug": "community-map-builder",
+      "title": "Community Map Builder",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/community-map-builder/community-map-builder-complete-pack.html",
+      "pdf": "printables/community-map-builder/community-map-builder-complete-pack.pdf",
+      "pngDirectory": "printables/community-map-builder/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 51,
+      "slug": "route-on-a-map",
+      "title": "Route on a Map",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/route-on-a-map/route-on-a-map-complete-pack.html",
+      "pdf": "printables/route-on-a-map/route-on-a-map-complete-pack.pdf",
+      "pngDirectory": "printables/route-on-a-map/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 52,
+      "slug": "treasure-map-directions",
+      "title": "Treasure-Map Directions",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/treasure-map-directions/treasure-map-directions-complete-pack.html",
+      "pdf": "printables/treasure-map-directions/treasure-map-directions-complete-pack.pdf",
+      "pngDirectory": "printables/treasure-map-directions/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 53,
+      "slug": "coordinate-plane-journey",
+      "title": "Coordinate-Plane Journey",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/coordinate-plane-journey/coordinate-plane-journey-complete-pack.html",
+      "pdf": "printables/coordinate-plane-journey/coordinate-plane-journey-complete-pack.pdf",
+      "pngDirectory": "printables/coordinate-plane-journey/png-pages",
+      "pageCount": 8,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 54,
+      "slug": "school-navigation-challenge",
+      "title": "School Navigation Challenge",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/school-navigation-challenge/school-navigation-challenge-complete-pack.html",
+      "pdf": "printables/school-navigation-challenge/school-navigation-challenge-complete-pack.pdf",
+      "pngDirectory": "printables/school-navigation-challenge/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 55,
+      "slug": "cardinal-direction-builder",
+      "title": "Cardinal-Direction Builder",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/cardinal-direction-builder/cardinal-direction-builder-complete-pack.html",
+      "pdf": "printables/cardinal-direction-builder/cardinal-direction-builder-complete-pack.pdf",
+      "pngDirectory": "printables/cardinal-direction-builder/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 56,
+      "slug": "landform-map-match",
+      "title": "Landform Map Match",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/landform-map-match/landform-map-match-complete-pack.html",
+      "pdf": "printables/landform-map-match/landform-map-match-complete-pack.pdf",
+      "pngDirectory": "printables/landform-map-match/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 57,
+      "slug": "grid-robot-programmer",
+      "title": "Grid Robot Programmer",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/grid-robot-programmer/grid-robot-programmer-complete-pack.html",
+      "pdf": "printables/grid-robot-programmer/grid-robot-programmer-complete-pack.pdf",
+      "pngDirectory": "printables/grid-robot-programmer/png-pages",
+      "pageCount": 8,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 73,
+      "slug": "array-builder",
+      "title": "Array Builder",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/array-builder/array-builder-complete-pack.html",
+      "pdf": "printables/array-builder/array-builder-complete-pack.pdf",
+      "pngDirectory": "printables/array-builder/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 75,
+      "slug": "transformation-challenge",
+      "title": "Transformation Challenge",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/transformation-challenge/transformation-challenge-complete-pack.html",
+      "pdf": "printables/transformation-challenge/transformation-challenge-complete-pack.pdf",
+      "pngDirectory": "printables/transformation-challenge/png-pages",
+      "pageCount": 7,
+      "review": "classroom review recommended"
+    },
+    {
+      "activity": 76,
+      "slug": "data-display-replication",
+      "title": "Data-Display Replication",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/data-display-replication/data-display-replication-complete-pack.html",
+      "pdf": "printables/data-display-replication/data-display-replication-complete-pack.pdf",
+      "pngDirectory": "printables/data-display-replication/png-pages",
+      "pageCount": 10,
+      "review": "classroom review recommended"
+    }
+  ]
+}
