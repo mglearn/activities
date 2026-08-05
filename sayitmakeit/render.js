@@ -108,7 +108,8 @@ ${actScript}
 
   <div class="actions no-print">
     <button class="btn btn-primary" onclick="window.print()" data-i18n="print_btn">Print / Save as PDF</button>
-    <a class="btn btn-ghost" href="../index.html" data-i18n="all_activities">All activities</a>
+${[21,35,38,78,80].includes(a.num) ? `    <a class="btn btn-primary" href="../printables/${a.slug}/${a.slug}-complete-pack.pdf" download>Download printable pack (PDF)</a>
+` : ''}    <a class="btn btn-ghost" href="../index.html" data-i18n="all_activities">All activities</a>
   </div>
 
   <footer><span data-i18n="footer_copy">Say It, Make It · A TCEA educator resource · CC BY 4.0 (content) · MIT (code)</span></footer>
