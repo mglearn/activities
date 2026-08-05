@@ -230,6 +230,11 @@ claims, and clear identification of the specific place/time/government being mod
 
 ## Phase 6 — Optional Convenience Packs
 
+**Status: ✅ complete locally (2026-08-05).** All 12 optional convenience packs
+retain ordinary manipulatives as teacher-supplied while adding reusable cards, mats,
+tokens, paper alternatives, safety/accessibility notes, and manifest-driven links. Their
+84 PDF/PNG pages pass the release validation gate; deployment is tracked separately.
+
 These activities can already run with common supplies, but lightweight printables would
 reduce teacher preparation:
 

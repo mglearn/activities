@@ -962,6 +962,258 @@
       "review": "historical scope, dates, terminology, and evidence cautions reviewed 2026-08-05; educator/local-curriculum review recommended"
     },
     {
+      "activity": 4,
+      "slug": "question-limited-cup-challenge",
+      "title": "Question-Limited Cup Challenge",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/question-limited-cup-challenge/question-limited-cup-challenge-complete-pack.html",
+      "pdf": "printables/question-limited-cup-challenge/question-limited-cup-challenge-complete-pack.pdf",
+      "pngDirectory": "printables/question-limited-cup-challenge/png-pages",
+      "pageCount": 7,
+      "review": "convenience-pack math/music/movement safety and teacher-supplied-material notes reviewed 2026-08-05; educator review recommended"
+    },
+    {
+      "activity": 8,
+      "slug": "architect-messenger-builder",
+      "title": "Architect–Messenger–Builder",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/architect-messenger-builder/architect-messenger-builder-complete-pack.html",
+      "pdf": "printables/architect-messenger-builder/architect-messenger-builder-complete-pack.pdf",
+      "pngDirectory": "printables/architect-messenger-builder/png-pages",
+      "pageCount": 7,
+      "review": "convenience-pack math/music/movement safety and teacher-supplied-material notes reviewed 2026-08-05; educator review recommended"
+    },
+    {
+      "activity": 10,
+      "slug": "blueprint-to-building",
+      "title": "Blueprint to Building",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/blueprint-to-building/blueprint-to-building-complete-pack.html",
+      "pdf": "printables/blueprint-to-building/blueprint-to-building-complete-pack.pdf",
+      "pngDirectory": "printables/blueprint-to-building/png-pages",
+      "pageCount": 7,
+      "review": "convenience-pack math/music/movement safety and teacher-supplied-material notes reviewed 2026-08-05; educator review recommended"
+    },
+    {
+      "activity": 45,
+      "slug": "fraction-tile-arrangement",
+      "title": "Fraction-Tile Arrangement",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/fraction-tile-arrangement/fraction-tile-arrangement-complete-pack.html",
+      "pdf": "printables/fraction-tile-arrangement/fraction-tile-arrangement-complete-pack.pdf",
+      "pngDirectory": "printables/fraction-tile-arrangement/png-pages",
+      "pageCount": 7,
+      "review": "convenience-pack math/music/movement safety and teacher-supplied-material notes reviewed 2026-08-05; educator review recommended"
+    },
+    {
+      "activity": 46,
+      "slug": "base-ten-model-match",
+      "title": "Base-Ten Model Match",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/base-ten-model-match/base-ten-model-match-complete-pack.html",
+      "pdf": "printables/base-ten-model-match/base-ten-model-match-complete-pack.pdf",
+      "pngDirectory": "printables/base-ten-model-match/png-pages",
+      "pageCount": 7,
+      "review": "convenience-pack math/music/movement safety and teacher-supplied-material notes reviewed 2026-08-05; educator review recommended"
+    },
+    {
+      "activity": 47,
+      "slug": "sort-it-the-same",
+      "title": "Sort It the Same",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/sort-it-the-same/sort-it-the-same-complete-pack.html",
+      "pdf": "printables/sort-it-the-same/sort-it-the-same-complete-pack.pdf",
+      "pngDirectory": "printables/sort-it-the-same/png-pages",
+      "pageCount": 7,
+      "review": "convenience-pack math/music/movement safety and teacher-supplied-material notes reviewed 2026-08-05; educator review recommended"
+    },
+    {
+      "activity": 49,
+      "slug": "musical-instrument-sequence",
+      "title": "Musical Instrument Sequence",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/musical-instrument-sequence/musical-instrument-sequence-complete-pack.html",
+      "pdf": "printables/musical-instrument-sequence/musical-instrument-sequence-complete-pack.pdf",
+      "pngDirectory": "printables/musical-instrument-sequence/png-pages",
+      "pageCount": 7,
+      "review": "convenience-pack math/music/movement safety and teacher-supplied-material notes reviewed 2026-08-05; educator review recommended"
+    },
+    {
+      "activity": 50,
+      "slug": "rhythm-replication",
+      "title": "Rhythm Replication",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/rhythm-replication/rhythm-replication-complete-pack.html",
+      "pdf": "printables/rhythm-replication/rhythm-replication-complete-pack.pdf",
+      "pngDirectory": "printables/rhythm-replication/png-pages",
+      "pageCount": 7,
+      "review": "convenience-pack math/music/movement safety and teacher-supplied-material notes reviewed 2026-08-05; educator review recommended"
+    },
+    {
+      "activity": 58,
+      "slug": "human-robot-course",
+      "title": "Human Robot Course",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/human-robot-course/human-robot-course-complete-pack.html",
+      "pdf": "printables/human-robot-course/human-robot-course-complete-pack.pdf",
+      "pngDirectory": "printables/human-robot-course/png-pages",
+      "pageCount": 7,
+      "review": "convenience-pack math/music/movement safety and teacher-supplied-material notes reviewed 2026-08-05; educator review recommended"
+    },
+    {
+      "activity": 68,
+      "slug": "oral-to-written-procedure",
+      "title": "Oral-to-Written Procedure",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/oral-to-written-procedure/oral-to-written-procedure-complete-pack.html",
+      "pdf": "printables/oral-to-written-procedure/oral-to-written-procedure-complete-pack.pdf",
+      "pngDirectory": "printables/oral-to-written-procedure/png-pages",
+      "pageCount": 7,
+      "review": "convenience-pack math/music/movement safety and teacher-supplied-material notes reviewed 2026-08-05; educator review recommended"
+    },
+    {
+      "activity": 72,
+      "slug": "equation-tile-match",
+      "title": "Equation Tile Match",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/equation-tile-match/equation-tile-match-complete-pack.html",
+      "pdf": "printables/equation-tile-match/equation-tile-match-complete-pack.pdf",
+      "pngDirectory": "printables/equation-tile-match/png-pages",
+      "pageCount": 7,
+      "review": "convenience-pack math/music/movement safety and teacher-supplied-material notes reviewed 2026-08-05; educator review recommended"
+    },
+    {
+      "activity": 74,
+      "slug": "equivalent-fraction-model",
+      "title": "Equivalent-Fraction Model",
+      "status": "complete",
+      "resourceType": "classroom-printable-pack",
+      "components": [
+        "teacher directions",
+        "two student sets",
+        "storage labels",
+        "accessibility notes",
+        "teacher reference",
+        "Describer-only challenges",
+        "student work mats"
+      ],
+      "html": "printables/equivalent-fraction-model/equivalent-fraction-model-complete-pack.html",
+      "pdf": "printables/equivalent-fraction-model/equivalent-fraction-model-complete-pack.pdf",
+      "pngDirectory": "printables/equivalent-fraction-model/png-pages",
+      "pageCount": 7,
+      "review": "convenience-pack math/music/movement safety and teacher-supplied-material notes reviewed 2026-08-05; educator review recommended"
+    },
+    {
       "activity": 5,
       "slug": "cup-coordinate-build",
       "title": "Cup Coordinate Build",
