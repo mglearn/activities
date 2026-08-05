@@ -156,6 +156,11 @@ space, and exact Set A/Set B parity.
 
 ## Phase 3 — Visual Communication and Scene Builders
 
+**Status: ✅ complete locally (2026-08-05).** All 18 remaining Phase 3 packs have
+editable HTML, US Letter PDF, 300-DPI PNG pages, paired student materials,
+original/noncommercial model content, accessibility guidance, and manifest-driven
+activity-page links. Deployment remains a separate release step.
+
 | Activity | Pack contents |
 |---|---|
 | 17. Back-to-Back Drawing | graduated line-drawing cards and blank response sheets |

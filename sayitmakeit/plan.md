@@ -18,7 +18,8 @@ it; the two are compared and the class reflects on what made the communication w
 Every activity gets its **own guided page** (setup, roles, materials, steps, the communication
 constraint, reflection prompts, and standards alignment). The area is browsable and searchable from
 a landing hub, works in **seven languages**, and every page is **print-friendly** (Save-as-PDF from
-the browser) — **no baked PDF files** are committed (that is what makes `gtky` 397 MB; we avoid it).
+the browser). Selected activities also include committed classroom-ready PDF/PNG packs; see
+`PRINTABLES_ROADMAP.md`.
 
 Privacy-first, client-side only: no accounts, no server, no data collection.
 
