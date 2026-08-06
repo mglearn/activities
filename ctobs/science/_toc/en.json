@@ -42,5 +42,10 @@
   "card.grade8.g": "Grade 8 · §112.28",
   "card.grade8.h2": "Grade 8 Science",
   "card.grade8.p": "Chemical reactions &amp; conservation of mass, forces, waves, stars &amp; the universe, weather &amp; climate, and heredity. Featured breakout: <b>Launch Control</b>.",
-  "card.grade8.go": "Open Grade 8 →"
+  "card.grade8.go": "Open Grade 8 →",
+  "group.safety": "🥽 Lab Safety · Grades 6–12",
+  "card.safety.g": "Grades 6–12 · Nine certification activities",
+  "card.safety.h2": "Lab Safety Certification",
+  "card.safety.p": "Practice rules of the room, PPE, emergency equipment, hazard symbols, Safety Data Sheets, GHS pictograms, chemical compatibility, and procedure critique. Pass the mastery checks to earn a printable <b>Ranger or Specialist badge</b>.",
+  "card.safety.go": "Start Lab Safety Certification →"
 }
