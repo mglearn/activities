@@ -50,6 +50,9 @@
 
   h2.sec{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.15rem;margin:38px 0 14px;display:flex;align-items:center;gap:10px}
   h2.sec::after{content:"";flex:1;height:2px;background:var(--line)}
+  .band-group{margin-top:30px}
+  .band-group h2.sec{margin:0 0 14px}
+  .band-group.hide{display:none}
 
   .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
   @media(max-width:720px){.cards{grid-template-columns:1fr}}
@@ -106,16 +109,9 @@
     <input id="q" type="search" placeholder="Search activities — try “literature”, “fractions”, “privacy”, “GHS”…" aria-label="Search activities" autocomplete="off">
   </div>
   <div class="qinfo" id="qinfo" aria-live="polite"></div>
-  <div class="cards">
-
-    <a class="card" data-count="205" data-kw="critical thinking breakout escape room clues locks reasoning evidence deduction clear fourth of july independence declaration liberty juneteenth july 5 black freedom holidays bible as literature science teks idioms figurative language" style="--accent:#054c8c" href="ctobs/">
-      <div class="ico" aria-hidden="true">🕵️</div>
-      <div class="band">Grades K–12 · Seven languages</div>
-      <h3>Critical Thinking Breakouts</h3>
-      <p>The CTOB library — self-contained reasoning escapes where students open clues, weigh evidence, and crack the locks. Includes the CLEAR system, Fourth of July, July 5 &amp; Black Freedom Holidays, Bible as Literature, Science, and Idioms, plus a searchable catalog.</p>
-      <span class="go">Open the breakout library <span class="arr">→</span></span>
-    </a>
-
+  <section class="band-group" aria-labelledby="band-science">
+    <h2 class="sec" id="band-science">🔬 Science continuum · Grades K–12</h2>
+    <div class="cards">
     <a class="card" data-count="0" data-kw="science detectives science critical thinking online breakouts ctob stem texas teks kindergarten elementary middle school grades k 1 2 3 4 5 6 7 8 physics chemistry biology earth space life science engineering evidence clues reasoning" style="--accent:#0a6b52" href="science/">
       <div class="ico" aria-hidden="true">🔬</div>
       <div class="band">Grades K–8 · 99 breakouts · Seven languages</div>
@@ -124,12 +120,54 @@
       <span class="go">Open Science Detectives <span class="arr">→</span></span>
     </a>
 
+    <a class="card" data-count="9" data-kw="lab safety science goggles ppe personal protective equipment hazard sds safety data sheet ghs pictograms chemical compatibility procedure emergency equipment teks ranger specialist badge" style="--accent:#15803d" href="lab-safety/">
+      <div class="ico" aria-hidden="true">🥽</div>
+      <div class="band">Grades 6–12 · Seven languages</div>
+      <h3>Lab Safety Certification</h3>
+      <p>TEKS-aligned science lab-safety activities — rules of the room, PPE, emergency equipment, hazard symbols, Safety Data Sheets, GHS pictograms, chemical compatibility, and procedure critique. Students pass mastery checks to earn a printable Ranger or Specialist badge.</p>
+      <span class="go">Start lab safety <span class="arr">→</span></span>
+    </a>
+    </div>
+  </section>
+
+  <section class="band-group" aria-labelledby="band-all">
+    <h2 class="sec" id="band-all">🌐 Grade-spanning libraries · PreK–12</h2>
+    <div class="cards">
+    <a class="card" data-count="205" data-kw="critical thinking breakout escape room clues locks reasoning evidence deduction clear fourth of july independence declaration liberty juneteenth july 5 black freedom holidays bible as literature science teks idioms figurative language" style="--accent:#054c8c" href="ctobs/">
+      <div class="ico" aria-hidden="true">🕵️</div>
+      <div class="band">Grades K–12 · Seven languages</div>
+      <h3>Critical Thinking Breakouts</h3>
+      <p>The CTOB library — self-contained reasoning escapes where students open clues, weigh evidence, and crack the locks. Includes the CLEAR system, Fourth of July, July 5 &amp; Black Freedom Holidays, Bible as Literature, Science, and Idioms, plus a searchable catalog.</p>
+      <span class="go">Open the breakout library <span class="arr">→</span></span>
+    </a>
+
     <a class="card" data-count="0" data-kw="bible as literature biblical stories academic literary analysis close reading critical thinking breakout ctob sequence theme genre archetype allusion evidence teks" style="--accent:#8a5a24" href="ctobs/bible/">
       <div class="ico" aria-hidden="true">📜</div>
       <div class="band">Grades K–12 · 31 breakouts · Seven languages</div>
       <h3>Bible as Literature</h3>
       <p>Academic, nondevotional study of adopted Bible texts through story, history, genre, theme, archetype, and allusion. Students open clues, weigh evidence, distinguish text from belief, and crack the locks.</p>
       <span class="go">Open Bible as Literature <span class="arr">→</span></span>
+    </a>
+
+    <a class="card" data-count="5" data-kw="math number line manipulatives fractions counting critters shapes measurement graphing sorting snack shop pet parade playground" style="--accent:#3f2a78" href="digitalmathtools/">
+      <div class="ico" aria-hidden="true">🔢</div>
+      <div class="band">Grades PreK–12 · Seven languages</div>
+      <h3>Digital Math Tools</h3>
+      <p>A searchable library of self-contained, browser-based math tools for every grade band, PreK through 12 — number lines, manipulatives, fraction bars, and more. Works offline; no logins, no data collected.</p>
+      <span class="go">Open the math tools <span class="arr">→</span></span>
+    </a>
+    </div>
+  </section>
+
+  <section class="band-group" aria-labelledby="band-k8">
+    <h2 class="sec" id="band-k8">🧒 Elementary &amp; middle · Grades K–8</h2>
+    <div class="cards">
+    <a class="card" data-count="42" data-kw="getting to know you back to school icebreakers all about me classroom community ela math science social studies fine arts worksheets printable" style="--accent:#0d9488" href="/gtky/">
+      <div class="ico" aria-hidden="true">👋</div>
+      <div class="band">Elementary · Seven languages</div>
+      <h3>Getting to Know You</h3>
+      <p>A back-to-school worksheet collection for building classroom community — icebreakers and “all about me” activities across ELA, math, science, social studies, and fine arts, with printable PDFs. Aligned to the TEKS.</p>
+      <span class="go">Open the worksheets <span class="arr">→</span></span>
     </a>
 
     <a class="card" data-count="23" data-kw="problem based learning pbl problem solving teaching texas history social studies stakeholders inquiry units project" style="--accent:#4f3a8c" href="pst/">
@@ -142,7 +180,7 @@
 
     <a class="card" data-count="9" data-kw="relic room investigation exhibits artifacts mystery identify understand connect extinct creatures inventions minerals transportation communications endangered cloud detective" style="--accent:#5b3fa5" href="relic-rooms/">
       <div class="ico" aria-hidden="true">🏺</div>
-      <div class="band">Seven languages</div>
+      <div class="band">Flexible grades · Seven languages</div>
       <h3>Relic Rooms</h3>
       <p>Investigation activities where students examine nine mystery exhibits in three steps — identify, understand, connect. Aligned to the Texas Essential Knowledge and Skills.</p>
       <span class="go">Enter the relic rooms <span class="arr">→</span></span>
@@ -164,30 +202,6 @@
       <span class="go">Open AI literacy <span class="arr">→</span></span>
     </a>
 
-    <a class="card" data-count="5" data-kw="math number line manipulatives fractions counting critters shapes measurement graphing sorting snack shop pet parade playground" style="--accent:#3f2a78" href="digitalmathtools/">
-      <div class="ico" aria-hidden="true">🔢</div>
-      <div class="band">Grades PreK–12 · Seven languages</div>
-      <h3>Digital Math Tools</h3>
-      <p>A searchable library of self-contained, browser-based math tools for every grade band, PreK through 12 — number lines, manipulatives, fraction bars, and more. Works offline; no logins, no data collected.</p>
-      <span class="go">Open the math tools <span class="arr">→</span></span>
-    </a>
-
-    <a class="card" data-count="42" data-kw="getting to know you back to school icebreakers all about me classroom community ela math science social studies fine arts worksheets printable" style="--accent:#0d9488" href="/gtky/">
-      <div class="ico" aria-hidden="true">👋</div>
-      <div class="band">Elementary · Seven languages</div>
-      <h3>Getting to Know You</h3>
-      <p>A back-to-school worksheet collection for building classroom community — icebreakers and “all about me” activities across ELA, math, science, social studies, and fine arts, with printable PDFs. Aligned to the TEKS.</p>
-      <span class="go">Open the worksheets <span class="arr">→</span></span>
-    </a>
-
-    <a class="card" data-count="9" data-kw="lab safety science goggles ppe personal protective equipment hazard sds safety data sheet ghs pictograms chemical compatibility procedure emergency equipment teks ranger specialist badge" style="--accent:#15803d" href="lab-safety/">
-      <div class="ico" aria-hidden="true">🥽</div>
-      <div class="band">Grades 6–12 · Seven languages</div>
-      <h3>Lab Safety Certification</h3>
-      <p>TEKS-aligned science lab-safety activities — rules of the room, PPE, emergency equipment, hazard symbols, Safety Data Sheets, GHS pictograms, chemical compatibility, and procedure critique. Students pass mastery checks to earn a printable Ranger or Specialist badge.</p>
-      <span class="go">Start lab safety <span class="arr">→</span></span>
-    </a>
-
     <a class="card" data-count="106" data-kw="say it make it steam barrier communication describe build blind build partner screen barrier games engineering geometry patterns coordinates maps arts drawing science technology math print friendly teks ngss" style="--accent:#b83280" href="sayitmakeit/">
       <div class="ico" aria-hidden="true">🗣️</div>
       <div class="band">Grades K–8 · Seven languages · STEAM</div>
@@ -195,7 +209,12 @@
       <p>106 STEAM barrier &amp; communication activities — one partner describes a hidden model, drawing, pattern, or setup in words only; the other builds it, then they compare. Filterable by STEAM strand, print-friendly, TEKS + NGSS aligned.</p>
       <span class="go">Open Say It, Make It <span class="arr">→</span></span>
     </a>
+    </div>
+  </section>
 
+  <section class="band-group" aria-labelledby="band-612">
+    <h2 class="sec" id="band-612">📚 Middle &amp; high school · Grades 6–12</h2>
+    <div class="cards">
     <a class="card" data-count="75" data-kw="plotpoint literature reading ela literary analysis evidence reasoning ace framework artifacts breakouts arcade games classic texts poetry speeches fiction nonfiction" style="--accent:#7a4fce" href="plotpoint/">
       <div class="ico" aria-hidden="true">📚</div>
       <div class="band">Grades 6–12 · Seven languages</div>
@@ -203,8 +222,8 @@
       <p>A literature learning arcade where students investigate artifacts, crack evidence-based breakouts, play literary games, analyze acclaimed texts, and explain their thinking through the ACE Framework.</p>
       <span class="go">Open PlotPoint <span class="arr">→</span></span>
     </a>
-
-  </div>
+    </div>
+  </section>
 
   <p class="noresults" id="noresults" hidden>No areas match “<b id="noterm"></b>”. Try another word, or browse all areas above.</p>
 
@@ -217,6 +236,7 @@
 <script>
 (function(){
   var cards=[].slice.call(document.querySelectorAll('.cards .card'));
+  var groups=[].slice.call(document.querySelectorAll('.band-group'));
   var ta=document.getElementById('t-areas'),tc=document.getElementById('t-acts');
   var acts=cards.reduce(function(s,c){return s+(parseInt(c.getAttribute('data-count'),10)||0);},0);
   if(ta)ta.textContent=cards.length;
@@ -226,9 +246,10 @@
       nr=document.getElementById('noresults'),nt=document.getElementById('noterm');
   function run(){
     var term=(q.value||'').trim().toLowerCase();
-    if(!term){cards.forEach(function(c){c.classList.remove('hide');});info.textContent='';nr.hidden=true;return;}
+    if(!term){cards.forEach(function(c){c.classList.remove('hide');});groups.forEach(function(g){g.classList.remove('hide');});info.textContent='';nr.hidden=true;return;}
     var n=0;
     cards.forEach(function(c){var m=c._h.indexOf(term)>-1;c.classList.toggle('hide',!m);if(m)n++;});
+    groups.forEach(function(g){g.classList.toggle('hide',!g.querySelector('.card:not(.hide)'));});
     info.textContent=n+(n===1?' area matches “':' areas match “')+q.value.trim()+'”';
     nr.hidden=n>0;if(nt)nt.textContent=q.value.trim();
   }
