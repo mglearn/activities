@@ -59,16 +59,17 @@ solvability, index-0 answers). Verified sources: Gutenberg **#84** (1831 text) +
 edition** recording. New arcade mechanic: *"Born a Monster, or Made One?"* (nature-vs-nurture
 evidence sort). Image prompts in `LONG_WORKS_IMAGES.md`. Awaiting image assets + commit/deploy.
 
-**Second Texas long work — Pride and Prejudice (2026-08-07, English-first).** `pride` (Jane
-Austen, PD) is the second §B5 long work. **Built English-first**: `data.en.js` + `index.html` +
-`policy.html` + `titles.js` card + image prompts — the six `lang/*.js` packs are **deferred to a
-follow-up pass** (the engine falls back per-field to English, so the room is fully usable now).
-Validated: `node -c`, 183/183 UI-key parity with `frankenstein`, 11 vocab (all contexts contain
-their term), 7 relic artifacts (4 choices each), 6 locks (word/digit answers present in final
-hints), balanced 4/4 arcade, 5 MCQ + 3 short + paragraph + ACE, index-0 answers. Verified sources:
-Gutenberg **#1342** + LibriVox **version 1** (complete recording). Arcade mechanic: *"First
-Impressions: Accurate or Misleading?"*. Image prompts in `LONG_WORKS_IMAGES.md`. Awaiting the six
-language packs, image assets, commit/deploy, and production HTTP verification.
+**Second Texas long work — Pride and Prejudice (2026-08-07).** `pride` (Jane Austen, PD) is the
+second §B5 long work. Full seven-language build: `data.en.js` + all six `lang/*.js` packs
+(es, vi, ar, hi, ur, zh) + `index.html` + `policy.html` + `titles.js` card + image prompts.
+Validated: `node -c` on all 7 JS files; **183/183 UI-key parity** across every pack; 11 vocab
+(all contexts contain their term); 7 relic artifacts (4 choices each); 6 locks (word/digit answers
+preserved and present in each pack's final hint); balanced 4/4 arcade with bucket/card order
+preserved; 5 MCQ + 3 short + paragraph + ACE; index-0 answers; meta URLs + ccss preserved verbatim
+in every pack. Verified sources: Gutenberg **#1342** + LibriVox **version 1** (complete recording).
+Arcade mechanic: *"First Impressions: Accurate or Misleading?"*. Image prompts in
+`LONG_WORKS_IMAGES.md`. Translations are machine-assisted (flag for educator review). Awaiting
+image assets, commit/deploy, and production HTTP verification.
 Remaining long works: **12 of 14** (see `TEXAS_2026_PLAN.md` §B5).
 
 **Engine fix (2026-08-07).** `assets/room-engine.js` `shuffle()` was a fixed permutation
