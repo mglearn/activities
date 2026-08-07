@@ -13,8 +13,11 @@ This file is the durable roadmap. It complements `SHORT_STORIES_PLAN.md` (short-
 backlog) and `correlations/` (TEKS/ELPS/UDL alignment). Nothing here is built unless the
 "Already live" table says so.
 
-Copyright rule of thumb (US, 2026): **published 1930 or earlier → public domain.** Every
-title below is PD in the US on its listed basis; federal speeches/orders are PD as U.S.
+Copyright rule of thumb (US, **as of 2026**): **published 1930 or earlier → public domain.**
+⚠️ This cutoff **advances one year every January 1** (1931 → PD in 2027, and so on), so by the
+2030–31 implementation window it will read "**1934 or earlier**." Re-derive it from the
+current year (year − 96) before making a PD call, rather than trusting the frozen "1930."
+Every title below is PD in the US on its listed basis; federal speeches/orders are PD as U.S.
 government works regardless of date (Gettysburg, General Order 108, JFK/FDR addresses).
 The only friction is **named copyrighted translations** — see section E.
 
@@ -30,12 +33,12 @@ The only friction is **named copyrighted translations** — see section E.
 | Narrative of the Life of Frederick Douglass, Ch. 1 | English IV | ✅ **Live** — `douglass` |
 | The Necklace | English II | 🔜 **Queued** — `SHORT_STORIES_PLAN.md` §B (Maupassant; Texas names the **Sturges** PD translation — use that edition) |
 | To Build a Fire | English III | 🔜 **Queued** — `SHORT_STORIES_PLAN.md` §B (Gut #2429) |
-| The Raven | English II | ⚠️ **Partial** — a Poe room exists (`poe` = *The Tell-Tale Heart*); *The Raven* is a **separate** poem, not yet built |
-| Federalist No. 78 | English III | ⚠️ **Partial** — `federalist` covers 10 & 51 only; **78 (Hamilton) not yet included** → either extend that room or add a note |
+| The Raven | English II | ✅ **Live** — `raven` room (its own poem room, separate from `poe` = *The Tell-Tale Heart*) |
+| Federalist No. 78 | English III | ⚠️ **Partial** — `federalist` covers 10 & 51 only; **78 (Hamilton) not yet included** → see §H decision |
 
-**Two cheap wins from existing assets:** confirm whether to (a) fold **Federalist No. 78**
-into the existing `federalist` room, and (b) add **The Raven** as its own poem room (Poe
-already has accent/branding precedent).
+**Remaining cheap win:** **Federalist No. 78** (Hamilton, 1788, PD) is the one reuse item
+still open — see **§H** for the recorded decision. (The Raven has since shipped as its own
+`raven` poem room.)
 
 ---
 
@@ -120,21 +123,29 @@ template (see §D). Effort/complexity rises down this list.
 
 ## C. Coverage-by-course scorecard (for the correlations page)
 
-**Progress update — 2026-08-02:** the planned scripture, poem, short-story, and
-speech/document batches are complete locally in all seven languages. The hub will contain
-71 live-status rooms when the current speech batch is deployed. The remaining approved
-Texas build phase is the 14 long works in §B5, to be built one at a time.
+> **Source of truth for "what's live" is `titles.js`, not this file.** The per-course
+> live/queued table that used to live here understated progress badly and rotted fast; it
+> has been replaced with the summary below. Regenerate any precise counts from `titles.js`
+> (`status:"live"`), not from prose.
 
-| Course | Texas PD items | Live now | Queued | To build |
-|---|---|---|---|---|
-| Grade 6 | 5 | 0 | 0 | 5 |
-| Grade 7 | 5 | 0 | 0 | 5 (2 scripture) |
-| Grade 8 | 4 | 0 | 0 | 4 (2 scripture) |
-| English I | 7 | 3 (Fed 10, Fed 51, Monkey's Paw) | 0 | 4 |
-| English II | 7 | 0 | 1 (Necklace) | 6 (Raven = new) |
-| English III | 15 | 0 | 1 (To Build a Fire) | 14 (Fed 78 = extend) |
-| English IV | 15 | 1 (Douglass) | 0 | 14 |
-| **Total** | **~58 entries (~50 distinct)** | **4** | **2** | **~44 new** |
+**Progress update — 2026-08-06:** every **short-form** Texas batch is **built and live in
+all seven languages** — all 17 poems (incl. The Raven), all 8 speeches/documents, all 4
+scripture passages, and the short-story set. Combined with the earlier baseline, the hub
+carries **71 live rooms**.
+
+**What remains for full Texas coverage:**
+
+| Bucket | Status |
+|---|---|
+| Poems (§B1, 17) | ✅ all live |
+| Speeches & documents (§B2, 8) | ✅ all live |
+| Short stories (§B3, 5) | ✅ all live |
+| Scripture / sacred poetry (§B4, 4) | ✅ all live |
+| **Long works (§B5, 14)** | ⏭ **0 built — the entire remaining build** |
+| Federalist No. 78 (reuse) | ⚠️ open — see §H |
+
+So the coverage gap is now concentrated in the **14 long works in §B5** (plus the small
+Fed 78 reuse decision). Those are the whole remaining Texas build.
 
 ---
 
@@ -169,23 +180,32 @@ teacher, standards) assumes a narrative. Adaptations:
 
 ## E. Copyright caveat — public-domain works with a *named copyrighted translation/version*
 
-Texas sometimes names a **specific translation** that may still be under copyright even
-though the underlying work is ancient/PD. Rule: **only reproduce or link the exact named
-version if it is itself PD**; otherwise build the room on the underlying work using a
-**public-domain translation** and note the substitution — but flag that a district
-requiring the *listed* text word-for-word must license it.
+The underlying work being ancient/PD does **not** make every English *translation* PD — a
+modern translation carries its own copyright. Rule: **build the room on a public-domain
+translation** (all the ones below are on Project Gutenberg), paraphrase in house style, and
+link only the PD text. If a district assigns a *specific* modern translation, that's a
+licensing matter for the district — the room still teaches the work from the PD edition and
+notes the substitution in `meta`.
 
-| Course | Work | Handling |
+Every translation-dependent work in the PlotPoint Texas scope, resolved:
+
+| Work · Course | ✅ Build on this PD translation (translator, yr — all on Gutenberg) | ⛔ Copyrighted versions to avoid linking/reproducing |
 |---|---|---|
-| English I | **Antigone** — Sophocles | Ancient play (PD). Use a PD translation (e.g. Storr/Loeb-era, Plumptre) for the room; note if the Texas-listed translation differs. |
-| Eng II | **Prometheus** — Goethe | Use a PD English translation. |
-| Eng II | **The Necklace** — Maupassant | Texas names the **Sturges** translation — that early translation is PD → safe. |
-| Eng IV | **The Death of Ivan Ilyich** — Tolstoy | Texas names **R. N. Bain**'s early translation → PD → safe. |
-| Eng IV | **The Divine Comedy** — Dante | Use **Cary or Longfellow** PD translation. |
-| Eng III | **Democracy in America** — Tocqueville | Use a PD translation (e.g. Reeve/Bowen). |
+| **Antigone** — Sophocles · Eng I | **Sir R. C. Jebb** (1888–1900) or **Francis Storr** (Loeb, 1912); also E. H. Plumptre (1865) | Fitts & Fitzgerald (1939 — the common US-anthology text), Wyckoff (1954), Fagles (1982), Roche, Heaney *The Burial at Thebes* (2004), Carson *Antigonick* (2012) |
+| **Prometheus** — Goethe · Eng II | **E. A. Bowring** tr. in *The Poems of Goethe* (1853) | Michael Hamburger, David Luke, and other modern translations |
+| **The Necklace** ("La Parure") — Maupassant · Eng II | **Jonathan Sturges** (1890s) — *this is the edition Texas names* → PD → safe. **Built:** `necklace` room. | modern anthology re-translations |
+| **The Death of Ivan Ilyich** — Tolstoy · Eng IV | **R. Nisbet Bain** (1890s) — *the edition Texas names* → PD → safe; also early **Aylmer/Louise Maude** printings (pre-1930) | Pevear & Volokhonsky, Rosemary Edmonds (Penguin), and other modern translations |
+| **The Divine Comedy** — Dante · Eng IV | **H. F. Cary** (1814, blank verse), **H. W. Longfellow** (1867), or **C. E. Norton** (prose, 1891–92) | Ciardi (1954–70), Mandelbaum (1980–84), Hollander (2000–07), Pinsky *Inferno* (1994), Musa, Esolen, Clive James (2013) |
+| **Democracy in America** — Tocqueville · Eng III | **Henry Reeve** (1835–40) as revised by **Francis Bowen** (1862) | Lawrence/Mayer (1966), Mansfield & Winthrop (2000), Goldhammer (Library of America, 2004) |
+| *Scripture:* Psalm 23 · Beatitudes · Ecclesiastes 3 (**KJV**), Lamentations 3 (**JPS 1917**) | The **named** translations are already PD → safe; framed as literature per **§D2** | modern Bible translations (NIV, ESV, NRSV, etc.) are copyrighted — do not quote |
 
-> ⚠️ The user's source list was **truncated** at the Antigone row ("The ancient play…").
-> Before this section is final, get the rest of that copyrighted-versions table.
+**Truncation resolved (2026-08-06).** The original source list broke off at the Antigone row;
+this table has been rebuilt from translation-copyright facts to cover **every** work in the
+PlotPoint Texas build plan that carries a translation question. Residual check, not a blocker:
+confirm the *exact* translation your district adopts — but the PD editions above are safe to
+build on and link regardless. If the full Texas list names a translated work **not** in this
+table, apply the same rule (build on a pre-1930 / Gutenberg PD translation; never reproduce a
+modern one).
 
 ---
 
@@ -196,11 +216,10 @@ Phased so early phases are fast, high-coverage, and low-risk:
 1. **Phase 0 — reuse:** ✅ complete; Federalist selections documented and The Raven built.
 2. **Phase 1 — Poems (17):** ✅ complete in seven languages.
 3. **Phase 2a — Short stories (5):** ✅ complete in seven languages and deployed.
-4. **Phase 2b — Speeches/documents (8):** ✅ complete locally in seven languages; images,
-   commit, deployment, and production URL checks remain.
+4. **Phase 2b — Speeches/documents (8):** ✅ complete, deployed, and live in seven languages.
 5. **Phase 3 — Scripture (4):** ✅ complete in seven languages with neutral literary framing.
-6. **Phase 4 — Long works (14):** ⏭ next; build one at a time, selection-scoped where
-   noted, after the speech/document batch is live.
+6. **Phase 4 — Long works (14):** ⏭ **current phase**; build one at a time, selection-scoped
+   where noted. All short-form batches above are live, so this is the whole remaining build.
 
 Each room still follows the standard pipeline: build `data.en.js` (facts verified, no
 reproduced passages) → jsdom render-test → 6 Sonnet translation agents (7 languages) →
@@ -209,7 +228,23 @@ deploy → poll 200 → add hero+relic prompts to an image doc.
 
 ## G. Remaining review items
 
-1. The source's copyrighted-version table remains truncated after Antigone; recover it
-   before a long-work choice depends on a named translation.
+1. ✅ **Resolved (2026-08-06)** — the §E named-translation table is complete; each
+   translation-dependent work has a safe PD edition to build on. Only per-district edition
+   confirmation remains (not a build blocker).
 2. Verify the exact Texas course/adoption placement and TEKS/ELPS statements before district use.
 3. Review all machine-assisted translations with fluent educators.
+
+## H. Federalist No. 78 — recorded decision
+
+**Decision (2026-08-06):** do **not** graft No. 78 into the shipped `federalist` room.
+That room's content is complete across seven languages (No. 10 = faction; No. 51 =
+separation of powers); adding a third essay would mean re-touching all six translation
+packs and re-running the parity checks for marginal gain, since No. 78 (judicial review) is
+a distinct argument better served on its own.
+
+**Handling:** No. 78 (Hamilton, 1788) is public domain. When English III long-work capacity
+frees up, build it as its **own short document room** in the §B2 speeches/documents mold
+(`federalist78`), framed on judicial independence and judicial review, cross-linked to the
+existing `federalist` room. Until then it is a **known, intentional gap**, not an oversight.
+The `federalist` room's own scope note already limits it to Nos. 10 and 51, so nothing there
+overclaims.

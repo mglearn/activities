@@ -1,0 +1,83 @@
+# PlotPoint — Image prompts for the 7 new PD short-story rooms (2026-08-06)
+
+56 images total: **7 rooms × (1 hero + 7 relic artifacts)**. Drop each generated file into
+that room's `images/` directory using the **exact filename** shown (the room data already
+references these paths). Pages render labeled placeholders until the assets land — no
+room-data changes are needed.
+
+**Spec (match existing PlotPoint art):** square **1024×1024 WebP**, instructional
+illustration style (an educational recreation, *not* artwork from any edition), **no text /
+no words / no numbers rendered in the image**. Each room has an accent color — lean the
+palette that way where noted.
+
+---
+
+## yellowwallpaper — *The Yellow Wallpaper* (accent #8a7a2b, sickly yellow-brown)
+- `yellowwallpaper/images/hero.webp` — A dim upstairs room in a faded colonial house, one tall window fitted with iron bars casting striped light across a wall of sickly-yellow patterned wallpaper that peels at one corner; an empty writing desk with a closed journal in shadow; muted, oppressive palette; atmospheric.
+- `yellowwallpaper/images/wallpaper.webp` — Close-up of aged sickly-yellow Victorian wallpaper with a tangled, confusing swirling pattern, faded and water-stained, a faint suggestion of a shadowy figure lurking within the design; unsettling, symbolic.
+- `yellowwallpaper/images/window.webp` — A tall Victorian window fitted with heavy iron bars, viewed from inside a dim room, a soft green garden barely visible beyond the bars, striped light falling across a worn wooden floor; conveys confinement.
+- `yellowwallpaper/images/journal.webp` — A small hidden handwritten journal with a pen resting on an open page of indistinct cursive, tucked partly beneath a cloth on a plain desk in dim light, as if concealed in secret; intimate, quiet.
+- `yellowwallpaper/images/john.webp` — A composed 19th-century physician in a dark frock coat holding a doctor's black leather bag, standing in a doorway with a calm, authoritative, faintly condescending expression, warm light behind him and a shadowed room before him.
+- `yellowwallpaper/images/creeping-woman.webp` — A ghostly, faint silhouette of a woman seeming to press and creep out from behind the tangled bars of the yellow wallpaper pattern, half-formed and shadowy, trapped within the design; eerie, symbolic.
+- `yellowwallpaper/images/bed.webp` — A heavy, immovable iron-framed bed bolted to the floor in the center of a bare room with yellow wallpapered walls and a barred window, one bedpost showing worn gnaw-marks; stark, unsettling emptiness.
+- `yellowwallpaper/images/peeling.webp` — Long strips of yellow wallpaper torn and hanging from a wall, exposing bare plaster beneath, scraps littering the floor of a dim barred room; a sense of frantic climax and ruin; symbolic.
+
+## tobuildafire — *To Build a Fire* (accent #3b5a6b, icy blue-grey)
+- `tobuildafire/images/hero.webp` — A lone bundled traveler in heavy furs trudging across a vast, empty snowfield on a frozen Yukon trail under a pale gray sky, a wolf-dog trotting behind, a small struggling campfire in the deep snow, brutal cold conveyed by frost and breath vapor; muted blue-gray, cinematic.
+- `tobuildafire/images/thermometer.webp` — A frost-caked outdoor thermometer against snow and frozen spruce, its mercury sunk far below zero, ice crystals forming on the glass, pale wintry light emphasizing deadly cold.
+- `tobuildafire/images/oldtimer.webp` — A weathered, bearded elder trapper in worn furs by a warm cabin fire, one hand raised in earnest warning, wise and cautionary, a snowy window behind him showing the frozen wilderness; warm interior against cold exterior.
+- `tobuildafire/images/dog.webp` — A large gray husky wolf-dog standing alert in deep snow, thick frosted coat, wary independent eyes gazing off toward the horizon rather than at any master, breath steaming in the cold; naturalistic.
+- `tobuildafire/images/ice.webp` — A man's boot breaking through a thin crust of ice over a hidden spring beneath snow, dark water welling up around soaked trouser legs, an alarming crack spreading across the white surface; tense, cold blue palette.
+- `tobuildafire/images/spruce.webp` — A small campfire beneath a snow-laden spruce tree in the moment a heavy load of snow slides off the branches and smothers the flames in a white burst, sparks and smoke dying out; dramatic.
+- `tobuildafire/images/matches.webp` — Bare, frostbitten, reddened fingers fumbling to strike a bundle of wooden matches against extreme cold, one match flaring while the numb hand struggles to grip it, snow all around; close, tense.
+- `tobuildafire/images/camp.webp` — A distant cluster of tents and cabins with warm glowing firelight and rising smoke seen across a wide frozen expanse at dusk, a lone wolf-dog trotting toward it through the snow, the trail behind empty; wistful, ironic.
+
+## aftertwenty — *After Twenty Years* (accent #b5732b, warm amber; ~1906 NYC night)
+- `aftertwenty/images/hero.webp` — A moody, chilly, windy New York street at night around 1906: a man in a long coat standing back in the shadowed doorway of a closed hardware store, cupping a lit cigar that briefly glows on his face; a distant uniformed policeman on his beat under a gas lamp; wind-blown scraps of paper, warm lamplight against cold blue dark; cinematic, storybook realism.
+- `aftertwenty/images/doorway.webp` — A dark, recessed shop doorway of a closed hardware store at night; a well-dressed man waits in the shadows, half-hidden, coat collar up against the wind; a faint cigar glow the only light on his features; empty cold street beyond; atmospheric.
+- `aftertwenty/images/restaurant.webp` — Past and present at one city corner: a warm, glowing old-fashioned restaurant with two cheerful young men dining, faded like a memory, overlaid on the same corner now dark and vacant with a shuttered storefront; nostalgic.
+- `aftertwenty/images/cigar.webp` — A man's hand striking a match and lighting a cigar in a dark doorway, the small flame flaring and lighting up his face and a diamond glint at his collar for a brief moment; warm firelight against deep shadow, dramatic.
+- `aftertwenty/images/diamond.webp` — A large diamond scarf pin gleaming on a man's silk necktie, beside a fine open gold pocket watch on a chain, resting against a dark coat; signs of hard-won wealth, a subtle Western touch; rich still-life lighting.
+- `aftertwenty/images/uniform.webp` — An early-1900s uniformed police officer on his night beat: brass-buttoned coat, domed helmet-style cap, holding a nightstick, pausing under a gas streetlamp to speak toward a shadowed doorway; warm lamplight, period realism.
+- `aftertwenty/images/wrongface.webp` — Two men walking together beneath the bright white glare of a corner drugstore window at night; one turns and studies the other's face with dawning suspicion, noticing the profile is wrong; harsh electric light exposing their features; tense, cinematic.
+- `aftertwenty/images/note.webp` — A small folded slip of paper being handed from one gloved hand to another on a dark street corner at night, faint lamplight catching the paper (blank, no legible writing); a sense of quiet revelation and sadness; intimate lighting.
+
+## openwindow — *The Open Window* (accent #4a7a4a, green; Edwardian country house)
+- `openwindow/images/hero.webp` — A tall floor-length French window standing wide open onto a green autumn lawn at dusk, seen from inside a quiet Edwardian country drawing room; soft golden late-afternoon light, three small distant figures crossing the far grass toward the house; warm and slightly eerie.
+- `openwindow/images/letters.webp` — A small stack of handwritten folded letters of introduction tied with a thin ribbon on a side table beside a nervous gentleman's hat and gloves in an Edwardian parlor; warm muted tones (no readable words).
+- `openwindow/images/open-window.webp` — A single tall floor-length French window flung open onto a damp autumn lawn, thin curtains stirring in the breeze, empty room in foreground, low grey-gold evening light; quiet and expectant.
+- `openwindow/images/vera-tale.webp` — A calm, poised teenage girl in Edwardian dress seated in an armchair gesturing gently toward an open window while telling a story, a nervous middle-aged man leaning in and listening intently; soft interior lighting, storytelling mood.
+- `openwindow/images/aunt.webp` — A cheerful middle-aged Edwardian woman entering a drawing room mid-conversation, smiling and glancing toward the open window, gesturing brightly; a tense seated gentleman watching her uneasily; warm domestic lighting.
+- `openwindow/images/hunters.webp` — Three men in muddy hunting tweeds carrying shotguns walking across a dim autumn lawn at dusk toward an open window, a tired brown-and-white spaniel at their heels, long shadows and misty grey-green light.
+- `openwindow/images/flight.webp` — A panicked Edwardian gentleman snatching up his hat and cane and rushing out a front door onto a country lane, nearly colliding with a startled cyclist, motion and alarm in his posture; dusk light, lightly comic.
+- `openwindow/images/second-lie.webp` — A composed teenage girl in Edwardian dress standing calmly and explaining something to a puzzled family group in a drawing room, everyone turned toward her, the open window behind them; warm evening interior light.
+
+## interlopers — *The Interlopers* (accent #2f4a3a, dark forest; Carpathian winter night)
+- `interlopers/images/hero.webp` — A wild, windy winter forest at night; two men in heavy coats pinned side by side beneath the massive trunk of a fallen beech tree, snow and dead leaves swirling in the gale, bare branches thrashing overhead, faint shadowy animal shapes gathering on a distant moonlit hillside; cold blue-green and charcoal with a single warm glint from a dropped rifle; tense, cinematic.
+- `interlopers/images/disputed-land.webp` — A map-like view of a narrow strip of dense forest running along the edge of a large estate, a faded dashed boundary line and old surveyor's stakes marking the contested ground, snow dusting the pines, a distant manor rooftop at one edge; muted greens and parchment tones.
+- `interlopers/images/winter-storm.webp` — A wild winter night storm tearing through a pine-and-beech forest, trees bent and creaking under a roaring wind, driven snow streaking horizontally, a pale moon breaking through torn clouds; turbulent, ominous, cold palette.
+- `interlopers/images/two-rifles.webp` — Two men in fur-collared coats emerging from opposite sides of a dark winter forest, each carrying a raised rifle, facing one another in a tense standoff with breath fogging the frozen air, neither firing; dramatic low light, snow underfoot.
+- `interlopers/images/fallen-beech.webp` — A massive beech tree crashing down in a storm, its huge trunk and splintered branches pinning two men to the forest floor, scattered snow and broken limbs around them, the men trapped and injured but conscious side by side; dynamic impact, cold dramatic lighting.
+- `interlopers/images/wine-flask.webp` — A close-up of a worn metal wine flask being extended from one gloved hand toward another across the snowy forest floor beneath fallen branches, a small warm gesture in a cold dark setting, faint firelit glow on the metal; symbolic of an offered truce.
+- `interlopers/images/the-pact.webp` — Two former enemies lying trapped together under storm debris in a night forest, turning their heads toward each other in a moment of reconciliation, expressions softening from hostility to understanding, faint moonlight on their faces; quiet, poignant, cold-toned.
+- `interlopers/images/the-shapes.webp` — A distant moonlit hillside at night seen through dark winter trees, several shadowy four-legged shapes loping down the slope toward the viewer, their forms just resolving into wolves, tense dread in the composition, the trapped men's viewpoint from the forest floor; ominous cold blue.
+
+## necklace — *The Necklace* (accent #7a2f4a, jewel rose; 1880s Paris)
+- `necklace/images/hero.webp` — An illustration split between two worlds: on the left a brilliant diamond necklace glittering on rich red velvet under warm ballroom light; on the right a dim, bare attic room with a worn broom and a plain wooden bucket. The two halves meet at a soft seam, contrasting glittering appearance against hard reality; warm gold versus muted grays, storybook realism.
+- `necklace/images/invitation.webp` — A cream-colored formal 1880s French party invitation card with an elegant embossed border and a wax seal, resting on a modest wooden table beside a flickering candle; period-accurate, warm lamplight (no readable text).
+- `necklace/images/dress.webp` — An elegant pale evening gown from the 1880s displayed on a dressmaker's form in a small, plain apartment, a few coins and an open purse on the table nearby to suggest sacrifice; soft realistic lighting, period detail.
+- `necklace/images/necklace.webp` — A sparkling diamond necklace lifted from an open velvet-lined jewel box, catching the light with dazzling brilliance, a wealthy dressing table in the background; rich, luminous, realistic.
+- `necklace/images/ball.webp` — A grand 1880s ministry ballroom aglow with chandeliers, elegantly dressed guests dancing, and one radiant woman at the center of admiring attention, jewels shining at her throat; warm golden light, festive, painterly realism.
+- `necklace/images/loss.webp` — A close view of a woman's bare neck and empty gloved hand at a mirror in a dim entryway late at night, her expression turning to shock as she realizes the necklace is gone; a discarded evening wrap nearby; cold blue night tones, tense.
+- `necklace/images/debt.webp` — A weary woman in a rough apron scrubbing the floor of a cramped, bare attic room, water bucket and coarse rags around her, gray light through a small window, an account ledger and money-lender's papers on a stool; muted, somber realism.
+- `necklace/images/truth.webp` — Two women meeting on a sunlit city sidewalk: one worn and plainly dressed, the other refined and elegant, caught in a moment of stunned revelation as a modest string of paste jewels is held up between them; soft daylight, expressive faces.
+
+## storyhour — *The Story of an Hour* (accent #2f6a6a, muted teal; 1890s home)
+- `storyhour/images/hero.webp` — A warm, painterly sunlit second-floor bedroom in a late-1800s home: an empty, roomy armchair turned to face a wide-open sash window; beyond it treetops bursting with fresh green spring leaves, patches of soft blue sky, small birds in flight; hopeful yet quietly wistful, muted teal and spring-green (no people).
+- `storyhour/images/telegram.webp` — A late-1800s parlor tabletop: a folded telegram slip and a printed newspaper column listing names of railroad-accident victims, a small oil lamp casting soft light; somber but restrained, muted tones (no legible text, no people).
+- `storyhour/images/sister.webp` — A woman in a high-collared Victorian dress kneeling anxiously outside a closed paneled wooden bedroom door in a dim hallway, one hand pressed to the door, her face full of worry; warm lamplight, 1890s, emotional and quiet.
+- `storyhour/images/window.webp` — Looking through a tall open window from inside a shadowed room out onto a vivid spring scene: new green leaves shimmering, a patchwork of blue sky through breaking clouds, birds wheeling in the distance; teal-and-green, hopeful (no people).
+- `storyhour/images/armchair.webp` — A large, comfortable upholstered armchair in a quiet bedroom, positioned facing an open window with soft daylight falling across the empty seat; warm muted colors, late-1800s furnishings (no people).
+- `storyhour/images/freedom.webp` — A symbolic inner awakening: a woman's silhouette from behind, seated by an open window, light and fresh air visually flowing over her like gentle currents toward an open horizon of spring sky; uplifting, dreamlike, teal-and-gold (no facial detail).
+- `storyhour/images/latchkey.webp` — A front door of an 1890s home swinging open from the outside, a bright latchkey in the lock and a man's silhouette stepping in against outdoor daylight, seen from inside a shadowed entry hall with a staircase rising to one side; sudden reversal, cool tones cut by outside light (no facial detail).
+- `storyhour/images/verdict.webp` — A somber still-life evoking a physician's conclusion in a late-1800s home: a doctor's black leather medical bag, a stethoscope, and a pocket watch resting on a small side table at the foot of a staircase, dim and quiet, heavy with irony and loss; muted, restrained (no people).

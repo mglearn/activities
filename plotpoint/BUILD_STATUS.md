@@ -23,11 +23,42 @@ Deployment note: PlotPoint lives in the **`activities/`** repo and ships at
 | 5 | Copyrighted paraphrase-only companions | ✅ 6 live (Kindred + 5) |
 | 6 | Guide pages + hub nav (Correlations · Classics · ACE) | ✅ Done |
 
-### Current catalog — 71 rooms, all seven languages
+### Current catalog — 79 rooms, all seven languages
 
-The catalog contains **71 live-status room cards**. Sixty-three are currently committed
-and deployed; the final eight-room Texas speech/document batch is complete locally and is
-awaiting its image pass, commit, deployment, and production HTTP verification.
+The catalog contains **79 live-status room cards** in `titles.js` (the source of truth for
+live status). **71** are committed and deployed. **7 new PD short-story rooms** — The Yellow
+Wallpaper, To Build a Fire, After Twenty Years, The Open Window, The Interlopers, The
+Necklace, and The Story of an Hour — were built 2026-08-06 (English + 6 language packs each,
+all validated: `node -c`, 183/183 UI-key parity, 7 artifacts, 6 locks, word-lock solvability,
+index-0 answer key). They are **awaiting image assets, commit, deployment, and production
+HTTP verification** — image prompts are in `SHORT_STORIES_IMAGES.md`.
+
+**Read & Listen sources (web-verified 2026-08-07).** Each room's `meta.gutenberg`/`meta.audio`
+was confirmed live (HTTP 200) and confirmed to contain the target story. `audio` is set only
+on the English `data.en.js`; the engine falls back per-field to English, so all six language
+packs inherit it.
+
+| Room | 📖 Text | 🎧 Audio |
+|---|---|---|
+| yellowwallpaper | Gutenberg #1952 | *Not available* — no standalone LibriVox recording |
+| tobuildafire | Gutenberg #2429 (*Lost Face*) | LibriVox *Lost Face (and Other Stories)* |
+| aftertwenty | Gutenberg #2776 (*The Four Million*) | LibriVox *The Four Million* |
+| openwindow | Gutenberg #269 (*Beasts and Super-Beasts*) | LibriVox *Beasts and Super-Beasts* |
+| interlopers | Gutenberg #1477 (*The Toys of Peace*) | LibriVox *The Toys of Peace* |
+| necklace | Gutenberg #3090 (*Complete Original Short Stories of Maupassant* — "necklace" confirmed in text) | LibriVox *Complete Original Short Stories of Maupassant* |
+| storyhour | **Wikisource** (`The_Story_of_an_Hour`) — the story is **not on Project Gutenberg**; the earlier #160 link was wrong and is fixed. Read label + teacher note + policy.html corrected in all 7 files. | *Not available* — no standalone LibriVox recording |
+
+The two "*Not available*" audio cases exist only inside multi-volume LibriVox "Short Story
+Collection" omnibuses that could not be pinned to a verified single volume; per house rule
+they show a clear unavailable state rather than a guessed link.
+
+**First Texas long work — Frankenstein (2026-08-07).** `frankenstein` (Mary Shelley, PD) is the
+first of the 14 §B5 long works, built one-per-day. Modeled on the `dracula` PD-novel template;
+English + 6 language packs, all validated (183/183 UI parity, 7 artifacts, 6 locks, word-lock
+solvability, index-0 answers). Verified sources: Gutenberg **#84** (1831 text) + LibriVox **1831
+edition** recording. New arcade mechanic: *"Born a Monster, or Made One?"* (nature-vs-nurture
+evidence sort). Image prompts in `LONG_WORKS_IMAGES.md`. Awaiting image assets + commit/deploy.
+Remaining long works: **13 of 14** (see `TEXAS_2026_PLAN.md` §B5).
 
 Major completed groups:
 
@@ -191,8 +222,15 @@ searches/filters (keeps the front page calm).
 ---
 
 ## Next steps
-1. Finish the image pass through `images12.md`, then visually verify filenames and crops.
-2. Commit, push, deploy, and HTTP-check the eight speech/document rooms and their assets.
-3. Have fluent educators review machine-assisted translations; English remains authoritative.
-4. Build the 14 Texas 2026 long works one at a time, starting only after this batch is live.
-5. Add the existing syntax/parity/lock/resource checks to CI when a build step is introduced.
+1. **Build the 14 Texas 2026 long works** (novels/plays/nonfiction) in §B5 of
+   `TEXAS_2026_PLAN.md`, one at a time, selection-scoped where noted. This is the whole
+   remaining Texas build now that every short-form batch is live. See §D4 there (and the
+   long-work engine-adaptation notes) for how to scope a novel to the standard 10 sections.
+2. Optionally add **Federalist No. 78** as its own short document room — see
+   `TEXAS_2026_PLAN.md` §H (recorded decision: standalone room, not a `federalist` graft).
+3. Work the **§B short-story expansion queue** in `SHORT_STORIES_PLAN.md` (Yellow Wallpaper,
+   To Build a Fire, After Twenty Years, The Open Window, The Interlopers, The Necklace, The
+   Story of an Hour) — all PD, all fit the engine directly.
+4. Finish outstanding image passes; visually verify filenames and crops per room.
+5. Have fluent educators review machine-assisted translations; English remains authoritative.
+6. Add the existing syntax/parity/lock/resource checks to CI when a build step is introduced.

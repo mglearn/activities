@@ -15,9 +15,11 @@ Two build modes (same as the novels):
 
 ## Copyright rule of thumb (US, as of 2026)
 - **Published 1930 or earlier → public domain** in the US (95 years; 1930 + 95 → PD on
-  Jan 1, 2026). So authors like Poe, O. Henry, Maupassant, Chopin, Stockton, London,
-  Saki, Bierce, W. W. Jacobs, Gilman, and Connell's *The Most Dangerous Game* (1924) are
-  safe as full rooms.
+  Jan 1, 2026). ⚠️ **This cutoff moves forward one year each Jan 1** (year − 96), so re-derive
+  it rather than trusting the frozen "1930." So authors like Poe, O. Henry, Maupassant,
+  Chopin, Stockton, London, Saki, Bierce, W. W. Jacobs, Gilman, and Connell's *The Most
+  Dangerous Game* (1924) are safe as full rooms *(note: The Most Dangerous Game was still
+  **dropped** per the user — PD status ≠ build decision)*.
 - **Published 1931 or later → treat as copyrighted** unless clearly proven otherwise
   (e.g., Brave New World 1932 is still under copyright until 2028). When unsure, use the
   companion mode.
@@ -97,8 +99,20 @@ engine hides the audio button gracefully).
 
 (Poe's **The Tell-Tale Heart** is also live as its own room, `poe`.)
 
-### 🔜 Future expansion queue — not built yet (verified public-domain, sourced)
-Build order roughly easiest-sourced first. Confirm each edition before shipping.
+### ✅ Expansion queue — ALL 7 BUILT 2026-08-06 (English + 6 languages, validated locally)
+All seven below now exist as full rooms (`data.en.js` + `index.html` + `policy.html` + 6
+lang packs), validated (`node -c`, 183/183 UI parity, 7 artifacts, 6 locks, word-lock
+solvability, index-0 answer key) and carded live in `titles.js`. **Awaiting image assets +
+commit/deploy** — hero + relic prompts are in `SHORT_STORIES_IMAGES.md`. Room ids:
+`yellowwallpaper`, `tobuildafire`, `aftertwenty`, `openwindow`, `interlopers`, `necklace`,
+`storyhour`. Confirm each Gutenberg edition/translation before shipping (The Necklace →
+Sturges PD translation; The Story of an Hour → verify the Chopin collection source).
+
+**Read & Listen sources are web-verified (2026-08-07)** — see the sources table in
+`BUILD_STATUS.md`. Five rooms link a verified Gutenberg text + LibriVox recording; The Yellow
+Wallpaper and The Story of an Hour have no standalone LibriVox recording (audio shows
+"Not available"); and **The Story of an Hour is not on Project Gutenberg** at all, so its text
+link points to **Wikisource** (the original #160 link was wrong — it did not contain the story).
 
 | # | Story | Author | ~Year | Gut # | Notes / teaching focus |
 |---|-------|--------|-------|-------|------------------------|
@@ -128,13 +142,20 @@ Then add an entry to the image doc so hero + 7 relic images can be generated.
 ---
 
 ## C. Recommended sequencing (when the user greenlights short stories)
-1. **PD quick wins first:** The Lady, or the Tiger?; The Ransom of Red Chief; The Most
-   Dangerous Game; The Gift of the Magi; The Monkey's Paw. (No copyright friction.)
+
+> Status note (2026-08-06): the PD quick wins below are **all built and live** (see the
+> "Built and live" table in §B). The next tranche is the **§B future-expansion queue**
+> (Yellow Wallpaper, To Build a Fire, After Twenty Years, The Open Window, The Interlopers,
+> The Necklace, The Story of an Hour). The "Short Stories" genre facet already exists.
+
+1. **PD quick wins first:** ✅ done — The Lady, or the Tiger?; The Ransom of Red Chief; The
+   Gift of the Magi; The Monkey's Paw. *(The Most Dangerous Game was **dropped** per the
+   user — see the "Dropped" box in the built-so-far section; do not build it.)*
 2. **Copyrighted companions** for the middle-school staples the user named (Thank You,
    M'am; The Medicine Bag; The Scholarship Jacket; The Treasure of Lemon Brown; Stop the
-   Sun; Born Worker) — once lawful copies are provided for fact-checking.
-3. Consider a **"Short Stories" genre facet** and/or a dedicated short-stories landing
-   section on the hub if the collection grows past ~6 titles.
+   Sun; Born Worker) — **on hold**: direction is PD-only from here unless the user revisits
+   and supplies lawful copies for fact-checking.
+3. The **"Short Stories" genre facet** already ships on the hub.
 
 ## D. Open questions for the user
 - Confirm whether to build the copyrighted short-story companions (yes/no per title).
