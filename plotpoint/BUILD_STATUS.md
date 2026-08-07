@@ -58,7 +58,24 @@ English + 6 language packs, all validated (183/183 UI parity, 7 artifacts, 6 loc
 solvability, index-0 answers). Verified sources: Gutenberg **#84** (1831 text) + LibriVox **1831
 edition** recording. New arcade mechanic: *"Born a Monster, or Made One?"* (nature-vs-nurture
 evidence sort). Image prompts in `LONG_WORKS_IMAGES.md`. Awaiting image assets + commit/deploy.
-Remaining long works: **13 of 14** (see `TEXAS_2026_PLAN.md` §B5).
+
+**Second Texas long work — Pride and Prejudice (2026-08-07, English-first).** `pride` (Jane
+Austen, PD) is the second §B5 long work. **Built English-first**: `data.en.js` + `index.html` +
+`policy.html` + `titles.js` card + image prompts — the six `lang/*.js` packs are **deferred to a
+follow-up pass** (the engine falls back per-field to English, so the room is fully usable now).
+Validated: `node -c`, 183/183 UI-key parity with `frankenstein`, 11 vocab (all contexts contain
+their term), 7 relic artifacts (4 choices each), 6 locks (word/digit answers present in final
+hints), balanced 4/4 arcade, 5 MCQ + 3 short + paragraph + ACE, index-0 answers. Verified sources:
+Gutenberg **#1342** + LibriVox **version 1** (complete recording). Arcade mechanic: *"First
+Impressions: Accurate or Misleading?"*. Image prompts in `LONG_WORKS_IMAGES.md`. Awaiting the six
+language packs, image assets, commit/deploy, and production HTTP verification.
+Remaining long works: **12 of 14** (see `TEXAS_2026_PLAN.md` §B5).
+
+**Engine fix (2026-08-07).** `assets/room-engine.js` `shuffle()` was a fixed permutation
+(`(i*7+3)%(i+1)`), so the index-0-correct answer always landed in the same visual slot every load.
+Replaced with a `Math.random()` Fisher–Yates (browser-safe), plus a guard so a sequence lock never
+starts already solved. Affects every room's answer-position randomization; answer checking is
+value/index-based, so keys are unchanged.
 
 Major completed groups:
 

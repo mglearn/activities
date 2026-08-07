@@ -52,7 +52,7 @@
   /* ---- DOM helpers ---- */
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
-  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = (i * 7 + 3) % (i + 1); var tmp = a[i]; a[i] = a[j]; a[j] = tmp; } return a; }
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var tmp = a[i]; a[i] = a[j]; a[j] = tmp; } return a; }
   function flag(cond) { return cond ? ' <span class="review-flag">' + t('review.flag') + '</span>' : ''; }
 
   /* ---- sections ---- */
@@ -508,6 +508,11 @@
       wrap.appendChild(box); wrap.appendChild(b2);
     } else if (lk.type === 'sequence') {
       var orderState = shuffle(lk.items.map(function (_, k) { return k; })); // correct order = 0,1,2...
+      // never start a sequence lock already solved
+      var tries = 0;
+      while (lk.items.length > 1 && orderState.every(function (k, pos) { return k === pos; }) && tries++ < 8) {
+        orderState = shuffle(lk.items.map(function (_, k) { return k; }));
+      }
       var list = el('ul', 'seq-list');
       function drawSeq() {
         list.innerHTML = '';
