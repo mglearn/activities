@@ -70,7 +70,19 @@ in every pack. Verified sources: Gutenberg **#1342** + LibriVox **version 1** (c
 Arcade mechanic: *"First Impressions: Accurate or Misleading?"*. Image prompts in
 `LONG_WORKS_IMAGES.md`. Translations are machine-assisted (flag for educator review). Awaiting
 image assets, commit/deploy, and production HTTP verification.
-Remaining long works: **12 of 14** (see `TEXAS_2026_PLAN.md` §B5).
+
+**Third Texas long work — The Great Gatsby (2026-08-07).** `gatsby` (F. Scott Fitzgerald, U.S. PD
+since 2021) is the third §B5 long work. Full seven-language build: `data.en.js` + all six
+`lang/*.js` packs + `index.html` + `policy.html` + `titles.js` card + image prompts. Validated:
+`node -c` on all 7 JS files; **183/183 UI-key parity** across every pack; 11 vocab (contexts contain
+their term); 7 relic artifacts (The West Egg Archive); 6 locks (answers "2"/Carraway/Gatz preserved
+and present in each pack's final hint); balanced 4/4 arcade *"Whose Fault Was It? Illusion vs.
+Carelessness"* with bucket/card order preserved; 5 MCQ + 3 short + paragraph + ACE; index-0 answers;
+meta URLs + ccss verbatim in every pack. Verified sources: Gutenberg **#64317** + LibriVox
+**version 1** (complete recording). Symbolism focus (green light, valley of ashes, Eckleburg's eyes)
++ peripheral-narrator lens + American-Dream critique. Mature-content and Tom-Buchanan-racism notes
+in the Teacher Guide. Awaiting image assets, commit/deploy, and production HTTP verification.
+Remaining long works: **11 of 14** (see `TEXAS_2026_PLAN.md` §B5).
 
 **Engine fix (2026-08-07).** `assets/room-engine.js` `shuffle()` was a fixed permutation
 (`(i*7+3)%(i+1)`), so the index-0-correct answer always landed in the same visual slot every load.
