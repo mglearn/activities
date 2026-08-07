@@ -111,7 +111,21 @@ verbatim. Verified sources: Gutenberg **#25344** + LibriVox **version 1** (compl
 Extend task compares Hester's scaffold to modern online public-shaming. Paraphrase-only. Mature-theme
 note (adultery, non-graphic; public shaming; revenge) in the Teacher Guide. Awaiting image assets,
 commit/deploy, and production HTTP verification.
-Remaining long works: **9 of 14** (see `TEXAS_2026_PLAN.md` §B5).
+
+**Sixth Texas long work — Hamlet (2026-08-07).** `hamlet` (Shakespeare, PD) is the sixth §B5 long
+work and the second play. Full seven-language build: `data.en.js` + all six `lang/*.js` packs +
+`index.html` + `policy.html` + `titles.js` card + image prompts. The Elsinore Archive relic room
+(the ghost, the mousetrap play, the arras/Polonius, Ophelia's flowers and drowning, Yorick's skull,
+the England letters, the poisoned foil and cup); arcade *"Real Madness or an Act?"* (feigned antic
+disposition vs. genuine breakdown); extend task is a modern soliloquy. Validated: `node -c` on all 7
+JS files; **183/183 UI-key parity**; 11 vocab (contexts contain their term); 6 locks (answers
+"2"/Denmark/Claudius preserved and present in each pack's final hint); balanced 4/4 arcade with
+bucket/card order preserved; 5 MCQ + 3 short + paragraph + ACE; index-0 answers; meta URLs + ccss
+verbatim. Verified sources: Gutenberg **#1122** + LibriVox **version 1** (complete). Paraphrase-only
+(reproduces no lines of the play). Mature-content note (murder, madness, a likely-suicide drowning,
+many deaths) in the Teacher Guide. Awaiting image assets, commit/deploy, and production HTTP
+verification.
+Remaining long works: **8 of 14** (see `TEXAS_2026_PLAN.md` §B5).
 
 **Engine fix (2026-08-07).** `assets/room-engine.js` `shuffle()` was a fixed permutation
 (`(i*7+3)%(i+1)`), so the index-0-correct answer always landed in the same visual slot every load.
