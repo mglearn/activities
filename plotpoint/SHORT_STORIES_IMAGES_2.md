@@ -51,3 +51,16 @@ palette per room (noted below).
 - `silkstockings/images/lunch.webp` — A genteel restaurant table for one: oysters on ice, a small chop with cress, a stemmed glass of pale wine, and coffee, in soft afternoon light. Warm amber, inviting, no legible text.
 - `silkstockings/images/matinee.webp` — A plush theatre interior seen from a seat among well-dressed patrons, warm stage light glowing beyond — a woman lost in the afternoon play. Rich red and gold, absorbed mood, no legible text.
 - `silkstockings/images/cablecar.webp` — Inside a 1890s cable car at dusk: a small, pale-faced woman by the window gazing out with quiet longing as the city slides past. Cool blue-amber evening light, bittersweet, no legible text.
+
+---
+
+## The Lottery Ticket (Chekhov) — palette: warm lamplight-amber cooling to grey-blue; 1880s Russian parlour
+
+- `lotteryticket/images/hero.webp` — A lamplit parlour table where a man holds a newspaper and a small lottery ticket while a woman leans in hopefully; behind them, shadowy translucent daydreams of a country estate and stacks of money. Warm amber foreground cooling to grey-blue shadow, no legible text.
+- `lotteryticket/images/ticket.webp` — A single small printed lottery ticket held in a hand under lamplight, plainly important; faint numerals implied but not legible. Warm sepia, intimate, no legible text.
+- `lotteryticket/images/newspaper.webp` — An open 1880s newspaper page under a lamp, a man's finger pausing on a line of lottery results (numbers implied, not legible). Warm amber, a held breath, no legible text.
+- `lotteryticket/images/delay.webp` — A man holding the ticket face-down against his chest, eyes closed, savoring the moment before he looks — hope deliberately prolonged. Soft golden light, wistful, no legible text.
+- `lotteryticket/images/roubles.webp` — Imagined stacks and scattered coins of 1880s Russian roubles glowing like a daydream, slightly unreal and translucent. Warm gold fading to shadow, dreamlike, no legible text.
+- `lotteryticket/images/estate.webp` — A dreamlike vision of a comfortable country estate: a house with a garden, a river, autumn trees — rendered soft and glowing like a fantasy. Warm hazy amber-green, no legible text.
+- `lotteryticket/images/resentment.webp` — The same couple at the same table, now turned slightly away from each other, faces cooling into suspicion and scorn as the warm light greys. Cooling blue-grey shadow creeping over amber, tense, no legible text.
+- `lotteryticket/images/number.webp` — A hand finally turning the ticket face-up beside the newspaper, the mismatch implied by two different numbers not quite aligning; the lamplight now cold. Grey-blue, deflated, no legible text.
