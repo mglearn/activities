@@ -188,8 +188,20 @@ works: Frankenstein, Pride and Prejudice, Gatsby, Julius Caesar, Scarlet Letter,
 Expectations; 7 PD short stories). Walden, Franklin, and Tocqueville render labeled placeholders
 until their art is generated. Up from Slavery deploys with this commit.
 
-Remaining long works: **3 of 14** (see `TEXAS_2026_PLAN.md` §B5): The Death of Ivan Ilyich, The
-Divine Comedy, Hamlet and His Problems.
+**Twelfth Texas long work — The Death of Ivan Ilyich (2026-08-07).** `ivanilyich` (Leo Tolstoy, PD),
+Eng IV; novella (RL codes). Full seven-language build. The Golovin Archive relic room (opening
+funeral, career ladder, the curtain-hanging fall, the cold doctors, Gerasim, the "all men are
+mortal" syllogism, the final light); arcade *"Authentic or Artificial?"*; extend is a reflective
+"life worth living" piece. **Source note:** no standalone English text on Project Gutenberg, so the
+read-link points to **Wikisource** (Maude translation) — `ui.enter.read` overridden to "(Wikisource)"
+and `meta.gutenberg` holds the Wikisource URL; audio is LibriVox (Garnett translation). The two are
+different PD translations — flagged in the Teacher Guide. Validated: `node -c` all 7 JS; **183/183 UI
+parity**; 11 vocab (contexts contain term); 6 locks (answers "12"/Golovin/Gerasim in each pack's
+final hint — both word answers are proper nouns, no cross-language typing issue); balanced 4/4
+arcade; meta URLs + RL ccss verbatim. Paraphrase-only. Awaiting image assets, commit/deploy, HTTP
+verification.
+Remaining long works: **2 of 14** (see `TEXAS_2026_PLAN.md` §B5): The Divine Comedy, Hamlet and His
+Problems.
 
 **Engine fix (2026-08-07).** `assets/room-engine.js` `shuffle()` was a fixed permutation
 (`(i*7+3)%(i+1)`), so the index-0-correct answer always landed in the same visual slot every load.
