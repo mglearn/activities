@@ -135,7 +135,19 @@ House, Estella, the anonymous fortune, Joe's forge, benefactor revealed, Pip's h
 pack's final hint); balanced 4/4 arcade; 5 MCQ + 3 short + paragraph + ACE; meta URLs + ccss
 verbatim. Verified sources: Gutenberg **#1400** + LibriVox **version 1**. Paraphrase-only.
 Awaiting image assets, commit/deploy, HTTP verification.
-Remaining long works: **7 of 14** (see `TEXAS_2026_PLAN.md` §B5).
+
+**Eighth Texas long work — Walden (2026-08-07).** `walden` (Henry David Thoreau, PD), Eng IV; the
+first **nonfiction** long work and the first §B5 room using RI (informational) CCSS codes.
+Excerpt-scoped to Walden's core chapters (Economy; Where I Lived; Solitude; Conclusion) — noted in
+`meta` and Teacher Guide. Full seven-language build. The Walden Pond Archive relic room (cabin,
+bean-field, pond, borrowed axe, cost ledger, railroad, journal/"different drummer"); arcade
+*"Necessity or Luxury?"* built from the Economy argument; extend task = design a personal
+simple-living experiment. Validated: `node -c` on all 7 JS; **183/183 UI-key parity**; 11 vocab
+(contexts contain their term); 6 locks (answers "2"/Walden/Concord in each pack's final hint);
+balanced 4/4 arcade; 5 MCQ + 3 short + paragraph + ACE; meta URLs + ccss (RI.*) verbatim. Verified
+sources: Gutenberg **#205** (also contains 'Civil Disobedience' — noted) + LibriVox. Nonfiction, so
+`spoiler:"none"`. Paraphrase-only. Awaiting image assets, commit/deploy, HTTP verification.
+Remaining long works: **6 of 14** (see `TEXAS_2026_PLAN.md` §B5).
 
 **Engine fix (2026-08-07).** `assets/room-engine.js` `shuffle()` was a fixed permutation
 (`(i*7+3)%(i+1)`), so the index-0-correct answer always landed in the same visual slot every load.

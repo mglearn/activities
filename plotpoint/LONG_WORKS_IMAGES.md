@@ -91,3 +91,15 @@ recreation, *not* artwork from any edition), **no text/words/numbers rendered in
 - `greatex/images/forge.webp` — A warm village blacksmith's forge: glowing coals, an anvil with hammer and tongs, horseshoes hung on the wall, honest firelight filling the timber workshop; rich amber, ember-orange, and soot-black palette, humble and heartfelt, no figures.
 - `greatex/images/benefactor.webp` — A rain-lashed London stair-landing at night by candlelight, a weathered traveler's coat and battered hat on a peg, a worn sea-chest and muddy boots, a storm at the window; cold blue-grey shot with warm candle amber, tense revelation mood, no visible face.
 - `greatex/images/return.webp` — A modest sunlit sickroom with an open window onto green marshes, a bed with rumpled linen, a blacksmith's cap resting on a bedside chair beside a bowl and spoon; gentle warm light, tender and reconciling mood, no figures.
+
+---
+
+## walden — *Walden; or, Life in the Woods* · Henry David Thoreau (accent #2e6e6a, pondwater teal / pine)
+- `walden/images/hero.webp` — A small plain wooden cabin among tall pines beside a still, glass-clear pond at dawn, an axe left in a chopping stump and a few rows of bean plants nearby; calm teal, pine-green, and soft gold palette, serene and contemplative, no figures, no text.
+- `walden/images/cabin.webp` — A simple one-room timber cabin interior: a narrow bed, a plain table, three wooden chairs, a small window looking onto the pond, a swept board floor; warm honest daylight, spare and peaceful, no figures.
+- `walden/images/beanfield.webp` — Long straight rows of young bean plants in dark tilled soil beside a pine wood, a hoe resting against a stump, morning light across the field; earthy browns and fresh greens, humble and industrious, no figures.
+- `walden/images/pond.webp` — A deep, mirror-clear woodland pond reflecting pines and sky, its surface perfectly still, pebbled shallows visible near the shore; luminous teal and green with silver light, tranquil and profound, no figures.
+- `walden/images/axe.webp` — A well-worn axe with a sharpened blade embedded in a pine stump in a sunlit clearing, wood chips scattered around, forest beyond; warm bronze and green tones, honest craft, no figures.
+- `walden/images/ledger.webp` — An open handwritten account book on a rough table with a column of small figures, a quill and inkpot, a few coins beside it, plain daylight; sepia and cream palette, careful and frugal mood, no legible text.
+- `walden/images/railroad.webp` — A single-track railroad line curving past the edge of a pine wood beside a pond, a distant plume of engine smoke on the horizon, wildflowers along the embankment; muted greens and iron-grey with a smudge of smoke, quiet intrusion of the modern world, no figures.
+- `walden/images/journal.webp` — A worn leather-bound journal lying open on a mossy log by the water, a pressed leaf marking a page, a pencil resting in the crease, dappled forest light; warm browns and forest greens, reflective and personal, no legible text.
