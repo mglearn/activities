@@ -147,7 +147,19 @@ simple-living experiment. Validated: `node -c` on all 7 JS; **183/183 UI-key par
 balanced 4/4 arcade; 5 MCQ + 3 short + paragraph + ACE; meta URLs + ccss (RI.*) verbatim. Verified
 sources: Gutenberg **#205** (also contains 'Civil Disobedience' — noted) + LibriVox. Nonfiction, so
 `spoiler:"none"`. Paraphrase-only. Awaiting image assets, commit/deploy, HTTP verification.
-Remaining long works: **6 of 14** (see `TEXAS_2026_PLAN.md` §B5).
+
+**Ninth Texas long work — The Autobiography of Benjamin Franklin (2026-08-07).** `franklin`
+(Benjamin Franklin, PD), Eng IV; nonfiction (RI codes), **scoped to Part One** (Boston boyhood
+through founding the Philadelphia print shop) — noted in `meta`/Teacher Guide (the 13-virtues chart
+is Part Two, flagged out-of-scope). Full seven-language build. The Printer's Archive relic room
+(three rolls, printing press, Silence Dogood letters, self-taught books, the Junto, frugality
+ledger, letter-to-his-son frame); arcade *"Road to Success, or Path to Ruin?"*; extend = a
+Franklin-style self-improvement plan. Validated: `node -c` all 7 JS; **183/183 UI parity**; 11 vocab
+(contexts contain term); 6 locks (answers "17"/Philadelphia/Dogood in each pack's final hint);
+balanced 4/4 arcade; meta URLs + RI ccss verbatim. Sources: Gutenberg **#148** + LibriVox.
+Paraphrase-only. Awaiting image assets, commit/deploy, HTTP verification.
+Remaining long works: **5 of 14** (see `TEXAS_2026_PLAN.md` §B5): Democracy in America, Up from
+Slavery, The Death of Ivan Ilyich, The Divine Comedy, Hamlet and His Problems.
 
 **Engine fix (2026-08-07).** `assets/room-engine.js` `shuffle()` was a fixed permutation
 (`(i*7+3)%(i+1)`), so the index-0-correct answer always landed in the same visual slot every load.
