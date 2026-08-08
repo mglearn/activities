@@ -58,9 +58,16 @@ Ordered shortest first.
 | T6 | The $30,000 Bequest | short story (RL) | ✓ | ✓ |
 | T7 | The Man That Corrupted Hadleyburg | long short story / novella (RL) | ✓ | ✓ |
 
-*Twain's novels (Tom Sawyer, Huckleberry Finn, The Prince and the Pauper,
-A Connecticut Yankee, Pudd'nhead Wilson) all have text + audio too, but are
-long — excerpt-scope, lower priority than the stories above.*
+**Twain novels** (long — build to a single named chapter/excerpt, lower
+priority than the stories above; text + audio both verified):
+
+| # | Work | Type | Text (Gutenberg) | Audio (LibriVox) |
+|---|------|------|------------------|------------------|
+| T8 | Adventures of Huckleberry Finn (excerpt) | novel (RL) | #76 | ✓ (multiple) |
+| T9 | A Connecticut Yankee in King Arthur's Court (excerpt) | novel (RL) | #86 | ✓ (multiple) |
+
+*Other Twain novels (Tom Sawyer, The Prince and the Pauper, Pudd'nhead Wilson)
+also have text + audio and can be added the same way when wanted.*
 
 ### Tier 2 — Medium (novella / single treatise, excerpt scope)
 
