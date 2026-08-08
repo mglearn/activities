@@ -808,7 +808,6 @@ window.PLOTPOINT_TITLES = [
     arcade: "Giving Up or Holding On?",
     desc: "O. Henry's tender twist tale: a young artist dying of pneumonia believes she will go when the last ivy leaf falls — until an old neighbor paints one final leaf that never falls, at the cost of his own life. Studied for irony, the twist ending, and self-sacrifice. Free text and audio; public domain (1907).",
   },
-  },
   {
     id: "monkeyspaw",
     text: true, audio: true,
