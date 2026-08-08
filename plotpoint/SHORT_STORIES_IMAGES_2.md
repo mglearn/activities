@@ -103,3 +103,16 @@ palette per room (noted below).
 - `lastleaf/images/storm.webp` — A fierce night storm of wind-driven cold rain lashing an old brick wall and a dim lit window above, the ivy vine whipping. Dark blue-grey, streaking rain, ominous, no legible text.
 - `lastleaf/images/lastleaf.webp` — One lone ivy leaf, green edged with yellow, clinging to a bare stem against wet brick after the storm, morning light behind it. Grey brick, one vivid leaf, quietly miraculous, no legible text.
 - `lastleaf/images/masterpiece.webp` — A lantern, a wooden ladder against the brick wall, scattered brushes, and a palette with mixed green and yellow paint on the wet ground beneath the painted leaf — the revealed sacrifice. Rain-dark brick, warm lantern glow, poignant, no legible text.
+
+---
+
+## Adventures of Huckleberry Finn (Mark Twain) — palette: sunlit Mississippi amber-gold & river green, shadowed shore; **novel**
+
+- `huckfinn/images/hero.webp` — A small wooden raft drifting down a wide, sunlit Mississippi River at dawn, two figures aboard (a boy and a man), open golden water opening ahead; on the left bank, a shadowed shore of fences, a steeple, and a huddle of town rooftops. Warm river amber-gold with cool green water and a darker shore, hopeful yet watchful, no legible text.
+- `huckfinn/images/river.webp` — A close, peaceful view of the raft on calm water at night, a lantern glow, stars reflected, the two travelers at ease — the feeling of freedom. Deep river blue-green with warm lantern amber, serene, no legible text.
+- `huckfinn/images/jim.webp` — A dignified, warm portrait of a middle-aged Black man in worn 1840s clothing aboard the raft, thoughtful and kind, river light on his face. Respectful, humane, warm amber-green tones, no legible text.
+- `huckfinn/images/pap.webp` — A menacing silhouette of a ragged, drunken frontier man in a dim cabin doorway, a jug and shadows, a locked shutter — threat, not gore. Dark browns and cold shadow, oppressive, no legible text.
+- `huckfinn/images/conmen.webp` — Two shabby-genteel con men in mismatched fine coats and a battered top hat performing a grand bluff to a small-town crowd, a handbill and a coin purse — theatrical fraud. Faded purples and dusty gold, satirical, no legible text.
+- `huckfinn/images/feud.webp` — A grand Southern plantation house at dusk with two well-dressed families facing off across a fence, rifles half-raised, a church steeple behind — genteel manners hiding violence (implied, not graphic). Muted golds cooling to storm-grey, tense, no legible text.
+- `huckfinn/images/letter.webp` — A boy's hand tearing a written letter in two by candlelight on the raft, the river dark beyond — the moral climax (paper blank/illegible). Warm candle amber against night blue, decisive, no legible text.
+- `huckfinn/images/territory.webp` — A lone boy with a small bundle on a stick walking a dawn road westward toward open frontier country, the river and town behind him. Wide golden-green morning light, freedom and open horizon, no legible text.
