@@ -158,8 +158,21 @@ Franklin-style self-improvement plan. Validated: `node -c` all 7 JS; **183/183 U
 (contexts contain term); 6 locks (answers "17"/Philadelphia/Dogood in each pack's final hint);
 balanced 4/4 arcade; meta URLs + RI ccss verbatim. Sources: Gutenberg **#148** + LibriVox.
 Paraphrase-only. Awaiting image assets, commit/deploy, HTTP verification.
-Remaining long works: **5 of 14** (see `TEXAS_2026_PLAN.md` §B5): Democracy in America, Up from
-Slavery, The Death of Ivan Ilyich, The Divine Comedy, Hamlet and His Problems.
+**Tenth Texas long work — Democracy in America, Vol. 1 (2026-08-07).** `tocqueville` (Alexis de
+Tocqueville, PD; **Henry Reeve translation** — noted in `meta`/policy/Teacher Guide), Eng III;
+nonfiction political philosophy (RI codes), excerpt-scoped to Volume 1's core themes. Full
+seven-language build. The American Notebook Archive relic room (equality of conditions, the New
+England township, voluntary associations, the jury, tyranny of the majority, the free press, the
+three-races chapter); arcade *"Strength of Democracy, or Danger?"*; extend = a Tocqueville-style
+observation of modern democracy. **Word-lock nuance:** lock 3's answer is the common English word
+"conditions" (not a proper noun), so translators kept it in Latin across prompt/evidence/hints so it
+stays typable in every language. Validated: `node -c` all 7 JS; **183/183 UI parity**; 11 vocab
+(contexts contain term); 6 locks (answers "3"/Tocqueville/conditions in each pack's final hint);
+balanced 4/4 arcade; meta URLs + RI ccss verbatim. Sources: Gutenberg **#815** (Reeve tr., Vol. 1) +
+LibriVox Vol. I. Includes the three-races chapter (slavery / Native removal) — Teacher Guide flags
+teaching it critically. Paraphrase-only. Awaiting image assets, commit/deploy, HTTP verification.
+Remaining long works: **4 of 14** (see `TEXAS_2026_PLAN.md` §B5): Up from Slavery, The Death of Ivan
+Ilyich, The Divine Comedy, Hamlet and His Problems.
 
 **Engine fix (2026-08-07).** `assets/room-engine.js` `shuffle()` was a fixed permutation
 (`(i*7+3)%(i+1)`), so the index-0-correct answer always landed in the same visual slot every load.
