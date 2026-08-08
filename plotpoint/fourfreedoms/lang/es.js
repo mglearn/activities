@@ -698,42 +698,42 @@ window.__ROOM_LANGS__.es = {
       "cards": [
         {
           "text": "Libertad de palabra y expresión, en todo el mundo.",
-          "bucket": "visión",
+          "bucket": "vision",
           "why": "La primera de las cuatro libertades en la visión del hablante."
         },
         {
           "text": "Libertad de cada persona para rendir culto a su manera.",
-          "bucket": "visión",
+          "bucket": "vision",
           "why": "La segunda libertad es la libertad individual de conciencia."
         },
         {
           "text": "Libertad de miseria: seguridad económica para todas las naciones.",
-          "bucket": "visión",
+          "bucket": "vision",
           "why": "La tercera libertad, que apunta a una vida sana en tiempos de paz."
         },
         {
           "text": "Liberarse del miedo mediante una reducción mundial de armamentos.",
-          "bucket": "visión",
+          "bucket": "vision",
           "why": "La cuarta libertad es la seguridad frente a la agresión."
         },
         {
           "text": "Un \"nuevo orden de tiranía\" que los dictadores intentaron imponer.",
-          "bucket": "tiranía",
+          "bucket": "tyranny",
           "why": "El pasaje nombra esto como lo opuesto a su visión."
         },
         {
           "text": "Gobernar por la fuerza para que nadie pueda hablar o adorar libremente.",
-          "bucket": "tiranía",
+          "bucket": "tyranny",
           "why": "Negar la palabra y la adoración es lo que hace la tiranía."
         },
         {
           "text": "Una nación cometiendo agresión contra otra.",
-          "bucket": "tiranía",
+          "bucket": "tyranny",
           "why": "La agresión es exactamente a lo que se opone la libertad sin miedo."
         },
         {
           "text": "El poder se mantiene por miedo más que por consentimiento.",
-          "bucket": "tiranía",
+          "bucket": "tyranny",
           "why": "Gobernar por el miedo es la antítesis de estar libre del miedo."
         }
       ],

@@ -698,42 +698,42 @@ window.__ROOM_LANGS__.vi = {
       "cards": [
         {
           "text": "'Nỗi kinh hoàng vô danh, vô lý, vô cớ' làm tê liệt nỗ lực.",
-          "bucket": "khủng hoảng",
+          "bucket": "crisis",
           "why": "Nó gọi nỗi sợ hãi là mối nguy hiểm sâu sắc hơn."
         },
         {
           "text": "Các nhà máy nhàn rỗi và nông dân không thể bán được sản phẩm của mình.",
-          "bucket": "khủng hoảng",
+          "bucket": "crisis",
           "why": "Một bức tranh trung thực về cuộc khủng hoảng kinh tế."
         },
         {
           "text": "Tiền tiết kiệm của các gia đình không còn và người lao động không có việc làm.",
-          "bucket": "khủng hoảng",
+          "bucket": "crisis",
           "why": "Sự khó khăn mà bài phát biểu phải đối mặt một cách thẳng thắn."
         },
         {
           "text": "Những hành vi thất bại của 'những người đổi tiền'",
-          "bucket": "khủng hoảng",
+          "bucket": "crisis",
           "why": "Đổ lỗi cho sự sụp đổ - một phần của việc đặt tên cho cuộc khủng hoảng"
         },
         {
           "text": "‘Điều duy nhất chúng ta phải sợ chính là nỗi sợ hãi.’",
-          "bucket": "hoạt động",
+          "bucket": "action",
           "why": "Nó điều chỉnh lại nỗi sợ hãi để đất nước có thể hướng tới sự tự tin."
         },
         {
           "text": "Đưa mọi người trở lại làm việc là nhiệm vụ lớn nhất.",
-          "bucket": "hoạt động",
+          "bucket": "action",
           "why": "Một mục tiêu cụ thể - cuộc khủng hoảng đi kèm với hành động."
         },
         {
           "text": "Đối mặt với tình trạng khẩn cấp như một quốc gia đối mặt với kẻ thù trong chiến tranh.",
-          "bucket": "hoạt động",
+          "bucket": "action",
           "why": "Ẩn dụ chiến tranh huy động cả nước hành động."
         },
         {
           "text": "Lời kêu gọi đoàn kết dân tộc, kỷ luật và hành động trực tiếp, táo bạo.",
-          "bucket": "hoạt động",
+          "bucket": "action",
           "why": "Lời kêu gọi kiên quyết đến sự tự tin và nỗ lực đoàn kết."
         }
       ],

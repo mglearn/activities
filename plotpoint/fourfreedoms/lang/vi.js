@@ -698,42 +698,42 @@ window.__ROOM_LANGS__.vi = {
       "cards": [
         {
           "text": "Tự do ngôn luận và biểu đạt ở mọi nơi trên thế giới.",
-          "bucket": "tầm nhìn",
+          "bucket": "vision",
           "why": "Quyền tự do đầu tiên trong bốn quyền tự do trong tầm nhìn của người nói."
         },
         {
           "text": "Tự do của mỗi người để thờ phượng theo cách riêng của họ.",
-          "bucket": "tầm nhìn",
+          "bucket": "vision",
           "why": "Quyền tự do thứ hai - quyền tự do lương tâm cá nhân."
         },
         {
           "text": "Tự do khỏi sự thiếu thốn - an ninh kinh tế cho tất cả các quốc gia.",
-          "bucket": "tầm nhìn",
+          "bucket": "vision",
           "why": "Tự do thứ ba, hướng tới một cuộc sống lành mạnh thời bình."
         },
         {
           "text": "Thoát khỏi sự sợ hãi thông qua việc cắt giảm vũ khí trên toàn thế giới.",
-          "bucket": "tầm nhìn",
+          "bucket": "vision",
           "why": "Tự do thứ tư - an toàn khỏi sự xâm lược."
         },
         {
           "text": "Một 'trật tự chuyên chế mới' mà những kẻ độc tài tìm cách áp đặt.",
-          "bucket": "sự chuyên chế",
+          "bucket": "tyranny",
           "why": "Đoạn văn gọi điều này là trái ngược với tầm nhìn của nó."
         },
         {
           "text": "Cai trị bằng vũ lực để không ai có thể tự do ngôn luận hoặc thờ cúng.",
-          "bucket": "sự chuyên chế",
+          "bucket": "tyranny",
           "why": "Từ chối lời nói và sự tôn thờ là những gì chế độ chuyên chế làm."
         },
         {
           "text": "Một quốc gia tiến hành xâm lược chống lại một quốc gia khác.",
-          "bucket": "sự chuyên chế",
+          "bucket": "tyranny",
           "why": "Sự hung hăng chính xác là điều mà sự tự do khỏi nỗi sợ hãi phản đối."
         },
         {
           "text": "Quyền lực được duy trì bằng sự sợ hãi hơn là bằng sự đồng thuận.",
-          "bucket": "sự chuyên chế",
+          "bucket": "tyranny",
           "why": "Cai trị bằng sự sợ hãi là phản đề của sự tự do khỏi sự sợ hãi."
         }
       ],

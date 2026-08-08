@@ -698,42 +698,42 @@ window.__ROOM_LANGS__.es = {
       "cards": [
         {
           "text": "Un grupo \"permite\" a otro adorar, como si tuviera un amable permiso.",
-          "bucket": "tolerancia",
+          "bucket": "toleration",
           "why": "La tolerancia trata la libertad como algo otorgado por quienes están en el poder."
         },
         {
           "text": "La libertad de creencia puede retirarse si la mayoría cambia de opinión.",
-          "bucket": "tolerancia",
+          "bucket": "toleration",
           "why": "Un favor concedido puede ser retirado; eso es tolerancia, no un derecho."
         },
         {
           "text": "Un gobernante \"permite\" que exista una minoría, por generosidad.",
-          "bucket": "tolerancia",
+          "bucket": "toleration",
           "why": "Enmarcar la libertad como generosidad mantiene el poder en manos del gobernante."
         },
         {
           "text": "Ser simplemente tolerado significa depender de la buena voluntad de otro grupo.",
-          "bucket": "tolerancia",
+          "bucket": "toleration",
           "why": "La dependencia de la buena voluntad es exactamente lo que la carta rechaza."
         },
         {
           "text": "La libertad de conciencia pertenece a todos los ciudadanos por igual, por naturaleza.",
-          "bucket": "bien",
+          "bucket": "right",
           "why": "Un reclamo inherente e igualitario es un derecho, no un favor."
         },
         {
           "text": "El gobierno no da \"al fanatismo ninguna sanción, ni a la persecución ninguna ayuda\".",
-          "bucket": "bien",
+          "bucket": "right",
           "why": "Una promesa vinculante contra la persecución protege un derecho, no un permiso."
         },
         {
           "text": "Nadie necesita el permiso de otro grupo para ser libre.",
-          "bucket": "bien",
+          "bucket": "right",
           "why": "Un derecho no depende de la indulgencia de nadie."
         },
         {
           "text": "La libertad de creencia es inherente y no se puede quitar con razón.",
-          "bucket": "bien",
+          "bucket": "right",
           "why": "Lo que es inherente ya pertenece a las personas: la marca de un derecho."
         }
       ],

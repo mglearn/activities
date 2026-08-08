@@ -698,42 +698,42 @@ window.__ROOM_LANGS__.vi = {
       "cards": [
         {
           "text": "Bảo tồn Liên bang.",
-          "bucket": "thành tích",
+          "bucket": "achievement",
           "why": "Điều lớn nhất mà lòng dũng cảm của người lính được đảm bảo."
         },
         {
           "text": "Giữ vững quyền lực của chính phủ.",
-          "bucket": "thành tích",
+          "bucket": "achievement",
           "why": "Một kết quả được đặt tên của sự phục vụ của người lính."
         },
         {
           "text": "Bảo vệ lá cờ Tổ quốc.",
-          "bucket": "thành tích",
+          "bucket": "achievement",
           "why": "Lá cờ họ bảo vệ tượng trưng cho quốc gia."
         },
         {
           "text": "Bảo đảm hòa bình sau bốn năm chiến tranh.",
-          "bucket": "thành tích",
+          "bucket": "achievement",
           "why": "Hòa bình là mục tiêu lao động của người lính giành được."
         },
         {
           "text": "Cảm ơn và lòng biết ơn của cả nước đối với sự phục vụ của họ.",
-          "bucket": "tin nhắn",
+          "bucket": "message",
           "why": "Lòng biết ơn là thông điệp trung tâm của mệnh lệnh."
         },
         {
           "text": "Tri ân những đồng đội đã hy sinh trong chiến tranh.",
-          "bucket": "tin nhắn",
+          "bucket": "message",
           "why": "Lệnh tưởng nhớ những người đã ngã xuống như một phần của lời cảm ơn."
         },
         {
           "text": "Hy vọng rằng họ mang những đức tính tương tự vào quyền công dân.",
-          "bucket": "tin nhắn",
+          "bucket": "message",
           "why": "Một lời buộc tội cho tương lai của họ, gửi đến những người lính."
         },
         {
           "text": "Đưa những người lính đã hoàn thành nhiệm vụ trở lại cuộc sống dân sự.",
-          "bucket": "tin nhắn",
+          "bucket": "message",
           "why": "Thông điệp của lệnh đuổi họ về nhà."
         }
       ],

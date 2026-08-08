@@ -698,42 +698,42 @@ window.__ROOM_LANGS__.vi = {
       "cards": [
         {
           "text": "Quân đội kết hợp của Châu Âu, Châu Á và Châu Phi.",
-          "bucket": "SAI",
+          "bucket": "false",
           "why": "Đây là lực lượng nước ngoài mà Lincoln cho rằng không bao giờ có thể chinh phục được nước Mỹ."
         },
         {
           "text": "Tất cả kho báu của trái đất dành cho một cuộc xâm lược.",
-          "bucket": "SAI",
+          "bucket": "false",
           "why": "Ngay cả với sự giàu có của thế giới, Lincoln nói rằng một cuộc tấn công từ nước ngoài phải thất bại."
         },
         {
           "text": "Kẻ thù không thể lấy đồ uống từ Ohio bằng vũ lực.",
-          "bucket": "SAI",
+          "bucket": "false",
           "why": "Lincoln bác bỏ mối đe dọa cường điệu từ nước ngoài."
         },
         {
           "text": "Một kẻ chinh phục vượt biển để chiếm lấy đất nước.",
-          "bucket": "SAI",
+          "bucket": "false",
           "why": "Loại tấn công từ bên ngoài Lincoln loại trừ hoàn toàn."
         },
         {
           "text": "Đám đông giành lấy công lý vào tay mình.",
-          "bucket": "thực tế",
+          "bucket": "real",
           "why": "Tình trạng vô luật pháp bỏ qua tòa án mới là mối nguy hiểm nội bộ thực sự."
         },
         {
           "text": "Công dân phớt lờ Hiến pháp và tòa án.",
-          "bucket": "thực tế",
+          "bucket": "real",
           "why": "Sự xói mòn luật pháp này chính xác là điều mà Lincoln cảnh báo."
         },
         {
           "text": "Một quốc gia có thể 'chết vì tự sát'",
-          "bucket": "thực tế",
+          "bucket": "real",
           "why": "Tự hủy diệt từ bên trong là mối nguy hiểm mà Lincoln đặt tên."
         },
         {
           "text": "Sự gắn bó với chính phủ dần mất đi.",
-          "bucket": "thực tế",
+          "bucket": "real",
           "why": "Lincoln nói tình trạng vô luật pháp làm xói mòn lòng trung thành của công dân từ bên trong."
         }
       ],

@@ -698,42 +698,42 @@ window.__ROOM_LANGS__.vi = {
       "cards": [
         {
           "text": "Một nhóm 'cho phép' nhóm khác thờ phượng, như thể có sự cho phép tử tế.",
-          "bucket": "sự khoan dung",
+          "bucket": "toleration",
           "why": "Sự khoan dung coi tự do như một thứ được ban cho bởi những người nắm quyền lực."
         },
         {
           "text": "Tự do tín ngưỡng có thể bị thu hồi nếu đa số thay đổi ý kiến.",
-          "bucket": "sự khoan dung",
+          "bucket": "toleration",
           "why": "Một ân huệ đã ban có thể bị lấy lại - đó là sự bao dung, không phải là một quyền."
         },
         {
           "text": "Một người cai trị 'cho phép' một thiểu số tồn tại, vì sự rộng lượng.",
-          "bucket": "sự khoan dung",
+          "bucket": "toleration",
           "why": "Đóng khung tự do như sự hào phóng sẽ giữ quyền lực với người cai trị."
         },
         {
           "text": "Chỉ được dung thứ có nghĩa là phụ thuộc vào thiện chí của nhóm khác.",
-          "bucket": "sự khoan dung",
+          "bucket": "toleration",
           "why": "Sự phụ thuộc vào thiện chí chính xác là điều mà bức thư từ chối."
         },
         {
           "text": "Về bản chất, tự do lương tâm thuộc về mọi công dân một cách bình đẳng.",
-          "bucket": "Phải",
+          "bucket": "right",
           "why": "Một yêu cầu bình đẳng, vốn có là một quyền chứ không phải là một đặc ân."
         },
         {
           "text": "Chính phủ 'không trừng phạt kẻ tin mù quáng, không trợ giúp kẻ bắt bớ.'",
-          "bucket": "Phải",
+          "bucket": "right",
           "why": "Một lời hứa ràng buộc chống lại sự ngược đãi bảo vệ một quyền chứ không phải một sự cho phép."
         },
         {
           "text": "Không ai cần sự cho phép của nhóm khác để được tự do.",
-          "bucket": "Phải",
+          "bucket": "right",
           "why": "Một quyền không phụ thuộc vào lòng khoan dung của bất cứ ai."
         },
         {
           "text": "Tự do tín ngưỡng là vốn có và không thể bị tước bỏ một cách chính đáng.",
-          "bucket": "Phải",
+          "bucket": "right",
           "why": "Những gì vốn có đã thuộc về con người rồi - dấu hiệu của một quyền."
         }
       ],

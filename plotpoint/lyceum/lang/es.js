@@ -698,22 +698,22 @@ window.__ROOM_LANGS__.es = {
       "cards": [
         {
           "text": "Los ejércitos combinados de Europa, Asia y África.",
-          "bucket": "FALSO",
+          "bucket": "false",
           "why": "Ésta es la fuerza extranjera que, según Lincoln, nunca podría conquistar Estados Unidos."
         },
         {
           "text": "Todo el tesoro de la tierra gastado en una invasión.",
-          "bucket": "FALSO",
+          "bucket": "false",
           "why": "Incluso con la riqueza del mundo, Lincoln dice que un ataque extranjero debe fracasar."
         },
         {
           "text": "Un enemigo incapaz de tomar un trago del Ohio por la fuerza.",
-          "bucket": "FALSO",
+          "bucket": "false",
           "why": "La amenaza extranjera exagerada que Lincoln descarta."
         },
         {
           "text": "Un conquistador que cruza el océano para apoderarse de la nación.",
-          "bucket": "FALSO",
+          "bucket": "false",
           "why": "El tipo de ataque externo que Lincoln descarta por completo."
         },
         {

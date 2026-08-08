@@ -698,42 +698,42 @@ window.__ROOM_LANGS__.vi = {
       "cards": [
         {
           "text": "Chỉ ra cách kẻ mạnh vấp ngã.",
-          "bucket": "nhà phê bình",
+          "bucket": "critic",
           "why": "Đây chính xác là điều mà nhà phê bình bị bác bỏ làm - đánh giá từ bên ngoài."
         },
         {
           "text": "Nói rằng người thực hiện hành động có thể làm tốt hơn ở đâu.",
-          "bucket": "nhà phê bình",
+          "bucket": "critic",
           "why": "Đoạn văn gọi đây là thói quen của nhà phê bình chứ không phải hành động của người thực hiện."
         },
         {
           "text": "Một tâm hồn không biết đến chiến thắng hay thất bại.",
-          "bucket": "nhà phê bình",
+          "bucket": "critic",
           "why": "Đây là tâm hồn lạnh lùng và rụt rè, không bao giờ tham gia cuộc thi."
         },
         {
           "text": "Luôn lạnh lùng và rụt rè, không bao giờ dám thử.",
-          "bucket": "nhà phê bình",
+          "bucket": "critic",
           "why": "Sự tương phản cuối cùng của đoạn văn: người không bao giờ dám."
         },
         {
           "text": "Một khuôn mặt đầy bụi, mồ hôi và máu.",
-          "bucket": "người làm",
+          "bucket": "doer",
           "why": "Dấu hiệu của nỗ lực thực sự thuộc về người đàn ông trên đấu trường."
         },
         {
           "text": "Phấn đấu dũng cảm và cống hiến hết mình vì một mục đích xứng đáng.",
-          "bucket": "người làm",
+          "bucket": "doer",
           "why": "Đây là sự nỗ lực chân thành, bền bỉ của người làm."
         },
         {
           "text": "Biết chiến thắng đạt thành tích cao.",
-          "bucket": "người làm",
+          "bucket": "doer",
           "why": "Đây là kết quả tốt nhất của người làm vì sự táo bạo lớn lao."
         },
         {
           "text": "Thất bại, nhưng thất bại trong khi rất táo bạo.",
-          "bucket": "người làm",
+          "bucket": "doer",
           "why": "Ngay cả khi thất bại, điều này thuộc về người thực hiện đã mạo hiểm nhiều."
         }
       ],

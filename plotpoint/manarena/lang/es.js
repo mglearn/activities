@@ -698,42 +698,42 @@ window.__ROOM_LANGS__.es = {
       "cards": [
         {
           "text": "Señalando cómo tropieza el hombre fuerte.",
-          "bucket": "crítico",
+          "bucket": "critic",
           "why": "Esto es exactamente lo que hace el crítico despedido, a juzgar desde fuera."
         },
         {
           "text": "Decir dónde el autor de las acciones podría haberlas hecho mejor.",
-          "bucket": "crítico",
+          "bucket": "critic",
           "why": "El pasaje menciona esto como el hábito del crítico, no la acción del hacedor."
         },
         {
           "text": "Un alma que no conoce la victoria ni la derrota.",
-          "bucket": "crítico",
+          "bucket": "critic",
           "why": "Ésta es el alma fría y tímida que nunca entra al concurso."
         },
         {
           "text": "Mantenerse frío y tímido, sin atreverse nunca a intentarlo.",
-          "bucket": "crítico",
+          "bucket": "critic",
           "why": "El contraste final del pasaje: el que nunca se atreve."
         },
         {
           "text": "Un rostro manchado de polvo, sudor y sangre.",
-          "bucket": "hacedor",
+          "bucket": "doer",
           "why": "Las marcas del verdadero esfuerzo pertenecen al hombre en la arena."
         },
         {
           "text": "Esforzarse valientemente y dedicarse a una causa digna.",
-          "bucket": "hacedor",
+          "bucket": "doer",
           "why": "Este es el esfuerzo honesto y persistente del hacedor."
         },
         {
           "text": "Conociendo el triunfo de los grandes logros.",
-          "bucket": "hacedor",
+          "bucket": "doer",
           "why": "Este es el mejor resultado para el hacedor que se atreve mucho."
         },
         {
           "text": "Fracasar, pero fracasar atreviéndose mucho.",
-          "bucket": "hacedor",
+          "bucket": "doer",
           "why": "Incluso en el fracaso, esto pertenece al hacedor que arriesgó mucho."
         }
       ],

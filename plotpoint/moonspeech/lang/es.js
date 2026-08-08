@@ -698,42 +698,42 @@ window.__ROOM_LANGS__.es = {
       "cards": [
         {
           "text": "El esfuerzo requerirá enormes cantidades de dinero.",
-          "bucket": "duro",
+          "bucket": "hard",
           "why": "Kennedy menciona abiertamente el gran costo del programa."
         },
         {
           "text": "Nadie sabe todavía cómo llegar a la Luna y regresar sano y salvo.",
-          "bucket": "duro",
+          "bucket": "hard",
           "why": "El objetivo no está probado y es técnicamente difícil."
         },
         {
           "text": "El desafío exige nuevas habilidades que la nación aún no ha dominado.",
-          "bucket": "duro",
+          "bucket": "hard",
           "why": "La dificultad está en hacer lo que nunca se ha hecho."
         },
         {
           "text": "La fecha límite, antes de que termine la década, deja poco tiempo.",
-          "bucket": "duro",
+          "bucket": "hard",
           "why": "Un cronograma ajustado aumenta la dificultad y el costo."
         },
         {
           "text": "El objetivo será organizar y medir lo mejor de las energías y habilidades de la nación.",
-          "bucket": "valer",
+          "bucket": "worth",
           "why": "La razón expuesta por Kennedy: la dificultad mide lo mejor de una nación."
         },
         {
           "text": "Estados Unidos debería liderar la nueva frontera del espacio en lugar de cederla.",
-          "bucket": "valer",
+          "bucket": "worth",
           "why": "El liderazgo nacional en la frontera es una razón para perseguirlo."
         },
         {
           "text": "Afrontar un gran desafío pone a prueba y demuestra el coraje y la voluntad nacionales.",
-          "bucket": "valer",
+          "bucket": "worth",
           "why": "El esfuerzo se convierte en una prueba de carácter que vale la pena aceptar."
         },
         {
           "text": "El progreso humano se está acelerando y este es el siguiente paso natural.",
-          "bucket": "valer",
+          "bucket": "worth",
           "why": "El impulso del progreso justifica dar el paso ahora."
         }
       ],

@@ -698,42 +698,42 @@ window.__ROOM_LANGS__.vi = {
       "cards": [
         {
           "text": "Nỗ lực này sẽ đòi hỏi số tiền rất lớn.",
-          "bucket": "cứng",
+          "bucket": "hard",
           "why": "Kennedy công khai nêu chi phí lớn của chương trình."
         },
         {
           "text": "Chưa ai biết cách đến Mặt trăng và trở về an toàn.",
-          "bucket": "cứng",
+          "bucket": "hard",
           "why": "Mục tiêu chưa được chứng minh và khó khăn về mặt kỹ thuật."
         },
         {
           "text": "Thử thách này đòi hỏi những kỹ năng mới mà quốc gia này chưa thành thạo.",
-          "bucket": "cứng",
+          "bucket": "hard",
           "why": "Khó khăn nằm ở chỗ làm được điều chưa từng làm."
         },
         {
           "text": "Thời hạn - trước khi hết thập kỷ - chỉ còn rất ít thời gian.",
-          "bucket": "cứng",
+          "bucket": "hard",
           "why": "Một dòng thời gian chặt chẽ làm tăng thêm khó khăn và chi phí."
         },
         {
           "text": "Mục tiêu sẽ tổ chức và đo lường những năng lực và kỹ năng tốt nhất của quốc gia.",
-          "bucket": "đáng giá",
+          "bucket": "worth",
           "why": "Lý do được Kennedy đưa ra: khó khăn là thước đo tốt nhất của một quốc gia."
         },
         {
           "text": "Mỹ nên dẫn đầu biên giới mới về không gian thay vì nhường lại nó.",
-          "bucket": "đáng giá",
+          "bucket": "worth",
           "why": "Sự lãnh đạo quốc gia ở biên giới là lý do để theo đuổi nó."
         },
         {
           "text": "Gặp thử thách lớn thử thách và chứng tỏ lòng dũng cảm và ý chí dân tộc.",
-          "bucket": "đáng giá",
+          "bucket": "worth",
           "why": "Nỗ lực trở thành một bài kiểm tra tính cách đáng được chấp nhận."
         },
         {
           "text": "Sự tiến bộ của con người đang tăng tốc và đây là bước tự nhiên tiếp theo.",
-          "bucket": "đáng giá",
+          "bucket": "worth",
           "why": "Động lực của sự tiến bộ đòi hỏi phải thực hiện bước đi ngay bây giờ."
         }
       ],

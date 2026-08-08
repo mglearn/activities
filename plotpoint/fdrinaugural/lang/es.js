@@ -718,22 +718,22 @@ window.__ROOM_LANGS__.es = {
         },
         {
           "text": "\"Lo único que debemos temer es el miedo mismo.\"",
-          "bucket": "acción",
+          "bucket": "action",
           "why": "Replantea el miedo para que la nación pueda avanzar hacia la confianza."
         },
         {
           "text": "Hacer que la gente vuelva a trabajar es la tarea más importante.",
-          "bucket": "acción",
+          "bucket": "action",
           "why": "Un objetivo concreto: enfrentar la crisis con acción."
         },
         {
           "text": "Enfrentar la emergencia como una nación se enfrenta a un enemigo en guerra.",
-          "bucket": "acción",
+          "bucket": "action",
           "why": "La metáfora de la guerra moviliza a la nación para actuar."
         },
         {
           "text": "Un llamado a la unidad nacional, la disciplina y la acción directa y audaz.",
-          "bucket": "acción",
+          "bucket": "action",
           "why": "La decidida apelación a la confianza y al esfuerzo conjunto."
         }
       ],
