@@ -182,6 +182,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/Prometheus_(Goethe)",
       title: "Prometheus",
       author: "Johann Wolfgang von Goethe",
       grades: "English II",

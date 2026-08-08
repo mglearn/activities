@@ -178,6 +178,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/Hope_is_the_thing_with_feathers",
       title: "\"Hope\" Is the Thing with Feathers",
       author: "Emily Dickinson",
       grades: "English IV",

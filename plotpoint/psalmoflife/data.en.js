@@ -179,6 +179,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/A_Psalm_of_Life",
       title: "A Psalm of Life",
       author: "Henry Wadsworth Longfellow",
       grades: "English IV",

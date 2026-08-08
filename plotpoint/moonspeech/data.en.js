@@ -179,6 +179,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/We_choose_to_go_to_the_Moon",
       title: "We Choose to Go to the Moon",
       author: "John F. Kennedy",
       grades: "English III",

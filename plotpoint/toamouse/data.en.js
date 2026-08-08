@@ -179,6 +179,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/To_a_Mouse",
       title: "To a Mouse",
       author: "Robert Burns",
       grades: "English III",

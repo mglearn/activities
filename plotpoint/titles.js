@@ -1134,7 +1134,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "blueandgray",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "The Blue and the Gray",
     author: "Francis Miles Finch",
     href: "blueandgray/",
@@ -1188,7 +1188,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "mothertoson",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "Mother to Son",
     author: "Langston Hughes",
     href: "mothertoson/",
@@ -1215,7 +1215,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "nothinggold",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "Nothing Gold Can Stay",
     author: "Robert Frost",
     href: "nothinggold/",
@@ -1269,7 +1269,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "ozymandias",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "Ozymandias",
     author: "Percy Bysshe Shelley",
     href: "ozymandias/",
@@ -1296,7 +1296,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "raven",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "The Raven",
     author: "Edgar Allan Poe",
     href: "raven/",
@@ -1323,7 +1323,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "ifpoem",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "If—",
     author: "Rudyard Kipling",
     href: "ifpoem/",
@@ -1350,7 +1350,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "wemask",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "We Wear the Mask",
     author: "Paul Laurence Dunbar",
     href: "wemask/",
@@ -1377,7 +1377,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "toamouse",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "To a Mouse",
     author: "Robert Burns",
     href: "toamouse/",
@@ -1404,7 +1404,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "psalmoflife",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "A Psalm of Life",
     author: "Henry Wadsworth Longfellow",
     href: "psalmoflife/",
@@ -1431,7 +1431,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "thanatopsis",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "Thanatopsis",
     author: "William Cullen Bryant",
     href: "thanatopsis/",
@@ -1458,7 +1458,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "lightbrigade",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "The Charge of the Light Brigade",
     author: "Alfred, Lord Tennyson",
     href: "lightbrigade/",
@@ -1485,7 +1485,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "thesoldier",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "The Soldier",
     author: "Rupert Brooke",
     href: "thesoldier/",
@@ -1512,7 +1512,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "prometheus",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "Prometheus",
     author: "Johann Wolfgang von Goethe",
     href: "prometheus/",
@@ -1539,7 +1539,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "prufrock",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "The Love Song of J. Alfred Prufrock",
     author: "T. S. Eliot",
     href: "prufrock/",
@@ -1566,7 +1566,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "hopefeathers",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "“Hope” Is the Thing with Feathers",
     author: "Emily Dickinson",
     href: "hopefeathers/",
@@ -1593,7 +1593,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "oneandtwenty",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "When I Was One-and-Twenty",
     author: "A. E. Housman",
     href: "oneandtwenty/",
@@ -1620,7 +1620,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "whiteheron",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "A White Heron",
     author: "Sarah Orne Jewett",
     href: "whiteheron/",
@@ -1647,7 +1647,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "goodmanbrown",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "Young Goodman Brown",
     author: "Nathaniel Hawthorne",
     href: "goodmanbrown/",
@@ -1674,7 +1674,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "blackveil",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "The Minister's Black Veil",
     author: "Nathaniel Hawthorne",
     href: "blackveil/",
@@ -1728,7 +1728,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "openboat",
-    text: false, audio: false,
+    text: true, audio: false,
     title: "The Open Boat",
     author: "Stephen Crane",
     href: "openboat/",
@@ -1755,7 +1755,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "gettysburg", title: "The Gettysburg Address", author: "Abraham Lincoln",
-    text: false, audio: false,
+    text: true, audio: false,
     href: "gettysburg/", status: "live", accent: "#6b4f3a", grades: "6", gradeBand: "6-8",
     genre: ["speech", "rhetoric"], time: "45-75", reading: ["before", "during", "after"],
     ace: ["articulate", "connect", "extend"], solo: ["relational", "extended"],
@@ -1791,7 +1791,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "manarena", title: "The Man in the Arena", author: "Theodore Roosevelt",
-    text: false, audio: false,
+    text: true, audio: false,
     href: "manarena/", status: "live", accent: "#8a4f32", grades: "8", gradeBand: "6-8",
     genre: ["speech", "rhetoric"], time: "45-75", reading: ["before", "during", "after"],
     ace: ["articulate", "connect", "extend"], solo: ["relational", "extended"],
@@ -1803,7 +1803,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "moonspeech", title: "We Choose to Go to the Moon", author: "John F. Kennedy",
-    text: false, audio: false,
+    text: true, audio: false,
     href: "moonspeech/", status: "live", accent: "#315b73", grades: "English III", gradeBand: "9-12",
     genre: ["speech", "rhetoric"], time: "45-75", reading: ["before", "during", "after"],
     ace: ["articulate", "connect", "extend"], solo: ["relational", "extended"],
@@ -1839,7 +1839,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "fourfreedoms", title: "The Four Freedoms", author: "Franklin D. Roosevelt",
-    text: false, audio: false,
+    text: true, audio: false,
     href: "fourfreedoms/", status: "live", accent: "#3e6470", grades: "English III", gradeBand: "9-12",
     genre: ["speech", "rhetoric"], time: "45-75", reading: ["before", "during", "after"],
     ace: ["articulate", "connect", "extend"], solo: ["relational", "extended"],

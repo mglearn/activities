@@ -178,6 +178,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/Nothing_Gold_Can_Stay",
       title: "Nothing Gold Can Stay",
       author: "Robert Frost",
       grades: "Grade 7",

@@ -178,6 +178,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/We_Wear_the_Mask",
       title: "We Wear the Mask",
       author: "Paul Laurence Dunbar",
       grades: "English III",

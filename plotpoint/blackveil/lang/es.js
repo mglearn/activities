@@ -36,7 +36,7 @@ window.__ROOM_LANGS__.es.ui = {
   "enter.readListen": "Lee y escucha — gratis",
   "enter.readListenTitle": "Obtén el texto completo y el audio",
   "enter.readListenNote": "Este cuento es de dominio público. Estos recursos externos gratuitos se abren en una nueva pestaña — verifica el enlace y la edición antes de asignarlos.",
-  "enter.read": "Lee el texto completo (Project Gutenberg)",
+  "enter.read": "Lee el texto completo",
   "enter.listen": "Escucha — audiolibro (LibriVox)",
   "enter.readAloud": "¿Prefieres una lectura en voz alta? Los estudiantes también pueden usar la función de lectura en voz alta integrada en su dispositivo o una herramienta de IA aprobada por el distrito sobre el texto de dominio público.",
   "ace.articulate": "A · Articula", "ace.connect": "C · Conecta", "ace.extend": "E · Extiende",

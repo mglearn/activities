@@ -36,7 +36,7 @@ window.__ROOM_LANGS__.vi.ui = {
   "enter.readListen": "Đọc & Nghe — miễn phí",
   "enter.readListenTitle": "Lấy toàn bộ văn bản và âm thanh",
   "enter.readListenNote": "Truyện ngắn này thuộc phạm vi công cộng. Các tài nguyên bên ngoài miễn phí này mở trong tab mới — hãy xác minh đường dẫn và phiên bản trước khi giao.",
-  "enter.read": "Đọc toàn văn (Project Gutenberg)",
+  "enter.read": "Đọc toàn văn",
   "enter.listen": "Nghe — sách nói (LibriVox)",
   "enter.readAloud": "Muốn đọc to? Học sinh cũng có thể dùng tính năng đọc to tích hợp sẵn trên thiết bị hoặc công cụ AI được quận phê duyệt với văn bản thuộc phạm vi công cộng.",
   "ace.articulate": "A · Diễn đạt", "ace.connect": "C · Kết nối", "ace.extend": "E · Mở rộng",

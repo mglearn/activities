@@ -180,6 +180,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/The_Soldier_(Brooke)",
       title: "The Soldier",
       author: "Rupert Brooke",
       grades: "English II",

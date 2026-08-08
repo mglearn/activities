@@ -35,7 +35,7 @@ window.__ROOM_LANGS__.zh.ui = {
   "enter.readListen": "阅读与收听——免费",
   "enter.readListenTitle": "获取完整文本和音频",
   "enter.readListenNote": "本故事属于公共领域。这些免费的外部资源将在新标签页中打开——布置作业前请核实链接和版本。",
-  "enter.read": "阅读完整文本（Project Gutenberg）",
+  "enter.read": "阅读完整文本",
   "enter.listen": "收听——有声书（LibriVox）",
   "enter.readAloud": "偏好朗读？学生也可使用设备内置的朗读功能或经学区批准的 AI 工具阅读公共领域文本。",
   "ace.articulate": "A · 表达", "ace.connect": "C · 联系", "ace.extend": "E · 延伸",

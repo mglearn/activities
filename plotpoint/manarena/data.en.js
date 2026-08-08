@@ -178,6 +178,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/Citizenship_in_a_Republic",
       title: "The Man in the Arena",
       author: "Theodore Roosevelt",
       grades: "Grade 8",

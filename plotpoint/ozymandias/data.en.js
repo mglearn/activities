@@ -178,6 +178,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/Ozymandias",
       title: "Ozymandias",
       author: "Percy Bysshe Shelley",
       grades: "English I",

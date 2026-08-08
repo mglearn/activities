@@ -47,7 +47,7 @@ window.__ROOM__ = {
     "enter.readListen": "Read & Listen — free",
     "enter.readListenTitle": "Get the full text and audio",
     "enter.readListenNote": "This story is in the public domain. These free, external resources open in a new tab — verify the link and edition before assigning.",
-    "enter.read": "Read the full text (Project Gutenberg)",
+    "enter.read": "Read the full text",
     "enter.listen": "Listen — audiobook (LibriVox)",
     "enter.readAloud": "Prefer a read-aloud? Students may also use their device's built-in read-aloud or a district-approved AI tool on the public-domain text.",
     "ace.articulate": "A · Articulate", "ace.connect": "C · Connect", "ace.extend": "E · Extend",
@@ -177,6 +177,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/A_White_Heron",
       title: "A White Heron",
       author: "Sarah Orne Jewett",
       grades: "Grade 6",

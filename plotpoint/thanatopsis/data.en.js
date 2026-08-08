@@ -177,6 +177,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/Thanatopsis",
       title: "Thanatopsis",
       author: "William Cullen Bryant",
       grades: "English I",

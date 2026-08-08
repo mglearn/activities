@@ -178,6 +178,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/Gettysburg_Address",
       title: "The Gettysburg Address",
       author: "Abraham Lincoln",
       grades: "Grade 6",

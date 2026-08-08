@@ -178,6 +178,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/The_Raven",
       title: "The Raven",
       author: "Edgar Allan Poe",
       grades: "English II",

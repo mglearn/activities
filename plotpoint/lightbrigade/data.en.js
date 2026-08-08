@@ -177,6 +177,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/The_Charge_of_the_Light_Brigade",
       title: "The Charge of the Light Brigade",
       author: "Alfred, Lord Tennyson",
       grades: "English II",

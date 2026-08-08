@@ -178,6 +178,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/A_Shropshire_Lad/When_I_was_one-and-twenty",
       title: "When I Was One-and-Twenty",
       author: "A. E. Housman",
       grades: "English IV",

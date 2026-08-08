@@ -178,6 +178,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/The_Blue_and_the_Gray",
       title: "The Blue and the Gray",
       author: "Francis Miles Finch",
       grades: "Grade 6",

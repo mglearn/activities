@@ -179,6 +179,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/The_Love_Song_of_J._Alfred_Prufrock",
       title: "The Love Song of J. Alfred Prufrock",
       author: "T. S. Eliot",
       grades: "English IV",

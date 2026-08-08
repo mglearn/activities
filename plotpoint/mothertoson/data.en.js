@@ -179,6 +179,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/Mother_to_Son",
       title: "Mother to Son",
       author: "Langston Hughes",
       grades: "Grade 7",

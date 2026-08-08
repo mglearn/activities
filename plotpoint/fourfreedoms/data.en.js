@@ -180,6 +180,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/Four_Freedoms_speech",
       title: "The Four Freedoms",
       author: "Franklin D. Roosevelt",
       grades: "English III",

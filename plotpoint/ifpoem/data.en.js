@@ -179,6 +179,7 @@ window.__ROOM__ = {
 
   content: {
     meta: {
+      gutenberg: "https://en.wikisource.org/wiki/If%E2%80%94",
       title: "If—",
       author: "Rudyard Kipling",
       grades: "English III",
