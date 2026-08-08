@@ -141,11 +141,11 @@ carries **71 live rooms**.
 | Speeches & documents (§B2, 8) | ✅ all live |
 | Short stories (§B3, 5) | ✅ all live |
 | Scripture / sacred poetry (§B4, 4) | ✅ all live |
-| **Long works (§B5, 14)** | ⏭ **0 built — the entire remaining build** |
-| Federalist No. 78 (reuse) | ⚠️ open — see §H |
+| **Long works (§B5, 14)** | ✅ **all 14 built & live** (2026-08-07) |
+| Federalist No. 78 (reuse) | ✅ built as its own room (`federalist78`) — see §H |
 
-So the coverage gap is now concentrated in the **14 long works in §B5** (plus the small
-Fed 78 reuse decision). Those are the whole remaining Texas build.
+**Texas §B coverage is complete** (all five buckets built & live). The only non-content
+residuals are the standing local review steps in §G and `federalist78`'s artwork.
 
 ---
 
@@ -218,8 +218,9 @@ Phased so early phases are fast, high-coverage, and low-risk:
 3. **Phase 2a — Short stories (5):** ✅ complete in seven languages and deployed.
 4. **Phase 2b — Speeches/documents (8):** ✅ complete, deployed, and live in seven languages.
 5. **Phase 3 — Scripture (4):** ✅ complete in seven languages with neutral literary framing.
-6. **Phase 4 — Long works (14):** ⏭ **current phase**; build one at a time, selection-scoped
-   where noted. All short-form batches above are live, so this is the whole remaining build.
+6. **Phase 4 — Long works (14):** ✅ **complete (2026-08-07)**; all 14 built one at a time,
+   selection-scoped where noted, live in seven languages. `federalist78` also shipped as its
+   own §B2-mold document room (see §H). All Texas §B buckets are now built.
 
 Each room still follows the standard pipeline: build `data.en.js` (facts verified, no
 reproduced passages) → jsdom render-test → 6 Sonnet translation agents (7 languages) →
@@ -231,10 +232,34 @@ deploy → poll 200 → add hero+relic prompts to an image doc.
 1. ✅ **Resolved (2026-08-06)** — the §E named-translation table is complete; each
    translation-dependent work has a safe PD edition to build on. Only per-district edition
    confirmation remains (not a build blocker).
-2. Verify the exact Texas course/adoption placement and TEKS/ELPS statements before district use.
-3. Review all machine-assisted translations with fluent educators.
+2. ✅ **Resolved (2026-08-08)** — course placement and standards authority confirmed.
+   The 14 long works are placed by Texas course (Eng I–IV) in the §E/§B tables. Governing
+   standards: **English I–IV TEKS at 19 TAC Ch. 110, Subchapter C (High School) — §110.36
+   English I, §110.37 English II, §110.38 English III, §110.39 English IV (adopted 2017)**,
+   and the **ELPS at 19 TAC §74.4**. The list itself was **adopted by the Texas SBOE in
+   June 2026** (HB 1605, 88th Leg., 2023; ~200 works K–12) for implementation **no earlier
+   than the 2030–31 school year** — so these rooms are optional enrichment now, not a
+   2026–27 requirement. Every room already cites standards as "aligned to, not reproduced
+   from," and keeps the specific TEKS/ELPS statements marked *Needs review*. Residual
+   (irreducibly local): **each district confirms the exact course adoption + TEKS/ELPS
+   statements against its own scope-and-sequence before use** — a district responsibility,
+   not a PlotPoint build gate.
+3. ⚠️ **Standing local step — cannot be closed by the build.** The six non-English packs
+   per room are machine-assisted translations, labeled as such in every room and flagged
+   for **fluent-educator review** before high-stakes use. This needs human fluent speakers,
+   so it is a district/reviewer responsibility, not a PlotPoint build task. What the build
+   *does* verify by machine: UI-string parity, artifact/lock counts, index-0 answer key, and
+   word-lock solvability. Linguistic-quality sign-off is the human step.
+
+**Status: no open build items.** #1–#2 are resolved on the PlotPoint side; #2 and #3 each
+leave exactly one standing *local* step (district edition/standards confirmation;
+fluent-educator translation review) that only a district can complete.
 
 ## H. Federalist No. 78 — recorded decision
+
+**Update (2026-08-08): built.** `federalist78` now ships as its own §B2-mold document room
+(judicial independence / judicial review), cross-linked to `federalist`, live in seven
+languages. Artwork is the only remaining piece (prompts in `LONG_WORKS_IMAGES.md`).
 
 **Decision (2026-08-06):** do **not** graft No. 78 into the shipped `federalist` room.
 That room's content is complete across seven languages (No. 10 = faction; No. 51 =
