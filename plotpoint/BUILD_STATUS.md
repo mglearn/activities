@@ -234,8 +234,24 @@ Death of Ivan Ilyich, The Divine Comedy, and Hamlet and His Problems. Engine `sh
 true Fisher–Yates; `val.drama` label added in all seven languages. **Outstanding:** image assets for
 Walden, Franklin, Democracy in America, Up from Slavery, Ivan Ilyich, The Divine Comedy, and Hamlet
 and His Problems (image prompts are in `LONG_WORKS_IMAGES.md`; rooms render labeled placeholders
-until assets land); fluent-educator review of the machine-assisted translations; optional Fed 78
-reuse (see `TEXAS_2026_PLAN.md` §H).
+until assets land); fluent-educator review of the machine-assisted translations.
+
+**Federalist No. 78 (2026-08-08).** The §H item is **built** as its own document room `federalist78`
+(Hamilton, PD; grades 11–12), cross-linked to the `federalist` room. Full seven-language build. The
+Judiciary Archive relic room (the Federalist Papers, "least dangerous branch," judicial review, life
+tenure, the Constitution as supreme law, courts as guardians of rights, Marbury v. Madison); arcade
+*"Hamilton's Argument, or an Anti-Federalist Worry?"*; extend = argue whether courts should be able
+to overturn a law. Validated: `node -c` all 7 JS; 183/183 UI parity; 6 locks (answers
+"85"/Hamilton/Publius in each pack's final hint); balanced 4/4 arcade; RI ccss verbatim. Text/audio
+via the complete Federalist Papers (Gutenberg #1404 + LibriVox). Image prompts in
+`LONG_WORKS_IMAGES.md`; awaiting art. **This closes the last open §B/§H content item.**
+
+**Hub table upgrade (2026-08-08).** The "View all as a table" view is now fully sortable (click a
+header: 1st ascending, 2nd descending; keyboard + `aria-sort`), with new **Author**, **Text**, and
+**Audio** columns. Per-room text/audio availability is derived from each room's `data.en.js` meta
+(gutenberg = text; audio/aiAudio = audio) and stored as `text`/`audio` flags on every `titles.js`
+entry. The three new headers are localized in all seven languages (`collection.th.*` in
+`plotpoint-i18n.js`).
 
 **Engine fix (2026-08-07).** `assets/room-engine.js` `shuffle()` was a fixed permutation
 (`(i*7+3)%(i+1)`), so the index-0-correct answer always landed in the same visual slot every load.
