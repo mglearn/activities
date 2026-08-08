@@ -200,8 +200,18 @@ parity**; 11 vocab (contexts contain term); 6 locks (answers "12"/Golovin/Gerasi
 final hint — both word answers are proper nouns, no cross-language typing issue); balanced 4/4
 arcade; meta URLs + RL ccss verbatim. Paraphrase-only. Awaiting image assets, commit/deploy, HTTP
 verification.
-Remaining long works: **2 of 14** (see `TEXAS_2026_PLAN.md` §B5): The Divine Comedy, Hamlet and His
-Problems.
+**Thirteenth Texas long work — The Divine Comedy (2026-08-07).** `dante` (Dante Alighieri, PD;
+**Longfellow translation**), Eng IV; epic poem (RL codes). Whole-poem overview room. The Pilgrim's
+Archive relic room (the dark wood, the Gate of Hell, Virgil, contrapasso, the mountain of Purgatory,
+Beatrice, the vision of God); arcade *"Descent into Hell, or Ascent toward God?"*; extend =
+design-a-modern-contrapasso. Validated: `node -c` all 7 JS; **183/183 UI parity**; 11 vocab
+(contexts contain term, incl. loanwords contrapasso/terza rima); 6 locks (answers "3"/Virgil/Beatrice
+in each pack's final hint — proper-noun answers, no cross-language typing issue); balanced 4/4
+arcade; meta URLs + RL ccss verbatim. Sources: Gutenberg **#1004** (Longfellow, complete) + LibriVox.
+Paraphrase-only; medieval religious epic taught in literary/cultural context. Awaiting image assets,
+commit/deploy, HTTP verification.
+Remaining long works: **1 of 14** (see `TEXAS_2026_PLAN.md` §B5): Hamlet and His Problems (T. S.
+Eliot literary criticism, pairs with the Hamlet room).
 
 **Engine fix (2026-08-07).** `assets/room-engine.js` `shuffle()` was a fixed permutation
 (`(i*7+3)%(i+1)`), so the index-0-correct answer always landed in the same visual slot every load.

@@ -151,3 +151,15 @@ recreation, *not* artwork from any edition), **no text/words/numbers rendered in
 - `ivanilyich/images/gerasim.webp` — A plain sickroom at night, a low stool and a folded peasant's coat, a bed with its foot raised on a chair as if legs are being supported, a warm lamp glowing; gentle warm amber against grey shadow, honest-compassion mood, no figures.
 - `ivanilyich/images/syllogism.webp` — A worn schoolbook open on a desk with a simple diagram of a logic argument (unreadable lines and arrows), a guttering candle, deep shadow around it; sepia and cold shadow, abstract-truth-versus-fear mood, no legible text.
 - `ivanilyich/images/light.webp` — A dark bedroom dissolving into a single shaft of warm, clear light from a high window falling across the foot of a bed, the shadows softening toward it; deep grey-black giving way to gentle gold, release-and-peace mood, no figures.
+
+---
+
+## dante — *The Divine Comedy* · Dante Alighieri (accent #6a2f4a, wine-plum / infernal-to-celestial)
+- `dante/images/hero.webp` — A vertical allegorical composition: a shadowy tangled wood at the bottom, a terraced mountain rising through the middle, and concentric rings of golden light at the top; deep wine-plum, ember-red, and radiant gold gradient from dark to light, epic and spiritual, no figures, no text.
+- `dante/images/wood.webp` — A dark, tangled forest at nightfall, gnarled bare trees crowding a lost path that fades into shadow, a faint distant hilltop catching last light; deep greens, brown, and plum-shadow, lost-and-fearful mood, no figures.
+- `dante/images/gate.webp` — A massive weathered stone gateway with a blank carved lintel (no legible words) opening onto descending darkness, faint red glow beyond; grim grey stone and infernal ember-red, foreboding threshold mood, no figures, no text.
+- `dante/images/virgil.webp` — A dignified robed figure of an ancient poet standing with a laurel wreath, holding out a guiding hand toward a downward path, torchlight around him; classical bronze, slate, and warm torch tones, wise-guide mood, no legible face.
+- `dante/images/contrapasso.webp` — A symbolic infernal scene: dim figures bent by a ceaseless dark whirlwind of wind and shadow across a barren rocky plain; muted crimson, black, and ash-grey, poetic-justice mood, no legible faces, nothing graphic.
+- `dante/images/mountain.webp` — A great terraced conical mountain rising from a calm sea toward dawn light, winding paths and ledges circling upward, small hopeful figures ascending in silhouette; soft rose, sea-blue, and warm gold, hopeful-climb mood, no legible faces.
+- `dante/images/beatrice.webp` — A luminous robed woman crowned with light standing at a threshold of radiant sky, gesturing upward toward glowing spheres; celestial white-gold and soft blue, grace-and-revelation mood, no legible face.
+- `dante/images/vision.webp` — Vast concentric rings of pure golden light spiraling toward a bright central point, rose-like petals of radiance opening outward, a tiny silhouette gazing up; overwhelming gold, white, and rose, transcendent-vision mood, no text.
