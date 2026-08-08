@@ -9,6 +9,7 @@
 window.PLOTPOINT_TITLES = [
   {
     id: "metamorphosis",
+    text: true, audio: true,
     title: "The Metamorphosis",
     author: "Franz Kafka",
     href: "metamorphosis/",
@@ -35,6 +36,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "myths",
+    text: true, audio: true,
     classic: true,
     title: "Selected Myths (Bulfinch)",
     author: "Thomas Bulfinch",
@@ -62,6 +64,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "aesop",
+    text: true, audio: true,
     classic: true,
     title: "Aesop's Fables (Selections)",
     author: "Aesop",
@@ -89,6 +92,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "dracula",
+    text: true, audio: true,
     title: "Dracula",
     author: "Bram Stoker",
     href: "dracula/",
@@ -115,6 +119,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "butterflies",
+    text: false, audio: false,
     title: "In the Time of the Butterflies",
     author: "Julia Alvarez",
     href: "butterflies/",
@@ -141,6 +146,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "annefrank",
+    text: false, audio: false,
     title: "The Diary of a Young Girl",
     author: "Anne Frank",
     href: "annefrank/",
@@ -167,6 +173,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "separate",
+    text: false, audio: false,
     title: "Separate Is Never Equal",
     author: "Duncan Tonatiuh",
     href: "separate/",
@@ -193,6 +200,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "between",
+    text: false, audio: false,
     title: "Between the World and Me",
     author: "Ta-Nehisi Coates",
     href: "between/",
@@ -219,6 +227,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "poe",
+    text: true, audio: true,
     title: "The Tell-Tale Heart",
     author: "Edgar Allan Poe",
     href: "poe/",
@@ -245,6 +254,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "kindred",
+    text: false, audio: false,
     title: "Kindred",
     author: "Octavia E. Butler",
     href: "kindred/",
@@ -271,6 +281,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "bnw",
+    text: false, audio: false,
     title: "Brave New World",
     author: "Aldous Huxley",
     href: "bnw/",
@@ -297,6 +308,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "canterbury",
+    text: true, audio: true,
     classic: true,
     title: "The Canterbury Tales",
     author: "Geoffrey Chaucer",
@@ -326,6 +338,7 @@ window.PLOTPOINT_TITLES = [
   // ── Philosophy sub-collection (public-domain classics) ──
   {
     id: "apology",
+    text: true, audio: true,
     classic: true,
     title: "The Apology",
     author: "Plato",
@@ -353,6 +366,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "cave",
+    text: true, audio: true,
     classic: true,
     title: "The Allegory of the Cave",
     author: "Plato",
@@ -380,6 +394,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "meditations",
+    text: true, audio: true,
     classic: true,
     title: "Meditations",
     author: "Marcus Aurelius",
@@ -407,6 +422,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "enchiridion",
+    text: true, audio: true,
     classic: true,
     title: "The Enchiridion",
     author: "Epictetus",
@@ -434,6 +450,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "ethics",
+    text: true, audio: true,
     classic: true,
     title: "Nicomachean Ethics (Selections)",
     author: "Aristotle",
@@ -461,6 +478,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "consolation",
+    text: true, audio: true,
     classic: true,
     title: "The Consolation of Philosophy",
     author: "Boethius",
@@ -488,6 +506,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "confessions",
+    text: true, audio: true,
     classic: true,
     title: "Confessions (Selections)",
     author: "Augustine",
@@ -515,6 +534,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "seneca",
+    text: true, audio: true,
     classic: true,
     title: "Letters from a Stoic (Selections)",
     author: "Seneca",
@@ -542,6 +562,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "douglass",
+    text: true, audio: true,
     classic: true,
     title: "Narrative of the Life of Frederick Douglass",
     author: "Frederick Douglass",
@@ -569,6 +590,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "federalist",
+    text: true, audio: true,
     classic: true,
     title: "The Federalist Papers (Selections)",
     author: "Publius (Hamilton, Madison, Jay)",
@@ -596,6 +618,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "cicero",
+    text: true, audio: true,
     classic: true,
     title: "On Friendship (Laelius de Amicitia)",
     author: "Marcus Tullius Cicero",
@@ -623,6 +646,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "utopia",
+    text: true, audio: true,
     classic: true,
     title: "Utopia",
     author: "Thomas More",
@@ -650,6 +674,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "ladytiger",
+    text: true, audio: true,
     title: "The Lady, or the Tiger?",
     author: "Frank R. Stockton",
     href: "ladytiger/",
@@ -676,6 +701,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "ransom",
+    text: true, audio: true,
     title: "The Ransom of Red Chief",
     author: "O. Henry",
     href: "ransom/",
@@ -702,6 +728,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "magi",
+    text: true, audio: true,
     title: "The Gift of the Magi",
     author: "O. Henry",
     href: "magi/",
@@ -728,6 +755,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "monkeyspaw",
+    text: true, audio: true,
     title: "The Monkey's Paw",
     author: "W. W. Jacobs",
     href: "monkeyspaw/",
@@ -754,6 +782,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "cask",
+    text: true, audio: true,
     title: "The Cask of Amontillado",
     author: "Edgar Allan Poe",
     href: "cask/",
@@ -780,6 +809,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "owlcreek",
+    text: true, audio: true,
     title: "An Occurrence at Owl Creek Bridge",
     author: "Ambrose Bierce",
     href: "owlcreek/",
@@ -806,6 +836,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "bet",
+    text: true, audio: true,
     title: "The Bet",
     author: "Anton Chekhov",
     href: "bet/",
@@ -832,6 +863,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "psalm23",
+    text: false, audio: false,
     title: "Psalm 23 — The Shepherd's Psalm",
     author: "King James Version",
     href: "psalm23/",
@@ -858,6 +890,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "beatitudes",
+    text: false, audio: false,
     title: "The Beatitudes — Matthew 5:1–12",
     author: "King James Version",
     href: "beatitudes/",
@@ -884,6 +917,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "ecclesiastes3",
+    text: false, audio: false,
     title: "Ecclesiastes 3 — A Time for Everything",
     author: "King James Version",
     href: "ecclesiastes3/",
@@ -910,6 +944,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "lamentations3",
+    text: false, audio: false,
     title: "Lamentations 3",
     author: "Jewish Publication Society 1917 Tanakh",
     href: "lamentations3/",
@@ -936,6 +971,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "love",
+    text: false, audio: false,
     title: "The Definition of Love — 1 Corinthians 13",
     author: "English Standard Version (specified)",
     href: "love/",
@@ -962,6 +998,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "anxious",
+    text: false, audio: false,
     title: "Do Not Be Anxious — Matthew 6:25–34",
     author: "English Standard Version (specified)",
     href: "anxious/",
@@ -988,6 +1025,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "prodigal",
+    text: false, audio: false,
     title: "The Prodigal Son — Luke 15:11–32",
     author: "English Standard Version (specified)",
     href: "prodigal/",
@@ -1014,6 +1052,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "job",
+    text: false, audio: false,
     title: "The Book of Job — Selections",
     author: "New International Reader's Version (specified)",
     href: "job/",
@@ -1040,6 +1079,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "eden",
+    text: false, audio: false,
     title: "Adam and Eve — Genesis 2–3",
     author: "New International Reader's Version (specified)",
     href: "eden/",
@@ -1066,6 +1106,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "blueandgray",
+    text: false, audio: false,
     title: "The Blue and the Gray",
     author: "Francis Miles Finch",
     href: "blueandgray/",
@@ -1092,6 +1133,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "powerdog",
+    text: false, audio: false,
     title: "The Power of the Dog",
     author: "Rudyard Kipling",
     href: "powerdog/",
@@ -1118,6 +1160,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "mothertoson",
+    text: false, audio: false,
     title: "Mother to Son",
     author: "Langston Hughes",
     href: "mothertoson/",
@@ -1144,6 +1187,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "nothinggold",
+    text: false, audio: false,
     title: "Nothing Gold Can Stay",
     author: "Robert Frost",
     href: "nothinggold/",
@@ -1170,6 +1214,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "omelife",
+    text: false, audio: false,
     title: "O Me! O Life!",
     author: "Walt Whitman",
     href: "omelife/",
@@ -1196,6 +1241,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "ozymandias",
+    text: false, audio: false,
     title: "Ozymandias",
     author: "Percy Bysshe Shelley",
     href: "ozymandias/",
@@ -1222,6 +1268,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "raven",
+    text: false, audio: false,
     title: "The Raven",
     author: "Edgar Allan Poe",
     href: "raven/",
@@ -1248,6 +1295,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "ifpoem",
+    text: false, audio: false,
     title: "If—",
     author: "Rudyard Kipling",
     href: "ifpoem/",
@@ -1274,6 +1322,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "wemask",
+    text: false, audio: false,
     title: "We Wear the Mask",
     author: "Paul Laurence Dunbar",
     href: "wemask/",
@@ -1300,6 +1349,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "toamouse",
+    text: false, audio: false,
     title: "To a Mouse",
     author: "Robert Burns",
     href: "toamouse/",
@@ -1326,6 +1376,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "psalmoflife",
+    text: false, audio: false,
     title: "A Psalm of Life",
     author: "Henry Wadsworth Longfellow",
     href: "psalmoflife/",
@@ -1352,6 +1403,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "thanatopsis",
+    text: false, audio: false,
     title: "Thanatopsis",
     author: "William Cullen Bryant",
     href: "thanatopsis/",
@@ -1378,6 +1430,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "lightbrigade",
+    text: false, audio: false,
     title: "The Charge of the Light Brigade",
     author: "Alfred, Lord Tennyson",
     href: "lightbrigade/",
@@ -1404,6 +1457,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "thesoldier",
+    text: false, audio: false,
     title: "The Soldier",
     author: "Rupert Brooke",
     href: "thesoldier/",
@@ -1430,6 +1484,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "prometheus",
+    text: false, audio: false,
     title: "Prometheus",
     author: "Johann Wolfgang von Goethe",
     href: "prometheus/",
@@ -1456,6 +1511,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "prufrock",
+    text: false, audio: false,
     title: "The Love Song of J. Alfred Prufrock",
     author: "T. S. Eliot",
     href: "prufrock/",
@@ -1482,6 +1538,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "hopefeathers",
+    text: false, audio: false,
     title: "“Hope” Is the Thing with Feathers",
     author: "Emily Dickinson",
     href: "hopefeathers/",
@@ -1508,6 +1565,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "oneandtwenty",
+    text: false, audio: false,
     title: "When I Was One-and-Twenty",
     author: "A. E. Housman",
     href: "oneandtwenty/",
@@ -1534,6 +1592,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "whiteheron",
+    text: false, audio: false,
     title: "A White Heron",
     author: "Sarah Orne Jewett",
     href: "whiteheron/",
@@ -1560,6 +1619,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "goodmanbrown",
+    text: false, audio: false,
     title: "Young Goodman Brown",
     author: "Nathaniel Hawthorne",
     href: "goodmanbrown/",
@@ -1586,6 +1646,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "blackveil",
+    text: false, audio: false,
     title: "The Minister's Black Veil",
     author: "Nathaniel Hawthorne",
     href: "blackveil/",
@@ -1612,6 +1673,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "parsonsdaughter",
+    text: false, audio: false,
     title: "The Parson's Daughter of Oxney Colne",
     author: "Anthony Trollope",
     href: "parsonsdaughter/",
@@ -1638,6 +1700,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "openboat",
+    text: false, audio: false,
     title: "The Open Boat",
     author: "Stephen Crane",
     href: "openboat/",
@@ -1664,6 +1727,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "gettysburg", title: "The Gettysburg Address", author: "Abraham Lincoln",
+    text: false, audio: false,
     href: "gettysburg/", status: "live", accent: "#6b4f3a", grades: "6", gradeBand: "6-8",
     genre: ["speech", "rhetoric"], time: "45-75", reading: ["before", "during", "after"],
     ace: ["articulate", "connect", "extend"], solo: ["relational", "extended"],
@@ -1675,6 +1739,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "generalorder", title: "General Order No. 108", author: "Ulysses S. Grant",
+    text: false, audio: false,
     href: "generalorder/", status: "live", accent: "#4f5b4a", grades: "6", gradeBand: "6-8",
     genre: ["document", "rhetoric"], time: "45-75", reading: ["before", "during", "after"],
     ace: ["articulate", "connect", "extend"], solo: ["relational", "extended"],
@@ -1686,6 +1751,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "newportletter", title: "Letter to the Hebrew Congregation at Newport", author: "George Washington",
+    text: false, audio: false,
     href: "newportletter/", status: "live", accent: "#6e5941", grades: "7", gradeBand: "6-8",
     genre: ["letter", "rhetoric"], time: "45-75", reading: ["before", "during", "after"],
     ace: ["articulate", "connect", "extend"], solo: ["relational", "extended"],
@@ -1697,6 +1763,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "manarena", title: "The Man in the Arena", author: "Theodore Roosevelt",
+    text: false, audio: false,
     href: "manarena/", status: "live", accent: "#8a4f32", grades: "8", gradeBand: "6-8",
     genre: ["speech", "rhetoric"], time: "45-75", reading: ["before", "during", "after"],
     ace: ["articulate", "connect", "extend"], solo: ["relational", "extended"],
@@ -1708,6 +1775,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "moonspeech", title: "We Choose to Go to the Moon", author: "John F. Kennedy",
+    text: false, audio: false,
     href: "moonspeech/", status: "live", accent: "#315b73", grades: "English III", gradeBand: "9-12",
     genre: ["speech", "rhetoric"], time: "45-75", reading: ["before", "during", "after"],
     ace: ["articulate", "connect", "extend"], solo: ["relational", "extended"],
@@ -1719,6 +1787,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "fdrinaugural", title: "First Inaugural Address", author: "Franklin D. Roosevelt",
+    text: false, audio: false,
     href: "fdrinaugural/", status: "live", accent: "#465c70", grades: "English III", gradeBand: "9-12",
     genre: ["speech", "rhetoric"], time: "45-75", reading: ["before", "during", "after"],
     ace: ["articulate", "connect", "extend"], solo: ["relational", "extended"],
@@ -1730,6 +1799,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "lyceum", title: "The Lyceum Address", author: "Abraham Lincoln",
+    text: false, audio: false,
     href: "lyceum/", status: "live", accent: "#594a66", grades: "English III", gradeBand: "9-12",
     genre: ["speech", "rhetoric"], time: "45-75", reading: ["before", "during", "after"],
     ace: ["articulate", "connect", "extend"], solo: ["relational", "extended"],
@@ -1741,6 +1811,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "fourfreedoms", title: "The Four Freedoms", author: "Franklin D. Roosevelt",
+    text: false, audio: false,
     href: "fourfreedoms/", status: "live", accent: "#3e6470", grades: "English III", gradeBand: "9-12",
     genre: ["speech", "rhetoric"], time: "45-75", reading: ["before", "during", "after"],
     ace: ["articulate", "connect", "extend"], solo: ["relational", "extended"],
@@ -1752,6 +1823,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "yellowwallpaper",
+    text: true, audio: false,
     title: "The Yellow Wallpaper",
     author: "Charlotte Perkins Gilman",
     href: "yellowwallpaper/",
@@ -1778,6 +1850,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "tobuildafire",
+    text: true, audio: true,
     title: "To Build a Fire",
     author: "Jack London",
     href: "tobuildafire/",
@@ -1804,6 +1877,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "aftertwenty",
+    text: true, audio: true,
     title: "After Twenty Years",
     author: "O. Henry",
     href: "aftertwenty/",
@@ -1830,6 +1904,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "openwindow",
+    text: true, audio: true,
     title: "The Open Window",
     author: "Saki (H. H. Munro)",
     href: "openwindow/",
@@ -1856,6 +1931,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "interlopers",
+    text: true, audio: true,
     title: "The Interlopers",
     author: "Saki (H. H. Munro)",
     href: "interlopers/",
@@ -1882,6 +1958,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "necklace",
+    text: true, audio: true,
     title: "The Necklace",
     author: "Guy de Maupassant",
     href: "necklace/",
@@ -1908,6 +1985,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "storyhour",
+    text: true, audio: false,
     title: "The Story of an Hour",
     author: "Kate Chopin",
     href: "storyhour/",
@@ -1934,6 +2012,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "frankenstein",
+    text: true, audio: true,
     title: "Frankenstein; or, The Modern Prometheus",
     author: "Mary Shelley",
     href: "frankenstein/",
@@ -1960,6 +2039,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "pride",
+    text: true, audio: true,
     title: "Pride and Prejudice",
     author: "Jane Austen",
     href: "pride/",
@@ -1986,6 +2066,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "gatsby",
+    text: true, audio: true,
     title: "The Great Gatsby",
     author: "F. Scott Fitzgerald",
     href: "gatsby/",
@@ -2012,6 +2093,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "caesar",
+    text: true, audio: true,
     title: "The Tragedy of Julius Caesar",
     author: "William Shakespeare",
     href: "caesar/",
@@ -2038,6 +2120,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "scarlet",
+    text: true, audio: true,
     title: "The Scarlet Letter",
     author: "Nathaniel Hawthorne",
     href: "scarlet/",
@@ -2064,6 +2147,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "hamlet",
+    text: true, audio: true,
     title: "The Tragedy of Hamlet, Prince of Denmark",
     author: "William Shakespeare",
     href: "hamlet/",
@@ -2090,6 +2174,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "greatex",
+    text: true, audio: true,
     title: "Great Expectations",
     author: "Charles Dickens",
     href: "greatex/",
@@ -2116,6 +2201,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "walden",
+    text: true, audio: true,
     title: "Walden; or, Life in the Woods",
     author: "Henry David Thoreau",
     href: "walden/",
@@ -2142,6 +2228,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "franklin",
+    text: true, audio: true,
     title: "The Autobiography of Benjamin Franklin",
     author: "Benjamin Franklin",
     href: "franklin/",
@@ -2168,6 +2255,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "tocqueville",
+    text: true, audio: true,
     title: "Democracy in America (Vol. 1)",
     author: "Alexis de Tocqueville",
     href: "tocqueville/",
@@ -2194,6 +2282,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "upslavery",
+    text: true, audio: true,
     title: "Up from Slavery",
     author: "Booker T. Washington",
     href: "upslavery/",
@@ -2220,6 +2309,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "ivanilyich",
+    text: true, audio: true,
     title: "The Death of Ivan Ilyich",
     author: "Leo Tolstoy",
     href: "ivanilyich/",
@@ -2246,6 +2336,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "dante",
+    text: true, audio: true,
     title: "The Divine Comedy",
     author: "Dante Alighieri",
     href: "dante/",
@@ -2272,6 +2363,7 @@ window.PLOTPOINT_TITLES = [
   },
   {
     id: "hamletproblems",
+    text: true, audio: false,
     title: "Hamlet and His Problems",
     author: "T. S. Eliot",
     href: "hamletproblems/",

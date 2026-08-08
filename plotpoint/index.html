@@ -533,27 +533,76 @@ document.addEventListener('DOMContentLoaded', function(){
   // ---- "View all as a table": a compact, all-in-one view of every room. ----
   // Respects any active filters/search (so it doubles as a compressed results table).
   var tableOpen = false;
+  // Sortable table: click a header to sort (1st click ascending, 2nd descending).
+  var tableSort = { key:'title', dir:1 };
   function buildTable(){
     var host = document.getElementById('alltable');
+    function tf(key,fb){ var s=t(key); return (s&&s!==key)?s:fb; }
+    var thTitle = tf('collection.th.title','Title');
+    // For text/audio, ascending surfaces "available" first (val 0 = available).
+    var COLS = [
+      { k:'grade',  lab: tf('facet.grade','Grade band'),        num:false, val:function(x){ return (x.gradeBand||'')+' '+(x.grades||''); } },
+      { k:'genre',  lab: tf('facet.genre','Genre'),             num:false, val:function(x){ return (x.genre||[]).map(function(g){return label('genre',g);}).join(', '); } },
+      { k:'title',  lab: thTitle,                               num:false, val:function(x){ return String(x.title||''); } },
+      { k:'author', lab: tf('collection.th.author','Author'),   num:false, val:function(x){ return String(x.author||''); } },
+      { k:'text',   lab: tf('collection.th.text','Text'),       num:true,  val:function(x){ return x.text?0:1; } },
+      { k:'audio',  lab: tf('collection.th.audio','Audio'),     num:true,  val:function(x){ return x.audio?0:1; } },
+      { k:'rights', lab: tf('facet.rights','Text rights'),      num:false, val:function(x){ return label('rights',x.rights); } }
+    ];
+    var colByKey={}; COLS.forEach(function(c){ colByKey[c.k]=c; });
+    var sc = colByKey[tableSort.key] || colByKey.title;
     var rows = TITLES.filter(matches).slice().sort(function(a,b){
-      return String(a.title).localeCompare(String(b.title));
+      var av=sc.val(a), bv=sc.val(b), r;
+      if(sc.num){ r = av - bv; }
+      else { r = String(av).toLowerCase().localeCompare(String(bv).toLowerCase()); }
+      if(r===0){ r = String(a.title).toLowerCase().localeCompare(String(b.title).toLowerCase()); }
+      return r * tableSort.dir;
     });
-    var thTitle = t('collection.th.title'); if(!thTitle || thTitle==='collection.th.title') thTitle='Title';
+    var head='';
+    COLS.forEach(function(c){
+      var active = c.k===tableSort.key;
+      var arrow = active ? (tableSort.dir>0 ? ' ▲' : ' ▼') : '';
+      var as = active ? (tableSort.dir>0?'ascending':'descending') : 'none';
+      head += '<th data-k="'+c.k+'" role="columnheader" aria-sort="'+as+'" tabindex="0"'+
+        ' title="'+esc(tf('collection.th.sort','Sort by')+' '+c.lab)+'"'+
+        ' style="cursor:pointer;white-space:nowrap;user-select:none'+(active?';font-weight:800':'')+'">'+
+        esc(c.lab)+'<span aria-hidden="true">'+arrow+'</span></th>';
+    });
+    var yes = tf('collection.th.yes','available'), no = tf('collection.th.no','not available');
     var html = '<table class="alltable"><caption>'+esc(t('results.count',{n:rows.length,total:TITLES.length}))+'</caption>'+
-      '<thead><tr><th>'+esc(t('facet.grade'))+'</th><th>'+esc(t('facet.genre'))+'</th>'+
-      '<th>'+esc(thTitle)+'</th><th>'+esc(t('facet.rights'))+'</th></tr></thead><tbody>';
+      '<thead><tr>'+head+'</tr></thead><tbody>';
+    function avail(on,lbl){
+      var msg = esc(lbl)+': '+esc(on?yes:no);
+      return on
+        ? '<span class="avail yes" title="'+msg+'" aria-label="'+msg+'" style="color:#2e7d32;font-weight:800">✓</span>'
+        : '<span class="avail no" title="'+msg+'" aria-label="'+msg+'" style="color:var(--ink-soft)">—</span>';
+    }
     rows.forEach(function(tt){
-      var o = ov(tt.id);
       var g = (tt.genre||[]).map(function(x){return esc(label('genre',x));}).join(', ');
       var titleCell = tt.status==='live'
         ? '<a href="'+esc(tt.href)+'">'+esc(tt.title)+'</a>'
         : esc(tt.title)+' <span class="soonpill">'+esc(t('status.soon'))+'</span>';
-      titleCell += '<div style="font-size:.78rem;color:var(--ink-soft)">'+esc(t('card.by',{a:tt.author}))+'</div>';
-      html += '<tr><td>'+esc(t('tag.grades',{g:tt.grades}))+'</td><td>'+g+'</td>'+
+      html += '<tr><td>'+esc(t('tag.grades',{g:tt.grades}))+'</td>'+
+        '<td>'+g+'</td>'+
         '<td class="tt">'+titleCell+'</td>'+
+        '<td>'+esc(tt.author||'')+'</td>'+
+        '<td style="text-align:center">'+avail(!!tt.text, tf('collection.th.text','Text'))+'</td>'+
+        '<td style="text-align:center">'+avail(!!tt.audio, tf('collection.th.audio','Audio'))+'</td>'+
         '<td><span class="rgt">'+esc(label('rights',tt.rights))+'</span></td></tr>';
     });
     host.innerHTML = html + '</tbody></table>';
+    // Wire header click / keyboard sorting.
+    Array.prototype.forEach.call(host.querySelectorAll('th[data-k]'), function(thEl){
+      function activate(){
+        var k = thEl.getAttribute('data-k');
+        if(tableSort.key===k){ tableSort.dir = -tableSort.dir; }
+        else { tableSort.key = k; tableSort.dir = 1; }
+        buildTable();
+        var again = host.querySelector('th[data-k="'+k+'"]'); if(again){ try{ again.focus(); }catch(_){} }
+      }
+      thEl.addEventListener('click', activate);
+      thEl.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); activate(); } });
+    });
   }
   function setTableOpen(on){
     tableOpen = on;
