@@ -125,7 +125,17 @@ verbatim. Verified sources: Gutenberg **#1122** + LibriVox **version 1** (comple
 (reproduces no lines of the play). Mature-content note (murder, madness, a likely-suicide drowning,
 many deaths) in the Teacher Guide. Awaiting image assets, commit/deploy, and production HTTP
 verification.
-Remaining long works: **8 of 14** (see `TEXAS_2026_PLAN.md` §B5).
+
+**Seventh Texas long work — Great Expectations (2026-08-07).** `greatex` (Charles Dickens, PD),
+Eng I. Full seven-language build. The Expectations Archive relic room (marsh convict/file, Satis
+House, Estella, the anonymous fortune, Joe's forge, benefactor revealed, Pip's humbling); arcade
+*"True Worth or Mere Gentility?"*; bildungsroman focus on class, ambition, gratitude. Validated:
+`node -c` on all 7 JS; **183/183 UI-key parity**; 11 vocab (contexts contain their term — es
+`reclusa` and zh term-order fixed post-generation); 6 locks (answers "3"/Havisham/Magwitch in each
+pack's final hint); balanced 4/4 arcade; 5 MCQ + 3 short + paragraph + ACE; meta URLs + ccss
+verbatim. Verified sources: Gutenberg **#1400** + LibriVox **version 1**. Paraphrase-only.
+Awaiting image assets, commit/deploy, HTTP verification.
+Remaining long works: **7 of 14** (see `TEXAS_2026_PLAN.md` §B5).
 
 **Engine fix (2026-08-07).** `assets/room-engine.js` `shuffle()` was a fixed permutation
 (`(i*7+3)%(i+1)`), so the index-0-correct answer always landed in the same visual slot every load.
