@@ -42,6 +42,26 @@ number is the build order.
 | 7 | Voltaire | Candide | novella (RL) | #19942 | ✓ |
 | 8 | Niccolò Machiavelli | The Prince (excerpt) | argument (RI) | #1232 | ✓ |
 
+### Tier 1b — Mark Twain (all short stories; text + audio both verified)
+
+Twain is already a covered CLT author in spirit, but has no PlotPoint room.
+These are his short, self-contained stories — among the quickest to build.
+Ordered shortest first.
+
+| # | Work | Type | Text (Gutenberg) | Audio (LibriVox) |
+|---|------|------|------------------|------------------|
+| T1 | The War Prayer | prose poem / satire (RL) | #68604 (*Europe and Elsewhere*) | ✓ (in collection) |
+| T2 | The Celebrated Jumping Frog of Calaveras County | tall tale (RL) | ✓ (*Sketches New and Old*) | ✓ (*The Jumping Frog*) |
+| T3 | Extracts from Adam's Diary / Eve's Diary | humorous sketch (RL) | ✓ | ✓ |
+| T4 | A Dog's Tale | short story (RL) | ✓ (*The $30,000 Bequest*) | ✓ (collection) |
+| T5 | The £1,000,000 Bank-Note | short story (RL) | #61522 | ✓ |
+| T6 | The $30,000 Bequest | short story (RL) | ✓ | ✓ |
+| T7 | The Man That Corrupted Hadleyburg | long short story / novella (RL) | ✓ | ✓ |
+
+*Twain's novels (Tom Sawyer, Huckleberry Finn, The Prince and the Pauper,
+A Connecticut Yankee, Pudd'nhead Wilson) all have text + audio too, but are
+long — excerpt-scope, lower priority than the stories above.*
+
 ### Tier 2 — Medium (novella / single treatise, excerpt scope)
 
 | # | Author | Work | Type | Text (Gutenberg) | Audio (LibriVox) |
