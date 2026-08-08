@@ -133,9 +133,9 @@ Notes:
   **dropped** per user (see the "Dropped" box above).
 
 ### ✅ New PD batch — BUILT 2026-08-08 (smallest-first, English + 6 languages, validated)
-With the named PD backlog above fully built, the collection was grown with four
-more small public-domain short stories (smallest word-count first). All four are
-live in seven languages, validated (node -c on all 7 JS files, 183/183 UI parity,
+With the named PD backlog above fully built, the collection was grown with seven
+more small public-domain short stories (smallest word-count first). All are live
+in seven languages, validated (node -c on all 7 JS files, 183/183 UI parity,
 8 vocab / 7 relic artifacts / 6 locks / 8 arcade cards / 5 MCQ, index-0 answer key,
 word/digit final-hint-contains-answer). Room ids and sources:
 
@@ -145,10 +145,20 @@ word/digit final-hint-contains-answer). Room ids and sources:
 | The Boarded Window | Ambrose Bierce | 1891 | `boardedwindow` | Gut #375 (Tales of Soldiers and Civilians) | in-the-midst-of-life |
 | A Pair of Silk Stockings | Kate Chopin | 1897 | `silkstockings` | American Literature | Short Story Collection Vol. 086 |
 | The Lottery Ticket | Anton Chekhov | 1887 | `lotteryticket` | American Literature | Chekhov selected-stories (archive.org LibriVox) |
+| The Masque of the Red Death | Edgar Allan Poe | 1842 | `masque` | Gut #1064 | Raven Edition Vol. 1 |
+| The Law of Life | Jack London | 1901 | `lawoflife` | Gut #10736 (Children of the Frost) | children-of-the-frost |
+| The Last Leaf | O. Henry | 1907 | `lastleaf` | Gut #3707 (The Trimmed Lamp) | the-trimmed-lamp |
 
 Artwork prompts (hero + 7 relics each) are in `SHORT_STORIES_IMAGES_2.md`; pages
 render labeled placeholders until the images land. Collection-based audio links
 are noted "verify the specific track" in each room's Teacher Guide.
+
+**Next PD candidates (unbuilt, smallest-first):** Frank Stockton *The Griffin and the
+Minor Canon*; Poe *The Masque*… (done); Hawthorne *Dr. Heidegger's Experiment*;
+Maupassant *The Piece of String*; Chekhov *The Lottery Ticket*… (done); Kate Chopin
+*The Storm* / *Désirée's Baby*; Sarah Orne Jewett; Stephen Crane *The Bride Comes to
+Yellow Sky*; Bret Harte *The Outcasts of Poker Flat*; Twain shorts (see
+`CLASSICS_EXPANSION_PLAN.md`). Verify PD + Gutenberg + LibriVox before building.
 
 ### Room-build recipe (reminder)
 Copy an existing PD short-story room (e.g. `cask/`) → replace `data.en.js` (10 sections,
