@@ -210,8 +210,32 @@ in each pack's final hint — proper-noun answers, no cross-language typing issu
 arcade; meta URLs + RL ccss verbatim. Sources: Gutenberg **#1004** (Longfellow, complete) + LibriVox.
 Paraphrase-only; medieval religious epic taught in literary/cultural context. Awaiting image assets,
 commit/deploy, HTTP verification.
-Remaining long works: **1 of 14** (see `TEXAS_2026_PLAN.md` §B5): Hamlet and His Problems (T. S.
-Eliot literary criticism, pairs with the Hamlet room).
+**Fourteenth Texas long work — Hamlet and His Problems (2026-08-07).** `hamletproblems` (T. S.
+Eliot, U.S. PD since 1919), Eng IV; **literary criticism** (RI codes), grades 11–12; pairs with the
+`hamlet` room. Full seven-language build. The Critic's Desk relic room (the essay itself, the
+objective correlative, the "artistic failure" claim, emotion-in-excess, "the Mona Lisa of
+literature," the older sources, impersonal art); arcade *"Eliot's Argument, or a Challenge to It?"*
+(sort Eliot's claims vs. reasonable counterarguments); extend = apply the objective correlative to a
+chosen work. **Source note:** read-link is the **Wikisource** essay page (also on Gutenberg #57795 in
+The Sacred Wood); `ui.enter.read` = "(Wikisource)". **No audio** — no verified single-work LibriVox
+recording, so `meta.audio` is omitted and the engine shows an honest "not available" state.
+Validated: `node -c` all 7 JS; **183/183 UI parity**; 11 vocab (contexts contain term); 6 locks
+(answers "1919"/correlative/Shakespeare in each pack's final hint — "correlative" kept in English as a
+term of art so it stays typable); balanced 4/4 arcade; meta URL + RI ccss verbatim. Presents Eliot's
+thesis as an argument to evaluate, not a settled verdict. Paraphrase-only.
+
+### §B5 long works: COMPLETE — 14 of 14 built and deployed (2026-08-07)
+
+All fourteen Texas 2026 §B5 long works are now live, seven-language, and pushed to production
+(GitHub Pages). Frankenstein (pre-existing) + the thirteen built this run: Pride and Prejudice, The
+Great Gatsby, Julius Caesar, The Scarlet Letter, Hamlet, Great Expectations, Walden, The
+Autobiography of Benjamin Franklin (Part One), Democracy in America (Vol. 1), Up from Slavery, The
+Death of Ivan Ilyich, The Divine Comedy, and Hamlet and His Problems. Engine `shuffle()` fixed to
+true Fisher–Yates; `val.drama` label added in all seven languages. **Outstanding:** image assets for
+Walden, Franklin, Democracy in America, Up from Slavery, Ivan Ilyich, The Divine Comedy, and Hamlet
+and His Problems (image prompts are in `LONG_WORKS_IMAGES.md`; rooms render labeled placeholders
+until assets land); fluent-educator review of the machine-assisted translations; optional Fed 78
+reuse (see `TEXAS_2026_PLAN.md` §H).
 
 **Engine fix (2026-08-07).** `assets/room-engine.js` `shuffle()` was a fixed permutation
 (`(i*7+3)%(i+1)`), so the index-0-correct answer always landed in the same visual slot every load.
