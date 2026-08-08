@@ -64,3 +64,16 @@ palette per room (noted below).
 - `lotteryticket/images/estate.webp` — A dreamlike vision of a comfortable country estate: a house with a garden, a river, autumn trees — rendered soft and glowing like a fantasy. Warm hazy amber-green, no legible text.
 - `lotteryticket/images/resentment.webp` — The same couple at the same table, now turned slightly away from each other, faces cooling into suspicion and scorn as the warm light greys. Cooling blue-grey shadow creeping over amber, tense, no legible text.
 - `lotteryticket/images/number.webp` — A hand finally turning the ticket face-up beside the newspaper, the mismatch implied by two different numbers not quite aligning; the lamplight now cold. Grey-blue, deflated, no legible text.
+
+---
+
+## The Masque of the Red Death (Poe) — palette: candlelit jewel tones deepening to black and blood-red; gothic
+
+- `masque/images/hero.webp` — A candlelit suite of seven colored chambers receding in a row (blue, purple, green, orange, white, violet), ending in a black room with tall blood-red windows, a towering ebony clock, and a distant shrouded masked figure at the far threshold. Rich jewel tones deepening to black and scarlet, ominous, no legible text.
+- `masque/images/reddeath.webp` — A symbolic image of a fast, deadly plague: a fallen masquerade mask marked with scarlet stains and a scattering of blood-red drops on pale marble. Dark with vivid scarlet accents, eerie, no legible text or gore.
+- `masque/images/abbey.webp` — A fortified castle-like abbey with heavy iron gates welded shut, seen at dusk, a lit revel glowing within while darkness presses outside. Deep blue-grey stone and warm interior glow, no legible text.
+- `masque/images/sevenrooms.webp` — Seven connected chambers seen in a receding row, each glowing a different color from blue at the near (east) end through purple, green, orange, white, violet, to black at the far (west) end. Vivid jewel tones fading to black, no legible text.
+- `masque/images/blackroom.webp` — A chamber draped entirely in black velvet with tall windows glowing deep blood-red, shadowy and forbidding, few figures daring to enter. Black and scarlet, dread, no legible text.
+- `masque/images/clock.webp` — A gigantic ebony grandfather clock standing in the black chamber, its face dark, dancers frozen mid-step in the red glow as it strikes the hour. Black wood, scarlet light, tense stillness, no legible text.
+- `masque/images/figure.webp` — A tall shrouded masked figure in a blood-dabbled corpse costume standing calmly at a chamber threshold as costumed revelers recoil. Pale shroud spattered scarlet against deep shadow, no legible text or gore.
+- `masque/images/shroud.webp` — An empty collapsed shroud and corpse-mask on the black chamber floor, no body within, the blood-red windows looming above — the moment the truth is revealed. Black, scarlet, hollow and final, no legible text.
