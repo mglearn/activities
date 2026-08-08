@@ -77,3 +77,16 @@ palette per room (noted below).
 - `masque/images/clock.webp` — A gigantic ebony grandfather clock standing in the black chamber, its face dark, dancers frozen mid-step in the red glow as it strikes the hour. Black wood, scarlet light, tense stillness, no legible text.
 - `masque/images/figure.webp` — A tall shrouded masked figure in a blood-dabbled corpse costume standing calmly at a chamber threshold as costumed revelers recoil. Pale shroud spattered scarlet against deep shadow, no legible text or gore.
 - `masque/images/shroud.webp` — An empty collapsed shroud and corpse-mask on the black chamber floor, no body within, the blood-red windows looming above — the moment the truth is revealed. Black, scarlet, hollow and final, no legible text.
+
+---
+
+## The Law of Life (Jack London) — palette: icy blue-white snow, dusk, one small warm fire; bleak naturalism
+
+- `lawoflife/images/hero.webp` — An old blind man sitting alone by a tiny fire in a vast blue-white snowfield at dusk, a small pile of sticks beside him, faint sled tracks leading away, and the shadowy shapes of wolves at the distant treeline. Cold blue-white with one small warm glow, bleak and still, no legible text.
+- `lawoflife/images/koskoosh.webp` — A close, dignified portrait of a very old, blind Indigenous elder wrapped in furs, eyes clouded, face calm and lined, firelight on one cheek. Cold blue shadow, warm firelight, respectful, no legible text.
+- `lawoflife/images/sticks.webp` — A small, meager pile of dry sticks in the snow beside a low fire, a weathered hand feeding one stick to the flames. Blue-white snow, small amber fire, intimate, no legible text.
+- `lawoflife/images/tribe.webp` — A distant line of a nomadic tribe with sleds and dogs moving away across the snow at dusk, their tracks stretching back toward the viewer, a small lone fire in the foreground. Cold blue distance, lonely, no legible text.
+- `lawoflife/images/lawofnature.webp` — A symbolic wide image of the endless, indifferent north: pale snow, bare trees, a cold sky, the sense of a vast cycle larger than any one life. Muted blue-grey, vast and impersonal, no legible text or figures.
+- `lawoflife/images/moose.webp` — A memory-like, slightly faded scene of an old bull moose at bay in trampled snow, ringed by a wolf pack — motion and endurance, not gore. Wintry greys and browns, dreamlike, no legible text or graphic detail.
+- `lawoflife/images/wolves.webp` — Gaunt grey wolves circling closer around a dying fire at nightfall, eyes catching the last firelight, one drawing near. Cold blue-black with amber eye-glints, tense, no legible text or gore.
+- `lawoflife/images/ember.webp` — A fire sunk to its last faint embers in the snow, a bowed fur-wrapped figure barely lit beside it, darkness closing in — quiet acceptance. Fading amber into deep blue-black, still and final, no legible text.
