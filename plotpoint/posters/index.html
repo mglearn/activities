@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>Literary Analysis Posters — PlotPoint</title>
+<meta name="description" content="Free, print-ready literary-analysis posters for grades 6–12, aligned to the most widely-taught Texas ELAR texts. PlotPoint-branded, with an ACE Framework prompt on every poster. Browse thumbnails here; download full-resolution images and PDFs from Google Drive.">
+<meta property="og:title" content="Literary Analysis Posters — PlotPoint">
+<meta property="og:description" content="Print-ready, grade-aligned literary-analysis posters for grades 6–12, with an ACE prompt on every one. Free images and PDFs.">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1c2247;--navy-d:#12163a;--plum:#7a4fce;--plum-d:#5a34a6;
+    --gold:#f5c542;--gold-d:#c99a12;
+    --paper:#f5f4fb;--ink:#191d33;--ink-soft:#5b6079;--card:#fff;--line:#e0def0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:'Nunito',sans-serif;color:var(--ink);background:
+    radial-gradient(ellipse 60% 45% at 88% -8%,rgba(245,197,66,.14)0%,transparent 60%),
+    radial-gradient(ellipse 55% 45% at 0% 100%,rgba(122,79,206,.12)0%,transparent 60%),var(--paper);
+    min-height:100vh;line-height:1.55}
+  a{color:inherit}
+  .wrap{max-width:1100px;margin:0 auto;padding:22px 20px 90px}
+  .topbar{display:flex;align-items:center;gap:14px;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap}
+  .wordmark{display:flex;align-items:center;gap:10px;font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);font-size:1.2rem;text-decoration:none}
+  .wordmark .dot{width:14px;height:14px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(245,197,66,.28)}
+  .wordmark small{display:block;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--plum);font-weight:700}
+  .backlink{font-family:'Fredoka',sans-serif;font-weight:600;font-size:.85rem;color:var(--plum-d);text-decoration:none;
+    border:2px solid var(--line);border-radius:10px;padding:8px 14px;transition:.14s;white-space:nowrap}
+  .backlink:hover{border-color:var(--plum)}
+
+  header.hero{position:relative;border-radius:18px;overflow:hidden;background:linear-gradient(120deg,var(--navy-d),var(--plum-d) 66%,#8a5bd6);
+    padding:34px clamp(20px,4vw,44px);color:#fff;box-shadow:0 12px 34px rgba(28,34,71,.18)}
+  header.hero .eyebrow{display:inline-block;background:var(--gold);color:var(--navy-d);font-family:'Fredoka',sans-serif;font-weight:700;
+    font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;padding:6px 15px;border-radius:100px;margin-bottom:12px}
+  header.hero h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,4vw,2.7rem);line-height:1.04;text-shadow:0 2px 16px rgba(6,10,30,.5)}
+  header.hero p{color:#e8e3fb;font-weight:600;max-width:64ch;margin-top:10px}
+  .drivebtn{display:inline-flex;align-items:center;gap:10px;margin-top:18px;font-family:'Fredoka',sans-serif;font-weight:700;font-size:.95rem;
+    color:var(--navy-d);background:var(--gold);border-radius:12px;padding:12px 20px;text-decoration:none;box-shadow:0 6px 18px rgba(6,10,30,.25);transition:.14s}
+  .drivebtn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(6,10,30,.32)}
+  .drivebtn .ic{font-size:1.15rem}
+
+  .note{margin:18px 0 6px;padding:12px 16px;border-inline-start:4px solid var(--gold);background:rgba(245,197,66,.10);
+    border-radius:0 10px 10px 0;font-weight:600;font-size:.86rem;color:var(--ink)}
+  .note b{color:var(--navy)}
+  .note a{color:var(--plum-d);font-weight:700}
+
+  .tally{display:flex;gap:26px;flex-wrap:wrap;margin:18px 2px 6px}
+  .tally .n{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.4rem;color:var(--navy);line-height:1}
+  .tally .l{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin-top:3px}
+
+  h2.grade{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.15rem;margin:34px 0 4px;display:flex;align-items:center;gap:12px}
+  h2.grade .band{font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--plum);
+    padding:5px 12px;border-radius:100px}
+  h2.grade::after{content:"";flex:1;height:2px;background:var(--line)}
+
+  .glist{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;margin-top:16px}
+  a.poster{display:flex;flex-direction:column;background:var(--card);border:2px solid var(--line);border-radius:14px;overflow:hidden;
+    text-decoration:none;box-shadow:0 4px 14px rgba(20,30,80,.05);transition:transform .16s,border-color .16s,box-shadow .18s}
+  a.poster:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 14px 30px rgba(20,30,80,.15)}
+  a.poster:focus-visible{outline:3px solid var(--plum);outline-offset:2px}
+  a.poster .imgwrap{position:relative;background:var(--navy-d);aspect-ratio:3/4;overflow:hidden}
+  a.poster img{width:100%;height:100%;object-fit:cover;display:block}
+  a.poster .expand{position:absolute;top:8px;inset-inline-end:8px;background:rgba(18,22,58,.72);color:#fff;border-radius:8px;
+    font-size:.62rem;font-weight:700;padding:4px 8px;letter-spacing:.04em}
+  a.poster .meta{padding:11px 13px 13px}
+  a.poster h3{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1rem;line-height:1.12}
+  a.poster .by{font-weight:700;color:var(--ink-soft);font-size:.78rem;margin-top:2px}
+  a.poster .pairs{display:inline-block;margin-top:9px;font-size:.66rem;font-weight:700;color:var(--plum-d);
+    background:rgba(122,79,206,.09);border-radius:100px;padding:3px 9px}
+
+  footer{text-align:center;margin-top:44px;font-size:.8rem;color:var(--ink-soft);font-weight:600;line-height:1.7}
+  footer a{color:var(--plum-d);font-weight:700}
+  @media (prefers-reduced-motion:reduce){a.poster{transition:none}a.poster:hover{transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="wordmark" href="../">
+      <span class="dot" aria-hidden="true"></span>
+      <span>PlotPoint<small>Read · Reason · Play</small></span>
+    </a>
+    <a class="backlink" href="../">← All PlotPoint rooms</a>
+  </div>
+
+  <header class="hero">
+    <span class="eyebrow">Print &amp; teach</span>
+    <h1>Literary Analysis Posters</h1>
+    <p>Free, print-ready posters for grades 6–12, aligned to the most widely-taught Texas ELAR texts — each one PlotPoint-branded and carrying an <b>ACE</b> prompt (Articulate · Connect · Extend) so it's a thinking tool, not just décor. Browse the thumbnails below, then grab the full-resolution images and print-ready PDFs from Google Drive.</p>
+    <a class="drivebtn" href="https://drive.google.com/drive/folders/1bFziW4CEweNtKnZDxCNCdxBe0WWsrv9l?usp=sharing" target="_blank" rel="noopener">
+      <span class="ic" aria-hidden="true">📂</span> Open all posters on Google Drive — images &amp; PDFs
+    </a>
+  </header>
+
+  <p class="note"><b>Note:</b> Thumbnails here are lightweight previews. For crisp printing, download the full-resolution images and PDFs from the <a href="https://drive.google.com/drive/folders/1bFziW4CEweNtKnZDxCNCdxBe0WWsrv9l?usp=sharing" target="_blank" rel="noopener">Google Drive folder</a>. Grade placements follow common Texas ELAR practice — confirm each title against your campus's adopted texts before printing.</p>
+
+  <div class="tally">
+    <div><div class="n">35</div><div class="l">Posters</div></div>
+    <div><div class="n">6–12</div><div class="l">Grades</div></div>
+    <div><div class="n">ACE</div><div class="l">On every poster</div></div>
+    <div><div class="n">Free</div><div class="l">Images + PDFs</div></div>
+  </div>
+
+  <main id="gallery"></main>
+
+  <footer>
+    PlotPoint · Literary Analysis Posters · CC BY 4.0 (content) · MIT (code)<br>
+    <a href="https://drive.google.com/drive/folders/1bFziW4CEweNtKnZDxCNCdxBe0WWsrv9l?usp=sharing" target="_blank" rel="noopener">Download images &amp; PDFs on Google Drive →</a> ·
+    <a href="../">Browse all PlotPoint rooms →</a>
+  </footer>
+</div>
+
+<script>
+var POSTERS = [
+  { band: "Grades 6", label: "Middle school", items: [
+    { f:"the-giver", t:"The Giver", a:"Lois Lowry" },
+    { f:"tuck-everlasting", t:"Tuck Everlasting", a:"Natalie Babbitt" },
+    { f:"a-wrinkle-in-time", t:"A Wrinkle in Time", a:"Madeleine L'Engle" },
+    { f:"bud-not-buddy", t:"Bud, Not Buddy", a:"Christopher Paul Curtis" },
+    { f:"lightning-thief", t:"The Lightning Thief", a:"Rick Riordan" }
+  ]},
+  { band: "Grades 7", label: "Middle school", items: [
+    { f:"the-outsiders", t:"The Outsiders", a:"S. E. Hinton" },
+    { f:"roll-of-thunder", t:"Roll of Thunder, Hear My Cry", a:"Mildred D. Taylor" },
+    { f:"christmas-carol", t:"A Christmas Carol", a:"Charles Dickens" },
+    { f:"diary-anne-frank", t:"The Diary of Anne Frank", a:"Anne Frank", pairs:"annefrank" },
+    { f:"tell-tale-heart", t:"The Tell-Tale Heart", a:"Edgar Allan Poe", pairs:"poe" }
+  ]},
+  { band: "Grades 8", label: "Middle school", items: [
+    { f:"flowers-for-algernon", t:"Flowers for Algernon", a:"Daniel Keyes" },
+    { f:"tom-sawyer", t:"The Adventures of Tom Sawyer", a:"Mark Twain" },
+    { f:"animal-farm", t:"Animal Farm", a:"George Orwell" },
+    { f:"monkeys-paw", t:"The Monkey's Paw", a:"W. W. Jacobs", pairs:"monkeyspaw" },
+    { f:"gift-of-magi", t:"The Gift of the Magi", a:"O. Henry", pairs:"magi" }
+  ]},
+  { band: "English I · Grade 9", label: "High school", items: [
+    { f:"romeo-and-juliet", t:"Romeo and Juliet", a:"William Shakespeare" },
+    { f:"to-kill-a-mockingbird", t:"To Kill a Mockingbird", a:"Harper Lee" },
+    { f:"of-mice-and-men", t:"Of Mice and Men", a:"John Steinbeck" },
+    { f:"the-odyssey", t:"The Odyssey", a:"Homer" },
+    { f:"lord-of-flies", t:"Lord of the Flies", a:"William Golding" }
+  ]},
+  { band: "English II · Grade 10", label: "High school", items: [
+    { f:"julius-caesar", t:"Julius Caesar", a:"William Shakespeare", pairs:"caesar" },
+    { f:"night", t:"Night", a:"Elie Wiesel" },
+    { f:"fahrenheit-451", t:"Fahrenheit 451", a:"Ray Bradbury" },
+    { f:"raisin-in-sun", t:"A Raisin in the Sun", a:"Lorraine Hansberry" },
+    { f:"house-on-mango", t:"The House on Mango Street", a:"Sandra Cisneros" }
+  ]},
+  { band: "English III · Grade 11 · American Literature", label: "High school", items: [
+    { f:"great-gatsby", t:"The Great Gatsby", a:"F. Scott Fitzgerald", pairs:"gatsby" },
+    { f:"the-crucible", t:"The Crucible", a:"Arthur Miller" },
+    { f:"huckleberry-finn", t:"Adventures of Huckleberry Finn", a:"Mark Twain", pairs:"huckfinn" },
+    { f:"scarlet-letter", t:"The Scarlet Letter", a:"Nathaniel Hawthorne", pairs:"scarlet" },
+    { f:"their-eyes", t:"Their Eyes Were Watching God", a:"Zora Neale Hurston" }
+  ]},
+  { band: "English IV · Grade 12 · British &amp; World Literature", label: "High school", items: [
+    { f:"macbeth", t:"Macbeth", a:"William Shakespeare" },
+    { f:"beowulf", t:"Beowulf", a:"Anonymous (Old English epic)" },
+    { f:"1984", t:"1984", a:"George Orwell" },
+    { f:"frankenstein", t:"Frankenstein", a:"Mary Shelley", pairs:"frankenstein" },
+    { f:"canterbury-tales", t:"The Canterbury Tales", a:"Geoffrey Chaucer", pairs:"canterbury" }
+  ]}
+];
+
+(function(){
+  var host = document.getElementById('gallery');
+  POSTERS.forEach(function(group){
+    var h = document.createElement('h2'); h.className = 'grade';
+    h.innerHTML = '<span class="band">' + group.band + '</span> ' + group.label;
+    host.appendChild(h);
+    var list = document.createElement('div'); list.className = 'glist';
+    group.items.forEach(function(p){
+      var a = document.createElement('a');
+      a.className = 'poster';
+      a.href = 'img/' + p.f + '.webp';
+      a.target = '_blank'; a.rel = 'noopener';
+      a.setAttribute('aria-label', p.t + ' by ' + p.a + ' — open full-size poster preview');
+      var pairs = p.pairs ? '<span class="pairs">Pairs with the ' + p.pairs + ' room →</span>' : '';
+      a.innerHTML =
+        '<div class="imgwrap"><span class="expand">⤢ View</span>' +
+        '<img loading="lazy" src="img/' + p.f + '.webp" alt="Literary analysis poster for ' + p.t + ' by ' + p.a + '"></div>' +
+        '<div class="meta"><h3>' + p.t + '</h3><div class="by">' + p.a + '</div>' + pairs + '</div>';
+      list.appendChild(a);
+    });
+    host.appendChild(list);
+  });
+})();
+</script>
+</body>
+</html>
