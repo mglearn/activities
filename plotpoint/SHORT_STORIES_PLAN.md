@@ -132,6 +132,24 @@ Notes:
 - The Most Dangerous Game (Connell) and the six copyrighted middle-school staples were
   **dropped** per user (see the "Dropped" box above).
 
+### ✅ New PD batch — BUILT 2026-08-08 (smallest-first, English + 6 languages, validated)
+With the named PD backlog above fully built, the collection was grown with four
+more small public-domain short stories (smallest word-count first). All four are
+live in seven languages, validated (node -c on all 7 JS files, 183/183 UI parity,
+8 vocab / 7 relic artifacts / 6 locks / 8 arcade cards / 5 MCQ, index-0 answer key,
+word/digit final-hint-contains-answer). Room ids and sources:
+
+| Story | Author | ~Year | Room id | Text | Audio (LibriVox) |
+|-------|--------|-------|---------|------|------------------|
+| The Storyteller | Saki | 1914 | `storyteller` | Gut #269 (Beasts and Super-Beasts) | beasts-and-super-beasts |
+| The Boarded Window | Ambrose Bierce | 1891 | `boardedwindow` | Gut #375 (Tales of Soldiers and Civilians) | in-the-midst-of-life |
+| A Pair of Silk Stockings | Kate Chopin | 1897 | `silkstockings` | American Literature | Short Story Collection Vol. 086 |
+| The Lottery Ticket | Anton Chekhov | 1887 | `lotteryticket` | American Literature | Chekhov selected-stories (archive.org LibriVox) |
+
+Artwork prompts (hero + 7 relics each) are in `SHORT_STORIES_IMAGES_2.md`; pages
+render labeled placeholders until the images land. Collection-based audio links
+are noted "verify the specific track" in each room's Teacher Guide.
+
 ### Room-build recipe (reminder)
 Copy an existing PD short-story room (e.g. `cask/`) → replace `data.en.js` (10 sections,
 facts verified against the Gutenberg text, no reproduced passages) → render-test with
