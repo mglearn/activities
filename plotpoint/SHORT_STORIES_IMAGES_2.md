@@ -38,3 +38,16 @@ palette per room (noted below).
 - `boardedwindow/images/window.webp` — An unshuttered cabin window open to a black forest night, curtain stirring, the square of darkness beyond feeling like a threat about to enter. Cold blue-black, tense, no legible text.
 - `boardedwindow/images/panther.webp` — A large panther (cougar) half-inside a dark cabin window, muscles taut, eyes catching candlelight — motion and menace, not gore. Shadowy greys and amber glints, no legible text.
 - `boardedwindow/images/earfragment.webp` — Dawn light on a rough plank floor: a clenched hand and, implied rather than graphic, the evidence of a struggle — a small torn fragment and disturbed dust, telling the terrible truth. Pale grey dawn, restrained, no legible text or gore.
+
+---
+
+## A Pair of Silk Stockings (Chopin) — palette: warm rose, mauve, gaslight-amber; genteel 1890s city
+
+- `silkstockings/images/hero.webp` — A worn woman's gloved hand resting on a pile of soft black silk stockings on a bright department-store counter, with a streetcar and a warmly lit restaurant window suggested behind. Warm rose and amber, wistful, no legible text.
+- `silkstockings/images/money.webp` — Fifteen dollars in old 1890s banknotes and coins held in a careworn hand, treated as something precious and rare. Warm sepia-rose, intimate, no legible text.
+- `silkstockings/images/plan.webp` — A modest kitchen table by lamplight with a mother's handwritten shopping list, small worn children's shoes, and folded cloth — a careful plan for the family. Soft amber domestic tones, no legible text.
+- `silkstockings/images/stockings.webp` — Close on a pair of smooth black silk stockings draped over a hand, catching a soft sheen — the seductive small luxury. Rose and charcoal, tactile, no legible text.
+- `silkstockings/images/boots.webp` — A pair of elegant fitted button boots on a shop stool beside kid gloves and two glossy magazines — self-indulgent purchases. Warm mauve tones, no legible text.
+- `silkstockings/images/lunch.webp` — A genteel restaurant table for one: oysters on ice, a small chop with cress, a stemmed glass of pale wine, and coffee, in soft afternoon light. Warm amber, inviting, no legible text.
+- `silkstockings/images/matinee.webp` — A plush theatre interior seen from a seat among well-dressed patrons, warm stage light glowing beyond — a woman lost in the afternoon play. Rich red and gold, absorbed mood, no legible text.
+- `silkstockings/images/cablecar.webp` — Inside a 1890s cable car at dusk: a small, pale-faced woman by the window gazing out with quiet longing as the city slides past. Cool blue-amber evening light, bittersweet, no legible text.
