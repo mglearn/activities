@@ -25,3 +25,16 @@ palette per room (noted below).
 - `storyteller/images/pigs.webp` — Several plump pigs of different colors (black with white faces, white with dark spots) rooting contentedly across the flowerless park lawn. Warm, comic, storybook-real, olive/pink tones, no legible text.
 - `storyteller/images/wolf.webp` — A large wolf slipping between park shrubbery, nose low, hunting; tense but not gory. Muted greens and greys, dappled light, no legible text.
 - `storyteller/images/myrtle.webp` — A child's small hand and shoe just visible deep inside a dense bed of glossy myrtle bushes, three tiny medals glinting among the leaves — the instant of betrayal. Close, hushed, green shadow with a spark of brass, no legible text.
+
+---
+
+## The Boarded Window (Bierce) — palette: slate grey, cold blue, candle-amber; gothic
+
+- `boardedwindow/images/hero.webp` — A lonely log cabin in dark frontier forest at night, one window nailed over with rough boards, a single candle glowing inside, and the faint yellow eyes of a panther among the black trees. Slate and cold-blue tones with one warm candle glow, ominous, no legible text.
+- `boardedwindow/images/cabin.webp` — A rough one-room log cabin in a small clearing surrounded by towering dark wilderness, utterly isolated, one boarded window visible. Muted greys and forest green, lonely mood, no legible text.
+- `boardedwindow/images/murlock.webp` — A gaunt, gray, stooped frontier man aged before his time, standing silent in a doorway, hollow-eyed; suggestion of a life emptied by grief. Desaturated, sombre, no legible text.
+- `boardedwindow/images/fever.webp` — A dim bedside: a young woman lying still and pale under a rough blanket, a damp cloth and a guttering candle nearby, the hush of fever. Cold blue shadow, faint amber light, no legible text.
+- `boardedwindow/images/vigil.webp` — A man slumped asleep with his head on his arms at a plank table beside a shrouded still figure, a low candle burning down, deep night around them. Candle-amber against heavy dark, exhaustion and sorrow, no legible text.
+- `boardedwindow/images/window.webp` — An unshuttered cabin window open to a black forest night, curtain stirring, the square of darkness beyond feeling like a threat about to enter. Cold blue-black, tense, no legible text.
+- `boardedwindow/images/panther.webp` — A large panther (cougar) half-inside a dark cabin window, muscles taut, eyes catching candlelight — motion and menace, not gore. Shadowy greys and amber glints, no legible text.
+- `boardedwindow/images/earfragment.webp` — Dawn light on a rough plank floor: a clenched hand and, implied rather than graphic, the evidence of a struggle — a small torn fragment and disturbed dust, telling the terrible truth. Pale grey dawn, restrained, no legible text or gore.
