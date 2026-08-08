@@ -171,8 +171,25 @@ stays typable in every language. Validated: `node -c` all 7 JS; **183/183 UI par
 balanced 4/4 arcade; meta URLs + RI ccss verbatim. Sources: Gutenberg **#815** (Reeve tr., Vol. 1) +
 LibriVox Vol. I. Includes the three-races chapter (slavery / Native removal) — Teacher Guide flags
 teaching it critically. Paraphrase-only. Awaiting image assets, commit/deploy, HTTP verification.
-Remaining long works: **4 of 14** (see `TEXAS_2026_PLAN.md` §B5): Up from Slavery, The Death of Ivan
-Ilyich, The Divine Comedy, Hamlet and His Problems.
+**Eleventh Texas long work — Up from Slavery (2026-08-07).** `upslavery` (Booker T. Washington, PD),
+Eng IV; nonfiction autobiography (RI codes). Full seven-language build. The Tuskegee Archive relic
+room (Virginia plantation, first spelling book, salt-furnace/coal-mine labor, the broom/sweeping
+test, General Armstrong and Hampton, the Tuskegee bricks, "cast down your bucket"); arcade *"A Help
+on the Way Up, or an Obstacle Overcome?"*; extend engages the Washington–Du Bois debate. Validated:
+`node -c` all 7 JS; **183/183 UI parity**; 11 vocab (contexts contain term); 6 locks (answers
+"500"/Tuskegee/Hampton in each pack's final hint); balanced 4/4 arcade; meta URLs + RI ccss verbatim.
+Sources: Gutenberg **#2376** + LibriVox. Teacher Guide flags teaching the self-help-vs-civil-rights
+debate critically. Paraphrase-only. (Built across two sessions: `es` first, other five regenerated
+after a session-limit interruption.) Awaiting image assets, commit/deploy, HTTP verification.
+
+**Deployment (2026-08-07).** Pushed commits `cb12de4..54123a1` to `origin/main` (GitHub Pages): the
+ten seven-language long-work rooms built this run **plus generated artwork** for 14 rooms (7 long
+works: Frankenstein, Pride and Prejudice, Gatsby, Julius Caesar, Scarlet Letter, Hamlet, Great
+Expectations; 7 PD short stories). Walden, Franklin, and Tocqueville render labeled placeholders
+until their art is generated. Up from Slavery deploys with this commit.
+
+Remaining long works: **3 of 14** (see `TEXAS_2026_PLAN.md` §B5): The Death of Ivan Ilyich, The
+Divine Comedy, Hamlet and His Problems.
 
 **Engine fix (2026-08-07).** `assets/room-engine.js` `shuffle()` was a fixed permutation
 (`(i*7+3)%(i+1)`), so the index-0-correct answer always landed in the same visual slot every load.
