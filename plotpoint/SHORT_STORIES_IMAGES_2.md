@@ -90,3 +90,16 @@ palette per room (noted below).
 - `lawoflife/images/moose.webp` — A memory-like, slightly faded scene of an old bull moose at bay in trampled snow, ringed by a wolf pack — motion and endurance, not gore. Wintry greys and browns, dreamlike, no legible text or graphic detail.
 - `lawoflife/images/wolves.webp` — Gaunt grey wolves circling closer around a dying fire at nightfall, eyes catching the last firelight, one drawing near. Cold blue-black with amber eye-glints, tense, no legible text or gore.
 - `lawoflife/images/ember.webp` — A fire sunk to its last faint embers in the snow, a bowed fur-wrapped figure barely lit beside it, darkness closing in — quiet acceptance. Fading amber into deep blue-black, still and final, no legible text.
+
+---
+
+## The Last Leaf (O. Henry) — palette: rainy grey-green, old brick, warm lamplight; tender autumn/winter
+
+- `lastleaf/images/hero.webp` — A rain-streaked studio window in Greenwich Village looking onto an old brick wall where a single ivy leaf clings to a bare vine, a warm lamp glowing inside, and an old painter's ladder just visible below. Grey-green rain and brick with warm interior glow, tender and hopeful, no legible text.
+- `lastleaf/images/studio.webp` — A cozy but shabby top-floor artists' studio: easels, canvases, a small stove, two young women's belongings, a window onto rooftops. Warm muted tones, bohemian, lived-in, no legible text.
+- `lastleaf/images/johnsy.webp` — A pale young woman lying in bed by a window, thin and listless, gazing out at a brick wall, a worried friend at her side. Soft grey daylight, quiet and fragile mood, no legible text.
+- `lastleaf/images/ivy.webp` — An old ivy vine climbing a weathered brick wall, most leaves gone, a few clinging in the autumn wind, seen through a rain-flecked window. Muted green and rusty brick, wistful, no legible text.
+- `lastleaf/images/behrman.webp` — A gruff, white-bearded old painter past sixty in a paint-stained smock, standing among unfinished canvases with a blank main easel — a masterpiece never begun. Warm shadowy studio light, gruff but kindly, no legible text.
+- `lastleaf/images/storm.webp` — A fierce night storm of wind-driven cold rain lashing an old brick wall and a dim lit window above, the ivy vine whipping. Dark blue-grey, streaking rain, ominous, no legible text.
+- `lastleaf/images/lastleaf.webp` — One lone ivy leaf, green edged with yellow, clinging to a bare stem against wet brick after the storm, morning light behind it. Grey brick, one vivid leaf, quietly miraculous, no legible text.
+- `lastleaf/images/masterpiece.webp` — A lantern, a wooden ladder against the brick wall, scattered brushes, and a palette with mixed green and yellow paint on the wet ground beneath the painted leaf — the revealed sacrifice. Rain-dark brick, warm lantern glow, poignant, no legible text.
