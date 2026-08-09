@@ -537,6 +537,13 @@ document.addEventListener('DOMContentLoaded', function(){
   // Respects any active filters/search (so it doubles as a compressed results table).
   var tableOpen = false;
   // Sortable table: click a header to sort (1st click ascending, 2nd descending).
+  // Analysis posters (posters/img/<file>.webp) that pair with a specific room, by room id.
+  var POSTER_BY_ID = {
+    annefrank:'diary-anne-frank', poe:'tell-tale-heart', monkeyspaw:'monkeys-paw',
+    magi:'gift-of-magi', caesar:'julius-caesar', gatsby:'great-gatsby',
+    huckfinn:'huckleberry-finn', scarlet:'scarlet-letter', frankenstein:'frankenstein',
+    canterbury:'canterbury-tales'
+  };
   var tableSort = { key:'title', dir:1 };
   function buildTable(){
     var host = document.getElementById('alltable');
@@ -550,6 +557,7 @@ document.addEventListener('DOMContentLoaded', function(){
       { k:'author', lab: tf('collection.th.author','Author'),   num:false, val:function(x){ return String(x.author||''); } },
       { k:'text',   lab: tf('collection.th.text','Text'),       num:true,  val:function(x){ return x.text?0:1; } },
       { k:'audio',  lab: tf('collection.th.audio','Audio'),     num:true,  val:function(x){ return x.audio?0:1; } },
+      { k:'poster', lab: tf('collection.th.poster','Poster'),   num:true,  val:function(x){ return POSTER_BY_ID[x.id]?0:1; } },
       { k:'rights', lab: tf('facet.rights','Text rights'),      num:false, val:function(x){ return label('rights',x.rights); } }
     ];
     var colByKey={}; COLS.forEach(function(c){ colByKey[c.k]=c; });
@@ -580,6 +588,12 @@ document.addEventListener('DOMContentLoaded', function(){
         ? '<span class="avail yes" title="'+msg+'" aria-label="'+msg+'" style="color:#2e7d32;font-weight:800">✓</span>'
         : '<span class="avail no" title="'+msg+'" aria-label="'+msg+'" style="color:var(--ink-soft)">—</span>';
     }
+    function posterCell(tt){
+      var pf = POSTER_BY_ID[tt.id];
+      if(!pf) return '<span class="avail no" style="color:var(--ink-soft)">—</span>';
+      var lbl = tf('collection.th.poster','Poster');
+      return '<a href="posters/img/'+pf+'.webp" target="_blank" rel="noopener" title="'+esc(lbl)+' — '+esc(tt.title)+'" aria-label="'+esc(lbl)+': '+esc(tt.title)+'" style="text-decoration:none">🖼️</a>';
+    }
     rows.forEach(function(tt){
       var g = (tt.genre||[]).map(function(x){return esc(label('genre',x));}).join(', ');
       var titleCell = tt.status==='live'
@@ -591,6 +605,7 @@ document.addEventListener('DOMContentLoaded', function(){
         '<td>'+esc(tt.author||'')+'</td>'+
         '<td style="text-align:center">'+avail(!!tt.text, tf('collection.th.text','Text'))+'</td>'+
         '<td style="text-align:center">'+avail(!!tt.audio, tf('collection.th.audio','Audio'))+'</td>'+
+        '<td style="text-align:center">'+posterCell(tt)+'</td>'+
         '<td><span class="rgt">'+esc(label('rights',tt.rights))+'</span></td></tr>';
     });
     host.innerHTML = html + '</tbody></table>';
