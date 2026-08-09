@@ -548,12 +548,25 @@ document.addEventListener('DOMContentLoaded', function(){
   // Respects any active filters/search (so it doubles as a compressed results table).
   var tableOpen = false;
   // Sortable table: click a header to sort (1st click ascending, 2nd descending).
-  // Analysis posters (posters/img/<file>.webp) that pair with a specific room, by room id.
+  // Posters pair 1:1 with rooms: posters/img/<room-id>.webp (see posters2_images.md).
   var POSTER_BY_ID = {
-    annefrank:'diary-anne-frank', poe:'tell-tale-heart', monkeyspaw:'monkeys-paw',
-    magi:'gift-of-magi', caesar:'julius-caesar', gatsby:'great-gatsby',
-    huckfinn:'huckleberry-finn', scarlet:'scarlet-letter', frankenstein:'frankenstein',
-    canterbury:'canterbury-tales'
+    metamorphosis:'metamorphosis', myths:'myths', aesop:'aesop', dracula:'dracula', butterflies:'butterflies', annefrank:'annefrank',
+    separate:'separate', between:'between', poe:'poe', kindred:'kindred', bnw:'bnw', canterbury:'canterbury',
+    apology:'apology', cave:'cave', meditations:'meditations', enchiridion:'enchiridion', ethics:'ethics', consolation:'consolation',
+    confessions:'confessions', seneca:'seneca', douglass:'douglass', federalist:'federalist', federalist78:'federalist78', cicero:'cicero',
+    utopia:'utopia', ladytiger:'ladytiger', ransom:'ransom', magi:'magi', lastleaf:'lastleaf', monkeyspaw:'monkeyspaw',
+    cask:'cask', masque:'masque', owlcreek:'owlcreek', boardedwindow:'boardedwindow', bet:'bet', lotteryticket:'lotteryticket',
+    psalm23:'psalm23', beatitudes:'beatitudes', ecclesiastes3:'ecclesiastes3', lamentations3:'lamentations3', love:'love', anxious:'anxious',
+    prodigal:'prodigal', job:'job', eden:'eden', blueandgray:'blueandgray', powerdog:'powerdog', mothertoson:'mothertoson',
+    nothinggold:'nothinggold', omelife:'omelife', ozymandias:'ozymandias', raven:'raven', ifpoem:'ifpoem', wemask:'wemask',
+    toamouse:'toamouse', psalmoflife:'psalmoflife', thanatopsis:'thanatopsis', lightbrigade:'lightbrigade', thesoldier:'thesoldier', prometheus:'prometheus',
+    prufrock:'prufrock', hopefeathers:'hopefeathers', oneandtwenty:'oneandtwenty', whiteheron:'whiteheron', goodmanbrown:'goodmanbrown', blackveil:'blackveil',
+    parsonsdaughter:'parsonsdaughter', openboat:'openboat', gettysburg:'gettysburg', generalorder:'generalorder', newportletter:'newportletter', manarena:'manarena',
+    moonspeech:'moonspeech', fdrinaugural:'fdrinaugural', lyceum:'lyceum', fourfreedoms:'fourfreedoms', yellowwallpaper:'yellowwallpaper', tobuildafire:'tobuildafire',
+    lawoflife:'lawoflife', aftertwenty:'aftertwenty', openwindow:'openwindow', storyteller:'storyteller', interlopers:'interlopers', necklace:'necklace',
+    storyhour:'storyhour', silkstockings:'silkstockings', frankenstein:'frankenstein', pride:'pride', gatsby:'gatsby', huckfinn:'huckfinn',
+    caesar:'caesar', scarlet:'scarlet', hamlet:'hamlet', greatex:'greatex', walden:'walden', franklin:'franklin',
+    tocqueville:'tocqueville', upslavery:'upslavery', ivanilyich:'ivanilyich', dante:'dante', hamletproblems:'hamletproblems'
   };
   var tableSort = { key:'title', dir:1 };
   function buildTable(){
