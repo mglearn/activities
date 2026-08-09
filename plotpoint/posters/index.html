@@ -197,7 +197,7 @@ var POSTERS = [
     dv.innerHTML='<span class="band">Collection</span> One poster per PlotPoint room ('+TT.length+')';
     host.appendChild(dv);
     var nt=document.createElement('p'); nt.className='note';
-    nt.innerHTML='<b>Note:</b> a matching analysis poster for every room in the collection — click a thumbnail to open the full poster.';
+    nt.innerHTML='<b>Note:</b> a matching analysis poster for every room — thumbnails are lightweight previews; full-resolution images and PDFs for all posters live in the <a href="https://drive.google.com/drive/folders/1bFziW4CEweNtKnZDxCNCdxBe0WWsrv9l?usp=sharing" target="_blank" rel="noopener">Google Drive folder</a>.';
     host.appendChild(nt);
     [{gb:'6-8',b:'Grades 6–8',l:'Middle school'},{gb:'9-12',b:'Grades 9–12',l:'High school'}].forEach(function(g){
       var rooms=TT.filter(function(t){return t.gradeBand===g.gb;}).sort(function(a,b){return String(a.title).localeCompare(String(b.title));});
