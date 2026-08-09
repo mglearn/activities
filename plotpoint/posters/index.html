@@ -97,7 +97,7 @@
   <p class="note"><b>Note:</b> Thumbnails here are lightweight previews. For crisp printing, download the full-resolution images and PDFs from the <a href="https://drive.google.com/drive/folders/1bFziW4CEweNtKnZDxCNCdxBe0WWsrv9l?usp=sharing" target="_blank" rel="noopener">Google Drive folder</a>. Grade placements follow common Texas ELAR practice — confirm each title against your campus's adopted texts before printing.</p>
 
   <div class="tally">
-    <div><div class="n">35</div><div class="l">Posters</div></div>
+    <div><div class="n">136</div><div class="l">Posters</div></div>
     <div><div class="n">6–12</div><div class="l">Grades</div></div>
     <div><div class="n">ACE</div><div class="l">On every poster</div></div>
     <div><div class="n">Free</div><div class="l">Images + PDFs</div></div>
@@ -112,6 +112,7 @@
   </footer>
 </div>
 
+<script src="../titles.js"></script>
 <script>
 var POSTERS = [
   { band: "Grades 6", label: "Middle school", items: [
@@ -166,6 +167,7 @@ var POSTERS = [
 ];
 
 (function(){
+  function esc(x){ return String(x==null?'':x).replace(/[&<>"]/g,function(c){return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];}); }
   var host = document.getElementById('gallery');
   POSTERS.forEach(function(group){
     var h = document.createElement('h2'); h.className = 'grade';
@@ -187,6 +189,35 @@ var POSTERS = [
     });
     host.appendChild(list);
   });
+
+  // Room posters — one per live PlotPoint room, rendered from titles.js.
+  var TT = (window.PLOTPOINT_TITLES||[]).filter(function(t){return t.status==='live';});
+  if(TT.length){
+    var dv=document.createElement('h2'); dv.className='grade';
+    dv.innerHTML='<span class="band">Collection</span> One poster per PlotPoint room ('+TT.length+')';
+    host.appendChild(dv);
+    var nt=document.createElement('p'); nt.className='note';
+    nt.innerHTML='<b>Note:</b> a matching analysis poster for every room in the collection — click a thumbnail to open the full poster.';
+    host.appendChild(nt);
+    [{gb:'6-8',b:'Grades 6–8',l:'Middle school'},{gb:'9-12',b:'Grades 9–12',l:'High school'}].forEach(function(g){
+      var rooms=TT.filter(function(t){return t.gradeBand===g.gb;}).sort(function(a,b){return String(a.title).localeCompare(String(b.title));});
+      if(!rooms.length) return;
+      var h=document.createElement('h2'); h.className='grade';
+      h.innerHTML='<span class="band">'+g.b+'</span> '+g.l;
+      host.appendChild(h);
+      var list=document.createElement('div'); list.className='glist';
+      rooms.forEach(function(t){
+        var a=document.createElement('a'); a.className='poster';
+        a.href='img/'+t.id+'.webp'; a.target='_blank'; a.rel='noopener';
+        a.setAttribute('aria-label', t.title+' by '+t.author+' — open full-size poster');
+        a.innerHTML='<div class="imgwrap"><span class="expand">⤢ View</span>'+
+          '<img loading="lazy" src="img/'+t.id+'.webp" alt="Literary analysis poster for '+esc(t.title)+' by '+esc(t.author)+'"></div>'+
+          '<div class="meta"><h3>'+esc(t.title)+'</h3><div class="by">'+esc(t.author)+'</div></div>';
+        list.appendChild(a);
+      });
+      host.appendChild(list);
+    });
+  }
 })();
 </script>
 </body>
