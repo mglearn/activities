@@ -171,6 +171,9 @@
   .card .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
   .card .tags span{font-size:.66rem;font-weight:700;color:var(--plum-d);background:rgba(122,79,206,.09);
     border-radius:100px;padding:3px 9px}
+  .card .tags .postchip{cursor:pointer;color:var(--navy-d);background:rgba(245,197,66,.24);border:1px solid rgba(201,154,18,.45)}
+  .card .tags .postchip:hover{background:rgba(245,197,66,.45)}
+  .card .tags .postchip:focus-visible{outline:2px solid var(--gold-d);outline-offset:2px}
   .card .go{margin-top:12px;font-family:'Fredoka',sans-serif;font-weight:700;font-size:.84rem;color:var(--navy);
     display:inline-flex;align-items:center;gap:6px}
   .card .go .arr{transition:transform .18s}
@@ -458,6 +461,8 @@ document.addEventListener('DOMContentLoaded', function(){
     var extra = [];
     if(tt.printable) extra.push('<span>'+t('tag.printable')+'</span>');
     if(tt.genai==='optional') extra.push('<span>'+t('tag.genai')+'</span>');
+    if(POSTER_BY_ID[tt.id]){ var plab = t('collection.th.poster'); if(!plab||plab==='collection.th.poster') plab='Poster';
+      extra.push('<span class="postchip" role="button" tabindex="0" data-poster="posters/img/'+POSTER_BY_ID[tt.id]+'.webp" title="'+esc(plab)+'" aria-label="'+esc(plab)+'">🖼️ '+esc(plab)+'</span>'); }
     var statusTxt = isLive ? t('status.live') : t('status.soon');
     tag.innerHTML =
       '<div class="top"><span class="grades">'+t('tag.grades',{g:tt.grades})+'</span>'+
@@ -482,6 +487,12 @@ document.addEventListener('DOMContentLoaded', function(){
     var host = document.getElementById('cards');
     host.innerHTML = '';
     PUBLIC_TITLES.forEach(function(tt){ host.appendChild(cardHTML(tt)); });
+    // Poster chips open the paired poster without navigating to the room.
+    Array.prototype.forEach.call(host.querySelectorAll('.postchip'), function(ch){
+      function openPoster(e){ e.preventDefault(); e.stopPropagation(); var u=ch.getAttribute('data-poster'); if(u) window.open(u,'_blank','noopener'); }
+      ch.addEventListener('click', openPoster);
+      ch.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ openPoster(e); } });
+    });
     var nr = document.createElement('p'); nr.className='noresults'; nr.id='noresults'; nr.hidden=true;
     host.appendChild(nr);
     // fill the browse-prompt counts (updates on language change)
