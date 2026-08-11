@@ -38,7 +38,7 @@ window.BREAKOUT = {
    "brief.label": "Your mission",
    "brief.h": "Match the idiom to the moment",
    "brief.p": "Idioms are usually informal. Knowing WHEN to use one — and when to choose plain, formal language — is an advanced skill. Read for register, and compare across languages.",
-   "footer.text": "Idioms & Sayings for Multilingual Learners · A TCEA educator resource · Runs entirely in your browser — no logins, no data collected.",
+   "footer.text": "Idioms & Sayings for Multilingual Learners · An educator resource · Runs entirely in your browser — no logins, no data collected.",
    "footer.disclaimer": "Idioms are studied as language and culture; home languages are welcomed as a resource.",
    "win.stamp": "REGISTER MASTERED",
    "win.h": "You read the room!",

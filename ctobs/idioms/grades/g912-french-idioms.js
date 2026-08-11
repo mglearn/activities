@@ -38,7 +38,7 @@ window.BREAKOUT = {
    "brief.label": "Your mission",
    "brief.h": "Compare French idioms to English",
    "brief.p": "An idiom's meaning is never the sum of its words — in any language. Compare each French idiom's picture to English: sometimes the same (cake), sometimes different (ropes vs. cats), sometimes with no parallel at all. That comparison is the heart of learning a language.",
-   "footer.text": "Idioms & Sayings for Multilingual Learners · A TCEA educator resource · Runs entirely in your browser — no logins, no data collected.",
+   "footer.text": "Idioms & Sayings for Multilingual Learners · An educator resource · Runs entirely in your browser — no logins, no data collected.",
    "footer.disclaimer": "Idioms are studied as language and culture; home languages are welcomed as a resource.",
    "win.stamp": "IDIOMS UNLOCKED",
    "win.h": "Félicitations!",

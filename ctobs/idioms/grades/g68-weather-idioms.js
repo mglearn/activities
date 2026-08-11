@@ -38,7 +38,7 @@ window.BREAKOUT = {
    "brief.label": "Your mission",
    "brief.h": "Read the weather as a metaphor",
    "brief.p": "English uses storms, clouds, and calm to describe moods and moments. Notice the metaphor, use context, and compare across languages.",
-   "footer.text": "Idioms & Sayings for Multilingual Learners · A TCEA educator resource · Runs entirely in your browser — no logins, no data collected.",
+   "footer.text": "Idioms & Sayings for Multilingual Learners · An educator resource · Runs entirely in your browser — no logins, no data collected.",
    "footer.disclaimer": "Idioms are studied as language and culture; home languages are welcomed as a resource.",
    "win.stamp": "FORECAST DECODED",
    "win.h": "Clear skies!",

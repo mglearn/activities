@@ -123,7 +123,7 @@ ${printable ? `    <a class="btn btn-primary" href="../${esc(printable.pdf)}" do
     <a class="btn btn-ghost" href="../printable-coverage.html">Printable coverage</a>
   </div>
 
-  <footer><span data-i18n="footer_copy">Say It, Make It · A TCEA educator resource · CC BY-NC 4.0 (content) · MIT (code)</span></footer>
+  <footer><span data-i18n="footer_copy">Say It, Make It · An educator resource · CC BY-NC 4.0 (content) · MIT (code)</span></footer>
 </main>
 </body>
 </html>`;
@@ -201,7 +201,7 @@ ${printable ? `    <a class="btn btn-primary" href="../${esc(printable.pdf)}" do
   <div id="results">${sections}</div>
   <p class="noresults" id="noresults" hidden data-i18n="no_match">No activities match your search. Try another word or strand.</p>
 
-  <footer><span data-i18n="footer_copy">Say It, Make It · A TCEA educator resource · CC BY-NC 4.0 (content) · MIT (code)</span><br>
+  <footer><span data-i18n="footer_copy">Say It, Make It · An educator resource · CC BY-NC 4.0 (content) · MIT (code)</span><br>
   <span data-i18n="footer_sub">Self-contained · No logins · No data collected · Seven languages · Print-friendly</span><br>
   <a href="printable-coverage.html">Printable coverage</a></footer>
 </main>
@@ -250,7 +250,7 @@ ${printable ? `    <a class="btn btn-primary" href="../${esc(printable.pdf)}" do
     <button class="btn btn-primary" onclick="window.print()" data-i18n="print_btn">Print / Save as PDF</button>
     <a class="btn btn-ghost" href="index.html" data-i18n="all_activities">All activities</a>
   </div>
-  <footer><span data-i18n="footer_copy">Say It, Make It · A TCEA educator resource · CC BY-NC 4.0 (content) · MIT (code)</span></footer>
+  <footer><span data-i18n="footer_copy">Say It, Make It · An educator resource · CC BY-NC 4.0 (content) · MIT (code)</span></footer>
 </main>
 </body>
 </html>`;

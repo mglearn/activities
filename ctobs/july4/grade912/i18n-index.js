@@ -27,7 +27,7 @@ BreakoutI18n.register('july4-g912-index', {
     'links.answer': 'Teacher answer key · all grades (password)',
     'links.privacy': 'Privacy & compliance',
     'links.correlation': 'Correlation guide',
-    footer: 'July 4th Breakouts · Grades 9–12 · A TCEA educator resource · CC BY-NC 4.0 (content) · MIT (code)',
+    footer: 'July 4th Breakouts · Grades 9–12 · An educator resource · CC BY-NC 4.0 (content) · MIT (code)',
   },
   es: {
     crumb: '‹ Breakouts de Pensamiento Crítico del Cuatro de Julio',
@@ -55,7 +55,7 @@ BreakoutI18n.register('july4-g912-index', {
     'links.answer': 'Clave de respuestas · todos los grados (contraseña)',
     'links.privacy': 'Privacidad y cumplimiento',
     'links.correlation': 'Guía de correlación',
-    footer: 'Breakouts del 4 de Julio · Grados 9–12 · Un recurso educativo de TCEA · CC BY-NC 4.0 (contenido) · MIT (código)',
+    footer: 'Breakouts del 4 de Julio · Grados 9–12 · Un recurso educativo · CC BY-NC 4.0 (contenido) · MIT (código)',
   },
   vi: {
     crumb: '‹ Trốn thoát Tư duy Phản biện Ngày 4 tháng 7',
@@ -83,7 +83,7 @@ BreakoutI18n.register('july4-g912-index', {
     'links.answer': 'Đáp án giáo viên · tất cả các lớp (mật khẩu)',
     'links.privacy': 'Quyền riêng tư & tuân thủ',
     'links.correlation': 'Hướng dẫn tương quan',
-    footer: 'Trốn thoát Ngày 4 tháng 7 · Lớp 9–12 · Tài nguyên giáo dục TCEA · CC BY-NC 4.0 (nội dung) · MIT (mã)',
+    footer: 'Trốn thoát Ngày 4 tháng 7 · Lớp 9–12 · Tài nguyên giáo dục · CC BY-NC 4.0 (nội dung) · MIT (mã)',
   },
   ar: {
     crumb: '‹ غرف الإفلات للتفكير النقدي في الرابع من يوليو',
@@ -111,7 +111,7 @@ BreakoutI18n.register('july4-g912-index', {
     'links.answer': 'مفتاح إجابات المعلم · جميع الصفوف (كلمة المرور)',
     'links.privacy': 'الخصوصية والامتثال',
     'links.correlation': 'دليل الارتباط',
-    footer: 'غرف الإفلات في 4 يوليو · الصفوف 9–12 · مورد تعليمي من TCEA · CC BY-NC 4.0 (المحتوى) · MIT (الكود)',
+    footer: 'غرف الإفلات في 4 يوليو · الصفوف 9–12 · مورد تعليمي · CC BY-NC 4.0 (المحتوى) · MIT (الكود)',
   },
   hi: {
     crumb: '‹ चार जुलाई आलोचनात्मक सोच ब्रेकआउट',
@@ -139,7 +139,7 @@ BreakoutI18n.register('july4-g912-index', {
     'links.answer': 'शिक्षक उत्तर कुंजी · सभी कक्षाएँ (पासवर्ड)',
     'links.privacy': 'गोपनीयता और अनुपालन',
     'links.correlation': 'सहसंबंध गाइड',
-    footer: 'चार जुलाई ब्रेकआउट · कक्षाएँ 9–12 · TCEA शिक्षक संसाधन · CC BY-NC 4.0 (सामग्री) · MIT (कोड)',
+    footer: 'चार जुलाई ब्रेकआउट · कक्षाएँ 9–12 · शिक्षक संसाधन · CC BY-NC 4.0 (सामग्री) · MIT (कोड)',
   },
   ur: {
     crumb: '‹ چار جولائی تنقیدی سوچ بریک آؤٹس',
@@ -167,7 +167,7 @@ BreakoutI18n.register('july4-g912-index', {
     'links.answer': 'ٹیچر جواب کی چابی · تمام جماعتیں (پاس ورڈ)',
     'links.privacy': 'رازداری اور تعمیل',
     'links.correlation': 'باہمی تعلق گائیڈ',
-    footer: 'چار جولائی بریک آؤٹس · جماعتیں 9–12 · TCEA تعلیمی وسیلہ · CC BY-NC 4.0 (مواد) · MIT (کوڈ)',
+    footer: 'چار جولائی بریک آؤٹس · جماعتیں 9–12 · تعلیمی وسیلہ · CC BY-NC 4.0 (مواد) · MIT (کوڈ)',
   },
   zh: {
     crumb: '‹ 七月四日批判性思维密室逃脱',
@@ -195,6 +195,6 @@ BreakoutI18n.register('july4-g912-index', {
     'links.answer': '教师答案键 · 所有年级（密码）',
     'links.privacy': '隐私与合规',
     'links.correlation': '对照指南',
-    footer: '七月四日密室逃脱 · 9–12年级 · TCEA教育资源 · CC BY-NC 4.0（内容）· MIT（代码）',
+    footer: '七月四日密室逃脱 · 9–12年级 · 教育资源 · CC BY-NC 4.0（内容）· MIT（代码）',
   },
 });

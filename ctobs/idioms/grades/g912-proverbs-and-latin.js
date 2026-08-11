@@ -38,7 +38,7 @@ window.BREAKOUT = {
    "brief.label": "Your mission",
    "brief.h": "Trace sayings to their meaning and their roots",
    "brief.p": "A proverb is a short, traditional saying that carries a lesson. Some English sayings even come from Latin. Find the meaning, compare it across languages, and notice where it came from.",
-   "footer.text": "Idioms & Sayings for Multilingual Learners · A TCEA educator resource · Runs entirely in your browser — no logins, no data collected.",
+   "footer.text": "Idioms & Sayings for Multilingual Learners · An educator resource · Runs entirely in your browser — no logins, no data collected.",
    "footer.disclaimer": "Idioms are studied as language and culture; home languages are welcomed as a resource.",
    "win.stamp": "SAYINGS UNLOCKED",
    "win.h": "Wisdom decoded!",

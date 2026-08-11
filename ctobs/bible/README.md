@@ -12,7 +12,7 @@ crack a set of reasoning "locks."
 - **Runs entirely in the browser** — no logins, no accounts, no data collected
 - **Free** · CC BY-NC 4.0 (content) · MIT (code)
 
-Author: Miguel Guhlin · a TCEA educator resource.
+Author: Miguel Guhlin · an educator resource.
 
 ---
 

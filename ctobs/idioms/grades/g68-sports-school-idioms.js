@@ -38,7 +38,7 @@ window.BREAKOUT = {
    "brief.label": "Your mission",
    "brief.h": "Name the source and the meaning",
    "brief.p": "You are reading idioms as figurative language — noticing HOW the phrase works, not whether the words are literally true. Find the meaning, use context, and compare across languages.",
-   "footer.text": "Idioms & Sayings for Multilingual Learners · A TCEA educator resource · Runs entirely in your browser — no logins, no data collected.",
+   "footer.text": "Idioms & Sayings for Multilingual Learners · An educator resource · Runs entirely in your browser — no logins, no data collected.",
    "footer.disclaimer": "Idioms are studied as language and culture; home languages are welcomed as a resource.",
    "win.stamp": "IDIOMS DECODED",
    "win.h": "Game, set, match!",

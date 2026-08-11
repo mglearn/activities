@@ -38,7 +38,7 @@ window.BREAKOUT = {
    "brief.label": "Your mission",
    "brief.h": "Figure out what the idioms really mean",
    "brief.p": "An idiom is a phrase whose meaning you cannot get by adding up the words. Notice the trap (the literal picture), find the real meaning, and compare English to Spanish. Your home language is a clue, not a problem!",
-   "footer.text": "Idioms & Sayings for Multilingual Learners · A TCEA educator resource · Runs entirely in your browser — no logins, no data collected.",
+   "footer.text": "Idioms & Sayings for Multilingual Learners · An educator resource · Runs entirely in your browser — no logins, no data collected.",
    "footer.disclaimer": "Idioms are studied as language and culture; home languages are welcomed as a resource.",
    "win.stamp": "IDIOMS UNLOCKED",
    "win.h": "You cracked the code!",

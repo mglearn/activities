@@ -38,7 +38,7 @@ window.BREAKOUT = {
    "brief.label": "Your mission",
    "brief.h": "Trace idioms to their literary roots",
    "brief.p": "Some idioms you use every day were invented by writers — Shakespeare especially. Find the meaning, notice the allusion, and compare across languages.",
-   "footer.text": "Idioms & Sayings for Multilingual Learners · A TCEA educator resource · Runs entirely in your browser — no logins, no data collected.",
+   "footer.text": "Idioms & Sayings for Multilingual Learners · An educator resource · Runs entirely in your browser — no logins, no data collected.",
    "footer.disclaimer": "Idioms are studied as language and culture; home languages are welcomed as a resource.",
    "win.stamp": "ALLUSIONS DECODED",
    "win.h": "You traced the source!",

@@ -23,7 +23,7 @@ const TLANGS = ['es', 'vi', 'ar', 'hi', 'ur', 'zh'];
 const CONFETTI = ['#0e7490', '#0891b2', '#f59e0b', '#22d3ee', '#7c3aed', '#0b5563'];
 const LOCK_COLORS = ['#0e7490', '#0891b2', '#f59e0b', '#7c3aed'];
 const PAD_COLORS = ['#0891b2', '#0b5563', '#22d3ee', '#0e7490'];
-const FOOTER_TEXT = 'Idioms & Sayings for Multilingual Learners · A TCEA educator resource · Runs entirely in your browser — no logins, no data collected.';
+const FOOTER_TEXT = 'Idioms & Sayings for Multilingual Learners · An educator resource · Runs entirely in your browser — no logins, no data collected.';
 const DISCLAIMER = 'Idioms are studied as language and culture; home languages are welcomed as a resource.';
 
 const BANDS = [

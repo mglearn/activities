@@ -38,7 +38,7 @@ window.BREAKOUT = {
    "brief.label": "Your mission",
    "brief.h": "Read colors as feelings",
    "brief.p": "English paints emotions with colors. Notice HOW a color stands for a feeling, use context, and compare across languages — sometimes the color matches, sometimes it changes.",
-   "footer.text": "Idioms & Sayings for Multilingual Learners · A TCEA educator resource · Runs entirely in your browser — no logins, no data collected.",
+   "footer.text": "Idioms & Sayings for Multilingual Learners · An educator resource · Runs entirely in your browser — no logins, no data collected.",
    "footer.disclaimer": "Idioms are studied as language and culture; home languages are welcomed as a resource.",
    "win.stamp": "COLORS DECODED",
    "win.h": "You read between the colors!",

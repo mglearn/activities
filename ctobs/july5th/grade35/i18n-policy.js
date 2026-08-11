@@ -33,7 +33,7 @@ BreakoutI18n.register('july5th-g35-policy', {
     'content.p': 'These activities address the history of slavery, emancipation, and Black freedom observances. Content is written for Grades 3–5 and simplified for that audience; it is designed to be accurate at that level of detail, and teachers are encouraged to add context and nuance in discussion. Standards references describe content that is <em>aligned to</em> the listed strands and are not reproductions of official standard statements. Consistent with Texas Education Code §28.0022, the activities present slavery and racism as failures to live up to the nation\'s founding principles of liberty and equality, and are intended to be taught objectively and free from political bias.',
     'license.h': 'Licensing',
     'license.p': 'Content is shared under <b>CC BY-NC 4.0</b>. Code is shared under the <b>MIT License</b>. You may reuse, adapt, and remix these materials with attribution.',
-    footer: 'Freedom Days Breakouts · Grades 3–5 · A TCEA educator resource · Self-contained, no data collected.',
+    footer: 'Freedom Days Breakouts · Grades 3–5 · An educator resource · Self-contained, no data collected.',
   },
   es: {
     crumb: '‹ Breakouts de los Días de la Libertad · Grados 3–5',
@@ -67,7 +67,7 @@ BreakoutI18n.register('july5th-g35-policy', {
     'content.p': 'Estas actividades abordan la historia de la esclavitud, la emancipación y las celebraciones de la libertad afroamericana. El contenido está escrito para los Grados 3–5 y simplificado para esa audiencia; está diseñado para ser preciso a ese nivel de detalle, y se alienta a los maestros a agregar contexto y matices en la discusión. Las referencias a estándares describen contenido que está <em>alineado con</em> los hilos listados y no son reproducciones de declaraciones de estándares oficiales. Consistente con el Código de Educación de Texas §28.0022, las actividades presentan la esclavitud y el racismo como fracasos en cumplir los principios fundacionales de libertad e igualdad de la nación, y están destinadas a enseñarse de manera objetiva y libre de sesgo político.',
     'license.h': 'Licencias',
     'license.p': 'El contenido se comparte bajo <b>CC BY-NC 4.0</b>. El código se comparte bajo la <b>Licencia MIT</b>. Puede reutilizar, adaptar y mezclar estos materiales con atribución.',
-    footer: 'Freedom Days Breakouts · Grados 3–5 · Un recurso educativo de TCEA · Autocontenido, no se recopilan datos.',
+    footer: 'Freedom Days Breakouts · Grados 3–5 · Un recurso educativo · Autocontenido, no se recopilan datos.',
   },
   vi: {
     crumb: '‹ Bài thoát Ngày Tự do · Lớp 3–5',
@@ -101,7 +101,7 @@ BreakoutI18n.register('july5th-g35-policy', {
     'content.p': 'Các hoạt động này giải quyết lịch sử về chế độ nô lệ, giải phóng và các ngày lễ tự do của người da đen. Nội dung được viết cho Lớp 3–5 và đơn giản hóa cho đối tượng đó; nó được thiết kế để chính xác ở mức độ chi tiết đó, và giáo viên được khuyến khích bổ sung ngữ cảnh và sắc thái trong thảo luận. Các tham chiếu tiêu chuẩn mô tả nội dung <em>phù hợp với</em> các chuỗi được liệt kê và không phải là bản sao của các tuyên bố tiêu chuẩn chính thức. Phù hợp với Bộ luật Giáo dục Texas §28.0022, các hoạt động trình bày chế độ nô lệ và phân biệt chủng tộc là những thất bại trong việc thực hiện các nguyên tắc tự do và bình đẳng của quốc gia, và được dự định dạy một cách khách quan và không thiên vị chính trị.',
     'license.h': 'Cấp phép',
     'license.p': 'Nội dung được chia sẻ theo <b>CC BY-NC 4.0</b>. Mã được chia sẻ theo <b>Giấy phép MIT</b>. Bạn có thể tái sử dụng, điều chỉnh và phối lại các tài liệu này với ghi nhận.',
-    footer: 'Freedom Days Breakouts · Lớp 3–5 · Tài nguyên giáo dục TCEA · Tự chứa, không thu thập dữ liệu.',
+    footer: 'Freedom Days Breakouts · Lớp 3–5 · Tài nguyên giáo dục · Tự chứa, không thu thập dữ liệu.',
   },
   ar: {
     crumb: '‹ أنشطة الهروب في أيام الحرية · الصفوف 3–5',
@@ -135,7 +135,7 @@ BreakoutI18n.register('july5th-g35-policy', {
     'content.p': 'تتناول هذه الأنشطة تاريخ العبودية والتحرر واحتفالات حرية السود. المحتوى مكتوب للصفوف 3–5 ومُبسَّط لتلك الجمهور؛ وهو مصمم ليكون دقيقًا بذلك المستوى من التفاصيل، ويُشجَّع المعلمون على إضافة السياق والفروق الدقيقة في النقاش. تصف مراجع المعايير المحتوى <em>المتوافق مع</em> الخيوط المدرجة وليست نسخًا من بيانات المعايير الرسمية. بما يتسق مع قانون التعليم في تكساس §28.0022، تُقدِّم الأنشطة العبودية والعنصرية باعتبارهما إخفاقات في تحقيق مبادئ الحرية والمساواة التأسيسية للأمة، والمقصود تدريسها بموضوعية وبعيدًا عن التحيز السياسي.',
     'license.h': 'الترخيص',
     'license.p': 'تتم مشاركة المحتوى بموجب <b>CC BY-NC 4.0</b>. يتم مشاركة الكود بموجب <b>رخصة MIT</b>. يمكنك إعادة استخدام هذه المواد وتكييفها ومزجها مع الإسناد.',
-    footer: 'Freedom Days Breakouts · الصفوف 3–5 · مورد تعليمي TCEA · مكتفٍ بذاته، لا تُجمع بيانات.',
+    footer: 'Freedom Days Breakouts · الصفوف 3–5 · مورد تعليمي · مكتفٍ بذاته، لا تُجمع بيانات.',
   },
   hi: {
     crumb: '‹ स्वतंत्रता दिवस ब्रेकआउट · कक्षाएं 3–5',
@@ -169,7 +169,7 @@ BreakoutI18n.register('july5th-g35-policy', {
     'content.p': 'ये गतिविधियां दासता, मुक्ति और अश्वेत स्वतंत्रता समारोहों के इतिहास को संबोधित करती हैं। सामग्री कक्षाओं 3–5 के लिए लिखी गई है और उस दर्शक के लिए सरल की गई है; इसे उस स्तर के विवरण पर सटीक होने के लिए डिज़ाइन किया गया है, और शिक्षकों को चर्चा में संदर्भ और बारीकियां जोड़ने के लिए प्रोत्साहित किया जाता है। मानक संदर्भ उस सामग्री का वर्णन करते हैं जो सूचीबद्ध धाराओं के साथ <em>संरेखित है</em> और आधिकारिक मानक बयानों की प्रतिलिपियां नहीं हैं। Texas Education Code §28.0022 के अनुरूप, गतिविधियां दासता और नस्लवाद को राष्ट्र के स्वतंत्रता और समानता के संस्थापक सिद्धांतों पर खरा न उतरने की विफलताओं के रूप में प्रस्तुत करती हैं, और इन्हें वस्तुनिष्ठ और राजनीतिक पूर्वाग्रह से मुक्त रूप से पढ़ाने का इरादा है।',
     'license.h': 'लाइसेंसिंग',
     'license.p': 'सामग्री <b>CC BY-NC 4.0</b> के तहत साझा की गई है। कोड <b>MIT लाइसेंस</b> के तहत साझा किया गया है। आप इन सामग्रियों को श्रेय के साथ पुनः उपयोग, अनुकूलित और रीमिक्स कर सकते हैं।',
-    footer: 'Freedom Days Breakouts · कक्षाएं 3–5 · एक TCEA शिक्षक संसाधन · स्व-निहित, कोई डेटा एकत्र नहीं।',
+    footer: 'Freedom Days Breakouts · कक्षाएं 3–5 · एक शिक्षक संसाधन · स्व-निहित, कोई डेटा एकत्र नहीं।',
   },
   ur: {
     crumb: '‹ آزادی کے دن بریک آؤٹ · جماعت 3–5',
@@ -203,7 +203,7 @@ BreakoutI18n.register('july5th-g35-policy', {
     'content.p': 'یہ سرگرمیاں غلامی، آزادی اور سیاہ فام آزادی کی تقریبات کی تاریخ کو مخاطب کرتی ہیں۔ مواد جماعت 3–5 کے لیے لکھا گیا ہے اور اس سامعین کے لیے سادہ کیا گیا ہے؛ یہ اس سطح کی تفصیل پر درست ہونے کے لیے ڈیزائن کیا گیا ہے، اور اساتذہ کو بحث میں سیاق و سباق اور باریکیاں شامل کرنے کی ترغیب دی جاتی ہے۔ معیارات کے حوالہ جات ایسے مواد کی وضاحت کرتے ہیں جو درج شدہ دھاگوں کے ساتھ <em>ہم آہنگ ہے</em> اور سرکاری معیاری بیانات کی نقلیں نہیں ہیں۔ Texas Education Code §28.0022 کے مطابق، سرگرمیاں غلامی اور نسل پرستی کو قوم کے آزادی اور مساوات کے بانی اصولوں پر پورا نہ اترنے کی ناکامیوں کے طور پر پیش کرتی ہیں، اور انہیں معروضی اور سیاسی تعصب سے پاک طریقے سے پڑھانے کا ارادہ ہے۔',
     'license.h': 'لائسنسنگ',
     'license.p': 'مواد <b>CC BY-NC 4.0</b> کے تحت مشترکہ ہے۔ کوڈ <b>MIT لائسنس</b> کے تحت مشترکہ ہے۔ آپ ان مواد کو انتساب کے ساتھ دوبارہ استعمال، ڈھال اور ریمکس کر سکتے ہیں۔',
-    footer: 'Freedom Days Breakouts · جماعت 3–5 · ایک TCEA تعلیمی وسیلہ · خود مکتفی، کوئی ڈیٹا اکٹھا نہیں۔',
+    footer: 'Freedom Days Breakouts · جماعت 3–5 · ایک تعلیمی وسیلہ · خود مکتفی، کوئی ڈیٹا اکٹھا نہیں۔',
   },
   zh: {
     crumb: '‹ 自由日密室逃脱 · 3–5年级',
@@ -237,6 +237,6 @@ BreakoutI18n.register('july5th-g35-policy', {
     'content.p': '这些活动涉及奴隶制、解放和黑人自由纪念活动的历史。内容为3–5年级编写并进行了简化；它在该详细程度上设计为准确，鼓励教师在讨论中添加背景和细节。标准参考描述了与所列主线<em>对齐</em>的内容，并非官方标准声明的复制。与得克萨斯教育法典§28.0022一致，这些活动将奴隶制和种族主义呈现为未能实现国家自由与平等立国原则的失败，并旨在以客观、无政治偏见的方式进行教学。',
     'license.h': '许可证',
     'license.p': '内容在<b>CC BY-NC 4.0</b>下共享。代码在<b>MIT许可证</b>下共享。您可以在注明来源的情况下重用、改编和混合这些材料。',
-    footer: 'Freedom Days Breakouts · 3–5年级 · TCEA教育资源 · 自包含，不收集数据。',
+    footer: 'Freedom Days Breakouts · 3–5年级 · 教育资源 · 自包含，不收集数据。',
   },
 });

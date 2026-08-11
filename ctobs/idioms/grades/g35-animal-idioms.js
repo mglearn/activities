@@ -38,7 +38,7 @@ window.BREAKOUT = {
    "brief.label": "Your mission",
    "brief.h": "Find the real meaning behind the animals",
    "brief.p": "An idiom is a phrase whose meaning is not the sum of its words. These use animals — but the meaning is hidden. Find it, and compare English to Spanish. Your home language is a clue!",
-   "footer.text": "Idioms & Sayings for Multilingual Learners · A TCEA educator resource · Runs entirely in your browser — no logins, no data collected.",
+   "footer.text": "Idioms & Sayings for Multilingual Learners · An educator resource · Runs entirely in your browser — no logins, no data collected.",
    "footer.disclaimer": "Idioms are studied as language and culture; home languages are welcomed as a resource.",
    "win.stamp": "IDIOMS UNLOCKED",
    "win.h": "You tamed the idioms!",

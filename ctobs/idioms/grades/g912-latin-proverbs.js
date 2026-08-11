@@ -38,7 +38,7 @@ window.BREAKOUT = {
    "brief.label": "Your mission",
    "brief.h": "Trace Latin sayings and roots across languages",
    "brief.p": "Many English and Romance-language sayings grew from Latin. Read each Latin saying, find what it really means, and follow its roots into Spanish, French, and English. Etymology turns a hard word into a familiar friend.",
-   "footer.text": "Idioms & Sayings for Multilingual Learners · A TCEA educator resource · Runs entirely in your browser — no logins, no data collected.",
+   "footer.text": "Idioms & Sayings for Multilingual Learners · An educator resource · Runs entirely in your browser — no logins, no data collected.",
    "footer.disclaimer": "Idioms are studied as language and culture; home languages are welcomed as a resource.",
    "win.stamp": "ROOTS UNLOCKED",
    "win.h": "Ad astra!",
