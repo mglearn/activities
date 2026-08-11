@@ -33,6 +33,19 @@ The single canonical seven-language engine lives at `ctobs/assets/i18n.js`.
 `Digital Math Tools` and the `Map Puzzle` generator remain in the `tcea` repo
 and are linked root-relative (`/tcea/…`) from the hub.
 
+`Getting to Know You` (`mglearn/gtky`) and `Suffrage Sojourn` (`mglearn/sojourn`)
+are their own repos, deployed to `mglearn.github.io/gtky/` and
+`mglearn.github.io/sojourn/`, and linked root-relative (`/gtky/`, `/sojourn/`)
+from the hub. Suffrage Sojourn is a Vite/React build — its `vite.config.js` sets
+`base: '/sojourn/'`, which must match the repo name.
+
+Sibling repos pull in the hub's licensing footer with
+`<script src="/activities/licensing-footer.js" defer></script>`. The path is
+absolute and same-origin, so it resolves in production but not on a local dev
+server.
+
 ## Licensing
 
-Content CC BY-NC 4.0 · Code MIT.
+Content CC BY-NC 4.0 · Code MIT. `licensing.html` is the authoritative page —
+`licensing-footer.js` links every activity to it. Activities hosted in sibling
+repos are covered by the same terms and are recorded under **Provenance** there.
