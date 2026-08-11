@@ -92,4 +92,4 @@ for the full mapping and source links, and confirm exact codes against your dist
 - **Content:** [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
 - **Code:** MIT (see `LICENSE`)
 
-Attribution: Miguel Guhlin / TCEA.
+Attribution: Miguel Guhlin.

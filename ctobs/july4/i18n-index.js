@@ -2,7 +2,7 @@
    English is the source language. */
 BreakoutI18n.register('july4-index', {
   en: {
-    eyebrow: 'TCEA Educator Resource · Grades 3–12',
+    eyebrow: 'Educator Resource · Grades 3–12',
     h1: 'Fourth of July<br>Critical Thinking Breakouts',
     sub: 'Twelve self-contained history escape activities across three grade bands. Students open clues, weigh evidence, and crack four locks each — building U.S. history knowledge and critical-thinking habits at the same time. No logins, no prep, no data collected.',
     'tally.bands': 'Grade bands',
@@ -44,7 +44,7 @@ BreakoutI18n.register('july4-index', {
     footer: 'Fourth of July Critical Thinking Breakouts · An educator resource · CC BY-NC 4.0 (content) · MIT (code) · No logins, no data collected.',
   },
   es: {
-    eyebrow: 'Recurso educativo de TCEA · Grados 3–12',
+    eyebrow: 'Recurso educativo · Grados 3–12',
     h1: 'Breakouts de Pensamiento Crítico<br>del Cuatro de Julio',
     sub: 'Doce actividades de escape histórico independientes para tres bandas de grado. Los estudiantes abren pistas, evalúan la evidencia y descifran cuatro candados cada uno — construyendo conocimiento de historia de EE. UU. y hábitos de pensamiento crítico al mismo tiempo. Sin cuentas, sin preparación, sin datos recopilados.',
     'tally.bands': 'Bandas de grado',

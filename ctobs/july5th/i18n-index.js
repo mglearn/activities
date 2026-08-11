@@ -3,7 +3,7 @@
 BreakoutI18n.register('july5th-index', {
   en: {
     'hero.aria': 'A rising sun over a green field — a new day of freedom',
-    eyebrow: 'TCEA Educator Resource · Grades 3–12',
+    eyebrow: 'Educator Resource · Grades 3–12',
     h1: 'July 5 <span class="accent">&amp;</span> Other Black<br>Freedom Holidays',
     sub: 'Twelve self-contained critical thinking breakouts across three grade bands. Students open clues, weigh evidence, and crack four locks each — exploring the freedom days the national calendar often overlooks, from Frederick Douglass\'s July 5 address to Juneteenth, Pinkster, Watch Night, and more. No logins, no prep, no data collected.',
     'tally.bands': 'Grade bands',
@@ -45,7 +45,7 @@ BreakoutI18n.register('july5th-index', {
   },
   es: {
     'hero.aria': 'Un sol naciente sobre un campo verde — un nuevo día de libertad',
-    eyebrow: 'Recurso educativo de TCEA · Grados 3–12',
+    eyebrow: 'Recurso educativo · Grados 3–12',
     h1: '5 de julio <span class="accent">&amp;</span> Otros días festivos de la libertad negra',
     sub: 'Doce actividades de pensamiento crítico independientes en tres bandas de grado. Los estudiantes abren pistas, evalúan la evidencia y abren cuatro candados — explorando los días de libertad que el calendario nacional suele pasar por alto, desde el discurso del 5 de julio de Frederick Douglass hasta Juneteenth, Pinkster, Watch Night y más. Sin cuentas, sin preparación, sin datos recopilados.',
     'tally.bands': 'Bandas de grado',
