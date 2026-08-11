@@ -27,6 +27,29 @@ The single canonical seven-language engine lives at `ctobs/assets/i18n.js`.
 
 - CTOB catalog:  `node ctobs/build-catalog.js`
 - CTOB catalog i18n:  `node ctobs/build-catalog-i18n.js`
+- Hub search index:  `node build-search-index.js`
+
+## Hub search
+
+The landing-page search filters the area cards. A card on its own only knows its
+own title, blurb, and `data-kw`, so searching for something plainly inside an
+area — `photosynthesis`, `Shakespeare` — used to return "No areas match", which
+reads as *the hub does not have this*.
+
+`build-search-index.js` harvests what each area actually contains (the CTOB
+catalog's `kw` blobs, the math catalog, and the pages themselves including
+inline `<script>` data) and writes `search-index.js`:
+
+```js
+window.HUB_SEARCH = { "<card href>": "<searchable text>" }
+```
+
+`index.html` loads it deferred and folds each entry into that card's search
+haystack on first search, so the page works with or without it. **Re-run it after
+adding, renaming, or removing activities**, or the search silently goes stale.
+
+`gtky/` and `sojourn/` are in their own repos and are not on disk here, so they
+keep hand-written `data-kw` in `index.html` instead.
 
 ## External links
 
