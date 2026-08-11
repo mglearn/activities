@@ -89,7 +89,7 @@ for the full mapping and source links, and confirm exact codes against your dist
 
 ## License
 
-- **Content:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Content:** [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
 - **Code:** MIT (see `LICENSE`)
 
 Attribution: Miguel Guhlin / TCEA.

@@ -4,7 +4,7 @@
 **Part of:** the Learning Activities Hub (`/activities/`)
 **Audience:** Texas K–12 teachers; STEM-forward, cross-curricular usable
 **Alignment:** 2021-adopted Science TEKS (implemented 2024–25), Math TEKS, and NGSS where a clean mapping exists
-**Author:** Miguel Guhlin · Content CC BY 4.0 · Code MIT
+**Author:** Miguel Guhlin · Content CC BY-NC 4.0 · Code MIT
 
 ---
 
@@ -183,6 +183,6 @@ finished units.
 
 - Design tokens (`--navy #054c8c`, `--gold #fbd239`, `--paper #f4f8fc`, …), Fredoka + Nunito fonts,
   `.card` / `.topbar` / hero patterns — copied from `lab-safety`.
-- Footer: `CC BY 4.0 (content) · MIT (code) · Miguel Guhlin`.
+- Footer: `CC BY-NC 4.0 (content) · MIT (code) · Miguel Guhlin`.
 - `data-i18n` attributes for all user-facing chrome; dictionaries in `assets/i18n-*.js`.
 - No PDFs committed; print via browser. No logins; no analytics.

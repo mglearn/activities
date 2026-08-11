@@ -30,5 +30,5 @@ Each breakout uses four locks; grades 6–8 adds a fifth:
 Drop the whole folder on any static host (GitHub Pages, district server) or embed `student.html` via iframe in Google Sites. Keep `answer-key.html` out of student-facing links.
 
 ## License
-Dual: **CC BY 4.0** for content, **MIT** for code. See `LICENSE`.
-Attribution: "Critical Thinking Breakouts by Miguel Guhlin (TCEA), CC BY 4.0."
+Dual: **CC BY-NC 4.0** for content, **MIT** for code. See `LICENSE`.
+Attribution: "Critical Thinking Breakouts by Miguel Guhlin (TCEA), CC BY-NC 4.0."

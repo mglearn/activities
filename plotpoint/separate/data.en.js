@@ -186,7 +186,7 @@ window.__ROOM__ = {
       textAccess: "Students need lawful access to their own copy of the book (print, e-book, or licensed read-aloud). This activity does not reproduce or replace the book.",
       copyright: "Separate Is Never Equal is under copyright. This is an independent educational companion; it quotes no passages and links to no copy of the text.",
       contentNote: "The book tells a true story of racial discrimination and school segregation. It handles prejudice honestly at an age-appropriate level. Preview and align with local policy.",
-      disclaimer: "This activity is an independent educational companion to Separate Is Never Equal by Duncan Tonatiuh. Students need lawful access to the book. The activity does not reproduce or replace the book. It is not affiliated with or endorsed by the author or publisher. Original activity content is licensed under CC BY 4.0. Separate Is Never Equal, its illustrations, and any quoted passages remain the property of their respective copyright owner and are excluded from this license.",
+      disclaimer: "This activity is an independent educational companion to Separate Is Never Equal by Duncan Tonatiuh. Students need lawful access to the book. The activity does not reproduce or replace the book. It is not affiliated with or endorsed by the author or publisher. Original activity content is licensed under CC BY-NC 4.0. Separate Is Never Equal, its illustrations, and any quoted passages remain the property of their respective copyright owner and are excluded from this license.",
       hero: "images/hero.webp",
       heroAlt: "An instructional illustration evoking Separate Is Never Equal — two very different schoolhouses side by side, one grand and one plain, in a 1940s California town."
     },

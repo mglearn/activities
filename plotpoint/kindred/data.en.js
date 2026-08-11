@@ -185,7 +185,7 @@ window.__ROOM__ = {
       textAccess: "Students need lawful access to their own copy of the novel (print, e-book, or licensed audiobook). This activity does not reproduce or replace the book.",
       copyright: "Kindred is under copyright. This is an independent educational companion; it quotes no passages and links to no copy of the text.",
       contentNote: "Kindred confronts the brutality of American slavery, including violence and whippings, sexual coercion, and a character's suicide. Preview carefully, prepare students, and align with local policy.",
-      disclaimer: "This activity is an independent educational companion to Kindred by Octavia E. Butler. Students need lawful access to the novel. The activity does not reproduce or replace the book. It is not affiliated with or endorsed by the author's estate or publisher. Original activity content is licensed under CC BY 4.0. Kindred, its characters, and any quoted passages remain the property of their respective copyright owner and are excluded from this license.",
+      disclaimer: "This activity is an independent educational companion to Kindred by Octavia E. Butler. Students need lawful access to the novel. The activity does not reproduce or replace the book. It is not affiliated with or endorsed by the author's estate or publisher. Original activity content is licensed under CC BY-NC 4.0. Kindred, its characters, and any quoted passages remain the property of their respective copyright owner and are excluded from this license.",
       hero: "images/hero.webp",
       heroAlt: "An instructional illustration evoking Kindred — a modern doorway opening onto an antebellum plantation landscape."
     },

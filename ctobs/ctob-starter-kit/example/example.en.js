@@ -25,7 +25,7 @@ window.BREAKOUT = {
       'win.h': 'Nice reasoning!',
       'win.p': 'You traced the whole water cycle using only the evidence.',
       'footer.text': 'Example CTOB · Runs in your browser — no logins, no data collected.',
-      'footer.disclaimer': 'A template example distributed with the CTOB Starter Kit. Content CC BY 4.0.',
+      'footer.disclaimer': 'A template example distributed with the CTOB Starter Kit. Content CC BY-NC 4.0.',
       'crumb.teacher': '‹ Example hub',
       'crumb.suite': 'CTOB Starter Kit',
       'ui.reset': '↺ Start over',

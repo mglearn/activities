@@ -309,5 +309,5 @@ Learning phases: `--surface:#2f6fe0 · --deep:#7c4fbf · --transfer:#c2410c` (ea
 
 *Distilled from the TCEA Problem-Solving Teaching suite (18 grades-3–8 units + a five-unit HS US-History course,
 an ACE Image-Inquiry routine, and 138 arcade tickets — all 7 languages, each with UDL/ELPS/lesson-plan
-teacher-support pages). Content CC BY 4.0; code MIT. Standards are "aligned to," not reproduced from,
+teacher-support pages). Content CC BY-NC 4.0; code MIT. Standards are "aligned to," not reproduced from,
 official standards — confirm before adoption; not legal advice.*

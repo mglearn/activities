@@ -46,4 +46,4 @@ splash, hero, PD pages, card chrome, all 18 unit bodies, the HS course, and the 
 `info/` holds source material only (PBL method, effect-size evidence, rubrics, TEKS PDFs) and is
 **git-ignored — never deployed**.
 
-Content CC BY 4.0 · code MIT · aligned to (not reproduced from) 19 TAC Ch.113.
+Content CC BY-NC 4.0 · code MIT · aligned to (not reproduced from) 19 TAC Ch.113.

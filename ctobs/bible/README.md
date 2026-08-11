@@ -10,7 +10,7 @@ crack a set of reasoning "locks."
 - **31 breakouts across 4 grade bands** (K–2, 3–5, 6–8, 9–12) — includes full coverage of the 2025 required-list Bible items
 - **7 languages** with RTL support (en, es, vi, ar, hi, ur, zh)
 - **Runs entirely in the browser** — no logins, no accounts, no data collected
-- **Free** · CC BY 4.0 (content) · MIT (code)
+- **Free** · CC BY-NC 4.0 (content) · MIT (code)
 
 Author: Miguel Guhlin · a TCEA educator resource.
 
@@ -248,6 +248,6 @@ COPPA, the Texas SCOPE Act, TEC §32.151–32.156, GDPR, and CIPA.
 
 ## License
 
-Content: **CC BY 4.0** · Code: **MIT**. Bible stories are studied as the literary/historical texts Texas
+Content: **CC BY-NC 4.0** · Code: **MIT**. Bible stories are studied as the literary/historical texts Texas
 adopted; TEKS citations in `correlation.html` are good-faith, paraphrased alignment references — confirm
 against the current 19 TAC Chapter 110 before formal adoption.

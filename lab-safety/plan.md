@@ -3,7 +3,7 @@
 **Deploy target:** `https://mglearn.github.io/activities/lab-safety/`
 **Audience:** Texas science students, grades 6–12
 **Alignment:** 2021-adopted science TEKS (implemented 2024–25)
-**Author:** Miguel Guhlin · Content CC BY 4.0 · Code MIT
+**Author:** Miguel Guhlin · Content CC BY-NC 4.0 · Code MIT
 
 ---
 

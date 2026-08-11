@@ -126,5 +126,5 @@ node gen-pd-pages.js   # → <suite>/udl.html, elps.html, guide.html
 
 *Distilled from the TCEA Problem-Solving Teaching suite — 18 units across grades 3–8 plus a five-unit High-School
 US-History course, an ACE Image-Inquiry routine, and 138 arcade tickets, all in
-7 languages with UDL/ELPS/lesson-plan teacher-support pages. Content CC BY 4.0; code MIT. Standards
+7 languages with UDL/ELPS/lesson-plan teacher-support pages. Content CC BY-NC 4.0; code MIT. Standards
 are "aligned to," not reproduced from, official standards — confirm before adoption; not legal advice.*

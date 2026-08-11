@@ -84,4 +84,4 @@ languages, linked from `correlation.html` and the hub. Built from the shared cor
   breakout (win fires, no console errors) in English + a non-English + an RTL language.
 
 Standards are **aligned to**, not reproduced from, the official TEKS — good-faith paraphrase,
-confirm before adoption, not legal advice. Content CC BY 4.0; code MIT.
+confirm before adoption, not legal advice. Content CC BY-NC 4.0; code MIT.

@@ -29,7 +29,7 @@ BreakoutI18n.register('july5th-g68-index', {
     'links.correlation': 'Correlation guide',
     'edu.h': '📋 For educators — standards & classroom use',
     'edu.p': 'These activities are written for Texas classrooms and aligned to the 2022 Social Studies TEKS. Consistent with <b>Texas Education Code §28.0022</b>, they present slavery and racism as <em>failures to live up to the nation\'s founding principles of liberty and equality</em> — the argument Frederick Douglass made on July 5, 1852 — and are designed to be explored <b>objectively and free from political bias</b>. Students reason from primary-source evidence. No accounts, no logins, and no student data are collected. See the <a href="../correlation.html" style="color:#0f7a5a;font-weight:700;text-decoration:none">correlation guide</a> for full alignment; this is a supporting resource, not legal advice.',
-    footer: 'Freedom Days Breakouts · Grades 6–8 · A TCEA educator resource · CC BY 4.0 (content) · MIT (code)',
+    footer: 'Freedom Days Breakouts · Grades 6–8 · A TCEA educator resource · CC BY-NC 4.0 (content) · MIT (code)',
   },
   es: {
     crumb: '‹ Breakouts de Pensamiento Crítico sobre los Días de la Libertad',
@@ -59,7 +59,7 @@ BreakoutI18n.register('july5th-g68-index', {
     'links.correlation': 'Guía de correlación',
     'edu.h': '📋 Para educadores — estándares y uso en el aula',
     'edu.p': 'Estas actividades están escritas para las aulas de Texas y alineadas con los TEKS de Estudios Sociales de 2022. De acuerdo con el <b>Código de Educación de Texas §28.0022</b>, presentan la esclavitud y el racismo como <em>fracasos en cumplir los principios fundacionales de libertad e igualdad de la nación</em> — el argumento que Frederick Douglass expuso el 5 de julio de 1852 — y están diseñadas para explorarse <b>de manera objetiva y libre de sesgo político</b>. Los estudiantes razonan a partir de evidencia de fuentes primarias. No se crean cuentas, no hay inicios de sesión y no se recopilan datos de los estudiantes. Consulta la <a href="../correlation.html" style="color:#0f7a5a;font-weight:700;text-decoration:none">guía de correlación</a> para la alineación completa; este es un recurso de apoyo, no asesoría legal.',
-    footer: 'Freedom Days Breakouts · Grados 6–8 · Un recurso educativo de TCEA · CC BY 4.0 (contenido) · MIT (código)',
+    footer: 'Freedom Days Breakouts · Grados 6–8 · Un recurso educativo de TCEA · CC BY-NC 4.0 (contenido) · MIT (código)',
   },
   vi: {
     crumb: '‹ Bài thoát tư duy phản biện về Ngày Tự do',
@@ -89,7 +89,7 @@ BreakoutI18n.register('july5th-g68-index', {
     'links.correlation': 'Hướng dẫn tương quan',
     'edu.h': '📋 Dành cho giáo viên — tiêu chuẩn & sử dụng trong lớp',
     'edu.p': 'Các hoạt động này được viết cho các lớp học ở Texas và phù hợp với TEKS Nghiên cứu Xã hội 2022. Phù hợp với <b>Bộ luật Giáo dục Texas §28.0022</b>, chúng trình bày chế độ nô lệ và phân biệt chủng tộc là <em>những thất bại trong việc thực hiện các nguyên tắc tự do và bình đẳng của quốc gia</em> — lập luận Frederick Douglass đưa ra ngày 5 tháng 7 năm 1852 — và được thiết kế để khám phá <b>một cách khách quan và không thiên vị chính trị</b>. Học sinh lập luận từ bằng chứng nguồn gốc đầu. Không có tài khoản, không đăng nhập, và không thu thập dữ liệu học sinh. Xem <a href="../correlation.html" style="color:#0f7a5a;font-weight:700;text-decoration:none">hướng dẫn tương quan</a> để biết thông tin đầy đủ; đây là tài nguyên hỗ trợ, không phải tư vấn pháp lý.',
-    footer: 'Freedom Days Breakouts · Lớp 6–8 · Tài nguyên giáo dục TCEA · CC BY 4.0 (nội dung) · MIT (mã)',
+    footer: 'Freedom Days Breakouts · Lớp 6–8 · Tài nguyên giáo dục TCEA · CC BY-NC 4.0 (nội dung) · MIT (mã)',
   },
   ar: {
     crumb: '‹ أنشطة الهروب في التفكير النقدي حول أيام الحرية',
@@ -119,7 +119,7 @@ BreakoutI18n.register('july5th-g68-index', {
     'links.correlation': 'دليل الارتباط',
     'edu.h': '📋 للمعلمين — المعايير والاستخدام الصفي',
     'edu.p': 'كُتبت هذه الأنشطة للفصول الدراسية في تكساس وتتوافق مع TEKS للدراسات الاجتماعية لعام 2022. وفقاً لـ<b>قانون التعليم في تكساس §28.0022</b>، تُقدِّم العبودية والعنصرية باعتبارهما <em>إخفاقات في تحقيق مبادئ الحرية والمساواة التأسيسية للأمة</em> — الحجة التي قدّمها Frederick Douglass في 5 يوليو 1852 — وهي مصممة للاستكشاف <b>بموضوعية وبعيداً عن التحيز السياسي</b>. يستدل الطلاب من أدلة المصادر الأولية. لا حسابات، لا دخول، ولا تُجمع بيانات الطلاب. راجع <a href="../correlation.html" style="color:#0f7a5a;font-weight:700;text-decoration:none">دليل الارتباط</a> للتوافق الكامل؛ هذا مورد داعم وليس استشارة قانونية.',
-    footer: 'Freedom Days Breakouts · الصفوف 6–8 · مورد تعليمي TCEA · CC BY 4.0 (المحتوى) · MIT (الكود)',
+    footer: 'Freedom Days Breakouts · الصفوف 6–8 · مورد تعليمي TCEA · CC BY-NC 4.0 (المحتوى) · MIT (الكود)',
   },
   hi: {
     crumb: '‹ स्वतंत्रता दिवसों पर आलोचनात्मक सोच ब्रेकआउट',
@@ -149,7 +149,7 @@ BreakoutI18n.register('july5th-g68-index', {
     'links.correlation': 'सहसंबंध गाइड',
     'edu.h': '📋 शिक्षकों के लिए — मानक और कक्षा उपयोग',
     'edu.p': 'ये गतिविधियां Texas के कक्षाओं के लिए लिखी गई हैं और 2022 सामाजिक अध्ययन TEKS के अनुरूप हैं। <b>Texas Education Code §28.0022</b> के अनुसार, वे दासता और नस्लवाद को <em>राष्ट्र के स्वतंत्रता और समानता के संस्थापक सिद्धांतों पर खरा न उतरने की विफलताओं</em> के रूप में प्रस्तुत करती हैं — वह तर्क जो Frederick Douglass ने 5 जुलाई 1852 को दिया था — और इन्हें <b>वस्तुनिष्ठ और राजनीतिक पूर्वाग्रह से मुक्त</b> रूप से खोजने के लिए डिज़ाइन किया गया है। छात्र प्राथमिक-स्रोत साक्ष्य से तर्क करते हैं। कोई खाते नहीं, कोई लॉगिन नहीं, और कोई छात्र डेटा एकत्र नहीं किया जाता। पूर्ण संरेखण के लिए <a href="../correlation.html" style="color:#0f7a5a;font-weight:700;text-decoration:none">सहसंबंध गाइड</a> देखें; यह एक सहायक संसाधन है, कानूनी सलाह नहीं।',
-    footer: 'Freedom Days Breakouts · कक्षाएं 6–8 · एक TCEA शिक्षक संसाधन · CC BY 4.0 (सामग्री) · MIT (कोड)',
+    footer: 'Freedom Days Breakouts · कक्षाएं 6–8 · एक TCEA शिक्षक संसाधन · CC BY-NC 4.0 (सामग्री) · MIT (कोड)',
   },
   ur: {
     crumb: '‹ آزادی کے دنوں پر تنقیدی سوچ کی بریک آؤٹ سرگرمیاں',
@@ -179,7 +179,7 @@ BreakoutI18n.register('july5th-g68-index', {
     'links.correlation': 'ہم آہنگی گائیڈ',
     'edu.h': '📋 اساتذہ کے لیے — معیارات اور کلاس میں استعمال',
     'edu.p': 'یہ سرگرمیاں Texas کے کلاس رومز کے لیے لکھی گئی ہیں اور 2022 سماجی علوم TEKS کے مطابق ہیں۔ <b>Texas Education Code §28.0022</b> کے مطابق، وہ غلامی اور نسل پرستی کو <em>قوم کے آزادی اور مساوات کے بانی اصولوں پر پورا نہ اترنے کی ناکامیوں</em> کے طور پر پیش کرتی ہیں — وہ دلیل جو Frederick Douglass نے 5 جولائی 1852 کو دی تھی — اور انہیں <b>معروضی اور سیاسی تعصب سے پاک</b> طریقے سے دریافت کرنے کے لیے ڈیزائن کیا گیا ہے۔ طلبہ بنیادی ماخذ کے شواہد سے استدلال کرتے ہیں۔ کوئی اکاؤنٹ نہیں، کوئی لاگ ان نہیں، اور کوئی طالب علم ڈیٹا اکٹھا نہیں کیا جاتا۔ مکمل ہم آہنگی کے لیے <a href="../correlation.html" style="color:#0f7a5a;font-weight:700;text-decoration:none">ہم آہنگی گائیڈ</a> دیکھیں؛ یہ ایک معاون وسیلہ ہے، قانونی مشورہ نہیں۔',
-    footer: 'Freedom Days Breakouts · جماعت 6–8 · ایک TCEA تعلیمی وسیلہ · CC BY 4.0 (مواد) · MIT (کوڈ)',
+    footer: 'Freedom Days Breakouts · جماعت 6–8 · ایک TCEA تعلیمی وسیلہ · CC BY-NC 4.0 (مواد) · MIT (کوڈ)',
   },
   zh: {
     crumb: '‹ 自由日批判性思维密室逃脱',
@@ -209,6 +209,6 @@ BreakoutI18n.register('july5th-g68-index', {
     'links.correlation': '课程对应指南',
     'edu.h': '📋 教育者须知——标准与课堂使用',
     'edu.p': '这些活动专为得克萨斯州课堂编写，与2022年社会研究TEKS相符。依据<b>得克萨斯教育法典§28.0022</b>，它们将奴隶制和种族主义呈现为<em>未能实现国家自由与平等立国原则的失败</em>——这正是Frederick Douglass于1852年7月5日所提出的论点——并设计为<b>客观探索、不带政治偏见</b>。学生基于一手资料进行推理。无账户、无登录、不收集学生数据。请查阅<a href="../correlation.html" style="color:#0f7a5a;font-weight:700;text-decoration:none">课程对应指南</a>了解完整对应关系；本资源仅供参考，不构成法律建议。',
-    footer: 'Freedom Days Breakouts · 6–8年级 · TCEA教育资源 · CC BY 4.0（内容）· MIT（代码）',
+    footer: 'Freedom Days Breakouts · 6–8年级 · TCEA教育资源 · CC BY-NC 4.0（内容）· MIT（代码）',
   },
 });

@@ -328,5 +328,5 @@ translation. **Fold the arcade engine into the PST Project Pack (§6)** as a reu
 
 ---
 
-*Content CC BY 4.0; code MIT. Aligned to the Texas Essential Knowledge and Skills for Social Studies
+*Content CC BY-NC 4.0; code MIT. Aligned to the Texas Essential Knowledge and Skills for Social Studies
 (19 TAC Ch.113); paraphrased in good faith. Effect sizes from Visible Learning MetaX.*

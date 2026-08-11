@@ -32,7 +32,7 @@ BreakoutI18n.register('july4-g35-policy', {
     'content.h': 'Content & accuracy note',
     'content.p': 'Historical content is written for grades 3–5 and simplified for that audience. It is designed to be accurate at that level of detail; teachers are encouraged to expand and add nuance in discussion. Standards references describe content that is <em>aligned to</em> the listed strands and are not reproductions of official standard statements.',
     'lic.h': 'Licensing',
-    'lic.p': 'Content is shared under <b>CC BY 4.0</b>. Code is shared under the <b>MIT License</b>. You may reuse, adapt, and remix these materials with attribution.',
+    'lic.p': 'Content is shared under <b>CC BY-NC 4.0</b>. Code is shared under the <b>MIT License</b>. You may reuse, adapt, and remix these materials with attribution.',
     footer: 'July 4th Breakouts · Grades 3–5 · A TCEA educator resource · Self-contained, no data collected.',
   },
   es: {
@@ -66,7 +66,7 @@ BreakoutI18n.register('july4-g35-policy', {
     'content.h': 'Nota sobre el contenido y la precisión',
     'content.p': 'El contenido histórico está escrito para los grados 3–5 y simplificado para esa audiencia. Está diseñado para ser preciso en ese nivel de detalle; se alienta a los maestros a ampliar y agregar matices en la discusión. Las referencias a estándares describen contenido que está <em>alineado con</em> los criterios enumerados y no son reproducciones de declaraciones oficiales de estándares.',
     'lic.h': 'Licencias',
-    'lic.p': 'El contenido se comparte bajo <b>CC BY 4.0</b>. El código se comparte bajo la <b>Licencia MIT</b>. Puede reutilizar, adaptar y mezclar estos materiales con atribución.',
+    'lic.p': 'El contenido se comparte bajo <b>CC BY-NC 4.0</b>. El código se comparte bajo la <b>Licencia MIT</b>. Puede reutilizar, adaptar y mezclar estos materiales con atribución.',
     footer: 'Breakouts del 4 de Julio · Grados 3–5 · Un recurso educativo de TCEA · Autocontenido, no se recopilan datos.',
   },
   vi: {
@@ -100,7 +100,7 @@ BreakoutI18n.register('july4-g35-policy', {
     'content.h': 'Ghi chú về nội dung & độ chính xác',
     'content.p': 'Nội dung lịch sử được viết cho lớp 3–5 và được đơn giản hóa cho đối tượng đó. Nó được thiết kế để chính xác ở mức độ chi tiết đó; giáo viên được khuyến khích mở rộng và thêm sắc thái trong thảo luận. Các tham chiếu tiêu chuẩn mô tả nội dung <em>phù hợp với</em> các chủ đề được liệt kê và không phải là bản sao của các tuyên bố tiêu chuẩn chính thức.',
     'lic.h': 'Giấy phép',
-    'lic.p': 'Nội dung được chia sẻ theo <b>CC BY 4.0</b>. Mã được chia sẻ theo <b>Giấy phép MIT</b>. Bạn có thể tái sử dụng, điều chỉnh và phối lại các tài liệu này với sự ghi nhận.',
+    'lic.p': 'Nội dung được chia sẻ theo <b>CC BY-NC 4.0</b>. Mã được chia sẻ theo <b>Giấy phép MIT</b>. Bạn có thể tái sử dụng, điều chỉnh và phối lại các tài liệu này với sự ghi nhận.',
     footer: 'Trốn thoát Ngày 4 tháng 7 · Lớp 3–5 · Tài nguyên giáo dục TCEA · Độc lập, không thu thập dữ liệu.',
   },
   ar: {
@@ -134,7 +134,7 @@ BreakoutI18n.register('july4-g35-policy', {
     'content.h': 'ملاحظة حول المحتوى والدقة',
     'content.p': 'كُتب المحتوى التاريخي للصفوف 3–5 ومُبسَّط لهذا الجمهور. وهو مصمم ليكون دقيقًا عند ذلك المستوى من التفاصيل؛ ويُشجَّع المعلمون على التوسع وإضافة الدقة في النقاش. تصف مراجع المعايير محتوى <em>متوافقًا مع</em> الخيوط المدرجة وليست نسخًا من البيانات الرسمية للمعايير.',
     'lic.h': 'الترخيص',
-    'lic.p': 'المحتوى مشترك بموجب <b>CC BY 4.0</b>. الكود مشترك بموجب <b>رخصة MIT</b>. يمكنك إعادة الاستخدام والتكيف وإعادة المزج لهذه المواد مع الإسناد.',
+    'lic.p': 'المحتوى مشترك بموجب <b>CC BY-NC 4.0</b>. الكود مشترك بموجب <b>رخصة MIT</b>. يمكنك إعادة الاستخدام والتكيف وإعادة المزج لهذه المواد مع الإسناد.',
     footer: 'غرف الإفلات في الرابع من يوليو · الصفوف 3–5 · مورد تعليمي من TCEA · مكتفٍ بذاته، لا بيانات تُجمع.',
   },
   hi: {
@@ -168,7 +168,7 @@ BreakoutI18n.register('july4-g35-policy', {
     'content.h': 'सामग्री और सटीकता नोट',
     'content.p': 'ऐतिहासिक सामग्री कक्षा 3–5 के लिए लिखी गई है और उस दर्शक वर्ग के लिए सरल बनाई गई है। यह उस विवरण स्तर पर सटीक होने के लिए डिज़ाइन की गई है; शिक्षकों को चर्चा में विस्तार करने और सूक्ष्मताएँ जोड़ने के लिए प्रोत्साहित किया जाता है। मानक संदर्भ उस सामग्री का वर्णन करते हैं जो सूचीबद्ध किस्सों के साथ <em>संरेखित</em> है और आधिकारिक मानक वक्तव्यों की पुनरुत्पत्ति नहीं हैं।',
     'lic.h': 'लाइसेंसिंग',
-    'lic.p': 'सामग्री <b>CC BY 4.0</b> के तहत साझा की गई है। कोड <b>MIT लाइसेंस</b> के तहत साझा किया गया है। आप इन सामग्रियों को एट्रिब्यूशन के साथ पुनः उपयोग, अनुकूलित और रीमिक्स कर सकते हैं।',
+    'lic.p': 'सामग्री <b>CC BY-NC 4.0</b> के तहत साझा की गई है। कोड <b>MIT लाइसेंस</b> के तहत साझा किया गया है। आप इन सामग्रियों को एट्रिब्यूशन के साथ पुनः उपयोग, अनुकूलित और रीमिक्स कर सकते हैं।',
     footer: 'चार जुलाई ब्रेकआउट · कक्षाएँ 3–5 · TCEA शिक्षक संसाधन · स्व-निहित, कोई डेटा एकत्र नहीं।',
   },
   ur: {
@@ -202,7 +202,7 @@ BreakoutI18n.register('july4-g35-policy', {
     'content.h': 'مواد اور درستگی کا نوٹ',
     'content.p': 'تاریخی مواد جماعت 3–5 کے لیے لکھا گیا ہے اور اس سامعین کے لیے سادہ بنایا گیا ہے۔ یہ اس تفصیل کی سطح پر درست ہونے کے لیے ڈیزائن کیا گیا ہے؛ اساتذہ کو گفتگو میں وسعت دینے اور باریکیاں شامل کرنے کی ترغیب دی جاتی ہے۔ معیاری حوالہ جات اس مواد کا تذکرہ کرتے ہیں جو درج کردہ موضوعات کے ساتھ <em>ہم آہنگ ہے</em> اور یہ سرکاری معیاری بیانات کی نقلیں نہیں ہیں۔',
     'lic.h': 'لائسنسنگ',
-    'lic.p': 'مواد <b>CC BY 4.0</b> کے تحت شیئر کیا گیا ہے۔ کوڈ <b>MIT لائسنس</b> کے تحت شیئر کیا گیا ہے۔ آپ ان مواد کو انتساب کے ساتھ دوبارہ استعمال، ڈھال اور ری مکس کر سکتے ہیں۔',
+    'lic.p': 'مواد <b>CC BY-NC 4.0</b> کے تحت شیئر کیا گیا ہے۔ کوڈ <b>MIT لائسنس</b> کے تحت شیئر کیا گیا ہے۔ آپ ان مواد کو انتساب کے ساتھ دوبارہ استعمال، ڈھال اور ری مکس کر سکتے ہیں۔',
     footer: 'چار جولائی بریک آؤٹس · جماعتیں 3–5 · TCEA تعلیمی وسیلہ · خود مکتفی، کوئی ڈیٹا جمع نہیں۔',
   },
   zh: {
@@ -236,7 +236,7 @@ BreakoutI18n.register('july4-g35-policy', {
     'content.h': '内容与准确性说明',
     'content.p': '历史内容为3–5年级编写并针对该群体进行了简化。它设计为在该细节水平上保持准确；鼓励教师在讨论中进行扩展并增加细微之处。标准参考描述的内容与所列主题<em>相一致</em>，而非官方标准陈述的复制。',
     'lic.h': '许可证',
-    'lic.p': '内容依据 <b>CC BY 4.0</b> 共享。代码依据 <b>MIT许可证</b> 共享。您可以在注明来源的情况下重用、改编和混合这些材料。',
+    'lic.p': '内容依据 <b>CC BY-NC 4.0</b> 共享。代码依据 <b>MIT许可证</b> 共享。您可以在注明来源的情况下重用、改编和混合这些材料。',
     footer: '七月四日密室逃脱 · 3–5年级 · TCEA教育资源 · 独立运行，不收集数据。',
   },
 });

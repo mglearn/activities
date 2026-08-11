@@ -226,5 +226,5 @@ grade breakouts are registered in the site-wide search via `activities/build-cat
    no ASCII `"` inside translated strings), a generated correlation page, and an AES-256 answer key
    (password passed at run time, never committed).
 
-*Content CC BY 4.0; code MIT. Aligned to the 2021 Texas Essential Knowledge and Skills for Science;
+*Content CC BY-NC 4.0; code MIT. Aligned to the 2021 Texas Essential Knowledge and Skills for Science;
 paraphrased in good faith — confirm before adoption; not legal advice.*

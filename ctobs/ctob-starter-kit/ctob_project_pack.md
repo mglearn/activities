@@ -491,4 +491,4 @@ Sans + DM Mono for a more editorial feel.
 *Provenance: distilled from the TCEA "Fourth of July," "July 5 & Other Black Freedom Holidays,"
 CLEAR, "Bible as Literature" (24-breakout), and K–8 "Science" (99-breakout) critical thinking
 breakout suites — all K–12, 7-language, each with UDL/ELPS/lesson-plan teacher-support pages.
-Content CC BY 4.0; code MIT.*
+Content CC BY-NC 4.0; code MIT.*

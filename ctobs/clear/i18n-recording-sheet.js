@@ -26,7 +26,7 @@ BreakoutI18n.register('clear-recording', {
     'reflect-q1': 'Which clue did NOT help at all? Why was it a distraction?',
     'reflect-q2': 'Where were you tempted to guess instead of using evidence?',
     'reflect-q3': 'One thing this breakout taught me about careful thinking:',
-    footer: 'Critical Thinking Breakouts · Student Recording Sheet · Pairs with any of the three breakouts. By Miguel Guhlin (TCEA), CC BY 4.0.',
+    footer: 'Critical Thinking Breakouts · Student Recording Sheet · Pairs with any of the three breakouts. By Miguel Guhlin (TCEA), CC BY-NC 4.0.',
   },
   es: {
     back: '‹ Volver a los breakouts',
@@ -53,7 +53,7 @@ BreakoutI18n.register('clear-recording', {
     'reflect-q1': '¿Qué pista NO ayudó para nada? ¿Por qué fue una distracción?',
     'reflect-q2': '¿Dónde fuiste tentado a adivinar en lugar de usar la evidencia?',
     'reflect-q3': 'Una cosa que este breakout me enseñó sobre el pensamiento cuidadoso:',
-    footer: 'Breakouts de Pensamiento Crítico · Hoja de Registro del Estudiante · Para usar con cualquiera de los tres breakouts. Por Miguel Guhlin (TCEA), CC BY 4.0.',
+    footer: 'Breakouts de Pensamiento Crítico · Hoja de Registro del Estudiante · Para usar con cualquiera de los tres breakouts. Por Miguel Guhlin (TCEA), CC BY-NC 4.0.',
   },
   vi: {
     back: '‹ Quay lại breakout',
@@ -80,7 +80,7 @@ BreakoutI18n.register('clear-recording', {
     'reflect-q1': 'Manh mối nào KHÔNG giúp ích gì cả? Tại sao nó là sự phân tâm?',
     'reflect-q2': 'Lúc nào em bị cám dỗ đoán thay vì dùng bằng chứng?',
     'reflect-q3': 'Một điều breakout này dạy tôi về tư duy cẩn thận:',
-    footer: 'Breakout Tư Duy Phê Phán · Phiếu Ghi Chép Học Sinh · Dùng kèm với bất kỳ breakout nào trong ba cái. Tác giả Miguel Guhlin (TCEA), CC BY 4.0.',
+    footer: 'Breakout Tư Duy Phê Phán · Phiếu Ghi Chép Học Sinh · Dùng kèm với bất kỳ breakout nào trong ba cái. Tác giả Miguel Guhlin (TCEA), CC BY-NC 4.0.',
   },
   ar: {
     back: '‹ العودة إلى البريكاوتس',
@@ -107,7 +107,7 @@ BreakoutI18n.register('clear-recording', {
     'reflect-q1': 'أيّ دليل لم يساعد على الإطلاق؟ لماذا كان مشتِّتاً للانتباه؟',
     'reflect-q2': 'أين أُغريتَ بالتخمين بدلاً من استخدام الأدلة؟',
     'reflect-q3': 'شيء واحد علّمني إياه هذا البريكاوت عن التفكير الدقيق:',
-    footer: 'بريكاوتس التفكير النقدي · ورقة تسجيل الطالب · تُستخدم مع أيٍّ من البريكاوتس الثلاثة. بقلم Miguel Guhlin (TCEA)، CC BY 4.0.',
+    footer: 'بريكاوتس التفكير النقدي · ورقة تسجيل الطالب · تُستخدم مع أيٍّ من البريكاوتس الثلاثة. بقلم Miguel Guhlin (TCEA)، CC BY-NC 4.0.',
   },
   hi: {
     back: '‹ ब्रेकआउट पर वापस जाएं',
@@ -134,7 +134,7 @@ BreakoutI18n.register('clear-recording', {
     'reflect-q1': 'कौन सा सुराग बिल्कुल काम का नहीं था? वह ध्यान भटकाने वाला क्यों था?',
     'reflect-q2': 'कहाँ आप साक्ष्य के बजाय अनुमान लगाने की कोशिश कर रहे थे?',
     'reflect-q3': 'इस ब्रेकआउट ने मुझे सावधान सोच के बारे में एक बात सिखाई:',
-    footer: 'समीक्षात्मक चिंतन ब्रेकआउट · छात्र रिकॉर्डिंग शीट · तीनों में से किसी भी ब्रेकआउट के साथ प्रयोग करें। लेखक: Miguel Guhlin (TCEA), CC BY 4.0.',
+    footer: 'समीक्षात्मक चिंतन ब्रेकआउट · छात्र रिकॉर्डिंग शीट · तीनों में से किसी भी ब्रेकआउट के साथ प्रयोग करें। लेखक: Miguel Guhlin (TCEA), CC BY-NC 4.0.',
   },
   ur: {
     back: '‹ بریک آؤٹ پر واپس جائیں',
@@ -161,7 +161,7 @@ BreakoutI18n.register('clear-recording', {
     'reflect-q1': 'کون سا سراغ بالکل کام کا نہیں تھا؟ وہ توجہ ہٹانے والا کیوں تھا؟',
     'reflect-q2': 'کہاں آپ شواہد کے بجائے اندازہ لگانے کی کوشش کر رہے تھے؟',
     'reflect-q3': 'اس بریک آؤٹ نے مجھے محتاط سوچ کے بارے میں ایک بات سکھائی:',
-    footer: 'تنقیدی سوچ کے بریک آؤٹ · طالب ریکارڈنگ شیٹ · تینوں میں سے کسی بھی بریک آؤٹ کے ساتھ استعمال کریں۔ مصنف: Miguel Guhlin (TCEA)، CC BY 4.0.',
+    footer: 'تنقیدی سوچ کے بریک آؤٹ · طالب ریکارڈنگ شیٹ · تینوں میں سے کسی بھی بریک آؤٹ کے ساتھ استعمال کریں۔ مصنف: Miguel Guhlin (TCEA)، CC BY-NC 4.0.',
   },
   zh: {
     back: '‹ 返回比赛',
@@ -188,6 +188,6 @@ BreakoutI18n.register('clear-recording', {
     'reflect-q1': '哪条线索完全没有帮助？它为什么是干扰？',
     'reflect-q2': '你在哪里忍不住想猜测而不是用证据？',
     'reflect-q3': '这个比赛教会我关于仔细思考的一件事：',
-    footer: '批判性思维比赛 · 学生记录表 · 配合三个比赛中的任意一个使用。作者：Miguel Guhlin（TCEA），CC BY 4.0。',
+    footer: '批判性思维比赛 · 学生记录表 · 配合三个比赛中的任意一个使用。作者：Miguel Guhlin（TCEA），CC BY-NC 4.0。',
   },
 });

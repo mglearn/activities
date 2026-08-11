@@ -126,5 +126,5 @@ folder from its parent.)*
 ---
 
 *Distilled from the TCEA CTOB suites (Fourth of July, July 5 & Black Freedom Holidays, CLEAR,
-Bible as Literature, and the K–8 Science suite). Content CC BY 4.0; code MIT. Standards are
+Bible as Literature, and the K–8 Science suite). Content CC BY-NC 4.0; code MIT. Standards are
 "aligned to," not reproduced from, official standards — confirm before adoption; not legal advice.*

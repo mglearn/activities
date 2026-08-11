@@ -35,4 +35,4 @@ and are linked root-relative (`/tcea/…`) from the hub.
 
 ## Licensing
 
-Content CC BY 4.0 · Code MIT.
+Content CC BY-NC 4.0 · Code MIT.

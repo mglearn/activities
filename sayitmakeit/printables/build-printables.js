@@ -198,7 +198,7 @@ Object.assign(packs, phase2);
 const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const pattern = p => `<span class="symbol ${esc(p)}">`;
 const piece = (x) => { const [label,symbol,pat] = x.split('|'); return `<div class="piece">${pattern(pat)}${esc(symbol)}</span><b>${esc(label)}</b></div>`; };
-const page = (title, body, cls='') => `<section class="page ${cls}"><header><span>Say It, Make It · Activity ${current.activity}</span><b>${esc(title)}</b></header>${body}<footer>${esc(current.title)} · Print at 100% · CC BY 4.0</footer></section>`;
+const page = (title, body, cls='') => `<section class="page ${cls}"><header><span>Say It, Make It · Activity ${current.activity}</span><b>${esc(title)}</b></header>${body}<footer>${esc(current.title)} · Print at 100% · CC BY-NC 4.0</footer></section>`;
 let current;
 
 function commonPages(p) {
