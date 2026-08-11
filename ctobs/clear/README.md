@@ -31,4 +31,4 @@ Drop the whole folder on any static host (GitHub Pages, district server) or embe
 
 ## License
 Dual: **CC BY-NC 4.0** for content, **MIT** for code. See `LICENSE`.
-Attribution: "Critical Thinking Breakouts by Miguel Guhlin, CC BY-NC 4.0."
+Attribution: "Critical Thinking Breakouts © 2026 TCEA, created by Miguel Guhlin. CC BY-NC 4.0."

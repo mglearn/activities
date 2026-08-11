@@ -90,4 +90,4 @@ The suite was checked before delivery with:
 - **Content:** [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
 - **Code:** MIT (see `LICENSE`)
 
-Attribution: Miguel Guhlin.
+Attribution: © 2026 TCEA, created by Miguel Guhlin.
