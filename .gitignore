@@ -3,3 +3,18 @@
 # files is ever reproduced in the published rooms.
 copyrighted_texts_do_not_upload/
 plotpoint/copyrighted_texts_do_not_upload/
+
+# Any folder named private-texts/, at any depth. This is the safety net that
+# replaces the per-folder .gitignore that used to live inside
+# plotpoint/copyrighted/private-texts/. Keep it even when the folder is absent.
+private-texts/
+
+# Ebook formats anywhere — full-text source material only ever arrives in these.
+# Deliberately NOT ignoring *.pdf: 77 legitimate PDFs are tracked (lab-safety
+# posters, Say It Make It printables). Drop copyrighted PDFs in a folder covered
+# by a rule above instead.
+*.epub
+*.mobi
+*.azw
+*.azw3
+*.djvu
