@@ -73,6 +73,7 @@ function scripts(global, suite, page) {
   BreakoutI18n.register('${suite}-${page}',merged);
 })();
 </script>
+<script src="/activities/licensing-footer.js" defer></script>
 </body>
 </html>`;
 }

@@ -206,6 +206,7 @@ function showcasePage(lang) {
   }).join('');
 })();
 </script>
+<script src="/activities/licensing-footer.js" defer></script>
 </body>
 </html>
 `;
@@ -345,6 +346,7 @@ function studentHtml(file, band, spec, nlocks) {
 <script src="${file}.js"></script>
 <script src="../../assets/i18n.js"></script>
 <script src="../../assets/breakout.js"></script>
+<script src="/activities/licensing-footer.js" defer></script>
 </body>
 </html>
 `;

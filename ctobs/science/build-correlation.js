@@ -117,6 +117,7 @@ const html = `<!DOCTYPE html>
 
   <footer>Science Critical Thinking Online Breakouts · Self-contained, no logins, no data collected. · <a href="policy.html">Privacy &amp; compliance</a></footer>
 </div>
+<script src="/activities/licensing-footer.js" defer></script>
 </body>
 </html>
 `;

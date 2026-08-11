@@ -125,6 +125,7 @@ ${printable ? `    <a class="btn btn-primary" href="../${esc(printable.pdf)}" do
 
   <footer><span data-i18n="footer_copy">Say It, Make It · An educator resource · CC BY-NC 4.0 (content) · MIT (code)</span></footer>
 </main>
+<script src="/activities/licensing-footer.js" defer></script>
 </body>
 </html>`;
   }
@@ -205,6 +206,7 @@ ${printable ? `    <a class="btn btn-primary" href="../${esc(printable.pdf)}" do
   <span data-i18n="footer_sub">Self-contained · No logins · No data collected · Seven languages · Print-friendly</span><br>
   <a href="printable-coverage.html">Printable coverage</a></footer>
 </main>
+<script src="/activities/licensing-footer.js" defer></script>
 </body>
 </html>`;
   }
@@ -252,6 +254,7 @@ ${printable ? `    <a class="btn btn-primary" href="../${esc(printable.pdf)}" do
   </div>
   <footer><span data-i18n="footer_copy">Say It, Make It · An educator resource · CC BY-NC 4.0 (content) · MIT (code)</span></footer>
 </main>
+<script src="/activities/licensing-footer.js" defer></script>
 </body>
 </html>`;
   }

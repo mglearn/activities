@@ -154,5 +154,6 @@ addEventListener('scroll',()=>btt.classList.toggle('visible',scrollY>500),{passi
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:0.08});
 document.querySelectorAll('.slide').forEach(s=>io.observe(s));
 </script>
+<script src="/activities/licensing-footer.js" defer></script>
 </body>
 </html>

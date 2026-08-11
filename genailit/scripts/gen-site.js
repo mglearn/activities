@@ -295,6 +295,7 @@ ${FONTS}
 ${body}
 </main>
 ${scripts}</div>
+<script src="/activities/licensing-footer.js" defer></script>
 </body>
 </html>
 `;

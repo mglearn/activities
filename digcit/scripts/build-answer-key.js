@@ -186,6 +186,7 @@ const html = `<!DOCTYPE html>
   });
 })();
 </script>
+<script src="/activities/licensing-footer.js" defer></script>
 </body>
 </html>
 `;
