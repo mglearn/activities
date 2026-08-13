@@ -47,9 +47,13 @@ complete pilot activity** and printable PDFs:
 | Systems Shockwave | The Great Depression | 9–12 · US History |
 | Continuity & Change | The Civil Rights Movement | 9–12 · US History |
 
-Boston Tea Party is the fully 7-language-localized reference; the other eight ship
-with verified English content inside the 7-language framework (labels/chrome/routine
-localized), pending fluent-speaker translation review. See `IMPLEMENTATION_PLAN.md`.
+All nine pilots are localized in **seven languages** (English, Spanish, Vietnamese,
+Arabic, Simplified Chinese, Urdu, Hindi; RTL for Arabic and Urdu). Boston Tea Party
+was hand-authored; the other eight were translated via the pipeline in `scripts/`
+(`extract-i18n.mjs` → `data/translations/*.json` → `build-translations.mjs` →
+`assets/i18n-activities-tr.js`) and are **machine-assisted, pending fluent-speaker
+review**. Also included: an **About / Privacy / Accessibility** page (`about.html`)
+and 36 printable PDFs served as direct downloads. See `IMPLEMENTATION_PLAN.md`.
 
 ## Running locally
 
@@ -97,11 +101,18 @@ eventmaps/
 
 ## Adding / updating a translation
 
-Edit the relevant `assets/i18n-*.js` dictionary (one flat `key → string` object
-per language: `en es vi ar zh ur hi`). Arabic and Urdu render right-to-left
-automatically. Run `node scripts/validate.mjs` to see locale parity. Mark a
-language `human` in the activity's `translationStatus` once a fluent speaker has
-reviewed it.
+- **UI / chrome / field labels:** edit the shared dictionaries
+  `assets/i18n-common.js`, `i18n-fields.js`, `i18n-hub.js`, `i18n-generic.js`
+  (one flat `key → string` object per language: `en es vi ar zh ur hi`).
+- **Activity content** (challenge, sources, organizer text, etc.): edit
+  `data/translations/<id>.json` — an array of `{en, es, vi, ar, zh, ur, hi}`
+  keyed by the English source string — then run `node scripts/build-translations.mjs`
+  to regenerate `assets/i18n-activities-tr.js`. Use `node scripts/extract-i18n.mjs <dir>`
+  to dump a fresh list of an activity's translatable strings.
+
+Arabic and Urdu render right-to-left automatically. `build-translations.mjs`
+reports coverage (which strings still fall back to English). Mark a language
+`human` in the activity's `translationStatus` once a fluent speaker has reviewed it.
 
 ## Updating TEKS
 

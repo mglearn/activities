@@ -66,12 +66,18 @@
   </section>
   <section class="block no-print">
     <h3><span class="stepk">⭳</span><span data-i18n="sec_downloads">Downloads</span></h3>
-    <p class="muted" data-i18n="dl_note"></p>
+    <p class="muted" data-i18n="dl_pdf_note"></p>
     <div class="dl-grid" id="downloads"></div>
+    <p class="muted" style="font-size:.8rem;margin-top:8px" data-i18n="dl_note"></p>
   </section>
 
   <footer>
-    <div class="flinks"><a href="../index.html" data-i18n="nav_hub">← History Event Maps</a></div>
+    <div class="flinks">
+      <a href="../index.html" data-i18n="nav_hub">← History Event Maps</a>
+      <a href="../about.html#about" data-i18n="footer_about">About</a>
+      <a href="../about.html#privacy" data-i18n="footer_privacy_link">Privacy</a>
+      <a href="../about.html#accessibility" data-i18n="footer_a11y">Accessibility</a>
+    </div>
     <div data-i18n="footer_privacy">No logins. No accounts. No student data collected.</div>
   </footer>
 </main>
@@ -82,6 +88,7 @@
 <script src="../assets/i18n-fields.js" defer></script>
 <script src="../assets/i18n-hub.js" defer></script>
 <script src="../assets/i18n-generic.js" defer></script>
+<script src="../assets/i18n-activities-tr.js" defer></script>
 <script src="../assets/data.js" defer></script>
 <script src="../assets/maps.js" defer></script>
 <script defer>
@@ -92,9 +99,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const ACT = window.EM_DATA.activities[id];
   if (!ACT) { document.getElementById('act-title').textContent = 'Activity not found: ' + id; return; }
 
+  const TR = (window.EM_TR && window.EM_TR[id]) || {};   // per-activity content translations (keyed by English source)
   I18N.register('act-generic', window.EM.mergeLangs(
-    window.EM_COMMON, window.EM_FIELDS, window.EM_HUB, window.EM_GEN));
-  const t = (k, v) => I18N.t(k, v);        // localized keys resolve; literal English content passes through
+    window.EM_COMMON, window.EM_FIELDS, window.EM_HUB, window.EM_GEN, TR));
+  const t = (k, v) => I18N.t(k, v);        // localized keys resolve; English content resolves via TR or passes through
 
   const MAP_NAME = { 'history-trail':'m_history_trail','cause-ripples':'m_cause_ripples','people-place-change':'m_people_place_change',
     'turning-point':'m_turning_point','voices-around-event':'m_voices','conflict-consequence':'m_conflict',
@@ -132,11 +140,12 @@ document.addEventListener('DOMContentLoaded', function () {
       (tt.misconceptions?'<p style="font-weight:700;margin-top:8px">Common misconceptions</p><p style="white-space:pre-line">'+esc(tt.misconceptions)+'</p>':'')+
       (tt.vocabulary?'<p style="font-weight:700;margin-top:8px">Vocabulary</p><p>'+esc(tt.vocabulary)+'</p>':'')+
       (tt.context?'<p style="font-weight:700;margin-top:8px">Historical context</p><p>'+esc(tt.context)+'</p>':'');
-    // Downloads
+    // Downloads — link the pre-generated English PDFs; the Print button (top)
+    // produces a PDF in the currently selected language.
     document.getElementById('downloads').innerHTML = [
       ['student','color','dl_sc','dl_sc_s'],['student','gray','dl_sg','dl_sg_s'],
       ['teacher','color','dl_tc','dl_tc_s'],['teacher','gray','dl_tg','dl_tg_s']
-    ].map(([v,ink,tk,sk])=>'<a class="dl" href="?id='+encodeURIComponent(id)+'&view='+v+'&ink='+ink+'#organizer-host"><span class="dlt">'+esc(t(tk))+'</span><span class="dls">'+esc(t(sk))+'</span></a>').join('');
+    ].map(([v,ink,tk,sk])=>'<a class="dl" href="'+esc(window.EM.pdfHref(id, ACT.mapType, v, ink))+'" download><span class="dlt">'+esc(t(tk))+' (PDF)</span><span class="dls">'+esc(t(sk))+'</span></a>').join('');
   }
 
   function renderSources() {

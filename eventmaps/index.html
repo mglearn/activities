@@ -92,6 +92,9 @@
   <footer>
     <div class="flinks">
       <a href="../" data-i18n="nav_back">← Activities</a>
+      <a href="about.html#about" data-i18n="footer_about">About</a>
+      <a href="about.html#privacy" data-i18n="footer_privacy_link">Privacy</a>
+      <a href="about.html#accessibility" data-i18n="footer_a11y">Accessibility</a>
     </div>
     <div data-i18n="footer_privacy">No logins. No accounts. No student data collected.</div>
   </footer>
@@ -102,12 +105,15 @@
 <script src="assets/i18n.js" defer></script>
 <script src="assets/i18n-common.js" defer></script>
 <script src="assets/i18n-hub.js" defer></script>
+<script src="assets/i18n-activities-tr.js" defer></script>
 <script src="assets/data.js" defer></script>
 <script src="assets/maps.js" defer></script>
 <script defer>
 document.addEventListener('DOMContentLoaded', function () {
   const I18N = window.BreakoutI18n;
-  I18N.register('em-hub', window.EM.mergeLangs(window.EM_COMMON, window.EM_HUB));
+  // Merge every activity's content-translation overlay so card titles/summaries localize too.
+  const allTR = window.EM_TR ? Object.values(window.EM_TR) : [];
+  I18N.register('em-hub', window.EM.mergeLangs(window.EM_COMMON, window.EM_HUB, ...allTR));
   const t = (k, v) => I18N.t(k, v);
   const DATA = window.EM_DATA;
 
@@ -165,8 +171,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const tags = (a.tags || []).slice(0, 3).map(tag => '<span class="tag">' + tag.replace(/-/g,' ') + '</span>').join('');
       return '<a class="card" href="' + activityHref(a) + '">' +
         '<span class="mnum">' + mapName + '</span>' +
-        '<span class="mtitle">' + a.title + '</span>' +
-        '<span class="mdesc">' + a.summary + '</span>' +
+        '<span class="mtitle">' + t(a.title) + '</span>' +
+        '<span class="mdesc">' + t(a.summary) + '</span>' +
         '<span class="mmeta">' + t(BAND_KEY[a.gradeBands[0]]) + ' · ' + t(COURSE_KEY[a.courses[0]]) + ' · ' + t('minutes', {n:a.estimatedMinutes}) + '</span>' +
         '<span class="mmeta">TEKS: ' + a.teks.content.join(' · ') + '</span>' +
         '<div class="tags">' + tags + '</div>' +

@@ -6,6 +6,19 @@
   'use strict';
   const EM = window.EM || {};
 
+  /* Short map-type slug used in generated PDF filenames (must match
+     scripts/build-pdfs.mjs). Exposed so pages can link the pre-generated files. */
+  EM.MAP_SLUG = {
+    'voices-around-event': 'voices', 'history-trail': 'trail', 'cause-ripples': 'ripples',
+    'people-place-change': 'people-place-change', 'turning-point': 'turning',
+    'conflict-consequence': 'conflict', 'evidence-dossier': 'dossier',
+    'systems-shockwave': 'shockwave', 'continuity-change': 'continuity'
+  };
+  /* Path to a pre-generated PDF for an activity (English). */
+  EM.pdfHref = function (id, mapType, view, ink) {
+    return '../downloads/' + id + '_' + (EM.MAP_SLUG[mapType] || mapType) + '_en_' + view + '_' + ink + '.pdf';
+  };
+
   /* Merge several {en:{...},es:{...}} dictionaries into one, per language,
      so a page can combine EM_COMMON + its own strings in one register() call. */
   EM.mergeLangs = function () {

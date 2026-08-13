@@ -71,17 +71,33 @@ glyph + icon, not desaturation); student PDFs contain **no** teacher answers
 codes are research-verified with authoritative sources and transition caveats
 (no fabrication).
 
-## Known gaps / next steps
+## Phase 5 — seven languages (done, machine-assisted) ✅
 
-1. **Fluent-speaker translation review (Phase 5).** Boston Tea Party is fully
-   localized in 7 languages (the reference). The other eight pilots ship with
-   verified **English content** inside a 7-language framework: chrome, the
-   six-step routine, and every organizer field label are localized in all 7
-   languages, while each pilot's event-specific prose falls back to English until
-   reviewed. `translationStatus` marks es/vi/ar/zh/ur/hi as `mt-pending-review`.
-2. **TEKS confirmation.** All codes are transcribed verbatim from the versions in
-   effect through 2025–26, each with a district-confirmation note. The June 2026
-   K–8 adoption will renumber grades 3–8; confirm the version for your school year.
+All nine pilots are localized in seven languages (en, es, vi, ar, zh, ur, hi).
+Boston Tea Party was hand-authored; the other eight were translated via a
+pipeline: `scripts/extract-i18n.mjs` pulls each pilot's student-facing strings →
+translated → `data/translations/<id>.json` → `scripts/build-translations.mjs`
+emits `assets/i18n-activities-tr.js` (`window.EM_TR`), an overlay keyed by the
+English source string that the activity page and hub merge in. Coverage is 100%
+(every source string has all six translations). These are **machine-assisted and
+still marked `mt-pending-review`** — a fluent-speaker review is the remaining QA
+step before removing that flag. Teacher guidance stays English by design.
+
+## MVP Definition of Done (plan §40) ✅
+
+Nine templates · nine pilots · three grade bands · **seven languages** · colour &
+grayscale · student & teacher versions · search/filter library · browser previews ·
+automated PDFs (36, served as downloads + client-side print in any language) ·
+verified TEKS · source links · teacher guides · **About/Privacy/Accessibility page**
+(`about.html`) · validation scripts · README · GitHub Pages build.
+
+## Remaining / next steps
+
+1. **Fluent-speaker translation review** — remove `mt-pending-review` per language
+   as native reviewers sign off (`data/translations/*.json` are the editable source).
+2. **TEKS confirmation.** Codes are verbatim from the versions in effect through
+   2025–26 with district-confirmation notes; the June 2026 K–8 adoption will
+   renumber grades 3–8 — confirm the version for your school year.
 3. **Expansion (Phase 6).** Grow from one pilot per family toward the 36-activity
    target using the same schema and generic page — no per-activity page code.
 
