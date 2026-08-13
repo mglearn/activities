@@ -243,6 +243,7 @@ const wordBags = {};
 for (const dir of [
   "plotpoint", "sayitmakeit", "pst", "relic-rooms",
   "digcit", "genailit", "lab-safety", "digitalmathtools",
+  "eventmaps",
 ]) {
   const { phrases, words, pages } = harvestArea(dir);
   add(`${dir}/`, ...phrases);

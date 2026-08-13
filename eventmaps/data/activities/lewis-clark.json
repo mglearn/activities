@@ -1,0 +1,56 @@
+{
+  "id": "lewis-clark",
+  "title": "The Lewis & Clark Expedition",
+  "i18nKey": "act-generic",
+  "gradeBands": ["3-5"],
+  "courses": ["us-history"],
+  "mapType": "history-trail",
+  "era": "westward-expansion",
+  "estimatedMinutes": 25,
+  "summary": "Put the Corps of Discovery's 1804–1806 journey in order, name the people who made it possible, and ask what it meant for the Native nations along the way.",
+  "challenge": "In 1804, President Jefferson sent a team called the Corps of Discovery to explore the huge new land west of the Mississippi River, all the way to the Pacific Ocean. What did they do first, next, and last — and who helped them along the way? Follow the trail and put the journey in order.",
+  "event": { "title": "Lewis & Clark Expedition", "date": "1804–1806", "place": "St. Louis to the Pacific Ocean" },
+  "mapData": {
+    "moments": [
+      "1804 (May 14) — The Corps sets off up the Missouri River near St. Louis.",
+      "1804–1805 (winter) — The Corps builds Fort Mandan; Sacagawea joins the group.",
+      "1805 (summer) — The Corps crosses the Rocky Mountains with Shoshone and Nez Perce help.",
+      "1805 (November) — The Corps reaches the Pacific Ocean and builds Fort Clatsop.",
+      "1806 (Sept 23) — The Corps returns safely to St. Louis."
+    ],
+    "people": [
+      "Meriwether Lewis & William Clark — co-captains",
+      "Sacagawea (Lemhi Shoshone) — interpreter who helped guide and trade",
+      "York — Clark's enslaved man, a full working member of the Corps",
+      "Corps of Discovery — about 45 soldiers and explorers",
+      "Mandan, Hidatsa, Shoshone & Nez Perce nations — hosts who gave food, directions, and horses"
+    ],
+    "why": "The journey mapped a huge new part of the country, recorded hundreds of plants, animals, and Native nations, and opened the West to more American travel and settlement.",
+    "question": "How did the Native nations along the trail feel about the strangers crossing their homelands — and what happened to those nations afterward?"
+  },
+  "sources": [
+    { "n": 1, "titleKey": "Travel the Lewis & Clark Expedition — Expedition by Date (National Park Service)", "type": "secondary", "url": "https://www.nps.gov/subjects/travellewisandclark/expedition-by-date.htm", "descKey": "A day-by-day timeline of the journey from the National Park Service.", "questionKeys": ["What are three events in order from the timeline?", "How long did the whole journey take?"] },
+    { "n": 2, "titleKey": "Jefferson's Secret Message Regarding the Lewis & Clark Expedition (Library of Congress)", "type": "primary", "url": "https://guides.loc.gov/jefferson-secret-message", "descKey": "Jefferson's confidential January 1803 message to Congress asking for money to fund the expedition.", "questionKeys": ["Why did Jefferson want to send the expedition west?", "What does a 'secret message' tell you about the plan?"] },
+    { "n": 3, "titleKey": "Expedition Timeline (Thomas Jefferson's Monticello)", "type": "secondary", "url": "https://www.monticello.org/lewis-and-clark/expedition-timeline", "descKey": "A timeline and background on the expedition's goals.", "questionKeys": ["What were the expedition's main goals?", "Which goal do you think mattered most?"] }
+  ],
+  "comparePromptKeys": [
+    "Compare your trail order with a partner. Did you put the moments in the same sequence? Where did you disagree?",
+    "Which moment do you think was the most important turning point of the journey? Why?"
+  ],
+  "conclusionKey": "Tell the story of the expedition in your own words, in order. Use at least three moments from your trail and name at least two people or groups who made the journey possible.",
+  "ace": {
+    "enabled": true,
+    "articulateKey": "Explain what the Corps of Discovery set out to do, and whether they succeeded.",
+    "connectKey": "Connect the Louisiana Purchase to why Jefferson wanted this expedition.",
+    "extendKey": "Apply the idea of 'exploring the unknown' to an explorer or scientist today. What do they risk, and who helps them?"
+  },
+  "teacherText": {
+    "keyideas": "The expedition (1804–1806) mapped about 8,000 miles round trip, recorded plants, animals, and Native nations, and strengthened U.S. claims to the West. Sacagawea (Lemhi Shoshone) and York (an enslaved man) were vital members. The Corps could not have succeeded without food, directions, and horses from Native nations.",
+    "misconceptions": "• Lewis and Clark did not 'discover' empty land — Native nations had lived there for thousands of years.\n• Sacagawea did not single-handedly guide the whole trip; she interpreted and helped at key moments.\n• The expedition did not find an all-water route to the Pacific — no Northwest Passage existed.",
+    "vocabulary": "Corps of Discovery, Louisiana Purchase, expedition, interpreter, Northwest Passage, Fort Mandan, Fort Clatsop.",
+    "context": "Departed near St. Louis May 14, 1804; wintered 1804–05 at Fort Mandan (met Sacagawea); crossed the Rockies in summer 1805 with Shoshone and Nez Perce help; reached the Pacific in Nov. 1805 (Fort Clatsop); returned to St. Louis Sept. 23, 1806."
+  },
+  "teks": { "standardsFile": "standards/teks-grade5-us.json", "content": ["5.4(C)"], "skills": ["5.24(A)", "5.24(B)", "5.24(D)"] },
+  "tags": ["exploration", "westward-expansion", "chronology", "primary-sources"],
+  "translationStatus": { "en": "human", "es": "mt-pending-review", "vi": "mt-pending-review", "ar": "mt-pending-review", "zh": "mt-pending-review", "ur": "mt-pending-review", "hi": "mt-pending-review" }
+}

@@ -1,0 +1,2 @@
+# Generated PDF artifacts — regenerate with: node scripts/build-pdfs.mjs
+downloads/*.pdf

@@ -1,0 +1,60 @@
+{
+  "id": "great-migration",
+  "title": "The Great Migration",
+  "i18nKey": "act-generic",
+  "gradeBands": ["3-5"],
+  "courses": ["us-history"],
+  "mapType": "people-place-change",
+  "era": "20th-century",
+  "estimatedMinutes": 30,
+  "summary": "Connect the people, places, and changes of the Great Migration, when about six million African Americans moved from the rural South to cities across the country.",
+  "challenge": "Between about 1910 and 1970, roughly six million African Americans left the rural South and moved to cities in the North, Midwest, and West — one of the largest movements of people in U.S. history. Who moved, where did they go, and what changed because of it? Map how people, place, and change connect.",
+  "event": { "title": "The Great Migration", "date": "about 1910–1970", "place": "The rural South to Northern, Midwestern, and Western cities" },
+  "mapData": {
+    "who": [
+      "African American families and workers from the rural South — sharecroppers, farm laborers, and their children",
+      "Jacob Lawrence — a young Black painter who told the story in his Migration Series",
+      "Robert S. Abbott — editor of the Chicago Defender, which urged people to move north",
+      "Pullman porters — Black railroad workers who carried news north and south"
+    ],
+    "where": [
+      "From the South — Mississippi, Alabama, Georgia, Louisiana, and Texas",
+      "To the North and Midwest — Chicago, Detroit, New York (Harlem), Pittsburgh, Cleveland",
+      "To the West (later wave) — Los Angeles, Oakland, Seattle",
+      "Along the railroads — the rail lines were the highways of the migration"
+    ],
+    "changed": [
+      "Community: big new African American neighborhoods grew in Northern and Western cities",
+      "Economy: families moved from farm work to paid factory, steel, and railroad jobs",
+      "Culture: a burst of art, music, and writing — the Harlem Renaissance, jazz, and blues",
+      "Daily life: children attended better-funded schools and adults could vote — but families faced new housing discrimination",
+      "The nation's map: the Black population shifted from mostly rural-Southern to urban and nationwide"
+    ],
+    "connectionKey": "When millions of families left Southern farms and rode the railroads to cities like Chicago, Detroit, and New York, they built new communities, took new jobs, and created new music and art — changing both their own lives and the whole country."
+  },
+  "sources": [
+    { "n": 1, "titleKey": "Jacob Lawrence: The Migration Series (The Phillips Collection)", "type": "primary", "url": "https://lawrencemigration.phillipscollection.org/", "descKey": "Sixty painted panels (1940–41) telling the story of the Great Migration.", "questionKeys": ["What does one panel show about why people moved or what they found?", "How does art help us understand history?"] },
+    { "n": 2, "titleKey": "The Great Migration — Classroom Materials (Library of Congress)", "type": "secondary", "url": "https://www.loc.gov/classroom-materials/great-migration/", "descKey": "Background and primary sources on one of the largest internal migrations in U.S. history.", "questionKeys": ["What were two reasons families chose to move north?", "What is one thing that stayed hard even after moving?"] },
+    { "n": 3, "titleKey": "The Great Migration — African American Heritage (National Archives)", "type": "secondary", "url": "https://www.archives.gov/research/african-americans/migrations/great-migration", "descKey": "Overview of the two waves of the migration and their effects.", "questionKeys": ["About how many people moved, and over how many years?", "How were the two waves connected to the world wars?"] }
+  ],
+  "comparePromptKeys": [
+    "Compare your three lenses with a partner. Did you connect the same people to the same places and changes?",
+    "Which change do you think mattered most to families who moved? Why?"
+  ],
+  "conclusionKey": "In your own words, explain how people, place, and change connect in the Great Migration. Use at least one detail from each lens and one source.",
+  "ace": {
+    "enabled": true,
+    "articulateKey": "Explain what the Great Migration was and why families made the move.",
+    "connectKey": "Connect a push factor in the South to a change that happened in a Northern city.",
+    "extendKey": "Apply the idea of push and pull factors to a move your own family or community has made."
+  },
+  "teacherText": {
+    "keyideas": "About six million African Americans moved north and west in two waves (roughly 1910–1940 and 1940–1970), driven by push factors (Jim Crow segregation, sharecropping debt, racial violence, disenfranchisement) and pull factors (wartime factory jobs, higher wages, better schools, the vote). Railroads and the Chicago Defender helped spread the movement. It reshaped American cities and culture, including the Harlem Renaissance.",
+    "misconceptions": "• The migration was not one sudden event — it built up over decades in two waves.\n• Moving north did not end discrimination; families faced redlining and restrictive housing covenants.\n• Name Jim Crow and racial violence plainly, but avoid presentism — people made brave choices within the limits of their time.",
+    "vocabulary": "migration, push factor, pull factor, Jim Crow, sharecropping, Harlem Renaissance, urbanization, discrimination.",
+    "context": "In 1910 about 90% of Black Americans lived in the South; by 1970 only about half did. First wave ~1910–1940 (~2 million, WWI jobs); second wave ~1940–1970 (~3 million, WWII defense jobs). Railroads like the Illinois Central carried migrants north."
+  },
+  "teks": { "standardsFile": "standards/teks-grade5-us.json", "content": ["5.5(A)"], "skills": ["5.24(A)", "5.24(B)", "5.24(D)"] },
+  "tags": ["20th-century", "migration", "geography", "civil-rights"],
+  "translationStatus": { "en": "human", "es": "mt-pending-review", "vi": "mt-pending-review", "ar": "mt-pending-review", "zh": "mt-pending-review", "ur": "mt-pending-review", "hi": "mt-pending-review" }
+}

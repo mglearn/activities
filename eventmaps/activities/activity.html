@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>History Event Maps — Activity</title>
+<meta name="description" content="A TEKS-aligned History Event Maps investigation. Seven-language framework, printable color and grayscale, no student data collected.">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/eventmaps.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="backlink" data-i18n="nav_hub">← History Event Maps</a>
+  <div class="nav-mid" id="nav-map"></div>
+  <div class="spacer"></div>
+  <div class="lang-picker" data-i18n-picker></div>
+</div>
+
+<main class="wrap narrow">
+  <header class="hero" style="text-align:left">
+    <div class="tags" id="hero-tags" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"></div>
+    <h1 id="act-title">Activity</h1>
+    <p class="sub" id="act-summary"></p>
+    <div class="btnrow">
+      <div class="viewbar" role="group" aria-label="View">
+        <button id="view-student" class="active" data-i18n="view_student">Student</button>
+        <button id="view-teacher" data-i18n="view_teacher">Teacher</button>
+      </div>
+      <button class="btn" onclick="window.print()" data-i18n="print_btn">Print / Save PDF</button>
+      <span class="tag" style="align-self:center"><span data-i18n="est_time">Estimated time</span>: <span id="est-mins"></span></span>
+    </div>
+  </header>
+
+  <div class="routine" aria-label="Scan Map Compare Expand Revise Conclude">
+    <span class="step"><span class="k">1</span><span data-i18n="r_scan">Scan</span></span><span class="arrow">→</span>
+    <span class="step"><span class="k">2</span><span data-i18n="r_map">Map</span></span><span class="arrow">→</span>
+    <span class="step"><span class="k">3</span><span data-i18n="r_compare">Compare</span></span><span class="arrow">→</span>
+    <span class="step"><span class="k">4</span><span data-i18n="r_expand">Expand</span></span><span class="arrow">→</span>
+    <span class="step"><span class="k">5</span><span data-i18n="r_revise">Revise</span></span><span class="arrow">→</span>
+    <span class="step"><span class="k">6</span><span data-i18n="r_conclude">Conclude</span></span>
+  </div>
+
+  <section class="block"><h3><span class="stepk">?</span><span data-i18n="sec_challenge">Historical challenge</span></h3><p id="challenge"></p></section>
+  <section class="block"><h3><span class="stepk">1</span><span data-i18n="sec_investigate">Investigate</span></h3><div id="sources" class="sources"></div></section>
+  <section class="block">
+    <h3><span class="stepk">2</span><span data-i18n="sec_build">Build your Event Map</span></h3>
+    <p class="muted" data-i18n="gbuild"></p>
+    <div class="btnrow no-print"><label class="tag" style="cursor:pointer"><input type="checkbox" id="gray-toggle"> <span data-i18n="dl_sg">Grayscale</span> preview</label></div>
+    <div id="organizer-host"></div>
+  </section>
+  <section class="block"><h3><span class="stepk">3</span><span data-i18n="sec_compare">Compare</span></h3><ul class="qlist" id="compare"></ul></section>
+  <section class="block">
+    <h3><span class="stepk">4</span><span data-i18n="sec_expand">Expand</span></h3>
+    <p data-i18n="gexpand"></p>
+    <div class="teacher-only" id="teacher-notes"></div>
+  </section>
+  <section class="block"><h3><span class="stepk">5</span><span data-i18n="sec_revise">Revise</span></h3><p data-i18n="grevise"></p></section>
+  <section class="block"><h3><span class="stepk">6</span><span data-i18n="sec_conclude">Conclude</span></h3><p style="font-weight:700" id="conclusion"></p></section>
+  <section class="block no-print"><h3><span class="stepk">+</span><span data-i18n="sec_ace">Optional: ACE it</span></h3><ul class="qlist" id="ace"></ul></section>
+  <section class="block no-print">
+    <h3><span class="stepk">§</span><span data-i18n="sec_standards">Standards</span></h3>
+    <div id="teks"></div>
+    <p class="verify-note" data-i18n="teks_confirm">Districts should confirm exact locally adopted standards and codes.</p>
+  </section>
+  <section class="block no-print">
+    <h3><span class="stepk">⭳</span><span data-i18n="sec_downloads">Downloads</span></h3>
+    <p class="muted" data-i18n="dl_note"></p>
+    <div class="dl-grid" id="downloads"></div>
+  </section>
+
+  <footer>
+    <div class="flinks"><a href="../index.html" data-i18n="nav_hub">← History Event Maps</a></div>
+    <div data-i18n="footer_privacy">No logins. No accounts. No student data collected.</div>
+  </footer>
+</main>
+<a href="#" id="back-to-top" aria-label="Back to top">↑</a>
+
+<script src="../assets/i18n.js" defer></script>
+<script src="../assets/i18n-common.js" defer></script>
+<script src="../assets/i18n-fields.js" defer></script>
+<script src="../assets/i18n-hub.js" defer></script>
+<script src="../assets/i18n-generic.js" defer></script>
+<script src="../assets/data.js" defer></script>
+<script src="../assets/maps.js" defer></script>
+<script defer>
+document.addEventListener('DOMContentLoaded', function () {
+  const I18N = window.BreakoutI18n;
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id');
+  const ACT = window.EM_DATA.activities[id];
+  if (!ACT) { document.getElementById('act-title').textContent = 'Activity not found: ' + id; return; }
+
+  I18N.register('act-generic', window.EM.mergeLangs(
+    window.EM_COMMON, window.EM_FIELDS, window.EM_HUB, window.EM_GEN));
+  const t = (k, v) => I18N.t(k, v);        // localized keys resolve; literal English content passes through
+
+  const MAP_NAME = { 'history-trail':'m_history_trail','cause-ripples':'m_cause_ripples','people-place-change':'m_people_place_change',
+    'turning-point':'m_turning_point','voices-around-event':'m_voices','conflict-consequence':'m_conflict',
+    'evidence-dossier':'m_dossier','systems-shockwave':'m_shockwave','continuity-change':'m_continuity' };
+  const BAND_KEY = { '3-5':'band_35','6-8':'band_68','9-12':'band_912' };
+  const COURSE_KEY = { 'us-history':'course_us','texas-history':'course_tx','world-history':'course_world',
+    'world-geography':'course_geo','government':'course_gov','economics':'course_econ','elementary-ss':'course_elem' };
+
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+  function renderChrome() {
+    document.title = t(ACT.event ? ACT.title : ACT.title) + ' — History Event Maps';
+    document.getElementById('nav-map').textContent = t(MAP_NAME[ACT.mapType]);
+    document.getElementById('act-title').textContent = t(ACT.title);
+    document.getElementById('act-summary').textContent = t(ACT.summary);
+    document.getElementById('est-mins').textContent = t('minutes', { n: ACT.estimatedMinutes });
+    document.getElementById('hero-tags').innerHTML =
+      '<span class="tag">' + esc(t(MAP_NAME[ACT.mapType])) + '</span>' +
+      '<span class="tag">' + esc(t(BAND_KEY[ACT.gradeBands[0]])) + '</span>' +
+      '<span class="tag">' + esc(t(COURSE_KEY[ACT.courses[0]])) + '</span>';
+    document.getElementById('challenge').textContent = t(ACT.challenge);
+    document.getElementById('conclusion').textContent = t(ACT.conclusionKey);
+    document.getElementById('compare').innerHTML = (ACT.comparePromptKeys||[]).map(k=>'<li>'+esc(t(k))+'</li>').join('');
+    if (ACT.ace && ACT.ace.enabled) {
+      document.getElementById('ace').innerHTML =
+        '<li><strong>'+esc(t('ace_a'))+'</strong> — '+esc(t(ACT.ace.articulateKey))+'</li>'+
+        '<li><strong>'+esc(t('ace_c'))+'</strong> — '+esc(t(ACT.ace.connectKey))+'</li>'+
+        '<li><strong>'+esc(t('ace_e'))+'</strong> — '+esc(t(ACT.ace.extendKey))+'</li>';
+    }
+    // Teacher notes
+    const tt = ACT.teacherText || {};
+    document.getElementById('teacher-notes').innerHTML =
+      '<span class="tlabel">'+esc(t('teacher_note'))+'</span>'+
+      (tt.keyideas?'<p style="font-weight:700">Key ideas</p><p>'+esc(tt.keyideas)+'</p>':'')+
+      (tt.misconceptions?'<p style="font-weight:700;margin-top:8px">Common misconceptions</p><p style="white-space:pre-line">'+esc(tt.misconceptions)+'</p>':'')+
+      (tt.vocabulary?'<p style="font-weight:700;margin-top:8px">Vocabulary</p><p>'+esc(tt.vocabulary)+'</p>':'')+
+      (tt.context?'<p style="font-weight:700;margin-top:8px">Historical context</p><p>'+esc(tt.context)+'</p>':'');
+    // Downloads
+    document.getElementById('downloads').innerHTML = [
+      ['student','color','dl_sc','dl_sc_s'],['student','gray','dl_sg','dl_sg_s'],
+      ['teacher','color','dl_tc','dl_tc_s'],['teacher','gray','dl_tg','dl_tg_s']
+    ].map(([v,ink,tk,sk])=>'<a class="dl" href="?id='+encodeURIComponent(id)+'&view='+v+'&ink='+ink+'#organizer-host"><span class="dlt">'+esc(t(tk))+'</span><span class="dls">'+esc(t(sk))+'</span></a>').join('');
+  }
+
+  function renderSources() {
+    document.getElementById('sources').innerHTML = ACT.sources.map(s=>{
+      const typeKey = s.type==='primary'?'src_type_primary':'src_type_secondary';
+      const qs = (s.questionKeys||[]).map(qk=>'<div class="sq">• '+esc(t(qk))+'</div>').join('');
+      return '<div class="source"><div class="snum">'+esc(t('src_strip'))+' '+s.n+'</div>'+
+        '<div class="stitle">'+esc(t(s.titleKey))+'</div><div class="stype">'+esc(t(typeKey))+'</div>'+
+        '<div class="sdesc">'+esc(t(s.descKey))+'</div>'+
+        '<a href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer">'+esc(t('src_open'))+'</a>'+
+        '<div style="margin-top:6px"><span class="fl" style="font-size:.7rem">'+esc(t('invest_q'))+'</span>'+qs+'</div></div>';
+    }).join('');
+  }
+
+  function renderTeks() {
+    const stdKey = ACT.teks.standardsFile.replace(/^standards\//,'').replace(/\.json$/,'');
+    const STD = window.EM_DATA.standards[stdKey];
+    if (!STD) { document.getElementById('teks').innerHTML=''; return; }
+    const rows = codes => codes.map(c=>{const s=STD.standards[c];return '<tr><td class="teks-code">'+esc(c)+'</td><td>'+esc(s?s.text:'')+'</td></tr>';}).join('');
+    document.getElementById('teks').innerHTML =
+      '<table class="teks-table"><thead><tr><th>'+esc(t('teks_col_code'))+'</th><th>'+esc(t('teks_col_text'))+'</th></tr></thead><tbody>'+
+      '<tr><th colspan="2">'+esc(t('teks_content'))+' — '+esc(STD.section)+'</th></tr>'+rows(ACT.teks.content)+
+      '<tr><th colspan="2">'+esc(t('teks_skills'))+'</th></tr>'+rows(ACT.teks.skills)+'</tbody></table>';
+  }
+
+  function getInk(){ return params.get('ink')==='gray'?'gray':'color'; }
+  function renderOrganizer(){
+    const gray = document.getElementById('gray-toggle').checked || getInk()==='gray';
+    window.EM.renderMap(document.getElementById('organizer-host'), ACT, t, { gray });
+  }
+  function applyView(view){
+    document.body.classList.toggle('view-teacher', view==='teacher');
+    document.body.classList.toggle('print-student', view!=='teacher');
+    document.getElementById('view-student').classList.toggle('active', view!=='teacher');
+    document.getElementById('view-teacher').classList.toggle('active', view==='teacher');
+  }
+  document.getElementById('view-student').addEventListener('click',()=>applyView('student'));
+  document.getElementById('view-teacher').addEventListener('click',()=>applyView('teacher'));
+  document.getElementById('gray-toggle').addEventListener('change', renderOrganizer);
+  if (getInk()==='gray'){ document.body.classList.add('print-gray'); document.getElementById('gray-toggle').checked=true; }
+  applyView(params.get('view')==='teacher'?'teacher':'student');
+
+  function renderAll(){ renderChrome(); renderSources(); renderTeks(); renderOrganizer(); }
+  renderAll();
+  window.addEventListener('breakout-i18n:changed', renderAll);
+  window.EM.wireBackToTop();
+});
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+</html>

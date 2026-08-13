@@ -1,0 +1,50 @@
+{
+  "id": "cold-war-origins",
+  "title": "What Caused the Cold War?",
+  "i18nKey": "act-generic",
+  "gradeBands": ["9-12"],
+  "courses": ["us-history"],
+  "mapType": "evidence-dossier",
+  "era": "cold-war",
+  "estimatedMinutes": 45,
+  "summary": "Build an evidence-based answer to a contested question: what caused the Cold War, and who bears more responsibility for its onset?",
+  "challenge": "By 1946 the wartime alliance between the United States and the Soviet Union had collapsed into mutual suspicion. Historians agree on the sequence of events but disagree sharply about the cause — and about who was more responsible. Weigh the evidence, note what conflicts and what is missing, and build a defensible working conclusion.",
+  "event": { "title": "The Origins of the Cold War", "date": "1945–1950", "place": "United States, Soviet Union, and a divided Europe" },
+  "mapData": {
+    "questionKey": "What caused the Cold War — and who bears more responsibility for its onset (roughly 1945–1950): the United States or the Soviet Union?",
+    "knowKey": "By 1945–46 the alliance had collapsed over the political future of Eastern Europe (especially Poland) and occupied Germany. Between 1947 and 1949 the US adopted containment (Truman Doctrine, Marshall Plan, NATO) while the USSR consolidated Eastern Europe and rejected the Marshall Plan. Both sides genuinely feared the other.",
+    "cards": [
+      { "sourceKey": "Kennan's 'Long Telegram' (Feb. 1946)", "primsecKey": "Primary — U.S. diplomatic cable", "evidenceKey": "A senior U.S. diplomat argues Soviet hostility comes from ideology plus historic Russian insecurity, and must be met with long-term 'containment.'", "whyKey": "It became the intellectual foundation of U.S. Cold War strategy — it shows how American policymakers interpreted Soviet behavior.", "relKey": "One official's analysis, written to persuade Washington; it reads Soviet intentions from the outside, not from Soviet records." },
+      { "sourceKey": "Truman Doctrine Address to Congress (March 12, 1947)", "primsecKey": "Primary — presidential speech", "evidenceKey": "Truman frames world affairs as a choice between 'free' and 'totalitarian' ways of life and commits U.S. aid to nations resisting communism.", "whyKey": "Marks the public, global turn to containment and shows how the U.S. justified its commitments ideologically.", "relKey": "Political rhetoric designed to win funding; scholars argue it may have overstated the threat and universalized a specific crisis." },
+      { "sourceKey": "Novikov Telegram (Sept. 27, 1946)", "primsecKey": "Primary — Soviet diplomatic cable", "evidenceKey": "The Soviet ambassador argues the United States is seeking global military and economic domination — the mirror image of Kennan's warning.", "whyKey": "Documents the Soviet side's fears, essential for weighing responsibility fairly rather than one-sidedly.", "relKey": "Also one diplomat's interpretation; historians debate how much it reflected Stalin's actual thinking, and it too reads the adversary from the outside." }
+    ],
+    "conflictKey": "Historians divide into schools. Orthodox interpretations blame Soviet expansionism; revisionist interpretations emphasize U.S. economic interests and 'atomic diplomacy'; post-revisionists stress a mutual security dilemma with shared responsibility. The same events (Marshall Plan, Berlin) read as defensive or provocative depending on the lens.",
+    "missingKey": "The biggest gap is direct evidence of Soviet internal decision-making — Stalin's private calculations and Politburo deliberations. Soviet records opened only partially after 1991, so interpretation long tilted toward the fuller U.S. archive.",
+    "conclusionMapKey": "One defensible interpretation (not the only one): the Cold War arose less from a single aggressor than from a security dilemma — Soviet insistence on a controlled buffer zone collided with U.S. commitment to open, capitalist democracies, and each read the other's defensive moves as offensive. A student could reasonably weight responsibility toward either side using the same evidence."
+  },
+  "sources": [
+    { "n": 1, "titleKey": "Kennan and Containment, 1947 — Office of the Historian, U.S. Dept. of State", "type": "secondary", "url": "https://history.state.gov/milestones/1945-1952/kennan", "descKey": "Government history of Kennan's 'long telegram' and the birth of containment.", "questionKeys": ["How did Kennan explain Soviet behavior?", "How reliable is a single diplomat's analysis of a rival power?"] },
+    { "n": 2, "titleKey": "Truman Doctrine — Harry S. Truman Library", "type": "primary", "url": "https://www.trumanlibrary.gov/education/presidential-inquiries/truman-doctrine", "descKey": "Truman's March 1947 message requesting aid for Greece and Turkey.", "questionKeys": ["How does Truman frame the choice facing the world?", "What might this speech leave out or exaggerate?"] },
+    { "n": 3, "titleKey": "Telegram from Nikolai Novikov to the Soviet Leadership (Sept. 1946) — Wilson Center Digital Archive", "type": "primary", "url": "https://digitalarchive.wilsoncenter.org/document/telegram-nikolai-novikov-soviet-ambassador-us-soviet-leadership", "descKey": "The Soviet ambassador's warning that the U.S. sought global domination.", "questionKeys": ["How does the Soviet view mirror the American one?", "Why is it important to read both sides' cables?"] }
+  ],
+  "comparePromptKeys": [
+    "Compare your evidence cards with a partner. Did you rate the same sources as reliable?",
+    "Did you and your partner lean toward the same 'school' of interpretation? What evidence moved you?"
+  ],
+  "conclusionKey": "Write a working conclusion answering the historical question. Cite at least two evidence cards, acknowledge conflicting interpretations, and note one limitation of your evidence.",
+  "ace": {
+    "enabled": true,
+    "articulateKey": "State, in one sentence, your working answer to what caused the Cold War.",
+    "connectKey": "Connect the Truman Doctrine and the Novikov Telegram — how does each side justify itself?",
+    "extendKey": "Apply the idea of a 'security dilemma' to a rivalry between two countries today."
+  },
+  "teacherText": {
+    "keyideas": "This is a historiography exercise: students weigh competing interpretations (orthodox, revisionist, post-revisionist) rather than find one 'right' cause. Emphasize that reliability and point of view matter as much as content. Kennan and Novikov are mirror-image cables; the Truman Doctrine is public rhetoric. Do not quote document wording that students have not read — describe and cite.",
+    "misconceptions": "• There is no single agreed 'cause' — responsibility is genuinely debated.\n• A primary source is not automatically neutral or true; each cable argues a position.\n• The Marshall Plan can be read as defensive aid OR as economic assertiveness, depending on lens.",
+    "vocabulary": "containment, Cold War, security dilemma, historiography, orthodox / revisionist / post-revisionist, Truman Doctrine, Marshall Plan, Iron Curtain.",
+    "context": "Yalta & Potsdam (1945); Kennan's Long Telegram & Churchill's 'Iron Curtain' speech (1946); Truman Doctrine & Marshall Plan (1947); Berlin Blockade & Airlift (1948–49); NATO (1949)."
+  },
+  "teks": { "standardsFile": "standards/teks-us-since-1877.json", "content": ["US.8(A)"], "skills": ["US.28(A)", "US.28(D)", "US.28(E)"] },
+  "tags": ["cold-war", "evidence", "source-evaluation", "historiography"],
+  "translationStatus": { "en": "human", "es": "mt-pending-review", "vi": "mt-pending-review", "ar": "mt-pending-review", "zh": "mt-pending-review", "ur": "mt-pending-review", "hi": "mt-pending-review" }
+}

@@ -1,0 +1,65 @@
+{
+  "id": "transcontinental-railroad",
+  "title": "The First Transcontinental Railroad",
+  "i18nKey": "act-generic",
+  "gradeBands": ["3-5"],
+  "courses": ["us-history"],
+  "mapType": "cause-ripples",
+  "era": "westward-expansion",
+  "estimatedMinutes": 25,
+  "summary": "Trace the ripples out from the 1869 golden spike: what caused the railroad, what happened right afterward, and what changed for years to come — for whom.",
+  "challenge": "On May 10, 1869, two railroads met at Promontory Summit, Utah, and a golden spike joined the coasts by rail for the first time. A trip that once took months now took about a week. But every big change sends out ripples. What caused the railroad, what happened right afterward, and what changed later — and who was helped or hurt?",
+  "event": { "title": "The Golden Spike — the railroad joins the coasts", "date": "May 10, 1869", "place": "Promontory Summit, Utah" },
+  "mapData": {
+    "causes": [
+      "Congress passed the Pacific Railway Act (1862) to help pay for the tracks.",
+      "People wanted a fast, safe way to connect the East and West coasts.",
+      "Gold, land, and the chance to settle the West pulled people westward.",
+      "Trade and mail needed to move quickly across the whole country."
+    ],
+    "immediate": [
+      "The golden spike joined the two railroads into one line.",
+      "Coast-to-coast travel dropped from months to about a week.",
+      "Goods, mail, and news moved much faster across the country.",
+      "New towns and stops grew up along the tracks."
+    ],
+    "longterm": [
+      "Many more settlers moved west, and Western towns and farms grew.",
+      "Native nations lost land and hunting grounds, and the bison were nearly wiped out.",
+      "Chinese and Irish immigrant workers shaped the country but faced unfair treatment and low pay.",
+      "The railroad tied the nation into one big trade network and sped up its growth."
+    ],
+    "affected": [
+      "The railroad companies — Central Pacific and Union Pacific",
+      "Immigrant laborers — Chinese (Central Pacific) and Irish (Union Pacific)",
+      "Native nations of the Plains and West",
+      "Settlers, farmers, and traders moving into the West"
+    ],
+    "matteredKey": "Look at all the ripples. Which result of the railroad do you think mattered most — and who did it help or hurt? Give one reason from the map."
+  },
+  "sources": [
+    { "n": 1, "titleKey": "Pacific Railway Act (1862) — National Archives", "type": "primary", "url": "https://www.archives.gov/milestone-documents/pacific-railway-act", "descKey": "The 1862 law, signed by Lincoln, that funded the railroad with federal land and loans.", "questionKeys": ["What did the government give the railroad companies?", "Why would the government help pay for a railroad?"] },
+    { "n": 2, "titleKey": "The Archeology of Chinese Laborers Who Connected the Country (National Park Service)", "type": "secondary", "url": "https://www.nps.gov/articles/archeology-of-chinese-laborers-connected-country.htm", "descKey": "How over 12,000 Chinese immigrant laborers built the Central Pacific line.", "questionKeys": ["Who did much of the hardest building work?", "Why might their story have been left out for so long?"] },
+    { "n": 3, "titleKey": "Transcontinental Railroad — Railroads (Library of Congress)", "type": "secondary", "url": "https://guides.loc.gov/railroads/transcontinental-railroad", "descKey": "Background and sources on how the two lines met at Promontory Summit.", "questionKeys": ["Where and when did the two lines meet?", "What changed about travel afterward?"] }
+  ],
+  "comparePromptKeys": [
+    "Compare your ripples with a partner. Which effects did you both list? Which did only one of you find?",
+    "Did you put any effect in a different ring (immediate vs. later) than your partner? Talk about why."
+  ],
+  "conclusionKey": "Choose the one result of the railroad you think mattered most. Use evidence from your ripples to explain who it helped and who it hurt.",
+  "ace": {
+    "enabled": true,
+    "articulateKey": "Explain what the transcontinental railroad was and why it was built.",
+    "connectKey": "Connect one cause of the railroad to one long-term change it created.",
+    "extendKey": "Apply the idea of a big new technology sending out ripples to something today, like the internet. Name one good ripple and one hard ripple."
+  },
+  "teacherText": {
+    "keyideas": "The Pacific Railway Act (1862) funded two companies — the Central Pacific (building east from Sacramento, largely with 10,000+ Chinese laborers) and the Union Pacific (building west from Omaha, largely with Irish, German, and Italian immigrants). They met at Promontory Summit, Utah, on May 10, 1869. Travel fell from months to about a week. The benefits (faster trade, western settlement) came with heavy costs to Native nations and the bison, and hard, dangerous, underpaid work for immigrant laborers.",
+    "misconceptions": "• The railroad was not built mainly by the men who got famous for it — immigrant laborers did most of the work.\n• 'Opening the West' also meant taking land from Native nations who already lived there.\n• The golden spike was ceremonial; it was removed right after the ceremony.",
+    "vocabulary": "transcontinental, Pacific Railway Act, Central Pacific, Union Pacific, Promontory Summit, immigrant labor, bison.",
+    "context": "Pacific Railway Act signed July 1, 1862; lines met at Promontory Summit, Utah, May 10, 1869; locomotives Jupiter (CP) and No. 119 (UP); travel time coast-to-coast fell from ~4–6 months to about a week."
+  },
+  "teks": { "standardsFile": "standards/teks-grade5-us.json", "content": ["5.23(B)", "5.4(C)"], "skills": ["5.24(A)", "5.24(B)"] },
+  "tags": ["westward-expansion", "cause-and-effect", "technology", "immigration"],
+  "translationStatus": { "en": "human", "es": "mt-pending-review", "vi": "mt-pending-review", "ar": "mt-pending-review", "zh": "mt-pending-review", "ur": "mt-pending-review", "hi": "mt-pending-review" }
+}

@@ -1,0 +1,20 @@
+{
+  "_comment": "TEKS — United States History Studies Since 1877 (high school), §113.41. Codes transcribed from the TEA §113.41 rule (2022 adoption, effective 2024). The HS social studies TEKS revision was POSTPONED (targeted Sept 2026), so §113.41 is currently in effect. Skills-strand numbering (28 vs 29) differs between adoptions; confirm.",
+  "section": "§113.41",
+  "course": "United States History Studies Since 1877 (High School)",
+  "source": "Texas Education Agency — 19 TAC Chapter 113 (§113.41). https://tea.texas.gov/about-tea/laws-and-rules/texas-administrative-code/19-tac-chapter-113",
+  "verifiedDate": "2026-08-13",
+  "verificationNote": "Wording transcribed from the TEA §113.41 rule (adopted 2022). The high-school social studies TEKS revision was postponed (targeted Sept 2026), so §113.41 remains in effect; still confirm all codes and the skills-strand numbering (28 vs 29) against the current 19 TAC Chapter 113.",
+  "status": "verified-pending-district-confirmation",
+  "standards": {
+    "US.8(A)": { "strand": "History", "type": "content", "text": "describe U.S. responses to Soviet aggression after World War II, including the Truman Doctrine, the Marshall Plan, the Berlin airlift, the North Atlantic Treaty Organization, and John F. Kennedy's role in the Cuban Missile Crisis" },
+    "US.9(F)": { "strand": "History", "type": "content", "text": "describe presidential actions and congressional votes to address minority rights in the United States, including desegregation of the armed forces, the Civil Rights Act of 1964, and the Voting Rights Act of 1965" },
+    "US.9(A)": { "strand": "History", "type": "content", "text": "trace the historical development of the civil rights movement, including the 13th, 14th, 15th, and 19th amendments" },
+    "US.16(B)": { "strand": "Economics", "type": "content", "text": "identify the causes of the Great Depression, including the impact of tariffs on world trade, stock market speculation, bank failures, and the monetary policy of the Federal Reserve System" },
+    "US.16(C)": { "strand": "Economics", "type": "content", "text": "analyze the effects of the Great Depression on the U.S. economy and society such as widespread unemployment and deportation and repatriation of people of Mexican heritage" },
+    "US.16(E)": { "strand": "Economics", "type": "content", "text": "describe how various New Deal agencies and programs, including the Federal Deposit Insurance Corporation, the Securities and Exchange Commission, and the Social Security Administration, continue to affect the lives of U.S. citizens" },
+    "US.28(A)": { "strand": "Social studies skills", "type": "skills", "text": "analyze primary and secondary sources such as maps, graphs, speeches, political cartoons, and artifacts to acquire information to answer historical questions (skills-strand number 28 vs 29 varies by adoption; confirm)" },
+    "US.28(D)": { "strand": "Social studies skills", "type": "skills", "text": "evaluate a variety of historical and contemporary sources for validity, credibility, bias, and accuracy (confirm strand number)" },
+    "US.28(E)": { "strand": "Social studies skills", "type": "skills", "text": "identify bias and support with historical evidence a point of view on a social studies issue or event (confirm strand number)" }
+  }
+}

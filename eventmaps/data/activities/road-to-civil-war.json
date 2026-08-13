@@ -1,0 +1,56 @@
+{
+  "id": "road-to-civil-war",
+  "title": "The Road to the Civil War",
+  "i18nKey": "act-generic",
+  "gradeBands": ["6-8"],
+  "courses": ["us-history"],
+  "mapType": "conflict-consequence",
+  "era": "sectionalism-civil-war",
+  "estimatedMinutes": 35,
+  "summary": "Follow the chain of conflicts over slavery's expansion from 1850 to 1861 and decide which link did the most to make war unavoidable.",
+  "challenge": "The Civil War did not begin with a single event. Through the 1850s, a chain of conflicts over whether slavery could expand into the western territories pushed the nation toward war — each action producing a sharper reaction. Trace the chain from pressure to consequence, and decide which link mattered most.",
+  "event": { "title": "Secession and Fort Sumter", "date": "1850–1861", "place": "The United States" },
+  "mapData": {
+    "links": [
+      { "labelKey": "f_pressure", "textKey": "Disputes over whether slavery may expand into western territories won from Mexico (1848–1850)." },
+      { "labelKey": "f_action2", "textKey": "Compromise of 1850 and its Fugitive Slave Act (Sept. 1850) — a deal that also forced free states to return escaped people." },
+      { "labelKey": "f_reaction", "textKey": "Kansas–Nebraska Act (May 1854) reopens the question by 'popular sovereignty,' leading to 'Bleeding Kansas' violence (1854–1859)." },
+      { "labelKey": "f_escalation", "textKey": "Dred Scott decision (March 1857) denies Black citizenship and any federal power to bar slavery; John Brown's Harpers Ferry raid (Oct. 1859) hardens both sides." },
+      { "labelKey": "f_event2", "textKey": "Lincoln's election (Nov. 1860) leads Deep South states to secede (Dec. 1860–Feb. 1861); Confederates fire on Fort Sumter (April 12–14, 1861)." },
+      { "labelKey": "f_consequences", "textKey": "Outbreak of the Civil War (1861–1865); the Upper South secedes after Sumter; the war becomes one that ends slavery." }
+    ],
+    "altKey": "What if the Compromise of 1850 had not included the harsh Fugitive Slave Act — would sectional anger have cooled instead of spreading North?",
+    "people": [
+      "Stephen A. Douglas — authored the Kansas–Nebraska Act and popular sovereignty",
+      "Chief Justice Roger B. Taney — wrote the Dred Scott majority opinion",
+      "John Brown — led the Harpers Ferry raid",
+      "Abraham Lincoln — whose election triggered secession"
+    ],
+    "mostKey": "Which single link did the most to make war unavoidable — the Fugitive Slave Act, the Kansas–Nebraska Act, Dred Scott, Harpers Ferry, or Lincoln's election? Choose one, and use evidence from at least two other links to defend it."
+  },
+  "sources": [
+    { "n": 1, "titleKey": "Dred Scott v. Sandford (1857) — National Archives", "type": "primary", "url": "https://www.archives.gov/milestone-documents/dred-scott-v-sandford", "descKey": "The Supreme Court judgment that denied Black citizenship and struck down the Missouri Compromise.", "questionKeys": ["What did the Court decide about citizenship and about Congress's power?", "How might Northerners and Southerners react differently to this ruling?"] },
+    { "n": 2, "titleKey": "Bleeding Kansas — National Park Service", "type": "secondary", "url": "https://www.nps.gov/articles/bleedingks.htm", "descKey": "How popular sovereignty turned Kansas into a battleground over slavery.", "questionKeys": ["Why did violence break out in Kansas?", "How did this deepen the conflict between North and South?"] },
+    { "n": 3, "titleKey": "Trigger Events of the Civil War — American Battlefield Trust", "type": "secondary", "url": "https://www.battlefields.org/learn/articles/trigger-events-civil-war", "descKey": "The escalating chain of events from the Fugitive Slave Act to Fort Sumter.", "questionKeys": ["Which events form the chain toward war?", "Which one seems to be the point of no return?"] }
+  ],
+  "comparePromptKeys": [
+    "Compare your chains with a partner. Did you order the links the same way?",
+    "Did you choose the same 'most important link'? Defend your choice with evidence."
+  ],
+  "conclusionKey": "Which link in the chain did the most to make war unavoidable? Support your claim with evidence from at least two sources and two links.",
+  "ace": {
+    "enabled": true,
+    "articulateKey": "Explain how one action in the chain produced a sharper reaction.",
+    "connectKey": "Connect the Kansas–Nebraska Act to the violence of 'Bleeding Kansas.'",
+    "extendKey": "Apply the idea of an escalating chain of conflict to another dispute in history or the world today."
+  },
+  "teacherText": {
+    "keyideas": "Slavery — and specifically whether it could expand into new territories — was the central cause of the sectional crisis. Each compromise or ruling meant to settle the question instead sharpened it: the Fugitive Slave Act angered the North, the Kansas–Nebraska Act reopened the territories, Dred Scott denied any federal limit on slavery, and Lincoln's election (on a platform opposing slavery's expansion) triggered secession and war.",
+    "misconceptions": "• The war's central cause was slavery, not merely 'states' rights' in the abstract.\n• The Compromise of 1850 did not settle the issue; its Fugitive Slave Act inflamed it.\n• Lincoln's 1860 platform opposed the expansion of slavery, not (yet) its immediate abolition everywhere.",
+    "vocabulary": "sectionalism, popular sovereignty, Fugitive Slave Act, Dred Scott, secession, Fort Sumter, abolitionist, Confederacy.",
+    "context": "Compromise of 1850 & Fugitive Slave Act (Sept. 1850); Kansas–Nebraska Act (May 30, 1854) & Bleeding Kansas; Dred Scott (March 6, 1857); Harpers Ferry (Oct. 1859); Lincoln elected (Nov. 6, 1860); South Carolina secedes (Dec. 20, 1860); Fort Sumter fired on (April 12–14, 1861)."
+  },
+  "teks": { "standardsFile": "standards/teks-grade8-us.json", "content": ["8.7", "8.8"], "skills": ["8.29(A)", "8.29(D)", "8.29(E)"] },
+  "tags": ["sectionalism", "civil-war", "multiple-causation", "primary-sources"],
+  "translationStatus": { "en": "human", "es": "mt-pending-review", "vi": "mt-pending-review", "ar": "mt-pending-review", "zh": "mt-pending-review", "ur": "mt-pending-review", "hi": "mt-pending-review" }
+}

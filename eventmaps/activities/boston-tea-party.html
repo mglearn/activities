@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>Boston Tea Party — Voices Around the Event · History Event Maps</title>
+<meta name="description" content="A TEKS-aligned Grade 6–8 U.S. History investigation: map how Patriots, British officials, tea merchants, and other colonists saw the Boston Tea Party. Seven languages, printable color and grayscale, no student data collected.">
+<meta property="og:title" content="Boston Tea Party — Voices Around the Event">
+<meta property="og:description" content="Map four perspectives on the Boston Tea Party. TEKS-aligned, seven languages, printable color & grayscale.">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/eventmaps.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="backlink" data-i18n="nav_hub">← History Event Maps</a>
+  <div class="nav-mid" data-i18n="map_name">Voices Around the Event</div>
+  <div class="spacer"></div>
+  <div class="lang-picker" data-i18n-picker></div>
+</div>
+
+<main class="wrap narrow">
+
+  <header class="hero" style="text-align:left">
+    <div class="tags" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+      <span class="tag" data-i18n="map_name">Voices Around the Event</span>
+      <span class="tag" data-i18n="band_68">Grades 6–8</span>
+      <span class="tag" data-i18n="course_us">United States History</span>
+    </div>
+    <h1 data-i18n="act_title">Boston Tea Party</h1>
+    <p class="sub" data-i18n="act_summary">Examine how Patriots, British officials, tea merchants, and other colonists viewed taxation, resistance, and British authority.</p>
+    <div class="btnrow">
+      <div class="viewbar" role="group" aria-label="View">
+        <button id="view-student" class="active" data-i18n="view_student">Student</button>
+        <button id="view-teacher" data-i18n="view_teacher">Teacher</button>
+      </div>
+      <button class="btn" onclick="window.print()" data-i18n="print_btn">Print / Save PDF</button>
+      <span class="tag" style="align-self:center"><span data-i18n="est_time">Estimated time</span>: <span data-i18n="minutes" data-mins="25">25 min</span></span>
+    </div>
+  </header>
+
+  <!-- Six-step routine -->
+  <div class="routine" aria-label="Scan, Map, Compare, Expand, Revise, Conclude">
+    <span class="step"><span class="k">1</span><span data-i18n="r_scan">Scan</span></span>
+    <span class="arrow">→</span>
+    <span class="step"><span class="k">2</span><span data-i18n="r_map">Map</span></span>
+    <span class="arrow">→</span>
+    <span class="step"><span class="k">3</span><span data-i18n="r_compare">Compare</span></span>
+    <span class="arrow">→</span>
+    <span class="step"><span class="k">4</span><span data-i18n="r_expand">Expand</span></span>
+    <span class="arrow">→</span>
+    <span class="step"><span class="k">5</span><span data-i18n="r_revise">Revise</span></span>
+    <span class="arrow">→</span>
+    <span class="step"><span class="k">6</span><span data-i18n="r_conclude">Conclude</span></span>
+  </div>
+
+  <!-- Historical challenge -->
+  <section class="block">
+    <h3><span class="stepk">?</span><span data-i18n="sec_challenge">Historical challenge</span></h3>
+    <p data-i18n="challenge">On the night of December 16, 1773, colonists boarded three ships…</p>
+  </section>
+
+  <!-- Investigate (sources) -->
+  <section class="block">
+    <h3><span class="stepk">1</span><span data-i18n="sec_investigate">Investigate</span></h3>
+    <div id="sources" class="sources"></div>
+  </section>
+
+  <!-- Build your Event Map (organizer) -->
+  <section class="block">
+    <h3><span class="stepk">2</span><span data-i18n="sec_build">Build your Event Map</span></h3>
+    <p class="muted" data-i18n="build_hint">Fill in each group's card from the evidence…</p>
+    <div class="btnrow no-print">
+      <label class="tag" style="cursor:pointer"><input type="checkbox" id="gray-toggle"> <span data-i18n="dl_sg">Student · Grayscale</span> preview</label>
+    </div>
+    <div id="organizer-host"></div>
+  </section>
+
+  <!-- Compare -->
+  <section class="block">
+    <h3><span class="stepk">3</span><span data-i18n="sec_compare">Compare</span></h3>
+    <ul class="qlist">
+      <li data-i18n="compare1">With a partner, compare your cards…</li>
+      <li data-i18n="compare2">Which group's perspective was hardest to find…</li>
+    </ul>
+  </section>
+
+  <!-- Expand -->
+  <section class="block">
+    <h3><span class="stepk">4</span><span data-i18n="sec_expand">Expand</span></h3>
+    <p data-i18n="expand_note">Your teacher will add context, vocabulary, and information the sources leave out.</p>
+    <div class="teacher-only">
+      <span class="tlabel" data-i18n="teacher_note">Teacher note</span>
+      <p style="font-weight:700" data-i18n="t_keyideas_label">Key ideas</p>
+      <p data-i18n="t_keyideas"></p>
+      <p style="font-weight:700;margin-top:8px" data-i18n="t_misc_label">Common misconceptions</p>
+      <p style="white-space:pre-line" data-i18n="t_misconceptions"></p>
+      <p style="font-weight:700;margin-top:8px" data-i18n="t_vocab_label">Vocabulary</p>
+      <p data-i18n="t_vocabulary"></p>
+      <p style="font-weight:700;margin-top:8px" data-i18n="t_context_label">Historical context</p>
+      <p data-i18n="t_context"></p>
+    </div>
+  </section>
+
+  <!-- Revise -->
+  <section class="block">
+    <h3><span class="stepk">5</span><span data-i18n="sec_revise">Revise</span></h3>
+    <p data-i18n="revise_note">Go back to your Event Map. Add, correct, or reorganize based on the discussion.</p>
+  </section>
+
+  <!-- Conclude -->
+  <section class="block">
+    <h3><span class="stepk">6</span><span data-i18n="sec_conclude">Conclude</span></h3>
+    <p style="font-weight:700" data-i18n="conclusion">Was the destruction of the tea a justified defense of colonial rights…?</p>
+  </section>
+
+  <!-- ACE -->
+  <section class="block no-print">
+    <h3><span class="stepk">+</span><span data-i18n="sec_ace">Optional: ACE it</span></h3>
+    <ul class="qlist">
+      <li><strong data-i18n="ace_a">Articulate</strong> — <span data-i18n="ace_articulate"></span></li>
+      <li><strong data-i18n="ace_c">Connect</strong> — <span data-i18n="ace_connect"></span></li>
+      <li><strong data-i18n="ace_e">Extend</strong> — <span data-i18n="ace_extend"></span></li>
+    </ul>
+  </section>
+
+  <!-- Standards -->
+  <section class="block no-print">
+    <h3><span class="stepk">§</span><span data-i18n="sec_standards">Standards</span></h3>
+    <div id="teks"></div>
+    <p class="verify-note" data-i18n="teks_confirm">Districts should confirm exact locally adopted standards and codes.</p>
+  </section>
+
+  <!-- Downloads -->
+  <section class="block no-print">
+    <h3><span class="stepk">⭳</span><span data-i18n="sec_downloads">Downloads</span></h3>
+    <p class="muted" data-i18n="dl_note">Tip: choose landscape and “Background graphics” off for the cleanest print.</p>
+    <div class="dl-grid">
+      <a class="dl" href="?view=student&ink=color#organizer-host"><span class="dlt" data-i18n="dl_sc">Student · Color</span><span class="dls" data-i18n="dl_sc_s"></span></a>
+      <a class="dl" href="?view=student&ink=gray#organizer-host"><span class="dlt" data-i18n="dl_sg">Student · Grayscale</span><span class="dls" data-i18n="dl_sg_s"></span></a>
+      <a class="dl" href="?view=teacher&ink=color#organizer-host"><span class="dlt" data-i18n="dl_tc">Teacher · Color</span><span class="dls" data-i18n="dl_tc_s"></span></a>
+      <a class="dl" href="?view=teacher&ink=gray#organizer-host"><span class="dlt" data-i18n="dl_tg">Teacher · Grayscale</span><span class="dls" data-i18n="dl_tg_s"></span></a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="flinks">
+      <a href="../index.html" data-i18n="nav_hub">← History Event Maps</a>
+    </div>
+    <div data-i18n="footer_privacy">No logins. No accounts. No student data collected.</div>
+  </footer>
+</main>
+
+<a href="#" id="back-to-top" aria-label="Back to top">↑</a>
+
+<script src="../assets/i18n.js" defer></script>
+<script src="../assets/i18n-common.js" defer></script>
+<script src="../assets/i18n-voices-btp.js" defer></script>
+<script src="../assets/data.js" defer></script>
+<script src="../assets/maps.js" defer></script>
+<script defer>
+document.addEventListener('DOMContentLoaded', function () {
+  const I18N = window.BreakoutI18n;
+  const ACT = window.EM_DATA.activities['boston-tea-party'];
+  const STD = window.EM_DATA.standards['teks-grade8-us'];
+
+  // Teacher-guide sub-labels live only in en (fall back for other langs)
+  const LABELS = { en: {
+    t_keyideas_label: 'Key ideas', t_misc_label: 'Common misconceptions',
+    t_vocab_label: 'Vocabulary', t_context_label: 'Historical context'
+  }};
+  I18N.register('act-boston-tea-party',
+    window.EM.mergeLangs(window.EM_COMMON, window.EM_ACT_BTP, LABELS));
+  const t = (k, v) => I18N.t(k, v);
+
+  // Minutes interpolation
+  document.querySelectorAll('[data-i18n="minutes"]').forEach(el => {
+    el.textContent = t('minutes', { n: el.getAttribute('data-mins') || ACT.estimatedMinutes });
+  });
+
+  // --- Sources ---
+  function renderSources() {
+    const host = document.getElementById('sources');
+    host.innerHTML = ACT.sources.map(s => {
+      const typeKey = s.type === 'primary' ? 'src_type_primary' : 'src_type_secondary';
+      const qs = (s.questionKeys || []).map(qk => '<div class="sq">• ' + t(qk) + '</div>').join('');
+      return '<div class="source">' +
+        '<div class="snum">' + t('src_strip') + ' ' + s.n + '</div>' +
+        '<div class="stitle">' + t(s.titleKey) + '</div>' +
+        '<div class="stype">' + t(typeKey) + '</div>' +
+        '<div class="sdesc">' + t(s.descKey) + '</div>' +
+        '<a href="' + s.url + '" target="_blank" rel="noopener noreferrer">' + t('src_open') + '</a>' +
+        '<div style="margin-top:6px"><span class="fl" style="font-size:.7rem">' + t('invest_q') + '</span>' + qs + '</div>' +
+        '</div>';
+    }).join('');
+  }
+
+  // --- TEKS table ---
+  function renderTeks() {
+    const host = document.getElementById('teks');
+    function rows(codes) {
+      return codes.map(c => {
+        const s = STD.standards[c];
+        return '<tr><td class="teks-code">' + c + '</td><td>' + (s ? s.text : '') + '</td></tr>';
+      }).join('');
+    }
+    host.innerHTML =
+      '<table class="teks-table"><thead><tr><th data-h="code">' + t('teks_col_code') +
+      '</th><th data-h="text">' + t('teks_col_text') + '</th></tr></thead>' +
+      '<tbody><tr><th colspan="2">' + t('teks_content') + ' — ' + STD.section + '</th></tr>' +
+      rows(ACT.teks.content) +
+      '<tr><th colspan="2">' + t('teks_skills') + '</th></tr>' +
+      rows(ACT.teks.skills) + '</tbody></table>';
+  }
+
+  // --- Organizer ---
+  function renderOrganizer() {
+    const gray = document.getElementById('gray-toggle').checked || getInk() === 'gray';
+    window.EM.renderVoices(document.getElementById('organizer-host'), ACT, t, { gray });
+  }
+
+  // --- View (student/teacher) + ink (color/gray) from URL ---
+  const params = new URLSearchParams(location.search);
+  function getInk() { return params.get('ink') === 'gray' ? 'gray' : 'color'; }
+  function applyView(view) {
+    document.body.classList.toggle('view-teacher', view === 'teacher');
+    document.body.classList.toggle('print-student', view !== 'teacher');
+    document.getElementById('view-student').classList.toggle('active', view !== 'teacher');
+    document.getElementById('view-teacher').classList.toggle('active', view === 'teacher');
+  }
+  document.getElementById('view-student').addEventListener('click', () => applyView('student'));
+  document.getElementById('view-teacher').addEventListener('click', () => applyView('teacher'));
+  document.getElementById('gray-toggle').addEventListener('change', renderOrganizer);
+
+  // Print helpers: ?ink=gray forces grayscale print; view param sets student/teacher
+  if (getInk() === 'gray') { document.body.classList.add('print-gray'); document.getElementById('gray-toggle').checked = true; }
+  applyView(params.get('view') === 'teacher' ? 'teacher' : 'student');
+
+  function renderAll() { renderSources(); renderTeks(); renderOrganizer(); }
+  renderAll();
+  window.addEventListener('breakout-i18n:changed', renderAll);
+  window.EM.wireBackToTop();
+});
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+</html>
