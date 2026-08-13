@@ -28,6 +28,8 @@ function collect(activity) {
   push(activity.conclusionKey);
   if (activity.ace) { push(activity.ace.articulateKey); push(activity.ace.connectKey); push(activity.ace.extendKey); }
   (activity.sources || []).forEach(s => { push(s.titleKey); push(s.descKey); (s.questionKeys || []).forEach(push); });
+  // Voices activities carry stakeholder cards (name + teacher answers).
+  (activity.stakeholders || []).forEach(sh => { push(sh.nameKey); if (sh.teacher) Object.values(sh.teacher).forEach(push); });
   // Walk mapData, skipping label-key slots.
   (function walk(v, keyName) {
     if (typeof v === 'string') { if (keyName !== 'labelKey') push(v); }

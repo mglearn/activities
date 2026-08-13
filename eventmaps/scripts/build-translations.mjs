@@ -24,6 +24,7 @@ function sourceStrings(a) {
   (a.comparePromptKeys || []).forEach(push); push(a.conclusionKey);
   if (a.ace) { push(a.ace.articulateKey); push(a.ace.connectKey); push(a.ace.extendKey); }
   (a.sources || []).forEach(s => { push(s.titleKey); push(s.descKey); (s.questionKeys || []).forEach(push); });
+  (a.stakeholders || []).forEach(sh => { push(sh.nameKey); if (sh.teacher) Object.values(sh.teacher).forEach(push); });
   (function walk(v, k) {
     if (typeof v === 'string') { if (k !== 'labelKey') push(v); }
     else if (Array.isArray(v)) v.forEach(x => walk(x, k));
