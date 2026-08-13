@@ -32,8 +32,9 @@ grade level alone.
 
 ## Current status
 
-All **nine map families** are built (color + true grayscale), each with **one
-complete pilot activity** and printable PDFs:
+All **nine map families** are built (color + true grayscale). The library has
+**18 activities — six per grade band, two per map family** — each with printable
+PDFs and seven-language support. The first activity in each family:
 
 | Family | Pilot | Grade · Course |
 |--------|-------|----------------|

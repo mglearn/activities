@@ -2,6 +2,116 @@
    Source of truth: data/activities/*.json, data/standards/*.json, data/maps.json */
 window.EM_DATA = {
   "activities": {
+    "battle-of-gettysburg": {
+      "id": "battle-of-gettysburg",
+      "title": "The Battle of Gettysburg",
+      "i18nKey": "act-generic",
+      "gradeBands": [
+        "6-8"
+      ],
+      "courses": [
+        "us-history"
+      ],
+      "mapType": "turning-point",
+      "era": "civil-war",
+      "estimatedMinutes": 30,
+      "summary": "Decide whether the three-day battle of July 1863 — together with Vicksburg — was the turning point that changed the direction of the Civil War.",
+      "challenge": "In July 1863, Confederate General Robert E. Lee invaded the North and met the Union army at Gettysburg, Pennsylvania, in the largest battle ever fought in North America. Why do historians call this three-day battle a turning point of the Civil War? Map what led up to it and what changed afterward.",
+      "event": {
+        "title": "The Battle of Gettysburg",
+        "date": "July 1–3, 1863",
+        "place": "Gettysburg, Pennsylvania"
+      },
+      "mapData": {
+        "before": "After his victory at Chancellorsville, Lee held the momentum, and the war's major fighting sat in Virginia.",
+        "pressures": "Lee launched a second invasion of the North to carry the war off Virginia's farmland and onto Union soil, hoping a decisive victory would push the Union toward negotiation and win foreign recognition.",
+        "turning": "Over three days the armies clashed; on July 3, Lee's massed assault (Pickett's Charge) on the Union center was repulsed with heavy losses.",
+        "immediate": "Lee's invasion failed and he retreated to Virginia; the battle produced about 51,000 casualties, the most of any Civil War battle.",
+        "longer": "Paired with the fall of Vicksburg (July 4, 1863), momentum shifted decisively to the Union; the Gettysburg Address (Nov. 1863) reframed the war around 'a new birth of freedom.'",
+        "whoPushed": "Lee and the Confederate commanders, gambling on an offensive invasion of the North.",
+        "whoResisted": "General Meade and the Army of the Potomac, holding the high ground on the defensive.",
+        "couldDiffer": "Had the Confederates seized Little Round Top or Cemetery Hill on July 2, the Union line — and the outcome — might have broken.",
+        "whyKey": "Using cause and effect, explain how the Union victory at Gettysburg — together with Vicksburg — changed the direction of the Civil War. Cite one immediate result and one longer-term change."
+      },
+      "sources": [
+        {
+          "n": 1,
+          "titleKey": "Gettysburg Overview — Gettysburg National Military Park (NPS)",
+          "type": "secondary",
+          "url": "https://www.nps.gov/gett/learn/historyculture/gettysburg-overview.htm",
+          "descKey": "The three days of battle and their staggering cost.",
+          "questionKeys": [
+            "How many casualties did the battle produce?",
+            "Why was the outcome so important?"
+          ]
+        },
+        {
+          "n": 2,
+          "titleKey": "The Gettysburg Address — Library of Congress",
+          "type": "primary",
+          "url": "https://www.loc.gov/exhibits/gettysburg-address/",
+          "descKey": "Lincoln's short speech dedicating the cemetery months after the battle.",
+          "questionKeys": [
+            "How did Lincoln describe the meaning of the war?",
+            "Why give such a speech at a battlefield cemetery?"
+          ]
+        },
+        {
+          "n": 3,
+          "titleKey": "Emancipation Proclamation — National Archives",
+          "type": "primary",
+          "url": "https://www.archives.gov/milestone-documents/emancipation-proclamation",
+          "descKey": "The January 1863 order that reframed the war's purpose.",
+          "questionKeys": [
+            "How did the Proclamation change the war's meaning?",
+            "How does it connect to the Gettysburg Address?"
+          ]
+        }
+      ],
+      "comparePromptKeys": [
+        "Compare your before-and-after with a partner. Did you agree on what changed most?",
+        "Which pressure do you think mattered most in leading to the battle?"
+      ],
+      "conclusionKey": "Was Gettysburg truly a turning point? Use evidence from at least two sources to argue what changed after it — pairing it with Vicksburg — that could not be undone.",
+      "ace": {
+        "enabled": true,
+        "articulateKey": "Explain what happened at Gettysburg and why Lee invaded the North.",
+        "connectKey": "Connect the Union victory to the shift in momentum in the war.",
+        "extendKey": "Apply the idea of a turning point to another decisive moment in a conflict you have studied."
+      },
+      "teacherText": {
+        "keyideas": "Gettysburg (July 1–3, 1863) was Lee's second, most ambitious invasion of the North. Meade's Union army held the high ground; Pickett's Charge on July 3 failed. With ~51,000 casualties and Lee's retreat — plus the fall of Vicksburg on July 4 — the war's momentum shifted to the Union. The Gettysburg Address (Nov. 19, 1863) recast the war around freedom and self-government.",
+        "misconceptions": "• Gettysburg did not end the war; it shifted momentum, alongside Vicksburg.\n• The casualty figure (~51,000) counts killed, wounded, captured, and missing — not only deaths.\n• The Gettysburg Address came months after the battle, at the cemetery dedication.",
+        "vocabulary": "invasion, Army of Northern Virginia, Army of the Potomac, Pickett's Charge, casualties, Emancipation Proclamation, momentum.",
+        "context": "July 1–3, 1863; Lee vs. Meade; Pickett's Charge July 3; ~51,000 casualties; Vicksburg fell July 4, 1863; Gettysburg Address Nov. 19, 1863."
+      },
+      "teks": {
+        "standardsFile": "standards/teks-grade8-us.json",
+        "content": [
+          "8.8(B)",
+          "8.8(A)"
+        ],
+        "skills": [
+          "8.29(B)",
+          "8.30(D)"
+        ]
+      },
+      "tags": [
+        "civil-war",
+        "turning-point",
+        "causation",
+        "primary-sources"
+      ],
+      "translationStatus": {
+        "en": "human",
+        "es": "mt-pending-review",
+        "vi": "mt-pending-review",
+        "ar": "mt-pending-review",
+        "zh": "mt-pending-review",
+        "ur": "mt-pending-review",
+        "hi": "mt-pending-review"
+      }
+    },
     "battle-of-gonzales": {
       "id": "battle-of-gonzales",
       "title": "The Battle of Gonzales",
@@ -517,6 +627,280 @@ window.EM_DATA = {
         "hi": "mt-pending-review"
       }
     },
+    "debate-over-constitution": {
+      "id": "debate-over-constitution",
+      "title": "The Debate Over the Constitution",
+      "i18nKey": "act-generic",
+      "gradeBands": [
+        "6-8"
+      ],
+      "courses": [
+        "us-history"
+      ],
+      "mapType": "voices-around-event",
+      "era": "founding",
+      "estimatedMinutes": 30,
+      "summary": "Map how Federalists, Anti-Federalists, small-state delegates, and supporters of a Bill of Rights argued over whether to ratify the new U.S. Constitution.",
+      "challenge": "In 1787–1788, Americans fiercely debated whether to ratify the new U.S. Constitution. Supporters said the country needed a stronger national government; opponents feared it would trample state and individual rights. Investigate the arguments, then map how four different groups saw the same question.",
+      "event": {
+        "title": "Ratifying the U.S. Constitution",
+        "date": "1787–1788",
+        "place": "Philadelphia and the state ratifying conventions"
+      },
+      "stakeholders": [
+        {
+          "id": "federalists",
+          "nameKey": "Federalists (Hamilton, Madison, Jay, Washington)",
+          "icon": "flag",
+          "teacher": {
+            "wanted": "A stronger central government under the new Constitution to replace the weak Articles of Confederation.",
+            "feared": "That the disorder, debt, and disunity under the Articles would cause the young nation to collapse.",
+            "action": "Published the 85 Federalist Papers and argued at state ratifying conventions for quick approval.",
+            "evidence": "The Federalist Papers (1787–88), written under the pen name 'Publius' — ① describe their arguments.",
+            "affected": "Won ratification and shaped the national government, but had to accept the promise of a Bill of Rights."
+          }
+        },
+        {
+          "id": "anti-federalists",
+          "nameKey": "Anti-Federalists (Henry, Mason, S. Adams, R.H. Lee)",
+          "icon": "people",
+          "teacher": {
+            "wanted": "To protect state powers and individual liberties and keep government closer to the people.",
+            "feared": "A distant, too-powerful national government and possible tyranny.",
+            "action": "Spoke against ratification in state conventions and published essays under names like 'Brutus.'",
+            "evidence": "Anti-Federalist writings such as the 'Brutus' essays and George Mason's 'Objections' — ② describe them.",
+            "affected": "Lost the ratification fight but succeeded in forcing the addition of the Bill of Rights."
+          }
+        },
+        {
+          "id": "bill-of-rights",
+          "nameKey": "Supporters of a Bill of Rights (swing delegates)",
+          "icon": "crown",
+          "teacher": {
+            "wanted": "Explicit written guarantees of rights such as free speech, religion, and trial by jury.",
+            "feared": "That without listed rights, the new government could ignore individual freedoms.",
+            "action": "Offered conditional support — agreeing to ratify only if amendments were promised (the 'Massachusetts Compromise').",
+            "evidence": "State ratifying-convention records that attached recommended amendments to their votes.",
+            "affected": "Their demand produced the Bill of Rights, ratified in 1791."
+          }
+        },
+        {
+          "id": "small-states",
+          "nameKey": "Small-state delegates (New Jersey, Delaware)",
+          "icon": "ship",
+          "teacher": {
+            "wanted": "Equal representation so smaller states would not be dominated by larger ones.",
+            "feared": "That a purely population-based Congress would leave small states powerless.",
+            "action": "Backed the New Jersey Plan and accepted the Great Compromise (equal Senate, population-based House).",
+            "evidence": "The Great Compromise written into the Constitution's two-house Congress.",
+            "affected": "Gained equal Senate representation, which made ratification acceptable to smaller states."
+          }
+        }
+      ],
+      "sources": [
+        {
+          "n": 1,
+          "titleKey": "The Constitution of the United States — National Archives",
+          "type": "primary",
+          "url": "https://www.archives.gov/founding-docs/constitution",
+          "descKey": "The document itself; Article VII set the nine-state ratification requirement.",
+          "questionKeys": [
+            "What did the Constitution require to take effect?",
+            "Which parts might different groups worry about?"
+          ]
+        },
+        {
+          "n": 2,
+          "titleKey": "Federalist Papers: Primary Documents in American History — Library of Congress",
+          "type": "primary",
+          "url": "https://guides.loc.gov/federalist-papers",
+          "descKey": "The 85 essays written by Hamilton, Madison, and Jay to urge ratification.",
+          "questionKeys": [
+            "Who wrote the Federalist Papers, and why?",
+            "What point of view do they argue?"
+          ]
+        },
+        {
+          "n": 3,
+          "titleKey": "The Ratification Debate on the Constitution — Bill of Rights Institute",
+          "type": "secondary",
+          "url": "https://billofrightsinstitute.org/essays/the-ratification-debate-on-the-constitution/",
+          "descKey": "How Anti-Federalist demands for a Bill of Rights shaped ratification.",
+          "questionKeys": [
+            "Why did Anti-Federalists oppose the Constitution as written?",
+            "How was the disagreement resolved?"
+          ]
+        }
+      ],
+      "comparePromptKeys": [
+        "With a partner, compare your cards. Where did you record the same thing? Where did your evidence differ?",
+        "Which group's perspective was hardest to find in the sources? Why might that be?"
+      ],
+      "conclusionKey": "Was ratifying the Constitution the right choice for the new nation? Support your answer with evidence from at least two sources and at least two groups' perspectives.",
+      "ace": {
+        "enabled": true,
+        "articulateKey": "In your own words, explain what Federalists and Anti-Federalists disagreed about.",
+        "connectKey": "Connect the Anti-Federalists' fears to the addition of the Bill of Rights.",
+        "extendKey": "Apply the debate over how much power a government should have to a question about government today."
+      },
+      "teacherText": {
+        "keyideas": "The Constitution needed nine of thirteen states to ratify (Article VII). Federalists (Hamilton, Madison, Jay) argued for it in the 85 Federalist Papers; Anti-Federalists (Henry, Mason, and writers like 'Brutus') feared centralized power and the lack of a Bill of Rights. The 'Massachusetts Compromise' — a promise to add amendments — won crucial states; the Bill of Rights was ratified in 1791. Whose perspective is missing? Enslaved people, women, and Native nations had no vote in the conventions.",
+        "misconceptions": "• Anti-Federalists were not against all government — they wanted rights protections and stronger states.\n• The Constitution did not originally include a Bill of Rights; it was added by amendment in 1791.\n• Ratification was by special state conventions, not the state legislatures.",
+        "vocabulary": "ratification, Federalist, Anti-Federalist, Federalist Papers, Bill of Rights, Great Compromise, Article VII, civil discourse.",
+        "context": "Constitutional Convention May–Sept. 1787; ratification debates 1787–88; New Hampshire the 9th state June 21, 1788; first government 1789; Bill of Rights ratified Dec. 15, 1791."
+      },
+      "teks": {
+        "standardsFile": "standards/teks-grade8-us.json",
+        "content": [
+          "8.17(A)",
+          "8.4(D)",
+          "8.15(A)"
+        ],
+        "skills": [
+          "8.29(A)",
+          "8.29(D)",
+          "8.29(F)"
+        ]
+      },
+      "tags": [
+        "founding",
+        "multiple-perspectives",
+        "constitution",
+        "primary-sources"
+      ],
+      "translationStatus": {
+        "en": "human",
+        "es": "mt-pending-review",
+        "vi": "mt-pending-review",
+        "ar": "mt-pending-review",
+        "zh": "mt-pending-review",
+        "ur": "mt-pending-review",
+        "hi": "mt-pending-review"
+      }
+    },
+    "ellis-island": {
+      "id": "ellis-island",
+      "title": "Ellis Island and Immigration",
+      "i18nKey": "act-generic",
+      "gradeBands": [
+        "3-5"
+      ],
+      "courses": [
+        "us-history"
+      ],
+      "mapType": "people-place-change",
+      "era": "immigration-industrialization",
+      "estimatedMinutes": 30,
+      "summary": "Connect the people, places, and changes of Ellis Island, where about 12 million immigrants entered the United States between 1892 and 1954.",
+      "challenge": "Between 1892 and 1954, about 12 million people arrived at Ellis Island in New York Harbor, hoping to start new lives in America. Who came, where did they land and settle, and what changed because of them? Map how people, place, and change connect.",
+      "event": {
+        "title": "Ellis Island and Immigration",
+        "date": "1892–1954",
+        "place": "New York Harbor"
+      },
+      "mapData": {
+        "who": [
+          "Immigrant families and individuals — arriving mostly from Europe, plus elsewhere, hoping for work and a new start",
+          "Immigration inspectors — federal officers who asked questions and decided who could enter",
+          "Doctors and nurses — who examined arrivals for illness",
+          "Interpreters — who translated many languages so people and officials could understand each other"
+        ],
+        "where": [
+          "New York Harbor — the ships' entry point to America",
+          "Ellis Island — the small island holding the immigration station",
+          "The great hall (Registry Room) — where arrivals were inspected",
+          "The Statue of Liberty — nearby, the first landmark many immigrants saw",
+          "American cities — New York, Chicago, Boston, and beyond, where newcomers settled"
+        ],
+        "changed": [
+          "The U.S. population grew quickly.",
+          "Cities grew larger (urbanization) as many immigrants settled in them.",
+          "The workforce grew, supplying labor for factories and industry.",
+          "Food, music, language, and traditions blended into American culture.",
+          "The nation became more diverse, made up of people from many lands."
+        ],
+        "connectionKey": "Millions of hopeful people came through Ellis Island in New York Harbor, and by settling in America's growing cities and workplaces they helped make the nation bigger, busier, and more diverse."
+      },
+      "sources": [
+        {
+          "n": 1,
+          "titleKey": "History of Ellis Island from 1892 to 1954 — National Park Service",
+          "type": "secondary",
+          "url": "https://www.nps.gov/elis/learn/historyculture/history-of-ellis-island-from-1892-to-1954.htm",
+          "descKey": "How the immigration station worked and changed over 62 years.",
+          "questionKeys": [
+            "When did Ellis Island open and close?",
+            "About how many people passed through it?"
+          ]
+        },
+        {
+          "n": 2,
+          "titleKey": "Ellis Island — Immigration and Relocation in U.S. History (Library of Congress)",
+          "type": "secondary",
+          "url": "https://www.loc.gov/classroom-materials/immigration/italian/ellis-island/",
+          "descKey": "The inspection process arrivals went through, with primary sources.",
+          "questionKeys": [
+            "What happened to someone arriving at Ellis Island?",
+            "How might the wait have felt?"
+          ]
+        },
+        {
+          "n": 3,
+          "titleKey": "Ellis Island Passenger Manifests — National Archives (Prologue)",
+          "type": "primary",
+          "url": "https://www.archives.gov/publications/prologue/1996/fall/ellis-island-manifests-1",
+          "descKey": "Ship passenger lists recording names, ages, jobs, and home countries.",
+          "questionKeys": [
+            "What information did the manifests record?",
+            "How do these records help families today?"
+          ]
+        }
+      ],
+      "comparePromptKeys": [
+        "Compare your three lenses with a partner. Did you connect the same people to the same places and changes?",
+        "Which change do you think mattered most to a newly arrived family? Why?"
+      ],
+      "conclusionKey": "In your own words, explain how people, place, and change connect at Ellis Island. Use at least one detail from each lens and one source.",
+      "ace": {
+        "enabled": true,
+        "articulateKey": "Explain what Ellis Island was and why so many people came through it.",
+        "connectKey": "Connect where immigrants settled to a change that happened in American cities.",
+        "extendKey": "Apply the idea of newcomers changing a community to your own town or school today."
+      },
+      "teacherText": {
+        "keyideas": "Ellis Island (1892–1954), in New York Harbor near the Statue of Liberty, processed about 12 million immigrants, most between 1892 and 1924. Arrivals were inspected for health and questioned in the Registry Room; most passed and entered the country. Immigration fueled population growth, urbanization, a larger workforce, and a more diverse culture. The 1924 Quota Act sharply reduced immigration.",
+        "misconceptions": "• Most arrivals passed inspection and were admitted; only a small share were held or turned away.\n• Ellis Island processed immigrants; it was not a prison (though later it was used for detention).\n• Immigrants came from many places, not one single country.",
+        "vocabulary": "immigration, inspection, manifest, urbanization, quota, interpreter, harbor.",
+        "context": "Opened Jan. 1, 1892; closed 1954; ~12 million processed; peak early 1900s; 1897 fire, fireproof Main Building opened Dec. 1900; immigration dropped after the 1924 Quota Act."
+      },
+      "teks": {
+        "standardsFile": "standards/teks-grade5-us.json",
+        "content": [
+          "5.5(A)",
+          "5.12(C)"
+        ],
+        "skills": [
+          "5.24(A)",
+          "5.24(B)",
+          "5.24(D)"
+        ]
+      },
+      "tags": [
+        "immigration",
+        "geography",
+        "urbanization",
+        "primary-sources"
+      ],
+      "translationStatus": {
+        "en": "human",
+        "es": "mt-pending-review",
+        "vi": "mt-pending-review",
+        "ar": "mt-pending-review",
+        "zh": "mt-pending-review",
+        "ur": "mt-pending-review",
+        "hi": "mt-pending-review"
+      }
+    },
     "great-depression": {
       "id": "great-depression",
       "title": "The Great Depression",
@@ -886,6 +1270,249 @@ window.EM_DATA = {
         "hi": "mt-pending-review"
       }
     },
+    "louisiana-purchase": {
+      "id": "louisiana-purchase",
+      "title": "The Louisiana Purchase",
+      "i18nKey": "act-generic",
+      "gradeBands": [
+        "3-5"
+      ],
+      "courses": [
+        "us-history"
+      ],
+      "mapType": "cause-ripples",
+      "era": "early-republic",
+      "estimatedMinutes": 25,
+      "summary": "Trace the ripples out from the 1803 deal that doubled the size of the country — for the new nation and for the Native peoples already living on the land.",
+      "challenge": "In 1803, the United States bought a huge piece of land from France for about $15 million — and doubled the size of the country almost overnight. What caused the deal, what happened right afterward, and what changed for years to come? Follow the ripples, and think about who was helped and who was hurt.",
+      "event": {
+        "title": "The Louisiana Purchase",
+        "date": "April 30, 1803",
+        "place": "Paris, France (land west of the Mississippi River)"
+      },
+      "mapData": {
+        "causes": [
+          "The U.S. wanted control of New Orleans and the Mississippi River so farmers could ship goods.",
+          "France needed money and was about to go to war with Britain again.",
+          "Napoleon gave up his plans for an American empire after huge losses in the Haitian Revolution.",
+          "Jefferson saw a chance to expand the country and keep the river route open."
+        ],
+        "immediate": [
+          "The size of the United States doubled almost overnight.",
+          "The U.S. gained control of New Orleans and the whole Mississippi River.",
+          "Jefferson sent Lewis and Clark to explore, map, and report on the new land.",
+          "Americans began moving and settling west of the Mississippi."
+        ],
+        "longterm": [
+          "The purchase fueled decades of westward expansion and 'Manifest Destiny.'",
+          "It brought pressure, broken treaties, and loss of homelands for many Native nations.",
+          "Over time, many new states were carved from the territory.",
+          "It opened new land where slavery spread westward, deepening national conflict."
+        ],
+        "affected": [
+          "Native American nations already living on the land (Osage, Lakota, and many others)",
+          "American farmers and settlers who moved west",
+          "Enslaved African Americans, as slavery expanded into new areas",
+          "French, Spanish, and Creole residents of New Orleans and the territory"
+        ],
+        "matteredKey": "Of all the ripples from the Louisiana Purchase, which one changed the most lives — and was that change good, harmful, or both? Use evidence to explain who was helped and who was hurt."
+      },
+      "sources": [
+        {
+          "n": 1,
+          "titleKey": "Louisiana Purchase Treaty (1803) — National Archives",
+          "type": "primary",
+          "url": "https://www.archives.gov/milestone-documents/louisiana-purchase-treaty",
+          "descKey": "The 1803 treaty that transferred the territory to the United States.",
+          "questionKeys": [
+            "How much land and money were involved?",
+            "Whose signatures made the deal official?"
+          ]
+        },
+        {
+          "n": 2,
+          "titleKey": "The Louisiana Purchase — Thomas Jefferson's Monticello",
+          "type": "secondary",
+          "url": "https://www.monticello.org/thomas-jefferson/louisiana-lewis-clark/the-louisiana-purchase/",
+          "descKey": "Why Napoleon offered the whole territory, and how Jefferson responded.",
+          "questionKeys": [
+            "Why did France decide to sell?",
+            "What did the U.S. plan to do with the new land?"
+          ]
+        },
+        {
+          "n": 3,
+          "titleKey": "U.S. Takes Possession of Louisiana — National Park Service",
+          "type": "secondary",
+          "url": "https://www.nps.gov/articles/u-s-takes-possession-of-louisiana.htm",
+          "descKey": "How the land transferred in ceremonies at New Orleans and St. Louis.",
+          "questionKeys": [
+            "Where did the transfer ceremonies happen?",
+            "What changed for people already living there?"
+          ]
+        }
+      ],
+      "comparePromptKeys": [
+        "Compare your ripples with a partner. Which effects did you both list? Which did only one of you find?",
+        "Did you place any effect in a different ring (immediate vs. later) than your partner? Talk about why."
+      ],
+      "conclusionKey": "Choose the one result of the Louisiana Purchase you think mattered most. Use evidence from your ripples to explain who it helped and who it hurt.",
+      "ace": {
+        "enabled": true,
+        "articulateKey": "Explain what the Louisiana Purchase was and why it happened.",
+        "connectKey": "Connect one cause of the purchase to one long-term change it created.",
+        "extendKey": "Apply the idea of a decision with big ripples to a choice a community makes today."
+      },
+      "teacherText": {
+        "keyideas": "The Louisiana Purchase (April 30, 1803) transferred about 828,000 square miles from France for about $15 million (~4 cents an acre), doubling the size of the United States. U.S. negotiators had gone to buy only New Orleans; France offered the whole territory. The U.S. bought France's claim, not the land from the Native nations who lived there — a key point for the costs/benefits discussion.",
+        "misconceptions": "• The U.S. bought a claim to the territory, not the actual homelands of Native nations.\n• The deal was larger than Jefferson's negotiators were sent to make.\n• Doubling the nation's size also spread slavery westward, worsening sectional conflict.",
+        "vocabulary": "territory, treaty, Napoleon, Manifest Destiny, cede, Mississippi River, New Orleans.",
+        "context": "Signed April 30, 1803; ~$15 million; ~828,000 sq mi; doubled the U.S.; led to the Lewis & Clark expedition (1804–1806); transfers at New Orleans (Dec. 1803) and St. Louis (March 1804)."
+      },
+      "teks": {
+        "standardsFile": "standards/teks-grade5-us.json",
+        "content": [
+          "5.4(C)"
+        ],
+        "skills": [
+          "5.24(A)",
+          "5.24(B)",
+          "5.24(D)"
+        ]
+      },
+      "tags": [
+        "early-republic",
+        "cause-and-effect",
+        "westward-expansion",
+        "primary-sources"
+      ],
+      "translationStatus": {
+        "en": "human",
+        "es": "mt-pending-review",
+        "vi": "mt-pending-review",
+        "ar": "mt-pending-review",
+        "zh": "mt-pending-review",
+        "ur": "mt-pending-review",
+        "hi": "mt-pending-review"
+      }
+    },
+    "oregon-trail": {
+      "id": "oregon-trail",
+      "title": "The Oregon Trail",
+      "i18nKey": "act-generic",
+      "gradeBands": [
+        "3-5"
+      ],
+      "courses": [
+        "us-history"
+      ],
+      "mapType": "history-trail",
+      "era": "westward-expansion",
+      "estimatedMinutes": 25,
+      "summary": "Put the westward journey in order along a 2,000-mile trail, and ask what it meant for the Native nations whose homelands the wagons crossed.",
+      "challenge": "In the 1840s to the 1860s, hundreds of thousands of people loaded covered wagons and set out on the roughly 2,000-mile Oregon Trail to build new lives in the West. What did the journey look like from start to finish — and how did it change the land and the Native nations who already lived there? Follow the trail and put the journey in order.",
+      "event": {
+        "title": "The Oregon Trail",
+        "date": "1840s–1860s",
+        "place": "Independence, Missouri to Oregon's Willamette Valley"
+      },
+      "mapData": {
+        "moments": [
+          "Independence, Missouri — each spring, families gather, load their wagons, and set out west together.",
+          "Along the Platte River past Chimney Rock, Nebraska — wagons roll across the flat prairie past a tall rock spire.",
+          "Fort Laramie, Wyoming — a trading fort where travelers rest, make repairs, and buy supplies before the mountains.",
+          "South Pass, Wyoming — the wide, gentle gap where wagons cross the Rocky Mountains.",
+          "Fort Hall to Oregon City — the trail follows the Snake and Columbia rivers to the journey's end in the Willamette Valley."
+        ],
+        "people": [
+          "Emigrant families — farmers seeking land and a new start",
+          "Trail guides and mountain men — led the wagon trains",
+          "Native nations (Pawnee, Lakota, Shoshone, Cayuse, Umatilla) — lived on the lands the trail crossed",
+          "Fur traders and fort keepers — traded supplies to passing travelers",
+          "Missionaries — among the first wagon parties west"
+        ],
+        "why": "Hundreds of thousands of people crossed the Oregon Trail to build new lives in the West, but their journey also changed the land and deeply disrupted the Native nations who had lived there for generations.",
+        "question": "What was a day on the trail really like for a kid your age — and how might the same journey have looked to a Native child watching the wagons roll through their homeland?"
+      },
+      "sources": [
+        {
+          "n": 1,
+          "titleKey": "Oregon National Historic Trail — National Park Service",
+          "type": "secondary",
+          "url": "https://www.nps.gov/places/oregon-national-historic-trail.htm",
+          "descKey": "The route, its landmarks, and the wagon trains that traveled it.",
+          "questionKeys": [
+            "What are three places along the trail, in order?",
+            "How long did the journey take?"
+          ]
+        },
+        {
+          "n": 2,
+          "titleKey": "Trails to Utah and the Pacific: Diaries and Letters, 1846–1869 — Library of Congress",
+          "type": "primary",
+          "url": "https://www.loc.gov/item/2002564479/",
+          "descKey": "Real diaries and letters written by people on the overland journey.",
+          "questionKeys": [
+            "What did a traveler worry about or hope for?",
+            "What does a diary tell you that a map cannot?"
+          ]
+        },
+        {
+          "n": 3,
+          "titleKey": "War on the Oregon & California Trails — National Park Service",
+          "type": "secondary",
+          "url": "https://www.nps.gov/articles/000/war-on-the-oregon-california-trails.htm",
+          "descKey": "How the wagon traffic strained the Native nations along the route.",
+          "questionKeys": [
+            "How did the trail affect Native nations?",
+            "Why might the same journey look different to different people?"
+          ]
+        }
+      ],
+      "comparePromptKeys": [
+        "Compare your trail order with a partner. Did you put the moments in the same sequence?",
+        "Which moment do you think was the hardest part of the journey? Why?"
+      ],
+      "conclusionKey": "Tell the story of the Oregon Trail in your own words, in order. Use at least three moments and name at least two groups the journey affected — including the Native nations whose homelands it crossed.",
+      "ace": {
+        "enabled": true,
+        "articulateKey": "Explain why families chose to make the long, dangerous journey west.",
+        "connectKey": "Connect one hardship on the trail to a choice families had to make.",
+        "extendKey": "Apply the idea of a long journey for a new start to a move a family makes today."
+      },
+      "teacherText": {
+        "keyideas": "The Oregon Trail (~1840s–1860s) ran about 2,000 miles from Independence, Missouri to Oregon's Willamette Valley; an estimated 300,000–400,000 emigrants traveled it in covered wagons at about 12–15 miles a day (4–6 months). Disease (especially cholera) was the biggest killer. The trail crossed the homelands of many Native nations, and the wagon traffic consumed the grass, game, wood, and water they depended on.",
+        "misconceptions": "• The West was not empty — Native nations had lived there for generations.\n• Most deaths came from disease, not from conflict.\n• 'Manifest Destiny' was an idea used to justify expansion, not a neutral description of it.",
+        "vocabulary": "emigrant, wagon train, prairie, Continental Divide, South Pass, Manifest Destiny.",
+        "context": "Great Migration wagon train of 1843 (~1,000 people); route crossed present-day KS, NE, WY, ID, OR; South Pass crossed the Rockies; cholera the leading cause of death."
+      },
+      "teks": {
+        "standardsFile": "standards/teks-grade5-us.json",
+        "content": [
+          "5.4(C)"
+        ],
+        "skills": [
+          "5.24(A)",
+          "5.24(B)",
+          "5.24(D)"
+        ]
+      },
+      "tags": [
+        "westward-expansion",
+        "chronology",
+        "migration",
+        "primary-sources"
+      ],
+      "translationStatus": {
+        "en": "human",
+        "es": "mt-pending-review",
+        "vi": "mt-pending-review",
+        "ar": "mt-pending-review",
+        "zh": "mt-pending-review",
+        "ur": "mt-pending-review",
+        "hi": "mt-pending-review"
+      }
+    },
     "road-to-civil-war": {
       "id": "road-to-civil-war",
       "title": "The Road to the Civil War",
@@ -1010,6 +1637,140 @@ window.EM_DATA = {
         "sectionalism",
         "civil-war",
         "multiple-causation",
+        "primary-sources"
+      ],
+      "translationStatus": {
+        "en": "human",
+        "es": "mt-pending-review",
+        "vi": "mt-pending-review",
+        "ar": "mt-pending-review",
+        "zh": "mt-pending-review",
+        "ur": "mt-pending-review",
+        "hi": "mt-pending-review"
+      }
+    },
+    "road-to-revolution": {
+      "id": "road-to-revolution",
+      "title": "The Road to the American Revolution",
+      "i18nKey": "act-generic",
+      "gradeBands": [
+        "6-8"
+      ],
+      "courses": [
+        "us-history"
+      ],
+      "mapType": "conflict-consequence",
+      "era": "american-revolution",
+      "estimatedMinutes": 35,
+      "summary": "Follow the chain of taxes, protests, and reactions from 1763 to 1775 and decide which link did the most to turn disagreement into war.",
+      "challenge": "The American Revolution did not begin with a single event. Between 1763 and 1775, a chain of British taxes and colonial protests — each answered by a sharper reaction — pushed the colonies toward war. Trace the chain from pressure to consequence, and decide which link mattered most.",
+      "event": {
+        "title": "Lexington and Concord",
+        "date": "1763–1775",
+        "place": "The thirteen colonies"
+      },
+      "mapData": {
+        "links": [
+          {
+            "labelKey": "f_pressure",
+            "textKey": "Proclamation of 1763 — after the French and Indian War, colonists are barred from settling west of the Appalachians."
+          },
+          {
+            "labelKey": "f_action2",
+            "textKey": "Stamp Act 1765 taxes printed materials directly, sparking 'no taxation without representation'; the Townshend Acts (1767) renew the fight."
+          },
+          {
+            "labelKey": "f_reaction",
+            "textKey": "Boston Massacre (March 1770) — British soldiers fire into a crowd, killing five colonists; it becomes a rallying point."
+          },
+          {
+            "labelKey": "f_escalation",
+            "textKey": "Tea Act → Boston Tea Party (Dec. 1773) — colonists dump 342 chests of British tea into Boston Harbor."
+          },
+          {
+            "labelKey": "f_event2",
+            "textKey": "Coercive (Intolerable) Acts (1774) close Boston's port and punish Massachusetts; the First Continental Congress unites the colonies."
+          },
+          {
+            "labelKey": "f_consequences",
+            "textKey": "Lexington and Concord (April 19, 1775) — the first shots of the Revolution; war begins."
+          }
+        ],
+        "altKey": "What if Parliament had repealed the Coercive Acts and seated colonial representatives — could compromise in 1774 have prevented war? (Parliament had backed down before, repealing the Stamp Act in 1766.)",
+        "people": [
+          "Sons of Liberty — organized protest and boycotts",
+          "Samuel Adams — Boston organizer and agitator",
+          "King George III and Parliament — issued the taxes and the Coercive Acts",
+          "Colonial militia (Minutemen) — fought at Lexington and Concord"
+        ],
+        "mostKey": "Of all these links, which single event did the MOST to turn disagreement into war? Cite evidence from the chain to defend your choice — and explain why the links before it were not enough on their own."
+      },
+      "sources": [
+        {
+          "n": 1,
+          "titleKey": "Roots of Rebellion — National Archives Museum",
+          "type": "primary",
+          "url": "https://visit.archives.gov/whats-on/explore-exhibits/roots-rebellion",
+          "descKey": "Documents from the years of rising tension before the war.",
+          "questionKeys": [
+            "What did the Proclamation of 1763 do?",
+            "Why would that anger colonists?"
+          ]
+        },
+        {
+          "n": 2,
+          "titleKey": "April 19, 1775 — Minute Man National Historical Park (NPS)",
+          "type": "secondary",
+          "url": "https://www.nps.gov/mima/learn/historyculture/april-19-1775.htm",
+          "descKey": "The first battles at Lexington Green and Concord's North Bridge.",
+          "questionKeys": [
+            "Why did British troops march to Concord?",
+            "How did the fighting spread?"
+          ]
+        },
+        {
+          "n": 3,
+          "titleKey": "'No Taxation Without Representation' — Library of Congress",
+          "type": "secondary",
+          "url": "https://www.loc.gov/exhibits/magna-carta-muse-and-mentor/no-taxation-without-representation.html",
+          "descKey": "How colonists argued that taxes required their consent through their own representatives.",
+          "questionKeys": [
+            "What did 'no taxation without representation' mean?",
+            "How did colonists act on that idea?"
+          ]
+        }
+      ],
+      "comparePromptKeys": [
+        "Compare your chains with a partner. Did you order the links the same way?",
+        "Did you choose the same 'most important link'? Defend your choice with evidence."
+      ],
+      "conclusionKey": "Which link in the chain did the most to make war unavoidable? Support your claim with evidence from at least two sources and two links.",
+      "ace": {
+        "enabled": true,
+        "articulateKey": "Explain how one British action produced a sharper colonial reaction.",
+        "connectKey": "Connect the Coercive Acts to the First Continental Congress.",
+        "extendKey": "Apply the idea of an escalating chain of conflict to another dispute in history or today."
+      },
+      "teacherText": {
+        "keyideas": "The road to revolution was a chain of British revenue measures and colonial protests, each escalating the last: the Proclamation of 1763; the Stamp and Townshend Acts; the Boston Massacre (1770); the Boston Tea Party (1773); the Coercive Acts and First Continental Congress (1774); and Lexington and Concord (April 1775). The core grievance was taxation without representation and control over colonial self-government.",
+        "misconceptions": "• The colonists' objection was to being taxed without consent, and to loss of self-government — not simply to any tax.\n• The Boston Massacre killed five and was used as propaganda; it was not a large battle.\n• Parliament had compromised before (repealing the Stamp Act in 1766); by 1774 it did not.",
+        "vocabulary": "Proclamation of 1763, Stamp Act, Townshend Acts, Boston Massacre, Coercive/Intolerable Acts, First Continental Congress, Minutemen, boycott.",
+        "context": "Proclamation Oct. 1763; Stamp Act 1765; Townshend Acts 1767; Boston Massacre March 5, 1770; Boston Tea Party Dec. 16, 1773; Coercive Acts & First Continental Congress 1774; Lexington and Concord April 19, 1775."
+      },
+      "teks": {
+        "standardsFile": "standards/teks-grade8-us.json",
+        "content": [
+          "8.4(A)"
+        ],
+        "skills": [
+          "8.29(A)",
+          "8.29(B)"
+        ]
+      },
+      "tags": [
+        "american-revolution",
+        "multiple-causation",
+        "escalation",
         "primary-sources"
       ],
       "translationStatus": {
@@ -1147,6 +1908,393 @@ window.EM_DATA = {
         "ur": "mt-pending-review",
         "hi": "mt-pending-review"
       }
+    },
+    "womens-suffrage": {
+      "id": "womens-suffrage",
+      "title": "Women's Suffrage and the 19th Amendment",
+      "i18nKey": "act-generic",
+      "gradeBands": [
+        "9-12"
+      ],
+      "courses": [
+        "us-history"
+      ],
+      "mapType": "continuity-change",
+      "era": "progressive-era",
+      "estimatedMinutes": 40,
+      "summary": "Weigh what changed, what changed slowly, and what stayed the same across the long fight for women's suffrage — and judge whether the 19th Amendment was a true turning point.",
+      "challenge": "In 1920, the 19th Amendment declared that the right to vote could not be denied 'on account of sex.' But the amendment capped a 70-year struggle — and it did not give every woman the vote in practice. Compare before, during, and after, then judge: was the 19th Amendment a genuine turning point in American democracy, or a partial victory that left major exclusions in place?",
+      "event": {
+        "title": "Women's Suffrage and the 19th Amendment",
+        "date": "1848–1920",
+        "place": "The United States"
+      },
+      "mapData": {
+        "before": [
+          "Women were largely denied the vote nationwide and excluded from most political power.",
+          "Under coverture, a married woman's legal identity was subsumed under her husband's.",
+          "A few early gains appeared at the state and territory level (Wyoming granted women the vote in 1869)."
+        ],
+        "during": [
+          "Decades of organizing, petitioning, lecturing, and lobbying through NAWSA and other groups.",
+          "Mass suffrage parades and marches, such as the 1913 procession in Washington.",
+          "The National Woman's Party picketed the White House ('Silent Sentinels'), and members were arrested and went on hunger strikes.",
+          "Women's large-scale contributions during World War I strengthened the argument that they had earned full citizenship."
+        ],
+        "after": [
+          "The 19th Amendment was ratified in 1920; sex could no longer be used to deny the vote.",
+          "Women began voting in national elections across the country.",
+          "Many women of color — especially Black women in the South — remained effectively barred by poll taxes, literacy tests, and intimidation until the Voting Rights Act of 1965."
+        ],
+        "sigKey": "The constitutional and legal barrier of sex was removed nationwide, and the formal electorate of women roughly doubled.",
+        "gradKey": "Suffrage spread state by state over 70+ years, and real voting access for women of color expanded slowly, culminating in 1965.",
+        "sameKey": "Racial disenfranchisement persisted, and women remained underrepresented in elected office and political leadership for decades.",
+        "whyKey": "Which factor best explains why change happened when and how it did — sustained organizing, shifting public opinion after World War I, or state-level momentum forcing federal action? Cite evidence."
+      },
+      "sources": [
+        {
+          "n": 1,
+          "titleKey": "19th Amendment to the U.S. Constitution (1920) — National Archives",
+          "type": "primary",
+          "url": "https://www.archives.gov/milestone-documents/19th-amendment",
+          "descKey": "The amendment barring denial of the vote 'on account of sex.'",
+          "questionKeys": [
+            "What exactly does the amendment say?",
+            "What does it not address?"
+          ]
+        },
+        {
+          "n": 2,
+          "titleKey": "Overview of the Nineteenth Amendment — Constitution Annotated (Library of Congress)",
+          "type": "secondary",
+          "url": "https://constitution.congress.gov/browse/essay/amdt19-1/ALDE_00013822/",
+          "descKey": "The amendment's text and legal grounding.",
+          "questionKeys": [
+            "How is the amendment's power described legally?",
+            "What questions does it leave open?"
+          ]
+        },
+        {
+          "n": 3,
+          "titleKey": "African American Women and the Nineteenth Amendment — National Park Service",
+          "type": "secondary",
+          "url": "https://www.nps.gov/articles/african-american-women-and-the-nineteenth-amendment.htm",
+          "descKey": "How Black women were often blocked from voting after 1920.",
+          "questionKeys": [
+            "Who was still barred from voting after 1920?",
+            "When did that begin to change?"
+          ]
+        }
+      ],
+      "comparePromptKeys": [
+        "Compare your ledgers with a partner. Did you sort the same items into 'changed' vs. 'stayed the same'?",
+        "Where did you disagree about whether something changed a lot, a little, or not at all?"
+      ],
+      "conclusionKey": "Was the 19th Amendment a genuine turning point in American democracy, or a partial victory that left major exclusions in place? Use evidence from at least two sources — including at least one that addresses who could actually vote after 1920.",
+      "ace": {
+        "enabled": true,
+        "articulateKey": "Explain what the 19th Amendment did — and what it did not do — in your own words.",
+        "connectKey": "Connect a suffrage tactic used 'during' the movement to the change that came 'after.'",
+        "extendKey": "Apply the continuity-and-change lens to a voting-rights question today. What has changed, and what has not?"
+      },
+      "teacherText": {
+        "keyideas": "The 19th Amendment (1920) removed sex as a barrier to voting nationwide — a decisive legal change capping 70+ years of organizing from Seneca Falls (1848) forward. But de jure change and de facto access differ: many women of color, especially Black women in the South, remained barred by poll taxes, literacy tests, and intimidation until the Voting Rights Act of 1965. The continuity-and-change lens surfaces both the breakthrough and its limits.",
+        "misconceptions": "• The 19th Amendment did not enfranchise all women in practice — racial barriers persisted until 1965.\n• Suffrage was won over 70+ years and state by state, not in a single moment.\n• The movement used many tactics — from lobbying and litigation to parades, picketing, and civil disobedience.",
+        "vocabulary": "suffrage, ratification, coverture, NAWSA, National Woman's Party, de jure, de facto, disenfranchisement.",
+        "context": "Seneca Falls 1848; Wyoming 1869; 1913 Washington parade; NWP picketing 1917; Congress passes the amendment June 4, 1919; ratified Aug. 18, 1920; full access for many women of color awaited the Voting Rights Act of 1965."
+      },
+      "teks": {
+        "standardsFile": "standards/teks-us-since-1877.json",
+        "content": [
+          "US.5(A)",
+          "US.22(A)",
+          "US.22(B)"
+        ],
+        "skills": [
+          "US.28(A)",
+          "US.28(D)"
+        ]
+      },
+      "tags": [
+        "progressive-era",
+        "continuity-change",
+        "voting-rights",
+        "primary-sources"
+      ],
+      "translationStatus": {
+        "en": "human",
+        "es": "mt-pending-review",
+        "vi": "mt-pending-review",
+        "ar": "mt-pending-review",
+        "zh": "mt-pending-review",
+        "ur": "mt-pending-review",
+        "hi": "mt-pending-review"
+      }
+    },
+    "wwi-entry": {
+      "id": "wwi-entry",
+      "title": "Why Did the U.S. Enter World War I?",
+      "i18nKey": "act-generic",
+      "gradeBands": [
+        "9-12"
+      ],
+      "courses": [
+        "us-history"
+      ],
+      "mapType": "evidence-dossier",
+      "era": "world-war-i",
+      "estimatedMinutes": 45,
+      "summary": "Weigh the evidence for why the United States abandoned neutrality and entered World War I in 1917 — and decide which cause mattered most.",
+      "challenge": "For nearly three years the United States stayed neutral in World War I. Then, in the spring of 1917, it declared war on Germany. Historians agree on the sequence of events but disagree about which cause weighed most. Weigh the evidence, note what conflicts and what is missing, and build a defensible working conclusion.",
+      "event": {
+        "title": "U.S. Entry into World War I",
+        "date": "1914–1917",
+        "place": "United States and the Atlantic"
+      },
+      "mapData": {
+        "questionKey": "Why did the United States enter World War I in 1917 — and which cause mattered most?",
+        "knowKey": "The U.S. was officially neutral from 1914 until it declared war on April 6, 1917. Two events in early 1917 immediately preceded the declaration: Germany's resumption of unrestricted submarine warfare (Feb. 1) and the publication of the Zimmermann Telegram (March 1). Wilson framed entry around both German aggression at sea and a larger ideological purpose.",
+        "cards": [
+          {
+            "sourceKey": "The Zimmermann Telegram (1917), National Archives",
+            "primsecKey": "Primary — decoded German diplomatic cable",
+            "evidenceKey": "A coded German message proposing a Mexico–Germany alliance and the return of Texas, New Mexico, and Arizona to Mexico if the U.S. entered the war; published in American newspapers March 1, 1917.",
+            "whyKey": "Turned much of U.S. public and Congressional opinion against Germany by suggesting a direct threat to American territory, weeks before the war vote.",
+            "relKey": "Authentic and Zimmermann-confirmed, but it reached Americans via British intelligence, which wanted the U.S. in the war; the alliance was only a proposal, never acted on by Mexico."
+          },
+          {
+            "sourceKey": "Wilson's War Message to Congress, April 2, 1917",
+            "primsecKey": "Primary — presidential speech",
+            "evidenceKey": "Wilson cited Germany's unrestricted submarine warfare as 'warfare against mankind' and asked Congress to declare war to make 'the world safe for democracy.'",
+            "whyKey": "The official public justification for entry, weighting both attacks on neutral shipping and an ideological mission for democracy.",
+            "relKey": "A persuasive political speech meant to build support; it emphasizes moral and legal causes and downplays U.S. economic ties to the Allies."
+          },
+          {
+            "sourceKey": "'American Entry into World War I' — Office of the Historian, U.S. State Dept.",
+            "primsecKey": "Secondary — government overview",
+            "evidenceKey": "Synthesizes multiple causes — submarine warfare, the Zimmermann Telegram, U.S. economic and financial ties to the Allies, and public opinion.",
+            "whyKey": "Provides balanced context showing that no single factor acted alone, helping students weigh competing explanations.",
+            "relKey": "A reliable scholarly summary, but condensed; it interprets and prioritizes causes rather than presenting the underlying documents in full."
+          }
+        ],
+        "conflictKey": "Historians agree on what happened but weight causes differently: the submarine-warfare view sees the Feb. 1 resumption as the trigger; the Zimmermann-Telegram view stresses its effect on public opinion; the economic-ties view emphasizes U.S. loans and trade with the Allies; the ideology view highlights Wilson's 'safe for democracy' framing. The disagreement is about emphasis, not basic facts.",
+        "missingKey": "Missing: quantified proof of how much economic ties actually drove the decision; Wilson's private deliberations; systematic public-opinion data (no modern polling); German internal decision-making; and the perspectives of the dissenters who voted no.",
+        "conclusionMapKey": "One defensible interpretation: the U.S. entered because of causes that peaked in early 1917. Submarine warfare was the immediate trigger; the Zimmermann Telegram shifted public and Congressional opinion; longer-term economic ties and Wilson's ideology shaped how leaders responded. Reasonable historians weight these differently."
+      },
+      "sources": [
+        {
+          "n": 1,
+          "titleKey": "Zimmermann Telegram (Milestone Documents) — National Archives",
+          "type": "primary",
+          "url": "https://www.archives.gov/milestone-documents/zimmermann-telegram",
+          "descKey": "The decoded German proposal of a Mexico–Germany alliance.",
+          "questionKeys": [
+            "What did the telegram propose?",
+            "Why would it inflame American opinion?"
+          ]
+        },
+        {
+          "n": 2,
+          "titleKey": "Wilson Before Congress — Library of Congress",
+          "type": "primary",
+          "url": "https://www.loc.gov/exhibitions/world-war-i-american-experiences/about-this-exhibition/arguing-over-war/for-or-against-war/wilson-before-congress",
+          "descKey": "Wilson's April 1917 war message and the close vote that followed.",
+          "questionKeys": [
+            "How does Wilson justify going to war?",
+            "What might a persuasive speech leave out?"
+          ]
+        },
+        {
+          "n": 3,
+          "titleKey": "American Entry into World War I, 1917 — Office of the Historian (State Dept.)",
+          "type": "secondary",
+          "url": "https://history.state.gov/milestones/1914-1920/wwi",
+          "descKey": "A balanced overview of the converging causes of U.S. entry.",
+          "questionKeys": [
+            "Which causes does this source list?",
+            "How does it help you weigh the evidence?"
+          ]
+        }
+      ],
+      "comparePromptKeys": [
+        "Compare your evidence cards with a partner. Did you rate the same sources as reliable?",
+        "Did you and your partner weight the same cause as most important? What evidence moved you?"
+      ],
+      "conclusionKey": "Write a working conclusion answering why the U.S. entered World War I. Cite at least two evidence cards, acknowledge a competing interpretation, and note one limitation of your evidence.",
+      "ace": {
+        "enabled": true,
+        "articulateKey": "State, in one sentence, your working answer to why the U.S. entered the war.",
+        "connectKey": "Connect the Zimmermann Telegram to the shift in American public opinion.",
+        "extendKey": "Apply the idea of a 'trigger' versus 'underlying causes' to another decision to go to war."
+      },
+      "teacherText": {
+        "keyideas": "This is a historiography exercise: students weigh multiple causes rather than find one 'right' answer. The immediate triggers (unrestricted submarine warfare; the Zimmermann Telegram) sit alongside longer-term factors (economic ties to the Allies; Wilson's ideology). Reliability and point of view matter: the Zimmermann Telegram reached Americans through British intelligence; Wilson's message is persuasive rhetoric. Do not quote document wording students have not read — describe and cite.",
+        "misconceptions": "• The Lusitania (1915) did not by itself bring the U.S. into the war; entry came in 1917.\n• A primary source is not automatically neutral — each source argues a position.\n• There is no single agreed 'cause'; the debate is about weighting.",
+        "vocabulary": "neutrality, unrestricted submarine warfare, Zimmermann Telegram, containment of interpretation (historiography), isolationism, Fourteen Points.",
+        "context": "Neutrality 1914; Lusitania May 1915; Germany resumes unrestricted submarine warfare Feb. 1, 1917; Zimmermann Telegram published March 1, 1917; Wilson's war message April 2; Congress declares war April 6, 1917 (Senate 82–6, House 373–50)."
+      },
+      "teks": {
+        "standardsFile": "standards/teks-us-since-1877.json",
+        "content": [
+          "US.4(C)",
+          "US.4(F)"
+        ],
+        "skills": [
+          "US.28(A)",
+          "US.28(C)",
+          "US.28(D)",
+          "US.29(A)"
+        ]
+      },
+      "tags": [
+        "world-war-i",
+        "evidence",
+        "source-evaluation",
+        "historiography"
+      ],
+      "translationStatus": {
+        "en": "human",
+        "es": "mt-pending-review",
+        "vi": "mt-pending-review",
+        "ar": "mt-pending-review",
+        "zh": "mt-pending-review",
+        "ur": "mt-pending-review",
+        "hi": "mt-pending-review"
+      }
+    },
+    "wwii-home-front": {
+      "id": "wwii-home-front",
+      "title": "World War II: The Home Front",
+      "i18nKey": "act-generic",
+      "gradeBands": [
+        "9-12"
+      ],
+      "courses": [
+        "us-history"
+      ],
+      "mapType": "systems-shockwave",
+      "era": "world-war-ii",
+      "estimatedMinutes": 40,
+      "summary": "Trace how World War II reshaped the American home front across four systems — political, economic, social-cultural, and geographic — and weigh who benefited and who bore the costs.",
+      "challenge": "World War II was fought overseas, but it transformed life inside the United States. The war remade American politics, the economy, society and culture, and where people lived — and it did so unevenly. Follow the war's shockwaves outward through four systems, weigh who benefited and who bore the costs, and decide which change left the deepest mark.",
+      "event": {
+        "title": "The U.S. Home Front in World War II",
+        "date": "1941–1945",
+        "place": "The United States"
+      },
+      "mapData": {
+        "paths": [
+          {
+            "labelKey": "f_political",
+            "immediateKey": "Federal declarations of war and a rapid expansion of federal power — new war agencies, the draft, and censorship coordination.",
+            "secondaryKey": "Executive Order 9066 (1942) authorized the incarceration of Japanese Americans, while Executive Order 8802 (1941) created the Fair Employment Practices Committee — government now directly shaping civil rights and civil liberties.",
+            "evidenceKey": "Executive Order 9066; Korematsu v. United States (1944); Executive Order 8802."
+          },
+          {
+            "labelKey": "f_economic",
+            "immediateKey": "Industry converted to war production; deficit spending and war contracts ended the Depression and drove near-full employment; rationing managed scarce goods.",
+            "secondaryKey": "Postwar prosperity and an expanding middle class, fueled by wartime savings, war bonds, and the 1944 GI Bill.",
+            "evidenceKey": "~300,000 aircraft and 86,000 tanks produced; OPA ration books; the GI Bill of 1944."
+          },
+          {
+            "labelKey": "f_social",
+            "immediateKey": "Women entered war industries in large numbers ('Rosie the Riveter'); propaganda and shared sacrifice mobilized civilian culture.",
+            "secondaryKey": "Wartime experience reshaped expectations for women and minorities and seeded postwar civil-rights momentum (the 'Double V' campaign).",
+            "evidenceKey": "~3 million women in defense plants; War Manpower Commission and OWI posters; the Tuskegee Airmen and Navajo Code Talkers."
+          },
+          {
+            "labelKey": "f_geographic",
+            "immediateKey": "Massive internal migration to war-production centers (the West Coast, Detroit, the Gulf Coast), causing housing shortages and crowding.",
+            "secondaryKey": "Lasting demographic shifts — growth of the West and Sunbelt, permanent urbanization of Black and Latino populations, and the forced relocation of Japanese Americans to remote inland camps.",
+            "evidenceKey": "Continuation of the Great Migration; camps such as Manzanar (California) and Topaz (Utah); wartime 'boomtowns.'"
+          }
+        ],
+        "benefitedKey": "Industrial workers and the previously unemployed (jobs, higher wages); women and minorities gaining new (if temporary) economic footholds; returning veterans (the GI Bill); defense industries, farmers, and the broader postwar economy.",
+        "costKey": "Japanese Americans — about 120,000 incarcerated under EO 9066, losing homes, businesses, and liberty; combat casualties and Gold Star families; consumers under rationing; and Black and other minority workers who still faced discrimination and segregation despite the FEPC.",
+        "greatestKey": "Of the home front's effects — a wartime economy that ended the Depression, new opportunities for women and minorities, expanded federal power, or the incarceration of Japanese Americans — which mattered most in shaping the United States? Use specific evidence to defend which had the deepest or most lasting impact, and for whom."
+      },
+      "sources": [
+        {
+          "n": 1,
+          "titleKey": "Executive Order 9066 (1942) — National Archives",
+          "type": "primary",
+          "url": "https://www.archives.gov/milestone-documents/executive-order-9066",
+          "descKey": "The order that led to the forced removal and incarceration of Japanese Americans.",
+          "questionKeys": [
+            "What did EO 9066 authorize?",
+            "Who bore the costs of this policy?"
+          ]
+        },
+        {
+          "n": 2,
+          "titleKey": "The Home Front by the Numbers — The National WWII Museum",
+          "type": "secondary",
+          "url": "https://www.nationalww2museum.org/students-teachers/student-resources/research-starters/research-starters-us-home-front-during-world-war-ii",
+          "descKey": "War production, rationing, and workforce statistics for the home front.",
+          "questionKeys": [
+            "How did the U.S. economy change during the war?",
+            "What evidence shows the scale of mobilization?"
+          ]
+        },
+        {
+          "n": 3,
+          "titleKey": "Rosie the Riveter: Working Women and World War II — Library of Congress",
+          "type": "secondary",
+          "url": "https://guides.loc.gov/rosie-the-riveter",
+          "descKey": "How women's wartime work changed the workforce and its image.",
+          "questionKeys": [
+            "How did women's roles change during the war?",
+            "What happened to those opportunities after 1945?"
+          ]
+        }
+      ],
+      "comparePromptKeys": [
+        "Compare your four pathways with a partner. Did you find the same immediate and secondary effects?",
+        "Did you rank the same effect as most lasting? Defend your ranking with evidence."
+      ],
+      "conclusionKey": "Which home-front effect mattered most in shaping the United States? Support your ranking with specific evidence from at least two pathways and two sources, and address who benefited and who bore the costs.",
+      "ace": {
+        "enabled": true,
+        "articulateKey": "Summarize how the war changed one system on the home front.",
+        "connectKey": "Connect an immediate effect in one pathway to a lasting postwar change.",
+        "extendKey": "Apply the 'shockwave through systems' idea to how a more recent national crisis reshaped everyday life."
+      },
+      "teacherText": {
+        "keyideas": "WWII transformed the home front across systems: expanded federal power (war agencies, the draft, but also EO 9066 and the FEPC); a war economy that ended the Depression and built the postwar middle class (GI Bill); new but temporary openings for women and minorities; and large internal migrations that reshaped where Americans lived. Costs and benefits fell unevenly — most starkly on the ~120,000 Japanese Americans incarcerated under EO 9066.",
+        "misconceptions": "• The war economy, not the New Deal alone, ended the Great Depression.\n• New opportunities for women and minorities were real but often rolled back after 1945.\n• The GI Bill's benefits were unevenly accessible — many Black veterans were effectively excluded.",
+        "vocabulary": "Arsenal of Democracy, rationing, Executive Order 9066, internment/incarceration, Rosie the Riveter, GI Bill, FEPC, Double V.",
+        "context": "Pearl Harbor Dec. 7, 1941; EO 8802 (1941); EO 9066 (Feb. 19, 1942); ~120,000 Japanese Americans incarcerated; ~3 million women in defense plants; GI Bill 1944; V-E and V-J Day 1945."
+      },
+      "teks": {
+        "standardsFile": "standards/teks-us-since-1877.json",
+        "content": [
+          "US.7(A)",
+          "US.7(C)",
+          "US.7(F)",
+          "US.17(A)",
+          "US.17(B)"
+        ],
+        "skills": [
+          "US.28(A)",
+          "US.28(B)",
+          "US.28(D)"
+        ]
+      },
+      "tags": [
+        "world-war-ii",
+        "systems",
+        "home-front",
+        "primary-sources"
+      ],
+      "translationStatus": {
+        "en": "human",
+        "es": "mt-pending-review",
+        "vi": "mt-pending-review",
+        "ar": "mt-pending-review",
+        "zh": "mt-pending-review",
+        "ur": "mt-pending-review",
+        "hi": "mt-pending-review"
+      }
     }
   },
   "standards": {
@@ -1188,6 +2336,11 @@ window.EM_DATA = {
           "strand": "Social studies skills",
           "type": "skills",
           "text": "organize and interpret information in outlines, reports, databases, and visuals, including graphs, charts, timelines, and maps"
+        },
+        "5.12(C)": {
+          "strand": "Economics",
+          "type": "content",
+          "text": "analyze the effects of immigration, migration, and limited resources on the economic development and growth of the United States"
         }
       }
     },
@@ -1286,6 +2439,51 @@ window.EM_DATA = {
           "strand": "History",
           "type": "content",
           "text": "The student understands individuals, issues, and events of the Civil War — including the central role of slavery as a cause and events such as the election of 1860, secession, and Fort Sumter (knowledge-and-skills statement; confirm exact sub-expectation letters against the current rule)"
+        },
+        "8.8(A)": {
+          "strand": "History",
+          "type": "content",
+          "text": "explain the roles played by significant individuals during the Civil War, including Jefferson Davis, Ulysses S. Grant, Robert E. Lee, and Abraham Lincoln, and heroes such as congressional Medal of Honor recipients William Carney and Philip Bazaar"
+        },
+        "8.8(B)": {
+          "strand": "History",
+          "type": "content",
+          "text": "explain the causes of the Civil War, including sectionalism, states' rights, and slavery, and significant events of the Civil War, including the firing on Fort Sumter; the battles of Antietam, Gettysburg, and Vicksburg; the announcement of the Emancipation Proclamation; Lee's surrender at Appomattox Court House; and the assassination of Abraham Lincoln"
+        },
+        "8.4(D)": {
+          "strand": "History",
+          "type": "content",
+          "text": "analyze the issues of the Constitutional Convention of 1787, including the Great Compromise and the Three-Fifths Compromise"
+        },
+        "8.15(A)": {
+          "strand": "Government",
+          "type": "content",
+          "text": "identify the influence of ideas from historic documents, including the Magna Carta, the English Bill of Rights, the Mayflower Compact, and the Federalist Papers, on the U.S. system of government"
+        },
+        "8.15(C)": {
+          "strand": "Government",
+          "type": "content",
+          "text": "identify colonial grievances listed in the Declaration of Independence and explain how those grievances were addressed in the U.S. Constitution and the Bill of Rights"
+        },
+        "8.16": {
+          "strand": "Government",
+          "type": "content",
+          "text": "The student understands the purpose of changing the U.S. Constitution and the impact of amendments on American society (knowledge-and-skills statement)"
+        },
+        "8.17(A)": {
+          "strand": "Government",
+          "type": "content",
+          "text": "analyze the arguments of the Federalists and Anti-Federalists, including those of Alexander Hamilton, Patrick Henry, James Madison, and George Mason, and explain how their debates exemplify civil discourse"
+        },
+        "8.29(B)": {
+          "strand": "Social studies skills",
+          "type": "skills",
+          "text": "analyze information by sequencing, categorizing, identifying cause-and-effect relationships, comparing, contrasting, finding the main idea, summarizing, making generalizations and predictions, and drawing inferences and conclusions"
+        },
+        "8.30(D)": {
+          "strand": "Social studies skills",
+          "type": "skills",
+          "text": "create written, oral, and visual presentations of social studies information"
         }
       }
     },
@@ -1342,6 +2540,76 @@ window.EM_DATA = {
           "strand": "Social studies skills",
           "type": "skills",
           "text": "identify bias and support with historical evidence a point of view on a social studies issue or event (confirm strand number)"
+        },
+        "US.4(C)": {
+          "strand": "History",
+          "type": "content",
+          "text": "identify the causes of World War I and reasons for U.S. entry"
+        },
+        "US.4(F)": {
+          "strand": "History",
+          "type": "content",
+          "text": "analyze major issues raised by U.S. involvement in World War I, including isolationism, neutrality, Woodrow Wilson's Fourteen Points, and the Treaty of Versailles"
+        },
+        "US.5(A)": {
+          "strand": "History",
+          "type": "content",
+          "text": "analyze the impact of Progressive Era reforms, including initiative, referendum, recall, and the passage of the 16th, 17th, 18th, and 19th amendments"
+        },
+        "US.7(A)": {
+          "strand": "History",
+          "type": "content",
+          "text": "identify reasons for U.S. involvement in World War II, including Italian, German, and Japanese dictatorships and their aggression, especially the attack on Pearl Harbor"
+        },
+        "US.7(C)": {
+          "strand": "History",
+          "type": "content",
+          "text": "analyze major issues of World War II, including the Holocaust; the internment of Japanese Americans, German Americans, and Italian Americans as a result of Executive Order 9066; and the development of atomic weapons"
+        },
+        "US.7(F)": {
+          "strand": "History",
+          "type": "content",
+          "text": "explain issues affecting the home front, including volunteerism, the purchase of war bonds, Victory Gardens, and opportunities and obstacles for women and ethnic minorities"
+        },
+        "US.17(A)": {
+          "strand": "Economics",
+          "type": "content",
+          "text": "describe the economic effects of World War II on the home front, such as the end of the Great Depression, rationing, and increased American production"
+        },
+        "US.17(B)": {
+          "strand": "Economics",
+          "type": "content",
+          "text": "identify the effects of the GI Bill (Servicemen's Readjustment Act of 1944) and the postwar economic boom"
+        },
+        "US.22(A)": {
+          "strand": "Citizenship",
+          "type": "content",
+          "text": "identify and analyze methods of expanding the right to participate in the democratic process, including lobbying, non-violent protesting, litigation, and amendments to the U.S. Constitution"
+        },
+        "US.22(B)": {
+          "strand": "Citizenship",
+          "type": "content",
+          "text": "evaluate various means of achieving equality of political rights, including the 19th, 24th, and 26th amendments and congressional acts such as the American Indian Citizenship Act of 1924"
+        },
+        "US.28(B)": {
+          "strand": "Social studies skills",
+          "type": "skills",
+          "text": "analyze information by applying absolute and relative chronology through sequencing, categorizing, identifying cause-and-effect relationships, comparing and contrasting, finding the main idea, summarizing, making generalizations and predictions, and drawing inferences and conclusions"
+        },
+        "US.28(C)": {
+          "strand": "Social studies skills",
+          "type": "skills",
+          "text": "apply the process of historical inquiry to research, interpret, and use multiple types of sources of evidence"
+        },
+        "US.29(A)": {
+          "strand": "Social studies skills",
+          "type": "skills",
+          "text": "create written, oral, and visual presentations of social studies information using effective communication skills, including proper citations and avoiding plagiarism"
+        },
+        "US.29(C)": {
+          "strand": "Social studies skills",
+          "type": "skills",
+          "text": "apply foundational language skills to engage in civil discourse about social studies topics, including those with multiple perspectives"
         }
       }
     }

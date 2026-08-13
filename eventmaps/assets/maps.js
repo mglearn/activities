@@ -77,9 +77,9 @@
     const ev = activity.event || {};
     const eventCore = '<div class="event-core" role="group" aria-label="' + esc(t('event_label')) + '">' +
       '<div class="elab">' + esc(t('event_label')) + '</div>' +
-      '<div class="etitle">' + esc(t('act_title')) + '</div>' +
-      '<div class="edate">' + esc(t('act_date')) + '</div>' +
-      '<div class="eplace">' + esc(t('act_place')) + '</div></div>';
+      '<div class="etitle">' + esc(evTitle(activity, t)) + '</div>' +
+      '<div class="edate">' + esc(evDate(activity, t)) + '</div>' +
+      '<div class="eplace">' + esc(evPlace(activity, t)) + '</div></div>';
 
     const synthesis = '<div class="synthesis" role="group" aria-label="' + esc(t('sy_title')) + '">' +
       '<h4>' + esc(t('sy_title')) + '</h4>' +

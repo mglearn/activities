@@ -98,8 +98,14 @@ verified TEKS · source links · teacher guides · **About/Privacy/Accessibility
 2. **TEKS confirmation.** Codes are verbatim from the versions in effect through
    2025–26 with district-confirmation notes; the June 2026 K–8 adoption will
    renumber grades 3–8 — confirm the version for your school year.
-3. **Expansion (Phase 6).** Grow from one pilot per family toward the 36-activity
-   target using the same schema and generic page — no per-activity page code.
+3. **Expansion (Phase 6).** In progress. **Batch 1 added 9 activities → 18 total
+   (six per grade band, two per map family)**, all built on the existing schema and
+   generic page (no new page code): Oregon Trail, Louisiana Purchase, Ellis Island
+   (3–5); Gettysburg, Debate Over the Constitution, Road to the Revolution (6–8);
+   WWI Entry, WWII Home Front, Women's Suffrage (9–12). Each is research-verified
+   with authoritative sources and TEKS (new codes added to the standards files) and
+   localized in 7 languages via the translation pipeline. Continue toward the
+   36-activity target the same way.
 
 ## Commands
 

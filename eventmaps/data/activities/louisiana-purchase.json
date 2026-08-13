@@ -1,0 +1,65 @@
+{
+  "id": "louisiana-purchase",
+  "title": "The Louisiana Purchase",
+  "i18nKey": "act-generic",
+  "gradeBands": ["3-5"],
+  "courses": ["us-history"],
+  "mapType": "cause-ripples",
+  "era": "early-republic",
+  "estimatedMinutes": 25,
+  "summary": "Trace the ripples out from the 1803 deal that doubled the size of the country — for the new nation and for the Native peoples already living on the land.",
+  "challenge": "In 1803, the United States bought a huge piece of land from France for about $15 million — and doubled the size of the country almost overnight. What caused the deal, what happened right afterward, and what changed for years to come? Follow the ripples, and think about who was helped and who was hurt.",
+  "event": { "title": "The Louisiana Purchase", "date": "April 30, 1803", "place": "Paris, France (land west of the Mississippi River)" },
+  "mapData": {
+    "causes": [
+      "The U.S. wanted control of New Orleans and the Mississippi River so farmers could ship goods.",
+      "France needed money and was about to go to war with Britain again.",
+      "Napoleon gave up his plans for an American empire after huge losses in the Haitian Revolution.",
+      "Jefferson saw a chance to expand the country and keep the river route open."
+    ],
+    "immediate": [
+      "The size of the United States doubled almost overnight.",
+      "The U.S. gained control of New Orleans and the whole Mississippi River.",
+      "Jefferson sent Lewis and Clark to explore, map, and report on the new land.",
+      "Americans began moving and settling west of the Mississippi."
+    ],
+    "longterm": [
+      "The purchase fueled decades of westward expansion and 'Manifest Destiny.'",
+      "It brought pressure, broken treaties, and loss of homelands for many Native nations.",
+      "Over time, many new states were carved from the territory.",
+      "It opened new land where slavery spread westward, deepening national conflict."
+    ],
+    "affected": [
+      "Native American nations already living on the land (Osage, Lakota, and many others)",
+      "American farmers and settlers who moved west",
+      "Enslaved African Americans, as slavery expanded into new areas",
+      "French, Spanish, and Creole residents of New Orleans and the territory"
+    ],
+    "matteredKey": "Of all the ripples from the Louisiana Purchase, which one changed the most lives — and was that change good, harmful, or both? Use evidence to explain who was helped and who was hurt."
+  },
+  "sources": [
+    { "n": 1, "titleKey": "Louisiana Purchase Treaty (1803) — National Archives", "type": "primary", "url": "https://www.archives.gov/milestone-documents/louisiana-purchase-treaty", "descKey": "The 1803 treaty that transferred the territory to the United States.", "questionKeys": ["How much land and money were involved?", "Whose signatures made the deal official?"] },
+    { "n": 2, "titleKey": "The Louisiana Purchase — Thomas Jefferson's Monticello", "type": "secondary", "url": "https://www.monticello.org/thomas-jefferson/louisiana-lewis-clark/the-louisiana-purchase/", "descKey": "Why Napoleon offered the whole territory, and how Jefferson responded.", "questionKeys": ["Why did France decide to sell?", "What did the U.S. plan to do with the new land?"] },
+    { "n": 3, "titleKey": "U.S. Takes Possession of Louisiana — National Park Service", "type": "secondary", "url": "https://www.nps.gov/articles/u-s-takes-possession-of-louisiana.htm", "descKey": "How the land transferred in ceremonies at New Orleans and St. Louis.", "questionKeys": ["Where did the transfer ceremonies happen?", "What changed for people already living there?"] }
+  ],
+  "comparePromptKeys": [
+    "Compare your ripples with a partner. Which effects did you both list? Which did only one of you find?",
+    "Did you place any effect in a different ring (immediate vs. later) than your partner? Talk about why."
+  ],
+  "conclusionKey": "Choose the one result of the Louisiana Purchase you think mattered most. Use evidence from your ripples to explain who it helped and who it hurt.",
+  "ace": {
+    "enabled": true,
+    "articulateKey": "Explain what the Louisiana Purchase was and why it happened.",
+    "connectKey": "Connect one cause of the purchase to one long-term change it created.",
+    "extendKey": "Apply the idea of a decision with big ripples to a choice a community makes today."
+  },
+  "teacherText": {
+    "keyideas": "The Louisiana Purchase (April 30, 1803) transferred about 828,000 square miles from France for about $15 million (~4 cents an acre), doubling the size of the United States. U.S. negotiators had gone to buy only New Orleans; France offered the whole territory. The U.S. bought France's claim, not the land from the Native nations who lived there — a key point for the costs/benefits discussion.",
+    "misconceptions": "• The U.S. bought a claim to the territory, not the actual homelands of Native nations.\n• The deal was larger than Jefferson's negotiators were sent to make.\n• Doubling the nation's size also spread slavery westward, worsening sectional conflict.",
+    "vocabulary": "territory, treaty, Napoleon, Manifest Destiny, cede, Mississippi River, New Orleans.",
+    "context": "Signed April 30, 1803; ~$15 million; ~828,000 sq mi; doubled the U.S.; led to the Lewis & Clark expedition (1804–1806); transfers at New Orleans (Dec. 1803) and St. Louis (March 1804)."
+  },
+  "teks": { "standardsFile": "standards/teks-grade5-us.json", "content": ["5.4(C)"], "skills": ["5.24(A)", "5.24(B)", "5.24(D)"] },
+  "tags": ["early-republic", "cause-and-effect", "westward-expansion", "primary-sources"],
+  "translationStatus": { "en": "human", "es": "mt-pending-review", "vi": "mt-pending-review", "ar": "mt-pending-review", "zh": "mt-pending-review", "ur": "mt-pending-review", "hi": "mt-pending-review" }
+}

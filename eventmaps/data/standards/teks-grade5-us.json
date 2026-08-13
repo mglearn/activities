@@ -12,6 +12,7 @@
     "5.23(B)": { "strand": "Science, technology, and society", "type": "content", "text": "identify how scientific discoveries, technological innovations, and the rapid growth of technology industries have advanced the economic development of the United States, including the transcontinental railroad and the space program (numbering per the 2011 version; confirm)" },
     "5.24(A)": { "strand": "Social studies skills", "type": "skills", "text": "differentiate between, locate, and use valid primary and secondary sources such as technology, interviews, biographies, oral, print, and visual material, documents, and artifacts to acquire information about the United States" },
     "5.24(B)": { "strand": "Social studies skills", "type": "skills", "text": "analyze information by sequencing, categorizing, identifying cause-and-effect relationships, comparing, contrasting, finding the main idea, summarizing, making generalizations and predictions, and drawing inferences and conclusions" },
-    "5.24(D)": { "strand": "Social studies skills", "type": "skills", "text": "organize and interpret information in outlines, reports, databases, and visuals, including graphs, charts, timelines, and maps" }
+    "5.24(D)": { "strand": "Social studies skills", "type": "skills", "text": "organize and interpret information in outlines, reports, databases, and visuals, including graphs, charts, timelines, and maps" },
+    "5.12(C)": { "strand": "Economics", "type": "content", "text": "analyze the effects of immigration, migration, and limited resources on the economic development and growth of the United States" }
   }
 }

@@ -1,0 +1,60 @@
+{
+  "id": "womens-suffrage",
+  "title": "Women's Suffrage and the 19th Amendment",
+  "i18nKey": "act-generic",
+  "gradeBands": ["9-12"],
+  "courses": ["us-history"],
+  "mapType": "continuity-change",
+  "era": "progressive-era",
+  "estimatedMinutes": 40,
+  "summary": "Weigh what changed, what changed slowly, and what stayed the same across the long fight for women's suffrage — and judge whether the 19th Amendment was a true turning point.",
+  "challenge": "In 1920, the 19th Amendment declared that the right to vote could not be denied 'on account of sex.' But the amendment capped a 70-year struggle — and it did not give every woman the vote in practice. Compare before, during, and after, then judge: was the 19th Amendment a genuine turning point in American democracy, or a partial victory that left major exclusions in place?",
+  "event": { "title": "Women's Suffrage and the 19th Amendment", "date": "1848–1920", "place": "The United States" },
+  "mapData": {
+    "before": [
+      "Women were largely denied the vote nationwide and excluded from most political power.",
+      "Under coverture, a married woman's legal identity was subsumed under her husband's.",
+      "A few early gains appeared at the state and territory level (Wyoming granted women the vote in 1869)."
+    ],
+    "during": [
+      "Decades of organizing, petitioning, lecturing, and lobbying through NAWSA and other groups.",
+      "Mass suffrage parades and marches, such as the 1913 procession in Washington.",
+      "The National Woman's Party picketed the White House ('Silent Sentinels'), and members were arrested and went on hunger strikes.",
+      "Women's large-scale contributions during World War I strengthened the argument that they had earned full citizenship."
+    ],
+    "after": [
+      "The 19th Amendment was ratified in 1920; sex could no longer be used to deny the vote.",
+      "Women began voting in national elections across the country.",
+      "Many women of color — especially Black women in the South — remained effectively barred by poll taxes, literacy tests, and intimidation until the Voting Rights Act of 1965."
+    ],
+    "sigKey": "The constitutional and legal barrier of sex was removed nationwide, and the formal electorate of women roughly doubled.",
+    "gradKey": "Suffrage spread state by state over 70+ years, and real voting access for women of color expanded slowly, culminating in 1965.",
+    "sameKey": "Racial disenfranchisement persisted, and women remained underrepresented in elected office and political leadership for decades.",
+    "whyKey": "Which factor best explains why change happened when and how it did — sustained organizing, shifting public opinion after World War I, or state-level momentum forcing federal action? Cite evidence."
+  },
+  "sources": [
+    { "n": 1, "titleKey": "19th Amendment to the U.S. Constitution (1920) — National Archives", "type": "primary", "url": "https://www.archives.gov/milestone-documents/19th-amendment", "descKey": "The amendment barring denial of the vote 'on account of sex.'", "questionKeys": ["What exactly does the amendment say?", "What does it not address?"] },
+    { "n": 2, "titleKey": "Overview of the Nineteenth Amendment — Constitution Annotated (Library of Congress)", "type": "secondary", "url": "https://constitution.congress.gov/browse/essay/amdt19-1/ALDE_00013822/", "descKey": "The amendment's text and legal grounding.", "questionKeys": ["How is the amendment's power described legally?", "What questions does it leave open?"] },
+    { "n": 3, "titleKey": "African American Women and the Nineteenth Amendment — National Park Service", "type": "secondary", "url": "https://www.nps.gov/articles/african-american-women-and-the-nineteenth-amendment.htm", "descKey": "How Black women were often blocked from voting after 1920.", "questionKeys": ["Who was still barred from voting after 1920?", "When did that begin to change?"] }
+  ],
+  "comparePromptKeys": [
+    "Compare your ledgers with a partner. Did you sort the same items into 'changed' vs. 'stayed the same'?",
+    "Where did you disagree about whether something changed a lot, a little, or not at all?"
+  ],
+  "conclusionKey": "Was the 19th Amendment a genuine turning point in American democracy, or a partial victory that left major exclusions in place? Use evidence from at least two sources — including at least one that addresses who could actually vote after 1920.",
+  "ace": {
+    "enabled": true,
+    "articulateKey": "Explain what the 19th Amendment did — and what it did not do — in your own words.",
+    "connectKey": "Connect a suffrage tactic used 'during' the movement to the change that came 'after.'",
+    "extendKey": "Apply the continuity-and-change lens to a voting-rights question today. What has changed, and what has not?"
+  },
+  "teacherText": {
+    "keyideas": "The 19th Amendment (1920) removed sex as a barrier to voting nationwide — a decisive legal change capping 70+ years of organizing from Seneca Falls (1848) forward. But de jure change and de facto access differ: many women of color, especially Black women in the South, remained barred by poll taxes, literacy tests, and intimidation until the Voting Rights Act of 1965. The continuity-and-change lens surfaces both the breakthrough and its limits.",
+    "misconceptions": "• The 19th Amendment did not enfranchise all women in practice — racial barriers persisted until 1965.\n• Suffrage was won over 70+ years and state by state, not in a single moment.\n• The movement used many tactics — from lobbying and litigation to parades, picketing, and civil disobedience.",
+    "vocabulary": "suffrage, ratification, coverture, NAWSA, National Woman's Party, de jure, de facto, disenfranchisement.",
+    "context": "Seneca Falls 1848; Wyoming 1869; 1913 Washington parade; NWP picketing 1917; Congress passes the amendment June 4, 1919; ratified Aug. 18, 1920; full access for many women of color awaited the Voting Rights Act of 1965."
+  },
+  "teks": { "standardsFile": "standards/teks-us-since-1877.json", "content": ["US.5(A)", "US.22(A)", "US.22(B)"], "skills": ["US.28(A)", "US.28(D)"] },
+  "tags": ["progressive-era", "continuity-change", "voting-rights", "primary-sources"],
+  "translationStatus": { "en": "human", "es": "mt-pending-review", "vi": "mt-pending-review", "ar": "mt-pending-review", "zh": "mt-pending-review", "ur": "mt-pending-review", "hi": "mt-pending-review" }
+}

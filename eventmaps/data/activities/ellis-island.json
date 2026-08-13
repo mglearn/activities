@@ -1,0 +1,61 @@
+{
+  "id": "ellis-island",
+  "title": "Ellis Island and Immigration",
+  "i18nKey": "act-generic",
+  "gradeBands": ["3-5"],
+  "courses": ["us-history"],
+  "mapType": "people-place-change",
+  "era": "immigration-industrialization",
+  "estimatedMinutes": 30,
+  "summary": "Connect the people, places, and changes of Ellis Island, where about 12 million immigrants entered the United States between 1892 and 1954.",
+  "challenge": "Between 1892 and 1954, about 12 million people arrived at Ellis Island in New York Harbor, hoping to start new lives in America. Who came, where did they land and settle, and what changed because of them? Map how people, place, and change connect.",
+  "event": { "title": "Ellis Island and Immigration", "date": "1892–1954", "place": "New York Harbor" },
+  "mapData": {
+    "who": [
+      "Immigrant families and individuals — arriving mostly from Europe, plus elsewhere, hoping for work and a new start",
+      "Immigration inspectors — federal officers who asked questions and decided who could enter",
+      "Doctors and nurses — who examined arrivals for illness",
+      "Interpreters — who translated many languages so people and officials could understand each other"
+    ],
+    "where": [
+      "New York Harbor — the ships' entry point to America",
+      "Ellis Island — the small island holding the immigration station",
+      "The great hall (Registry Room) — where arrivals were inspected",
+      "The Statue of Liberty — nearby, the first landmark many immigrants saw",
+      "American cities — New York, Chicago, Boston, and beyond, where newcomers settled"
+    ],
+    "changed": [
+      "The U.S. population grew quickly.",
+      "Cities grew larger (urbanization) as many immigrants settled in them.",
+      "The workforce grew, supplying labor for factories and industry.",
+      "Food, music, language, and traditions blended into American culture.",
+      "The nation became more diverse, made up of people from many lands."
+    ],
+    "connectionKey": "Millions of hopeful people came through Ellis Island in New York Harbor, and by settling in America's growing cities and workplaces they helped make the nation bigger, busier, and more diverse."
+  },
+  "sources": [
+    { "n": 1, "titleKey": "History of Ellis Island from 1892 to 1954 — National Park Service", "type": "secondary", "url": "https://www.nps.gov/elis/learn/historyculture/history-of-ellis-island-from-1892-to-1954.htm", "descKey": "How the immigration station worked and changed over 62 years.", "questionKeys": ["When did Ellis Island open and close?", "About how many people passed through it?"] },
+    { "n": 2, "titleKey": "Ellis Island — Immigration and Relocation in U.S. History (Library of Congress)", "type": "secondary", "url": "https://www.loc.gov/classroom-materials/immigration/italian/ellis-island/", "descKey": "The inspection process arrivals went through, with primary sources.", "questionKeys": ["What happened to someone arriving at Ellis Island?", "How might the wait have felt?"] },
+    { "n": 3, "titleKey": "Ellis Island Passenger Manifests — National Archives (Prologue)", "type": "primary", "url": "https://www.archives.gov/publications/prologue/1996/fall/ellis-island-manifests-1", "descKey": "Ship passenger lists recording names, ages, jobs, and home countries.", "questionKeys": ["What information did the manifests record?", "How do these records help families today?"] }
+  ],
+  "comparePromptKeys": [
+    "Compare your three lenses with a partner. Did you connect the same people to the same places and changes?",
+    "Which change do you think mattered most to a newly arrived family? Why?"
+  ],
+  "conclusionKey": "In your own words, explain how people, place, and change connect at Ellis Island. Use at least one detail from each lens and one source.",
+  "ace": {
+    "enabled": true,
+    "articulateKey": "Explain what Ellis Island was and why so many people came through it.",
+    "connectKey": "Connect where immigrants settled to a change that happened in American cities.",
+    "extendKey": "Apply the idea of newcomers changing a community to your own town or school today."
+  },
+  "teacherText": {
+    "keyideas": "Ellis Island (1892–1954), in New York Harbor near the Statue of Liberty, processed about 12 million immigrants, most between 1892 and 1924. Arrivals were inspected for health and questioned in the Registry Room; most passed and entered the country. Immigration fueled population growth, urbanization, a larger workforce, and a more diverse culture. The 1924 Quota Act sharply reduced immigration.",
+    "misconceptions": "• Most arrivals passed inspection and were admitted; only a small share were held or turned away.\n• Ellis Island processed immigrants; it was not a prison (though later it was used for detention).\n• Immigrants came from many places, not one single country.",
+    "vocabulary": "immigration, inspection, manifest, urbanization, quota, interpreter, harbor.",
+    "context": "Opened Jan. 1, 1892; closed 1954; ~12 million processed; peak early 1900s; 1897 fire, fireproof Main Building opened Dec. 1900; immigration dropped after the 1924 Quota Act."
+  },
+  "teks": { "standardsFile": "standards/teks-grade5-us.json", "content": ["5.5(A)", "5.12(C)"], "skills": ["5.24(A)", "5.24(B)", "5.24(D)"] },
+  "tags": ["immigration", "geography", "urbanization", "primary-sources"],
+  "translationStatus": { "en": "human", "es": "mt-pending-review", "vi": "mt-pending-review", "ar": "mt-pending-review", "zh": "mt-pending-review", "ur": "mt-pending-review", "hi": "mt-pending-review" }
+}

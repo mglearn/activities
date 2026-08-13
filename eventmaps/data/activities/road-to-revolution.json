@@ -1,0 +1,56 @@
+{
+  "id": "road-to-revolution",
+  "title": "The Road to the American Revolution",
+  "i18nKey": "act-generic",
+  "gradeBands": ["6-8"],
+  "courses": ["us-history"],
+  "mapType": "conflict-consequence",
+  "era": "american-revolution",
+  "estimatedMinutes": 35,
+  "summary": "Follow the chain of taxes, protests, and reactions from 1763 to 1775 and decide which link did the most to turn disagreement into war.",
+  "challenge": "The American Revolution did not begin with a single event. Between 1763 and 1775, a chain of British taxes and colonial protests — each answered by a sharper reaction — pushed the colonies toward war. Trace the chain from pressure to consequence, and decide which link mattered most.",
+  "event": { "title": "Lexington and Concord", "date": "1763–1775", "place": "The thirteen colonies" },
+  "mapData": {
+    "links": [
+      { "labelKey": "f_pressure", "textKey": "Proclamation of 1763 — after the French and Indian War, colonists are barred from settling west of the Appalachians." },
+      { "labelKey": "f_action2", "textKey": "Stamp Act 1765 taxes printed materials directly, sparking 'no taxation without representation'; the Townshend Acts (1767) renew the fight." },
+      { "labelKey": "f_reaction", "textKey": "Boston Massacre (March 1770) — British soldiers fire into a crowd, killing five colonists; it becomes a rallying point." },
+      { "labelKey": "f_escalation", "textKey": "Tea Act → Boston Tea Party (Dec. 1773) — colonists dump 342 chests of British tea into Boston Harbor." },
+      { "labelKey": "f_event2", "textKey": "Coercive (Intolerable) Acts (1774) close Boston's port and punish Massachusetts; the First Continental Congress unites the colonies." },
+      { "labelKey": "f_consequences", "textKey": "Lexington and Concord (April 19, 1775) — the first shots of the Revolution; war begins." }
+    ],
+    "altKey": "What if Parliament had repealed the Coercive Acts and seated colonial representatives — could compromise in 1774 have prevented war? (Parliament had backed down before, repealing the Stamp Act in 1766.)",
+    "people": [
+      "Sons of Liberty — organized protest and boycotts",
+      "Samuel Adams — Boston organizer and agitator",
+      "King George III and Parliament — issued the taxes and the Coercive Acts",
+      "Colonial militia (Minutemen) — fought at Lexington and Concord"
+    ],
+    "mostKey": "Of all these links, which single event did the MOST to turn disagreement into war? Cite evidence from the chain to defend your choice — and explain why the links before it were not enough on their own."
+  },
+  "sources": [
+    { "n": 1, "titleKey": "Roots of Rebellion — National Archives Museum", "type": "primary", "url": "https://visit.archives.gov/whats-on/explore-exhibits/roots-rebellion", "descKey": "Documents from the years of rising tension before the war.", "questionKeys": ["What did the Proclamation of 1763 do?", "Why would that anger colonists?"] },
+    { "n": 2, "titleKey": "April 19, 1775 — Minute Man National Historical Park (NPS)", "type": "secondary", "url": "https://www.nps.gov/mima/learn/historyculture/april-19-1775.htm", "descKey": "The first battles at Lexington Green and Concord's North Bridge.", "questionKeys": ["Why did British troops march to Concord?", "How did the fighting spread?"] },
+    { "n": 3, "titleKey": "'No Taxation Without Representation' — Library of Congress", "type": "secondary", "url": "https://www.loc.gov/exhibits/magna-carta-muse-and-mentor/no-taxation-without-representation.html", "descKey": "How colonists argued that taxes required their consent through their own representatives.", "questionKeys": ["What did 'no taxation without representation' mean?", "How did colonists act on that idea?"] }
+  ],
+  "comparePromptKeys": [
+    "Compare your chains with a partner. Did you order the links the same way?",
+    "Did you choose the same 'most important link'? Defend your choice with evidence."
+  ],
+  "conclusionKey": "Which link in the chain did the most to make war unavoidable? Support your claim with evidence from at least two sources and two links.",
+  "ace": {
+    "enabled": true,
+    "articulateKey": "Explain how one British action produced a sharper colonial reaction.",
+    "connectKey": "Connect the Coercive Acts to the First Continental Congress.",
+    "extendKey": "Apply the idea of an escalating chain of conflict to another dispute in history or today."
+  },
+  "teacherText": {
+    "keyideas": "The road to revolution was a chain of British revenue measures and colonial protests, each escalating the last: the Proclamation of 1763; the Stamp and Townshend Acts; the Boston Massacre (1770); the Boston Tea Party (1773); the Coercive Acts and First Continental Congress (1774); and Lexington and Concord (April 1775). The core grievance was taxation without representation and control over colonial self-government.",
+    "misconceptions": "• The colonists' objection was to being taxed without consent, and to loss of self-government — not simply to any tax.\n• The Boston Massacre killed five and was used as propaganda; it was not a large battle.\n• Parliament had compromised before (repealing the Stamp Act in 1766); by 1774 it did not.",
+    "vocabulary": "Proclamation of 1763, Stamp Act, Townshend Acts, Boston Massacre, Coercive/Intolerable Acts, First Continental Congress, Minutemen, boycott.",
+    "context": "Proclamation Oct. 1763; Stamp Act 1765; Townshend Acts 1767; Boston Massacre March 5, 1770; Boston Tea Party Dec. 16, 1773; Coercive Acts & First Continental Congress 1774; Lexington and Concord April 19, 1775."
+  },
+  "teks": { "standardsFile": "standards/teks-grade8-us.json", "content": ["8.4(A)"], "skills": ["8.29(A)", "8.29(B)"] },
+  "tags": ["american-revolution", "multiple-causation", "escalation", "primary-sources"],
+  "translationStatus": { "en": "human", "es": "mt-pending-review", "vi": "mt-pending-review", "ar": "mt-pending-review", "zh": "mt-pending-review", "ur": "mt-pending-review", "hi": "mt-pending-review" }
+}
