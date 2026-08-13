@@ -4,6 +4,58 @@ Derived from `plan.md`. This tracks the build in small, Git-friendly milestones.
 Per `plan.md` §41–42, the first pass builds **architecture → one template → one
 complete pilot → validation**, then **STOPS** before mass-producing activities.
 
+---
+
+## ▶ RESUME HERE — status as of 2026-08-13
+
+**Live in production** at https://mglearn.github.io/activities/eventmaps/ (repo
+`mglearn/activities`, branch `main`). Last commits: `c9d233b` (Phase-6 batch-1
+English) and `0acf783` (batch-1 translations).
+
+**Done:**
+- MVP complete (plan §40): 9 map families, hub, filters, About/Privacy/Accessibility
+  page, validation + PDF + translation build scripts.
+- **18 activities live** — 6 per grade band, 2 per map family — all in **7 languages**
+  (en + es/vi/ar/zh/ur/hi, RTL for ar/ur), color + true grayscale, student/teacher,
+  with **72 printable PDFs** and verified TEKS (district-confirmation notes).
+- Translations are **machine-assisted, `mt-pending-review`** — a fluent-speaker
+  review is the outstanding QA step (source files: `data/translations/*.json`).
+
+**The 18 activities (map family → the two built):**
+- History Trail → Lewis & Clark · Oregon Trail
+- Cause Ripples → Transcontinental Railroad · Louisiana Purchase
+- People·Place·Change → Great Migration · Ellis Island
+- Turning Point → Battle of Gonzales · Battle of Gettysburg
+- Voices → Boston Tea Party · Debate Over the Constitution
+- Conflict & Consequence → Road to the Civil War · Road to the Revolution
+- Evidence Dossier → Cold War Origins · WWI Entry
+- Systems Shockwave → Great Depression · WWII Home Front
+- Continuity & Change → Civil Rights Movement · Women's Suffrage
+
+**NEXT (Phase 6 batch 2 → toward the 36 target): add ~18 more (2 per family / 6 per
+band).** Candidate topics (verify before building):
+- 3–5: Trail → *Underground Railroad*; Ripples → *Cotton Gin*; People·Place·Change → *California Gold Rush*
+- 6–8: Turning Point → *Battle of San Jacinto (TX)*; Voices → *The Alamo (TX)*; Conflict → *Texas Annexation & Mexican–American War*
+- 9–12: Dossier → *Was the New Deal a success?*; Shockwave → *9/11 & its aftermath*; Continuity → *The Cold War's end / immigration policy over time*
+- Then a 4th per family for the remaining 9.
+
+**How to add an activity (no new page code needed):**
+1. `data/activities/<slug>.json` (schema: `data/schema/activity.schema.json`; copy an
+   existing record of the same `mapType`). Add any new TEKS codes to the matching
+   `data/standards/*.json`.
+2. `node scripts/build-data.mjs && node scripts/validate.mjs` (expect 0 errors).
+3. `node scripts/build-pdfs.mjs <slug>` → 4 PDFs.
+4. Translate: `node scripts/extract-i18n.mjs <dir>` → translate to
+   `data/translations/<slug>.json` (array of `{en,es,vi,ar,zh,ur,hi}`) →
+   `node scripts/build-translations.mjs`.
+5. Bump the eventmaps card `data-count` in `/activities/index.html`, then
+   `node build-search-index.js` (from the `activities/` root).
+6. Commit + push to `main` (GitHub Pages auto-deploys).
+
+Full detail is below.
+
+---
+
 ## Architecture decisions (and why)
 
 - **Reuse the mglearn/activities design system, do not reinvent it.** Tokens
