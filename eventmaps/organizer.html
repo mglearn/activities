@@ -26,6 +26,7 @@
     <span class="tag" id="map-band"></span>
     <span class="tag" id="map-skill"></span>
     <a class="btn btn-sm" id="pdf-link" download data-i18n="download_pdf">Download PDF</a>
+    <a class="btn btn-sm" id="pptx-link" download data-i18n="pptx_langs">PowerPoint — all 7 languages</a>
     <button class="btn btn-sm btn-primary" id="print-btn" data-i18n="print_btn">Print / Save PDF</button>
   </div>
   <p class="sec-sub no-print" style="margin-top:8px;font-size:.82rem" data-i18n="dl_note">Tip: choose landscape and “Background graphics” off for the cleanest print.</p>
@@ -64,6 +65,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('map-band').textContent = t(S.bandKey(map.band));
     document.getElementById('map-skill').textContent = t(S.skillKey(map.skill));
     document.getElementById('pdf-link').href = S.pdfHref(map.id, lang);
+    // One deck per map, holding that map in all seven languages.
+    document.getElementById('pptx-link').href = 'pptx/maps/' + map.id + '.pptx';
     document.getElementById('sheet-host').innerHTML = S.sheetHTML(map, lang);
   }
 

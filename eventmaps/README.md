@@ -33,7 +33,8 @@ assets/
 pdf/<map>/<lang>/bw.pdf   168 single sheets
 pdf-packets/              7 full-library packets (24 pages)
 pdf-band-packets/         21 grade-band packets (8 pages)
-pptx/                     7 editable decks (24 slides)
+pptx/                     7 editable decks, one per language (24 slides)
+pptx/maps/                24 editable decks, one per map (7 slides)
 generate_packets.py       the PDFs
 generate_pptx.py          the decks
 pptx_ooxml.py             dependency-free .pptx writer
@@ -87,9 +88,16 @@ shows. The splitter fails loudly if a sheet overflows onto a second page.
 ## Regenerating the PowerPoint
 
 ```bash
-python3 generate_pptx.py            # English
-python3 generate_pptx.py --all      # all seven languages
+python3 generate_pptx.py
 ```
+
+Builds two families of deck from one set of measurements, so they cannot
+disagree with each other or with the PDFs:
+
+| Output | Shape | For |
+|---|---|---|
+| `pptx/history-event-maps_<lang>.pptx` | 7 decks × 24 slides | one language, every map — mirrors the printed packet |
+| `pptx/maps/<map-id>.pptx` | 24 decks × 7 slides | one map, every language — a single organizer a whole mixed-language class can read |
 
 Same inputs, same re-run rule. Converting the PDF would give either a deck of
 pictures or, through a PDF importer, a tangle of loose glyph runs and paths —
@@ -112,6 +120,16 @@ Two deliberate differences from the print version:
 
 `pptx_ooxml.py` writes the OOXML package directly — python-pptx is not
 installable here (no pip) and vendoring it for one script is not worth it.
+
+### Why the library cards are `<div>`s
+
+Each card offers two destinations — preview the map, or download its deck — and
+an `<a>` cannot legally contain another `<a>`. So the card is a `<div>`, the
+title link carries `.stretch` (an absolutely positioned `::after` covering the
+card at `z-index:1`) to keep the whole card clickable, and the download link
+sits above it at `z-index:2` so it wins its own clicks. Keep `.card`
+`position:relative` or the stretched link escapes to the nearest positioned
+ancestor and swallows the page.
 
 ## Current TEKS basis
 

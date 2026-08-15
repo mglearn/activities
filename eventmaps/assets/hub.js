@@ -67,17 +67,26 @@
     /* The blurb is the map's own prompts, not a generic band description —
        two maps in the same band would otherwise read identically. */
     const blurb = S.prompts(m, L).join(' · ');
-    return '<a class="card" href="organizer.html?map=' + encodeURIComponent(m.id) + '">' +
+    const id = encodeURIComponent(m.id);
+    /* A <div>, not an <a>: the card carries two destinations — preview the map,
+       or download its deck — and an anchor cannot legally contain another one.
+       The title's `.stretch` link covers the whole card via an absolutely
+       positioned ::after, so clicking anywhere still opens the preview, while
+       the download sits above it on a higher z-index. */
+    return '<div class="card">' +
       '<div class="thumb" aria-hidden="true">' + S.sheetHTML(m, L) + '</div>' +
       '<span class="mnum">' + bandLabel(m.band) + '</span>' +
-      '<span class="mtitle">' + title + '</span>' +
+      '<span class="mtitle"><a class="stretch" href="organizer.html?map=' + id + '">' +
+        title + '</a></span>' +
       '<span class="mdesc">' + blurb + '</span>' +
       '<div class="tags"><span class="tag">' + skillLabel(m.skill) + '</span></div>' +
       '<span class="mfoot">' +
         '<span class="tag tag-ok">' + t('view_map') + '</span>' +
+        '<a class="tag tag-dl" href="pptx/maps/' + id + '.pptx" download>' +
+          t('pptx_short') + '</a>' +
         '<span class="arr">' + (isRTL() ? '←' : '→') + '</span>' +
       '</span>' +
-    '</a>';
+    '</div>';
   }
 
   /* Scale every thumbnail to its card's current width. Called after render

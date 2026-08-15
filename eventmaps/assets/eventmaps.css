@@ -100,9 +100,16 @@ h2.sec::after{content:"";flex:1;height:2px;background:var(--line)}
 .card{position:relative;display:flex;flex-direction:column;gap:8px;background:var(--card);border:2px solid var(--line);
   border-top:6px solid var(--navy);border-radius:16px;padding:16px 16px 18px;text-decoration:none;color:inherit;
   box-shadow:0 4px 16px rgba(10,36,99,.05);transition:transform .18s,border-color .18s,box-shadow .2s}
-a.card:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(10,36,99,.13);border-color:var(--gold)}
+.card:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(10,36,99,.13);border-color:var(--gold)}
+/* Keyboard users tab to the title link, not the card, so mirror the hover. */
+.card:focus-within{border-color:var(--gold)}
 .card .mnum{font-family:'Fredoka',sans-serif;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-d);font-weight:700}
 .card .mtitle{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:1.15rem;font-weight:700;line-height:1.14}
+.card .mtitle a{color:inherit;text-decoration:none}
+/* Stretched link: the title anchor's ::after covers the card, so the whole
+   card is clickable without wrapping it in an <a> that could not then hold
+   the download link. */
+.card .mtitle a.stretch::after{content:"";position:absolute;inset:0;z-index:1;border-radius:14px}
 /* The blurb lists the map's real prompts; clamp it so cards stay even. */
 .card .mdesc{font-weight:600;color:var(--ink-soft);font-size:.84rem;flex-grow:1;
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
@@ -111,10 +118,14 @@ a.card:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(10,36,99,.13
 .tag{font-family:'Fredoka',sans-serif;font-size:.64rem;font-weight:700;letter-spacing:.03em;color:var(--navy);
   background:#eef4fb;border:1px solid var(--line);border-radius:100px;padding:3px 9px}
 .tag-ok{color:var(--ok);border-color:#bfe4c8;background:var(--ok-bg)}
-.card .mfoot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px}
-.card .arr{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);font-size:1.1rem;transition:transform .18s}
-a.card:hover .arr{transform:translateX(4px)}
-[dir="rtl"] a.card:hover .arr{transform:translateX(-4px)}
+.card .mfoot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px;flex-wrap:wrap}
+.card .arr{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);font-size:1.1rem;transition:transform .18s;margin-inline-start:auto}
+.card:hover .arr{transform:translateX(4px)}
+[dir="rtl"] .card:hover .arr{transform:translateX(-4px)}
+/* The per-map deck download. Above the stretched link so it wins the click. */
+.card .tag-dl{position:relative;z-index:2;text-decoration:none;border-color:var(--navy);
+  background:#fff;transition:background .18s,border-color .18s}
+.card .tag-dl:hover{background:var(--gold);border-color:var(--gold);color:var(--navy-d)}
 
 /* ---- Live thumbnail: the real sheet, scaled ----
    Not a placeholder and not a screenshot — `hub.js` renders the same markup

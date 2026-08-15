@@ -1,10 +1,16 @@
 """History Event Maps — build the editable PowerPoint version of the library.
 
-    python3 generate_pptx.py            # English
-    python3 generate_pptx.py --all      # all seven languages
+    python3 generate_pptx.py
 
-Produces pptx/history-event-maps_<lang>.pptx: 24 slides, one organizer each,
-US Letter landscape, matching the printed PDF page for page.
+Produces two families of deck, both US Letter landscape and both cut from the
+same measurements, so they can never disagree with each other or with the PDFs:
+
+    pptx/history-event-maps_<lang>.pptx   7 decks x 24 slides — one language,
+                                          every map; mirrors the printed packet
+    pptx/maps/<map-id>.pptx              24 decks x 7 slides — one map, every
+                                          language, for a teacher who wants a
+                                          single organizer their whole class
+                                          can read
 
 WHY IT IS BUILT THIS WAY
 ------------------------
@@ -270,34 +276,66 @@ def build_slide(sheet, rtl):
     return ''.join(parts)
 
 
-def build(lang, browser):
-    sheets = measure(browser, lang)
-    if len(sheets) != len(DATA['maps']):
-        raise RuntimeError(f'{lang}: measured {len(sheets)} sheets, expected {len(DATA["maps"])}')
-    rtl = lang in RTL_LANGS
-    slides = [build_slide(s, rtl) for s in sheets]
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    out = OUT_DIR / f'history-event-maps_{lang}.pptx'
-    title = DATA['locales'].get(lang, {}).get('title', 'History Event Maps')
+def _write(out, slides, title):
+    out.parent.mkdir(parents=True, exist_ok=True)
     ox.write_pptx(out, slides, width_in=PAGE_W, height_in=PAGE_H, title=title)
-    shapes = sum(s.count('<p:sp>') + s.count('<p:cxnSp>') for s in slides)
-    print(f'{lang}: {len(slides)} slides, {shapes} shapes, '
-          f'{out.stat().st_size // 1024} KB -> {out.relative_to(ROOT)}')
     return out
+
+
+def build_language_deck(lang, sheets):
+    """One language, all 24 maps — the deck that mirrors the printed packet."""
+    slides = [build_slide(s, lang in RTL_LANGS) for s in sheets]
+    title = DATA['locales'].get(lang, {}).get('title', 'History Event Maps')
+    return _write(OUT_DIR / f'history-event-maps_{lang}.pptx', slides, title)
+
+
+def build_map_deck(index, measurements, langs):
+    """One map, all seven languages — so a teacher who wants a single organizer
+    gets every language their classroom needs in one file, in one download."""
+    map_id = DATA['maps'][index]['id']
+    slides = [build_slide(measurements[lang][index], lang in RTL_LANGS)
+              for lang in langs]
+    title = DATA['locales']['en'].get('map_title_' + map_id, map_id)
+    return _write(OUT_DIR / 'maps' / f'{map_id}.pptx', slides,
+                  f'{title} — 7 languages')
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--lang', default='en', help='language code (default: en)')
-    ap.add_argument('--all', action='store_true', help='build all seven languages')
+    ap.add_argument('--lang', help='build only this language\'s full-library deck')
     args = ap.parse_args()
 
     browser = find_browser()
-    langs = list(DATA['locales']) if args.all else [args.lang]
+    langs = list(DATA['locales'])          # en first, then the other six
+    n_maps = len(DATA['maps'])
+
+    # Measure every language once; both deck families are cut from the same
+    # measurements, so a per-map deck can never disagree with the packet.
+    measurements = {}
     for lang in langs:
-        if lang not in DATA['locales']:
-            sys.exit(f'unknown language: {lang}')
-        build(lang, browser)
+        sheets = measure(browser, lang)
+        if len(sheets) != n_maps:
+            raise RuntimeError(f'{lang}: measured {len(sheets)} sheets, expected {n_maps}')
+        measurements[lang] = sheets
+        print(f'  measured {lang}')
+
+    if args.lang and args.lang not in langs:
+        sys.exit(f'unknown language: {args.lang}')
+
+    total = 0
+    for lang in ([args.lang] if args.lang else langs):
+        out = build_language_deck(lang, measurements[lang])
+        total += out.stat().st_size
+        print(f'{lang}: {n_maps} slides -> {out.relative_to(ROOT)} '
+              f'({out.stat().st_size // 1024} KB)')
+
+    for i in range(n_maps):
+        out = build_map_deck(i, measurements, langs)
+        total += out.stat().st_size
+        print(f'{DATA["maps"][i]["id"]}: {len(langs)} slides -> '
+              f'{out.relative_to(ROOT)} ({out.stat().st_size // 1024} KB)')
+
+    print(f'\n{total // 1024} KB total')
 
 
 if __name__ == '__main__':
