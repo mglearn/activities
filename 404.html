@@ -12,14 +12,35 @@
      - redundant nest:  /activities/activities/*  -> /activities/ctobs/* */
 (function () {
   var p = location.pathname, s = location.search, h = location.hash;
+
+  /* Resolve the hub's base first, then match the ONE segment after it.
+     Matching the whole path in a single pass is what broke this before: a
+     lazy `(.*?)\/(?:breakouts|activities)` locks onto the leading
+     `/activities`, leaving the captured prefix empty so the guard that
+     required it to end in `/activities` never passed — the forwards below
+     had simply stopped firing. Making the quantifier greedy instead trades
+     that for a double rewrite: `/activities/activities/activities/x` lands
+     on `/activities/ctobs/ctobs/x`, because the result still matches on the
+     next 404. Anchoring to the base and rewriting a single segment does
+     neither.
+
+     Base is the first `/activities` segment (the GitHub Pages project root);
+     falling back to '' also makes this work when the hub is served at the
+     root of a local dev server. */
+  var base = p.match(/^(.*?\/activities)(?=\/)/);
+  var root = base ? base[1] : '';
+  var rest = p.slice(root.length);
+
   /* History Event Maps was rebuilt as a library of blank organizers; the old
      per-event activity pages and downloads/ PDFs are gone. Land those on the
-     map library instead of a dead end. Must run before the rule below, whose
-     /activities/ branch would otherwise be tempted by the nested segment. */
-  var em = p.match(/^(.*\/activities)\/eventmaps\/(?:activities|downloads)(?:\/|$)/);
-  if (em) { location.replace(em[1] + '/eventmaps/'); return; }
-  var m = p.match(/^(.*?)\/(?:breakouts|activities)(\/.*)?$/);
-  if (m && m[1].match(/\/activities$/)) { location.replace(m[1] + '/ctobs' + (m[2] || '/') + s + h); return; }
+     map library instead of a dead end. */
+  if (/^\/eventmaps\/(?:activities|downloads)(?:\/|$)/.test(rest)) {
+    location.replace(root + '/eventmaps/'); return;
+  }
+
+  /* old CTOB name / redundant nest -> ctobs */
+  var seg = rest.match(/^\/(?:breakouts|activities)(\/.*)?$/);
+  if (seg) { location.replace(root + '/ctobs' + (seg[1] || '/') + s + h); return; }
 })();
 </script>
 </head>
