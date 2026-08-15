@@ -33,6 +33,10 @@ assets/
 pdf/<map>/<lang>/bw.pdf   168 single sheets
 pdf-packets/              7 full-library packets (24 pages)
 pdf-band-packets/         21 grade-band packets (8 pages)
+pptx/                     7 editable decks (24 slides)
+generate_packets.py       the PDFs
+generate_pptx.py          the decks
+pptx_ooxml.py             dependency-free .pptx writer
 ```
 
 ## Thumbnails are the real sheet
@@ -79,6 +83,35 @@ packets. Requires `pypdf` and Chrome/Chromium on PATH.
 **Re-run it after editing `data.js`, `sheet.js`, `sheet.css`, or
 `sheet-print.css`** — otherwise the downloads drift away from what the site
 shows. The splitter fails loudly if a sheet overflows onto a second page.
+
+## Regenerating the PowerPoint
+
+```bash
+python3 generate_pptx.py            # English
+python3 generate_pptx.py --all      # all seven languages
+```
+
+Same inputs, same re-run rule. Converting the PDF would give either a deck of
+pictures or, through a PDF importer, a tangle of loose glyph runs and paths —
+editable in name only. So the deck is built from the measurements instead:
+headless Chrome renders the real sheets, `getBoundingClientRect()` reports where
+every box, label, and rule ended up, and each one is re-emitted as a native
+PowerPoint autoshape at the same coordinates. Every prompt is real text in a
+real text frame; every box is a real shape that can be moved, restyled, or
+deleted; a student can click into one and type.
+
+Two deliberate differences from the print version:
+
+- **No ruled writing lines.** On paper they guide handwriting; on a slide they
+  just obstruct the cursor. Each box is open typing space under its prompt,
+  with an empty second paragraph so the caret lands below the prompt rather
+  than inside it.
+- **CSS `double` borders become heavier solid ones**, because PowerPoint has no
+  double-stroke preset. Dashed and solid carry over exactly, so the roles the
+  boxes encode still read without relying on colour.
+
+`pptx_ooxml.py` writes the OOXML package directly — python-pptx is not
+installable here (no pip) and vendoring it for one script is not worth it.
 
 ## Current TEKS basis
 

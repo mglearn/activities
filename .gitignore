@@ -18,3 +18,7 @@ private-texts/
 *.azw
 *.azw3
 *.djvu
+
+# Python bytecode from the eventmaps generators.
+__pycache__/
+*.pyc

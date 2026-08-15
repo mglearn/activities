@@ -100,12 +100,14 @@
     const L = lang();
     const rows = [
       { href: 'pdf-packets/history-event-maps_' + L + '_bw.pdf', title: t('packet_all'), sub: t('grayscale') },
+      { href: 'pptx/history-event-maps_' + L + '.pptx', title: t('packet_pptx'), sub: t('editable'), kind: 'PPTX' },
       { href: 'pdf-band-packets/history-event-maps_35_' + L + '_bw.pdf', title: t('packet_band', { band: t('band_35') }), sub: t('grayscale') },
       { href: 'pdf-band-packets/history-event-maps_68_' + L + '_bw.pdf', title: t('packet_band', { band: t('band_68') }), sub: t('grayscale') },
       { href: 'pdf-band-packets/history-event-maps_912_' + L + '_bw.pdf', title: t('packet_band', { band: t('band_912') }), sub: t('grayscale') },
     ];
     el('downloads').innerHTML = rows.map(r =>
-      '<a class="dl" href="' + r.href + '" download><span class="dls">PDF · ' + r.sub + '</span>' +
+      '<a class="dl" href="' + r.href + '" download>' +
+      '<span class="dls">' + (r.kind || 'PDF') + ' · ' + r.sub + '</span>' +
       '<span class="dlt">' + r.title + '</span></a>').join('');
   }
 
