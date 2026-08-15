@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
-<title>About · Privacy · Accessibility — History Event Maps</title>
-<meta name="description" content="About the History Event Maps project, its privacy commitment (no student data), and its accessibility design (WCAG 2.1 AA).">
+<title>About — History Event Maps</title>
+<meta name="description" content="About History Event Maps: what the organizers are for, how to use them, privacy, accessibility, and TEKS alignment.">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/eventmaps.css">
 </head>
@@ -13,104 +13,64 @@
 
 <div class="topbar">
   <a href="index.html" class="backlink" data-i18n="nav_hub">← History Event Maps</a>
-  <div class="nav-mid" data-i18n="footer_about">About</div>
   <div class="spacer"></div>
   <div class="lang-picker" data-i18n-picker></div>
 </div>
 
 <main class="wrap narrow">
-  <header class="hero" style="text-align:left">
-    <h1 data-i18n="hero_title">History Event Maps</h1>
-    <p class="lede" data-i18n="hero_lede"></p>
+  <header class="hero">
+    <h1 data-i18n="about_title">About these maps</h1>
   </header>
 
-  <!-- About -->
   <section class="block" id="about">
-    <h3><span class="stepk">i</span><span data-i18n="footer_about">About</span></h3>
-    <p>History Event Maps is a family of visual historical-thinking organizers for
-       grades 3–5, 6–8, and 9–12 social-studies classrooms. Instead of one generic
-       worksheet, each map supports a distinct form of historical reasoning —
-       chronology, cause and effect, perspective, turning points, evidence,
-       systems, and continuity and change.</p>
-    <p><strong data-i18n="routine_title">How it works</strong>:
-       <span data-i18n="r_scan">Scan</span> →
-       <span data-i18n="r_map">Map</span> →
-       <span data-i18n="r_compare">Compare</span> →
-       <span data-i18n="r_expand">Expand</span> →
-       <span data-i18n="r_revise">Revise</span> →
-       <span data-i18n="r_conclude">Conclude</span>.
-       Students examine two or three sources, complete what they can on the map,
-       compare their thinking, then revise it as the teacher projects the same
-       organizer and adds historical context.</p>
-    <p>The site is a static, self-contained project built to run in any modern
-       browser (or offline) with no build step required to use it. It is part of
-       the <a href="../">mglearn Learning Activities Hub</a>.</p>
-    <p class="muted"><strong>Standards.</strong> Activities align to the Texas
-       Essential Knowledge and Skills (TEKS). Codes are transcribed verbatim from
-       19 TAC Chapter 113 and shown with a note asking districts to confirm their
-       locally adopted standards — the June 2026 K–8 revision will renumber some
-       codes. TEKS are never fabricated; uncertain items are flagged for review.</p>
-    <p class="muted"><strong>Languages.</strong> The interface, routine, and every
-       organizer label are available in seven languages: English, Spanish,
-       Vietnamese, Arabic, Simplified Chinese, Urdu, and Hindi, with right-to-left
-       support for Arabic and Urdu. Translated activity content is machine-assisted
-       and pending fluent-speaker review.</p>
+    <h3 data-i18n="about_title">About these maps</h3>
+    <p data-i18n="about_body">History Event Maps is a library of 24 reusable one-page graphic organizers for social studies in grades 3–5, 6–8, and 9–12.</p>
   </section>
 
-  <!-- Privacy -->
+  <section class="block" id="how">
+    <h3 data-i18n="how_title">How to use a map</h3>
+    <p data-i18n="how_body">Choose a grade band and a thinking skill, preview the blank map on screen, then print it or download the PDF.</p>
+  </section>
+
+  <section class="block" id="standards">
+    <h3 data-i18n="teks_focus">TEKS Skill Focus</h3>
+    <p data-i18n="current_teks_note">Aligned to the current 2022-adopted Texas Social Studies TEKS implemented beginning in 2024-2025.</p>
+    <p class="muted" data-i18n="teks_35">Grades 3-5: chronology, cause/effect, sources, point of view, maps, graphic organizers, claims and evidence.</p>
+    <p class="muted" data-i18n="teks_68">Grades 6-8: research, chronology, cause/effect, comparison, historical context, perspective, source evaluation, visual communication.</p>
+    <p class="muted" data-i18n="teks_912">Grades 9-12: historical inquiry, chronology, causation, perspective, source evaluation, claims/evidence, geographic interpretation, visual communication.</p>
+  </section>
+
   <section class="block" id="privacy">
-    <h3><span class="stepk">🔒</span><span data-i18n="footer_privacy_link">Privacy</span></h3>
-    <p style="font-weight:700" data-i18n="footer_privacy">No logins. No accounts. No student data collected.</p>
-    <p>This project collects nothing. It requires no login or account, asks for no
-       names or email, uses no classroom identifiers, and includes no third-party
-       trackers or analytics. Nothing students write on a map is stored on a server —
-       organizers are filled in on paper or in the browser and printed.</p>
-    <p>The only thing stored locally in your browser is a language preference
-       (<code>tcea.breakouts.lang</code>), shared with other mglearn activities so
-       your language choice carries across the site. Clearing your browser storage
-       resets it to your browser's language. No preference is ever transmitted.</p>
+    <h3 data-i18n="footer_privacy_link">Privacy</h3>
+    <p data-i18n="privacy_body">No accounts, cookies, forms, or analytics. The only thing stored in your browser is your language choice.</p>
   </section>
 
-  <!-- Accessibility -->
   <section class="block" id="accessibility">
-    <h3><span class="stepk">♿</span><span data-i18n="footer_a11y">Accessibility</span></h3>
-    <p>History Event Maps targets <strong>WCAG 2.1 AA</strong>. Design commitments:</p>
-    <ul class="qlist">
-      <li>Semantic heading structure and landmark regions.</li>
-      <li>Full keyboard navigation with a visible focus outline.</li>
-      <li>Adequate colour contrast, and <strong>no meaning carried by colour alone</strong> — the grayscale mode distinguishes information by line weight, border style, glyphs, and icons so it survives black-and-white printing.</li>
-      <li>Correct <code>lang</code> and <code>dir</code> attributes, with right-to-left layout for Arabic and Urdu.</li>
-      <li>Live HTML/SVG text (not images of text) so labels scale, reflow, and read aloud in every language.</li>
-      <li>Labelled controls and organizer regions for assistive technology; decorative icons hidden from it.</li>
-      <li>Mobile-friendly pages with no horizontal scrolling of ordinary content; printable organizers stay usable when enlarged.</li>
-      <li>Reduced-motion support (animations are removed when the reader prefers reduced motion).</li>
-    </ul>
-    <p class="muted">Found an accessibility barrier? Please report it through the
-       mglearn Learning Activities Hub so we can fix it.</p>
+    <h3 data-i18n="footer_a11y">Accessibility</h3>
+    <p data-i18n="a11y_body">Every label is real text, so it reflows, translates, and reads aloud with a screen reader.</p>
   </section>
+
+  <div class="btnrow">
+    <a class="btn btn-primary" href="index.html" data-i18n="nav_hub">← History Event Maps</a>
+    <a class="btn" href="../" data-i18n="nav_back">← Activities</a>
+  </div>
 
   <footer>
     <div class="flinks">
       <a href="index.html" data-i18n="nav_hub">← History Event Maps</a>
-      <a href="#about" data-i18n="footer_about">About</a>
-      <a href="#privacy" data-i18n="footer_privacy_link">Privacy</a>
-      <a href="#accessibility" data-i18n="footer_a11y">Accessibility</a>
+      <a href="../" data-i18n="nav_back">← Activities</a>
+      <a href="/activities/licensing.html">Licensing &amp; provenance</a>
     </div>
     <div data-i18n="footer_privacy">No logins. No accounts. No student data collected.</div>
   </footer>
 </main>
+
 <a href="#" id="back-to-top" aria-label="Back to top">↑</a>
 
 <script src="assets/i18n.js" defer></script>
-<script src="assets/i18n-common.js" defer></script>
-<script src="assets/i18n-hub.js" defer></script>
-<script src="assets/maps.js" defer></script>
-<script defer>
-document.addEventListener('DOMContentLoaded', function () {
-  window.BreakoutI18n.register('em-about', window.EM.mergeLangs(window.EM_COMMON, window.EM_HUB));
-  window.EM.wireBackToTop();
-});
-</script>
+<script src="assets/data.js" defer></script>
+<script src="assets/i18n-chrome.js" defer></script>
+<script src="assets/chrome.js" defer></script>
 <script src="/activities/licensing-footer.js" defer></script>
 </body>
 </html>

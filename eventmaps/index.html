@@ -5,89 +5,60 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <title>History Event Maps — TCEA Activities</title>
-<meta name="description" content="TEKS-aligned visual history organizers for grades 3–12. Students investigate two or three sources, map an event, compare, then revise as the teacher adds context. Seven languages, printable color & grayscale, no student data collected.">
+<meta name="description" content="24 reusable one-page history graphic organizers for grades 3–12. Pick a map, research an event, fill in what you discover. Seven languages, printable grayscale PDFs, TEKS skill-aligned, no student data collected.">
 <meta property="og:title" content="History Event Maps">
-<meta property="og:description" content="Investigate an event. Examine the evidence. Build the story. Fill in the gaps. TEKS-aligned, seven languages.">
+<meta property="og:description" content="Pick a map. Research an event. Fill in what you discover. 24 printable organizers, seven languages, TEKS skill-aligned.">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/eventmaps.css">
+<link rel="stylesheet" href="assets/sheet.css">
 </head>
 <body>
 
 <div class="topbar">
   <a href="../" class="backlink" data-i18n="nav_back">← Activities</a>
-  <div class="nav-mid" data-i18n="hero_title">History Event Maps</div>
+  <div class="nav-mid" data-i18n="title">History Event Maps</div>
   <div class="spacer"></div>
   <div class="lang-picker" data-i18n-picker></div>
 </div>
 
-<main class="wrap">
+<main class="wrap wide">
   <header class="hero">
-    <h1 data-i18n="hero_title">History Event Maps</h1>
-    <p class="sub" data-i18n="hero_sub">Investigate an event. Examine the evidence. Build the story. Fill in the gaps.</p>
-    <p class="lede" data-i18n="hero_lede">Students examine two or three sources, complete what they can on a visual Event Map, compare their thinking, and then revise the map as the teacher adds historical context.</p>
+    <h1 data-i18n="title">History Event Maps</h1>
+    <p class="sub" data-i18n="subtitle">Pick a map. Research an event. Fill in what you discover.</p>
+    <p class="lede" data-i18n="library_intro">Reusable one-page organizers for quick source review, brief research, student note-making, and teacher fill-in. No lessons or units required.</p>
     <p class="lede" style="font-size:.85rem" data-i18n="intro_privacy">No logins, no accounts, no student data — everything runs in your browser.</p>
   </header>
 
-  <!-- Six-step routine -->
-  <div class="routine" style="justify-content:center" aria-label="Scan, Map, Compare, Expand, Revise, Conclude">
-    <span class="step"><span class="k">1</span><span data-i18n="r_scan">Scan</span></span>
-    <span class="arrow">→</span>
-    <span class="step"><span class="k">2</span><span data-i18n="r_map">Map</span></span>
-    <span class="arrow">→</span>
-    <span class="step"><span class="k">3</span><span data-i18n="r_compare">Compare</span></span>
-    <span class="arrow">→</span>
-    <span class="step"><span class="k">4</span><span data-i18n="r_expand">Expand</span></span>
-    <span class="arrow">→</span>
-    <span class="step"><span class="k">5</span><span data-i18n="r_revise">Revise</span></span>
-    <span class="arrow">→</span>
-    <span class="step"><span class="k">6</span><span data-i18n="r_conclude">Conclude</span></span>
-  </div>
+  <p class="notice" data-i18n="current_teks_note">Aligned to the current 2022-adopted Texas Social Studies TEKS implemented beginning in 2024-2025.</p>
 
   <!-- Filters -->
   <div class="filters" role="search">
     <div class="field">
-      <label for="f-grade" data-i18n="f_grade">Grade band</label>
-      <select id="f-grade">
-        <option value="" data-i18n="opt_all">All</option>
-        <option value="3-5" data-i18n="band_35">Grades 3–5</option>
-        <option value="6-8" data-i18n="band_68">Grades 6–8</option>
-        <option value="9-12" data-i18n="band_912">Grades 9–12</option>
-      </select>
+      <label for="f-band" data-i18n="f_grade">Grade band</label>
+      <select id="f-band"><option value="">All grade bands</option></select>
     </div>
     <div class="field">
-      <label for="f-course" data-i18n="f_course">Course</label>
-      <select id="f-course">
-        <option value="" data-i18n="opt_all">All</option>
-        <option value="us-history" data-i18n="course_us">United States History</option>
-        <option value="texas-history" data-i18n="course_tx">Texas History</option>
-        <option value="world-history" data-i18n="course_world">World History</option>
-        <option value="world-geography" data-i18n="course_geo">World Geography</option>
-        <option value="government" data-i18n="course_gov">Government</option>
-        <option value="economics" data-i18n="course_econ">Economics</option>
-        <option value="elementary-ss" data-i18n="course_elem">Elementary Social Studies</option>
-      </select>
-    </div>
-    <div class="field">
-      <label for="f-map" data-i18n="f_map">Map type</label>
-      <select id="f-map"><option value="" data-i18n="opt_all">All</option></select>
+      <label for="f-skill" data-i18n="skill">Skill</label>
+      <select id="f-skill"><option value="">All thinking skills</option></select>
     </div>
     <div class="field" style="flex:1">
-      <label for="f-search" data-i18n="f_search">Search</label>
-      <input id="f-search" type="search" data-i18n-placeholder="f_search_ph" placeholder="Search an event, person, place, era, or TEKS">
+      <label for="f-search" data-i18n="search">Search maps</label>
+      <input id="f-search" type="search" data-i18n-placeholder="search" placeholder="Search maps">
     </div>
     <button class="btn" id="f-reset" data-i18n="f_reset">Reset filters</button>
   </div>
 
-  <!-- Activities -->
-  <h2 class="sec" data-band="Investigations" data-i18n="featured_title">Featured investigation</h2>
+  <!-- Library: every card carries a live, scaled render of the real sheet -->
+  <h2 class="sec" id="sec-library" data-band="24" data-i18n="gallery_title">Choose how you want students to think</h2>
   <p class="sec-sub" id="result-count"></p>
-  <div id="activity-cards" class="cards"></div>
-  <p id="no-results" class="muted" style="display:none" data-i18n="no_results">No activities match those filters yet.</p>
+  <div id="cards" class="cards"></div>
+  <p id="no-results" class="sec-sub" style="display:none" data-i18n="no_results">No maps match those filters yet.</p>
 
-  <!-- Map gallery -->
-  <h2 class="sec" data-band="Map types" data-i18n="gallery_title">Choose how you want students to think</h2>
-  <p class="sec-sub" data-i18n="gallery_sub">Nine Event Map families, each built for a different kind of historical reasoning.</p>
-  <div id="map-gallery" class="cards"></div>
+  <!-- Packets -->
+  <h2 class="sec" data-band="PDF" data-i18n="downloads_title">Print packets</h2>
+  <p class="sec-sub" data-i18n="downloads_sub">Every map in one PDF, in the language you selected.</p>
+  <div id="downloads" class="dl-grid"></div>
+  <p class="sec-sub" style="margin-top:10px;font-size:.82rem" data-i18n="print_note">Designed for US Letter landscape printing.</p>
 
   <footer>
     <div class="flinks">
@@ -96,129 +67,18 @@
       <a href="about.html#privacy" data-i18n="footer_privacy_link">Privacy</a>
       <a href="about.html#accessibility" data-i18n="footer_a11y">Accessibility</a>
     </div>
-    <div data-i18n="footer_privacy">No logins. No accounts. No student data collected.</div>
+    <div data-i18n="site_footer">Texas Social Studies skill-aligned printable organizers. No lessons or units.</div>
   </footer>
 </main>
 
 <a href="#" id="back-to-top" aria-label="Back to top">↑</a>
 
 <script src="assets/i18n.js" defer></script>
-<script src="assets/i18n-common.js" defer></script>
-<script src="assets/i18n-hub.js" defer></script>
-<script src="assets/i18n-activities-tr.js" defer></script>
 <script src="assets/data.js" defer></script>
-<script src="assets/maps.js" defer></script>
-<script defer>
-document.addEventListener('DOMContentLoaded', function () {
-  const I18N = window.BreakoutI18n;
-  // Merge every activity's content-translation overlay so card titles/summaries localize too.
-  const allTR = window.EM_TR ? Object.values(window.EM_TR) : [];
-  I18N.register('em-hub', window.EM.mergeLangs(window.EM_COMMON, window.EM_HUB, ...allTR));
-  const t = (k, v) => I18N.t(k, v);
-  const DATA = window.EM_DATA;
-
-  // Map id -> i18n name/focus keys
-  const MAP_KEYS = {
-    'history-trail': ['m_history_trail', 'focus_history_trail'],
-    'cause-ripples': ['m_cause_ripples', 'focus_cause_ripples'],
-    'people-place-change': ['m_people_place_change', 'focus_people_place_change'],
-    'turning-point': ['m_turning_point', 'focus_turning_point'],
-    'voices-around-event': ['m_voices', 'focus_voices'],
-    'conflict-consequence': ['m_conflict', 'focus_conflict'],
-    'evidence-dossier': ['m_dossier', 'focus_dossier'],
-    'systems-shockwave': ['m_shockwave', 'focus_shockwave'],
-    'continuity-change': ['m_continuity', 'focus_continuity']
-  };
-  const BAND_KEY = { '3-5': 'band_35', '6-8': 'band_68', '9-12': 'band_912' };
-  const COURSE_KEY = { 'us-history': 'course_us', 'texas-history': 'course_tx', 'world-history': 'course_world',
-    'world-geography': 'course_geo', 'government': 'course_gov', 'economics': 'course_econ', 'elementary-ss': 'course_elem' };
-
-  // Populate map-type filter
-  const fMap = document.getElementById('f-map');
-  DATA.maps.maps.forEach(m => {
-    const o = document.createElement('option');
-    o.value = m.id; o.textContent = t(MAP_KEYS[m.id][0]); o.setAttribute('data-i18n', MAP_KEYS[m.id][0]);
-    fMap.appendChild(o);
-  });
-
-  // Activities (each record -> card). Pilot has one; the grid is filter-ready.
-  const activities = Object.values(DATA.activities);
-  function activityHref(a) {
-    return a.id === 'boston-tea-party'
-      ? 'activities/boston-tea-party.html'
-      : 'activities/activity.html?id=' + encodeURIComponent(a.id);
-  }
-  function activitySearchBlob(a) {
-    return [a.title, a.era, ...(a.tags||[]), ...a.teks.content, ...a.teks.skills,
-      t(a.i18nKey ? 'act_title' : ''), a.mapType].join(' ').toLowerCase();
-  }
-
-  function renderActivities() {
-    const g = document.getElementById('f-grade').value;
-    const c = document.getElementById('f-course').value;
-    const m = document.getElementById('f-map').value;
-    const q = (document.getElementById('f-search').value || '').trim().toLowerCase();
-    const host = document.getElementById('activity-cards');
-
-    const shown = activities.filter(a =>
-      (!g || a.gradeBands.includes(g)) &&
-      (!c || a.courses.includes(c)) &&
-      (!m || a.mapType === m) &&
-      (!q || activitySearchBlob(a).includes(q))
-    );
-    host.innerHTML = shown.map(a => {
-      const mapName = t(MAP_KEYS[a.mapType][0]);
-      const tags = (a.tags || []).slice(0, 3).map(tag => '<span class="tag">' + tag.replace(/-/g,' ') + '</span>').join('');
-      return '<a class="card" href="' + activityHref(a) + '">' +
-        '<span class="mnum">' + mapName + '</span>' +
-        '<span class="mtitle">' + t(a.title) + '</span>' +
-        '<span class="mdesc">' + t(a.summary) + '</span>' +
-        '<span class="mmeta">' + t(BAND_KEY[a.gradeBands[0]]) + ' · ' + t(COURSE_KEY[a.courses[0]]) + ' · ' + t('minutes', {n:a.estimatedMinutes}) + '</span>' +
-        '<span class="mmeta">TEKS: ' + a.teks.content.join(' · ') + '</span>' +
-        '<div class="tags">' + tags + '</div>' +
-        '<span class="mfoot"><span class="tag" style="color:var(--ok);border-color:#bfe4c8;background:var(--ok-bg)">' + t('open_activity') + '</span><span class="arr">→</span></span>' +
-        '</a>';
-    }).join('');
-    document.getElementById('no-results').style.display = shown.length ? 'none' : 'block';
-    document.getElementById('result-count').textContent = t('result_count', { n: shown.length });
-  }
-
-  function renderGallery() {
-    const host = document.getElementById('map-gallery');
-    host.innerHTML = DATA.maps.maps.map(m => {
-      const [nameK, focusK] = MAP_KEYS[m.id];
-      const live = m.live;
-      const badge = live
-        ? '<span class="tag" style="color:var(--ok);border-color:#bfe4c8;background:var(--ok-bg)">' + t('live_badge') + '</span>'
-        : '<span class="tag">' + t('coming_soon') + '</span>';
-      const inner =
-        '<span class="mnum">' + t(BAND_KEY[m.band]) + '</span>' +
-        '<span class="mtitle">' + t(nameK) + '</span>' +
-        '<span class="mdesc"><strong>' + t('think_about') + '</strong> ' + t(focusK) + '</span>' +
-        '<span class="mfoot">' + badge + (live ? '<span class="arr">→</span>' : '') + '</span>';
-      // Only the pilot links to a live activity
-      if (live) {
-        const act = activities.find(a => a.mapType === m.id);
-        return '<a class="card" href="' + (act ? activityHref(act) : '#') + '">' + inner + '</a>';
-      }
-      return '<div class="card" style="opacity:.75">' + inner + '</div>';
-    }).join('');
-  }
-
-  function renderAll() { renderActivities(); renderGallery(); }
-  ['f-grade','f-course','f-map'].forEach(id => document.getElementById(id).addEventListener('change', renderActivities));
-  document.getElementById('f-search').addEventListener('input', renderActivities);
-  document.getElementById('f-reset').addEventListener('click', () => {
-    ['f-grade','f-course','f-map'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('f-search').value = '';
-    renderActivities();
-  });
-
-  renderAll();
-  window.addEventListener('breakout-i18n:changed', renderAll);
-  window.EM.wireBackToTop();
-});
-</script>
+<script src="assets/i18n-chrome.js" defer></script>
+<script src="assets/sheet.js" defer></script>
+<script src="assets/chrome.js" defer></script>
+<script src="assets/hub.js" defer></script>
 <script src="/activities/licensing-footer.js" defer></script>
 </body>
 </html>

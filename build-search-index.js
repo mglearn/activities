@@ -238,6 +238,20 @@ if (math) {
   console.log(`  digitalmathtools/ from catalog.js`);
 }
 
+// 2b. History Event Maps (window.HEM_DATA). The library page renders its 24
+//     maps from assets/data.js, so nothing a teacher would search for —
+//     "turning point", "evidence dossier", "cause and effect" — appears in the
+//     page HTML the body pass reads. Take the English map titles and skills
+//     from the data file, the same way the math catalog is read above.
+const hem = loadCatalog("eventmaps/assets/data.js", "HEM_DATA");
+if (hem?.maps) {
+  const en = hem.locales?.en || {};
+  for (const m of hem.maps) {
+    add("eventmaps/", en["map_title_" + m.id] || m.title, m.skill);
+  }
+  console.log(`  eventmaps/        ${hem.maps.length} maps from assets/data.js`);
+}
+
 // 3. Everything else, harvested from the pages themselves.
 const wordBags = {};
 for (const dir of [

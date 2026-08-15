@@ -1,152 +1,86 @@
 # History Event Maps
 
-TEKS-aligned visual **history-thinking organizers** for grades 3–5, 6–8, and
-9–12 social studies classrooms. Part of the [mglearn Learning Activities Hub](https://mglearn.github.io/activities).
+24 reusable, one-page social studies graphic organizers for grades 3–5, 6–8,
+and 9–12. Published at **https://mglearn.github.io/activities/eventmaps/**.
 
-**Investigate an event. Examine the evidence. Build the story. Fill in the gaps.**
+## What this is
 
-Students examine two or three credible sources, complete what they can on a
-visual Event Map, compare their thinking, then revise the map as the teacher
-projects the *same* organizer and adds historical context.
+- Printable event maps — organizers, not lessons or units
+- Eight maps per grade band, each built around one thinking skill
+- Seven languages: English, Spanish, Vietnamese, Arabic, Simplified Chinese, Urdu, Hindi
+- Grayscale, US Letter landscape; box roles are carried by border *style*, not
+  colour, so one monochrome print works on any classroom copier
+- TEKS-aligned by reusable Social Studies Skills focus
+- Static HTML/CSS/JS, no login, no data collection
 
-## Instructional model
+## Layout
 
-**Scan → Map → Compare → Expand → Revise → Conclude**
+```
+index.html          the 24-map library, filterable by grade band / skill / search
+organizer.html?map= one sheet, full size, for screen and print
+about.html          about / how to use / standards / privacy / accessibility
+assets/
+  data.js           24 maps + 7 locales (the map library's own dictionary)
+  i18n-chrome.js    the Activities-hub chrome strings layered on top
+  i18n.js           the shared hub i18n engine (canonical copy: ctobs/assets/i18n.js)
+  chrome.js         merges the two dictionaries, registers them, wires back-to-top
+  sheet.js          pure (map, lang) -> sheet HTML renderer
+  sheet.css         the printable sheet
+  sheet-print.css   @page rules — organizer.html only, never the hub
+  eventmaps.css     hub chrome (activities design system)
+  hub.js            the library page
+pdf/<map>/<lang>/bw.pdf   168 single sheets
+pdf-packets/              7 full-library packets (24 pages)
+pdf-band-packets/         21 grade-band packets (8 pages)
+```
 
-1. **Scan** two–three short sources · 2. **Map** what the evidence shows ·
-3. **Compare** with a partner · 4. **Expand** — teacher adds context ·
-5. **Revise** the map · 6. **Conclude** with one synthesis question.
+## Thumbnails are the real sheet
 
-## Grade bands
+The library cards do not use preview images. Each card renders the *actual*
+organizer via `sheet.js` and scales it to card width with a CSS transform, so a
+thumbnail cannot drift out of sync with the map it previews, and it re-renders
+in whatever language the reader picked. The card blurb is likewise read back
+out of the rendered layout — it lists the prompts genuinely printed on that
+sheet.
 
-Grades 3–5 · Grades 6–8 · Grades 9–12.
+This is also why `sheet.css` states `box-sizing`, margins, and `text-align`
+explicitly, and why the hub's footer rules are scoped to `.wrap > footer`: the
+sheet carries its own `<header>` and `<footer>`, and a bare element selector in
+the page chrome silently reaches into all 24 thumbnails and the printout.
 
-## The nine map families
+## Language
 
-Grades 3–5: **History Trail**, **Cause Ripples**, **People · Place · Change**.
-Grades 6–8: **Turning Point**, **Voices Around the Event**, **Conflict & Consequence Chain**.
-Grades 9–12: **Historical Evidence Dossier**, **Systems Shockwave**, **Continuity & Change Ledger**.
+The picker uses the hub's shared engine, so the language a teacher chose in
+CTOBs, PlotPoint, or lab-safety carries into this area (`tcea.breakouts.lang`),
+and `?lang=es` share links work. Arabic and Urdu render right-to-left, sheets
+included.
 
-The map type is chosen by the *historical thinking the event demands*, not by
-grade level alone.
-
-## Current status
-
-All **nine map families** are built (color + true grayscale). The library has
-**18 activities — six per grade band, two per map family** — each with printable
-PDFs and seven-language support. The first activity in each family:
-
-| Family | Pilot | Grade · Course |
-|--------|-------|----------------|
-| Voices Around the Event | Boston Tea Party | 6–8 · US History |
-| History Trail | Lewis & Clark Expedition | 3–5 · US History |
-| Cause Ripples | Transcontinental Railroad | 3–5 · US History |
-| People · Place · Change | The Great Migration | 3–5 · US History |
-| Turning Point | Battle of Gonzales | 6–8 · Texas History |
-| Conflict & Consequence | Road to the Civil War | 6–8 · US History |
-| Evidence Dossier | What Caused the Cold War? | 9–12 · US History |
-| Systems Shockwave | The Great Depression | 9–12 · US History |
-| Continuity & Change | The Civil Rights Movement | 9–12 · US History |
-
-All nine pilots are localized in **seven languages** (English, Spanish, Vietnamese,
-Arabic, Simplified Chinese, Urdu, Hindi; RTL for Arabic and Urdu). Boston Tea Party
-was hand-authored; the other eight were translated via the pipeline in `scripts/`
-(`extract-i18n.mjs` → `data/translations/*.json` → `build-translations.mjs` →
-`assets/i18n-activities-tr.js`) and are **machine-assisted, pending fluent-speaker
-review**. Also included: an **About / Privacy / Accessibility** page (`about.html`)
-and 36 printable PDFs served as direct downloads. See `IMPLEMENTATION_PLAN.md`.
-
-## Running locally
-
-Open `index.html` in a browser (no server required — data is bundled as JS so
-`file://` works), or serve the folder:
+## Regenerating the PDFs
 
 ```bash
-python3 -m http.server 8000    # then visit http://localhost:8000/
+python3 generate_packets.py
 ```
 
-## Repository layout
+Renders each language's 24-page packet with headless Chrome from the same
+`assets/` files the site loads, then splits it into single sheets and grade-band
+packets. Requires `pypdf` and Chrome/Chromium on PATH.
 
-```
-eventmaps/
-  index.html                     Hub: filters + featured activity + map gallery
-  activities/boston-tea-party.html   Pilot activity (student/teacher, 7 languages)
-  templates/voices-around-event.svg  Blank vector organizer (print reference)
-  assets/
-    i18n.js                      Shared 7-language engine (verbatim from lab-safety)
-    i18n-common.js               Shared UI strings (routine, field labels, chrome)
-    i18n-hub.js                  Hub dictionary
-    i18n-voices-btp.js           Boston Tea Party dictionary (student-facing: 7 langs)
-    eventmaps.css                Design tokens + organizer + color/grayscale + print
-    maps.js                      Organizer renderer + helpers
-    data.js                      GENERATED bundle (window.EM_DATA)
-  data/
-    schema/activity.schema.json  Activity record schema
-    standards/teks-grade8-us.json   Verified TEKS (source of truth)
-    activities/boston-tea-party.json   Activity record (source of truth)
-    maps.json                    The nine map families
-  scripts/
-    build-data.mjs               JSON -> assets/data.js
-    validate.mjs                 schema + TEKS + i18n coverage + locale parity
-    build-pdfs.mjs               4 PDFs via headless Chrome
-  downloads/                     Generated PDFs
-```
+**Re-run it after editing `data.js`, `sheet.js`, `sheet.css`, or
+`sheet-print.css`** — otherwise the downloads drift away from what the site
+shows. The splitter fails loudly if a sheet overflows onto a second page.
 
-## Adding an activity
+## Current TEKS basis
 
-1. Create `data/activities/<slug>.json` (validate against `data/schema/activity.schema.json`).
-2. Add its dictionary `assets/i18n-<slug>.js` (student-facing keys in all 7 languages).
-3. Copy `activities/boston-tea-party.html` as a template; point it at the new record.
-4. `node scripts/build-data.mjs && node scripts/validate.mjs`.
-5. `node scripts/build-pdfs.mjs <slug>`.
+Aligned to the 2022-adopted Texas Social Studies TEKS implemented beginning in
+2024–2025. The Texas Education Agency is revising the Social Studies TEKS, so
+exact codes should be reviewed when new standards take effect. Alignment here
+emphasizes the recurring Social Studies Skills strand: source use, chronology,
+sequencing, cause/effect, comparison, historical context, point of view,
+geographic interpretation, claims/evidence, and written/visual communication.
 
-## Adding / updating a translation
-
-- **UI / chrome / field labels:** edit the shared dictionaries
-  `assets/i18n-common.js`, `i18n-fields.js`, `i18n-hub.js`, `i18n-generic.js`
-  (one flat `key → string` object per language: `en es vi ar zh ur hi`).
-- **Activity content** (challenge, sources, organizer text, etc.): edit
-  `data/translations/<id>.json` — an array of `{en, es, vi, ar, zh, ur, hi}`
-  keyed by the English source string — then run `node scripts/build-translations.mjs`
-  to regenerate `assets/i18n-activities-tr.js`. Use `node scripts/extract-i18n.mjs <dir>`
-  to dump a fresh list of an activity's translatable strings.
-
-Arabic and Urdu render right-to-left automatically. `build-translations.mjs`
-reports coverage (which strings still fall back to English). Mark a language
-`human` in the activity's `translationStatus` once a fluent speaker has reviewed it.
-
-## Updating TEKS
-
-TEKS codes and wording live in `data/standards/*.json` with a `source`,
-`verifiedDate`, and `status`. **Never fabricate a TEKS code.** Confirm against the
-current [19 TAC Chapter 113](https://tea.texas.gov/about-tea/laws-and-rules/texas-administrative-code/19-tac-chapter-113)
-and your district's adopted standards. The site shows a visible note asking
-districts to confirm local codes.
-
-## Generating PDFs
-
-```bash
-node scripts/build-pdfs.mjs [activityId] [lang]
-```
-
-Produces four US-Letter landscape variants (`student`/`teacher` × `color`/`grayscale`)
-following the naming in `plan.md` §19. The grayscale version is not a desaturated
-colour image — it uses distinct line weights, border styles, glyphs, and icons so
-information survives black-and-white printing.
+See `TEKS_ALIGNMENT.md` for the reference table.
 
 ## Privacy
 
-**Collects nothing.** No logins, no accounts, no names, no analytics, no student
-data. The only thing stored locally is a UI language preference (`tcea.breakouts.lang`),
-shared with other mglearn activities. Clearing it resets to your browser language.
-
-## Accessibility
-
-Targets WCAG 2.1 AA: semantic headings, keyboard navigation, visible focus,
-adequate contrast, no colour-only meaning (grayscale mode proves it), proper
-`lang`/`dir` attributes with RTL support, labelled SVG, and print that stays
-usable when enlarged.
-
-## Licensing
-
-Content and code licensing to be confirmed by mglearn before public release.
+No accounts, cookies, forms, analytics, or student data. The only thing stored
+in the browser is the language preference.
