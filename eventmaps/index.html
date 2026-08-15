@@ -8,6 +8,7 @@
 <meta name="description" content="24 reusable one-page history graphic organizers for grades 3–12. Pick a map, research an event, fill in what you discover. Seven languages, printable grayscale PDFs, TEKS skill-aligned, no student data collected.">
 <meta property="og:title" content="History Event Maps">
 <meta property="og:description" content="Pick a map. Research an event. Fill in what you discover. 24 printable organizers, seven languages, TEKS skill-aligned.">
+<meta property="og:image" content="https://mglearn.github.io/activities/eventmaps/assets/hero.png">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/eventmaps.css">
 <link rel="stylesheet" href="assets/sheet.css">
@@ -22,11 +23,21 @@
 </div>
 
 <main class="wrap wide">
-  <header class="hero">
-    <h1 data-i18n="title">History Event Maps</h1>
-    <p class="sub" data-i18n="subtitle">Pick a map. Research an event. Fill in what you discover.</p>
-    <p class="lede" data-i18n="library_intro">Reusable one-page organizers for quick source review, brief research, student note-making, and teacher fill-in. No lessons or units required.</p>
-    <p class="lede" style="font-size:.85rem" data-i18n="intro_privacy">No logins, no accounts, no student data — everything runs in your browser.</p>
+  <header class="hero" id="top">
+    <div class="herowrap">
+      <img class="hero-img" src="assets/hero.png" width="2172" height="724"
+        alt="History Event Maps — pick a map, research an event, fill in what you discover. Reusable one-page organizers for quick source review, brief research, student note-making, and teacher fill-in. No lessons or units required. No logins, no accounts, no student data; everything runs in your browser.">
+    </div>
+    <!-- The banner already says all of this, but only in English. hub.js hides
+         this block from sight (never from screen readers) when English is
+         selected, and shows it for the other six languages, where the artwork
+         is not a translation. With JS off it simply stays visible. -->
+    <div id="hero-text">
+      <h1 data-i18n="title">History Event Maps</h1>
+      <p class="sub" data-i18n="subtitle">Pick a map. Research an event. Fill in what you discover.</p>
+      <p class="lede" data-i18n="library_intro">Reusable one-page organizers for quick source review, brief research, student note-making, and teacher fill-in. No lessons or units required.</p>
+      <p class="lede" style="font-size:.85rem" data-i18n="intro_privacy">No logins, no accounts, no student data — everything runs in your browser.</p>
+    </div>
   </header>
 
   <p class="notice" data-i18n="current_teks_note">Aligned to the current 2022-adopted Texas Social Studies TEKS implemented beginning in 2024-2025.</p>

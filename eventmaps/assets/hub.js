@@ -125,7 +125,19 @@
     scaleThumbs();
   }
 
+  /* The banner artwork carries the title, tagline, and both intro lines — in
+     English. Under an English banner the text hero is a verbatim second copy,
+     so collapse it to screen-reader-only; every other language needs it
+     visible, because the artwork is not translated. Toggling .sr-only rather
+     than `hidden` keeps the <h1> and the intro in the accessibility tree and
+     available to page translators in all seven languages. */
+  function syncHeroText() {
+    const host = el('hero-text');
+    if (host) host.classList.toggle('sr-only', lang() === 'en');
+  }
+
   function renderAll() {
+    syncHeroText();
     buildFilters();
     renderDownloads();
     render();

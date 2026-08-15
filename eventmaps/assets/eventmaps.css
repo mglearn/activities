@@ -45,6 +45,19 @@ a{color:inherit}
 
 /* ---- Hero / headings ---- */
 header.hero{text-align:center;padding:14px 0 2px}
+/* Banner, same treatment as lab-safety's hero. width/height are on the <img>
+   so the card grid below does not jump while it loads. */
+.herowrap{border-radius:18px;overflow:hidden;box-shadow:0 12px 30px rgba(5,76,140,.18)}
+.hero-img{display:block;width:100%;height:auto}
+#hero-text{margin-top:16px}
+/* hub.js gives #hero-text .sr-only in English, because the banner already
+   says all of it. On a phone the banner's baked-in text shrinks past reading
+   size, so hand it back — a teacher on a phone should not be left with an
+   illegible image as the only introduction. */
+@media (max-width:760px){
+  #hero-text.sr-only{position:static;width:auto;height:auto;margin:16px 0 0;
+    overflow:visible;clip:auto;white-space:normal}
+}
 .hero h1{font-family:'Fredoka',sans-serif;color:var(--navy);font-size:clamp(1.8rem,5vw,2.6rem);line-height:1.05}
 .hero .sub{color:var(--ink-soft);font-weight:700;margin:8px auto 0;max-width:640px;font-size:1.02rem}
 .hero .lede{color:var(--ink-soft);font-weight:600;margin:12px auto 0;max-width:700px;font-size:.95rem}

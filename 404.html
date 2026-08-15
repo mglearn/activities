@@ -40,7 +40,24 @@
 
   /* old CTOB name / redundant nest -> ctobs */
   var seg = rest.match(/^\/(?:breakouts|activities)(\/.*)?$/);
-  if (seg) { location.replace(root + '/ctobs' + (seg[1] || '/') + s + h); return; }
+  if (seg) {
+    var tail = seg[1] || '/';
+    /* ...except where the next segment is a hub area of its own rather than a
+       CTOB suite. /activities/breakouts/relic-rooms/ used to resolve, but
+       Relic Rooms is a sibling of ctobs, not a child, so the plain rewrite
+       sends it to a ctobs path that does not exist. Note `science` is absent
+       on purpose: it is both a hub area and a CTOB suite, and ctobs/science/
+       resolves, so the default below is already right for it.
+
+       A regex, not an object lookup — `AREAS['constructor']` would be truthy
+       on an object literal and forward junk paths to /activities/constructor/. */
+    var AREAS = /^(?:digcit|digitalmathtools|eventmaps|genailit|lab-safety|plotpoint|pst|relic-rooms|sayitmakeit)$/;
+    var area = tail.match(/^\/([^\/]+)(\/.*)?$/);
+    if (area && AREAS.test(area[1])) {
+      location.replace(root + '/' + area[1] + (area[2] || '/') + s + h); return;
+    }
+    location.replace(root + '/ctobs' + tail + s + h); return;
+  }
 })();
 </script>
 </head>

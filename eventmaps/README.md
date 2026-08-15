@@ -29,6 +29,7 @@ assets/
   sheet-print.css   @page rules — organizer.html only, never the hub
   eventmaps.css     hub chrome (activities design system)
   hub.js            the library page
+  hero.png          the index banner (also the og:image)
 pdf/<map>/<lang>/bw.pdf   168 single sheets
 pdf-packets/              7 full-library packets (24 pages)
 pdf-band-packets/         21 grade-band packets (8 pages)
@@ -47,6 +48,16 @@ This is also why `sheet.css` states `box-sizing`, margins, and `text-align`
 explicitly, and why the hub's footer rules are scoped to `.wrap > footer`: the
 sheet carries its own `<header>` and `<footer>`, and a bare element selector in
 the page chrome silently reaches into all 24 thumbnails and the printout.
+
+## The banner and the text under it
+
+`assets/hero.png` states the title, tagline, and both intro lines — in English,
+baked into the artwork. So `hub.js` collapses the `#hero-text` block to
+`.sr-only` when English is selected (it would otherwise be a verbatim second
+copy) and shows it for the other six languages, where the banner is not a
+translation. It toggles `.sr-only` rather than `hidden` so the `<h1>` and the
+intro stay in the accessibility tree and reachable by page translators in all
+seven languages. With JS off the block simply stays visible.
 
 ## Language
 
