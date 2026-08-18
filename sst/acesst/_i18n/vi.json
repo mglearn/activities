@@ -1,0 +1,525 @@
+{
+  "ui": {
+    "nav.area": "← Hoạt động SST",
+    "nav.hub": "Tất cả hoạt động",
+    "nav.framework": "ACE và SOLO",
+    "hero.eyebrow": "Khoa học · Chuẩn bị cho SST · Lớp 3–5",
+    "hero.p": "Những bài kiểm tra ngắn giúp học sinh <strong>diễn đạt</strong> ý tưởng khoa học, <strong>kết nối</strong> bằng chứng với khái niệm và <strong>mở rộng</strong> tư duy, đồng thời làm cho tiến bộ theo thang SOLO trở nên rõ ràng. Chọn lớp và mạch kiến thức, dùng phiếu vào lớp trước bài học và phiếu ra lớp sau bài học, rồi dạy từ đúng mức độ mà học sinh thể hiện.",
+    "strand.matter": "Vật chất và năng lượng",
+    "strand.force": "Lực, chuyển động và năng lượng",
+    "strand.earth": "Trái Đất và không gian",
+    "strand.org": "Sinh vật và môi trường",
+    "hero.cta1": "Mở kho phiếu →",
+    "hero.cta2": "ACE và SOLO hoạt động thế nào",
+    "tally.tickets": "Cặp phiếu",
+    "tally.grades": "Lớp",
+    "tally.strands": "Mạch kiến thức SST",
+    "tally.teks": "Mã TEKS",
+    "hero.privacy": "Không cần đăng nhập. Không thu thập hay truyền dữ liệu học sinh. Câu trả lời chỉ nằm trong thẻ trình duyệt này.",
+    "hero.alt": "ACE the SST: tư duy sâu hơn trong khoa học tiểu học. Bốn học sinh tiểu học quan sát một tô nước ấm có nhiệt kế và ghi lại quan sát, bên cạnh chuỗi vòng tròn ghi A Diễn đạt, C Kết nối, E Mở rộng.",
+    "ui.grade": "Lớp",
+    "ui.gradeAll": "Tất cả các lớp",
+    "ui.grade3": "Lớp 3",
+    "ui.grade4": "Lớp 4",
+    "ui.grade5": "Lớp 5",
+    "ui.strand": "Mạch kiến thức khoa học SST",
+    "ui.strandAll": "Cả bốn mạch",
+    "ui.random": "↻ Phiếu mới",
+    "ui.when": "Khi nào",
+    "ui.entry": "Vào lớp",
+    "ui.exit": "Ra lớp",
+    "ui.view": "Chế độ xem",
+    "ui.student": "Học sinh",
+    "ui.teacher": "Giáo viên",
+    "ui.situation": "Tình huống khoa học",
+    "ui.confidence": "Lúc này em tự tin đến mức nào?",
+    "conf.1": "1 · Chưa chắc",
+    "conf.2": "2 · Đang tiến bộ",
+    "conf.3": "3 · Sẵn sàng",
+    "ui.lookFor": "Điều giáo viên cần quan sát",
+    "ui.soloScore": "Điểm SOLO",
+    "btn.copy": "Sao chép phiếu",
+    "btn.download": "Tải .txt",
+    "btn.print": "In",
+    "ui.bank": "Kho phiếu",
+    "ui.search": "Tìm theo tên, mạch kiến thức, TEKS…",
+    "fw.eyebrow": "Khung tư duy",
+    "fw.h2": "Dùng ACE khi dạy, chấm tư duy bằng SOLO",
+    "fw.lede1": "Một học sinh lớp năm có thể nhận ra sự bay hơi trên sơ đồ. Nhưng khi câu hỏi thay đổi một điều kiện và hỏi tiếp theo điều gì xảy ra, định nghĩa học thuộc không còn đủ. Bắt đầu từ năm học 2027–2028, Student Success Tool thay thế STAAR bằng các bài đánh giá đầu năm, giữa năm và cuối năm; bản dự thảo khung khoa học tiểu học của TEA sắp xếp câu hỏi theo bốn mạch kiến thức, với các dạng trắc nghiệm một lựa chọn, nhiều lựa chọn, nhiều phần và chọn trong câu.",
+    "ace.a": "Diễn đạt",
+    "fw.aDesc": "Điều gì đã xảy ra? Hãy giải thích bằng lời của em.",
+    "ace.c": "Kết nối",
+    "fw.cDesc": "Bằng chứng liên hệ thế nào với khái niệm khoa học?",
+    "ace.e": "Mở rộng",
+    "fw.eDesc": "Điều gì sẽ xảy ra nếu một điều kiện thay đổi?",
+    "fw.lede2": "Giải thích ACE mất chưa tới một phút, nhưng nó nhanh chóng cho thấy học sinh thật sự hiểu khoa học hay chỉ nhận ra từ vựng quen thuộc. Hãy chấm điều em nghe được bằng SOLO, rồi chọn bước tiếp theo.",
+    "fw.thScore": "Mức",
+    "fw.thEvidence": "Bằng chứng học tập",
+    "fw.thNext": "Bước tiếp theo",
+    "solo.1": "1 · Tiền cấu trúc",
+    "fw.solo1.ev": "Không trả lời hoặc trả lời lạc đề",
+    "fw.solo1.next": "Khơi lại kiến thức đã có",
+    "solo.2": "2 · Đơn cấu trúc",
+    "fw.solo2.ev": "Nêu được một dữ kiện liên quan",
+    "fw.solo2.next": "Yêu cầu học sinh Diễn đạt",
+    "solo.3": "3 · Đa cấu trúc",
+    "fw.solo3.ev": "Liệt kê nhiều dữ kiện nhưng không liên hệ",
+    "fw.solo3.next": "Gợi ý học sinh Kết nối",
+    "solo.4": "4 · Quan hệ",
+    "fw.solo4.ev": "Giải thích được bằng chứng và ý tưởng khớp với nhau ra sao",
+    "fw.solo4.next": "Yêu cầu một dự đoán",
+    "solo.5": "5 · Trừu tượng mở rộng",
+    "fw.solo5.ev": "Áp dụng khái niệm vào tình huống mới",
+    "fw.solo5.next": "Thử thách học sinh Mở rộng",
+    "fw.lede3": "Hãy xét một câu hỏi thuộc mạch Trái Đất và không gian về việc ánh nắng làm nóng đất và nước. Học sinh ở mức hai có thể nhận ra Mặt Trời là nguồn năng lượng. Ở mức ba, em liệt kê ánh nắng, đất, nước và nhiệt độ. Câu trả lời mức bốn giải thích vì sao đất và nước nóng lên với tốc độ khác nhau. Ở mức năm, em dự đoán khác biệt đó có thể ảnh hưởng thế nào tới thời tiết địa phương.",
+    "fw.figAlt": "Bảng tra cứu ACE the SST. Cột trái: dùng ACE trong giờ khoa học, với A Diễn đạt, C Kết nối và E Mở rộng. Cột phải: chấm tư duy bằng SOLO, từ mức một đến mức năm, từ tiền cấu trúc đến trừu tượng mở rộng, kèm bước tiếp theo cho mỗi mức. Dải dưới: bốn mạch kiến thức khoa học tiểu học của SST.",
+    "fw.figCaption": "Hãy in bảng này cho hồ sơ soạn bài hoặc buổi họp tổ chuyên môn. Bắt đầu từ 2027–2028.",
+    "fw.lede4": "Chuẩn bị cho SST không nên biến thành một chồng tài liệu luyện thi mới. Hãy dùng phiếu ra lớp ACE, vở khoa học, thảo luận thí nghiệm và câu hỏi ngắn có ngữ liệu trong suốt năm học. <a href=\"https://tea.texas.gov/data-reports/student-assessment-overview/house-bill-8-student-assessment\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--blue);font-weight:800\">Tài liệu SST của TEA</a> mô tả đầy đủ thiết kế của kỳ đánh giá này.",
+    "f.area": "Hoạt động SST",
+    "f.hub": "Tất cả hoạt động",
+    "f.about": "Giới thiệu",
+    "f.tea": "Tài liệu SST của TEA",
+    "f.disclaimer": "Tài liệu lớp học độc lập, bám theo bản dự thảo khung khoa học tiểu học của SST và chương trình đang được đánh giá hiện nay. Đây không phải bài đánh giá chính thức của TEA.",
+    "f.license": "Nội dung theo giấy phép CC BY-NC 4.0 · Mã nguồn theo giấy phép MIT · Miguel Guhlin · Dành cho nhà giáo Texas",
+    "f.ai": "Xây dựng với sự hỗ trợ của AI · có người kiểm duyệt",
+    "ui.yourThinking": "Suy nghĩ của em",
+    "ui.responsePlaceholder": "Viết câu trả lời của em…",
+    "btn.copied": "Đã sao chép!",
+    "tag.entry": "Phiếu vào lớp",
+    "tag.exit": "Phiếu ra lớp",
+    "tag.grade": "Lớp {n}",
+    "tag.teks": "TEKS {code}",
+    "bank.count": "{n} cặp phiếu",
+    "bank.countOne": "1 cặp phiếu",
+    "bank.empty": "Không có phiếu nào khớp với bộ lọc đó.",
+    "exp.entry": "PHIẾU VÀO LỚP",
+    "exp.exit": "PHIẾU RA LỚP",
+    "exp.situation": "TÌNH HUỐNG KHOA HỌC",
+    "exp.confidence": "Mức tự tin",
+    "exp.lookFor": "ĐIỀU GIÁO VIÊN CẦN QUAN SÁT",
+    "exp.solo": "Điểm SOLO",
+    "exp.none": "Chưa chọn"
+  },
+  "tickets": {
+    "m3-state-change": {
+      "title": "Làm nóng và làm lạnh vật chất",
+      "stimulus": "Một viên đá được để trên đĩa gần cửa sổ có nắng. Lát sau chỉ còn lại một vũng nước nhỏ.",
+      "entry": {
+        "a": "Hãy nói điều em đã biết về chuyện gì xảy ra khi nước đá ấm lên.",
+        "c": "Liên hệ viên đá này với một thay đổi khác do làm nóng hoặc làm lạnh gây ra.",
+        "e": "Dự đoán vũng nước sẽ ra sao nếu để cạnh cửa sổ suốt buổi chiều."
+      },
+      "exit": {
+        "a": "Giải thích các thay đổi trạng thái mà viên đá và vũng nước cho thấy.",
+        "c": "Liên hệ mỗi thay đổi với việc năng lượng được thêm vào hay lấy đi.",
+        "e": "Dự đoán điều gì sẽ khác nếu đặt chiếc đĩa vào tủ lạnh."
+      },
+      "teacherMove": "Lắng nghe các từ rắn, lỏng, làm nóng và một lời giải thích nhân quả."
+    },
+    "m3-condensation": {
+      "title": "Giọt nước trên ly lạnh",
+      "stimulus": "Các giọt nước đọng bên ngoài một chiếc ly lạnh dù ly không hề rò rỉ.",
+      "entry": {
+        "a": "Nêu một điều em quan sát được và một điều em thắc mắc về những giọt nước.",
+        "c": "Liên hệ chiếc ly lạnh với một lần khác em thấy nước xuất hiện trên bề mặt.",
+        "e": "Dự đoán giọt nước đọng nhiều hơn trong không khí ấm và ẩm hay trong không khí mát và khô."
+      },
+      "exit": {
+        "a": "Giải thích nước bên ngoài chiếc ly đến từ đâu.",
+        "c": "Liên hệ sự ngưng tụ với việc hơi nước trong không khí bị làm lạnh.",
+        "e": "Vận dụng ý tưởng đó để giải thích vì sao gương phòng tắm mờ đi khi tắm nước nóng."
+      },
+      "teacherMove": "Kiểm tra xem học sinh có nhận ra hơi nước trong không khí thay vì nước rò qua thành ly."
+    },
+    "m5-properties": {
+      "title": "Phân loại một vật liệu chưa biết",
+      "stimulus": "Một mẫu vật ở thể rắn, có khối lượng 18 gam, chìm trong nước và bị nam châm hút.",
+      "entry": {
+        "a": "Liệt kê các tính chất vật lý có trong phần mô tả.",
+        "c": "Liên hệ một tính chất với dụng cụ hoặc phép thử có thể đo được nó.",
+        "e": "Dự đoán tính chất nào hữu ích nhất để tách mẫu vật này khỏi cát."
+      },
+      "exit": {
+        "a": "Giải thích cách nhận biết và phân loại mẫu vật dựa vào các tính chất của nó.",
+        "c": "Liên hệ bằng chứng với một vật liệu có thể có và bảo vệ lựa chọn của em.",
+        "e": "Thiết kế thêm một phép thử giúp phân biệt hai vật liệu giống nhau."
+      },
+      "teacherMove": "Tìm bằng chứng đo được thay vì chỉ dựa vào màu sắc hay vẻ ngoài."
+    },
+    "m5-density": {
+      "title": "Chìm hay nổi",
+      "stimulus": "Hai khối có cùng kích thước. Khối A nổi trong nước. Khối B chìm.",
+      "entry": {
+        "a": "Mô tả điểm khác biệt em quan sát được giữa hai khối.",
+        "c": "Liên hệ việc chìm và nổi với hiểu biết của em về khối lượng riêng tương đối.",
+        "e": "Dự đoán điều gì có thể xảy ra nếu đặt khối A vào một chất lỏng khác."
+      },
+      "exit": {
+        "a": "Giải thích phép thử với nước cho biết gì về mỗi khối.",
+        "c": "Liên hệ kết quả với khối lượng riêng tương đối, lấy nước làm mốc so sánh.",
+        "e": "Đề xuất một phép thử công bằng để so sánh ba vật liệu mới."
+      },
+      "teacherMove": "Yêu cầu so sánh với nước và không để học sinh coi riêng trọng lượng là nguyên nhân."
+    },
+    "m5-mixtures": {
+      "title": "Tách một hỗn hợp",
+      "stimulus": "Một chiếc cốc chứa cát, mạt sắt và những hạt nhựa nhỏ.",
+      "entry": {
+        "a": "Nêu một tính chất vật lý của từng chất.",
+        "c": "Liên hệ mỗi tính chất với một cách có thể dùng để tách hỗn hợp.",
+        "e": "Dự đoán thứ tự tốt nhất để tách cả ba chất."
+      },
+      "exit": {
+        "a": "Giải thích vì sao mỗi chất vẫn giữ tính chất vật lý của nó trong hỗn hợp.",
+        "c": "Liên hệ nam châm, nước hoặc rây lọc với tính chất mà cách đó sử dụng để tách.",
+        "e": "Lập kế hoạch tách một hỗn hợp mới gồm muối, sỏi và kẹp giấy."
+      },
+      "teacherMove": "Tìm một trình tự dùng đúng từ tính, khối lượng riêng tương đối, kích thước hoặc độ tan."
+    },
+    "m5-solutions": {
+      "title": "Vật chất trong dung dịch",
+      "stimulus": "Mười gam muối được khuấy vào 100 gam nước cho đến khi không còn nhìn thấy muối.",
+      "entry": {
+        "a": "Mô tả điều gì đã thay đổi khi muối được khuấy vào nước.",
+        "c": "Liên hệ sự hòa tan với một hỗn hợp quen thuộc ở nhà.",
+        "e": "Dự đoán tổng khối lượng của dung dịch và giải thích suy nghĩ của em."
+      },
+      "exit": {
+        "a": "Giải thích tính chất của muối và nước trước và sau khi trộn khác nhau ra sao.",
+        "c": "Liên hệ khối lượng đo được với ý tưởng vật chất được bảo toàn.",
+        "e": "Nêu một cách lấy lại muối và bằng chứng cho thấy muối vẫn còn đó."
+      },
+      "teacherMove": "Kiểm tra sự bảo toàn vật chất và phân biệt hòa tan với biến mất."
+    },
+    "f3-magnets": {
+      "title": "Lực tác dụng từ xa",
+      "stimulus": "Một nam châm làm chiếc kẹp giấy trượt trên mặt bàn mà không chạm vào nó.",
+      "entry": {
+        "a": "Mô tả nam châm và chiếc kẹp giấy đang làm gì.",
+        "c": "Liên hệ hiện tượng này với một lực đẩy hay lực kéo em từng cảm nhận trực tiếp.",
+        "e": "Dự đoán điều gì xảy ra nếu đặt một tờ giấy vào giữa chúng."
+      },
+      "exit": {
+        "a": "Giải thích cách nam châm tác dụng lực mà không tiếp xúc trực tiếp.",
+        "c": "So sánh lực từ với lực tiếp xúc, chẳng hạn khi đẩy một chiếc xe đồ chơi.",
+        "e": "Thiết kế phép thử để tìm khoảng cách xa nhất mà nam châm vẫn làm kẹp giấy di chuyển."
+      },
+      "teacherMove": "Lắng nghe các từ lực, lực kéo, khoảng cách và một phép thử chỉ thay đổi một yếu tố."
+    },
+    "f3-motion": {
+      "title": "Thay đổi chuyển động của vật",
+      "stimulus": "Một quả bóng nằm yên trên sàn. Một học sinh chạm nhẹ vào nó, rồi đá mạnh hơn.",
+      "entry": {
+        "a": "Mô tả vị trí và chuyển động của quả bóng thay đổi ra sao.",
+        "c": "Liên hệ độ mạnh của lực đẩy với chuyển động em mong đợi.",
+        "e": "Dự đoán chuyển động sẽ khác thế nào trên thảm thay vì trên gạch men."
+      },
+      "exit": {
+        "a": "Giải thích các lực đẩy đã thay đổi tốc độ và vị trí của quả bóng ra sao.",
+        "c": "Liên hệ độ lớn của lực với quy luật chuyển động quan sát được.",
+        "e": "Lập một phép thử công bằng về một yếu tố ảnh hưởng tới quãng đường quả bóng đi được."
+      },
+      "teacherMove": "Nhắc học sinh gọi tên yếu tố được thay đổi và số liệu mà em sẽ đo."
+    },
+    "f4-energy-transfer": {
+      "title": "Năng lượng chuyển động",
+      "stimulus": "Một viên bi lăn vào viên bi thứ hai. Viên thứ nhất chậm lại khi viên thứ hai bắt đầu chuyển động.",
+      "entry": {
+        "a": "Mô tả chuyển động của mỗi viên bi trước và sau va chạm.",
+        "c": "Liên hệ va chạm này với một ví dụ khác về vật chuyển động truyền năng lượng.",
+        "e": "Dự đoán điều gì xảy ra nếu viên bi thứ nhất chuyển động nhanh hơn."
+      },
+      "exit": {
+        "a": "Giải thích va chạm của hai viên bi cho thấy sự truyền năng lượng như thế nào.",
+        "c": "Liên hệ thay đổi chuyển động của mỗi viên bi với bằng chứng của sự truyền năng lượng.",
+        "e": "Vận dụng ý tưởng để giải thích vì sao một quân cờ đô-mi-nô có thể khởi đầu phản ứng dây chuyền."
+      },
+      "teacherMove": "Tìm sự truyền năng lượng được chứng minh bằng quan sát chuyển động trước và sau."
+    },
+    "f4-sound": {
+      "title": "Âm thanh mang năng lượng",
+      "stimulus": "Những hạt gạo trên màng bọc thực phẩm nảy lên khi có người gõ vào chiếc trống gần đó.",
+      "entry": {
+        "a": "Mô tả điều em nghĩ đã làm cho các hạt gạo chuyển động.",
+        "c": "Liên hệ hạt gạo đang nhảy với một âm thanh em có thể cảm nhận thành rung động.",
+        "e": "Dự đoán điều gì xảy ra nếu gõ trống nhẹ hơn."
+      },
+      "exit": {
+        "a": "Giải thích thí nghiệm này cho bằng chứng gì về việc âm thanh truyền năng lượng.",
+        "c": "Liên hệ rung động của mặt trống, sóng âm và chuyển động của hạt gạo.",
+        "e": "Thiết kế một thí nghiệm đơn giản khác làm cho năng lượng âm thanh trở nên nhìn thấy được."
+      },
+      "teacherMove": "Lắng nghe một chuỗi liên kết: rung động, sóng âm, năng lượng được truyền, chuyển động."
+    },
+    "f5-balanced": {
+      "title": "Lực cân bằng và không cân bằng",
+      "stimulus": "Hai đội kéo co với lực bằng nhau. Sau đó một đội thêm một bạn nữa.",
+      "entry": {
+        "a": "Mô tả em nghĩ sợi dây sẽ như thế nào trong mỗi tình huống.",
+        "c": "Liên hệ lực cân bằng và không cân bằng với một trò chơi hay vật quen thuộc.",
+        "e": "Dự đoán chuyển động của sợi dây thay đổi ra sao khi một lực trở nên lớn hơn."
+      },
+      "exit": {
+        "a": "Giải thích quy luật chuyển động do lực cân bằng và không cân bằng gây ra.",
+        "c": "Liên hệ hướng và độ lớn của các lực với chuyển động của sợi dây.",
+        "e": "Vận dụng quy tắc để dự đoán chuyển động của một chiếc xe bị đẩy từ hai phía đối diện."
+      },
+      "teacherMove": "Kiểm tra xem học sinh có phân biệt được chuyển động không đổi với không có lực nào tác dụng."
+    },
+    "f5-ramp": {
+      "title": "Lập kế hoạch thí nghiệm với mặt phẳng nghiêng",
+      "stimulus": "Một học sinh muốn thử xem độ cao của mặt phẳng nghiêng ảnh hưởng thế nào tới quãng đường xe đồ chơi đi được.",
+      "entry": {
+        "a": "Xác định điều cần thay đổi và điều cần đo.",
+        "c": "Liên hệ độ cao của mặt phẳng nghiêng với lực và chuyển động của chiếc xe.",
+        "e": "Dự đoán quy luật mà số liệu có thể cho thấy."
+      },
+      "exit": {
+        "a": "Mô tả một quy trình công bằng cho thí nghiệm này.",
+        "c": "Liên hệ các yếu tố được giữ nguyên với độ tin cậy của kết quả.",
+        "e": "Đề xuất một thí nghiệm mới dùng cùng chiếc xe nhưng thay đổi yếu tố khác."
+      },
+      "teacherMove": "Tìm việc lặp lại nhiều lần, một yếu tố thay đổi rõ ràng và một kết quả đo được."
+    },
+    "f5-circuits": {
+      "title": "Lắp một mạch điện kín",
+      "stimulus": "Pin, dây dẫn và bóng đèn đã được nối, nhưng bóng đèn không sáng.",
+      "entry": {
+        "a": "Liệt kê các bộ phận cần có để mạch điện hoạt động.",
+        "c": "Liên hệ mỗi bộ phận với nhiệm vụ của nó trong mạch.",
+        "e": "Dự đoán một thay đổi có thể làm bóng đèn sáng lên."
+      },
+      "exit": {
+        "a": "Giải thích những điều kiện cần có của một mạch điện kín.",
+        "c": "Liên hệ điện năng với ánh sáng và nhiệt năng mà bóng đèn tạo ra.",
+        "e": "Vận dụng ý tưởng để tìm lỗi trong một mạch có động cơ không quay."
+      },
+      "teacherMove": "Kiểm tra đủ đường dẫn kín, nguồn năng lượng, vật dẫn và thiết bị đầu ra hoạt động được."
+    },
+    "f5-light": {
+      "title": "Ánh sáng đi về đâu?",
+      "stimulus": "Chùm sáng đèn pin chiếu vào gương, đi qua cốc nước và rọi lên tờ giấy đen.",
+      "entry": {
+        "a": "Mô tả em mong đợi ánh sáng sẽ làm gì ở mỗi vật liệu.",
+        "c": "Liên hệ mỗi kết quả với sự phản xạ, khúc xạ hoặc hấp thụ.",
+        "e": "Dự đoán cách bố trí nào làm đổi hướng chùm sáng nhiều nhất."
+      },
+      "exit": {
+        "a": "Giải thích ánh sáng đã hành xử ra sao ở gương, ở nước và ở tờ giấy đen.",
+        "c": "Liên hệ mỗi quan sát với bằng chứng của phản xạ, khúc xạ hoặc hấp thụ.",
+        "e": "Thiết kế một cách bố trí dùng hai trong ba hiện tượng ánh sáng để giải quyết một vấn đề."
+      },
+      "teacherMove": "Yêu cầu gọi đúng hiện tượng ánh sáng kèm bằng chứng quan sát tương ứng."
+    },
+    "e3-planets": {
+      "title": "Thứ tự các hành tinh",
+      "stimulus": "Một mô hình có Mặt Trời và tám hành tinh, nhưng các nhãn tên hành tinh đã rơi mất.",
+      "entry": {
+        "a": "Kể tên những hành tinh em biết và đặt một hành tinh theo vị trí so với Mặt Trời.",
+        "c": "Liên hệ vị trí của một hành tinh với một mẹo ghi nhớ, một quy luật hoặc một mô hình.",
+        "e": "Dự đoán những hành tinh nào nằm giữa Trái Đất và Mặt Trời trong mô hình."
+      },
+      "exit": {
+        "a": "Nêu thứ tự các hành tinh tính từ Mặt Trời.",
+        "c": "Liên hệ Trái Đất với các hành tinh láng giềng và giải thích vị trí tương đối của nó.",
+        "e": "Tạo một mô hình lớp học không theo tỉ lệ nhưng vẫn giữ đúng thứ tự."
+      },
+      "teacherMove": "Chấm thứ tự và vị trí tương đối, không chấm những khẳng định thuộc lòng về kích thước hay khoảng cách."
+    },
+    "e3-rapid-change": {
+      "title": "Những thay đổi nhanh trên bề mặt Trái Đất",
+      "stimulus": "Sau nhiều ngày mưa lớn, đất và đá bất ngờ trượt xuống một sườn dốc.",
+      "entry": {
+        "a": "Mô tả thay đổi của bề mặt Trái Đất trong hiện tượng này.",
+        "c": "Liên hệ hiện tượng này với núi lửa, động đất hoặc một thay đổi nhanh khác.",
+        "e": "Dự đoán một tác động tới cây cối, động vật, đường sá hoặc nhà cửa gần đó."
+      },
+      "exit": {
+        "a": "Gọi tên hiện tượng và giải thích nó làm bề mặt Trái Đất thay đổi nhanh ra sao.",
+        "c": "So sánh nguyên nhân và hậu quả của nó với một thay đổi nhanh khác trên bề mặt.",
+        "e": "Đề xuất một quan sát giúp cộng đồng nhận ra nguy cơ."
+      },
+      "teacherMove": "Tìm bằng chứng của trượt lở đất và một so sánh có ý nghĩa với quá trình nhanh khác."
+    },
+    "e4-seasons": {
+      "title": "Quy luật của các mùa",
+      "stimulus": "Một thành phố ghi nhận ngày dài hơn và nhiệt độ tăng dần từ tháng Ba đến tháng Sáu.",
+      "entry": {
+        "a": "Mô tả quy luật của thời gian ban ngày và nhiệt độ.",
+        "c": "Liên hệ quy luật này với một mùa em từng trải qua.",
+        "e": "Dự đoán số liệu từ tháng Chín đến tháng Mười Hai có thể cho thấy điều gì."
+      },
+      "exit": {
+        "a": "Giải thích số liệu có thể cho thấy một quy luật mùa như thế nào.",
+        "c": "Liên hệ thay đổi của thời gian ban ngày với nhiệt độ mà không khẳng định chúng luôn giống hệt nhau.",
+        "e": "Dùng quy luật đó để dự đoán một thay đổi trong hoạt động của cây cối hoặc động vật."
+      },
+      "teacherMove": "Yêu cầu học sinh dẫn ra trình tự trong số liệu trước khi đưa ra dự đoán."
+    },
+    "e4-water-cycle": {
+      "title": "Nước luôn chuyển động",
+      "stimulus": "Một vũng nước nhỏ dần trong ngày nắng. Lát sau mây hình thành và trời mưa ở gần đó.",
+      "entry": {
+        "a": "Mô tả em nghĩ nước trong vũng đã đi đâu.",
+        "c": "Liên hệ vũng nước, đám mây và cơn mưa thành một trình tự.",
+        "e": "Dự đoán một ngày nhiều mây và mát mẻ sẽ ảnh hưởng thế nào tới vũng nước."
+      },
+      "exit": {
+        "a": "Giải thích sự chuyển động liên tục của nước trong ví dụ này.",
+        "c": "Liên hệ năng lượng Mặt Trời với sự bay hơi và phần còn lại của vòng tuần hoàn nước.",
+        "e": "Vận dụng vòng tuần hoàn để giải thích vì sao nước từ đại dương sau đó có thể rơi xuống đất liền."
+      },
+      "teacherMove": "Tìm một vòng tuần hoàn chứ không phải danh sách một chiều, và có Mặt Trời là nguồn năng lượng."
+    },
+    "e4-surface": {
+      "title": "Phong hóa, xói mòn và bồi tụ",
+      "stimulus": "Mưa làm vỡ những mảnh nhỏ từ sườn đồi, cuốn chúng xuống dốc rồi để lại bên bờ suối.",
+      "entry": {
+        "a": "Mô tả ba thay đổi em nhận thấy ở vật liệu trên sườn đồi.",
+        "c": "Liên hệ mỗi thay đổi với phong hóa, xói mòn hoặc bồi tụ.",
+        "e": "Dự đoán vật liệu có thể tụ lại ở đâu sau một trận bão mạnh hơn."
+      },
+      "exit": {
+        "a": "Giải thích vai trò của phong hóa, xói mòn và bồi tụ trong trình tự này.",
+        "c": "Liên hệ dòng nước chảy với cả việc mang đi lẫn việc để lại trầm tích.",
+        "e": "Vận dụng các quá trình đó để giải thích một thay đổi địa hình do gió hoặc băng gây ra."
+      },
+      "teacherMove": "Kiểm tra xem học sinh có phân biệt được làm vỡ, mang đi và để lại vật liệu."
+    },
+    "e4-resources": {
+      "title": "Chọn một nguồn năng lượng",
+      "stimulus": "Một thị trấn đang so sánh trang trại điện gió với nhà máy khí tự nhiên để sản xuất điện.",
+      "entry": {
+        "a": "Xếp mỗi nguồn vào loại tái tạo hay không tái tạo.",
+        "c": "Liên hệ mỗi nguồn với một ưu điểm hoặc nhược điểm em biết.",
+        "e": "Dự đoán một câu hỏi mà thị trấn nên tìm hiểu trước khi quyết định."
+      },
+      "exit": {
+        "a": "Nêu một ưu điểm và một nhược điểm của mỗi nguồn.",
+        "c": "Liên hệ bằng chứng với nhu cầu, vị trí hoặc mối lo về môi trường của thị trấn.",
+        "e": "Đề xuất một lựa chọn hoặc cách kết hợp và chỉ ra bằng chứng làm đề xuất đó vững hơn."
+      },
+      "teacherMove": "Chấp nhận nhiều kết luận khác nhau miễn là đề xuất dựa trên bằng chứng."
+    },
+    "e5-rotation": {
+      "title": "Trái Đất tự quay và bóng nắng",
+      "stimulus": "Bóng của cột cờ dài vào buổi sáng, ngắn lại gần trưa và dài trở lại vào cuối ngày.",
+      "entry": {
+        "a": "Mô tả quy luật về độ dài và vị trí của bóng.",
+        "c": "Liên hệ quy luật này với chuyển động biểu kiến của Mặt Trời trên bầu trời.",
+        "e": "Dự đoán bóng sẽ ra sao vào thời điểm giữa hai lần quan sát."
+      },
+      "exit": {
+        "a": "Giải thích vì sao chuyển động tự quay khoảng 24 giờ của Trái Đất tạo ra ngày và đêm.",
+        "c": "Liên hệ chuyển động tự quay của Trái Đất với sự thay đổi vị trí biểu kiến của Mặt Trời và của bóng.",
+        "e": "Thiết kế một thí nghiệm về bóng nắng để cho bằng chứng về quy luật hằng ngày."
+      },
+      "teacherMove": "Kiểm tra rằng Trái Đất tự quay; Mặt Trời chỉ có vẻ như di chuyển trên bầu trời."
+    },
+    "e5-sun-ocean": {
+      "title": "Mặt Trời, đại dương và thời tiết",
+      "stimulus": "Nước biển ấm bốc hơi. Không khí ẩm bay lên, lạnh đi và tạo thành mây trôi vào đất liền.",
+      "entry": {
+        "a": "Mô tả trình tự này bằng lời của em.",
+        "c": "Liên hệ Mặt Trời và đại dương với vòng tuần hoàn nước.",
+        "e": "Dự đoán sự bay hơi sẽ thay đổi thế nào nếu Mặt Trời sưởi ấm ít hơn."
+      },
+      "exit": {
+        "a": "Giải thích Mặt Trời và đại dương tác động qua lại thế nào trong vòng tuần hoàn nước.",
+        "c": "Liên hệ sự bay hơi và sự hình thành mây với một ảnh hưởng có thể có tới thời tiết.",
+        "e": "Vận dụng mối quan hệ đó để dự đoán một ảnh hưởng khi nước biển ấm bất thường."
+      },
+      "teacherMove": "Tìm một chuỗi nhân quả dựa trên năng lượng và các quá trình của vòng tuần hoàn nước."
+    },
+    "e5-landforms": {
+      "title": "Hình thành một dạng địa hình",
+      "stimulus": "Một dòng sông mang trầm tích ra biển, chảy chậm lại và để vật liệu lắng xuống ở cửa sông.",
+      "entry": {
+        "a": "Mô tả điều gì xảy ra với trầm tích khi dòng sông chảy chậm lại.",
+        "c": "Liên hệ trầm tích lắng đọng với sự hình thành một đồng bằng châu thổ.",
+        "e": "Dự đoán những trận lũ lặp lại có thể làm địa hình thay đổi ra sao."
+      },
+      "exit": {
+        "a": "Giải thích dòng nước chảy có thể tạo nên châu thổ theo thời gian như thế nào.",
+        "c": "So sánh quá trình đó với cách gió tạo nên cồn cát hoặc nước tạo nên hẻm núi.",
+        "e": "Dùng một mô hình để dự đoán tốc độ dòng nước thay đổi sẽ ảnh hưởng thế nào tới sự bồi lắng."
+      },
+      "teacherMove": "Lắng nghe quá trình, sự thay đổi lặp lại theo thời gian và một so sánh hợp lý."
+    },
+    "o3-food-chain": {
+      "title": "Năng lượng trong chuỗi thức ăn",
+      "stimulus": "Mặt Trời → cỏ → châu chấu → ếch → rắn",
+      "entry": {
+        "a": "Mô tả năng lượng di chuyển qua chuỗi thức ăn này như thế nào.",
+        "c": "Liên hệ mỗi sinh vật với nguồn năng lượng của nó.",
+        "e": "Dự đoán điều gì có thể xảy ra nếu số lượng châu chấu giảm đi."
+      },
+      "exit": {
+        "a": "Giải thích chiều dòng năng lượng trong chuỗi thức ăn.",
+        "c": "Liên hệ thay đổi của một quần thể với ít nhất hai mắt xích khác trong chuỗi.",
+        "e": "Tạo một chuỗi thức ăn khác và dự đoán tác động khi loại bỏ một sinh vật."
+      },
+      "teacherMove": "Kiểm tra rằng năng lượng bắt đầu từ Mặt Trời và tác động có thể lan qua cả chuỗi."
+    },
+    "o3-fossils": {
+      "title": "Hóa thạch là bằng chứng",
+      "stimulus": "Người ta tìm thấy hóa thạch một vỏ sò trong đá, cách xa bờ biển ngày nay.",
+      "entry": {
+        "a": "Mô tả hóa thạch cho thấy trực tiếp điều gì.",
+        "c": "Liên hệ nhu cầu sống của loài có vỏ này với môi trường nơi nó từng sống.",
+        "e": "Dự đoán hóa thạch có thể gợi ý gì về môi trường trong quá khứ của vùng đất đó."
+      },
+      "exit": {
+        "a": "Giải thích hóa thạch cho bằng chứng gì về một sinh vật trong quá khứ.",
+        "c": "Liên hệ cấu tạo của sinh vật với bằng chứng về môi trường của nó.",
+        "e": "Nêu một bằng chứng khác có thể củng cố hoặc bác bỏ nhận định về môi trường đó."
+      },
+      "teacherMove": "Tách quan sát trực tiếp khỏi suy luận về môi trường trong quá khứ."
+    },
+    "o4-food-web": {
+      "title": "Năng lượng trong lưới thức ăn",
+      "stimulus": "Lưới thức ăn của một cái ao gồm tảo, côn trùng, cá, ếch, chim và sinh vật phân hủy.",
+      "entry": {
+        "a": "Chỉ ra một sinh vật sản xuất, một sinh vật tiêu thụ và một sinh vật phân hủy trong ao.",
+        "c": "Liên hệ mỗi vai trò với sự di chuyển của vật chất hoặc năng lượng.",
+        "e": "Dự đoán một tác động nếu số lượng côn trùng giảm mạnh."
+      },
+      "exit": {
+        "a": "Giải thích vai trò của Mặt Trời, sinh vật sản xuất, sinh vật tiêu thụ và sinh vật phân hủy.",
+        "c": "Liên hệ ít nhất ba sinh vật để cho thấy dòng năng lượng đi qua lưới thức ăn.",
+        "e": "Dự đoán hai tác động có thể xảy ra khi loại bỏ một quần thể và giải thích từng tác động."
+      },
+      "teacherMove": "Tìm nhiều con đường khác nhau và sự trở lại của vật chất nhờ sinh vật phân hủy."
+    },
+    "o5-ecosystem": {
+      "title": "Sinh tồn trong hệ sinh thái",
+      "stimulus": "Một con thằn lằn sa mạc sống nhờ côn trùng, hốc đá trú ẩn, ánh nắng, không khí và lượng nước ít ỏi.",
+      "entry": {
+        "a": "Xếp các yếu tố đã nêu thành phần sống và phần không sống của hệ sinh thái.",
+        "c": "Liên hệ hai yếu tố với sự sinh tồn của con thằn lằn.",
+        "e": "Dự đoán điều gì có thể xảy ra trong một đợt hạn kéo dài."
+      },
+      "exit": {
+        "a": "Giải thích con thằn lằn tương tác thế nào với các yếu tố hữu sinh và vô sinh.",
+        "c": "Liên kết ít nhất ba tương tác thành một hệ thống sinh tồn.",
+        "e": "Chuyển ý tưởng sang một sinh vật vùng đất ngập nước và chỉ ra những yếu tố khác mà nó cần."
+      },
+      "teacherMove": "Kiểm tra có cả yếu tố hữu sinh lẫn vô sinh được liên kết trong một hệ thống."
+    },
+    "o5-structures": {
+      "title": "Cấu tạo giúp sinh vật sống sót",
+      "stimulus": "Hai loài chim sống gần cùng một hồ nước. Một loài có mỏ dài và nhọn; loài kia có mỏ ngắn và bè.",
+      "entry": {
+        "a": "Mô tả điểm khác nhau về cấu tạo giữa hai chiếc mỏ.",
+        "c": "Liên hệ hình dạng mỗi chiếc mỏ với một nguồn thức ăn có thể có.",
+        "e": "Dự đoán mỗi loài chim sẽ kiếm ăn ở khu vực nào quanh hồ."
+      },
+      "exit": {
+        "a": "Giải thích cấu tạo và chức năng giúp mỗi loài chim sống sót ra sao.",
+        "c": "Liên hệ hình dạng mỏ, cách kiếm ăn và nguồn thức ăn sẵn có.",
+        "e": "Vận dụng lập luận đó để so sánh cấu tạo của hai loài khác trong cùng một môi trường."
+      },
+      "teacherMove": "Yêu cầu một lời giải thích theo chức năng, không phải khẳng định cấu tạo này đơn giản là tốt hơn."
+    }
+  }
+}

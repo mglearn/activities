@@ -1,0 +1,525 @@
+{
+  "ui": {
+    "nav.area": "← Actividades del SST",
+    "nav.hub": "Todas las actividades",
+    "nav.framework": "ACE y SOLO",
+    "hero.eyebrow": "Ciencias · Preparación para el SST · Grados 3–5",
+    "hero.p": "Comprobaciones formativas rápidas que ayudan a los estudiantes a <strong>articular</strong> ideas científicas, <strong>conectar</strong> la evidencia con los conceptos y <strong>ampliar</strong> su pensamiento, mientras el progreso SOLO se hace visible. Elige un grado y un eje, aplica un boleto de entrada antes de la lección y uno de salida después, y enseña desde el nivel que los estudiantes realmente te muestran.",
+    "strand.matter": "Materia y energía",
+    "strand.force": "Fuerza, movimiento y energía",
+    "strand.earth": "La Tierra y el espacio",
+    "strand.org": "Organismos y ambientes",
+    "hero.cta1": "Abrir el banco de boletos →",
+    "hero.cta2": "Cómo funcionan ACE y SOLO",
+    "tally.tickets": "Boletos emparejados",
+    "tally.grades": "Grados",
+    "tally.strands": "Ejes del SST",
+    "tally.teks": "Códigos TEKS",
+    "hero.privacy": "Sin inicio de sesión. No se recopilan ni se transmiten datos de los estudiantes. Las respuestas permanecen en esta pestaña del navegador.",
+    "hero.alt": "ACE the SST: pensamiento más profundo en las ciencias de primaria. Cuatro estudiantes de primaria observan un recipiente con agua tibia y un termómetro y anotan sus observaciones, junto a una cadena de círculos con las letras A Articular, C Conectar y E Ampliar.",
+    "ui.grade": "Grado",
+    "ui.gradeAll": "Todos los grados",
+    "ui.grade3": "Grado 3",
+    "ui.grade4": "Grado 4",
+    "ui.grade5": "Grado 5",
+    "ui.strand": "Eje de ciencias del SST",
+    "ui.strandAll": "Los cuatro ejes",
+    "ui.random": "↻ Nuevo boleto",
+    "ui.when": "Cuándo",
+    "ui.entry": "Entrada",
+    "ui.exit": "Salida",
+    "ui.view": "Vista",
+    "ui.student": "Estudiante",
+    "ui.teacher": "Docente",
+    "ui.situation": "Situación científica",
+    "ui.confidence": "¿Qué tan seguro te sientes en este momento?",
+    "conf.1": "1 · Inseguro",
+    "conf.2": "2 · Avanzando",
+    "conf.3": "3 · Listo",
+    "ui.lookFor": "Qué observar como docente",
+    "ui.soloScore": "Puntaje SOLO",
+    "btn.copy": "Copiar boleto",
+    "btn.download": "Descargar .txt",
+    "btn.print": "Imprimir",
+    "ui.bank": "Banco de boletos",
+    "ui.search": "Busca por título, eje o TEKS…",
+    "fw.eyebrow": "El marco",
+    "fw.h2": "Usa ACE durante la clase y califica el pensamiento con SOLO",
+    "fw.lede1": "Un estudiante de quinto grado puede identificar la evaporación en un diagrama. Luego la pregunta cambia una condición y le pide decir qué ocurre después, y la definición memorizada ya no alcanza. A partir de 2027–2028, el Student Success Tool reemplaza al STAAR con evaluaciones de inicio, mitad y fin de año, y los borradores de los planes de ciencias de primaria de la TEA organizan las preguntas en cuatro ejes con formatos de opción múltiple, selección múltiple, varias partes y opción integrada.",
+    "ace.a": "Articular",
+    "fw.aDesc": "¿Qué pasó? Explícalo con tus propias palabras.",
+    "ace.c": "Conectar",
+    "fw.cDesc": "¿Cómo se conecta la evidencia con el concepto científico?",
+    "ace.e": "Ampliar",
+    "fw.eDesc": "¿Qué pasaría si cambiara una condición?",
+    "fw.lede2": "Explicar ACE toma menos de un minuto, pero revela rápidamente si los estudiantes comprenden la ciencia o solo reconocen vocabulario familiar. Califica lo que escuchas con SOLO y elige el siguiente paso.",
+    "fw.thScore": "Nivel",
+    "fw.thEvidence": "Evidencia de aprendizaje",
+    "fw.thNext": "Siguiente paso",
+    "solo.1": "1 · Preestructural",
+    "fw.solo1.ev": "La respuesta falta o no tiene relación",
+    "fw.solo1.next": "Activar los conocimientos previos",
+    "solo.2": "2 · Uniestructural",
+    "fw.solo2.ev": "Identifica un solo hecho relevante",
+    "fw.solo2.next": "Pedir al estudiante que Articule",
+    "solo.3": "3 · Multiestructural",
+    "fw.solo3.ev": "Enumera varios hechos sin relacionarlos",
+    "fw.solo3.next": "Impulsar al estudiante a Conectar",
+    "solo.4": "4 · Relacional",
+    "fw.solo4.ev": "Explica cómo encajan la evidencia y las ideas",
+    "fw.solo4.next": "Pedir una predicción",
+    "solo.5": "5 · Abstracto ampliado",
+    "fw.solo5.ev": "Aplica el concepto a una situación nueva",
+    "fw.solo5.next": "Retar al estudiante a Ampliar",
+    "fw.lede3": "Piensa en una pregunta de La Tierra y el espacio sobre cómo la luz del Sol calienta la tierra y el agua. Un estudiante en el nivel dos podría identificar al Sol como la fuente de energía. En el nivel tres, enumera la luz solar, la tierra, el agua y la temperatura. Una respuesta de nivel cuatro explica por qué la tierra y el agua se calientan a ritmos distintos. En el nivel cinco, el estudiante predice cómo esa diferencia podría afectar el clima local.",
+    "fw.figAlt": "Cartel de referencia de ACE the SST. Columna izquierda: usar ACE durante la clase de ciencias, con A Articular, C Conectar y E Ampliar. Columna derecha: calificar el pensamiento con SOLO, de los niveles uno a cinco, desde preestructural hasta abstracto ampliado, con un siguiente paso para cada uno. Franja inferior: los cuatro ejes de ciencias de primaria del SST.",
+    "fw.figCaption": "Imprime este cartel para una carpeta de planeación o una reunión de equipo. A partir de 2027–2028.",
+    "fw.lede4": "La preparación para el SST no debe convertirse en otra pila de cuadernillos de práctica para el examen. Usa boletos de salida ACE, cuadernos de ciencias, conversaciones de laboratorio y preguntas breves con estímulo durante todo el año. <a href=\"https://tea.texas.gov/data-reports/student-assessment-overview/house-bill-8-student-assessment\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--blue);font-weight:800\">Los recursos del SST de la TEA</a> describen el diseño de la evaluación en detalle.",
+    "f.area": "Actividades del SST",
+    "f.hub": "Todas las actividades",
+    "f.about": "Acerca de",
+    "f.tea": "Recursos del SST de la TEA",
+    "f.disclaimer": "Recurso independiente para el aula, alineado al borrador del plan de ciencias de primaria del SST y al currículo evaluado actual. No es una evaluación oficial de la TEA.",
+    "f.license": "Contenido con licencia CC BY-NC 4.0 · Código con licencia MIT · Miguel Guhlin · Creado para docentes de Texas",
+    "f.ai": "Creado con ayuda de IA · revisado por una persona",
+    "ui.yourThinking": "Tu razonamiento",
+    "ui.responsePlaceholder": "Escribe tu respuesta…",
+    "btn.copied": "¡Copiado!",
+    "tag.entry": "Boleto de entrada",
+    "tag.exit": "Boleto de salida",
+    "tag.grade": "Grado {n}",
+    "tag.teks": "TEKS {code}",
+    "bank.count": "{n} boletos emparejados",
+    "bank.countOne": "1 boleto emparejado",
+    "bank.empty": "Ningún boleto coincide con esos filtros.",
+    "exp.entry": "BOLETO DE ENTRADA",
+    "exp.exit": "BOLETO DE SALIDA",
+    "exp.situation": "SITUACIÓN CIENTÍFICA",
+    "exp.confidence": "Confianza",
+    "exp.lookFor": "QUÉ OBSERVAR COMO DOCENTE",
+    "exp.solo": "Puntaje SOLO",
+    "exp.none": "Sin seleccionar"
+  },
+  "tickets": {
+    "m3-state-change": {
+      "title": "Calentar y enfriar la materia",
+      "stimulus": "Se deja un cubo de hielo en un plato cerca de una ventana soleada. Más tarde solo queda un pequeño charco.",
+      "entry": {
+        "a": "Describe lo que ya sabes sobre lo que ocurre cuando el hielo se calienta.",
+        "c": "Conecta este cubo de hielo con otro cambio causado por calentar o enfriar.",
+        "e": "Predice qué le pasará al charco si se queda junto a la ventana toda la tarde."
+      },
+      "exit": {
+        "a": "Explica los cambios de estado que muestran el cubo de hielo y el charco.",
+        "c": "Conecta cada cambio con la energía que se agrega o se quita.",
+        "e": "Predice qué cambiaría si el plato se colocara en un refrigerador."
+      },
+      "teacherMove": "Escucha si mencionan sólido, líquido, calentamiento y una explicación de causa y efecto."
+    },
+    "m3-condensation": {
+      "title": "Gotas en un vaso frío",
+      "stimulus": "Se forman gotas de agua en el exterior de un vaso frío aunque el vaso no tiene fugas.",
+      "entry": {
+        "a": "Di una cosa que observas y una cosa que te preguntas sobre las gotas.",
+        "c": "Conecta el vaso frío con otra ocasión en que viste aparecer agua sobre una superficie.",
+        "e": "Predice si se formarían más gotas en aire cálido y húmedo o en aire fresco y seco."
+      },
+      "exit": {
+        "a": "Explica de dónde vino el agua que está por fuera del vaso.",
+        "c": "Conecta la condensación con el enfriamiento del vapor de agua del aire.",
+        "e": "Aplica la idea para explicar por qué se empaña el espejo del baño durante una ducha caliente."
+      },
+      "teacherMove": "Comprueba que identifiquen el vapor de agua del aire y no una fuga a través del vidrio."
+    },
+    "m5-properties": {
+      "title": "Clasificar un material desconocido",
+      "stimulus": "Una muestra es sólida, tiene una masa de 18 gramos, se hunde en el agua y es atraída por un imán.",
+      "entry": {
+        "a": "Enumera las propiedades físicas que aparecen en la descripción.",
+        "c": "Conecta una propiedad con una herramienta o prueba que pudiera medirla.",
+        "e": "Predice qué propiedad sería más útil para separar esta muestra de la arena."
+      },
+      "exit": {
+        "a": "Explica cómo se puede identificar y clasificar la muestra usando sus propiedades.",
+        "c": "Conecta la evidencia con un material posible y justifica tu elección.",
+        "e": "Diseña una prueba más que ayude a distinguir entre dos materiales parecidos."
+      },
+      "teacherMove": "Busca evidencia medible y no solo el color o la apariencia."
+    },
+    "m5-density": {
+      "title": "Se hunde o flota",
+      "stimulus": "Dos bloques son del mismo tamaño. El bloque A flota en el agua. El bloque B se hunde.",
+      "entry": {
+        "a": "Describe la diferencia que observas entre los dos bloques.",
+        "c": "Conecta el hundirse y el flotar con lo que sabes sobre la densidad relativa.",
+        "e": "Predice qué podría ocurrir si el bloque A se colocara en un líquido distinto."
+      },
+      "exit": {
+        "a": "Explica qué revela la prueba con agua sobre cada bloque.",
+        "c": "Conecta el resultado con la densidad relativa, usando el agua como punto de referencia.",
+        "e": "Propón una prueba justa para comparar tres materiales nuevos."
+      },
+      "teacherMove": "Exige la comparación con el agua y evita que el peso por sí solo se tome como la causa."
+    },
+    "m5-mixtures": {
+      "title": "Separar una mezcla",
+      "stimulus": "Un vaso contiene arena, limaduras de hierro y pequeñas cuentas de plástico.",
+      "entry": {
+        "a": "Nombra una propiedad física de cada sustancia.",
+        "c": "Conecta cada propiedad con una forma posible de separar la mezcla.",
+        "e": "Predice el mejor orden para separar las tres sustancias."
+      },
+      "exit": {
+        "a": "Explica por qué cada sustancia conserva sus propiedades físicas dentro de la mezcla.",
+        "c": "Conecta un imán, el agua o un tamiz con la propiedad que usa para separar.",
+        "e": "Crea un plan de separación para una mezcla nueva de sal, grava y clips."
+      },
+      "teacherMove": "Busca una secuencia que use el magnetismo, la densidad relativa, el tamaño o la solubilidad de forma adecuada."
+    },
+    "m5-solutions": {
+      "title": "La materia en una disolución",
+      "stimulus": "Se revuelven diez gramos de sal en 100 gramos de agua hasta que la sal ya no se ve.",
+      "entry": {
+        "a": "Describe qué cambió cuando la sal se revolvió en el agua.",
+        "c": "Conecta la disolución con una mezcla que conozcas de casa.",
+        "e": "Predice la masa total de la disolución y explica tu razonamiento."
+      },
+      "exit": {
+        "a": "Explica cómo se comparan las propiedades de la sal y del agua antes y después de mezclarlas.",
+        "c": "Conecta las masas medidas con la idea de que la materia se conserva.",
+        "e": "Describe una manera de recuperar la sal y qué evidencia mostraría que seguía presente."
+      },
+      "teacherMove": "Comprueba la conservación de la materia y distingue disolverse de desaparecer."
+    },
+    "f3-magnets": {
+      "title": "Fuerzas a distancia",
+      "stimulus": "Un imán mueve un clip sobre un escritorio sin tocarlo.",
+      "entry": {
+        "a": "Describe qué están haciendo el imán y el clip.",
+        "c": "Conecta este hecho con un empujón o un jalón que hayas sentido directamente.",
+        "e": "Predice qué pasará si se coloca una hoja de papel entre ellos."
+      },
+      "exit": {
+        "a": "Explica cómo el imán ejerce una fuerza sin contacto directo.",
+        "c": "Compara la fuerza magnética con una fuerza de contacto, como empujar un carrito de juguete.",
+        "e": "Diseña una prueba para hallar la mayor distancia a la que el imán todavía mueve el clip."
+      },
+      "teacherMove": "Escucha si mencionan fuerza, jalón, distancia y una prueba con una sola variable cambiada."
+    },
+    "f3-motion": {
+      "title": "Cambiar el movimiento de un objeto",
+      "stimulus": "Una pelota está en reposo en el piso. Un estudiante le da un toque suave y después la patea con más fuerza.",
+      "entry": {
+        "a": "Describe cómo cambian la posición y el movimiento de la pelota.",
+        "c": "Conecta la fuerza del empujón con el movimiento que esperas.",
+        "e": "Predice cómo cambiaría el movimiento sobre una alfombra en lugar de un piso de loseta."
+      },
+      "exit": {
+        "a": "Explica cómo los empujones cambiaron la rapidez y la posición de la pelota.",
+        "c": "Conecta la cantidad de fuerza con el patrón de movimiento observado.",
+        "e": "Planea una prueba justa de un factor que afecte qué tan lejos llega la pelota."
+      },
+      "teacherMove": "Pide que nombren la variable cambiada y la medición que tomarían."
+    },
+    "f4-energy-transfer": {
+      "title": "Energía en movimiento",
+      "stimulus": "Una canica rueda y choca con una segunda canica. La primera se frena mientras la segunda empieza a moverse.",
+      "entry": {
+        "a": "Describe el movimiento de cada canica antes y después del choque.",
+        "c": "Conecta el choque con otro ejemplo de objetos en movimiento que transfieren energía.",
+        "e": "Predice qué pasaría si la primera canica se moviera más rápido."
+      },
+      "exit": {
+        "a": "Explica cómo el choque de las canicas muestra una transferencia de energía.",
+        "c": "Conecta el cambio en el movimiento de cada canica con la evidencia de la transferencia.",
+        "e": "Aplica la idea para explicar cómo una ficha de dominó puede iniciar una reacción en cadena."
+      },
+      "teacherMove": "Busca la transferencia de energía apoyada en una observación del movimiento antes y después."
+    },
+    "f4-sound": {
+      "title": "El sonido transporta energía",
+      "stimulus": "Granos de arroz sobre plástico transparente saltan cuando se golpea un tambor cercano.",
+      "entry": {
+        "a": "Describe qué crees que hace que se muevan los granos de arroz.",
+        "c": "Conecta los granos en movimiento con un sonido que puedas sentir como vibración.",
+        "e": "Predice qué pasará si el tambor se golpea más suavemente."
+      },
+      "exit": {
+        "a": "Explica cómo la demostración da evidencia de que el sonido transfiere energía.",
+        "c": "Conecta las vibraciones del tambor, las ondas sonoras y el movimiento del arroz.",
+        "e": "Diseña otra demostración sencilla que haga visible la energía del sonido."
+      },
+      "teacherMove": "Escucha una cadena conectada: vibración, onda sonora, energía transferida, movimiento."
+    },
+    "f5-balanced": {
+      "title": "Fuerzas iguales y desiguales",
+      "stimulus": "Dos equipos jalan una cuerda con la misma fuerza. Después un equipo suma otro estudiante.",
+      "entry": {
+        "a": "Describe qué esperas que haga la cuerda en cada situación.",
+        "c": "Conecta las fuerzas iguales y desiguales con un juego u objeto conocido.",
+        "e": "Predice cómo cambia el movimiento de la cuerda cuando una fuerza se vuelve mayor."
+      },
+      "exit": {
+        "a": "Explica el patrón de movimiento que causan las fuerzas iguales y desiguales.",
+        "c": "Conecta la dirección y el tamaño de las fuerzas con el movimiento de la cuerda.",
+        "e": "Aplica la regla para predecir el movimiento de un carrito empujado desde lados opuestos."
+      },
+      "teacherMove": "Comprueba que distingan entre no haber cambio de movimiento y no actuar ninguna fuerza."
+    },
+    "f5-ramp": {
+      "title": "Planear una investigación con rampas",
+      "stimulus": "Un estudiante quiere probar cómo la altura de la rampa afecta la distancia que recorre un carrito de juguete.",
+      "entry": {
+        "a": "Identifica qué se debe cambiar y qué se debe medir.",
+        "c": "Conecta la altura de la rampa con la fuerza y el movimiento del carrito.",
+        "e": "Predice el patrón que podrían mostrar los datos."
+      },
+      "exit": {
+        "a": "Describe un procedimiento justo para la investigación con la rampa.",
+        "c": "Conecta las variables controladas con la confiabilidad de los resultados.",
+        "e": "Sugiere una investigación nueva con el mismo carrito pero otra variable cambiada."
+      },
+      "teacherMove": "Busca ensayos repetidos, una variable cambiada clara y un resultado medible."
+    },
+    "f5-circuits": {
+      "title": "Armar un circuito completo",
+      "stimulus": "Una pila, cables y un foco están conectados, pero el foco no enciende.",
+      "entry": {
+        "a": "Enumera las partes que se necesitan para que un circuito funcione.",
+        "c": "Conecta cada parte con su función en el circuito.",
+        "e": "Predice un cambio que podría hacer que el foco encienda."
+      },
+      "exit": {
+        "a": "Explica los requisitos de un circuito eléctrico completo.",
+        "c": "Conecta la energía eléctrica con la luz y la energía térmica que produce el foco.",
+        "e": "Aplica la idea para resolver el problema de un circuito con un motor que no gira."
+      },
+      "teacherMove": "Comprueba que haya un camino cerrado, una fuente de energía, un conductor y un dispositivo que funcione."
+    },
+    "f5-light": {
+      "title": "¿Qué le pasa a la luz?",
+      "stimulus": "El haz de una linterna choca con un espejo, pasa por un vaso con agua y alumbra un papel negro.",
+      "entry": {
+        "a": "Describe qué esperas que haga la luz en cada material.",
+        "c": "Conecta cada resultado con la reflexión, la refracción o la absorción.",
+        "e": "Predice qué montaje cambiaría más la dirección del haz."
+      },
+      "exit": {
+        "a": "Explica cómo se comportó la luz en el espejo, el agua y el papel negro.",
+        "c": "Conecta cada observación con la evidencia de reflexión, refracción o absorción.",
+        "e": "Diseña un montaje que use dos de los tres comportamientos de la luz para resolver un problema."
+      },
+      "teacherMove": "Exige el comportamiento correcto de la luz y la evidencia observada que le corresponde."
+    },
+    "e3-planets": {
+      "title": "El orden de los planetas",
+      "stimulus": "Un modelo muestra el Sol y ocho planetas, pero las etiquetas de los planetas se cayeron.",
+      "entry": {
+        "a": "Nombra los planetas que conozcas y ubica uno en relación con el Sol.",
+        "c": "Conecta la posición de un planeta con una ayuda para recordar, un patrón o un modelo.",
+        "e": "Predice qué planetas aparecerían entre la Tierra y el Sol en el modelo."
+      },
+      "exit": {
+        "a": "Di el orden de los planetas a partir del Sol.",
+        "c": "Conecta la Tierra con sus planetas vecinos y explica su posición relativa.",
+        "e": "Crea un modelo de salón sin escala que conserve el orden correcto."
+      },
+      "teacherMove": "Califica el orden y la posición relativa, no afirmaciones memorizadas de tamaño o distancia."
+    },
+    "e3-rapid-change": {
+      "title": "Cambios rápidos en la superficie de la Tierra",
+      "stimulus": "Después de días de lluvia intensa, el suelo y las rocas bajan de repente por una ladera empinada.",
+      "entry": {
+        "a": "Describe el cambio que sufre la superficie de la Tierra en este suceso.",
+        "c": "Conecta el suceso con un volcán, un terremoto u otro cambio rápido.",
+        "e": "Predice un efecto sobre las plantas, los animales, las carreteras o los edificios cercanos."
+      },
+      "exit": {
+        "a": "Identifica el suceso y explica cómo cambia rápidamente la superficie de la Tierra.",
+        "c": "Compara su causa y sus efectos con otro cambio rápido de la superficie.",
+        "e": "Propón una observación que ayude a una comunidad a identificar el riesgo."
+      },
+      "teacherMove": "Busca evidencia de un deslizamiento y una comparación con sentido con otro proceso rápido."
+    },
+    "e4-seasons": {
+      "title": "Patrones de las estaciones",
+      "stimulus": "Una ciudad registra días más largos y temperaturas en aumento de marzo a junio.",
+      "entry": {
+        "a": "Describe el patrón de la luz del día y de la temperatura.",
+        "c": "Conecta el patrón con una estación que hayas vivido.",
+        "e": "Predice qué podrían mostrar los datos de septiembre a diciembre."
+      },
+      "exit": {
+        "a": "Explica cómo los datos pueden revelar un patrón estacional.",
+        "c": "Conecta los cambios de luz del día y de temperatura sin afirmar que siempre son idénticos.",
+        "e": "Usa el patrón para predecir un cambio en la actividad de plantas o animales."
+      },
+      "teacherMove": "Pide que citen la secuencia de los datos antes de hacer una predicción."
+    },
+    "e4-water-cycle": {
+      "title": "El agua sigue en movimiento",
+      "stimulus": "Un charco se encoge en un día soleado. Más tarde se forman nubes y llueve cerca.",
+      "entry": {
+        "a": "Describe a dónde crees que se fue el agua del charco.",
+        "c": "Conecta el charco, las nubes y la lluvia en una secuencia.",
+        "e": "Predice cómo afectaría al charco un día nublado y fresco."
+      },
+      "exit": {
+        "a": "Explica el movimiento continuo del agua en este ejemplo.",
+        "c": "Conecta la energía del Sol con la evaporación y el resto del ciclo del agua.",
+        "e": "Aplica el ciclo para explicar cómo el agua de un océano puede caer después sobre la tierra."
+      },
+      "teacherMove": "Busca un ciclo y no una lista en un solo sentido, e incluye al Sol como fuente de energía."
+    },
+    "e4-surface": {
+      "title": "Meteorización, erosión y depósito",
+      "stimulus": "La lluvia desprende pedazos pequeños de una ladera, los arrastra cuesta abajo y los deja junto a un arroyo.",
+      "entry": {
+        "a": "Describe los tres cambios que observas en el material de la ladera.",
+        "c": "Conecta cada cambio con la meteorización, la erosión o el depósito.",
+        "e": "Predice dónde podría acumularse el material después de una tormenta más fuerte."
+      },
+      "exit": {
+        "a": "Explica el papel de la meteorización, la erosión y el depósito en la secuencia.",
+        "c": "Conecta el movimiento del agua con la remoción y la colocación del sedimento.",
+        "e": "Aplica los mismos procesos para explicar un cambio de relieve causado por el viento o el hielo."
+      },
+      "teacherMove": "Comprueba que distingan romper, mover y dejar caer el material."
+    },
+    "e4-resources": {
+      "title": "Elegir un recurso energético",
+      "stimulus": "Un pueblo compara un parque eólico y una planta de gas natural para generar electricidad.",
+      "entry": {
+        "a": "Clasifica cada recurso como renovable o no renovable.",
+        "c": "Conecta cada recurso con una ventaja o desventaja que conozcas.",
+        "e": "Predice una pregunta que el pueblo debería investigar antes de decidir."
+      },
+      "exit": {
+        "a": "Explica una ventaja y una desventaja de cada recurso.",
+        "c": "Conecta la evidencia con las necesidades, la ubicación o las preocupaciones ambientales del pueblo.",
+        "e": "Recomienda una opción o combinación e identifica la evidencia que reforzaría tu recomendación."
+      },
+      "teacherMove": "Acepta más de una conclusión cuando la recomendación se base en evidencia."
+    },
+    "e5-rotation": {
+      "title": "La rotación de la Tierra y las sombras",
+      "stimulus": "La sombra de un asta es larga en la mañana, más corta cerca del mediodía y otra vez larga al final del día.",
+      "entry": {
+        "a": "Describe el patrón del largo y la posición de la sombra.",
+        "c": "Conecta el patrón con el movimiento aparente del Sol por el cielo.",
+        "e": "Predice cómo sería la sombra en un momento entre dos observaciones."
+      },
+      "exit": {
+        "a": "Explica cómo la rotación de la Tierra, de aproximadamente 24 horas, causa el día y la noche.",
+        "c": "Conecta la rotación de la Tierra con el cambio en la apariencia del Sol y de las sombras.",
+        "e": "Diseña una investigación de sombras que dé evidencia del patrón diario."
+      },
+      "teacherMove": "Comprueba que la Tierra rota; el Sol solo parece moverse por el cielo."
+    },
+    "e5-sun-ocean": {
+      "title": "El Sol, el océano y el tiempo",
+      "stimulus": "El agua cálida del océano se evapora. El aire húmedo sube, se enfría y forma nubes que avanzan hacia la tierra.",
+      "entry": {
+        "a": "Describe la secuencia con tus propias palabras.",
+        "c": "Conecta el Sol y el océano con el ciclo del agua.",
+        "e": "Predice cómo cambiaría la evaporación si hubiera menos calentamiento solar."
+      },
+      "exit": {
+        "a": "Explica cómo interactúan el Sol y el océano en el ciclo del agua.",
+        "c": "Conecta la evaporación y la formación de nubes con un posible efecto en el tiempo.",
+        "e": "Aplica la relación para predecir un efecto de un océano inusualmente cálido."
+      },
+      "teacherMove": "Busca una cadena causal apoyada en la energía y en los procesos del ciclo del agua."
+    },
+    "e5-landforms": {
+      "title": "Formar un relieve",
+      "stimulus": "Un río lleva sedimento hasta la costa, pierde velocidad y deja el material en su desembocadura.",
+      "entry": {
+        "a": "Describe qué le pasa al sedimento cuando el río pierde velocidad.",
+        "c": "Conecta el sedimento depositado con la formación de un delta.",
+        "e": "Predice cómo podrían cambiar el relieve las inundaciones repetidas."
+      },
+      "exit": {
+        "a": "Explica cómo el agua en movimiento puede formar un delta con el tiempo.",
+        "c": "Compara el proceso con la forma en que el viento crea una duna o el agua forma un cañón.",
+        "e": "Usa un modelo para predecir cómo afectaría al depósito un cambio en la velocidad del agua."
+      },
+      "teacherMove": "Escucha el proceso, el cambio repetido a lo largo del tiempo y una comparación válida."
+    },
+    "o3-food-chain": {
+      "title": "La energía en una cadena alimentaria",
+      "stimulus": "Sol → pasto → saltamontes → rana → serpiente",
+      "entry": {
+        "a": "Describe cómo se mueve la energía por esta cadena alimentaria.",
+        "c": "Conecta cada organismo con la fuente de su energía.",
+        "e": "Predice qué podría pasar si disminuyera el número de saltamontes."
+      },
+      "exit": {
+        "a": "Explica la dirección del flujo de energía en la cadena alimentaria.",
+        "c": "Conecta un cambio en una población con al menos dos partes más de la cadena.",
+        "e": "Crea una cadena alimentaria distinta y predice el efecto de quitar un organismo."
+      },
+      "teacherMove": "Comprueba que la energía comience en el Sol y que los efectos puedan recorrer la cadena."
+    },
+    "o3-fossils": {
+      "title": "Los fósiles como evidencia",
+      "stimulus": "Se encuentra el fósil de una concha en una roca lejos de la costa actual.",
+      "entry": {
+        "a": "Describe qué muestra el fósil de manera directa.",
+        "c": "Conecta las necesidades de la concha con el ambiente en el que vivió.",
+        "e": "Predice qué podría sugerir el fósil sobre el ambiente pasado de la zona."
+      },
+      "exit": {
+        "a": "Explica cómo un fósil da evidencia de un organismo del pasado.",
+        "c": "Conecta la estructura del organismo con la evidencia sobre su ambiente.",
+        "e": "Identifica otra evidencia que podría apoyar o poner en duda esa afirmación sobre el ambiente."
+      },
+      "teacherMove": "Separa la observación directa de la inferencia sobre el ambiente del pasado."
+    },
+    "o4-food-web": {
+      "title": "La energía en una red alimentaria",
+      "stimulus": "La red alimentaria de un estanque incluye algas, insectos, peces, ranas, aves y descomponedores.",
+      "entry": {
+        "a": "Identifica un productor, un consumidor y un descomponedor del estanque.",
+        "c": "Conecta cada función con el movimiento de la materia o la energía.",
+        "e": "Predice un efecto si la población de insectos baja mucho."
+      },
+      "exit": {
+        "a": "Explica las funciones del Sol, los productores, los consumidores y los descomponedores.",
+        "c": "Conecta al menos tres organismos para mostrar el flujo de energía por la red.",
+        "e": "Predice dos efectos posibles de quitar una población y justifica cada uno."
+      },
+      "teacherMove": "Busca varias rutas y el regreso de la materia por medio de los descomponedores."
+    },
+    "o5-ecosystem": {
+      "title": "Sobrevivir en un ecosistema",
+      "stimulus": "Una lagartija del desierto depende de insectos, refugio entre las rocas, luz solar, aire y poca agua.",
+      "entry": {
+        "a": "Clasifica los factores de la lista en partes vivas y no vivas del ecosistema.",
+        "c": "Conecta dos factores con la supervivencia de la lagartija.",
+        "e": "Predice qué podría pasar durante una sequía larga."
+      },
+      "exit": {
+        "a": "Explica cómo la lagartija interactúa con los factores bióticos y abióticos.",
+        "c": "Conecta al menos tres interacciones para formar un sistema de supervivencia.",
+        "e": "Traslada la idea a un organismo de humedal e identifica los factores distintos que necesitaría."
+      },
+      "teacherMove": "Comprueba que haya factores bióticos y abióticos conectados dentro de un sistema."
+    },
+    "o5-structures": {
+      "title": "Las estructuras favorecen la supervivencia",
+      "stimulus": "Dos aves viven cerca del mismo lago. Una tiene el pico largo y puntiagudo; la otra lo tiene corto y ancho.",
+      "entry": {
+        "a": "Describe la diferencia estructural entre los dos picos.",
+        "c": "Conecta la forma de cada pico con una posible fuente de alimento.",
+        "e": "Predice en qué parte del lago se alimentaría cada ave."
+      },
+      "exit": {
+        "a": "Explica cómo la estructura y la función ayudan a sobrevivir a cada ave.",
+        "c": "Conecta la forma del pico, la manera de alimentarse y el alimento disponible.",
+        "e": "Aplica el mismo razonamiento para comparar las estructuras de otras dos especies de un mismo ambiente."
+      },
+      "teacherMove": "Exige una explicación funcional, no la afirmación de que una estructura es simplemente mejor."
+    }
+  }
+}

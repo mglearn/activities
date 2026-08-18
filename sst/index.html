@@ -23,13 +23,16 @@ body{margin:0;background:linear-gradient(180deg,#f5f9ff,#fff 42%,#fff9ec);color:
 .topbar a{color:#fff;text-decoration:none;font-weight:800;font-size:.82rem;display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid #ffffff33;border-radius:10px;background:#ffffff12;transition:.15s}
 .topbar a:hover{border-color:var(--gold);background:#ffffff1f}
 .topbar .spacer{flex:1}
+.topbar .lang{display:inline-flex;align-items:center;gap:7px;color:#dbe9ff;font-size:.82rem;font-weight:800}
+.breakout-i18n-switcher,#i18nSwitcher{font-family:inherit;font-weight:800;font-size:.82rem;padding:7px 11px;border:1px solid #ffffff33;border-radius:10px;background:#0b2a5e;color:#fff;cursor:pointer}
+.breakout-i18n-switcher:hover,#i18nSwitcher:hover{border-color:var(--gold)}
 
 .hero{position:relative;overflow:hidden;background:radial-gradient(circle at 87% 22%,#0d75b6 0 3%,transparent 3.2%),linear-gradient(125deg,#061640,#073f88 58%,#07868b);color:#fff;padding:52px 24px 78px}
 .hero:after{content:"";position:absolute;width:340px;height:340px;border:2px solid #ffffff2c;border-radius:50%;right:-70px;top:-130px;box-shadow:0 0 0 38px #ffffff10,0 0 0 76px #ffffff0a}
 .eyebrow{display:inline-flex;gap:9px;align-items:center;background:#ffffff16;border:1px solid #ffffff2f;border-radius:999px;padding:8px 14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.75rem}
 .hero h1{font-size:clamp(2.3rem,6vw,4.4rem);line-height:.96;max-width:860px;margin:22px 0 18px;letter-spacing:-.045em}
 .hero p{max-width:760px;font-size:1.08rem;line-height:1.68;margin:0 0 14px;color:#e9f4ff}
-.hero .note{margin-top:22px;color:#fff;background:#061640aa;border-left:4px solid var(--gold);padding:12px 16px;border-radius:0 12px 12px 0;display:inline-block;font-size:.95rem}
+.hero .note{margin-top:22px;color:#fff;background:#061640aa;border-inline-start:4px solid var(--gold);padding:12px 16px;border-radius:0 12px 12px 0;display:inline-block;font-size:.95rem}
 .tally{display:flex;flex-wrap:wrap;gap:28px;margin:28px 0 0;padding:0;list-style:none}
 .tally .n{font-size:1.8rem;font-weight:900;line-height:1;letter-spacing:-.03em}
 .tally .l{font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;font-weight:800;color:#bcd6f7;margin-top:5px}
@@ -76,58 +79,59 @@ h2.sec:after{content:"";flex:1;height:2px;background:var(--line)}
 <body>
 
 <div class="topbar">
-  <a href="/activities/">&#8592; All Activities</a>
+  <a href="/activities/" data-i18n="nav.hub">&#8592; All Activities</a>
   <div class="spacer"></div>
-  <a href="#activities">Activities</a>
-  <a href="#about">About the SST</a>
+  <a href="#activities" data-i18n="nav.activities">Activities</a>
+  <a href="#about" data-i18n="nav.about">About the SST</a>
+  <span class="lang"><span aria-hidden="true">&#127760;</span><span data-i18n-picker></span></span>
 </div>
 
 <header class="hero" id="top">
   <div class="wrap">
-    <div class="eyebrow">Texas &#183; Student Success Tool &#183; Beginning 2027&#8211;2028</div>
-    <h1>SST Activities</h1>
-    <p>Classroom activities that build the thinking the Student Success Tool will ask for &mdash; explaining, connecting evidence, and applying ideas to new situations.</p>
-    <p>Not another stack of test-prep packets. These are short, reusable routines you can drop into instruction you already teach, with teacher look-fors that tell you what to do next.</p>
+    <div class="eyebrow" data-i18n="hero.eyebrow">Texas &#183; Student Success Tool &#183; Beginning 2027&#8211;2028</div>
+    <h1 data-i18n="hero.h1">SST Activities</h1>
+    <p data-i18n="hero.p1">Classroom activities that build the thinking the Student Success Tool will ask for &mdash; explaining, connecting evidence, and applying ideas to new situations.</p>
+    <p data-i18n="hero.p2">Not another stack of test-prep packets. These are short, reusable routines you can drop into instruction you already teach, with teacher look-fors that tell you what to do next.</p>
     <ul class="tally">
-      <li><div class="n">1</div><div class="l">Activity set</div></li>
-      <li><div class="n">28</div><div class="l">Paired tickets</div></li>
-      <li><div class="n">3&#8211;5</div><div class="l">Grades</div></li>
-      <li><div class="n">Free</div><div class="l">No login</div></li>
+      <li><div class="n">1</div><div class="l" data-i18n="tally.sets">Activity set</div></li>
+      <li><div class="n">28</div><div class="l" data-i18n="tally.tickets">Paired tickets</div></li>
+      <li><div class="n">3&#8211;5</div><div class="l" data-i18n="tally.grades">Grades</div></li>
+      <li><div class="n" data-i18n="tally.freeN">Free</div><div class="l" data-i18n="tally.free">No login</div></li>
     </ul>
-    <div class="note">No login. No student data is collected or transmitted. Everything runs in the browser.</div>
+    <div class="note" data-i18n="hero.note">No login. No student data is collected or transmitted. Everything runs in the browser.</div>
   </div>
 </header>
 
 <main class="wrap">
 
   <section id="activities" aria-labelledby="h-activities">
-    <h2 class="sec" id="h-activities">Choose an activity set</h2>
-    <p class="sec-sub">More SST activity sets are planned. This page will grow as they are released.</p>
+    <h2 class="sec" id="h-activities" data-i18n="sec.h2">Choose an activity set</h2>
+    <p class="sec-sub" data-i18n="sec.sub">More SST activity sets are planned. This page will grow as they are released.</p>
     <div class="cards">
 
       <a class="card" href="acesst/">
-        <img class="thumb" src="assets/ace-the-sst-card.jpg" width="900" height="600" alt="ACE the SST: Deeper Thinking in Elementary Science. Four elementary students observe a bowl of warm water with a thermometer, beside circles labeled A Articulate, C Connect, E Extend.">
+        <img class="thumb" src="assets/ace-the-sst-card.jpg" width="900" height="600" data-i18n-alt="card.ace.alt" alt="ACE the SST: Deeper Thinking in Elementary Science. Four elementary students observe a bowl of warm water with a thermometer, beside circles labeled A Articulate, C Connect, E Extend.">
         <div class="body">
-          <div class="band">Grades 3&#8211;5 &#183; Science</div>
-          <h3>ACE the SST &mdash; Elementary Science</h3>
-          <p>Paired entry and exit tickets built on the ACE framework: <strong>Articulate</strong>, <strong>Connect</strong>, <strong>Extend</strong>. Filter by grade and SST science strand, flip between student and teacher views, and score the response with a SOLO guide that names the next instructional move.</p>
+          <div class="band" data-i18n="card.ace.band">Grades 3&#8211;5 &#183; Science</div>
+          <h3 data-i18n="card.ace.h2">ACE the SST &mdash; Elementary Science</h3>
+          <p data-i18n-html="card.ace.p">Paired entry and exit tickets built on the ACE framework: <strong>Articulate</strong>, <strong>Connect</strong>, <strong>Extend</strong>. Filter by grade and SST science strand, flip between student and teacher views, and score the response with a SOLO guide that names the next instructional move.</p>
           <div class="tags">
-            <span class="tag">28 paired tickets</span>
-            <span class="tag">4 SST strands</span>
-            <span class="tag">25 TEKS codes</span>
-            <span class="tag">Print &amp; download</span>
+            <span class="tag" data-i18n="card.ace.t1">28 paired tickets</span>
+            <span class="tag" data-i18n="card.ace.t2">4 SST strands</span>
+            <span class="tag" data-i18n="card.ace.t3">25 TEKS codes</span>
+            <span class="tag" data-i18n="card.ace.t4">Print &amp; download</span>
           </div>
-          <span class="go">Open ACE the SST <span class="arr">&#8594;</span></span>
+          <span class="go"><span data-i18n="card.ace.go">Open ACE the SST</span> <span class="arr">&#8594;</span></span>
         </div>
       </a>
 
       <div class="card soon">
         <div class="body">
-          <div class="band">In development</div>
-          <h3>More SST activity sets</h3>
-          <p>Additional sets are planned for other grade bands and content areas, following the same pattern: a short thinking routine, a teacher look-for, and a scoring guide that points to the next move. Check back as they are released.</p>
+          <div class="band" data-i18n="card.soon.band">In development</div>
+          <h3 data-i18n="card.soon.h2">More SST activity sets</h3>
+          <p data-i18n="card.soon.p">Additional sets are planned for other grade bands and content areas, following the same pattern: a short thinking routine, a teacher look-for, and a scoring guide that points to the next move. Check back as they are released.</p>
           <div class="tags">
-            <span class="tag">Planned</span>
+            <span class="tag" data-i18n="card.soon.tag">Planned</span>
           </div>
         </div>
       </div>
@@ -136,31 +140,33 @@ h2.sec:after{content:"";flex:1;height:2px;background:var(--line)}
   </section>
 
   <section class="about" id="about">
-    <h2>About the Student Success Tool</h2>
-    <p>Beginning in 2027&#8211;2028, the Student Success Tool (SST) replaces STAAR in Texas with beginning-, middle-, and end-of-year assessments. TEA&#8217;s draft elementary science blueprints organize questions around four strands &mdash; Matter and Energy; Force, Motion, and Energy; Earth and Space; and Organisms and Environments &mdash; using multiple choice, multiselect, multipart, and inline choice formats.</p>
-    <p>Formats change; the thinking underneath does not. A student who can only recall a definition stalls the moment a question changes one condition. The activities here are designed around that gap:</p>
+    <h2 data-i18n="about.h2">About the Student Success Tool</h2>
+    <p data-i18n-html="about.p1">Beginning in 2027&#8211;2028, the Student Success Tool (SST) replaces STAAR in Texas with beginning-, middle-, and end-of-year assessments. TEA&#8217;s draft elementary science blueprints organize questions around four strands &mdash; Matter and Energy; Force, Motion, and Energy; Earth and Space; and Organisms and Environments &mdash; using multiple choice, multiselect, multipart, and inline choice formats.</p>
+    <p data-i18n="about.p2">Formats change; the thinking underneath does not. A student who can only recall a definition stalls the moment a question changes one condition. The activities here are designed around that gap:</p>
     <ul>
-      <li><strong>Articulate</strong> &mdash; explain what happened in your own words.</li>
-      <li><strong>Connect</strong> &mdash; tie the evidence to the underlying concept.</li>
-      <li><strong>Extend</strong> &mdash; predict what changes when one condition changes.</li>
+      <li data-i18n-html="about.li1"><strong>Articulate</strong> &mdash; explain what happened in your own words.</li>
+      <li data-i18n-html="about.li2"><strong>Connect</strong> &mdash; tie the evidence to the underlying concept.</li>
+      <li data-i18n-html="about.li3"><strong>Extend</strong> &mdash; predict what changes when one condition changes.</li>
     </ul>
-    <p>Score what students say with a five-level SOLO guide, then teach from the level they actually show you. Full details on the assessment design are in <a href="https://tea.texas.gov/data-reports/student-assessment-overview/house-bill-8-student-assessment" target="_blank" rel="noopener">TEA&#8217;s House Bill 8 student assessment resources</a>.</p>
+    <p data-i18n-html="about.p3">Score what students say with a five-level SOLO guide, then teach from the level they actually show you. Full details on the assessment design are in <a href="https://tea.texas.gov/data-reports/student-assessment-overview/house-bill-8-student-assessment" target="_blank" rel="noopener">TEA&#8217;s House Bill 8 student assessment resources</a>.</p>
   </section>
 
 </main>
 
 <footer class="footer">
   <div class="flinks">
-    <a href="/activities/">All Activities</a>
-    <a href="acesst/">ACE the SST</a>
-    <a href="/activities/about.html">About</a>
-    <a href="https://tea.texas.gov/data-reports/student-assessment-overview/house-bill-8-student-assessment" target="_blank" rel="noopener">TEA SST resources</a>
+    <a href="/activities/" data-i18n="f.hub">All Activities</a>
+    <a href="acesst/" data-i18n="f.ace">ACE the SST</a>
+    <a href="/activities/about.html" data-i18n="f.about">About</a>
+    <a href="https://tea.texas.gov/data-reports/student-assessment-overview/house-bill-8-student-assessment" target="_blank" rel="noopener" data-i18n="f.tea">TEA SST resources</a>
   </div>
-  <div>Independent classroom resources aligned to the draft SST blueprints and the current assessed curriculum. Not official TEA assessments.</div>
-  <div>Content licensed CC BY-NC 4.0 &#183; Code licensed MIT &#183; Miguel Guhlin &#183; Built for Texas educators</div>
-  <div style="margin-top:6px;font-size:.72rem;opacity:.75">Built with AI assistance &#183; human-reviewed</div>
+  <div data-i18n="f.disclaimer">Independent classroom resources aligned to the draft SST blueprints and the current assessed curriculum. Not official TEA assessments.</div>
+  <div data-i18n="f.license">Content licensed CC BY-NC 4.0 &#183; Code licensed MIT &#183; Miguel Guhlin &#183; Built for Texas educators</div>
+  <div style="margin-top:6px;font-size:.72rem;opacity:.75" data-i18n="f.ai">Built with AI assistance &#183; human-reviewed</div>
 </footer>
 
+<script src="assets/i18n.js" defer></script>
+<script src="i18n-sst.js" defer></script>
 <script src="/activities/licensing-footer.js" defer></script>
 </body>
 </html>
