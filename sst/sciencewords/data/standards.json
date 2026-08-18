@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "note": "No exact standard code appears here until it has been checked against the primary source and the source URL and date are recorded. Empty entries arrays are honest, not unfinished data hiding behind a placeholder.",
+  "teks": {
+    "verifiedDate": "",
+    "source": "https://tea.texas.gov/academics/subject-areas/science",
+    "status": "not-yet-verified",
+    "statement": "Learning Greek and Latin word parts is not itself a science TEKS. These activities support students' access to TEKS-aligned science content by making unfamiliar science vocabulary decodable. Exact TEKS codes will be added only after verification against the current TEA standards.",
+    "strands": [
+      { "id": "matter-energy", "label": "Matter and Energy" },
+      { "id": "force-motion-energy", "label": "Force, Motion, and Energy" },
+      { "id": "earth-space", "label": "Earth and Space" },
+      { "id": "organisms-environments", "label": "Organisms and Environments" }
+    ],
+    "entries": []
+  },
+  "ngss": {
+    "verifiedDate": "",
+    "source": "https://www.nextgenscience.org/",
+    "status": "not-yet-verified",
+    "statement": "Morphology is not an NGSS Performance Expectation. These activities support the literacy demands of science learning — obtaining, evaluating, and communicating information, and using patterns and structure-and-function language. Specific Performance Expectations will be listed only where the alignment is defensible and has been checked.",
+    "connections": [
+      "Obtaining, Evaluating, and Communicating Information",
+      "Constructing Explanations",
+      "Engaging in Argument from Evidence",
+      "Patterns",
+      "Structure and Function",
+      "Systems and System Models",
+      "Cause and Effect",
+      "Energy and Matter"
+    ],
+    "entries": []
+  },
+  "sst": {
+    "status": "local-instructional-approach",
+    "statement": "Beginning in 2027–2028, the Student Success Tool replaces STAAR in Texas with beginning-, middle-, and end-of-year assessments. The BOY / MOY / EOY progression used on this site is a local instructional approach for SST readiness. It is not a TEA requirement, and nothing here is an official or approved SST item.",
+    "checkpoints": [
+      { "id": "boy", "label": "BOY", "ace": "Articulate", "demand": "Recognize a word part and say what clue it gives." },
+      { "id": "moy", "label": "MOY", "ace": "Connect", "demand": "Combine word structure with science evidence and explain why they fit." },
+      { "id": "eoy", "label": "EOY", "ace": "Extend", "demand": "Use known word parts to interpret an unfamiliar term or situation and justify it with evidence." }
+    ]
+  }
+}

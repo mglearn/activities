@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "note": "Answers and teacher look-fors. Loaded only by the generated teacher-key pages. See README 'Known limitations' — static hosting cannot hide this file from a determined viewer, and the project does not pretend otherwise.",
+  "soloStrip": [
+    { "level": 1, "label": "One clue", "evidence": "Identifies one relevant word part." },
+    { "level": 2, "label": "Several clues", "evidence": "Identifies multiple parts but does not connect them." },
+    { "level": 3, "label": "Connected meaning", "evidence": "Combines word structure and science context." },
+    { "level": 4, "label": "Transfer", "evidence": "Uses known word parts successfully in a new situation." }
+  ],
+  "keys": {
+    "g35-break-biology": {
+      "answers": [
+        { "prompt": "BIOLOGY", "answer": "BIO = life; LOGY = the study of; the study of living things.", "why": "Both parts are transparent here, which is why this word is a good first break." },
+        { "prompt": "GEOLOGY", "answer": "GEO = Earth; LOGY = the study of; the study of Earth and its rocks.", "why": "" },
+        { "prompt": "ECOLOGY", "answer": "ECO = home or surroundings; LOGY = the study of; the study of how living things interact with their surroundings.", "why": "Accept 'the study of the environment' if the student explains that living things are part of it." },
+        { "prompt": "What does ending in LOGY tell you about all three?", "answer": "All three are fields of study. The first part names what is being studied.", "why": "This is the generalization the activity is built to produce." },
+        { "prompt": "Drought and prairie animals — which word?", "answer": "Ecology. The question is about how living things respond to their surroundings, not about rocks or about living things in general.", "why": "Look for a reason, not just the right word. Biology is not wrong as a broad label, but ecology is the better fit and the student should say why." }
+      ],
+      "lookFor": "Students should use the first word part to justify the choice. A student who picks ecology without referring to 'surroundings' is at level 1 or 2."
+    },
+    "g35-build-bio-geo": {
+      "answers": [
+        { "prompt": "Real words students can build", "answer": "biology, geology, hydrosphere, biosphere, geosphere, thermometer, microscope, telescope. Also acceptable with explanation: hydrology (the study of water), microbiology if students combine three cards.", "why": "" },
+        { "prompt": "Combinations that sound real but are not standard science terms", "answer": "therm + sphere, micro + sphere, tele + logy, hydro + scope, bio + meter (biometer is not a standard classroom science term).", "why": "This is the productive part of the activity. Ask the student what the word would mean if it existed, then have them check it." },
+        { "prompt": "Which card did you use most?", "answer": "SPHERE and LOGY are the most reusable. Accept any card with a reason.", "why": "Look for the idea that a suffix can attach to many roots." }
+      ],
+      "lookFor": "Do not mark invented words wrong outright. Ask: what would it mean, and how would you check? A student who builds hydroscope and reasons 'a tool for looking at water' is doing exactly the intended thinking."
+    },
+    "g35-decode-hydrosphere": {
+      "answers": [
+        { "prompt": "Step 2 prediction", "answer": "Any prediction involving water and a region, layer, or ball shape.", "why": "The prediction is graded on use of the parts, not on being correct yet." },
+        { "prompt": "Step 4 final meaning", "answer": "All of Earth's water — ocean, lakes, rivers, groundwater, ice, and water vapor in the air.", "why": "The passage is the evidence. Students should name more than the ocean." },
+        { "prompt": "Checkboxes", "answer": "Check: the ocean; water vapor in the air; a glacier; water moving through soil. Do not check: rock deep underground.", "why": "Rock is the geosphere. The distractor tests whether students read the passage or only the word parts." },
+        { "prompt": "ACE Extend: hydroelectric", "answer": "Electricity made using moving water. HYDRO is the shared clue.", "why": "" }
+      ],
+      "lookFor": "The target response connects the meaning to a specific sentence in the passage. A student who writes only 'water ball' has used the clue without checking the science."
+    },
+    "g35-decode-atmosphere": {
+      "answers": [
+        { "prompt": "ATMOSPHERE", "answer": "The layer of gases surrounding Earth — the air, including water vapor.", "why": "" },
+        { "prompt": "HYDROSPHERE", "answer": "All of Earth's water.", "why": "" },
+        { "prompt": "GEOSPHERE", "answer": "Earth's rock and soil, at the surface and below.", "why": "" },
+        { "prompt": "BIOSPHERE", "answer": "All the places where living things are found.", "why": "" },
+        { "prompt": "Rain falling on soil — which two systems?", "answer": "The hydrosphere (the rain) and the geosphere (the soil and rock). If the student mentions plant roots, the biosphere is involved too.", "why": "Accept three systems when the student names roots, and treat that as stronger reasoning." },
+        { "prompt": "'The atmosphere and hydrosphere never touch' — why is that wrong?", "answer": "Water vapor from the ocean rises into the atmosphere, condenses into clouds, and falls back as rain. The two systems exchange water constantly.", "why": "The passage supplies the whole causal chain; students should cite it." },
+        { "prompt": "ACE Extend: lithosphere", "answer": "Most like the geosphere. LITH means rock, and GEO also points to Earth's rock.", "why": "" }
+      ],
+      "lookFor": "Level 3 responses use the shared part SPHERE to explain that all four name regions of Earth, and use the first part to explain what makes each region different."
+    },
+    "g35-equation-thermometer": {
+      "answers": [
+        { "prompt": "THERMOMETER science meaning", "answer": "A tool used to measure temperature.", "why": "The clue says 'heat measurer.' The science says temperature. Keep those separate on the board." },
+        { "prompt": "SPEEDOMETER clue and meaning", "answer": "Clue: a speed measurer. Science meaning: a tool that measures how fast something is moving — distance over time.", "why": "" },
+        { "prompt": "Why is 'a heat measurer' not a perfect definition?", "answer": "A thermometer reports temperature, which tells how hot or cold something is. It does not measure the total amount of heat energy in an object.", "why": "This is the central teaching point of the sheet. Grade 3–5 students do not need the full heat-versus-temperature distinction, but they should see that the clue was approximate." },
+        { "prompt": "GEOTHERMAL prediction", "answer": "Heat that comes from inside Earth.", "why": "Sets up the EOY stimulus activity." }
+      ],
+      "lookFor": "Look for students who can state the clue and the science meaning as two different sentences. That is the habit the whole resource is building."
+    },
+    "g35-equation-microscope": {
+      "answers": [
+        { "prompt": "MICROSCOPE", "answer": "Clue: a small-looker. Science meaning: a tool that uses lenses to make very small objects look larger.", "why": "" },
+        { "prompt": "TELESCOPE", "answer": "Clue: a far-looker. Science meaning: a tool that gathers light from distant objects so they can be seen more clearly.", "why": "" },
+        { "prompt": "Odd word out", "answer": "microwave.", "why": "In microwave, MICRO refers to a short wavelength, not to a small oven or small food. The other three all involve smallness." },
+        { "prompt": "What does this teach you?", "answer": "Word parts are clues, not guarantees. You still have to check the meaning against the science.", "why": "Accept any wording that carries the caution." },
+        { "prompt": "ACE Extend: macroscopic", "answer": "No tool needed — you can see it with your eyes.", "why": "" }
+      ],
+      "lookFor": "The odd-word-out item is the point of the page. A student who circles microwave but cannot say why is at level 1."
+    },
+    "g35-detective-photosynthesis": {
+      "answers": [
+        { "prompt": "PHOTOSYNTHESIS — parts", "answer": "PHOTO = light; SYN = together; THESIS = putting or placing.", "why": "" },
+        { "prompt": "PHOTOSYNTHESIS — final meaning", "answer": "The process a plant uses to make its own food using light energy, water, and carbon dioxide, releasing oxygen.", "why": "Grade-band answer: making food using light. Do not require the full equation." },
+        { "prompt": "PHOTOSYNTHESIS — evidence from the passage", "answer": "Plant B had water but no light and grew pale and thin; Plant A had light and grew tall and dark green.", "why": "The evidence isolates light as the changed condition." },
+        { "prompt": "MICROSCOPIC — final meaning", "answer": "Too small to see without a tool such as a microscope.", "why": "" },
+        { "prompt": "Why did Plant B struggle even with water?", "answer": "PHOTO means light. Photosynthesis needs light, so water alone was not enough for the plant to make food.", "why": "The strongest responses name light as the missing condition and tie it to the word part." },
+        { "prompt": "ACE Extend: dim light prediction", "answer": "It would grow better than Plant B but not as well as Plant A, because it gets some light but not full light.", "why": "Accept any prediction that is justified by the pattern in the observations." }
+      ],
+      "lookFor": "Watch for students who revise their first prediction after reading the passage. Revision is the desired behavior, not a mistake."
+    },
+    "g35-sort-vores": {
+      "answers": [
+        { "prompt": "HERBIVORE column", "answer": "grasshopper eating grass; cow eating hay; rabbit eating clover.", "why": "" },
+        { "prompt": "CARNIVORE column", "answer": "snake eating a frog; hawk eating a mouse.", "why": "" },
+        { "prompt": "INSECTIVORE column", "answer": "bat catching moths; anteater eating ants; frog catching flies.", "why": "Insectivores are a kind of carnivore, so students who place these in the carnivore column are not wrong — ask them to explain." },
+        { "prompt": "Which animal in the chain is a herbivore?", "answer": "The grasshopper. HERB means plant, and the grasshopper eats grass.", "why": "" },
+        { "prompt": "Is the frog a carnivore, an insectivore, or both?", "answer": "Both. An insectivore eats insects, and insects are animals, so an insectivore is a kind of carnivore.", "why": "This is the reasoning item on the page. Accept either single label if the explanation is sound; the strongest answer says both and explains the overlap." },
+        { "prompt": "If grasshoppers disappeared?", "answer": "Frogs would have less food, so the frog population would likely fall, and snakes would then have less food too.", "why": "Look for effects moving along the chain, not just one step." },
+        { "prompt": "ACE Extend: omnivore", "answer": "An animal that eats both plants and animals. Students may name bears, raccoons, or people.", "why": "" }
+      ],
+      "lookFor": "The frog item separates level 2 from level 3. A level 3 response explains the overlap between the two categories rather than choosing one."
+    },
+    "g35-mystery-earth-space": {
+      "answers": [
+        { "prompt": "TELESCOPE", "answer": "A tool for looking at things far away.", "why": "Both clues point the same direction, which is why students usually name this one as easiest." },
+        { "prompt": "ASTRONOMY", "answer": "The study of objects in space and how they move.", "why": "-NOMY is not transparent to elementary students. This card usually needs the science line, which is the intended lesson." },
+        { "prompt": "GEOSPHERE", "answer": "Earth's rock and soil, at the surface and far below.", "why": "" },
+        { "prompt": "SUBSOIL", "answer": "The soil layer beneath the topsoil.", "why": "" },
+        { "prompt": "Which needed the science line?", "answer": "Usually ASTRONOMY. The clue ASTRO is strong but -NOMY does not tell a student it means a field of study.", "why": "" },
+        { "prompt": "ACE Extend: subsurface", "answer": "Below the surface — underground.", "why": "" }
+      ],
+      "lookFor": "Ask students to circle the strongest clue before writing. Students who circle a clue and then ignore it in their prediction need a prompt to connect the two."
+    },
+    "g35-exit-boy-check": {
+      "answers": [
+        { "prompt": "MICRO means", "answer": "Small.", "why": "" },
+        { "prompt": "MICROORGANISM probably means", "answer": "A very small living thing — too small to see without a microscope.", "why": "Accept 'a tiny living thing.'" },
+        { "prompt": "What clue did MICRO give you?", "answer": "It told me the organism is small, so I would need a tool to see it.", "why": "" }
+      ],
+      "lookFor": "This is a beginning-of-year recognition check. One clear clue is a successful response at this point in the year."
+    },
+    "g35-exit-moy-connect": {
+      "answers": [
+        { "prompt": "Which word parts help?", "answer": "HYDRO (water) and ATMO (air) — the puddle water moved into the air.", "why": "" },
+        { "prompt": "Explain the observation", "answer": "The Sun's energy caused the puddle water to evaporate into the air. That water vapor rose, cooled, and condensed into the clouds seen later.", "why": "The target answer uses one word part and cites the observation — shrinking puddle, clouds forming." }
+      ],
+      "lookFor": "At MOY the response must connect, not just identify. A student who defines HYDRO correctly but never uses the puddle as evidence is at level 2."
+    },
+    "g35-stimulus-eoy-geothermal": {
+      "answers": [
+        { "prompt": "Step 1: Break it", "answer": "GEO = Earth; THERM = heat; -AL = relating to.", "why": "" },
+        { "prompt": "Step 2: Predict", "answer": "Anything about heat and Earth. 'Earth heat' is a successful prediction at this stage.", "why": "" },
+        { "prompt": "Step 4: Final meaning", "answer": "Heat that comes from inside Earth, which can be used as an energy resource.", "why": "The diagram supplies the mechanism (water heated by hot rock returns to the surface) and the table supplies the pattern (temperature rises with depth)." },
+        { "prompt": "Multiple choice", "answer": "Option A — pump water down to hot rock and bring the heated water back up.", "why": "The table shows 95 °C at 1,500 meters, and the diagram shows water circulating down and back up. Option B relies on the Sun, not Earth's heat; option C is far too shallow to reach hot rock; option D is not an energy plan." },
+        { "prompt": "Evidence for the choice", "answer": "Temperature increases with depth: 18 °C at the surface, 40 °C at 500 m, 95 °C at 1,500 m.", "why": "Require a number or the trend from the table, not just 'it is hot down there.'" },
+        { "prompt": "Step 5: RENEWABLE", "answer": "A resource that is replaced naturally in a short time. Earth's interior heat and moving water both keep being resupplied, so neither runs out the way coal does.", "why": "Accept answers that focus on 'does not run out' if the student explains why." },
+        { "prompt": "ACE Extend: the 20 °C town", "answer": "No. The plan depends on rock that gets much hotter with depth. If every depth is 20 °C, there is no heat source to warm the water.", "why": "This is the transfer item. A level 4 response uses the temperature evidence to rule the plan out rather than repeating the definition." }
+      ],
+      "lookFor": "This sheet is the end-of-year transfer task. The distinguishing behavior is using the table and the diagram together with the word parts. A student who answers from the word parts alone cannot rule out the 20 °C town."
+    }
+  }
+}

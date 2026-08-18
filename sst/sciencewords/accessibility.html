@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Accessibility — Break It, Build It</title>
+<meta name="description" content="Accessibility commitments and known limitations for the Break It, Build It science word-part resource.">
+<link rel="canonical" href="https://mglearn.github.io/activities/sst/sciencewords/accessibility.html">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="accessibility">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="index.html">Break It, Build It<span>Science Word Parts</span></a>
+    <nav aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="activities.html">Activities</a>
+      <a href="word-parts.html">Word Parts</a>
+      <a href="teacher-guide.html">Teacher Guide</a>
+      <a href="standards.html">Standards &amp; SST</a>
+      <a href="../">SST Activities</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <section class="prose" aria-labelledby="h-ax">
+      <h1 class="sec" id="h-ax">Accessibility</h1>
+      <p class="sec-sub">The target is WCAG 2.1 AA. This page records what has been done and what has not.</p>
+
+      <h2>Built in</h2>
+      <ul>
+        <li>Semantic HTML with one <code>h1</code> per page and headings in order.</li>
+        <li>A skip-to-content link, visible on focus.</li>
+        <li>Keyboard operation throughout: the filters are real checkboxes in a real fieldset with a legend, and the search is a labelled input. Nothing needs a mouse.</li>
+        <li>A visible focus ring on every interactive element, in a colour that meets contrast against its background.</li>
+        <li>No meaning carried by colour alone. Prefix, root, and suffix are distinguished by <strong>shape and a printed word</strong> as well as hue, in the browser and on paper.</li>
+        <li>Result counts announced with <code>aria-live</code> when filtering changes them.</li>
+        <li>Touch targets at least 38 pixels tall.</li>
+        <li>Text reflows to a single column on narrow screens; no horizontal scrolling at common widths.</li>
+        <li><code>prefers-reduced-motion</code> is respected.</li>
+        <li>Meaningful images carry alt text; decorative shapes are drawn in CSS and are not announced.</li>
+      </ul>
+
+      <h2>On paper</h2>
+      <ul>
+        <li>Every activity has a black-and-white edition designed for grayscale printing, not merely a colour sheet with the ink removed.</li>
+        <li>Body text on handouts is 12.5pt or larger, with writing lines about a third of an inch tall.</li>
+        <li>No large dark fills or heavy gray backgrounds, which degrade badly on a photocopier.</li>
+      </ul>
+
+      <h2>Known limitations</h2>
+      <ul>
+        <li>Screen-reader testing has been done with keyboard navigation and semantic review, not yet with a full pass in JAWS, NVDA, and VoiceOver.</li>
+        <li>The site is English-first. The architecture keeps content in JSON so translations can be added, but no translated edition exists yet.</li>
+        <li>Handouts are printable HTML rather than tagged PDFs.</li>
+      </ul>
+
+      <h2>Tell us what breaks</h2>
+      <p>If something here is unusable with your assistive technology, that is a defect worth fixing. Report it through the <a href="/activities/about.html">About page</a> for the Learning Activities Hub.</p>
+    </section>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="flinks">
+      <a href="index.html">Home</a>
+      <a href="activities.html">Activities</a>
+      <a href="word-parts.html">Word Parts</a>
+      <a href="teacher-guide.html">Teacher Guide</a>
+      <a href="standards.html">Standards &amp; SST</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="accessibility.html">Accessibility</a>
+      <a href="../">SST Activities</a>
+      <a href="/activities/">All Activities</a>
+    </div>
+    <p class="brandline">Break It, Build It · Science Word Parts</p>
+    <p>For classroom and professional learning use. No logins · no student data · runs in your browser.</p>
+    <p>Content licensed CC BY-NC 4.0 · Code licensed MIT · Miguel Guhlin · Built for Texas educators</p>
+  </div>
+</footer>
+
+<script src="js/data-loader.js" defer></script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+</html>

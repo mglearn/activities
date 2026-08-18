@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Activities — Break It, Build It</title>
+<meta name="description" content="Browse and filter printable science word-part activities by grade band, science area, SST checkpoint, ACE level, and activity type. Colour and black-and-white editions with teacher keys.">
+<link rel="canonical" href="https://mglearn.github.io/activities/sst/sciencewords/activities.html">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="activities">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="index.html">Break It, Build It<span>Science Word Parts</span></a>
+    <nav aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="activities.html" aria-current="page">Activities</a>
+      <a href="word-parts.html">Word Parts</a>
+      <a href="teacher-guide.html">Teacher Guide</a>
+      <a href="standards.html">Standards &amp; SST</a>
+      <a href="../">SST Activities</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <section aria-labelledby="h-lib">
+      <h1 class="sec" id="h-lib">Activity library</h1>
+      <p class="sec-sub">Filter by anything you plan around. The web address updates as you filter, so you can send a colleague a link to exactly the set you are looking at.</p>
+
+      <form class="filters" id="filter-form" role="search" aria-label="Filter activities">
+        <div class="searchrow">
+          <label for="q">Search by word, word part, or science term
+            <input type="search" id="q" name="q" placeholder="try water, micro, food chain, geothermal" autocomplete="off">
+          </label>
+          <button type="button" class="btn alt" id="reset">Reset filters</button>
+        </div>
+
+        <div class="row">
+          <fieldset>
+            <legend>Grade band</legend>
+            <div class="checks">
+              <label><input type="checkbox" name="grade" value="3-5"><span>Grades 3–5</span></label>
+              <label><input type="checkbox" name="grade" value="6-8"><span>Grades 6–8</span></label>
+              <label><input type="checkbox" name="grade" value="9-12"><span>Grades 9–12</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Science area</legend>
+            <div class="checks">
+              <label><input type="checkbox" name="area" value="matter-energy"><span>Matter and Energy</span></label>
+              <label><input type="checkbox" name="area" value="force-motion-energy"><span>Force, Motion, and Energy</span></label>
+              <label><input type="checkbox" name="area" value="earth-space"><span>Earth and Space</span></label>
+              <label><input type="checkbox" name="area" value="organisms-environments"><span>Organisms and Environments</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>SST checkpoint</legend>
+            <div class="checks">
+              <label><input type="checkbox" name="sst" value="boy"><span>BOY</span></label>
+              <label><input type="checkbox" name="sst" value="moy"><span>MOY</span></label>
+              <label><input type="checkbox" name="sst" value="eoy"><span>EOY</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>ACE</legend>
+            <div class="checks">
+              <label><input type="checkbox" name="ace" value="articulate"><span>Articulate</span></label>
+              <label><input type="checkbox" name="ace" value="connect"><span>Connect</span></label>
+              <label><input type="checkbox" name="ace" value="extend"><span>Extend</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Activity type</legend>
+            <div class="checks">
+              <label><input type="checkbox" name="type" value="break"><span>Break It</span></label>
+              <label><input type="checkbox" name="type" value="build"><span>Build It</span></label>
+              <label><input type="checkbox" name="type" value="decode"><span>Decode It</span></label>
+              <label><input type="checkbox" name="type" value="sort"><span>Sort It</span></label>
+              <label><input type="checkbox" name="type" value="detective"><span>Word Detective</span></label>
+              <label><input type="checkbox" name="type" value="mystery"><span>Mystery Word</span></label>
+              <label><input type="checkbox" name="type" value="stimulus"><span>Decode the Stimulus</span></label>
+              <label><input type="checkbox" name="type" value="equation"><span>Word Equation</span></label>
+              <label><input type="checkbox" name="type" value="exit"><span>Exit Ticket</span></label>
+            </div>
+          </fieldset>
+        </div>
+      </form>
+
+      <div class="resultbar">
+        <p class="count" id="result-count" aria-live="polite">—</p>
+        <p><small>Every activity prints in colour and in black and white. Teacher keys are separate sheets.</small></p>
+      </div>
+
+      <ul class="cards" id="activity-list"></ul>
+    </section>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="flinks">
+      <a href="index.html">Home</a>
+      <a href="word-parts.html">Word Parts</a>
+      <a href="teacher-guide.html">Teacher Guide</a>
+      <a href="standards.html">Standards &amp; SST</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="accessibility.html">Accessibility</a>
+      <a href="../">SST Activities</a>
+      <a href="/activities/">All Activities</a>
+    </div>
+    <p class="brandline">Break It, Build It · Science Word Parts</p>
+    <p>Content licensed CC BY-NC 4.0 · Code licensed MIT · Miguel Guhlin · Built for Texas educators</p>
+  </div>
+</footer>
+
+<script src="js/data-loader.js" defer></script>
+<script src="js/filters.js" defer></script>
+<script src="js/app.js" defer></script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+</html>
