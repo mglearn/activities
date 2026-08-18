@@ -179,7 +179,7 @@
       },
       "clues": [
         {"nm": "Suelo", "title": "Suelo", "body": "El suelo es la tierra del piso. Las plantas crecen en él."},
-        {"nm": "Tierra vegetal", "title": "Tierra vegetal", "body": "La tierra vegetal es oscura y llena de alimento para las plantas. Es el mejor suelo para cultivar."},
+        {"nm": "Tierra vegetal", "title": "Tierra vegetal", "body": "La tierra vegetal es oscura y está llena de nutrientes: las partecitas que las plantas necesitan para crecer bien. Es el mejor suelo para cultivar."},
         {"nm": "Arena", "title": "Arena", "body": "La arena es suelo hecho de granitos sueltos. Se siente granulosa y el agua se filtra por ella."},
         {"nm": "Arcilla", "title": "Arcilla", "body": "La arcilla es suelo que es pegajoso cuando está mojado. Se une formando una bola."},
         {"nm": "Colores", "title": "Suelos diferentes", "body": "Los suelos pueden ser de diferentes colores y sentirse lisos, granulosos o pegajosos."},
@@ -191,7 +191,7 @@
          "reason": "Una semilla va en el suelo, las raíces crecen hacia abajo y una planta crece hacia arriba. El suelo ayuda a la planta a crecer."},
         {"title": "Mejor para las plantas", "q": "¿Qué suelo es el mejor para cultivar plantas?",
          "options": ["Arena.", "Tierra vegetal.", "Nada de suelo."],
-         "reason": "La tierra vegetal es oscura y llena de alimento para las plantas, así que es la mejor para cultivar."},
+         "reason": "La tierra vegetal es oscura y guarda los nutrientes que las plantas necesitan, así que es la mejor para cultivar. Las plantas siguen fabricando su propio alimento con la luz del Sol."},
         {"title": "Cómo son diferentes los suelos", "q": "Toca SOLO las formas en que los suelos pueden ser diferentes. Deja fuera el dato divertido.",
          "items": ["Su color.", "Cómo se sienten.", "El tamaño de los granos.", "Un pulpo tiene ocho brazos."],
          "reason": "Los suelos se diferencian en color, textura y tamaño de grano. El dato del pulpo es verdad pero no trata del suelo."},

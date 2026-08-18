@@ -127,7 +127,7 @@ window.MORE = {
   },
   clues: [
    {id:"c1",ico:"☀️",nm:"Sun",title:"The Sun",body:"The Sun is a big light in the sky in the daytime. It is warm and bright."},
-   {id:"c2",ico:"🌙",nm:"Moon",title:"The Moon",body:"The Moon is in the sky, mostly at night. It looks white or silver."},
+   {id:"c2",ico:"🌙",nm:"Moon",title:"The Moon",body:"The Moon looks white or silver. We see it best at night, but sometimes we can spot it in the daytime too."},
    {id:"c3",ico:"⭐",nm:"Stars",title:"Stars",body:"Stars are tiny lights we see in the dark night sky."},
    {id:"c4",ico:"☁️",nm:"Clouds",title:"Clouds",body:"Clouds are white and fluffy. Dark clouds can bring rain."},
    {id:"c5",ico:"👀",nm:"Look Up",title:"We Look Up",body:"We look up to see the Sun, Moon, stars, and clouds."},
@@ -136,7 +136,7 @@ window.MORE = {
   locks: [
    {id:"L1",type:"seq",color:"#0e7490",title:"Day to Night Sky",q:"Put the sky in order, from bright day to dark night. Tap the pads in order.",
     pads:[{k:"stars",e:"⭐ Stars come out (night)",c:"#e11d48"},{k:"sun",e:"☀️ The Sun (day)",c:"#0e7490"},{k:"moon",e:"🌙 The Moon (evening)",c:"#f59e0b"}],
-    answer:["sun","moon","stars"],reason:"The Sun shines in the day, the Moon comes in the evening, and the stars come out at night."},
+    answer:["sun","moon","stars"],reason:"The Sun lights the day. As the sky gets darker we can see the Moon well, then the stars. You can spot the Moon in the daytime too!"},
    {id:"L2",type:"mc",color:"#f59e0b",title:"Rain Maker",q:"What in the sky can bring us rain?",
     options:["The Sun.","Dark clouds.","The stars."],
     answerIndex:1,reason:"Dark clouds can bring rain. The Sun and stars do not make rain."},

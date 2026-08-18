@@ -147,7 +147,7 @@
       },
       "clues": [
         {"nm": "Đất", "title": "Đất", "body": "Đất là lớp bụi bẩn trên mặt đất. Cây cối mọc trong đó."},
-        {"nm": "Đất Mặt", "title": "Đất Mặt", "body": "Đất mặt có màu sẫm và đầy thức ăn cho cây. Nó là loại đất tốt nhất để trồng."},
+        {"nm": "Đất Mặt", "title": "Đất Mặt", "body": "Lớp đất mặt sẫm màu và giàu chất dinh dưỡng — những phần nhỏ mà cây cần để lớn tốt. Đây là loại đất tốt nhất để trồng."},
         {"nm": "Cát", "title": "Cát", "body": "Cát là loại đất gồm những hạt nhỏ, rời. Nó cảm giác sần và nước chảy thẳng qua."},
         {"nm": "Đất Sét", "title": "Đất Sét", "body": "Đất sét là loại đất dính khi ướt. Nó kết lại thành một cục."},
         {"nm": "Màu Sắc", "title": "Các Loại Đất Khác Nhau", "body": "Các loại đất có thể có màu khác nhau và cảm giác trơn, sần, hoặc dính."},
@@ -155,7 +155,7 @@
       ],
       "locks": [
         {"title": "Trồng Một Cây", "q": "Sắp xếp những thứ này theo thứ tự để trồng một cây. Chạm vào các ô theo thứ tự.", "pads": ["🌻 Một cây mọc lên", "🌰 Gieo một hạt giống vào đất", "🌱 Rễ mọc xuống"], "reason": "Một hạt giống vào đất, rễ mọc xuống, và một cây mọc lên. Đất giúp cây mọc."},
-        {"title": "Tốt Nhất Cho Cây", "q": "Loại đất nào tốt nhất để trồng cây?", "options": ["Cát.", "Đất mặt.", "Không có đất gì cả."], "reason": "Đất mặt có màu sẫm và đầy thức ăn cho cây, nên nó tốt nhất để trồng."},
+        {"title": "Tốt Nhất Cho Cây", "q": "Loại đất nào tốt nhất để trồng cây?", "options": ["Cát.", "Đất mặt.", "Không có đất gì cả."], "reason": "Lớp đất mặt sẫm màu và giữ lại các chất dinh dưỡng mà cây cần, nên nó tốt nhất để trồng. Cây vẫn tự tạo ra thức ăn của mình nhờ ánh nắng."},
         {"title": "Các Loại Đất Khác Nhau Ra Sao", "q": "CHỈ chạm vào những cách các loại đất có thể khác nhau. Bỏ qua chuyện vui.", "items": ["Màu của chúng.", "Cảm giác của chúng.", "Kích cỡ của các hạt.", "Bạch tuộc có tám cánh tay."], "reason": "Các loại đất khác nhau về màu, cảm giác, và kích cỡ hạt. Chuyện về bạch tuộc thì đúng nhưng không liên quan đến đất."},
         {"title": "Gọi Tên Nó", "q": "Lớp bụi bẩn trên mặt đất mà cây mọc trong đó được gọi là ____. Gõ từ đó.", "word": ["đất", "dat"], "reason": "Đất là mặt đất nơi cây mọc. Gọi tên nó giúp chúng ta nói về trái đất."}
       ]

@@ -147,14 +147,14 @@
       },
       "clues": [
         {"nm": "Mặt Trời", "title": "Mặt Trời", "body": "Mặt Trời là một ánh sáng lớn trên bầu trời ban ngày. Nó ấm và sáng."},
-        {"nm": "Mặt Trăng", "title": "Mặt Trăng", "body": "Mặt Trăng ở trên bầu trời, chủ yếu ban đêm. Nó trông trắng hoặc bạc."},
+        {"nm": "Mặt Trăng", "title": "Mặt Trăng", "body": "Mặt Trăng trông trắng hoặc bạc. Ta thấy rõ nhất vào ban đêm, nhưng đôi khi ban ngày cũng nhìn thấy được."},
         {"nm": "Ngôi Sao", "title": "Các Ngôi Sao", "body": "Các ngôi sao là những ánh sáng nhỏ chúng ta thấy trên bầu trời đêm tối."},
         {"nm": "Đám Mây", "title": "Những Đám Mây", "body": "Những đám mây trắng và bồng bềnh. Mây tối có thể mang mưa đến."},
         {"nm": "Ngước Lên", "title": "Chúng Ta Ngước Lên", "body": "Chúng ta ngước lên để thấy Mặt Trời, Mặt Trăng, các ngôi sao, và những đám mây."},
         {"nm": "Chuyện Về Rùa", "title": "Một Chuyện Về Rùa", "body": "Con rùa có một cái mai cứng. Điều đó đúng và hay — nhưng nó không ở trên bầu trời."}
       ],
       "locks": [
-        {"title": "Từ Trời Ngày Đến Trời Đêm", "q": "Sắp xếp bầu trời theo thứ tự, từ ngày sáng đến đêm tối. Chạm vào các ô theo thứ tự.", "pads": ["⭐ Các ngôi sao hiện ra (đêm)", "☀️ Mặt Trời (ngày)", "🌙 Mặt Trăng (chiều tối)"], "reason": "Mặt Trời chiếu sáng ban ngày, Mặt Trăng lên vào chiều tối, và các ngôi sao hiện ra ban đêm."},
+        {"title": "Từ Trời Ngày Đến Trời Đêm", "q": "Sắp xếp bầu trời theo thứ tự, từ ngày sáng đến đêm tối. Chạm vào các ô theo thứ tự.", "pads": ["⭐ Các ngôi sao hiện ra (đêm)", "☀️ Mặt Trời (ngày)", "🌙 Mặt Trăng (chiều tối)"], "reason": "Mặt Trời chiếu sáng ban ngày. Khi trời tối dần, ta thấy rõ Mặt Trăng, rồi đến các vì sao. Ban ngày đôi khi cũng thấy Mặt Trăng đấy!"},
         {"title": "Thứ Gây Mưa", "q": "Thứ gì trên bầu trời có thể mang mưa đến cho chúng ta?", "options": ["Mặt Trời.", "Những đám mây tối.", "Các ngôi sao."], "reason": "Những đám mây tối có thể mang mưa đến. Mặt Trời và các ngôi sao không tạo ra mưa."},
         {"title": "Trên Bầu Trời", "q": "Chỉ chạm vào những thứ chúng ta thấy trên bầu trời. Bỏ qua chuyện vui.", "items": ["Mặt Trời.", "Mặt Trăng.", "Những đám mây.", "Con rùa có một cái mai cứng."], "reason": "Mặt Trời, Mặt Trăng, và những đám mây đều ở trên bầu trời. Chuyện về rùa thì đúng nhưng không ở trên bầu trời."},
         {"title": "Gọi Tên Nó", "q": "Những thứ trắng, bồng bềnh trên bầu trời có thể mang mưa đến là ____. Gõ từ đó.", "word": ["mây", "những đám mây", "đám mây", "may", "dam may"], "reason": "Những đám mây là thứ bồng bềnh trên trời. Mây tối có thể mang mưa đến."}

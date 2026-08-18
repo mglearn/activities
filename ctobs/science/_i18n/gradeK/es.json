@@ -179,7 +179,7 @@
       },
       "clues": [
         {"nm": "Sol", "title": "El Sol", "body": "El Sol es una gran luz en el cielo durante el día. Es cálido y brillante."},
-        {"nm": "Luna", "title": "La Luna", "body": "La Luna está en el cielo, casi siempre de noche. Se ve blanca o plateada."},
+        {"nm": "Luna", "title": "La Luna", "body": "La Luna se ve blanca o plateada. La vemos mejor de noche, pero a veces también podemos verla de día."},
         {"nm": "Estrellas", "title": "Estrellas", "body": "Las estrellas son lucecitas que vemos en el cielo oscuro de la noche."},
         {"nm": "Nubes", "title": "Nubes", "body": "Las nubes son blancas y esponjosas. Las nubes oscuras pueden traer lluvia."},
         {"nm": "Mira arriba", "title": "Miramos arriba", "body": "Miramos hacia arriba para ver el Sol, la Luna, las estrellas y las nubes."},
@@ -188,7 +188,7 @@
       "locks": [
         {"title": "Del cielo de día al de noche", "q": "Pon el cielo en orden, del día brillante a la noche oscura. Toca los botones en orden.",
           "pads": ["⭐ Salen las estrellas (noche)", "☀️ El Sol (día)", "🌙 La Luna (tarde)"],
-          "reason": "El Sol brilla de día, la Luna llega en la tarde y las estrellas salen de noche."},
+          "reason": "El Sol ilumina el día. Cuando el cielo se oscurece vemos bien la Luna, y luego las estrellas. ¡A veces también puedes ver la Luna de día!"},
         {"title": "Hace lluvia", "q": "¿Qué en el cielo puede traernos lluvia?",
           "options": ["El Sol.", "Las nubes oscuras.", "Las estrellas."],
           "reason": "Las nubes oscuras pueden traer lluvia. El Sol y las estrellas no hacen lluvia."},

@@ -127,7 +127,7 @@ window.MORE = {
   },
   clues: [
    {id:"c1",ico:"🟤",nm:"Soil",title:"Soil",body:"Soil is the dirt on the ground. Plants grow in it."},
-   {id:"c2",ico:"🌱",nm:"Topsoil",title:"Topsoil",body:"Topsoil is dark and full of food for plants. It is the best soil for growing."},
+   {id:"c2",ico:"🌱",nm:"Topsoil",title:"Topsoil",body:"Topsoil is dark and full of nutrients — the tiny bits plants need to grow well. It is the best soil for growing."},
    {id:"c3",ico:"🏖️",nm:"Sand",title:"Sand",body:"Sand is soil made of tiny, loose grains. It feels grainy and water runs right through it."},
    {id:"c4",ico:"🧱",nm:"Clay",title:"Clay",body:"Clay is soil that is sticky when wet. It holds together in a ball."},
    {id:"c5",ico:"🎨",nm:"Colors",title:"Different Soils",body:"Soils can be different colors and can feel smooth, grainy, or sticky."},
@@ -139,7 +139,7 @@ window.MORE = {
     answer:["seed","roots","plant"],reason:"A seed goes in the soil, roots grow down, and a plant grows up. Soil helps a plant grow."},
    {id:"L2",type:"mc",color:"#2f8f7f",title:"Best for Plants",q:"Which soil is the best for growing plants?",
     options:["Sand.","Topsoil.","No soil at all."],
-    answerIndex:1,reason:"Topsoil is dark and full of food for plants, so it is best for growing."},
+    answerIndex:1,reason:"Topsoil is dark and holds the nutrients plants need, so it is best for growing. Plants still make their own food using sunlight."},
    {id:"L3",type:"multi",color:"#2f6fe0",title:"How Soils Are Different",q:"Tap ONLY the ways soils can be different. Leave out the fun fact.",
     items:[{t:"Their color.",strong:true},{t:"How they feel.",strong:true},{t:"The size of the grains.",strong:true},{t:"An octopus has eight arms.",strong:false}],
     reason:"Soils differ in color, feel, and grain size. The octopus fact is true but is not about soil."},
