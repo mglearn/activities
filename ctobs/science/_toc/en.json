@@ -47,5 +47,11 @@
   "card.safety.g": "Grades 6–12 · Nine certification activities",
   "card.safety.h2": "Lab Safety Certification",
   "card.safety.p": "Practice rules of the room, PPE, emergency equipment, hazard symbols, Safety Data Sheets, GHS pictograms, chemical compatibility, and procedure critique. Pass the mastery checks to earn a printable <b>Ranger or Specialist badge</b>.",
-  "card.safety.go": "Start Lab Safety Certification →"
+  "card.safety.go": "Start Lab Safety Certification →",
+  "group.sst": "📝 SST Preparation · Grades 3–5",
+  "card.sst.g": "Grades 3–5 · 28 paired entry and exit tickets",
+  "card.sst.h2": "ACE the SST — Elementary Science",
+  "card.sst.p": "Short prompts that ask students to <b>Articulate</b>, <b>Connect</b>, and <b>Extend</b> their science thinking, across all four strands of the draft SST elementary science blueprint. Filter by grade and strand, flip between student and teacher views, and score the answer with a SOLO guide that names the next instructional move.",
+  "card.sst.go": "Open ACE the SST →",
+  "card.sst.more": "All SST activities →"
 }

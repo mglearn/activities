@@ -47,5 +47,11 @@
   "card.safety.g": "Grados 6–12 · Nueve actividades de certificación",
   "card.safety.h2": "Certificación de Seguridad de Laboratorio",
   "card.safety.p": "Practica las reglas del laboratorio, el EPP, el equipo de emergencia, los símbolos de peligro, las Hojas de Datos de Seguridad, los pictogramas GHS, la compatibilidad química y la evaluación de procedimientos. Supera las pruebas de dominio para obtener una <b>insignia imprimible de Guardabosques o Especialista</b>.",
-  "card.safety.go": "Comenzar la Certificación de Seguridad →"
+  "card.safety.go": "Comenzar la Certificación de Seguridad →",
+  "group.sst": "📝 Preparación para el SST · Grados 3–5",
+  "card.sst.g": "Grados 3–5 · 28 boletos de entrada y salida emparejados",
+  "card.sst.h2": "ACE the SST — Ciencias de Primaria",
+  "card.sst.p": "Preguntas breves que piden a los estudiantes <b>Articular</b>, <b>Conectar</b> y <b>Ampliar</b> su pensamiento científico, en los cuatro ejes del borrador del plan de ciencias de primaria del SST. Filtra por grado y eje, alterna entre la vista del estudiante y la del docente, y califica la respuesta con una guía SOLO que indica el siguiente paso de la enseñanza.",
+  "card.sst.go": "Abrir ACE the SST →",
+  "card.sst.more": "Todas las actividades del SST →"
 }
