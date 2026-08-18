@@ -72,6 +72,9 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .hero .sub { font-size: clamp(1.1rem, 2.4vw, 1.5rem); font-weight: 700; color: var(--teal-dark); margin: 0 0 14px; }
 .hero .tagline { font-weight: 700; color: var(--ink); margin: 0 0 12px; }
 .hero p.lede { max-width: 62ch; color: var(--ink-soft); margin: 0 0 20px; }
+.hero-art { max-width: 720px; margin: 0 0 20px; border: 2px solid var(--line); border-radius: 18px;
+  overflow: hidden; background: #fff; box-shadow: var(--shadow); }
+.hero-art img { display: block; width: 100%; height: auto; }
 
 .btnrow { display: flex; flex-wrap: wrap; gap: 10px; }
 .btn {

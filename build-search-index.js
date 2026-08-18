@@ -60,6 +60,8 @@ const SKIP_DIR = new Set([
   "es", "vi", "ar", "hi", "ur", "zh",   // translated mirrors — the hub search is English
   "assets", "_catalog", "node_modules", ".git",
   "printables",                         // print packs; the parent activity is indexed
+  "print",                              // generated handouts; the activity card covers them
+  "teacher-keys",                       // answer keys — these must never reach hub search
 ]);
 // Teacher scaffolding and build output, not activities.
 const SKIP_FILE = /answer-key|correlation|policy|manifest/i;
@@ -252,12 +254,45 @@ if (hem?.maps) {
   console.log(`  eventmaps/        ${hem.maps.length} maps from assets/data.js`);
 }
 
+// 2c. SST Activities. Both sets render their content from data at runtime —
+//     ACE the SST from an inline ticket array, Break It, Build It from
+//     data/*.json — so the words a teacher would search for ("photosynthesis",
+//     "herbivore", "morpheme", a TEKS code) are nowhere in the HTML the body
+//     pass reads. Take them from the data, the same way the catalogs above are
+//     read. teacher-keys.json is deliberately not among them: answers do not
+//     belong in a public search index.
+{
+  const ace = fs.readFileSync(path.join(ROOT, "sst/acesst/index.html"), "utf8");
+  const m = ace.match(/const tickets=(\[[\s\S]*?\]);/);
+  if (m) {
+    const tickets = JSON.parse(m[1]);
+    for (const t of tickets) add("sst/", t.title, t.strand, t.stimulus, "TEKS " + t.teks);
+    console.log(`  sst/ (ace)        ${tickets.length} tickets from the inline data`);
+  }
+  const readJSON = (rel) => {
+    const fp = path.join(ROOT, rel);
+    return fs.existsSync(fp) ? JSON.parse(fs.readFileSync(fp, "utf8")) : null;
+  };
+  const morph = readJSON("sst/sciencewords/data/morphemes.json");
+  for (const w of morph?.morphemes || []) {
+    add("sst/", w.display, w.meaning, w.studentNote, (w.examples || []).join(" "));
+  }
+  const terms = readJSON("sst/sciencewords/data/science-terms.json");
+  for (const t of terms?.terms || []) {
+    add("sst/", t.term, t.wordPartClue, t.studentDefinition);
+  }
+  const acts = readJSON("sst/sciencewords/data/activities.json");
+  for (const a of acts?.activities || []) add("sst/", a.title, a.description);
+  console.log(`  sst/ (words)      ${(morph?.morphemes || []).length} word parts, ` +
+    `${(terms?.terms || []).length} terms, ${(acts?.activities || []).length} activities`);
+}
+
 // 3. Everything else, harvested from the pages themselves.
 const wordBags = {};
 for (const dir of [
   "plotpoint", "sayitmakeit", "pst", "relic-rooms",
   "digcit", "genailit", "lab-safety", "digitalmathtools",
-  "eventmaps",
+  "eventmaps", "sst",
 ]) {
   const { phrases, words, pages } = harvestArea(dir);
   add(`${dir}/`, ...phrases);
