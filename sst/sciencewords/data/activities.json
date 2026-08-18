@@ -10,29 +10,104 @@
       "activityType": "break",
       "sstCheckpoint": "boy",
       "ace": "articulate",
-      "morphemes": ["bio", "logy", "geo", "eco"],
-      "terms": ["biology", "geology", "ecology"],
+      "morphemes": [
+        "bio",
+        "logy",
+        "geo",
+        "eco"
+      ],
+      "terms": [
+        "biology",
+        "geology",
+        "ecology"
+      ],
       "estimatedMinutes": 10,
-      "formats": ["color", "bw"],
+      "formats": [
+        "color",
+        "bw"
+      ],
       "teks": [],
       "ngss": [],
       "description": "Students break three -LOGY words into parts, record what each part means, and explain why the three fields of study are different.",
       "blocks": [
-        { "type": "instructions", "text": "Every word below ends with the same word part. Break each word apart, write what each piece means, and then say what the whole word means in your own words." },
-        { "type": "wordparts", "caption": "Word parts you will need", "items": [
-          { "display": "BIO", "role": "root", "meaning": "life" },
-          { "display": "GEO", "role": "root", "meaning": "Earth" },
-          { "display": "ECO", "role": "root", "meaning": "home, surroundings" },
-          { "display": "LOGY", "role": "suffix", "meaning": "the study of" }
-        ] },
-        { "type": "breaktable", "caption": "Break the word", "rows": [
-          { "word": "BIOLOGY", "split": ["BIO", "LOGY"] },
-          { "word": "GEOLOGY", "split": ["GEO", "LOGY"] },
-          { "word": "ECOLOGY", "split": ["ECO", "LOGY"] }
-        ], "columns": ["First part means", "Last part means", "The whole word means"] },
-        { "type": "lines", "label": "All three words end in LOGY. What does that tell you about all three?", "count": 2 },
-        { "type": "lines", "label": "A scientist studies how a drought changes which animals stay in a prairie. Which of the three words names that work? How do you know?", "count": 3 },
-        { "type": "ace", "a": "Say what LOGY means in your own words.", "c": "Explain how the first word part changes what is being studied.", "e": "Name one more word you know that ends in LOGY. What do you think it studies?" }
+        {
+          "type": "instructions",
+          "text": "Every word below ends with the same word part. Break each word apart, write what each piece means, and then say what the whole word means in your own words."
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "BIO",
+              "role": "root",
+              "meaning": "life"
+            },
+            {
+              "display": "GEO",
+              "role": "root",
+              "meaning": "Earth"
+            },
+            {
+              "display": "ECO",
+              "role": "root",
+              "meaning": "home, surroundings"
+            },
+            {
+              "display": "LOGY",
+              "role": "suffix",
+              "meaning": "the study of"
+            }
+          ]
+        },
+        {
+          "type": "breaktable",
+          "caption": "Break the word",
+          "rows": [
+            {
+              "word": "BIOLOGY",
+              "split": [
+                "BIO",
+                "LOGY"
+              ]
+            },
+            {
+              "word": "GEOLOGY",
+              "split": [
+                "GEO",
+                "LOGY"
+              ]
+            },
+            {
+              "word": "ECOLOGY",
+              "split": [
+                "ECO",
+                "LOGY"
+              ]
+            }
+          ],
+          "columns": [
+            "First part means",
+            "Last part means",
+            "The whole word means"
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "All three words end in LOGY. What does that tell you about all three?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "A scientist studies how a drought changes which animals stay in a prairie. Which of the three words names that work? How do you know?",
+          "count": 3
+        },
+        {
+          "type": "ace",
+          "a": "Say what LOGY means in your own words.",
+          "c": "Explain how the first word part changes what is being studied.",
+          "e": "Name one more word you know that ends in LOGY. What do you think it studies?"
+        }
       ]
     },
     {
@@ -43,31 +118,123 @@
       "activityType": "build",
       "sstCheckpoint": "boy",
       "ace": "articulate",
-      "morphemes": ["bio", "geo", "hydro", "therm", "micro", "tele", "logy", "sphere", "meter", "scope"],
-      "terms": ["biology", "geology", "hydrosphere", "thermometer", "microscope", "telescope", "biosphere", "geosphere"],
+      "morphemes": [
+        "bio",
+        "geo",
+        "hydro",
+        "therm",
+        "micro",
+        "tele",
+        "logy",
+        "sphere",
+        "meter",
+        "scope"
+      ],
+      "terms": [
+        "biology",
+        "geology",
+        "hydrosphere",
+        "thermometer",
+        "microscope",
+        "telescope",
+        "biosphere",
+        "geosphere"
+      ],
       "estimatedMinutes": 15,
-      "formats": ["color", "bw"],
+      "formats": [
+        "color",
+        "bw"
+      ],
       "teks": [],
       "ngss": [],
       "description": "Students cut apart ten word-part cards, combine them into real science terms, and record the science meaning of each term they build.",
       "blocks": [
-        { "type": "instructions", "text": "Cut out the ten cards below. Put a first-part card next to a last-part card to build a real science word. Write down every real word you can build, then write what it means." },
-        { "type": "cards", "caption": "Cut apart these cards", "columns": 5, "items": [
-          { "display": "BIO", "role": "root", "meaning": "life" },
-          { "display": "GEO", "role": "root", "meaning": "Earth" },
-          { "display": "HYDRO", "role": "root", "meaning": "water" },
-          { "display": "THERM", "role": "root", "meaning": "heat" },
-          { "display": "MICRO", "role": "prefix", "meaning": "small" },
-          { "display": "TELE", "role": "root", "meaning": "far off" },
-          { "display": "LOGY", "role": "suffix", "meaning": "the study of" },
-          { "display": "SPHERE", "role": "suffix", "meaning": "region, layer" },
-          { "display": "METER", "role": "suffix", "meaning": "measure" },
-          { "display": "SCOPE", "role": "suffix", "meaning": "look at" }
-        ] },
-        { "type": "table", "caption": "Words I built", "columns": ["Word I built", "Parts I used", "What it means"], "rows": 6 },
-        { "type": "note", "text": "Careful: some pairs make a word that sounds real but is not used in science. If you are not sure, mark it with a ? and check it." },
-        { "type": "lines", "label": "Which card did you use the most? Why is it useful in so many science words?", "count": 2 },
-        { "type": "ace", "a": "Read one word you built and say what each part means.", "c": "Pick one word you built and explain how the two parts fit the science meaning.", "e": "Build one word you have never seen before. Predict what it might mean, then check it." }
+        {
+          "type": "instructions",
+          "text": "Cut out the ten cards below. Put a first-part card next to a last-part card to build a real science word. Write down every real word you can build, then write what it means."
+        },
+        {
+          "type": "cards",
+          "caption": "Cut apart these cards",
+          "columns": 5,
+          "items": [
+            {
+              "display": "BIO",
+              "role": "root",
+              "meaning": "life"
+            },
+            {
+              "display": "GEO",
+              "role": "root",
+              "meaning": "Earth"
+            },
+            {
+              "display": "HYDRO",
+              "role": "root",
+              "meaning": "water"
+            },
+            {
+              "display": "THERM",
+              "role": "root",
+              "meaning": "heat"
+            },
+            {
+              "display": "MICRO",
+              "role": "prefix",
+              "meaning": "small"
+            },
+            {
+              "display": "TELE",
+              "role": "root",
+              "meaning": "far off"
+            },
+            {
+              "display": "LOGY",
+              "role": "suffix",
+              "meaning": "the study of"
+            },
+            {
+              "display": "SPHERE",
+              "role": "suffix",
+              "meaning": "region, layer"
+            },
+            {
+              "display": "METER",
+              "role": "suffix",
+              "meaning": "measure"
+            },
+            {
+              "display": "SCOPE",
+              "role": "suffix",
+              "meaning": "look at"
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "caption": "Words I built",
+          "columns": [
+            "Word I built",
+            "Parts I used",
+            "What it means"
+          ],
+          "rows": 6
+        },
+        {
+          "type": "note",
+          "text": "Careful: some pairs make a word that sounds real but is not used in science. If you are not sure, mark it with a ? and check it."
+        },
+        {
+          "type": "lines",
+          "label": "Which card did you use the most? Why is it useful in so many science words?",
+          "count": 2
+        },
+        {
+          "type": "ace",
+          "a": "Read one word you built and say what each part means.",
+          "c": "Pick one word you built and explain how the two parts fit the science meaning.",
+          "e": "Build one word you have never seen before. Predict what it might mean, then check it."
+        }
       ]
     },
     {
@@ -78,25 +245,83 @@
       "activityType": "decode",
       "sstCheckpoint": "boy",
       "ace": "articulate",
-      "morphemes": ["hydro", "sphere"],
-      "terms": ["hydrosphere"],
+      "morphemes": [
+        "hydro",
+        "sphere"
+      ],
+      "terms": [
+        "hydrosphere"
+      ],
       "estimatedMinutes": 10,
-      "formats": ["color", "bw"],
+      "formats": [
+        "color",
+        "bw"
+      ],
       "teks": [],
       "ngss": [],
       "description": "Students use HYDRO and SPHERE to predict the meaning of hydrosphere, then check the prediction against a short science passage and revise if needed.",
       "blocks": [
-        { "type": "instructions", "text": "You may not know this word yet. Use the word parts to make a prediction, then read the science and decide whether your prediction still works." },
-        { "type": "bigword", "word": "HYDROSPHERE", "split": ["HYDRO", "SPHERE"] },
-        { "type": "wordparts", "caption": "Step 1: Break it", "items": [
-          { "display": "HYDRO", "role": "root", "meaning": "water" },
-          { "display": "SPHERE", "role": "suffix", "meaning": "region, layer" }
-        ] },
-        { "type": "lines", "label": "Step 2: Predict. What do you think HYDROSPHERE means?", "count": 2 },
-        { "type": "stimulus", "kind": "passage", "title": "Step 3: Check the science", "text": "Earth's water is not only in the ocean. Water sits in lakes and rivers, moves underground through soil and rock, freezes into glaciers and ice caps, and floats in the air as water vapor. Scientists group all of this water together and call it the hydrosphere." },
-        { "type": "lines", "label": "Step 4: Explain. Was your prediction close? Write the meaning of HYDROSPHERE using the passage.", "count": 3 },
-        { "type": "checkboxes", "label": "Which of these are part of the hydrosphere? Check all that the passage supports.", "items": ["The ocean", "Water vapor in the air", "A glacier", "Rock deep underground", "Water moving through soil"] },
-        { "type": "ace", "a": "What does HYDRO tell you?", "c": "Which sentence in the passage best supports your meaning?", "e": "What might HYDROELECTRIC mean? Which part gave you the clue?" }
+        {
+          "type": "instructions",
+          "text": "You may not know this word yet. Use the word parts to make a prediction, then read the science and decide whether your prediction still works."
+        },
+        {
+          "type": "bigword",
+          "word": "HYDROSPHERE",
+          "split": [
+            "HYDRO",
+            "SPHERE"
+          ]
+        },
+        {
+          "type": "wordparts",
+          "caption": "Step 1: Break it",
+          "items": [
+            {
+              "display": "HYDRO",
+              "role": "root",
+              "meaning": "water"
+            },
+            {
+              "display": "SPHERE",
+              "role": "suffix",
+              "meaning": "region, layer"
+            }
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Step 2: Predict. What do you think HYDROSPHERE means?",
+          "count": 2
+        },
+        {
+          "type": "stimulus",
+          "kind": "passage",
+          "title": "Step 3: Check the science",
+          "text": "Earth's water is not only in the ocean. Water sits in lakes and rivers, moves underground through soil and rock, freezes into glaciers and ice caps, and floats in the air as water vapor. Scientists group all of this water together and call it the hydrosphere."
+        },
+        {
+          "type": "lines",
+          "label": "Step 4: Explain. Was your prediction close? Write the meaning of HYDROSPHERE using the passage.",
+          "count": 3
+        },
+        {
+          "type": "checkboxes",
+          "label": "Which of these are part of the hydrosphere? Check all that the passage supports.",
+          "items": [
+            "The ocean",
+            "Water vapor in the air",
+            "A glacier",
+            "Rock deep underground",
+            "Water moving through soil"
+          ]
+        },
+        {
+          "type": "ace",
+          "a": "What does HYDRO tell you?",
+          "c": "Which sentence in the passage best supports your meaning?",
+          "e": "What might HYDROELECTRIC mean? Which part gave you the clue?"
+        }
       ]
     },
     {
@@ -107,27 +332,101 @@
       "activityType": "decode",
       "sstCheckpoint": "moy",
       "ace": "connect",
-      "morphemes": ["atmo", "sphere", "hydro", "geo", "bio"],
-      "terms": ["atmosphere", "hydrosphere", "geosphere", "biosphere"],
+      "morphemes": [
+        "atmo",
+        "sphere",
+        "hydro",
+        "geo",
+        "bio"
+      ],
+      "terms": [
+        "atmosphere",
+        "hydrosphere",
+        "geosphere",
+        "biosphere"
+      ],
       "estimatedMinutes": 15,
-      "formats": ["color", "bw"],
+      "formats": [
+        "color",
+        "bw"
+      ],
       "teks": [],
       "ngss": [],
       "description": "Students decode atmosphere, then use the shared word part SPHERE to sort four of Earth's major systems and explain how one observation involves two of them.",
       "blocks": [
-        { "type": "instructions", "text": "Four science words share the same last part. Use that shared part, plus the first part of each word, to work out what each one names." },
-        { "type": "wordparts", "caption": "Word parts", "items": [
-          { "display": "ATMO", "role": "root", "meaning": "vapor, air" },
-          { "display": "HYDRO", "role": "root", "meaning": "water" },
-          { "display": "GEO", "role": "root", "meaning": "Earth, rock" },
-          { "display": "BIO", "role": "root", "meaning": "life" },
-          { "display": "SPHERE", "role": "suffix", "meaning": "region, layer" }
-        ] },
-        { "type": "table", "caption": "What does each system hold?", "columns": ["Word", "My prediction", "What it really includes"], "rows": 0, "prefill": ["ATMOSPHERE", "HYDROSPHERE", "GEOSPHERE", "BIOSPHERE"] },
-        { "type": "stimulus", "kind": "passage", "title": "Read the science", "text": "Earth's systems are separated for study, but they touch each other constantly. The atmosphere is the layer of gases held around Earth by gravity. Warm air rising off the ocean carries water vapor upward. The vapor cools, condenses into clouds, and later falls as rain onto soil and rock, where plant roots take it in." },
-        { "type": "lines", "label": "The passage describes rain falling on soil. Which two systems is that? Explain how you decided.", "count": 3 },
-        { "type": "lines", "label": "A student says the atmosphere and the hydrosphere never touch. Use the passage to explain why that is not correct.", "count": 3 },
-        { "type": "ace", "a": "Say what SPHERE tells you in all four words.", "c": "Explain how the first part of each word changes which system it names.", "e": "A LITHOSPHERE is another Earth system. LITH means rock. Which system you already know is it most like?" }
+        {
+          "type": "instructions",
+          "text": "Four science words share the same last part. Use that shared part, plus the first part of each word, to work out what each one names."
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts",
+          "items": [
+            {
+              "display": "ATMO",
+              "role": "root",
+              "meaning": "vapor, air"
+            },
+            {
+              "display": "HYDRO",
+              "role": "root",
+              "meaning": "water"
+            },
+            {
+              "display": "GEO",
+              "role": "root",
+              "meaning": "Earth, rock"
+            },
+            {
+              "display": "BIO",
+              "role": "root",
+              "meaning": "life"
+            },
+            {
+              "display": "SPHERE",
+              "role": "suffix",
+              "meaning": "region, layer"
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "caption": "What does each system hold?",
+          "columns": [
+            "Word",
+            "My prediction",
+            "What it really includes"
+          ],
+          "rows": 0,
+          "prefill": [
+            "ATMOSPHERE",
+            "HYDROSPHERE",
+            "GEOSPHERE",
+            "BIOSPHERE"
+          ]
+        },
+        {
+          "type": "stimulus",
+          "kind": "passage",
+          "title": "Read the science",
+          "text": "Earth's systems are separated for study, but they touch each other constantly. The atmosphere is the layer of gases held around Earth by gravity. Warm air rising off the ocean carries water vapor upward. The vapor cools, condenses into clouds, and later falls as rain onto soil and rock, where plant roots take it in."
+        },
+        {
+          "type": "lines",
+          "label": "The passage describes rain falling on soil. Which two systems is that? Explain how you decided.",
+          "count": 3
+        },
+        {
+          "type": "lines",
+          "label": "A student says the atmosphere and the hydrosphere never touch. Use the passage to explain why that is not correct.",
+          "count": 3
+        },
+        {
+          "type": "ace",
+          "a": "Say what SPHERE tells you in all four words.",
+          "c": "Explain how the first part of each word changes which system it names.",
+          "e": "A LITHOSPHERE is another Earth system. LITH means rock. Which system you already know is it most like?"
+        }
       ]
     },
     {
@@ -138,21 +437,80 @@
       "activityType": "equation",
       "sstCheckpoint": "boy",
       "ace": "articulate",
-      "morphemes": ["therm", "meter"],
-      "terms": ["thermometer", "speedometer", "geothermal"],
+      "morphemes": [
+        "therm",
+        "meter"
+      ],
+      "terms": [
+        "thermometer",
+        "speedometer",
+        "geothermal"
+      ],
       "estimatedMinutes": 10,
-      "formats": ["color", "bw"],
+      "formats": [
+        "color",
+        "bw"
+      ],
       "teks": [],
       "ngss": [],
       "description": "Students complete word equations for thermometer and speedometer, then separate the word-part clue from the full science meaning.",
       "blocks": [
-        { "type": "instructions", "text": "A word equation shows the pieces adding up to a whole word. Fill in the missing pieces. Then write the science meaning — it is usually more than just the two parts added together." },
-        { "type": "equation", "parts": ["THERM", "METER"], "meanings": ["heat", "measure"], "result": "THERMOMETER", "clueLabel": "Word-part clue", "clue": "a heat measurer", "scienceLabel": "Science meaning", "science": "" },
-        { "type": "equation", "parts": ["SPEED", "METER"], "meanings": ["how fast", "measure"], "result": "SPEEDOMETER", "clueLabel": "Word-part clue", "clue": "", "scienceLabel": "Science meaning", "science": "" },
-        { "type": "note", "text": "The word-part clue and the science meaning are not the same thing. A thermometer does not measure heat itself — it measures temperature. The clue got you close. The science makes it exact." },
-        { "type": "lines", "label": "Look at the note above. Why is \"a heat measurer\" a good clue but not a perfect definition?", "count": 3 },
-        { "type": "lines", "label": "GEOTHERMAL uses THERM too. GEO means Earth. What do you predict GEOTHERMAL means?", "count": 2 },
-        { "type": "ace", "a": "What does METER tell you at the end of a word?", "c": "How does THERM fit what a thermometer actually does?", "e": "Invent a measuring tool. Name it with METER and explain what it would measure." }
+        {
+          "type": "instructions",
+          "text": "A word equation shows the pieces adding up to a whole word. Fill in the missing pieces. Then write the science meaning — it is usually more than just the two parts added together."
+        },
+        {
+          "type": "equation",
+          "parts": [
+            "THERM",
+            "METER"
+          ],
+          "meanings": [
+            "heat",
+            "measure"
+          ],
+          "result": "THERMOMETER",
+          "clueLabel": "Word-part clue",
+          "clue": "a heat measurer",
+          "scienceLabel": "Science meaning",
+          "science": ""
+        },
+        {
+          "type": "equation",
+          "parts": [
+            "SPEED",
+            "METER"
+          ],
+          "meanings": [
+            "how fast",
+            "measure"
+          ],
+          "result": "SPEEDOMETER",
+          "clueLabel": "Word-part clue",
+          "clue": "",
+          "scienceLabel": "Science meaning",
+          "science": ""
+        },
+        {
+          "type": "note",
+          "text": "The word-part clue and the science meaning are not the same thing. A thermometer does not measure heat itself — it measures temperature. The clue got you close. The science makes it exact."
+        },
+        {
+          "type": "lines",
+          "label": "Look at the note above. Why is \"a heat measurer\" a good clue but not a perfect definition?",
+          "count": 3
+        },
+        {
+          "type": "lines",
+          "label": "GEOTHERMAL uses THERM too. GEO means Earth. What do you predict GEOTHERMAL means?",
+          "count": 2
+        },
+        {
+          "type": "ace",
+          "a": "What does METER tell you at the end of a word?",
+          "c": "How does THERM fit what a thermometer actually does?",
+          "e": "Invent a measuring tool. Name it with METER and explain what it would measure."
+        }
       ]
     },
     {
@@ -163,21 +521,90 @@
       "activityType": "equation",
       "sstCheckpoint": "boy",
       "ace": "articulate",
-      "morphemes": ["micro", "macro", "scope", "tele"],
-      "terms": ["microscope", "telescope", "microscopic", "macroscopic", "microorganism"],
+      "morphemes": [
+        "micro",
+        "macro",
+        "scope",
+        "tele"
+      ],
+      "terms": [
+        "microscope",
+        "telescope",
+        "microscopic",
+        "macroscopic",
+        "microorganism"
+      ],
       "estimatedMinutes": 10,
-      "formats": ["color", "bw"],
+      "formats": [
+        "color",
+        "bw"
+      ],
       "teks": [],
       "ngss": [],
       "description": "Students build microscope and telescope from parts, then meet a word where MICRO does not mean what they expect — teaching that word parts are clues, not guarantees.",
       "blocks": [
-        { "type": "instructions", "text": "Complete each word equation. Then look carefully at the last section: one word does not follow the pattern." },
-        { "type": "equation", "parts": ["MICRO", "SCOPE"], "meanings": ["small", "look at"], "result": "MICROSCOPE", "clueLabel": "Word-part clue", "clue": "", "scienceLabel": "Science meaning", "science": "" },
-        { "type": "equation", "parts": ["TELE", "SCOPE"], "meanings": ["far off", "look at"], "result": "TELESCOPE", "clueLabel": "Word-part clue", "clue": "", "scienceLabel": "Science meaning", "science": "" },
-        { "type": "oddoneout", "caption": "Odd word out", "prompt": "Three of these words use MICRO to mean small. One is different. Circle the one that is different.", "items": ["microscope", "microorganism", "microscopic", "microwave"] },
-        { "type": "lines", "label": "Why is that word different? What does this teach you about using word parts?", "count": 3 },
-        { "type": "note", "text": "Word parts give you clues. They do not give you guarantees. A good scientist checks the clue against the science." },
-        { "type": "ace", "a": "What do MICRO and MACRO mean?", "c": "Explain why a microscope and a telescope share the part SCOPE even though they look at very different things.", "e": "Something is described as MACROSCOPIC. Do you need a tool to see it? Explain." }
+        {
+          "type": "instructions",
+          "text": "Complete each word equation. Then look carefully at the last section: one word does not follow the pattern."
+        },
+        {
+          "type": "equation",
+          "parts": [
+            "MICRO",
+            "SCOPE"
+          ],
+          "meanings": [
+            "small",
+            "look at"
+          ],
+          "result": "MICROSCOPE",
+          "clueLabel": "Word-part clue",
+          "clue": "",
+          "scienceLabel": "Science meaning",
+          "science": ""
+        },
+        {
+          "type": "equation",
+          "parts": [
+            "TELE",
+            "SCOPE"
+          ],
+          "meanings": [
+            "far off",
+            "look at"
+          ],
+          "result": "TELESCOPE",
+          "clueLabel": "Word-part clue",
+          "clue": "",
+          "scienceLabel": "Science meaning",
+          "science": ""
+        },
+        {
+          "type": "oddoneout",
+          "caption": "Odd word out",
+          "prompt": "Three of these words use MICRO to mean small. One is different. Circle the one that is different.",
+          "items": [
+            "microscope",
+            "microorganism",
+            "microscopic",
+            "microwave"
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Why is that word different? What does this teach you about using word parts?",
+          "count": 3
+        },
+        {
+          "type": "note",
+          "text": "Word parts give you clues. They do not give you guarantees. A good scientist checks the clue against the science."
+        },
+        {
+          "type": "ace",
+          "a": "What do MICRO and MACRO mean?",
+          "c": "Explain why a microscope and a telescope share the part SCOPE even though they look at very different things.",
+          "e": "Something is described as MACROSCOPIC. Do you need a tool to see it? Explain."
+        }
       ]
     },
     {
@@ -188,29 +615,96 @@
       "activityType": "detective",
       "sstCheckpoint": "moy",
       "ace": "connect",
-      "morphemes": ["photo", "syn", "thesis", "micro"],
-      "terms": ["photosynthesis", "microscopic"],
+      "morphemes": [
+        "photo",
+        "syn",
+        "thesis",
+        "micro"
+      ],
+      "terms": [
+        "photosynthesis",
+        "microscopic"
+      ],
       "estimatedMinutes": 20,
-      "formats": ["color", "bw"],
+      "formats": [
+        "color",
+        "bw"
+      ],
       "teks": [],
       "ngss": [],
       "description": "Students read an original observation passage, find science words, break them apart, predict meanings, and revise their predictions using evidence from the text.",
       "blocks": [
-        { "type": "instructions", "text": "Read the passage. Find the science words that are underlined. For each one, fill in the detective table: what parts do you recognize, what do you predict, what evidence did you find, and what is your final meaning?" },
-        { "type": "stimulus", "kind": "passage", "title": "Observation notes: the closet plant", "text": "Two bean plants started the same. Plant A stayed on a sunny windowsill. Plant B went into a dark closet. Both got the same water. After two weeks, Plant A was taller and dark green. Plant B was pale, thin, and leaning toward the door. Under a hand lens the leaves of Plant A were thick; the leaves of Plant B were thin and papery. The class had learned that plants make their own food through PHOTOSYNTHESIS, and that leaves have MICROSCOPIC openings that let gases move in and out." },
-        { "type": "detectivetable", "caption": "Detective table", "columns": ["Science word", "Parts I recognize", "My prediction", "Evidence from the passage", "Final meaning"], "rows": [
-          { "word": "PHOTOSYNTHESIS" },
-          { "word": "MICROSCOPIC" }
-        ] },
-        { "type": "wordparts", "caption": "Word-part help", "items": [
-          { "display": "PHOTO", "role": "root", "meaning": "light" },
-          { "display": "SYN", "role": "prefix", "meaning": "together" },
-          { "display": "THESIS", "role": "root", "meaning": "putting, placing" },
-          { "display": "MICRO", "role": "prefix", "meaning": "small" }
-        ] },
-        { "type": "lines", "label": "Plant B had water but still did not grow well. Use the word parts of PHOTOSYNTHESIS to explain why.", "count": 3 },
-        { "type": "lines", "label": "The passage says the leaf openings are MICROSCOPIC. Why did the class need a tool to study them?", "count": 2 },
-        { "type": "ace", "a": "Break PHOTOSYNTHESIS into its three parts and say what each one means.", "c": "How do the parts of the word match what actually happened to Plant A and Plant B?", "e": "Predict what would happen to a third plant kept in dim light for two weeks. Explain using both the word parts and the evidence." }
+        {
+          "type": "instructions",
+          "text": "Read the passage. Find the science words that are underlined. For each one, fill in the detective table: what parts do you recognize, what do you predict, what evidence did you find, and what is your final meaning?"
+        },
+        {
+          "type": "stimulus",
+          "kind": "passage",
+          "title": "Observation notes: the closet plant",
+          "text": "Two bean plants started the same. Plant A stayed on a sunny windowsill. Plant B went into a dark closet. Both got the same water. After two weeks, Plant A was taller and dark green. Plant B was pale, thin, and leaning toward the door. Under a hand lens the leaves of Plant A were thick; the leaves of Plant B were thin and papery. The class had learned that plants make their own food through PHOTOSYNTHESIS, and that leaves have MICROSCOPIC openings that let gases move in and out."
+        },
+        {
+          "type": "detectivetable",
+          "caption": "Detective table",
+          "columns": [
+            "Science word",
+            "Parts I recognize",
+            "My prediction",
+            "Evidence from the passage",
+            "Final meaning"
+          ],
+          "rows": [
+            {
+              "word": "PHOTOSYNTHESIS"
+            },
+            {
+              "word": "MICROSCOPIC"
+            }
+          ]
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word-part help",
+          "items": [
+            {
+              "display": "PHOTO",
+              "role": "root",
+              "meaning": "light"
+            },
+            {
+              "display": "SYN",
+              "role": "prefix",
+              "meaning": "together"
+            },
+            {
+              "display": "THESIS",
+              "role": "root",
+              "meaning": "putting, placing"
+            },
+            {
+              "display": "MICRO",
+              "role": "prefix",
+              "meaning": "small"
+            }
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Plant B had water but still did not grow well. Use the word parts of PHOTOSYNTHESIS to explain why.",
+          "count": 3
+        },
+        {
+          "type": "lines",
+          "label": "The passage says the leaf openings are MICROSCOPIC. Why did the class need a tool to study them?",
+          "count": 2
+        },
+        {
+          "type": "ace",
+          "a": "Break PHOTOSYNTHESIS into its three parts and say what each one means.",
+          "c": "How do the parts of the word match what actually happened to Plant A and Plant B?",
+          "e": "Predict what would happen to a third plant kept in dim light for two weeks. Explain using both the word parts and the evidence."
+        }
       ]
     },
     {
@@ -221,27 +715,107 @@
       "activityType": "sort",
       "sstCheckpoint": "moy",
       "ace": "connect",
-      "morphemes": ["herb", "carn", "vore"],
-      "terms": ["herbivore", "carnivore", "insectivore"],
+      "morphemes": [
+        "herb",
+        "carn",
+        "vore"
+      ],
+      "terms": [
+        "herbivore",
+        "carnivore",
+        "insectivore"
+      ],
       "estimatedMinutes": 15,
-      "formats": ["color", "bw"],
+      "formats": [
+        "color",
+        "bw"
+      ],
       "teks": [],
       "ngss": [],
       "description": "Students sort animals by what they eat using the shared suffix VORE, then connect the sort to the direction energy moves in a food chain.",
       "blocks": [
-        { "type": "instructions", "text": "All three words end in VORE. Use the first part of each word to decide where each animal belongs. Write the animal in the correct column." },
-        { "type": "wordparts", "caption": "Word parts", "items": [
-          { "display": "HERB", "role": "root", "meaning": "plant" },
-          { "display": "CARN", "role": "root", "meaning": "meat" },
-          { "display": "INSECT", "role": "word", "meaning": "insect" },
-          { "display": "VORE", "role": "suffix", "meaning": "eater" }
-        ] },
-        { "type": "sortcolumns", "caption": "Sort the animals", "columns": ["HERBIVORE\nplant eater", "CARNIVORE\nmeat eater", "INSECTIVORE\ninsect eater"], "items": ["grasshopper eating grass", "snake eating a frog", "bat catching moths", "cow eating hay", "hawk eating a mouse", "anteater eating ants", "rabbit eating clover", "frog catching flies"] },
-        { "type": "stimulus", "kind": "chain", "title": "Use the food chain", "chain": ["Sun", "grass", "grasshopper", "frog", "snake"] },
-        { "type": "lines", "label": "Which animal in the chain is a herbivore? How do you know from the word part?", "count": 2 },
-        { "type": "lines", "label": "The frog eats insects. Is the frog a carnivore, an insectivore, or both? Explain your thinking.", "count": 3 },
-        { "type": "lines", "label": "If the grasshoppers disappeared, what would happen to the frogs? Use the chain as evidence.", "count": 3 },
-        { "type": "ace", "a": "What does VORE tell you at the end of a word?", "c": "Explain how each animal's place in the food chain matches its VORE word.", "e": "An OMNIVORE eats plants and animals. OMNI means all. Which animals could be omnivores? Explain." }
+        {
+          "type": "instructions",
+          "text": "All three words end in VORE. Use the first part of each word to decide where each animal belongs. Write the animal in the correct column."
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts",
+          "items": [
+            {
+              "display": "HERB",
+              "role": "root",
+              "meaning": "plant"
+            },
+            {
+              "display": "CARN",
+              "role": "root",
+              "meaning": "meat"
+            },
+            {
+              "display": "INSECT",
+              "role": "word",
+              "meaning": "insect"
+            },
+            {
+              "display": "VORE",
+              "role": "suffix",
+              "meaning": "eater"
+            }
+          ]
+        },
+        {
+          "type": "sortcolumns",
+          "caption": "Sort the animals",
+          "columns": [
+            "HERBIVORE\nplant eater",
+            "CARNIVORE\nmeat eater",
+            "INSECTIVORE\ninsect eater"
+          ],
+          "items": [
+            "grasshopper eating grass",
+            "snake eating a frog",
+            "bat catching moths",
+            "cow eating hay",
+            "hawk eating a mouse",
+            "anteater eating ants",
+            "rabbit eating clover",
+            "frog catching flies"
+          ]
+        },
+        {
+          "type": "stimulus",
+          "kind": "chain",
+          "title": "Use the food chain",
+          "chain": [
+            "Sun",
+            "grass",
+            "grasshopper",
+            "frog",
+            "snake"
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Which animal in the chain is a herbivore? How do you know from the word part?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "The frog eats insects. Is the frog a carnivore, an insectivore, or both? Explain your thinking.",
+          "count": 3
+        },
+        {
+          "type": "lines",
+          "label": "If the grasshoppers disappeared, what would happen to the frogs? Use the chain as evidence.",
+          "count": 3
+        },
+        {
+          "type": "ace",
+          "a": "What does VORE tell you at the end of a word?",
+          "c": "Explain how each animal's place in the food chain matches its VORE word.",
+          "e": "An OMNIVORE eats plants and animals. OMNI means all. Which animals could be omnivores? Explain."
+        }
       ]
     },
     {
@@ -252,24 +826,111 @@
       "activityType": "mystery",
       "sstCheckpoint": "moy",
       "ace": "connect",
-      "morphemes": ["astro", "tele", "scope", "geo", "sphere", "sub"],
-      "terms": ["astronomy", "telescope", "geosphere", "subsoil"],
+      "morphemes": [
+        "astro",
+        "tele",
+        "scope",
+        "geo",
+        "sphere",
+        "sub"
+      ],
+      "terms": [
+        "astronomy",
+        "telescope",
+        "geosphere",
+        "subsoil"
+      ],
       "estimatedMinutes": 15,
-      "formats": ["color", "bw"],
+      "formats": [
+        "color",
+        "bw"
+      ],
       "teks": [],
       "ngss": [],
       "description": "Four mystery-word cards give students clues but not answers. Students predict a meaning, name the strongest clue, and check it against a short science sentence.",
       "blocks": [
-        { "type": "instructions", "text": "Each card shows a mystery word and the clues inside it. Predict the meaning, circle the clue that helped you most, then read the science line and decide whether to keep or change your prediction." },
-        { "type": "mysterycards", "caption": "Mystery words", "cards": [
-          { "word": "TELESCOPE", "clues": [["TELE", "far off"], ["SCOPE", "look at"]], "science": "It gathers light from objects that are very far away." },
-          { "word": "ASTRONOMY", "clues": [["ASTRO", "star, space"], ["-NOMY", "arrangement"]], "science": "It studies the objects in space and the patterns in how they move." },
-          { "word": "GEOSPHERE", "clues": [["GEO", "Earth, rock"], ["SPHERE", "region, layer"]], "science": "It is Earth's solid rock and soil, at the surface and far below it." },
-          { "word": "SUBSOIL", "clues": [["SUB", "below"], ["SOIL", "soil"]], "science": "It is the layer found beneath the darker topsoil, with more clay and small rocks." }
-        ] },
-        { "type": "lines", "label": "Which mystery word was easiest to predict? Why did the clues work so well for that one?", "count": 2 },
-        { "type": "lines", "label": "Which one needed the science line to get right? What did the science line add?", "count": 3 },
-        { "type": "ace", "a": "Choose one card and say both clues in your own words.", "c": "Explain how the two clues fit together to make the science meaning.", "e": "SUBSURFACE uses SUB too. Where would you look for something subsurface?" }
+        {
+          "type": "instructions",
+          "text": "Each card shows a mystery word and the clues inside it. Predict the meaning, circle the clue that helped you most, then read the science line and decide whether to keep or change your prediction."
+        },
+        {
+          "type": "mysterycards",
+          "caption": "Mystery words",
+          "cards": [
+            {
+              "word": "TELESCOPE",
+              "clues": [
+                [
+                  "TELE",
+                  "far off"
+                ],
+                [
+                  "SCOPE",
+                  "look at"
+                ]
+              ],
+              "science": "It gathers light from objects that are very far away."
+            },
+            {
+              "word": "ASTRONOMY",
+              "clues": [
+                [
+                  "ASTRO",
+                  "star, space"
+                ],
+                [
+                  "-NOMY",
+                  "arrangement"
+                ]
+              ],
+              "science": "It studies the objects in space and the patterns in how they move."
+            },
+            {
+              "word": "GEOSPHERE",
+              "clues": [
+                [
+                  "GEO",
+                  "Earth, rock"
+                ],
+                [
+                  "SPHERE",
+                  "region, layer"
+                ]
+              ],
+              "science": "It is Earth's solid rock and soil, at the surface and far below it."
+            },
+            {
+              "word": "SUBSOIL",
+              "clues": [
+                [
+                  "SUB",
+                  "below"
+                ],
+                [
+                  "SOIL",
+                  "soil"
+                ]
+              ],
+              "science": "It is the layer found beneath the darker topsoil, with more clay and small rocks."
+            }
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Which mystery word was easiest to predict? Why did the clues work so well for that one?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "Which one needed the science line to get right? What did the science line add?",
+          "count": 3
+        },
+        {
+          "type": "ace",
+          "a": "Choose one card and say both clues in your own words.",
+          "c": "Explain how the two clues fit together to make the science meaning.",
+          "e": "SUBSURFACE uses SUB too. Where would you look for something subsurface?"
+        }
       ]
     },
     {
@@ -280,19 +941,45 @@
       "activityType": "exit",
       "sstCheckpoint": "boy",
       "ace": "articulate",
-      "morphemes": ["micro", "bio", "therm"],
-      "terms": ["microorganism", "biology", "thermometer"],
+      "morphemes": [
+        "micro",
+        "bio",
+        "therm"
+      ],
+      "terms": [
+        "microorganism",
+        "biology",
+        "thermometer"
+      ],
       "estimatedMinutes": 5,
-      "formats": ["color", "bw"],
+      "formats": [
+        "color",
+        "bw"
+      ],
       "teks": [],
       "ngss": [],
       "description": "A quarter-page beginning-of-year ticket. Students name what a word part means and say what clue it gives them. Four tickets print per page.",
       "layout": "quarter-page",
       "blocks": [
-        { "type": "instructions", "text": "Answer in your own words. One or two sentences is enough." },
-        { "type": "lines", "label": "MICRO means", "count": 1 },
-        { "type": "lines", "label": "So MICROORGANISM probably means", "count": 2 },
-        { "type": "lines", "label": "What clue did MICRO give you?", "count": 2 }
+        {
+          "type": "instructions",
+          "text": "Answer in your own words. One or two sentences is enough."
+        },
+        {
+          "type": "lines",
+          "label": "MICRO means",
+          "count": 1
+        },
+        {
+          "type": "lines",
+          "label": "So MICROORGANISM probably means",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "What clue did MICRO give you?",
+          "count": 2
+        }
       ]
     },
     {
@@ -303,18 +990,42 @@
       "activityType": "exit",
       "sstCheckpoint": "moy",
       "ace": "connect",
-      "morphemes": ["hydro", "sphere", "atmo"],
-      "terms": ["hydrosphere", "atmosphere", "water-cycle"],
+      "morphemes": [
+        "hydro",
+        "sphere",
+        "atmo"
+      ],
+      "terms": [
+        "hydrosphere",
+        "atmosphere",
+        "water-cycle"
+      ],
       "estimatedMinutes": 5,
-      "formats": ["color", "bw"],
+      "formats": [
+        "color",
+        "bw"
+      ],
       "teks": [],
       "ngss": [],
       "description": "A half-page middle-of-year ticket. Students connect word parts to a one-sentence observation and cite the evidence they used. Two tickets print per page.",
       "layout": "half-page",
       "blocks": [
-        { "type": "stimulus", "kind": "passage", "title": "Observation", "text": "A puddle on the playground shrinks all morning. By afternoon, clouds have formed overhead." },
-        { "type": "lines", "label": "HYDRO means water. ATMO means air. Which word parts help you explain the observation?", "count": 2 },
-        { "type": "lines", "label": "Explain what happened, using at least one word part and the observation as evidence.", "count": 3 }
+        {
+          "type": "stimulus",
+          "kind": "passage",
+          "title": "Observation",
+          "text": "A puddle on the playground shrinks all morning. By afternoon, clouds have formed overhead."
+        },
+        {
+          "type": "lines",
+          "label": "HYDRO means water. ATMO means air. Which word parts help you explain the observation?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "Explain what happened, using at least one word part and the observation as evidence.",
+          "count": 3
+        }
       ]
     },
     {
@@ -325,29 +1036,107 @@
       "activityType": "stimulus",
       "sstCheckpoint": "eoy",
       "ace": "extend",
-      "morphemes": ["geo", "therm", "hydro", "re"],
-      "terms": ["geothermal", "hydroelectric", "renewable", "transform"],
+      "morphemes": [
+        "geo",
+        "therm",
+        "hydro",
+        "re"
+      ],
+      "terms": [
+        "geothermal",
+        "hydroelectric",
+        "renewable",
+        "transform"
+      ],
       "estimatedMinutes": 20,
-      "formats": ["color", "bw"],
+      "formats": [
+        "color",
+        "bw"
+      ],
       "teks": [],
       "ngss": [],
       "description": "The flagship end-of-year transfer task. Students meet an unfamiliar term, decode it, test the prediction against a diagram and a data table, then apply the idea to a new town.",
       "blocks": [
-        { "type": "instructions", "text": "You have not studied this word in class. Work through all five steps. Use the word parts and the evidence together — neither one is enough by itself." },
-        { "type": "bigword", "word": "GEOTHERMAL", "split": ["GEO", "THERM", "-AL"] },
-        { "type": "lines", "label": "Step 1: Break it. What word parts do you recognize, and what does each one mean?", "count": 3 },
-        { "type": "lines", "label": "Step 2: Predict. What might GEOTHERMAL mean?", "count": 2 },
-        { "type": "stimulus", "kind": "diagram", "diagram": "geothermal", "title": "Step 3: Check the science", "caption": "A cross-section of the ground beneath a small town. Water moves down through cracks in the rock, is heated by hot rock below, and rises back to the surface as hot water and steam." },
-        { "type": "datatable", "caption": "Ground temperature at three depths", "columns": ["Depth below surface", "Temperature"], "rows": [["0 meters (surface)", "18 °C"], ["500 meters", "40 °C"], ["1,500 meters", "95 °C"]] },
-        { "type": "lines", "label": "Step 4: Explain. What evidence in the diagram and the table supports or changes your prediction? Write your final meaning of GEOTHERMAL.", "count": 4 },
-        { "type": "mcq", "stem": "A town wants to heat its buildings without burning fuel. Based on the diagram and the table, which plan makes the most sense?", "options": [
-          "Pump water down to hot rock, then bring the heated water back up to the buildings.",
-          "Store cold water at the surface until the Sun warms it.",
-          "Dig a shallow hole one meter deep and pipe air through it.",
-          "Move the town to a place with warmer weather."
-        ], "followUp": "What evidence helped you decide?", "followUpLines": 3 },
-        { "type": "lines", "label": "Step 5: Extend. HYDROELECTRIC power uses moving water instead of heat. Both are called RENEWABLE. What do you think RENEWABLE means, and why do both belong in that group?", "count": 4 },
-        { "type": "ace", "a": "Say what GEO and THERM mean.", "c": "Point to one piece of evidence in the table that supports your meaning.", "e": "Another town sits above cool rock that stays 20 °C at every depth. Would a geothermal plan work there? Use evidence to explain." }
+        {
+          "type": "instructions",
+          "text": "You have not studied this word in class. Work through all five steps. Use the word parts and the evidence together — neither one is enough by itself."
+        },
+        {
+          "type": "bigword",
+          "word": "GEOTHERMAL",
+          "split": [
+            "GEO",
+            "THERM",
+            "-AL"
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Step 1: Break it. What word parts do you recognize, and what does each one mean?",
+          "count": 3
+        },
+        {
+          "type": "lines",
+          "label": "Step 2: Predict. What might GEOTHERMAL mean?",
+          "count": 2
+        },
+        {
+          "type": "stimulus",
+          "kind": "diagram",
+          "diagram": "geothermal",
+          "title": "Step 3: Check the science",
+          "caption": "A cross-section of the ground beneath a small town. Water moves down through cracks in the rock, is heated by hot rock below, and rises back to the surface as hot water and steam."
+        },
+        {
+          "type": "datatable",
+          "caption": "Ground temperature at three depths",
+          "columns": [
+            "Depth below surface",
+            "Temperature"
+          ],
+          "rows": [
+            [
+              "0 meters (surface)",
+              "18 °C"
+            ],
+            [
+              "500 meters",
+              "40 °C"
+            ],
+            [
+              "1,500 meters",
+              "95 °C"
+            ]
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Step 4: Explain. What evidence in the diagram and the table supports or changes your prediction? Write your final meaning of GEOTHERMAL.",
+          "count": 4
+        },
+        {
+          "type": "mcq",
+          "stem": "A town wants to heat its buildings without burning fuel. Based on the diagram and the table, which plan makes the most sense?",
+          "options": [
+            "Pump water down to hot rock, then bring the heated water back up to the buildings.",
+            "Store cold water at the surface until the Sun warms it.",
+            "Leave barrels of water on the surface overnight and use them in the morning.",
+            "Move the town to a place with warmer weather."
+          ],
+          "followUp": "What evidence helped you decide?",
+          "followUpLines": 3
+        },
+        {
+          "type": "lines",
+          "label": "Step 5: Extend. HYDROELECTRIC power uses moving water instead of heat. Both are called RENEWABLE. What do you think RENEWABLE means, and why do both belong in that group?",
+          "count": 4
+        },
+        {
+          "type": "ace",
+          "a": "Say what GEO and THERM mean.",
+          "c": "Point to one piece of evidence in the table that supports your meaning.",
+          "e": "Another town sits on rock that warms only slightly with depth: 20 °C at the surface and 32 °C at 1,500 meters. Would a geothermal plan work as well there? Use evidence to explain."
+        }
       ]
     }
   ]
