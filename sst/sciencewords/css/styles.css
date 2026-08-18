@@ -78,18 +78,18 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
    centred sentence and a stat row under it. The banner is capped rather than
    run edge to edge because this artwork is about 2:1 where the hub's is 3:1,
    and full bleed would put it near 550px tall on a laptop. */
-.hero { background: linear-gradient(180deg, #f7fafd, var(--white)); border-bottom: 1px solid var(--line); padding: 30px 0 34px; }
+.hero { background: linear-gradient(180deg, #f7fafd, var(--white)); border-bottom: 1px solid var(--line); padding: 20px 0 28px; }
 .hero .top { text-align: center; }
 .herowrap {
-  max-width: 860px; margin: 0 auto 4px; border-radius: 16px; overflow: hidden;
+  max-width: 760px; margin: 0 auto 4px; border-radius: 16px; overflow: hidden;
   border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(10, 52, 118, 0.16);
 }
 .heroimg { display: block; width: 100%; height: auto; }
-.hero .sub { color: var(--ink-soft); font-weight: 600; margin: 16px auto 0; max-width: 70ch; }
-.tally { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-top: 20px; }
+.hero .sub { color: var(--ink-soft); font-weight: 600; margin: 14px auto 0; max-width: 66ch; }
+.tally { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-top: 16px; }
 .tally .n { font-weight: 800; font-size: 1.7rem; color: var(--navy); line-height: 1; letter-spacing: -0.02em; }
 .tally .l { font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); font-weight: 800; margin-top: 4px; }
-.hero .btnrow { justify-content: center; margin-top: 24px; }
+.hero .btnrow { justify-content: center; margin-top: 18px; }
 
 .btnrow { display: flex; flex-wrap: wrap; gap: 10px; }
 .btn {
