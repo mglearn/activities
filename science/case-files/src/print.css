@@ -1,0 +1,903 @@
+/* ============================================================
+   CER & ACE Case Files — print design system
+   "Case-file dossier": warm paper, oxblood case stamps,
+   typewriter field labels, ruled evidence logs.
+
+   Typography
+     Zilla Slab      display — case titles, section heads
+     IBM Plex Mono   labels, stamps, case numbers, rubric figures
+     Source Sans 3   body, instructions, table copy
+
+   Colors are oklch-derived; hex is authored so PowerPoint,
+   the website, and the PDFs stay in step.
+   ============================================================ */
+
+@font-face { font-family: Zilla; src: url(fonts/zilla-500.ttf) format('truetype'); font-weight: 500; }
+@font-face { font-family: Zilla; src: url(fonts/zilla-600.ttf) format('truetype'); font-weight: 600; }
+@font-face { font-family: Zilla; src: url(fonts/zilla-700.ttf) format('truetype'); font-weight: 700; }
+@font-face { font-family: Plex; src: url(fonts/plex-400.ttf) format('truetype'); font-weight: 400; }
+@font-face { font-family: Plex; src: url(fonts/plex-500.ttf) format('truetype'); font-weight: 500; }
+@font-face { font-family: Plex; src: url(fonts/plex-600.ttf) format('truetype'); font-weight: 600; }
+@font-face { font-family: SS3; src: url(fonts/ss3-400.ttf) format('truetype'); font-weight: 400; }
+@font-face { font-family: SS3; src: url(fonts/ss3-400i.ttf) format('truetype'); font-weight: 400; font-style: italic; }
+@font-face { font-family: SS3; src: url(fonts/ss3-600.ttf) format('truetype'); font-weight: 600; }
+@font-face { font-family: SS3; src: url(fonts/ss3-700.ttf) format('truetype'); font-weight: 700; }
+
+:root {
+  --ink:        #241E1A;
+  --ink-soft:   #645C56;
+  --ink-faint:  #97918A;
+  --oxblood:    #8F3222;
+  --oxblood-lt: #BF6C5B;
+  --oxblood-wash: #FCE6DC;
+  --indigo:     #17559B;
+  --indigo-lt:  #5C88C1;
+  --indigo-wash: #E1EDFA;
+  --manila:     #F4EAD5;
+  --manila-d:   #E6D9BF;
+  --rule:       #C5BDB0;
+  --rule-soft:  #DCD7CD;
+  --paper:      #FCFAF6;
+
+  --accent:      var(--oxblood);
+  --accent-lt:   var(--oxblood-lt);
+  --accent-wash: var(--oxblood-wash);
+
+  /* Page geometry, in inches so the numbers mean something physical. */
+  --pw: 8.5in;
+  --ph: 11in;
+  --mx: 0.62in;
+  --mt: 0.55in;
+  --mb: 0.5in;
+}
+
+/* ACE flips the second accent so the two packets are tellable apart
+   at a glance in a stack of copies — same chroma, different hue. */
+.doc-ace {
+  --accent:      var(--indigo);
+  --accent-lt:   var(--indigo-lt);
+  --accent-wash: var(--indigo-wash);
+}
+
+@page { size: letter; margin: 0; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 12pt; }
+
+body {
+  font-family: SS3, 'Source Sans Pro', 'Segoe UI', Calibri, sans-serif;
+  color: var(--ink);
+  background: #8a857e;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* ---------- page shell ---------- */
+
+.page {
+  position: relative;
+  width: var(--pw);
+  height: var(--ph);
+  padding: var(--mt) var(--mx) var(--mb);
+  background: var(--paper);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  page-break-after: always;
+  break-after: page;
+}
+.page:last-child { page-break-after: auto; break-after: auto; }
+
+@media screen {
+  body { padding: 28px 0; }
+  .page { margin: 0 auto 22px; box-shadow: 0 6px 26px rgba(0, 0, 0, .35); }
+}
+
+/* The left spine rule that runs down every interior page — the
+   single strongest signal that these sheets belong to one file. */
+.page.interior::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--mx) - 0.2in);
+  top: var(--mt);
+  bottom: var(--mb);
+  width: 2.5pt;
+  background: var(--accent);
+}
+
+/* ---------- running head ---------- */
+
+.runhead {
+  display: flex;
+  align-items: baseline;
+  gap: 10pt;
+  padding-bottom: 5pt;
+  border-bottom: 1pt solid var(--rule);
+  font-family: Plex, 'Courier New', monospace;
+  font-size: 7.2pt;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  flex: none;
+}
+.runhead .case-no {
+  font-weight: 600;
+  color: var(--paper);
+  background: var(--accent);
+  padding: 2.5pt 6pt 2pt;
+  letter-spacing: .12em;
+}
+.runhead .spacer { flex: 1; }
+.runhead .stamp {
+  font-weight: 600;
+  color: var(--accent);
+  border: 1pt solid var(--accent-lt);
+  padding: 2pt 6pt 1.5pt;
+  letter-spacing: .14em;
+}
+
+/* ---------- page title block ---------- */
+
+.title-block { flex: none; padding: 13pt 0 11pt; }
+.title-block h1 {
+  font-family: Zilla, Georgia, serif;
+  font-weight: 700;
+  font-size: 25pt;
+  line-height: 1.02;
+  letter-spacing: -.012em;
+}
+.title-block .deck {
+  font-size: 10.5pt;
+  color: var(--ink-soft);
+  margin-top: 3pt;
+  font-style: italic;
+}
+
+/* Section heads share one anatomy: a mono kicker over a rule. */
+.shead {
+  font-family: Plex, monospace;
+  font-size: 7.6pt;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 8pt;
+  margin-bottom: 6pt;
+}
+.shead::after {
+  content: '';
+  flex: 1;
+  height: 1pt;
+  background: var(--rule-soft);
+}
+.shead .n {
+  font-weight: 600;
+  color: var(--ink-faint);
+}
+
+/* ---------- identity line ---------- */
+
+.idline {
+  display: flex;
+  gap: 16pt;
+  flex: none;
+  margin-bottom: 11pt;
+  font-family: Plex, monospace;
+  font-size: 7.4pt;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.idline > div {
+  border-bottom: .75pt solid var(--rule);
+  padding-bottom: 2.5pt;
+  display: flex;
+  align-items: flex-end;
+  height: 20pt;
+}
+.idline .name { flex: 2.2; }
+.idline .date { flex: 1; }
+.idline .group { flex: 1.1; }
+
+/* ---------- the mystery callout ---------- */
+
+.mystery {
+  flex: none;
+  background: var(--manila);
+  border-left: 3pt solid var(--accent);
+  padding: 9pt 12pt 10pt;
+  margin-bottom: 11pt;
+}
+.mystery .lab {
+  font-family: Plex, monospace;
+  font-size: 7.2pt;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 3pt;
+}
+.mystery p { font-size: 10.5pt; line-height: 1.38; }
+
+/* ---------- case photograph ---------- */
+
+.plate { flex: none; margin-bottom: 10pt; position: relative; }
+.plate img {
+  display: block;
+  width: 100%;
+  height: 1.42in;
+  object-fit: cover;
+}
+.plate .cap {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: var(--ink);
+  color: var(--manila);
+  font-family: Plex, monospace;
+  font-size: 6.6pt;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 3pt 8pt 2.5pt;
+}
+
+/* ---------- materials + safety strip ---------- */
+
+.strip { flex: none; margin-bottom: 11pt; border-top: 1pt solid var(--rule); }
+.strip .row {
+  display: flex;
+  gap: 10pt;
+  padding: 5.5pt 0;
+  border-bottom: .5pt solid var(--rule-soft);
+  align-items: baseline;
+}
+.strip .row:last-child { border-bottom: 1pt solid var(--rule); }
+.strip .lab {
+  font-family: Plex, monospace;
+  font-size: 6.8pt;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  width: 56pt;
+  flex: none;
+}
+.strip .row.safety .lab { color: var(--accent); }
+.strip .val { font-size: 8.6pt; line-height: 1.34; color: var(--ink-soft); }
+
+/* ---------- evidence tables ---------- */
+
+.log { width: 100%; table-layout: fixed; border-collapse: collapse; margin-bottom: 12pt; flex: none; }
+.log th {
+  font-family: Plex, monospace;
+  font-size: 6.8pt;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--ink-soft);
+  padding: 0 6pt 4pt;
+  border-bottom: 1.5pt solid var(--ink);
+}
+.log td {
+  border-bottom: .75pt solid var(--rule);
+  padding: 6pt 6pt 5pt;
+  font-size: 9.2pt;
+  line-height: 1.3;
+  vertical-align: top;
+}
+.log td:first-child, .log th:first-child { padding-left: 0; }
+.log td:last-child, .log th:last-child { padding-right: 0; }
+.log .k {
+  font-family: Plex, monospace;
+  font-size: 8pt;
+  font-weight: 500;
+  color: var(--ink);
+}
+/* Blank rows get a faint baseline so handwriting sits straight. */
+.log tr.blank td { height: 34pt; }
+.log tr.blank.tall td { height: 34pt; }
+.log .filled { color: var(--ink-soft); }
+
+/* Blank logs get faint column separators — without them students
+   write across the boundary and the columns stop meaning anything. */
+.log tr.blank td + td { border-left: .5pt solid var(--rule-soft); }
+.log tr.blank td + td { padding-left: 9pt; }
+
+.log col.c1 { width: 26%; }
+.log col.c2 { width: 44%; }
+.log col.c3 { width: 30%; }
+
+/* ---------- response sections (Page 2) ---------- */
+
+.resp { display: flex; flex-direction: column; gap: 9pt; flex: 1; min-height: 0; }
+
+.field {
+  border: .75pt solid var(--rule);
+  border-left: 2.5pt solid var(--rule);
+  padding: 7pt 11pt 9pt;
+}
+.field.accent { border-left-color: var(--accent); background: var(--accent-wash); }
+.field.alt    { border-left-color: var(--ink); background: var(--manila); }
+
+.field .head {
+  display: flex;
+  align-items: baseline;
+  gap: 7pt;
+  margin-bottom: 2pt;
+}
+.field .marker {
+  font-family: Plex, monospace;
+  font-size: 8.5pt;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: .06em;
+}
+.field h3 {
+  font-family: Zilla, Georgia, serif;
+  font-size: 11.5pt;
+  font-weight: 600;
+  letter-spacing: -.005em;
+}
+.field .hint {
+  font-size: 8.2pt;
+  color: var(--ink-soft);
+  line-height: 1.3;
+  margin-bottom: 5pt;
+}
+.field .answer {
+  font-size: 9.6pt;
+  line-height: 1.4;
+  font-family: SS3, sans-serif;
+}
+
+/* Writing rules: real ruled lines, evenly spaced, that survive
+   photocopying. Drawn as a repeating gradient so the count is
+   set by height alone. */
+.rules {
+  flex: 1;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 17.4pt,
+    var(--rule) 17.4pt,
+    var(--rule) 18pt,
+    transparent 18pt
+  );
+  background-size: 100% 18pt;
+  background-repeat: repeat-y;
+}
+
+/* ---------- stems footer ---------- */
+
+.stems {
+  flex: none;
+  background: var(--ink);
+  color: var(--manila);
+  padding: 6pt 11pt;
+  font-family: Plex, monospace;
+  font-size: 7.4pt;
+  letter-spacing: .04em;
+  line-height: 1.5;
+}
+.stems b {
+  color: var(--paper);
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-right: 5pt;
+}
+
+.checkline {
+  flex: none;
+  display: flex;
+  gap: 16pt;
+  padding: 7pt 0 0;
+  font-family: Plex, monospace;
+  font-size: 7.6pt;
+  color: var(--ink-soft);
+}
+.checkline span::before {
+  content: '';
+  display: inline-block;
+  width: 8pt;
+  height: 8pt;
+  border: 1pt solid var(--ink-soft);
+  margin-right: 5pt;
+  vertical-align: -1pt;
+}
+
+/* ---------- folio ---------- */
+
+.folio {
+  flex: none;
+  margin-top: auto;
+  padding-top: 9pt;
+  border-top: 1pt solid var(--rule);
+  display: flex;
+  align-items: baseline;
+  font-family: Plex, monospace;
+  font-size: 6.8pt;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.folio .spacer { flex: 1; }
+.folio .n { font-weight: 600; color: var(--ink-soft); }
+
+/* ============================================================
+   Cover — split field: ink title column against a full-bleed
+   photograph, so the type never fights the picture.
+   ============================================================ */
+
+.cover { padding: 0; display: block; }
+
+.cover .split { display: flex; height: 6.15in; }
+
+.cover .field {
+  width: 3.78in;
+  flex: none;
+  background: var(--ink);
+  padding: 0.5in 0.34in 0.42in 0.62in;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.cover .edition {
+  align-self: flex-start;
+  font-family: Plex, monospace;
+  font-size: 7.4pt;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--manila);
+  padding: 3.5pt 9pt 3pt;
+}
+.cover .filetab {
+  margin-top: 15pt;
+  padding-top: 12pt;
+  border-top: 1pt solid rgba(244,234,213,.28);
+  font-family: Plex, monospace;
+  font-size: 7pt;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(244,234,213,.55);
+  line-height: 1.9;
+}
+.cover h1 {
+  font-family: Zilla, Georgia, serif;
+  font-weight: 700;
+  font-size: 43pt;
+  line-height: .93;
+  letter-spacing: -.024em;
+  color: var(--paper);
+  margin-top: auto;
+}
+.cover h1 .b { display: block; color: var(--accent-lt); }
+.cover .tagline {
+  font-family: Plex, monospace;
+  font-size: 7.2pt;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--manila-d);
+  margin-top: 11pt;
+  padding-top: 10pt;
+  border-top: 2pt solid var(--accent);
+  align-self: flex-start;
+}
+
+.cover .shot { flex: 1; position: relative; overflow: hidden; background: var(--ink); }
+.cover .shot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cover .body { padding: 0.3in 0.62in 0; }
+.cover .lede {
+  font-size: 11.4pt;
+  line-height: 1.42;
+  margin-bottom: 15pt;
+}
+.cover .lede strong { font-weight: 700; }
+
+.cover .contents { border-top: 1.5pt solid var(--ink); }
+.cover .contents .r {
+  display: flex;
+  gap: 12pt;
+  align-items: baseline;
+  padding: 6.5pt 0 6pt;
+  border-bottom: .75pt solid var(--rule);
+}
+.cover .contents .r .no {
+  font-family: Plex, monospace;
+  font-size: 8pt;
+  font-weight: 600;
+  color: var(--accent);
+  width: 26pt;
+  flex: none;
+  letter-spacing: .06em;
+}
+.cover .contents .r .t {
+  font-family: Zilla, Georgia, serif;
+  font-size: 12pt;
+  font-weight: 600;
+  width: 1.85in;
+  flex: none;
+}
+.cover .contents .r .d { font-size: 9.2pt; color: var(--ink-soft); line-height: 1.3; }
+
+.cover .footer {
+  position: absolute;
+  left: 0.62in;
+  right: 0.62in;
+  bottom: 0.5in;
+  border-top: 1pt solid var(--rule);
+  padding-top: 6pt;
+  display: flex;
+  align-items: baseline;
+  font-family: Plex, monospace;
+  font-size: 7.2pt;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.cover .footer .spacer { flex: 1; }
+
+/* Name / class rule on the student covers. */
+.cover .whose {
+  display: flex;
+  gap: 22pt;
+  margin-top: 22pt;
+  font-family: Plex, monospace;
+  font-size: 7.6pt;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.cover .whose > div {
+  border-bottom: 1pt solid var(--ink);
+  height: 27pt;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 3pt;
+}
+.cover .whose .n { flex: 1.6; }
+.cover .whose .c { flex: 1; }
+
+/* ============================================================
+   Routine page (student packets, page 2)
+   ============================================================ */
+
+.moves { display: flex; flex-direction: column; gap: 0; margin-bottom: 14pt; }
+.move {
+  display: flex;
+  gap: 13pt;
+  align-items: flex-start;
+  padding: 9pt 0;
+  border-bottom: .75pt solid var(--rule);
+}
+.move:first-child { border-top: 1.5pt solid var(--ink); }
+.move .n {
+  font-family: Plex, monospace;
+  font-size: 19pt;
+  font-weight: 600;
+  color: var(--accent-lt);
+  line-height: 1;
+  width: 36pt;
+  flex: none;
+  letter-spacing: -.02em;
+}
+.move h3 {
+  font-family: Zilla, Georgia, serif;
+  font-size: 14.5pt;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 3pt;
+}
+.move p { font-size: 10.2pt; line-height: 1.36; color: var(--ink-soft); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16pt; margin-bottom: 13pt; }
+
+.roles { display: flex; flex-direction: column; gap: 5pt; }
+.roles .r { display: flex; gap: 8pt; align-items: baseline; }
+.roles .r .k {
+  font-family: Plex, monospace;
+  font-size: 7.6pt;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  width: 92pt;
+  flex: none;
+}
+.roles .r .v { font-size: 9pt; color: var(--ink-soft); line-height: 1.3; }
+
+.choicebox {
+  border: 1.5pt solid var(--accent);
+  padding: 10pt 12pt 11pt;
+  background: var(--accent-wash);
+}
+.choicebox .k {
+  font-family: Plex, monospace;
+  font-size: 7.4pt;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4pt;
+}
+.choicebox h3 {
+  font-family: Zilla, Georgia, serif;
+  font-size: 14pt;
+  font-weight: 700;
+  margin-bottom: 4pt;
+}
+.choicebox p { font-size: 9.4pt; line-height: 1.38; }
+
+.rule-note {
+  border-top: 1.5pt solid var(--ink);
+  border-bottom: 1.5pt solid var(--ink);
+  padding: 8pt 0;
+  display: flex;
+  gap: 12pt;
+  align-items: baseline;
+}
+.rule-note .k {
+  font-family: Plex, monospace;
+  font-size: 7.4pt;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  width: 92pt;
+  flex: none;
+}
+.rule-note .v { font-size: 10.2pt; line-height: 1.36; font-style: italic; }
+
+/* ============================================================
+   Teacher guide
+   ============================================================ */
+
+.tg-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20pt; margin-bottom: 15pt; }
+.tg-steps .s { padding: 9pt 0; border-top: 1pt solid var(--rule); }
+.tg-steps .s .n {
+  font-family: Plex, monospace;
+  font-size: 7.4pt;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: .14em;
+}
+.tg-steps .s h3 {
+  font-family: Zilla, Georgia, serif;
+  font-size: 12.5pt;
+  font-weight: 700;
+  margin: 1pt 0 3pt;
+}
+.tg-steps .s p { font-size: 9.2pt; line-height: 1.36; color: var(--ink-soft); }
+
+.panels { display: grid; grid-template-columns: 1fr 1fr; gap: 12pt; margin-bottom: 12pt; }
+.panel { padding: 9pt 12pt 11pt; border: .75pt solid var(--rule); }
+.panel.key { background: var(--manila); border-color: var(--manila-d); }
+.panel h3 {
+  font-family: Plex, monospace;
+  font-size: 7.4pt;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 5pt;
+}
+.panel.key h3 { color: var(--ink); }
+.panel p { font-size: 9.2pt; line-height: 1.38; }
+
+ul.ticks { list-style: none; }
+ul.ticks li {
+  font-size: 9.4pt;
+  line-height: 1.4;
+  padding: 3.5pt 0 3.5pt 15pt;
+  position: relative;
+  border-bottom: .5pt solid var(--rule-soft);
+}
+ul.ticks li:last-child { border-bottom: 0; }
+ul.ticks li::before {
+  content: '';
+  position: absolute;
+  left: 2pt;
+  top: 8.5pt;
+  width: 5pt;
+  height: 5pt;
+  background: var(--accent-lt);
+}
+
+.flag {
+  border-left: 3pt solid var(--ink);
+  background: var(--manila);
+  padding: 8pt 12pt 9pt;
+  margin-bottom: 10pt;
+}
+.flag .k {
+  font-family: Plex, monospace;
+  font-size: 7.2pt;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 2.5pt;
+}
+.flag p { font-size: 9.4pt; line-height: 1.38; }
+
+.flag.extend { border-left-color: var(--accent); background: var(--accent-wash); }
+.flag.extend .k { color: var(--accent); }
+
+/* Standards table */
+.std { width: 100%; table-layout: fixed; border-collapse: collapse; margin-bottom: 13pt; }
+.std th {
+  font-family: Plex, monospace;
+  font-size: 6.8pt;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--ink-soft);
+  padding: 0 8pt 4pt 0;
+  border-bottom: 1.5pt solid var(--ink);
+}
+.std td {
+  padding: 6.5pt 8pt 6pt 0;
+  border-bottom: .75pt solid var(--rule);
+  font-size: 8.8pt;
+  line-height: 1.34;
+  vertical-align: top;
+  color: var(--ink-soft);
+}
+.std td.case {
+  font-family: Zilla, Georgia, serif;
+  font-size: 10.5pt;
+  font-weight: 600;
+  color: var(--ink);
+}
+.std td .no {
+  font-family: Plex, monospace;
+  font-size: 7.4pt;
+  font-weight: 600;
+  color: var(--accent);
+  display: block;
+  letter-spacing: .1em;
+}
+.std b { color: var(--ink); font-weight: 700; }
+
+/* Rubric */
+.rub { width: 100%; table-layout: fixed; border-collapse: collapse; margin-bottom: 12pt; }
+.rub th {
+  font-family: Plex, monospace;
+  font-size: 6.8pt;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0 8pt 4pt 0;
+  border-bottom: 1.5pt solid var(--ink);
+  color: var(--ink-soft);
+}
+.rub th.pts, .rub td.pts { text-align: right; padding-right: 12pt; }
+.rub th.pts:last-child, .rub td.pts:last-child { padding-right: 0; }
+.rub td {
+  padding: 6pt 8pt 5.5pt 0;
+  border-bottom: .75pt solid var(--rule);
+  font-size: 9pt;
+  line-height: 1.32;
+}
+.rub td.crit { font-weight: 700; white-space: nowrap; }
+.rub td.pts {
+  font-family: Plex, monospace;
+  font-weight: 600;
+  color: var(--accent);
+}
+.rub tr.total td {
+  border-bottom: 1.5pt solid var(--ink);
+  border-top: 1pt solid var(--ink);
+  font-family: Plex, monospace;
+  font-size: 8pt;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.rub .cerhead { color: var(--oxblood); }
+.rub .acehead { color: var(--indigo); }
+
+.grade-ladder { border-top: 1.5pt solid var(--ink); margin-bottom: 12pt; }
+.grade-ladder .g {
+  display: flex;
+  gap: 14pt;
+  align-items: baseline;
+  padding: 5.5pt 0;
+  border-bottom: .75pt solid var(--rule);
+}
+.grade-ladder .g .k {
+  font-family: Plex, monospace;
+  font-size: 7.6pt;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  width: 118pt;
+  flex: none;
+}
+.grade-ladder .g .v { font-size: 9.4pt; line-height: 1.34; }
+
+.sources { font-size: 7.8pt; line-height: 1.5; color: var(--ink-faint); }
+.sources .s { display: flex; gap: 8pt; }
+.sources .s .k { font-weight: 700; color: var(--ink-soft); width: 128pt; flex: none; }
+.sources .s .v { font-family: Plex, monospace; font-size: 7pt; word-break: break-all; }
+
+.note-strip {
+  border: .75pt solid var(--rule);
+  border-left: 3pt solid var(--ink-faint);
+  padding: 7pt 11pt 8pt;
+  font-size: 8.6pt;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+.note-strip b {
+  font-family: Plex, monospace;
+  font-size: 7pt;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  display: block;
+  margin-bottom: 2.5pt;
+}
+
+
+/* ============================================================
+   Page fill
+   Each page nominates one region to absorb whatever height is
+   left on the sheet. Student pages give it to writing space;
+   teacher pages give it to the photograph or the table.
+   ============================================================ */
+
+.plate.grow { flex: 1; min-height: 1.55in; display: flex; }
+.plate.grow img { height: 100%; min-height: 1.55in; }
+
+.log.grow { flex: 1; height: 100%; }
+
+.field { display: flex; flex-direction: column; }
+.field .rules { min-height: 36pt; }
+
+.tg-steps.grow { flex: 1; }
+.panels.grow { flex: 1; }
+
+ul.ticks.grow { flex: 1; display: flex; flex-direction: column; }
+ul.ticks.grow li { flex: 1; display: flex; align-items: center; max-height: 40pt; }
+ul.ticks.grow li::before { top: 50%; margin-top: -2.5pt; }
+
+.std.grow { flex: 1; height: 100%; }
+.rub.grow { flex: 1; height: 100%; }
+
+.grade-ladder.grow { flex: 1; display: flex; flex-direction: column; }
+.grade-ladder.grow .g { flex: 1; align-items: center; }
+
+.moves.grow { flex: 1; }
+.moves.grow .move { flex: 1; max-height: 76pt; align-items: center; }
+
+.spacer-flex { flex: 1; min-height: 8pt; }
+
+/* The routine page hands its leftover height to the response-format
+   panel — the one decision the page is actually asking the reader to make. */
+.two-col.grow { flex: 1; align-items: stretch; }
+.two-col.grow > div { display: flex; flex-direction: column; }
+.two-col.grow .roles { flex: 1; justify-content: space-evenly; }
+.two-col.grow .choicebox { flex: 1; justify-content: center; }
+.two-col.grow .choicebox h3 { font-size: 17pt; }
+.two-col.grow .choicebox p { font-size: 10.4pt; }

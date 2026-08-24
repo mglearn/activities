@@ -13,6 +13,10 @@ languages — no logins, no data collected. Published at
 | `relic-rooms/`  | Relic Rooms (investigation activities) | — | `tcea/relic-rooms/` |
 | `digcit/`       | Digital Citizenship Breakouts     | K–8    | `digcit` repo |
 | `genailit/`     | Gen AI Literacy Breakouts         | K–8    | `genailit` repo |
+| `science/case-files/`| CER & ACE Case Files (printable packets) | 5–8 | — |
+
+`science/index.html` is a legacy redirect to `ctobs/science/`. **Do not delete
+that folder** — `science/case-files/` lives inside it and is a real activity.
 
 The root `index.html` is the unified landing. `404.html` forwards a couple of
 legacy internal path shapes (e.g. `/activities/breakouts/*` → `/activities/ctobs/*`).
@@ -49,7 +53,12 @@ haystack on first search, so the page works with or without it. **Re-run it afte
 adding, renaming, or removing activities**, or the search silently goes stale.
 
 `gtky/` and `sojourn/` are in their own repos and are not on disk here, so they
-keep hand-written `data-kw` in `index.html` instead.
+keep hand-written `data-kw` in `index.html` instead. `science/case-files/` is a
+single landing page plus PDF/PPTX downloads — landing pages are skipped by
+design — so it keeps hand-written `data-kw` too.
+
+The tally under the hub headline is recomputed from the cards on load; the
+numbers in the markup are the no-JS fallbacks. Update them when you add a card.
 
 ## External links
 

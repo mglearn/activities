@@ -42,6 +42,10 @@
        chrome and this search are English.
      - printables/ — print packs whose parent activity page is
        already indexed.
+     - science/case-files/ — a single landing page plus PDF/PPTX
+       downloads. Landing pages are skipped by design, so it
+       keeps hand-written data-kw in index.html like gtky/ and
+       sojourn/.
      - Answer keys and correlation tables: teacher scaffolding, and
        indexing them would surface an area by its answers.
 
@@ -103,7 +107,8 @@ function harvestArea(dir) {
     for (const entry of fs.readdirSync(cur, { withFileTypes: true })) {
       const full = path.join(cur, entry.name);
       if (entry.isDirectory()) {
-        if (!SKIP_DIR.has(entry.name)) walk(full);
+        // Dot-directories are build scratch (src/.work), never activity pages.
+        if (!SKIP_DIR.has(entry.name) && !entry.name.startsWith(".")) walk(full);
         continue;
       }
       if (!entry.name.endsWith(".html") || SKIP_FILE.test(entry.name)) continue;
