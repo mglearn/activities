@@ -3206,6 +3206,610 @@
           "e": "You meet the words FRUCTOSE and PROTEASE for the first time. Which is a sugar and which is an enzyme? Explain using only the endings."
         }
       ]
+    },
+    {
+      "id": "g912-chem-break-oxides",
+      "title": "Break It: Counting Atoms in a Name",
+      "gradeBand": "9-12",
+      "scienceArea": "chemistry",
+      "activityType": "break",
+      "sstCheckpoint": "boy",
+      "ace": "articulate",
+      "morphemes": [
+        "mono",
+        "di",
+        "tri",
+        "ide"
+      ],
+      "terms": [
+        "monoxide",
+        "dioxide"
+      ],
+      "estimatedMinutes": 10,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students break three oxide names and see that the number prefix counts the oxygen atoms while -IDE marks a two-element compound.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Each name below ends in -OXIDE. Break each one apart and record what the number prefix and the ending tell you."
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "MONO",
+              "role": "prefix",
+              "meaning": "one"
+            },
+            {
+              "display": "DI",
+              "role": "prefix",
+              "meaning": "two"
+            },
+            {
+              "display": "TRI",
+              "role": "prefix",
+              "meaning": "three"
+            },
+            {
+              "display": "-IDE",
+              "role": "suffix",
+              "meaning": "two-element compound"
+            }
+          ]
+        },
+        {
+          "type": "breaktable",
+          "caption": "Break the word",
+          "rows": [
+            {
+              "word": "MONOXIDE",
+              "split": [
+                "MONO",
+                "OX",
+                "IDE"
+              ]
+            },
+            {
+              "word": "DIOXIDE",
+              "split": [
+                "DI",
+                "OX",
+                "IDE"
+              ]
+            },
+            {
+              "word": "TRIOXIDE",
+              "split": [
+                "TRI",
+                "OX",
+                "IDE"
+              ]
+            }
+          ],
+          "columns": [
+            "Number prefix → how many oxygens",
+            "What -IDE tells you",
+            "How many oxygen atoms"
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "All three end in -IDE. What does that ending tell you they have in common?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "Carbon monoxide is CO and carbon dioxide is CO₂. Use the prefixes to explain the difference in one sentence.",
+          "count": 3
+        },
+        {
+          "type": "ace",
+          "a": "Say what the -IDE ending marks.",
+          "c": "Explain how the prefix changes the number of oxygen atoms.",
+          "e": "SULFUR TRIOXIDE has the prefix TRI. Predict its formula and explain your reasoning."
+        }
+      ]
+    },
+    {
+      "id": "g912-chem-sort-suffixes",
+      "title": "Sort It: -ide, -ate, or -ite",
+      "gradeBand": "9-12",
+      "scienceArea": "chemistry",
+      "activityType": "sort",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "ide",
+        "ate",
+        "ite"
+      ],
+      "terms": [
+        "sulfate",
+        "sulfite"
+      ],
+      "estimatedMinutes": 15,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students sort ion and compound names by ending to read what each contains — two elements (-IDE) or oxygen (-ATE richer, -ITE poorer).",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "The ending of a chemical name is a clue. Sort each name into the column its ending points to."
+        },
+        {
+          "type": "wordparts",
+          "caption": "What each ending signals",
+          "items": [
+            {
+              "display": "-IDE",
+              "role": "suffix",
+              "meaning": "just two elements"
+            },
+            {
+              "display": "-ATE",
+              "role": "suffix",
+              "meaning": "oxygen — the richer form"
+            },
+            {
+              "display": "-ITE",
+              "role": "suffix",
+              "meaning": "oxygen — the poorer form"
+            }
+          ]
+        },
+        {
+          "type": "sortcolumns",
+          "caption": "Sort by the ending",
+          "columns": [
+            "-IDE — two elements",
+            "-ATE — oxygen (more)",
+            "-ITE — oxygen (less)"
+          ],
+          "items": [
+            "chloride",
+            "sulfate",
+            "sulfite",
+            "nitrate",
+            "nitrite",
+            "sulfide",
+            "carbonate",
+            "oxide"
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Sulfate is SO₄²⁻ and sulfite is SO₃²⁻. How does the ending predict which one has more oxygen?",
+          "count": 3
+        },
+        {
+          "type": "lines",
+          "label": "A name ends in -IDE. What can you say about how many kinds of element it contains?",
+          "count": 2
+        },
+        {
+          "type": "ace",
+          "a": "Say what -ATE and -ITE both tell you is present.",
+          "c": "Explain how -ATE and -ITE differ from each other.",
+          "e": "You see the name 'phosphide'. Based only on the ending, does it contain oxygen? How do you know?"
+        }
+      ]
+    },
+    {
+      "id": "g912-chem-equation-electrolysis",
+      "title": "Word Equation: Electrolysis",
+      "gradeBand": "9-12",
+      "scienceArea": "chemistry",
+      "activityType": "equation",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "electro",
+        "lysis"
+      ],
+      "terms": [
+        "electrolysis"
+      ],
+      "estimatedMinutes": 15,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students build ELECTROLYSIS from ELECTRO and LYSIS, then connect it to the -LYSIS family (hydro-, photo-, thermo-) by what does the breaking.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Complete the equation, then use the note and the parts to explain what electrolysis does."
+        },
+        {
+          "type": "equation",
+          "parts": [
+            "ELECTRO",
+            "LYSIS"
+          ],
+          "meanings": [
+            "electricity",
+            "breaking apart"
+          ],
+          "result": "ELECTROLYSIS",
+          "clueLabel": "Word-part clue",
+          "clue": "",
+          "scienceLabel": "Science meaning",
+          "science": ""
+        },
+        {
+          "type": "note",
+          "text": "Electrolysis uses an electric current to split a compound. Passing electricity through water breaks it into hydrogen gas and oxygen gas."
+        },
+        {
+          "type": "lines",
+          "label": "Which part of ELECTROLYSIS tells you what does the breaking? Which part tells you a breaking happens?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "HYDROLYSIS breaks with water and PHOTOLYSIS breaks with light. Using the first parts, predict what breaks each substance.",
+          "count": 3
+        },
+        {
+          "type": "ace",
+          "a": "Say what ELECTRO and LYSIS mean.",
+          "c": "Explain how the two parts describe what happens to water during electrolysis.",
+          "e": "THERMOLYSIS begins with THERMO (heat). Predict what supplies the energy to break the compound."
+        }
+      ]
+    },
+    {
+      "id": "g912-chem-decode-isomer",
+      "title": "Decode It: Isomer",
+      "gradeBand": "9-12",
+      "scienceArea": "chemistry",
+      "activityType": "decode",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "iso",
+        "mer"
+      ],
+      "terms": [
+        "isomer"
+      ],
+      "estimatedMinutes": 15,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students decode ISOMER from ISO (same) and MER (part), then use a data table of two compounds with the same formula to test the idea.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Break the word and predict its meaning. Then use the table to check and finish your idea."
+        },
+        {
+          "type": "bigword",
+          "word": "ISOMER",
+          "split": [
+            "ISO",
+            "MER"
+          ]
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "ISO",
+              "role": "prefix",
+              "meaning": "equal, same"
+            },
+            {
+              "display": "MER",
+              "role": "root",
+              "meaning": "part, unit"
+            }
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Break it: what do the parts mean?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "Predict: if two molecules are isomers, what is the same about them and what might differ?",
+          "count": 3
+        },
+        {
+          "type": "datatable",
+          "caption": "Two sugars",
+          "columns": [
+            "Compound",
+            "Formula",
+            "Taste / shape"
+          ],
+          "rows": [
+            [
+              "Glucose",
+              "C₆H₁₂O₆",
+              "ring, moderately sweet"
+            ],
+            [
+              "Fructose",
+              "C₆H₁₂O₆",
+              "different ring, very sweet"
+            ]
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "What is identical in the table? What is different? Write your final meaning of ISOMER.",
+          "count": 4
+        },
+        {
+          "type": "mcq",
+          "stem": "Why can glucose and fructose behave differently even though their formulas match?",
+          "options": [
+            "Their atoms are arranged differently.",
+            "They contain different elements.",
+            "One has more atoms than the other.",
+            "They have different molecular formulas."
+          ],
+          "followUp": "Which parts of the word ISOMER support your answer?",
+          "followUpLines": 2
+        },
+        {
+          "type": "ace",
+          "a": "Say what ISO and MER mean.",
+          "c": "Point to what the table shows is 'the same' about isomers.",
+          "e": "Two molecules share the formula C₂H₆O but one is drinking alcohol and one is a different compound. What does ISOMER let you predict?"
+        }
+      ]
+    },
+    {
+      "id": "g912-chem-detective-reactions",
+      "title": "Word Detective: Reaction Types",
+      "gradeBand": "9-12",
+      "scienceArea": "chemistry",
+      "activityType": "detective",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "syn",
+        "thesis",
+        "de"
+      ],
+      "terms": [
+        "synthesis",
+        "decomposition"
+      ],
+      "estimatedMinutes": 20,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students read an original passage about two opposite reactions and use SYN- and DE- to tell a combination from a breakdown.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Read the passage. For each underlined word, fill in the detective table using the parts and the evidence."
+        },
+        {
+          "type": "stimulus",
+          "kind": "passage",
+          "title": "Two opposite reactions",
+          "text": "A student heats iron filings with sulfur. The two elements combine into a single new compound, iron sulfide — a SYNTHESIS. Later she heats a small amount of hydrogen peroxide, and it breaks apart into water and oxygen gas, one compound becoming two simpler substances — a DECOMPOSITION. One reaction builds up; the other takes apart. The word parts name the direction."
+        },
+        {
+          "type": "detectivetable",
+          "caption": "Detective table",
+          "columns": [
+            "Science word",
+            "Parts I recognize",
+            "My prediction",
+            "Evidence from the passage",
+            "Final meaning"
+          ],
+          "rows": [
+            {
+              "word": "SYNTHESIS"
+            },
+            {
+              "word": "DECOMPOSITION"
+            }
+          ]
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word-part help",
+          "items": [
+            {
+              "display": "SYN",
+              "role": "prefix",
+              "meaning": "together"
+            },
+            {
+              "display": "THESIS",
+              "role": "root",
+              "meaning": "putting, placing"
+            },
+            {
+              "display": "DE-",
+              "role": "prefix",
+              "meaning": "reversal, taking apart"
+            },
+            {
+              "display": "COMPOSITION",
+              "role": "word",
+              "meaning": "putting together"
+            }
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "SYN- and DE- point in opposite directions. Explain how each prefix matches its reaction in the passage.",
+          "count": 3
+        },
+        {
+          "type": "lines",
+          "label": "A compound is split into simpler substances. Which word names that, and which part told you?",
+          "count": 2
+        },
+        {
+          "type": "ace",
+          "a": "Say what SYN and DE- mean.",
+          "c": "Explain how the parts of each word match what happened in the passage.",
+          "e": "Water forms when hydrogen and oxygen combine. Synthesis or decomposition? Justify with the word part."
+        }
+      ]
+    },
+    {
+      "id": "g912-chem-mystery-eoy",
+      "title": "Mystery Science Word (EOY): Reading a Formula's Name",
+      "gradeBand": "9-12",
+      "scienceArea": "chemistry",
+      "activityType": "mystery",
+      "sstCheckpoint": "eoy",
+      "ace": "extend",
+      "morphemes": [
+        "di",
+        "tri",
+        "tetra",
+        "penta",
+        "ide",
+        "ate"
+      ],
+      "terms": [
+        "dioxide"
+      ],
+      "estimatedMinutes": 20,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "The end-of-year transfer task. Students combine two rules — a number prefix counts atoms and the ending names the ion type — to read compound names they have never studied.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "You have not been taught these exact compounds. Use two reliable rules: a number prefix counts atoms, and the ending (-IDE, -ATE, -ITE) tells you the kind of ion. Fill in the table."
+        },
+        {
+          "type": "wordparts",
+          "caption": "Number prefixes",
+          "items": [
+            {
+              "display": "MONO",
+              "role": "prefix",
+              "meaning": "one"
+            },
+            {
+              "display": "DI",
+              "role": "prefix",
+              "meaning": "two"
+            },
+            {
+              "display": "TRI",
+              "role": "prefix",
+              "meaning": "three"
+            },
+            {
+              "display": "TETRA",
+              "role": "prefix",
+              "meaning": "four"
+            },
+            {
+              "display": "PENTA",
+              "role": "prefix",
+              "meaning": "five"
+            }
+          ]
+        },
+        {
+          "type": "wordparts",
+          "caption": "Endings",
+          "items": [
+            {
+              "display": "-IDE",
+              "role": "suffix",
+              "meaning": "two elements"
+            },
+            {
+              "display": "-ATE",
+              "role": "suffix",
+              "meaning": "oxygen ion, richer"
+            },
+            {
+              "display": "-ITE",
+              "role": "suffix",
+              "meaning": "oxygen ion, poorer"
+            }
+          ]
+        },
+        {
+          "type": "detectivetable",
+          "caption": "Read the name",
+          "columns": [
+            "Compound name",
+            "Number prefix → how many",
+            "Ending → what kind",
+            "What the name tells you"
+          ],
+          "rows": [
+            {
+              "word": "DINITROGEN TETROXIDE"
+            },
+            {
+              "word": "PHOSPHORUS PENTACHLORIDE"
+            },
+            {
+              "word": "POTASSIUM CHLORATE"
+            },
+            {
+              "word": "SODIUM SULFIDE"
+            }
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Without a chart, how do the prefixes and endings let you read a name you have never seen?",
+          "count": 3
+        },
+        {
+          "type": "mcq",
+          "stem": "'Dinitrogen tetroxide' — how many nitrogen atoms and how many oxygen atoms does the name signal?",
+          "options": [
+            "Two nitrogen and four oxygen.",
+            "One nitrogen and three oxygen.",
+            "Four nitrogen and two oxygen.",
+            "Two nitrogen and two oxygen."
+          ],
+          "followUp": "Which prefixes did you use to decide?",
+          "followUpLines": 2
+        },
+        {
+          "type": "ace",
+          "a": "Say what one number prefix and one ending mean.",
+          "c": "Point to a name in the table and explain both its prefix and its ending.",
+          "e": "You meet 'carbon tetrachloride' for the first time. How many chlorine atoms does the name signal, and how do you know?"
+        }
+      ]
     }
   ]
 }

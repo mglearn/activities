@@ -853,6 +853,114 @@
       "examples": ["lactase", "amylase", "lipase"],
       "studentNote": "-ASE at the end of a word usually marks an enzyme.",
       "cautions": []
+    },
+    {
+      "id": "di",
+      "display": "DI",
+      "type": "prefix",
+      "meaning": "two",
+      "origin": "Greek",
+      "gradeBands": ["9-12"],
+      "scienceAreas": ["chemistry"],
+      "examples": ["dioxide", "diatomic"],
+      "studentNote": "DI means two.",
+      "cautions": []
+    },
+    {
+      "id": "tri",
+      "display": "TRI",
+      "type": "prefix",
+      "meaning": "three",
+      "origin": "Greek",
+      "gradeBands": ["9-12"],
+      "scienceAreas": ["chemistry"],
+      "examples": ["trioxide", "triatomic"],
+      "studentNote": "TRI means three.",
+      "cautions": []
+    },
+    {
+      "id": "tetra",
+      "display": "TETRA",
+      "type": "prefix",
+      "meaning": "four",
+      "origin": "Greek",
+      "gradeBands": ["9-12"],
+      "scienceAreas": ["chemistry"],
+      "examples": ["tetroxide", "tetrachloride"],
+      "studentNote": "TETRA means four.",
+      "cautions": []
+    },
+    {
+      "id": "penta",
+      "display": "PENTA",
+      "type": "prefix",
+      "meaning": "five",
+      "origin": "Greek",
+      "gradeBands": ["9-12"],
+      "scienceAreas": ["chemistry"],
+      "examples": ["pentoxide", "pentachloride"],
+      "studentNote": "PENTA means five.",
+      "cautions": []
+    },
+    {
+      "id": "ide",
+      "display": "-IDE",
+      "type": "suffix",
+      "meaning": "a simple compound of two elements",
+      "origin": "chemistry",
+      "gradeBands": ["9-12"],
+      "scienceAreas": ["chemistry"],
+      "examples": ["oxide", "chloride", "sulfide"],
+      "studentNote": "-IDE marks a compound of just two elements.",
+      "cautions": []
+    },
+    {
+      "id": "ate",
+      "display": "-ATE",
+      "type": "suffix",
+      "meaning": "an oxygen-containing ion (the oxygen-richer form)",
+      "origin": "chemistry",
+      "gradeBands": ["9-12"],
+      "scienceAreas": ["chemistry"],
+      "examples": ["sulfate", "nitrate", "carbonate"],
+      "studentNote": "-ATE marks the oxygen-richer ion of a pair.",
+      "cautions": []
+    },
+    {
+      "id": "ite",
+      "display": "-ITE",
+      "type": "suffix",
+      "meaning": "an oxygen-containing ion (the oxygen-poorer form)",
+      "origin": "chemistry",
+      "gradeBands": ["9-12"],
+      "scienceAreas": ["chemistry"],
+      "examples": ["sulfite", "nitrite"],
+      "studentNote": "-ITE marks the oxygen-poorer ion of a pair.",
+      "cautions": []
+    },
+    {
+      "id": "electro",
+      "display": "ELECTRO",
+      "type": "combining-form",
+      "meaning": "electricity",
+      "origin": "Greek",
+      "gradeBands": ["9-12"],
+      "scienceAreas": ["chemistry", "force-motion-energy"],
+      "examples": ["electrolysis", "electrode"],
+      "studentNote": "ELECTRO points to electricity.",
+      "cautions": []
+    },
+    {
+      "id": "de",
+      "display": "DE-",
+      "type": "prefix",
+      "meaning": "removal, reversal, taking apart",
+      "origin": "Latin",
+      "gradeBands": ["9-12"],
+      "scienceAreas": ["chemistry"],
+      "examples": ["decomposition", "dehydration"],
+      "studentNote": "DE- signals taking apart or reversing.",
+      "cautions": []
     }
   ]
 }

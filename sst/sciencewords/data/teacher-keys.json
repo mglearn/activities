@@ -973,6 +973,201 @@
         }
       ],
       "lookFor": "The end-of-year target is transfer: using -ASE and -OSE to classify words never taught. A student who needs to know the molecule first has not yet trusted the morphology."
+    },
+    "g912-chem-break-oxides": {
+      "answers": [
+        {
+          "prompt": "MONOXIDE",
+          "answer": "MONO = one, OX = oxygen, -IDE = two-element compound; a compound with one oxygen. Carbon monoxide is CO.",
+          "why": ""
+        },
+        {
+          "prompt": "DIOXIDE",
+          "answer": "DI = two, OX = oxygen, -IDE = two-element compound; a compound with two oxygens. Carbon dioxide is CO₂.",
+          "why": ""
+        },
+        {
+          "prompt": "TRIOXIDE",
+          "answer": "TRI = three, OX = oxygen, -IDE = two-element compound; a compound with three oxygens.",
+          "why": ""
+        },
+        {
+          "prompt": "What -IDE tells you",
+          "answer": "That the compound is made of just two elements.",
+          "why": "This is the shared generalization across the three words."
+        },
+        {
+          "prompt": "CO vs CO₂",
+          "answer": "Carbon monoxide has one oxygen (MONO); carbon dioxide has two (DI). The prefix is the only difference in the count.",
+          "why": "Require the prefixes to carry the explanation."
+        },
+        {
+          "prompt": "SULFUR TRIOXIDE",
+          "answer": "TRI signals three oxygens, so SO₃. Reasoning: the prefix counts the oxygen atoms.",
+          "why": "Transfer of the number-prefix rule to a formula."
+        }
+      ],
+      "lookFor": "Look for the prefix used to state the oxygen count and -IDE used for 'two elements'. A student who cannot separate the count from the ending is at level 2."
+    },
+    "g912-chem-sort-suffixes": {
+      "answers": [
+        {
+          "prompt": "-IDE column",
+          "answer": "chloride, sulfide, oxide — names of two-element compounds.",
+          "why": "These carry no oxygen implied by the ending."
+        },
+        {
+          "prompt": "-ATE column",
+          "answer": "sulfate, nitrate, carbonate — oxygen ions, the richer form.",
+          "why": ""
+        },
+        {
+          "prompt": "-ITE column",
+          "answer": "sulfite, nitrite — oxygen ions, the poorer form.",
+          "why": ""
+        },
+        {
+          "prompt": "Sulfate vs sulfite oxygen",
+          "answer": "The -ATE form has more oxygen (SO₄²⁻, four) and the -ITE form has less (SO₃²⁻, three), so the ending predicts the count order.",
+          "why": "Require the ending tied to the oxygen count, with the formulas if possible."
+        },
+        {
+          "prompt": "A name ending in -IDE",
+          "answer": "It is a compound of just two elements, with no oxygen signalled by the ending.",
+          "why": "Reward 'two elements' from the ending alone."
+        },
+        {
+          "prompt": "Phosphide",
+          "answer": "No oxygen is signalled — the -IDE ending marks a two-element compound.",
+          "why": "Transfer of the -IDE rule to an unseen name."
+        }
+      ],
+      "lookFor": "The key behaviour is reading the ending as a clue to composition. A student who sorts by the element name rather than the ending has missed the point."
+    },
+    "g912-chem-equation-electrolysis": {
+      "answers": [
+        {
+          "prompt": "ELECTROLYSIS equation",
+          "answer": "ELECTRO = electricity, LYSIS = breaking apart; using electricity to split a compound.",
+          "why": ""
+        },
+        {
+          "prompt": "Which part breaks / signals breaking",
+          "answer": "ELECTRO says electricity does the work; LYSIS says a breaking happens.",
+          "why": "Accept either order if both are mapped."
+        },
+        {
+          "prompt": "HYDROLYSIS and PHOTOLYSIS",
+          "answer": "Hydrolysis breaks a substance with water (HYDRO); photolysis breaks it with light (PHOTO). The first part names what does the breaking.",
+          "why": "Reward the -LYSIS family generalization."
+        },
+        {
+          "prompt": "THERMOLYSIS",
+          "answer": "Heat (THERMO) supplies the energy to break the compound.",
+          "why": "Transfer of the pattern to a new first part."
+        }
+      ],
+      "lookFor": "A level 3 answer maps both parts and generalizes the -LYSIS family by first part. The thermolysis item checks transfer."
+    },
+    "g912-chem-decode-isomer": {
+      "answers": [
+        {
+          "prompt": "Break it",
+          "answer": "ISO = same, MER = part; same parts.",
+          "why": ""
+        },
+        {
+          "prompt": "Predict",
+          "answer": "Molecules with the same pieces but possibly arranged differently.",
+          "why": "Accept any prediction using 'same' plus 'arrangement/parts'."
+        },
+        {
+          "prompt": "Same and different in the table",
+          "answer": "Same: the formula C₆H₁₂O₆ for both. Different: the arrangement (ring shape) and the resulting taste. Final meaning: compounds with the same formula but different structures.",
+          "why": "Require the identical formula read from the table."
+        },
+        {
+          "prompt": "Why they differ",
+          "answer": "Their atoms are arranged differently, even though the formula matches.",
+          "why": "Correct choice is the first option."
+        },
+        {
+          "prompt": "C₂H₆O isomers",
+          "answer": "ISOMER lets you predict there is another compound with the same formula but a different structure and different properties.",
+          "why": "Transfer: same formula need not mean same substance."
+        }
+      ],
+      "lookFor": "The decode behaviour is tying ISO to the identical formula and MER to arrangement. A student who says isomers are 'the same molecule' has missed the structural difference."
+    },
+    "g912-chem-detective-reactions": {
+      "answers": [
+        {
+          "prompt": "SYNTHESIS",
+          "answer": "SYN = together, THESIS = putting; a reaction that combines reactants into one product. Evidence: iron and sulfur combine into iron sulfide.",
+          "why": "Require the evidence column to cite the combining in the passage."
+        },
+        {
+          "prompt": "DECOMPOSITION",
+          "answer": "DE = reversal/taking apart, COMPOSITION = putting together; one compound breaks into simpler substances. Evidence: hydrogen peroxide breaks into water and oxygen.",
+          "why": ""
+        },
+        {
+          "prompt": "SYN- vs DE-",
+          "answer": "SYN- means building up (putting together) and DE- means taking apart, so the prefixes name the opposite directions of the two reactions.",
+          "why": "Reward the opposite-direction contrast tied to the prefixes."
+        },
+        {
+          "prompt": "A compound split into simpler parts",
+          "answer": "Decomposition — the DE- prefix signals the taking apart.",
+          "why": "Require the prefix to justify the choice."
+        },
+        {
+          "prompt": "Hydrogen and oxygen forming water",
+          "answer": "Synthesis — two substances combine into one, which SYN- names.",
+          "why": "Transfer using the prefix."
+        }
+      ],
+      "lookFor": "The behaviour is reading SYN- and DE- as opposite directions and citing the passage. A student who swaps them has not used the prefixes."
+    },
+    "g912-chem-mystery-eoy": {
+      "answers": [
+        {
+          "prompt": "DINITROGEN TETROXIDE",
+          "answer": "DI = two nitrogen, TETR(A) = four oxygen, -IDE = two-element compound; two nitrogen and four oxygen atoms (N₂O₄).",
+          "why": ""
+        },
+        {
+          "prompt": "PHOSPHORUS PENTACHLORIDE",
+          "answer": "PENTA = five chlorine, -IDE = two-element compound; one phosphorus with five chlorine (PCl₅).",
+          "why": ""
+        },
+        {
+          "prompt": "POTASSIUM CHLORATE",
+          "answer": "-ATE = an oxygen-rich ion, so it contains oxygen (chlorate is ClO₃⁻); potassium plus that ion.",
+          "why": "Reward reading the -ATE as 'contains oxygen' without a chart."
+        },
+        {
+          "prompt": "SODIUM SULFIDE",
+          "answer": "-IDE = two elements, no oxygen signalled; sodium plus sulfur (Na₂S).",
+          "why": ""
+        },
+        {
+          "prompt": "How prefixes and endings let you read a new name",
+          "answer": "The number prefix counts the atoms and the ending names the kind of ion, so the two rules together decode a name never seen before.",
+          "why": "This is the core end-of-year transfer skill."
+        },
+        {
+          "prompt": "Dinitrogen tetroxide count",
+          "answer": "Two nitrogen and four oxygen — from DI (two) and TETRA (four).",
+          "why": "Correct choice is the first option."
+        },
+        {
+          "prompt": "Carbon tetrachloride",
+          "answer": "TETRA signals four chlorine atoms (CCl₄).",
+          "why": "The transfer item: a brand-new name read by its prefix."
+        }
+      ],
+      "lookFor": "The end-of-year target is combining two rules to read an unstudied name. A student who needs to be told the formula first has not yet trusted the prefix and the ending."
     }
   }
 }

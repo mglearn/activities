@@ -1232,6 +1232,203 @@
       "teks": [],
       "ngss": [],
       "contextExample": "An adult who makes little lactase cannot fully digest the lactose in a glass of milk."
+    },
+    {
+      "id": "monoxide",
+      "term": "monoxide",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "morpheme": "mono",
+          "role": "prefix"
+        },
+        {
+          "text": "ox",
+          "role": "root",
+          "meaning": "oxygen"
+        },
+        {
+          "morpheme": "ide",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "one + oxygen + two-element compound",
+      "studentDefinition": "A compound with one oxygen atom joined to another element.",
+      "scienceExplanation": "In a monoxide, a single oxygen atom is bonded to another element. Carbon monoxide (CO) has one carbon and one oxygen.",
+      "scienceAreas": ["chemistry"],
+      "sstLevels": ["boy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Carbon monoxide (CO) is dangerous because it carries only one oxygen and binds tightly to blood."
+    },
+    {
+      "id": "dioxide",
+      "term": "dioxide",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "morpheme": "di",
+          "role": "prefix"
+        },
+        {
+          "text": "ox",
+          "role": "root",
+          "meaning": "oxygen"
+        },
+        {
+          "morpheme": "ide",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "two + oxygen + two-element compound",
+      "studentDefinition": "A compound with two oxygen atoms joined to another element.",
+      "scienceExplanation": "In a dioxide, two oxygen atoms are bonded to one atom of another element. Carbon dioxide (CO₂) has one carbon and two oxygens.",
+      "scienceAreas": ["chemistry"],
+      "sstLevels": ["boy", "moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "You breathe out carbon dioxide (CO₂); the DI- tells you it carries two oxygens, one more than monoxide."
+    },
+    {
+      "id": "sulfate",
+      "term": "sulfate",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "text": "sulf",
+          "role": "root",
+          "meaning": "sulfur"
+        },
+        {
+          "morpheme": "ate",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "sulfur + oxygen-richer ion",
+      "studentDefinition": "A polyatomic ion of sulfur with four oxygens (SO₄²⁻).",
+      "scienceExplanation": "Sulfate (SO₄²⁻) is a polyatomic ion of sulfur and oxygen. The -ATE ending marks it as the oxygen-richer partner of sulfite.",
+      "scienceAreas": ["chemistry"],
+      "sstLevels": ["moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Epsom salt is magnesium sulfate; the -ATE ending signals the oxygen-rich form."
+    },
+    {
+      "id": "sulfite",
+      "term": "sulfite",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "text": "sulf",
+          "role": "root",
+          "meaning": "sulfur"
+        },
+        {
+          "morpheme": "ite",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "sulfur + oxygen-poorer ion",
+      "studentDefinition": "A polyatomic ion of sulfur with three oxygens (SO₃²⁻).",
+      "scienceExplanation": "Sulfite (SO₃²⁻) has one fewer oxygen than sulfate. The -ITE ending marks the oxygen-poorer partner of the pair.",
+      "scienceAreas": ["chemistry"],
+      "sstLevels": ["moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Dried fruit often lists sulfites as a preservative; the -ITE ending signals the oxygen-poorer form."
+    },
+    {
+      "id": "electrolysis",
+      "term": "electrolysis",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "morpheme": "electro",
+          "role": "combining-form"
+        },
+        {
+          "morpheme": "lysis",
+          "role": "root"
+        }
+      ],
+      "wordPartClue": "electricity + breaking apart",
+      "studentDefinition": "Using an electric current to split a compound into simpler parts.",
+      "scienceExplanation": "Electrolysis passes an electric current through a substance to break it apart, such as splitting water into hydrogen and oxygen gas.",
+      "scienceAreas": ["chemistry"],
+      "sstLevels": ["moy", "eoy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Passing electricity through water by electrolysis releases hydrogen at one electrode and oxygen at the other."
+    },
+    {
+      "id": "isomer",
+      "term": "isomer",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "morpheme": "iso",
+          "role": "prefix"
+        },
+        {
+          "morpheme": "mer",
+          "role": "root"
+        }
+      ],
+      "wordPartClue": "same + parts",
+      "studentDefinition": "One of two compounds with the same formula but a different arrangement.",
+      "scienceExplanation": "Isomers share an identical molecular formula but differ in how the atoms are arranged, so they can behave differently. Glucose and fructose are isomers (both C₆H₁₂O₆).",
+      "scienceAreas": ["chemistry"],
+      "sstLevels": ["moy", "eoy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Glucose and fructose are isomers: same formula C₆H₁₂O₆, different structures and different sweetness."
+    },
+    {
+      "id": "synthesis",
+      "term": "synthesis",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "morpheme": "syn",
+          "role": "prefix"
+        },
+        {
+          "morpheme": "thesis",
+          "role": "root"
+        }
+      ],
+      "wordPartClue": "together + putting",
+      "studentDefinition": "A reaction that combines substances into a single product.",
+      "scienceExplanation": "In a synthesis (combination) reaction, two or more reactants join to form one more complex product, such as iron and sulfur forming iron sulfide.",
+      "scienceAreas": ["chemistry"],
+      "sstLevels": ["moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "When hydrogen and oxygen combine to form water, that is a synthesis reaction."
+    },
+    {
+      "id": "decomposition",
+      "term": "decomposition",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "morpheme": "de",
+          "role": "prefix"
+        },
+        {
+          "text": "composition",
+          "role": "root",
+          "meaning": "putting together"
+        }
+      ],
+      "wordPartClue": "reversal + putting together",
+      "studentDefinition": "A reaction that breaks one compound into simpler substances.",
+      "scienceExplanation": "In a decomposition reaction, a single compound breaks into two or more simpler substances — the reverse of synthesis.",
+      "scienceAreas": ["chemistry"],
+      "sstLevels": ["moy", "eoy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Heating hydrogen peroxide until it breaks into water and oxygen is a decomposition reaction."
     }
   ]
 }
