@@ -2643,6 +2643,569 @@
           "e": "A bowling ball and a tennis ball roll at the same speed. Which has more kinetic energy, and why?"
         }
       ]
+    },
+    {
+      "id": "g912-bio-break-chromosome",
+      "title": "Break It: Chromosome and Cell Bodies",
+      "gradeBand": "9-12",
+      "scienceArea": "biology",
+      "activityType": "break",
+      "sstCheckpoint": "boy",
+      "ace": "articulate",
+      "morphemes": [
+        "chromo",
+        "some",
+        "ribo"
+      ],
+      "terms": [
+        "chromosome"
+      ],
+      "estimatedMinutes": 10,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students break CHROMOSOME and RIBOSOME, isolate the shared root SOME (body), and see how the first part names each structure.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Both words share the root SOME, meaning body. Break each word apart and record what every part means."
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "CHROMO",
+              "role": "root",
+              "meaning": "colour"
+            },
+            {
+              "display": "RIBO",
+              "role": "root",
+              "meaning": "ribose (a sugar)"
+            },
+            {
+              "display": "SOME",
+              "role": "suffix",
+              "meaning": "body"
+            }
+          ]
+        },
+        {
+          "type": "breaktable",
+          "caption": "Break the word",
+          "rows": [
+            {
+              "word": "CHROMOSOME",
+              "split": [
+                "CHROMO",
+                "SOME"
+              ]
+            },
+            {
+              "word": "RIBOSOME",
+              "split": [
+                "RIBO",
+                "SOME"
+              ]
+            }
+          ],
+          "columns": [
+            "First part means",
+            "Last part means",
+            "The whole word names"
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Both words end in SOME. What do the two structures have in common, based on that part?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "Chromosomes were named 'coloured bodies' though they are not colourful in a living cell. Use CHROMO to explain where the name came from.",
+          "count": 3
+        },
+        {
+          "type": "ace",
+          "a": "Say what SOME means at the end of these words.",
+          "c": "Explain how the first part tells you which cell body is meant.",
+          "e": "LYSOSOME also ends in SOME and comes from LYSIS (breaking apart). Predict what a lysosome does."
+        }
+      ]
+    },
+    {
+      "id": "g912-bio-decode-division",
+      "title": "Decode It: Mitosis and Meiosis",
+      "gradeBand": "9-12",
+      "scienceArea": "biology",
+      "activityType": "decode",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "mito",
+        "meio",
+        "osis"
+      ],
+      "terms": [
+        "mitosis",
+        "meiosis"
+      ],
+      "estimatedMinutes": 20,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students break the two division words, then use a data table of chromosome numbers to connect MITO and MEIO to what each process does.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Break each word. Then use the data table to decide which process matches which set of parts."
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "MITO",
+              "role": "root",
+              "meaning": "thread"
+            },
+            {
+              "display": "MEIO",
+              "role": "root",
+              "meaning": "less, reduction"
+            },
+            {
+              "display": "-OSIS",
+              "role": "suffix",
+              "meaning": "process"
+            }
+          ]
+        },
+        {
+          "type": "breaktable",
+          "caption": "Break the word",
+          "rows": [
+            {
+              "word": "MITOSIS",
+              "split": [
+                "MITO",
+                "OSIS"
+              ]
+            },
+            {
+              "word": "MEIOSIS",
+              "split": [
+                "MEIO",
+                "OSIS"
+              ]
+            }
+          ],
+          "columns": [
+            "First part means",
+            "Last part means",
+            "What the process does"
+          ]
+        },
+        {
+          "type": "datatable",
+          "caption": "Two ways a human cell can divide",
+          "columns": [
+            "Process",
+            "Chromosomes before",
+            "Chromosomes in each new cell",
+            "New cells made"
+          ],
+          "rows": [
+            [
+              "Mitosis",
+              "46",
+              "46",
+              "2 identical"
+            ],
+            [
+              "Meiosis",
+              "46",
+              "23",
+              "4 for reproduction"
+            ]
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Which process reduces the chromosome number? How does its first part predict that?",
+          "count": 3
+        },
+        {
+          "type": "lines",
+          "label": "MITO means thread and describes how the chromosomes look, not what changes in number. Why is MEIO the more informative name of the two?",
+          "count": 3
+        },
+        {
+          "type": "ace",
+          "a": "Say what MEIO means.",
+          "c": "Point to the row in the table that matches 'reduction'.",
+          "e": "A cell must make gametes with half the normal chromosomes. Which process, and how do you know from the word part?"
+        }
+      ]
+    },
+    {
+      "id": "g912-bio-equation-glycolysis",
+      "title": "Word Equation: Glycolysis",
+      "gradeBand": "9-12",
+      "scienceArea": "biology",
+      "activityType": "equation",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "glyco",
+        "lysis",
+        "ose"
+      ],
+      "terms": [
+        "glycolysis",
+        "glucose"
+      ],
+      "estimatedMinutes": 15,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students build GLYCOLYSIS from GLYCO and LYSIS, then connect the -OSE sugar ending to glucose, the molecule that is split.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Complete the equation, then use the note and the parts to explain what glycolysis does."
+        },
+        {
+          "type": "equation",
+          "parts": [
+            "GLYCO",
+            "LYSIS"
+          ],
+          "meanings": [
+            "sugar",
+            "breaking apart"
+          ],
+          "result": "GLYCOLYSIS",
+          "clueLabel": "Word-part clue",
+          "clue": "",
+          "scienceLabel": "Science meaning",
+          "science": ""
+        },
+        {
+          "type": "note",
+          "text": "Glycolysis is the first step of cellular respiration. It splits one glucose molecule into smaller molecules and releases a little usable energy. The sugar it splits, GLUCOSE, ends in -OSE, which marks a sugar."
+        },
+        {
+          "type": "lines",
+          "label": "Which part of GLYCOLYSIS tells you a sugar is involved? Which part tells you it is broken?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "GLUCOSE, LACTOSE, and RIBOSE all end in -OSE. What do all three have in common?",
+          "count": 2
+        },
+        {
+          "type": "ace",
+          "a": "Say what GLYCO and LYSIS mean.",
+          "c": "Explain how the two parts describe what happens to a glucose molecule.",
+          "e": "PHOTOLYSIS splits water using light. Using the parts, predict what is broken and by what."
+        }
+      ]
+    },
+    {
+      "id": "g912-bio-sort-genopheno",
+      "title": "Sort It: Genotype or Phenotype",
+      "gradeBand": "9-12",
+      "scienceArea": "biology",
+      "activityType": "sort",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "geno",
+        "pheno",
+        "type"
+      ],
+      "terms": [
+        "genotype",
+        "phenotype"
+      ],
+      "estimatedMinutes": 15,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students sort descriptions by GENO (the genes carried) and PHENO (the traits shown), reinforcing the shared root TYPE.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "GENO points to the genes an organism carries; PHENO points to what shows. Sort each description into the column it fits."
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "GENO",
+              "role": "root",
+              "meaning": "gene, hereditary makeup"
+            },
+            {
+              "display": "PHENO",
+              "role": "root",
+              "meaning": "showing, appearance"
+            },
+            {
+              "display": "TYPE",
+              "role": "word",
+              "meaning": "kind, form"
+            }
+          ]
+        },
+        {
+          "type": "sortcolumns",
+          "caption": "Which does each describe?",
+          "columns": [
+            "Genotype — the genes carried",
+            "Phenotype — the traits shown"
+          ],
+          "items": [
+            "the alleles Bb",
+            "brown eyes",
+            "the DNA sequence for a trait",
+            "a six-foot-tall plant",
+            "TT for seed shape",
+            "a wrinkled pea pod"
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Both words share the root TYPE. What does that tell you both words are describing?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "Two plants show the same purple flowers but have genotypes BB and Bb. Explain how their phenotype can match while their genotype differs.",
+          "count": 3
+        },
+        {
+          "type": "ace",
+          "a": "Say what GENO and PHENO mean.",
+          "c": "Explain how one genotype can lead to a phenotype you can see.",
+          "e": "A trait is hidden in one generation and reappears in the next. Which word explains why the gene was there all along?"
+        }
+      ]
+    },
+    {
+      "id": "g912-bio-detective-homeostasis",
+      "title": "Word Detective: Homeostasis",
+      "gradeBand": "9-12",
+      "scienceArea": "biology",
+      "activityType": "detective",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "homeo",
+        "stasis",
+        "glyco"
+      ],
+      "terms": [
+        "homeostasis",
+        "glucose"
+      ],
+      "estimatedMinutes": 20,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students read an original passage about the body holding steady, then break HOMEOSTASIS and connect it to the evidence.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Read the passage. For each underlined word, fill in the detective table using the parts and the evidence."
+        },
+        {
+          "type": "stimulus",
+          "kind": "passage",
+          "title": "Holding steady",
+          "text": "On a hot afternoon a runner's body works to stay near 37 °C. As she heats up, she sweats, and the evaporating water cools her skin. Meanwhile her blood GLUCOSE rises after a snack, and her body releases a signal that moves the extra sugar into cells, bringing the level back down. Whatever the outside conditions, the internal state is pulled back toward a steady point. Scientists call this balancing act HOMEOSTASIS."
+        },
+        {
+          "type": "detectivetable",
+          "caption": "Detective table",
+          "columns": [
+            "Science word",
+            "Parts I recognize",
+            "My prediction",
+            "Evidence from the passage",
+            "Final meaning"
+          ],
+          "rows": [
+            {
+              "word": "HOMEOSTASIS"
+            },
+            {
+              "word": "GLUCOSE"
+            }
+          ]
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "HOMEO",
+              "role": "root",
+              "meaning": "steady, similar"
+            },
+            {
+              "display": "STASIS",
+              "role": "root",
+              "meaning": "staying the same"
+            },
+            {
+              "display": "GLUC",
+              "role": "word",
+              "meaning": "sweet"
+            },
+            {
+              "display": "-OSE",
+              "role": "suffix",
+              "meaning": "sugar"
+            }
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Using the parts of HOMEOSTASIS, explain why 'balance' or 'staying steady' fits better than 'no change at all'.",
+          "count": 3
+        },
+        {
+          "type": "lines",
+          "label": "The passage describes two things being held steady. Name both, with the evidence for each.",
+          "count": 3
+        },
+        {
+          "type": "ace",
+          "a": "Break HOMEOSTASIS into its two parts and say what each means.",
+          "c": "How do the parts match what the runner's body does in the passage?",
+          "e": "A person moves from a warm room into the cold. Predict one homeostatic response, and explain it using the word parts."
+        }
+      ]
+    },
+    {
+      "id": "g912-bio-mystery-eoy",
+      "title": "Mystery Science Word (EOY): -ase and -ose",
+      "gradeBand": "9-12",
+      "scienceArea": "biology",
+      "activityType": "mystery",
+      "sstCheckpoint": "eoy",
+      "ace": "extend",
+      "morphemes": [
+        "ase",
+        "ose"
+      ],
+      "terms": [
+        "lactase",
+        "lactose"
+      ],
+      "estimatedMinutes": 20,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "The end-of-year transfer task. Students use two chemistry suffixes — -ASE for enzymes and -OSE for sugars — to decode unfamiliar biology terms they have not studied.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "You have not studied these exact words. Use two reliable endings — -ASE for enzymes and -OSE for sugars — to work them out. Then check against the passage."
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "-ASE",
+              "role": "suffix",
+              "meaning": "an enzyme"
+            },
+            {
+              "display": "-OSE",
+              "role": "suffix",
+              "meaning": "a sugar"
+            }
+          ]
+        },
+        {
+          "type": "stimulus",
+          "kind": "passage",
+          "title": "Reading the endings",
+          "text": "In the small intestine, the sugar SUCROSE cannot be absorbed until it is broken into smaller sugars. An enzyme called SUCRASE does that job. The same pattern repeats elsewhere: the enzyme MALTASE breaks the sugar MALTOSE, and the enzyme AMYLASE breaks starch into sugars. The endings tell you which is which before you know anything else about them."
+        },
+        {
+          "type": "detectivetable",
+          "caption": "Sort by ending",
+          "columns": [
+            "Word",
+            "Ending",
+            "Is it an enzyme or a sugar?",
+            "How I know"
+          ],
+          "rows": [
+            {
+              "word": "SUCROSE"
+            },
+            {
+              "word": "SUCRASE"
+            },
+            {
+              "word": "MALTOSE"
+            },
+            {
+              "word": "MALTASE"
+            }
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Without any other information, how can you tell an enzyme from a sugar in this passage?",
+          "count": 3
+        },
+        {
+          "type": "mcq",
+          "stem": "A label lists the ingredient LACTASE. Based only on the ending, what is it?",
+          "options": [
+            "An enzyme.",
+            "A sugar.",
+            "A vitamin.",
+            "A mineral."
+          ],
+          "followUp": "What does the ending tell you, and what would LACTOSE be instead?",
+          "followUpLines": 2
+        },
+        {
+          "type": "ace",
+          "a": "Say what -ASE and -OSE mark at the end of a word.",
+          "c": "Point to one enzyme-and-sugar pair in the passage and explain the two endings.",
+          "e": "You meet the words FRUCTOSE and PROTEASE for the first time. Which is a sugar and which is an enzyme? Explain using only the endings."
+        }
+      ]
     }
   ]
 }

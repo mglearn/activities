@@ -30,7 +30,11 @@ const LABEL = {
     'matter-energy': 'Matter and Energy',
     'force-motion-energy': 'Force, Motion, and Energy',
     'earth-space': 'Earth and Space',
-    'organisms-environments': 'Organisms and Environments'
+    'organisms-environments': 'Organisms and Environments',
+    'biology': 'Biology',
+    'chemistry': 'Chemistry',
+    'physics': 'Physics',
+    'earth-environmental': 'Earth / Environmental Science'
   },
   sst: { boy: 'BOY', moy: 'MOY', eoy: 'EOY' },
   ace: { articulate: 'Articulate', connect: 'Connect', extend: 'Extend' },

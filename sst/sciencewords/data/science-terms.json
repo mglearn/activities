@@ -949,6 +949,289 @@
       "teks": [],
       "ngss": [],
       "contextExample": "A rolling bowling ball has kinetic energy; the same ball sitting still has none."
+    },
+    {
+      "id": "chromosome",
+      "term": "chromosome",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "morpheme": "chromo",
+          "role": "combining-form"
+        },
+        {
+          "morpheme": "some",
+          "role": "root"
+        }
+      ],
+      "wordPartClue": "colour + body",
+      "studentDefinition": "A thread-like structure of coiled DNA that carries genes.",
+      "scienceExplanation": "A chromosome is a long molecule of DNA wound with protein. It was named a 'coloured body' because it absorbs dye. Human body cells carry 46 chromosomes, each holding many genes.",
+      "scienceAreas": ["biology"],
+      "sstLevels": ["boy", "moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Before a cell divides, each chromosome is copied so both new cells receive a full set."
+    },
+    {
+      "id": "nucleic",
+      "term": "nucleic",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "morpheme": "nucleo",
+          "role": "combining-form"
+        },
+        {
+          "morpheme": "ic",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "nucleus + relating to",
+      "studentDefinition": "Relating to DNA and RNA, the acids concentrated in the nucleus.",
+      "scienceExplanation": "Nucleic acids — DNA and RNA — store and carry genetic information. They take their name from the cell nucleus, where they are concentrated.",
+      "scienceAreas": ["biology"],
+      "sstLevels": ["boy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "DNA is the nucleic acid that carries the instructions for building proteins."
+    },
+    {
+      "id": "mitosis",
+      "term": "mitosis",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "morpheme": "mito",
+          "role": "combining-form"
+        },
+        {
+          "morpheme": "osis",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "thread + process",
+      "studentDefinition": "Cell division that produces two genetically identical cells.",
+      "scienceExplanation": "Mitosis is the process in which a cell divides into two cells with identical chromosomes. The chromosomes appear as threads during division, which is how the process was named.",
+      "scienceAreas": ["biology"],
+      "sstLevels": ["moy", "eoy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "A skin cell heals a cut by mitosis, making new cells identical to the original."
+    },
+    {
+      "id": "meiosis",
+      "term": "meiosis",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "morpheme": "meio",
+          "role": "combining-form"
+        },
+        {
+          "morpheme": "osis",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "reduction + process",
+      "studentDefinition": "Cell division that halves the chromosome number to make sex cells.",
+      "scienceExplanation": "Meiosis reduces the chromosome number by half, producing gametes (egg and sperm). When two gametes join at fertilization, the full number is restored.",
+      "scienceAreas": ["biology"],
+      "sstLevels": ["moy", "eoy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Meiosis makes sperm and egg cells with 23 chromosomes each, so a fertilized cell has 46."
+    },
+    {
+      "id": "glycolysis",
+      "term": "glycolysis",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "morpheme": "glyco",
+          "role": "combining-form"
+        },
+        {
+          "morpheme": "lysis",
+          "role": "root"
+        }
+      ],
+      "wordPartClue": "sugar + breaking apart",
+      "studentDefinition": "Splitting a glucose molecule to release energy.",
+      "scienceExplanation": "Glycolysis is the first stage of cellular respiration. It splits one glucose molecule into smaller molecules, releasing a small amount of usable energy.",
+      "scienceAreas": ["biology"],
+      "sstLevels": ["moy", "eoy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "During exercise, muscle cells run glycolysis to release energy quickly from glucose."
+    },
+    {
+      "id": "glucose",
+      "term": "glucose",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "text": "gluc",
+          "role": "root",
+          "meaning": "sweet"
+        },
+        {
+          "morpheme": "ose",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "sweet + sugar",
+      "studentDefinition": "The main sugar that cells break down for energy.",
+      "scienceExplanation": "Glucose is a simple sugar and the primary energy source for most cells. Its -OSE ending marks it as a sugar.",
+      "scienceAreas": ["biology", "chemistry"],
+      "sstLevels": ["boy", "moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Blood carries glucose to cells, which break it down to release energy."
+    },
+    {
+      "id": "genotype",
+      "term": "genotype",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "morpheme": "geno",
+          "role": "combining-form"
+        },
+        {
+          "morpheme": "type",
+          "role": "root"
+        }
+      ],
+      "wordPartClue": "gene + kind",
+      "studentDefinition": "The set of alleles an organism carries for a trait.",
+      "scienceExplanation": "The genotype is an organism's genetic makeup — the combination of alleles it carries, such as Bb — whether or not those genes are visible.",
+      "scienceAreas": ["biology"],
+      "sstLevels": ["moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "A pea plant with the genotype Bb carries one dominant and one recessive allele."
+    },
+    {
+      "id": "phenotype",
+      "term": "phenotype",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "morpheme": "pheno",
+          "role": "combining-form"
+        },
+        {
+          "morpheme": "type",
+          "role": "root"
+        }
+      ],
+      "wordPartClue": "showing + kind",
+      "studentDefinition": "The observable traits an organism actually shows.",
+      "scienceExplanation": "The phenotype is the set of visible characteristics of an organism, produced by its genotype interacting with the environment.",
+      "scienceAreas": ["biology"],
+      "sstLevels": ["moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Two pea plants with genotypes BB and Bb can share the same purple-flower phenotype."
+    },
+    {
+      "id": "homeostasis",
+      "term": "homeostasis",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "morpheme": "homeo",
+          "role": "combining-form"
+        },
+        {
+          "morpheme": "stasis",
+          "role": "root"
+        }
+      ],
+      "wordPartClue": "steady + staying the same",
+      "studentDefinition": "Keeping a stable internal state despite outside change.",
+      "scienceExplanation": "Homeostasis is the maintenance of a steady internal environment — such as body temperature or blood-sugar level — as conditions outside change.",
+      "scienceAreas": ["biology"],
+      "sstLevels": ["moy", "eoy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "When you get hot, sweating cools you down, keeping body temperature near 37 °C through homeostasis."
+    },
+    {
+      "id": "deoxyribose",
+      "term": "deoxyribose",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "morpheme": "deoxy",
+          "role": "prefix"
+        },
+        {
+          "morpheme": "ribo",
+          "role": "combining-form"
+        },
+        {
+          "morpheme": "ose",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "one less oxygen + ribose + sugar",
+      "studentDefinition": "The sugar found in DNA.",
+      "scienceExplanation": "Deoxyribose is the sugar in DNA. Its name shows it is a ribose sugar with one fewer oxygen atom; the 'D' in DNA stands for deoxyribonucleic.",
+      "scienceAreas": ["biology", "chemistry"],
+      "sstLevels": ["eoy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "The backbone of a DNA strand is built from deoxyribose sugar and phosphate groups."
+    },
+    {
+      "id": "lactose",
+      "term": "lactose",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "text": "lact",
+          "role": "root",
+          "meaning": "milk"
+        },
+        {
+          "morpheme": "ose",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "milk + sugar",
+      "studentDefinition": "The sugar found in milk.",
+      "scienceExplanation": "Lactose is the sugar in milk. Its -OSE ending marks it as a sugar; the enzyme lactase breaks it down.",
+      "scienceAreas": ["biology", "chemistry"],
+      "sstLevels": ["moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Milk tastes faintly sweet because it contains the sugar lactose."
+    },
+    {
+      "id": "lactase",
+      "term": "lactase",
+      "gradeBands": ["9-12"],
+      "parts": [
+        {
+          "text": "lact",
+          "role": "root",
+          "meaning": "milk"
+        },
+        {
+          "morpheme": "ase",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "milk + enzyme",
+      "studentDefinition": "The enzyme that breaks down the milk sugar lactose.",
+      "scienceExplanation": "Lactase is an enzyme that breaks lactose into smaller sugars the body can absorb. People who make little lactase are lactose intolerant.",
+      "scienceAreas": ["biology"],
+      "sstLevels": ["moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "An adult who makes little lactase cannot fully digest the lactose in a glass of milk."
     }
   ]
 }

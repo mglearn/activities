@@ -793,6 +793,186 @@
         }
       ],
       "lookFor": "A level 3 answer ties KINET to the table's rising energy. The bowling-ball item checks transfer to mass — the factor the table deliberately held constant."
+    },
+    "g912-bio-break-chromosome": {
+      "answers": [
+        {
+          "prompt": "CHROMOSOME",
+          "answer": "CHROMO = colour, SOME = body; a 'coloured body' — a coiled strand of DNA that carries genes.",
+          "why": "Accept 'DNA structure that carries genes' once both parts are named."
+        },
+        {
+          "prompt": "RIBOSOME",
+          "answer": "RIBO = ribose, SOME = body; the cell body, built partly of RNA, that assembles proteins.",
+          "why": ""
+        },
+        {
+          "prompt": "What do the two share?",
+          "answer": "Both are bodies — structures inside the cell. SOME marks each as a distinct cell body.",
+          "why": "This is the generalization the break is built to produce."
+        },
+        {
+          "prompt": "Where the chromosome name came from",
+          "answer": "From CHROMO, colour: chromosomes readily absorb coloured dyes under the microscope, so early scientists named them coloured bodies.",
+          "why": "Reward students who separate 'named for taking up dye' from 'colourful in life'."
+        },
+        {
+          "prompt": "LYSOSOME prediction",
+          "answer": "A cell body that breaks things down — LYSIS means breaking apart, SOME means body.",
+          "why": "Transfer of the SOME root plus the known LYSIS."
+        }
+      ],
+      "lookFor": "Look for SOME used to justify 'a cell body' in each case. A student who cannot separate the shared root from the first part is at level 2."
+    },
+    "g912-bio-decode-division": {
+      "answers": [
+        {
+          "prompt": "MITOSIS",
+          "answer": "MITO = thread, -OSIS = process; the division that makes two identical cells. The threads are the chromosomes.",
+          "why": ""
+        },
+        {
+          "prompt": "MEIOSIS",
+          "answer": "MEIO = reduction, -OSIS = process; the division that halves the chromosome number to make gametes.",
+          "why": ""
+        },
+        {
+          "prompt": "Which reduces the number",
+          "answer": "Meiosis. MEIO means reduction, and the table shows 46 dropping to 23.",
+          "why": "Require the table value, not just the word."
+        },
+        {
+          "prompt": "Why MEIO is more informative",
+          "answer": "MITO ('thread') only describes how the chromosomes look, while MEIO ('reduction') names the actual change in number, which is what distinguishes the two.",
+          "why": "This is the reasoning item; reward the contrast between description and function."
+        },
+        {
+          "prompt": "Making gametes",
+          "answer": "Meiosis, because MEIO signals the reduction to half needed for egg and sperm.",
+          "why": "Transfer using the word part plus the table."
+        }
+      ],
+      "lookFor": "The distinguishing behaviour is tying MEIO to the halving in the table. A student who swaps the two based on sound alone has not used the parts."
+    },
+    "g912-bio-equation-glycolysis": {
+      "answers": [
+        {
+          "prompt": "GLYCOLYSIS equation",
+          "answer": "GLYCO = sugar, LYSIS = breaking apart; splitting a sugar (glucose) to release energy.",
+          "why": ""
+        },
+        {
+          "prompt": "Which part means sugar / broken",
+          "answer": "GLYCO signals the sugar; LYSIS signals that it is broken apart.",
+          "why": "Accept either order if both parts are mapped."
+        },
+        {
+          "prompt": "What -OSE words share",
+          "answer": "All are sugars. The -OSE ending marks a sugar, so glucose, lactose, and ribose are all sugars.",
+          "why": "Reward the suffix generalization."
+        },
+        {
+          "prompt": "PHOTOLYSIS",
+          "answer": "Splitting (LYSIS) using light (PHOTO). Water is broken apart by light.",
+          "why": "Transfer of LYSIS with a new first part."
+        }
+      ],
+      "lookFor": "A level 3 answer maps both parts onto glucose and connects the -OSE ending to 'sugar'. The photolysis item checks transfer of LYSIS."
+    },
+    "g912-bio-sort-genopheno": {
+      "answers": [
+        {
+          "prompt": "Genotype column",
+          "answer": "the alleles Bb; the DNA sequence for a trait; TT for seed shape — all describe the genes carried.",
+          "why": "These are the genetic-makeup descriptions."
+        },
+        {
+          "prompt": "Phenotype column",
+          "answer": "brown eyes; a six-foot-tall plant; a wrinkled pea pod — all describe visible traits.",
+          "why": "These are the observable descriptions."
+        },
+        {
+          "prompt": "What TYPE tells you",
+          "answer": "Both words describe a kind or form — one the genetic kind, one the visible kind.",
+          "why": ""
+        },
+        {
+          "prompt": "Same phenotype, different genotype",
+          "answer": "BB and Bb both show purple because the dominant allele is expressed either way, so the visible trait matches while the underlying alleles differ.",
+          "why": "Reward the dominant-allele reasoning tied to the two word parts."
+        },
+        {
+          "prompt": "Hidden then reappearing trait",
+          "answer": "Genotype — the recessive gene was carried all along even though the phenotype did not show it.",
+          "why": "Transfer item."
+        }
+      ],
+      "lookFor": "The key behaviour is holding GENO (carried genes) apart from PHENO (shown traits). A student who sorts by 'letters vs words' without the meaning is at level 2."
+    },
+    "g912-bio-detective-homeostasis": {
+      "answers": [
+        {
+          "prompt": "HOMEOSTASIS",
+          "answer": "HOMEO = steady, STASIS = staying the same; keeping the internal state balanced. Evidence: the body is pulled back toward a steady point whatever the outside conditions.",
+          "why": "Require the evidence column to cite the passage, not just a definition."
+        },
+        {
+          "prompt": "GLUCOSE",
+          "answer": "GLUC = sweet, -OSE = sugar; the blood sugar that rises after the snack and is then brought back down.",
+          "why": ""
+        },
+        {
+          "prompt": "Why 'balance' beats 'no change'",
+          "answer": "HOMEO means steady or similar, not identical; the values move (temperature, glucose) but are pulled back toward a set point, so 'balance around a point' fits better than 'never changes'.",
+          "why": "Reward the nuance that homeostasis allows fluctuation around a steady point."
+        },
+        {
+          "prompt": "Two things held steady",
+          "answer": "Body temperature (near 37 °C, held by sweating) and blood glucose (raised by the snack, lowered by the signal). Both are named in the passage.",
+          "why": "Require both, each with its evidence."
+        },
+        {
+          "prompt": "Moving into the cold",
+          "answer": "The body shivers or narrows blood vessels to hold temperature steady — a homeostatic response, since HOMEO + STASIS means keeping the internal state steady.",
+          "why": "Transfer item using the parts."
+        }
+      ],
+      "lookFor": "A level 3 answer uses the parts to argue for 'steady balance' and cites the passage for each variable. The cold-room item checks transfer."
+    },
+    "g912-bio-mystery-eoy": {
+      "answers": [
+        {
+          "prompt": "SUCROSE",
+          "answer": "-OSE, so a sugar. The passage says it is broken into smaller sugars.",
+          "why": ""
+        },
+        {
+          "prompt": "SUCRASE",
+          "answer": "-ASE, so an enzyme. It does the breaking.",
+          "why": ""
+        },
+        {
+          "prompt": "MALTOSE / MALTASE",
+          "answer": "Maltose is the sugar (-OSE); maltase is the enzyme (-ASE) that breaks it.",
+          "why": "Reward students who apply the endings without extra information."
+        },
+        {
+          "prompt": "Enzyme vs sugar from the ending alone",
+          "answer": "The -ASE ending marks the enzyme and the -OSE ending marks the sugar, so the last three letters settle it before anything else is known.",
+          "why": "This is the core transfer skill of the task."
+        },
+        {
+          "prompt": "LACTASE on a label",
+          "answer": "An enzyme — the -ASE ending. LACTOSE, ending in -OSE, would be the sugar it breaks.",
+          "why": "Correct choice is 'an enzyme'; reward the paired contrast with lactose."
+        },
+        {
+          "prompt": "FRUCTOSE and PROTEASE",
+          "answer": "Fructose is a sugar (-OSE); protease is an enzyme (-ASE).",
+          "why": "The end-of-year transfer item: two brand-new words settled by the endings alone."
+        }
+      ],
+      "lookFor": "The end-of-year target is transfer: using -ASE and -OSE to classify words never taught. A student who needs to know the molecule first has not yet trusted the morphology."
     }
   }
 }
