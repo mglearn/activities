@@ -2530,6 +2530,119 @@
           "e": "Build one more word using a part not on a card. Challenge your partner to break it."
         }
       ]
+    },
+    {
+      "id": "g68-decode-kinetic",
+      "title": "Decode It: Kinetic Energy",
+      "gradeBand": "6-8",
+      "scienceArea": "force-motion-energy",
+      "activityType": "decode",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "kinet",
+        "ic"
+      ],
+      "terms": [
+        "kinetic"
+      ],
+      "estimatedMinutes": 15,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students decode KINETIC from its parts, then use a data table of a cart's speed and energy to work out that kinetic energy depends on motion.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Break the word and predict its meaning. Then use the data table to check your idea and finish it."
+        },
+        {
+          "type": "bigword",
+          "word": "KINETIC",
+          "split": [
+            "KINET",
+            "-IC"
+          ]
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "KINET",
+              "role": "root",
+              "meaning": "motion"
+            },
+            {
+              "display": "-IC",
+              "role": "suffix",
+              "meaning": "relating to"
+            }
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Break it: what does each part mean?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "Predict: what do you think kinetic energy is?",
+          "count": 2
+        },
+        {
+          "type": "datatable",
+          "caption": "The same cart at different speeds",
+          "columns": [
+            "Speed of the cart",
+            "Kinetic energy"
+          ],
+          "rows": [
+            [
+              "0 m/s (at rest)",
+              "0 J"
+            ],
+            [
+              "1 m/s",
+              "2 J"
+            ],
+            [
+              "2 m/s",
+              "8 J"
+            ],
+            [
+              "3 m/s",
+              "18 J"
+            ]
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "What happens to the kinetic energy as the cart moves faster? Write your final meaning of KINETIC.",
+          "count": 4
+        },
+        {
+          "type": "mcq",
+          "stem": "A parked car has no kinetic energy. Why not?",
+          "options": [
+            "It is not moving, so its kinetic energy is zero.",
+            "It is too heavy to store energy.",
+            "It has run out of fuel.",
+            "It is colder than a moving car."
+          ],
+          "followUp": "Which idea from the word parts backs up your choice?",
+          "followUpLines": 2
+        },
+        {
+          "type": "ace",
+          "a": "Say what KINET means.",
+          "c": "Point to evidence in the table that kinetic energy depends on motion.",
+          "e": "A bowling ball and a tennis ball roll at the same speed. Which has more kinetic energy, and why?"
+        }
+      ]
     }
   ]
 }

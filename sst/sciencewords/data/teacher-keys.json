@@ -763,6 +763,36 @@
         }
       ],
       "lookFor": "This is a generative task, so there is no single answer key. Judge whether partners used the parts to predict meanings they had not been directly taught — that is the level 4 behaviour."
+    },
+    "g68-decode-kinetic": {
+      "answers": [
+        {
+          "prompt": "Break it",
+          "answer": "KINET = motion; -IC = relating to. Having to do with motion.",
+          "why": ""
+        },
+        {
+          "prompt": "Predict",
+          "answer": "Energy that has to do with movement.",
+          "why": "Accept any prediction that links the word to motion or moving."
+        },
+        {
+          "prompt": "Kinetic energy as the cart speeds up",
+          "answer": "It rises as the cart moves faster: 0 J at rest, then 2, 8, and 18 J. Final meaning: the energy an object has because it is moving, and it is greater at higher speed.",
+          "why": "Require the trend from the table, not just 'it moves'."
+        },
+        {
+          "prompt": "Parked car",
+          "answer": "The parked car has no motion, so its kinetic energy is zero. Kinetic energy depends on movement.",
+          "why": "Correct choice is the first option."
+        },
+        {
+          "prompt": "Bowling ball vs tennis ball",
+          "answer": "The bowling ball, because it has more mass. Kinetic energy depends on both speed and mass, so at the same speed the heavier object has more.",
+          "why": "Transfer item: the single-cart table held mass constant, so this checks whether the student adds the mass factor."
+        }
+      ],
+      "lookFor": "A level 3 answer ties KINET to the table's rising energy. The bowling-ball item checks transfer to mass — the factor the table deliberately held constant."
     }
   }
 }

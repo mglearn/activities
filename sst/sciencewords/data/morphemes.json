@@ -649,6 +649,18 @@
       "examples": ["chemosynthesis", "chemotherapy"],
       "studentNote": "CHEMO means chemical.",
       "cautions": []
+    },
+    {
+      "id": "kinet",
+      "display": "KINET",
+      "type": "root",
+      "meaning": "motion",
+      "origin": "Greek",
+      "gradeBands": ["6-8", "9-12"],
+      "scienceAreas": ["force-motion-energy"],
+      "examples": ["kinetic", "kinetics"],
+      "studentNote": "KINET is about motion — something moving.",
+      "cautions": []
     }
   ]
 }

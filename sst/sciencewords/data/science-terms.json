@@ -926,6 +926,29 @@
       "teks": [],
       "ngss": [],
       "contextExample": "A puddle disappears on a warm day because the water undergoes evaporation."
+    },
+    {
+      "id": "kinetic",
+      "term": "kinetic",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "kinet",
+          "role": "root"
+        },
+        {
+          "morpheme": "ic",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "motion + relating to",
+      "studentDefinition": "The energy an object has because it is moving.",
+      "scienceExplanation": "Kinetic energy is the energy of a moving object. It grows when the object moves faster or has more mass, and it is zero when the object is at rest.",
+      "scienceAreas": ["force-motion-energy"],
+      "sstLevels": ["moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "A rolling bowling ball has kinetic energy; the same ball sitting still has none."
     }
   ]
 }
