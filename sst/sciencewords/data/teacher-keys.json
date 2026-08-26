@@ -378,6 +378,391 @@
         }
       ],
       "lookFor": "This sheet is the end-of-year transfer task. The distinguishing behavior is using the table and the diagram together with the word parts. A student who answers from the word parts alone cannot rule out the 20 °C town."
+    },
+    "g68-break-cytoplasm": {
+      "answers": [
+        {
+          "prompt": "CYTOPLASM",
+          "answer": "CYTO = cell; PLASM = formed material; the jelly-like material that fills a cell.",
+          "why": "Both parts are needed; a student who stops at 'cell' has only half."
+        },
+        {
+          "prompt": "CYTOLOGY",
+          "answer": "CYTO = cell; LOGY = the study of; the study of cells.",
+          "why": ""
+        },
+        {
+          "prompt": "What do both words have to do with?",
+          "answer": "Both are about cells. CYTO names the cell; the second part says what about it — the material, or the study.",
+          "why": "This is the generalization the activity is built to produce."
+        },
+        {
+          "prompt": "Scientist studying diseased cells — which word?",
+          "answer": "Cytology. The work is the study of cells, which is what LOGY signals.",
+          "why": "Look for the reason, not just the word."
+        }
+      ],
+      "lookFor": "Students should use CYTO to justify both answers. A student who cannot say what CYTO means is at level 1."
+    },
+    "g68-break-chlorophyll": {
+      "answers": [
+        {
+          "prompt": "CHLOROPHYLL",
+          "answer": "CHLORO = green; PHYLL = leaf; the green substance in leaves.",
+          "why": "Accept 'green pigment in plants'."
+        },
+        {
+          "prompt": "CHLOROPLAST",
+          "answer": "CHLORO = green; PLAST = formed body; the green structure inside a plant cell that holds chlorophyll.",
+          "why": ""
+        },
+        {
+          "prompt": "What colour, and where?",
+          "answer": "Green, in the leaf or plant cell. CHLORO signals green.",
+          "why": ""
+        },
+        {
+          "prompt": "How are chlorophyll and chloroplast related?",
+          "answer": "The chloroplast is the structure; the chlorophyll is the green pigment inside it. Both share CHLORO because both involve the green light-capturing system.",
+          "why": "Look for the part-to-whole relationship, not just two definitions."
+        }
+      ],
+      "lookFor": "A strong answer connects the two words through the shared CHLORO and explains the structure-versus-pigment difference."
+    },
+    "g68-sort-troph": {
+      "answers": [
+        {
+          "prompt": "Autotrophs",
+          "answer": "grass, oak tree, algae, cactus — all make their own food by photosynthesis.",
+          "why": "Accept any green plant or alga."
+        },
+        {
+          "prompt": "Heterotrophs",
+          "answer": "rabbit, mushroom, hawk, human — all eat other living things.",
+          "why": "Mushroom is a common miss; fungi are heterotrophs even though they do not move."
+        },
+        {
+          "prompt": "What does TROPH tell you?",
+          "answer": "Both words are about how a living thing feeds.",
+          "why": ""
+        },
+        {
+          "prompt": "Venus flytrap",
+          "answer": "It is an autotroph that also traps insects for extra nutrients, so it does not fit neatly in one column. The word parts alone cannot settle it — you need to know it still photosynthesizes.",
+          "why": "This is the reasoning item. Reward students who explain the tension, not those who just pick a column."
+        }
+      ],
+      "lookFor": "Look for AUTO and HETERO used to justify placements. A student who sorts by 'plant vs animal' without the feeding idea is at level 2."
+    },
+    "g68-equation-thermic": {
+      "answers": [
+        {
+          "prompt": "ENDOTHERMIC clue and direction",
+          "answer": "ENDO = inside, THERM = heat, -IC = relating to; heat moves in, so the surroundings feel colder.",
+          "why": "Watch for the reversal: 'inside' means heat goes into the change, out of the surroundings."
+        },
+        {
+          "prompt": "EXOTHERMIC clue and direction",
+          "answer": "EXO = outside, THERM = heat, -IC = relating to; heat moves out to the surroundings, which feel warmer.",
+          "why": ""
+        },
+        {
+          "prompt": "Instant cold pack",
+          "answer": "Endothermic. It takes heat in from your hand and the air, so it feels cold.",
+          "why": "Require both the word and the direction of heat."
+        },
+        {
+          "prompt": "Hand warmer",
+          "answer": "Exothermic. It gives off heat to your hand.",
+          "why": ""
+        },
+        {
+          "prompt": "Ice melting",
+          "answer": "Endothermic. Melting takes in heat from the room.",
+          "why": "A good transfer check of the direction idea."
+        }
+      ],
+      "lookFor": "The distinguishing behaviour is getting the direction of heat right, not just matching the label. A student who says 'endothermic means hot' has the direction backwards."
+    },
+    "g68-decode-lithosphere": {
+      "answers": [
+        {
+          "prompt": "Break it",
+          "answer": "LITH = rock or stone; SPHERE = ball or layer.",
+          "why": ""
+        },
+        {
+          "prompt": "Predict",
+          "answer": "A rocky ball or layer — the rocky layer of the Earth.",
+          "why": "Accept any prediction close to 'rock layer'."
+        },
+        {
+          "prompt": "HYDROSPHERE and ATMOSPHERE",
+          "answer": "Hydrosphere = water layer (HYDRO = water); atmosphere = air layer (ATMO = air or vapor).",
+          "why": "Look for the first part driving the material named."
+        }
+      ],
+      "lookFor": "A level 3 answer uses LITH to justify 'rocky' rather than guessing. The -SPHERE generalization is the transfer target."
+    },
+    "g68-decode-isotope": {
+      "answers": [
+        {
+          "prompt": "Break it",
+          "answer": "ISO = equal or same; TOPE = place. Same place — on the periodic table.",
+          "why": ""
+        },
+        {
+          "prompt": "Predict",
+          "answer": "Atoms that share the same place (same element) but differ in some way.",
+          "why": "Accept predictions that name 'same element, something different'."
+        },
+        {
+          "prompt": "Same and different in the table",
+          "answer": "Same: 6 protons in all three, so all are carbon. Different: the neutron count (6, 7, 8), which changes the mass. Isotopes are atoms of one element with different neutron numbers.",
+          "why": "Require the student to read the table, not recite a definition."
+        },
+        {
+          "prompt": "Why still carbon?",
+          "answer": "Same number of protons. The element is set by the proton count, not the neutrons.",
+          "why": "Correct answer is the first option."
+        },
+        {
+          "prompt": "Two oxygen atoms with different neutrons",
+          "answer": "Yes, they are isotopes: same protons (8), different neutrons.",
+          "why": "Transfer item — reward reasoning from the proton rule."
+        }
+      ],
+      "lookFor": "The transfer behaviour is applying the proton rule to a new element. A student who says 'different mass so different element' has the idea backwards."
+    },
+    "g68-sort-intra-inter": {
+      "answers": [
+        {
+          "prompt": "INTRA column",
+          "answer": "fluid inside a single cell; reactions happening inside one cell; digestion within a single cell.",
+          "why": ""
+        },
+        {
+          "prompt": "INTER column",
+          "answer": "The between-cells descriptions: signals moving cell to cell, the space that separates two cells, and water crossing from one leaf cell into another.",
+          "why": ""
+        },
+        {
+          "prompt": "Difference in own words",
+          "answer": "INTRA means within one thing; INTER means between two or more. One letter flips the meaning.",
+          "why": "Look for 'within' vs 'between', not vague 'inside/around'."
+        },
+        {
+          "prompt": "Interstate highways",
+          "answer": "Yes — they run between states, which fits INTER.",
+          "why": ""
+        }
+      ],
+      "lookFor": "The key behaviour is holding INTRA (within) and INTER (between) apart. Reward everyday examples that show the student can transfer the prefixes."
+    },
+    "g68-equation-hydrolysis": {
+      "answers": [
+        {
+          "prompt": "HYDROLYSIS equation",
+          "answer": "HYDRO = water, LYSIS = breaking apart; breaking a molecule apart using water.",
+          "why": ""
+        },
+        {
+          "prompt": "Which part does the breaking?",
+          "answer": "LYSIS names the breaking apart; HYDRO says water is what does it.",
+          "why": "Accept 'LYSIS' if the student explains it means breaking."
+        },
+        {
+          "prompt": "Starch to sugars",
+          "answer": "Water splits the large starch molecule into separate sugar units, which is exactly what HYDRO + LYSIS describes.",
+          "why": "Look for the parts mapped onto the digestion example."
+        },
+        {
+          "prompt": "ANALYSIS",
+          "answer": "Breaking a problem down into parts to understand it — the same 'breaking apart' idea.",
+          "why": "Transfer of the LYSIS root beyond science."
+        }
+      ],
+      "lookFor": "A level 3 answer maps both parts onto the digestion example. Reward the LYSIS transfer to analysis."
+    },
+    "g68-detective-cell": {
+      "answers": [
+        {
+          "prompt": "CYTOPLASM",
+          "answer": "CYTO = cell, PLASM = formed material; the clear jelly filling each cell. Evidence: the notes say each cell was 'filled with clear cytoplasm'.",
+          "why": "Require the evidence column to cite the notes, not just a definition."
+        },
+        {
+          "prompt": "SEMIPERMEABLE",
+          "answer": "SEMI = partly, PERMEABLE = able to pass through; a membrane that lets some things through but not others. Evidence: the dye entered some cells but not others.",
+          "why": ""
+        },
+        {
+          "prompt": "Why dye entered some cells",
+          "answer": "The membrane is semipermeable, so it lets only certain particles through; the dye crossed where it could and was blocked where it could not.",
+          "why": "Look for SEMI used to explain 'some but not all'."
+        },
+        {
+          "prompt": "Not green",
+          "answer": "There is little or no chlorophyll in onion-skin cells, since chlorophyll is the green pigment.",
+          "why": ""
+        }
+      ],
+      "lookFor": "The detective behaviour is revising a prediction using the notes. A student who fills 'final meaning' without touching the evidence column is at level 2."
+    },
+    "g68-detective-earthsystems": {
+      "answers": [
+        {
+          "prompt": "ATMOSPHERE",
+          "answer": "ATMO = air/vapor, SPHERE = layer; the layer of air around the Earth. Includes the clouds and the falling rain at the start.",
+          "why": ""
+        },
+        {
+          "prompt": "LITHOSPHERE",
+          "answer": "LITH = rock, SPHERE = layer; the rocky layer — the bare rock and soil the rain lands on.",
+          "why": ""
+        },
+        {
+          "prompt": "HYDROSPHERE",
+          "answer": "HYDRO = water, SPHERE = layer; all the water — the stream the runoff joins.",
+          "why": ""
+        },
+        {
+          "prompt": "BIOSPHERE",
+          "answer": "BIO = life, SPHERE = layer; all living things — the plant roots and animals that take up water.",
+          "why": ""
+        },
+        {
+          "prompt": "Raindrop path",
+          "answer": "Atmosphere (falls as rain) → lithosphere (lands on rock/soil) → hydrosphere (runs into the stream), with the biosphere drawing water along the way.",
+          "why": "Order matters; reward tracing the passage rather than listing from memory."
+        },
+        {
+          "prompt": "Wildfire",
+          "answer": "It touches the atmosphere (smoke into the air) and the biosphere (burns plants). Accept lithosphere too if the student mentions scorched soil.",
+          "why": "Transfer item using the first parts."
+        }
+      ],
+      "lookFor": "A level 3 answer uses each first part to name the system. The raindrop trace shows whether the student read the passage or guessed."
+    },
+    "g68-sort-monopoly": {
+      "answers": [
+        {
+          "prompt": "MONO column",
+          "answer": "monomer, monorail, monoxide, a single building-block unit — all point to one.",
+          "why": ""
+        },
+        {
+          "prompt": "POLY column",
+          "answer": "polymer, polygon, polyester, a long chain of repeating units — all point to many.",
+          "why": ""
+        },
+        {
+          "prompt": "MONOMER and POLYMER share MER",
+          "answer": "MER means unit. MONO makes it one unit; POLY makes it many units joined together.",
+          "why": "Look for the shared root explained, not just the two words sorted."
+        },
+        {
+          "prompt": "Carbon monoxide",
+          "answer": "MONO = one, so one oxygen atom is bonded to the carbon.",
+          "why": ""
+        }
+      ],
+      "lookFor": "The number sense — MONO one, POLY many — should drive both the sort and the monomer/polymer explanation."
+    },
+    "g68-exit-boy-check": {
+      "answers": [
+        {
+          "prompt": "CYTO means",
+          "answer": "cell.",
+          "why": ""
+        },
+        {
+          "prompt": "So CYTOPLASM probably means",
+          "answer": "the material inside a cell (cell + formed material).",
+          "why": "Accept any answer that uses 'cell'."
+        },
+        {
+          "prompt": "What clue did CYTO give you?",
+          "answer": "That the word is about a cell.",
+          "why": ""
+        }
+      ],
+      "lookFor": "A 30-second read. A student who writes 'cell' for CYTO and uses it in the prediction is at least level 2."
+    },
+    "g68-stimulus-moy-membrane": {
+      "answers": [
+        {
+          "prompt": "Break it",
+          "answer": "SEMI = partly; PERMEABLE = able to be passed through.",
+          "why": ""
+        },
+        {
+          "prompt": "Predict",
+          "answer": "A membrane that only partly lets things through.",
+          "why": "Accept predictions near 'lets some things through'."
+        },
+        {
+          "prompt": "Passed and blocked",
+          "answer": "Passed: water and glucose (small). Blocked: starch and the dye clump (large). Final meaning: a membrane that lets small particles through but stops large ones.",
+          "why": "Require the size pattern from the table, not just 'some things'."
+        },
+        {
+          "prompt": "Why semipermeable not permeable",
+          "answer": "The membrane passes small particles and blocks large ones; a fully permeable membrane would let everything through.",
+          "why": "Correct answer is the first option."
+        },
+        {
+          "prompt": "Why useful to a cell",
+          "answer": "It can take in water and small nutrients while keeping large molecules inside, so it controls what enters and leaves.",
+          "why": "Transfer of the idea to cell function."
+        }
+      ],
+      "lookFor": "The decode behaviour is linking SEMI to the table's size pattern. A student who ignores size and says 'lets some through' is at level 2."
+    },
+    "g68-mystery-eoy": {
+      "answers": [
+        {
+          "prompt": "Step 1: Break it",
+          "answer": "CHEMO = chemical; SYN = together; THESIS = putting or placing. Putting together using chemicals.",
+          "why": ""
+        },
+        {
+          "prompt": "Step 2: Predict",
+          "answer": "Making something by putting parts together using chemicals.",
+          "why": "Accept any reasonable prediction from the parts."
+        },
+        {
+          "prompt": "Step 4: Final meaning",
+          "answer": "Building food using energy from chemicals instead of light. Evidence: the deep-sea bacteria make food with no sunlight, using energy from chemicals in the vent water.",
+          "why": "Require the passage cited, not parts alone."
+        },
+        {
+          "prompt": "Different from photosynthesis",
+          "answer": "Chemosynthesis uses energy from chemicals; photosynthesis uses energy from light. PHOTO = light, CHEMO = chemical.",
+          "why": "Correct answer is the first option; reward the PHOTO/CHEMO contrast."
+        },
+        {
+          "prompt": "Cave microbe",
+          "answer": "It most likely uses chemosynthesis — building food from the sulfur chemicals, since there is no light for photosynthesis.",
+          "why": "This is the transfer item. A level 4 answer uses both the parts and the no-light evidence."
+        }
+      ],
+      "lookFor": "The end-of-year target is transfer: applying CHEMO vs PHOTO to a new no-light setting. A student who answers from the parts alone cannot rule out photosynthesis in the cave."
+    },
+    "g68-partner-challenge": {
+      "answers": [
+        {
+          "prompt": "Sample built words",
+          "answer": "AUTO+TROPH = autotroph (self-feeder); HYDRO+LYSIS = hydrolysis (breaking with water); LITH+SPHERE = lithosphere (rock layer); ENDO+THERM = endotherm (inside heat); CYTO+PLASM = cytoplasm (cell material).",
+          "why": "Accept any real combination the partners can justify; this is generative, so answers vary."
+        },
+        {
+          "prompt": "Hardest word to predict",
+          "answer": "Answers vary. Look for a reason tied to an unfamiliar part rather than 'it was just hard'.",
+          "why": "Reward metacognition about which parts were clear and which were not."
+        }
+      ],
+      "lookFor": "This is a generative task, so there is no single answer key. Judge whether partners used the parts to predict meanings they had not been directly taught — that is the level 4 behaviour."
     }
   }
 }

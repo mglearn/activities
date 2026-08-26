@@ -1138,6 +1138,1398 @@
           "e": "Another town sits on rock that warms only slightly with depth: 20 °C at the surface and 32 °C at 1,500 meters. Would a geothermal plan work as well there? Use evidence to explain."
         }
       ]
+    },
+    {
+      "id": "g68-break-cytoplasm",
+      "title": "Break It: Cytoplasm",
+      "gradeBand": "6-8",
+      "scienceArea": "organisms-environments",
+      "activityType": "break",
+      "sstCheckpoint": "boy",
+      "ace": "articulate",
+      "morphemes": [
+        "cyto",
+        "plasm",
+        "logy"
+      ],
+      "terms": [
+        "cytoplasm"
+      ],
+      "estimatedMinutes": 10,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students break two CYTO words into parts, record what each part means, and see that CYTO always points to a cell.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Both words below share a first part. Break each word apart, write what each piece means, then say what the whole word means in your own words."
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "CYTO",
+              "role": "root",
+              "meaning": "cell"
+            },
+            {
+              "display": "PLASM",
+              "role": "root",
+              "meaning": "formed material"
+            },
+            {
+              "display": "LOGY",
+              "role": "suffix",
+              "meaning": "the study of"
+            }
+          ]
+        },
+        {
+          "type": "breaktable",
+          "caption": "Break the word",
+          "rows": [
+            {
+              "word": "CYTOPLASM",
+              "split": [
+                "CYTO",
+                "PLASM"
+              ]
+            },
+            {
+              "word": "CYTOLOGY",
+              "split": [
+                "CYTO",
+                "LOGY"
+              ]
+            }
+          ],
+          "columns": [
+            "First part means",
+            "Last part means",
+            "The whole word means"
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Both words begin with CYTO. What do both words have to do with?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "A scientist studies diseased cells under a microscope. Which of the two words names that work, and how do you know?",
+          "count": 2
+        },
+        {
+          "type": "ace",
+          "a": "Say what CYTO means in your own words.",
+          "c": "Explain how the second part changes what each word is about.",
+          "e": "Name one more thing you might study inside a cell. What could you call the study of it?"
+        }
+      ]
+    },
+    {
+      "id": "g68-break-chlorophyll",
+      "title": "Break It: Chlorophyll",
+      "gradeBand": "6-8",
+      "scienceArea": "organisms-environments",
+      "activityType": "break",
+      "sstCheckpoint": "boy",
+      "ace": "articulate",
+      "morphemes": [
+        "chloro",
+        "phyll",
+        "plast"
+      ],
+      "terms": [
+        "chlorophyll"
+      ],
+      "estimatedMinutes": 10,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students break CHLOROPHYLL and CHLOROPLAST, connect the green pigment to the structure that holds it, and generalize CHLORO to green.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Both words share the first part CHLORO. Break each word apart and write what each piece means."
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "CHLORO",
+              "role": "root",
+              "meaning": "green"
+            },
+            {
+              "display": "PHYLL",
+              "role": "root",
+              "meaning": "leaf"
+            },
+            {
+              "display": "PLAST",
+              "role": "root",
+              "meaning": "formed body"
+            }
+          ]
+        },
+        {
+          "type": "breaktable",
+          "caption": "Break the word",
+          "rows": [
+            {
+              "word": "CHLOROPHYLL",
+              "split": [
+                "CHLORO",
+                "PHYLL"
+              ]
+            },
+            {
+              "word": "CHLOROPLAST",
+              "split": [
+                "CHLORO",
+                "PLAST"
+              ]
+            }
+          ],
+          "columns": [
+            "First part means",
+            "Last part means",
+            "The whole word means"
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Both words begin with CHLORO. What colour do you expect to be involved, and where?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "Chlorophyll is held inside the chloroplast. Use the word parts to explain how the two are related.",
+          "count": 3
+        },
+        {
+          "type": "ace",
+          "a": "Say what CHLORO tells you at the start of a word.",
+          "c": "Explain how PHYLL and PLAST point to different things in the same green system.",
+          "e": "Chlorine gas is pale green. Why might it share the CHLORO root?"
+        }
+      ]
+    },
+    {
+      "id": "g68-sort-troph",
+      "title": "Sort It: Autotroph or Heterotroph",
+      "gradeBand": "6-8",
+      "scienceArea": "organisms-environments",
+      "activityType": "sort",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "auto",
+        "hetero",
+        "troph"
+      ],
+      "terms": [
+        "autotroph",
+        "heterotroph"
+      ],
+      "estimatedMinutes": 15,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students sort living things by how they get food, using AUTO (self) and HETERO (other) to reason about the shared root TROPH.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Both key words end in TROPH, which is about feeding. Sort each living thing into the column that fits how it gets its food."
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "AUTO",
+              "role": "prefix",
+              "meaning": "self"
+            },
+            {
+              "display": "HETERO",
+              "role": "prefix",
+              "meaning": "other, different"
+            },
+            {
+              "display": "TROPH",
+              "role": "root",
+              "meaning": "nourishment, feeding"
+            }
+          ]
+        },
+        {
+          "type": "sortcolumns",
+          "caption": "Sort by how it gets food",
+          "columns": [
+            "Autotroph — makes its own food",
+            "Heterotroph — eats other living things"
+          ],
+          "items": [
+            "grass",
+            "rabbit",
+            "oak tree",
+            "mushroom",
+            "algae",
+            "hawk",
+            "cactus",
+            "human"
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "TROPH appears in both words. What does that tell you both words are about?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "A Venus flytrap makes food by photosynthesis but also traps insects. Why is it hard to place in just one column?",
+          "count": 3
+        },
+        {
+          "type": "ace",
+          "a": "Say what TROPH means.",
+          "c": "Explain how AUTO and HETERO change the way a living thing feeds.",
+          "e": "Name one autotroph and one heterotroph in a schoolyard, and say how each gets its food."
+        }
+      ]
+    },
+    {
+      "id": "g68-equation-thermic",
+      "title": "Word Equation: Endothermic and Exothermic",
+      "gradeBand": "6-8",
+      "scienceArea": "matter-energy",
+      "activityType": "equation",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "endo",
+        "exo",
+        "therm",
+        "ic"
+      ],
+      "terms": [
+        "endothermic",
+        "exothermic"
+      ],
+      "estimatedMinutes": 15,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students complete word equations for endothermic and exothermic, then use the direction word part to decide which way heat moves.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Fill in the missing pieces of each equation. Then use the parts to decide which way heat moves in each change."
+        },
+        {
+          "type": "equation",
+          "parts": [
+            "ENDO",
+            "THERM",
+            "-IC"
+          ],
+          "meanings": [
+            "inside",
+            "heat",
+            "relating to"
+          ],
+          "result": "ENDOTHERMIC",
+          "clueLabel": "Word-part clue",
+          "clue": "",
+          "scienceLabel": "Which way does heat move?",
+          "science": ""
+        },
+        {
+          "type": "equation",
+          "parts": [
+            "EXO",
+            "THERM",
+            "-IC"
+          ],
+          "meanings": [
+            "outside",
+            "heat",
+            "relating to"
+          ],
+          "result": "EXOTHERMIC",
+          "clueLabel": "Word-part clue",
+          "clue": "",
+          "scienceLabel": "Which way does heat move?",
+          "science": ""
+        },
+        {
+          "type": "note",
+          "text": "The direction part tells you which way heat moves, not the temperature you feel. In an endothermic change the surroundings give up heat to the change, so the surroundings feel colder."
+        },
+        {
+          "type": "lines",
+          "label": "An instant cold pack feels cold when you squeeze it. Which word describes it, and which way does heat move?",
+          "count": 3
+        },
+        {
+          "type": "lines",
+          "label": "A hand warmer feels hot. Which word, and which way does heat move?",
+          "count": 2
+        },
+        {
+          "type": "ace",
+          "a": "Say what ENDO and EXO mean.",
+          "c": "Explain how the direction part matches what your hand feels.",
+          "e": "Ice melting takes in heat from the room. Endothermic or exothermic? Explain."
+        }
+      ]
+    },
+    {
+      "id": "g68-decode-lithosphere",
+      "title": "Decode It: Lithosphere",
+      "gradeBand": "6-8",
+      "scienceArea": "earth-space",
+      "activityType": "decode",
+      "sstCheckpoint": "boy",
+      "ace": "articulate",
+      "morphemes": [
+        "lith",
+        "sphere"
+      ],
+      "terms": [
+        "lithosphere"
+      ],
+      "estimatedMinutes": 10,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students break LITHOSPHERE, predict its meaning from the parts, then use the -SPHERE family to reason about other Earth layers.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Break the word, predict what it means, then check your idea against the note."
+        },
+        {
+          "type": "bigword",
+          "word": "LITHOSPHERE",
+          "split": [
+            "LITH",
+            "O",
+            "SPHERE"
+          ]
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "LITH",
+              "role": "root",
+              "meaning": "rock, stone"
+            },
+            {
+              "display": "SPHERE",
+              "role": "root",
+              "meaning": "ball or layer"
+            }
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Break it: what does each part mean?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "Predict: what do you think the lithosphere is?",
+          "count": 2
+        },
+        {
+          "type": "note",
+          "text": "The lithosphere is the solid, rocky outer layer of the Earth — the crust and the top of the mantle. It is cracked into plates that move slowly."
+        },
+        {
+          "type": "lines",
+          "label": "HYDROSPHERE and ATMOSPHERE also end in SPHERE. Using their first parts, what material do you expect each to be made of?",
+          "count": 3
+        },
+        {
+          "type": "ace",
+          "a": "Say what LITH and SPHERE mean.",
+          "c": "Explain how the two parts add up to the meaning of lithosphere.",
+          "e": "Invent a name ending in SPHERE for the layer of living things on Earth. What first part would you use?"
+        }
+      ]
+    },
+    {
+      "id": "g68-decode-isotope",
+      "title": "Decode It: Isotope",
+      "gradeBand": "6-8",
+      "scienceArea": "matter-energy",
+      "activityType": "decode",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "iso"
+      ],
+      "terms": [
+        "isotope"
+      ],
+      "estimatedMinutes": 15,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students decode ISOTOPE, then use a data table of carbon atoms to work out what stays the same and what changes.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Break the word and predict its meaning. Then use the data table to check and finish your idea."
+        },
+        {
+          "type": "bigword",
+          "word": "ISOTOPE",
+          "split": [
+            "ISO",
+            "TOPE"
+          ]
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "ISO",
+              "role": "prefix",
+              "meaning": "equal, same"
+            },
+            {
+              "display": "TOPE",
+              "role": "word",
+              "meaning": "place"
+            }
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Break it: what do the parts mean?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "Predict: isotopes sit in the same place on the periodic table. What might be the same about them, and what might differ?",
+          "count": 3
+        },
+        {
+          "type": "datatable",
+          "caption": "Three atoms of carbon",
+          "columns": [
+            "Atom",
+            "Protons",
+            "Neutrons"
+          ],
+          "rows": [
+            [
+              "Carbon-12",
+              "6",
+              "6"
+            ],
+            [
+              "Carbon-13",
+              "6",
+              "7"
+            ],
+            [
+              "Carbon-14",
+              "6",
+              "8"
+            ]
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "What stays the same across the three atoms? What changes? Write your final meaning of ISOTOPE.",
+          "count": 4
+        },
+        {
+          "type": "mcq",
+          "stem": "Why are all three atoms still carbon?",
+          "options": [
+            "They all have the same number of protons.",
+            "They all have the same number of neutrons.",
+            "They all have the same total mass.",
+            "They were all made at the same time."
+          ],
+          "followUp": "What evidence in the table supports your choice?",
+          "followUpLines": 2
+        },
+        {
+          "type": "ace",
+          "a": "Say what ISO means.",
+          "c": "Explain how the table shows what is 'equal' about isotopes.",
+          "e": "Two atoms of oxygen have 8 protons but different neutron counts. Are they isotopes? How do you know?"
+        }
+      ]
+    },
+    {
+      "id": "g68-sort-intra-inter",
+      "title": "Sort It: Intra or Inter",
+      "gradeBand": "6-8",
+      "scienceArea": "organisms-environments",
+      "activityType": "sort",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "intra",
+        "inter"
+      ],
+      "terms": [
+        "intracellular",
+        "intercellular"
+      ],
+      "estimatedMinutes": 10,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students sort descriptions by INTRA (within one cell) and INTER (between cells), then generalize the two prefixes to everyday words.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "INTRA and INTER look almost the same but mean different things. Sort each description into the column that fits."
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "INTRA",
+              "role": "prefix",
+              "meaning": "within, inside one thing"
+            },
+            {
+              "display": "INTER",
+              "role": "prefix",
+              "meaning": "between things"
+            },
+            {
+              "display": "CELLULAR",
+              "role": "word",
+              "meaning": "relating to a cell"
+            }
+          ]
+        },
+        {
+          "type": "sortcolumns",
+          "caption": "Within one cell, or between cells?",
+          "columns": [
+            "INTRA- (within one cell)",
+            "INTER- (between cells)"
+          ],
+          "items": [
+            "fluid inside a single cell",
+            "a signal passed from one cell to the next",
+            "reactions happening inside one cell",
+            "the gap between two cells",
+            "digestion within a single cell",
+            "water moving between leaf cells"
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Explain the difference between INTRA and INTER in your own words.",
+          "count": 3
+        },
+        {
+          "type": "lines",
+          "label": "Interstate highways run between states. Does that fit INTER? Explain.",
+          "count": 2
+        },
+        {
+          "type": "ace",
+          "a": "Say what INTRA and INTER mean.",
+          "c": "Explain how one letter changes intracellular into intercellular.",
+          "e": "Give one everyday INTER word and one INTRA word, and say what each means."
+        }
+      ]
+    },
+    {
+      "id": "g68-equation-hydrolysis",
+      "title": "Word Equation: Hydrolysis",
+      "gradeBand": "6-8",
+      "scienceArea": "matter-energy",
+      "activityType": "equation",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "hydro",
+        "lysis"
+      ],
+      "terms": [
+        "hydrolysis"
+      ],
+      "estimatedMinutes": 15,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students build HYDROLYSIS from HYDRO and LYSIS, then connect it to how digestion breaks large molecules apart with water.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Complete the equation. Then use the note and your own words to explain what hydrolysis does."
+        },
+        {
+          "type": "equation",
+          "parts": [
+            "HYDRO",
+            "LYSIS"
+          ],
+          "meanings": [
+            "water",
+            "breaking apart"
+          ],
+          "result": "HYDROLYSIS",
+          "clueLabel": "Word-part clue",
+          "clue": "",
+          "scienceLabel": "Science meaning",
+          "science": ""
+        },
+        {
+          "type": "note",
+          "text": "Hydrolysis uses a water molecule to split a larger molecule into smaller pieces. Your body uses it to break food apart during digestion."
+        },
+        {
+          "type": "lines",
+          "label": "Which part of HYDROLYSIS tells you what does the breaking?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "During digestion, a starch molecule is broken into sugars with the help of water. Explain how the word HYDROLYSIS matches that.",
+          "count": 3
+        },
+        {
+          "type": "ace",
+          "a": "Say what HYDRO and LYSIS mean.",
+          "c": "Explain how the two parts describe what happens to a large molecule.",
+          "e": "ANALYSIS also ends in LYSIS. What idea of 'breaking apart' fits when you analyse a problem?"
+        }
+      ]
+    },
+    {
+      "id": "g68-detective-cell",
+      "title": "Word Detective: Inside the Cell",
+      "gradeBand": "6-8",
+      "scienceArea": "organisms-environments",
+      "activityType": "detective",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "cyto",
+        "plasm",
+        "semi"
+      ],
+      "terms": [
+        "cytoplasm",
+        "semipermeable"
+      ],
+      "estimatedMinutes": 20,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students read original lab notes, break out CYTOPLASM and SEMIPERMEABLE, and revise their predictions using evidence from the text.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Read the lab notes. For each underlined word, fill in the detective table: the parts you recognize, your prediction, the evidence, and your final meaning."
+        },
+        {
+          "type": "stimulus",
+          "kind": "passage",
+          "title": "Lab notes: the onion skin",
+          "text": "A student peeled a thin, clear layer from an onion and placed it on a slide. Under the microscope, each block-shaped cell was filled with clear CYTOPLASM. A drop of coloured dye slowly moved into some cells but not others, because the cell membrane is SEMIPERMEABLE. The onion skin had no green colour, so the student knew these cells held little or no chlorophyll."
+        },
+        {
+          "type": "detectivetable",
+          "caption": "Detective table",
+          "columns": [
+            "Science word",
+            "Parts I recognize",
+            "My prediction",
+            "Evidence from the notes",
+            "Final meaning"
+          ],
+          "rows": [
+            {
+              "word": "CYTOPLASM"
+            },
+            {
+              "word": "SEMIPERMEABLE"
+            }
+          ]
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "CYTO",
+              "role": "root",
+              "meaning": "cell"
+            },
+            {
+              "display": "PLASM",
+              "role": "root",
+              "meaning": "formed material"
+            },
+            {
+              "display": "SEMI",
+              "role": "prefix",
+              "meaning": "half, partly"
+            },
+            {
+              "display": "PERMEABLE",
+              "role": "word",
+              "meaning": "able to pass through"
+            }
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "The dye entered some cells but not others. Use the parts of SEMIPERMEABLE to explain why.",
+          "count": 3
+        },
+        {
+          "type": "lines",
+          "label": "The onion skin was not green. What does that tell you about chlorophyll in these cells?",
+          "count": 2
+        },
+        {
+          "type": "ace",
+          "a": "Break CYTOPLASM into its two parts and say what each means.",
+          "c": "How do the parts of SEMIPERMEABLE match what the dye did?",
+          "e": "Predict what would happen to the dye if the membrane let everything through. What word would describe that membrane?"
+        }
+      ]
+    },
+    {
+      "id": "g68-detective-earthsystems",
+      "title": "Word Detective: Earth's Systems",
+      "gradeBand": "6-8",
+      "scienceArea": "earth-space",
+      "activityType": "detective",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "lith",
+        "hydro",
+        "atmo",
+        "bio",
+        "sphere"
+      ],
+      "terms": [
+        "lithosphere",
+        "hydrosphere",
+        "atmosphere",
+        "biosphere"
+      ],
+      "estimatedMinutes": 20,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students read an original passage about a rainstorm, then decode the four -SPHERE systems and track how one event touches all of them.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Read the passage. For each underlined word, fill in the detective table. Use the shared part SPHERE and the different first parts."
+        },
+        {
+          "type": "stimulus",
+          "kind": "passage",
+          "title": "One storm, four systems",
+          "text": "Clouds build over a valley and rain begins to fall. The water starts in the ATMOSPHERE. It lands on bare rock and soil, part of the LITHOSPHERE, and runs downhill into a stream that joins the HYDROSPHERE. Along the way, plant roots and thirsty animals in the BIOSPHERE take up some of the water. A single storm moves water through all four systems."
+        },
+        {
+          "type": "detectivetable",
+          "caption": "Detective table",
+          "columns": [
+            "Science word",
+            "First part means",
+            "SPHERE means",
+            "What this system includes"
+          ],
+          "rows": [
+            {
+              "word": "ATMOSPHERE"
+            },
+            {
+              "word": "LITHOSPHERE"
+            },
+            {
+              "word": "HYDROSPHERE"
+            },
+            {
+              "word": "BIOSPHERE"
+            }
+          ]
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "ATMO",
+              "role": "root",
+              "meaning": "air, vapor"
+            },
+            {
+              "display": "LITH",
+              "role": "root",
+              "meaning": "rock"
+            },
+            {
+              "display": "HYDRO",
+              "role": "root",
+              "meaning": "water"
+            },
+            {
+              "display": "BIO",
+              "role": "root",
+              "meaning": "life"
+            },
+            {
+              "display": "SPHERE",
+              "role": "root",
+              "meaning": "ball or layer"
+            }
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "The four words share SPHERE. What does the first part of each one tell you?",
+          "count": 3
+        },
+        {
+          "type": "lines",
+          "label": "Trace one raindrop through the passage. Name each system it passes through, in order.",
+          "count": 3
+        },
+        {
+          "type": "ace",
+          "a": "Say what SPHERE means, and give one first part with its meaning.",
+          "c": "Explain how the first part changes which Earth system each word names.",
+          "e": "A wildfire sends smoke into the air and burns plants. Which two spheres does it touch? Use the word parts to explain."
+        }
+      ]
+    },
+    {
+      "id": "g68-sort-monopoly",
+      "title": "Sort It: One or Many",
+      "gradeBand": "6-8",
+      "scienceArea": "matter-energy",
+      "activityType": "sort",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "mono",
+        "poly",
+        "mer"
+      ],
+      "terms": [
+        "monomer",
+        "polymer"
+      ],
+      "estimatedMinutes": 15,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Students sort words by MONO (one) and POLY (many), building number sense that carries into monomer and polymer.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "MONO means one and POLY means many. Sort each word into the column its first part points to."
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "MONO",
+              "role": "prefix",
+              "meaning": "one, single"
+            },
+            {
+              "display": "POLY",
+              "role": "prefix",
+              "meaning": "many"
+            },
+            {
+              "display": "MER",
+              "role": "root",
+              "meaning": "part, unit"
+            }
+          ]
+        },
+        {
+          "type": "sortcolumns",
+          "caption": "One, or many?",
+          "columns": [
+            "MONO- (one)",
+            "POLY- (many)"
+          ],
+          "items": [
+            "monomer",
+            "polymer",
+            "monorail",
+            "polygon",
+            "monoxide",
+            "polyester",
+            "a single building-block unit",
+            "a long chain of repeating units"
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "MONOMER and POLYMER share the part MER, meaning unit. How does the first part change each word's meaning?",
+          "count": 3
+        },
+        {
+          "type": "lines",
+          "label": "Carbon monoxide has one oxygen. How does its name fit MONO?",
+          "count": 2
+        },
+        {
+          "type": "ace",
+          "a": "Say what MONO and POLY mean.",
+          "c": "Explain how a polymer is built from monomers, using the parts.",
+          "e": "Invent a MONO word and a POLY word for the classroom, and say what each would mean."
+        }
+      ]
+    },
+    {
+      "id": "g68-exit-boy-check",
+      "title": "Exit Ticket: Morphology Check (BOY)",
+      "gradeBand": "6-8",
+      "scienceArea": "organisms-environments",
+      "activityType": "exit",
+      "sstCheckpoint": "boy",
+      "ace": "articulate",
+      "morphemes": [
+        "cyto",
+        "plasm"
+      ],
+      "terms": [
+        "cytoplasm"
+      ],
+      "estimatedMinutes": 5,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "A quarter-page beginning-of-year ticket. Students name what CYTO means and use it to predict CYTOPLASM. Four print per page.",
+      "layout": "quarter-page",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Answer in your own words. One or two sentences is enough."
+        },
+        {
+          "type": "lines",
+          "label": "CYTO means",
+          "count": 1
+        },
+        {
+          "type": "lines",
+          "label": "So CYTOPLASM probably means",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "What clue did CYTO give you?",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "g68-stimulus-moy-membrane",
+      "title": "Decode the Stimulus: The Selective Membrane (MOY)",
+      "gradeBand": "6-8",
+      "scienceArea": "organisms-environments",
+      "activityType": "stimulus",
+      "sstCheckpoint": "moy",
+      "ace": "connect",
+      "morphemes": [
+        "semi"
+      ],
+      "terms": [
+        "semipermeable"
+      ],
+      "estimatedMinutes": 20,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "A mid-year decode task. Students meet SEMIPERMEABLE, break it apart, then test their prediction against a table of what crossed a membrane.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "You may not have studied this word. Break it, predict its meaning, then use the table to check and finish your idea."
+        },
+        {
+          "type": "bigword",
+          "word": "SEMIPERMEABLE",
+          "split": [
+            "SEMI",
+            "PERMEABLE"
+          ]
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "SEMI",
+              "role": "prefix",
+              "meaning": "half, partly"
+            },
+            {
+              "display": "PERMEABLE",
+              "role": "word",
+              "meaning": "able to be passed through"
+            }
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Break it: what does each part mean?",
+          "count": 2
+        },
+        {
+          "type": "lines",
+          "label": "Predict: what do you think a semipermeable membrane does?",
+          "count": 2
+        },
+        {
+          "type": "datatable",
+          "caption": "What passed through the membrane after one hour",
+          "columns": [
+            "Substance",
+            "Size",
+            "Passed through?"
+          ],
+          "rows": [
+            [
+              "Water",
+              "very small",
+              "Yes"
+            ],
+            [
+              "Glucose (a sugar)",
+              "small",
+              "Yes"
+            ],
+            [
+              "Starch",
+              "large",
+              "No"
+            ],
+            [
+              "Blue dye clump",
+              "large",
+              "No"
+            ]
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "What kind of particle passed through? What kind was blocked? Write your final meaning of SEMIPERMEABLE.",
+          "count": 4
+        },
+        {
+          "type": "mcq",
+          "stem": "Why is the membrane called semipermeable and not just permeable?",
+          "options": [
+            "It lets some things through but not others.",
+            "It lets everything through.",
+            "It blocks everything.",
+            "It only works for one hour."
+          ],
+          "followUp": "Which rows in the table support your answer?",
+          "followUpLines": 2
+        },
+        {
+          "type": "ace",
+          "a": "Say what SEMI means.",
+          "c": "Explain how the table shows the membrane is only partly permeable.",
+          "e": "A cell needs water but must keep large molecules in. Why is a semipermeable membrane useful to it?"
+        }
+      ]
+    },
+    {
+      "id": "g68-mystery-eoy",
+      "title": "Mystery Science Word (EOY): Chemosynthesis",
+      "gradeBand": "6-8",
+      "scienceArea": "organisms-environments",
+      "activityType": "mystery",
+      "sstCheckpoint": "eoy",
+      "ace": "extend",
+      "morphemes": [
+        "chemo",
+        "syn",
+        "thesis"
+      ],
+      "terms": [
+        "photosynthesis"
+      ],
+      "estimatedMinutes": 20,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "The end-of-year transfer task. Students meet an unstudied word, decode it, test it against a deep-sea passage, and compare it with photosynthesis.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "You have not studied this word in class. Work through every step. Use the word parts and the passage together — neither is enough alone."
+        },
+        {
+          "type": "bigword",
+          "word": "CHEMOSYNTHESIS",
+          "split": [
+            "CHEMO",
+            "SYN",
+            "THESIS"
+          ]
+        },
+        {
+          "type": "wordparts",
+          "caption": "Word parts you will need",
+          "items": [
+            {
+              "display": "CHEMO",
+              "role": "root",
+              "meaning": "chemical"
+            },
+            {
+              "display": "SYN",
+              "role": "prefix",
+              "meaning": "together"
+            },
+            {
+              "display": "THESIS",
+              "role": "root",
+              "meaning": "putting, placing"
+            }
+          ]
+        },
+        {
+          "type": "lines",
+          "label": "Step 1: Break it. What word parts do you recognize, and what does each mean?",
+          "count": 3
+        },
+        {
+          "type": "lines",
+          "label": "Step 2: Predict. What might CHEMOSYNTHESIS mean?",
+          "count": 2
+        },
+        {
+          "type": "stimulus",
+          "kind": "passage",
+          "title": "Step 3: Check the science",
+          "text": "At the bottom of the ocean, no sunlight reaches. Yet around cracks in the sea floor that release hot, chemical-rich water, whole communities of tube worms and bacteria thrive. The bacteria do not use light. They build their food using energy released from chemicals in the water, and the tube worms depend on them."
+        },
+        {
+          "type": "lines",
+          "label": "Step 4: Explain. Using the word parts and the passage, write your final meaning of CHEMOSYNTHESIS.",
+          "count": 4
+        },
+        {
+          "type": "mcq",
+          "stem": "How is chemosynthesis different from photosynthesis?",
+          "options": [
+            "It uses energy from chemicals instead of energy from light.",
+            "It uses light instead of chemicals.",
+            "It does not make food at all.",
+            "It only happens in plants."
+          ],
+          "followUp": "What in the passage supports your choice?",
+          "followUpLines": 2
+        },
+        {
+          "type": "ace",
+          "a": "Say what CHEMO tells you, and how it differs from PHOTO.",
+          "c": "Point to one line in the passage that supports your meaning.",
+          "e": "A microbe lives deep in a cave with no light but plenty of sulfur chemicals. How does it most likely make food? Use both the parts and the evidence."
+        }
+      ]
+    },
+    {
+      "id": "g68-partner-challenge",
+      "title": "Partner Challenge: Build and Trade",
+      "gradeBand": "6-8",
+      "scienceArea": "organisms-environments",
+      "activityType": "partner",
+      "sstCheckpoint": "eoy",
+      "ace": "extend",
+      "morphemes": [
+        "auto",
+        "hetero",
+        "troph",
+        "cyto",
+        "plasm",
+        "hydro",
+        "lysis",
+        "endo",
+        "exo",
+        "therm",
+        "lith",
+        "sphere"
+      ],
+      "terms": [],
+      "estimatedMinutes": 15,
+      "formats": [
+        "color",
+        "bw"
+      ],
+      "teks": [],
+      "ngss": [],
+      "description": "Partners take turns building a science word from cut-out parts and challenging each other to break it back apart and predict the meaning.",
+      "blocks": [
+        {
+          "type": "instructions",
+          "text": "Work with a partner. Cut out the parts. Take turns: one partner builds a science word from two or more parts; the other breaks it back apart and predicts the meaning. Check each other with the word bank."
+        },
+        {
+          "type": "cards",
+          "caption": "Cut-out word parts",
+          "columns": 4,
+          "items": [
+            {
+              "display": "AUTO",
+              "role": "prefix",
+              "meaning": "self"
+            },
+            {
+              "display": "HETERO",
+              "role": "prefix",
+              "meaning": "other"
+            },
+            {
+              "display": "ENDO",
+              "role": "prefix",
+              "meaning": "inside"
+            },
+            {
+              "display": "EXO",
+              "role": "prefix",
+              "meaning": "outside"
+            },
+            {
+              "display": "HYDRO",
+              "role": "root",
+              "meaning": "water"
+            },
+            {
+              "display": "CYTO",
+              "role": "root",
+              "meaning": "cell"
+            },
+            {
+              "display": "LITH",
+              "role": "root",
+              "meaning": "rock"
+            },
+            {
+              "display": "THERM",
+              "role": "root",
+              "meaning": "heat"
+            },
+            {
+              "display": "TROPH",
+              "role": "suffix",
+              "meaning": "feeding"
+            },
+            {
+              "display": "PLASM",
+              "role": "suffix",
+              "meaning": "formed material"
+            },
+            {
+              "display": "LYSIS",
+              "role": "suffix",
+              "meaning": "breaking apart"
+            },
+            {
+              "display": "SPHERE",
+              "role": "suffix",
+              "meaning": "ball or layer"
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "caption": "Words we built",
+          "columns": [
+            "Word we built",
+            "Parts",
+            "What we predict it means"
+          ],
+          "rows": 5
+        },
+        {
+          "type": "lines",
+          "label": "Which built word was the hardest to predict? Why?",
+          "count": 2
+        },
+        {
+          "type": "ace",
+          "a": "Say which two parts made the clearest word you built.",
+          "c": "Explain how you used the parts to predict a meaning you had not been taught.",
+          "e": "Build one more word using a part not on a card. Challenge your partner to break it."
+        }
+      ]
     }
   ]
 }

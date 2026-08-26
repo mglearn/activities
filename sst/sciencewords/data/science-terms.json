@@ -491,6 +491,441 @@
       "teks": [],
       "ngss": [],
       "contextExample": "After watching shadows shrink all morning, students predicted the shortest shadow would come near noon."
+    },
+    {
+      "id": "cytoplasm",
+      "term": "cytoplasm",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "cyto",
+          "role": "combining-form"
+        },
+        {
+          "morpheme": "plasm",
+          "role": "root"
+        }
+      ],
+      "wordPartClue": "cell + formed material",
+      "studentDefinition": "The jelly-like fluid that fills a cell and holds its parts.",
+      "scienceExplanation": "Cytoplasm is the fluid inside a cell, outside the nucleus, where many of the cell's activities happen and where the organelles sit.",
+      "scienceAreas": ["organisms-environments"],
+      "sstLevels": ["boy", "moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Under a microscope, the organelles of a cell appear to float in the cytoplasm."
+    },
+    {
+      "id": "chlorophyll",
+      "term": "chlorophyll",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "chloro",
+          "role": "combining-form"
+        },
+        {
+          "morpheme": "phyll",
+          "role": "root"
+        }
+      ],
+      "wordPartClue": "green + leaf",
+      "studentDefinition": "The green substance in plants that captures light for photosynthesis.",
+      "scienceExplanation": "Chlorophyll is the green pigment inside a plant's chloroplasts. It absorbs light energy, which the plant uses to make sugar during photosynthesis.",
+      "scienceAreas": ["organisms-environments"],
+      "sstLevels": ["boy", "moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Leaves look green because chlorophyll reflects green light and absorbs the rest."
+    },
+    {
+      "id": "autotroph",
+      "term": "autotroph",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "auto",
+          "role": "prefix"
+        },
+        {
+          "morpheme": "troph",
+          "role": "combining-form"
+        }
+      ],
+      "wordPartClue": "self + feeding",
+      "studentDefinition": "A living thing that makes its own food.",
+      "scienceExplanation": "An autotroph, such as a green plant, makes its own food from simple materials using an energy source like sunlight. Autotrophs form the base of most food chains.",
+      "scienceAreas": ["organisms-environments"],
+      "sstLevels": ["moy", "eoy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "A blade of grass is an autotroph; it builds sugar from sunlight, water, and carbon dioxide."
+    },
+    {
+      "id": "heterotroph",
+      "term": "heterotroph",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "hetero",
+          "role": "prefix"
+        },
+        {
+          "morpheme": "troph",
+          "role": "combining-form"
+        }
+      ],
+      "wordPartClue": "other + feeding",
+      "studentDefinition": "A living thing that gets food by eating other living things.",
+      "scienceExplanation": "A heterotroph cannot make its own food, so it takes in food by eating autotrophs or other heterotrophs. Animals, fungi, and many microorganisms are heterotrophs.",
+      "scienceAreas": ["organisms-environments"],
+      "sstLevels": ["moy", "eoy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "A rabbit is a heterotroph; it must eat plants to get the energy it needs."
+    },
+    {
+      "id": "endothermic",
+      "term": "endothermic",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "endo",
+          "role": "prefix"
+        },
+        {
+          "morpheme": "therm",
+          "role": "root"
+        },
+        {
+          "morpheme": "ic",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "inside + heat + relating to",
+      "studentDefinition": "A change that takes in heat from its surroundings.",
+      "scienceExplanation": "In an endothermic process, energy is absorbed from the surroundings, so the surroundings feel colder. An instant cold pack that gets cold when squeezed is endothermic.",
+      "scienceAreas": ["matter-energy"],
+      "sstLevels": ["moy", "eoy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "When the salt dissolves in an instant cold pack, the pack feels cold because the change is endothermic."
+    },
+    {
+      "id": "exothermic",
+      "term": "exothermic",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "exo",
+          "role": "prefix"
+        },
+        {
+          "morpheme": "therm",
+          "role": "root"
+        },
+        {
+          "morpheme": "ic",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "outside + heat + relating to",
+      "studentDefinition": "A change that gives off heat to its surroundings.",
+      "scienceExplanation": "In an exothermic process, energy is released to the surroundings, so they feel warmer. Burning fuel and many hand-warmer reactions are exothermic.",
+      "scienceAreas": ["matter-energy"],
+      "sstLevels": ["moy", "eoy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "A hand warmer feels hot because the reaction inside it is exothermic."
+    },
+    {
+      "id": "lithosphere",
+      "term": "lithosphere",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "lith",
+          "role": "root"
+        },
+        {
+          "morpheme": "sphere",
+          "role": "combining-form"
+        }
+      ],
+      "wordPartClue": "rock + ball or layer",
+      "studentDefinition": "The solid, rocky outer layer of the Earth.",
+      "scienceExplanation": "The lithosphere is Earth's rigid outer shell — the crust and the upper part of the mantle. It is broken into the tectonic plates that move slowly over time.",
+      "scienceAreas": ["earth-space"],
+      "sstLevels": ["boy", "moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Earthquakes happen where the plates of the lithosphere grind past one another."
+    },
+    {
+      "id": "isotope",
+      "term": "isotope",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "iso",
+          "role": "prefix"
+        },
+        {
+          "text": "tope",
+          "role": "root",
+          "meaning": "place"
+        }
+      ],
+      "wordPartClue": "equal + place (on the periodic table)",
+      "studentDefinition": "Atoms of the same element that have different numbers of neutrons.",
+      "scienceExplanation": "Isotopes are atoms of one element that share the same number of protons but differ in neutrons, so they have different masses. Carbon-12 and carbon-14 are isotopes of carbon.",
+      "scienceAreas": ["matter-energy"],
+      "sstLevels": ["moy", "eoy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Carbon-14 is a radioactive isotope that scientists use to estimate the age of old bones."
+    },
+    {
+      "id": "intracellular",
+      "term": "intracellular",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "intra",
+          "role": "prefix"
+        },
+        {
+          "text": "cellular",
+          "role": "root",
+          "meaning": "relating to a cell"
+        }
+      ],
+      "wordPartClue": "within + relating to a cell",
+      "studentDefinition": "Located or happening inside a cell.",
+      "scienceExplanation": "Intracellular means within a single cell. The intracellular fluid is the cytoplasm and other fluid held inside the cell membrane.",
+      "scienceAreas": ["organisms-environments"],
+      "sstLevels": ["moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Digestion that happens inside a cell is called intracellular digestion."
+    },
+    {
+      "id": "intercellular",
+      "term": "intercellular",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "inter",
+          "role": "prefix"
+        },
+        {
+          "text": "cellular",
+          "role": "root",
+          "meaning": "relating to a cell"
+        }
+      ],
+      "wordPartClue": "between + relating to a cell",
+      "studentDefinition": "Located or happening between cells.",
+      "scienceExplanation": "Intercellular means between cells. Intercellular spaces are the gaps between cells, and intercellular signals pass from one cell to another.",
+      "scienceAreas": ["organisms-environments"],
+      "sstLevels": ["moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Water can move through the intercellular spaces between the cells of a leaf."
+    },
+    {
+      "id": "hydrolysis",
+      "term": "hydrolysis",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "hydro",
+          "role": "combining-form"
+        },
+        {
+          "morpheme": "lysis",
+          "role": "root"
+        }
+      ],
+      "wordPartClue": "water + breaking apart",
+      "studentDefinition": "Breaking a substance apart using water.",
+      "scienceExplanation": "In hydrolysis, a water molecule splits a larger molecule into smaller pieces. Digestion uses hydrolysis to break large food molecules into ones the body can absorb.",
+      "scienceAreas": ["organisms-environments", "matter-energy"],
+      "sstLevels": ["moy", "eoy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "During digestion, hydrolysis breaks a starch molecule into separate sugar units."
+    },
+    {
+      "id": "polymer",
+      "term": "polymer",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "poly",
+          "role": "prefix"
+        },
+        {
+          "morpheme": "mer",
+          "role": "root"
+        }
+      ],
+      "wordPartClue": "many + units",
+      "studentDefinition": "A large molecule made of many repeating units.",
+      "scienceExplanation": "A polymer is built from many small units, called monomers, linked into a long chain. Plastics, proteins, and starch are polymers.",
+      "scienceAreas": ["matter-energy"],
+      "sstLevels": ["boy", "moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "A plastic bottle is made of a polymer — thousands of identical units joined in chains."
+    },
+    {
+      "id": "monomer",
+      "term": "monomer",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "mono",
+          "role": "prefix"
+        },
+        {
+          "morpheme": "mer",
+          "role": "root"
+        }
+      ],
+      "wordPartClue": "one + unit",
+      "studentDefinition": "A single small unit that can join with others to form a polymer.",
+      "scienceExplanation": "A monomer is one building-block molecule. When many monomers bond together, they form a polymer.",
+      "scienceAreas": ["matter-energy"],
+      "sstLevels": ["boy", "moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "A single sugar unit is a monomer; many of them link together to form the polymer starch."
+    },
+    {
+      "id": "homogeneous",
+      "term": "homogeneous",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "homo",
+          "role": "prefix"
+        },
+        {
+          "morpheme": "gen",
+          "role": "root"
+        },
+        {
+          "morpheme": "ous",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "same + kind + having",
+      "studentDefinition": "The same throughout, with parts you cannot pick out.",
+      "scienceExplanation": "A homogeneous mixture looks the same everywhere and its parts are evenly blended, like salt fully dissolved in water. You cannot see the separate ingredients.",
+      "scienceAreas": ["matter-energy"],
+      "sstLevels": ["boy", "moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Salt water is a homogeneous mixture; every sip tastes equally salty."
+    },
+    {
+      "id": "heterogeneous",
+      "term": "heterogeneous",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "hetero",
+          "role": "prefix"
+        },
+        {
+          "morpheme": "gen",
+          "role": "root"
+        },
+        {
+          "morpheme": "ous",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "different + kind + having",
+      "studentDefinition": "Made of parts you can still tell apart.",
+      "scienceExplanation": "A heterogeneous mixture has parts that are not evenly blended, so you can see or separate the different pieces, like sand in water or a salad.",
+      "scienceAreas": ["matter-energy"],
+      "sstLevels": ["boy", "moy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "A bowl of trail mix is a heterogeneous mixture; you can pick out the raisins from the nuts."
+    },
+    {
+      "id": "hydrogen",
+      "term": "hydrogen",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "hydro",
+          "role": "combining-form"
+        },
+        {
+          "morpheme": "gen",
+          "role": "root"
+        }
+      ],
+      "wordPartClue": "water + producing",
+      "studentDefinition": "The lightest element; it can combine with oxygen to form water.",
+      "scienceExplanation": "Hydrogen is the lightest and most common element in the universe. Its name means 'water-producer' because burning hydrogen in oxygen makes water.",
+      "scienceAreas": ["matter-energy"],
+      "sstLevels": ["boy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "When hydrogen burns in air, the only product is water."
+    },
+    {
+      "id": "semipermeable",
+      "term": "semipermeable",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "morpheme": "semi",
+          "role": "prefix"
+        },
+        {
+          "text": "permeable",
+          "role": "root",
+          "meaning": "able to be passed through"
+        }
+      ],
+      "wordPartClue": "partly + able to pass through",
+      "studentDefinition": "Letting some things pass through but not others.",
+      "scienceExplanation": "A semipermeable membrane lets certain particles pass while blocking others. A cell membrane is semipermeable, controlling what enters and leaves the cell.",
+      "scienceAreas": ["organisms-environments"],
+      "sstLevels": ["moy", "eoy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "Water passes through the semipermeable cell membrane, but larger molecules are held back."
+    },
+    {
+      "id": "evaporation",
+      "term": "evaporation",
+      "gradeBands": ["6-8"],
+      "parts": [
+        {
+          "text": "vapor",
+          "role": "root",
+          "meaning": "vapor, mist"
+        },
+        {
+          "morpheme": "ation",
+          "role": "suffix"
+        }
+      ],
+      "wordPartClue": "vapor + the process of",
+      "studentDefinition": "The process of a liquid changing into a gas.",
+      "scienceExplanation": "Evaporation happens when particles at the surface of a liquid gain enough energy to escape as a gas. It happens faster when the liquid is warmer.",
+      "scienceAreas": ["matter-energy"],
+      "sstLevels": ["boy"],
+      "teks": [],
+      "ngss": [],
+      "contextExample": "A puddle disappears on a warm day because the water undergoes evaporation."
     }
   ]
 }
