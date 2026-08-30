@@ -1,55 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<title>Copyrighted Work Companions — PlotPoint</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
-<style>
-:root{--navy:#1c2247;--plum:#7a4fce;--gold:#f5c542;--paper:#f5f4fb;--ink:#191d33;--soft:#5b6079;--line:#e0def0}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Nunito,sans-serif;color:var(--ink);background:radial-gradient(ellipse at 90% 0,rgba(245,197,66,.18),transparent 42%),var(--paper)}
-.wrap{max-width:1080px;margin:auto;padding:24px 20px 70px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.brand{font:700 1.25rem Fredoka,sans-serif;color:var(--navy);text-decoration:none}.back{color:var(--plum);font-weight:800;text-decoration:none}
-header{margin:34px 0 24px;padding:28px;border-radius:18px;background:linear-gradient(120deg,#12163a,#653caf);color:#fff;box-shadow:0 12px 34px rgba(28,34,71,.2)}
-.kicker{display:inline-block;padding:5px 12px;border-radius:999px;background:var(--gold);color:var(--navy);font:700 .72rem Fredoka,sans-serif;text-transform:uppercase;letter-spacing:.1em}h1{margin:12px 0 7px;font:700 clamp(1.8rem,5vw,2.8rem) Fredoka,sans-serif;line-height:1.05}header p{margin:0;color:#e5ddfa;font-weight:700}
-.section-title{display:flex;align-items:center;gap:12px;margin:30px 0 14px;font:700 1.25rem Fredoka,sans-serif;color:var(--navy)}.section-title:after{content:"";height:2px;flex:1;background:var(--line)}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{display:flex;flex-direction:column;padding:18px;border:2px solid var(--line);border-top:6px solid var(--accent);border-radius:16px;background:#fff;color:inherit;text-decoration:none;box-shadow:0 4px 16px rgba(20,30,80,.06)}.card:hover{border-color:var(--gold);transform:translateY(-2px)}.card h2{margin:8px 0 2px;font:700 1.15rem/1.12 Fredoka,sans-serif;color:var(--navy)}.by{font-size:.82rem;color:var(--soft);font-weight:700}.desc{flex:1;color:var(--soft);font-size:.87rem}.open{font:700 .85rem Fredoka,sans-serif;color:var(--plum)}
-.planned .card{border-top-color:#9a9fb8;box-shadow:none}.planned .card:hover{border-color:var(--line);transform:none}.status{align-self:flex-start;margin-bottom:5px;padding:3px 9px;border-radius:999px;background:#efedf7;color:var(--soft);font:700 .68rem Fredoka,sans-serif;text-transform:uppercase;letter-spacing:.06em}.public-note{margin:12px 0 0;color:var(--soft);font-weight:700;font-size:.88rem}
-@media(max-width:850px){.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.cards{grid-template-columns:1fr}}
-</style>
-<script src="../titles.js" defer></script>
-<script src="../assets/copyright-gate.js" data-protect-room defer></script>
+<title>Moved to Contraband</title>
+<link rel="canonical" href="/contraband/">
+<meta http-equiv="refresh" content="0; url=/contraband/">
+<meta name="robots" content="noindex">
+<script>location.replace("/contraband/"+location.hash);</script>
+<style>body{font-family:system-ui,-apple-system,sans-serif;max-width:34rem;margin:16vh auto;padding:0 1.2rem;text-align:center;color:#1a1714;line-height:1.6}a{color:#c1272d;font-weight:700}</style>
 </head>
 <body>
-<div class="wrap">
-  <div class="top"><a class="brand" href="../">● PlotPoint</a><a class="back" href="../">← All PlotPoint titles</a></div>
-  <header><span class="kicker">Protected collection</span><h1>Companion Activities for Copyrighted Works</h1><p>Independent educational companions that reproduce no copyrighted text. Students need lawful access to the assigned work.</p></header>
-  <h2 class="section-title">Available now</h2>
-  <main class="cards" id="cards" aria-label="Copyrighted work companion activities"></main>
-  <h2 class="section-title">Future copyrighted companions</h2>
-  <section class="cards planned" id="planned-cards" aria-label="Planned copyrighted work companion activities"></section>
-  <h2 class="section-title">Also planned for the open collection</h2>
-  <section class="cards planned" id="public-planned-cards" aria-label="Planned public-domain activities"></section>
-  <p class="public-note"><i>Adventures of Huckleberry Finn</i> is public domain, so its future room will not require this passcode.</p>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  var host=document.getElementById('cards');
-  (window.PLOTPOINT_TITLES||[]).filter(function(x){return x.rights==='copyrighted';}).forEach(function(x){
-    var a=document.createElement('a');a.className='card';a.href='../'+x.href;a.style.setProperty('--accent',x.accent||'#7a4fce');
-    a.innerHTML='<h2>'+x.title+'</h2><div class="by">by '+x.author+'</div><p class="desc">'+x.desc+'</p><span class="open">Open companion →</span>';host.appendChild(a);
-  });
-  function plannedCard(x){
-    var card=document.createElement('article');card.className='card';
-    card.innerHTML='<span class="status">Planned</span><h2>'+x.title+'</h2><div class="by">by '+x.author+'</div>';
-    return card;
-  }
-  var planned=document.getElementById('planned-cards');
-  (window.PLOTPOINT_COPYRIGHTED_PLANNED||[]).forEach(function(x){planned.appendChild(plannedCard(x));});
-  var publicPlanned=document.getElementById('public-planned-cards');
-  (window.PLOTPOINT_PUBLIC_PLANNED||[]).forEach(function(x){publicPlanned.appendChild(plannedCard(x));});
-});
-</script>
-<script src="/activities/licensing-footer.js" defer></script>
+<p>This activity now lives in <strong>Contraband</strong>.</p>
+<p><a href="/contraband/">Continue to the room →</a></p>
 </body>
 </html>
