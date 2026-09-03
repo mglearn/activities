@@ -396,53 +396,82 @@
 
   var RENDER = { "four-clues": fourClues, "sort": sortIt, "order": orderIt, "spot": spotIt, "explain": explainIt, "extend": extendIt };
 
-  /* ---------- build the page ---------- */
-  function build() {
-    document.title = PACK.title + " · TCEA Curiosity Challenge";
-    var mount = document.getElementById("pack");
-    if (!mount) return;
+  var SHORT = (PACK.title || "").split(/[:—]/)[0].trim();  // "World Space Week: Five…" -> "World Space Week"
 
-    // meta chips
+  /* ---------- render one full activity section ---------- */
+  function renderSection(a, i) {
+    var section = el("section", { class: "panel", id: a.id, tabindex: "-1" });
+    section.appendChild(el("h2", {}, [
+      el("span", { class: "tag", text: TYPE_TAG[a.type] || "Activity" }),
+      document.createTextNode((i + 1) + ". " + a.title),
+      el("span", { class: "time", text: a.time ? " · " + a.time : "" })
+    ]));
+    if (a.instructions) section.appendChild(el("p", { class: "instr", text: a.instructions }));
+    var body = el("div", {});
+    body._resets = [];                 // per-item reset callbacks (used by four-clues)
+    section.appendChild(body);
+    (RENDER[a.type] || function () {})(a, body);
+    if (a.teacherMove) section.appendChild(el("div", { class: "tmove" }, [el("b", { text: "Teacher move: " }), document.createTextNode(a.teacherMove)]));
+    var resetBtn = el("button", { class: "btn ghost", type: "button" }, "↺ Reset this challenge");
+    resetBtn.addEventListener("click", function () {
+      if (body._onReset) body._onReset();
+      (body._resets || []).forEach(function (r) { r(); });
+      section.scrollIntoView({ block: "start" });
+    });
+    section.appendChild(el("hr", { class: "divider" }));
+    section.appendChild(el("div", { class: "toolbar" }, [resetBtn]));
+    return section;
+  }
+
+  /* ---------- a nav card that links to a standalone activity page ---------- */
+  function navCard(a, i, activeId) {
+    var card = el("a", { class: "actcard", href: "activity.html?a=" + a.id, style: "--accent:var(--accent)" }, [
+      el("div", { class: "num", text: "Challenge " + (i + 1) + " · " + (TYPE_TAG[a.type] || "") }),
+      el("h3", { text: a.title }),
+      el("p", { text: a.instructions || "" }),
+      el("div", { class: "foot" }, [el("span", { text: a.time || "" }), el("span", { class: "go", text: activeId === a.id ? "You're here" : "Open →" })])
+    ]);
+    if (activeId === a.id) card.setAttribute("aria-current", "page");
+    return card;
+  }
+
+  /* ---------- build the page (landing = cards only · ?a=<id> = one activity) ---------- */
+  function build() {
+    var mount = document.getElementById("pack");
+    var nav = document.getElementById("act-nav");
     var chips = document.getElementById("meta-chips");
     if (chips && PACK.gradeBands) PACK.gradeBands.forEach(function (b) { chips.appendChild(el("span", { class: "chip accent", text: "Grades " + b })); });
 
-    // activity nav cards
-    var nav = document.getElementById("act-nav");
-    if (nav) PACK.activities.forEach(function (a, i) {
-      nav.appendChild(el("a", { class: "actcard", href: "#" + a.id, style: "--accent:var(--accent)" }, [
-        el("div", { class: "num", text: "Challenge " + (i + 1) + " · " + (TYPE_TAG[a.type] || "") }),
-        el("h3", { text: a.title }),
-        el("p", { text: a.instructions || "" }),
-        el("div", { class: "foot" }, [el("span", { text: a.time || "" }), el("span", { class: "go", text: "Start →" })])
-      ]));
-    });
+    var selId = (new URLSearchParams(location.search)).get("a");
+    var idx = -1;
+    PACK.activities.forEach(function (a, i) { if (a.id === selId) idx = i; });
 
-    PACK.activities.forEach(function (a, i) {
-      var section = el("section", { class: "panel", id: a.id, tabindex: "-1" });
-      section.appendChild(el("h2", {}, [
-        el("span", { class: "tag", text: TYPE_TAG[a.type] || "Activity" }),
-        document.createTextNode((i + 1) + ". " + a.title),
-        el("span", { class: "time", text: a.time ? " · " + a.time : "" })
-      ]));
-      if (a.instructions) section.appendChild(el("p", { class: "instr", text: a.instructions }));
-      var body = el("div", {});
-      body._resets = [];                 // per-item reset callbacks (used by four-clues)
-      section.appendChild(body);
-      (RENDER[a.type] || function () {})(a, body);
-
-      if (a.teacherMove) section.appendChild(el("div", { class: "tmove" }, [el("b", { text: "Teacher move: " }), document.createTextNode(a.teacherMove)]));
-
-      var resetBtn = el("button", { class: "btn ghost", type: "button" }, "↺ Reset this challenge");
-      resetBtn.addEventListener("click", function () {
-        if (body._onReset) body._onReset();
-        (body._resets || []).forEach(function (r) { r(); });
-        section.scrollIntoView({ block: "start" });
-      });
-      var top = el("a", { class: "btn ghost", href: "#top" }, "↑ All challenges");
-      section.appendChild(el("hr", { class: "divider" }));
-      section.appendChild(el("div", { class: "toolbar" }, [resetBtn, top]));
-      mount.appendChild(section);
-    });
+    if (idx > -1) {
+      // ----- single-activity page -----
+      var a = PACK.activities[idx];
+      document.title = a.title + " · " + SHORT + " · TCEA Curiosity Challenge";
+      var cr = document.getElementById("crumb-activity");
+      if (cr) cr.textContent = a.title;
+      if (mount) {
+        mount.appendChild(el("p", { style: "font-weight:700;margin-bottom:6px" },
+          el("a", { href: "./" }, "← All " + SHORT + " challenges")));
+        var section = renderSection(a, idx);
+        var prev = PACK.activities[idx - 1], next = PACK.activities[idx + 1];
+        var row = el("div", { class: "toolbar", style: "justify-content:space-between;margin-top:16px" }, [
+          prev ? el("a", { class: "btn ghost", href: "activity.html?a=" + prev.id }, "← " + prev.title)
+               : el("a", { class: "btn ghost", href: "./" }, "← All challenges"),
+          next ? el("a", { class: "btn", href: "activity.html?a=" + next.id }, next.title + " →")
+               : el("a", { class: "btn", href: "./" }, "Done · back to pack →")
+        ]);
+        section.appendChild(row);
+        mount.appendChild(section);
+      }
+      if (nav) PACK.activities.forEach(function (a2, i) { nav.appendChild(navCard(a2, i, selId)); });
+    } else {
+      // ----- landing: just the challenge cards (each links to its own page) -----
+      document.title = PACK.title + " · TCEA Curiosity Challenge";
+      if (nav) PACK.activities.forEach(function (a2, i) { nav.appendChild(navCard(a2, i, null)); });
+    }
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", build);
