@@ -9,15 +9,13 @@
 <meta property="og:title" content="TCEA Curiosity Challenge">
 <meta property="og:description" content="Timely topics, five short curiosity-first challenges each — browser-based and printable, with teacher answer keys. No logins, no data collected.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://mglearn.github.io/activities/curiosity/assets/curiosity-banner.webp">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/curiosity.css">
 <style>
   body{--accent:#054c8c}
-  .hero{background:linear-gradient(135deg,var(--navy-d),var(--navy));color:#fff;border-radius:18px;padding:34px 30px;margin-bottom:8px;
-    box-shadow:0 12px 34px rgba(5,76,140,.22)}
-  .hero .eyebrow{background:var(--gold);color:var(--navy-d)}
-  .hero h1{color:#fff}.hero h1 .g{color:var(--gold)}
-  .hero .lede{color:#dbe7f6;max-width:680px}
+  .hub-hero{border-radius:18px;overflow:hidden;box-shadow:0 12px 34px rgba(5,76,140,.22);margin-bottom:8px}
+  .hub-hero img{display:block;width:100%;height:auto}
   /* Card gallery — media tile + copy + Open pill (breakouts-style) */
   .gallery{display:grid;grid-template-columns:1fr;gap:20px;margin-top:22px}
   @media(min-width:640px){.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -49,11 +47,11 @@
 <body>
 <div class="wrap">
   <p class="crumb"><a href="/activities/">Learning Activities Hub</a> › Curiosity Challenge</p>
-  <section class="hero">
-    <span class="eyebrow">TCEA Curiosity Challenge</span>
-    <h1>Five-Minute <span class="g">Curiosity Challenges</span></h1>
-    <p class="lede">Pair a timely topic with five short, varied, classroom-ready challenges teachers can use immediately. Curiosity gets the click; classroom usefulness earns the return visit.</p>
-  </section>
+  <div class="hub-hero">
+    <img src="assets/curiosity-banner.webp" width="2172" height="724"
+         alt="TCEA Curiosity Challenge — Five-Minute Curiosity Challenges. Pair a timely topic with five short, varied, classroom-ready challenges teachers can use immediately. Curiosity gets the click; classroom usefulness earns the return visit. Five activity types: Guess It, Sort It, Spot It, Explain It, Extend It.">
+  </div>
+  <h1 class="sr-only">Five-Minute Curiosity Challenges</h1>
 
   <p class="lede" style="margin-top:20px">Each pack follows the same arc — <strong>Notice → Classify → Infer → Explain → Transfer</strong> — so students get five different kinds of thinking, not five worksheets. Everything runs in the browser with no logins, works from paper too, and comes with a teacher answer key.</p>
 
