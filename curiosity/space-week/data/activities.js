@@ -183,7 +183,7 @@ window.CURIOSITY_PACK = {
       "instructions": "Study the space image closely with no caption. Notice what you see, wonder about it, then make one inference before the answer is revealed.",
       "teacherMove": "Hold the caption back until every student has written at least one 'wonder' question, then reveal the source and compare guesses to the real science.",
       "image": {
-        "file": "assets/images/space-week-spot.png",
+        "file": "assets/images/space-week-spot.webp",
         "alt": "Towering columns of brown and gold interstellar gas and dust rising against a dark background scattered with thousands of stars.",
         "description": "Three or four enormous columns of gas and dust rise like rocky spires from the bottom of the frame toward the upper right. The pillars glow in shades of rust, brown, and gold, with semi-transparent, wispy edges that fade into darkness. Wavy, finger-like tips reach off the tallest columns, and a few of them glow with deep red at their edges. The background is filled with thousands of sharp, multicolored stars, some bright blue-white and others faint and distant. The overall scene looks like a towering desert landscape floating in deep space.",
         "caption": "The Pillars of Creation, captured by NASA's James Webb Space Telescope (NIRCam) in 2022. These columns of cool gas and dust lie within the Eagle Nebula (M16), about 6,500 light-years away, and are a region where new stars are actively forming. (NASA Science / ESA)"

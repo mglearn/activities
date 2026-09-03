@@ -48,8 +48,8 @@ being used as a graded item.
 
 ## Images
 
-The Image Detective challenge uses `assets/images/space-week-spot.png`. Until that image
-exists, the activity falls back to the text description, so the pack is fully usable
+The Image Detective challenge uses `assets/images/space-week-spot.webp`. If that image
+is missing, the activity falls back to the text description, so the pack is fully usable
 without it. Generation prompts, exact save paths, and alt text for this pack's images
 live in [`../images.md`](../images.md).
 

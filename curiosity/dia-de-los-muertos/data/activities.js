@@ -45,7 +45,7 @@ window.CURIOSITY_PACK = {
       "instructions": "Use the map and its written description to locate Mexico and several places where Día de los Muertos is observed. Notice what the regions share and wonder about what changes as the tradition travels.",
       "teacherMove": "Stress that these are illustrative examples, not a claim that every community observes identically or that everyone in a region participates. Invite students to add places they know. Correct any 'all Mexicans do X' generalizations.",
       "image": {
-        "file": "assets/images/dia-map.png",
+        "file": "assets/images/dia-map.webp",
         "alt": "Simple reference map highlighting Mexico and several regions associated with Día de los Muertos.",
         "description": "The map centers on Mexico and highlights several places associated with Día de los Muertos. In the west, Michoacán and the town of Pátzcuaro with its lake island of Janitzio are marked, known for candlelit nighttime vigils in cemeteries and Purépecha traditions. To the south, Oaxaca is highlighted, known for marigold-filled altars and neighborhood street processions called comparsas. Mexico City is marked in the center, including nearby Mixquic and its large cemetery observances. Farther north, the map shows U.S. diaspora communities in cities such as Los Angeles, San Antonio, and Chicago, where museums and neighborhoods host public celebrations. Together these points show one tradition expressed in many local ways rather than a single fixed practice.",
         "caption": "Día de los Muertos was inscribed on UNESCO's list of Intangible Cultural Heritage in 2008; while rooted in Indigenous Mexican communities, its practices vary by region and family and have spread through migration into U.S. communities, where institutions like the National Museum of Mexican Art present it publicly."
@@ -93,7 +93,7 @@ window.CURIOSITY_PACK = {
       "instructions": "Look closely at the papel picado pattern in the description. Hunt for design principles — repetition, symmetry, color, symbol, and focal point — then infer why an artist might arrange a design this way.",
       "teacherMove": "Keep the focus on design PRINCIPLES, not on copying specific images. When students later create their own patterns, guide them to invent respectful motifs rather than reproduce sacred or personal imagery from a real family's altar.",
       "image": {
-        "file": "assets/images/dia-papel-picado.png",
+        "file": "assets/images/dia-papel-picado.webp",
         "alt": "A single rectangular papel picado banner with a cut-paper pattern.",
         "description": "A single rectangular banner of thin colored paper has a design cut out of it so that light passes through the holes. A wide border frames the edges, and the interior is organized by a vertical line of symmetry, so the left and right halves mirror each other. A central medallion of curling, flower-like shapes forms a clear focal point, surrounded by rows of small repeated diamonds and half-circles that create a steady rhythm. Scalloped points run along the bottom edge, and the paper's bright color contrasts with the wall behind it. The overall effect is delicate, balanced, and lively.",
         "caption": "Papel picado is a Mexican folk art of chiseling designs into stacked sheets of thin 'papel de China' tissue paper; the town of San Salvador Huixcolotla in Puebla is recognized as its cradle and was named a cultural heritage of the state in 1998."
