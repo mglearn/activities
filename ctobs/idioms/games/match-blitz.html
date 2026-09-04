@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Idiom Match Blitz — a fast, timed arcade matching game. Pair each idiom with its meaning before the clock runs out. Runs entirely in your browser.">
+<meta name="description" content="Idiom Match Blitz — an arcade matching game. Pair each idiom with its meaning and build a streak. Runs entirely in your browser.">
 <title>Idiom Match Blitz — Idiom Arcade</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,7 +56,7 @@
 
   /* ---------- HUD ---------- */
   .hud{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+    display:grid;grid-template-columns:repeat(2,1fr);gap:8px;
     margin:14px 0 12px;
   }
   .hud-cell{
@@ -67,20 +67,10 @@
   }
   .hud-label{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#7fd8e8;font-weight:800}
   .hud-val{font-family:'Fredoka',sans-serif;font-weight:700;color:#eafcff;font-size:clamp(1.2rem,5.5vw,1.7rem);line-height:1.1;font-variant-numeric:tabular-nums}
-  .hud-cell.timer .hud-val{color:var(--cyan)}
-  .hud-cell.timer.low{animation:tickpulse 1s ease-in-out infinite;border-color:var(--bad)}
-  .hud-cell.timer.low .hud-val{color:#ffd0d8}
-  @keyframes tickpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
-
   .streak-flame{display:inline-block;filter:grayscale(1) opacity(.45);transition:transform .15s}
   .streak-on .streak-flame{filter:none}
   .hud-cell.streak .hud-val{color:var(--amber)}
   .hud-cell.streak.hot{box-shadow:inset 0 0 0 2px rgba(0,0,0,.15), 0 0 20px rgba(245,158,11,.7);border-color:var(--amber)}
-
-  /* timer bar */
-  .timebar{height:9px;border-radius:999px;background:rgba(255,255,255,.14);overflow:hidden;margin:-4px 0 14px;border:1px solid rgba(255,255,255,.15)}
-  .timebar > i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--cyan),var(--amber));transform-origin:left;transition:transform .25s linear}
-  .timebar.low > i{background:linear-gradient(90deg,#fb7185,var(--bad))}
 
   /* board progress pips */
   .boardmeta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 2px 8px;color:#d3f6ff;font-weight:800;font-size:.85rem}
@@ -220,26 +210,20 @@
 
   <header class="masthead">
     <h1 class="title">Idiom Match <span class="blitz">Blitz</span></h1>
-    <p class="subtitle">Match each idiom to its meaning — beat the clock!</p>
+    <p class="subtitle">Match each idiom to its meaning and build a hot streak!</p>
   </header>
 
   <!-- HUD -->
-  <section class="hud" aria-label="Score, timer, and streak">
+  <section class="hud" aria-label="Score and streak">
     <div class="hud-cell">
       <div class="hud-label">Score</div>
       <div class="hud-val" id="hudScore" aria-live="off">0</div>
-    </div>
-    <div class="hud-cell timer" id="hudTimerCell">
-      <div class="hud-label">Time</div>
-      <div class="hud-val"><span id="hudTime">75</span>s</div>
     </div>
     <div class="hud-cell streak" id="hudStreakCell">
       <div class="hud-label"><span class="streak-flame" id="flame">🔥</span> Streak</div>
       <div class="hud-val">×<span id="hudStreak">1</span></div>
     </div>
   </section>
-  <div class="timebar" id="timebar"><i id="timebarFill"></i></div>
-
   <div class="boardmeta">
     <span>Board <span id="boardNum">1</span></span>
     <span class="pips" id="pips" aria-label="Pairs remaining on this board"></span>
@@ -266,10 +250,10 @@
   <div class="panel">
     <div class="big-emoji" aria-hidden="true">💥</div>
     <h2>Idiom Match Blitz</h2>
-    <p class="lead">Pop as many idiom pairs as you can before time runs out!</p>
+    <p class="lead">Match idiom pairs at your own pace and build your streak!</p>
     <div class="howto">
       • Tap an <b>idiom</b>, then tap its <b>meaning</b>.<br>
-      • A match <b>pops</b> for points — a miss <b>shakes</b> and costs a little time.<br>
+      • A match <b>pops</b> for points — a miss <b>shakes</b> and resets your streak.<br>
       • Chain correct matches to grow your <b>streak ×</b> multiplier.<br>
       • Clear the board and a fresh one blitzes in!<br>
       <span style="opacity:.8">Tip: number keys 1–9 also select cards.</span>
@@ -305,9 +289,7 @@
 
   var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var BEST_KEY = "idiomMatchBlitzBest";
-  var START_TIME = 75;
   var PAIRS_PER_BOARD = 6;
-  var MISS_PENALTY = 3;      // seconds lost on a wrong match
   var BASE_POINTS = 100;     // per correct pair, times streak multiplier
   var BOARD_BONUS = 250;     // bonus for clearing a board
 
@@ -315,7 +297,6 @@
 
   // ---- state ----
   var state = null;
-  var timerId = null;
 
   // ---- elements ----
   var el = {
@@ -323,10 +304,6 @@
     colIdioms: document.getElementById('colIdioms'),
     colMeanings: document.getElementById('colMeanings'),
     score: document.getElementById('hudScore'),
-    time: document.getElementById('hudTime'),
-    timerCell: document.getElementById('hudTimerCell'),
-    timebar: document.getElementById('timebar'),
-    timebarFill: document.getElementById('timebarFill'),
     streak: document.getElementById('hudStreak'),
     streakCell: document.getElementById('hudStreakCell'),
     flame: document.getElementById('flame'),
@@ -384,15 +361,6 @@
     // flame grows with streak
     var scale = Math.min(1 + (state.multiplier - 1) * 0.14, 1.7);
     el.flame.style.transform = 'scale(' + scale + ')';
-  }
-  function renderTime(){
-    var t = Math.max(0, Math.ceil(state.time));
-    el.time.textContent = t;
-    var low = t <= 10;
-    el.timerCell.classList.toggle('low', low);
-    el.timebar.classList.toggle('low', low);
-    var frac = Math.max(0, Math.min(1, state.time / START_TIME));
-    el.timebarFill.style.transform = 'scaleX(' + frac + ')';
   }
   function renderPips(){
     var total = state.boardPairs.length;
@@ -589,14 +557,12 @@
 
   function handleMiss(a, b){
     state.locked = true;
-    // streak resets, small time penalty
+    // A miss resets the streak, but students can keep playing at their own pace.
     state.streak = 0;
     state.multiplier = 1;
-    state.time = Math.max(0, state.time - MISS_PENALTY);
     renderStreak();
-    renderTime();
 
-    floatText('-' + MISS_PENALTY + 's', b, true);
+    floatText('Streak reset', b, true);
     beep(160, 0.16, 'sawtooth');
 
     if (!REDUCED){
@@ -610,7 +576,6 @@
       document.body.classList.remove('shakeScreen');
       state.selectedIdiom = null; state.selectedMeaning = null;
       state.locked = false;
-      if (state.time <= 0) endGame();
     }, t);
   }
 
@@ -652,27 +617,6 @@
     document.body.appendChild(f);
     setTimeout(function(){ f.remove(); }, 1000);
   }
-
-  // ---------- timer ----------
-  function startTimer(){
-    var last = performance.now();
-    stopTimer();
-    timerId = setInterval(function(){
-      if (state.over) return;
-      var now = performance.now();
-      var dt = (now - last) / 1000;
-      last = now;
-      state.time -= dt;
-      if (state.time <= 0){
-        state.time = 0;
-        renderTime();
-        endGame();
-        return;
-      }
-      renderTime();
-    }, 100);
-  }
-  function stopTimer(){ if (timerId){ clearInterval(timerId); timerId = null; } }
 
   // ---------- audio (tiny WebAudio blips, no assets) ----------
   var actx = null;
@@ -737,7 +681,6 @@
   function newState(){
     return {
       score: 0,
-      time: START_TIME,
       streak: 0,
       bestStreak: 0,
       multiplier: 1,
@@ -761,17 +704,14 @@
     state = newState();
     el.startScreen.hidden = true;
     el.endScreen.hidden = true;
-    renderScore(); renderStreak(); renderTime();
+    renderScore(); renderStreak();
     buildBoard();
-    startTimer();
   }
 
   function endGame(){
     if (state.over) return;
     state.over = true;
-    stopTimer();
     clearSelection();
-    renderTime();
 
     var best = getBest();
     var isBest = state.score > best;

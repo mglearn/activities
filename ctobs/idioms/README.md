@@ -18,9 +18,9 @@ Three self-contained, arcade-style browser games are featured below the search o
 sharing `games/idiom-data.js` (no logins, no data collected, playable by touch/mouse/keyboard, and
 respecting `prefers-reduced-motion`):
 
-- **`games/match-blitz.html`** — *Idiom Match Blitz*: race a countdown to match idioms with meanings; streak multiplier.
+- **`games/match-blitz.html`** — *Idiom Match Blitz*: match idioms with meanings at your own pace; streak multiplier.
 - **`games/meaning-meteors.html`** — *Meaning Meteors*: a canvas catcher — grab the correct meaning as it falls, dodge the traps; 3 lives.
-- **`games/trap-escape.html`** — *Trap Escape*: literal-vs-figurative reflex game; decide fast before the timer empties; combo scoring.
+- **`games/trap-escape.html`** — *Trap Escape*: literal-vs-figurative choice game with no time limit; combo scoring.
 
 ## Layout
 

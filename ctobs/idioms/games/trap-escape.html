@@ -94,20 +94,6 @@
   }
   .combo-wrap.flare .combo-flame{transform:scale(1.5) rotate(-8deg);}
 
-  /* Timer bar */
-  .timer{
-    height:14px; border-radius:9px; background:rgba(0,0,0,.3);
-    overflow:hidden; margin-bottom:14px; border:1px solid rgba(255,255,255,.1);
-    position:relative;
-  }
-  .timer i{
-    display:block; height:100%; width:100%;
-    background:linear-gradient(90deg,#22d3ee,#f59e0b,#dc2626);
-    transform-origin:left; will-change:transform;
-  }
-  .timer.low i{animation:pulseBar .5s infinite alternate;}
-  @keyframes pulseBar{from{filter:brightness(1);}to{filter:brightness(1.6);}}
-
   /* Play area / card */
   .stage{position:relative; flex:1; min-height:280px; display:flex; flex-direction:column;}
   .card{
@@ -259,8 +245,6 @@
       <span class="combo-bar"><i id="comboBar"></i></span>
     </div>
 
-    <div class="timer" id="timerWrap"><i id="timerBar"></i></div>
-
     <div class="stage" id="stage">
       <div class="card enter" id="card">
         <div class="emoji" id="emoji">🎭</div>
@@ -273,12 +257,12 @@
       <!-- Start overlay -->
       <div class="overlay" id="startOverlay">
         <h2 class="f">Trap Escape</h2>
-        <p>An idiom flashes with one meaning. Is it the <b class="r">REAL</b> figurative meaning, or the tempting <b>LITERAL</b> trap? Judge fast!</p>
+        <p>An idiom appears with one meaning. Is it the <b class="r">REAL</b> figurative meaning, or the tempting <b>LITERAL</b> trap? Take the time you need.</p>
         <div class="rules">
           <div>➡️ <span class="r">Swipe / tap RIGHT</span> = <b class="r">REAL</b> meaning</div>
           <div>⬅️ <b>Swipe / tap LEFT</b> = <b>LITERAL</b> trap</div>
           <div>⌨️ Keys: <b class="r">→ or F</b> = Real · <b>← or J</b> = Trap</div>
-          <div>⏱️ Beat the shrinking timer. Streaks build a <b>combo</b>. 3 lives.</div>
+          <div>🎯 Streaks build a <b>combo</b>. You have 3 lives.</div>
         </div>
         <button class="btn" id="startBtn">Start ▶</button>
       </div>
@@ -336,7 +320,6 @@
       scoreVal=el("score").querySelector(".val"), bestVal=el("best").querySelector(".val"),
       livesEl=el("lives"),
       comboWrap=el("comboWrap"), comboFlame=el("comboFlame"), comboMult=el("comboMult"), comboBar=el("comboBar"),
-      timerWrap=el("timerWrap"), timerBar=el("timerBar"),
       btnTrap=el("btnTrap"), btnReal=el("btnReal"),
       feedback=el("feedback"), hudLive=el("hudLive"),
       startOverlay=el("startOverlay"), overOverlay=el("overOverlay"),
@@ -350,8 +333,7 @@
     S = {
       score:0, lives:3, combo:0, bestCombo:0, rounds:0,
       lastIdx:-1, current:null, showReal:false, correctSide:null,
-      active:false, locked:true,
-      roundStart:0, roundDur:3500, rafId:0
+      active:false, locked:true
     };
   }
   freshState();
@@ -392,13 +374,6 @@
     comboFlame.textContent = flames[Math.min(m-1, flames.length-1)];
   }
 
-  // ---- Difficulty: timer shrinks with score ----
-  function computeDuration(){
-    // start 3500ms, lose 40ms per round survived, floor 1400ms
-    var d = 3500 - S.rounds*45;
-    return Math.max(1400, d);
-  }
-
   // ---- Pick a round ----
   function nextRound(){
     if(!S.active) return;
@@ -422,46 +397,21 @@
     card.className = "card enter";
     btnTrap.disabled = false; btnReal.disabled = false;
 
-    // timer
-    S.roundDur = computeDuration();
-    S.roundStart = performance.now();
-    timerWrap.classList.remove("low");
-    startTimer();
-  }
-
-  function startTimer(){
-    cancelAnimationFrame(S.rafId);
-    function tick(now){
-      if(S.locked || !S.active) return;
-      var elapsed = now - S.roundStart;
-      var frac = 1 - elapsed/S.roundDur;
-      if(frac<=0){
-        timerBar.style.transform = "scaleX(0)";
-        answer(null); // timeout
-        return;
-      }
-      timerBar.style.transform = "scaleX("+frac+")";
-      if(frac < 0.28) timerWrap.classList.add("low");
-      S.rafId = requestAnimationFrame(tick);
-    }
-    S.rafId = requestAnimationFrame(tick);
   }
 
   // ---- Answer handling ----
-  // choice = "real" | "trap" | null(timeout)
+  // choice = "real" | "trap"
   function answer(choice){
     if(S.locked || !S.active) return;
     S.locked = true;
-    cancelAnimationFrame(S.rafId);
     btnTrap.disabled = true; btnReal.disabled = true;
 
     var item = S.current;
     var correct = (choice === S.correctSide);
-    var timedOut = (choice === null);
     S.rounds++;
 
-    // card exit direction based on the player's choice (or correct side on timeout)
-    var dir = choice || S.correctSide;
+    // Card exit direction follows the player's choice.
+    var dir = choice;
 
     if(correct){
       S.combo++;
@@ -481,7 +431,7 @@
       S.lives--;
       renderLives();
       card.classList.add("wrong");
-      showFeedback(false, item, 0, 0, timedOut);
+      showFeedback(false, item, 0, 0);
     }
 
     var delay = correct ? (reduceMotion?350:620) : (reduceMotion?450:900);
@@ -491,7 +441,7 @@
     }, delay);
   }
 
-  function showFeedback(ok, item, gained, mult, timedOut){
+  function showFeedback(ok, item, gained, mult){
     var real = "“"+item.idiom+"” really means: "+item.meaning+".";
     if(ok){
       feedback.className="feedback ok";
@@ -499,8 +449,7 @@
         '<span class="real">'+escapeHtml(real)+'</span>';
     } else {
       feedback.className="feedback no";
-      var lead = timedOut ? "⏱️ Too slow!" : "❌ Trapped!";
-      feedback.innerHTML = '<span class="verdict">'+lead+'</span>'+
+      feedback.innerHTML = '<span class="verdict">❌ Trapped!</span>'+
         '<span class="real">'+escapeHtml(real)+'</span>';
     }
   }
@@ -543,7 +492,6 @@
     scoreVal.textContent = "0";
     renderLives();
     renderCombo();
-    timerBar.style.transform="scaleX(1)";
     feedback.className="feedback"; feedback.textContent="";
     startOverlay.classList.add("hidden");
     overOverlay.classList.add("hidden");
@@ -553,7 +501,6 @@
   function gameOver(){
     S.active = false;
     S.locked = true;
-    cancelAnimationFrame(S.rafId);
     btnTrap.disabled = true; btnReal.disabled = true;
 
     var isBest = S.score > best;
