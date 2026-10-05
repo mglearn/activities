@@ -52,7 +52,7 @@ window.HUB_SEARCH = { "<card href>": "<searchable text>" }
 haystack on first search, so the page works with or without it. **Re-run it after
 adding, renaming, or removing activities**, or the search silently goes stale.
 
-`gtky/` and `sojourn/` are in their own repos and are not on disk here, so they
+`gtky/`, `sojourn/`, and `writedaily/` are in their own repos and are not on disk here, so they
 keep hand-written `data-kw` in `index.html` instead. `science/case-files/` is a
 single landing page plus PDF/PPTX downloads — landing pages are skipped by
 design — so it keeps hand-written `data-kw` too.
@@ -68,7 +68,9 @@ and are linked root-relative (`/tcea/…`) from the hub.
 `Getting to Know You` (`mglearn/gtky`) and `Suffrage Sojourn` (`mglearn/sojourn`)
 are their own repos, deployed to `mglearn.github.io/gtky/` and
 `mglearn.github.io/sojourn/`, and linked root-relative (`/gtky/`, `/sojourn/`)
-from the hub. Suffrage Sojourn is a Vite/React build — its `vite.config.js` sets
+from the hub. `Daily Writing a Day` (`mglearn/writedaily`) is deployed to
+`mglearn.github.io/writedaily/` and linked as `/writedaily/`; it has its own TCEA
+licensing & provenance page, so it does not load the hub footer. Suffrage Sojourn is a Vite/React build — its `vite.config.js` sets
 `base: '/sojourn/'`, which must match the repo name.
 
 Sibling repos pull in the hub's licensing footer with
