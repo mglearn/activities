@@ -6256,12 +6256,12 @@
  },
  "t1xfi3xu": {
   "en": "<strong>Free &amp; open.</strong> Every lesson in this band is free to play — no login, nothing collected. Each card opens the teacher page (premise + standards), then the activity itself.",
-  "es": "",
-  "vi": "",
-  "ar": "",
-  "hi": "",
-  "ur": "",
-  "zh": ""
+  "es": "<strong>Libre y abierto.</strong> Todas las lecciones de este nivel se pueden jugar gratis: sin inicio de sesión y sin recopilar datos. Cada tarjeta abre la página del docente (premisa + estándares) y luego la actividad.",
+  "vi": "<strong>Miễn phí và mở.</strong> Mọi bài học trong nhóm này đều chơi miễn phí: không cần đăng nhập, không thu thập dữ liệu. Mỗi thẻ mở trang giáo viên (bối cảnh + chuẩn), rồi đến hoạt động.",
+  "ar": "<strong>مجاني ومفتوح.</strong> كل درس في هذه المرحلة مجاني للعب: بلا تسجيل دخول ودون جمع أي بيانات. تفتح كل بطاقة صفحة المعلّم (الفكرة + المعايير)، ثم النشاط نفسه.",
+  "hi": "<strong>निःशुल्क और खुला।</strong> इस बैंड का हर पाठ खेलने के लिए निःशुल्क है: कोई लॉगिन नहीं, कोई डेटा एकत्र नहीं। हर कार्ड पहले शिक्षक पेज (परिदृश्य + मानक) खोलता है, फिर गतिविधि।",
+  "ur": "<strong>مفت اور کھلا۔</strong> اس بینڈ کا ہر سبق کھیلنے کے لیے مفت ہے: نہ لاگ اِن، نہ کوئی ڈیٹا جمع۔ ہر کارڈ پہلے استاد کا صفحہ (پس منظر + معیارات) کھولتا ہے، پھر سرگرمی۔",
+  "zh": "<strong>免费开放。</strong>本学段的每一课都可免费使用：无需登录，不收集任何数据。每张卡片先打开教师页面（情境 + 标准），再进入活动本身。"
  },
  "t19357ie": {
   "en": "The full early-elementary lessons — what an AI helper is, how it makes guesses, checking its answers, and using it safely with a grown-up. Free and open — each grade also has a free featured lesson on the home page.",
@@ -6301,12 +6301,12 @@
  },
  "tw7x10g": {
   "en": "Two lessons per grade",
-  "es": "",
-  "vi": "",
-  "ar": "",
-  "hi": "",
-  "ur": "",
-  "zh": ""
+  "es": "Dos lecciones por grado",
+  "vi": "Hai bài học mỗi lớp",
+  "ar": "درسان لكل صف",
+  "hi": "हर कक्षा के लिए दो पाठ",
+  "ur": "ہر جماعت کے لیے دو اسباق",
+  "zh": "每个年级两课"
  },
  "tz5cx30": {
   "en": "<strong>Free featured lessons — one per grade.</strong> Each grade has a fully-playable featured breakout on the home page. Use them with anyone, anywhere — no login, nothing collected.",
@@ -6418,29 +6418,209 @@
  },
  "t3ucog2": {
   "en": "Pacing, prerequisites, and extensions for the elementary band.",
-  "es": "",
-  "vi": "",
-  "ar": "",
-  "hi": "",
-  "ur": "",
-  "zh": ""
+  "es": "Ritmo, requisitos previos y extensiones para el nivel de primaria.",
+  "vi": "Nhịp độ, điều kiện tiên quyết và mở rộng cho nhóm tiểu học.",
+  "ar": "الإيقاع، والمتطلبات المسبقة، والامتدادات للمرحلة الابتدائية.",
+  "hi": "प्राथमिक बैंड के लिए गति, पूर्वापेक्षाएँ और विस्तार।",
+  "ur": "ابتدائی بینڈ کے لیے رفتار، پیشگی شرائط، اور توسیعات۔",
+  "zh": "小学学段的进度安排、先修要求与拓展。"
  },
  "tzimmua": {
   "en": "Pacing, prerequisites, and extensions for the middle-school band.",
-  "es": "",
-  "vi": "",
-  "ar": "",
-  "hi": "",
-  "ur": "",
-  "zh": ""
+  "es": "Ritmo, requisitos previos y extensiones para el nivel de secundaria.",
+  "vi": "Nhịp độ, điều kiện tiên quyết và mở rộng cho nhóm trung học cơ sở.",
+  "ar": "الإيقاع، والمتطلبات المسبقة، والامتدادات للمرحلة الإعدادية.",
+  "hi": "मिडिल-स्कूल बैंड के लिए गति, पूर्वापेक्षाएँ और विस्तार।",
+  "ur": "مڈل اسکول بینڈ کے لیے رفتار، پیشگی شرائط، اور توسیعات۔",
+  "zh": "初中学段的进度安排、先修要求与拓展。"
  },
  "tags6ak": {
   "en": "Open activity",
-  "es": "",
-  "vi": "",
-  "ar": "",
-  "hi": "",
-  "ur": "",
-  "zh": ""
+  "es": "Abrir actividad",
+  "vi": "Mở hoạt động",
+  "ar": "افتح النشاط",
+  "hi": "गतिविधि खोलें",
+  "ur": "سرگرمی کھولیں",
+  "zh": "打开活动"
+ },
+ "t1scy4fd": {
+  "en": "Free to use",
+  "es": "Gratis",
+  "vi": "Miễn phí",
+  "ar": "مجانية",
+  "hi": "निःशुल्क",
+  "ur": "مفت",
+  "zh": "免费使用"
+ },
+ "t1kvb50p": {
+  "en": "Every breakout — free",
+  "es": "Todos los breakouts, gratis",
+  "vi": "Mọi breakout đều miễn phí",
+  "ar": "كل الأنشطة مجانية",
+  "hi": "हर ब्रेकआउट — निःशुल्क",
+  "ur": "ہر بریک آؤٹ — مفت",
+  "zh": "所有破解活动均免费"
+ },
+ "t9lvfbv": {
+  "en": "Two complete breakouts for every grade, K–8, and all of them are free: fully playable, no login, no license, nothing collected. Share the link and go.",
+  "es": "Dos breakouts completos para cada grado, de kínder a 8.º, y todos son gratis: totalmente jugables, sin inicio de sesión, sin licencia y sin recopilar datos. Comparte el enlace y listo.",
+  "vi": "Hai breakout hoàn chỉnh cho mỗi lớp, từ mẫu giáo đến lớp 8, và tất cả đều miễn phí: chơi trọn vẹn, không đăng nhập, không cần giấy phép, không thu thập dữ liệu. Chia sẻ đường liên kết là xong.",
+  "ar": "نشاطان كاملان لكل صف من الروضة حتى الصف الثامن، وكلها مجانية: قابلة للعب بالكامل، بلا تسجيل دخول، وبلا ترخيص، ودون جمع أي بيانات. شارك الرابط وابدأ.",
+  "hi": "किंडरगार्टन से कक्षा 8 तक हर कक्षा के लिए दो पूरे ब्रेकआउट, और सभी निःशुल्क: पूरी तरह खेलने योग्य, कोई लॉगिन नहीं, कोई लाइसेंस नहीं, कोई डेटा एकत्र नहीं। लिंक साझा करें और शुरू करें।",
+  "ur": "کنڈرگارٹن سے جماعت 8 تک ہر جماعت کے لیے دو مکمل بریک آؤٹ، اور سب مفت: مکمل طور پر کھیلنے کے قابل، نہ لاگ اِن، نہ لائسنس، نہ کوئی ڈیٹا جمع۔ لنک شیئر کریں اور شروع کریں۔",
+  "zh": "幼儿园到八年级，每个年级都有两个完整的破解活动，全部免费：可完整游玩，无需登录，无需授权，不收集任何数据。分享链接即可开始。"
+ },
+ "tbmeiy5": {
+  "en": "The early-elementary breakouts — what an AI helper is, how it makes guesses, checking its answers, and using it safely with a grown-up. Two free breakouts per grade: no login, no license.",
+  "es": "Los breakouts de primaria inicial: qué es un ayudante de IA, cómo hace suposiciones, cómo revisar sus respuestas y cómo usarlo con seguridad junto a un adulto. Dos breakouts gratis por grado: sin inicio de sesión, sin licencia.",
+  "vi": "Các breakout cho tiểu học đầu cấp: trợ lý AI là gì, nó đoán như thế nào, cách kiểm tra câu trả lời của nó và dùng nó an toàn cùng người lớn. Hai breakout miễn phí mỗi lớp: không đăng nhập, không cần giấy phép.",
+  "ar": "أنشطة المرحلة الابتدائية المبكرة: ما المساعد الذكي، وكيف يُخمّن، وكيف نتحقق من إجاباته، وكيف نستخدمه بأمان مع شخص بالغ. نشاطان مجانيان لكل صف: بلا تسجيل دخول، وبلا ترخيص.",
+  "hi": "प्रारंभिक प्राथमिक ब्रेकआउट: AI सहायक क्या है, यह कैसे अनुमान लगाता है, इसके उत्तरों की जाँच कैसे करें, और किसी बड़े के साथ इसे सुरक्षित रूप से कैसे इस्तेमाल करें। हर कक्षा के लिए दो निःशुल्क ब्रेकआउट: कोई लॉगिन नहीं, कोई लाइसेंस नहीं।",
+  "ur": "ابتدائی کم عمر بریک آؤٹ: AI مددگار کیا ہے، یہ کیسے اندازہ لگاتا ہے، اس کے جوابات کیسے جانچیں، اور کسی بڑے کے ساتھ اسے محفوظ طریقے سے کیسے استعمال کریں۔ ہر جماعت کے لیے دو مفت بریک آؤٹ: نہ لاگ اِن، نہ لائسنس۔",
+  "zh": "低年级破解活动：什么是 AI 助手、它如何猜测、如何检查它的答案，以及如何在大人陪伴下安全使用。 每个年级两个免费破解活动：无需登录，无需授权。"
+ },
+ "t1yjptmf": {
+  "en": "The elementary breakouts — what AI is, how it learns from data, and how to prompt it and check its work. Two free breakouts per grade: no login, no license.",
+  "es": "Los breakouts de primaria: qué es la IA, cómo aprende de los datos y cómo darle instrucciones y revisar su trabajo. Dos breakouts gratis por grado: sin inicio de sesión, sin licencia.",
+  "vi": "Các breakout tiểu học: AI là gì, nó học từ dữ liệu như thế nào, và cách ra lệnh cho nó cũng như kiểm tra kết quả. Hai breakout miễn phí mỗi lớp: không đăng nhập, không cần giấy phép.",
+  "ar": "أنشطة المرحلة الابتدائية: ما الذكاء الاصطناعي، وكيف يتعلّم من البيانات، وكيف نوجّهه ونتحقق من عمله. نشاطان مجانيان لكل صف: بلا تسجيل دخول، وبلا ترخيص.",
+  "hi": "प्राथमिक ब्रेकआउट: AI क्या है, यह डेटा से कैसे सीखता है, और इसे प्रॉम्प्ट कैसे दें व इसके काम की जाँच कैसे करें। हर कक्षा के लिए दो निःशुल्क ब्रेकआउट: कोई लॉगिन नहीं, कोई लाइसेंस नहीं।",
+  "ur": "ابتدائی بریک آؤٹ: AI کیا ہے، یہ ڈیٹا سے کیسے سیکھتا ہے، اور اسے پرامپٹ کیسے دیں اور اس کے کام کی جانچ کیسے کریں۔ ہر جماعت کے لیے دو مفت بریک آؤٹ: نہ لاگ اِن، نہ لائسنس۔",
+  "zh": "小学破解活动：什么是 AI、它如何从数据中学习，以及如何向它提问并检查它的结果。 每个年级两个免费破解活动：无需登录，无需授权。"
+ },
+ "t1nbmour": {
+  "en": "The middle-school breakouts — spotting AI-generated media, tracing where bias comes from, and creating with AI responsibly. Two free breakouts per grade: no login, no license.",
+  "es": "Los breakouts de secundaria: detectar contenido generado por IA, rastrear de dónde viene el sesgo y crear con IA de forma responsable. Dos breakouts gratis por grado: sin inicio de sesión, sin licencia.",
+  "vi": "Các breakout trung học cơ sở: nhận ra nội dung do AI tạo, truy tìm nguồn gốc của thiên kiến và sáng tạo với AI một cách có trách nhiệm. Hai breakout miễn phí mỗi lớp: không đăng nhập, không cần giấy phép.",
+  "ar": "أنشطة المرحلة الإعدادية: اكتشاف الوسائط المُولَّدة بالذكاء الاصطناعي، وتتبّع مصدر التحيّز، والإبداع باستخدام الذكاء الاصطناعي بمسؤولية. نشاطان مجانيان لكل صف: بلا تسجيل دخول، وبلا ترخيص.",
+  "hi": "मिडिल-स्कूल ब्रेकआउट: AI से बने मीडिया को पहचानना, पक्षपात कहाँ से आता है यह खोजना, और AI के साथ ज़िम्मेदारी से रचना करना। हर कक्षा के लिए दो निःशुल्क ब्रेकआउट: कोई लॉगिन नहीं, कोई लाइसेंस नहीं।",
+  "ur": "مڈل اسکول بریک آؤٹ: AI سے بنے میڈیا کو پہچاننا، تعصب کہاں سے آتا ہے اس کا سراغ لگانا، اور AI کے ساتھ ذمہ داری سے تخلیق کرنا۔ ہر جماعت کے لیے دو مفت بریک آؤٹ: نہ لاگ اِن، نہ لائسنس۔",
+  "zh": "初中破解活动：识别 AI 生成的媒体、追溯偏见的来源，以及负责任地使用 AI 进行创作。 每个年级两个免费破解活动：无需登录，无需授权。"
+ },
+ "tv22vdl": {
+  "en": "<strong>Two free breakouts for every grade.</strong> Each grade, K–8, has two complete breakouts, and all of them are free and open: no login, no license, nothing collected. The teacher pages, this guide, and every support page are open too.",
+  "es": "<strong>Dos breakouts gratis para cada grado.</strong> Cada grado, de kínder a 8.º, tiene dos breakouts completos, y todos son gratis y abiertos: sin inicio de sesión, sin licencia y sin recopilar datos. Las páginas del docente, esta guía y todas las páginas de apoyo también son abiertas.",
+  "vi": "<strong>Hai breakout miễn phí cho mỗi lớp.</strong> Mỗi lớp, từ mẫu giáo đến lớp 8, có hai breakout hoàn chỉnh, và tất cả đều miễn phí, mở: không đăng nhập, không cần giấy phép, không thu thập dữ liệu. Các trang giáo viên, hướng dẫn này và mọi trang hỗ trợ cũng đều mở.",
+  "ar": "<strong>نشاطان مجانيان لكل صف.</strong> لكل صف من الروضة حتى الصف الثامن نشاطان كاملان، وكلها مجانية ومفتوحة: بلا تسجيل دخول، وبلا ترخيص، ودون جمع أي بيانات. صفحات المعلّم وهذا الدليل وكل صفحات الدعم مفتوحة أيضًا.",
+  "hi": "<strong>हर कक्षा के लिए दो निःशुल्क ब्रेकआउट।</strong> किंडरगार्टन से कक्षा 8 तक हर कक्षा में दो पूरे ब्रेकआउट हैं, और सभी निःशुल्क और खुले हैं: कोई लॉगिन नहीं, कोई लाइसेंस नहीं, कोई डेटा एकत्र नहीं। शिक्षक पेज, यह गाइड और हर सहायता पेज भी खुले हैं।",
+  "ur": "<strong>ہر جماعت کے لیے دو مفت بریک آؤٹ۔</strong> کنڈرگارٹن سے جماعت 8 تک ہر جماعت میں دو مکمل بریک آؤٹ ہیں، اور سب مفت اور کھلے ہیں: نہ لاگ اِن، نہ لائسنس، نہ کوئی ڈیٹا جمع۔ استاد کے صفحات، یہ گائیڈ اور ہر معاون صفحہ بھی کھلا ہے۔",
+  "zh": "<strong>每个年级两个免费破解活动。</strong>幼儿园到八年级，每个年级都有两个完整的破解活动，全部免费开放：无需登录，无需授权，不收集任何数据。教师页面、本指南以及所有支持页面同样开放。"
+ },
+ "t1aj4ax6": {
+  "en": "Grade K — Meet AI, Ask a Grown-Up <span class=\"small\">(§126.5)</span>",
+  "es": "Kínder — Conoce la IA, pregúntale a un adulto <span class=\"small\">(§126.5)</span>",
+  "vi": "Mẫu giáo — Gặp AI, Hỏi Người Lớn <span class=\"small\">(§126.5)</span>",
+  "ar": "الروضة — التقِ بالذكاء الاصطناعي واسأل شخصًا بالغًا <span class=\"small\">(§126.5)</span>",
+  "hi": "किंडरगार्टन — AI से मिलो, किसी बड़े से पूछो <span class=\"small\">(§126.5)</span>",
+  "ur": "کنڈرگارٹن — اے آئی سے ملیں، کسی بڑے سے پوچھیں <span class=\"small\">(§126.5)</span>",
+  "zh": "幼儿园 — 认识AI，先问大人 <span class=\"small\">(§126.5)</span>"
+ },
+ "t109k7t2": {
+  "en": "Grade 1 — Check the Robot <span class=\"small\">(§126.6)</span>",
+  "es": "Grado 1 — Comprueba al robot <span class=\"small\">(§126.6)</span>",
+  "vi": "Lớp 1 — Kiểm Tra Người Máy <span class=\"small\">(§126.6)</span>",
+  "ar": "الصف 1 — تحقّق من الروبوت <span class=\"small\">(§126.6)</span>",
+  "hi": "कक्षा 1 — रोबोट को जाँचो <span class=\"small\">(§126.6)</span>",
+  "ur": "جماعت 1 — روبوٹ کو جانچیں <span class=\"small\">(§126.6)</span>",
+  "zh": "1 年级 — 检查机器人 <span class=\"small\">(§126.6)</span>"
+ },
+ "t1pe6s0a": {
+  "en": "Grade 2 — Use AI Honestly <span class=\"small\">(§126.7)</span>",
+  "es": "Grado 2 — Usa la IA con honestidad <span class=\"small\">(§126.7)</span>",
+  "vi": "Lớp 2 — Dùng AI Một Cách Trung Thực <span class=\"small\">(§126.7)</span>",
+  "ar": "الصف 2 — استعمل الذكاء الاصطناعي بأمانة <span class=\"small\">(§126.7)</span>",
+  "hi": "कक्षा 2 — AI को ईमानदारी से इस्तेमाल करो <span class=\"small\">(§126.7)</span>",
+  "ur": "جماعت 2 — اے آئی کو ایمانداری سے استعمال کریں <span class=\"small\">(§126.7)</span>",
+  "zh": "2 年级 — 诚实地使用AI <span class=\"small\">(§126.7)</span>"
+ },
+ "t1ls0tjw": {
+  "en": "Grade 3 — Meet the Machine that Guesses <span class=\"small\">(§126.8)</span>",
+  "es": "Grado 3 — Conoce la máquina que adivina <span class=\"small\">(§126.8)</span>",
+  "vi": "Lớp 3 — Gặp Gỡ Cỗ Máy Biết Đoán <span class=\"small\">(§126.8)</span>",
+  "ar": "الصف 3 — تعرَّف على الآلة التي تخمّن <span class=\"small\">(§126.8)</span>",
+  "hi": "कक्षा 3 — अनुमान लगाने वाली मशीन से मिलो <span class=\"small\">(§126.8)</span>",
+  "ur": "جماعت 3 — اندازہ لگانے والی مشین سے ملیں <span class=\"small\">(§126.8)</span>",
+  "zh": "3 年级 — 认识会猜测的机器 <span class=\"small\">(§126.8)</span>"
+ },
+ "tlg2nv6": {
+  "en": "Grade 4 — Garbage In, Garbage Out <span class=\"small\">(§126.9)</span>",
+  "es": "Grado 4 — Basura entra, basura sale <span class=\"small\">(§126.9)</span>",
+  "vi": "Lớp 4 — Rác Vào, Rác Ra <span class=\"small\">(§126.9)</span>",
+  "ar": "الصف 4 — بيانات رديئة تُنتج نتائج رديئة <span class=\"small\">(§126.9)</span>",
+  "hi": "कक्षा 4 — कचरा अंदर, कचरा बाहर <span class=\"small\">(§126.9)</span>",
+  "ur": "جماعت 4 — کچرا اندر، کچرا باہر <span class=\"small\">(§126.9)</span>",
+  "zh": "4 年级 — 垃圾进，垃圾出 <span class=\"small\">(§126.9)</span>"
+ },
+ "th81ifw": {
+  "en": "Grade 5 — The Prompt Lab <span class=\"small\">(§126.10)</span>",
+  "es": "Grado 5 — El laboratorio de prompts <span class=\"small\">(§126.10)</span>",
+  "vi": "Lớp 5 — Phòng Thí Nghiệm Câu Lệnh <span class=\"small\">(§126.10)</span>",
+  "ar": "الصف 5 — مختبر الأوامر <span class=\"small\">(§126.10)</span>",
+  "hi": "कक्षा 5 — प्रॉम्प्ट प्रयोगशाला <span class=\"small\">(§126.10)</span>",
+  "ur": "جماعت 5 — پرامپٹ لیبارٹری <span class=\"small\">(§126.10)</span>",
+  "zh": "5 年级 — 提示词实验室 <span class=\"small\">(§126.10)</span>"
+ },
+ "t66dblp": {
+  "en": "Grade 6 — Real or Generated? <span class=\"small\">(§126.17)</span>",
+  "es": "Grado 6 — ¿Real o generado? <span class=\"small\">(§126.17)</span>",
+  "vi": "Lớp 6 — Thật Hay Do AI Tạo Ra? <span class=\"small\">(§126.17)</span>",
+  "ar": "الصف 6 — حقيقي أم مُولَّد؟ <span class=\"small\">(§126.17)</span>",
+  "hi": "कक्षा 6 — असली या बनाया हुआ? <span class=\"small\">(§126.17)</span>",
+  "ur": "جماعت 6 — حقیقی یا جنریٹ کیا ہوا؟ <span class=\"small\">(§126.17)</span>",
+  "zh": "6 年级 — 真实的，还是生成的？ <span class=\"small\">(§126.17)</span>"
+ },
+ "t16cdvuu": {
+  "en": "Grade 7 — Bias in the Machine <span class=\"small\">(§126.18)</span>",
+  "es": "Grado 7 — El sesgo en la máquina <span class=\"small\">(§126.18)</span>",
+  "vi": "Lớp 7 — Thiên Kiến Trong Cỗ Máy <span class=\"small\">(§126.18)</span>",
+  "ar": "الصف 7 — التحيّز داخل الآلة <span class=\"small\">(§126.18)</span>",
+  "hi": "कक्षा 7 — मशीन में पूर्वाग्रह <span class=\"small\">(§126.18)</span>",
+  "ur": "جماعت 7 — مشین میں تعصب <span class=\"small\">(§126.18)</span>",
+  "zh": "7 年级 — 机器里的偏见 <span class=\"small\">(§126.18)</span>"
+ },
+ "t1qy8o9u": {
+  "en": "Grade 8 — Build with AI, Responsibly <span class=\"small\">(§126.19)</span>",
+  "es": "Grado 8 — Crea con IA, de forma responsable <span class=\"small\">(§126.19)</span>",
+  "vi": "Lớp 8 — Sáng Tạo Với AI Một Cách Có Trách Nhiệm <span class=\"small\">(§126.19)</span>",
+  "ar": "الصف 8 — ابنِ بالذكاء الاصطناعي بمسؤولية <span class=\"small\">(§126.19)</span>",
+  "hi": "कक्षा 8 — AI के साथ ज़िम्मेदारी से रचो <span class=\"small\">(§126.19)</span>",
+  "ur": "جماعت 8 — اے آئی کے ساتھ ذمہ داری سے تخلیق کریں <span class=\"small\">(§126.19)</span>",
+  "zh": "8 年级 — 负责任地用 AI 来创作 <span class=\"small\">(§126.19)</span>"
+ },
+ "t1ql1krh": {
+  "en": "<li><strong>Grade K — Meet AI, Ask a Grown-Up.</strong> A little AI helper wants to help you. But first you learn the rules. Open four locks to use AI the safe way. <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>Grade K — Robot Helpers.</strong> A robot helper can guess. A puppy is alive. Can you tell them apart? Open four locks and meet a helper that guesses. <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>Grade 1 — Check the Robot.</strong> An AI helper made a guess. Is it right? A smart kid always checks. Open four locks to learn how to check a robot. <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>Grade 1 — Good Guessers.</strong> An AI helper is a good guesser. It looks at many examples first. How does it guess? Open four locks to find out. <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>Grade 2 — Use AI Honestly.</strong> An AI helper can help you make things. But it can be wrong, and you must tell the truth about its help. Open four locks to use AI the honest way. <span class=\"small\">(TEKS §126.7)</span></li>\n      <li><strong>Grade 2 — Say It Clearly.</strong> An AI helper guesses from what you say. If you say it clearly, you get a better answer. Open four locks to become a clear asker. <span class=\"small\">(TEKS §126.7)</span></li>",
+  "es": "<li><strong>Kínder — Conoce la IA, pregúntale a un adulto.</strong> Un pequeño ayudante de IA quiere ayudarte. Pero primero aprendes las reglas. Abre cuatro candados para usar la IA de la forma segura. <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>Kínder — Robots ayudantes.</strong> Un robot ayudante puede adivinar. Un perrito está vivo. ¿Los puedes distinguir? Abre cuatro candados y conoce a un ayudante que adivina. <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>Grado 1 — Comprueba al robot.</strong> Un ayudante de IA hizo una conjetura. ¿Está bien? Un niño inteligente siempre comprueba. Abre cuatro candados para aprender a comprobar a un robot. <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>Grado 1 — Buenos adivinadores.</strong> Un ayudante de IA es un buen adivinador. Primero mira muchos ejemplos. ¿Cómo adivina? Abre cuatro candados para descubrirlo. <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>Grado 2 — Usa la IA con honestidad.</strong> Un ayudante de IA te puede ayudar a hacer cosas. Pero se puede equivocar, y debes decir la verdad sobre su ayuda. Abre cuatro candados para usar la IA de la forma honesta. <span class=\"small\">(TEKS §126.7)</span></li>\n      <li><strong>Grado 2 — Dilo con claridad.</strong> Un ayudante de IA adivina a partir de lo que dices. Si lo dices con claridad, obtienes una mejor respuesta. Abre cuatro candados para volverte alguien que pide con claridad. <span class=\"small\">(TEKS §126.7)</span></li>",
+  "vi": "<li><strong>Mẫu giáo — Gặp AI, Hỏi Người Lớn.</strong> Một người giúp đỡ AI nhỏ muốn giúp bạn. Nhưng trước tiên bạn học các quy tắc. Hãy mở bốn ổ khóa để dùng AI một cách an toàn. <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>Mẫu giáo — Những Người Máy Giúp Đỡ.</strong> Một người máy giúp đỡ có thể phỏng đoán. Một chú cún thì sống. Bạn phân biệt được chúng không? Hãy mở bốn ổ khóa và gặp một người giúp đỡ biết phỏng đoán. <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>Lớp 1 — Kiểm Tra Người Máy.</strong> Một người giúp đỡ AI đã đưa ra một phỏng đoán. Nó có đúng không? Một bạn nhỏ thông minh luôn kiểm tra. Hãy mở bốn ổ khóa để học cách kiểm tra một người máy. <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>Lớp 1 — Những Người Đoán Giỏi.</strong> Một người giúp đỡ AI là một người đoán giỏi. Nó nhìn nhiều ví dụ trước đã. Nó phỏng đoán như thế nào? Hãy mở bốn ổ khóa để tìm hiểu. <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>Lớp 2 — Dùng AI Một Cách Trung Thực.</strong> Một người giúp đỡ AI có thể giúp bạn làm ra nhiều thứ. Nhưng nó có thể sai, và bạn phải nói thật về sự giúp đỡ của nó. Hãy mở bốn ổ khóa để dùng AI một cách trung thực. <span class=\"small\">(TEKS §126.7)</span></li>\n      <li><strong>Lớp 2 — Nói Rõ Ràng.</strong> Một người giúp đỡ AI phỏng đoán từ những gì bạn nói. Nếu bạn nói rõ ràng, bạn sẽ có một câu trả lời tốt hơn. Hãy mở bốn ổ khóa để trở thành một người biết hỏi rõ ràng. <span class=\"small\">(TEKS §126.7)</span></li>",
+  "ar": "<li><strong>الروضة — التقِ بالذكاء الاصطناعي واسأل شخصًا بالغًا.</strong> مساعد ذكيّ صغير يريد أن يساعدك. لكنك أولًا تتعلّم القواعد. افتح أربعة أقفال لتستعمل الذكاء الاصطناعي بالطريقة الآمنة. <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>الروضة — مساعدون آليّون.</strong> المساعد الآلي يستطيع أن يُخمّن. والجرو حيّ. هل يمكنك التمييز بينهما؟ افتح أربعة أقفال والتقِ بمساعد يُخمّن. <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>الصف 1 — تحقّق من الروبوت.</strong> المساعد الذكيّ قام بتخمين. هل هو صحيح؟ الطفل الذكيّ يتحقّق دائمًا. افتح أربعة أقفال لتتعلّم كيف تتحقّق من روبوت. <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>الصف 1 — مُخمّنون جيّدون.</strong> المساعد الذكيّ مُخمّن جيّد. ينظر إلى أمثلة كثيرة أولًا. كيف يُخمّن؟ افتح أربعة أقفال لتكتشف. <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>الصف 2 — استعمل الذكاء الاصطناعي بأمانة.</strong> المساعد الذكيّ يستطيع أن يساعدك على صنع أشياء. لكنه قد يُخطئ، وعليك أن تقول الحقيقة عن مساعدته. افتح أربعة أقفال لتستعمل الذكاء الاصطناعي بالطريقة الأمينة. <span class=\"small\">(TEKS §126.7)</span></li>\n      <li><strong>الصف 2 — قلها بوضوح.</strong> المساعد الذكيّ يُخمّن ممّا تقوله. إن قلته بوضوح، حصلت على إجابة أفضل. افتح أربعة أقفال لتصبح سائلًا واضحًا. <span class=\"small\">(TEKS §126.7)</span></li>",
+  "hi": "<li><strong>किंडरगार्टन — AI से मिलो, किसी बड़े से पूछो.</strong> एक छोटा AI मददगार तुम्हारी मदद करना चाहता है। पर पहले तुम नियम सीखते हो। AI को सुरक्षित तरीके से इस्तेमाल करने के लिए चार ताले खोलो। <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>किंडरगार्टन — रोबोट मददगार.</strong> एक रोबोट मददगार अनुमान लगा सकता है। एक पिल्ला जीवित है। क्या तुम इन दोनों में फ़र्क बता सकते हो? चार ताले खोलो और एक ऐसे मददगार से मिलो जो अनुमान लगाता है। <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>कक्षा 1 — रोबोट को जाँचो.</strong> एक AI मददगार ने एक अनुमान लगाया। क्या यह सही है? एक समझदार बच्चा हमेशा जाँचता है। रोबोट को जाँचना सीखने के लिए चार ताले खोलो। <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>कक्षा 1 — अच्छे अनुमान लगाने वाले.</strong> एक AI मददगार एक अच्छा अनुमान लगाने वाला है। यह पहले कई उदाहरण देखता है। यह कैसे अनुमान लगाता है? पता लगाने के लिए चार ताले खोलो। <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>कक्षा 2 — AI को ईमानदारी से इस्तेमाल करो.</strong> एक AI मददगार तुम्हें चीज़ें बनाने में मदद कर सकता है। पर यह गलत हो सकता है, और तुम्हें इसकी मदद के बारे में सच बताना चाहिए। AI को ईमानदार तरीके से इस्तेमाल करने के लिए चार ताले खोलो। <span class=\"small\">(TEKS §126.7)</span></li>\n      <li><strong>कक्षा 2 — इसे साफ़ कहो.</strong> एक AI मददगार उससे अनुमान लगाता है जो तुम कहते हो। अगर तुम इसे साफ़ कहो, तो तुम्हें बेहतर जवाब मिलता है। साफ़ माँगने वाला बनने के लिए चार ताले खोलो। <span class=\"small\">(TEKS §126.7)</span></li>",
+  "ur": "<li><strong>کنڈرگارٹن — اے آئی سے ملیں، کسی بڑے سے پوچھیں.</strong> ایک ننھا اے آئی مددگار آپ کی مدد کرنا چاہتا ہے۔ مگر پہلے آپ اصول سیکھیں۔ چار تالے کھولیں تاکہ اے آئی کو محفوظ طریقے سے استعمال کریں۔ <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>کنڈرگارٹن — روبوٹ مددگار.</strong> روبوٹ مددگار اندازہ لگا سکتا ہے۔ ایک پِلا زندہ ہے۔ کیا آپ اُن میں فرق بتا سکتے ہیں؟ چار تالے کھولیں اور اُس مددگار سے ملیں جو اندازہ لگاتا ہے۔ <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>جماعت 1 — روبوٹ کو جانچیں.</strong> اے آئی مددگار نے ایک اندازہ لگایا۔ کیا یہ ٹھیک ہے؟ عقلمند بچہ ہمیشہ جانچتا ہے۔ چار تالے کھولیں اور سیکھیں کہ روبوٹ کو کیسے جانچا جائے۔ <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>جماعت 1 — اچھے اندازہ لگانے والے.</strong> اے آئی مددگار اچھا اندازہ لگانے والا ہے۔ یہ پہلے بہت سی مثالیں دیکھتا ہے۔ یہ اندازہ کیسے لگاتا ہے؟ چار تالے کھولیں اور جانیں۔ <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>جماعت 2 — اے آئی کو ایمانداری سے استعمال کریں.</strong> اے آئی مددگار آپ کو چیزیں بنانے میں مدد دے سکتا ہے۔ مگر یہ غلط ہو سکتا ہے، اور آپ کو اس کی مدد کے بارے میں سچ بتانا چاہیے۔ چار تالے کھولیں اور اے آئی کو ایمانداری سے استعمال کریں۔ <span class=\"small\">(TEKS §126.7)</span></li>\n      <li><strong>جماعت 2 — صاف صاف کہیں.</strong> اے آئی مددگار آپ کی بات سے اندازہ لگاتا ہے۔ اگر آپ صاف کہیں تو بہتر جواب ملتا ہے۔ چار تالے کھولیں اور صاف بات کہنے والے بنیں۔ <span class=\"small\">(TEKS §126.7)</span></li>",
+  "zh": "<li><strong>幼儿园 — 认识AI，先问大人.</strong> 一个小小的人工智能帮手想帮你。但你要先学会规则。打开四把锁，用安全的方式使用人工智能。 <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>幼儿园 — 机器人帮手.</strong> 机器人帮手会猜。小狗是活的。你能分清吗？打开四把锁，认识一个会猜的帮手。 <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>1 年级 — 检查机器人.</strong> 人工智能帮手做了一个猜测。它对吗？聪明的孩子总会检查。打开四把锁，学会怎么检查机器人。 <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>1 年级 — 会猜的高手.</strong> 人工智能帮手是个会猜的高手。它会先看很多例子。它是怎么猜的呢？打开四把锁来弄清楚。 <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>2 年级 — 诚实地使用AI.</strong> 人工智能帮手可以帮你做东西。但它可能猜错，而且你要如实说出它帮了什么。打开四把锁，用诚实的方式使用人工智能。 <span class=\"small\">(TEKS §126.7)</span></li>\n      <li><strong>2 年级 — 把话说清楚.</strong> 人工智能帮手会根据你说的话来猜。如果你说清楚，就能得到更好的答案。打开四把锁，成为一个会清楚提问的人。 <span class=\"small\">(TEKS §126.7)</span></li>"
+ },
+ "t1rh8zbp": {
+  "en": "<li><strong>Grade 3 — Meet the Machine that Guesses.</strong> A helper robot in the classroom keeps making guesses. How does it know things? Crack four locks to find out how a guessing machine really works. <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>Grade 3 — AI All Around.</strong> AI is hiding in things you use every day. A voice helper, a video list, a photo app. Can you spot it? Crack four locks to find AI all around you. <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>Grade 4 — Garbage In, Garbage Out.</strong> An AI helper keeps giving wrong and unfair answers. The problem isn't magic — it's the data. Crack four locks to find out why. <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>Grade 4 — Teach the Machine.</strong> You are training a helper to tell cats from dogs. It learns from the examples you show it. Crack four locks to learn how a machine learns. <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>Grade 5 — The Prompt Lab.</strong> Two students typed the same idea into an AI and got very different results. The secret was in the prompt. Crack four locks to learn how to ask an AI well. <span class=\"small\">(TEKS §126.10)</span></li>\n      <li><strong>Grade 5 — Ask It Clearly.</strong> Two friends asked an AI about the same thing. One asked a fuzzy question and got a fuzzy answer. The other asked clearly and got just what they needed. Crack four locks to learn how to ask an AI a good question. <span class=\"small\">(TEKS §126.10)</span></li>",
+  "es": "<li><strong>Grado 3 — Conoce la máquina que adivina.</strong> Un robot ayudante en el salón no deja de adivinar. ¿Cómo sabe las cosas? Abre cuatro candados para descubrir cómo funciona de verdad una máquina que adivina. <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>Grado 3 — IA por todas partes.</strong> La IA se esconde en cosas que usas todos los días. Un asistente de voz, una lista de videos, una aplicación de fotos. ¿La puedes encontrar? Abre cuatro candados para hallar la IA por todas partes. <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>Grado 4 — Basura entra, basura sale.</strong> Una ayudante de IA sigue dando respuestas equivocadas e injustas. El problema no es magia: son los datos. Abre cuatro candados para descubrir por qué. <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>Grado 4 — Enséñale a la máquina.</strong> Estás entrenando a un ayudante para distinguir gatos de perros. Aprende de los ejemplos que le muestras. Abre cuatro candados para aprender cómo aprende una máquina. <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>Grado 5 — El laboratorio de prompts.</strong> Dos estudiantes escribieron la misma idea en una IA y obtuvieron resultados muy distintos. El secreto estaba en el prompt. Abre cuatro candados para aprender a pedirle bien a una IA. <span class=\"small\">(TEKS §126.10)</span></li>\n      <li><strong>Grado 5 — Pregúntale con claridad.</strong> Dos amigos le preguntaron a una IA sobre lo mismo. Uno hizo una pregunta vaga y obtuvo una respuesta vaga. El otro preguntó con claridad y obtuvo justo lo que necesitaba. Abre cuatro candados para aprender a hacerle una buena pregunta a una IA. <span class=\"small\">(TEKS §126.10)</span></li>",
+  "vi": "<li><strong>Lớp 3 — Gặp Gỡ Cỗ Máy Biết Đoán.</strong> Một chú robot giúp việc trong lớp cứ liên tục đưa ra phỏng đoán. Làm sao nó biết mọi thứ? Hãy mở bốn khóa để khám phá cách một cỗ máy biết đoán thật sự hoạt động. <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>Lớp 3 — AI Ở Khắp Xung Quanh.</strong> AI đang ẩn trong những thứ bạn dùng mỗi ngày. Một trợ lý giọng nói, một danh sách video, một ứng dụng ảnh. Bạn có nhận ra nó không? Hãy giải bốn ổ khóa để tìm AI ở khắp xung quanh bạn. <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>Lớp 4 — Rác Vào, Rác Ra.</strong> Một trợ lý AI cứ liên tục đưa ra những câu trả lời sai và không công bằng. Vấn đề không phải là phép màu — mà là dữ liệu. Hãy mở bốn khóa để tìm ra lý do. <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>Lớp 4 — Dạy Cho Máy Học.</strong> Bạn đang huấn luyện một trợ thủ để phân biệt mèo với chó. Nó học từ những ví dụ bạn cho nó xem. Hãy giải bốn ổ khóa để học cách một cái máy học. <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>Lớp 5 — Phòng Thí Nghiệm Câu Lệnh.</strong> Hai học sinh gõ cùng một ý tưởng vào AI và nhận được kết quả rất khác nhau. Bí mật nằm ở câu lệnh (prompt). Hãy mở bốn khóa để học cách ra lệnh cho AI thật tốt. <span class=\"small\">(TEKS §126.10)</span></li>\n      <li><strong>Lớp 5 — Hỏi Cho Rõ Ràng.</strong> Hai người bạn hỏi một AI về cùng một điều. Một người hỏi một câu mơ hồ và nhận được một câu trả lời mơ hồ. Người kia hỏi rõ ràng và nhận được đúng thứ mình cần. Hãy giải bốn ổ khóa để học cách hỏi một AI một câu hỏi hay. <span class=\"small\">(TEKS §126.10)</span></li>",
+  "ar": "<li><strong>الصف 3 — تعرَّف على الآلة التي تخمّن.</strong> روبوت مساعد في الصف لا يتوقف عن التخمين. كيف يعرف الأشياء؟ افتح أربعة أقفال لتكتشف كيف تعمل آلة التخمين حقًا. <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>الصف 3 — الذكاء الاصطناعي في كل مكان.</strong> الذكاء الاصطناعي مختبئ في أشياء تستخدمها كل يوم. مساعد صوتي، قائمة فيديوهات، تطبيق صور. هل يمكنك رصده؟ افتح أربعة أقفال لتجد الذكاء الاصطناعي في كل مكان حولك. <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>الصف 4 — بيانات رديئة تُنتج نتائج رديئة.</strong> مساعد ذكاء اصطناعي لا يتوقف عن إعطاء إجابات خاطئة وغير عادلة. المشكلة ليست سحرًا — إنها البيانات. افتح أربعة أقفال لتكتشف السبب. <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>الصف 4 — علّم الآلة.</strong> أنت تدرّب مساعدًا ليميّز القطط من الكلاب. يتعلّم من الأمثلة التي تُريها إيّاه. افتح أربعة أقفال لتتعلّم كيف تتعلّم الآلة. <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>الصف 5 — مختبر الأوامر.</strong> كتب طالبان الفكرة نفسها في ذكاء اصطناعي فحصلا على نتائج مختلفة جدًا. كان السرّ في الأمر. افتح أربعة أقفال لتتعلّم كيف تسأل الذكاء الاصطناعي جيدًا. <span class=\"small\">(TEKS §126.10)</span></li>\n      <li><strong>الصف 5 — اسأله بوضوح.</strong> سأل صديقان ذكاءً اصطناعيًّا عن الشيء نفسه. أحدهما طرح سؤالًا غامضًا فحصل على إجابة غامضة. والآخر سأل بوضوح فحصل على ما يحتاجه تمامًا. افتح أربعة أقفال لتتعلّم كيف تطرح على الذكاء الاصطناعي سؤالًا جيّدًا. <span class=\"small\">(TEKS §126.10)</span></li>",
+  "hi": "<li><strong>कक्षा 3 — अनुमान लगाने वाली मशीन से मिलो.</strong> कक्षा में एक सहायक रोबोट बार-बार अनुमान लगाता रहता है। यह चीज़ें कैसे जानता है? चार तालों को खोलकर पता लगाओ कि अनुमान लगाने वाली मशीन असल में कैसे काम करती है। <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>कक्षा 3 — AI हर तरफ़.</strong> AI उन चीज़ों में छिपा है जो तुम रोज़ इस्तेमाल करते हो। एक आवाज़ मददगार, एक वीडियो सूची, एक फ़ोटो ऐप। क्या तुम इसे पहचान सकते हो? चार ताले खोलो और अपने आस-पास हर तरफ़ AI ढूँढो। <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>कक्षा 4 — कचरा अंदर, कचरा बाहर.</strong> एक AI सहायक बार-बार गलत और अनुचित जवाब देता रहता है। समस्या कोई जादू नहीं है — यह डेटा है। कारण जानने के लिए चार ताले खोलो। <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>कक्षा 4 — मशीन को सिखाओ.</strong> तुम एक मददगार को बिल्ली और कुत्ते में फ़र्क करना सिखा रहे हो। यह उन उदाहरणों से सीखता है जो तुम इसे दिखाते हो। चार ताले खोलो और सीखो कि मशीन कैसे सीखती है। <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>कक्षा 5 — प्रॉम्प्ट प्रयोगशाला.</strong> दो विद्यार्थियों ने एक ही विचार को एक AI में टाइप किया और बहुत अलग नतीजे पाए। राज़ प्रॉम्प्ट में था। किसी AI से अच्छे तरीके से पूछना सीखने के लिए चार ताले खोलो। <span class=\"small\">(TEKS §126.10)</span></li>\n      <li><strong>कक्षा 5 — इसे साफ़-साफ़ पूछो.</strong> दो दोस्तों ने एक AI से एक ही चीज़ के बारे में पूछा। एक ने धुँधला सवाल पूछा और धुँधला जवाब पाया। दूसरे ने साफ़-साफ़ पूछा और जो चाहिए था वही मिला। चार ताले खोलो और सीखो कि AI से अच्छा सवाल कैसे पूछें। <span class=\"small\">(TEKS §126.10)</span></li>",
+  "ur": "<li><strong>جماعت 3 — اندازہ لگانے والی مشین سے ملیں.</strong> کلاس میں ایک مددگار روبوٹ بار بار اندازے لگاتا رہتا ہے۔ اسے چیزیں کیسے معلوم ہوتی ہیں؟ چار تالے کھولیں اور جانیں کہ اندازہ لگانے والی مشین اصل میں کیسے کام کرتی ہے۔ <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>جماعت 3 — اے آئی ہر طرف.</strong> اے آئی ان چیزوں میں چھپی ہوتی ہے جو آپ روزانہ استعمال کرتے ہیں۔ ایک آواز والا مددگار، ویڈیوز کی فہرست، ایک تصویر ایپ۔ کیا آپ اسے پہچان سکتے ہیں؟ چار تالے کھولیں اور اپنے ارد گرد ہر طرف اے آئی تلاش کریں۔ <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>جماعت 4 — کچرا اندر، کچرا باہر.</strong> ایک اے آئی مددگار بار بار غلط اور غیر منصفانہ جواب دیتا رہتا ہے۔ مسئلہ کوئی جادو نہیں — یہ ڈیٹا ہے۔ چار تالے کھولیں اور جانیں کیوں۔ <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>جماعت 4 — مشین کو سکھائیں.</strong> آپ ایک مددگار کو تربیت دے رہے ہیں کہ وہ بلیوں کو کتوں سے پہچانے۔ یہ ان مثالوں سے سیکھتا ہے جو آپ اسے دکھاتے ہیں۔ چار تالے کھولیں اور جانیں کہ ایک مشین کیسے سیکھتی ہے۔ <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>جماعت 5 — پرامپٹ لیبارٹری.</strong> دو طالب علموں نے وہی خیال اے آئی میں ٹائپ کیا اور بہت مختلف نتائج ملے۔ راز پرامپٹ میں تھا۔ چار تالے کھولیں اور سیکھیں کہ اے آئی سے اچھی طرح کیسے پوچھا جائے۔ <span class=\"small\">(TEKS §126.10)</span></li>\n      <li><strong>جماعت 5 — واضح طور پر پوچھیں.</strong> دو دوستوں نے ایک ہی چیز کے بارے میں ایک اے آئی سے پوچھا۔ ایک نے دھندلا سوال پوچھا اور دھندلا جواب ملا۔ دوسرے نے واضح پوچھا اور بالکل وہی ملا جس کی ضرورت تھی۔ چار تالے کھولیں اور جانیں کہ اے آئی سے اچھا سوال کیسے پوچھا جائے۔ <span class=\"small\">(TEKS §126.10)</span></li>",
+  "zh": "<li><strong>3 年级 — 认识会猜测的机器.</strong> 教室里有一个助手机器人，它总是在做猜测。它是怎么知道这些事的呢？破解四把锁，弄清楚一台会猜测的机器到底是怎么工作的。 <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>3 年级 — 人工智能就在身边.</strong> 人工智能藏在你每天用的东西里。一个语音助手、一份视频列表、一个照片应用。你能找出它吗？解开四把锁，在你身边找到人工智能。 <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>4 年级 — 垃圾进，垃圾出.</strong> 一个 AI 帮手总是给出错误又不公平的答案。问题不在于什么魔法 —— 而在于数据。破解四把锁，弄清楚原因。 <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>4 年级 — 教机器学习.</strong> 你正在训练一个帮手，让它分辨猫和狗。它从你给它看的例子里学习。解开四把锁，看看机器是怎样学习的。 <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>5 年级 — 提示词实验室.</strong> 两个学生把同样的想法输进 AI，却得到了很不一样的结果。秘密就藏在提示词里。破解四把锁，学会怎样好好地向 AI 提问。 <span class=\"small\">(TEKS §126.10)</span></li>\n      <li><strong>5 年级 — 把问题问清楚.</strong> 两个朋友就同一件事问了人工智能。一个问得含糊，得到了含糊的答案。另一个问得清楚，正好得到了他需要的东西。解开四把锁，学会怎样向人工智能提一个好问题。 <span class=\"small\">(TEKS §126.10)</span></li>"
+ },
+ "t1j8e51s": {
+  "en": "<li><strong>Grade 6 — Real or Generated?.</strong> A photo and a quote are spreading fast online — and neither one is real. Generative AI made them. Crack four locks to learn how to tell. <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>Grade 6 — Double-Check the Bot.</strong> An AI assistant just gave you an answer — fast, clear, and totally sure of itself. But is it right? Crack four locks to learn how to check before you trust. <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>Grade 7 — Bias in the Machine.</strong> An AI keeps giving answers that quietly favor one side. It isn't an accident — it's the data. Crack four locks to trace where bias comes from. <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>Grade 7 — Who's Missing?.</strong> An AI works great for some people — and gets things wrong for others. The reason hides in who was in its data. Crack four locks to find out who's missing. <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>Grade 8 — Build with AI, Responsibly.</strong> You're allowed to create with AI — but doing it honestly takes judgment. Crack four locks to learn how to use AI as a tool without crossing a line. <span class=\"small\">(TEKS §126.19)</span></li>\n      <li><strong>Grade 8 — Give AI Credit.</strong> An AI helper can save you time on schoolwork — but honesty means you say when you used it. Crack four locks to learn how to use AI the honest way. <span class=\"small\">(TEKS §126.19)</span></li>",
+  "es": "<li><strong>Grado 6 — ¿Real o generado?.</strong> Una foto y una cita se difunden rápido en internet, y ninguna es real. Las creó la IA generativa. Abre cuatro candados para aprender a distinguirlas. <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>Grado 6 — Verifica dos veces al bot.</strong> Un asistente de IA acaba de darte una respuesta: rápida, clara y totalmente segura de sí misma. Pero, ¿es correcta? Abre cuatro candados para aprender a verificar antes de confiar. <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>Grado 7 — El sesgo en la máquina.</strong> Una IA sigue dando respuestas que en silencio favorecen a un lado. No es un accidente: son los datos. Abre cuatro candados para rastrear de dónde viene el sesgo. <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>Grado 7 — ¿Quién falta?.</strong> Una IA funciona muy bien para algunas personas y se equivoca con otras. La razón se esconde en quién estaba en sus datos. Abre cuatro candados para descubrir quién falta. <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>Grado 8 — Crea con IA, de forma responsable.</strong> Tienes permitido crear con IA, pero hacerlo con honestidad requiere criterio. Abre cuatro candados para aprender a usar la IA como herramienta sin cruzar la línea. <span class=\"small\">(TEKS §126.19)</span></li>\n      <li><strong>Grado 8 — Dale crédito a la IA.</strong> Un ayudante de IA puede ahorrarte tiempo en las tareas, pero ser honesto significa que dices cuándo la usaste. Abre cuatro candados para aprender a usar la IA de forma honesta. <span class=\"small\">(TEKS §126.19)</span></li>",
+  "vi": "<li><strong>Lớp 6 — Thật Hay Do AI Tạo Ra?.</strong> Một bức ảnh và một câu trích dẫn đang lan truyền nhanh trên mạng — và không cái nào là thật. AI tạo sinh đã tạo ra chúng. Hãy mở bốn khóa để học cách phân biệt. <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>Lớp 6 — Kiểm Tra Lại Con Bot.</strong> Một trợ lý AI vừa cho bạn một câu trả lời — nhanh, rõ ràng, và hoàn toàn tự tin. Nhưng nó có đúng không? Hãy giải bốn ổ khóa để học cách kiểm tra trước khi tin tưởng. <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>Lớp 7 — Thiên Kiến Trong Cỗ Máy.</strong> Một AI cứ liên tục đưa ra những câu trả lời âm thầm thiên về một phía. Đó không phải tai nạn — mà là do dữ liệu. Hãy mở bốn khóa để truy tìm nguồn gốc của thiên kiến. <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>Lớp 7 — Ai đang bị bỏ sót?.</strong> Một AI hoạt động rất tốt với một số người — nhưng lại sai với người khác. Lý do ẩn trong việc ai có mặt trong dữ liệu của nó. Hãy mở bốn ổ khóa để tìm ra ai đang bị bỏ sót. <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>Lớp 8 — Sáng Tạo Với AI Một Cách Có Trách Nhiệm.</strong> Em được phép sáng tạo với AI — nhưng làm điều đó một cách trung thực đòi hỏi óc phán đoán. Hãy mở bốn khóa để học cách dùng AI như một công cụ mà không vượt qua ranh giới. <span class=\"small\">(TEKS §126.19)</span></li>\n      <li><strong>Lớp 8 — Ghi nhận công của AI.</strong> Một trợ lý AI có thể giúp bạn tiết kiệm thời gian làm bài — nhưng trung thực nghĩa là bạn nói ra khi đã dùng nó. Hãy mở bốn ổ khóa để học cách dùng AI một cách trung thực. <span class=\"small\">(TEKS §126.19)</span></li>",
+  "ar": "<li><strong>الصف 6 — حقيقي أم مُولَّد؟.</strong> صورة ومقولة تنتشران بسرعة على الإنترنت — وكلاهما غير حقيقي. صنعهما الذكاء الاصطناعي التوليدي. افتح أربعة أقفال لتتعلّم كيف تميّز. <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>الصف 6 — تحقّق من الروبوت مرّتين.</strong> أعطاك مساعد ذكاء اصطناعي إجابة للتوّ — سريعة، وواضحة، وواثقة تمامًا من نفسها. لكن هل هي صحيحة؟ افتح أربعة أقفال لتتعلّم كيف تتحقّق قبل أن تثق. <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>الصف 7 — التحيّز داخل الآلة.</strong> ذكاء اصطناعي لا يتوقف عن إعطاء إجابات تحابي طرفًا واحدًا بهدوء. ليس هذا صدفة — إنه البيانات. افتح أربعة أقفال لتتتبّع من أين يأتي التحيّز. <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>الصف 7 — من الغائب؟.</strong> يعمل الذكاء الاصطناعي بشكل رائع لبعض الناس — ويخطئ لآخرين. السبب مختبئ في من كان ضمن بياناته. افتح أربعة أقفال لتكتشف من الغائب. <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>الصف 8 — ابنِ بالذكاء الاصطناعي بمسؤولية.</strong> يُسمح لك بالإبداع بالذكاء الاصطناعي — لكن فعل ذلك بأمانة يتطلّب حُسن تقدير. افتح أربعة أقفال لتتعلّم كيف تستخدم الذكاء الاصطناعي أداةً دون تجاوز الحدود. <span class=\"small\">(TEKS §126.19)</span></li>\n      <li><strong>الصف 8 — انسب الفضل إلى الذكاء الاصطناعي.</strong> يمكن لمساعد ذكاء اصطناعي أن يوفّر عليك الوقت في الواجبات المدرسية — لكن الأمانة تعني أن تقول متى استعنت به. افتح أربعة أقفال لتتعلّم كيف تستخدم الذكاء الاصطناعي بأمانة. <span class=\"small\">(TEKS §126.19)</span></li>",
+  "hi": "<li><strong>कक्षा 6 — असली या बनाया हुआ?.</strong> एक तस्वीर और एक उद्धरण ऑनलाइन तेज़ी से फैल रहे हैं — और इनमें से कोई भी असली नहीं है। इन्हें जनरेटिव AI ने बनाया है। पहचानना सीखने के लिए चार ताले खोलो। <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>कक्षा 6 — बॉट को दोबारा जाँचो.</strong> एक AI सहायक ने अभी तुम्हें एक जवाब दिया — तेज़, साफ़, और खुद पर पूरी तरह यकीन के साथ। पर क्या यह सही है? चार ताले खोलो और सीखो कि भरोसा करने से पहले कैसे जाँचें। <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>कक्षा 7 — मशीन में पूर्वाग्रह.</strong> एक AI बार-बार ऐसे जवाब देता रहता है जो चुपचाप एक पक्ष का साथ देते हैं। यह कोई दुर्घटना नहीं है — यह डेटा है। पूर्वाग्रह कहां से आता है, इसका पता लगाने के लिए चार ताले खोलो। <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>कक्षा 7 — कौन छूट रहा है?.</strong> कोई AI कुछ लोगों के लिए बढ़िया काम करता है — और दूसरों के लिए गलतियाँ करता है। इसकी वजह इसमें छिपी है कि उसके डेटा में कौन था। कौन छूट रहा है, यह जानने के लिए चार ताले खोलो। <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>कक्षा 8 — AI के साथ ज़िम्मेदारी से रचो.</strong> तुम्हें AI के साथ रचना करने की अनुमति है — लेकिन इसे ईमानदारी से करने के लिए समझदारी चाहिए। बिना कोई सीमा पार किए AI को एक उपकरण के रूप में कैसे उपयोग करें, यह सीखने के लिए चार ताले खोलो। <span class=\"small\">(TEKS §126.19)</span></li>\n      <li><strong>कक्षा 8 — AI को श्रेय दो.</strong> कोई AI सहायक तुम्हारे स्कूल के काम में समय बचा सकता है — पर ईमानदारी का मतलब है कि तुम बताओ कि तुमने इसका इस्तेमाल कब किया। AI को ईमानदारी से इस्तेमाल करना सीखने के लिए चार ताले खोलो। <span class=\"small\">(TEKS §126.19)</span></li>",
+  "ur": "<li><strong>جماعت 6 — حقیقی یا جنریٹ کیا ہوا؟.</strong> ایک تصویر اور ایک اقتباس آن لائن تیزی سے پھیل رہے ہیں — اور دونوں میں سے کوئی بھی حقیقی نہیں۔ انہیں جنریٹِو اے آئی نے بنایا۔ چار تالے کھولیں اور سیکھیں کہ فرق کیسے پہچانیں۔ <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>جماعت 6 — بوٹ کو دوبارہ جانچیں.</strong> ایک اے آئی مددگار نے ابھی آپ کو ایک جواب دیا — تیز، واضح، اور بالکل اپنے آپ پر پُریقین۔ لیکن کیا یہ درست ہے؟ چار تالے کھولیں اور جانیں کہ بھروسہ کرنے سے پہلے کیسے جانچا جائے۔ <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>جماعت 7 — مشین میں تعصب.</strong> ایک اے آئی بار بار ایسے جواب دیتی ہے جو خاموشی سے ایک طرف کی حمایت کرتے ہیں۔ یہ کوئی حادثہ نہیں — یہ ڈیٹا ہے۔ چار تالے کھولیں اور کھوجیں کہ تعصب کہاں سے آتا ہے۔ <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>جماعت 7 — کون غائب ہے؟.</strong> ایک اے آئی کچھ لوگوں کے لیے بہت اچھا کام کرتی ہے — اور دوسروں کے لیے چیزیں غلط کر دیتی ہے۔ اس کی وجہ اس بات میں چھپی ہے کہ اس کے ڈیٹا میں کون تھا۔ چار تالے کھولیں اور جانیں کہ کون غائب ہے۔ <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>جماعت 8 — اے آئی کے ساتھ ذمہ داری سے تخلیق کریں.</strong> آپ کو اے آئی کے ساتھ تخلیق کرنے کی اجازت ہے — مگر اسے ایمانداری سے کرنے کے لیے سمجھ بوجھ درکار ہے۔ چار تالے کھولیں اور سیکھیں کہ اے آئی کو حد پار کیے بغیر ایک آلے کے طور پر کیسے استعمال کریں۔ <span class=\"small\">(TEKS §126.19)</span></li>\n      <li><strong>جماعت 8 — اے آئی کو کریڈٹ دیں.</strong> ایک اے آئی مددگار آپ کا اسکول کے کام میں وقت بچا سکتا ہے — مگر ایمانداری کا مطلب ہے کہ آپ بتائیں کہ آپ نے اسے استعمال کیا۔ چار تالے کھولیں اور جانیں کہ اے آئی کو ایماندارانہ طریقے سے کیسے استعمال کریں۔ <span class=\"small\">(TEKS §126.19)</span></li>",
+  "zh": "<li><strong>6 年级 — 真实的，还是生成的？.</strong> 一张照片和一句名言正在网上飞快传播 —— 而它们都不是真的。它们是生成式人工智能做出来的。破解四把锁，学会怎样分辨。 <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>6 年级 — 反复核对机器人.</strong> 一个人工智能助手刚给了你一个答案——又快、又清楚，而且对自己毫不怀疑。但它是对的吗？解开四把锁，学会在信任之前先核查。 <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>7 年级 — 机器里的偏见.</strong> 一个 AI 总是给出悄悄偏向某一方的答案。这不是意外 —— 而是数据造成的。破解四把锁，追查偏见是从哪里来的。 <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>7 年级 — 谁被漏掉了？.</strong> 一个人工智能对某些人用起来很好——对另一些人却会出错。原因藏在它的数据里有谁。解开四把锁，找出谁被漏掉了。 <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>8 年级 — 负责任地用 AI 来创作.</strong> 你可以用 AI 来创作 —— 但要做得诚实，需要判断力。破解四把锁，学会怎样把 AI 当成工具来用，又不越过底线。 <span class=\"small\">(TEKS §126.19)</span></li>\n      <li><strong>8 年级 — 给人工智能署上功劳.</strong> 一个人工智能帮手能帮你省下做作业的时间——但诚实意味着你要说明自己用了它。解开四把锁，学会怎样诚实地使用人工智能。 <span class=\"small\">(TEKS §126.19)</span></li>"
+ },
+ "t4mffy8": {
+  "en": "<li><strong>One breakout ≈ 25–40 minutes</strong> including debrief; it works best as the <em>engage</em> or <em>collaborative-practice</em> phase of a lesson, not the whole lesson.</li><li>Run one per grading period, or cluster a band into a <strong>1–2 week AI-literacy unit</strong>.</li><li>Each grade has two breakouts, and both are free. Use one to introduce the idea and the other to practice or review it.</li>",
+  "es": "<li><strong>Un breakout ≈ 25–40 minutos</strong>, incluida la reflexión final; funciona mejor como la fase de <em>enganche</em> o de <em>práctica colaborativa</em> de una lección, no como la lección completa.</li><li>Haz uno por periodo de calificaciones o agrupa un nivel en una <strong>unidad de alfabetización en IA de 1–2 semanas</strong>.</li><li>Cada grado tiene dos breakouts, y ambos son gratis. Usa uno para presentar la idea y el otro para practicarla o repasarla.</li>",
+  "vi": "<li><strong>Một breakout ≈ 25–40 phút</strong>, kể cả phần tổng kết; hiệu quả nhất khi dùng cho giai đoạn <em>khởi động</em> hoặc <em>luyện tập hợp tác</em> của bài học, không phải cả bài học.</li><li>Tổ chức một breakout mỗi kỳ, hoặc gom một nhóm lớp thành <strong>một chủ đề hiểu biết về AI kéo dài 1–2 tuần</strong>.</li><li>Mỗi lớp có hai breakout, và cả hai đều miễn phí. Dùng một breakout để giới thiệu ý tưởng và breakout còn lại để luyện tập hoặc ôn lại.</li>",
+  "ar": "<li><strong>النشاط الواحد ≈ 25–40 دقيقة</strong> بما في ذلك النقاش الختامي؛ ويعمل بأفضل صورة في مرحلة <em>التحفيز</em> أو <em>الممارسة التعاونية</em> من الدرس، لا بوصفه الدرس كله.</li><li>نفّذ نشاطًا واحدًا في كل فترة تقييم، أو اجمع أنشطة مرحلة واحدة في <strong>وحدة محو الأمية في الذكاء الاصطناعي مدتها 1–2 أسبوع</strong>.</li><li>لكل صف نشاطان، وكلاهما مجاني. استخدم أحدهما لتقديم الفكرة والآخر للتدريب عليها أو مراجعتها.</li>",
+  "hi": "<li><strong>एक ब्रेकआउट ≈ 25–40 मिनट</strong>, चर्चा सहित; यह पाठ के <em>जुड़ाव</em> या <em>सहयोगी अभ्यास</em> चरण के रूप में सबसे अच्छा काम करता है, पूरे पाठ के रूप में नहीं।</li><li>हर ग्रेडिंग अवधि में एक चलाएँ, या एक बैंड को <strong>1–2 सप्ताह की AI-साक्षरता इकाई</strong> में समूहित करें।</li><li>हर कक्षा में दो ब्रेकआउट हैं, और दोनों निःशुल्क हैं। एक से विचार का परिचय दें और दूसरे से अभ्यास या दोहराव करें।</li>",
+  "ur": "<li><strong>ایک بریک آؤٹ ≈ 25–40 منٹ</strong>، اختتامی گفتگو سمیت؛ یہ سبق کے <em>دلچسپی پیدا کرنے</em> یا <em>باہمی مشق</em> کے مرحلے کے طور پر بہترین کام کرتا ہے، پورے سبق کے طور پر نہیں۔</li><li>ہر گریڈنگ مدت میں ایک کروائیں، یا ایک بینڈ کو <strong>1–2 ہفتے کی AI خواندگی اکائی</strong> میں جمع کریں۔</li><li>ہر جماعت میں دو بریک آؤٹ ہیں، اور دونوں مفت ہیں۔ ایک سے خیال متعارف کروائیں اور دوسرے سے مشق یا دہرائی کریں۔</li>",
+  "zh": "<li><strong>每个破解活动约 25–40 分钟</strong>（含总结讨论）；最适合作为课堂的<em>导入</em>或<em>合作练习</em>环节，而不是整节课。</li><li>每个评分周期进行一次，或将一个学段的活动组合成<strong>为期 1–2 周的AI 素养单元</strong>。</li><li>每个年级有两个破解活动，而且都免费。用一个介绍概念，用另一个练习或复习。</li>"
  }
 }

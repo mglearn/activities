@@ -70,10 +70,9 @@ grade-passback walkthrough, review process); support.google.com/edu/classroom/an
 - **Anti-cheat is still light-touch.** The answers live in the client locale files, just as
   today. A stronger v2 option: `addon.js` sends the four lock answers and the server checks
   them against the English source JSON before granting points.
-- **Licensed lessons:** the add-on can become the **licensing channel**. The backend checks
-  the teacher's Workspace domain (`hd` claim) against a list of licensed districts. Licensed
-  districts see all 18 activities per suite; others see the 9 free ones. This replaces the
-  "host your own copy" plan for Classroom districts.
+- **Everything is free.** All 18 breakouts per suite are free and open, so the add-on shows
+  every activity to every teacher. There's no content licensing or district gate. (The only
+  "license" involved is Google's own requirement in sec. 2.)
 - **One add-on or two?** Recommend **one add-on, "Critical Thinking Breakouts,"** with both
   suites (and room for more CTOB suites) in the Discovery picker. That means one Marketplace
   listing, one OAuth verification, and one review.
@@ -116,9 +115,9 @@ and teacher OAuth tokens**. Before launch:
 | **0 · Decisions & accounts** | Publisher identity; domain (`addon.<domain>`); Google Cloud project; Workspace for Education **test domain with Plus / T&L seats** (or Google's demo-license route); confirm current licensing and review docs | Can sign in a test teacher and student in a test class with add-ons enabled | 1–2 weeks (mostly waiting on Google/licensing) |
 | **1 · Skeleton** | Cloud Run service, OAuth (offline access), Discovery → attach → Student View showing a breakout; no grades yet | A test teacher attaches a breakout and a test student plays it inside Classroom | ~1 week |
 | **2 · Grades** | Token storage (encrypted), `/api/complete`, `pointsEarned` passback, Turn in, Student Work Review, copied-course handling | Student wins → draft grade appears within seconds; copied course still works | ~1–2 weeks |
-| **3 · Polish & both suites** | `gen-addon.js` build target for both suites; 7 languages; license-gated licensed tier; unlicensed-teacher message; WCAG pass; mobile student flow | All 36 breakouts attachable; `solve-test` + a new add-on test pass | ~1 week |
+| **3 · Polish & both suites** | `gen-addon.js` build target for both suites; 7 languages; all 36 breakouts in the picker; message for teachers without a Plus / T&L license; WCAG pass; mobile student flow | All 36 breakouts attachable; `solve-test` + a new add-on test pass | ~1 week |
 | **4 · Compliance & review** | Privacy/ToS pages; run Google's **add-ons test plan** ourselves; OAuth verification (demo video); Marketplace listing (private/Draft Testers first); submit | Marketplace approval + OAuth verified | 2–6 weeks (mostly Google turnaround) |
-| **5 · Pilot** | One or two licensed Texas districts; admin installs domain-wide; collect feedback | Real classes graded without codes | 4–6 weeks of use |
+| **5 · Pilot** | One or two Texas districts with Plus / T&L licenses; admin installs domain-wide; collect feedback | Real classes graded without codes | 4–6 weeks of use |
 | **6 · Launch** | Public listing; "Works with Classroom" designation; update both suites' `classroom.html` to point Plus/T&L districts to the add-on | Live | — |
 
 \*Engineering estimates assume this repo's AI-assisted workflow. Google review and licensing
@@ -133,8 +132,8 @@ reuse an existing domain.
 1. **Publisher:** TCEA or mglearn/Miguel? This decides the domain, the consent screen, and who
    signs DPAs.
 2. **Hosting:** Cloud Run + Firestore (recommended) or the existing Linode?
-3. **Licensed tier through the add-on:** yes/no, and the district list mechanism (manual list
-   to start).
+3. **Cost to schools:** confirm the add-on is free like the activities (recommended), with
+   hosting paid by the publisher.
 4. **Test environment:** which Workspace for Education domain with Plus / T&L seats can we
    use for development?
 5. **Grading default:** complete = 100% of `maxPoints` (recommended), or partial credit per

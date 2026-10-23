@@ -103,23 +103,23 @@
   <h2>Expected codes for my roster</h2>
   <p class="section-note">Choose the activity and paste your class list, one name per line. You can copy it from Classroom's <b>People</b> tab or from your SIS.</p>
   <p><select class="gc-sel" id="rsAct" aria-label="Activity">
-        <option value="ai-gradeK-free">Kindergarten — Robot Helpers (free featured)</option>
+        <option value="ai-gradeK-free">Kindergarten — Robot Helpers</option>
         <option value="ai-gradeK">Kindergarten — Meet AI, Ask a Grown-Up</option>
-        <option value="ai-grade1-free">Grade 1 — Good Guessers (free featured)</option>
+        <option value="ai-grade1-free">Grade 1 — Good Guessers</option>
         <option value="ai-grade1">Grade 1 — Check the Robot</option>
-        <option value="ai-grade2-free">Grade 2 — Say It Clearly (free featured)</option>
+        <option value="ai-grade2-free">Grade 2 — Say It Clearly</option>
         <option value="ai-grade2">Grade 2 — Use AI Honestly</option>
-        <option value="ai-grade3-free">Grade 3 — AI All Around (free featured)</option>
+        <option value="ai-grade3-free">Grade 3 — AI All Around</option>
         <option value="ai-grade3">Grade 3 — Meet the Machine that Guesses</option>
-        <option value="ai-grade4-free">Grade 4 — Teach the Machine (free featured)</option>
+        <option value="ai-grade4-free">Grade 4 — Teach the Machine</option>
         <option value="ai-grade4">Grade 4 — Garbage In, Garbage Out</option>
-        <option value="ai-grade5-free">Grade 5 — Ask It Clearly (free featured)</option>
+        <option value="ai-grade5-free">Grade 5 — Ask It Clearly</option>
         <option value="ai-grade5">Grade 5 — The Prompt Lab</option>
-        <option value="ai-grade6-free">Grade 6 — Double-Check the Bot (free featured)</option>
+        <option value="ai-grade6-free">Grade 6 — Double-Check the Bot</option>
         <option value="ai-grade6">Grade 6 — Real or Generated?</option>
-        <option value="ai-grade7-free">Grade 7 — Who's Missing? (free featured)</option>
+        <option value="ai-grade7-free">Grade 7 — Who's Missing?</option>
         <option value="ai-grade7">Grade 7 — Bias in the Machine</option>
-        <option value="ai-grade8-free">Grade 8 — Give AI Credit (free featured)</option>
+        <option value="ai-grade8-free">Grade 8 — Give AI Credit</option>
         <option value="ai-grade8">Grade 8 — Build with AI, Responsibly</option>
       </select></p>
   <textarea class="gc-ta" id="rsIn" placeholder="Maria Lopez&#10;Jose Garcia Ruiz" spellcheck="false"></textarea>
@@ -130,7 +130,7 @@
 <script src="assets/classroom.js"></script>
 <script>
 (function () {
-  var C = window.CTOBCode, ACTS = {"ai-gradeK-free":"Kindergarten — Robot Helpers (free featured)","ai-gradeK":"Kindergarten — Meet AI, Ask a Grown-Up","ai-grade1-free":"Grade 1 — Good Guessers (free featured)","ai-grade1":"Grade 1 — Check the Robot","ai-grade2-free":"Grade 2 — Say It Clearly (free featured)","ai-grade2":"Grade 2 — Use AI Honestly","ai-grade3-free":"Grade 3 — AI All Around (free featured)","ai-grade3":"Grade 3 — Meet the Machine that Guesses","ai-grade4-free":"Grade 4 — Teach the Machine (free featured)","ai-grade4":"Grade 4 — Garbage In, Garbage Out","ai-grade5-free":"Grade 5 — Ask It Clearly (free featured)","ai-grade5":"Grade 5 — The Prompt Lab","ai-grade6-free":"Grade 6 — Double-Check the Bot (free featured)","ai-grade6":"Grade 6 — Real or Generated?","ai-grade7-free":"Grade 7 — Who's Missing? (free featured)","ai-grade7":"Grade 7 — Bias in the Machine","ai-grade8-free":"Grade 8 — Give AI Credit (free featured)","ai-grade8":"Grade 8 — Build with AI, Responsibly"};
+  var C = window.CTOBCode, ACTS = {"ai-gradeK-free":"Kindergarten — Robot Helpers","ai-gradeK":"Kindergarten — Meet AI, Ask a Grown-Up","ai-grade1-free":"Grade 1 — Good Guessers","ai-grade1":"Grade 1 — Check the Robot","ai-grade2-free":"Grade 2 — Say It Clearly","ai-grade2":"Grade 2 — Use AI Honestly","ai-grade3-free":"Grade 3 — AI All Around","ai-grade3":"Grade 3 — Meet the Machine that Guesses","ai-grade4-free":"Grade 4 — Teach the Machine","ai-grade4":"Grade 4 — Garbage In, Garbage Out","ai-grade5-free":"Grade 5 — Ask It Clearly","ai-grade5":"Grade 5 — The Prompt Lab","ai-grade6-free":"Grade 6 — Double-Check the Bot","ai-grade6":"Grade 6 — Real or Generated?","ai-grade7-free":"Grade 7 — Who's Missing?","ai-grade7":"Grade 7 — Bias in the Machine","ai-grade8-free":"Grade 8 — Give AI Credit","ai-grade8":"Grade 8 — Build with AI, Responsibly"};
   var $ = function (id) { return document.getElementById(id); };
   var h = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var lines = function (id) { return $(id).value.split(/\r?\n/).map(function (l) { return l.trim(); }).filter(Boolean); };

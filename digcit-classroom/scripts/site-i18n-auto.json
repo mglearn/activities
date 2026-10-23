@@ -4753,12 +4753,12 @@
  },
  "t1xfi3xu": {
   "en": "<strong>Free &amp; open.</strong> Every lesson in this band is free to play — no login, nothing collected. Each card opens the teacher page (premise + standards), then the activity itself.",
-  "es": "",
-  "vi": "",
-  "ar": "",
-  "hi": "",
-  "ur": "",
-  "zh": ""
+  "es": "<strong>Libre y abierto.</strong> Todas las lecciones de este nivel se pueden jugar gratis: sin inicio de sesión y sin recopilar datos. Cada tarjeta abre la página del docente (premisa + estándares) y luego la actividad.",
+  "vi": "<strong>Miễn phí và mở.</strong> Mọi bài học trong nhóm này đều chơi miễn phí: không cần đăng nhập, không thu thập dữ liệu. Mỗi thẻ mở trang giáo viên (bối cảnh + chuẩn), rồi đến hoạt động.",
+  "ar": "<strong>مجاني ومفتوح.</strong> كل درس في هذه المرحلة مجاني للعب: بلا تسجيل دخول ودون جمع أي بيانات. تفتح كل بطاقة صفحة المعلّم (الفكرة + المعايير)، ثم النشاط نفسه.",
+  "hi": "<strong>निःशुल्क और खुला।</strong> इस बैंड का हर पाठ खेलने के लिए निःशुल्क है: कोई लॉगिन नहीं, कोई डेटा एकत्र नहीं। हर कार्ड पहले शिक्षक पेज (परिदृश्य + मानक) खोलता है, फिर गतिविधि।",
+  "ur": "<strong>مفت اور کھلا۔</strong> اس بینڈ کا ہر سبق کھیلنے کے لیے مفت ہے: نہ لاگ اِن، نہ کوئی ڈیٹا جمع۔ ہر کارڈ پہلے استاد کا صفحہ (پس منظر + معیارات) کھولتا ہے، پھر سرگرمی۔",
+  "zh": "<strong>免费开放。</strong>本学段的每一课都可免费使用：无需登录，不收集任何数据。每张卡片先打开教师页面（情境 + 标准），再进入活动本身。"
  },
  "t1vsth3k": {
   "en": "The full early-elementary lessons — trusted grown-ups, kind words, private information, passwords, and your first digital trail. Free and open — each grade also has a free featured lesson on the home page.",
@@ -4798,12 +4798,12 @@
  },
  "tw7x10g": {
   "en": "Two lessons per grade",
-  "es": "",
-  "vi": "",
-  "ar": "",
-  "hi": "",
-  "ur": "",
-  "zh": ""
+  "es": "Dos lecciones por grado",
+  "vi": "Hai bài học mỗi lớp",
+  "ar": "درسان لكل صف",
+  "hi": "हर कक्षा के लिए दो पाठ",
+  "ur": "ہر جماعت کے لیے دو اسباق",
+  "zh": "每个年级两课"
  },
  "tz5cx30": {
   "en": "<strong>Free featured lessons — one per grade.</strong> Each grade has a fully-playable featured breakout on the home page. Use them with anyone, anywhere — no login, nothing collected.",
@@ -4915,29 +4915,209 @@
  },
  "t3ucog2": {
   "en": "Pacing, prerequisites, and extensions for the elementary band.",
-  "es": "",
-  "vi": "",
-  "ar": "",
-  "hi": "",
-  "ur": "",
-  "zh": ""
+  "es": "Ritmo, requisitos previos y extensiones para el nivel de primaria.",
+  "vi": "Nhịp độ, điều kiện tiên quyết và mở rộng cho nhóm tiểu học.",
+  "ar": "الإيقاع، والمتطلبات المسبقة، والامتدادات للمرحلة الابتدائية.",
+  "hi": "प्राथमिक बैंड के लिए गति, पूर्वापेक्षाएँ और विस्तार।",
+  "ur": "ابتدائی بینڈ کے لیے رفتار، پیشگی شرائط، اور توسیعات۔",
+  "zh": "小学学段的进度安排、先修要求与拓展。"
  },
  "tzimmua": {
   "en": "Pacing, prerequisites, and extensions for the middle-school band.",
-  "es": "",
-  "vi": "",
-  "ar": "",
-  "hi": "",
-  "ur": "",
-  "zh": ""
+  "es": "Ritmo, requisitos previos y extensiones para el nivel de secundaria.",
+  "vi": "Nhịp độ, điều kiện tiên quyết và mở rộng cho nhóm trung học cơ sở.",
+  "ar": "الإيقاع، والمتطلبات المسبقة، والامتدادات للمرحلة الإعدادية.",
+  "hi": "मिडिल-स्कूल बैंड के लिए गति, पूर्वापेक्षाएँ और विस्तार।",
+  "ur": "مڈل اسکول بینڈ کے لیے رفتار، پیشگی شرائط، اور توسیعات۔",
+  "zh": "初中学段的进度安排、先修要求与拓展。"
  },
  "tags6ak": {
   "en": "Open activity",
-  "es": "",
-  "vi": "",
-  "ar": "",
-  "hi": "",
-  "ur": "",
-  "zh": ""
+  "es": "Abrir actividad",
+  "vi": "Mở hoạt động",
+  "ar": "افتح النشاط",
+  "hi": "गतिविधि खोलें",
+  "ur": "سرگرمی کھولیں",
+  "zh": "打开活动"
+ },
+ "t1scy4fd": {
+  "en": "Free to use",
+  "es": "Gratis",
+  "vi": "Miễn phí",
+  "ar": "مجانية",
+  "hi": "निःशुल्क",
+  "ur": "مفت",
+  "zh": "免费使用"
+ },
+ "t1kvb50p": {
+  "en": "Every breakout — free",
+  "es": "Todos los breakouts, gratis",
+  "vi": "Mọi breakout đều miễn phí",
+  "ar": "كل الأنشطة مجانية",
+  "hi": "हर ब्रेकआउट — निःशुल्क",
+  "ur": "ہر بریک آؤٹ — مفت",
+  "zh": "所有破解活动均免费"
+ },
+ "t9lvfbv": {
+  "en": "Two complete breakouts for every grade, K–8, and all of them are free: fully playable, no login, no license, nothing collected. Share the link and go.",
+  "es": "Dos breakouts completos para cada grado, de kínder a 8.º, y todos son gratis: totalmente jugables, sin inicio de sesión, sin licencia y sin recopilar datos. Comparte el enlace y listo.",
+  "vi": "Hai breakout hoàn chỉnh cho mỗi lớp, từ mẫu giáo đến lớp 8, và tất cả đều miễn phí: chơi trọn vẹn, không đăng nhập, không cần giấy phép, không thu thập dữ liệu. Chia sẻ đường liên kết là xong.",
+  "ar": "نشاطان كاملان لكل صف من الروضة حتى الصف الثامن، وكلها مجانية: قابلة للعب بالكامل، بلا تسجيل دخول، وبلا ترخيص، ودون جمع أي بيانات. شارك الرابط وابدأ.",
+  "hi": "किंडरगार्टन से कक्षा 8 तक हर कक्षा के लिए दो पूरे ब्रेकआउट, और सभी निःशुल्क: पूरी तरह खेलने योग्य, कोई लॉगिन नहीं, कोई लाइसेंस नहीं, कोई डेटा एकत्र नहीं। लिंक साझा करें और शुरू करें।",
+  "ur": "کنڈرگارٹن سے جماعت 8 تک ہر جماعت کے لیے دو مکمل بریک آؤٹ، اور سب مفت: مکمل طور پر کھیلنے کے قابل، نہ لاگ اِن، نہ لائسنس، نہ کوئی ڈیٹا جمع۔ لنک شیئر کریں اور شروع کریں۔",
+  "zh": "幼儿园到八年级，每个年级都有两个完整的破解活动，全部免费：可完整游玩，无需登录，无需授权，不收集任何数据。分享链接即可开始。"
+ },
+ "t19c6h4r": {
+  "en": "The early-elementary breakouts — trusted grown-ups, kind words, private information, passwords, and your first digital trail. Two free breakouts per grade: no login, no license.",
+  "es": "Los breakouts de primaria inicial: adultos de confianza, palabras amables, información privada, contraseñas y tu primer rastro digital. Dos breakouts gratis por grado: sin inicio de sesión, sin licencia.",
+  "vi": "Các breakout cho tiểu học đầu cấp: người lớn đáng tin cậy, lời nói tử tế, thông tin riêng tư, mật khẩu và dấu vết số đầu tiên của em. Hai breakout miễn phí mỗi lớp: không đăng nhập, không cần giấy phép.",
+  "ar": "أنشطة المرحلة الابتدائية المبكرة: البالغون الموثوقون، والكلمات اللطيفة، والمعلومات الخاصة، وكلمات المرور، وأثرك الرقمي الأول. نشاطان مجانيان لكل صف: بلا تسجيل دخول، وبلا ترخيص.",
+  "hi": "प्रारंभिक प्राथमिक ब्रेकआउट: भरोसेमंद बड़े, दयालु शब्द, निजी जानकारी, पासवर्ड, और आपका पहला डिजिटल निशान। हर कक्षा के लिए दो निःशुल्क ब्रेकआउट: कोई लॉगिन नहीं, कोई लाइसेंस नहीं।",
+  "ur": "ابتدائی کم عمر بریک آؤٹ: قابلِ اعتماد بڑے، مہربان الفاظ، نجی معلومات، پاس ورڈ، اور آپ کا پہلا ڈیجیٹل نشان۔ ہر جماعت کے لیے دو مفت بریک آؤٹ: نہ لاگ اِن، نہ لائسنس۔",
+  "zh": "低年级破解活动：值得信赖的大人、友善的话语、隐私信息、密码，以及你的第一条数字足迹。 每个年级两个免费破解活动：无需登录，无需授权。"
+ },
+ "th2qij9": {
+  "en": "The elementary breakouts — digital footprints, kindness, credit, and staying safe. Two free breakouts per grade: no login, no license.",
+  "es": "Los breakouts de primaria: huellas digitales, amabilidad, dar crédito y mantenerse seguro. Dos breakouts gratis por grado: sin inicio de sesión, sin licencia.",
+  "vi": "Các breakout tiểu học: dấu chân số, sự tử tế, ghi nguồn và giữ an toàn. Hai breakout miễn phí mỗi lớp: không đăng nhập, không cần giấy phép.",
+  "ar": "أنشطة المرحلة الابتدائية: البصمة الرقمية، واللطف، ونسب الفضل لأصحابه، والبقاء آمنًا. نشاطان مجانيان لكل صف: بلا تسجيل دخول، وبلا ترخيص.",
+  "hi": "प्राथमिक ब्रेकआउट: डिजिटल पदचिह्न, दयालुता, श्रेय देना, और सुरक्षित रहना। हर कक्षा के लिए दो निःशुल्क ब्रेकआउट: कोई लॉगिन नहीं, कोई लाइसेंस नहीं।",
+  "ur": "ابتدائی بریک آؤٹ: ڈیجیٹل نقشِ قدم، مہربانی، حوالہ دینا، اور محفوظ رہنا۔ ہر جماعت کے لیے دو مفت بریک آؤٹ: نہ لاگ اِن، نہ لائسنس۔",
+  "zh": "小学破解活动：数字足迹、友善、注明出处，以及保护自身安全。 每个年级两个免费破解活动：无需登录，无需授权。"
+ },
+ "t1f57dhr": {
+  "en": "The middle-school breakouts — intellectual property, media literacy, cybersecurity, and source evaluation. Two free breakouts per grade: no login, no license.",
+  "es": "Los breakouts de secundaria: propiedad intelectual, alfabetización mediática, ciberseguridad y evaluación de fuentes. Dos breakouts gratis por grado: sin inicio de sesión, sin licencia.",
+  "vi": "Các breakout trung học cơ sở: sở hữu trí tuệ, hiểu biết truyền thông, an ninh mạng và đánh giá nguồn tin. Hai breakout miễn phí mỗi lớp: không đăng nhập, không cần giấy phép.",
+  "ar": "أنشطة المرحلة الإعدادية: الملكية الفكرية، والتربية الإعلامية، والأمن السيبراني، وتقييم المصادر. نشاطان مجانيان لكل صف: بلا تسجيل دخول، وبلا ترخيص.",
+  "hi": "मिडिल-स्कूल ब्रेकआउट: बौद्धिक संपदा, मीडिया साक्षरता, साइबर सुरक्षा, और स्रोत का मूल्यांकन। हर कक्षा के लिए दो निःशुल्क ब्रेकआउट: कोई लॉगिन नहीं, कोई लाइसेंस नहीं।",
+  "ur": "مڈل اسکول بریک آؤٹ: دانشورانہ ملکیت، میڈیا خواندگی، سائبر سیکیورٹی، اور ماخذ کی جانچ۔ ہر جماعت کے لیے دو مفت بریک آؤٹ: نہ لاگ اِن، نہ لائسنس۔",
+  "zh": "初中破解活动：知识产权、媒介素养、网络安全以及信息来源评估。 每个年级两个免费破解活动：无需登录，无需授权。"
+ },
+ "tv22vdl": {
+  "en": "<strong>Two free breakouts for every grade.</strong> Each grade, K–8, has two complete breakouts, and all of them are free and open: no login, no license, nothing collected. The teacher pages, this guide, and every support page are open too.",
+  "es": "<strong>Dos breakouts gratis para cada grado.</strong> Cada grado, de kínder a 8.º, tiene dos breakouts completos, y todos son gratis y abiertos: sin inicio de sesión, sin licencia y sin recopilar datos. Las páginas del docente, esta guía y todas las páginas de apoyo también son abiertas.",
+  "vi": "<strong>Hai breakout miễn phí cho mỗi lớp.</strong> Mỗi lớp, từ mẫu giáo đến lớp 8, có hai breakout hoàn chỉnh, và tất cả đều miễn phí, mở: không đăng nhập, không cần giấy phép, không thu thập dữ liệu. Các trang giáo viên, hướng dẫn này và mọi trang hỗ trợ cũng đều mở.",
+  "ar": "<strong>نشاطان مجانيان لكل صف.</strong> لكل صف من الروضة حتى الصف الثامن نشاطان كاملان، وكلها مجانية ومفتوحة: بلا تسجيل دخول، وبلا ترخيص، ودون جمع أي بيانات. صفحات المعلّم وهذا الدليل وكل صفحات الدعم مفتوحة أيضًا.",
+  "hi": "<strong>हर कक्षा के लिए दो निःशुल्क ब्रेकआउट।</strong> किंडरगार्टन से कक्षा 8 तक हर कक्षा में दो पूरे ब्रेकआउट हैं, और सभी निःशुल्क और खुले हैं: कोई लॉगिन नहीं, कोई लाइसेंस नहीं, कोई डेटा एकत्र नहीं। शिक्षक पेज, यह गाइड और हर सहायता पेज भी खुले हैं।",
+  "ur": "<strong>ہر جماعت کے لیے دو مفت بریک آؤٹ۔</strong> کنڈرگارٹن سے جماعت 8 تک ہر جماعت میں دو مکمل بریک آؤٹ ہیں، اور سب مفت اور کھلے ہیں: نہ لاگ اِن، نہ لائسنس، نہ کوئی ڈیٹا جمع۔ استاد کے صفحات، یہ گائیڈ اور ہر معاون صفحہ بھی کھلا ہے۔",
+  "zh": "<strong>每个年级两个免费破解活动。</strong>幼儿园到八年级，每个年级都有两个完整的破解活动，全部免费开放：无需登录，无需授权，不收集任何数据。教师页面、本指南以及所有支持页面同样开放。"
+ },
+ "t8k8ann": {
+  "en": "Grade K — Safe &amp; Kind Online <span class=\"small\">(§126.5)</span>",
+  "es": "Kínder — Seguro y amable en línea <span class=\"small\">(§126.5)</span>",
+  "vi": "Mẫu giáo — An Toàn &amp; Tử Tế Trên Mạng <span class=\"small\">(§126.5)</span>",
+  "ar": "الروضة — آمن ولطيف على الإنترنت <span class=\"small\">(§126.5)</span>",
+  "hi": "किंडरगार्टन — ऑनलाइन सुरक्षित और दयालु <span class=\"small\">(§126.5)</span>",
+  "ur": "کنڈرگارٹن — آن لائن محفوظ اور مہربان <span class=\"small\">(§126.5)</span>",
+  "zh": "幼儿园 — 上网又安全又友善 <span class=\"small\">(§126.5)</span>"
+ },
+ "t1uzmfw3": {
+  "en": "Grade 1 — Smart Choices Online <span class=\"small\">(§126.6)</span>",
+  "es": "Grado 1 — Elecciones inteligentes en línea <span class=\"small\">(§126.6)</span>",
+  "vi": "Lớp 1 — Lựa Chọn Thông Minh Trên Mạng <span class=\"small\">(§126.6)</span>",
+  "ar": "الصف 1 — اختيارات ذكيّة على الإنترنت <span class=\"small\">(§126.6)</span>",
+  "hi": "कक्षा 1 — ऑनलाइन समझदार चुनाव <span class=\"small\">(§126.6)</span>",
+  "ur": "جماعت 1 — آن لائن عقلمند انتخاب <span class=\"small\">(§126.6)</span>",
+  "zh": "1 年级 — 上网做聪明的选择 <span class=\"small\">(§126.6)</span>"
+ },
+ "tdh3dav": {
+  "en": "Grade 2 — Fair, Safe &amp; Kind <span class=\"small\">(§126.7)</span>",
+  "es": "Grado 2 — Justo, seguro y amable <span class=\"small\">(§126.7)</span>",
+  "vi": "Lớp 2 — Công Bằng, An Toàn &amp; Tử Tế <span class=\"small\">(§126.7)</span>",
+  "ar": "الصف 2 — عادل وآمن ولطيف <span class=\"small\">(§126.7)</span>",
+  "hi": "कक्षा 2 — निष्पक्ष, सुरक्षित और दयालु <span class=\"small\">(§126.7)</span>",
+  "ur": "جماعت 2 — منصفانہ، محفوظ اور مہربان <span class=\"small\">(§126.7)</span>",
+  "zh": "2 年级 — 公平、安全又友善 <span class=\"small\">(§126.7)</span>"
+ },
+ "t1l8t9er": {
+  "en": "Grade 3 — Your First Digital Footprint <span class=\"small\">(§126.8)</span>",
+  "es": "Grado 3 — Tu primera huella digital <span class=\"small\">(§126.8)</span>",
+  "vi": "Lớp 3 — Dấu chân số đầu tiên của bạn <span class=\"small\">(§126.8)</span>",
+  "ar": "الصف 3 — أثرك الرقمي الأول <span class=\"small\">(§126.8)</span>",
+  "hi": "कक्षा 3 — तुम्हारा पहला डिजिटल पदचिह्न <span class=\"small\">(§126.8)</span>",
+  "ur": "جماعت 3 — آپ کا پہلا ڈیجیٹل نقشِ قدم <span class=\"small\">(§126.8)</span>",
+  "zh": "3 年级 — 你的第一个数字足迹 <span class=\"small\">(§126.8)</span>"
+ },
+ "t1vsrs3d": {
+  "en": "Grade 4 — The Permanent Record <span class=\"small\">(§126.9)</span>",
+  "es": "Grado 4 — El registro permanente <span class=\"small\">(§126.9)</span>",
+  "vi": "Lớp 4 — Hồ sơ lưu mãi mãi <span class=\"small\">(§126.9)</span>",
+  "ar": "الصف 4 — السجلّ الدائم <span class=\"small\">(§126.9)</span>",
+  "hi": "कक्षा 4 — स्थायी रिकॉर्ड <span class=\"small\">(§126.9)</span>",
+  "ur": "جماعت 4 — مستقل ریکارڈ <span class=\"small\">(§126.9)</span>",
+  "zh": "4 年级 — 永久的记录 <span class=\"small\">(§126.9)</span>"
+ },
+ "t1kxucb7": {
+  "en": "Grade 5 — Track the Trackers <span class=\"small\">(§126.10)</span>",
+  "es": "Grado 5 — Rastrea a los rastreadores <span class=\"small\">(§126.10)</span>",
+  "vi": "Lớp 5 — Truy tìm kẻ theo dõi <span class=\"small\">(§126.10)</span>",
+  "ar": "الصف 5 — تتبّع المتتبّعين <span class=\"small\">(§126.10)</span>",
+  "hi": "कक्षा 5 — ट्रैकर्स को ट्रैक करो <span class=\"small\">(§126.10)</span>",
+  "ur": "جماعت 5 — ٹریکرز کا پیچھا کریں <span class=\"small\">(§126.10)</span>",
+  "zh": "5 年级 — 追踪追踪者 <span class=\"small\">(§126.10)</span>"
+ },
+ "t1leliug": {
+  "en": "Grade 6 — Fair Use Detective <span class=\"small\">(§126.17)</span>",
+  "es": "Grado 6 — Detective de uso justo <span class=\"small\">(§126.17)</span>",
+  "vi": "Lớp 6 — Thám tử Sử dụng Hợp lý <span class=\"small\">(§126.17)</span>",
+  "ar": "الصف 6 — محقّق الاستخدام العادل <span class=\"small\">(§126.17)</span>",
+  "hi": "कक्षा 6 — उचित उपयोग जासूस <span class=\"small\">(§126.17)</span>",
+  "ur": "جماعت 6 — منصفانہ استعمال کا جاسوس <span class=\"small\">(§126.17)</span>",
+  "zh": "6 年级 — 合理使用侦探 <span class=\"small\">(§126.17)</span>"
+ },
+ "tn8xjep": {
+  "en": "Grade 7 — Spot the Spin <span class=\"small\">(§126.18)</span>",
+  "es": "Grado 7 — Detecta la manipulación <span class=\"small\">(§126.18)</span>",
+  "vi": "Lớp 7 — Nhận diện sự bóp méo <span class=\"small\">(§126.18)</span>",
+  "ar": "الصف 7 — اكشف التحريف <span class=\"small\">(§126.18)</span>",
+  "hi": "कक्षा 7 — घुमाव पहचानो <span class=\"small\">(§126.18)</span>",
+  "ur": "جماعت 7 — دھوکے کو پہچانیں <span class=\"small\">(§126.18)</span>",
+  "zh": "7 年级 — 识破花招 <span class=\"small\">(§126.18)</span>"
+ },
+ "t199qfp": {
+  "en": "Grade 8 — Evaluate the Source <span class=\"small\">(§126.19)</span>",
+  "es": "Grado 8 — Evalúa la fuente <span class=\"small\">(§126.19)</span>",
+  "vi": "Lớp 8 — Đánh giá nguồn <span class=\"small\">(§126.19)</span>",
+  "ar": "الصف 8 — قيّم المصدر <span class=\"small\">(§126.19)</span>",
+  "hi": "कक्षा 8 — स्रोत का मूल्यांकन करो <span class=\"small\">(§126.19)</span>",
+  "ur": "جماعت 8 — ماخذ کا جائزہ لیں <span class=\"small\">(§126.19)</span>",
+  "zh": "8 年级 — 评估来源 <span class=\"small\">(§126.19)</span>"
+ },
+ "t1jxtj52": {
+  "en": "<li><strong>Grade K — Safe &amp; Kind Online.</strong> Stay safe and be kind on the tablet. Solve four locks. Use the picture clues to help you. <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>Grade K — Kindness Buddies.</strong> Help our online buddies be kind. Solve four locks. Use the picture clues to help you. <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>Grade 1 — Smart Choices Online.</strong> Make smart choices on the tablet. Solve four locks. Use the clues to help you decide. <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>Grade 1 — Password Pals.</strong> A password is like a secret key. Keep yours safe! Solve four locks with the clues. <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>Grade 2 — Fair, Safe &amp; Kind.</strong> Be fair, safe, and kind online. Solve four locks. Use the clues to make good choices. <span class=\"small\">(TEKS §126.7)</span></li>\n      <li><strong>Grade 2 — My Online Trail.</strong> Everything you do online leaves a trail. Follow the clues and open four locks to learn about yours. <span class=\"small\">(TEKS §126.7)</span></li>",
+  "es": "<li><strong>Kínder — Seguro y amable en línea.</strong> Mantente seguro y sé amable en la tableta. Abre cuatro candados. Usa las pistas con dibujos para ayudarte. <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>Kínder — Amigos de la amabilidad.</strong> Ayuda a nuestros amigos en línea a ser amables. Abre cuatro candados. Usa las pistas con dibujos para ayudarte. <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>Grado 1 — Elecciones inteligentes en línea.</strong> Toma elecciones inteligentes en la tableta. Abre cuatro candados. Usa las pistas para ayudarte a decidir. <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>Grado 1 — Amigos de las contraseñas.</strong> Una contraseña es como una llave secreta. ¡Cuida la tuya! Abre cuatro candados con las pistas. <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>Grado 2 — Justo, seguro y amable.</strong> Sé justo, seguro y amable en línea. Abre cuatro candados. Usa las pistas para tomar buenas decisiones. <span class=\"small\">(TEKS §126.7)</span></li>\n      <li><strong>Grado 2 — Mi rastro en línea.</strong> Todo lo que haces en línea deja un rastro. Sigue las pistas y abre cuatro candados para aprender sobre el tuyo. <span class=\"small\">(TEKS §126.7)</span></li>",
+  "vi": "<li><strong>Mẫu giáo — An Toàn &amp; Tử Tế Trên Mạng.</strong> Hãy an toàn và tử tế khi dùng máy tính bảng. Giải bốn ổ khóa. Dùng manh mối bằng hình để giúp bạn. <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>Mẫu giáo — Những Người Bạn Tử Tế.</strong> Hãy giúp các bạn trên mạng biết tử tế. Giải bốn ổ khóa. Dùng manh mối bằng hình để giúp bạn. <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>Lớp 1 — Lựa Chọn Thông Minh Trên Mạng.</strong> Hãy đưa ra lựa chọn thông minh khi dùng máy tính bảng. Giải bốn ổ khóa. Dùng các manh mối để giúp bạn quyết định. <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>Lớp 1 — Những Người Bạn Mật Khẩu.</strong> Mật khẩu giống như một chiếc chìa khóa bí mật. Hãy giữ chìa khóa của bạn an toàn! Giải bốn ổ khóa bằng các manh mối. <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>Lớp 2 — Công Bằng, An Toàn &amp; Tử Tế.</strong> Hãy công bằng, an toàn, và tử tế trên mạng. Giải bốn ổ khóa. Dùng các manh mối để đưa ra lựa chọn tốt. <span class=\"small\">(TEKS §126.7)</span></li>\n      <li><strong>Lớp 2 — Dấu Vết Trên Mạng Của Tôi.</strong> Mọi điều bạn làm trên mạng đều để lại một dấu vết. Hãy đi theo các manh mối và mở bốn ổ khóa để tìm hiểu về dấu vết của bạn. <span class=\"small\">(TEKS §126.7)</span></li>",
+  "ar": "<li><strong>الروضة — آمن ولطيف على الإنترنت.</strong> ابقَ آمنًا وكن لطيفًا على اللوح اللمسي. افتح أربعة أقفال. استعن بأدلّة الصور لتساعدك. <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>الروضة — أصدقاء اللطف.</strong> ساعد أصدقاءنا على الإنترنت ليكونوا لطفاء. افتح أربعة أقفال. استعن بأدلّة الصور لتساعدك. <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>الصف 1 — اختيارات ذكيّة على الإنترنت.</strong> اتّخذ اختيارات ذكيّة على اللوح اللمسي. افتح أربعة أقفال. استعن بالأدلّة لتساعدك على القرار. <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>الصف 1 — أصدقاء كلمة السرّ.</strong> كلمة السرّ مثل مفتاح سرّي. أبقِ كلمتك آمنة! افتح أربعة أقفال بمساعدة الأدلّة. <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>الصف 2 — عادل وآمن ولطيف.</strong> كن عادلًا وآمنًا ولطيفًا على الإنترنت. افتح أربعة أقفال. استعن بالأدلّة لاتّخاذ اختيارات جيّدة. <span class=\"small\">(TEKS §126.7)</span></li>\n      <li><strong>الصف 2 — أثري على الإنترنت.</strong> كل ما تفعله على الإنترنت يترك أثرًا. اتبع الأدلّة وافتح أربعة أقفال لتتعرّف على أثرك. <span class=\"small\">(TEKS §126.7)</span></li>",
+  "hi": "<li><strong>किंडरगार्टन — ऑनलाइन सुरक्षित और दयालु.</strong> टैबलेट पर सुरक्षित रहो और दयालु बनो। चार ताले खोलो। मदद के लिए चित्र वाले सुराग देखो। <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>किंडरगार्टन — दयालुता के दोस्त.</strong> हमारे ऑनलाइन दोस्तों को दयालु बनने में मदद करो। चार ताले खोलो। मदद के लिए चित्र वाले सुराग देखो। <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>कक्षा 1 — ऑनलाइन समझदार चुनाव.</strong> टैबलेट पर समझदार चुनाव करो। चार ताले खोलो। फैसला करने में मदद के लिए सुराग देखो। <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>कक्षा 1 — पासवर्ड दोस्त.</strong> पासवर्ड एक गुप्त चाबी जैसा है। अपना पासवर्ड सुरक्षित रखो! सुरागों से चार ताले खोलो। <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>कक्षा 2 — निष्पक्ष, सुरक्षित और दयालु.</strong> ऑनलाइन निष्पक्ष, सुरक्षित और दयालु बनो। चार ताले खोलो। अच्छे चुनाव करने के लिए सुरागों का इस्तेमाल करो। <span class=\"small\">(TEKS §126.7)</span></li>\n      <li><strong>कक्षा 2 — मेरी ऑनलाइन पगडंडी.</strong> तुम ऑनलाइन जो कुछ भी करते हो वह एक पगडंडी छोड़ता है। सुरागों का पीछा करो और अपनी पगडंडी के बारे में सीखने के लिए चार ताले खोलो। <span class=\"small\">(TEKS §126.7)</span></li>",
+  "ur": "<li><strong>کنڈرگارٹن — آن لائن محفوظ اور مہربان.</strong> ٹیبلٹ پر محفوظ رہیں اور مہربان بنیں۔ چار تالے کھولیں۔ تصویری سراغ آپ کی مدد کریں گے۔ <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>کنڈرگارٹن — مہربانی کے دوست.</strong> ہمارے آن لائن دوستوں کو مہربان بننے میں مدد کریں۔ چار تالے کھولیں۔ تصویری سراغ آپ کی مدد کریں گے۔ <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>جماعت 1 — آن لائن عقلمند انتخاب.</strong> ٹیبلٹ پر عقلمند انتخاب کریں۔ چار تالے حل کریں۔ فیصلہ کرنے میں سراغ آپ کی مدد کریں گے۔ <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>جماعت 1 — پاس ورڈ کے ساتھی.</strong> پاس ورڈ ایک راز والی چابی کی طرح ہے۔ اپنا پاس ورڈ محفوظ رکھیں! سراغوں کی مدد سے چار تالے حل کریں۔ <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>جماعت 2 — منصفانہ، محفوظ اور مہربان.</strong> آن لائن منصفانہ، محفوظ اور مہربان بنیں۔ چار تالے حل کریں۔ اچھے انتخاب کرنے میں سراغ آپ کی مدد کریں گے۔ <span class=\"small\">(TEKS §126.7)</span></li>\n      <li><strong>جماعت 2 — میرا آن لائن نشان.</strong> آپ آن لائن جو کچھ کرتے ہیں وہ ایک نشان چھوڑتا ہے۔ سراغوں پر چلیں اور چار تالے کھول کر اپنے نشان کے بارے میں جانیں۔ <span class=\"small\">(TEKS §126.7)</span></li>",
+  "zh": "<li><strong>幼儿园 — 上网又安全又友善.</strong> 用平板的时候，又安全又友善。解开四把锁。用图画线索来帮你。 <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>幼儿园 — 友善小伙伴.</strong> 帮我们的网上小伙伴做友善的人。解开四把锁。用图画线索来帮你。 <span class=\"small\">(TEKS §126.5)</span></li>\n      <li><strong>1 年级 — 上网做聪明的选择.</strong> 用平板的时候做聪明的选择。解开四把锁。用线索帮你做决定。 <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>1 年级 — 密码好朋友.</strong> 密码就像一把秘密钥匙。把你的密码保护好！用线索解开四把锁。 <span class=\"small\">(TEKS §126.6)</span></li>\n      <li><strong>2 年级 — 公平、安全又友善.</strong> 上网时公平、安全又友善。解开四把锁。用线索做出好选择。 <span class=\"small\">(TEKS §126.7)</span></li>\n      <li><strong>2 年级 — 我的网上足迹.</strong> 你在网上做的每件事都会留下足迹。跟着线索，打开四把锁，了解你自己的足迹。 <span class=\"small\">(TEKS §126.7)</span></li>"
+ },
+ "t1kjieuw": {
+  "en": "<li><strong>Grade 3 — Your First Digital Footprint.</strong> A new student left tracks all over the internet. Use the clues to solve four locks and clean up the trail. <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>Grade 3 — Be Kind Online.</strong> The class chat got a little unkind. Use the clues to solve four locks and make it a kind place again. <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>Grade 4 — The Permanent Record.</strong> A student thought old posts would just disappear. They didn't. Crack four locks to learn why the internet remembers. <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>Grade 4 — The Group Chat.</strong> A student got added to a busy class group chat. Some messages were kind. Some were not. Crack four locks to learn how to be a good friend in a group chat. <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>Grade 5 — Track the Trackers.</strong> Someone has been following a student across the internet — quietly, from site to site. Read the clues, solve four locks, and expose how the tracking works. <span class=\"small\">(TEKS §126.10)</span></li>\n      <li><strong>Grade 5 — What Should I Share?.</strong> A new post is ready to go online — but wait. Some of it is safe to share, and some of it should stay private. Read the clues, solve four locks, and lock down what belongs to you. <span class=\"small\">(TEKS §126.10)</span></li>",
+  "es": "<li><strong>Grado 3 — Tu primera huella digital.</strong> Un estudiante nuevo dejó rastros por todo el internet. Usa las pistas para resolver cuatro candados y borrar el rastro. <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>Grado 3 — Sé amable en línea.</strong> El chat de la clase se puso un poco descortés. Usa las pistas para resolver cuatro candados y volverlo un lugar amable otra vez. <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>Grado 4 — El registro permanente.</strong> Un estudiante pensó que las publicaciones viejas simplemente desaparecerían. No fue así. Abre cuatro candados para aprender por qué el internet recuerda. <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>Grado 4 — El chat de grupo.</strong> Agregaron a un estudiante a un chat de grupo muy activo de la clase. Algunos mensajes eran amables. Otros no. Abre cuatro candados para aprender a ser un buen amigo en un chat de grupo. <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>Grado 5 — Rastrea a los rastreadores.</strong> Alguien ha estado siguiendo a un estudiante por todo el internet, en silencio, de sitio en sitio. Lee las pistas, resuelve cuatro candados y descubre cómo funciona el rastreo. <span class=\"small\">(TEKS §126.10)</span></li>\n      <li><strong>Grado 5 — ¿Qué debo compartir?.</strong> Una nueva publicación está lista para subir a internet, pero espera. Una parte es segura de compartir y otra debe quedar en privado. Lee las pistas, resuelve cuatro candados y protege lo que es tuyo. <span class=\"small\">(TEKS §126.10)</span></li>",
+  "vi": "<li><strong>Lớp 3 — Dấu chân số đầu tiên của bạn.</strong> Một bạn học sinh mới để lại dấu vết khắp nơi trên internet. Hãy dùng manh mối để giải bốn ổ khóa và dọn sạch dấu vết. <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>Lớp 3 — Hãy Tử Tế Trên Mạng.</strong> Cuộc trò chuyện của lớp trở nên hơi thiếu tử tế. Hãy dùng manh mối để giải bốn ổ khóa và biến nơi đó thành một chốn tử tế trở lại. <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>Lớp 4 — Hồ sơ lưu mãi mãi.</strong> Một bạn học sinh nghĩ rằng các bài đăng cũ sẽ biến mất. Nhưng không. Hãy giải bốn ổ khóa để hiểu vì sao internet ghi nhớ. <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>Lớp 4 — Nhóm Chat.</strong> Một học sinh được thêm vào nhóm chat đông đúc của lớp. Có tin nhắn tử tế. Có tin nhắn thì không. Hãy giải bốn ổ khóa để học cách làm một người bạn tốt trong nhóm chat. <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>Lớp 5 — Truy tìm kẻ theo dõi.</strong> Có ai đó đã theo dõi một bạn học sinh khắp internet — lặng lẽ, từ trang này sang trang khác. Hãy đọc manh mối, giải bốn ổ khóa và vạch trần cách theo dõi hoạt động. <span class=\"small\">(TEKS §126.10)</span></li>\n      <li><strong>Lớp 5 — Mình Nên Chia Sẻ Gì?.</strong> Một bài đăng mới đã sẵn sàng để lên mạng — nhưng khoan đã. Một phần trong đó thì an toàn để chia sẻ, và một phần thì nên giữ riêng tư. Hãy đọc manh mối, giải bốn ổ khóa, và khóa chặt những gì thuộc về bạn. <span class=\"small\">(TEKS §126.10)</span></li>",
+  "ar": "<li><strong>الصف 3 — أثرك الرقمي الأول.</strong> تلميذ جديد ترك آثارًا في كل أنحاء الإنترنت. استعن بالأدلّة لحلّ أربعة أقفال وتنظيف الأثر. <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>الصف 3 — كن لطيفًا على الإنترنت.</strong> أصبحت محادثة الصف غير لطيفة قليلًا. استعن بالأدلّة لحلّ أربعة أقفال وتجعلها مكانًا لطيفًا من جديد. <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>الصف 4 — السجلّ الدائم.</strong> ظنّ تلميذ أن منشوراته القديمة ستختفي. لكنها لم تختفِ. افتح أربعة أقفال لتعرف لماذا يتذكّر الإنترنت. <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>الصف 4 — محادثة المجموعة.</strong> أُضيف تلميذ إلى محادثة مجموعة صفّية مزدحمة. بعض الرسائل كانت لطيفة. وبعضها لم يكن كذلك. افتح أربعة أقفال لتتعلّم كيف تكون صديقًا جيّدًا في محادثة المجموعة. <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>الصف 5 — تتبّع المتتبّعين.</strong> كان أحدهم يتبع تلميذًا عبر الإنترنت — بهدوء، من موقع إلى موقع. اقرأ الأدلّة، وحلّ أربعة أقفال، واكشف كيف يعمل التتبّع. <span class=\"small\">(TEKS §126.10)</span></li>\n      <li><strong>الصف 5 — ماذا ينبغي أن أشارك؟.</strong> منشور جديد جاهز للنشر على الإنترنت — لكن انتظر. بعضه آمن للمشاركة، وبعضه ينبغي أن يبقى خاصًّا. اقرأ الأدلّة، وحلّ أربعة أقفال، وأغلِق ما يخصّك. <span class=\"small\">(TEKS §126.10)</span></li>",
+  "hi": "<li><strong>कक्षा 3 — तुम्हारा पहला डिजिटल पदचिह्न.</strong> एक नए छात्र ने पूरे इंटरनेट पर निशान छोड़ दिए। सुरागों से चार ताले हल करो और निशान साफ़ करो। <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>कक्षा 3 — ऑनलाइन दयालु बनो.</strong> कक्षा की चैट थोड़ी बेरुखी हो गई। सुरागों से चार ताले हल करो और इसे फिर से दयालु जगह बनाओ। <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>कक्षा 4 — स्थायी रिकॉर्ड.</strong> एक छात्र को लगा कि पुरानी पोस्ट बस गायब हो जाएँगी। वे नहीं हुईं। चार ताले हल करके जानो कि इंटरनेट क्यों याद रखता है। <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>कक्षा 4 — ग्रुप चैट.</strong> एक छात्र को एक व्यस्त कक्षा ग्रुप चैट में जोड़ा गया। कुछ संदेश दयालु थे। कुछ नहीं। चार ताले खोलो और सीखो कि ग्रुप चैट में अच्छा दोस्त कैसे बनें। <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>कक्षा 5 — ट्रैकर्स को ट्रैक करो.</strong> कोई एक छात्र का इंटरनेट पर पीछा कर रहा है — चुपचाप, एक साइट से दूसरी साइट तक। सुराग पढ़ो, चार ताले हल करो, और उजागर करो कि ट्रैकिंग कैसे होती है। <span class=\"small\">(TEKS §126.10)</span></li>\n      <li><strong>कक्षा 5 — मुझे क्या साझा करना चाहिए?.</strong> एक नई पोस्ट ऑनलाइन जाने के लिए तैयार है — पर रुको। इसमें कुछ साझा करना सुरक्षित है, और कुछ निजी रहना चाहिए। सुराग पढ़ो, चार ताले हल करो, और जो तुम्हारा है उसे सुरक्षित रखो। <span class=\"small\">(TEKS §126.10)</span></li>",
+  "ur": "<li><strong>جماعت 3 — آپ کا پہلا ڈیجیٹل نقشِ قدم.</strong> ایک نیا طالب علم انٹرنیٹ پر ہر جگہ نشان چھوڑ گیا۔ سراغوں کی مدد سے چار تالے حل کریں اور نشان صاف کریں۔ <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>جماعت 3 — آن لائن مہربان بنیں.</strong> کلاس چیٹ میں کچھ نامہربانی ہو گئی۔ سراغوں کی مدد سے چار تالے حل کریں اور اسے دوبارہ ایک مہربان جگہ بنائیں۔ <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>جماعت 4 — مستقل ریکارڈ.</strong> ایک طالب علم نے سوچا کہ پرانی پوسٹیں بس غائب ہو جائیں گی۔ ایسا نہیں ہوا۔ چار تالے کھولیں اور جانیں کہ انٹرنیٹ کیوں یاد رکھتا ہے۔ <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>جماعت 4 — گروپ چیٹ.</strong> ایک طالب علم کو ایک مصروف کلاس گروپ چیٹ میں شامل کیا گیا۔ کچھ پیغام مہربان تھے۔ کچھ نہیں۔ چار تالے حل کریں اور سیکھیں کہ گروپ چیٹ میں اچھا دوست کیسے بنا جائے۔ <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>جماعت 5 — ٹریکرز کا پیچھا کریں.</strong> کوئی ایک طالب علم کا انٹرنیٹ پر پیچھا کر رہا ہے — خاموشی سے، ایک سائٹ سے دوسری سائٹ تک۔ سراغ پڑھیں، چار تالے حل کریں، اور ظاہر کریں کہ ٹریکنگ کیسے کام کرتی ہے۔ <span class=\"small\">(TEKS §126.10)</span></li>\n      <li><strong>جماعت 5 — مجھے کیا شیئر کرنا چاہیے؟.</strong> ایک نئی پوسٹ آن لائن جانے کے لیے تیار ہے — لیکن رُکیں۔ اس میں سے کچھ شیئر کرنا محفوظ ہے، اور کچھ نجی رہنا چاہیے۔ سراغ پڑھیں، چار تالے حل کریں، اور جو آپ کا ہے اسے محفوظ کریں۔ <span class=\"small\">(TEKS §126.10)</span></li>",
+  "zh": "<li><strong>3 年级 — 你的第一个数字足迹.</strong> 一位新同学在互联网上到处留下了痕迹。用线索解开四把锁，把这些痕迹清理干净。 <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>3 年级 — 在网上友善待人.</strong> 班级聊天变得有点不友善了。用线索解开四把锁，把它重新变成一个友善的地方。 <span class=\"small\">(TEKS §126.8)</span></li>\n      <li><strong>4 年级 — 永久的记录.</strong> 一位同学以为旧帖子会自己消失。它们没有。解开四把锁，弄明白为什么互联网会记住这一切。 <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>4 年级 — 群聊.</strong> 一名学生被加进了一个热闹的班级群聊。有些消息很友善，有些则不是。解开四把锁，学会怎样在群聊里当一个好朋友。 <span class=\"small\">(TEKS §126.9)</span></li>\n      <li><strong>5 年级 — 追踪追踪者.</strong> 有人一直在互联网上悄悄地跟着一位同学，从一个网站跟到另一个网站。读线索，解开四把锁，揭穿这种追踪是怎么运作的。 <span class=\"small\">(TEKS §126.10)</span></li>\n      <li><strong>5 年级 — 我该分享什么？.</strong> 一条新帖子准备发到网上——但先等等。其中有些内容可以安全分享，有些则应该保持私密。读线索、解开四把锁，把属于你自己的东西锁好。 <span class=\"small\">(TEKS §126.10)</span></li>"
+ },
+ "t1p8msvs": {
+  "en": "<li><strong>Grade 6 — Fair Use Detective.</strong> A student creator wants to remix a photo, a song clip, and a quote into a class project — but is it legal? Follow the evidence and crack four locks to close the case. <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>Grade 6 — Phishing Patrol.</strong> Strange messages are flooding the sixth-grade group. One promises free coins, another warns your account is about to be deleted. Which are real and which are bait? Study the messages and crack four locks to clear the case. <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>Grade 7 — Spot the Spin.</strong> A post is racing across the internet, and thousands are sharing it without checking. Your job is to slow down, read past the spin, and unlock the truth. <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>Grade 7 — Clickbait Detector.</strong> A headline is screaming for your tap and racing across every feed. Your job is to slow down, read past the bait, and unlock what is really going on. <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>Grade 8 — Evaluate the Source.</strong> A trending article is spreading fast, but something about it doesn't add up. Analyze the evidence, crack four locks, and decide whether the source can be trusted. <span class=\"small\">(TEKS §126.19)</span></li>\n      <li><strong>Grade 8 — Lock It Down.</strong> Your accounts hold your whole digital life, and someone just tried to get in. Learn how strong passphrases, second locks, and a calm plan keep intruders out. Crack four locks and secure the account for good. <span class=\"small\">(TEKS §126.19)</span></li>",
+  "es": "<li><strong>Grado 6 — Detective de uso justo.</strong> Una estudiante creadora quiere combinar una foto, un fragmento de canción y una cita en un proyecto de clase, pero ¿es legal? Sigue la evidencia y abre cuatro candados para cerrar el caso. <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>Grado 6 — Patrulla antiphishing.</strong> Mensajes extraños están inundando el grupo de sexto grado. Uno promete monedas gratis, otro advierte que tu cuenta está a punto de ser borrada. ¿Cuáles son reales y cuáles son un anzuelo? Estudia los mensajes y abre cuatro candados para cerrar el caso. <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>Grado 7 — Detecta la manipulación.</strong> Una publicación se está esparciendo por todo el internet, y miles la comparten sin verificarla. Tu trabajo es frenar, leer más allá de la manipulación y descubrir la verdad. <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>Grado 7 — Detector de clickbait.</strong> Un titular grita por tu toque y corre por todas las redes. Tu trabajo es ir más despacio, leer más allá del anzuelo y descubrir lo que de verdad está pasando. <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>Grado 8 — Evalúa la fuente.</strong> Un artículo en tendencia se esparce rápido, pero algo en él no cuadra. Analiza la evidencia, abre cuatro candados y decide si se puede confiar en la fuente. <span class=\"small\">(TEKS §126.19)</span></li>\n      <li><strong>Grado 8 — Ponle candado.</strong> Tus cuentas guardan toda tu vida digital, y alguien acaba de intentar entrar. Aprende cómo las frases de contraseña fuertes, los segundos candados y un plan tranquilo mantienen fuera a los intrusos. Abre cuatro candados y asegura la cuenta para siempre. <span class=\"small\">(TEKS §126.19)</span></li>",
+  "vi": "<li><strong>Lớp 6 — Thám tử Sử dụng Hợp lý.</strong> Một bạn sáng tạo học sinh muốn phối trộn một tấm ảnh, một đoạn nhạc và một câu trích dẫn vào bài tập của lớp — nhưng làm vậy có hợp pháp không? Hãy lần theo bằng chứng và giải bốn ổ khóa để khép lại vụ án. <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>Lớp 6 — Đội Tuần Tra Lừa Đảo.</strong> Những tin nhắn lạ đang tràn ngập nhóm lớp sáu. Một tin hứa tặng xu miễn phí, một tin khác cảnh báo tài khoản của bạn sắp bị xóa. Cái nào là thật và cái nào là mồi nhử? Hãy nghiên cứu các tin nhắn và giải bốn ổ khóa để phá xong vụ án. <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>Lớp 7 — Nhận diện sự bóp méo.</strong> Một bài đăng đang lan nhanh khắp internet, và hàng nghìn người chia sẻ mà không kiểm chứng. Việc của bạn là chậm lại, đọc xuyên qua sự bóp méo, và mở khóa sự thật. <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>Lớp 7 — Máy Dò Câu Nhử Nhấp Chuột.</strong> Một tiêu đề đang gào lên đòi bạn nhấp vào và lao đi khắp mọi bảng tin. Nhiệm vụ của bạn là chậm lại, đọc vượt qua mồi nhử, và mở khóa xem chuyện gì thực sự đang diễn ra. <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>Lớp 8 — Đánh giá nguồn.</strong> Một bài viết đang thịnh hành lan nhanh, nhưng có điều gì đó không hợp lý. Hãy phân tích bằng chứng, giải bốn ổ khóa, và quyết định liệu nguồn này có đáng tin hay không. <span class=\"small\">(TEKS §126.19)</span></li>\n      <li><strong>Lớp 8 — Khóa Chặt Nó Lại.</strong> Tài khoản của bạn nắm giữ toàn bộ cuộc sống số của bạn, và có người vừa thử đột nhập. Hãy học cách những cụm mật khẩu mạnh, những ổ khóa thứ hai, và một kế hoạch bình tĩnh giữ kẻ xâm nhập ở ngoài. Giải bốn ổ khóa và bảo mật tài khoản vĩnh viễn. <span class=\"small\">(TEKS §126.19)</span></li>",
+  "ar": "<li><strong>الصف 6 — محقّق الاستخدام العادل.</strong> تلميذة مبدعة تريد مزج صورة ومقطع أغنية واقتباس في مشروع صفّي — لكن هل هذا قانوني؟ اتبع الأدلّة وافتح أربعة أقفال لإغلاق القضية. <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>الصف 6 — دورية التصيّد الاحتيالي.</strong> رسائل غريبة تغرق مجموعة الصف السادس. واحدة تعِد بعملات مجّانية، وأخرى تحذّر من أن حسابك على وشك الحذف. أيّها حقيقيّ وأيّها طُعم؟ ادرس الرسائل وافتح أربعة أقفال لتحلّ القضية. <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>الصف 7 — اكشف التحريف.</strong> منشور ينتشر بسرعة عبر الإنترنت، والآلاف يشاركونه بلا تحقّق. مهمّتك أن تتمهّل، وتقرأ ما وراء التحريف، وتفتح باب الحقيقة. <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>الصف 7 — كاشف الطُعم الإلكتروني.</strong> عنوان يصرخ طالبًا نقرتك ويتسابق عبر كل التغذيات. مهمّتك أن تتمهّل، وتقرأ ما وراء الطُعم، وتكشف ما يجري حقًّا. <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>الصف 8 — قيّم المصدر.</strong> مقال رائج ينتشر بسرعة، لكن شيئًا فيه لا يستقيم. حلّل الأدلّة، وافتح أربعة أقفال، وقرّر إن كان المصدر جديرًا بالثقة. <span class=\"small\">(TEKS §126.19)</span></li>\n      <li><strong>الصف 8 — أحكِم الإغلاق.</strong> حساباتك تحمل حياتك الرقمية كلّها، وأحدهم حاول للتوّ الدخول. تعلّم كيف تُبقي المتسلّلين خارجًا بعبارات مرور قويّة، وأقفال ثانية، وخطّة هادئة. افتح أربعة أقفال وأمّن الحساب نهائيًّا. <span class=\"small\">(TEKS §126.19)</span></li>",
+  "hi": "<li><strong>कक्षा 6 — उचित उपयोग जासूस.</strong> एक छात्र रचनाकार एक तस्वीर, एक गाने के अंश और एक उद्धरण को मिलाकर कक्षा प्रोजेक्ट बनाना चाहता है — पर क्या यह वैध है? सबूतों का पीछा करो और चार ताले हल करके केस बंद करो। <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>कक्षा 6 — फ़िशिंग गश्त.</strong> छठी कक्षा के ग्रुप में अजीब संदेशों की बाढ़ आ गई है। एक मुफ़्त सिक्कों का वादा करता है, दूसरा चेतावनी देता है कि तुम्हारा खाता मिटने वाला है। कौन असली हैं और कौन चारा? संदेशों का अध्ययन करो और चार ताले खोलकर केस सुलझाओ। <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>कक्षा 7 — घुमाव पहचानो.</strong> एक पोस्ट इंटरनेट पर तेज़ी से फैल रही है, और हज़ारों लोग बिना जाँचे इसे साझा कर रहे हैं। तुम्हारा काम है रुकना, घुमाव के पार पढ़ना, और सच को खोलना। <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>कक्षा 7 — क्लिकबेट डिटेक्टर.</strong> एक हेडलाइन तुम्हारे टैप के लिए चिल्ला रही है और हर फ़ीड में दौड़ रही है। तुम्हारा काम है धीमे होना, चारे के पार पढ़ना, और यह खोलना कि असल में क्या हो रहा है। <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>कक्षा 8 — स्रोत का मूल्यांकन करो.</strong> एक ट्रेंडिंग लेख तेज़ी से फैल रहा है, पर इसमें कुछ ठीक नहीं बैठता। सबूतों का विश्लेषण करो, चार ताले हल करो, और तय करो कि क्या स्रोत पर भरोसा किया जा सकता है। <span class=\"small\">(TEKS §126.19)</span></li>\n      <li><strong>कक्षा 8 — इसे बंद कर दो.</strong> तुम्हारे खातों में तुम्हारा पूरा डिजिटल जीवन है, और किसी ने अभी अंदर घुसने की कोशिश की। सीखो कि मज़बूत पासफ़्रेज़, दूसरे ताले, और एक शांत योजना घुसपैठियों को कैसे बाहर रखते हैं। चार ताले खोलो और खाते को हमेशा के लिए सुरक्षित करो। <span class=\"small\">(TEKS §126.19)</span></li>",
+  "ur": "<li><strong>جماعت 6 — منصفانہ استعمال کا جاسوس.</strong> ایک طالب علم تخلیق کار ایک تصویر، ایک گانے کا ٹکڑا اور ایک اقتباس کو کلاس پروجیکٹ میں ملانا چاہتی ہے — لیکن کیا یہ قانونی ہے؟ ثبوت کا پیچھا کریں اور چار تالے کھول کر کیس بند کریں۔ <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>جماعت 6 — فشِنگ گشت.</strong> چھٹی جماعت کے گروپ میں عجیب پیغاموں کا سیلاب آ گیا ہے۔ ایک مفت سکّوں کا وعدہ کرتا ہے، دوسرا خبردار کرتا ہے کہ آپ کا اکاؤنٹ ختم ہونے والا ہے۔ کون سے اصلی ہیں اور کون سے جال؟ پیغاموں کا جائزہ لیں اور چار تالے حل کر کے کیس ختم کریں۔ <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>جماعت 7 — دھوکے کو پہچانیں.</strong> ایک پوسٹ انٹرنیٹ پر تیزی سے پھیل رہی ہے، اور ہزاروں لوگ اسے بغیر جانچے شیئر کر رہے ہیں۔ آپ کا کام یہ ہے کہ رُکیں، دھوکے سے آگے پڑھیں، اور سچائی کو کھولیں۔ <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>جماعت 7 — کلک بیٹ ڈٹیکٹر.</strong> ایک سرخی آپ کے کلک کے لیے چیخ رہی ہے اور ہر فیڈ میں دوڑ رہی ہے۔ آپ کا کام یہ ہے کہ رُک جائیں، جال سے آگے پڑھیں، اور کھولیں کہ اصل میں کیا ہو رہا ہے۔ <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>جماعت 8 — ماخذ کا جائزہ لیں.</strong> ایک ٹرینڈ کرتا مضمون تیزی سے پھیل رہا ہے، لیکن اس میں کچھ بات ٹھیک نہیں بیٹھتی۔ ثبوت کا تجزیہ کریں، چار تالے کھولیں، اور فیصلہ کریں کہ کیا اس ماخذ پر بھروسہ کیا جا سکتا ہے۔ <span class=\"small\">(TEKS §126.19)</span></li>\n      <li><strong>جماعت 8 — اسے محفوظ کریں.</strong> آپ کے اکاؤنٹ آپ کی پوری ڈیجیٹل زندگی رکھتے ہیں، اور کسی نے ابھی اندر گھسنے کی کوشش کی۔ سیکھیں کہ مضبوط پاس فریز، دوسرے تالے، اور ایک پُرسکون منصوبہ گھسنے والوں کو کیسے باہر رکھتے ہیں۔ چار تالے حل کریں اور اکاؤنٹ کو ہمیشہ کے لیے محفوظ کریں۔ <span class=\"small\">(TEKS §126.19)</span></li>",
+  "zh": "<li><strong>6 年级 — 合理使用侦探.</strong> 一位学生创作者想把一张照片、一段歌曲片段和一句引言混编进一个班级作品里——但这合法吗？跟着证据走，解开四把锁，把案子破了。 <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>6 年级 — 钓鱼巡逻队.</strong> 奇怪的消息正涌进六年级的群里。一条许诺免费金币，另一条警告你的账号即将被删除。哪些是真的，哪些是诱饵？研究这些消息，解开四把锁，把案子破了。 <span class=\"small\">(TEKS §126.17)</span></li>\n      <li><strong>7 年级 — 识破花招.</strong> 一个帖子正在互联网上飞速传播，成千上万的人不加核实就分享它。你的任务是慢下来，看穿花招，解锁真相。 <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>7 年级 — 标题党探测器.</strong> 一条标题正尖叫着求你去点，在每一个信息流里飞速传播。你的任务是慢下来，读到诱饵背后，解锁真正发生的事。 <span class=\"small\">(TEKS §126.18)</span></li>\n      <li><strong>8 年级 — 评估来源.</strong> 一篇热门文章正在飞速传播，但它有些地方说不通。分析证据，解开四把锁，判断这个来源是否可信。 <span class=\"small\">(TEKS §126.19)</span></li>\n      <li><strong>8 年级 — 把它锁死.</strong> 你的账号装着你整个数字生活，而刚刚有人试图闯进去。学会怎样用强口令短语、第二道锁和一个冷静的计划把入侵者挡在外面。解开四把锁，把账号彻底守好。 <span class=\"small\">(TEKS §126.19)</span></li>"
+ },
+ "t1jo03ij": {
+  "en": "<li><strong>One breakout ≈ 25–40 minutes</strong> including debrief; it works best as the <em>engage</em> or <em>collaborative-practice</em> phase of a lesson, not the whole lesson.</li><li>Run one per grading period, or cluster a band into a <strong>1–2 week digital-citizenship unit</strong>.</li><li>Each grade has two breakouts, and both are free. Use one to introduce the idea and the other to practice or review it.</li>",
+  "es": "<li><strong>Un breakout ≈ 25–40 minutos</strong>, incluida la reflexión final; funciona mejor como la fase de <em>enganche</em> o de <em>práctica colaborativa</em> de una lección, no como la lección completa.</li><li>Haz uno por periodo de calificaciones o agrupa un nivel en una <strong>unidad de ciudadanía digital de 1–2 semanas</strong>.</li><li>Cada grado tiene dos breakouts, y ambos son gratis. Usa uno para presentar la idea y el otro para practicarla o repasarla.</li>",
+  "vi": "<li><strong>Một breakout ≈ 25–40 phút</strong>, kể cả phần tổng kết; hiệu quả nhất khi dùng cho giai đoạn <em>khởi động</em> hoặc <em>luyện tập hợp tác</em> của bài học, không phải cả bài học.</li><li>Tổ chức một breakout mỗi kỳ, hoặc gom một nhóm lớp thành <strong>một chủ đề công dân số kéo dài 1–2 tuần</strong>.</li><li>Mỗi lớp có hai breakout, và cả hai đều miễn phí. Dùng một breakout để giới thiệu ý tưởng và breakout còn lại để luyện tập hoặc ôn lại.</li>",
+  "ar": "<li><strong>النشاط الواحد ≈ 25–40 دقيقة</strong> بما في ذلك النقاش الختامي؛ ويعمل بأفضل صورة في مرحلة <em>التحفيز</em> أو <em>الممارسة التعاونية</em> من الدرس، لا بوصفه الدرس كله.</li><li>نفّذ نشاطًا واحدًا في كل فترة تقييم، أو اجمع أنشطة مرحلة واحدة في <strong>وحدة المواطنة الرقمية مدتها 1–2 أسبوع</strong>.</li><li>لكل صف نشاطان، وكلاهما مجاني. استخدم أحدهما لتقديم الفكرة والآخر للتدريب عليها أو مراجعتها.</li>",
+  "hi": "<li><strong>एक ब्रेकआउट ≈ 25–40 मिनट</strong>, चर्चा सहित; यह पाठ के <em>जुड़ाव</em> या <em>सहयोगी अभ्यास</em> चरण के रूप में सबसे अच्छा काम करता है, पूरे पाठ के रूप में नहीं।</li><li>हर ग्रेडिंग अवधि में एक चलाएँ, या एक बैंड को <strong>1–2 सप्ताह की डिजिटल नागरिकता इकाई</strong> में समूहित करें।</li><li>हर कक्षा में दो ब्रेकआउट हैं, और दोनों निःशुल्क हैं। एक से विचार का परिचय दें और दूसरे से अभ्यास या दोहराव करें।</li>",
+  "ur": "<li><strong>ایک بریک آؤٹ ≈ 25–40 منٹ</strong>، اختتامی گفتگو سمیت؛ یہ سبق کے <em>دلچسپی پیدا کرنے</em> یا <em>باہمی مشق</em> کے مرحلے کے طور پر بہترین کام کرتا ہے، پورے سبق کے طور پر نہیں۔</li><li>ہر گریڈنگ مدت میں ایک کروائیں، یا ایک بینڈ کو <strong>1–2 ہفتے کی ڈیجیٹل شہریت اکائی</strong> میں جمع کریں۔</li><li>ہر جماعت میں دو بریک آؤٹ ہیں، اور دونوں مفت ہیں۔ ایک سے خیال متعارف کروائیں اور دوسرے سے مشق یا دہرائی کریں۔</li>",
+  "zh": "<li><strong>每个破解活动约 25–40 分钟</strong>（含总结讨论）；最适合作为课堂的<em>导入</em>或<em>合作练习</em>环节，而不是整节课。</li><li>每个评分周期进行一次，或将一个学段的活动组合成<strong>为期 1–2 周的数字公民单元</strong>。</li><li>每个年级有两个破解活动，而且都免费。用一个介绍概念，用另一个练习或复习。</li>"
  }
 }

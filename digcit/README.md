@@ -7,9 +7,10 @@ escape-room: six clues (one a decoy), four locks, and a revealed *reason* after
 every lock — the reasoning is the point. Runs entirely in the browser; no logins,
 no data collected.
 
-**18 activities, all free and open:** every grade K–8 has one **featured** lesson
-plus one **full** per-grade breakout — both fully playable on the public site, no
-login, nothing collected.
+**18 activities, all free and open:** every grade K–8 has two complete breakouts,
+all fully playable on the public site: no login, no license, nothing collected.
+(File ids keep their historical `-free` suffix on one of the two; it no longer
+marks a tier.)
 
 **Live:** https://mglearn.github.io/activities/digcit/ — all lessons + the
 [🕹️ Critical Thinking Arcade](https://mglearn.github.io/activities/digcit/arcade/) (three free,
@@ -20,7 +21,7 @@ Sibling suite: [Gen AI Literacy Breakouts](https://mglearn.github.io/activities/
 
 ## The activities
 
-Each grade has a featured lesson and a full lesson — both free and open (TEKS
+Each grade has two breakouts, both free and open (TEKS
 Digital Citizenship strand):
 
 | Band | Grades | TEKS | Example themes |

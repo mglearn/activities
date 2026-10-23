@@ -103,23 +103,23 @@
   <h2>Expected codes for my roster</h2>
   <p class="section-note">Choose the activity and paste your class list, one name per line. You can copy it from Classroom's <b>People</b> tab or from your SIS.</p>
   <p><select class="gc-sel" id="rsAct" aria-label="Activity">
-        <option value="dc-gradeK-free">Kindergarten — Kindness Buddies (free featured)</option>
+        <option value="dc-gradeK-free">Kindergarten — Kindness Buddies</option>
         <option value="dc-gradeK">Kindergarten — Safe &amp; Kind Online</option>
-        <option value="dc-grade1-free">Grade 1 — Password Pals (free featured)</option>
+        <option value="dc-grade1-free">Grade 1 — Password Pals</option>
         <option value="dc-grade1">Grade 1 — Smart Choices Online</option>
-        <option value="dc-grade2-free">Grade 2 — My Online Trail (free featured)</option>
+        <option value="dc-grade2-free">Grade 2 — My Online Trail</option>
         <option value="dc-grade2">Grade 2 — Fair, Safe &amp; Kind</option>
-        <option value="dc-grade3-free">Grade 3 — Be Kind Online (free featured)</option>
+        <option value="dc-grade3-free">Grade 3 — Be Kind Online</option>
         <option value="dc-grade3">Grade 3 — Your First Digital Footprint</option>
-        <option value="dc-grade4-free">Grade 4 — The Group Chat (free featured)</option>
+        <option value="dc-grade4-free">Grade 4 — The Group Chat</option>
         <option value="dc-grade4">Grade 4 — The Permanent Record</option>
-        <option value="dc-grade5-free">Grade 5 — What Should I Share? (free featured)</option>
+        <option value="dc-grade5-free">Grade 5 — What Should I Share?</option>
         <option value="dc-grade5">Grade 5 — Track the Trackers</option>
-        <option value="dc-grade6-free">Grade 6 — Phishing Patrol (free featured)</option>
+        <option value="dc-grade6-free">Grade 6 — Phishing Patrol</option>
         <option value="dc-grade6">Grade 6 — Fair Use Detective</option>
-        <option value="dc-grade7-free">Grade 7 — Clickbait Detector (free featured)</option>
+        <option value="dc-grade7-free">Grade 7 — Clickbait Detector</option>
         <option value="dc-grade7">Grade 7 — Spot the Spin</option>
-        <option value="dc-grade8-free">Grade 8 — Lock It Down (free featured)</option>
+        <option value="dc-grade8-free">Grade 8 — Lock It Down</option>
         <option value="dc-grade8">Grade 8 — Evaluate the Source</option>
       </select></p>
   <textarea class="gc-ta" id="rsIn" placeholder="Maria Lopez&#10;Jose Garcia Ruiz" spellcheck="false"></textarea>
@@ -130,7 +130,7 @@
 <script src="assets/classroom.js"></script>
 <script>
 (function () {
-  var C = window.CTOBCode, ACTS = {"dc-gradeK-free":"Kindergarten — Kindness Buddies (free featured)","dc-gradeK":"Kindergarten — Safe & Kind Online","dc-grade1-free":"Grade 1 — Password Pals (free featured)","dc-grade1":"Grade 1 — Smart Choices Online","dc-grade2-free":"Grade 2 — My Online Trail (free featured)","dc-grade2":"Grade 2 — Fair, Safe & Kind","dc-grade3-free":"Grade 3 — Be Kind Online (free featured)","dc-grade3":"Grade 3 — Your First Digital Footprint","dc-grade4-free":"Grade 4 — The Group Chat (free featured)","dc-grade4":"Grade 4 — The Permanent Record","dc-grade5-free":"Grade 5 — What Should I Share? (free featured)","dc-grade5":"Grade 5 — Track the Trackers","dc-grade6-free":"Grade 6 — Phishing Patrol (free featured)","dc-grade6":"Grade 6 — Fair Use Detective","dc-grade7-free":"Grade 7 — Clickbait Detector (free featured)","dc-grade7":"Grade 7 — Spot the Spin","dc-grade8-free":"Grade 8 — Lock It Down (free featured)","dc-grade8":"Grade 8 — Evaluate the Source"};
+  var C = window.CTOBCode, ACTS = {"dc-gradeK-free":"Kindergarten — Kindness Buddies","dc-gradeK":"Kindergarten — Safe & Kind Online","dc-grade1-free":"Grade 1 — Password Pals","dc-grade1":"Grade 1 — Smart Choices Online","dc-grade2-free":"Grade 2 — My Online Trail","dc-grade2":"Grade 2 — Fair, Safe & Kind","dc-grade3-free":"Grade 3 — Be Kind Online","dc-grade3":"Grade 3 — Your First Digital Footprint","dc-grade4-free":"Grade 4 — The Group Chat","dc-grade4":"Grade 4 — The Permanent Record","dc-grade5-free":"Grade 5 — What Should I Share?","dc-grade5":"Grade 5 — Track the Trackers","dc-grade6-free":"Grade 6 — Phishing Patrol","dc-grade6":"Grade 6 — Fair Use Detective","dc-grade7-free":"Grade 7 — Clickbait Detector","dc-grade7":"Grade 7 — Spot the Spin","dc-grade8-free":"Grade 8 — Lock It Down","dc-grade8":"Grade 8 — Evaluate the Source"};
   var $ = function (id) { return document.getElementById(id); };
   var h = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var lines = function (id) { return $(id).value.split(/\r?\n/).map(function (l) { return l.trim(); }).filter(Boolean); };

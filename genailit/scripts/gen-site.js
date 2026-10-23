@@ -195,12 +195,11 @@ const STAT_CSS = `
   .statn{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.9rem;color:var(--navy);line-height:1}
   .statl{font-size:.74rem;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-top:6px}`;
 function dashboard() {
-  const licensed = Object.keys(ACT).length, free = FREE.length, total = licensed + free;
+  const total = Object.keys(ACT).length + FREE.length;
   const stat = (n, label, hl) => `<div class="stat${hl ? ' hl' : ''}"><div class="statn">${n}</div><div class="statl">${S(label)}</div></div>`;
   return `<div class="statstrip">
     ${stat(total, 'Activities')}
-    ${stat(free, 'Free featured', true)}
-    ${stat(licensed, 'Full lessons')}
+    ${stat(total, 'Free to use', true)}
     ${stat('K–8', 'Grades')}
     ${stat(7, 'Languages')}
   </div>`;
@@ -245,6 +244,8 @@ function scanFree() {
   return out.sort((a, b) => a.grade - b.grade);
 }
 const FREE = scanFree();
+// Both breakouts for a grade (each grade has two; all are free).
+function gradeActs(g) { return [ACT[g], ...FREE.filter(a => String(a.slug) === String(g))]; }
 function freeFocus(a) { return a.B.CONTENT.en.locks.map(l => [l.title, PRIMARY_SUB[a.id] || '(c)(2)']); }
 
 // ---- shared shell --------------------------------------------------------
@@ -308,48 +309,30 @@ function footer(depth, policyHref) {
 </footer>`;
 }
 
-// ---- activity card -------------------------------------------------------
-function card(grade, { depthToBand }) {
-  const a = ACT[grade], U = a.B.UI.en;
-  const href = `${depthToBand}ai-grade${grade}-student.html`;
-  const teacher = `${depthToBand}ai-grade${grade}.html`;
-  // Band-hub card → teacher launch page (premise + standards, then the activity).
-  return `<a class="card" href="${teacher}">
-    <span class="badge">Grade ${grade} · ${a.teks}</span>
-    <div class="ico" aria-hidden="true">${a.icon}</div>
-    <div class="ctitle" data-i18n="card.g${grade}.title">${esc(U['header.h1'])}</div>
-    <div class="cdesc" data-i18n="card.g${grade}.sub">${esc(U['header.sub'])}</div>
-    <span class="tier"><span class="freeflag">FREE</span></span>
-    <span class="cgo" data-i18n="card.startPaid">View the lesson →</span>
-  </a>`;
-}
-
-// Activity-object card (used on the landing and library). kind: 'free' | 'full'
-// — kept only as a descriptor; both are open and link to the playable page.
+// Activity-object card (landing + band hubs). Every activity is free and open:
+// it links to the playable page, or with `teacher` to the teacher launch page.
 // Optional hero banner image (Canva-generated). Emitted only if the PNG exists
 // in assets/, so pages degrade gracefully before an image is produced.
 function heroImg(file, depth) {
   if (!fs.existsSync(path.join(ROOT, 'assets', file))) return '';
   return `<img class="hero-img" src="${depth ? '../' : ''}assets/${file}" alt="" width="1600" height="900" loading="eager">\n    `;
 }
-function actCard(a, kind, depth) {
-  const locked = false;  // genailit is fully open — every lesson is playable
+function actCard(a, depth, teacher) {
   const U = a.B.UI.en, p = depth ? '../' : '';
-  const href = locked ? `${p}${a.band}/${a.id}.html` : `${p}${a.band}/${a.id}-student.html`;
-  return `<a class="card${locked ? ' locked' : ''}" href="${href}">
+  const href = `${p}${a.band}/${a.id}${teacher ? '' : '-student'}.html`;
+  return `<a class="card" href="${href}">
     <span class="badge">${S('Grade')} ${a.slug} · ${a.teks}</span>
     <div class="ico" aria-hidden="true">${a.icon}</div>
     <div class="ctitle">${S(U['header.h1'])}</div>
     <div class="cdesc">${S(U['header.sub'])}</div>
-    <span class="tier">${locked ? '🔒' : '<span class="freeflag">FREE</span>'}</span>
-    <span class="cgo">${locked ? S('Available only with a paid license') : S('Start the breakout →')}</span>
+    <span class="tier"><span class="freeflag">FREE</span></span>
+    <span class="cgo">${teacher ? `<span data-i18n="card.startPaid">${esc(si('card.startPaid') || 'View the lesson →')}</span>` : S('Start the breakout →')}</span>
   </a>`;
 }
 
 // ---- SUITE LANDING -------------------------------------------------------
 function suiteLanding() {
-  const freeCards = FREE.map(a => actCard(a, 'free', 0)).join('\n    ');
-  const paidCards = GRADES.map(g => actCard(ACT[g], 'licensed', 0)).join('\n    ');
+  const allCards = GRADES.flatMap(g => gradeActs(g)).map(a => actCard(a, 0)).join('\n    ');
   const body = `  <div class="hero">
     ${heroImg('hero-genailit.png', 0)}<div class="eyebrow" data-i18n="hero.eyebrow">${esc(si('hero.eyebrow'))}</div>
     <h1 data-i18n="hero.h1">${esc(si('hero.h1'))}</h1>
@@ -366,16 +349,10 @@ function suiteLanding() {
 
   ${dashboard()}
 
-  ${E('h2', 'Featured lessons — free')}
-  ${E('p', 'One free featured breakout per grade — fully playable, no login, nothing collected. Share the link and go.', 'class="section-note"')}
+  ${E('h2', 'Every breakout — free')}
+  ${E('p', 'Two complete breakouts for every grade, K–8, and all of them are free: fully playable, no login, no license, nothing collected. Share the link and go.', 'class="section-note"')}
   <div class="cards">
-    ${freeCards}
-  </div>
-
-  ${E('h2', 'The full per-grade lessons')}
-  ${E('p', 'The complete lesson for each grade — free and open, just like the featured set. Jump straight in, or preview the premise and standards on each teacher page.', 'class="section-note"')}
-  <div class="cards">
-    ${paidCards}
+    ${allCards}
   </div>
 
   <h2 data-i18n="ctob.h2">${esc(si('ctob.h2'))}</h2>
@@ -393,7 +370,7 @@ ${footer(0)}`;
 
 // ---- BAND HUB ------------------------------------------------------------
 function bandHub(band, grades, opts) {
-  const cards = grades.map(g => card(g, { depthToBand: '' })).join('\n    ');
+  const cards = grades.flatMap(g => gradeActs(g)).map(a => actCard(a, 1, true)).join('\n    ');
   const paidNote = opts.paid ? EH('div', '<strong>Free &amp; open.</strong> Every lesson in this band is free to play — no login, nothing collected. Each card opens the teacher page (premise + standards), then the activity itself.', 'class="panel tip"') : '';
   const body = `  <div class="crumb" role="navigation" aria-label="Breadcrumb">${E('a', '‹ Suite home', 'href="../index.html"')}</div>
   <div class="hero">
@@ -427,7 +404,7 @@ function teacherPage(a, focus) {
   const classroom = '<li><strong>Warm up (5 min).</strong> Ask: “' + esc(U['brief.h']) + '” — what does this mean when working with AI? Surface prior experience before the activity.</li><li><strong>Model one clue.</strong> Open a single clue together and think aloud: what does this tell us, and which lock might it help?</li><li><strong>Reason, don’t guess.</strong> Require students to say <em>why</em> before checking a lock. After each solve, read the revealed <em>reason</em> and compare it to their thinking.</li><li><strong>Spot the decoy.</strong> One clue is true but useless. Debrief which one and how they knew — a core evaluation skill that mirrors judging an AI’s output.</li><li><strong>Language support.</strong> The 🌐 picker offers 7 languages; pair newcomers to discuss clues in their home language, then answer.</li><li><strong>Extend.</strong> Have students find (or safely describe) a real example of the focus skill — a biased result, a hallucination, a good prompt — without using any real product’s screenshots.</li>';
   const body = `  <div class="crumb" role="navigation" aria-label="Breadcrumb">${E('a', '‹ ' + BAND_NAME[a.band] + ' hub', 'href="index.html"')} · ${E('a', 'Suite home', 'href="../index.html"')}</div>
   <div class="hero">
-    ${heroImg('hero-grade' + grade + '.png', 1)}<div class="eyebrow${a.tier === 'paid' ? ' gold' : ''}">${S('Teacher launch')} · ${S('Grade')} ${grade} · TEKS ${a.teks}</div>
+    ${heroImg('hero-grade' + grade + '.png', 1)}<div class="eyebrow">${S('Teacher launch')} · ${S('Grade')} ${grade} · TEKS ${a.teks}</div>
     ${E('h1', U['header.h1'])}
     ${E('p', U['header.sub'], 'class="lede"')}
     <div class="btnrow">
@@ -470,7 +447,7 @@ function correlation() {
       const lockList = locks.map((l, i) => `<div class="lk">${S('Lock')} ${i + 1}: <span style="font-weight:600">${S(l.title)}</span> — ${S(focus[i][0])} <span class="pill sub">${focus[i][1]}</span></div>`).join('');
       const subs = [...new Set(focus.map(f => f[1]))].sort();
       return `<tr>
-        <td><span class="lk">${S(U['header.h1'])}</span><br><span class="small">${S('Grade')} ${g} · ${S(a.tier === 'paid' ? 'full' : 'free')}</span></td>
+        <td><span class="lk">${S(U['header.h1'])}</span><br><span class="small">${S('Grade')} ${g}</span></td>
         <td>${lockList}</td>
         <td><strong>${a.teks}</strong><br><span class="small">${subs.join(' ')}</span></td>
       </tr>`;
@@ -522,7 +499,7 @@ function guide() {
   <div class="panel">${EH('ul', deploy)}</div>
 
   ${E('h2', 'Two lessons per grade')}
-  <div class="panel gold">${EH('p', '<strong>Free featured lessons — one per grade.</strong> Each grade has a fully-playable featured breakout on the home page. Use them with anyone, anywhere — no login, nothing collected.')}${EH('p', '<strong>The full per-grade lessons.</strong> The complete lesson for each grade (Grades K–8) is also free and open — same engine, same no-login, nothing-collected design. Every teacher page and this guide are open too.')}</div>
+  <div class="panel gold">${EH('p', '<strong>Two free breakouts for every grade.</strong> Each grade, K–8, has two complete breakouts, and all of them are free and open: no login, no license, nothing collected. The teacher pages, this guide, and every support page are open too.')}</div>
 
   ${E('h2', 'A note on accuracy')}
   ${EH('p', 'AI moves fast, but these activities teach durable ideas — patterns, data, bias, verification, disclosure — not product features. Content uses generic terms (an AI helper, a chatbot, an image generator) and avoids brand names so it stays accurate as tools change.')}
@@ -538,10 +515,10 @@ ${footer(0)}`;
 
 // ---- IMPLEMENTATION PLAN (per band) --------------------------------------
 function implementation(band, grades, opts) {
-  const list = grades.map(g => {
-    const U = ACT[g].B.UI.en;
-    return `<li><strong>Grade ${g} — ${esc(U['header.h1'])}.</strong> ${esc(U['header.sub'])} <span class="small">(TEKS ${ACT[g].teks})</span></li>`;
-  }).join('\n      ');
+  const list = grades.flatMap(g => gradeActs(g).map(a => {
+    const U = a.B.UI.en;
+    return `<li><strong>Grade ${g} — ${esc(U['header.h1'])}.</strong> ${esc(U['header.sub'])} <span class="small">(TEKS ${a.teks})</span></li>`;
+  })).join('\n      ');
   const pacing = '<li><strong>One activity ≈ 25–40 minutes</strong>, including debrief. Younger classes may need two sittings.</li><li>Run one per grading period, or cluster them into a two-week AI-literacy unit.</li><li>Order matches the grade sequence; each grade deepens the pattern → data → bias → responsible-use arc.</li>';
   const prereq = '<li>A browser and the activity link. No accounts, installs, or logins.</li><li>' + opts.prereq + '</li><li>Teachers: skim the activity’s teacher launch page and the <a href="../correlation.html">correlation guide</a> first.</li>';
   const ext = '<li><strong>Home-language pairs.</strong> Use the 🌐 picker so newcomers reason in their strongest language, then answer.</li><li><strong>Author-a-clue.</strong> Students write a new clue (or a real-world example) for the skill they found hardest.</li><li><strong>Reason aloud.</strong> Require a spoken/written justification before each lock check; grade the reasoning, not the click.</li><li>' + opts.extend + '</li>';
@@ -632,7 +609,7 @@ function library() {
   <div class="hero">
     <div class="eyebrow">Activity library</div>
     <h1>Find an activity</h1>
-    <p class="lede">Search all ${catalog.length} breakouts by title, skill, standard, or keyword — then filter by grade band, tier, and TEKS strand.</p>
+    <p class="lede">Search all ${catalog.length} breakouts by title, skill, standard, or keyword — then filter by grade band and TEKS strand.</p>
   </div>
 
   <div class="panel">
@@ -642,9 +619,6 @@ function library() {
         <button class="chip" data-band="K-2">Grades K–2</button>
         <button class="chip" data-band="3-5">Grades 3–5</button>
         <button class="chip" data-band="6-8">Grades 6–8</button></span>
-      <span class="fgroup"><span class="flabel">Tier</span>
-        <button class="chip" data-tier="free">Free</button>
-        <button class="chip" data-tier="paid">Full lessons</button></span>
       <span class="fgroup"><span class="flabel">Strand</span>${subLegend}</span>
       <button id="clear" class="chip clear">Clear</button>
     </div>
@@ -727,14 +701,14 @@ function scope() {
   const rows = GRADES.map(g => {
     const a = ACT[g], U = a.B.UI.en, L = LESSON[g], subs = [...new Set(FOCUS[g].map(f => f[1]))].sort();
     return `<tr>
-        <td><span class="lk">${S('Grade')} ${g}</span><br><span class="small">${S(a.tier === 'paid' ? 'full' : 'free')} · ${a.teks}</span></td>
+        <td><span class="lk">${S('Grade')} ${g}</span><br><span class="small">${a.teks}</span></td>
         <td><strong>${S(U['header.h1'])}</strong><br><span class="small">${S(L.big)}</span></td>
         <td>${S(L.eq)}</td>
         <td><span class="small">${S(L.vocab)}</span></td>
         <td><span class="small">${subs.join(' ')}</span></td>
       </tr>`;
   }).join('\n    ');
-  const pacing = '<li><strong>One breakout ≈ 25–40 minutes</strong> including debrief; it works best as the <em>engage</em> or <em>collaborative-practice</em> phase of a lesson, not the whole lesson.</li><li>Run one per grading period, or cluster a band into a <strong>1–2 week AI-literacy unit</strong>.</li><li>Each grade has a free featured lesson on the home page; the full per-grade lessons go a level deeper — and are just as free.</li>';
+  const pacing = '<li><strong>One breakout ≈ 25–40 minutes</strong> including debrief; it works best as the <em>engage</em> or <em>collaborative-practice</em> phase of a lesson, not the whole lesson.</li><li>Run one per grading period, or cluster a band into a <strong>1–2 week AI-literacy unit</strong>.</li><li>Each grade has two breakouts, and both are free. Use one to introduce the idea and the other to practice or review it.</li>';
   const body = `  <div class="crumb" role="navigation" aria-label="Breadcrumb">${E('a', '‹ Suite home', 'href="index.html"')}</div>
   <div class="hero">
     ${E('div', 'Scope & sequence', 'class="eyebrow"')}
@@ -779,7 +753,7 @@ function lessons() {
   const examples = GRADES.map(g => {
     const a = ACT[g], U = a.B.UI.en, L = LESSON[g];
     return `<div class="akact">
-    ${EH('h3', 'Grade ' + g + ' — ' + esc(U['header.h1']) + ' <span class="small">(' + a.teks + ' · ' + (a.tier === 'paid' ? 'full' : 'free') + ')</span>')}
+    ${EH('h3', 'Grade ' + g + ' — ' + esc(U['header.h1']) + ' <span class="small">(' + a.teks + ')</span>')}
     <div class="tbl-wrap"><table><tbody>
       <tr>${E('th', 'Big idea', 'style="width:170px"')}<td>${S(L.big)}</td></tr>
       <tr>${E('th', 'Essential question')}<td>${S(L.eq)}</td></tr>
@@ -899,9 +873,9 @@ ${footer(0)}`;
 // ---- run -----------------------------------------------------------------
 suiteLanding();
 library();
-bandHub('gradek2', ['K', '1', '2'], { paid: true, label: 'Grades K–2', title: 'Grades K–2', lede: 'The full early-elementary lessons — what an AI helper is, how it makes guesses, checking its answers, and using it safely with a grown-up. Free and open — each grade also has a free featured lesson on the home page.' });
-bandHub('grade35', [3, 4, 5], { paid: true, label: 'Grades 3–5', title: 'Grades 3–5', lede: 'The full elementary lessons — what AI is, how it learns from data, and how to prompt it and check its work. Free and open — each grade also has a free featured lesson on the home page.' });
-bandHub('grade68', [6, 7, 8], { paid: true, label: 'Grades 6–8', title: 'Grades 6–8', lede: 'The full middle-school lessons — spotting AI-generated media, tracing where bias comes from, and creating with AI responsibly. Free and open — each grade also has a free featured lesson on the home page.' });
+bandHub('gradek2', ['K', '1', '2'], { paid: true, label: 'Grades K–2', title: 'Grades K–2', lede: 'The early-elementary breakouts — what an AI helper is, how it makes guesses, checking its answers, and using it safely with a grown-up. Two free breakouts per grade: no login, no license.' });
+bandHub('grade35', [3, 4, 5], { paid: true, label: 'Grades 3–5', title: 'Grades 3–5', lede: 'The elementary breakouts — what AI is, how it learns from data, and how to prompt it and check its work. Two free breakouts per grade: no login, no license.' });
+bandHub('grade68', [6, 7, 8], { paid: true, label: 'Grades 6–8', title: 'Grades 6–8', lede: 'The middle-school breakouts — spotting AI-generated media, tracing where bias comes from, and creating with AI responsibly. Two free breakouts per grade: no login, no license.' });
 correlation();
 guide();
 scope();

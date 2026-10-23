@@ -40,7 +40,7 @@ for (const band of BANDS) {
 }
 ACTS.sort((a, b) => gradeKey(a.grade) - gradeKey(b.grade) || (b.free - a.free));
 const gradeLabel = g => (g === 'K' ? 'Kindergarten' : 'Grade ' + g);
-const actLabel = a => `${gradeLabel(a.grade)} — ${a.title}${a.free ? ' (free featured)' : ''}`;
+const actLabel = a => `${gradeLabel(a.grade)} — ${a.title}`;
 
 // ---- page template: everything around udl.html's body ---------------------
 const TPL = fs.readFileSync(path.join(ROOT, 'udl.html'), 'utf8');
