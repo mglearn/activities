@@ -28,12 +28,15 @@
   .hubcard h2{font-family:'Fredoka',sans-serif;color:var(--navy);margin:.25rem 0;font-size:1.3rem}
   .hubcard p{color:var(--ink-soft);font-weight:600;font-size:.9rem;margin:.1rem 0 .7rem;flex:1}
   .hubcard .hplay{font-weight:800;color:var(--navy)}
+  .ahero-img{display:block;width:100%;max-width:880px;height:230px;object-fit:cover;object-position:center;border-radius:18px;margin:4px auto 6px;box-shadow:0 12px 30px rgba(10,36,99,.20)}
+  @media(max-width:560px){.ahero-img{height:150px}}
 </style>
 </head>
 <body>
 <main class="awrap">
   <div class="atop"><div class="alang"><span class="globe" aria-hidden="true">🌐</span><select id="hubLang" aria-label="Language"></select></div></div>
   <div class="acrumb"><a id="hHome" href="../index.html">‹ Suite home</a></div>
+  <img class="ahero-img" src="../assets/hero-arcade.webp" alt="" width="1600" height="900" loading="eager">
   <div class="ahero"><div class="aico">🕹️</div><h1 id="hTitle">Critical Thinking Arcade</h1><p id="hSub"></p></div>
   <div class="hubcards" id="hCards"></div>
   <div class="afoot" id="hFoot"></div>

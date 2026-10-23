@@ -314,9 +314,12 @@ function footer(depth, policyHref) {
 // it links to the playable page, or with `teacher` to the teacher launch page.
 // Optional hero banner image (Canva-generated). Emitted only if the PNG exists
 // in assets/, so pages degrade gracefully before an image is produced.
-function heroImg(file, depth) {
-  if (!fs.existsSync(path.join(ROOT, 'assets', file))) return '';
-  return `<img class="hero-img" src="${depth ? '../' : ''}assets/${file}" alt="" width="1600" height="900" loading="eager">\n    `;
+function heroImg(file, depth, fallback) {
+  // Prefer the compressed .webp of each name, then the .png; a grade page falls back to its band's art.
+  const pick = [file, fallback].filter(Boolean).flatMap(n => [n.replace(/\.png$/, '.webp'), n])
+    .find(n => fs.existsSync(path.join(ROOT, 'assets', n)));
+  if (!pick) return '';
+  return `<img class="hero-img" src="${depth ? '../' : ''}assets/${pick}" alt="" width="1600" height="900" loading="eager">\n    `;
 }
 function actCard(a, depth, teacher) {
   const U = a.B.UI.en, p = depth ? '../' : '';
@@ -405,7 +408,7 @@ function teacherPage(a, focus) {
   const classroom = '<li><strong>Warm up (5 min).</strong> Ask: “' + esc(U['brief.h']) + '” — what does this mean when working with AI? Surface prior experience before the activity.</li><li><strong>Model one clue.</strong> Open a single clue together and think aloud: what does this tell us, and which lock might it help?</li><li><strong>Reason, don’t guess.</strong> Require students to say <em>why</em> before checking a lock. After each solve, read the revealed <em>reason</em> and compare it to their thinking.</li><li><strong>Spot the decoy.</strong> One clue is true but useless. Debrief which one and how they knew — a core evaluation skill that mirrors judging an AI’s output.</li><li><strong>Language support.</strong> The 🌐 picker offers 7 languages; pair newcomers to discuss clues in their home language, then answer.</li><li><strong>Extend.</strong> Have students find (or safely describe) a real example of the focus skill — a biased result, a hallucination, a good prompt — without using any real product’s screenshots.</li>';
   const body = `  <div class="crumb" role="navigation" aria-label="Breadcrumb">${E('a', '‹ ' + BAND_NAME[a.band] + ' hub', 'href="index.html"')} · ${E('a', 'Suite home', 'href="../index.html"')}</div>
   <div class="hero">
-    ${heroImg('hero-grade' + grade + '.png', 1)}<div class="eyebrow">${S('Teacher launch')} · ${S('Grade')} ${grade} · TEKS ${a.teks}</div>
+    ${heroImg('hero-grade' + grade + '.png', 1, 'hero-' + a.band + '.png')}<div class="eyebrow">${S('Teacher launch')} · ${S('Grade')} ${grade} · TEKS ${a.teks}</div>
     ${E('h1', U['header.h1'])}
     ${E('p', U['header.sub'], 'class="lede"')}
     <div class="btnrow">

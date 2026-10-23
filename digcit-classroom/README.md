@@ -152,3 +152,11 @@ All activity content is 100% original / OER / public-domain — no copyrighted
 media, no real platform UIs, no photos of children. TEKS skills are paraphrased;
 cite the § and read the source at [tea.texas.gov](https://tea.texas.gov). Alignment
 is a good-faith mapping for planning, not legal advice.
+
+## Hero artwork
+
+`assets/hero-*.webp`: AI-generated illustrations (OpenAI image generation, Oct 2026) from
+Prompt 7 of `~/projects/archive/ctob-suites-refresh-prompts.md`, with generation records in
+`~/projects/archive/ctob-suites-images/manifest.json`. The PNG masters are archived there
+too. Converted with `cwebp -q 82 -m 6`. Grade launch pages fall back to their band's art
+(`hero-gradek2/35/68.webp`). Drop in a `hero-grade<N>.webp` to give a grade its own image.

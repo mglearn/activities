@@ -111,3 +111,11 @@ an image generator). No photos of children.
 The `assets/` engine is copied from the DigCit suite and must not be edited here
 (fix it there, re-copy). The two suites are deployed independently with the same
 free/paid hosting model (see that suite's `hosting/`).
+
+## Hero artwork
+
+`assets/hero-*.webp`: AI-generated illustrations (OpenAI image generation, Oct 2026) from
+Prompt 7 of `~/projects/archive/ctob-suites-refresh-prompts.md`, with generation records in
+`~/projects/archive/ctob-suites-images/manifest.json`. The PNG masters are archived there
+too. Converted with `cwebp -q 82 -m 6`. Grade launch pages fall back to their band's art
+(`hero-gradek2/35/68.webp`). Drop in a `hero-grade<N>.webp` to give a grade its own image.

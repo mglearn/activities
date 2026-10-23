@@ -53,6 +53,9 @@ function page(title, body) {
   const b = TPL.indexOf('<footer>', a);
   return (TPL.slice(0, a).split(TPL_TITLE).join(esc(title)) + '\n' + body + '\n' + TPL.slice(b));
 }
+// Classroom-edition hero art, if the suite has it.
+const HERO = fs.existsSync(path.join(ROOT, 'assets', 'hero-classroom.webp'))
+  ? '<img class="hero-img" src="assets/hero-classroom.webp" alt="" width="1600" height="900" loading="eager">\n    ' : '';
 const GC_CSS = `<style>
   .gc-steps{counter-reset:s;list-style:none;padding:0}
   .gc-steps>li{counter-increment:s;position:relative;padding:0 0 14px 46px}
@@ -87,7 +90,7 @@ const sampleCode = CODE.make(sample.id, 'Maria Lopez');
 const tutorial = `${GC_CSS}
   <div class="crumb" role="navigation" aria-label="Breadcrumb"><a href="index.html">‹ Suite home</a> · <a href="classroom-check.html">Check completion codes</a></div>
   <div class="hero">
-    <div class="eyebrow">Google Classroom Edition · Teacher tutorial</div>
+    ${HERO}<div class="eyebrow">Google Classroom Edition · Teacher tutorial</div>
     <h1>Using ${esc(SUITE_EN)} with Google Classroom</h1>
     <p class="lede">Post any breakout as a Classroom assignment in about two minutes. Students play in their browser, earn a completion code when they open all four locks, and turn the code in on Classroom. You check the codes and return grades. Nobody needs a new account, and no student data leaves the student's device.</p>
     <div class="btnrow">
@@ -195,7 +198,7 @@ const options = ACTS.map(a => `<option value="${esc(a.id)}">${esc(actLabel(a))}<
 const checker = `${GC_CSS}
   <div class="crumb" role="navigation" aria-label="Breadcrumb"><a href="index.html">‹ Suite home</a> · <a href="classroom.html">Google Classroom guide</a></div>
   <div class="hero">
-    <div class="eyebrow">Google Classroom Edition · Teacher tool</div>
+    ${HERO}<div class="eyebrow">Google Classroom Edition · Teacher tool</div>
     <h1>Check completion codes</h1>
     <p class="lede">Paste the codes your students turned in, or make a list of the codes your roster should earn. Everything runs on this page: the names you paste are <b>never saved or sent anywhere</b>.</p>
   </div>
