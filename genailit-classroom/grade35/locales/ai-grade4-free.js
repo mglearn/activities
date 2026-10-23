@@ -329,7 +329,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Train It Well",
      "q": "Check EVERY thing that would help the machine make BETTER guesses.",
      "items": [
@@ -359,7 +359,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Teach the Machine",
      "q": "You are training a cat-and-dog helper. Tap the steps to teach it in the RIGHT order.",
      "pads": [
@@ -376,12 +376,12 @@ window.BREAKOUT = {
       {
        "k": "train",
        "e": "🧠 Let it learn from the labels",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "test",
        "e": "✅ Test it on a new picture",
-       "c": "#0d9488"
+       "c": "#0f766e"
       }
      ],
      "answer": [
@@ -472,7 +472,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Entrénala bien",
      "q": "Marca CADA cosa que ayudaría a la máquina a hacer MEJORES conjeturas.",
      "items": [
@@ -502,7 +502,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Enséñale a la máquina",
      "q": "Estás entrenando a un ayudante de gatos y perros. Toca los pasos para enseñarle en el orden CORRECTO.",
      "pads": [
@@ -519,12 +519,12 @@ window.BREAKOUT = {
       {
        "k": "train",
        "e": "🧠 Deja que aprenda de las etiquetas",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "test",
        "e": "✅ Pruébala con una imagen nueva",
-       "c": "#0d9488"
+       "c": "#0f766e"
       }
      ],
      "answer": [
@@ -616,7 +616,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Huấn luyện nó thật tốt",
      "q": "Hãy đánh dấu MỌI thứ giúp cái máy đưa ra phỏng đoán TỐT HƠN.",
      "items": [
@@ -646,7 +646,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Dạy cho máy học",
      "q": "Bạn đang huấn luyện một trợ thủ mèo-và-chó. Hãy chạm vào các bước để dạy nó theo ĐÚNG thứ tự.",
      "pads": [
@@ -663,12 +663,12 @@ window.BREAKOUT = {
       {
        "k": "train",
        "e": "🧠 Để nó học từ các nhãn",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "test",
        "e": "✅ Thử nó trên một bức ảnh mới",
-       "c": "#0d9488"
+       "c": "#0f766e"
       }
      ],
      "answer": [
@@ -759,7 +759,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "درّبها جيّدًا",
      "q": "علّم على كل شيء يساعد الآلة على تخمينات أفضل.",
      "items": [
@@ -789,7 +789,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "علّم الآلة",
      "q": "أنت تدرّب مساعد قطط وكلاب. انقر الخطوات لتعليمه بالترتيب الصحيح.",
      "pads": [
@@ -806,12 +806,12 @@ window.BREAKOUT = {
       {
        "k": "train",
        "e": "🧠 دعها تتعلّم من التسميات",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "test",
        "e": "✅ اختبرها بصورة جديدة",
-       "c": "#0d9488"
+       "c": "#0f766e"
       }
      ],
      "answer": [
@@ -902,7 +902,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "इसे अच्छे से प्रशिक्षित करो",
      "q": "हर उस चीज़ को चुनो जो मशीन को बेहतर अनुमान लगाने में मदद करेगी।",
      "items": [
@@ -932,7 +932,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "मशीन को सिखाओ",
      "q": "तुम एक बिल्ली-और-कुत्ता मददगार को प्रशिक्षित कर रहे हो। इसे सिखाने के कदमों पर सही क्रम में टैप करो।",
      "pads": [
@@ -949,12 +949,12 @@ window.BREAKOUT = {
       {
        "k": "train",
        "e": "🧠 इसे लेबल से सीखने दो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "test",
        "e": "✅ इसे एक नई तस्वीर पर परखो",
-       "c": "#0d9488"
+       "c": "#0f766e"
       }
      ],
      "answer": [
@@ -1045,7 +1045,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "اسے اچھی طرح تربیت دیں",
      "q": "ہر اس چیز پر نشان لگائیں جو مشین کو بہتر اندازے لگانے میں مدد دے گی۔",
      "items": [
@@ -1075,7 +1075,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "مشین کو سکھائیں",
      "q": "آپ ایک بلی اور کتے والے مددگار کو تربیت دے رہے ہیں۔ اسے سکھانے کے مراحل کو درست ترتیب میں دبائیں۔",
      "pads": [
@@ -1092,12 +1092,12 @@ window.BREAKOUT = {
       {
        "k": "train",
        "e": "🧠 اسے لیبل سے سیکھنے دیں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "test",
        "e": "✅ اسے ایک نئی تصویر پر جانچیں",
-       "c": "#0d9488"
+       "c": "#0f766e"
       }
      ],
      "answer": [
@@ -1188,7 +1188,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "把它训练好",
      "q": "把每一个能帮机器做出更准猜测的做法都勾选出来。",
      "items": [
@@ -1218,7 +1218,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "教机器学习",
      "q": "你正在训练一个分辨猫狗的帮手。按正确的顺序点这些步骤来教它。",
      "pads": [
@@ -1235,12 +1235,12 @@ window.BREAKOUT = {
       {
        "k": "train",
        "e": "🧠 让它从这些标签里学习",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "test",
        "e": "✅ 用一张新图片测试它",
-       "c": "#0d9488"
+       "c": "#0f766e"
       }
      ],
      "answer": [

@@ -347,7 +347,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Look First",
      "q": "Before it guesses a cat, the AI helper looks at many ______.",
      "answer": [
@@ -362,7 +362,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Guess Then Check",
      "q": "The AI helper guesses. Tap the steps in the RIGHT order.",
      "pads": [
@@ -379,7 +379,7 @@ window.BREAKOUT = {
       {
        "k": "guess",
        "e": "🔮 It makes a guess",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -485,7 +485,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Primero mira",
      "q": "Antes de adivinar un gato, el ayudante de IA mira muchos ______.",
      "answer": [
@@ -500,7 +500,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Adivina y luego comprueba",
      "q": "El ayudante de IA adivina. Toca los pasos en el orden CORRECTO.",
      "pads": [
@@ -517,7 +517,7 @@ window.BREAKOUT = {
       {
        "k": "guess",
        "e": "🔮 Hace una conjetura",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -623,7 +623,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Nhìn Trước Đã",
      "q": "Trước khi nó phỏng đoán một con mèo, người giúp đỡ AI nhìn nhiều ______.",
      "answer": [
@@ -638,7 +638,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Phỏng Đoán Rồi Kiểm Tra",
      "q": "Người giúp đỡ AI phỏng đoán. Hãy chạm vào các bước theo ĐÚNG thứ tự.",
      "pads": [
@@ -655,7 +655,7 @@ window.BREAKOUT = {
       {
        "k": "guess",
        "e": "🔮 Nó đưa ra một phỏng đoán",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -761,7 +761,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "انظر أولًا",
      "q": "قبل أن يُخمّن قطّة، ينظر المساعد الذكيّ إلى ______ كثيرة.",
      "answer": [
@@ -776,7 +776,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "خمّن ثم تحقّق",
      "q": "المساعد الذكيّ يُخمّن. انقر الخطوات بالترتيب الصحيح.",
      "pads": [
@@ -793,7 +793,7 @@ window.BREAKOUT = {
       {
        "k": "guess",
        "e": "🔮 يقوم بتخمين",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -899,7 +899,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "पहले देखो",
      "q": "किसी बिल्ली का अनुमान लगाने से पहले, AI मददगार कई ______ देखता है।",
      "answer": [
@@ -914,7 +914,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "अनुमान फिर जाँचो",
      "q": "AI मददगार अनुमान लगाता है। कदमों पर सही क्रम में टैप करो।",
      "pads": [
@@ -931,7 +931,7 @@ window.BREAKOUT = {
       {
        "k": "guess",
        "e": "🔮 यह एक अनुमान लगाता है",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1037,7 +1037,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "پہلے دیکھیں",
      "q": "بلی کا اندازہ لگانے سے پہلے، اے آئی مددگار بہت سی ______ دیکھتا ہے۔",
      "answer": [
@@ -1052,7 +1052,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "اندازہ لگائیں پھر جانچیں",
      "q": "اے آئی مددگار اندازہ لگاتا ہے۔ قدموں کو درست ترتیب میں ٹیپ کریں۔",
      "pads": [
@@ -1069,7 +1069,7 @@ window.BREAKOUT = {
       {
        "k": "guess",
        "e": "🔮 یہ ایک اندازہ لگاتا ہے",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1175,7 +1175,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "先看一看",
      "q": "在猜出一只猫之前，人工智能帮手会先看很多______。",
      "answer": [
@@ -1190,7 +1190,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "先猜再检查",
      "q": "人工智能帮手猜了。按正确的顺序点这些步骤。",
      "pads": [
@@ -1207,7 +1207,7 @@ window.BREAKOUT = {
       {
        "k": "guess",
        "e": "🔮 它做一个猜测",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [

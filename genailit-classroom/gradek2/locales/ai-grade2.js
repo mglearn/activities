@@ -347,7 +347,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Name the Ask",
      "q": "The clear ask you type to an AI helper is called a ______.",
      "answer": [
@@ -361,7 +361,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Give Credit",
      "q": "An AI helper helped you make a poster. Tap the steps in the RIGHT order.",
      "pads": [
@@ -378,7 +378,7 @@ window.BREAKOUT = {
       {
        "k": "credit",
        "e": "🏷️ Tell the truth and give credit",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -484,7 +484,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Nombra la petición",
      "q": "La petición clara que escribes a un ayudante de IA se llama ______.",
      "answer": [
@@ -498,7 +498,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Da crédito",
      "q": "Un ayudante de IA te ayudó a hacer un cartel. Toca los pasos en el orden CORRECTO.",
      "pads": [
@@ -515,7 +515,7 @@ window.BREAKOUT = {
       {
        "k": "credit",
        "e": "🏷️ Di la verdad y da crédito",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -621,7 +621,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Gọi Tên Lời Hỏi",
      "q": "Lời hỏi rõ ràng mà bạn gõ cho một người giúp đỡ AI được gọi là một ______.",
      "answer": [
@@ -635,7 +635,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Ghi Công",
      "q": "Một người giúp đỡ AI đã giúp bạn làm một tấm áp phích. Hãy chạm vào các bước theo ĐÚNG thứ tự.",
      "pads": [
@@ -652,7 +652,7 @@ window.BREAKOUT = {
       {
        "k": "credit",
        "e": "🏷️ Nói thật và ghi công",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -758,7 +758,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "سمِّ الطلب",
      "q": "الطلب الواضح الذي تكتبه للمساعد الذكيّ يُسمّى ______.",
      "answer": [
@@ -772,7 +772,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "انسب الفضل",
      "q": "مساعد ذكيّ ساعدك على صنع ملصق. انقر الخطوات بالترتيب الصحيح.",
      "pads": [
@@ -789,7 +789,7 @@ window.BREAKOUT = {
       {
        "k": "credit",
        "e": "🏷️ قل الحقيقة وانسب الفضل",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -895,7 +895,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "माँग को नाम दो",
      "q": "वह साफ़ माँग जो तुम एक AI मददगार को टाइप करते हो, उसे ______ कहते हैं।",
      "answer": [
@@ -909,7 +909,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "श्रेय दो",
      "q": "एक AI मददगार ने तुम्हें एक पोस्टर बनाने में मदद की। कदमों पर सही क्रम में टैप करो।",
      "pads": [
@@ -926,7 +926,7 @@ window.BREAKOUT = {
       {
        "k": "credit",
        "e": "🏷️ सच बताओ और श्रेय दो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1032,7 +1032,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "بات کا نام دیں",
      "q": "وہ صاف بات جو آپ اے آئی مددگار کو لکھتے ہیں اسے ______ کہتے ہیں۔",
      "answer": [
@@ -1046,7 +1046,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "نام دیں",
      "q": "اے آئی مددگار نے آپ کو ایک پوسٹر بنانے میں مدد دی۔ قدموں کو درست ترتیب میں ٹیپ کریں۔",
      "pads": [
@@ -1063,7 +1063,7 @@ window.BREAKOUT = {
       {
        "k": "credit",
        "e": "🏷️ سچ بتائیں اور نام دیں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1169,7 +1169,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "给这个提问起名字",
      "q": "你打给人工智能帮手的那句清楚的提问，叫做______。",
      "answer": [
@@ -1183,7 +1183,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "说出功劳",
      "q": "人工智能帮手帮你做了一张海报。按正确的顺序点这些步骤。",
      "pads": [
@@ -1200,7 +1200,7 @@ window.BREAKOUT = {
       {
        "k": "credit",
        "e": "🏷️ 说实话，说出功劳",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [

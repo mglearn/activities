@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <title>What Should I Share? — Teacher launch (Grade 5)</title>
@@ -96,10 +97,9 @@
     <script>(function(){var s=document.getElementById('gcLdcgrade5free'),u=document.getElementById('gcUdcgrade5free'),b=document.getElementById('gcCdcgrade5free');
       function upd(){var x=new URL('dc-grade5-free-student.html',location.href);if(s.value!=='en')x.searchParams.set('lang',s.value);u.value=x.href;}
       s.onchange=upd;upd();u.onfocus=function(){u.select();};
-      b.onclick=function(){navigator.clipboard.writeText(u.value).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Copy student link';},1600);});};})();</script>
+      b.onclick=function(){var no=function(){u.focus();u.select();b.textContent='Press Ctrl+C';};if(!navigator.clipboard)return no();navigator.clipboard.writeText(u.value).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Copy student link';},1600);},no);};})();</script>
   </div><!--/gc-->
 
-  
   <div class="panel gold">
     <h3 data-i18n="t1ev6p2h">The premise</h3>
     <p data-i18n="tcnzuru">Everything you post online can be seen, saved, and shared by others. Your job is to learn which details are safe to share and which private facts — like your home address, your passwords, and where you are right now — should stay locked away. Crack all four locks, and each one will show the reason its answer is correct.</p>

@@ -279,6 +279,7 @@ function shell({ depth = 0, title, extraHead = '', body, i18n = false }) {
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <title>${esc(title)}</title>
@@ -604,7 +605,7 @@ function buildCatalog() {
 }
 function library() {
   const catalog = buildCatalog();
-  const subLegend = Object.entries(SUBSTRANDS).map(([k, v]) => `<button class="chip" data-sub="${k}" title="${esc(v)}">${k}</button>`).join('');
+  const subLegend = Object.entries(SUBSTRANDS).map(([k, v]) => `<button class="chip" aria-pressed="false" data-sub="${k}" title="${esc(v)}">${k}</button>`).join('');
   const body = `  <div class="crumb" role="navigation" aria-label="Breadcrumb"><a href="index.html">‹ Suite home</a></div>
   <div class="hero">
     <div class="eyebrow">Activity library</div>
@@ -616,15 +617,15 @@ function library() {
     <input id="q" class="search" type="search" placeholder="Search: patterns, data, prompt, bias, hallucination, §126.17 …" aria-label="Search activities" autocomplete="off">
     <div class="filters">
       <span class="fgroup"><span class="flabel">Band</span>
-        <button class="chip" data-band="K-2">Grades K–2</button>
-        <button class="chip" data-band="3-5">Grades 3–5</button>
-        <button class="chip" data-band="6-8">Grades 6–8</button></span>
+        <button class="chip" aria-pressed="false" data-band="K-2">Grades K–2</button>
+        <button class="chip" aria-pressed="false" data-band="3-5">Grades 3–5</button>
+        <button class="chip" aria-pressed="false" data-band="6-8">Grades 6–8</button></span>
       <span class="fgroup"><span class="flabel">Strand</span>${subLegend}</span>
       <button id="clear" class="chip clear">Clear</button>
     </div>
   </div>
 
-  <p id="count" class="section-note"></p>
+  <p id="count" class="section-note" role="status" aria-live="polite"></p>
   <div id="grid" class="cards"></div>
   <p id="empty" class="section-note" style="display:none">No activities match. <a href="#" id="reset">Clear filters</a>.</p>
 ${footer(0)}`;
@@ -645,7 +646,7 @@ ${footer(0)}`;
 </style>`;
 
   const script = `
-<script id="catalog" type="application/json">${JSON.stringify(catalog)}</script>
+<script id="catalog" type="application/json">${JSON.stringify(catalog).replace(/</g, '\\u003c')}</script>
 <script>
 (function(){
   'use strict';
@@ -680,13 +681,13 @@ ${footer(0)}`;
   function toggleChip(btn){
     var dim = btn.dataset.band!=null?'band':btn.dataset.tier!=null?'tier':btn.dataset.sub!=null?'sub':null;
     if(!dim) return; var val = btn.dataset[dim];
-    if(state[dim].has(val)){ state[dim].delete(val); btn.classList.remove('on'); }
-    else { state[dim].add(val); btn.classList.add('on'); }
+    if(state[dim].has(val)){ state[dim].delete(val); btn.classList.remove('on'); btn.setAttribute('aria-pressed','false'); }
+    else { state[dim].add(val); btn.classList.add('on'); btn.setAttribute('aria-pressed','true'); }
     render();
   }
   Array.prototype.forEach.call(document.querySelectorAll('.chip[data-band],.chip[data-tier],.chip[data-sub]'), function(b){ b.addEventListener('click', function(){ toggleChip(b); }); });
   function clearAll(){ state={q:'',band:new Set(),tier:new Set(),sub:new Set()}; document.getElementById('q').value='';
-    Array.prototype.forEach.call(document.querySelectorAll('.chip.on'), function(c){c.classList.remove('on');}); render(); }
+    Array.prototype.forEach.call(document.querySelectorAll('.chip.on'), function(c){c.classList.remove('on');c.setAttribute('aria-pressed','false');}); render(); }
   document.getElementById('clear').addEventListener('click', clearAll);
   document.getElementById('reset').addEventListener('click', function(e){ e.preventDefault(); clearAll(); });
   render();

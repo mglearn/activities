@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <title>Double-Check the Bot — Gen AI Literacy Breakouts</title>
@@ -22,7 +23,9 @@
 <link rel="stylesheet" href="../assets/breakout.css">
 <style>
   .wrap{position:relative}
-  .teacher-menu{position:absolute;top:14px;right:16px;z-index:60;font-family:'Nunito',sans-serif}
+  .topnav{display:flex;justify-content:flex-end;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+  .topnav .langbar{margin-bottom:0}
+  .teacher-menu{position:relative;z-index:60;font-family:'Nunito',sans-serif}
   .teacher-menu>summary{list-style:none;cursor:pointer;background:var(--navy);color:#fff;font-weight:800;font-size:.8rem;padding:7px 13px;border-radius:100px;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(67,56,202,.28)}
   .teacher-menu>summary::-webkit-details-marker{display:none}
   .teacher-menu[open]>summary{background:var(--navy-d)}
@@ -36,6 +39,8 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <canvas id="confetti" aria-hidden="true"></canvas>
 <div class="wrap">
+  <nav class="topnav" aria-label="Site tools">
+  <div class="langbar"><span class="globe" aria-hidden="true">🌐</span><div data-i18n-picker></div></div>
   <details class="teacher-menu">
   <summary><span aria-hidden="true">👩‍🏫</span> Teachers <span aria-hidden="true">▾</span></summary>
   <div class="tm-panel">
@@ -49,8 +54,8 @@
     <a href="../answer-key.html">Answer Key<span aria-hidden="true">🔐</span></a>
   </div>
 </details>
-  <div class="langbar"><span class="globe" aria-hidden="true">🌐</span><div data-i18n-picker></div></div>
-  <div class="crumb"><a href="ai-grade6-free.html" data-i18n="crumb.teacher">‹ Teacher launch</a> · <a href="index.html" data-i18n="crumb.suite">Gen AI Literacy Breakouts</a></div>
+  </nav>
+  <nav class="crumb" aria-label="Breadcrumb"><a href="ai-grade6-free.html" data-i18n="crumb.teacher">‹ Teacher launch</a> · <a href="index.html" data-i18n="crumb.suite">Gen AI Literacy Breakouts</a></nav>
 
   <main id="main">
   <div id="a11yStatus" class="sr-only" role="status" aria-live="polite"></div>
@@ -72,11 +77,11 @@
     <p data-i18n="brief.p">A chatbot can sound confident and still be wrong. It predicts words that fit — it does not truly know if they are true. Read the clues, then open all four locks. Each lock reveals the reasoning behind the answer.</p>
   </div>
 
-  <div class="section-title" data-i18n="sect.clues">🔍 The Clues</div>
+  <h2 class="section-title" data-i18n="sect.clues">🔍 The Clues</h2>
   <p class="hint" data-i18n="sect.cluesHint">Tap each clue to read it. You can open them again anytime.</p>
   <div class="clue-grid" id="clueGrid"></div>
 
-  <div class="section-title" data-i18n="sect.locks">🔒 The Locks</div>
+  <h2 class="section-title" data-i18n="sect.locks">🔒 The Locks</h2>
   <p class="hint" data-i18n="sect.locksHint">Use the clues to open each lock.</p>
   <div class="locks" id="locks"></div>
 

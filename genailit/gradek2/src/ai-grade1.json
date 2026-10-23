@@ -103,7 +103,7 @@
     {
       "id": "L3",
       "type": "word",
-      "color": "#0891b2",
+      "color": "#0e7490",
       "title": "Say It Clearly",
       "q": "To get a better guess, tell the AI helper what you want in a ______ way.",
       "answer": ["clear", "clearly", "a clear", "simple"],
@@ -112,13 +112,13 @@
     {
       "id": "L4",
       "type": "seq",
-      "color": "#0d9488",
+      "color": "#0f766e",
       "title": "When It Might Be Wrong",
       "q": "The AI helper might be wrong. Tap the steps in the RIGHT order.",
       "pads": [
         { "k": "use", "e": "🎒 Then use it", "c": "#4338ca" },
         { "k": "read", "e": "👀 Read the answer", "c": "#7c3aed" },
-        { "k": "check", "e": "✅ Check it or ask a grown-up", "c": "#0891b2" }
+        { "k": "check", "e": "✅ Check it or ask a grown-up", "c": "#0e7490" }
       ],
       "answer": ["read", "check", "use"],
       "reason": "First READ the answer. Then CHECK it or ask a grown-up. Then USE it only if it is right. Read, Check, Use."

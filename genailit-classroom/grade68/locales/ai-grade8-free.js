@@ -347,7 +347,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Give It Credit",
      "q": "When an AI helped you with schoolwork, being honest means you ______ that help instead of hiding it.",
      "answer": [
@@ -366,7 +366,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Use AI Honestly",
      "q": "You'll use an AI to help with a class assignment. Tap the honest steps in the RIGHT order.",
      "pads": [
@@ -383,7 +383,7 @@ window.BREAKOUT = {
       {
        "k": "verify",
        "e": "✔️ Verify the facts AI gives",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "credit",
@@ -495,7 +495,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Dale crédito",
      "q": "Cuando una IA te ayudó con la tarea, ser honesto significa que ______ esa ayuda en vez de esconderla.",
      "answer": [
@@ -518,7 +518,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Usa la IA de forma honesta",
      "q": "Vas a usar una IA para ayudarte con una tarea de clase. Toca los pasos honestos en el orden CORRECTO.",
      "pads": [
@@ -535,7 +535,7 @@ window.BREAKOUT = {
       {
        "k": "verify",
        "e": "✔️ Verifica los hechos que da la IA",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "credit",
@@ -647,7 +647,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Hãy ghi nhận công của nó",
      "q": "Khi một AI đã giúp bạn với bài tập, trung thực nghĩa là bạn ______ sự giúp đỡ đó thay vì che giấu nó.",
      "answer": [
@@ -670,7 +670,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Dùng AI một cách trung thực",
      "q": "Bạn sẽ dùng một AI để giúp làm một bài tập trên lớp. Chạm vào các bước trung thực theo đúng thứ tự.",
      "pads": [
@@ -687,7 +687,7 @@ window.BREAKOUT = {
       {
        "k": "verify",
        "e": "✔️ Kiểm chứng sự thật AI đưa ra",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "credit",
@@ -799,7 +799,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "انسب الفضل إليه",
      "q": "عندما يساعدك ذكاء اصطناعي في واجب مدرسي، تعني الأمانة أن ______ تلك المساعدة بدلاً من إخفائها.",
      "answer": [
@@ -822,7 +822,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "استخدم الذكاء الاصطناعي بأمانة",
      "q": "ستستعين بذكاء اصطناعي في واجب صفي. اضغط على الخطوات الأمينة بالترتيب الصحيح.",
      "pads": [
@@ -839,7 +839,7 @@ window.BREAKOUT = {
       {
        "k": "verify",
        "e": "✔️ تأكّد من الحقائق التي يعطيها الذكاء الاصطناعي",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "credit",
@@ -951,7 +951,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "इसे श्रेय दो",
      "q": "जब किसी AI ने स्कूल के काम में तुम्हारी मदद की, तो ईमानदारी का मतलब है कि तुम उस मदद को छिपाने के बजाय उसे ______।",
      "answer": [
@@ -974,7 +974,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "AI को ईमानदारी से इस्तेमाल करो",
      "q": "तुम किसी कक्षा असाइनमेंट में मदद के लिए AI इस्तेमाल करोगे। ईमानदार चरणों को सही क्रम में छुओ।",
      "pads": [
@@ -991,7 +991,7 @@ window.BREAKOUT = {
       {
        "k": "verify",
        "e": "✔️ AI द्वारा दिए तथ्यों की पुष्टि करो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "credit",
@@ -1103,7 +1103,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "اسے کریڈٹ دیں",
      "q": "جب کسی اے آئی نے آپ کے اسکول کے کام میں مدد کی، تو ایماندار ہونے کا مطلب ہے کہ آپ اس مدد کو چھپانے کے بجائے اسے ______۔",
      "answer": [
@@ -1130,7 +1130,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "اے آئی کو ایمانداری سے استعمال کریں",
      "q": "آپ ایک کلاس اسائنمنٹ میں مدد کے لیے اے آئی استعمال کریں گے۔ ایماندار مراحل کو درست ترتیب میں دبائیں۔",
      "pads": [
@@ -1147,7 +1147,7 @@ window.BREAKOUT = {
       {
        "k": "verify",
        "e": "✔️ اے آئی جو حقائق دیتی ہے ان کی تصدیق کریں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "credit",
@@ -1259,7 +1259,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "给它署上功劳",
      "q": "当人工智能帮了你做作业时，诚实意味着你要______这份帮助，而不是把它藏起来。",
      "answer": [
@@ -1283,7 +1283,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "诚实地使用人工智能",
      "q": "你要用人工智能来帮忙做一项课堂作业。按正确的顺序点这些诚实的步骤。",
      "pads": [
@@ -1300,7 +1300,7 @@ window.BREAKOUT = {
       {
        "k": "verify",
        "e": "✔️ 核实人工智能给出的事实",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "credit",

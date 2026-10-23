@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <title>Critical Thinking Arcade — Digital Citizenship Breakouts</title>
@@ -30,13 +31,13 @@
 </style>
 </head>
 <body>
-<div class="awrap">
+<main class="awrap">
   <div class="atop"><div class="alang"><span class="globe" aria-hidden="true">🌐</span><select id="hubLang" aria-label="Language"></select></div></div>
   <div class="acrumb"><a id="hHome" href="../index.html">‹ Suite home</a></div>
   <div class="ahero"><div class="aico">🕹️</div><h1 id="hTitle">Critical Thinking Arcade</h1><p id="hSub"></p></div>
   <div class="hubcards" id="hCards"></div>
   <div class="afoot" id="hFoot"></div>
-</div>
+</main>
 <script>
 (function(){
   'use strict';
@@ -77,14 +78,14 @@
       g2t:'安全还是可疑',g2d:'找出安全的选择，避开可疑的选择。',
       g3t:'钓鱼水槽',g3d:'钓起真实的消息；把钓鱼诈骗放回水里。'}
   };
-  function getLang(){try{var l=localStorage.getItem('lang');if(l&&I18N[l])return l;}catch(e){}return 'en';}
+  function getLang(){var c=[];try{c.push(new URLSearchParams(location.search).get('lang'));}catch(e){}try{c.push(localStorage.getItem('tcea.breakouts.lang'),localStorage.getItem('lang'));}catch(e){}for(var i=0;i<c.length;i++){var l=String(c[i]||'').slice(0,2).toLowerCase();if(Object.prototype.hasOwnProperty.call(I18N,l))return l;}return 'en';}
   var lang=getLang();
   function t(k){var d=I18N[lang]||I18N.en;return d[k]!=null?d[k]:I18N.en[k];}
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   var sel=document.getElementById('hubLang');
   Object.keys(LNAME).forEach(function(l){if(I18N[l]){var o=document.createElement('option');o.value=l;o.textContent=LNAME[l];sel.appendChild(o);}});
   sel.value=lang;
-  sel.addEventListener('change',function(){lang=sel.value;try{localStorage.setItem('lang',lang);}catch(e){}render();});
+  sel.addEventListener('change',function(){lang=sel.value;try{localStorage.setItem('tcea.breakouts.lang',lang);localStorage.setItem('lang',lang);}catch(e){}render();});
   function render(){
     document.documentElement.setAttribute('lang',lang);
     document.documentElement.setAttribute('dir',RTL[lang]?'rtl':'ltr');

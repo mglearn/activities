@@ -329,7 +329,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Smart Prompt Habits",
      "q": "Check EVERY habit of a smart prompt writer.",
      "items": [
@@ -359,7 +359,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Improve the Result",
      "q": "Your first result is too long and misses the topic. Tap the steps to improve it in the RIGHT order.",
      "pads": [
@@ -376,7 +376,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "🔎 Check the facts",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -464,7 +464,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Hábitos de prompts inteligentes",
      "q": "Marca TODOS los hábitos de quien escribe prompts inteligentes.",
      "items": [
@@ -494,7 +494,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Mejora el resultado",
      "q": "Tu primer resultado es demasiado largo y no toca el tema. Toca los pasos para mejorarlo en el orden CORRECTO.",
      "pads": [
@@ -511,7 +511,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "🔎 Revisa los datos",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -599,7 +599,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Thói Quen Ra Câu Lệnh Thông Minh",
      "q": "Hãy chọn MỌI thói quen của một người viết câu lệnh thông minh.",
      "items": [
@@ -629,7 +629,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Cải Thiện Kết Quả",
      "q": "Kết quả đầu tiên của em quá dài và lệch chủ đề. Hãy chạm vào các bước để cải thiện theo đúng thứ tự.",
      "pads": [
@@ -646,7 +646,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "🔎 Kiểm tra các sự việc",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -734,7 +734,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "عادات كتابة الأوامر الذكية",
      "q": "اختر كل عادة من عادات كاتب الأوامر الذكي.",
      "items": [
@@ -764,7 +764,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "حسِّن النتيجة",
      "q": "نتيجتك الأولى طويلة جدًا وتُغفل الموضوع. اضغط الخطوات لتحسينها بالترتيب الصحيح.",
      "pads": [
@@ -781,7 +781,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "🔎 تحقّق من الحقائق",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -869,7 +869,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "समझदार प्रॉम्प्ट की आदतें",
      "q": "एक समझदार प्रॉम्प्ट लिखने वाले की हर आदत को चुनो।",
      "items": [
@@ -899,7 +899,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "नतीजे को सुधारो",
      "q": "तुम्हारा पहला नतीजा बहुत लंबा है और विषय से चूक जाता है। इसे सुधारने के चरणों को सही क्रम में दबाओ।",
      "pads": [
@@ -916,7 +916,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "🔎 तथ्यों को जांचो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1004,7 +1004,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "سمجھدار پرامپٹ کی عادات",
      "q": "ایک سمجھدار پرامپٹ لکھنے والے کی ہر عادت پر نشان لگائیں۔",
      "items": [
@@ -1034,7 +1034,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "نتیجہ بہتر بنائیں",
      "q": "آپ کا پہلا نتیجہ بہت لمبا ہے اور موضوع سے ہٹا ہوا ہے۔ اسے درست ترتیب میں بہتر بنانے کے لیے مراحل دبائیں۔",
      "pads": [
@@ -1051,7 +1051,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "🔎 حقائق جانچیں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1139,7 +1139,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "聪明的提示词习惯",
      "q": "把每一个聪明的提示词写作者的习惯都勾选出来。",
      "items": [
@@ -1169,7 +1169,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "改进结果",
      "q": "你的第一个结果太长了，还没扣住主题。按正确的顺序点击这些步骤来改进它。",
      "pads": [
@@ -1186,7 +1186,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "🔎 核对事实",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [

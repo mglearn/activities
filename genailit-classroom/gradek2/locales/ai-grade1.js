@@ -347,7 +347,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Say It Clearly",
      "q": "To get a better guess, tell the AI helper what you want in a ______ way.",
      "answer": [
@@ -361,7 +361,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "When It Might Be Wrong",
      "q": "The AI helper might be wrong. Tap the steps in the RIGHT order.",
      "pads": [
@@ -378,7 +378,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "✅ Check it or ask a grown-up",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -484,7 +484,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Dilo con claridad",
      "q": "Para conseguir una mejor conjetura, dile al ayudante de IA lo que quieres de forma ______.",
      "answer": [
@@ -498,7 +498,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Cuando podría equivocarse",
      "q": "El ayudante de IA podría equivocarse. Toca los pasos en el orden CORRECTO.",
      "pads": [
@@ -515,7 +515,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "✅ Compruébalo o pregúntale a un adulto",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -621,7 +621,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Nói Rõ Ràng",
      "q": "Để có một phỏng đoán tốt hơn, hãy nói cho người giúp đỡ AI điều bạn muốn một cách ______.",
      "answer": [
@@ -635,7 +635,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Khi Nó Có Thể Sai",
      "q": "Người giúp đỡ AI có thể sai. Hãy chạm vào các bước theo ĐÚNG thứ tự.",
      "pads": [
@@ -652,7 +652,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "✅ Kiểm tra nó hoặc hỏi người lớn",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -758,7 +758,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "قلها بوضوح",
      "q": "لتحصل على تخمين أفضل، أخبر المساعد الذكيّ بما تريد بطريقة ______.",
      "answer": [
@@ -772,7 +772,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "حين قد يُخطئ",
      "q": "المساعد الذكيّ قد يُخطئ. انقر الخطوات بالترتيب الصحيح.",
      "pads": [
@@ -789,7 +789,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "✅ تحقّق منها أو اسأل شخصًا بالغًا",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -895,7 +895,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "इसे साफ़ कहो",
      "q": "बेहतर अनुमान पाने के लिए, AI मददगार को ______ तरीके से बताओ कि तुम क्या चाहते हो।",
      "answer": [
@@ -909,7 +909,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "जब यह गलत हो सकता है",
      "q": "AI मददगार गलत हो सकता है। कदमों पर सही क्रम में टैप करो।",
      "pads": [
@@ -926,7 +926,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "✅ इसे जाँचो या किसी बड़े से पूछो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1032,7 +1032,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "صاف بات کہیں",
      "q": "بہتر اندازہ پانے کے لیے، اے آئی مددگار کو ______ طریقے سے بتائیں کہ آپ کیا چاہتے ہیں۔",
      "answer": [
@@ -1046,7 +1046,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "جب یہ غلط ہو سکتا ہو",
      "q": "اے آئی مددگار غلط ہو سکتا ہے۔ قدموں کو درست ترتیب میں ٹیپ کریں۔",
      "pads": [
@@ -1063,7 +1063,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "✅ اسے جانچیں یا کسی بڑے سے پوچھیں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1169,7 +1169,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "说清楚一点",
      "q": "为了得到更好的猜测，用______的方式告诉人工智能帮手你想要什么。",
      "answer": [
@@ -1183,7 +1183,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "当它可能出错时",
      "q": "人工智能帮手可能会错。按正确的顺序点这些步骤。",
      "pads": [
@@ -1200,7 +1200,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "✅ 检查它或问大人",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [

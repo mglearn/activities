@@ -105,6 +105,9 @@
         const v = lookup(el.getAttribute(`data-i18n-${attr}`)); if (v !== undefined) el.setAttribute(attr, v);
       });
     });
+    // Activity pages: keep <title> in the chosen language ("<activity> — <suite>").
+    const h1 = lookup('header.h1');
+    if (typeof h1 === 'string') { const i = document.title.indexOf(' — '); document.title = h1 + (i >= 0 ? document.title.slice(i) : ''); }
     document.querySelectorAll('select#i18nSwitcher, select.breakout-i18n-switcher').forEach(sel => {
       if (sel.value !== state.lang) sel.value = state.lang;
     });

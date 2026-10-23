@@ -18,8 +18,10 @@ const crypto = require('crypto');
 const { SUITE_EN } = require('./config');
 
 const ROOT = path.join(__dirname, '..');
-const PASSWORD = process.env.ANSWER_KEY_PASSWORD || 'aidetective';
-const ITER = 250000;
+// No default: a password committed to the repo would be public. Fail loudly instead.
+const PASSWORD = process.env.ANSWER_KEY_PASSWORD;
+if (!PASSWORD) { console.error('Set ANSWER_KEY_PASSWORD to build the answer key.'); process.exit(1); }
+const ITER = 600000;  // OWASP 2023 guidance for PBKDF2-SHA256
 
 // Scan every baked locale (all activities, both tiers) — self-describing.
 function scanAll() {
@@ -80,6 +82,7 @@ const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <title>Answer Key — ${SUITE_EN}</title>
@@ -130,7 +133,8 @@ const html = `<!DOCTYPE html>
     <a href="answer-key.html">Answer Key<span aria-hidden="true">🔐</span></a>
   </div>
 </details>
-  <div class="crumb"><a href="index.html">‹ Suite home</a> · <a href="guide.html">Teacher guide</a></div>
+  <nav class="crumb" aria-label="Breadcrumb"><a href="index.html">‹ Suite home</a> · <a href="guide.html">Teacher guide</a></nav>
+  <main id="main">
   <div id="gate" class="gate">
     <div class="eyebrow">🔐 Teacher answer key</div>
     <h1>Answer Key</h1>
@@ -138,13 +142,14 @@ const html = `<!DOCTYPE html>
     <form id="gateForm">
       <input id="pw" type="password" placeholder="Teacher password" autocomplete="off" aria-label="Teacher password">
       <button class="btn" type="submit" style="margin-top:12px">Unlock</button>
-      <div class="msg" id="msg"></div>
+      <div class="msg" id="msg" role="alert"></div>
     </form>
     <p class="small" style="margin-top:16px">This page holds only answers, encrypted with AES-256. Full curriculum is never stored here.</p>
   </div>
   <div id="out" style="display:none"></div>
+  </main>
 </div>
-<script id="payload" type="application/json">${JSON.stringify(payload)}</script>
+<script id="payload" type="application/json">${JSON.stringify(payload).replace(/</g, '\\u003c')}</script>
 <script>
 (function(){
   'use strict';
@@ -163,9 +168,9 @@ const html = `<!DOCTYPE html>
   function render(d){
     const out = document.getElementById('out');
     out.innerHTML = '<div class="hero"><div class="eyebrow gold">🔓 Answer key</div><h1>Answers &amp; reasoning</h1>'
-      + '<p class="lede">All '+d.activities.length+' activities. Keep this private. Use <button class="btn ghost" onclick="window.print()" style="margin-left:6px">Print</button></p></div>'
+      + '<p class="lede">All '+d.activities.length+' activities. Keep this private. Use <button class="btn ghost" id="printBtn" type="button" style="margin-left:6px">Print</button></p></div>'
       + d.activities.map(a =>
-        '<div class="akact"><h2>Grade '+a.gradeLabel+' — '+esc(a.title)+' <span class="small">('+esc(a.teks)+(a.tier==='paid'?' · full':' · free')+')</span></h2>'
+        '<div class="akact"><h2>Grade '+a.gradeLabel+' — '+esc(a.title)+' <span class="small">('+esc(a.teks)+')</span></h2>'
         + '<p class="small">Decoy clue (unused on purpose): <strong>'+esc(a.decoy)+'</strong></p>'
         + a.locks.map(l =>
             '<div class="aklock"><span class="aktype">Lock '+l.n+' · '+esc(l.type)+'</span>'
@@ -178,6 +183,8 @@ const html = `<!DOCTYPE html>
       ).join('');
     document.getElementById('gate').style.display = 'none';
     out.style.display = 'block';
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+    const h = out.querySelector('h1'); h.tabIndex = -1; h.focus();
   }
   document.getElementById('gateForm').addEventListener('submit', async e => {
     e.preventDefault();
@@ -193,4 +200,4 @@ const html = `<!DOCTYPE html>
 `;
 fs.writeFileSync(path.join(ROOT, 'answer-key.html'), html);
 console.log('Wrote answer-key.html (AES-256-GCM, PBKDF2-SHA256 x' + ITER + ').');
-console.log('Password: ' + (process.env.ANSWER_KEY_PASSWORD ? '(from ANSWER_KEY_PASSWORD env)' : "default '" + PASSWORD + "' — rebuild with ANSWER_KEY_PASSWORD to change"));
+console.log('Password: (from ANSWER_KEY_PASSWORD env)');

@@ -103,7 +103,7 @@
     {
       "id": "L3",
       "type": "word",
-      "color": "#0891b2",
+      "color": "#0e7490",
       "title": "Name the Ask",
       "q": "The clear ask you type to an AI helper is called a ______.",
       "answer": ["prompt", "a prompt", "prompt.", "the prompt"],
@@ -112,13 +112,13 @@
     {
       "id": "L4",
       "type": "seq",
-      "color": "#0d9488",
+      "color": "#0f766e",
       "title": "Give Credit",
       "q": "An AI helper helped you make a poster. Tap the steps in the RIGHT order.",
       "pads": [
         { "k": "share", "e": "📤 Share the poster", "c": "#4338ca" },
         { "k": "helped", "e": "🤖 AI helped me make it", "c": "#7c3aed" },
-        { "k": "credit", "e": "🏷️ Tell the truth and give credit", "c": "#0891b2" }
+        { "k": "credit", "e": "🏷️ Tell the truth and give credit", "c": "#0e7490" }
       ],
       "answer": ["helped", "credit", "share"],
       "reason": "First the AI HELPED you make it. Then you TELL THE TRUTH and give credit for that help. Then you SHARE the poster. Being honest is the right thing to do."

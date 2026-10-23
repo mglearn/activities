@@ -347,7 +347,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Trust, but Verify",
      "q": "An AI answer can sound sure but still be wrong. Before you trust it, you should ______ it.",
      "answer": [
@@ -364,7 +364,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Use an AI Helper Well",
      "q": "You use an AI helper for a class poster. Tap the steps in the RIGHT order.",
      "pads": [
@@ -381,7 +381,7 @@ window.BREAKOUT = {
       {
        "k": "read",
        "e": "👀 Read what it made",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -487,7 +487,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Confía, pero verifica",
      "q": "La respuesta de una IA puede sonar segura y aun así estar mal. Antes de confiar en ella, debes ______ la.",
      "answer": [
@@ -509,7 +509,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Usa bien una ayudante de IA",
      "q": "Usas una ayudante de IA para un cartel de la clase. Toca los pasos en el orden CORRECTO.",
      "pads": [
@@ -526,7 +526,7 @@ window.BREAKOUT = {
       {
        "k": "read",
        "e": "👀 Lee lo que hizo",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -632,7 +632,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Tin Nhưng Phải Kiểm Chứng",
      "q": "Một câu trả lời của AI có thể nghe chắc chắn nhưng vẫn sai. Trước khi tin nó, em nên ______ nó.",
      "answer": [
@@ -654,7 +654,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Dùng Trợ Lý AI Cho Đúng",
      "q": "Em dùng một trợ lý AI để làm áp phích cho lớp. Hãy chạm vào các bước theo đúng thứ tự.",
      "pads": [
@@ -671,7 +671,7 @@ window.BREAKOUT = {
       {
        "k": "read",
        "e": "👀 Đọc những gì nó tạo ra",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -777,7 +777,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "ثِق ولكن تحقّق",
      "q": "قد تبدو إجابة الذكاء الاصطناعي واثقة لكنها مع ذلك خاطئة. قبل أن تثق بها، عليك أن ______ منها.",
      "answer": [
@@ -799,7 +799,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "استخدم مساعد الذكاء الاصطناعي جيدًا",
      "q": "تستخدم مساعد ذكاء اصطناعي لملصق الصف. اضغط الخطوات بالترتيب الصحيح.",
      "pads": [
@@ -816,7 +816,7 @@ window.BREAKOUT = {
       {
        "k": "read",
        "e": "👀 اقرأ ما صنعه",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -922,7 +922,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "भरोसा करो, पर जांचो",
      "q": "एक AI जवाब पक्का लग सकता है पर फिर भी गलत हो सकता है। इस पर भरोसा करने से पहले, तुम्हें इसे ______ चाहिए।",
      "answer": [
@@ -944,7 +944,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "AI सहायक का अच्छा उपयोग करो",
      "q": "तुम कक्षा के पोस्टर के लिए एक AI सहायक का उपयोग करते हो। चरणों को सही क्रम में दबाओ।",
      "pads": [
@@ -961,7 +961,7 @@ window.BREAKOUT = {
       {
        "k": "read",
        "e": "👀 इसने जो बनाया उसे पढ़ो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1067,7 +1067,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "بھروسہ کریں، مگر تصدیق کریں",
      "q": "اے آئی کا جواب یقین بھرا لگ سکتا ہے مگر پھر بھی غلط ہو سکتا ہے۔ اس پر بھروسہ کرنے سے پہلے آپ کو اسے ______ چاہیے۔",
      "answer": [
@@ -1089,7 +1089,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "اے آئی مددگار کو اچھی طرح استعمال کریں",
      "q": "آپ ایک کلاس پوسٹر کے لیے اے آئی مددگار استعمال کرتے ہیں۔ مراحل کو درست ترتیب میں دبائیں۔",
      "pads": [
@@ -1106,7 +1106,7 @@ window.BREAKOUT = {
       {
        "k": "read",
        "e": "👀 جو اس نے بنایا اسے پڑھیں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1212,7 +1212,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "信任，但要核实",
      "q": "AI 的答案听起来很有把握，却仍可能是错的。在你相信它之前，你应该先 ______ 它。",
      "answer": [
@@ -1234,7 +1234,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "用好 AI 帮手",
      "q": "你用一个 AI 帮手来做班级海报。按正确的顺序点击这些步骤。",
      "pads": [
@@ -1251,7 +1251,7 @@ window.BREAKOUT = {
       {
        "k": "read",
        "e": "👀 读一读它做出的东西",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [

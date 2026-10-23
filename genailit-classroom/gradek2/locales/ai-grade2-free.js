@@ -347,7 +347,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "The Magic Word",
      "q": "To get a better answer, you must tell the AI helper what you want in a ______ way.",
      "answer": [
@@ -361,7 +361,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Ask the Right Way",
      "q": "You want the AI helper to draw a picture. Tap the steps in the RIGHT order.",
      "pads": [
@@ -378,7 +378,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🗣️ Ask in clear words",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -484,7 +484,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "La palabra mágica",
      "q": "Para conseguir una mejor respuesta, debes decirle al ayudante de IA lo que quieres de forma ______.",
      "answer": [
@@ -498,7 +498,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Pide de la forma correcta",
      "q": "Quieres que el ayudante de IA dibuje una imagen. Toca los pasos en el orden CORRECTO.",
      "pads": [
@@ -515,7 +515,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🗣️ Pide con palabras claras",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -621,7 +621,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Từ Kỳ Diệu",
      "q": "Để có một câu trả lời tốt hơn, bạn phải nói cho người giúp đỡ AI điều bạn muốn một cách ______.",
      "answer": [
@@ -635,7 +635,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Hỏi Đúng Cách",
      "q": "Bạn muốn người giúp đỡ AI vẽ một bức tranh. Hãy chạm vào các bước theo ĐÚNG thứ tự.",
      "pads": [
@@ -652,7 +652,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🗣️ Hỏi bằng những từ rõ ràng",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -758,7 +758,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "الكلمة السحرية",
      "q": "لتحصل على إجابة أفضل، يجب أن تخبر المساعد الذكيّ بما تريد بطريقة ______.",
      "answer": [
@@ -772,7 +772,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "اسأل بالطريقة الصحيحة",
      "q": "تريد من المساعد الذكيّ أن يرسم صورة. انقر الخطوات بالترتيب الصحيح.",
      "pads": [
@@ -789,7 +789,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🗣️ اسأل بكلمات واضحة",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -895,7 +895,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "जादुई शब्द",
      "q": "बेहतर जवाब पाने के लिए, तुम्हें AI मददगार को ______ तरीके से बताना होगा कि तुम क्या चाहते हो।",
      "answer": [
@@ -909,7 +909,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "सही तरीके से माँगो",
      "q": "तुम चाहते हो कि AI मददगार एक तस्वीर बनाए। कदमों पर सही क्रम में टैप करो।",
      "pads": [
@@ -926,7 +926,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🗣️ साफ़ शब्दों में माँगो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1032,7 +1032,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "جادوئی لفظ",
      "q": "بہتر جواب پانے کے لیے، آپ کو اے آئی مددگار کو ______ طریقے سے بتانا ہوگا کہ آپ کیا چاہتے ہیں۔",
      "answer": [
@@ -1046,7 +1046,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "درست طریقے سے پوچھیں",
      "q": "آپ چاہتے ہیں کہ اے آئی مددگار ایک تصویر بنائے۔ قدموں کو درست ترتیب میں ٹیپ کریں۔",
      "pads": [
@@ -1063,7 +1063,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🗣️ صاف الفاظ میں پوچھیں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1169,7 +1169,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "神奇的词",
      "q": "为了得到更好的答案，你必须用______的方式告诉人工智能帮手你想要什么。",
      "answer": [
@@ -1183,7 +1183,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "用对方式来问",
      "q": "你想让人工智能帮手画一幅画。按正确的顺序点这些步骤。",
      "pads": [
@@ -1200,7 +1200,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🗣️ 用清楚的话问",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <title>Be Kind Online — Teacher launch (Grade 3)</title>
@@ -96,10 +97,9 @@
     <script>(function(){var s=document.getElementById('gcLdcgrade3free'),u=document.getElementById('gcUdcgrade3free'),b=document.getElementById('gcCdcgrade3free');
       function upd(){var x=new URL('dc-grade3-free-student.html',location.href);if(s.value!=='en')x.searchParams.set('lang',s.value);u.value=x.href;}
       s.onchange=upd;upd();u.onfocus=function(){u.select();};
-      b.onclick=function(){navigator.clipboard.writeText(u.value).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Copy student link';},1600);});};})();</script>
+      b.onclick=function(){var no=function(){u.focus();u.select();b.textContent='Press Ctrl+C';};if(!navigator.clipboard)return no();navigator.clipboard.writeText(u.value).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Copy student link';},1600);},no);};})();</script>
   </div><!--/gc-->
 
-  
   <div class="panel gold">
     <h3 data-i18n="t1ev6p2h">The premise</h3>
     <p data-i18n="tqgvms">Words on a screen can make someone feel happy or sad. A Kindness Captain helps everyone feel safe and welcome online. Read the clues, then open all four locks. Each lock shows a reason after it opens, so you learn why the kind choice is the right choice.</p>

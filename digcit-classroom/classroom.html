@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <title>Google Classroom Guide — Digital Citizenship Breakouts</title>
@@ -194,7 +195,9 @@ document.querySelectorAll('[data-copy]').forEach(function (b) {
     var el = document.getElementById(b.getAttribute('data-copy'));
     var txt = (el.value !== undefined ? el.value : el.innerText.replace(/^Copy\s*/, '')).trim();
     var old = b.textContent;
-    navigator.clipboard.writeText(txt).then(function () { b.textContent = 'Copied!'; setTimeout(function () { b.textContent = old; }, 1600); });
+    var fail = function () { b.textContent = 'Press Ctrl+C'; if (el.select) el.select(); else { var r = document.createRange(); r.selectNodeContents(el); getSelection().removeAllRanges(); getSelection().addRange(r); } };
+    if (!navigator.clipboard) return fail();
+    navigator.clipboard.writeText(txt).then(function () { b.textContent = 'Copied!'; setTimeout(function () { b.textContent = old; }, 1600); }, fail);
   });
 });
 </script>

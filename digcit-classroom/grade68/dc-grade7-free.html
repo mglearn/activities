@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <title>Clickbait Detector — Teacher launch (Grade 7)</title>
@@ -96,10 +97,9 @@
     <script>(function(){var s=document.getElementById('gcLdcgrade7free'),u=document.getElementById('gcUdcgrade7free'),b=document.getElementById('gcCdcgrade7free');
       function upd(){var x=new URL('dc-grade7-free-student.html',location.href);if(s.value!=='en')x.searchParams.set('lang',s.value);u.value=x.href;}
       s.onchange=upd;upd();u.onfocus=function(){u.select();};
-      b.onclick=function(){navigator.clipboard.writeText(u.value).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Copy student link';},1600);});};})();</script>
+      b.onclick=function(){var no=function(){u.focus();u.select();b.textContent='Press Ctrl+C';};if(!navigator.clipboard)return no();navigator.clipboard.writeText(u.value).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Copy student link';},1600);},no);};})();</script>
   </div><!--/gc-->
 
-  
   <div class="panel gold">
     <h3 data-i18n="t1ev6p2h">The premise</h3>
     <p data-i18n="t15ws9v3">Clickbait is built to yank your attention and rush you into tapping and sharing before you think. Work through the clues to open all four locks: each one hides a reason that proves why the smart answer is right. Read past the headline, check the source, then decide — like a detector, not a target.</p>

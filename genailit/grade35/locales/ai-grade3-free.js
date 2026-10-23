@@ -347,7 +347,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Not a Person",
      "q": "A voice assistant answers you, but it is not alive. It is a computer ______.",
      "answer": [
@@ -362,7 +362,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "You Are In Charge",
      "q": "A video app suggests a show. Tap the steps in the RIGHT order.",
      "pads": [
@@ -379,7 +379,7 @@ window.BREAKOUT = {
       {
        "k": "look",
        "e": "👀 You look at the suggestion",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -485,7 +485,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "No es una persona",
      "q": "Un asistente de voz te responde, pero no está vivo. Es una ______ de computadora.",
      "answer": [
@@ -503,7 +503,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Tú estás a cargo",
      "q": "Una aplicación de videos sugiere un programa. Toca los pasos en el orden CORRECTO.",
      "pads": [
@@ -520,7 +520,7 @@ window.BREAKOUT = {
       {
        "k": "look",
        "e": "👀 Tú miras la sugerencia",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -626,7 +626,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Không phải con người",
      "q": "Một trợ lý giọng nói trả lời bạn, nhưng nó không sống. Nó là một ______ máy tính.",
      "answer": [
@@ -645,7 +645,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Bạn là người phụ trách",
      "q": "Một ứng dụng video gợi ý một chương trình. Hãy chạm vào các bước theo ĐÚNG thứ tự.",
      "pads": [
@@ -662,7 +662,7 @@ window.BREAKOUT = {
       {
        "k": "look",
        "e": "👀 Bạn nhìn vào gợi ý",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -768,7 +768,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "ليس شخصًا",
      "q": "يجيبك المساعد الصوتي، لكنه ليس حيًّا. إنه ______ حاسوبية.",
      "answer": [
@@ -787,7 +787,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "أنت المسؤول",
      "q": "يقترح تطبيق فيديو برنامجًا. انقر الخطوات بالترتيب الصحيح.",
      "pads": [
@@ -804,7 +804,7 @@ window.BREAKOUT = {
       {
        "k": "look",
        "e": "👀 أنت تنظر إلى الاقتراح",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -910,7 +910,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "व्यक्ति नहीं",
      "q": "एक आवाज़ सहायक तुम्हें जवाब देता है, पर यह जीवित नहीं है। यह एक कंप्यूटर ______ है।",
      "answer": [
@@ -930,7 +930,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "तुम प्रभारी हो",
      "q": "एक वीडियो ऐप कोई शो सुझाता है। कदमों पर सही क्रम में टैप करो।",
      "pads": [
@@ -947,7 +947,7 @@ window.BREAKOUT = {
       {
        "k": "look",
        "e": "👀 तुम सुझाव को देखते हो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1053,7 +1053,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "کوئی انسان نہیں",
      "q": "ایک آواز والا مددگار آپ کو جواب دیتا ہے، مگر یہ زندہ نہیں ہے۔ یہ ایک کمپیوٹر ______ ہے۔",
      "answer": [
@@ -1073,7 +1073,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "باس آپ ہیں",
      "q": "ایک ویڈیو ایپ ایک شو تجویز کرتی ہے۔ مراحل کو درست ترتیب میں دبائیں۔",
      "pads": [
@@ -1090,7 +1090,7 @@ window.BREAKOUT = {
       {
        "k": "look",
        "e": "👀 آپ تجویز کو دیکھتے ہیں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1196,7 +1196,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "不是一个人",
      "q": "语音助手会回答你，但它不是活的。它是一个电脑______。",
      "answer": [
@@ -1215,7 +1215,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "你说了算",
      "q": "一个视频应用推荐了一个节目。按正确的顺序点这些步骤。",
      "pads": [
@@ -1232,7 +1232,7 @@ window.BREAKOUT = {
       {
        "k": "look",
        "e": "👀 你看看这个推荐",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [

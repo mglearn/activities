@@ -347,7 +347,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Name the Harm",
      "q": "A biased AI can repeat an unfair, oversimplified idea about a whole group. That idea is called a ______.",
      "answer": [
@@ -360,7 +360,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Evaluate the Answer",
      "q": "An AI gives you a one-sided answer about a topic. Tap the steps to evaluate it in the RIGHT order.",
      "pads": [
@@ -377,7 +377,7 @@ window.BREAKOUT = {
       {
        "k": "crosscheck",
        "e": "🔎 Cross-check other sources",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -483,7 +483,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Nombra el daño",
      "q": "Una IA sesgada puede repetir una idea injusta y simplificada sobre todo un grupo. Esa idea se llama un ______.",
      "answer": [
@@ -499,7 +499,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Evalúa la respuesta",
      "q": "Una IA te da una respuesta parcial sobre un tema. Toca los pasos para evaluarla en el orden CORRECTO.",
      "pads": [
@@ -516,7 +516,7 @@ window.BREAKOUT = {
       {
        "k": "crosscheck",
        "e": "🔎 Compara con otras fuentes",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -622,7 +622,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Gọi Tên Tác Hại",
      "q": "Một AI mang thiên kiến có thể lặp lại một quan niệm không công bằng, quá đơn giản về cả một nhóm người. Quan niệm đó được gọi là ______.",
      "answer": [
@@ -639,7 +639,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Đánh Giá Câu Trả Lời",
      "q": "Một AI đưa cho em một câu trả lời một chiều về một chủ đề. Hãy chạm vào các bước để đánh giá theo đúng thứ tự.",
      "pads": [
@@ -656,7 +656,7 @@ window.BREAKOUT = {
       {
        "k": "crosscheck",
        "e": "🔎 Đối chiếu với các nguồn khác",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -762,7 +762,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "سمِّ الضرر",
      "q": "قد يكرّر ذكاء اصطناعي متحيّز فكرة غير عادلة ومُفرطة التبسيط عن جماعة كاملة. تُسمّى تلك الفكرة ______.",
      "answer": [
@@ -779,7 +779,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "قيّم الإجابة",
      "q": "يعطيك ذكاء اصطناعي إجابة أحادية الجانب عن موضوع. اضغط الخطوات لتقييمها بالترتيب الصحيح.",
      "pads": [
@@ -796,7 +796,7 @@ window.BREAKOUT = {
       {
        "k": "crosscheck",
        "e": "🔎 راجع مصادر أخرى للتحقق",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -902,7 +902,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "नुकसान का नाम बताओ",
      "q": "एक पूर्वाग्रही AI किसी पूरे समूह के बारे में एक अनुचित, अति-सरलीकृत विचार दोहरा सकता है। उस विचार को ______ कहा जाता है।",
      "answer": [
@@ -919,7 +919,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "जवाब का मूल्यांकन करो",
      "q": "एक AI तुम्हें किसी विषय पर एकतरफा जवाब देता है। इसका मूल्यांकन करने के चरणों को सही क्रम में दबाओ।",
      "pads": [
@@ -936,7 +936,7 @@ window.BREAKOUT = {
       {
        "k": "crosscheck",
        "e": "🔎 अन्य स्रोतों से मिलान करो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1042,7 +1042,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "نقصان کا نام بتائیں",
      "q": "ایک متعصب اے آئی پورے گروہ کے بارے میں کوئی غیر منصفانہ، حد سے زیادہ سادہ خیال دہرا سکتی ہے۔ اس خیال کو ______ کہتے ہیں۔",
      "answer": [
@@ -1058,7 +1058,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "جواب کا جائزہ لیں",
      "q": "اے آئی آپ کو کسی موضوع پر یک طرفہ جواب دیتی ہے۔ اس کا درست ترتیب میں جائزہ لینے کے لیے مراحل دبائیں۔",
      "pads": [
@@ -1075,7 +1075,7 @@ window.BREAKOUT = {
       {
        "k": "crosscheck",
        "e": "🔎 دوسرے ذرائع سے کراس چیک کریں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1181,7 +1181,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "给这种伤害起个名字",
      "q": "一个有偏见的 AI 会反复重复一个对整个群体既不公平又过度简化的看法。这种看法叫做 ______。",
      "answer": [
@@ -1197,7 +1197,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "评估这个答案",
      "q": "AI 就某个话题给了你一个片面的答案。按正确的顺序点击这些步骤来评估它。",
      "pads": [
@@ -1214,7 +1214,7 @@ window.BREAKOUT = {
       {
        "k": "crosscheck",
        "e": "🔎 对照其他来源做交叉核对",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [

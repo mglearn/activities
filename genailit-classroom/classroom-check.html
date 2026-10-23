@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <title>Check Completion Codes — Gen AI Literacy Breakouts</title>
@@ -95,10 +96,11 @@
 
   <h2>Check codes students turned in</h2>
   <p class="section-note">One student per line: the name and then the code, separated by a space, comma, or tab. The activity is read from the code itself, so you can mix activities in one list.</p>
+  <label for="ckIn"><b>Student names and codes</b></label>
   <textarea class="gc-ta" id="ckIn" placeholder="Maria Lopez  AI3F-49ME-6JA4&#10;Garcia Ruiz, Jose, AI3F-MFDF-FHJT" spellcheck="false"></textarea>
   <p><button type="button" class="gc-btn" id="ckGo">Check codes</button></p>
   <div class="tbl-wrap" id="ckOutWrap" hidden><table><thead><tr><th>Student</th><th>Activity</th><th>Code</th><th>Result</th></tr></thead><tbody id="ckOut"></tbody></table></div>
-  <p class="small" id="ckSum"></p>
+  <p class="small" id="ckSum" role="status" aria-live="polite"></p>
 
   <h2>Expected codes for my roster</h2>
   <p class="section-note">Choose the activity and paste your class list, one name per line. You can copy it from Classroom's <b>People</b> tab or from your SIS.</p>
@@ -122,6 +124,7 @@
         <option value="ai-grade8-free">Grade 8 — Give AI Credit</option>
         <option value="ai-grade8">Grade 8 — Build with AI, Responsibly</option>
       </select></p>
+  <label for="rsIn"><b>Class roster (one name per line)</b></label>
   <textarea class="gc-ta" id="rsIn" placeholder="Maria Lopez&#10;Jose Garcia Ruiz" spellcheck="false"></textarea>
   <p><button type="button" class="gc-btn" id="rsGo">Make codes</button> <button type="button" class="gc-btn" id="rsCopy" hidden>Copy for a spreadsheet</button></p>
   <div class="tbl-wrap" id="rsOutWrap" hidden><table><thead><tr><th>Student</th><th>Expected code</th></tr></thead><tbody id="rsOut"></tbody></table></div>
@@ -156,7 +159,9 @@
   };
   $('rsCopy').onclick = function () {
     var b = this, tsv = 'Student\tExpected code (' + ACTS[$('rsAct').value] + ')\n' + rows.map(function (r) { return r.join('\t'); }).join('\n');
-    navigator.clipboard.writeText(tsv).then(function () { b.textContent = 'Copied!'; setTimeout(function () { b.textContent = 'Copy for a spreadsheet'; }, 1600); });
+    var fail = function () { b.textContent = 'Copy blocked: select the table and press Ctrl+C'; };
+    if (!navigator.clipboard) return fail();
+    navigator.clipboard.writeText(tsv).then(function () { b.textContent = 'Copied!'; setTimeout(function () { b.textContent = 'Copy for a spreadsheet'; }, 1600); }, fail);
   };
 })();
 </script>

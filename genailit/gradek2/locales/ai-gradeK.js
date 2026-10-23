@@ -347,7 +347,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Keep It Safe",
      "q": "Your name and home are secret. Keep them ______ from a bot.",
      "answer": [
@@ -360,7 +360,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Ask a Grown-Up",
      "q": "You want to use an AI helper. Tap the steps in the RIGHT order.",
      "pads": [
@@ -377,7 +377,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🙋 Ask a grown-up",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -483,7 +483,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Mantenlo seguro",
      "q": "Tu nombre y tu casa son secretos. Mantenlos ______ de un robot.",
      "answer": [
@@ -496,7 +496,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Pregúntale a un adulto",
      "q": "Quieres usar un ayudante de IA. Toca los pasos en el orden CORRECTO.",
      "pads": [
@@ -513,7 +513,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🙋 Pregúntale a un adulto",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -619,7 +619,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Giữ An Toàn",
      "q": "Tên và nhà của bạn là bí mật. Hãy giữ chúng ______ khỏi một con bot.",
      "answer": [
@@ -632,7 +632,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Hỏi Người Lớn",
      "q": "Bạn muốn dùng một người giúp đỡ AI. Hãy chạm vào các bước theo ĐÚNG thứ tự.",
      "pads": [
@@ -649,7 +649,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🙋 Hỏi người lớn",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -755,7 +755,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "أبقِه آمنًا",
      "q": "اسمك وبيتك سرّ. أبقِهما ______ عن روبوت.",
      "answer": [
@@ -768,7 +768,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "اسأل شخصًا بالغًا",
      "q": "تريد أن تستعمل مساعدًا ذكيًّا. انقر الخطوات بالترتيب الصحيح.",
      "pads": [
@@ -785,7 +785,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🙋 اسأل شخصًا بالغًا",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -891,7 +891,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "इसे सुरक्षित रखो",
      "q": "तुम्हारा नाम और घर गुप्त हैं। इन्हें किसी बॉट से ______ रखो।",
      "answer": [
@@ -904,7 +904,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "किसी बड़े से पूछो",
      "q": "तुम एक AI मददगार इस्तेमाल करना चाहते हो। कदमों पर सही क्रम में टैप करो।",
      "pads": [
@@ -921,7 +921,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🙋 किसी बड़े से पूछो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1027,7 +1027,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "محفوظ رکھیں",
      "q": "آپ کا نام اور گھر راز ہیں۔ اِنہیں بوٹ سے ______ رکھیں۔",
      "answer": [
@@ -1040,7 +1040,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "کسی بڑے سے پوچھیں",
      "q": "آپ اے آئی مددگار استعمال کرنا چاہتے ہیں۔ قدموں کو درست ترتیب میں ٹیپ کریں۔",
      "pads": [
@@ -1057,7 +1057,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🙋 کسی بڑے سے پوچھیں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1163,7 +1163,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "把它藏好",
      "q": "你的名字和家是秘密。要把它们对机器人______起来。",
      "answer": [
@@ -1176,7 +1176,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "问大人",
      "q": "你想用人工智能帮手。按正确的顺序点这些步骤。",
      "pads": [
@@ -1193,7 +1193,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🙋 问大人",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [

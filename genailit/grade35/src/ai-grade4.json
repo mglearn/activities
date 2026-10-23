@@ -107,7 +107,7 @@
     {
       "id": "L3",
       "type": "multi",
-      "color": "#0891b2",
+      "color": "#0e7490",
       "title": "Make It Better",
       "q": "Check EVERY thing that would make an AI's guesses BETTER and FAIRER.",
       "items": [
@@ -137,7 +137,7 @@
     {
       "id": "L4",
       "type": "seq",
-      "color": "#0d9488",
+      "color": "#0f766e",
       "title": "Fix the Report",
       "q": "Your AI book report has a made-up character. Tap the steps to fix it in the RIGHT order.",
       "pads": [
@@ -154,7 +154,7 @@
         {
           "k": "fix",
           "e": "✏️ Fix the report yourself",
-          "c": "#0891b2"
+          "c": "#0e7490"
         }
       ],
       "answer": [

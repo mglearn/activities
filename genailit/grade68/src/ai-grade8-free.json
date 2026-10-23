@@ -103,7 +103,7 @@
     {
       "id": "L3",
       "type": "word",
-      "color": "#0891b2",
+      "color": "#0e7490",
       "title": "Give It Credit",
       "q": "When an AI helped you with schoolwork, being honest means you ______ that help instead of hiding it.",
       "answer": ["disclose", "disclosed", "disclosing", "cite", "cited", "citing", "credit", "credited", "acknowledge"],
@@ -112,13 +112,13 @@
     {
       "id": "L4",
       "type": "seq",
-      "color": "#0d9488",
+      "color": "#0f766e",
       "title": "Use AI Honestly",
       "q": "You'll use an AI to help with a class assignment. Tap the honest steps in the RIGHT order.",
       "pads": [
         { "k": "rules", "e": "📋 Check your teacher's rules", "c": "#4338ca" },
         { "k": "think", "e": "🧠 Do your own thinking first", "c": "#7c3aed" },
-        { "k": "verify", "e": "✔️ Verify the facts AI gives", "c": "#0891b2" },
+        { "k": "verify", "e": "✔️ Verify the facts AI gives", "c": "#0e7490" },
         { "k": "credit", "e": "🏷️ Credit the AI's help", "c": "#6d28d9" }
       ],
       "answer": ["rules", "think", "verify", "credit"],

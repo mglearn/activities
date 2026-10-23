@@ -347,7 +347,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Name the Habit",
      "q": "Before you use an AI answer, you compare it to a trusted source to make sure it is true. In one word, this habit is to ______ the answer.",
      "answer": [
@@ -365,7 +365,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "The Verify Habit",
      "q": "A chatbot just answered your question. Tap the steps to double-check it in the RIGHT order.",
      "pads": [
@@ -382,7 +382,7 @@ window.BREAKOUT = {
       {
        "k": "decide",
        "e": "🧠 Fix it or decide to use it",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -488,7 +488,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Nombra el hábito",
      "q": "Antes de usar una respuesta de IA, la comparas con una fuente confiable para asegurarte de que es verdad. En una palabra, este hábito es ______ la respuesta.",
      "answer": [
@@ -510,7 +510,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "El hábito de verificar",
      "q": "Un chatbot acaba de responder tu pregunta. Toca los pasos para verificarla dos veces en el orden CORRECTO.",
      "pads": [
@@ -527,7 +527,7 @@ window.BREAKOUT = {
       {
        "k": "decide",
        "e": "🧠 Corrígela o decide usarla",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -633,7 +633,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Gọi tên thói quen",
      "q": "Trước khi bạn dùng một câu trả lời của AI, bạn so sánh nó với một nguồn đáng tin cậy để chắc chắn nó đúng. Trong một từ, thói quen này là ______ câu trả lời.",
      "answer": [
@@ -656,7 +656,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Thói quen xác minh",
      "q": "Một chatbot vừa trả lời câu hỏi của bạn. Hãy chạm vào các bước để kiểm tra lại nó theo ĐÚNG thứ tự.",
      "pads": [
@@ -673,7 +673,7 @@ window.BREAKOUT = {
       {
        "k": "decide",
        "e": "🧠 Sửa nó hoặc quyết định dùng nó",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -779,7 +779,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "سمِّ العادة",
      "q": "قبل أن تستخدم إجابة الذكاء الاصطناعي، تقارنها بمصدر موثوق للتأكّد من صحّتها. في كلمة واحدة، هذه العادة هي أن ______ الإجابة.",
      "answer": [
@@ -802,7 +802,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "عادة التحقّق",
      "q": "أجاب روبوت محادثة للتوّ عن سؤالك. انقر الخطوات للتحقّق منه مرّتين بالترتيب الصحيح.",
      "pads": [
@@ -819,7 +819,7 @@ window.BREAKOUT = {
       {
        "k": "decide",
        "e": "🧠 أصلحها أو قرّر أن تستخدمها",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -925,7 +925,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "आदत का नाम बताओ",
      "q": "किसी AI जवाब को इस्तेमाल करने से पहले, तुम इसे किसी भरोसेमंद स्रोत से तुलना करके पक्का करते हो कि यह सच है। एक शब्द में, यह आदत जवाब को ______ करना है।",
      "answer": [
@@ -951,7 +951,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "सत्यापन की आदत",
      "q": "एक चैटबॉट ने अभी तुम्हारे सवाल का जवाब दिया। इसे दोबारा जाँचने के कदमों पर सही क्रम में टैप करो।",
      "pads": [
@@ -968,7 +968,7 @@ window.BREAKOUT = {
       {
        "k": "decide",
        "e": "🧠 इसे ठीक करो या इस्तेमाल करने का फैसला करो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1074,7 +1074,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "عادت کا نام بتائیں",
      "q": "کسی اے آئی جواب کو استعمال کرنے سے پہلے، آپ اسے کسی قابلِ اعتماد ذریعے سے موازنہ کرتے ہیں تاکہ یقینی بنائیں کہ یہ سچ ہے۔ ایک لفظ میں، یہ عادت جواب کو ______ ہے۔",
      "answer": [
@@ -1098,7 +1098,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "تصدیق کی عادت",
      "q": "ایک چیٹ بوٹ نے ابھی آپ کے سوال کا جواب دیا۔ اسے دوبارہ جانچنے کے مراحل کو درست ترتیب میں دبائیں۔",
      "pads": [
@@ -1115,7 +1115,7 @@ window.BREAKOUT = {
       {
        "k": "decide",
        "e": "🧠 اسے ٹھیک کریں یا استعمال کرنے کا فیصلہ کریں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1221,7 +1221,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "给习惯起名",
      "q": "在你用一个人工智能答案之前，你拿它跟一个可信来源对照，以确保它是真的。用一个词说，这个习惯就是______这个答案。",
      "answer": [
@@ -1244,7 +1244,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "核实的习惯",
      "q": "一个聊天机器人刚回答了你的问题。按正确的顺序点这些步骤来反复核对它。",
      "pads": [
@@ -1261,7 +1261,7 @@ window.BREAKOUT = {
       {
        "k": "decide",
        "e": "🧠 修正它或决定使用它",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [

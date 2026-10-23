@@ -328,7 +328,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Ask It Clearly Habits",
      "q": "Check EVERY habit that makes a question clear.",
      "items": [
@@ -358,7 +358,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Fix a Fuzzy Question",
      "q": "Your first answer was off because your question was fuzzy. Tap the steps to fix it in the RIGHT order.",
      "pads": [
@@ -375,7 +375,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "🔎 Check the answer",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -465,7 +465,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Hábitos para preguntar con claridad",
      "q": "Marca CADA hábito que hace que una pregunta sea clara.",
      "items": [
@@ -495,7 +495,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Arregla una pregunta vaga",
      "q": "Tu primera respuesta no sirvió porque tu pregunta era vaga. Toca los pasos para arreglarla en el orden CORRECTO.",
      "pads": [
@@ -512,7 +512,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "🔎 Revisa la respuesta",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -602,7 +602,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Thói quen hỏi cho rõ ràng",
      "q": "Hãy đánh dấu MỌI thói quen làm cho một câu hỏi rõ ràng.",
      "items": [
@@ -632,7 +632,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Sửa một câu hỏi mơ hồ",
      "q": "Câu trả lời đầu tiên của bạn bị sai lệch vì câu hỏi của bạn mơ hồ. Hãy chạm vào các bước để sửa nó theo ĐÚNG thứ tự.",
      "pads": [
@@ -649,7 +649,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "🔎 Kiểm tra câu trả lời",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -737,7 +737,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "عادات السؤال بوضوح",
      "q": "علّم على كل عادة تجعل السؤال واضحًا.",
      "items": [
@@ -767,7 +767,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "أصلِح سؤالًا غامضًا",
      "q": "كانت إجابتك الأولى بعيدة لأن سؤالك كان غامضًا. انقر الخطوات لإصلاحه بالترتيب الصحيح.",
      "pads": [
@@ -784,7 +784,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "🔎 تحقّق من الإجابة",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -872,7 +872,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "साफ़-साफ़ पूछने की आदतें",
      "q": "हर उस आदत को चुनो जो सवाल को साफ़ बनाती है।",
      "items": [
@@ -902,7 +902,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "धुँधला सवाल ठीक करो",
      "q": "तुम्हारा पहला जवाब गलत था क्योंकि तुम्हारा सवाल धुँधला था। इसे ठीक करने के कदमों पर सही क्रम में टैप करो।",
      "pads": [
@@ -919,7 +919,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "🔎 जवाब जाँचो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1007,7 +1007,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "واضح پوچھنے کی عادات",
      "q": "ہر اس عادت پر نشان لگائیں جو سوال کو واضح بناتی ہے۔",
      "items": [
@@ -1037,7 +1037,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "دھندلا سوال درست کریں",
      "q": "آپ کا پہلا جواب صحیح نہیں تھا کیونکہ آپ کا سوال دھندلا تھا۔ اسے درست کرنے کے مراحل کو درست ترتیب میں دبائیں۔",
      "pads": [
@@ -1054,7 +1054,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "🔎 جواب کو جانچیں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1142,7 +1142,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "把问题问清楚的习惯",
      "q": "把每一个能让问题变清楚的习惯都勾选出来。",
      "items": [
@@ -1172,7 +1172,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "修好一个含糊的问题",
      "q": "你第一次得到的答案不对，因为你的问题太含糊了。按正确的顺序点这些步骤来修好它。",
      "pads": [
@@ -1189,7 +1189,7 @@ window.BREAKOUT = {
       {
        "k": "check",
        "e": "🔎 检查答案",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [

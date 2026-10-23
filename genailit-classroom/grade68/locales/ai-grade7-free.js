@@ -347,7 +347,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Name the Fix",
      "q": "To make an AI fairer, builders add data that better reflects everyone it will serve. Data that includes all the groups fairly is called ______ data.",
      "answer": [
@@ -361,7 +361,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Check It for Fairness",
      "q": "An AI gives an answer that seems to work for some people but not others. Tap the steps to check it for fairness in the RIGHT order.",
      "pads": [
@@ -378,7 +378,7 @@ window.BREAKOUT = {
       {
        "k": "fix",
        "e": "🌍 Suggest more representative data",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -484,7 +484,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Nombra la solución",
      "q": "Para hacer una IA más justa, quienes la construyen agregan datos que reflejan mejor a todos a quienes va a servir. Los datos que incluyen a todos los grupos de forma justa se llaman datos ______.",
      "answer": [
@@ -502,7 +502,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Revísalo para ver si es justo",
      "q": "Una IA da una respuesta que parece funcionar para algunas personas pero no para otras. Toca los pasos para revisar si es justa en el orden CORRECTO.",
      "pads": [
@@ -519,7 +519,7 @@ window.BREAKOUT = {
       {
        "k": "fix",
        "e": "🌍 Sugiere datos más representativos",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -625,7 +625,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Gọi tên cách khắc phục",
      "q": "Để làm AI công bằng hơn, những người xây dựng bổ sung dữ liệu phản ánh tốt hơn mọi người mà nó sẽ phục vụ. Dữ liệu bao gồm mọi nhóm một cách công bằng được gọi là dữ liệu ______.",
      "answer": [
@@ -643,7 +643,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Kiểm tra xem có công bằng không",
      "q": "Một AI đưa ra câu trả lời có vẻ được với một số người nhưng không với người khác. Chạm vào các bước để kiểm tra sự công bằng theo đúng thứ tự.",
      "pads": [
@@ -660,7 +660,7 @@ window.BREAKOUT = {
       {
        "k": "fix",
        "e": "🌍 Đề xuất dữ liệu đại diện hơn",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -766,7 +766,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "سمِّ الحلّ",
      "q": "لجعل الذكاء الاصطناعي أعدل، يضيف بانوه بيانات تعكس بشكل أفضل كل من سيخدمهم. البيانات التي تتضمّن كل الفئات بإنصاف تُسمّى بيانات ______.",
      "answer": [
@@ -784,7 +784,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "تحقّق منه للعدالة",
      "q": "يعطي الذكاء الاصطناعي إجابة تبدو أنها تعمل لبعض الناس لا لغيرهم. انقر الخطوات للتحقّق منها للعدالة بالترتيب الصحيح.",
      "pads": [
@@ -801,7 +801,7 @@ window.BREAKOUT = {
       {
        "k": "fix",
        "e": "🌍 اقترح بيانات أكثر تمثيلًا",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -907,7 +907,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "समाधान का नाम बताओ",
      "q": "किसी AI को अधिक न्यायपूर्ण बनाने के लिए, बनाने वाले ऐसा डेटा जोड़ते हैं जो उन सबको बेहतर ढंग से दर्शाए जिनकी वह सेवा करेगा। जो डेटा सभी समूहों को निष्पक्ष रूप से शामिल करता है, उसे ______ डेटा कहते हैं।",
      "answer": [
@@ -925,7 +925,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "न्याय के लिए इसे जाँचो",
      "q": "कोई AI ऐसा जवाब देता है जो कुछ लोगों के लिए काम करता दिखता है पर दूसरों के लिए नहीं। न्याय के लिए इसे जाँचने के चरणों को सही क्रम में छुओ।",
      "pads": [
@@ -942,7 +942,7 @@ window.BREAKOUT = {
       {
        "k": "fix",
        "e": "🌍 अधिक प्रतिनिधित्व वाले डेटा का सुझाव दो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1048,7 +1048,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "حل کا نام بتائیں",
      "q": "کسی اے آئی کو زیادہ منصفانہ بنانے کے لیے، بنانے والے ایسا ڈیٹا شامل کرتے ہیں جو ہر اس شخص کا بہتر عکس ہو جس کی یہ خدمت کرے گی۔ وہ ڈیٹا جو تمام گروہوں کو منصفانہ طور پر شامل کرے اسے ______ ڈیٹا کہتے ہیں۔",
      "answer": [
@@ -1066,7 +1066,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "اسے انصاف کے لیے جانچیں",
      "q": "ایک اے آئی ایسا جواب دیتی ہے جو کچھ لوگوں کے لیے کام کرتا لگتا ہے مگر دوسروں کے لیے نہیں۔ اسے انصاف کے لیے جانچنے کے مراحل کو درست ترتیب میں دبائیں۔",
      "pads": [
@@ -1083,7 +1083,7 @@ window.BREAKOUT = {
       {
        "k": "fix",
        "e": "🌍 زیادہ نمائندہ ڈیٹا تجویز کریں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1189,7 +1189,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "给解决办法起名",
      "q": "为了让人工智能更公平，建造者会加入能更好地反映它将服务的每一个人的数据。公平地包含所有群体的数据，叫做______的数据。",
      "answer": [
@@ -1207,7 +1207,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "检查它是否公平",
      "q": "一个人工智能给出的答案似乎对某些人有用、对另一些人没用。按正确的顺序点这些步骤来检查它是否公平。",
      "pads": [
@@ -1224,7 +1224,7 @@ window.BREAKOUT = {
       {
        "k": "fix",
        "e": "🌍 建议加入更有代表性的数据",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [

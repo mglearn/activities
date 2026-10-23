@@ -28,7 +28,25 @@
   function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 
-  var lang = (function () { var l = lsGet('lang'); return (l && (D.i18n[l] || COMMON[l])) ? l : 'en'; })();
+  // Language: ?lang= → the suite's saved choice (shared with the breakouts) → legacy key → English.
+  var LANG_KEY = 'tcea.breakouts.lang';
+  var lang = (function () {
+    var q = null; try { q = new URLSearchParams(location.search).get('lang'); } catch (e) {}
+    var c = [q, lsGet(LANG_KEY), lsGet('lang')];
+    for (var i = 0; i < c.length; i++) { var l = String(c[i] || '').slice(0, 2).toLowerCase(); if (LANGS.indexOf(l) >= 0) return l; }
+    return 'en';
+  })();
+  // Engine-level labels the game data doesn't carry (AI-seeded, pending native review).
+  var EXTRA = {
+    en: { langL: 'Language', untimed: 'No timer (play at your own pace)', tenLeft: '10 seconds left' },
+    es: { langL: 'Idioma', untimed: 'Sin reloj (juega a tu ritmo)', tenLeft: 'Quedan 10 segundos' },
+    vi: { langL: 'Ngôn ngữ', untimed: 'Không tính giờ (chơi theo tốc độ của em)', tenLeft: 'Còn 10 giây' },
+    ar: { langL: 'اللغة', untimed: 'بلا مؤقت (العب بالسرعة التي تناسبك)', tenLeft: 'بقيت 10 ثوانٍ' },
+    hi: { langL: 'भाषा', untimed: 'कोई टाइमर नहीं (अपनी गति से खेलें)', tenLeft: '10 सेकंड बाकी' },
+    ur: { langL: 'زبان', untimed: 'کوئی ٹائمر نہیں (اپنی رفتار سے کھیلیں)', tenLeft: '10 سیکنڈ باقی' },
+    zh: { langL: '语言', untimed: '不计时（按自己的节奏玩）', tenLeft: '还剩 10 秒' }
+  };
+  function x(k) { return (EXTRA[lang] || EXTRA.en)[k]; }
   function t(k) {
     var g = D.i18n[lang] || {}, gc = COMMON[lang] || {}, ge = D.i18n.en || {}, ce = COMMON.en || {};
     return g[k] != null ? g[k] : (gc[k] != null ? gc[k] : (ge[k] != null ? ge[k] : ce[k]));
@@ -40,7 +58,7 @@
   var root = document.getElementById('game');
   root.innerHTML =
     '<div class="atop"><div class="alang"><span class="globe" aria-hidden="true">🌐</span>' +
-    '<select id="aLang" aria-label="Language"></select></div></div>' +
+    '<select id="aLang"></select></div></div>' +
     '<div class="acrumb"><a id="aBack" href="index.html">‹ ' + esc(t('back')) + '</a> · <a id="aHome" href="../index.html">' + esc(t('home')) + '</a></div>' +
     '<div class="ahero"><div class="aico">' + (D.icon || '🕹️') + '</div><h1 id="aTitle"></h1><p id="aSub"></p></div>' +
     '<div class="ahud">' +
@@ -54,8 +72,9 @@
     '<div class="abtns">' +
     '<button class="abtn left" id="aLeft"></button>' +
     '<button class="abtn right" id="aRight"></button>' +
-    '</div><div class="afeed" id="aFeed"></div>' +
-    '<div class="aover" id="aStart"><div class="ost">' + (D.icon || '🕹️') + '</div><h2 id="aStartH"></h2><p id="aStartP"></p><button class="abtn-go" id="aGo"></button></div>' +
+    '</div><div class="afeed" id="aFeed" role="status" aria-live="polite"></div>' +
+    '<div id="aSr" role="status" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap"></div>' +
+    '<div class="aover" id="aStart"><div class="ost">' + (D.icon || '🕹️') + '</div><h2 id="aStartH"></h2><p id="aStartP"></p><label class="auntimed" style="display:flex;gap:8px;align-items:center;justify-content:center;margin:0 0 12px;font-weight:700;cursor:pointer"><input type="checkbox" id="aUntimed" style="width:20px;height:20px"> <span id="aUntimedL"></span></label><button class="abtn-go" id="aGo"></button></div>' +
     '<div class="aover hide" id="aEnd"><div class="ost" id="aEndIco">🏆</div><h2 id="aEndH"></h2><div class="obig" id="aEndScore"></div><p id="aEndBest"></p><div class="aclear" id="aClear"></div><button class="abtn-go" id="aAgain"></button><a class="acta" id="aCta"></a></div>' +
     '</div>' +
     '<div class="afoot" id="aFoot"></div>';
@@ -64,7 +83,7 @@
   var sel = el('aLang');
   LANGS.forEach(function (l) { if (D.i18n[l] || COMMON[l]) { var o = document.createElement('option'); o.value = l; o.textContent = LNAME[l]; sel.appendChild(o); } });
   sel.value = lang;
-  sel.addEventListener('change', function () { lang = sel.value; lsSet('lang', lang); paintStatic(); if (playing) paint(); });
+  sel.addEventListener('change', function () { lang = sel.value; lsSet(LANG_KEY, lang); lsSet('lang', lang); paintStatic(); if (playing) paint(); });
 
   // ---- state -------------------------------------------------------------
   var order = [], idx = 0, score = 0, streak = 0, lives = 3, timeLeft = ROUND, playing = false, timer = null, cur = null;
@@ -83,6 +102,8 @@
     el('aScoreL').textContent = t('score');
     el('aLivesL').textContent = t('lives');
     el('aTimeL').textContent = t('time');
+    sel.setAttribute('aria-label', x('langL'));
+    el('aUntimedL').textContent = x('untimed');
     el('aPrompt').textContent = t('prompt');
     el('aLeft').innerHTML = esc(t('left')) + '<span class="akey">' + esc(t('leftKey')) + '</span>';
     el('aRight').innerHTML = esc(t('right')) + '<span class="akey">' + esc(t('rightKey')) + '</span>';
@@ -116,18 +137,22 @@
     el('aLives').textContent = lives > 0 ? Array(lives + 1).join('♥') : '—';
   }
 
+  // WCAG 2.2.1: the player can turn the clock off before a round.
+  var untimed = false;
   function start() {
+    untimed = el('aUntimed').checked;
     order = shuffle(D.items); idx = 0; score = 0; streak = 0; lives = 3; timeLeft = ROUND; playing = true;
     el('aStart').classList.add('hide'); el('aEnd').classList.add('hide');
-    el('aTimeBox').classList.remove('low'); el('aTime').textContent = timeLeft;
+    el('aTimeBox').classList.remove('low'); el('aTime').textContent = untimed ? '∞' : timeLeft;
     hud(); nextItem(); el('aFeed').textContent = ''; el('aFeed').className = 'afeed';
     if (timer) clearInterval(timer);
-    timer = setInterval(tick, 1000);
+    timer = untimed ? null : setInterval(tick, 1000);
     el('aLeft').focus();
   }
   function tick() {
     timeLeft--; el('aTime').textContent = timeLeft;
     if (timeLeft <= 10) el('aTimeBox').classList.add('low');
+    if (timeLeft === 10) el('aSr').textContent = x('tenLeft');
     if (timeLeft <= 0) end();
   }
 
@@ -166,6 +191,7 @@
     el('aEndScore').textContent = t('score') + ': ' + score;
     el('aEndBest').textContent = (isBest ? t('newBest') + '  ' : t('best') + ': ') + (isBest ? score : best);
     el('aEnd').classList.remove('hide');
+    el('aSr').textContent = el('aEndH').textContent + ' ' + el('aEndScore').textContent + '. ' + el('aEndBest').textContent;
     el('aAgain').focus();
   }
 
@@ -174,7 +200,7 @@
   el('aGo').addEventListener('click', start);
   el('aAgain').addEventListener('click', start);
   document.addEventListener('keydown', function (e) {
-    if (!playing) { if ((e.key === 'Enter' || e.key === ' ') && !el('aStart').classList.contains('hide')) { e.preventDefault(); start(); } return; }
+    if (!playing) { if ((e.key === 'Enter' || e.key === ' ') && !el('aStart').classList.contains('hide') && e.target.id !== 'aUntimed') { e.preventDefault(); start(); } return; }
     if (e.key === 'ArrowLeft') { e.preventDefault(); answer('left'); }
     else if (e.key === 'ArrowRight') { e.preventDefault(); answer('right'); }
   });

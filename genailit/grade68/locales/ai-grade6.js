@@ -347,7 +347,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Name the Error",
      "q": "When a chatbot states a false fact or invents a source but sounds sure, we say it produced a ______.",
      "answer": [
@@ -361,7 +361,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Check Before You Share",
      "q": "A shocking image is going around online. Tap the steps to check it in the RIGHT order.",
      "pads": [
@@ -378,7 +378,7 @@ window.BREAKOUT = {
       {
        "k": "decide",
        "e": "🧠 Decide before you share",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -484,7 +484,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Nombra el error",
      "q": "Cuando un chatbot afirma un dato falso o inventa una fuente pero suena seguro, decimos que produjo una ______.",
      "answer": [
@@ -502,7 +502,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Verifica antes de compartir",
      "q": "Una imagen impactante circula en internet. Toca los pasos para revisarla en el orden CORRECTO.",
      "pads": [
@@ -519,7 +519,7 @@ window.BREAKOUT = {
       {
        "k": "decide",
        "e": "🧠 Decide antes de compartir",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -625,7 +625,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Gọi Tên Lỗi",
      "q": "Khi một chatbot khẳng định một sự việc sai hoặc bịa ra một nguồn mà nghe có vẻ chắc chắn, ta nói nó đã tạo ra một ______.",
      "answer": [
@@ -643,7 +643,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Kiểm Tra Trước Khi Chia Sẻ",
      "q": "Một bức ảnh gây sốc đang lan truyền trên mạng. Hãy chạm vào các bước để kiểm tra theo đúng thứ tự.",
      "pads": [
@@ -660,7 +660,7 @@ window.BREAKOUT = {
       {
        "k": "decide",
        "e": "🧠 Quyết định trước khi chia sẻ",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -766,7 +766,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "سمِّ الخطأ",
      "q": "حين يذكر روبوت المحادثة حقيقة زائفة أو يخترع مصدرًا لكنه يبدو واثقًا، نقول إنه أنتج ______.",
      "answer": [
@@ -784,7 +784,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "تحقّق قبل أن تشارك",
      "q": "صورة صادمة تنتشر على الإنترنت. اضغط الخطوات للتحقق منها بالترتيب الصحيح.",
      "pads": [
@@ -801,7 +801,7 @@ window.BREAKOUT = {
       {
        "k": "decide",
        "e": "🧠 قرّر قبل أن تشارك",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -907,7 +907,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "गलती का नाम बताओ",
      "q": "जब कोई चैटबॉट कोई झूठा तथ्य बताता है या कोई स्रोत गढ़ता है पर पक्का लगता है, तो हम कहते हैं कि इसने एक ______ पैदा किया।",
      "answer": [
@@ -925,7 +925,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "साझा करने से पहले जांचो",
      "q": "एक चौंकाने वाली तस्वीर ऑनलाइन घूम रही है। इसे जांचने के चरणों को सही क्रम में दबाओ।",
      "pads": [
@@ -942,7 +942,7 @@ window.BREAKOUT = {
       {
        "k": "decide",
        "e": "🧠 साझा करने से पहले तय करो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1048,7 +1048,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "غلطی کا نام بتائیں",
      "q": "جب کوئی چیٹ بوٹ کوئی غلط حقیقت بیان کرتا ہے یا ذریعہ گھڑتا ہے مگر پُریقین لگتا ہے، تو ہم کہتے ہیں کہ اس نے ایک ______ پیدا کیا۔",
      "answer": [
@@ -1066,7 +1066,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "شیئر کرنے سے پہلے جانچیں",
      "q": "ایک چونکا دینے والی تصویر آن لائن پھیل رہی ہے۔ اسے درست ترتیب میں جانچنے کے لیے مراحل دبائیں۔",
      "pads": [
@@ -1083,7 +1083,7 @@ window.BREAKOUT = {
       {
        "k": "decide",
        "e": "🧠 شیئر کرنے سے پہلے فیصلہ کریں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1189,7 +1189,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "给这种错误起个名字",
      "q": "当聊天机器人说出一个假事实或编造一个来源，却听起来很有把握时，我们说它产生了一个 ______。",
      "answer": [
@@ -1207,7 +1207,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "分享之前先检查",
      "q": "一张令人震惊的图像正在网上流传。按正确的顺序点击这些步骤来检查它。",
      "pads": [
@@ -1224,7 +1224,7 @@ window.BREAKOUT = {
       {
        "k": "decide",
        "e": "🧠 在分享之前做出判断",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [

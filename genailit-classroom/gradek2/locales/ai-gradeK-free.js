@@ -347,7 +347,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Guess Word",
      "q": "An AI helper looks and makes a ______.",
      "answer": [
@@ -359,7 +359,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Check the Guess",
      "q": "The helper guesses. Tap the steps in the RIGHT order.",
      "pads": [
@@ -376,7 +376,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🙋 Ask a grown-up if unsure",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -482,7 +482,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "La palabra adivinar",
      "q": "Un ayudante de IA mira y hace una ______.",
      "answer": [
@@ -494,7 +494,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Comprueba la conjetura",
      "q": "El ayudante adivina. Toca los pasos en el orden CORRECTO.",
      "pads": [
@@ -511,7 +511,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🙋 Pregúntale a un adulto si no estás seguro",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -617,7 +617,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Từ Phỏng Đoán",
      "q": "Một người giúp đỡ AI nhìn và đưa ra một ______.",
      "answer": [
@@ -629,7 +629,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Kiểm Tra Phỏng Đoán",
      "q": "Người giúp đỡ phỏng đoán. Hãy chạm vào các bước theo ĐÚNG thứ tự.",
      "pads": [
@@ -646,7 +646,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🙋 Hỏi người lớn nếu không chắc",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -752,7 +752,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "كلمة التخمين",
      "q": "المساعد الذكيّ ينظر ويقوم ب______.",
      "answer": [
@@ -764,7 +764,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "تحقّق من التخمين",
      "q": "المساعد يُخمّن. انقر الخطوات بالترتيب الصحيح.",
      "pads": [
@@ -781,7 +781,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🙋 اسأل شخصًا بالغًا إن لم تتأكّد",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -887,7 +887,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "अनुमान शब्द",
      "q": "एक AI मददगार देखता है और एक ______ लगाता है।",
      "answer": [
@@ -899,7 +899,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "अनुमान जाँचो",
      "q": "मददगार अनुमान लगाता है। कदमों पर सही क्रम में टैप करो।",
      "pads": [
@@ -916,7 +916,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🙋 पक्का न हो तो किसी बड़े से पूछो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1022,7 +1022,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "اندازہ لفظ",
      "q": "اے آئی مددگار دیکھتا ہے اور ایک ______ لگاتا ہے۔",
      "answer": [
@@ -1034,7 +1034,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "اندازہ جانچیں",
      "q": "مددگار اندازہ لگاتا ہے۔ قدموں کو درست ترتیب میں ٹیپ کریں۔",
      "pads": [
@@ -1051,7 +1051,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🙋 یقین نہ ہو تو کسی بڑے سے پوچھیں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1157,7 +1157,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "猜的那个词",
      "q": "人工智能帮手看一看，然后做出一个______。",
      "answer": [
@@ -1169,7 +1169,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "检查猜测",
      "q": "帮手猜了。按正确的顺序点这些步骤。",
      "pads": [
@@ -1186,7 +1186,7 @@ window.BREAKOUT = {
       {
        "k": "ask",
        "e": "🙋 不确定就问大人",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [

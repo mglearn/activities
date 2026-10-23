@@ -125,7 +125,7 @@
     {
       "id": "L3",
       "type": "word",
-      "color": "#0891b2",
+      "color": "#0e7490",
       "title": "Be Honest About It",
       "q": "Being honest that an AI helped you — instead of hiding it — means you ______ its use.",
       "answer": [
@@ -141,7 +141,7 @@
     {
       "id": "L4",
       "type": "seq",
-      "color": "#0d9488",
+      "color": "#0f766e",
       "title": "Create Responsibly",
       "q": "You'll use an AI to help make a class presentation. Tap the responsible steps in the RIGHT order.",
       "pads": [
@@ -158,7 +158,7 @@
         {
           "k": "verify",
           "e": "✔️ Verify and revise the facts",
-          "c": "#0891b2"
+          "c": "#0e7490"
         },
         {
           "k": "credit",

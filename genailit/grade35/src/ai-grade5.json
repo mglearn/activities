@@ -107,7 +107,7 @@
     {
       "id": "L3",
       "type": "multi",
-      "color": "#0891b2",
+      "color": "#0e7490",
       "title": "Smart Prompt Habits",
       "q": "Check EVERY habit of a smart prompt writer.",
       "items": [
@@ -137,7 +137,7 @@
     {
       "id": "L4",
       "type": "seq",
-      "color": "#0d9488",
+      "color": "#0f766e",
       "title": "Improve the Result",
       "q": "Your first result is too long and misses the topic. Tap the steps to improve it in the RIGHT order.",
       "pads": [
@@ -154,7 +154,7 @@
         {
           "k": "check",
           "e": "🔎 Check the facts",
-          "c": "#0891b2"
+          "c": "#0e7490"
         }
       ],
       "answer": [

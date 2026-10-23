@@ -103,7 +103,7 @@
     {
       "id": "L3",
       "type": "word",
-      "color": "#0891b2",
+      "color": "#0e7490",
       "title": "Name the Fix",
       "q": "To make an AI fairer, builders add data that better reflects everyone it will serve. Data that includes all the groups fairly is called ______ data.",
       "answer": ["representative", "representation", "more representative", "representative data"],
@@ -112,13 +112,13 @@
     {
       "id": "L4",
       "type": "seq",
-      "color": "#0d9488",
+      "color": "#0f766e",
       "title": "Check It for Fairness",
       "q": "An AI gives an answer that seems to work for some people but not others. Tap the steps to check it for fairness in the RIGHT order.",
       "pads": [
         { "k": "who", "e": "👥 Ask who the answer works for", "c": "#4338ca" },
         { "k": "missing", "e": "❓ Ask whose examples are missing", "c": "#7c3aed" },
-        { "k": "fix", "e": "🌍 Suggest more representative data", "c": "#0891b2" }
+        { "k": "fix", "e": "🌍 Suggest more representative data", "c": "#0e7490" }
       ],
       "answer": ["who", "missing", "fix"],
       "reason": "First ask WHO the answer works well for. Then ask whose examples are MISSING. Then suggest a FIX — more representative data. Who, Missing, Fix."

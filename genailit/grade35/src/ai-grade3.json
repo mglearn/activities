@@ -125,7 +125,7 @@
     {
       "id": "L3",
       "type": "word",
-      "color": "#0891b2",
+      "color": "#0e7490",
       "title": "Trust, but Verify",
       "q": "An AI answer can sound sure but still be wrong. Before you trust it, you should ______ it.",
       "answer": [
@@ -142,7 +142,7 @@
     {
       "id": "L4",
       "type": "seq",
-      "color": "#0d9488",
+      "color": "#0f766e",
       "title": "Use an AI Helper Well",
       "q": "You use an AI helper for a class poster. Tap the steps in the RIGHT order.",
       "pads": [
@@ -159,7 +159,7 @@
         {
           "k": "read",
           "e": "👀 Read what it made",
-          "c": "#0891b2"
+          "c": "#0e7490"
         }
       ],
       "answer": [

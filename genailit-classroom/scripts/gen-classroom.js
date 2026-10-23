@@ -72,7 +72,9 @@ document.querySelectorAll('[data-copy]').forEach(function (b) {
     var el = document.getElementById(b.getAttribute('data-copy'));
     var txt = (el.value !== undefined ? el.value : el.innerText.replace(/^Copy\\s*/, '')).trim();
     var old = b.textContent;
-    navigator.clipboard.writeText(txt).then(function () { b.textContent = 'Copied!'; setTimeout(function () { b.textContent = old; }, 1600); });
+    var fail = function () { b.textContent = 'Press Ctrl+C'; if (el.select) el.select(); else { var r = document.createRange(); r.selectNodeContents(el); getSelection().removeAllRanges(); getSelection().addRange(r); } };
+    if (!navigator.clipboard) return fail();
+    navigator.clipboard.writeText(txt).then(function () { b.textContent = 'Copied!'; setTimeout(function () { b.textContent = old; }, 1600); }, fail);
   });
 });
 </script>`;
@@ -200,16 +202,18 @@ const checker = `${GC_CSS}
 
   <h2>Check codes students turned in</h2>
   <p class="section-note">One student per line: the name and then the code, separated by a space, comma, or tab. The activity is read from the code itself, so you can mix activities in one list.</p>
+  <label for="ckIn"><b>Student names and codes</b></label>
   <textarea class="gc-ta" id="ckIn" placeholder="Maria Lopez  ${esc(sampleCode)}&#10;Garcia Ruiz, Jose, ${esc(CODE.make(sample.id, 'Jose Garcia Ruiz'))}" spellcheck="false"></textarea>
   <p><button type="button" class="gc-btn" id="ckGo">Check codes</button></p>
   <div class="tbl-wrap" id="ckOutWrap" hidden><table><thead><tr><th>Student</th><th>Activity</th><th>Code</th><th>Result</th></tr></thead><tbody id="ckOut"></tbody></table></div>
-  <p class="small" id="ckSum"></p>
+  <p class="small" id="ckSum" role="status" aria-live="polite"></p>
 
   <h2>Expected codes for my roster</h2>
   <p class="section-note">Choose the activity and paste your class list, one name per line. You can copy it from Classroom's <b>People</b> tab or from your SIS.</p>
   <p><select class="gc-sel" id="rsAct" aria-label="Activity">
         ${options}
       </select></p>
+  <label for="rsIn"><b>Class roster (one name per line)</b></label>
   <textarea class="gc-ta" id="rsIn" placeholder="Maria Lopez&#10;Jose Garcia Ruiz" spellcheck="false"></textarea>
   <p><button type="button" class="gc-btn" id="rsGo">Make codes</button> <button type="button" class="gc-btn" id="rsCopy" hidden>Copy for a spreadsheet</button></p>
   <div class="tbl-wrap" id="rsOutWrap" hidden><table><thead><tr><th>Student</th><th>Expected code</th></tr></thead><tbody id="rsOut"></tbody></table></div>
@@ -244,7 +248,9 @@ const checker = `${GC_CSS}
   };
   $('rsCopy').onclick = function () {
     var b = this, tsv = 'Student\\tExpected code (' + ACTS[$('rsAct').value] + ')\\n' + rows.map(function (r) { return r.join('\\t'); }).join('\\n');
-    navigator.clipboard.writeText(tsv).then(function () { b.textContent = 'Copied!'; setTimeout(function () { b.textContent = 'Copy for a spreadsheet'; }, 1600); });
+    var fail = function () { b.textContent = 'Copy blocked: select the table and press Ctrl+C'; };
+    if (!navigator.clipboard) return fail();
+    navigator.clipboard.writeText(tsv).then(function () { b.textContent = 'Copied!'; setTimeout(function () { b.textContent = 'Copy for a spreadsheet'; }, 1600); }, fail);
   };
 })();
 </script>`;
@@ -281,7 +287,7 @@ for (const a of ACTS) {
     <script>(function(){var s=document.getElementById('gcL${k}'),u=document.getElementById('gcU${k}'),b=document.getElementById('gcC${k}');
       function upd(){var x=new URL('${a.id}-student.html',location.href);if(s.value!=='en')x.searchParams.set('lang',s.value);u.value=x.href;}
       s.onchange=upd;upd();u.onfocus=function(){u.select();};
-      b.onclick=function(){navigator.clipboard.writeText(u.value).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Copy student link';},1600);});};})();</script>
+      b.onclick=function(){var no=function(){u.focus();u.select();b.textContent='Press Ctrl+C';};if(!navigator.clipboard)return no();navigator.clipboard.writeText(u.value).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Copy student link';},1600);},no);};})();</script>
   </div>`);
 }
 console.log(`gen-classroom: classroom.html, classroom-check.html, index ribbon, ${ACTS.length} launch-page panels (${SUITE_EN})`);

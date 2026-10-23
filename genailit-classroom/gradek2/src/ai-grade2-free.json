@@ -103,7 +103,7 @@
     {
       "id": "L3",
       "type": "word",
-      "color": "#0891b2",
+      "color": "#0e7490",
       "title": "The Magic Word",
       "q": "To get a better answer, you must tell the AI helper what you want in a ______ way.",
       "answer": ["clear", "clearly", "a clear", "simple"],
@@ -112,13 +112,13 @@
     {
       "id": "L4",
       "type": "seq",
-      "color": "#0d9488",
+      "color": "#0f766e",
       "title": "Ask the Right Way",
       "q": "You want the AI helper to draw a picture. Tap the steps in the RIGHT order.",
       "pads": [
         { "k": "check", "e": "✅ Check the answer", "c": "#4338ca" },
         { "k": "think", "e": "💭 Think what you want", "c": "#7c3aed" },
-        { "k": "ask", "e": "🗣️ Ask in clear words", "c": "#0891b2" }
+        { "k": "ask", "e": "🗣️ Ask in clear words", "c": "#0e7490" }
       ],
       "answer": ["think", "ask", "check"],
       "reason": "First THINK about what you want. Then ASK in clear words. Then CHECK the answer, because the AI helper can still be wrong."

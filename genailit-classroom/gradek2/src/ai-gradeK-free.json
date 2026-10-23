@@ -103,7 +103,7 @@
     {
       "id": "L3",
       "type": "word",
-      "color": "#0891b2",
+      "color": "#0e7490",
       "title": "Guess Word",
       "q": "An AI helper looks and makes a ______.",
       "answer": ["guess", "a guess"],
@@ -112,13 +112,13 @@
     {
       "id": "L4",
       "type": "seq",
-      "color": "#0d9488",
+      "color": "#0f766e",
       "title": "Check the Guess",
       "q": "The helper guesses. Tap the steps in the RIGHT order.",
       "pads": [
         { "k": "check", "e": "👀 You check the guess", "c": "#4338ca" },
         { "k": "guess", "e": "🤖 The helper guesses", "c": "#7c3aed" },
-        { "k": "ask", "e": "🙋 Ask a grown-up if unsure", "c": "#0891b2" }
+        { "k": "ask", "e": "🙋 Ask a grown-up if unsure", "c": "#0e7490" }
       ],
       "answer": ["guess", "check", "ask"],
       "reason": "First the helper GUESSES. Then you CHECK the guess. If you are not sure, ASK a grown-up."

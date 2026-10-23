@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <title>Who's Missing? — Teacher launch (Grade 7)</title>
@@ -96,10 +97,9 @@
     <script>(function(){var s=document.getElementById('gcLaigrade7free'),u=document.getElementById('gcUaigrade7free'),b=document.getElementById('gcCaigrade7free');
       function upd(){var x=new URL('ai-grade7-free-student.html',location.href);if(s.value!=='en')x.searchParams.set('lang',s.value);u.value=x.href;}
       s.onchange=upd;upd();u.onfocus=function(){u.select();};
-      b.onclick=function(){navigator.clipboard.writeText(u.value).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Copy student link';},1600);});};})();</script>
+      b.onclick=function(){var no=function(){u.focus();u.select();b.textContent='Press Ctrl+C';};if(!navigator.clipboard)return no();navigator.clipboard.writeText(u.value).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Copy student link';},1600);},no);};})();</script>
   </div><!--/gc-->
 
-  
   <div class="panel gold">
     <h3 data-i18n="t1ev6p2h">The premise</h3>
     <p data-i18n="t1ov6o6y">AI learns from examples. When some groups or voices are left out of those examples, the AI knows them less well — so its answers can be wrong or unfair for them. Read the clues, then open all four locks. Each lock reveals the reasoning behind the answer.</p>

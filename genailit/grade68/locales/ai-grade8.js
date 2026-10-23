@@ -347,7 +347,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Be Honest About It",
      "q": "Being honest that an AI helped you — instead of hiding it — means you ______ its use.",
      "answer": [
@@ -363,7 +363,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Create Responsibly",
      "q": "You'll use an AI to help make a class presentation. Tap the responsible steps in the RIGHT order.",
      "pads": [
@@ -380,7 +380,7 @@ window.BREAKOUT = {
       {
        "k": "verify",
        "e": "✔️ Verify and revise the facts",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "credit",
@@ -492,7 +492,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Sé honesto al respecto",
      "q": "Ser honesto en que una IA te ayudó —en vez de ocultarlo— significa que ______ su uso.",
      "answer": [
@@ -514,7 +514,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Crea de forma responsable",
      "q": "Vas a usar una IA para ayudar a hacer una presentación de clase. Toca los pasos responsables en el orden CORRECTO.",
      "pads": [
@@ -531,7 +531,7 @@ window.BREAKOUT = {
       {
        "k": "verify",
        "e": "✔️ Verifica y revisa los datos",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "credit",
@@ -643,7 +643,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Hãy Trung Thực Về Điều Đó",
      "q": "Trung thực rằng một AI đã giúp em — thay vì giấu đi — nghĩa là em ______ việc dùng nó.",
      "answer": [
@@ -664,7 +664,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Sáng Tạo Có Trách Nhiệm",
      "q": "Em sẽ dùng một AI để giúp làm bài thuyết trình cho lớp. Hãy chạm vào các bước có trách nhiệm theo đúng thứ tự.",
      "pads": [
@@ -681,7 +681,7 @@ window.BREAKOUT = {
       {
        "k": "verify",
        "e": "✔️ Xác minh và chỉnh sửa lại các sự việc",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "credit",
@@ -793,7 +793,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "كن أمينًا بشأنه",
      "q": "أن تكون أمينًا بأن الذكاء الاصطناعي ساعدك — بدلًا من إخفاء ذلك — يعني أنك ______ استخدامه.",
      "answer": [
@@ -814,7 +814,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "أبدِع بمسؤولية",
      "q": "ستستخدم ذكاءً اصطناعيًا للمساعدة في صنع عرض تقديمي للصف. اضغط الخطوات المسؤولة بالترتيب الصحيح.",
      "pads": [
@@ -831,7 +831,7 @@ window.BREAKOUT = {
       {
        "k": "verify",
        "e": "✔️ تحقّق من الحقائق وراجعها",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "credit",
@@ -943,7 +943,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "इसके बारे में ईमानदार रहो",
      "q": "इसे छिपाने के बजाय यह ईमानदारी से बताना कि एक AI ने तुम्हारी मदद की — इसका मतलब है कि तुम इसके उपयोग को ______ करते हो।",
      "answer": [
@@ -964,7 +964,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "ज़िम्मेदारी से रचो",
      "q": "तुम एक कक्षा प्रस्तुति बनाने में AI की मदद लोगे। ज़िम्मेदार चरणों को सही क्रम में दबाओ।",
      "pads": [
@@ -981,7 +981,7 @@ window.BREAKOUT = {
       {
        "k": "verify",
        "e": "✔️ तथ्यों को सत्यापित और संशोधित करो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "credit",
@@ -1093,7 +1093,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "اس کے بارے میں ایماندار رہیں",
      "q": "یہ ایماندار ہونا کہ اے آئی نے آپ کی مدد کی — چھپانے کے بجائے — اس کا مطلب ہے کہ آپ اس کے استعمال کو ______ کرتے ہیں۔",
      "answer": [
@@ -1113,7 +1113,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "ذمہ داری سے تخلیق کریں",
      "q": "آپ کلاس پریزنٹیشن بنانے میں اے آئی سے مدد لیں گے۔ ذمہ دارانہ مراحل کو درست ترتیب میں دبائیں۔",
      "pads": [
@@ -1130,7 +1130,7 @@ window.BREAKOUT = {
       {
        "k": "verify",
        "e": "✔️ حقائق کی تصدیق اور نظرثانی کریں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "credit",
@@ -1242,7 +1242,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "word",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "对此要诚实",
      "q": "诚实地承认 AI 帮了你 —— 而不是把它藏起来 —— 意味着你对它的使用做出了 ______。",
      "answer": [
@@ -1263,7 +1263,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "负责任地创作",
      "q": "你要用 AI 帮忙做一个班级演示。按正确的顺序点击这些负责任的步骤。",
      "pads": [
@@ -1280,7 +1280,7 @@ window.BREAKOUT = {
       {
        "k": "verify",
        "e": "✔️ 核实并修改事实",
-       "c": "#0891b2"
+       "c": "#0e7490"
       },
       {
        "k": "credit",

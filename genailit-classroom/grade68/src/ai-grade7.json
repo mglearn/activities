@@ -125,7 +125,7 @@
     {
       "id": "L3",
       "type": "word",
-      "color": "#0891b2",
+      "color": "#0e7490",
       "title": "Name the Harm",
       "q": "A biased AI can repeat an unfair, oversimplified idea about a whole group. That idea is called a ______.",
       "answer": [
@@ -138,7 +138,7 @@
     {
       "id": "L4",
       "type": "seq",
-      "color": "#0d9488",
+      "color": "#0f766e",
       "title": "Evaluate the Answer",
       "q": "An AI gives you a one-sided answer about a topic. Tap the steps to evaluate it in the RIGHT order.",
       "pads": [
@@ -155,7 +155,7 @@
         {
           "k": "crosscheck",
           "e": "🔎 Cross-check other sources",
-          "c": "#0891b2"
+          "c": "#0e7490"
         }
       ],
       "answer": [

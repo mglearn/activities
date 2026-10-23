@@ -329,7 +329,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Make It Better",
      "q": "Check EVERY thing that would make an AI's guesses BETTER and FAIRER.",
      "items": [
@@ -359,7 +359,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Fix the Report",
      "q": "Your AI book report has a made-up character. Tap the steps to fix it in the RIGHT order.",
      "pads": [
@@ -376,7 +376,7 @@ window.BREAKOUT = {
       {
        "k": "fix",
        "e": "✏️ Fix the report yourself",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -466,7 +466,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Hazla mejor",
      "q": "Marca TODO lo que haría que las adivinanzas de una IA sean MEJORES y MÁS JUSTAS.",
      "items": [
@@ -496,7 +496,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Arregla el informe",
      "q": "Tu informe de libro hecho con IA tiene un personaje inventado. Toca los pasos para arreglarlo en el orden CORRECTO.",
      "pads": [
@@ -513,7 +513,7 @@ window.BREAKOUT = {
       {
        "k": "fix",
        "e": "✏️ Arregla el informe tú mismo",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -603,7 +603,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "Làm Cho Nó Tốt Hơn",
      "q": "Hãy chọn MỌI điều giúp phỏng đoán của một AI TỐT HƠN và CÔNG BẰNG HƠN.",
      "items": [
@@ -633,7 +633,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "Sửa Bài Tóm Tắt",
      "q": "Bài tóm tắt sách bằng AI của em có một nhân vật bịa đặt. Hãy chạm vào các bước để sửa theo đúng thứ tự.",
      "pads": [
@@ -650,7 +650,7 @@ window.BREAKOUT = {
       {
        "k": "fix",
        "e": "✏️ Tự em sửa lại bài tóm tắt",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -741,7 +741,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "اجعله أفضل",
      "q": "اختر كل شيء يجعل تخمينات الذكاء الاصطناعي أفضل وأعدل.",
      "items": [
@@ -771,7 +771,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "أصلِح التقرير",
      "q": "تقرير الكتاب الذي كتبه الذكاء الاصطناعي فيه شخصية مختلقة. اضغط الخطوات لإصلاحه بالترتيب الصحيح.",
      "pads": [
@@ -788,7 +788,7 @@ window.BREAKOUT = {
       {
        "k": "fix",
        "e": "✏️ أصلِح التقرير بنفسك",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -879,7 +879,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "इसे बेहतर बनाओ",
      "q": "हर उस चीज़ को चुनो जो किसी AI के अनुमानों को बेहतर और अधिक निष्पक्ष बनाएगी।",
      "items": [
@@ -909,7 +909,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "समीक्षा ठीक करो",
      "q": "तुम्हारी AI किताब समीक्षा में एक मनगढ़ंत पात्र है। इसे ठीक करने के चरणों को सही क्रम में दबाओ।",
      "pads": [
@@ -926,7 +926,7 @@ window.BREAKOUT = {
       {
        "k": "fix",
        "e": "✏️ समीक्षा को खुद ठीक करो",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1016,7 +1016,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "اسے بہتر بنائیں",
      "q": "ہر اُس چیز پر نشان لگائیں جو اے آئی کے اندازوں کو بہتر اور زیادہ منصفانہ بنائے گی۔",
      "items": [
@@ -1046,7 +1046,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "رپورٹ درست کریں",
      "q": "آپ کی اے آئی کتاب رپورٹ میں ایک من گھڑت کردار ہے۔ اسے درست ترتیب میں ٹھیک کرنے کے لیے مراحل دبائیں۔",
      "pads": [
@@ -1063,7 +1063,7 @@ window.BREAKOUT = {
       {
        "k": "fix",
        "e": "✏️ رپورٹ خود ٹھیک کریں",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [
@@ -1153,7 +1153,7 @@ window.BREAKOUT = {
     {
      "id": "L3",
      "type": "multi",
-     "color": "#0891b2",
+     "color": "#0e7490",
      "title": "让它变得更好",
      "q": "把每一件能让 AI 的猜测更好、更公平的事都勾选出来。",
      "items": [
@@ -1183,7 +1183,7 @@ window.BREAKOUT = {
     {
      "id": "L4",
      "type": "seq",
-     "color": "#0d9488",
+     "color": "#0f766e",
      "title": "修正报告",
      "q": "你的 AI 读书报告里有个编造出来的人物。按正确的顺序点击这些步骤来修正它。",
      "pads": [
@@ -1200,7 +1200,7 @@ window.BREAKOUT = {
       {
        "k": "fix",
        "e": "✏️ 自己动手修正报告",
-       "c": "#0891b2"
+       "c": "#0e7490"
       }
      ],
      "answer": [

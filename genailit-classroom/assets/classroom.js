@@ -68,13 +68,13 @@
 
   // AI-seeded translations, pending native-speaker review (same as the suite).
   const UI = {
-    en: { h: 'Get your completion code', label: 'Type your first and last name, exactly as it shows in Google Classroom:', ph: 'First and last name', btn: 'Show my code', need: 'Please type your first and last name.', your: 'Your completion code:', copy: 'Copy code', copied: 'Copied!', next: 'Paste this code into your Google Classroom assignment, then click Turn in.', priv: 'Your name stays on this device. It is not saved or sent anywhere.' },
-    es: { h: 'Obtén tu código de finalización', label: 'Escribe tu nombre y apellido, tal como aparecen en Google Classroom:', ph: 'Nombre y apellido', btn: 'Mostrar mi código', need: 'Por favor, escribe tu nombre y apellido.', your: 'Tu código de finalización:', copy: 'Copiar código', copied: '¡Copiado!', next: 'Pega este código en tu tarea de Google Classroom y luego haz clic en Entregar.', priv: 'Tu nombre se queda en este dispositivo. No se guarda ni se envía a ningún lugar.' },
-    vi: { h: 'Nhận mã hoàn thành của em', label: 'Hãy gõ họ và tên của em, đúng như trên Google Classroom:', ph: 'Họ và tên', btn: 'Hiện mã của em', need: 'Hãy gõ họ và tên của em.', your: 'Mã hoàn thành của em:', copy: 'Sao chép mã', copied: 'Đã sao chép!', next: 'Dán mã này vào bài tập trên Google Classroom, rồi bấm Nộp bài.', priv: 'Tên của em chỉ ở trên thiết bị này. Tên không được lưu hay gửi đi đâu cả.' },
-    ar: { h: 'احصل على رمز الإنجاز', label: 'اكتب اسمك الأول واسم العائلة كما يظهران في Google Classroom:', ph: 'الاسم الأول واسم العائلة', btn: 'اعرض رمزي', need: 'من فضلك اكتب اسمك الأول واسم العائلة.', your: 'رمز الإنجاز الخاص بك:', copy: 'انسخ الرمز', copied: 'تم النسخ!', next: 'الصق هذا الرمز في مهمتك على Google Classroom، ثم انقر على «تسليم».', priv: 'يبقى اسمك على هذا الجهاز فقط. لا يتم حفظه أو إرساله إلى أي مكان.' },
-    hi: { h: 'अपना पूरा होने का कोड पाएँ', label: 'अपना पहला और अंतिम नाम वैसे ही लिखें जैसे वह Google Classroom में दिखता है:', ph: 'पहला और अंतिम नाम', btn: 'मेरा कोड दिखाएँ', need: 'कृपया अपना पहला और अंतिम नाम लिखें।', your: 'आपका पूरा होने का कोड:', copy: 'कोड कॉपी करें', copied: 'कॉपी हो गया!', next: 'यह कोड अपने Google Classroom असाइनमेंट में पेस्ट करें, फिर "सबमिट करें" (Turn in) पर क्लिक करें।', priv: 'आपका नाम इसी डिवाइस पर रहता है। इसे कहीं सहेजा या भेजा नहीं जाता।' },
-    ur: { h: 'اپنا تکمیل کا کوڈ حاصل کریں', label: 'اپنا پہلا اور آخری نام بالکل ویسے ہی لکھیں جیسے وہ Google Classroom میں نظر آتا ہے:', ph: 'پہلا اور آخری نام', btn: 'میرا کوڈ دکھائیں', need: 'براہِ کرم اپنا پہلا اور آخری نام لکھیں۔', your: 'آپ کا تکمیل کا کوڈ:', copy: 'کوڈ کاپی کریں', copied: 'کاپی ہو گیا!', next: 'یہ کوڈ اپنے Google Classroom اسائنمنٹ میں پیسٹ کریں، پھر Turn in (جمع کروائیں) پر کلک کریں۔', priv: 'آپ کا نام صرف اسی ڈیوائس پر رہتا ہے۔ اسے کہیں محفوظ یا بھیجا نہیں جاتا۔' },
-    zh: { h: '获取你的完成码', label: '请输入你的名字和姓氏，要和 Google Classroom 里显示的一样：', ph: '名字和姓氏', btn: '显示我的完成码', need: '请输入你的名字和姓氏。', your: '你的完成码：', copy: '复制完成码', copied: '已复制！', next: '把这个完成码粘贴到你的 Google Classroom 作业里，然后点击“提交”。', priv: '你的名字只留在这台设备上，不会被保存或发送到任何地方。' },
+    en: { h: 'Get your completion code', label: 'Type your first and last name, exactly as it shows in Google Classroom:', ph: 'First and last name', btn: 'Show my code', need: 'Please type your first and last name.', your: 'Your completion code:', copy: 'Copy code', copied: 'Copied!', next: 'Paste this code into your Google Classroom assignment, then click Turn in.', priv: 'Your name stays on this device. It is not saved or sent anywhere.', press: 'Press Ctrl+C (or ⌘+C) to copy.' },
+    es: { h: 'Obtén tu código de finalización', label: 'Escribe tu nombre y apellido, tal como aparecen en Google Classroom:', ph: 'Nombre y apellido', btn: 'Mostrar mi código', need: 'Por favor, escribe tu nombre y apellido.', your: 'Tu código de finalización:', copy: 'Copiar código', copied: '¡Copiado!', next: 'Pega este código en tu tarea de Google Classroom y luego haz clic en Entregar.', priv: 'Tu nombre se queda en este dispositivo. No se guarda ni se envía a ningún lugar.', press: 'Pulsa Ctrl+C (o ⌘+C) para copiar.' },
+    vi: { h: 'Nhận mã hoàn thành của em', label: 'Hãy gõ họ và tên của em, đúng như trên Google Classroom:', ph: 'Họ và tên', btn: 'Hiện mã của em', need: 'Hãy gõ họ và tên của em.', your: 'Mã hoàn thành của em:', copy: 'Sao chép mã', copied: 'Đã sao chép!', next: 'Dán mã này vào bài tập trên Google Classroom, rồi bấm Nộp bài.', priv: 'Tên của em chỉ ở trên thiết bị này. Tên không được lưu hay gửi đi đâu cả.', press: 'Nhấn Ctrl+C (hoặc ⌘+C) để sao chép.' },
+    ar: { h: 'احصل على رمز الإنجاز', label: 'اكتب اسمك الأول واسم العائلة كما يظهران في Google Classroom:', ph: 'الاسم الأول واسم العائلة', btn: 'اعرض رمزي', need: 'من فضلك اكتب اسمك الأول واسم العائلة.', your: 'رمز الإنجاز الخاص بك:', copy: 'انسخ الرمز', copied: 'تم النسخ!', next: 'الصق هذا الرمز في مهمتك على Google Classroom، ثم انقر على «تسليم».', priv: 'يبقى اسمك على هذا الجهاز فقط. لا يتم حفظه أو إرساله إلى أي مكان.', press: 'اضغط Ctrl+C (أو ⌘+C) للنسخ.' },
+    hi: { h: 'अपना पूरा होने का कोड पाएँ', label: 'अपना पहला और अंतिम नाम वैसे ही लिखें जैसे वह Google Classroom में दिखता है:', ph: 'पहला और अंतिम नाम', btn: 'मेरा कोड दिखाएँ', need: 'कृपया अपना पहला और अंतिम नाम लिखें।', your: 'आपका पूरा होने का कोड:', copy: 'कोड कॉपी करें', copied: 'कॉपी हो गया!', next: 'यह कोड अपने Google Classroom असाइनमेंट में पेस्ट करें, फिर "सबमिट करें" (Turn in) पर क्लिक करें।', priv: 'आपका नाम इसी डिवाइस पर रहता है। इसे कहीं सहेजा या भेजा नहीं जाता।', press: 'कॉपी करने के लिए Ctrl+C (या ⌘+C) दबाएँ।' },
+    ur: { h: 'اپنا تکمیل کا کوڈ حاصل کریں', label: 'اپنا پہلا اور آخری نام بالکل ویسے ہی لکھیں جیسے وہ Google Classroom میں نظر آتا ہے:', ph: 'پہلا اور آخری نام', btn: 'میرا کوڈ دکھائیں', need: 'براہِ کرم اپنا پہلا اور آخری نام لکھیں۔', your: 'آپ کا تکمیل کا کوڈ:', copy: 'کوڈ کاپی کریں', copied: 'کاپی ہو گیا!', next: 'یہ کوڈ اپنے Google Classroom اسائنمنٹ میں پیسٹ کریں، پھر Turn in (جمع کروائیں) پر کلک کریں۔', priv: 'آپ کا نام صرف اسی ڈیوائس پر رہتا ہے۔ اسے کہیں محفوظ یا بھیجا نہیں جاتا۔', press: 'کاپی کرنے کے لیے Ctrl+C (یا ⌘+C) دبائیں۔' },
+    zh: { h: '获取你的完成码', label: '请输入你的名字和姓氏，要和 Google Classroom 里显示的一样：', ph: '名字和姓氏', btn: '显示我的完成码', need: '请输入你的名字和姓氏。', your: '你的完成码：', copy: '复制完成码', copied: '已复制！', next: '把这个完成码粘贴到你的 Google Classroom 作业里，然后点击“提交”。', priv: '你的名字只留在这台设备上，不会被保存或发送到任何地方。', press: '按 Ctrl+C（或 ⌘+C）复制。' },
   };
   const lang = () => (window.BreakoutI18n && BreakoutI18n.getLang()) || 'en';
   const t = k => (UI[lang()] || UI.en)[k] || UI.en[k];
@@ -91,7 +91,8 @@
   .gc-out{margin-top:10px}
   .gc-code{display:inline-block;font:700 1.45rem/1.2 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.06em;direction:ltr;unicode-bidi:isolate;background:#fff;border:2px solid var(--navy,#1e3a8a);border-radius:10px;padding:6px 12px;margin:4px 8px 4px 0;user-select:all}
   .gc-next{font-weight:700;margin:8px 0 0}
-  .gc-priv{font-size:.8rem;opacity:.75;margin:8px 0 0}
+  .gc-priv{font-size:.82rem;color:var(--ink-soft,#4b5a78);margin:8px 0 0}
+  .gc-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .win-card{max-height:92vh;overflow-y:auto}`;
   document.head.appendChild(css);
 
@@ -108,7 +109,8 @@
         <span class="gc-code" id="gcCode"></span><button type="button" class="gc-copy" id="gcCopy" data-k="copy"></button>
         <p class="gc-next" data-k="next"></p>
       </div>
-      <p class="gc-priv" data-k="priv"></p>`;
+      <p class="gc-priv" data-k="priv"></p>
+      <p class="gc-sr" id="gcSr" role="status" aria-live="polite"></p>`;
     const replay = document.getElementById('winReplay');
     replay.parentNode.insertBefore(box, replay);
     const name = box.querySelector('#gcName');
@@ -117,15 +119,19 @@
       box.querySelector('#gcMsg').textContent = code ? '' : t('need');
       box.querySelector('#gcOut').hidden = !code;
       if (code) box.querySelector('#gcCode').textContent = code;
+      // Spell the code out for screen readers ("A I 3 F, 4 9 M E, …").
+      box.querySelector('#gcSr').textContent = code ? t('your') + ' ' + code.split('-').map(p => p.split('').join(' ')).join(', ') : '';
     };
     box.querySelector('#gcGo').onclick = go;
     name.addEventListener('keydown', e => { if (e.key === 'Enter') go(); });
     name.addEventListener('input', () => { box.querySelector('#gcOut').hidden = true; });
     box.querySelector('#gcCopy').onclick = () => {
       const btn = box.querySelector('#gcCopy');
-      const done = () => { btn.textContent = t('copied'); setTimeout(() => { btn.textContent = t('copy'); }, 1800); };
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(done, () => {});
-      else { const r = document.createRange(); r.selectNodeContents(box.querySelector('#gcCode')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+      const done = () => { btn.textContent = t('copied'); box.querySelector('#gcSr').textContent = t('copied'); setTimeout(() => { btn.textContent = t('copy'); }, 1800); };
+      // Clipboard can be blocked (http, permissions, older Safari): select the code and say how to copy it.
+      const manual = () => { const r = document.createRange(); r.selectNodeContents(box.querySelector('#gcCode')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); box.querySelector('#gcMsg').textContent = t('press'); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(done, manual);
+      else manual();
     };
     label();
   }
@@ -133,13 +139,15 @@
     if (!box) return;
     box.querySelectorAll('[data-k]').forEach(el => { el.textContent = t(el.dataset.k); });
     box.querySelector('#gcName').placeholder = t('ph');
-    if (box.querySelector('#gcMsg').textContent) box.querySelector('#gcMsg').textContent = t('need');
+    const msg = box.querySelector('#gcMsg');
+    if (msg.textContent) msg.textContent = code ? t('press') : t('need');
   }
   function clear() {
     if (!box) return;
     code = null;
     box.querySelector('#gcName').value = '';
     box.querySelector('#gcMsg').textContent = '';
+    box.querySelector('#gcSr').textContent = '';
     box.querySelector('#gcOut').hidden = true;
   }
 

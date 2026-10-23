@@ -17,7 +17,9 @@ const BANDS = { gradek2: [0, 1, 2], grade35: [3, 4, 5], grade68: [6, 7, 8] };  /
 // Student pages live one level down, so all links are prefixed with ../.
 const TEACHER_CSS = `
   .wrap{position:relative}
-  .teacher-menu{position:absolute;top:14px;right:16px;z-index:60;font-family:'Nunito',sans-serif}
+  .topnav{display:flex;justify-content:flex-end;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+  .topnav .langbar{margin-bottom:0}
+  .teacher-menu{position:relative;z-index:60;font-family:'Nunito',sans-serif}
   .teacher-menu>summary{list-style:none;cursor:pointer;background:var(--navy);color:#fff;font-weight:800;font-size:.8rem;padding:7px 13px;border-radius:100px;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(10,46,99,.28)}
   .teacher-menu>summary::-webkit-details-marker{display:none}
   .teacher-menu[open]>summary{background:var(--navy-d)}
@@ -52,6 +54,7 @@ function page(id, U) {
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 <title>${t('header.h1')} — Digital Citizenship Breakouts</title>
@@ -68,7 +71,7 @@ function page(id, U) {
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${SITE_URL}/assets/og.png">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>:root{--navy:#0a2e63;--navy-d:#061f45;--red:#c1121f;--red-d:#8b0d16;--gold:#f5b800;--gold-d:#c08e00;--paper:#f4f8fd;--ink:#14203a;--ink-soft:#4b5a78;--card:#fff;--line:#dbe6f5;--good:#2f9e44;--bad:#e03131;--c1:#0a2e63;--c2:#2f6fe0;--c3:#16697a;--c4:#f5b800;--c5:#0d47a1;--bg-a:rgba(245,184,0,.12);--bg-b:rgba(10,46,99,.10)}</style>
+<style>:root{--navy:#0a2e63;--navy-d:#061f45;--red:#c1121f;--red-d:#8b0d16;--gold:#f5b800;--gold-d:#8a6500;--paper:#f4f8fd;--ink:#14203a;--ink-soft:#4b5a78;--card:#fff;--line:#dbe6f5;--good:#2f9e44;--bad:#e03131;--c1:#0a2e63;--c2:#2f6fe0;--c3:#16697a;--c4:#f5b800;--c5:#0d47a1;--bg-a:rgba(245,184,0,.12);--bg-b:rgba(10,46,99,.10)}</style>
 <link rel="stylesheet" href="../assets/breakout.css">
 <style>${TEACHER_CSS}</style>
 </head>
@@ -76,9 +79,11 @@ function page(id, U) {
 <a class="skip-link" href="#main">Skip to content</a>
 <canvas id="confetti" aria-hidden="true"></canvas>
 <div class="wrap">
-  ${TEACHER_MENU}
+  <nav class="topnav" aria-label="Site tools">
   <div class="langbar"><span class="globe" aria-hidden="true">🌐</span><div data-i18n-picker></div></div>
-  <div class="crumb"><a href="${id}.html" data-i18n="crumb.teacher">‹ Teacher launch</a> · <a href="index.html" data-i18n="crumb.suite">Digital Citizenship Breakouts</a></div>
+  ${TEACHER_MENU}
+  </nav>
+  <nav class="crumb" aria-label="Breadcrumb"><a href="${id}.html" data-i18n="crumb.teacher">‹ Teacher launch</a> · <a href="index.html" data-i18n="crumb.suite">Digital Citizenship Breakouts</a></nav>
 
   <main id="main">
   <div id="a11yStatus" class="sr-only" role="status" aria-live="polite"></div>
@@ -100,11 +105,11 @@ function page(id, U) {
     <p data-i18n="brief.p">${t('brief.p')}</p>
   </div>
 
-  <div class="section-title" data-i18n="sect.clues">${t('sect.clues')}</div>
+  <h2 class="section-title" data-i18n="sect.clues">${t('sect.clues')}</h2>
   <p class="hint" data-i18n="sect.cluesHint">${t('sect.cluesHint')}</p>
   <div class="clue-grid" id="clueGrid"></div>
 
-  <div class="section-title" data-i18n="sect.locks">${t('sect.locks')}</div>
+  <h2 class="section-title" data-i18n="sect.locks">${t('sect.locks')}</h2>
   <p class="hint" data-i18n="sect.locksHint">${t('sect.locksHint')}</p>
   <div class="locks" id="locks"></div>
 

@@ -97,7 +97,7 @@
     {
       "id": "L3",
       "type": "multi",
-      "color": "#0891b2",
+      "color": "#0e7490",
       "title": "Train It Well",
       "q": "Check EVERY thing that would help the machine make BETTER guesses.",
       "items": [
@@ -112,14 +112,14 @@
     {
       "id": "L4",
       "type": "seq",
-      "color": "#0d9488",
+      "color": "#0f766e",
       "title": "Teach the Machine",
       "q": "You are training a cat-and-dog helper. Tap the steps to teach it in the RIGHT order.",
       "pads": [
         { "k": "gather", "e": "🖼️ Gather many example pictures", "c": "#4338ca" },
         { "k": "label", "e": "🏷️ Label each one cat or dog", "c": "#7c3aed" },
-        { "k": "train", "e": "🧠 Let it learn from the labels", "c": "#0891b2" },
-        { "k": "test", "e": "✅ Test it on a new picture", "c": "#0d9488" }
+        { "k": "train", "e": "🧠 Let it learn from the labels", "c": "#0e7490" },
+        { "k": "test", "e": "✅ Test it on a new picture", "c": "#0f766e" }
       ],
       "answer": ["gather", "label", "train", "test"],
       "reason": "First GATHER example pictures. Then LABEL each as cat or dog. Then let it LEARN from your labels. Then TEST it on a new picture to check its guess."

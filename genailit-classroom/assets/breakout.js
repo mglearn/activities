@@ -21,6 +21,12 @@
 
   const $ = s => document.querySelector(s);
   const tr = (k, v) => BreakoutI18n.t(k, v);
+  // Accessible names the locale files don't carry (AI-seeded, pending native review).
+  const DIGIT = { en: 'Digit {n}', es: 'Dígito {n}', vi: 'Chữ số {n}', ar: 'الرقم {n}', hi: 'अंक {n}', ur: 'ہندسہ {n}', zh: '第 {n} 位数字' };
+  const digitLabel = n => (DIGIT[BreakoutI18n.getLang()] || DIGIT.en).replace('{n}', n);
+  // While a dialog is open, everything else on the page is inert (the page, the skip link,
+  // the appended licensing footer): no Tab-out, no screen-reader reading behind it.
+  const setInert = (on, dialog) => { [...document.body.children].forEach(el => { if (el !== dialog && el.tagName !== 'SCRIPT') el.inert = on; }); };
   const data = () => { const d = B.CONTENT[BreakoutI18n.getLang()]; return (d && d.clues && d.clues.length) ? d : B.CONTENT.en; };
   let solved = {};
   const opened = new Set();
@@ -30,25 +36,31 @@
     data().clues.forEach(c => {
       const b = document.createElement('button');
       b.className = 'clue' + (opened.has(c.id) ? ' opened' : '');
+      b.dataset.id = c.id;
       b.innerHTML = `<div class="ico" aria-hidden="true">${c.ico}</div><div class="nm">${c.nm}</div>`;
-      b.onclick = () => openClue(c, b);
+      b.onclick = () => openClue(c);
       g.appendChild(b);
     });
   }
-  let clueReturnFocus = null;
+  // renderClues() rebuilds the buttons, so return focus by clue id, not by element.
+  let clueReturnId = null;
   function closeModal() {
     $('#modalBg').classList.remove('show');
-    if (clueReturnFocus) { clueReturnFocus.focus(); clueReturnFocus = null; }
+    setInert(false, $('#modalBg'));
+    const b = clueReturnId && document.querySelector(`#clueGrid .clue[data-id="${clueReturnId}"]`);
+    if (b) b.focus();
+    clueReturnId = null;
   }
-  function openClue(c, trigger) {
+  function openClue(c) {
     opened.add(c.id);
-    clueReturnFocus = trigger || null;
+    clueReturnId = c.id;
     $('#modal').innerHTML = `<div class="mico" aria-hidden="true">${c.ico}</div><h3 id="clueTitle">${c.title}</h3><p>${c.body}</p>
       <button class="closebtn" id="clueClose"></button>`;
     const btn = $('#modal').querySelector('#clueClose');
     btn.textContent = tr('ui.gotit');
     btn.onclick = closeModal;
     $('#modalBg').classList.add('show');
+    setInert(true, $('#modalBg'));
     btn.focus();
     renderClues();
   }
@@ -73,28 +85,28 @@
       card.id = 'card-' + l.id;
       let body = '';
       if (l.type === 'digit') {
-        body = `<div class="digits" role="group" aria-labelledby="q-${l.id}">${Array.from({ length: l.len }).map((_, i) => `<input class="digit" data-i="${i}" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="Digit ${i + 1}">`).join('')}</div>`;
+        body = `<div class="digits" role="group" aria-labelledby="q-${l.id}">${Array.from({ length: l.len }).map((_, i) => `<input class="digit" data-i="${i}" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="${digitLabel(i + 1)}">`).join('')}</div>`;
       } else if (l.type === 'word') {
         body = `<input class="wordin" placeholder="${tr('ui.wordph')}" aria-labelledby="q-${l.id}">`;
       } else if (l.type === 'mc') {
         body = `<div class="mc">${l.options.map((o, i) => `<button data-i="${i}">${o}</button>`).join('')}</div>`;
       } else if (l.type === 'seq') {
-        body = `<div class="seq-current" id="seq-${l.id}">— — —</div><button class="seq-clear" data-clear>${tr('ui.clear')}</button>
-          <div class="seq-pads">${l.pads.map(p => `<button class="seqpad" data-k="${p.k}" style="background:${p.c}" aria-label="${p.k}"><span aria-hidden="true">${p.e}</span></button>`).join('')}</div>`;
+        body = `<div class="seq-current" id="seq-${l.id}" aria-live="polite">— — —</div><button class="seq-clear" data-clear>${tr('ui.clear')}</button>
+          <div class="seq-pads">${l.pads.map(p => `<button class="seqpad" data-k="${p.k}" style="background:${p.c}"><span>${p.e}</span></button>`).join('')}</div>`;
       } else if (l.type === 'multi') {
         body = `<div class="multi">${l.items.map((o, i) => `<button class="multi-opt" data-i="${i}" aria-pressed="false"><span class="mbox" aria-hidden="true"></span><span>${o.t}</span></button>`).join('')}</div>`;
       }
       const showSubmit = l.type !== 'mc';
       card.innerHTML = `
         <div class="lk-head"><div class="lk-badge" style="background:${l.color}">${l.id.replace('L', '')}</div>
-        <div class="lk-title">${l.title}</div></div>
+        <h3 class="lk-title">${l.title}</h3></div>
         <div class="lk-body">
           <div class="lk-q" id="q-${l.id}">${l.q}</div>
           ${body}
           ${showSubmit ? `<button class="lk-submit">${tr('ui.check')}</button>` : ''}
           <div class="lk-feedback" data-fb role="status" aria-live="polite"></div>
         </div>
-        <div class="lk-solved-msg">${tr('ui.solved')}</div>
+        <div class="lk-solved-msg" tabindex="-1">${tr('ui.solved')}</div>
         <div class="reasoning" style="${solved[l.id] ? '' : 'display:none'}">${l.reason}</div>`;
       wrap.appendChild(card);
       wireLock(l, card);
@@ -110,11 +122,12 @@
       card.querySelector('.reasoning').style.display = 'block';
       renderDots();
       const st = document.getElementById('a11yStatus');
-      if (st) st.textContent = tr('ui.solved') + ' ' + l.reason;
       const n = data().locks.filter(x => solved[x.id]).length;
+      if (st) st.textContent = tr('ui.solved') + ' ' + l.reason + ' ' + tr('ui.pcount', { n, total: data().locks.length });
+      card.querySelector('.lk-solved-msg').focus();
       if (n === data().locks.length) setTimeout(showWin, 400);
     };
-    const fail = msg => { fb.className = 'lk-feedback bad'; fb.textContent = msg; };
+    const fail = msg => { fb.className = 'lk-feedback bad'; fb.textContent = ''; setTimeout(() => { fb.textContent = msg; }, 60); };
 
     if (l.type === 'digit') {
       const inputs = [...card.querySelectorAll('.digit')];
@@ -162,11 +175,16 @@
   function renderAll() { renderClues(); renderLocks(); renderDots(); }
   function showWin() {
     $('#win').classList.add('show');
+    setInert(true, $('#win'));
     const wc = document.querySelector('#win .win-card'); if (wc) wc.focus();
     fireConfetti();
   }
 
-  function reset() { solved = {}; opened.clear(); $('#win').classList.remove('show'); renderAll(); }
+  function reset() {
+    const wasWin = $('#win').classList.contains('show');
+    solved = {}; opened.clear(); $('#win').classList.remove('show'); setInert(false, $('#win')); renderAll();
+    if (wasWin) { const h = $('main h1'); if (h) { h.tabIndex = -1; h.focus(); } }
+  }
 
   function fireConfetti() {
     if (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
