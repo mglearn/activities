@@ -15,7 +15,7 @@ const ROOT = path.join(__dirname, '..');
 const BANDS = { gradek2: [0, 1, 2], grade35: [3, 4, 5], grade68: [6, 7, 8] };  // K == grade 0
 
 // Gen AI suite palette — indigo primary, cyan accent, violet/teal lock colors.
-const ROOTVARS = ':root{--navy:#4338ca;--navy-d:#312e81;--red:#c1121f;--red-d:#8b0d16;--gold:#06b6d4;--gold-d:#0e7490;--paper:#f5f6ff;--ink:#14203a;--ink-soft:#4b5a78;--card:#fff;--line:#e0e7ff;--good:#2f9e44;--bad:#e03131;--c1:#4338ca;--c2:#7c3aed;--c3:#0e7490;--c4:#06b6d4;--c5:#6d28d9;--bg-a:rgba(6,182,212,.12);--bg-b:rgba(67,56,202,.10)}';
+const ROOTVARS = ':root{--navy:#4338ca;--navy-d:#312e81;--red:#c1121f;--red-d:#8b0d16;--gold:#06b6d4;--gold-d:#0e7490;--paper:#f5f6ff;--ink:#172340;--ink-soft:#475569;--card:#fff;--line:#e0e7ff;--good:#166534;--bad:#9f1239;--c1:#4338ca;--c2:#7c3aed;--c3:#0e7490;--c4:#06b6d4;--c5:#6d28d9;--bg-a:rgba(6,182,212,.12);--bg-b:rgba(67,56,202,.10);--good-bg:#f0fdf4;--bad-bg:#fff1f2;--line-strong:#767ca5;--focus:#1d4ed8;--surface:#eef0ff;--dot:rgba(67,56,202,.09)}';
 const THEME_COLOR = '#4338ca';
 
 // Teacher dropdown, mirrored from the site pages so it sits by the 🌐 switcher.
@@ -34,7 +34,7 @@ const TEACHER_CSS = `
   .teacher-menu .tm-panel a:hover{background:var(--bg-b);color:var(--navy)}
   @media(max-width:680px){.teacher-menu{position:static;margin:0 0 4px;text-align:right}}`;
 const TEACHER_MENU = `<details class="teacher-menu">
-  <summary><span aria-hidden="true">👩‍🏫</span> Teachers <span aria-hidden="true">▾</span></summary>
+  <summary><span aria-hidden="true">👩‍🏫</span> <span class="tm-label">Teachers</span> <span aria-hidden="true">▾</span></summary>
   <div class="tm-panel">
     <div class="tm-h">Teacher resources</div>
     <a href="../guide.html">Curriculum Guide<span aria-hidden="true">📘</span></a>
@@ -53,6 +53,8 @@ function loadBreakout(p) {
 }
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+// Grade band of an activity id ("ai-grade7-free" -> "68"); grades 6–8 get a calmer look.
+const bandOf = id => { const g = /-grade([0-9k])/i.exec(id)[1].toLowerCase(); return g === 'k' || +g < 3 ? 'k2' : +g < 6 ? '35' : '68'; };
 function page(id, U) {
   const t = k => esc(U[k]);
   return `<!DOCTYPE html>
@@ -80,7 +82,7 @@ function page(id, U) {
 <link rel="stylesheet" href="../assets/breakout.css">
 <style>${TEACHER_CSS}</style>
 </head>
-<body>
+<body data-band="${bandOf(id)}">
 <a class="skip-link" href="#main">Skip to content</a>
 <canvas id="confetti" aria-hidden="true"></canvas>
 <div class="wrap">

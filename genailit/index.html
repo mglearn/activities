@@ -21,7 +21,7 @@
 <meta name="twitter:description" content="Critical Thinking Online Breakouts for Generative AI Literacy — grades K–8, TEKS-aligned, in 7 languages. Runs in the browser; no logins, no data collected.">
 <meta name="twitter:image" content="https://ai-breakouts.example.org/assets/og.png">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>:root{--navy:#4338ca;--navy-d:#312e81;--red:#c1121f;--red-d:#8b0d16;--gold:#06b6d4;--gold-d:#0e7490;--paper:#f5f6ff;--ink:#14203a;--ink-soft:#4b5a78;--card:#fff;--line:#e0e7ff;--good:#2f9e44;--bad:#e03131;--c1:#4338ca;--c2:#7c3aed;--c3:#0e7490;--c4:#06b6d4;--c5:#6d28d9;--bg-a:rgba(6,182,212,.12);--bg-b:rgba(67,56,202,.10)}</style>
+<style>:root{--navy:#4338ca;--navy-d:#312e81;--red:#c1121f;--red-d:#8b0d16;--gold:#06b6d4;--gold-d:#0e7490;--paper:#f5f6ff;--ink:#172340;--ink-soft:#475569;--card:#fff;--line:#e0e7ff;--good:#166534;--bad:#9f1239;--c1:#4338ca;--c2:#7c3aed;--c3:#0e7490;--c4:#06b6d4;--c5:#6d28d9;--bg-a:rgba(6,182,212,.12);--bg-b:rgba(67,56,202,.10);--good-bg:#f0fdf4;--bad-bg:#fff1f2;--line-strong:#767ca5;--focus:#1d4ed8;--surface:#eef0ff;--dot:rgba(67,56,202,.09)}</style>
 <link rel="stylesheet" href="assets/site.css">
 <style>
   .wrap{position:relative}
@@ -52,14 +52,15 @@
   .stat{flex:1 1 110px;background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px 12px;text-align:center}
   .stat.hl{background:var(--bg-b);border-color:var(--navy)}
   .statn{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.9rem;color:var(--navy);line-height:1}
-  .statl{font-size:.74rem;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-top:6px}</style>
+  .statl{font-size:.74rem;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-top:6px}
+  @media(max-width:560px){.statstrip{display:grid;grid-template-columns:1fr 1fr}}</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="wrap">
 <nav class="topnav" aria-label="Site tools"><div class="site-langbar"><span class="globe" aria-hidden="true">🌐</span><div data-i18n-picker></div></div>
 <details class="teacher-menu">
-  <summary><span aria-hidden="true">👩‍🏫</span> Teachers <span aria-hidden="true">▾</span></summary>
+  <summary><span aria-hidden="true">👩‍🏫</span> <span data-i18n="t1205y8q">Teachers</span> <span aria-hidden="true">▾</span></summary>
   <div class="tm-panel">
     <div class="tm-h">Teacher resources</div>
     <a href="guide.html">Curriculum Guide<span aria-hidden="true">📘</span></a>
@@ -96,6 +97,7 @@
 
   <h2 data-i18n="t1kvb50p">Every breakout — free</h2>
   <p class="section-note" data-i18n="t9lvfbv">Two complete breakouts for every grade, K–8, and all of them are free: fully playable, no login, no license, nothing collected. Share the link and go.</p>
+  <h3 class="band-h" data-i18n="t1grhcbt">Grades K–2</h3>
   <div class="cards">
     <a class="card" href="gradek2/ai-gradeK-student.html">
     <span class="badge"><span data-i18n="t3fwk34">Grade</span> K · §126.5</span>
@@ -145,6 +147,9 @@
     <span class="tier"><span class="freeflag">FREE</span></span>
     <span class="cgo"><span data-i18n="tnwfra7">Start the breakout →</span></span>
   </a>
+  </div>
+  <h3 class="band-h" data-i18n="t1grtuae">Grades 3–5</h3>
+  <div class="cards">
     <a class="card" href="grade35/ai-grade3-student.html">
     <span class="badge"><span data-i18n="t3fwk34">Grade</span> 3 · §126.8</span>
     <div class="ico" aria-hidden="true">🤖</div>
@@ -193,6 +198,9 @@
     <span class="tier"><span class="freeflag">FREE</span></span>
     <span class="cgo"><span data-i18n="tnwfra7">Start the breakout →</span></span>
   </a>
+  </div>
+  <h3 class="band-h" data-i18n="t1grtyfy">Grades 6–8</h3>
+  <div class="cards">
     <a class="card" href="grade68/ai-grade6-student.html">
     <span class="badge"><span data-i18n="t3fwk34">Grade</span> 6 · §126.17</span>
     <div class="ico" aria-hidden="true">🖼️</div>

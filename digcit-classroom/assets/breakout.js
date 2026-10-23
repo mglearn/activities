@@ -23,6 +23,9 @@
   const tr = (k, v) => BreakoutI18n.t(k, v);
   // Accessible names the locale files don't carry (AI-seeded, pending native review).
   const DIGIT = { en: 'Digit {n}', es: 'Dígito {n}', vi: 'Chữ số {n}', ar: 'الرقم {n}', hi: 'अंक {n}', ur: 'ہندسہ {n}', zh: '第 {n} 位数字' };
+  // The Teachers menu label on student pages (the menu's links stay English: they're teacher pages).
+  const TEACHERS = { en: 'Teachers', es: 'Docentes', vi: 'Giáo viên', ar: 'المعلمون', hi: 'शिक्षक', ur: 'اساتذہ', zh: '教师' };
+  const labelChrome = () => { const el = document.querySelector('.teacher-menu .tm-label'); if (el) el.textContent = TEACHERS[BreakoutI18n.getLang()] || TEACHERS.en; };
   const digitLabel = n => (DIGIT[BreakoutI18n.getLang()] || DIGIT.en).replace('{n}', n);
   // While a dialog is open, everything else on the page is inert (the page, the skip link,
   // the appended licensing footer): no Tab-out, no screen-reader reading behind it.
@@ -172,7 +175,7 @@
     }
   }
 
-  function renderAll() { renderClues(); renderLocks(); renderDots(); }
+  function renderAll() { renderClues(); renderLocks(); renderDots(); labelChrome(); }
   function showWin() {
     $('#win').classList.add('show');
     setInert(true, $('#win'));

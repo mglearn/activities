@@ -76,7 +76,7 @@ const payload = {
   data: Buffer.concat([ct, tag]).toString('base64'),   // ciphertext||tag, as Web Crypto expects
 };
 
-const PALETTE = ':root{--navy:#4338ca;--navy-d:#312e81;--red:#7c3aed;--red-d:#5b21b6;--gold:#06b6d4;--gold-d:#0e7490;--paper:#f5f6ff;--ink:#14203a;--ink-soft:#4b5a78;--card:#fff;--line:#e0e7ff;--good:#2f9e44;--bad:#e03131;--c1:#4338ca;--c2:#7c3aed;--c3:#0891b2;--c4:#06b6d4;--c5:#6d28d9;--bg-a:rgba(6,182,212,.12);--bg-b:rgba(67,56,202,.10)}';
+const PALETTE = ':root{--navy:#4338ca;--navy-d:#312e81;--red:#7c3aed;--red-d:#5b21b6;--gold:#06b6d4;--gold-d:#0e7490;--paper:#f5f6ff;--ink:#172340;--ink-soft:#475569;--card:#fff;--line:#e0e7ff;--good:#166534;--bad:#9f1239;--c1:#4338ca;--c2:#7c3aed;--c3:#0891b2;--c4:#06b6d4;--c5:#6d28d9;--bg-a:rgba(6,182,212,.12);--bg-b:rgba(67,56,202,.10);--good-bg:#f0fdf4;--bad-bg:#fff1f2;--line-strong:#767ca5;--focus:#1d4ed8;--surface:#eef0ff;--dot:rgba(67,56,202,.09)}';
 
 const html = `<!DOCTYPE html>
 <html lang="en">

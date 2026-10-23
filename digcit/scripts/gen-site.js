@@ -15,7 +15,7 @@ const fs = require('fs');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 
-const PALETTE = ':root{--navy:#0a2e63;--navy-d:#061f45;--red:#c1121f;--red-d:#8b0d16;--gold:#f5b800;--gold-d:#c08e00;--paper:#f4f8fd;--ink:#14203a;--ink-soft:#4b5a78;--card:#fff;--line:#dbe6f5;--good:#2f9e44;--bad:#e03131;--c1:#0a2e63;--c2:#2f6fe0;--c3:#16697a;--c4:#f5b800;--c5:#0d47a1;--bg-a:rgba(245,184,0,.12);--bg-b:rgba(10,46,99,.10)}';
+const PALETTE = ':root{--navy:#0a2e63;--navy-d:#061f45;--red:#c1121f;--red-d:#8b0d16;--gold:#f5b800;--gold-d:#8a6500;--paper:#f4f8fd;--ink:#172340;--ink-soft:#475569;--card:#fff;--line:#dbe6f5;--good:#166534;--bad:#9f1239;--c1:#0a2e63;--c2:#2f6fe0;--c3:#16697a;--c4:#f5b800;--c5:#0d47a1;--bg-a:rgba(245,184,0,.12);--bg-b:rgba(10,46,99,.10);--good-bg:#f0fdf4;--bad-bg:#fff1f2;--line-strong:#657b9b;--focus:#1d4ed8;--surface:#eaf1fb;--dot:rgba(10,46,99,.08)}';
 const FONTS = '<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">';
 
 const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -107,7 +107,7 @@ function teacherNav(depth) {
   const p = depth ? '../' : '';
   const item = (href, label, ico) => `<a href="${p}${href}">${label}<span aria-hidden="true">${ico}</span></a>`;
   return `<details class="teacher-menu">
-  <summary><span aria-hidden="true">👩‍🏫</span> Teachers <span aria-hidden="true">▾</span></summary>
+  <summary><span aria-hidden="true">👩‍🏫</span> ${S('Teachers')} <span aria-hidden="true">▾</span></summary>
   <div class="tm-panel">
     <div class="tm-h">Teacher resources</div>
     ${item('guide.html', 'Curriculum Guide', '📘')}
@@ -191,7 +191,8 @@ const STAT_CSS = `
   .stat{flex:1 1 110px;background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px 12px;text-align:center}
   .stat.hl{background:var(--bg-b);border-color:var(--navy)}
   .statn{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.9rem;color:var(--navy);line-height:1}
-  .statl{font-size:.74rem;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-top:6px}`;
+  .statl{font-size:.74rem;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-top:6px}
+  @media(max-width:560px){.statstrip{display:grid;grid-template-columns:1fr 1fr}}`;
 // A small stats dashboard for the landing (counts computed from the activity set).
 function dashboard() {
   const total = Object.keys(ACT).length + FREE.length;
@@ -339,7 +340,11 @@ function actCard(a, depth, teacher) {
 
 // ---- SUITE LANDING -------------------------------------------------------
 function suiteLanding() {
-  const allCards = GRADES.flatMap(g => gradeActs(g)).map(a => actCard(a, 0)).join('\n    ');
+  const BAND_GROUPS = [['Grades K–2', ['K', '1', '2']], ['Grades 3–5', ['3', '4', '5']], ['Grades 6–8', ['6', '7', '8']]];
+  const allCards = BAND_GROUPS.map(([label, gs]) => `${E('h3', label, 'class="band-h"')}
+  <div class="cards">
+    ${gs.flatMap(g => gradeActs(g)).map(a => actCard(a, 0)).join('\n    ')}
+  </div>`).join('\n  ');
   const body = `  <div class="hero">
     ${heroImg('hero-digcit.png', 0)}<div class="eyebrow" data-i18n="hero.eyebrow">${esc(si('hero.eyebrow'))}</div>
     <h1 data-i18n="hero.h1">${esc(si('hero.h1'))}</h1>
@@ -358,9 +363,7 @@ function suiteLanding() {
 
   ${E('h2', 'Every breakout — free')}
   ${E('p', 'Two complete breakouts for every grade, K–8, and all of them are free: fully playable, no login, no license, nothing collected. Share the link and go.', 'class="section-note"')}
-  <div class="cards">
-    ${allCards}
-  </div>
+  ${allCards}
 
   <h2 data-i18n="ctob.h2">${esc(si('ctob.h2'))}</h2>
   <div class="panel gold">
