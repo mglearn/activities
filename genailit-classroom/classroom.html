@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>Google Classroom Guide — Gen AI Literacy Breakouts</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="assets/site.webmanifest">
+<meta name="theme-color" content="#4338ca">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Gen AI Literacy Breakouts">
+<meta property="og:title" content="Google Classroom Guide — Gen AI Literacy Breakouts">
+<meta property="og:description" content="Critical Thinking Online Breakouts for Generative AI Literacy — grades K–8, TEKS-aligned, in 7 languages. Runs in the browser; no logins, no data collected.">
+<meta property="og:image" content="https://ai-breakouts.example.org/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Google Classroom Guide — Gen AI Literacy Breakouts">
+<meta name="twitter:description" content="Critical Thinking Online Breakouts for Generative AI Literacy — grades K–8, TEKS-aligned, in 7 languages. Runs in the browser; no logins, no data collected.">
+<meta name="twitter:image" content="https://ai-breakouts.example.org/assets/og.png">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>:root{--navy:#4338ca;--navy-d:#312e81;--red:#c1121f;--red-d:#8b0d16;--gold:#06b6d4;--gold-d:#0e7490;--paper:#f5f6ff;--ink:#14203a;--ink-soft:#4b5a78;--card:#fff;--line:#e0e7ff;--good:#2f9e44;--bad:#e03131;--c1:#4338ca;--c2:#7c3aed;--c3:#0e7490;--c4:#06b6d4;--c5:#6d28d9;--bg-a:rgba(6,182,212,.12);--bg-b:rgba(67,56,202,.10)}</style>
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  .wrap{position:relative}
+  .topnav{position:absolute;top:14px;right:16px;z-index:60;display:flex;gap:10px;align-items:center}
+  @media(max-width:680px){.topnav{position:static;justify-content:flex-end;flex-wrap:wrap;margin:0 0 10px}}
+  .teacher-menu{position:relative;font-family:'Nunito',sans-serif}
+  .teacher-menu>summary{list-style:none;cursor:pointer;background:var(--navy);color:#fff;font-weight:800;font-size:.85rem;padding:8px 14px;border-radius:100px;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(67,56,202,.28)}
+  .teacher-menu>summary::-webkit-details-marker{display:none}
+  .teacher-menu[open]>summary{background:var(--navy-d)}
+  .teacher-menu .tm-panel{position:absolute;right:0;margin-top:8px;background:#fff;border:2px solid var(--line);border-radius:14px;box-shadow:0 16px 40px rgba(10,20,60,.18);padding:8px;min-width:236px;display:flex;flex-direction:column;gap:2px}
+  .teacher-menu .tm-h{font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);font-weight:800;padding:6px 12px 3px}
+  .teacher-menu .tm-panel a{display:flex;justify-content:space-between;gap:12px;padding:9px 12px;border-radius:9px;color:var(--ink);font-weight:700;font-size:.9rem;text-decoration:none}
+  .teacher-menu .tm-panel a:hover{background:var(--bg-b);color:var(--navy)}
+  @media(max-width:680px){.teacher-menu{position:static;margin:0 0 12px;text-align:right}.teacher-menu .tm-panel{left:auto}}
+  .clear-grid{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+  .clear-row{display:flex;gap:14px;align-items:flex-start;background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px 16px}
+  .clear-badge{flex:0 0 auto;width:46px;height:46px;border-radius:12px;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.6rem;display:flex;align-items:center;justify-content:center}
+  .clear-body h4{margin:.1rem 0 .3rem;font-size:1.05rem;color:var(--navy)}
+  .clear-body .clear-q{font-weight:600;color:var(--ink-soft);font-size:.9rem}
+  .clear-body ul{margin:.2rem 0 0;padding-left:1.1rem}
+  .clear-body li{font-size:.9rem;color:var(--ink);margin:.1rem 0}
+  .site-langbar{position:static;display:flex;align-items:center;gap:6px}
+  .site-langbar .globe{font-size:1.1rem}
+  .site-langbar select{font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem;color:var(--navy);background:#fff;border:2px solid var(--line);border-radius:100px;padding:6px 12px;cursor:pointer}
+  .site-langbar select:focus{outline:none;border-color:var(--navy)}
+  @media(max-width:680px){.site-langbar{position:static;margin:0 0 10px}}
+  .statstrip{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0 6px}
+  .stat{flex:1 1 110px;background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px 12px;text-align:center}
+  .stat.hl{background:var(--bg-b);border-color:var(--navy)}
+  .statn{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.9rem;color:var(--navy);line-height:1}
+  .statl{font-size:.74rem;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-top:6px}</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+<nav class="topnav" aria-label="Site tools"><div class="site-langbar"><span class="globe" aria-hidden="true">🌐</span><div data-i18n-picker></div></div>
+<details class="teacher-menu">
+  <summary><span aria-hidden="true">👩‍🏫</span> Teachers <span aria-hidden="true">▾</span></summary>
+  <div class="tm-panel">
+    <div class="tm-h">Teacher resources</div>
+    <a href="classroom.html">Google Classroom Guide<span aria-hidden="true">🎓</span></a>
+    <a href="classroom-check.html">Check Completion Codes<span aria-hidden="true">✅</span></a>
+    <a href="guide.html">Curriculum Guide<span aria-hidden="true">📘</span></a>
+    <a href="scope.html">Scope &amp; Sequence<span aria-hidden="true">🗺️</span></a>
+    <a href="lessons.html">Lesson-Plan Guide<span aria-hidden="true">📝</span></a>
+    <a href="correlation.html">TEKS Correlation<span aria-hidden="true">📊</span></a>
+    <a href="udl.html">UDL Supports<span aria-hidden="true">♿</span></a>
+    <a href="elps.html">ELPS Supports<span aria-hidden="true">🌎</span></a>
+    <a href="answer-key.html">Answer Key<span aria-hidden="true">🔐</span></a>
+  </div>
+</details></nav>
+<main id="main">
+<style>
+  .gc-steps{counter-reset:s;list-style:none;padding:0}
+  .gc-steps>li{counter-increment:s;position:relative;padding:0 0 14px 46px}
+  .gc-steps>li::before{content:counter(s);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:var(--navy);color:#fff;font-weight:800;display:grid;place-items:center}
+  .gc-copybox{position:relative;background:#fff;border:2px solid var(--line);border-radius:12px;padding:12px 14px;white-space:pre-wrap;font-size:.92rem}
+  .gc-copybtn,.gc-btn{font:inherit;font-weight:800;padding:8px 14px;border:0;border-radius:10px;background:var(--navy);color:#fff;cursor:pointer}
+  .gc-copybox .gc-copybtn{float:right;margin:0 0 6px 10px}
+  .gc-code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:700;letter-spacing:.04em;white-space:nowrap}
+  textarea.gc-ta{width:100%;min-height:150px;font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:12px;box-sizing:border-box}
+  select.gc-sel{font:inherit;padding:8px 10px;border:2px solid var(--line);border-radius:10px;max-width:100%}
+  .gc-ok{color:#15803d;font-weight:800}.gc-bad{color:#b91c1c;font-weight:800}.gc-warn{color:#a16207;font-weight:800}
+  .gc-toc a{font-weight:700}
+</style>
+  <div class="crumb" role="navigation" aria-label="Breadcrumb"><a href="index.html">‹ Suite home</a> · <a href="classroom-check.html">Check completion codes</a></div>
+  <div class="hero">
+    <div class="eyebrow">Google Classroom Edition · Teacher tutorial</div>
+    <h1>Using Gen AI Literacy Breakouts with Google Classroom</h1>
+    <p class="lede">Post any breakout as a Classroom assignment in about two minutes. Students play in their browser, earn a completion code when they open all four locks, and turn the code in on Classroom. You check the codes and return grades. Nobody needs a new account, and no student data leaves the student's device.</p>
+    <div class="btnrow">
+      <a class="btn" href="library.html">🔎 Pick an activity</a>
+      <a class="btn ghost" href="classroom-check.html">✅ Check completion codes</a>
+    </div>
+  </div>
+
+  <div class="panel tip">🧭 <b>On this page:</b> <span class="gc-toc"><a href="#what">What's different</a> · <a href="#post">Post an assignment</a> · <a href="#students">What students do</a> · <a href="#check">Check codes &amp; grade</a> · <a href="#k2">Grades K–2</a> · <a href="#lang">Multilingual students</a> · <a href="#privacy">Privacy</a> · <a href="#faq">Troubleshooting</a></span></div>
+
+  <h2 id="what">1 · What's different in the Classroom Edition</h2>
+  <div class="panel">
+    <p style="margin-top:0">The activities, clues, locks, and teacher materials are <b>the same</b> as the original suite. The Classroom Edition adds three things:</p>
+    <ul>
+      <li><b>A completion code on the win screen.</b> After the last lock opens, students type their name and get a code like <span class="gc-code">AI3F-49ME-6JA4</span>. The code is tied to that student's name and that activity, so a code copied from a friend won't check out.</li>
+      <li><b>An "Assign in Google Classroom" box</b> on every teacher launch page. It has the student link, ready to copy, in any of the seven languages.</li>
+      <li><b>A <a href="classroom-check.html">code checker</a></b>, where you paste the codes students turned in and see right away which ones are valid.</li>
+    </ul>
+  </div>
+
+  <h2 id="post">2 · Post an assignment in Google Classroom</h2>
+  <ol class="gc-steps">
+    <li><b>Pick the activity.</b> Open the <a href="library.html">library</a> or a grade-band hub and click an activity to reach its <b>teacher launch page</b>. Skim the premise and the CLEAR mapping so you know where students are headed.</li>
+    <li><b>Copy the student link.</b> On the launch page, find the <b>🎓 Assign in Google Classroom</b> box. Choose the language your students will start in, then click <b>Copy student link</b>. (Students can still switch languages with the 🌐 menu.)</li>
+    <li><b>Create the assignment.</b> In Google Classroom open your class → <b>Classwork</b> → <b>+ Create</b>. Choose one of these:
+      <ul>
+        <li><b>Question → Short answer</b> <i>(recommended)</i>. Students paste their code as the answer, and Classroom lists every student's answer next to their name, so checking is fast. Type the question as <i>"Paste your completion code."</i></li>
+        <li><b>Assignment</b>. Students paste the code in the <b>Private comments</b> box (or attach a screenshot of the win screen) and click <b>Turn in</b>.</li>
+      </ul></li>
+    <li><b>Attach the link.</b> Click <b>Add</b> (the link icon 🔗) and paste the student link. Classroom shows it as a link card that opens in a new tab, which works on Chromebooks, iPads, and laptops.</li>
+    <li><b>Paste the instructions.</b> Copy the text below into the instructions box and adjust it if you like.
+      <div class="gc-copybox" id="gcInstr"><button type="button" class="gc-copybtn" data-copy="gcInstr">Copy</button>1. Click the link to open the breakout.
+2. Read all six clues. One clue is a decoy, so think about which clues really help!
+3. Use the clues to open all four locks. After each lock, read the reason why the answer is right.
+4. When you win, type your first and last name the way it shows in Google Classroom, and click "Show my code."
+5. Copy your completion code, paste it here, and click Turn in.</div></li>
+    <li><b>Set points and a due date.</b> Completion work is often worth 10 points or marked complete/incomplete. Then click <b>Assign</b>, or <b>Schedule</b> it for the day you'll teach it.</li>
+  </ol>
+  <div class="panel gold"><b>Tip:</b> a breakout works best as the <b>engage</b> or <b>collaborative-practice</b> part of a lesson. Assign it to pairs or trios (one device, one shared code), then debrief the CLEAR steps together. See the <a href="lessons.html">lesson-plan guide</a>.</div>
+
+  <h2 id="students">3 · What students do</h2>
+  <ol class="gc-steps">
+    <li>Open the assignment in Google Classroom and click the activity link.</li>
+    <li>Read the clues and open the four locks. Wrong answers are fine: they get a hint and try again, and nothing is graded inside the activity.</li>
+    <li>On the win screen, under <b>Get your completion code</b>, type their <b>first and last name</b> and click <b>Show my code</b>.</li>
+    <li>Click <b>Copy code</b>, return to the Classroom tab, paste the code, and click <b>Turn in</b>.</li>
+  </ol>
+  <p class="section-note">Capital letters, accents, extra spaces, hyphens, and name order don't matter: <i>"José García-Ruiz"</i>, <i>"jose garcia ruiz"</i>, and <i>"Garcia Ruiz, Jose"</i> all give the same code. Spelling does matter, so a nickname gives a different code. That's why students should type their name the way it appears in Classroom.</p>
+
+  <h2 id="check">4 · Check codes and return grades</h2>
+  <ol class="gc-steps">
+    <li>Open the Classroom assignment → <b>Student answers</b> (for a Question) or <b>Student work</b> (for an Assignment).</li>
+    <li>Open the <a href="classroom-check.html"><b>code checker</b></a>. There are two ways to use it:
+      <ul>
+        <li><b>Check what came in.</b> Paste one student per line, with the name and the code (for example <span class="gc-code">Maria Lopez AI3F-49ME-6JA4</span>). Each line is marked ✅ valid, ❌ doesn't match that name, or ⚠️ no code found.</li>
+        <li><b>Make a list of expected codes.</b> Choose the activity and paste your class roster, one name per line. You'll get each student's expected code, so you can compare it with Classroom at a glance or paste the list into a gradebook spreadsheet.</li>
+      </ul></li>
+    <li>In Classroom, enter the points (or mark complete) and click <b>Return</b>.</li>
+  </ol>
+  <div class="panel tip">🔁 <b>Re-teaching?</b> Students can click <b>Play Again</b> and get the same code for the same name, so they never lose credit by replaying.</div>
+
+  <h2 id="k2">5 · Grades K–2</h2>
+  <div class="panel">
+    <ul style="margin:0">
+      <li>Play the breakout <b>whole-class</b> on the board, or in a small group with an adult. Typing a name is the hardest part for young students, so let a grown-up or older buddy type it.</li>
+      <li>If students don't use Classroom on their own yet, skip the code. Post the link as <b>Material</b> (Classwork → + Create → Material) so families can replay it at home.</li>
+      <li>For a quick check, have students show you the win screen, or take a photo of it with the Classroom app.</li>
+    </ul>
+  </div>
+
+  <h2 id="lang">6 · Multilingual students</h2>
+  <div class="panel">
+    <p style="margin-top:0">Every activity runs in English, Spanish, Vietnamese, Arabic, Hindi, Urdu, and Chinese, and the completion-code box is translated too. You can either:</p>
+    <ul style="margin-bottom:0">
+      <li>Post <b>one link</b> and show students the 🌐 menu, so each student picks a language, <i>or</i></li>
+      <li>Post a <b>language-specific link</b> from the launch page's language menu (it adds <span class="gc-code">?lang=es</span> and similar) to a Classroom <b>topic</b> or to specific students. (When you create the assignment, choose <b>All students → select students</b>.)</li>
+    </ul>
+    <p class="small" style="margin-bottom:0">The code is the same whichever language a student plays in. Translations are AI-seeded and awaiting native-speaker review.</p>
+  </div>
+
+  <h2 id="privacy">7 · Privacy</h2>
+  <div class="panel gold">
+    <ul style="margin:0">
+      <li>There's no login, no account, no tracking, and no server. The activity runs entirely in the student's browser.</li>
+      <li>The student's name is used <b>only in their own browser</b> to calculate the code. It is <b>not saved</b> and <b>not sent anywhere</b>. Closing the tab or clicking Play Again clears it.</li>
+      <li>The code checker works the same way: the names you paste stay on your computer.</li>
+      <li>The student's name and code reach you only through Google Classroom, which your district already manages under its own Google Workspace for Education agreement.</li>
+    </ul>
+  </div>
+
+  <h2 id="faq">8 · Troubleshooting</h2>
+  <div class="panel">
+    <p style="margin-top:0"><b>A code shows ❌, but the student really finished.</b> Their name is spelled differently from the one you checked, for example a nickname or a missing second last name. Check it again with the name the student typed, or have them replay. (The activity remembers nothing, but the locks go fast the second time.)</p>
+    <p><b>The student closed the win screen before copying the code.</b> Have them open all four locks again. Same name, same code.</p>
+    <p><b>Can students cheat?</b> Copying a friend's code doesn't work, because the code depends on the name. This is a <b>light-touch completion check</b>, though, not secure testing: the code is calculated in the browser, so a determined, tech-savvy student could work it out. For graded evidence of thinking, add a short reflection question to the assignment (for example, <i>"Which clue was the decoy, and how did you know?"</i>).</p>
+    <p><b>The link is blocked at school.</b> Ask your tech team to allow this site. It's a static website with no logins, ads, or third-party trackers.</p>
+    <p style="margin-bottom:0"><b>What about the 🕹️ Arcade games?</b> They don't issue codes. Use them as ungraded warm-ups or early-finisher choices, and post them as Classroom <b>Material</b>.</p>
+  </div>
+  <div class="panel tip">🚧 <b>Coming later:</b> a Google Classroom <b>add-on</b> that opens activities inside Classroom and sends grades back automatically, with no codes to check.</div>
+<script>
+document.querySelectorAll('[data-copy]').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var el = document.getElementById(b.getAttribute('data-copy'));
+    var txt = (el.value !== undefined ? el.value : el.innerText.replace(/^Copy\s*/, '')).trim();
+    var old = b.textContent;
+    navigator.clipboard.writeText(txt).then(function () { b.textContent = 'Copied!'; setTimeout(function () { b.textContent = old; }, 1600); });
+  });
+});
+</script>
+<footer>
+  <span data-i18n="t1sykje8">Gen AI Literacy Breakouts · Aligned to Texas TEKS Technology Applications (adopted 2022, required K–8). Paraphrased alignment — not legal advice.</span><br>
+  <a href="index.html" data-i18n="t11pmpv8">Suite home</a> · <a href="library.html" data-i18n="tg842sa">Library</a> · <a href="guide.html" data-i18n="t1tzufeb">Teacher guide</a> · <a href="scope.html" data-i18n="tmuk1xy">Scope &amp; sequence</a> · <a href="lessons.html" data-i18n="tqtkwbx">Lesson plans</a> · <a href="correlation.html" data-i18n="tyit8fo">TEKS correlation</a> · <a href="udl.html" data-i18n="t376g6w">UDL</a> · <a href="elps.html" data-i18n="tyjgnn3">ELPS</a>
+</footer>
+</main>
+<script src="assets/site-i18n-data.js"></script>
+<script src="assets/i18n.js"></script>
+<script>BreakoutI18n.register('site', window.SITE_I18N_DATA);</script>
+</div>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+</html>

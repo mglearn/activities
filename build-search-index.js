@@ -296,7 +296,7 @@ if (hem?.maps) {
 const wordBags = {};
 for (const dir of [
   "plotpoint", "sayitmakeit", "pst", "relic-rooms",
-  "digcit", "genailit", "lab-safety", "digitalmathtools",
+  "digcit", "genailit", "digcit-classroom", "genailit-classroom", "lab-safety", "digitalmathtools",
   "eventmaps", "sst", "curiosity",
 ]) {
   const { phrases, words, pages } = harvestArea(dir);
