@@ -237,6 +237,7 @@
     .direction .txt{font-size:1.15rem;}
     .hero{width:110px;height:110px;}
     .bowl{width:180px;height:120px;}
+    .scatterbox{height:340px;}
   }
 </style>
 </head>
@@ -407,24 +408,36 @@
     zh:["零","一","二","三","四","五","六","七","八","九","十","十一","十二","十三","十四","十五","十六","十七","十八","十九","二十"]
   };
 
-  // Theme item words (plural / general form)
+  // Kinds per theme: one kind is picked per round (all objects in a round match).
+  var KINDS = {
+    farm:["chick","duck","sheep","cow","bunny"], sea:["fish","crab","octopus","turtle","starfish"],
+    insects:["ladybug","bee","butterfly","ant","caterpillar"], zoo:["lion","elephant","monkey","giraffe","penguin"],
+    dinosaurs:["egg","babydino"], classroom:["crayon"], seasonal:["star"]
+  };
+  // Item words per kind (plural / general form)
   var ITEMWORDS = {
-    en:{farm:"chicks", sea:"fish", insects:"ladybugs", dinosaurs:"eggs", classroom:"crayons", seasonal:"stars"},
-    es:{farm:"pollitos", sea:"peces", insects:"mariquitas", dinosaurs:"huevos", classroom:"crayones", seasonal:"estrellas"},
-    vi:{farm:"gà con", sea:"con cá", insects:"bọ rùa", dinosaurs:"quả trứng", classroom:"bút màu", seasonal:"ngôi sao"},
-    ar:{farm:"كتاكيت", sea:"أسماك", insects:"دعسوقات", dinosaurs:"بيضات", classroom:"أقلام تلوين", seasonal:"نجوم"},
-    hi:{farm:"चूज़े", sea:"मछलियाँ", insects:"गुबरैले", dinosaurs:"अंडे", classroom:"क्रेयॉन", seasonal:"तारे"},
-    ur:{farm:"چوزے", sea:"مچھلیاں", insects:"لیڈی برڈز", dinosaurs:"انڈے", classroom:"کریون", seasonal:"ستارے"},
-    zh:{farm:"小鸡", sea:"小鱼", insects:"瓢虫", dinosaurs:"蛋", classroom:"蜡笔", seasonal:"星星"}
+    en:{chick:"chicks", duck:"ducks", sheep:"sheep", cow:"cows", bunny:"bunnies", fish:"fish", crab:"crabs", octopus:"octopuses", turtle:"turtles", starfish:"starfish", ladybug:"ladybugs", bee:"bees", butterfly:"butterflies", ant:"ants", caterpillar:"caterpillars", lion:"lions", elephant:"elephants", monkey:"monkeys", giraffe:"giraffes", penguin:"penguins", egg:"eggs", babydino:"baby dinosaurs", crayon:"crayons", star:"stars"},
+    es:{chick:"pollitos", duck:"patitos", sheep:"ovejas", cow:"vacas", bunny:"conejitos", fish:"peces", crab:"cangrejos", octopus:"pulpos", turtle:"tortugas", starfish:"estrellas de mar", ladybug:"mariquitas", bee:"abejas", butterfly:"mariposas", ant:"hormigas", caterpillar:"orugas", lion:"leones", elephant:"elefantes", monkey:"monos", giraffe:"jirafas", penguin:"pingüinos", egg:"huevos", babydino:"dinosaurios bebé", crayon:"crayones", star:"estrellas"},
+    vi:{chick:"gà con", duck:"con vịt", sheep:"con cừu", cow:"con bò", bunny:"con thỏ", fish:"con cá", crab:"con cua", octopus:"con bạch tuộc", turtle:"con rùa", starfish:"con sao biển", ladybug:"bọ rùa", bee:"con ong", butterfly:"con bướm", ant:"con kiến", caterpillar:"con sâu bướm", lion:"con sư tử", elephant:"con voi", monkey:"con khỉ", giraffe:"con hươu cao cổ", penguin:"con chim cánh cụt", egg:"quả trứng", babydino:"khủng long con", crayon:"bút màu", star:"ngôi sao"},
+    ar:{chick:"كتاكيت", duck:"بطّات", sheep:"خراف", cow:"أبقار", bunny:"أرانب", fish:"أسماك", crab:"سرطانات", octopus:"أخطبوطات", turtle:"سلاحف", starfish:"نجوم البحر", ladybug:"دعسوقات", bee:"نحلات", butterfly:"فراشات", ant:"نملات", caterpillar:"يرقات", lion:"أسود", elephant:"فيلة", monkey:"قرود", giraffe:"زرافات", penguin:"بطاريق", egg:"بيضات", babydino:"ديناصورات صغيرة", crayon:"أقلام تلوين", star:"نجوم"},
+    hi:{chick:"चूज़े", duck:"बत्तखें", sheep:"भेड़ें", cow:"गायें", bunny:"खरगोश", fish:"मछलियाँ", crab:"केकड़े", octopus:"ऑक्टोपस", turtle:"कछुए", starfish:"तारामछलियाँ", ladybug:"गुबरैले", bee:"मधुमक्खियाँ", butterfly:"तितलियाँ", ant:"चींटियाँ", caterpillar:"इल्लियाँ", lion:"शेर", elephant:"हाथी", monkey:"बंदर", giraffe:"जिराफ़", penguin:"पेंगुइन", egg:"अंडे", babydino:"बेबी डायनासोर", crayon:"क्रेयॉन", star:"तारे"},
+    ur:{chick:"چوزے", duck:"بطخیں", sheep:"بھیڑیں", cow:"گائیں", bunny:"خرگوش", fish:"مچھلیاں", crab:"کیکڑے", octopus:"آکٹوپس", turtle:"کچھوے", starfish:"ستارہ مچھلیاں", ladybug:"لیڈی برڈز", bee:"شہد کی مکھیاں", butterfly:"تتلیاں", ant:"چیونٹیاں", caterpillar:"سنڈیاں", lion:"شیر", elephant:"ہاتھی", monkey:"بندر", giraffe:"زرافے", penguin:"پینگوئن", egg:"انڈے", babydino:"ننھے ڈائناسور", crayon:"کریون", star:"ستارے"},
+    zh:{chick:"小鸡", duck:"小鸭", sheep:"小羊", cow:"奶牛", bunny:"小兔", fish:"小鱼", crab:"螃蟹", octopus:"章鱼", turtle:"海龟", starfish:"海星", ladybug:"瓢虫", bee:"蜜蜂", butterfly:"蝴蝶", ant:"蚂蚁", caterpillar:"毛毛虫", lion:"狮子", elephant:"大象", monkey:"猴子", giraffe:"长颈鹿", penguin:"企鹅", egg:"蛋", babydino:"小恐龙", crayon:"蜡笔", star:"星星"}
+  };
+  // Kinds whose word is grammatically feminine; directions then use the "_f" string variant if one exists.
+  var FEM = {
+    es:["sheep","cow","turtle","starfish","ladybug","bee","butterfly","ant","caterpillar","giraffe","star"],
+    hi:["duck","sheep","cow","fish","starfish","bee","butterfly","ant","caterpillar"],
+    ur:["duck","sheep","cow","fish","starfish","bee","butterfly","ant","caterpillar"]
   };
   var THEMENAMES = {
-    en:{farm:"Farm animals", sea:"Sea animals", insects:"Insects", dinosaurs:"Dinosaurs", classroom:"Classroom objects", seasonal:"Seasonal"},
-    es:{farm:"Animales de granja", sea:"Animales marinos", insects:"Insectos", dinosaurs:"Dinosaurios", classroom:"Objetos del aula", seasonal:"De temporada"},
-    vi:{farm:"Động vật nông trại", sea:"Động vật biển", insects:"Côn trùng", dinosaurs:"Khủng long", classroom:"Đồ dùng lớp học", seasonal:"Theo mùa"},
-    ar:{farm:"حيوانات المزرعة", sea:"حيوانات البحر", insects:"حشرات", dinosaurs:"ديناصورات", classroom:"أدوات الصف", seasonal:"موسمية"},
-    hi:{farm:"खेत के जानवर", sea:"समुद्री जानवर", insects:"कीड़े", dinosaurs:"डायनासोर", classroom:"कक्षा की वस्तुएँ", seasonal:"मौसमी"},
-    ur:{farm:"کھیت کے جانور", sea:"سمندری جانور", insects:"کیڑے", dinosaurs:"ڈائناسور", classroom:"کلاس کی اشیاء", seasonal:"موسمی"},
-    zh:{farm:"农场动物", sea:"海洋动物", insects:"昆虫", dinosaurs:"恐龙", classroom:"课堂物品", seasonal:"季节"}
+    en:{farm:"Farm animals", sea:"Sea animals", insects:"Insects", zoo:"Wild animals", dinosaurs:"Dinosaurs", classroom:"Classroom objects", seasonal:"Seasonal"},
+    es:{farm:"Animales de granja", sea:"Animales marinos", insects:"Insectos", zoo:"Animales salvajes", dinosaurs:"Dinosaurios", classroom:"Objetos del aula", seasonal:"De temporada"},
+    vi:{farm:"Động vật nông trại", sea:"Động vật biển", insects:"Côn trùng", zoo:"Động vật hoang dã", dinosaurs:"Khủng long", classroom:"Đồ dùng lớp học", seasonal:"Theo mùa"},
+    ar:{farm:"حيوانات المزرعة", sea:"حيوانات البحر", insects:"حشرات", zoo:"حيوانات برية", dinosaurs:"ديناصورات", classroom:"أدوات الصف", seasonal:"موسمية"},
+    hi:{farm:"खेत के जानवर", sea:"समुद्री जानवर", insects:"कीड़े", zoo:"जंगली जानवर", dinosaurs:"डायनासोर", classroom:"कक्षा की वस्तुएँ", seasonal:"मौसमी"},
+    ur:{farm:"کھیت کے جانور", sea:"سمندری جانور", insects:"کیڑے", zoo:"جنگلی جانور", dinosaurs:"ڈائناسور", classroom:"کلاس کی اشیاء", seasonal:"موسمی"},
+    zh:{farm:"农场动物", sea:"海洋动物", insects:"昆虫", zoo:"野生动物", dinosaurs:"恐龙", classroom:"课堂物品", seasonal:"季节"}
   };
 
   var T = {
@@ -503,9 +516,11 @@
       fb_feed_low:"Toquemos cada uno una vez. Tienes {w}. Agrega más para llegar a {t}.",
       fb_feed_high:"Toquemos cada uno una vez. Eso es {w}, que es más que {t}. Saca algunos.",
       dir_howmany:"¿Cuántos {items} hay? Toca cada uno y elige el número.",
+      dir_howmany_f:"¿Cuántas {items} hay? Toca cada una y elige el número.",
       fb_howmany_ok:"¡Sí! Contaste {w}. El último número dice cuántos hay.",
       fb_howmany_hint:"Toquemos cada uno una vez y contemos de nuevo. Prueba otro número.",
       dir_quick:"¡Mira Rápido! Observa los {items} y elige cuántos viste.",
+      dir_quick_f:"¡Mira Rápido! Observa las {items} y elige cuántas viste.",
       fb_quick_ok:"¡Buena mirada! Viste {w} de un vistazo.",
       fb_quick_hint:"Miremos otra vez y contemos con cuidado. Presiona Muéstrame para asomarte.",
       dir_cmp_same:"¿Los grupos tienen el mismo número? Si coinciden, ¡presiona Iguales!",
@@ -638,9 +653,11 @@
       fb_feed_low:"हर एक को एक बार छूएँ। तुम्हारे पास {w} हैं। {t} तक पहुँचने के लिए और जोड़ो।",
       fb_feed_high:"हर एक को एक बार छूएँ। यह {w} है, जो {t} से ज़्यादा है। कुछ निकालो।",
       dir_howmany:"कितने {items} हैं? हर एक को छुओ, फिर संख्या चुनो।",
+      dir_howmany_f:"कितनी {items} हैं? हर एक को छुओ, फिर संख्या चुनो।",
       fb_howmany_ok:"हाँ! तुमने {w} गिने। आख़िरी संख्या बताती है कि कितने हैं।",
       fb_howmany_hint:"हर एक को एक बार छूएँ, फिर दोबारा गिनो। दूसरी संख्या आज़माओ।",
       dir_quick:"झटपट देखो! {items} को देखो, फिर चुनो तुमने कितने देखे।",
+      dir_quick_f:"झटपट देखो! {items} को देखो, फिर चुनो तुमने कितनी देखीं।",
       fb_quick_ok:"बहुत बढ़िया! तुमने एक झलक में {w} देखे।",
       fb_quick_hint:"फिर से देखें और ध्यान से गिनें। झलक के लिए मुझे दिखाओ दबाओ।",
       dir_cmp_same:"क्या दोनों समूहों में समान संख्या है? अगर बराबर हैं, तो बराबर दबाओ!",
@@ -683,9 +700,11 @@
       fb_feed_low:"ہر ایک کو ایک بار چھوئیں۔ تمہارے پاس {w} ہیں۔ {t} تک پہنچنے کے لیے مزید شامل کریں۔",
       fb_feed_high:"ہر ایک کو ایک بار چھوئیں۔ یہ {w} ہے، جو {t} سے زیادہ ہے۔ کچھ نکالیں۔",
       dir_howmany:"کتنے {items} ہیں؟ ہر ایک کو چھوئیں، پھر نمبر چنیں۔",
+      dir_howmany_f:"کتنی {items} ہیں؟ ہر ایک کو چھوئیں، پھر نمبر چنیں۔",
       fb_howmany_ok:"جی ہاں! تم نے {w} گنے۔ آخری عدد بتاتا ہے کہ کتنے ہیں۔",
       fb_howmany_hint:"ہر ایک کو ایک بار چھوئیں، پھر دوبارہ گنیں۔ دوسرا نمبر آزمائیں۔",
       dir_quick:"جھٹ سے دیکھیں! {items} کو دیکھیں، پھر چنیں کتنے دیکھے۔",
+      dir_quick_f:"جھٹ سے دیکھیں! {items} کو دیکھیں، پھر چنیں کتنی دیکھیں۔",
       fb_quick_ok:"بہت خوب! تم نے ایک نظر میں {w} دیکھے۔",
       fb_quick_hint:"دوبارہ دیکھیں اور غور سے گنیں۔ جھلک کے لیے مجھے دکھائیں دبائیں۔",
       dir_cmp_same:"کیا دونوں گروپوں میں برابر تعداد ہے؟ اگر برابر ہیں تو برابر دبائیں!",
@@ -776,7 +795,9 @@
     var a = NUMWORDS[lang] || NUMWORDS.en;
     return (a[n]!=null) ? a[n] : String(n);
   }
-  function itemWord(){ return (ITEMWORDS[lang]||ITEMWORDS.en)[settings.theme]; }
+  function itemWord(){ var k=curKind(); return (ITEMWORDS[lang]||ITEMWORDS.en)[k] || ITEMWORDS.en[k]; }
+  // Use the feminine "_f" variant of a direction when the round's item word needs it (es/hi/ur).
+  function gk(key){ var f=FEM[lang]; return (f && f.indexOf(curKind())!==-1 && T[lang][key+"_f"]) ? key+"_f" : key; }
   function themeName(id){ return (THEMENAMES[lang]||THEMENAMES.en)[id]; }
 
   var LEVELS = {
@@ -843,24 +864,54 @@
   function stopSpeech(){ speechGen++; speechKeep=[]; lastCancel=Date.now(); if(speechOK){ try{ window.speechSynthesis.cancel(); }catch(e){} } }
 
   /* ================= SVG art ================= */
+  // Every animal gets a dark outline (OL / OB groups) so light colors stay visible on white cards.
+  var OL='<g stroke="#3a2a10" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">', OB='<g stroke="#16324f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">';
+  function art(s){ return '<svg viewBox="0 0 100 100" aria-hidden="true">'+s+'</svg>'; }
+  function eye(x,y,r){ r=r||3.5; return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#16324f"/><circle cx="'+(x+r*.35)+'" cy="'+(y-r*.35)+'" r="'+(r*.35)+'" fill="#fff"/>'; }
+  function limb(d,c,w){ return '<path d="'+d+'" stroke="#3a2a10" stroke-width="'+(w+6)+'" fill="none" stroke-linecap="round"/><path d="'+d+'" stroke="'+c+'" stroke-width="'+w+'" fill="none" stroke-linecap="round"/>'; }
+  function puff(pts,r,c){ var s=''; pts.forEach(function(p){ s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="'+r+'" fill="'+c+'"/>'; }); return OL+s+'</g>'+s; } // outlined cloud: outer edge only
+  function cowArt(hero){
+    return art(limb("M30 28 q-9 -8 -5 -19","#f3e3c0",6)+limb("M70 28 q9 -8 5 -19","#f3e3c0",6)+OL+'<ellipse cx="19" cy="42" rx="14" ry="7" fill="#fff" transform="rotate(-20 19 42)"/><ellipse cx="81" cy="42" rx="14" ry="7" fill="#fff" transform="rotate(20 81 42)"/><ellipse cx="50" cy="50" rx="27" ry="31" fill="#fff"/></g><ellipse cx="62" cy="32" rx="9" ry="6.5" fill="#3a3a3a" transform="rotate(25 62 32)"/><ellipse cx="34" cy="30" rx="5" ry="4" fill="#3a3a3a"/>'+eye(40,47,4.2)+eye(60,47,4.2)+OL+'<ellipse cx="50" cy="71" rx="22" ry="14" fill="#f6c6cf"/></g><ellipse cx="42" cy="69" rx="3.5" ry="4.5" fill="#c06d7c"/><ellipse cx="58" cy="69" rx="3.5" ry="4.5" fill="#c06d7c"/>'+(hero?'<path d="M43 78 q7 5 14 0" stroke="#3a2a10" stroke-width="3" fill="none" stroke-linecap="round"/>':''));
+  }
+  var STARFISH="M50 12 L61.8 37.8 L89.9 41 L69 60.2 L74.7 88 L50 74 L25.3 88 L31 60.2 L10.1 41 L38.2 37.8 Z";
   var ITEMS = {
-    farm:function(){ return '<svg viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="62" rx="28" ry="26" fill="#ffd15c"/><circle cx="50" cy="40" r="20" fill="#ffdf7a"/><circle cx="44" cy="38" r="3.5" fill="#3a2a10"/><circle cx="56" cy="38" r="3.5" fill="#3a2a10"/><path d="M46 45 l8 0 l-4 6 z" fill="#ff8a3c"/><path d="M28 66 q-8 4 -2 10" stroke="#e6a800" stroke-width="4" fill="none" stroke-linecap="round"/></svg>'; },
-    sea:function(){ return '<svg viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="46" cy="52" rx="30" ry="20" fill="#39a0e0"/><path d="M74 52 l18 -14 l0 28 z" fill="#2b7fb8"/><circle cx="36" cy="46" r="4.5" fill="#fff"/><circle cx="35" cy="46" r="2.3" fill="#16324f"/><path d="M20 52 q10 -6 20 0" stroke="#1c6fa0" stroke-width="3" fill="none"/><path d="M46 34 q6 6 12 0" stroke="#2b7fb8" stroke-width="4" fill="none"/></svg>'; },
-    insects:function(){ return '<svg viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="55" rx="28" ry="26" fill="#e23b3b"/><path d="M50 29 v52" stroke="#2a0f0f" stroke-width="3"/><circle cx="50" cy="30" r="10" fill="#2a0f0f"/><circle cx="38" cy="48" r="4" fill="#2a0f0f"/><circle cx="62" cy="48" r="4" fill="#2a0f0f"/><circle cx="40" cy="66" r="4" fill="#2a0f0f"/><circle cx="60" cy="66" r="4" fill="#2a0f0f"/><circle cx="46" cy="28" r="2" fill="#fff"/><circle cx="54" cy="28" r="2" fill="#fff"/></svg>'; },
-    dinosaurs:function(){ return '<svg viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="56" rx="26" ry="34" fill="#bfe6c9"/><path d="M28 52 l10 8 l8 -8 l8 8 l8 -8 l8 8" stroke="#5aa06e" stroke-width="4" fill="none"/><circle cx="40" cy="40" r="4" fill="#7ec48f"/><circle cx="58" cy="66" r="5" fill="#7ec48f"/></svg>'; },
-    classroom:function(){ return '<svg viewBox="0 0 100 100" aria-hidden="true"><rect x="38" y="24" width="24" height="60" rx="5" fill="#1668b0"/><path d="M38 24 l12 -14 l12 14 z" fill="#f4c430"/><rect x="38" y="70" width="24" height="8" fill="#0f4e86"/><rect x="42" y="34" width="16" height="5" rx="2" fill="#cfe3f5"/></svg>'; },
-    seasonal:function(){ return '<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 12 l11 24 l26 3 l-19 18 l5 26 l-23 -13 l-23 13 l5 -26 l-19 -18 l26 -3 z" fill="#ffcf3f" stroke="#e0a800" stroke-width="3"/></svg>'; }
+    chick:function(){ return art(OL+'<path d="M50 20 q-3 -8 3 -10 M50 20 q4 -6 9 -3" fill="none"/><ellipse cx="50" cy="64" rx="28" ry="25" fill="#ffd15c"/><ellipse cx="29" cy="66" rx="7" ry="11" fill="#f2b51f" transform="rotate(25 29 66)"/><ellipse cx="71" cy="66" rx="7" ry="11" fill="#f2b51f" transform="rotate(-25 71 66)"/><circle cx="50" cy="39" r="19" fill="#ffdf7a"/><path d="M45 44 h10 l-5 7 z" fill="#ff8a3c"/></g>'+eye(43,36)+eye(57,36)); },
+    duck:function(){ return art('<path d="M8 90 q8 -5 16 0 q8 5 16 0 q8 -5 16 0 q8 5 16 0 q8 -5 16 0" stroke="#5cb8ff" stroke-width="3" fill="none" stroke-linecap="round"/>'+OL+'<path d="M20 62 l-12 -12 l20 5 z" fill="#fff"/><ellipse cx="46" cy="68" rx="32" ry="17" fill="#fff"/><path d="M30 64 q14 -10 30 0 q-14 10 -30 0 z" fill="#dfe8f1"/><circle cx="66" cy="42" r="15" fill="#fff"/><path d="M79 42 q14 -3 17 3 q-3 6 -17 4 z" fill="#ff9a2e"/></g>'+eye(69,38)); },
+    sheep:function(){ return art(OL+'<rect x="30" y="66" width="8" height="24" rx="3" fill="#4a4a4a"/><rect x="56" y="66" width="8" height="24" rx="3" fill="#4a4a4a"/></g>'+puff([[24,54],[33,40],[48,34],[63,39],[68,55],[57,68],[40,70],[25,65]],13,"#fff")+'<ellipse cx="46" cy="53" rx="22" ry="16" fill="#fff"/>'+OL+'<ellipse cx="70" cy="36" rx="8" ry="4" fill="#4a4a4a" transform="rotate(-25 70 36)"/><ellipse cx="80" cy="48" rx="11" ry="14" fill="#4a4a4a"/><circle cx="80" cy="35" r="6" fill="#fff"/></g><circle cx="76" cy="46" r="3.2" fill="#fff"/><circle cx="76.5" cy="46.5" r="1.7" fill="#16324f"/><circle cx="86" cy="46" r="3.2" fill="#fff"/><circle cx="86.5" cy="46.5" r="1.7" fill="#16324f"/>'); },
+    cow:function(){ return cowArt(false); },
+    bunny:function(){ return art(OL+'<ellipse cx="38" cy="24" rx="8" ry="20" fill="#eeeae6"/><ellipse cx="62" cy="24" rx="8" ry="20" fill="#eeeae6"/></g><ellipse cx="38" cy="26" rx="3.5" ry="13" fill="#f6c6cf"/><ellipse cx="62" cy="26" rx="3.5" ry="13" fill="#f6c6cf"/>'+OL+'<ellipse cx="50" cy="79" rx="22" ry="16" fill="#eeeae6"/><circle cx="50" cy="54" r="20" fill="#eeeae6"/><path d="M46 59 h8 l-4 4 z" fill="#f08aa0"/><path d="M50 64 q-3 4 -7 2 M50 64 q3 4 7 2" fill="none" stroke-width="2.5"/></g><circle cx="38" cy="61" r="3.5" fill="#f6c6cf"/><circle cx="62" cy="61" r="3.5" fill="#f6c6cf"/>'+eye(43,51)+eye(57,51)); },
+    fish:function(){ return art(OB+'<path d="M72 52 l20 -15 v30 z" fill="#2b7fb8"/><path d="M38 34 q8 -12 20 -1" fill="#2b7fb8"/><ellipse cx="46" cy="52" rx="30" ry="20" fill="#39a0e0"/></g><path d="M52 42 q6 10 0 20 M62 42 q6 10 0 20" stroke="#1c6fa0" stroke-width="3" fill="none"/><circle cx="34" cy="46" r="5" fill="#fff" stroke="#16324f" stroke-width="1.5"/><circle cx="33" cy="46" r="2.5" fill="#16324f"/><path d="M21 57 q5 3 9 0" stroke="#16324f" stroke-width="2.5" fill="none" stroke-linecap="round"/>'); },
+    crab:function(){ return art(limb("M26 64 l-14 4 M27 70 l-13 11 M32 76 l-7 12 M74 64 l14 4 M73 70 l13 11 M68 76 l7 12","#e8553e",4)+limb("M34 54 l-12 -16 M66 54 l12 -16","#e8553e",5)+limb("M43 50 v-12 M57 50 v-12","#e8553e",3)+OL+'<path d="M24 40 C10 42 5 27 12 17 L18 27 L21 15 C30 20 31 33 24 40 Z" fill="#e8553e"/><path d="M76 40 C90 42 95 27 88 17 L82 27 L79 15 C70 20 69 33 76 40 Z" fill="#e8553e"/><ellipse cx="50" cy="64" rx="28" ry="17" fill="#e8553e"/><circle cx="43" cy="35" r="6" fill="#fff"/><circle cx="57" cy="35" r="6" fill="#fff"/><path d="M43 67 q7 5 14 0" fill="none"/></g><circle cx="43" cy="36" r="3" fill="#16324f"/><circle cx="57" cy="36" r="3" fill="#16324f"/>'); },
+    octopus:function(){ return art(limb("M30 56 q-6 16 -16 26 M42 60 q-2 16 -10 30 M58 60 q2 16 10 30 M70 56 q6 16 16 26","#9b6ad6",7)+OL+'<path d="M22 60 q-2 -48 28 -48 q30 0 28 48 q-28 8 -56 0 z" fill="#9b6ad6"/></g><circle cx="34" cy="26" r="4" fill="#b98ee8"/><circle cx="64" cy="21" r="3" fill="#b98ee8"/><circle cx="40" cy="40" r="7" fill="#fff"/><circle cx="60" cy="40" r="7" fill="#fff"/>'+eye(41,41)+eye(61,41)+'<circle cx="32" cy="50" r="3.5" fill="#f2a1c8"/><circle cx="68" cy="50" r="3.5" fill="#f2a1c8"/><path d="M44 51 q6 5 12 0" stroke="#3a2a10" stroke-width="3" fill="none" stroke-linecap="round"/>'); },
+    turtle:function(){ return art(OL+'<path d="M16 64 l-9 4 l9 3 z" fill="#7ccf6a"/><ellipse cx="30" cy="72" rx="7" ry="10" fill="#7ccf6a"/><ellipse cx="70" cy="72" rx="7" ry="10" fill="#7ccf6a"/><circle cx="83" cy="55" r="11" fill="#7ccf6a"/><path d="M16 66 q2 -42 34 -42 q32 0 34 42 z" fill="#3f8f4a"/><path d="M40 38 h20 l6 12 l-6 12 h-20 l-6 -12 z" fill="#79c267"/><rect x="12" y="62" width="76" height="8" rx="4" fill="#2f7a3a"/></g>'+eye(86,52,3)+'<path d="M84 59 q4 3 8 -1" stroke="#3a2a10" stroke-width="2.5" fill="none" stroke-linecap="round"/>'); },
+    starfish:function(){ return art('<path d="'+STARFISH+'" fill="#ff8a5c" stroke="#3a2a10" stroke-width="12" stroke-linejoin="round"/><path d="'+STARFISH+'" fill="#ff8a5c" stroke="#ff8a5c" stroke-width="6" stroke-linejoin="round"/><g fill="#ffc29e"><circle cx="50" cy="24" r="2.5"/><circle cx="78" cy="44" r="2.5"/><circle cx="70" cy="80" r="2.5"/><circle cx="30" cy="80" r="2.5"/><circle cx="22" cy="44" r="2.5"/></g>'+eye(44,50,3)+eye(56,50,3)+'<path d="M45 58 q5 4 10 0" stroke="#3a2a10" stroke-width="2.5" fill="none" stroke-linecap="round"/>'); },
+    ladybug:function(){ return art('<path d="M27 48 l-11 -5 M24 60 l-13 2 M28 72 l-10 9 M73 48 l11 -5 M76 60 l13 2 M72 72 l10 9" stroke="#2a0f0f" stroke-width="4" stroke-linecap="round"/>'+OL+'<ellipse cx="50" cy="56" rx="28" ry="26" fill="#e23b3b"/></g><path d="M50 32 v50" stroke="#2a0f0f" stroke-width="3"/><circle cx="50" cy="30" r="11" fill="#2a0f0f"/><circle cx="37" cy="48" r="4.5" fill="#2a0f0f"/><circle cx="63" cy="48" r="4.5" fill="#2a0f0f"/><circle cx="39" cy="67" r="4.5" fill="#2a0f0f"/><circle cx="61" cy="67" r="4.5" fill="#2a0f0f"/><circle cx="46" cy="28" r="2.2" fill="#fff"/><circle cx="54" cy="28" r="2.2" fill="#fff"/>'); },
+    bee:function(){ return art('<path d="M80 43 q0 -10 6 -14 M74 43 q-2 -10 -8 -13" stroke="#3a2a10" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="86" cy="29" r="3" fill="#3a2a10"/><circle cx="66" cy="30" r="3" fill="#3a2a10"/>'+OL+'<path d="M22 56 l-13 4 l13 5 z" fill="#3a2a10"/><ellipse cx="46" cy="60" rx="26" ry="19" fill="#ffd15c"/></g><path d="M40 42 q-4 18 0 36 M54 42 q4 18 0 36" stroke="#3a2a10" stroke-width="7" fill="none"/>'+OL+'<ellipse cx="38" cy="36" rx="9" ry="15" fill="#d8eefc" transform="rotate(-25 38 36)"/><ellipse cx="54" cy="33" rx="9" ry="15" fill="#d8eefc" transform="rotate(15 54 33)"/><circle cx="77" cy="56" r="13" fill="#ffd15c"/><path d="M76 63 q5 3 9 -1" fill="none" stroke-width="2.5"/></g>'+eye(81,53,3.2)); },
+    butterfly:function(){ return art(OL+'<ellipse cx="31" cy="36" rx="19" ry="17" fill="#c58cff"/><ellipse cx="69" cy="36" rx="19" ry="17" fill="#c58cff"/><ellipse cx="35" cy="68" rx="14" ry="13" fill="#ff8ac2"/><ellipse cx="65" cy="68" rx="14" ry="13" fill="#ff8ac2"/></g><circle cx="28" cy="34" r="6" fill="#ffd15c"/><circle cx="72" cy="34" r="6" fill="#ffd15c"/><circle cx="35" cy="69" r="4" fill="#fff"/><circle cx="65" cy="69" r="4" fill="#fff"/>'+OL+'<path d="M47 22 q-6 -10 -12 -10 M53 22 q6 -10 12 -10" fill="none"/><ellipse cx="50" cy="56" rx="6" ry="24" fill="#5a3a6a"/><circle cx="50" cy="28" r="8" fill="#5a3a6a"/></g><circle cx="47" cy="27" r="1.8" fill="#fff"/><circle cx="53" cy="27" r="1.8" fill="#fff"/>'); },
+    ant:function(){ return art('<path d="M45 62 l-8 10 l-6 12 M50 64 l0 12 l-3 12 M55 62 l8 10 l6 12 M74 41 q0 -14 10 -18 M68 41 q-4 -12 0 -20" stroke="#3a2a10" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'+OL+'<ellipse cx="26" cy="58" rx="18" ry="15" fill="#b5602e"/><ellipse cx="50" cy="60" rx="10" ry="8" fill="#b5602e"/><circle cx="72" cy="52" r="13" fill="#b5602e"/></g><circle cx="76" cy="49" r="4.2" fill="#fff"/><circle cx="77" cy="49" r="2.2" fill="#16324f"/><path d="M71 58 q5 4 10 0" stroke="#3a2a10" stroke-width="2.5" fill="none" stroke-linecap="round"/>'); },
+    caterpillar:function(){ return art('<path d="M18 74 v8 M34 71 v9 M50 75 v8 M66 71 v9" stroke="#3a2a10" stroke-width="4" stroke-linecap="round"/><path d="M76 37 l-4 -12 M88 37 l4 -12" stroke="#3a2a10" stroke-width="3" stroke-linecap="round"/><circle cx="72" cy="24" r="3.5" fill="#e23b3b"/><circle cx="92" cy="24" r="3.5" fill="#e23b3b"/>'+OL+'<circle cx="18" cy="64" r="11" fill="#a6e36f"/><circle cx="34" cy="60" r="12" fill="#7ed957"/><circle cx="50" cy="64" r="12" fill="#a6e36f"/><circle cx="66" cy="60" r="12" fill="#7ed957"/><circle cx="82" cy="50" r="15" fill="#5cb848"/><path d="M76 57 q6 5 12 0" fill="none" stroke-width="2.5"/></g>'+eye(77,47,3.2)+eye(88,47,3.2)); },
+    lion:function(){ return art(puff([[81,50],[75.1,68.2],[59.6,79.5],[40.4,79.5],[24.9,68.2],[19,50],[24.9,31.8],[40.4,20.5],[59.6,20.5],[75.1,31.8]],13,"#d9822b")+'<circle cx="50" cy="50" r="31" fill="#d9822b"/>'+OL+'<circle cx="32" cy="30" r="8" fill="#f6c453"/><circle cx="68" cy="30" r="8" fill="#f6c453"/><circle cx="50" cy="53" r="24" fill="#f6c453"/></g><ellipse cx="50" cy="63" rx="13" ry="9" fill="#fde7b0"/><path d="M45 57 h10 l-5 6 z" fill="#6b3a1a"/><path d="M50 63 v2 M50 65 q-4 4 -8 1 M50 65 q4 4 8 1" stroke="#3a2a10" stroke-width="2.5" fill="none" stroke-linecap="round"/>'+eye(42,47,3.8)+eye(58,47,3.8)); },
+    elephant:function(){ return art(OL+'<ellipse cx="22" cy="46" rx="19" ry="23" fill="#9fb3c6"/><ellipse cx="78" cy="46" rx="19" ry="23" fill="#9fb3c6"/></g><ellipse cx="24" cy="47" rx="11" ry="15" fill="#f3c6cf"/><ellipse cx="76" cy="47" rx="11" ry="15" fill="#f3c6cf"/>'+OL+'<ellipse cx="50" cy="42" rx="22" ry="22" fill="#aebfcf"/></g>'+limb("M50 56 q0 20 -8 28 q-6 4 -10 -2","#aebfcf",11)+'<ellipse cx="50" cy="42" rx="20.5" ry="20.5" fill="#aebfcf"/><circle cx="36" cy="52" r="3.5" fill="#f3c6cf"/><circle cx="64" cy="52" r="3.5" fill="#f3c6cf"/>'+eye(42,40,3.8)+eye(58,40,3.8)); },
+    monkey:function(){ return art(OL+'<circle cx="22" cy="48" r="11" fill="#9a5b2e"/><circle cx="78" cy="48" r="11" fill="#9a5b2e"/><circle cx="50" cy="48" r="28" fill="#9a5b2e"/><path d="M45 21 q3 -9 10 -5" fill="none"/></g><circle cx="22" cy="48" r="6" fill="#f1c79a"/><circle cx="78" cy="48" r="6" fill="#f1c79a"/><circle cx="40" cy="44" r="11" fill="#f1c79a"/><circle cx="60" cy="44" r="11" fill="#f1c79a"/><ellipse cx="50" cy="62" rx="20" ry="13" fill="#f1c79a"/>'+eye(41,44,4)+eye(59,44,4)+'<circle cx="47" cy="57" r="1.8" fill="#3a2a10"/><circle cx="53" cy="57" r="1.8" fill="#3a2a10"/><path d="M40 63 q10 9 20 0" stroke="#3a2a10" stroke-width="3" fill="none" stroke-linecap="round"/>'); },
+    giraffe:function(){ return art(limb("M52 23 l-3 -12 M63 22 l1 -12","#f4c046",4)+OL+'<circle cx="49" cy="10" r="4" fill="#b86b2a"/><circle cx="64" cy="9" r="4" fill="#b86b2a"/><path d="M30 98 L48 36 L62 40 L52 98 z" fill="#f4c046"/><ellipse cx="43" cy="27" rx="8" ry="4" fill="#f4c046" transform="rotate(-25 43 27)"/><ellipse cx="60" cy="32" rx="16" ry="12" fill="#f4c046"/><ellipse cx="74" cy="38" rx="11" ry="9" fill="#f8dc8a"/></g><g fill="#c27a32"><ellipse cx="52" cy="53" rx="4" ry="5"/><ellipse cx="47" cy="68" rx="5" ry="6"/><ellipse cx="43" cy="86" rx="4" ry="5"/><circle cx="53" cy="27" r="3"/></g>'+eye(61,29,3.5)+'<circle cx="79" cy="36" r="1.6" fill="#3a2a10"/><path d="M70 43 q4 3 8 0" stroke="#3a2a10" stroke-width="2.5" fill="none" stroke-linecap="round"/>'); },
+    penguin:function(){ return art(OL+'<ellipse cx="40" cy="92" rx="8" ry="4" fill="#ff9a2e"/><ellipse cx="60" cy="92" rx="8" ry="4" fill="#ff9a2e"/><ellipse cx="24" cy="60" rx="7" ry="18" fill="#2b3a4a" transform="rotate(20 24 60)"/><ellipse cx="76" cy="60" rx="7" ry="18" fill="#2b3a4a" transform="rotate(-20 76 60)"/><ellipse cx="50" cy="56" rx="26" ry="34" fill="#2b3a4a"/></g><circle cx="42" cy="38" r="10" fill="#fff"/><circle cx="58" cy="38" r="10" fill="#fff"/><ellipse cx="50" cy="64" rx="18" ry="24" fill="#fff"/>'+eye(43,37,3.5)+eye(57,37,3.5)+OL+'<path d="M44 44 h12 l-6 7 z" fill="#ff9a2e" stroke-width="2.5"/></g><circle cx="36" cy="47" r="3" fill="#f6c6cf"/><circle cx="64" cy="47" r="3" fill="#f6c6cf"/>'); },
+    egg:function(){ return art(OL+'<ellipse cx="50" cy="56" rx="26" ry="34" fill="#bfe6c9"/></g><path d="M28 52 l10 8 l8 -8 l8 8 l8 -8 l8 8" stroke="#5aa06e" stroke-width="4" fill="none"/><circle cx="40" cy="40" r="4" fill="#7ec48f"/><circle cx="58" cy="68" r="5" fill="#7ec48f"/>'); },
+    babydino:function(){ return art(OL+'<path d="M42 23 l1 -10 l7 6 z M52 20 l5 -9 l4 9 z" fill="#4f8f63"/><ellipse cx="50" cy="62" rx="18" ry="16" fill="#7ec48f"/><circle cx="54" cy="36" r="17" fill="#7ec48f"/><path d="M24 58 l7 -8 l7 8 l7 -8 l7 8 l7 -8 l7 8 l7 -8 l3 8 q0 30 -26 30 q-26 0 -26 -30 z" fill="#bfe6c9"/><circle cx="34" cy="56" r="5" fill="#7ec48f"/><circle cx="66" cy="56" r="5" fill="#7ec48f"/><path d="M48 45 q6 5 12 0" fill="none" stroke-width="2.5"/></g><circle cx="40" cy="74" r="3.5" fill="#7ec48f"/><circle cx="60" cy="78" r="4.5" fill="#7ec48f"/>'+eye(47,34,4)+eye(61,34,4)); },
+    crayon:function(){ return '<svg viewBox="0 0 100 100" aria-hidden="true"><rect x="38" y="24" width="24" height="60" rx="5" fill="#1668b0"/><path d="M38 24 l12 -14 l12 14 z" fill="#f4c430"/><rect x="38" y="70" width="24" height="8" fill="#0f4e86"/><rect x="42" y="34" width="16" height="5" rx="2" fill="#cfe3f5"/></svg>'; },
+    star:function(){ return '<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 12 l11 24 l26 3 l-19 18 l5 26 l-23 -13 l-23 13 l5 -26 l-19 -18 l26 -3 z" fill="#ffcf3f" stroke="#e0a800" stroke-width="3"/></svg>'; }
   };
   var HEROES = {
-    farm:'<svg viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="60" rx="34" ry="28" fill="#fff"/><ellipse cx="50" cy="70" rx="20" ry="14" fill="#f6c6cf"/><circle cx="41" cy="70" r="3" fill="#c98894"/><circle cx="59" cy="70" r="3" fill="#c98894"/><circle cx="34" cy="40" r="10" fill="#3a3a3a"/><circle cx="66" cy="40" r="9" fill="#3a3a3a"/><circle cx="40" cy="50" r="4.5" fill="#16324f"/><circle cx="60" cy="50" r="4.5" fill="#16324f"/><path d="M24 34 q-8 -8 -2 -16" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M76 34 q8 -8 2 -16" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round"/></svg>',
-    sea:'<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M14 55 q6 -30 42 -30 q30 0 32 26 l10 -8 l-2 20 l-10 -6 q-8 20 -34 20 q-32 0 -38 -22 z" fill="#4aa8e0"/><circle cx="40" cy="46" r="5" fill="#fff"/><circle cx="41" cy="46" r="2.5" fill="#16324f"/><path d="M30 62 q10 6 22 0" stroke="#2b7fb8" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M50 24 q6 -8 2 -14 q-6 6 -2 14" fill="#9fd3f2"/></svg>',
-    insects:'<svg viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="58" rx="20" ry="26" fill="#ffd15c"/><path d="M50 40 v34" stroke="#3a2a10" stroke-width="3"/><path d="M50 32 v-8 M50 24 l-6 -6 M50 24 l6 -6" stroke="#3a2a10" stroke-width="3" fill="none"/><rect x="30" y="46" width="8" height="6" fill="#3a2a10"/><rect x="30" y="58" width="8" height="6" fill="#3a2a10"/><rect x="62" y="46" width="8" height="6" fill="#3a2a10"/><rect x="62" y="58" width="8" height="6" fill="#3a2a10"/><ellipse cx="34" cy="40" rx="14" ry="10" fill="#cfe3f5" opacity=".8"/><ellipse cx="66" cy="40" rx="14" ry="10" fill="#cfe3f5" opacity=".8"/><circle cx="45" cy="36" r="3" fill="#16324f"/><circle cx="55" cy="36" r="3" fill="#16324f"/></svg>',
-    dinosaurs:'<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M20 78 q-6 -34 26 -40 q28 -4 34 18 q10 2 12 14 q-2 8 -12 6 q-6 12 -22 12 q4 6 -2 8 q-8 0 -8 -8 q-16 0 -22 -8 q-8 2 -6 -2 z" fill="#7ec48f"/><circle cx="66" cy="46" r="4" fill="#16324f"/><path d="M38 44 l6 -8 l6 8 l6 -8 l6 8" stroke="#4f8f63" stroke-width="4" fill="none"/></svg>',
+    farm:cowArt(true),
+    sea:art(OB+'<path d="M14 55 q6 -30 42 -30 q30 0 32 26 l10 -8 l-2 20 l-10 -6 q-8 20 -34 20 q-32 0 -38 -22 z" fill="#4aa8e0"/><path d="M50 24 q6 -8 2 -14 q-6 6 -2 14" fill="#9fd3f2" stroke-width="2"/></g><circle cx="40" cy="46" r="5" fill="#fff"/><circle cx="41" cy="46" r="2.5" fill="#16324f"/><path d="M30 62 q10 6 22 0" stroke="#16324f" stroke-width="3" fill="none" stroke-linecap="round"/>'),
+    insects:ITEMS.bee(),
+    zoo:art(OL+'<circle cx="30" cy="20" r="7" fill="#9c8fb8"/><circle cx="70" cy="20" r="7" fill="#9c8fb8"/><ellipse cx="50" cy="40" rx="26" ry="22" fill="#9c8fb8"/><ellipse cx="50" cy="68" rx="36" ry="22" fill="#b3a7cc"/></g><ellipse cx="36" cy="60" rx="4" ry="3" fill="#6d5f8c"/><ellipse cx="64" cy="60" rx="4" ry="3" fill="#6d5f8c"/><circle cx="24" cy="72" r="4" fill="#f3c6cf"/><circle cx="76" cy="72" r="4" fill="#f3c6cf"/><path d="M36 76 q14 9 28 0" stroke="#3a2a10" stroke-width="3" fill="none" stroke-linecap="round"/>'+eye(40,34,4.5)+eye(60,34,4.5)),
+    dinosaurs:art(OL+'<path d="M20 78 q-6 -34 26 -40 q28 -4 34 18 q10 2 12 14 q-2 8 -12 6 q-6 12 -22 12 q4 6 -2 8 q-8 0 -8 -8 q-16 0 -22 -8 q-8 2 -6 -2 z" fill="#7ec48f"/></g><path d="M38 44 l6 -8 l6 8 l6 -8 l6 8" stroke="#4f8f63" stroke-width="4" fill="none"/>'+eye(66,46,4)),
     classroom:'<svg viewBox="0 0 100 100" aria-hidden="true"><rect x="30" y="20" width="40" height="60" rx="8" fill="#f4c430"/><rect x="30" y="20" width="14" height="60" rx="6" fill="#e0a800"/><circle cx="52" cy="42" r="4" fill="#16324f"/><circle cx="64" cy="42" r="4" fill="#16324f"/><path d="M50 56 q7 6 16 0" stroke="#16324f" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="34" y="80" width="32" height="8" rx="3" fill="#c98a12"/></svg>',
-    seasonal:'<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="70" r="22" fill="#fff" stroke="#cdddea" stroke-width="2"/><circle cx="50" cy="40" r="16" fill="#fff" stroke="#cdddea" stroke-width="2"/><circle cx="45" cy="38" r="2.5" fill="#16324f"/><circle cx="55" cy="38" r="2.5" fill="#16324f"/><path d="M50 44 l8 3 l-8 2 z" fill="#ff8a3c"/><circle cx="44" cy="66" r="2.5" fill="#16324f"/><circle cx="50" cy="72" r="2.5" fill="#16324f"/><circle cx="56" cy="66" r="2.5" fill="#16324f"/></svg>'
+    seasonal:'<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="70" r="22" fill="#fff" stroke="#16324f" stroke-width="2.5"/><circle cx="50" cy="40" r="16" fill="#fff" stroke="#16324f" stroke-width="2.5"/><circle cx="45" cy="38" r="2.5" fill="#16324f"/><circle cx="55" cy="38" r="2.5" fill="#16324f"/><path d="M50 44 l8 3 l-8 2 z" fill="#ff8a3c"/><circle cx="44" cy="66" r="2.5" fill="#16324f"/><circle cx="50" cy="72" r="2.5" fill="#16324f"/><circle cx="56" cy="66" r="2.5" fill="#16324f"/></svg>'
   };
-  var THEME_IDS = ["farm","sea","insects","dinosaurs","classroom","seasonal"];
-  function itemSVG(){ return (ITEMS[settings.theme]||ITEMS.farm)(); }
+  var THEME_IDS = ["farm","sea","insects","zoo","dinosaurs","classroom","seasonal"];
+  function curKind(){ var ks=KINDS[settings.theme]||KINDS.farm; return (roundState && ks.indexOf(roundState.kind)!==-1) ? roundState.kind : ks[0]; }
+  function itemSVG(){ return (ITEMS[curKind()]||ITEMS.chick)(); }
   function heroSVG(){ return HEROES[settings.theme]||HEROES.farm; }
 
   /* ================= Utilities ================= */
@@ -947,6 +998,13 @@
       if(Math.random()<0.18){ b=a; qtype="same"; }
       roundState={mode:"compare", a:a, b:b, qtype:qtype};
     }
+    if(roundState) roundState.kind=pickKind(); // kept in roundState so a language switch re-renders the same kind
+  }
+  var lastKind=null;
+  function pickKind(){
+    var ks=KINDS[settings.theme]||KINDS.farm, c=ks.filter(function(k){ return k!==lastKind; });
+    if(!c.length) c=ks;
+    return (lastKind=c[rint(0,c.length-1)]);
   }
   function pickArrangement(n){
     if(n===0) return {kind:"empty"};
@@ -1012,7 +1070,8 @@
   }
   function renderScatter(container,n,countable,seed){
     var wrap=el("div","objgroup"); var box=el("div","scatterbox");
-    for(var i=0;i<n;i++){ var o=makeObj(countable); var pos=seed&&seed[i]?seed[i]:{x:rint(4,460),y:rint(4,220)}; o.style.left=pos.x+"px"; o.style.top=pos.y+"px"; box.appendChild(o); }
+    // seed is laid out on a 520x260 field; scale it to the box so narrow phones don't scroll sideways
+    for(var i=0;i<n;i++){ var o=makeObj(countable); var pos=seed&&seed[i]?seed[i]:{x:rint(4,460),y:rint(4,200)}; o.style.left="calc((100% - 56px) * "+Math.min(1,pos.x/464).toFixed(3)+")"; o.style.top="calc((100% - 56px) * "+Math.min(1,pos.y/204).toFixed(3)+")"; box.appendChild(o); }
     wrap.appendChild(box); container.appendChild(wrap);
   }
   function renderArrangement(container,n,countable,arr){
@@ -1110,7 +1169,7 @@
   /* ================= MODE 2: HOW MANY ================= */
   function renderHowMany(){
     var n=roundState.n;
-    setDirection(t("dir_howmany",{items:itemWord()}));
+    setDirection(t(gk("dir_howmany"),{items:itemWord()}));
     renderArrangement(stage, n, true, roundState.arr);
     enableTapCount();
     var row=makeChoiceRow(roundState.opts, function(v,b,rw){
@@ -1124,7 +1183,7 @@
   /* ================= MODE 3: QUICK LOOK ================= */
   function renderQuick(){
     var n=roundState.n;
-    setDirection(t("dir_quick",{items:itemWord()}));
+    setDirection(t(gk("dir_quick"),{items:itemWord()}));
     var flash=el("div","flashbox"); stage.appendChild(flash);
     var inner=el("div"); inner.style.width="100%";
     if(roundState.organized){ if(roundState.useTen) renderTenFrame(inner,n,false); else renderLine(inner,n,false); }
@@ -1233,7 +1292,7 @@
   var tglAudio=document.getElementById("tglAudio"), tglTen=document.getElementById("tglTen"), tglScatter=document.getElementById("tglScatter"), tglNumerals=document.getElementById("tglNumerals");
   THEME_IDS.forEach(function(id){
     var b=el("button","themebtn"); b.type="button"; b.setAttribute("data-theme", id);
-    b.innerHTML='<span class="sw">'+(ITEMS[id])()+'</span><span class="lbl">'+themeName(id)+'</span>';
+    b.innerHTML='<span class="sw">'+ITEMS[KINDS[id][0]]()+'</span><span class="lbl">'+themeName(id)+'</span>';
     b.addEventListener("click", function(){ settings.theme=id; persist(); syncSettingsUI(); });
     segTheme.appendChild(b);
   });
@@ -1251,6 +1310,7 @@
 
   /* ================= Init ================= */
   if(!speechOK) settings.audio=false;
+  if(THEME_IDS.indexOf(settings.theme)===-1) settings.theme="farm";
   applyI18n();
   syncSettingsUI();
   show("menu");
