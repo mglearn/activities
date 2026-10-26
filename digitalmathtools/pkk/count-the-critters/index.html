@@ -812,20 +812,35 @@
     for(var i=0;i<voices.length;i++){ var sc=warmScore(voices[i],code); if(sc>bs){ bs=sc; best=voices[i]; } }
     return bs>=0?best:null;
   }
+  /* Speech queue. Fixes cut-off/dropped audio:
+     - long text is split into sentences (Chrome stops utterances after ~15 s)
+     - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+     - a speak() right after cancel() waits a beat (Chrome drops it otherwise) */
+  var speechGen=0, speechKeep=[], lastCancel=0;
+  function splitSpeech(text){
+    var parts=String(text).match(/[^.!?\u3002\uff01\uff1f\u061f\u0964]+[.!?\u3002\uff01\uff1f\u061f\u0964]*\s*/g)||[text];
+    return parts.map(function(x){ return x.trim(); }).filter(Boolean);
+  }
   function say(text){
     if(!settings.audio || !speechOK || !text) return;
-    try{
-      window.speechSynthesis.cancel();
-      var u = new SpeechSynthesisUtterance(text);
-      var code = BCP47[lang] || "en-US";
-      u.lang = code;
-      var v = pickVoice(code);
-      if(v) u.voice = v;
-      u.rate = 0.86; u.pitch = 1.15;
-      window.speechSynthesis.speak(u);
-    }catch(e){}
+    var ss=window.speechSynthesis, gen=++speechGen, busy=false;
+    try{ busy=ss.speaking||ss.pending||(Date.now()-lastCancel<120); ss.cancel(); }catch(e){}
+    var code=BCP47[lang]||"en-US", v=pickVoice(code), parts=splitSpeech(text);
+    function start(){
+      if(gen!==speechGen) return;
+      speechKeep=[];
+      try{
+        if(ss.paused) ss.resume();
+        parts.forEach(function(p){
+          var u=new SpeechSynthesisUtterance(p);
+          u.lang=code; if(v) u.voice=v; u.rate=0.86; u.pitch=1.15;
+          speechKeep.push(u); ss.speak(u);
+        });
+      }catch(e){}
+    }
+    if(busy) setTimeout(start,120); else start();
   }
-  function stopSpeech(){ if(speechOK){ try{ window.speechSynthesis.cancel(); }catch(e){} } }
+  function stopSpeech(){ speechGen++; speechKeep=[]; lastCancel=Date.now(); if(speechOK){ try{ window.speechSynthesis.cancel(); }catch(e){} } }
 
   /* ================= SVG art ================= */
   var ITEMS = {
@@ -909,7 +924,7 @@
     clearFeedback(); stopSpeech();
     generateRound();
     renderRound();
-    setTimeout(function(){ say(currentDirection); }, 250);
+    var rid=renderId; setTimeout(function(){ if(rid===renderId && currentScreen==="activity") say(currentDirection); }, 250);
   }
   function generateRound(){
     var lv=L();
@@ -957,8 +972,9 @@
     return shuffle(opts);
   }
 
+  var renderId=0; // stale quick-look timers check this so they can't talk over a newer round
   function renderRound(){
-    stage.innerHTML="";
+    renderId++; stage.innerHTML="";
     if(!roundState) return;
     if(roundState.mode==="feed"){ replayLabel.textContent=t("rp_bowl"); renderFeed(); }
     else if(roundState.mode==="howmany"){ replayLabel.textContent=t("rp_group"); renderHowMany(); }
@@ -1129,11 +1145,14 @@
       });
       choicesHolder.appendChild(row);
     }
+    var rid=renderId, flashing=false;
+    function live(){ return rid===renderId && currentScreen==="activity"; }
     function reveal(){
+      if(!live()){ flashing=false; return; }
       cover.style.display="none"; say(t("q_look"));
-      setTimeout(function(){ cover.style.display="flex"; cover.innerHTML='<span class="eye">🙈</span><span>'+t("q_saw")+'</span>'; showChoices(); }, 2000);
+      setTimeout(function(){ flashing=false; if(!live()) return; cover.style.display="flex"; cover.innerHTML='<span class="eye">🙈</span><span>'+t("q_saw")+'</span>'; showChoices(); }, 2000);
     }
-    startBtn.addEventListener("click", function(){ cover.innerHTML='<span class="eye">👀</span><span>'+t("q_ready")+'</span>'; cover.style.display="flex"; setTimeout(reveal, 600); });
+    startBtn.addEventListener("click", function(){ if(flashing) return; flashing=true; cover.innerHTML='<span class="eye">👀</span><span>'+t("q_ready")+'</span>'; cover.style.display="flex"; setTimeout(reveal, 600); });
   }
 
   /* ================= MODE 4: MORE / FEWER / SAME ================= */

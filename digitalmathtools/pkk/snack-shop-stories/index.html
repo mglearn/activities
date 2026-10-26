@@ -649,6 +649,9 @@ I18N.zh={
   storyRetry:function(Q,op){return op==='join'?'还不对。再看看——两组靠近合成了一个更大的组。按重播故事。':'还不对。再看看——有些零食走开不见了。按重播故事。';}
 };
 
+/* Number words stop at ten; use digits beyond that (Make My Own allows totals up to 18). */
+Object.keys(I18N).forEach(function(c){ var w=I18N[c].words; for(var i=w.length;i<=30;i++) w[i]=String(i); });
+
 /* ===== Language engine ===== */
 var LANGS=['en','es','vi','ar','hi','ur','zh'];
 var curLang='en';
@@ -709,15 +712,35 @@ function bestVoice(bcp){
   }catch(e){}
   return null;
 }
+/* Speech queue. Fixes cut-off/dropped audio:
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - a speak() right after cancel() waits a beat (Chrome drops it otherwise) */
+var speechGen=0, speechKeep=[], speechStarted=false;
+function splitSpeech(text){
+  var parts=String(text).match(/[^.!?\u3002\uff01\uff1f\u061f\u0964\u06d4]+[.!?\u3002\uff01\uff1f\u061f\u0964\u06d4]*\s*/g)||[text];
+  return parts.map(function(x){ return x.trim(); }).filter(Boolean);
+}
+function stopSpeech(){ speechGen++; speechKeep=[]; if(speechOK){ try{ window.speechSynthesis.cancel(); }catch(e){} } }
 function speak(text){
   if(!speechOK||!text) return;
-  try{
-    window.speechSynthesis.cancel();
-    var u=new SpeechSynthesisUtterance(text);
-    u.lang=L().bcp; u.rate=0.86; u.pitch=1.15;
-    var v=bestVoice(L().bcp); if(v) u.voice=v;
-    window.speechSynthesis.speak(u);
-  }catch(e){}
+  var ss=window.speechSynthesis, gen=++speechGen, busy=false;
+  try{ busy=ss.speaking||ss.pending; ss.cancel(); }catch(e){}
+  var bcp=L().bcp, v=bestVoice(bcp), parts=splitSpeech(text);
+  function start(){
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(ss.paused) ss.resume();
+      parts.forEach(function(p){
+        var u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; u.rate=0.86; u.pitch=1.15; if(v) u.voice=v;
+        u.onstart=function(){ speechStarted=true; };
+        speechKeep.push(u); ss.speak(u);
+      });
+    }catch(e){}
+  }
+  if(busy) setTimeout(start,120); else start();
 }
 if(speechOK && window.speechSynthesis.onvoiceschanged!==undefined){ window.speechSynthesis.onvoiceschanged=function(){}; }
 
@@ -738,13 +761,13 @@ function makeProblem(){
   if(scene.id==='animal'&&Math.random()<0.6) snack='fish';
   var op;
   if(mode==='make') op='make';
-  else if(mode==='story') op=Math.random()<0.5?'join':'separate';
+  else if(mode==='story') op='story'; // story()/instr()/loadProblem test for op 'story'; the real action is storyOp
   else{ op=(mode==='separate')?'separate':'join'; if(settings.practice==='mixed'&&(mode==='join'||mode==='separate')) op=Math.random()<0.5?'join':'separate'; }
   var a=null,b=null,answer,total=null;
   if(op==='join'){ total=rand(2,Math.max(2,max)); a=rand(1,total-1); b=total-a; answer=total; }
   else if(op==='separate'){ a=rand(2,Math.max(2,max)); b=rand(1,a-1); answer=a-b; }
   else{ total=rand(2,Math.max(2,max)); answer=total; }
-  return {op:op,snack:snack,scene:scene,max:max,a:a,b:b,answer:answer,total:total,
+  return {op:op,storyOp:(op==='story'?(Math.random()<0.5?'join':'separate'):null),snack:snack,scene:scene,max:max,a:a,b:b,answer:answer,total:total,
     phase:(op==='make'?'build':(mode==='story'?'watch':'start')),
     zones:(op==='make'?{g1:[],g2:[]}:{main:[]}),activeZone:'g1',solved:false};
 }
@@ -899,14 +922,15 @@ function renderStoryAnim(){
   els.matWrap.innerHTML='';
   var mat=document.createElement('div'); mat.className='mat '+P.scene.id; mat.style.minHeight='170px'; mat.style.position='relative'; mat.style.overflow='hidden';
   var leftN,rightN;
-  if(P.op==='join'){ leftN=rand(1,3); rightN=rand(1,3); } else { leftN=rand(2,4); rightN=0; }
+  var so=P.storyOp||P.op;
+  if(so==='join'){ leftN=rand(1,3); rightN=rand(1,3); } else { leftN=rand(2,4); rightN=0; }
   var gL=document.createElement('div'); gL.className='anim'; gL.style.cssText='position:absolute;top:40px;display:flex;gap:8px;transition:left .9s ease;left:6%';
   var gR=document.createElement('div'); gR.className='anim'; gR.style.cssText='position:absolute;top:40px;display:flex;gap:8px;transition:left .9s ease,opacity .9s ease;';
-  if(P.op==='join'){ gR.style.left='62%'; for(var i=0;i<leftN;i++) gL.appendChild(mkStatic()); for(var j=0;j<rightN;j++) gR.appendChild(mkStatic()); }
+  if(so==='join'){ gR.style.left='62%'; for(var i=0;i<leftN;i++) gL.appendChild(mkStatic()); for(var j=0;j<rightN;j++) gR.appendChild(mkStatic()); }
   else{ gL.style.left='6%'; var leaveN=rand(1,Math.max(1,leftN-1)); for(var a=0;a<leftN-leaveN;a++) gL.appendChild(mkStatic()); for(var b2=0;b2<leaveN;b2++) gR.appendChild(mkStatic()); gR.style.left='30%'; }
   mat.appendChild(gL); mat.appendChild(gR); els.matWrap.appendChild(mat);
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  window.requestAnimationFrame(function(){ setTimeout(function(){ if(P.op==='join') gR.style.left='30%'; else { gR.style.left='104%'; gR.style.opacity='0'; } }, reduce?0:400); });
+  window.requestAnimationFrame(function(){ setTimeout(function(){ if(so==='join') gR.style.left='30%'; else { gR.style.left='104%'; gR.style.opacity='0'; } }, reduce?0:400); });
 }
 function mkStatic(){ var d=document.createElement('div'); d.style.width='60px'; d.style.height='60px'; d.innerHTML=ART[P.snack]; return d; }
 function showStoryChoices(){
@@ -916,8 +940,8 @@ function showStoryChoices(){
 }
 function chooseStory(k,btn){
   if(P.solved) return;
-  if(k===P.op){ P.solved=true; btn.style.borderColor='var(--ok)'; btn.style.background='#e6f4e9'; showFeedback(L().storyWin(L(),P.op),'good'); finishSolved(); }
-  else{ btn.style.borderColor='#b23'; btn.style.background='#fbe7ea'; showFeedback(L().storyRetry(L(),P.op),'retry'); }
+  if(k===P.storyOp){ P.solved=true; btn.style.borderColor='var(--ok)'; btn.style.background='#e6f4e9'; showFeedback(L().storyWin(L(),P.storyOp),'good'); finishSolved(); }
+  else{ btn.style.borderColor='#b23'; btn.style.background='#fbe7ea'; showFeedback(L().storyRetry(L(),P.storyOp),'retry'); }
 }
 
 /* ===== Feedback ===== */
@@ -939,7 +963,7 @@ function loadProblem(p){
   els.nextBtn.disabled=true;
   els.sceneLabel.textContent=L().scenes[P.scene.id]; els.sceneIcon.textContent=P.scene.icon;
   var story=L().story(L(),P); els.storyText.textContent=story; setInstruction();
-  if(P.op==='story'){ els.supplyBox.style.display='none'; els.stepBtn.style.display='none'; els.checkBtn.style.display='none'; els.countBadge.style.display='none'; renderStoryAnim(); P.phase='watch'; setTimeout(function(){ P.phase='answer'; setInstruction(); showStoryChoices(); },1600); }
+  if(P.op==='story'){ els.supplyBox.style.display='none'; els.stepBtn.style.display='none'; els.checkBtn.style.display='none'; els.countBadge.style.display='none'; renderStoryAnim(); P.phase='watch'; setTimeout(function(){ if(P!==p) return; P.phase='answer'; setInstruction(); showStoryChoices(); },1600); }
   else{ els.countBadge.style.display=''; renderMat(); renderSupply(); refreshStepBtn(); }
   if(settings.narration) speak(story);
 }
@@ -948,7 +972,7 @@ function loadProblem(p){
 function setMode(m){
   mode=m;
   document.querySelectorAll('.tab').forEach(function(t){ t.setAttribute('aria-selected',t.getAttribute('data-mode')===m?'true':'false'); });
-  if(m==='own'){ g('playArea').style.display='none'; g('ownArea').style.display='block'; return; }
+  if(m==='own'){ stopSpeech(); g('playArea').style.display='none'; g('ownArea').style.display='block'; return; }
   g('ownArea').style.display='none'; g('playArea').style.display='block'; loadProblem(makeProblem());
 }
 
@@ -963,7 +987,7 @@ g('startOverBtn').addEventListener('click',function(){
   P.zones=(P.op==='make')?{g1:[],g2:[]}:{main:[]}; P.solved=false; P.phase=(P.op==='make')?'build':(mode==='story'?'watch':'start');
   els.feedback.classList.remove('show'); els.equation.style.display='none'; els.choices.style.display='none'; els.storyChoices.style.display='none'; els.nextBtn.disabled=true;
   var t=g('tryAnother'); if(t) t.remove(); setInstruction();
-  if(P.op==='story'){ renderStoryAnim(); setTimeout(function(){ P.phase='answer'; setInstruction(); showStoryChoices(); },1600); }
+  if(P.op==='story'){ var q=P; renderStoryAnim(); setTimeout(function(){ if(P!==q||q.phase!=='watch') return; P.phase='answer'; setInstruction(); showStoryChoices(); },1600); }
   else{ renderMat(); renderSupply(); refreshStepBtn(); }
 });
 g('replayBtn').addEventListener('click',function(){ if(!P) return; speak(L().story(L(),P)); if(P.op==='story') renderStoryAnim(); });
@@ -1023,6 +1047,14 @@ function applyOwnLabels(){
     mode=ownOp; g('ownArea').style.display='none'; g('playArea').style.display='block'; loadProblem(ownProblem(ownChosen,ownOp,a,b));
   });
 })();
+
+// Browsers block speech until the first tap; read the story then if nothing has played yet.
+document.addEventListener('pointerdown',function firstTap(e){
+  document.removeEventListener('pointerdown',firstTap,true);
+  if(speechStarted||!settings.narration||!P||mode==='own') return;
+  if(e.target.closest('select,a,input,.tab,.speaker,#replayBtn,#nextBtn,#startOverBtn,#checkBtn,#teacherBtn,#mtMuteBtn,.numbtn,.choicebig,.overlay')) return;
+  speak(L().story(L(),P));
+},true);
 
 /* ===== Boot ===== */
 applyLang(resolveLang());

@@ -529,19 +529,35 @@ function pickVoice(bcp){
   for(const v of _voices){ const sc=warmScore(v,bcp); if(sc>bs){ bs=sc; best=v; } }
   return bs>=0?best:null;
 }
+/* Speech queue. Fixes cut-off/dropped audio:
+   - long feedback is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - a speak() right after cancel() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[];
+function splitSpeech(text){
+  const parts=String(text).match(/[^.!?。！？؟।۔]+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
 function speak(text){
   if(!ttsOK || !settings.audio || !text) return;
-  try{
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.rate = settings.mode==="prek" ? .82 : .9;
-    u.pitch = 1.15;
-    u.lang = langMeta(lang).bcp;
-    const v = pickVoice(u.lang); if(v) u.voice = v;
-    window.speechSynthesis.speak(u);
-  }catch(e){}
+  const ss=window.speechSynthesis, gen=++speechGen; let busy=false;
+  try{ busy=ss.speaking||ss.pending; ss.cancel(); }catch(e){}
+  const bcp=langMeta(lang).bcp, v=pickVoice(bcp), rate=settings.mode==="prek" ? .82 : .9, parts=splitSpeech(text);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(ss.paused) ss.resume();
+      parts.forEach(p=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.rate=rate; u.pitch=1.15; u.lang=bcp; if(v) u.voice=v;
+        speechKeep.push(u); ss.speak(u);
+      });
+    }catch(e){}
+  };
+  if(busy) setTimeout(start,120); else start();
 }
-function stopSpeak(){ if(ttsOK){ try{window.speechSynthesis.cancel();}catch(e){} } }
+function stopSpeak(){ speechGen++; speechKeep=[]; if(ttsOK){ try{window.speechSynthesis.cancel();}catch(e){} } }
 if(ttsOK){ try{ window.speechSynthesis.onvoiceschanged = loadVoices; loadVoices(); }catch(e){} }
 
 /* ---------- Small helpers ---------- */
@@ -1148,10 +1164,12 @@ function buildWeight(app){
   function runScale(){
     if(!predicted){ showFB("hint", t("hint_weight_predict"), t("hint_weight_predict")); return; }
     weighed=true; weighBtn.disabled=true;
+    const rid=roundIndex;
     // heavier side goes down. left = kA, right = kB
     const leftHeavier = kA.weight>kB.weight;
     const target = (leftHeavier? 0.20 : -0.20); // radians
     animateAngle(target, ()=>{
+      if(rid!==roundIndex) return;
       const correct = predicted===heavier;
       const sent=tf("frame_heavier",{a:objName(heavier.key),b:objName(lighter.key)});
       pA.classList.remove("sel");pB.classList.remove("sel");
@@ -1250,9 +1268,10 @@ function buildCapacity(app){
   function fill(){
     if(!predicted){ showFB("hint", t("hint_capacity_predict"), t("hint_capacity_predict")); return; }
     filled=true; fillBtn.disabled=true;
-    let a=0,b=0;
+    const rid=roundIndex; let a=0,b=0;
     const dur=prefersReduced()?0:420;
     function pour(){
+      if(rid!==roundIndex) return;
       if(a<A.scoops){ a++; cA.setLevel(a/A.scoops); }
       if(b<B.scoops){ b++; cB.setLevel(b/B.scoops); }
       countLine.textContent=tf("scoops_poured",{a:a,b:b});
@@ -1422,7 +1441,8 @@ function buildCubes(app){
     done=false; placed=0; renderCubes(); updateInstr();
     let i=0; const dur=prefersReduced()?0:260;
     if(prefersReduced()){ placed=target; renderCubes(); updateInstr(); return; }
-    (function step(){ if(i<target){ placed=++i; renderCubes(); updateInstr(); setTimeout(step,dur);} })();
+    const rid=roundIndex;
+    (function step(){ if(i<target && rid===roundIndex){ placed=++i; renderCubes(); updateInstr(); setTimeout(step,dur);} })();
   }
 
   // Pointer drag from tray into the row
@@ -1484,7 +1504,7 @@ const dlg=$("#settingsDlg");
 $("#settingsBtn").addEventListener("click",()=>{ syncSettingsUI(); if(dlg.showModal) dlg.showModal(); else dlg.setAttribute("open",""); });
 $("#closeSettings").addEventListener("click",closeDlg);
 $("#doneSettings").addEventListener("click",closeDlg);
-function closeDlg(){ if(dlg.close) dlg.close(); else dlg.removeAttribute("open"); applySettings(); }
+function closeDlg(){ if(dlg.close) dlg.close(); else { dlg.removeAttribute("open"); applySettings(); } } // close() fires the "close" event below
 dlg.addEventListener("close",applySettings);
 
 function syncSettingsUI(){

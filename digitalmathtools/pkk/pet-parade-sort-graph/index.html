@@ -816,15 +816,48 @@ function pickVoice(lang){
   for(const v of vs){ const sc=warmScore(v,lang); if(sc>bs){ bs=sc; best=v; } }
   return bs>=0?best:null;
 }
-function speak(text){
-  if(!SPEECH_OK || !text) return;
-  try{
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = SPEECH_LANG[L] || 'en-US'; u.rate = 0.86; u.pitch = 1.15;
-    const v = pickVoice(u.lang); if(v) u.voice = v;
-    speechSynthesis.speak(u);
-  }catch(e){}
+/* Speech queue. Fixes cut-off/dropped audio:
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - a speak() right after cancel() waits a beat (Chrome drops it otherwise)
+   - optional onDone fires when the speech ends, is replaced or stopped, or (safety net) after
+     a length-based timeout, so the graph count can wait for each phrase instead of cutting it off */
+let speechGen=0, speechKeep=[], speechPendingDone=null, lastCancel=0;
+function splitSpeech(text){
+  const parts=String(text).match(/[^.!?。！？؟।۔]+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ return 1200+String(text).length*(L==='zh'?300:95)/0.86; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[]; lastCancel=Date.now();
+  if(SPEECH_OK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text, onDone){
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);
+  if(!SPEECH_OK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending||(Date.now()-lastCancel<120); speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=SPEECH_LANG[L]||'en-US', v=pickVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; u.rate=0.86; u.pitch=1.15; if(v) u.voice=v;
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
 }
 function speakerBtn(getText){
   const b = document.createElement('button');
@@ -1024,7 +1057,7 @@ function setDirection(host, text){
   bar.appendChild(speakerBtn(()=>currentDirection));
   bar.appendChild(tx); host.appendChild(bar);
 }
-function clearApp(){ if(SPEECH_OK){try{speechSynthesis.cancel();}catch(e){}} APP.innerHTML=''; }
+function clearApp(){ stopSpeech(); APP.innerHTML=''; }
 
 /* ---------------- Menu ---------------- */
 const MODES = [
@@ -1204,9 +1237,9 @@ function startSort(attr){
   function checkDone(){
     const placed=tray.querySelectorAll('.piece').length===0;
     const allRight=binList.every(b=>[...b.__itemsBox.children].every(p=>categoryOf(p.__item,attr)===b.__cat));
-    if(placed&&allRight){ hint.style.display=''; fb.show('ok','🎉', t('sort.great',{attr:attrLabel(attr)})); showExplain(); }
+    if(placed&&allRight){ hint.style.display=''; const m=t('sort.great',{attr:attrLabel(attr)}); fb.show('ok','🎉',m,false); showExplain(m); }
   }
-  function showExplain(){
+  function showExplain(praise){
     explainBox.style.display='';
     explainBox.innerHTML='<b>'+t('explain.prompt')+'</b>';
     const opts=shuffle([attr, ...availableAttrs().filter(a=>a!==attr)].slice(0,3));
@@ -1225,7 +1258,7 @@ function startSort(attr){
       });
       row.appendChild(bt);
     });
-    explainBox.appendChild(row); speak(t('explain.qSpoken'));
+    explainBox.appendChild(row); speak(praise+' '+t('explain.qSpoken')); // one queue, so the praise isn't cut off
   }
   binList.forEach(updateBinCount); speak(t('sort.pickup'));
 }
@@ -1416,11 +1449,16 @@ function buildGraphView(host, attr, cats, animate){
   if(animate){
     const rows=[...g.querySelectorAll('.grow')]; let ri=0;
     const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const gid=host.__gid=(host.__gid||0)+1, live=()=>host.__gid===gid && host.isConnected;
     (function doRow(){
+      if(!live()) return;
       if(ri>=rows.length){ afterGraph(host,attr,cats); return; }
-      const r=rows[ri]; let ci=0; speak(t('graph.counting',{group:r.__label}));
+      const r=rows[ri]; let ci=0, said=false, drawn=false;
+      const next=()=>{ if(said && drawn && live()){ ri++; setTimeout(doRow, reduce?10:350); } };
+      speak(t('graph.counting',{group:r.__label}), ()=>{ said=true; next(); });
       (function step(){
-        if(ci>=r.__cells.length){ r.__tot.textContent=r.__count; ri++; setTimeout(doRow, reduce?10:350); return; }
+        if(!live()) return;
+        if(ci>=r.__cells.length){ r.__tot.textContent=r.__count; drawn=true; next(); return; }
         r.__cells[ci].classList.add('on','pop'); ci++; r.__tot.textContent=ci; setTimeout(step, reduce?10:400);
       })();
     })();
