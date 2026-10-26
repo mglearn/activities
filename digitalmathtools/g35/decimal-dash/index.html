@@ -1,0 +1,1829 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Decimal Dash — a Grade 3–5 place value app: build and read whole numbers and decimals in standard, expanded and word form, shade tenths and hundredths grids, compare and order, round on a number line, add and subtract decimals, and multiply or divide by powers of 10. Works offline. No data collected.">
+<title>Decimal Dash</title>
+<style>
+  :root{
+    --bg:#fbf3ec;--panel:#ffffff;--ink:#1c2733;--muted:#5a4a3e;--line:#e5cfbd;
+    --accent:#d35400;--accentD:#a94400;--accent-ink:#ffffff;--good:#166534;--good-bg:#dcfce7;
+    --hint:#7a4a00;--hint-bg:#fff4d6;--focus:#0a58ca;--shade:#e67e22;--soft:#fdf6ef;
+    --tap:52px;font-size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4;-webkit-text-size-adjust:100%}
+  h1,h2,h3{line-height:1.15;margin:0 0 .3em}
+  button{font-family:inherit;font-size:1rem;cursor:pointer}
+  button:disabled{cursor:default}
+
+  .topbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--accent);color:var(--accent-ink);padding:.55rem .8rem}
+  .topbar .brand{font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:.4rem;margin-inline-end:auto}
+  .topbar a.homebtn,.topbar button.tb{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.4rem .7rem;min-height:var(--tap);min-width:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;font-weight:700;font-size:.95rem}
+  .globe{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.2rem .5rem;min-height:var(--tap)}
+  .globe span{font-size:1.2rem}
+  .globe select{border:0;background:#fff;color:var(--ink);border-radius:8px;min-height:44px;font-weight:700;font-size:1rem;padding:.2rem .4rem}
+
+  main{max-width:1200px;margin:0 auto;padding:.7rem}
+  .tabsrow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:.4rem 0 .7rem}
+  .tabs{display:flex;gap:.4rem;flex-wrap:wrap;flex:1 1 auto}
+  .tabs button{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:.45rem .75rem;min-height:var(--tap);font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .tabs button[aria-selected="true"]{background:var(--accentD);color:#fff;border-color:var(--accentD)}
+  .tabs button .ic{font-size:1.15rem}
+  .stars{background:#fff;border:2px solid var(--line);border-radius:14px;padding:.4rem .8rem;font-weight:800;font-size:1.15rem;min-height:48px;display:inline-flex;align-items:center;gap:.3rem}
+  .stars.pop{animation:pop .5s ease}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  .panel{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:.9rem;margin-bottom:.8rem;min-width:0}
+  .panelhead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+  .panelhead h2{margin:0;font-size:1.25rem;margin-inline-end:auto}
+
+  .prompt{display:flex;align-items:center;gap:.6rem;background:#fdf1e7;border:2px solid #f3c9a5;border-radius:14px;padding:.6rem .8rem;margin-bottom:.7rem;font-size:1.12rem;font-weight:600}
+  .prompt>span{min-width:0;overflow-wrap:anywhere}
+  .speaker{background:var(--accentD);color:#fff;border:0;border-radius:50%;width:var(--tap);height:var(--tap);min-width:var(--tap);font-size:1.4rem;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+
+  .btn{background:var(--accentD);color:#fff;border:2px solid var(--accentD);border-radius:12px;padding:.5rem .9rem;min-height:var(--tap);font-weight:700}
+  .btn.ghost{background:var(--panel);color:var(--accentD)}
+  .btn:disabled{opacity:.45}
+  .acts{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem;align-items:center}
+
+  .feedback{margin-top:.6rem;border-radius:12px;padding:.6rem .8rem;font-weight:600;display:none;overflow-wrap:anywhere}
+  .feedback.show{display:block}
+  .feedback.good{background:var(--good-bg);color:var(--good);border:2px solid #86efac}
+  .feedback.hint{background:var(--hint-bg);color:var(--hint);border:2px solid #f6d271}
+  .feedback .fbx{margin-top:.5rem}
+  .math{unicode-bidi:isolate;direction:ltr;display:inline-block;font-weight:800;white-space:nowrap}
+  .math.wrap{white-space:normal;display:inline}
+  .nw{white-space:nowrap}
+  .fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.05;font-weight:800;margin:0 .1em;direction:ltr;unicode-bidi:isolate}
+  .fr>span:first-child{border-bottom:2px solid currentColor;padding:0 .15em}
+
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem;margin-top:.7rem}
+  .choices.wide{grid-template-columns:1fr}
+  @media(min-width:700px){.choices.wide{grid-template-columns:1fr 1fr}}
+  .choice{background:var(--panel);border:3px solid var(--line);border-radius:16px;padding:.5rem .6rem;min-height:64px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;font-weight:800;color:var(--ink);min-width:0;overflow-wrap:anywhere;text-align:center}
+  .choices.wide .choice{font-size:1.02rem;font-weight:700;line-height:1.3}
+  .choice.correctpick,.symbtn.correctpick{border-color:var(--good);background:var(--good-bg)}
+  .choice.wrongpick,.symbtn.wrongpick{border-color:var(--hint);background:var(--hint-bg)}
+  .choice:disabled,.symbtn:disabled{opacity:.6}
+  .choice.correctpick:disabled,.symbtn.correctpick:disabled{opacity:1}
+
+  .bignum{font-size:2.1rem;font-weight:900;line-height:1.15;text-align:center;overflow-wrap:anywhere}
+  .bignum .hl{background:#ffe08a;border-radius:6px;padding:0 .08em;box-shadow:inset 0 -4px 0 var(--accent)}
+  .center{text-align:center}
+
+  /* Place value chart */
+  .pvwrap{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch;padding-bottom:.2rem}
+  table.pvt{border-collapse:separate;border-spacing:3px;margin:0 auto;font-variant-numeric:tabular-nums}
+  .pvt th{font-size:.7rem;font-weight:800;line-height:1.1;padding:.3rem .2rem;border-radius:8px;min-width:50px;max-width:76px;vertical-align:bottom;color:#3b2a1d}
+  .pvt td{text-align:center;font-size:1.6rem;font-weight:900;padding:.15rem;border-radius:8px;min-width:50px;height:46px}
+  .pvt .pt{min-width:14px;width:14px;padding:0;font-size:2rem;background:transparent!important;color:var(--accentD)}
+  .pvt th.pt{font-size:.7rem}
+  .pvt .g0{background:#fdecdc}.pvt .g1{background:#e8f3fb}.pvt .g2{background:#eef7e6}.pvt .gd{background:#f3ecfb}
+  .pvt td.fade{color:#b89c86}
+  .pvt td.hit{outline:3px solid var(--accent);outline-offset:-3px}
+  .pvt td.lab{font-size:.85rem;font-weight:700;min-width:0;padding:0 .3rem;background:transparent}
+  .pvt tr.sum td{border-top:3px solid var(--ink)}
+  .stp{display:flex;flex-direction:column;align-items:center;gap:2px}
+  .stp button{width:46px;min-height:44px;border-radius:10px;border:2px solid var(--line);background:#fff;font-size:1.05rem;font-weight:900;color:var(--accentD);padding:0}
+  .stp output{font-size:1.7rem;font-weight:900;line-height:1.2}
+  .readout{text-align:center;font-size:1.25rem;font-weight:700;margin:.5rem 0 0;overflow-wrap:anywhere}
+  .tenx{display:block;text-align:center;color:var(--muted);font-size:.9rem;margin-top:.3rem}
+
+  /* Grids */
+  .gridrow{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;align-items:flex-start}
+  .gridbox{width:min(280px,82vw)}
+  .gridbox svg{width:100%;height:auto;display:block;touch-action:none}
+  .gridbox.small{width:min(170px,40vw)}
+  .gridbox svg .cl{cursor:pointer}
+  .coins{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;align-items:center;background:var(--soft);border:2px solid var(--line);border-radius:14px;padding:.7rem;min-height:90px}
+  .coins svg{display:block}
+  .eqline{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;justify-content:center;font-size:1.4rem;margin:.4rem 0}
+
+  /* Compare */
+  .cmprow{display:grid;grid-template-columns:1fr auto 1fr;gap:.5rem;align-items:center;margin-bottom:.6rem}
+  .cmpcard{background:var(--soft);border:2px solid var(--line);border-radius:14px;padding:.5rem .3rem;min-width:0}
+  .cmpcard .bignum{font-size:clamp(1.05rem,5vw,2.1rem)}
+  .cmpcard .math,.oslot .math{white-space:normal;overflow-wrap:anywhere;max-width:100%}
+  .slot{width:62px;height:62px;border:3px dashed var(--accent);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:2.1rem;font-weight:900;color:var(--accentD);background:#fff}
+  .symbtns{display:flex;gap:.8rem;justify-content:center;margin:.8rem 0 .3rem}
+  .symbtn{width:84px;height:66px;font-size:2.2rem;font-weight:900;border-radius:16px;background:var(--panel);border:3px solid var(--line);color:var(--ink)}
+  .symhelp{text-align:center;color:var(--muted);font-size:.95rem;margin:.2rem 0 0}
+  .orderslots{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;align-items:center;margin:.5rem 0;min-height:56px}
+  .oslot{min-width:96px;min-height:52px;border:3px dashed var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:800;padding:0 .4rem;background:#fff}
+  .oslot.filled{border-style:solid;border-color:var(--good);background:var(--good-bg)}
+  .lt{font-size:1.5rem;font-weight:900;color:var(--muted)}
+
+  /* Number lines */
+  .linewrap{background:var(--soft);border:2px solid var(--line);border-radius:14px;padding:.3rem;margin:.5rem 0}
+  .linewrap svg{width:100%;max-width:700px;margin:0 auto;height:auto;display:block}
+
+  /* Ops */
+  .steps{display:flex;gap:.4rem;flex-wrap:wrap;margin:.2rem 0 .6rem}
+  .stepchip{border:2px solid var(--line);border-radius:999px;padding:.2rem .7rem;font-weight:700;font-size:.9rem;color:var(--muted);background:#fff}
+  .stepchip.on{border-color:var(--accentD);color:var(--accentD);background:#fdf1e7}
+  .stepchip.done{border-color:var(--good);color:var(--good);background:var(--good-bg)}
+  .shiftnote{text-align:center;font-weight:700;color:var(--accentD);margin:.3rem 0}
+
+  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
+  .drawer.open{display:flex}
+  .drawer .card{background:var(--panel);border-radius:16px;max-width:620px;width:100%;padding:1rem;max-height:90vh;overflow:auto}
+  .setrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+  .setrow .lab{font-weight:700;min-width:150px}
+  .toggle{display:inline-flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:10px;padding:.35rem .55rem;background:#fff;min-height:48px}
+  .toggle input{width:22px;height:22px;flex:0 0 auto}
+  select.diff{font-size:1rem;padding:.4rem;border-radius:10px;border:2px solid var(--line);min-height:48px;max-width:100%}
+  .setnote{font-size:.85rem;color:var(--muted);flex-basis:100%;margin:0}
+
+  footer{max-width:1200px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+  footer a{color:var(--accentD);font-weight:700}
+  .stds{font-size:.82rem;color:var(--muted);background:var(--soft);border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  @media(max-width:480px){
+    main{padding:.4rem}
+    .panel{padding:.55rem}
+    .bignum{font-size:1.7rem}
+    .slot{width:44px;height:52px;font-size:1.7rem}
+    .cmprow{gap:.3rem}
+    .symbtn{width:70px}
+    .prompt{font-size:1.02rem;padding:.5rem}
+    .tabs{gap:.3rem}
+    .tabs button{padding:.3rem .55rem;font-size:.9rem;min-height:46px}
+    .pvt th{min-width:44px;font-size:.62rem}
+    .pvt td{min-width:44px;font-size:1.4rem}
+  }
+
+  .hidden{display:none !important}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  @keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+  @keyframes slideL{from{transform:translateX(var(--sh))}to{transform:none}}
+  .shift td.dg{animation:slideL .9s ease both}
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+  .printonly{display:none}
+  @media print{
+    .topbar,.tabsrow,footer,.modepanel,#stdsNote,.no-print,#mtMuteBtn{display:none !important}
+    body{background:#fff}
+    .printonly{display:block}
+    .card-print{border:2px solid #000;border-radius:12px;padding:1rem;margin:0 0 1rem;page-break-inside:avoid}
+    .card-print h2{margin:.2rem 0}
+    .pbox{height:110px;border:2px dashed #888;border-radius:10px}
+    main{max-width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">🏁 <span data-t="appTitle">Decimal Dash</span></span>
+  <a class="homebtn" href="../../index.html">🏠 <span data-t="home">Home</span></a>
+  <label class="globe"><span aria-hidden="true">🌐</span>
+    <select id="langSelect" data-ta="language" aria-label="Language"></select>
+  </label>
+  <button class="tb settingsbtn" id="openSettings">⚙️ <span data-t="teacher">Teacher</span></button>
+</header>
+
+<main>
+  <div class="tabsrow">
+    <div class="tabs" role="tablist" data-ta="modesLbl" aria-label="Modes">
+      <button role="tab" aria-selected="true" data-mode="pv"><span class="ic" aria-hidden="true">🔢</span><span data-t="mPv">Place Value Chart</span></button>
+      <button role="tab" aria-selected="false" data-mode="grid"><span class="ic" aria-hidden="true">🟧</span><span data-t="mGrid">Decimal Grids</span></button>
+      <button role="tab" aria-selected="false" data-mode="cmp"><span class="ic" aria-hidden="true">⚖️</span><span data-t="mCmp">Compare &amp; Order</span></button>
+      <button role="tab" aria-selected="false" data-mode="rnd"><span class="ic" aria-hidden="true">🎯</span><span data-t="mRnd">Round It</span></button>
+      <button role="tab" aria-selected="false" data-mode="ops"><span class="ic" aria-hidden="true">➕</span><span data-t="mOps">Add &amp; Subtract</span></button>
+    </div>
+    <span class="stars" id="stars"><span aria-hidden="true">⭐</span><span class="sr" data-t="stars">Stars earned</span> <b id="starCount">0</b></span>
+  </div>
+
+  <section id="mode-pv" class="panel modepanel" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mPv">Place Value Chart</h2>
+      <button class="btn ghost no-print" id="pvNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="pv" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="pvPrompt">…</span></div>
+    <div id="pvArea"></div>
+    <div class="feedback" id="pvFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-grid" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mGrid">Decimal Grids</h2>
+      <button class="btn ghost no-print" id="gridNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="grid" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="gridPrompt">…</span></div>
+    <div id="gridArea"></div>
+    <div class="feedback" id="gridFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-cmp" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mCmp">Compare &amp; Order</h2>
+      <button class="btn ghost no-print" id="cmpNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="cmp" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="cmpPrompt">…</span></div>
+    <div id="cmpArea"></div>
+    <div class="feedback" id="cmpFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-rnd" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mRnd">Round It</h2>
+      <button class="btn ghost no-print" id="rndNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="rnd" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="rndPrompt">…</span></div>
+    <div id="rndArea"></div>
+    <div class="feedback" id="rndFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-ops" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mOps">Add &amp; Subtract</h2>
+      <button class="btn ghost no-print" id="opsNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="ops" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="opsPrompt">…</span></div>
+    <div id="opsArea"></div>
+    <div class="feedback" id="opsFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <div class="stds" id="stdsNote"></div>
+  <div class="printonly" id="printArea"></div>
+</main>
+
+<footer>
+  <p data-t="footNote">No accounts · No data collected · Works offline</p>
+  <p><a href="../../index.html" data-t="home">Home</a> · <a href="../../policy.html" data-t="privacy">Privacy</a></p>
+</footer>
+
+<div class="drawer" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <div class="panelhead"><h2 id="setTitle" data-t="teacherTitle">Teacher settings</h2>
+      <button class="btn ghost" id="closeSettings" data-t="close">Close</button></div>
+    <div class="setrow"><label class="lab" for="setGrade" data-t="setGrade">Grade level</label>
+      <select class="diff" id="setGrade">
+        <option value="3" data-t="g3">Grade 3</option><option value="4" data-t="g4">Grade 4</option><option value="5" data-t="g5">Grade 5</option></select>
+      <p class="setnote" data-t="gradeNote">Choosing a grade sets the options below. You can still change them.</p></div>
+    <div class="setrow"><label class="lab" for="setWd" data-t="setWd">Whole numbers</label>
+      <select class="diff" id="setWd">
+        <option value="3" data-t="wd3">Up to 1,000</option><option value="5" data-t="wd5">Up to 100,000</option>
+        <option value="6" data-t="wd6">Up to 1,000,000</option><option value="9" data-t="wd9">Up to 1,000,000,000</option></select></div>
+    <div class="setrow"><label class="lab" for="setDp" data-t="setDp">Decimals</label>
+      <select class="diff" id="setDp">
+        <option value="0" data-t="dp0">Off (whole numbers only)</option><option value="1" data-t="dp1">Tenths</option>
+        <option value="2" data-t="dp2">Hundredths</option><option value="3" data-t="dp3">Thousandths</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
+      <div id="modeToggles" style="display:flex;flex-wrap:wrap;gap:.4rem"></div>
+      <p class="setnote" data-t="gridNote">Decimal Grids needs decimals turned on.</p></div>
+    <div class="setrow"><span class="lab" data-t="setPow">Powers of 10</span>
+      <label class="toggle"><input type="checkbox" id="setPow"> <span data-t="powOn">Multiply and divide by 10, 100, 1,000</span></label></div>
+    <div class="setrow"><span class="lab" data-t="setSpeech">Speech</span>
+      <label class="toggle"><input type="checkbox" id="setAuto"> <span data-t="autoRead">Auto-read directions</span></label></div>
+    <div class="setrow" style="border:0"><button class="btn" id="printCards">🖨 <span data-t="printCards">Print challenge cards</span></button></div>
+    <p class="stds" data-t="numNote">Numbers use the U.S. style in every language (Texas standards): a period is the decimal point and commas group thousands, as in 1,234.56.</p>
+    <p class="stds" data-t="setStored">Settings are saved only on this device. No student information is ever stored.</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   Decimal Dash — single-file Grade 3–5 place value & decimals app. 7 languages.
+   No frameworks, no network, no data collection.
+   Numbers are stored as whole thousandths (u) to avoid floating-point errors.
+   ========================================================================= */
+
+/* ---------- Language metadata ---------- */
+const LANGS = [
+  {code:"en", name:"English",     dir:"ltr", bcp:"en-US"},
+  {code:"es", name:"Español",     dir:"ltr", bcp:"es-US"},
+  {code:"vi", name:"Tiếng Việt",  dir:"ltr", bcp:"vi-VN"},
+  {code:"ar", name:"العربية",     dir:"rtl", bcp:"ar-SA"},
+  {code:"hi", name:"हिन्दी",       dir:"ltr", bcp:"hi-IN"},
+  {code:"ur", name:"اردو",        dir:"rtl", bcp:"ur-PK"},
+  {code:"zh", name:"中文",         dir:"ltr", bcp:"zh-CN"}
+];
+const LANG_KEY = "tcea.mathtools.lang";
+
+/* ---------- Translations ---------- */
+const T = {
+  en:{
+    appTitle:"Decimal Dash", home:"Home", privacy:"Privacy", teacher:"Teacher", language:"Language", readAloud:"Read aloud",
+    modesLbl:"Modes", stars:"Stars earned", newRound:"New round", footNote:"No accounts · No data collected · Works offline",
+    mPv:"Place Value Chart", mGrid:"Decimal Grids", mCmp:"Compare & Order", mRnd:"Round It", mOps:"Add & Subtract",
+    check:"Check", clear:"Clear", close:"Close", yes:"Yes!", notYet:"Not yet.", choicesLbl:"Answer choices", chartLbl:"Place value chart", lineLbl:"Number line",
+    comma:", ", plusW:"plus", minusW:"minus", timesW:"times", divW:"divided by", eqW:"is equal to", gtW:"is greater than", ltW:"is less than",
+    ptW:"point", upW:"up", downW:"down", halfway:"halfway", wholeW:"whole number",
+    pl8:"hundred millions", pl7:"ten millions", pl6:"millions", pl5:"hundred thousands", pl4:"ten thousands", pl3:"thousands", pl2:"hundreds", pl1:"tens", pl0:"ones", plm1:"tenths", plm2:"hundredths", plm3:"thousandths",
+    un8:"hundred million", un7:"ten million", un6:"million", un5:"hundred thousand", un4:"ten thousand", un3:"thousand", un2:"hundred", un1:"ten", un0:"one", unm1:"tenth", unm2:"hundredth", unm3:"thousandth",
+    cnt1:"{c} {u}", cntN:"{c} {p}", fracSay:"{n} {u}", monSay:"{d} dollars and {c} cents",
+    tenX:"Each place is worth 10 times the place to its right.", worth:"That is {c}, worth {v}.", youPicked:"You picked {x}.", yourNum:"Your number:",
+    fStd:"Standard form:", fExp:"Expanded form:", fWord:"Word form:",
+    upL:"One more in the {pl} place", downL:"One less in the {pl} place", addL:"Shade {x} more", subL:"Shade {x} less",
+    pvBuildW:"Build this number on the chart: {w}", pvBuildE:"Build this number on the chart: {e}", pvBuilt:"You built {n}.",
+    pvEmpty:"Tap the up arrows to put digits in the places first.", pvBuildHint:"Look at the {pl} place: you have {x}, but the number needs {y}.",
+    pvValQ:"What is the value of the digit {c} in {n}?", pvValGood:"The {c} is in the {pl} place, so its value is {v}.",
+    pvValWhere:"The {c} is in the {pl} place.", pvValAsk:"What is the value of {k}?",
+    pvTimesQ:"In {n}, the {c} on the left is worth how many times as much as the {c} on the right?",
+    pvTimesGood:"{a} is {x} times as much as {b}.", pvTimesWhere:"The left digit is worth {a}, and the right digit is worth {b}.",
+    pvFormE:"Which shows {n} in expanded form?", pvFormW:"Which shows {n} in word form?", pvFormGood:"That is {n}.",
+    pvFormHint:"That one shows {x}.", pvLookPl:"Look at the {pl} place.",
+    gShadeQ:"Shade {x} of the grid.", gCount:"{k} of {u} parts shaded",
+    gTipH:"Each column is one tenth. Each small square is one hundredth.", gTipT:"Each strip is one tenth of the whole grid.",
+    gShadeHint:"You shaded {k} parts. {x} means {need} out of {u} equal parts.", gSplit:"Tenths: {a}. Hundredths: {b}.",
+    gNameD:"What decimal does the shaded part show?", gNameF:"What fraction of the grid is shaded?",
+    gWhole:"One whole grid plus {k} of {u} parts is {v}.", gWholeHint:"A grid that is all shaded is 1 whole.", gCountQ:"Count the shaded parts again.",
+    gMoneyQ:"How much money is this? Choose the amount in dollars.", gMoneyCount:"Dollar bills: {b}. Dimes: {d}. Pennies: {p}.",
+    dimeIs:"A dime is one tenth of a dollar. A penny is one hundredth of a dollar.",
+    gMoneyGood:"Dimes are tenths of a dollar and pennies are hundredths, so the total is {x}.",
+    gEqQh:"{a} is how many hundredths?", gEqQt:"{a} is how many tenths?",
+    gEqGood:"{k} tenths cover the same area as {c} hundredths.", gEqHint:"Each tenth column holds 10 hundredth squares. Count the squares in {k} columns.",
+    cmpQ:"Compare {a} and {b}. Which symbol goes in the box?",
+    cmpFirst:"Line up the places and compare from the left. The first place that is different is the {pl} place: {a} has {x} and {b} has {y}.",
+    cmpSame:"{a} and {b} have the same digit in every place.", cmpZero:"A zero at the end of a decimal does not change its value, so {a} and {b} are equal.",
+    cmpLonger:"Careful: more digits after the decimal point does not mean a bigger number!", cmpLineUp:"Line up the decimal points. You can write zeros in the empty places.",
+    resGt:"So {a} is greater than {b}.", resLt:"So {a} is less than {b}.", resEq:"So {a} is equal to {b}.",
+    ordQ:"Tap the numbers in order from least to greatest.", ordQd:"Tap the numbers in order from greatest to least.",
+    ordNotL:"{x} is not the least number left.", ordNotG:"{x} is not the greatest number left.",
+    rndQ:"Round {n} {pl}.", nearM:"to the nearest {u}", nearF:"to the nearest {u}", rndQw:"Round {n} to the nearest whole number.",
+    rndUp:"Halfway is {m}. {n} is past the halfway point, so it rounds up to {a}.", rndDown:"Halfway is {m}. {n} is before the halfway point, so it rounds down to {a}.",
+    rndExact:"{n} is exactly halfway, so we round up to {a}.", rndRule:"Check: the digit in the {pl} place is {c}, so round {dir}.",
+    rndWrongPl:"That answer is rounded to a different place. Round {pl}.", rndBetween:"{n} is between {a} and {b}.",
+    rndMidQ:"Halfway is {m}. Is {n} closer to {a} or to {b}?",
+    stEst:"Estimate", stSolve:"Solve", estQ:"Step 1: Estimate {a} {op} {b}. Which estimate is closest?",
+    estGood:"Rounded: {a} {op} {b} = {e}. Now solve it.", estHint:"Round each number {pl} first: {a} is about {x}, and {b} is about {y}.",
+    solveQ:"Step 2: Solve {a} {op} {b}. Line up the places. Your estimate was {e}.",
+    opsZeros:"Light zeros fill empty places. They do not change the value.",
+    opsGood:"{r} is close to your estimate of {e}, so the answer makes sense.", opsFar:"That is far from your estimate of {e}.",
+    opsAlign:"Line up the decimal points so tenths are under tenths and hundredths are under hundredths.",
+    opsRegA:"When a place adds up to 10 or more, regroup: 10 in one place make 1 in the place to its left.",
+    opsRegS:"When a top digit is smaller, regroup 1 from the place to its left as 10 in this place.",
+    opsCheck:"Work one place at a time, starting from the right.",
+    oneP:"1 place", nP:"{e} places", powQ:"What is {n} {op} {x}?",
+    powM:"Multiplying by {x} makes each digit worth {x} times as much, so every digit moves {k} to the left: {r}.",
+    powD:"Dividing by {x} makes each digit worth less, so every digit moves {k} to the right: {r}.",
+    powHint:"Count the zeros in {x}. Move each digit {k}.", powMw:"Multiplying by 10, 100, or 1,000 makes a number bigger, so the digits move left.",
+    powDw:"Dividing by 10, 100, or 1,000 makes a number smaller, so the digits move right.",
+    powShiftL:"Each digit moved {k} to the left.", powShiftR:"Each digit moved {k} to the right.",
+    teacherTitle:"Teacher settings", setGrade:"Grade level", g3:"Grade 3", g4:"Grade 4", g5:"Grade 5",
+    gradeNote:"Choosing a grade sets the options below. You can still change them.",
+    setWd:"Whole numbers", wd3:"Up to 1,000", wd5:"Up to 100,000", wd6:"Up to 1,000,000", wd9:"Up to 1,000,000,000",
+    setDp:"Decimals", dp0:"Off (whole numbers only)", dp1:"Tenths", dp2:"Hundredths", dp3:"Thousandths",
+    setModes:"Modes", gridNote:"Decimal Grids needs decimals turned on.", setPow:"Powers of 10", powOn:"Multiply and divide by 10, 100, and 1,000",
+    setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
+    numNote:"Numbers use the U.S. style in every language (Texas standards): a period is the decimal point and commas group thousands, as in 1,234.56.",
+    setStored:"Settings are saved only on this device. No student information is ever stored.",
+    stds:"Aligned standards — Texas TEKS: Grade 3: 3.2(A, B, C, D), 3.4(A, B); Grade 4: 4.2(A, B, C, D, E, F, G, H), 4.4(A); Grade 5: 5.2(A, B, C), 5.3(A, K). Common Core: 3.NBT.1, 3.NBT.2; 4.NBT.1, 4.NBT.2, 4.NBT.3, 4.NBT.4; 4.NF.5, 4.NF.6, 4.NF.7; 5.NBT.1, 5.NBT.2, 5.NBT.3, 5.NBT.4, 5.NBT.7.",
+    cardTitle:"Decimal Dash — Challenge Cards", cardName:"Name:", cardStd:"Write this number in standard form.", cardCmp:"Write >, <, or =.",
+    cardOps:"Estimate first, then solve. Line up the places."
+  },
+  es:{
+    appTitle:"Carrera Decimal", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", language:"Idioma", readAloud:"Leer en voz alta",
+    modesLbl:"Modos", stars:"Estrellas ganadas", newRound:"Nueva ronda", footNote:"Sin cuentas · Sin datos · Funciona sin conexión",
+    mPv:"Tabla de valor posicional", mGrid:"Cuadrículas decimales", mCmp:"Compara y ordena", mRnd:"Redondea", mOps:"Suma y resta",
+    check:"Revisar", clear:"Borrar", close:"Cerrar", yes:"¡Sí!", notYet:"Todavía no.", choicesLbl:"Opciones de respuesta", chartLbl:"Tabla de valor posicional", lineLbl:"Recta numérica",
+    comma:", ", plusW:"más", minusW:"menos", timesW:"por", divW:"entre", eqW:"es igual a", gtW:"es mayor que", ltW:"es menor que",
+    ptW:"punto", upW:"hacia arriba", downW:"hacia abajo", halfway:"punto medio", wholeW:"número entero",
+    pl8:"centenas de millón", pl7:"decenas de millón", pl6:"unidades de millón", pl5:"centenas de millar", pl4:"decenas de millar", pl3:"unidades de millar", pl2:"centenas", pl1:"decenas", pl0:"unidades", plm1:"décimos", plm2:"centésimos", plm3:"milésimos",
+    un8:"centena de millón", un7:"decena de millón", un6:"unidad de millón", un5:"centena de millar", un4:"decena de millar", un3:"unidad de millar", un2:"centena", un1:"decena", un0:"unidad", unm1:"décimo", unm2:"centésimo", unm3:"milésimo",
+    cnt1:"{c} {u}", cntN:"{c} {p}", fracSay:"{n} {u}", monSay:"{d} dólares con {c} centavos",
+    tenX:"Cada lugar vale 10 veces más que el lugar a su derecha.", worth:"Eso es {c}, que vale {v}.", youPicked:"Escogiste {x}.", yourNum:"Tu número:",
+    fStd:"Forma estándar:", fExp:"Forma desarrollada:", fWord:"En palabras:",
+    upL:"Uno más en el lugar de {pl}", downL:"Uno menos en el lugar de {pl}", addL:"Sombrear {x} más", subL:"Sombrear {x} menos",
+    pvBuildW:"Forma este número en la tabla: {w}", pvBuildE:"Forma este número en la tabla: {e}", pvBuilt:"Formaste {n}.",
+    pvEmpty:"Primero toca las flechas hacia arriba para poner dígitos en los lugares.", pvBuildHint:"Mira el lugar de {pl}: tienes {x}, pero el número necesita {y}.",
+    pvValQ:"¿Cuál es el valor del dígito {c} en {n}?", pvValGood:"El {c} está en el lugar de {pl}, así que su valor es {v}.",
+    pvValWhere:"El {c} está en el lugar de {pl}.", pvValAsk:"¿Cuál es el valor de {k}?",
+    pvTimesQ:"En {n}, ¿cuántas veces vale el {c} de la izquierda comparado con el {c} de la derecha?",
+    pvTimesGood:"{a} es {x} veces {b}.", pvTimesWhere:"El dígito de la izquierda vale {a} y el de la derecha vale {b}.",
+    pvFormE:"¿Cuál muestra {n} en forma desarrollada?", pvFormW:"¿Cuál muestra {n} en palabras?", pvFormGood:"Ese es {n}.",
+    pvFormHint:"Esa opción muestra {x}.", pvLookPl:"Mira el lugar de {pl}.",
+    gShadeQ:"Sombrea {x} de la cuadrícula.", gCount:"{k} de {u} partes sombreadas",
+    gTipH:"Cada columna es un décimo. Cada cuadrito es un centésimo.", gTipT:"Cada tira es un décimo de toda la cuadrícula.",
+    gShadeHint:"Sombreaste {k} partes. {x} quiere decir {need} de {u} partes iguales.", gSplit:"Décimos: {a}. Centésimos: {b}.",
+    gNameD:"¿Qué número decimal muestra la parte sombreada?", gNameF:"¿Qué fracción de la cuadrícula está sombreada?",
+    gWhole:"Una cuadrícula entera más {k} de {u} partes es {v}.", gWholeHint:"Una cuadrícula toda sombreada es 1 entero.", gCountQ:"Vuelve a contar las partes sombreadas.",
+    gMoneyQ:"¿Cuánto dinero hay? Escoge la cantidad en dólares.", gMoneyCount:"Billetes de un dólar: {b}. Monedas de diez centavos: {d}. Monedas de un centavo: {p}.",
+    dimeIs:"Una moneda de diez centavos es un décimo de dólar. Una moneda de un centavo es un centésimo de dólar.",
+    gMoneyGood:"Las monedas de diez centavos son décimos de dólar y las de un centavo son centésimos, así que el total es {x}.",
+    gEqQh:"¿{a} son cuántos centésimos?", gEqQt:"¿{a} son cuántos décimos?",
+    gEqGood:"{k} décimos cubren la misma área que {c} centésimos.", gEqHint:"Cada columna de un décimo tiene 10 cuadritos de un centésimo. Cuenta los cuadritos en {k} columnas.",
+    cmpQ:"Compara {a} y {b}. ¿Qué símbolo va en la caja?",
+    cmpFirst:"Alinea los lugares y compara desde la izquierda. El primer lugar que es diferente es el lugar de {pl}: {a} tiene {x} y {b} tiene {y}.",
+    cmpSame:"{a} y {b} tienen el mismo dígito en cada lugar.", cmpZero:"Un cero al final de un decimal no cambia su valor, así que {a} y {b} son iguales.",
+    cmpLonger:"¡Cuidado! Tener más dígitos después del punto decimal no quiere decir que el número sea mayor.", cmpLineUp:"Alinea los puntos decimales. Puedes escribir ceros en los lugares vacíos.",
+    resGt:"Entonces {a} es mayor que {b}.", resLt:"Entonces {a} es menor que {b}.", resEq:"Entonces {a} es igual a {b}.",
+    ordQ:"Toca los números en orden de menor a mayor.", ordQd:"Toca los números en orden de mayor a menor.",
+    ordNotL:"{x} no es el menor de los que quedan.", ordNotG:"{x} no es el mayor de los que quedan.",
+    rndQ:"Redondea {n} {pl}.", nearM:"al {u} más cercano", nearF:"a la {u} más cercana", rndQw:"Redondea {n} al número entero más cercano.",
+    rndUp:"El punto medio es {m}. {n} está después del punto medio, así que se redondea hacia arriba a {a}.", rndDown:"El punto medio es {m}. {n} está antes del punto medio, así que se redondea hacia abajo a {a}.",
+    rndExact:"{n} está justo en el punto medio, así que redondeamos hacia arriba a {a}.", rndRule:"Comprueba: el dígito en el lugar de {pl} es {c}, así que se redondea {dir}.",
+    rndWrongPl:"Esa respuesta está redondeada a otro lugar. Redondea {pl}.", rndBetween:"{n} está entre {a} y {b}.",
+    rndMidQ:"El punto medio es {m}. ¿{n} está más cerca de {a} o de {b}?",
+    stEst:"Estima", stSolve:"Resuelve", estQ:"Paso 1: Estima {a} {op} {b}. ¿Qué estimación es la más cercana?",
+    estGood:"Redondeado: {a} {op} {b} = {e}. Ahora resuélvelo.", estHint:"Primero redondea cada número {pl}: {a} es aproximadamente {x} y {b} es aproximadamente {y}.",
+    solveQ:"Paso 2: Resuelve {a} {op} {b}. Alinea los lugares. Tu estimación fue {e}.",
+    opsZeros:"Los ceros claros llenan los lugares vacíos. No cambian el valor.",
+    opsGood:"{r} está cerca de tu estimación de {e}, así que la respuesta tiene sentido.", opsFar:"Eso está lejos de tu estimación de {e}.",
+    opsAlign:"Alinea los puntos decimales para que los décimos queden debajo de los décimos y los centésimos debajo de los centésimos.",
+    opsRegA:"Cuando un lugar suma 10 o más, reagrupa: 10 en un lugar forman 1 en el lugar de la izquierda.",
+    opsRegS:"Cuando el dígito de arriba es menor, reagrupa: toma 1 del lugar de la izquierda y conviértelo en 10 en este lugar.",
+    opsCheck:"Trabaja un lugar a la vez, empezando por la derecha.",
+    oneP:"1 lugar", nP:"{e} lugares", powQ:"¿Cuánto es {n} {op} {x}?",
+    powM:"Multiplicar por {x} hace que cada dígito valga {x} veces más, así que cada dígito se mueve {k} a la izquierda: {r}.",
+    powD:"Dividir entre {x} hace que cada dígito valga menos, así que cada dígito se mueve {k} a la derecha: {r}.",
+    powHint:"Cuenta los ceros de {x}. Mueve cada dígito {k}.", powMw:"Multiplicar por 10, 100 o 1,000 hace un número más grande, así que los dígitos se mueven a la izquierda.",
+    powDw:"Dividir entre 10, 100 o 1,000 hace un número más pequeño, así que los dígitos se mueven a la derecha.",
+    powShiftL:"Cada dígito se movió {k} a la izquierda.", powShiftR:"Cada dígito se movió {k} a la derecha.",
+    teacherTitle:"Ajustes del maestro", setGrade:"Grado", g3:"3.er grado", g4:"4.º grado", g5:"5.º grado",
+    gradeNote:"Al escoger un grado se ajustan las opciones de abajo. Todavía puedes cambiarlas.",
+    setWd:"Números enteros", wd3:"Hasta 1,000", wd5:"Hasta 100,000", wd6:"Hasta 1,000,000", wd9:"Hasta 1,000,000,000",
+    setDp:"Decimales", dp0:"No (solo números enteros)", dp1:"Décimos", dp2:"Centésimos", dp3:"Milésimos",
+    setModes:"Modos", gridNote:"Cuadrículas decimales necesita los decimales activados.", setPow:"Potencias de 10", powOn:"Multiplicar y dividir entre 10, 100 y 1,000",
+    setSpeech:"Voz", autoRead:"Leer las instrucciones automáticamente", printCards:"Imprimir tarjetas de reto",
+    numNote:"Los números usan el estilo de EE. UU. en todos los idiomas (estándares de Texas): el punto es el punto decimal y las comas separan los millares, como en 1,234.56.",
+    setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información de los estudiantes.",
+    stds:"Estándares alineados — TEKS de Texas: 3.er grado: 3.2(A, B, C, D), 3.4(A, B); 4.º grado: 4.2(A, B, C, D, E, F, G, H), 4.4(A); 5.º grado: 5.2(A, B, C), 5.3(A, K). Common Core: 3.NBT.1, 3.NBT.2; 4.NBT.1, 4.NBT.2, 4.NBT.3, 4.NBT.4; 4.NF.5, 4.NF.6, 4.NF.7; 5.NBT.1, 5.NBT.2, 5.NBT.3, 5.NBT.4, 5.NBT.7.",
+    cardTitle:"Carrera Decimal — Tarjetas de reto", cardName:"Nombre:", cardStd:"Escribe este número en forma estándar.", cardCmp:"Escribe >, < o =.",
+    cardOps:"Primero estima y luego resuelve. Alinea los lugares."
+  },
+  vi:{
+    appTitle:"Đua Số Thập Phân", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", language:"Ngôn ngữ", readAloud:"Đọc to",
+    modesLbl:"Chế độ", stars:"Số sao đạt được", newRound:"Lượt mới", footNote:"Không cần tài khoản · Không thu thập dữ liệu · Dùng được khi không có mạng",
+    mPv:"Bảng giá trị hàng", mGrid:"Lưới thập phân", mCmp:"So sánh và sắp xếp", mRnd:"Làm tròn", mOps:"Cộng và trừ",
+    check:"Kiểm tra", clear:"Xóa", close:"Đóng", yes:"Đúng rồi!", notYet:"Chưa đúng.", choicesLbl:"Các lựa chọn", chartLbl:"Bảng giá trị hàng", lineLbl:"Tia số",
+    comma:", ", plusW:"cộng", minusW:"trừ", timesW:"nhân", divW:"chia", eqW:"bằng", gtW:"lớn hơn", ltW:"nhỏ hơn",
+    ptW:"chấm", upW:"lên", downW:"xuống", halfway:"điểm giữa", wholeW:"số nguyên",
+    pl8:"hàng trăm triệu", pl7:"hàng chục triệu", pl6:"hàng triệu", pl5:"hàng trăm nghìn", pl4:"hàng chục nghìn", pl3:"hàng nghìn", pl2:"hàng trăm", pl1:"hàng chục", pl0:"hàng đơn vị", plm1:"hàng phần mười", plm2:"hàng phần trăm", plm3:"hàng phần nghìn",
+    un8:"trăm triệu", un7:"chục triệu", un6:"triệu", un5:"trăm nghìn", un4:"chục nghìn", un3:"nghìn", un2:"trăm", un1:"chục", un0:"đơn vị", unm1:"phần mười", unm2:"phần trăm", unm3:"phần nghìn",
+    cnt1:"{c} {u}", cntN:"{c} {u}", fracSay:"{n} phần {d}", monSay:"{d} đô la {c} xu",
+    nearM:"đến {p}", nearF:"đến {p}",
+    tenX:"Mỗi hàng có giá trị gấp 10 lần hàng ở bên phải nó.", worth:"Đó là {c}, có giá trị {v}.", youPicked:"Em đã chọn {x}.", yourNum:"Số của em:",
+    fStd:"Dạng chuẩn:", fExp:"Dạng khai triển:", fWord:"Theo tên hàng:",
+    upL:"Thêm 1 ở {pl}", downL:"Bớt 1 ở {pl}", addL:"Tô thêm {x}", subL:"Bớt tô {x}",
+    pvBuildW:"Lập số này trên bảng: {w}", pvBuildE:"Lập số này trên bảng: {e}", pvBuilt:"Em đã lập được {n}.",
+    pvEmpty:"Trước tiên, hãy chạm vào mũi tên lên để đặt chữ số vào các hàng.", pvBuildHint:"Hãy nhìn {pl}: em có {x}, nhưng số cần {y}.",
+    pvValQ:"Chữ số {c} trong {n} có giá trị là bao nhiêu?", pvValGood:"Chữ số {c} ở {pl}, nên giá trị của nó là {v}.",
+    pvValWhere:"Chữ số {c} ở {pl}.", pvValAsk:"{k} có giá trị là bao nhiêu?",
+    pvTimesQ:"Trong {n}, chữ số {c} bên trái có giá trị gấp mấy lần chữ số {c} bên phải?",
+    pvTimesGood:"{a} gấp {x} lần {b}.", pvTimesWhere:"Chữ số bên trái có giá trị {a}, chữ số bên phải có giá trị {b}.",
+    pvFormE:"Cách nào ghi {n} ở dạng khai triển?", pvFormW:"Cách nào ghi {n} theo tên các hàng?", pvFormGood:"Đó là {n}.",
+    pvFormHint:"Cách đó là số {x}.", pvLookPl:"Hãy nhìn {pl}.",
+    gShadeQ:"Tô màu {x} của lưới.", gCount:"Đã tô {k} trên {u} phần",
+    gTipH:"Mỗi cột là một phần mười. Mỗi ô vuông nhỏ là một phần trăm.", gTipT:"Mỗi dải là một phần mười của cả lưới.",
+    gShadeHint:"Em đã tô {k} phần. {x} nghĩa là {need} trên {u} phần bằng nhau.", gSplit:"Phần mười: {a}. Phần trăm: {b}.",
+    gNameD:"Phần được tô biểu diễn số thập phân nào?", gNameF:"Phân số nào cho biết phần lưới được tô?",
+    gWhole:"Một lưới đầy đủ cộng thêm {k} trên {u} phần là {v}.", gWholeHint:"Một lưới được tô kín là 1 đơn vị.", gCountQ:"Hãy đếm lại các phần được tô.",
+    gMoneyQ:"Ở đây có bao nhiêu tiền? Chọn số tiền tính bằng đô la.", gMoneyCount:"Tờ 1 đô la: {b}. Đồng 10 xu: {d}. Đồng 1 xu: {p}.",
+    dimeIs:"Một đồng 10 xu là một phần mười của một đô la. Một đồng 1 xu là một phần trăm của một đô la.",
+    gMoneyGood:"Đồng 10 xu là phần mười của đô la và đồng 1 xu là phần trăm, nên tổng cộng là {x}.",
+    gEqQh:"{a} bằng bao nhiêu phần trăm?", gEqQt:"{a} bằng bao nhiêu phần mười?",
+    gEqGood:"{k} phần mười che cùng một diện tích với {c} phần trăm.", gEqHint:"Mỗi cột phần mười có 10 ô phần trăm. Hãy đếm các ô trong {k} cột.",
+    cmpQ:"So sánh {a} và {b}. Dấu nào điền vào ô trống?",
+    cmpFirst:"Xếp thẳng các hàng và so sánh từ trái sang. Hàng đầu tiên khác nhau là {pl}: {a} có {x} còn {b} có {y}.",
+    cmpSame:"{a} và {b} có cùng chữ số ở mọi hàng.", cmpZero:"Thêm chữ số 0 ở cuối phần thập phân không làm thay đổi giá trị, nên {a} và {b} bằng nhau.",
+    cmpLonger:"Cẩn thận: nhiều chữ số sau dấu chấm thập phân không có nghĩa là số lớn hơn!", cmpLineUp:"Xếp thẳng các dấu chấm thập phân. Em có thể viết số 0 vào các hàng trống.",
+    resGt:"Vậy {a} lớn hơn {b}.", resLt:"Vậy {a} nhỏ hơn {b}.", resEq:"Vậy {a} bằng {b}.",
+    ordQ:"Chạm vào các số theo thứ tự từ bé đến lớn.", ordQd:"Chạm vào các số theo thứ tự từ lớn đến bé.",
+    ordNotL:"{x} không phải là số bé nhất còn lại.", ordNotG:"{x} không phải là số lớn nhất còn lại.",
+    rndQ:"Làm tròn {n} {pl}.", rndQw:"Làm tròn {n} đến số nguyên gần nhất.",
+    rndUp:"Điểm giữa là {m}. {n} nằm sau điểm giữa, nên làm tròn lên thành {a}.", rndDown:"Điểm giữa là {m}. {n} nằm trước điểm giữa, nên làm tròn xuống thành {a}.",
+    rndExact:"{n} nằm đúng điểm giữa, nên ta làm tròn lên thành {a}.", rndRule:"Kiểm tra: chữ số ở {pl} là {c}, nên làm tròn {dir}.",
+    rndWrongPl:"Đáp án đó được làm tròn ở hàng khác. Hãy làm tròn {pl}.", rndBetween:"{n} nằm giữa {a} và {b}.",
+    rndMidQ:"Điểm giữa là {m}. {n} gần {a} hơn hay gần {b} hơn?",
+    stEst:"Ước lượng", stSolve:"Giải", estQ:"Bước 1: Ước lượng {a} {op} {b}. Ước lượng nào gần nhất?",
+    estGood:"Sau khi làm tròn: {a} {op} {b} = {e}. Bây giờ hãy giải.", estHint:"Trước tiên hãy làm tròn mỗi số {pl}: {a} khoảng {x}, và {b} khoảng {y}.",
+    solveQ:"Bước 2: Giải {a} {op} {b}. Xếp thẳng các hàng. Ước lượng của em là {e}.",
+    opsZeros:"Các số 0 màu nhạt điền vào hàng trống. Chúng không làm thay đổi giá trị.",
+    opsGood:"{r} gần với ước lượng {e} của em, nên đáp án hợp lý.", opsFar:"Số đó cách xa ước lượng {e} của em.",
+    opsAlign:"Xếp thẳng các dấu chấm thập phân để hàng phần mười thẳng hàng phần mười, hàng phần trăm thẳng hàng phần trăm.",
+    opsRegA:"Khi một hàng cộng được 10 hoặc hơn, hãy đổi nhóm: 10 ở một hàng thành 1 ở hàng bên trái.",
+    opsRegS:"Khi chữ số ở trên nhỏ hơn, hãy đổi nhóm: lấy 1 từ hàng bên trái thành 10 ở hàng này.",
+    opsCheck:"Làm từng hàng một, bắt đầu từ bên phải.",
+    oneP:"1 hàng", nP:"{e} hàng", powQ:"{n} {op} {x} bằng bao nhiêu?",
+    powM:"Nhân với {x} làm mỗi chữ số có giá trị gấp {x} lần, nên mỗi chữ số dịch {k} sang trái: {r}.",
+    powD:"Chia cho {x} làm mỗi chữ số có giá trị nhỏ đi, nên mỗi chữ số dịch {k} sang phải: {r}.",
+    powHint:"Đếm số chữ số 0 trong {x}. Dịch mỗi chữ số {k}.", powMw:"Nhân với 10, 100 hoặc 1,000 làm số lớn hơn, nên các chữ số dịch sang trái.",
+    powDw:"Chia cho 10, 100 hoặc 1,000 làm số nhỏ hơn, nên các chữ số dịch sang phải.",
+    powShiftL:"Mỗi chữ số đã dịch {k} sang trái.", powShiftR:"Mỗi chữ số đã dịch {k} sang phải.",
+    teacherTitle:"Cài đặt của giáo viên", setGrade:"Lớp", g3:"Lớp 3", g4:"Lớp 4", g5:"Lớp 5",
+    gradeNote:"Chọn lớp sẽ đặt các tùy chọn bên dưới. Thầy cô vẫn có thể thay đổi chúng.",
+    setWd:"Số tự nhiên", wd3:"Đến 1,000", wd5:"Đến 100,000", wd6:"Đến 1,000,000", wd9:"Đến 1,000,000,000",
+    setDp:"Số thập phân", dp0:"Tắt (chỉ số tự nhiên)", dp1:"Phần mười", dp2:"Phần trăm", dp3:"Phần nghìn",
+    setModes:"Chế độ", gridNote:"Lưới thập phân cần bật số thập phân.", setPow:"Lũy thừa của 10", powOn:"Nhân và chia cho 10, 100 và 1,000",
+    setSpeech:"Giọng đọc", autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
+    numNote:"Các số được viết theo kiểu Hoa Kỳ trong mọi ngôn ngữ (chuẩn Texas): dấu chấm là dấu thập phân và dấu phẩy ngăn cách hàng nghìn, ví dụ 1,234.56.",
+    setStored:"Cài đặt chỉ được lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
+    stds:"Chuẩn liên quan — TEKS Texas: Lớp 3: 3.2(A, B, C, D), 3.4(A, B); Lớp 4: 4.2(A, B, C, D, E, F, G, H), 4.4(A); Lớp 5: 5.2(A, B, C), 5.3(A, K). Common Core: 3.NBT.1, 3.NBT.2; 4.NBT.1, 4.NBT.2, 4.NBT.3, 4.NBT.4; 4.NF.5, 4.NF.6, 4.NF.7; 5.NBT.1, 5.NBT.2, 5.NBT.3, 5.NBT.4, 5.NBT.7.",
+    cardTitle:"Đua Số Thập Phân — Thẻ thử thách", cardName:"Tên:", cardStd:"Viết số này ở dạng chuẩn.", cardCmp:"Viết >, < hoặc =.",
+    cardOps:"Ước lượng trước, rồi giải. Xếp thẳng các hàng."
+  },
+  ar:{
+    appTitle:"سباق الكسور العشرية", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلّم", language:"اللغة", readAloud:"اقرأ بصوت عالٍ",
+    modesLbl:"الأنماط", stars:"النجوم المكتسبة", newRound:"جولة جديدة", footNote:"بلا حسابات · لا تُجمع أي بيانات · يعمل دون اتصال",
+    mPv:"جدول القيمة المكانية", mGrid:"الشبكات العشرية", mCmp:"قارن ورتّب", mRnd:"التقريب", mOps:"الجمع والطرح",
+    check:"تحقّق", clear:"امسح", close:"إغلاق", yes:"أحسنت!", notYet:"ليس بعد.", choicesLbl:"خيارات الإجابة", chartLbl:"جدول القيمة المكانية", lineLbl:"خط الأعداد",
+    comma:"، ", plusW:"زائد", minusW:"ناقص", timesW:"ضرب", divW:"قسمة", eqW:"يساوي", gtW:"أكبر من", ltW:"أصغر من",
+    ptW:"نقطة", upW:"إلى الأعلى", downW:"إلى الأسفل", halfway:"المنتصف", wholeW:"عدد صحيح",
+    pl8:"مئات الملايين", pl7:"عشرات الملايين", pl6:"الملايين", pl5:"مئات الآلاف", pl4:"عشرات الآلاف", pl3:"الآلاف", pl2:"المئات", pl1:"العشرات", pl0:"الآحاد", plm1:"الأجزاء من عشرة", plm2:"الأجزاء من مئة", plm3:"الأجزاء من ألف",
+    un8:"مئة مليون", un7:"عشرة ملايين", un6:"مليون", un5:"مئة ألف", un4:"عشرة آلاف", un3:"ألف", un2:"مئة", un1:"عشرة", un0:"واحد", unm1:"جزء من عشرة", unm2:"جزء من مئة", unm3:"جزء من ألف",
+    cnt1:"{c} {u}", cntN:"{c} من {p}", fracSay:"{n} من {d}", monSay:"{d} دولار و{c} سنت",
+    nearM:"إلى أقرب {u}", nearF:"إلى أقرب {u}",
+    tenX:"كل منزلة قيمتها 10 أمثال المنزلة التي على يمينها.", worth:"هذا {c}، وقيمته {v}.", youPicked:"اخترت {x}.", yourNum:"عددك:",
+    fStd:"الصيغة القياسية:", fExp:"الصيغة الموسّعة:", fWord:"بأسماء المنازل:",
+    upL:"واحد أكثر في منزلة {pl}", downL:"واحد أقل في منزلة {pl}", addL:"ظلّل {x} أكثر", subL:"ظلّل {x} أقل",
+    pvBuildW:"كوّن هذا العدد في الجدول: {w}", pvBuildE:"كوّن هذا العدد في الجدول: {e}", pvBuilt:"كوّنت العدد {n}.",
+    pvEmpty:"اضغط أولًا على الأسهم إلى الأعلى لتضع أرقامًا في المنازل.", pvBuildHint:"انظر إلى منزلة {pl}: لديك {x}، لكن العدد يحتاج إلى {y}.",
+    pvValQ:"ما قيمة الرقم {c} في العدد {n}؟", pvValGood:"الرقم {c} في منزلة {pl}، لذا قيمته {v}.",
+    pvValWhere:"الرقم {c} في منزلة {pl}.", pvValAsk:"ما قيمة {k}؟",
+    pvTimesQ:"في العدد {n}، كم مثلًا تساوي قيمة الرقم {c} الذي على اليسار قيمة الرقم {c} الذي على اليمين؟",
+    pvTimesGood:"{a} يساوي {x} أمثال {b}.", pvTimesWhere:"قيمة الرقم الذي على اليسار {a}، وقيمة الرقم الذي على اليمين {b}.",
+    pvFormE:"أيّها يُظهر {n} بالصيغة الموسّعة؟", pvFormW:"أيّها يُظهر {n} بأسماء المنازل؟", pvFormGood:"هذا هو {n}.",
+    pvFormHint:"هذا الخيار يُظهر {x}.", pvLookPl:"انظر إلى منزلة {pl}.",
+    gShadeQ:"ظلّل {x} من الشبكة.", gCount:"{k} من {u} جزءًا مظلّلة",
+    gTipH:"كل عمود جزء من عشرة. كل مربع صغير جزء من مئة.", gTipT:"كل شريط جزء من عشرة من الشبكة كلها.",
+    gShadeHint:"ظلّلت {k} أجزاء. {x} تعني {need} من {u} أجزاء متساوية.", gSplit:"الأجزاء من عشرة: {a}. الأجزاء من مئة: {b}.",
+    gNameD:"ما الكسر العشري الذي يمثّله الجزء المظلّل؟", gNameF:"ما الكسر الذي يمثّل الجزء المظلّل من الشبكة؟",
+    gWhole:"شبكة كاملة و{k} من {u} أجزاء تساوي {v}.", gWholeHint:"الشبكة المظلّلة كلها تساوي 1 صحيحًا.", gCountQ:"عُدّ الأجزاء المظلّلة مرة أخرى.",
+    gMoneyQ:"كم من المال هنا؟ اختر المبلغ بالدولار.", gMoneyCount:"أوراق الدولار: {b}. قطع العشرة سنتات: {d}. قطع السنت: {p}.",
+    dimeIs:"قطعة العشرة سنتات جزء من عشرة من الدولار. قطعة السنت جزء من مئة من الدولار.",
+    gMoneyGood:"قطع العشرة سنتات أجزاء من عشرة من الدولار، وقطع السنت أجزاء من مئة، لذا المجموع {x}.",
+    gEqQh:"{a} تساوي كم جزءًا من مئة؟", gEqQt:"{a} تساوي كم جزءًا من عشرة؟",
+    gEqGood:"{k} من الأجزاء من عشرة تغطي المساحة نفسها التي تغطيها {c} من الأجزاء من مئة.", gEqHint:"كل عمود من الأجزاء من عشرة فيه 10 مربعات من الأجزاء من مئة. عُدّ المربعات في {k} أعمدة.",
+    cmpQ:"قارن بين {a} و{b}. أيّ رمز يوضع في المربع؟",
+    cmpFirst:"رتّب المنازل بعضها تحت بعض وقارن من اليسار. أول منزلة مختلفة هي منزلة {pl}: في {a} الرقم {x} وفي {b} الرقم {y}.",
+    cmpSame:"للعددين {a} و{b} الرقم نفسه في كل منزلة.", cmpZero:"الصفر في نهاية الكسر العشري لا يغيّر قيمته، لذا {a} و{b} متساويان.",
+    cmpLonger:"انتبه: كثرة الأرقام بعد الفاصلة العشرية لا تعني أن العدد أكبر!", cmpLineUp:"ضع الفواصل العشرية بعضها تحت بعض. يمكنك كتابة أصفار في المنازل الفارغة.",
+    resGt:"إذن {a} أكبر من {b}.", resLt:"إذن {a} أصغر من {b}.", resEq:"إذن {a} يساوي {b}.",
+    ordQ:"اضغط على الأعداد بالترتيب من الأصغر إلى الأكبر.", ordQd:"اضغط على الأعداد بالترتيب من الأكبر إلى الأصغر.",
+    ordNotL:"{x} ليس أصغر عدد متبقٍّ.", ordNotG:"{x} ليس أكبر عدد متبقٍّ.",
+    rndQ:"قرّب {n} {pl}.", rndQw:"قرّب {n} إلى أقرب عدد صحيح.",
+    rndUp:"المنتصف هو {m}. العدد {n} بعد المنتصف، لذا يُقرَّب إلى الأعلى إلى {a}.", rndDown:"المنتصف هو {m}. العدد {n} قبل المنتصف، لذا يُقرَّب إلى الأسفل إلى {a}.",
+    rndExact:"العدد {n} في المنتصف تمامًا، لذا نقرّبه إلى الأعلى إلى {a}.", rndRule:"تحقّق: الرقم في منزلة {pl} هو {c}، لذا نقرّب {dir}.",
+    rndWrongPl:"هذه الإجابة مقرّبة إلى منزلة أخرى. قرّب {pl}.", rndBetween:"العدد {n} بين {a} و{b}.",
+    rndMidQ:"المنتصف هو {m}. هل {n} أقرب إلى {a} أم إلى {b}؟",
+    stEst:"قدّر", stSolve:"احسب", estQ:"الخطوة 1: قدّر {a} {op} {b}. أيّ تقدير هو الأقرب؟",
+    estGood:"بعد التقريب: {a} {op} {b} = {e}. الآن احسب.", estHint:"قرّب كل عدد أولًا {pl}: العدد {a} يساوي تقريبًا {x}، والعدد {b} يساوي تقريبًا {y}.",
+    solveQ:"الخطوة 2: احسب {a} {op} {b}. رتّب المنازل بعضها تحت بعض. كان تقديرك {e}.",
+    opsZeros:"الأصفار الفاتحة تملأ المنازل الفارغة. وهي لا تغيّر القيمة.",
+    opsGood:"{r} قريب من تقديرك {e}، لذا الإجابة منطقية.", opsFar:"هذا بعيد عن تقديرك {e}.",
+    opsAlign:"ضع الفواصل العشرية بعضها تحت بعض، فتكون الأجزاء من عشرة تحت الأجزاء من عشرة، والأجزاء من مئة تحت الأجزاء من مئة.",
+    opsRegA:"عندما يصبح مجموع منزلة 10 أو أكثر، أعد التجميع: كل 10 في منزلة تصبح 1 في المنزلة التي على يسارها.",
+    opsRegS:"عندما يكون الرقم العلوي أصغر، أعد التجميع: خذ 1 من المنزلة التي على اليسار ليصبح 10 في هذه المنزلة.",
+    opsCheck:"احسب منزلة واحدة في كل مرة، وابدأ من اليمين.",
+    oneP:"منزلة واحدة", nP:"{e} منازل", powQ:"كم يساوي {n} {op} {x}؟",
+    powM:"الضرب في {x} يجعل قيمة كل رقم {x} أمثال ما كانت، لذا ينتقل كل رقم {k} إلى اليسار: {r}.",
+    powD:"القسمة على {x} تجعل قيمة كل رقم أقل، لذا ينتقل كل رقم {k} إلى اليمين: {r}.",
+    powHint:"عُدّ الأصفار في {x}. انقل كل رقم {k}.", powMw:"الضرب في 10 أو 100 أو 1,000 يجعل العدد أكبر، لذا تنتقل الأرقام إلى اليسار.",
+    powDw:"القسمة على 10 أو 100 أو 1,000 تجعل العدد أصغر، لذا تنتقل الأرقام إلى اليمين.",
+    powShiftL:"انتقل كل رقم {k} إلى اليسار.", powShiftR:"انتقل كل رقم {k} إلى اليمين.",
+    teacherTitle:"إعدادات المعلّم", setGrade:"الصف", g3:"الصف الثالث", g4:"الصف الرابع", g5:"الصف الخامس",
+    gradeNote:"اختيار الصف يضبط الخيارات أدناه. ويمكنك تغييرها بعد ذلك.",
+    setWd:"الأعداد الكلية", wd3:"حتى 1,000", wd5:"حتى 100,000", wd6:"حتى 1,000,000", wd9:"حتى 1,000,000,000",
+    setDp:"الكسور العشرية", dp0:"إيقاف (أعداد كلية فقط)", dp1:"الأجزاء من عشرة", dp2:"الأجزاء من مئة", dp3:"الأجزاء من ألف",
+    setModes:"الأنماط", gridNote:"تحتاج الشبكات العشرية إلى تشغيل الكسور العشرية.", setPow:"قوى العدد 10", powOn:"الضرب والقسمة على 10 و100 و1,000",
+    setSpeech:"الصوت", autoRead:"قراءة التعليمات تلقائيًا", printCards:"اطبع بطاقات التحدي",
+    numNote:"تُكتب الأعداد بالطريقة الأمريكية في كل اللغات (معايير تكساس): النقطة هي الفاصلة العشرية، والفواصل تفصل بين كل ثلاث منازل، مثل 1,234.56.",
+    setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُحفظ أي معلومات عن الطلاب أبدًا.",
+    stds:"المعايير المتوافقة — معايير تكساس TEKS: الصف الثالث: 3.2(A, B, C, D)، 3.4(A, B)؛ الصف الرابع: 4.2(A, B, C, D, E, F, G, H)، 4.4(A)؛ الصف الخامس: 5.2(A, B, C)، 5.3(A, K). المعايير الأساسية المشتركة: 3.NBT.1، 3.NBT.2؛ 4.NBT.1، 4.NBT.2، 4.NBT.3، 4.NBT.4؛ 4.NF.5، 4.NF.6، 4.NF.7؛ 5.NBT.1، 5.NBT.2، 5.NBT.3، 5.NBT.4، 5.NBT.7.",
+    cardTitle:"سباق الكسور العشرية — بطاقات التحدي", cardName:"الاسم:", cardStd:"اكتب هذا العدد بالصيغة القياسية.", cardCmp:"اكتب > أو < أو =.",
+    cardOps:"قدّر أولًا ثم احسب. رتّب المنازل بعضها تحت بعض."
+  },
+  hi:{
+    appTitle:"दशमलव दौड़", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", language:"भाषा", readAloud:"ज़ोर से पढ़ें",
+    modesLbl:"मोड", stars:"मिले हुए तारे", newRound:"नया राउंड", footNote:"कोई खाता नहीं · कोई डेटा इकट्ठा नहीं · बिना इंटरनेट चलता है",
+    mPv:"स्थानीय मान सारणी", mGrid:"दशमलव ग्रिड", mCmp:"तुलना और क्रम", mRnd:"पूर्णांकन", mOps:"जोड़ और घटाव",
+    check:"जाँचें", clear:"मिटाएँ", close:"बंद करें", yes:"सही!", notYet:"अभी नहीं।", choicesLbl:"उत्तर के विकल्प", chartLbl:"स्थानीय मान सारणी", lineLbl:"संख्या रेखा",
+    comma:", ", plusW:"जोड़", minusW:"घटा", timesW:"गुणा", divW:"भाग", eqW:"बराबर है", gtW:"से बड़ा है", ltW:"से छोटा है",
+    ptW:"दशमलव", upW:"ऊपर", downW:"नीचे", halfway:"बीच का बिंदु", wholeW:"पूर्ण संख्या",
+    pl8:"सौ मिलियन", pl7:"दस मिलियन", pl6:"मिलियन", pl5:"सौ हज़ार", pl4:"दस हज़ार", pl3:"हज़ार", pl2:"सैकड़ा", pl1:"दहाई", pl0:"इकाई", plm1:"दशांश", plm2:"शतांश", plm3:"सहस्रांश",
+    un8:"सौ मिलियन", un7:"दस मिलियन", un6:"मिलियन", un5:"सौ हज़ार", un4:"दस हज़ार", un3:"हज़ार", un2:"सैकड़ा", un1:"दहाई", un0:"इकाई", unm1:"दशांश", unm2:"शतांश", unm3:"सहस्रांश",
+    cnt1:"{c} {u}", cntN:"{c} {u}", fracSay:"{d} में से {n}", monSay:"{d} डॉलर {c} सेंट",
+    nearM:"निकटतम {u} तक", nearF:"निकटतम {u} तक",
+    tenX:"हर स्थान का मान अपने दाएँ वाले स्थान का 10 गुना होता है।", worth:"यह {c} है, जिसका मान {v} है।", youPicked:"आपने {x} चुना।", yourNum:"आपकी संख्या:",
+    fStd:"मानक रूप:", fExp:"विस्तारित रूप:", fWord:"स्थानों के नाम से:",
+    upL:"{pl} के स्थान में एक और", downL:"{pl} के स्थान में एक कम", addL:"{x} और रंगें", subL:"{x} कम रंगें",
+    pvBuildW:"सारणी पर यह संख्या बनाएँ: {w}", pvBuildE:"सारणी पर यह संख्या बनाएँ: {e}", pvBuilt:"आपने {n} बनाया।",
+    pvEmpty:"पहले ऊपर वाले तीरों को दबाकर स्थानों में अंक रखें।", pvBuildHint:"{pl} के स्थान को देखें: आपके पास {x} है, पर संख्या को {y} चाहिए।",
+    pvValQ:"{n} में अंक {c} का मान क्या है?", pvValGood:"{c} {pl} के स्थान पर है, इसलिए उसका मान {v} है।",
+    pvValWhere:"{c} {pl} के स्थान पर है।", pvValAsk:"{k} का मान क्या है?",
+    pvTimesQ:"{n} में बाईं ओर वाले {c} का मान दाईं ओर वाले {c} के मान का कितने गुना है?",
+    pvTimesGood:"{a}, {b} का {x} गुना है।", pvTimesWhere:"बाईं ओर वाले अंक का मान {a} है और दाईं ओर वाले अंक का मान {b} है।",
+    pvFormE:"कौन-सा विकल्प {n} को विस्तारित रूप में दिखाता है?", pvFormW:"कौन-सा विकल्प {n} को स्थानों के नाम से दिखाता है?", pvFormGood:"यह {n} है।",
+    pvFormHint:"यह विकल्प {x} दिखाता है।", pvLookPl:"{pl} के स्थान को देखें।",
+    gShadeQ:"ग्रिड का {x} भाग रंगें।", gCount:"{u} में से {k} भाग रंगे",
+    gTipH:"हर स्तंभ एक दशांश है। हर छोटा वर्ग एक शतांश है।", gTipT:"हर पट्टी पूरे ग्रिड का एक दशांश है।",
+    gShadeHint:"आपने {k} भाग रंगे। {x} का मतलब है {u} बराबर भागों में से {need} भाग।", gSplit:"दशांश: {a}। शतांश: {b}।",
+    gNameD:"रंगा हुआ भाग कौन-सी दशमलव संख्या दिखाता है?", gNameF:"ग्रिड का कितना भिन्न भाग रंगा है?",
+    gWhole:"एक पूरा ग्रिड और {u} में से {k} भाग मिलकर {v} है।", gWholeHint:"पूरा रंगा हुआ ग्रिड 1 पूर्ण है।", gCountQ:"रंगे हुए भाग फिर से गिनें।",
+    gMoneyQ:"यहाँ कितने पैसे हैं? डॉलर में राशि चुनें।", gMoneyCount:"एक डॉलर के नोट: {b}। 10 सेंट के सिक्के: {d}। 1 सेंट के सिक्के: {p}।",
+    dimeIs:"10 सेंट का सिक्का एक डॉलर का दशांश है। 1 सेंट का सिक्का एक डॉलर का शतांश है।",
+    gMoneyGood:"10 सेंट के सिक्के डॉलर के दशांश हैं और 1 सेंट के सिक्के शतांश, इसलिए कुल {x} है।",
+    gEqQh:"{a} कितने शतांश के बराबर है?", gEqQt:"{a} कितने दशांश के बराबर है?",
+    gEqGood:"{k} दशांश उतनी ही जगह घेरते हैं जितनी {c} शतांश।", gEqHint:"हर दशांश स्तंभ में 10 शतांश वर्ग होते हैं। {k} स्तंभों के वर्ग गिनें।",
+    cmpQ:"{a} और {b} की तुलना करें। डिब्बे में कौन-सा चिह्न आएगा?",
+    cmpFirst:"स्थानों को एक सीध में रखें और बाईं ओर से तुलना करें। पहला अलग स्थान {pl} का है: {a} में {x} है और {b} में {y} है।",
+    cmpSame:"{a} और {b} के हर स्थान पर एक ही अंक है।", cmpZero:"दशमलव के अंत में शून्य लगाने से मान नहीं बदलता, इसलिए {a} और {b} बराबर हैं।",
+    cmpLonger:"ध्यान दें: दशमलव बिंदु के बाद ज़्यादा अंक होने का मतलब बड़ी संख्या नहीं है!", cmpLineUp:"दशमलव बिंदुओं को एक सीध में रखें। खाली स्थानों में शून्य लिख सकते हैं।",
+    resGt:"इसलिए {a}, {b} से बड़ा है।", resLt:"इसलिए {a}, {b} से छोटा है।", resEq:"इसलिए {a}, {b} के बराबर है।",
+    ordQ:"संख्याओं को सबसे छोटी से सबसे बड़ी के क्रम में दबाएँ।", ordQd:"संख्याओं को सबसे बड़ी से सबसे छोटी के क्रम में दबाएँ।",
+    ordNotL:"{x} बची हुई संख्याओं में सबसे छोटी नहीं है।", ordNotG:"{x} बची हुई संख्याओं में सबसे बड़ी नहीं है।",
+    rndQ:"{n} को {pl} पूर्णांकित करें।", rndQw:"{n} को निकटतम पूर्ण संख्या तक पूर्णांकित करें।",
+    rndUp:"बीच का बिंदु {m} है। {n} बीच के बिंदु के बाद है, इसलिए यह ऊपर {a} पर पूर्णांकित होता है।", rndDown:"बीच का बिंदु {m} है। {n} बीच के बिंदु से पहले है, इसलिए यह नीचे {a} पर पूर्णांकित होता है।",
+    rndExact:"{n} ठीक बीच में है, इसलिए हम ऊपर {a} पर पूर्णांकित करते हैं।", rndRule:"जाँचें: {pl} के स्थान का अंक {c} है, इसलिए {dir} पूर्णांकित करें।",
+    rndWrongPl:"यह उत्तर किसी दूसरे स्थान तक पूर्णांकित है। {pl} पूर्णांकित करें।", rndBetween:"{n}, {a} और {b} के बीच है।",
+    rndMidQ:"बीच का बिंदु {m} है। क्या {n}, {a} के ज़्यादा पास है या {b} के?",
+    stEst:"अनुमान", stSolve:"हल करें", estQ:"चरण 1: {a} {op} {b} का अनुमान लगाएँ। कौन-सा अनुमान सबसे पास है?",
+    estGood:"पूर्णांकित करके: {a} {op} {b} = {e}। अब इसे हल करें।", estHint:"पहले हर संख्या को {pl} पूर्णांकित करें: {a} लगभग {x} है, और {b} लगभग {y} है।",
+    solveQ:"चरण 2: {a} {op} {b} हल करें। स्थानों को एक सीध में रखें। आपका अनुमान {e} था।",
+    opsZeros:"हल्के शून्य खाली स्थानों को भरते हैं। इनसे मान नहीं बदलता।",
+    opsGood:"{r} आपके अनुमान {e} के पास है, इसलिए उत्तर सही लगता है।", opsFar:"यह आपके अनुमान {e} से बहुत दूर है।",
+    opsAlign:"दशमलव बिंदुओं को एक सीध में रखें, ताकि दशांश दशांश के नीचे और शतांश शतांश के नीचे आएँ।",
+    opsRegA:"जब किसी स्थान का योग 10 या ज़्यादा हो, तो पुनर्समूहन करें: एक स्थान के 10 बाईं ओर वाले स्थान का 1 बनाते हैं।",
+    opsRegS:"जब ऊपर का अंक छोटा हो, तो पुनर्समूहन करें: बाईं ओर वाले स्थान से 1 लेकर इस स्थान के 10 बनाएँ।",
+    opsCheck:"एक बार में एक स्थान हल करें, दाईं ओर से शुरू करें।",
+    oneP:"1 स्थान", nP:"{e} स्थान", powQ:"{n} {op} {x} कितना होता है?",
+    powM:"{x} से गुणा करने पर हर अंक का मान {x} गुना हो जाता है, इसलिए हर अंक {k} बाईं ओर खिसकता है: {r}।",
+    powD:"{x} से भाग देने पर हर अंक का मान कम हो जाता है, इसलिए हर अंक {k} दाईं ओर खिसकता है: {r}।",
+    powHint:"{x} में शून्य गिनें। हर अंक को {k} खिसकाएँ।", powMw:"10, 100 या 1,000 से गुणा करने पर संख्या बड़ी होती है, इसलिए अंक बाईं ओर खिसकते हैं।",
+    powDw:"10, 100 या 1,000 से भाग देने पर संख्या छोटी होती है, इसलिए अंक दाईं ओर खिसकते हैं।",
+    powShiftL:"हर अंक {k} बाईं ओर खिसका।", powShiftR:"हर अंक {k} दाईं ओर खिसका।",
+    teacherTitle:"शिक्षक सेटिंग", setGrade:"कक्षा", g3:"कक्षा 3", g4:"कक्षा 4", g5:"कक्षा 5",
+    gradeNote:"कक्षा चुनने से नीचे के विकल्प सेट हो जाते हैं। आप उन्हें फिर भी बदल सकते हैं।",
+    setWd:"पूर्ण संख्याएँ", wd3:"1,000 तक", wd5:"100,000 तक", wd6:"1,000,000 तक", wd9:"1,000,000,000 तक",
+    setDp:"दशमलव", dp0:"बंद (केवल पूर्ण संख्याएँ)", dp1:"दशांश", dp2:"शतांश", dp3:"सहस्रांश",
+    setModes:"मोड", gridNote:"दशमलव ग्रिड के लिए दशमलव चालू होना चाहिए।", setPow:"10 की घातें", powOn:"10, 100 और 1,000 से गुणा और भाग",
+    setSpeech:"आवाज़", autoRead:"निर्देश अपने-आप पढ़ें", printCards:"चुनौती कार्ड छापें",
+    numNote:"हर भाषा में संख्याएँ अमेरिकी शैली में लिखी जाती हैं (टेक्सास मानक): बिंदु दशमलव बिंदु है और अल्पविराम हर तीन अंकों का समूह बनाते हैं, जैसे 1,234.56।",
+    setStored:"सेटिंग केवल इसी डिवाइस पर सहेजी जाती हैं। छात्रों की कोई जानकारी कभी सहेजी नहीं जाती।",
+    stds:"संरेखित मानक — टेक्सास TEKS: कक्षा 3: 3.2(A, B, C, D), 3.4(A, B); कक्षा 4: 4.2(A, B, C, D, E, F, G, H), 4.4(A); कक्षा 5: 5.2(A, B, C), 5.3(A, K)। कॉमन कोर: 3.NBT.1, 3.NBT.2; 4.NBT.1, 4.NBT.2, 4.NBT.3, 4.NBT.4; 4.NF.5, 4.NF.6, 4.NF.7; 5.NBT.1, 5.NBT.2, 5.NBT.3, 5.NBT.4, 5.NBT.7।",
+    cardTitle:"दशमलव दौड़ — चुनौती कार्ड", cardName:"नाम:", cardStd:"इस संख्या को मानक रूप में लिखें।", cardCmp:">, < या = लिखें।",
+    cardOps:"पहले अनुमान लगाएँ, फिर हल करें। स्थानों को एक सीध में रखें।"
+  },
+  ur:{
+    appTitle:"اعشاریہ دوڑ", home:"ہوم", privacy:"رازداری", teacher:"استاد", language:"زبان", readAloud:"بلند آواز سے پڑھیں",
+    modesLbl:"موڈ", stars:"حاصل کیے گئے ستارے", newRound:"نیا راؤنڈ", footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا جمع نہیں · انٹرنیٹ کے بغیر چلتا ہے",
+    mPv:"مقامی قدر کا چارٹ", mGrid:"اعشاری گرڈ", mCmp:"موازنہ اور ترتیب", mRnd:"تخمینی عدد", mOps:"جمع اور تفریق",
+    check:"جانچیں", clear:"مٹائیں", close:"بند کریں", yes:"شاباش!", notYet:"ابھی نہیں۔", choicesLbl:"جواب کے انتخاب", chartLbl:"مقامی قدر کا چارٹ", lineLbl:"عددی لکیر",
+    comma:"، ", plusW:"جمع", minusW:"منفی", timesW:"ضرب", divW:"تقسیم", eqW:"برابر ہے", gtW:"سے بڑا ہے", ltW:"سے چھوٹا ہے",
+    ptW:"اعشاریہ", upW:"اوپر", downW:"نیچے", halfway:"درمیانی نقطہ", wholeW:"مکمل عدد",
+    pl8:"سو ملین", pl7:"دس ملین", pl6:"ملین", pl5:"سو ہزار", pl4:"دس ہزار", pl3:"ہزار", pl2:"سیکڑہ", pl1:"دہائی", pl0:"اکائی", plm1:"دسواں حصہ", plm2:"سوواں حصہ", plm3:"ہزارواں حصہ",
+    un8:"سو ملین", un7:"دس ملین", un6:"ملین", un5:"سو ہزار", un4:"دس ہزار", un3:"ہزار", un2:"سیکڑہ", un1:"دہائی", un0:"اکائی", unm1:"دسواں حصہ", unm2:"سوواں حصہ", unm3:"ہزارواں حصہ",
+    cnt1:"{c} {u}", cntN:"{c} {u}", fracSay:"{d} میں سے {n}", monSay:"{d} ڈالر {c} سینٹ",
+    nearM:"قریب ترین {u} تک", nearF:"قریب ترین {u} تک",
+    tenX:"ہر مقام کی قدر اپنے دائیں والے مقام کی 10 گنا ہوتی ہے۔", worth:"یہ {c} ہے، جس کی قدر {v} ہے۔", youPicked:"آپ نے {x} چنا۔", yourNum:"آپ کا عدد:",
+    fStd:"معیاری شکل:", fExp:"پھیلی ہوئی شکل:", fWord:"مقامات کے ناموں سے:",
+    upL:"{pl} کے مقام میں ایک زیادہ", downL:"{pl} کے مقام میں ایک کم", addL:"{x} اور رنگیں", subL:"{x} کم رنگیں",
+    pvBuildW:"چارٹ پر یہ عدد بنائیں: {w}", pvBuildE:"چارٹ پر یہ عدد بنائیں: {e}", pvBuilt:"آپ نے {n} بنایا۔",
+    pvEmpty:"پہلے اوپر والے تیر دبا کر مقامات میں ہندسے رکھیں۔", pvBuildHint:"{pl} کے مقام کو دیکھیں: آپ کے پاس {x} ہے، مگر عدد کو {y} چاہیے۔",
+    pvValQ:"{n} میں ہندسہ {c} کی قدر کیا ہے؟", pvValGood:"{c}، {pl} کے مقام پر ہے، اس لیے اس کی قدر {v} ہے۔",
+    pvValWhere:"{c}، {pl} کے مقام پر ہے۔", pvValAsk:"{k} کی قدر کیا ہے؟",
+    pvTimesQ:"{n} میں بائیں طرف والے {c} کی قدر دائیں طرف والے {c} کی قدر کا کتنے گنا ہے؟",
+    pvTimesGood:"{a}، {b} کا {x} گنا ہے۔", pvTimesWhere:"بائیں والے ہندسے کی قدر {a} ہے اور دائیں والے ہندسے کی قدر {b} ہے۔",
+    pvFormE:"کون سا انتخاب {n} کو پھیلی ہوئی شکل میں دکھاتا ہے؟", pvFormW:"کون سا انتخاب {n} کو مقامات کے ناموں سے دکھاتا ہے؟", pvFormGood:"یہ {n} ہے۔",
+    pvFormHint:"یہ انتخاب {x} دکھاتا ہے۔", pvLookPl:"{pl} کے مقام کو دیکھیں۔",
+    gShadeQ:"گرڈ کا {x} حصہ رنگیں۔", gCount:"{u} میں سے {k} حصے رنگے گئے",
+    gTipH:"ہر کالم ایک دسواں حصہ ہے۔ ہر چھوٹا مربع ایک سوواں حصہ ہے۔", gTipT:"ہر پٹی پورے گرڈ کا ایک دسواں حصہ ہے۔",
+    gShadeHint:"آپ نے {k} حصے رنگے۔ {x} کا مطلب ہے {u} برابر حصوں میں سے {need} حصے۔", gSplit:"دسویں حصے: {a}۔ سوویں حصے: {b}۔",
+    gNameD:"رنگا ہوا حصہ کون سا اعشاری عدد دکھاتا ہے؟", gNameF:"گرڈ کا کون سا کسر رنگا ہوا ہے؟",
+    gWhole:"ایک پورا گرڈ اور {u} میں سے {k} حصے مل کر {v} ہیں۔", gWholeHint:"پورا رنگا ہوا گرڈ 1 مکمل ہے۔", gCountQ:"رنگے ہوئے حصے دوبارہ گنیں۔",
+    gMoneyQ:"یہاں کتنے پیسے ہیں؟ ڈالر میں رقم چنیں۔", gMoneyCount:"ایک ڈالر کے نوٹ: {b}۔ 10 سینٹ کے سکے: {d}۔ 1 سینٹ کے سکے: {p}۔",
+    dimeIs:"10 سینٹ کا سکہ ایک ڈالر کا دسواں حصہ ہے۔ 1 سینٹ کا سکہ ایک ڈالر کا سوواں حصہ ہے۔",
+    gMoneyGood:"10 سینٹ کے سکے ڈالر کے دسویں حصے ہیں اور 1 سینٹ کے سکے سوویں حصے، اس لیے کل {x} ہے۔",
+    gEqQh:"{a} کتنے سوویں حصوں کے برابر ہے؟", gEqQt:"{a} کتنے دسویں حصوں کے برابر ہے؟",
+    gEqGood:"{k} دسویں حصے اتنی ہی جگہ گھیرتے ہیں جتنی {c} سوویں حصے۔", gEqHint:"ہر دسویں حصے کے کالم میں 10 سوویں حصے کے مربع ہوتے ہیں۔ {k} کالموں کے مربع گنیں۔",
+    cmpQ:"{a} اور {b} کا موازنہ کریں۔ خانے میں کون سی علامت آئے گی؟",
+    cmpFirst:"مقامات کو ایک سیدھ میں رکھیں اور بائیں طرف سے موازنہ کریں۔ پہلا مختلف مقام {pl} کا ہے: {a} میں {x} ہے اور {b} میں {y} ہے۔",
+    cmpSame:"{a} اور {b} کے ہر مقام پر ایک ہی ہندسہ ہے۔", cmpZero:"اعشاریہ کے آخر میں صفر لگانے سے قدر نہیں بدلتی، اس لیے {a} اور {b} برابر ہیں۔",
+    cmpLonger:"دھیان دیں: اعشاری نقطے کے بعد زیادہ ہندسے ہونے کا مطلب بڑا عدد نہیں!", cmpLineUp:"اعشاری نقطوں کو ایک سیدھ میں رکھیں۔ خالی مقامات میں صفر لکھ سکتے ہیں۔",
+    resGt:"اس لیے {a}، {b} سے بڑا ہے۔", resLt:"اس لیے {a}، {b} سے چھوٹا ہے۔", resEq:"اس لیے {a}، {b} کے برابر ہے۔",
+    ordQ:"اعداد کو سب سے چھوٹے سے سب سے بڑے کی ترتیب میں دبائیں۔", ordQd:"اعداد کو سب سے بڑے سے سب سے چھوٹے کی ترتیب میں دبائیں۔",
+    ordNotL:"{x} باقی اعداد میں سب سے چھوٹا نہیں ہے۔", ordNotG:"{x} باقی اعداد میں سب سے بڑا نہیں ہے۔",
+    rndQ:"{n} کو {pl} گول کریں۔", rndQw:"{n} کو قریب ترین مکمل عدد تک گول کریں۔",
+    rndUp:"درمیانی نقطہ {m} ہے۔ {n} درمیانی نقطے کے بعد ہے، اس لیے یہ اوپر {a} پر گول ہوتا ہے۔", rndDown:"درمیانی نقطہ {m} ہے۔ {n} درمیانی نقطے سے پہلے ہے، اس لیے یہ نیچے {a} پر گول ہوتا ہے۔",
+    rndExact:"{n} بالکل درمیان میں ہے، اس لیے ہم اوپر {a} پر گول کرتے ہیں۔", rndRule:"جانچیں: {pl} کے مقام کا ہندسہ {c} ہے، اس لیے {dir} گول کریں۔",
+    rndWrongPl:"یہ جواب کسی دوسرے مقام تک گول کیا گیا ہے۔ {pl} گول کریں۔", rndBetween:"{n}، {a} اور {b} کے درمیان ہے۔",
+    rndMidQ:"درمیانی نقطہ {m} ہے۔ کیا {n}، {a} کے زیادہ قریب ہے یا {b} کے؟",
+    stEst:"اندازہ", stSolve:"حل کریں", estQ:"مرحلہ 1: {a} {op} {b} کا اندازہ لگائیں۔ کون سا اندازہ سب سے قریب ہے؟",
+    estGood:"گول کرنے کے بعد: {a} {op} {b} = {e}۔ اب اسے حل کریں۔", estHint:"پہلے ہر عدد کو {pl} گول کریں: {a} تقریباً {x} ہے، اور {b} تقریباً {y} ہے۔",
+    solveQ:"مرحلہ 2: {a} {op} {b} حل کریں۔ مقامات کو ایک سیدھ میں رکھیں۔ آپ کا اندازہ {e} تھا۔",
+    opsZeros:"ہلکے صفر خالی مقامات کو بھرتے ہیں۔ ان سے قدر نہیں بدلتی۔",
+    opsGood:"{r} آپ کے اندازے {e} کے قریب ہے، اس لیے جواب درست لگتا ہے۔", opsFar:"یہ آپ کے اندازے {e} سے بہت دور ہے۔",
+    opsAlign:"اعشاری نقطوں کو ایک سیدھ میں رکھیں، تاکہ دسویں حصے دسویں حصوں کے نیچے اور سوویں حصے سوویں حصوں کے نیچے آئیں۔",
+    opsRegA:"جب کسی مقام کا مجموعہ 10 یا زیادہ ہو تو دوبارہ گروپ بنائیں: ایک مقام کے 10، بائیں والے مقام کا 1 بنتے ہیں۔",
+    opsRegS:"جب اوپر والا ہندسہ چھوٹا ہو تو دوبارہ گروپ بنائیں: بائیں والے مقام سے 1 لے کر اس مقام کے 10 بنائیں۔",
+    opsCheck:"ایک وقت میں ایک مقام حل کریں، دائیں طرف سے شروع کریں۔",
+    oneP:"1 مقام", nP:"{e} مقام", powQ:"{n} {op} {x} کتنا ہوتا ہے؟",
+    powM:"{x} سے ضرب دینے سے ہر ہندسے کی قدر {x} گنا ہو جاتی ہے، اس لیے ہر ہندسہ {k} بائیں طرف کھسکتا ہے: {r}۔",
+    powD:"{x} سے تقسیم کرنے سے ہر ہندسے کی قدر کم ہو جاتی ہے، اس لیے ہر ہندسہ {k} دائیں طرف کھسکتا ہے: {r}۔",
+    powHint:"{x} میں صفر گنیں۔ ہر ہندسے کو {k} کھسکائیں۔", powMw:"10، 100 یا 1,000 سے ضرب دینے سے عدد بڑا ہوتا ہے، اس لیے ہندسے بائیں طرف کھسکتے ہیں۔",
+    powDw:"10، 100 یا 1,000 سے تقسیم کرنے سے عدد چھوٹا ہوتا ہے، اس لیے ہندسے دائیں طرف کھسکتے ہیں۔",
+    powShiftL:"ہر ہندسہ {k} بائیں طرف کھسکا۔", powShiftR:"ہر ہندسہ {k} دائیں طرف کھسکا۔",
+    teacherTitle:"استاد کی ترتیبات", setGrade:"جماعت", g3:"جماعت 3", g4:"جماعت 4", g5:"جماعت 5",
+    gradeNote:"جماعت چننے سے نیچے کے انتخاب طے ہو جاتے ہیں۔ آپ پھر بھی انہیں بدل سکتے ہیں۔",
+    setWd:"مکمل اعداد", wd3:"1,000 تک", wd5:"100,000 تک", wd6:"1,000,000 تک", wd9:"1,000,000,000 تک",
+    setDp:"اعشاریہ", dp0:"بند (صرف مکمل اعداد)", dp1:"دسویں حصے", dp2:"سوویں حصے", dp3:"ہزارویں حصے",
+    setModes:"موڈ", gridNote:"اعشاری گرڈ کے لیے اعشاریہ چالو ہونا چاہیے۔", setPow:"10 کی طاقتیں", powOn:"10، 100 اور 1,000 سے ضرب اور تقسیم",
+    setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں", printCards:"چیلنج کارڈ پرنٹ کریں",
+    numNote:"ہر زبان میں اعداد امریکی انداز میں لکھے جاتے ہیں (ٹیکساس معیارات): نقطہ اعشاری نقطہ ہے اور کامے ہر تین ہندسوں کا گروپ بناتے ہیں، جیسے 1,234.56۔",
+    setStored:"ترتیبات صرف اسی آلے پر محفوظ ہوتی ہیں۔ طلبہ کی کوئی معلومات کبھی محفوظ نہیں کی جاتی۔",
+    stds:"ہم آہنگ معیارات — ٹیکساس TEKS: جماعت 3: 3.2(A, B, C, D)، 3.4(A, B)؛ جماعت 4: 4.2(A, B, C, D, E, F, G, H)، 4.4(A)؛ جماعت 5: 5.2(A, B, C)، 5.3(A, K)۔ کامن کور: 3.NBT.1، 3.NBT.2؛ 4.NBT.1، 4.NBT.2، 4.NBT.3، 4.NBT.4؛ 4.NF.5، 4.NF.6، 4.NF.7؛ 5.NBT.1، 5.NBT.2، 5.NBT.3، 5.NBT.4، 5.NBT.7۔",
+    cardTitle:"اعشاریہ دوڑ — چیلنج کارڈ", cardName:"نام:", cardStd:"اس عدد کو معیاری شکل میں لکھیں۔", cardCmp:"> یا < یا = لکھیں۔",
+    cardOps:"پہلے اندازہ لگائیں، پھر حل کریں۔ مقامات کو ایک سیدھ میں رکھیں۔"
+  },
+  zh:{
+    appTitle:"小数冲刺", home:"首页", privacy:"隐私", teacher:"教师", language:"语言", readAloud:"朗读",
+    modesLbl:"模式", stars:"获得的星星", newRound:"新一轮", footNote:"无需账号 · 不收集数据 · 可离线使用",
+    mPv:"数位表", mGrid:"小数方格", mCmp:"比较与排序", mRnd:"取近似数", mOps:"加法与减法",
+    check:"检查", clear:"清除", close:"关闭", yes:"对了！", notYet:"还不对。", choicesLbl:"答案选项", chartLbl:"数位表", lineLbl:"数轴",
+    comma:"，", plusW:"加", minusW:"减", timesW:"乘", divW:"除以", eqW:"等于", gtW:"大于", ltW:"小于",
+    ptW:"点", upW:"向上", downW:"向下", halfway:"中点", wholeW:"整数",
+    pl8:"亿位", pl7:"千万位", pl6:"百万位", pl5:"十万位", pl4:"万位", pl3:"千位", pl2:"百位", pl1:"十位", pl0:"个位", plm1:"十分位", plm2:"百分位", plm3:"千分位",
+    un8:"亿", un7:"千万", un6:"百万", un5:"十万", un4:"万", un3:"千", un2:"百", un1:"十", un0:"一", unm1:"0.1", unm2:"0.01", unm3:"0.001",
+    cnt1:"{c}个{u}", cntN:"{c}个{u}", fracSay:"{d}分之{n}", monSay:"{d}美元{c}美分",
+    nearM:"到{p}", nearF:"到{p}",
+    tenX:"每个数位上的值是它右边一位的10倍。", worth:"这是{c}，值是{v}。", youPicked:"你选了{x}。", yourNum:"你的数：",
+    fStd:"标准写法：", fExp:"展开式：", fWord:"读作：",
+    upL:"{pl}加1", downL:"{pl}减1", addL:"多涂{x}", subL:"少涂{x}",
+    pvBuildW:"在数位表上拼出这个数：{w}", pvBuildE:"在数位表上拼出这个数：{e}", pvBuilt:"你拼出了{n}。",
+    pvEmpty:"先点向上的箭头，把数字放进各个数位。", pvBuildHint:"看{pl}：你放了{x}，但这个数需要{y}。",
+    pvValQ:"{n}中的数字{c}表示多少？", pvValGood:"{c}在{pl}上，所以它表示{v}。",
+    pvValWhere:"{c}在{pl}上。", pvValAsk:"{k}是多少？",
+    pvTimesQ:"在{n}中，左边的{c}表示的值是右边的{c}的多少倍？",
+    pvTimesGood:"{a}是{b}的{x}倍。", pvTimesWhere:"左边的数字表示{a}，右边的数字表示{b}。",
+    pvFormE:"哪一个是{n}的展开式？", pvFormW:"哪一个是{n}的读法？", pvFormGood:"这就是{n}。",
+    pvFormHint:"这个选项表示的是{x}。", pvLookPl:"看{pl}。",
+    gShadeQ:"把方格的{x}涂上颜色。", gCount:"已涂{k}份，共{u}份",
+    gTipH:"每一列是十分之一，每个小方格是百分之一。", gTipT:"每一条是整个方格的十分之一。",
+    gShadeHint:"你涂了{k}份。{x}表示把整体平均分成{u}份，取其中{need}份。", gSplit:"十分之几：{a}。百分之几：{b}。",
+    gNameD:"涂色部分表示哪个小数？", gNameF:"涂色部分占方格的几分之几？",
+    gWhole:"一个完整的方格加上{u}份中的{k}份是{v}。", gWholeHint:"全部涂满的方格是1个整体。", gCountQ:"再数一数涂色的部分。",
+    gMoneyQ:"这里一共有多少钱？选出用美元表示的钱数。", gMoneyCount:"1美元纸币：{b}张。10美分硬币：{d}枚。1美分硬币：{p}枚。",
+    dimeIs:"一枚10美分硬币是1美元的十分之一。一枚1美分硬币是1美元的百分之一。",
+    gMoneyGood:"10美分硬币是美元的十分之几，1美分硬币是美元的百分之几，所以一共是{x}。",
+    gEqQh:"{a}是多少个百分之一？", gEqQt:"{a}是多少个十分之一？",
+    gEqGood:"{k}个十分之一和{c}个百分之一盖住的面积一样大。", gEqHint:"每一列十分之一有10个百分之一的小方格。数一数{k}列里的小方格。",
+    cmpQ:"比较{a}和{b}。方框里填哪个符号？",
+    cmpFirst:"把数位对齐，从左往右比。第一个不同的数位是{pl}：{a}是{x}，{b}是{y}。",
+    cmpSame:"{a}和{b}每个数位上的数字都相同。", cmpZero:"在小数末尾添上0，大小不变，所以{a}和{b}相等。",
+    cmpLonger:"注意：小数点后面的数字多，不代表这个数大！", cmpLineUp:"把小数点对齐。空着的数位可以写0。",
+    resGt:"所以{a}大于{b}。", resLt:"所以{a}小于{b}。", resEq:"所以{a}等于{b}。",
+    ordQ:"按从小到大的顺序点这些数。", ordQd:"按从大到小的顺序点这些数。",
+    ordNotL:"{x}不是剩下的数中最小的。", ordNotG:"{x}不是剩下的数中最大的。",
+    rndQ:"把{n}四舍五入{pl}。", rndQw:"把{n}四舍五入到整数。",
+    rndUp:"中点是{m}。{n}在中点后面，所以向上取到{a}。", rndDown:"中点是{m}。{n}在中点前面，所以向下取到{a}。",
+    rndExact:"{n}正好在中点上，所以向上取到{a}。", rndRule:"检查：{pl}上的数字是{c}，所以{dir}取。",
+    rndWrongPl:"这个答案是取到了别的数位。请四舍五入{pl}。", rndBetween:"{n}在{a}和{b}之间。",
+    rndMidQ:"中点是{m}。{n}离{a}近，还是离{b}近？",
+    stEst:"估算", stSolve:"计算", estQ:"第1步：估算{a} {op} {b}。哪个估算最接近？",
+    estGood:"取近似数后：{a} {op} {b} = {e}。现在来计算。", estHint:"先把每个数四舍五入{pl}：{a}大约是{x}，{b}大约是{y}。",
+    solveQ:"第2步：计算{a} {op} {b}。把数位对齐。你的估算是{e}。",
+    opsZeros:"浅色的0填在空着的数位上，不改变数的大小。",
+    opsGood:"{r}接近你的估算{e}，所以答案是合理的。", opsFar:"这和你的估算{e}相差太远。",
+    opsAlign:"把小数点对齐，让十分位对着十分位，百分位对着百分位。",
+    opsRegA:"某一位相加满10，就要进位：一个数位上的10个等于左边一位的1个。",
+    opsRegS:"上面的数字比较小时，就要退位：从左边一位借1，变成这一位的10。",
+    opsCheck:"从右边开始，一位一位地算。",
+    oneP:"1位", nP:"{e}位", powQ:"{n} {op} {x}等于多少？",
+    powM:"乘{x}，每个数字表示的值变成原来的{x}倍，所以每个数字向左移动{k}：{r}。",
+    powD:"除以{x}，每个数字表示的值变小，所以每个数字向右移动{k}：{r}。",
+    powHint:"数一数{x}里有几个0，把每个数字移动{k}。", powMw:"乘10、100或1,000，数会变大，所以数字向左移。",
+    powDw:"除以10、100或1,000，数会变小，所以数字向右移。",
+    powShiftL:"每个数字向左移动了{k}。", powShiftR:"每个数字向右移动了{k}。",
+    teacherTitle:"教师设置", setGrade:"年级", g3:"三年级", g4:"四年级", g5:"五年级",
+    gradeNote:"选择年级会自动设定下面的选项，之后仍可修改。",
+    setWd:"整数范围", wd3:"1,000以内", wd5:"100,000以内", wd6:"1,000,000以内", wd9:"1,000,000,000以内",
+    setDp:"小数", dp0:"关闭（只用整数）", dp1:"十分位", dp2:"百分位", dp3:"千分位",
+    setModes:"模式", gridNote:"小数方格需要打开小数。", setPow:"10的乘方", powOn:"乘以或除以10、100和1,000",
+    setSpeech:"语音", autoRead:"自动朗读说明", printCards:"打印挑战卡",
+    numNote:"所有语言都使用美国的数字写法（得克萨斯州标准）：用圆点作小数点，用逗号每三位分隔一次，例如1,234.56。",
+    setStored:"设置只保存在这台设备上，从不保存任何学生信息。",
+    stds:"对应标准——得克萨斯州 TEKS：三年级 3.2(A, B, C, D)、3.4(A, B)；四年级 4.2(A, B, C, D, E, F, G, H)、4.4(A)；五年级 5.2(A, B, C)、5.3(A, K)。共同核心标准：3.NBT.1、3.NBT.2；4.NBT.1、4.NBT.2、4.NBT.3、4.NBT.4；4.NF.5、4.NF.6、4.NF.7；5.NBT.1、5.NBT.2、5.NBT.3、5.NBT.4、5.NBT.7。",
+    cardTitle:"小数冲刺——挑战卡", cardName:"姓名：", cardStd:"用标准写法写出这个数。", cardCmp:"填上>、<或=。",
+    cardOps:"先估算，再计算。把数位对齐。"
+  },
+};
+
+let lang = "en";
+function t(key, vars){
+  let s = (T[lang] && T[lang][key]!==undefined) ? T[lang][key] : (T.en[key]!==undefined? T.en[key] : key);
+  if(vars) for(const k in vars) s = s.replaceAll("{"+k+"}", vars[k]);
+  return s;
+}
+
+/* ---------- Settings ---------- */
+const MODES = ["pv","grid","cmp","rnd","ops"];
+const MODE_KEY = {pv:"mPv",grid:"mGrid",cmp:"mCmp",rnd:"mRnd",ops:"mOps"};
+const GRADE_DEF = {
+  3:{wd:5,dp:0,pow:false,modes:{pv:true,grid:false,cmp:true,rnd:true,ops:true}},
+  4:{wd:9,dp:2,pow:false,modes:{pv:true,grid:true,cmp:true,rnd:true,ops:true}},
+  5:{wd:9,dp:3,pow:true, modes:{pv:true,grid:true,cmp:true,rnd:true,ops:true}}
+};
+const clone = o=>JSON.parse(JSON.stringify(o));
+const fromGrade = g=>Object.assign({grade:g,autoRead:false}, clone(GRADE_DEF[g]));
+let settings = loadSettings();
+function loadSettings(){
+  try{
+    const raw = localStorage.getItem("ddash_settings");
+    if(raw){ const o=JSON.parse(raw), g=GRADE_DEF[o.grade]?o.grade:4, d=fromGrade(g);
+      const s=Object.assign(d, o, {grade:g, modes:Object.assign({},d.modes,o.modes)});
+      if(![3,5,6,9].includes(+s.wd)) s.wd=d.wd; s.wd=+s.wd;
+      if(![0,1,2,3].includes(+s.dp)) s.dp=d.dp; s.dp=+s.dp;
+      if(!MODES.some(m=>s.modes[m])) s.modes=clone(d.modes);
+      return s; }
+  }catch(e){}
+  return fromGrade(4);
+}
+function saveSettings(){ try{ localStorage.setItem("ddash_settings", JSON.stringify(settings)); }catch(e){} }
+const modeOn = m=>!!settings.modes[m] && (m!=="grid" || settings.dp>0);
+
+/* ---------- Utils ---------- */
+const $ = s=>document.querySelector(s);
+const $$ = s=>Array.from(document.querySelectorAll(s));
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const ri = (a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const P10 = p=>Math.pow(10,p);
+const M = s=>`<bdi class="math" dir="ltr">${s}</bdi>`;
+const plain = h=>String(h).replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();
+const reduced = ()=>!!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+let stars=0;
+function addStar(){ stars++; $("#starCount").textContent=stars; const w=$("#stars"); w.classList.remove("pop"); void w.offsetWidth; w.classList.add("pop"); }
+
+/* ---------- Numbers: u = value in thousandths (integer), d = decimals shown ---------- */
+const N = (u,d)=>({num:true,u:Math.round(u),d:d||0});
+const dig = (u,p)=>Math.floor(u/P10(p+3))%10;
+const decs = u=>u%1000===0?0:u%100===0?1:u%10===0?2:3;
+const topP = u=>u>=1000?String(Math.floor(u/1000)).length-1:0;
+function fmt(n){
+  const w=Math.floor(n.u/1000), f=n.u%1000;
+  let s=String(w).replace(/\B(?=(\d{3})+(?!\d))/g,",");
+  if(n.d>0) s+="."+String(f).padStart(3,"0").slice(0,n.d);
+  return s;
+}
+const fmtU = u=>fmt(N(u,decs(u)));
+const pk = p=>p<0?"m"+(-p):String(p);         // key suffix for a place
+const plName = p=>t("pl"+pk(p));                 // "hundreds"
+const unName = p=>t("un"+pk(p));                 // "hundred"
+const cntPl = (c,p)=>t(c===1?"cnt1":"cntN",{c,u:unName(p),p:plName(p)});
+// Build a number from digits {p:digit}
+function compose(dg){ let u=0; for(const p in dg) u+=dg[p]*P10(+p+3); return u; }
+// Random number: k whole digits (0 = "0.xyz"), d decimals; some inner zeros for place-value interest.
+function rnum(k,d){
+  const dg={}, lo=-d, hi=Math.max(k-1,0);
+  for(let p=hi;p>=lo;p--) dg[p]=Math.random()<.22?0:ri(1,9);
+  if(k===0) dg[0]=0; else dg[hi]=ri(1,9);
+  if(d>0) dg[lo]=ri(1,9);
+  return N(compose(dg),d);
+}
+function pickD(max){ max=Math.min(max,settings.dp); return max>0 && Math.random()<.7 ? ri(1,max) : 0; }
+function pickK(d){
+  const wd=settings.wd;
+  if(d>0) return Math.random()<.35?0:ri(1,Math.min(3,wd));
+  return ri(Math.max(2,wd-4),wd);
+}
+
+/* ---------- Number words (en, es, zh); place-value unit form elsewhere ---------- */
+const EN1=["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+const EN10=["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
+function en999(n){
+  const h=Math.floor(n/100), r=n%100, a=[];
+  if(h) a.push(EN1[h]+" hundred");
+  if(r) a.push(r<20?EN1[r]:EN10[Math.floor(r/10)]+(r%10?"-"+EN1[r%10]:""));
+  return a.join(" ");
+}
+function enWhole(n){
+  if(!n) return "zero";
+  const a=[]; [[1e9,"billion"],[1e6,"million"],[1e3,"thousand"]].forEach(([v,w])=>{ const g=Math.floor(n/v)%1000; if(g) a.push(en999(g)+" "+w); });
+  if(n%1000) a.push(en999(n%1000));
+  return a.join(" ");
+}
+const ES1=["cero","uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve","diez","once","doce","trece","catorce","quince","dieciséis","diecisiete","dieciocho","diecinueve","veinte","veintiuno","veintidós","veintitrés","veinticuatro","veinticinco","veintiséis","veintisiete","veintiocho","veintinueve"];
+const ES10=["","","","treinta","cuarenta","cincuenta","sesenta","setenta","ochenta","noventa"];
+const ES100=["","ciento","doscientos","trescientos","cuatrocientos","quinientos","seiscientos","setecientos","ochocientos","novecientos"];
+function es999(n,ap){
+  const h=Math.floor(n/100), r=n%100, a=[];
+  if(n===100) return "cien";
+  if(h) a.push(ES100[h]);
+  if(r) a.push(r<30?ES1[r]:ES10[Math.floor(r/10)]+(r%10?" y "+ES1[r%10]:""));
+  let s=a.join(" ");
+  if(ap) s=s.replace(/veintiuno$/,"veintiún").replace(/uno$/,"un");
+  return s;
+}
+function esWhole(n){
+  if(!n) return "cero";
+  const a=[], b=Math.floor(n/1e9), m=Math.floor(n/1e6)%1000, k=Math.floor(n/1e3)%1000, r=n%1000;
+  if(b) a.push(b===1?"mil millones":es999(b,true)+" mil millones");
+  if(m) a.push(m===1&&!b?"un millón":es999(m,true)+" millones");
+  if(k) a.push(k===1?"mil":es999(k,true)+" mil");
+  if(r) a.push(es999(r,false));
+  return a.join(" ");
+}
+const ZD="零一二三四五六七八九";
+function zh4(n){
+  const U=["","十","百","千"]; let s="", z=false;
+  for(let i=3;i>=0;i--){ const d=Math.floor(n/P10(i))%10;
+    if(!d){ if(s) z=true; } else { if(z){ s+="零"; z=false; } s+=ZD[d]+U[i]; } }
+  return s;
+}
+function zhWhole(n){
+  if(!n) return "零";
+  const secs=[[Math.floor(n/1e8),"亿"],[Math.floor(n/1e4)%1e4,"万"],[n%1e4,""]];
+  let s="", gap=false;
+  secs.forEach(([v,w])=>{ if(!v){ if(s) gap=true; return; }
+    if(s && (v<1000||gap)) s+="零"; s+=zh4(v)+w; gap=false; });
+  return s.replace(/^一十/,"十");
+}
+const WORDLANGS={en:1,es:1,zh:1};
+// Word form of a number in the current language (or place-value unit form when no word form is built in).
+function words(n){
+  const w=Math.floor(n.u/1000), f=Math.floor((n.u%1000)/P10(3-n.d)), d=n.d;
+  if(lang==="en"){ const fw=["","tenth","hundredth","thousandth"][d];
+    if(!d||!f) return enWhole(w);
+    const fs=enWhole(f)+" "+fw+(f===1?"":"s");
+    return w? enWhole(w)+" and "+fs : fs; }
+  if(lang==="es"){ const fw=["","décimo","centésimo","milésimo"][d];
+    if(!d||!f) return esWhole(w);
+    const fs=(f===1?"un":esWhole(f).replace(/veintiuno$/,"veintiún").replace(/uno$/,"un"))+" "+fw+(f===1?"":"s");
+    return w? esWhole(w)+" y "+fs : fs; }
+  if(lang==="zh"){ let s=zhWhole(w);
+    if(d) s+="点"+String(n.u%1000).padStart(3,"0").slice(0,d).split("").map(c=>ZD[+c]).join("");
+    return s; }
+  return unitForm(n);
+}
+function unitForm(n){
+  const a=[]; for(let p=topP(n.u);p>=-n.d;p--){ const c=dig(n.u,p); if(c) a.push(cntPl(c,p)); }
+  return a.length?a.join(t("comma")):"0";
+}
+// How a number is spoken: real words where we build them, else digits + the spoken decimal point.
+function sayNum(n){
+  if(WORDLANGS[lang]) return words(n);
+  let s=String(Math.floor(n.u/1000));
+  if(n.d) s+=" "+t("ptW")+" "+String(n.u%1000).padStart(3,"0").slice(0,n.d).split("").join(" ");
+  return s;
+}
+// Expanded form, e.g. 40,000 + 300 + 5 + 0.07
+function expTerms(n){ const a=[]; for(let p=topP(n.u);p>=-n.d;p--){ const c=dig(n.u,p); if(c) a.push(N(c*P10(p+3),Math.max(0,-p))); } return a; }
+const expStr = terms=>terms.length?terms.map(fmt).join(" + "):"0";
+
+/* ---------- Message tokens: each value knows how to show itself and how to be spoken ---------- */
+const isTok = v=>v && typeof v==="object";
+const HV = v=>v&&v.num? M(fmt(v)) : isTok(v)? v.h : String(v);
+const SV = v=>v&&v.num? sayNum(v) : isTok(v)? v.s : plain(v);
+function L(key,vars){ const h={}, s={}; for(const k in (vars||{})){ h[k]=HV(vars[k]); s[k]=SV(vars[k]); } return {h:t(key,h), s:t(key,s)}; }
+function J(...xs){ xs=xs.filter(Boolean); return {h:xs.map(x=>x.h!==undefined?x.h:x).join(" "), s:xs.map(x=>x.s!==undefined?x.s:plain(x)).join(" ")}; }
+const raw = (h,s)=>({h, s:s===undefined?plain(h):s});
+// Stacked fraction n/d (d = 10, 100 or 1000)
+function frac(n,dn){
+  const p=-Math.round(Math.log10(dn));
+  return {h:`<span class="fr" role="img" aria-label="${n}/${dn}"><span>${n}</span><span>${dn}</span></span>`,
+    s:t("fracSay",{n:String(n),d:String(dn),u:n===1?unName(p):plName(p)})};
+}
+const plTok = p=>raw(plName(p));
+const nearTok = p=>raw(t(p<=0?"nearM":"nearF",{u:p===0?t("wholeW"):unName(p),p:plName(p)}));
+
+/* ---------- Speech ---------- */
+const speechOK = ("speechSynthesis" in window);
+function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
+// Prefer warm, natural voices for young learners; avoid harsh robotic engines.
+function pickWarmVoice(code){
+  const vs = speechSynthesis.getVoices()||[];
+  const want=code.toLowerCase(), two=want.slice(0,2);
+  let best=null, bs=-1;
+  for(const v of vs){
+    const lc=(v.lang||'').toLowerCase().replace('_','-');
+    if(lc!==want && lc.slice(0,2)!==two) continue;
+    let s=(lc===want?100:60); const n=(v.name||'').toLowerCase();
+    if(/google|natural|neural|online|premium|enhanced|siri/.test(n)) s+=40;
+    if(/female|woman|samantha|karen|tessa|moira|fiona|serena|victoria|allison|ava|susan|zoe|amelie|amélie|paulina|monica|mónica|zira|hazel|catherine|linda|kanya|lekha|ting-ting|mei-jia|sin-ji|yu-shu|huihui|xiaoxiao/.test(n)) s+=18;
+    if(/espeak|compact|festival|pico|robot|eloquence/.test(n)) s-=60;
+    if(v.localService===false) s+=8;
+    if(v.default) s+=2;
+    if(s>bs){ bs=s; best=v; }
+  }
+  return best;
+}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  // Split on sentence ends, but never inside a number like 3.45
+  const parts=String(text).match(/(?:[^.!?。！？؟।۔]|\.(?=\d))+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.9; u.pitch=1.1;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={pv:0,grid:0,cmp:0,rnd:0,ops:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
+}
+if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
+if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
+
+const currentSpeech = {pv:"",grid:"",cmp:"",rnd:"",ops:""};
+function setSpeech(mode,text){ currentSpeech[mode]=text; }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===mode) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,svg")) return;
+  speak(currentSpeech[currentMode()]);
+},true);
+// Set a mode's direction: shown text (HTML) + spoken text.
+function setPrompt(mode,m){ $("#"+mode+"Prompt").innerHTML=m.h; setSpeech(mode,m.s); }
+
+/* ---------- Feedback ---------- */
+function showFb(el,type,m,extra){ el.className="feedback show "+type; el.innerHTML=(type==="good"?"✅ ":"💡 ")+m.h+(extra?`<div class="fbx">${extra}</div>`:""); }
+function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
+function good(mode,m,next,extra,minMs){ showFb($("#"+mode+"Fb"),"good",m,extra); addStar(); afterPraise(m.s,mode,next,minMs||2200); }
+function hint(mode,m,extra){ showFb($("#"+mode+"Fb"),"hint",m,extra); speak(m.s); }
+const made={};
+// Multiple-choice buttons. opts: [{h, s?, ok, why?}]; onPick(btn,opt)
+function choiceButtons(el,opts,onPick,wide){
+  el.className="choices"+(wide?" wide":""); el.setAttribute("role","group"); el.setAttribute("aria-label",t("choicesLbl")); el.innerHTML="";
+  opts.forEach(o=>{ const b=document.createElement("button"); b.type="button"; b.className="choice"; b.innerHTML=o.h;
+    if(o.s) b.setAttribute("aria-label",o.s);
+    b._o=o; b.addEventListener("click",()=>onPick(b,o)); el.appendChild(b); });
+}
+function lockChoices(el,b){ b.classList.add("correctpick"); el.querySelectorAll("button").forEach(x=>x.disabled=true); }
+function wrongChoice(b){ b.classList.add("wrongpick"); b.disabled=true; }
+// unique by value
+function uniqVals(ans,cands,n,ok){ const seen=new Set([ans]), out=[];
+  for(const c of cands){ if(out.length>=n) break; if(c==null||seen.has(c)||(ok&&!ok(c))) continue; seen.add(c); out.push(c); }
+  return out; }
+
+/* ---------- Place value chart (display) ---------- */
+// rows: [{n, lab?, cls?}], opts: {hi:p to outline, annex:true to show placeholder zeros, from, to}
+function grpCls(p){ return p<0?"gd":"g"+(Math.floor(p/3)%3); }
+function pvTable(rows,opts){
+  opts=opts||{};
+  const top=Math.max(opts.from!=null?opts.from:0, ...rows.map(r=>topP(r.n.u)));
+  const lo=Math.min(opts.to!=null?opts.to:0, ...rows.map(r=>-r.n.d));
+  const hasLab=rows.some(r=>r.lab!=null);
+  let h=`<div class="pvwrap"><table class="pvt" dir="ltr" aria-label="${t("chartLbl")}"><thead><tr>`+(hasLab?`<th></th>`:"");
+  for(let p=top;p>=lo;p--){ h+=`<th class="${grpCls(p)}" scope="col">${plName(p)}</th>`; if(p===0&&lo<0) h+=`<th class="pt" aria-hidden="true"></th>`; }
+  h+=`</tr></thead><tbody>`;
+  rows.forEach(r=>{
+    const rt=topP(r.n.u);
+    h+=`<tr class="${r.cls||""}">`+(hasLab?`<td class="lab">${r.lab||""}</td>`:"");
+    for(let p=top;p>=lo;p--){
+      const inN=p<=rt && p>=-r.n.d, ann=opts.annex && p<0 && p<-r.n.d+0 && p>=lo;
+      const v=inN?dig(r.n.u,p):ann?"0":"";
+      h+=`<td class="${grpCls(p)} dg${ann?" fade":""}${opts.hi===p?" hit":""}" style="${r.sh?"--sh:"+r.sh+"px":""}">${v}</td>`;
+      if(p===0&&lo<0) h+=`<td class="pt">${r.n.d>0||opts.annex?".":""}</td>`;
+    }
+    h+=`</tr>`;
+  });
+  return h+`</tbody></table></div>`;
+}
+// Standard form with some digits highlighted: places = [p,...]
+function fmtHL(n,places){
+  const top=topP(n.u); let s="";
+  for(let p=top;p>=-n.d;p--){
+    const c=String(dig(n.u,p));
+    s+=places.includes(p)?`<span class="hl">${c}</span>`:c;
+    if(p>0 && p%3===0) s+=",";
+    if(p===0 && n.d>0) s+=".";
+  }
+  return `<bdi class="math" dir="ltr">${s}</bdi>`;
+}
+const expTok = n=>{ const a=expTerms(n); return {h:a.length?`<bdi class="math wrap" dir="ltr">${a.map(x=>`<span class="nw">${fmt(x)}</span>`).join(" + ")}</bdi>`:M("0"), s:a.length?a.map(sayNum).join(" "+t("plusW")+" "):sayNum(N(0,0))}; };
+const wordTok = n=>raw(`“${words(n)}”`, words(n));
+const tenX = ()=>L("tenX");
+function formsBox(n){
+  return `<div>${t("fStd")} ${M(fmt(n))}</div><div>${t("fExp")} ${expTok(n).h}</div><div>${t("fWord")} ${words(n)}</div>`;
+}
+// Make the digit at place p the only one of its kind (so "the digit 7" is never ambiguous)
+function uniqDigit(n,p){ const c=dig(n.u,p), dg={};
+  for(let q=topP(n.u);q>=-n.d;q--){ let x=dig(n.u,q); if(q!==p&&x===c) x=c%9+1; dg[q]=x; }
+  return N(compose(dg),n.d); }
+// Numbers that look like n but have one digit in the wrong place (or off by one)
+function nearMisses(n){
+  const out=[], u=n.u, top=topP(u), maxP=Math.max(settings.wd-1,top+1);
+  for(let p=top;p>=-n.d;p--){ const c=dig(u,p); if(!c) continue;
+    [1,-1].forEach(dr=>{ const q=p+dr; if(q<-3||q>maxP||dig(u,q)) return;
+      out.push(u-c*P10(p+3)+c*P10(q+3)); });
+    if(c<9) out.push(u+P10(p+3));
+  }
+  return shuffle(out).map(v=>N(v,Math.max(n.d,decs(v))));
+}
+
+/* =========================================================================
+   PLACE VALUE CHART — build, value of a digit, 10 times as much, forms
+   ========================================================================= */
+let pS=null;
+function pvKinds(){ const k=["build","build","value","form"]; if(settings.grade>=4) k.push("times"); return k; }
+function newPv(){
+  roundIds.pv++; made.pv=true; hideFb($("#pvFb"));
+  const kind=rand(pvKinds()), area=$("#pvArea");
+  let d=pickD(3), n=rnum(pickK(d),d);
+  if(expTerms(n).length<2) n=rnum(Math.max(2,pickK(0)),0), d=0;
+  pS={kind,n,done:false};
+  if(kind==="build"){
+    const from=Math.min(Math.max(topP(n.u)+1,2),Math.max(settings.wd-1,topP(n.u)));
+    const to=settings.dp>0?-Math.min(settings.dp,Math.max(n.d,1)):0;
+    pS.from=from; pS.to=to; pS.cur={}; for(let p=from;p>=to;p--) pS.cur[p]=0;
+    const useW=Math.random()<.5;
+    setPrompt("pv",useW?L("pvBuildW",{w:wordTok(n)}):L("pvBuildE",{e:expTok(n)}));
+    let h=`<div class="pvwrap"><table class="pvt" dir="ltr" aria-label="${t("chartLbl")}"><thead><tr>`;
+    for(let p=from;p>=to;p--){ h+=`<th class="${grpCls(p)}" scope="col">${plName(p)}</th>`; if(p===0&&to<0) h+=`<th class="pt" aria-hidden="true"></th>`; }
+    h+=`</tr></thead><tbody><tr>`;
+    for(let p=from;p>=to;p--){
+      h+=`<td class="${grpCls(p)}"><div class="stp"><button type="button" data-p="${p}" data-dir="1" aria-label="${t("upL",{pl:plName(p)})}">▲</button>`+
+        `<output id="pvd${pk(p)}" aria-live="off">0</output><button type="button" data-p="${p}" data-dir="-1" aria-label="${t("downL",{pl:plName(p)})}">▼</button></div></td>`;
+      if(p===0&&to<0) h+=`<td class="pt">.</td>`;
+    }
+    h+=`</tr></tbody></table></div><span class="tenx">${t("tenX")}</span><p class="readout" id="pvRead"></p>`+
+      `<div class="acts no-print"><button type="button" class="btn" id="pvCheck">✔ ${t("check")}</button><button type="button" class="btn ghost" id="pvClear">${t("clear")}</button></div>`;
+    area.innerHTML=h;
+    area.querySelectorAll(".stp button").forEach(b=>b.addEventListener("click",()=>{
+      if(pS.done) return; const p=+b.dataset.p; pS.cur[p]=(pS.cur[p]+ +b.dataset.dir+10)%10; pvRead(); }));
+    $("#pvCheck").addEventListener("click",checkPvBuild);
+    $("#pvClear").addEventListener("click",()=>{ if(pS.done) return; for(const p in pS.cur) pS.cur[p]=0; pvRead(); });
+    pvRead();
+  }else if(kind==="value"){
+    const ps=[]; for(let p=topP(n.u);p>=-n.d;p--) if(dig(n.u,p)) ps.push(p);
+    const p=rand(ps); n=pS.n=uniqDigit(n,p); const c=dig(n.u,p); Object.assign(pS,{p,c});
+    setPrompt("pv",L("pvValQ",{c:raw(M(c),String(c)),n}));
+    const vals=[0,1,-1,2,-2,3].map(j=>p+j).filter(q=>q>=-3&&q<=9).map(q=>({q,v:N(c*P10(q+3),Math.max(0,-q))}));
+    const opts=[vals[0]].concat(shuffle(vals.slice(1)).slice(0,3));
+    area.innerHTML=`<div class="bignum">${fmtHL(n,[p])}</div><div id="pvCh"></div>`;
+    choiceButtons($("#pvCh"),shuffle(opts).map(o=>({h:M(fmt(o.v)),s:sayNum(o.v),ok:o.q===p,v:o.v})),pickPv);
+  }else if(kind==="times"){
+    const top=topP(n.u), gap=ri(1,Math.min(settings.grade>=5?3:2,Math.max(1,top+n.d)));
+    const p2=ri(-n.d,top-gap), p1=p2+gap, c=ri(1,9), dg={};
+    for(let p=top;p>=-n.d;p--){ let x=dig(n.u,p); if(x===c) x=c%9+1; dg[p]=x; }
+    dg[p1]=c; dg[p2]=c; n=pS.n=N(compose(dg),n.d);
+    Object.assign(pS,{p1,p2,c,gap});
+    setPrompt("pv",L("pvTimesQ",{c:raw(M(c),String(c)),n}));
+    area.innerHTML=`<div class="bignum">${fmtHL(n,[p1,p2])}</div><div id="pvCh"></div>`;
+    const opts=[1,2,3].map(g=>{ const v=N(P10(g+3),0); return {h:M(fmt(v)),s:sayNum(v),ok:g===gap,v}; });
+    opts.push({h:frac(1,10).h,s:frac(1,10).s,ok:false,v:frac(1,10)});
+    choiceButtons($("#pvCh"),opts,pickPv);
+  }else{
+    const asW=Math.random()<.5;
+    setPrompt("pv",L(asW?"pvFormW":"pvFormE",{n}));
+    const miss=uniqVals(n.u,nearMisses(n).map(x=>x.u),3).map(u=>N(u,Math.max(n.d,decs(u))));
+    const opts=[n].concat(miss).map(x=>{ const tk=asW?raw(words(x)):expTok(x); return {h:tk.h,s:tk.s,ok:x.u===n.u,v:x}; });
+    area.innerHTML=`<div class="bignum">${M(fmt(n))}</div><div id="pvCh"></div>`;
+    choiceButtons($("#pvCh"),shuffle(opts),pickPv,true);
+  }
+  maybeAuto("pv");
+}
+function pvRead(){
+  let u=0; for(const p in pS.cur){ u+=pS.cur[p]*P10(+p+3); const o=$("#pvd"+pk(+p)); if(o) o.textContent=pS.cur[p]; }
+  pS.u=u; $("#pvRead").innerHTML=t("yourNum")+" "+M(fmtU(u));
+}
+function checkPvBuild(){
+  if(!pS||pS.done) return;
+  const n=pS.n, u=pS.u;
+  if(u===n.u){
+    pS.done=true; $$("#pvArea button").forEach(b=>b.disabled=true);
+    good("pv",J(t("yes"),L("pvBuilt",{n})),newPv,formsBox(n),2600);
+    return;
+  }
+  if(!u){ hint("pv",L("pvEmpty")); return; }
+  let p=Math.max(topP(u),topP(n.u)); while(p>=-3 && dig(u,p)===dig(n.u,p)) p--;
+  const y=dig(n.u,p);
+  hint("pv",J(L("pvBuildHint",{pl:plTok(p),x:dig(u,p),y}),L("worth",{c:raw(cntPl(y,p)),v:N(y*P10(p+3),Math.max(0,-p))})));
+}
+function pickPv(b,o){
+  if(!pS||pS.done) return;
+  const n=pS.n, el=$("#pvCh");
+  if(pS.kind==="value"){
+    const {p,c}=pS, v=N(c*P10(p+3),Math.max(0,-p)), ct=raw(M(c),String(c));
+    if(o.ok){ pS.done=true; lockChoices(el,b);
+      good("pv",J(t("yes"),L("pvValGood",{c:ct,pl:plTok(p),v})),newPv,pvTable([{n}],{hi:p}));
+    }else{ wrongChoice(b);
+      hint("pv",J(L("youPicked",{x:o.v}),L("pvValWhere",{c:ct,pl:plTok(p)}),L("pvValAsk",{k:raw(cntPl(c,p))}),tenX()),pvTable([{n}],{hi:p})); }
+  }else if(pS.kind==="times"){
+    const {p1,p2,c,gap}=pS, a=N(c*P10(p1+3),Math.max(0,-p1)), bb=N(c*P10(p2+3),Math.max(0,-p2)), x=N(P10(gap+3),0);
+    if(o.ok){ pS.done=true; lockChoices(el,b);
+      good("pv",J(t("yes"),L("pvTimesGood",{a,b:bb,x}),tenX()),newPv,pvTable([{n}],{}),2600);
+    }else{ wrongChoice(b);
+      hint("pv",J(L("youPicked",{x:o.v}),L("pvTimesWhere",{a,b:bb}),tenX()),pvTable([{n}],{})); }
+  }else{
+    if(o.ok){ pS.done=true; lockChoices(el,b);
+      good("pv",J(t("yes"),L("pvFormGood",{n})),newPv,formsBox(n),2600);
+    }else{ wrongChoice(b);
+      let p=Math.max(topP(o.v.u),topP(n.u)); while(p>=-3 && dig(o.v.u,p)===dig(n.u,p)) p--;
+      hint("pv",J(L("pvFormHint",{x:o.v}),L("pvLookPl",{pl:plTok(p)})),pvTable([{n,lab:"✔"},{n:o.v,lab:"✘"}],{hi:p})); }
+  }
+}
+
+/* =========================================================================
+   DECIMAL GRIDS — tenths & hundredths grids, money, equivalent fractions
+   ========================================================================= */
+let gS=null, gDrag=false;
+const SHADE="#e67e22", SHADE2="#f6b98a";
+// k shaded parts of a grid with `unit` parts (10 = strips, 100 = squares). Columns fill first.
+function gridSVG(k,unit,id){
+  let s=`<svg viewBox="-1 -1 102 102" ${id?`id="${id}"`:""} role="img" aria-label="${plain(L("gCount",{k,u:unit}).s)}" focusable="false">`;
+  if(unit===10){ for(let c=0;c<10;c++) s+=`<rect class="cl" data-i="${c}" x="${c*10}" y="0" width="10" height="100" fill="${c<k?SHADE:"#fff"}" stroke="#5a3a12" stroke-width=".6"/>`; }
+  else{ for(let c=0;c<10;c++) for(let r=0;r<10;r++){ const i=c*10+r;
+      s+=`<rect class="cl" data-i="${i}" x="${c*10}" y="${r*10}" width="10" height="10" fill="${i<k?SHADE:"#fff"}" stroke="#b49a86" stroke-width=".35"/>`; }
+    for(let c=0;c<=10;c++) s+=`<line x1="${c*10}" y1="0" x2="${c*10}" y2="100" stroke="#5a3a12" stroke-width=".9" pointer-events="none"/>`; }
+  return s+`<rect x="0" y="0" width="100" height="100" fill="none" stroke="#5a3a12" stroke-width="1.4" pointer-events="none"/></svg>`;
+}
+const tenthsOf = u=>Math.floor(u%1000/100), hundOf = u=>Math.floor(u%100/10);
+function mon(u){ const n=N(u,2); return {h:M("$"+fmt(n)), s:t("monSay",{d:String(Math.floor(u/1000)),c:String(Math.floor(u%1000/10))})}; }
+function coinSVG(kind){
+  if(kind==="bill") return `<svg width="86" height="42" viewBox="0 0 86 42" aria-hidden="true"><rect x="1" y="1" width="84" height="40" rx="4" fill="#cfe8c4" stroke="#2f6b2a" stroke-width="2"/><circle cx="43" cy="21" r="12" fill="#e8f4e2" stroke="#2f6b2a"/><text x="43" y="27" text-anchor="middle" font-size="17" font-weight="800" fill="#1f4d1b">$1</text></svg>`;
+  const d=kind==="dime", r=d?17:19;
+  return `<svg width="${r*2+4}" height="${r*2+4}" viewBox="0 0 ${r*2+4} ${r*2+4}" aria-hidden="true"><circle cx="${r+2}" cy="${r+2}" r="${r}" fill="${d?"#d7dbe0":"#d08a4e"}" stroke="${d?"#6b7280":"#7c4a1e"}" stroke-width="2"/><text x="${r+2}" y="${r+7}" text-anchor="middle" font-size="${d?13:14}" font-weight="800" fill="${d?"#1f2937":"#3b1d06"}">${d?"10¢":"1¢"}</text></svg>`;
+}
+function gridKinds(){ const k=["shade","shade","name","name"]; if(settings.dp>=2) k.push("money","equiv"); return k; }
+function newGrid(){
+  roundIds.grid++; made.grid=true; hideFb($("#gridFb"));
+  const kind=rand(gridKinds()), area=$("#gridArea"), hund=settings.dp>=2 && Math.random()<.75, unit=hund?100:10;
+  gS={kind,unit,done:false};
+  if(kind==="shade"){
+    const k=unit===100?ri(1,99):ri(1,9); gS.k=k; gS.cur=0;
+    const v=N(k*1000/unit,unit===100?2:1), fr=frac(k,unit), f=rand(["d","d","f","w"]);
+    gS.v=v; gS.fr=fr;
+    setPrompt("grid",L("gShadeQ",{x:f==="d"?v:f==="f"?fr:wordTok(v)}));
+    area.innerHTML=`<div class="gridrow"><div class="gridbox">${gridSVG(0,unit,"gSvg")}</div></div><p class="readout" id="gRead"></p>`+
+      `<div class="acts no-print">`+[[100,"+0.1"],[-100,"−0.1"]].concat(unit===100?[[10,"+0.01"],[-10,"−0.01"]]:[]).map(([dlt,lb])=>
+        `<button type="button" class="btn ghost" data-dl="${dlt}" aria-label="${t(dlt>0?"addL":"subL",{x:lb.slice(1)})}">${M(lb)}</button>`).join("")+
+      `<button type="button" class="btn" id="gCheck">✔ ${t("check")}</button><button type="button" class="btn ghost" id="gClear">${t("clear")}</button></div>`+
+      `<p class="symhelp">${t(unit===100?"gTipH":"gTipT")}</p>`;
+    area.querySelectorAll("[data-dl]").forEach(b=>b.addEventListener("click",()=>{ const step=+b.dataset.dl*unit/1000; setShade(gS.cur+step); }));
+    $("#gCheck").addEventListener("click",checkShade);
+    $("#gClear").addEventListener("click",()=>setShade(0));
+    bindGridPointer();
+    setShade(0);
+  }else if(kind==="name"){
+    const whole=settings.grade>=4 && Math.random()<.25?1:0, k=unit===100?ri(1,99):ri(1,9);
+    const u=whole*1000+k*1000/unit, v=N(u,unit===100?2:1), asF=!whole && Math.random()<.4;
+    Object.assign(gS,{k,whole,v,asF});
+    setPrompt("grid",L(asF?"gNameF":"gNameD"));
+    let gh=""; if(whole) gh+=`<div class="gridbox small">${gridSVG(unit,unit)}</div>`;
+    area.innerHTML=`<div class="gridrow">${gh}<div class="gridbox${whole?" small":""}">${gridSVG(k,unit)}</div></div><div id="gCh"></div>`;
+    let opts;
+    if(asF){
+      const c=[[k,unit],[k,unit===100?10:100],[unit-k,unit]]; if(unit===100&&k%10) c.push([Math.floor(k/10)||1,10]); else c.push([k*10,1000]);
+      const seen=new Set(); opts=c.filter(([a,b])=>{ const key=a+"/"+b; if(seen.has(key)||(a*1000/b===k*1000/unit&&!(a===k&&b===unit))) return false; seen.add(key); return true; })
+        .slice(0,4).map(([a,b])=>{ const f=frac(a,b); return {h:f.h,s:f.s,ok:a===k&&b===unit,v:f}; });
+    }else{
+      const sw=unit===100?whole*1000+(k%10)*100+Math.floor(k/10)*10:null;
+      const cands=[u*10,sw,settings.dp>=3?whole*1000+(u%1000)/10:null,(whole+k)*1000,u+1000].filter(x=>x!=null&&Number.isInteger(x));
+      opts=[v].concat(uniqVals(u,cands,3).map(x=>N(x,Math.max(v.d,decs(x))))).map(x=>({h:M(fmt(x)),s:sayNum(x),ok:x.u===u,v:x}));
+    }
+    choiceButtons($("#gCh"),shuffle(opts),pickGrid);
+  }else if(kind==="money"){
+    const b=settings.grade>=4?ri(0,3):0; let dm=ri(0,9), pn=ri(1,9); if(!dm&&!b) dm=ri(1,9);
+    const u=b*1000+dm*100+pn*10; Object.assign(gS,{b,dm,pn,u});
+    setPrompt("grid",L("gMoneyQ"));
+    area.innerHTML=`<div class="coins" role="img" aria-label="${plain(L("gMoneyCount",{b,d:dm,p:pn}).s)}">`+coinSVG("bill").repeat(b)+coinSVG("dime").repeat(dm)+coinSVG("penny").repeat(pn)+`</div><div id="gCh"></div>`;
+    const cands=[b*1000+pn*100+dm*10, b*1000+(dm+pn)*10, (b+dm)*1000+pn*10, u+1000, u*10].filter(x=>x>0&&x<100000);
+    const opts=[u].concat(uniqVals(u,cands,3)).map(x=>{ const m=mon(x); return {h:m.h,s:m.s,ok:x===u,v:m}; });
+    choiceButtons($("#gCh"),shuffle(opts),pickGrid);
+  }else{
+    const toH=Math.random()<.65, k=ri(1,9); Object.assign(gS,{toH,k});
+    const a=toH?(Math.random()<.5?N(k*100,1):frac(k,10)):frac(k*10,100);
+    gS.a=a;
+    setPrompt("grid",L(toH?"gEqQh":"gEqQt",{a}));
+    area.innerHTML=`<div class="gridrow"><div class="gridbox small">${gridSVG(k,10)}</div><div class="gridbox small">${gridSVG(k*10,100)}</div></div>`+
+      `<div class="eqline">${HV(a)} ${M("=")} ${frac("?",toH?100:10).h}</div><div id="gCh"></div>`;
+    const ans=toH?k*10:k, cands=toH?[k,k*100,k*10+1,(10-k)*10]:[k*10,k*100,10-k||k+1,k+1];
+    const opts=[ans].concat(uniqVals(ans,cands,3)).map(x=>{ const v=N(x*1000,0); return {h:M(fmt(v)),s:sayNum(v),ok:x===ans,v}; });
+    choiceButtons($("#gCh"),shuffle(opts),pickGrid);
+  }
+  maybeAuto("grid");
+}
+function setShade(k){
+  if(gS.done) return;
+  gS.cur=Math.max(0,Math.min(gS.unit,Math.round(k)));
+  const box=$("#gSvg").parentNode; box.innerHTML=gridSVG(gS.cur,gS.unit,"gSvg"); bindGridPointer();
+  $("#gRead").textContent=L("gCount",{k:gS.cur,u:gS.unit}).h;
+}
+function bindGridPointer(){
+  const svg=$("#gSvg"); if(!svg) return;
+  const idx=e=>{ const el=document.elementFromPoint(e.clientX,e.clientY); return el&&el.dataset&&el.dataset.i!=null?+el.dataset.i:null; };
+  svg.addEventListener("pointerdown",e=>{ const i=idx(e); if(i==null) return; e.preventDefault(); gDrag=true;
+    setShade(i+1===gS.cur?i:i+1); });
+}
+document.addEventListener("pointermove",e=>{ if(!gDrag||!gS||gS.kind!=="shade") return;
+  const el=document.elementFromPoint(e.clientX,e.clientY); if(el&&el.closest&&el.closest("#gSvg")&&el.dataset.i!=null&&+el.dataset.i+1!==gS.cur) setShade(+el.dataset.i+1); });
+document.addEventListener("pointerup",()=>{ gDrag=false; });
+function eqChain(k,unit){
+  // e.g. 3/10 = 30/100 = 0.3  or 37/100 = 0.37
+  const parts=[frac(k,unit)]; if(unit===10) parts.push(frac(k*10,100)); else if(k%10===0) parts.unshift(frac(k/10,10));
+  parts.push(N(k*1000/unit,unit===100&&k%10?2:1));
+  return {h:parts.map(HV).join(` ${M("=")} `), s:parts.map(SV).join(" "+t("eqW")+" ")};
+}
+function checkShade(){
+  if(!gS||gS.done) return;
+  const {k,unit,cur}=gS;
+  if(cur===k){
+    gS.done=true; $$("#gridArea button").forEach(b=>b.disabled=true);
+    const m=J(t("yes"),eqChain(k,unit)), x=unit===100&&k>=10&&k%10?L("gSplit",{a:Math.floor(k/10),b:k%10}):null;
+    good("grid",J(m,x),newGrid);
+  }else hint("grid",J(L("gShadeHint",{k:cur,need:k,u:unit,x:gS.v}),L(unit===100?"gTipH":"gTipT")));
+}
+function pickGrid(b,o){
+  if(!gS||gS.done) return;
+  const el=$("#gCh"), {kind}=gS;
+  if(o.ok){ gS.done=true; lockChoices(el,b);
+    if(kind==="name") good("grid",J(t("yes"),gS.whole?L("gWhole",{v:gS.v,k:gS.k,u:gS.unit}):eqChain(gS.k,gS.unit)),newGrid);
+    else if(kind==="money") good("grid",J(t("yes"),L("gMoneyGood",{x:mon(gS.u),dm:gS.dm,pn:gS.pn,a:N(gS.dm*100,1),b:N(gS.pn*10,2)})),newGrid,null,2600);
+    else good("grid",J(t("yes"),L("gEqGood",{k:gS.k,c:gS.k*10}),eqChain(gS.k,10)),newGrid,null,2600);
+  }else{ wrongChoice(b);
+    if(kind==="name") hint("grid",J(L("youPicked",{x:o.v}),gS.whole?L("gWholeHint"):null,L(gS.unit===100?"gTipH":"gTipT"),L("gCountQ")));
+    else if(kind==="money") hint("grid",J(L("youPicked",{x:o.v}),L("dimeIs"),L("gMoneyCount",{b:gS.b,d:gS.dm,p:gS.pn})));
+    else hint("grid",J(L("youPicked",{x:o.v}),L("gEqHint",{k:gS.k})));
+  }
+}
+
+/* ---------- Number line (SVG) ---------- */
+// o: {lo,hi,step (in u), d, pts:[{u,lab}], mid}
+function lineSVG(o){
+  const W=600, X0=34, X1=566, Y=70, x=u=>X0+(X1-X0)*(u-o.lo)/(o.hi-o.lo);
+  const nT=Math.round((o.hi-o.lo)/o.step), lbs=[];
+  let s=`<svg viewBox="0 0 ${W} 124" role="img" aria-label="${t("lineLbl")}" direction="ltr" font-family="system-ui,sans-serif">`+
+    `<line x1="${X0-14}" y1="${Y}" x2="${X1+14}" y2="${Y}" stroke="#1c2733" stroke-width="3"/>`+
+    `<path d="M${X0-22} ${Y}l10 -6v12zM${X1+22} ${Y}l-10 -6v12z" fill="#1c2733"/>`;
+  for(let i=0;i<=nT;i++){ const u=o.lo+i*o.step, X=x(u), lb=fmt(N(u,o.d));
+    s+=`<line x1="${X}" y1="${Y-9}" x2="${X}" y2="${Y+9}" stroke="#1c2733" stroke-width="2"/>`;
+    const w=lb.length*8.5+6, end=i===0||i===nT, room=(X1-X0)/nT;
+    if(end || w<room*.95) s+=`<text x="${X}" y="${Y+30}" text-anchor="middle" font-size="15" font-weight="${end?800:600}" fill="#1c2733">${lb}</text>`; }
+  if(o.mid!=null){ const X=x(o.mid);
+    s+=`<line x1="${X}" y1="${Y-22}" x2="${X}" y2="${Y+16}" stroke="#a94400" stroke-width="2.5" stroke-dasharray="5 4"/>`+
+      `<text x="${X}" y="${Y+48}" text-anchor="middle" font-size="14" font-weight="700" fill="#a94400">${fmt(N(o.mid,Math.max(o.d,decs(o.mid))))} · ${t("halfway")}</text>`; }
+  o.pts.forEach((p,i)=>{ const X=x(p.u), ty=i%2?18:36;
+    s+=`<circle cx="${X}" cy="${Y}" r="8" fill="${p.col||"#d35400"}" stroke="#fff" stroke-width="2"/>`+
+      `<line x1="${X}" y1="${Y-9}" x2="${X}" y2="${ty+4}" stroke="${p.col||"#d35400"}" stroke-width="1.5"/>`+
+      `<text x="${Math.min(X1+20,Math.max(X0-20,X))}" y="${ty}" text-anchor="middle" font-size="16" font-weight="800" fill="${p.col||"#a94400"}">${p.lab}</text>`; });
+  return `<div class="linewrap" dir="ltr">${s}</svg></div>`;
+}
+// first place (from the left) where two numbers differ
+function firstDiff(a,b){ let p=Math.max(topP(a),topP(b)); while(p>=-3 && dig(a,p)===dig(b,p)) p--; return p; }
+function lineFor(nums){
+  const us=nums.map(n=>n.u), mn=Math.min(...us), mx=Math.max(...us);
+  let p=-4; for(let i=0;i<us.length;i++) for(let j=i+1;j<us.length;j++) if(us[i]!==us[j]) p=Math.max(p,firstDiff(us[i],us[j]));
+  if(p<-3) return "";
+  let step=P10(p+3), lo=Math.floor(mn/step)*step, hi=Math.ceil(mx/step)*step; if(hi===lo) hi=lo+step;
+  if((hi-lo)/step>10){ step*=10; lo=Math.floor(mn/step)*step; hi=Math.ceil(mx/step)*step; if(hi===lo) hi=lo+step; }
+  return lineSVG({lo,hi,step,d:Math.max(0,-Math.round(Math.log10(step))+3),pts:nums.map(n=>({u:n.u,lab:fmt(n)}))});
+}
+
+/* =========================================================================
+   COMPARE & ORDER — line up places, compare from the left
+   ========================================================================= */
+let cS=null;
+function cmpPair(){
+  const dp=settings.dp, r=Math.random(), w=Math.random()<.5?0:ri(1,settings.grade>=4?99:9);
+  if(dp>=2 && r<.3){            // "longer decimal is bigger" trap
+    const x=ri(2,9), d2=ri(2,dp), a=N(w*1000+x*100,1), dg={0:0};
+    let u=w*1000+ri(0,x-1)*100; for(let p=-2;p>=-d2;p--) u+=ri(p===-d2?1:0,9)*P10(p+3);
+    return [a,N(u,d2)];
+  }
+  if(dp>=2 && r<.42){ const x=ri(1,9); return [N(w*1000+x*100,1),N(w*1000+x*100,2)]; }
+  if(r<.5){ const d=pickD(3), a=rnum(pickK(d),d); return [a,N(a.u,a.d)]; }
+  const d=pickD(3), a=rnum(pickK(d),d), m=nearMisses(a).filter(x=>x.u!==a.u);
+  let b=m.length&&Math.random()<.7?rand(m):null;
+  if(!b){ const d2=topP(a.u)>=3?0:Math.min(settings.dp,Math.max(0,d+ri(-1,1))); b=rnum(Math.max(topP(a.u)+1,d2>0?0:1),d2); if(b.u===a.u) b=N(a.u+P10(3-Math.max(d,0)),d); }
+  return [a,b];
+}
+function cmpExplain(a,b){
+  if(a.u===b.u) return a.d!==b.d?L("cmpZero",{a,b}):L("cmpSame",{a,b});
+  const p=firstDiff(a.u,b.u), out=[L("cmpFirst",{pl:plTok(p),a,b,x:dig(a.u,p),y:dig(b.u,p)})];
+  return J(...out);
+}
+function newCmp(){
+  roundIds.cmp++; made.cmp=true; hideFb($("#cmpFb"));
+  const area=$("#cmpArea");
+  if(Math.random()<.3) return newOrder();
+  const [a,b]=Math.random()<.5?cmpPair():cmpPair().reverse(); cS={kind:"cmp",a,b,done:false};
+  area.innerHTML=`<div class="cmprow" dir="ltr"><div class="cmpcard"><div class="bignum">${M(fmt(a))}</div></div><div class="slot" id="cmpSlot">?</div><div class="cmpcard"><div class="bignum">${M(fmt(b))}</div></div></div>`+
+    pvTable([{n:a},{n:b}],{})+
+    `<div class="symbtns" id="cmpBtns" dir="ltr" role="group" aria-label="${t("choicesLbl")}">`+
+    [[">","gtW"],["<","ltW"],["=","eqW"]].map(([s,k])=>`<button type="button" class="symbtn" data-sym="${s}" aria-label="${t(k)}" title="${t(k)}">${s.replace("<","&lt;").replace(">","&gt;")}</button>`).join("")+
+    `</div><p class="symhelp">${[[">","gtW"],["<","ltW"],["=","eqW"]].map(([s,k])=>`${M(s.replace("<","&lt;").replace(">","&gt;"))} ${t(k)}`).join(" · ")}</p>`;
+  area.querySelectorAll(".symbtn").forEach(x=>x.addEventListener("click",()=>checkCmp(x)));
+  setPrompt("cmp",L("cmpQ",{a,b}));
+  maybeAuto("cmp");
+}
+function checkCmp(btn){
+  if(!cS||cS.done) return;
+  const {a,b}=cS, sym=btn.dataset.sym, right=a.u>b.u?">":a.u<b.u?"<":"=", ex=cmpExplain(a,b);
+  const trap=a.u!==b.u && a.d!==b.d && (a.d>b.d)===(a.u<b.u) && Math.floor(a.u/1000)===Math.floor(b.u/1000) ? L("cmpLonger") : null;
+  const res=L(a.u>b.u?"resGt":a.u<b.u?"resLt":"resEq",{a,b});
+  const extra=pvTable([{n:a},{n:b}],{annex:true,hi:a.u!==b.u?firstDiff(a.u,b.u):undefined})+(a.u!==b.u?lineFor([a,b]):"");
+  if(sym===right){
+    cS.done=true; btn.classList.add("correctpick"); $$("#cmpBtns button").forEach(x=>x.disabled=true);
+    $("#cmpSlot").textContent=sym;
+    good("cmp",J(t("yes"),ex,res,trap),newCmp,extra,2600);
+  }else{
+    btn.classList.add("wrongpick"); btn.disabled=true;
+    hint("cmp",J(t("notYet"),L("cmpLineUp"),ex,trap),extra);
+  }
+}
+function newOrder(){
+  const cnt=settings.grade>=5?4:3, desc=Math.random()<.3, [a,b]=cmpPair(), set=[a,b], seen=new Set([a.u,b.u]);
+  let g=0;
+  while(set.length<cnt && g++<200){ const base=rand(set), m=nearMisses(base).concat([rnum(Math.max(topP(base.u)+(base.d?0:1),base.d?0:1),base.d)]);
+    const c=rand(m); if(c && !seen.has(c.u) && c.u>0){ seen.add(c.u); set.push(c); } }
+  const sorted=set.slice().sort((x,y)=>desc?y.u-x.u:x.u-y.u);
+  cS={kind:"order",nums:shuffle(set),sorted,desc,pos:0,done:false};
+  $("#cmpArea").innerHTML=`<div class="orderslots" id="ordSlots" dir="ltr">`+sorted.map((_,i)=>`<span class="oslot" id="os${i}">?</span>`+(i<cnt-1?`<span class="lt">${desc?"&gt;":"&lt;"}</span>`:"")).join("")+`</div>`+
+    pvTable(cS.nums.map(n=>({n})),{})+`<div id="ordCh"></div>`;
+  choiceButtons($("#ordCh"),cS.nums.map(n=>({h:M(fmt(n)),s:sayNum(n),v:n})),pickOrder);
+  setPrompt("cmp",L(desc?"ordQd":"ordQ"));
+  maybeAuto("cmp");
+}
+function pickOrder(b,o){
+  if(!cS||cS.done) return;
+  const want=cS.sorted[cS.pos];
+  if(o.v.u===want.u){
+    b.classList.add("correctpick"); b.disabled=true;
+    const s=$("#os"+cS.pos); s.innerHTML=M(fmt(o.v)); s.classList.add("filled"); cS.pos++;
+    if(cS.pos===cS.sorted.length){ cS.done=true;
+      const chain=raw(M(cS.sorted.map(fmt).join(cS.desc?" > ":" < ")), cS.sorted.map(sayNum).join(" "+t(cS.desc?"gtW":"ltW")+" "));
+      good("cmp",J(t("yes"),chain),newCmp,pvTable(cS.sorted.map(n=>({n})),{annex:true})+lineFor(cS.sorted),2600);
+    }else hideFb($("#cmpFb"));
+  }else{
+    b.classList.add("wrongpick"); setTimeout(()=>b.classList.remove("wrongpick"),900);
+    hint("cmp",J(L(cS.desc?"ordNotG":"ordNotL",{x:o.v}),cmpExplain(o.v,want),L("cmpLineUp")),pvTable(cS.nums.filter(n=>cS.sorted.indexOf(n)>=cS.pos).map(n=>({n})),{annex:true}));
+  }
+}
+
+/* =========================================================================
+   ROUND IT — number line with the halfway point marked
+   ========================================================================= */
+let rS=null;
+function rndPlaces(){
+  const w=settings.grade===3?[1,2]:[1,2,3,4,5].filter(p=>p<settings.wd);
+  const dcm=settings.grade>=5&&settings.dp>=1?[0,-1,-2].filter(p=>-p<settings.dp):[];
+  return dcm.length&&Math.random()<.6?dcm:w;
+}
+function newRnd(){
+  roundIds.rnd++; made.rnd=true; hideFb($("#rndFb"));
+  const p=rand(rndPlaces()), step=P10(p+3);
+  let n;
+  if(p>=1){ const k=ri(p+1,Math.min(settings.wd,p+3)); n=rnum(k,0); }
+  else{ const d=Math.min(settings.dp,-p+ri(1,2)); n=rnum(ri(0,2),d); if(n.d<=-p) n=N(n.u+P10(2-(-p)),-p+1); }
+  if(n.u%step===0) n=N(n.u+ri(1,9)*step/10,Math.max(n.d,-p+1));
+  if(Math.random()<.12){ const lo0=Math.floor(n.u/step)*step; n=N(lo0+step/2,Math.max(0,-p+1)); }
+  const lo=Math.floor(n.u/step)*step, hi=lo+step, mid=lo+step/2, ans=n.u>=mid?hi:lo, d=Math.max(0,-p);
+  // distractor: rounded to a different place
+  const q=p-1>=-n.d&&p-1>=-3?p-1:p+1, s2=P10(q+3), alt=Math.floor(n.u/s2+.5)*s2;
+  let cands=[lo,hi,alt,hi+step,lo-step].filter(x=>x>=0&&x!==n.u);
+  const opts=[...new Set(cands)].slice(0,3).map(u=>({u,v:N(u,u===alt&&u!==lo&&u!==hi?Math.max(0,-q):d)}));
+  rS={p,n,lo,hi,mid,ans,d,alt,q,done:false};
+  setPrompt("rnd",L(p===0&&n.d>0?"rndQw":"rndQ",{n,pl:nearTok(p)}));
+  $("#rndArea").innerHTML=`<div class="bignum">${fmtHL(n,[p])}</div>`+lineSVG({lo,hi,step,d,pts:[{u:n.u,lab:fmt(n)}],mid})+`<div id="rndCh"></div>`;
+  choiceButtons($("#rndCh"),shuffle(opts).map(o=>({h:M(fmt(o.v)),s:sayNum(o.v),v:o.v,ok:o.u===ans})),pickRnd);
+  maybeAuto("rnd");
+}
+function pickRnd(b,o){
+  if(!rS||rS.done) return;
+  const {p,n,lo,hi,mid,ans,d}=rS, LO=N(lo,d), HI=N(hi,d), MID=N(mid,Math.max(d,decs(mid))), A=N(ans,d), c=dig(n.u,p-1);
+  const rule=L("rndRule",{pl:plTok(p-1),c,dir:raw(t(c>=5?"upW":"downW"))});
+  if(o.ok){ rS.done=true; lockChoices($("#rndCh"),b);
+    const why=n.u===mid?L("rndExact",{n,a:A}):L(n.u>mid?"rndUp":"rndDown",{n,m:MID,a:A});
+    good("rnd",J(t("yes"),why,rule),newRnd,null,2600);
+  }else{ wrongChoice(b);
+    const wrongPl=o.v.u!==lo&&o.v.u!==hi?L("rndWrongPl",{pl:nearTok(p)}):null;
+    hint("rnd",J(L("youPicked",{x:o.v}),wrongPl,L("rndBetween",{n,a:LO,b:HI}),L("rndMidQ",{m:MID,n,a:LO,b:HI})));
+  }
+}
+
+/* =========================================================================
+   ADD & SUBTRACT — estimate first, line up the places; × ÷ by 10, 100, 1,000
+   ========================================================================= */
+let oS=null;
+const roundTo = (u,q)=>Math.floor(u/P10(q+3)+.5)*P10(q+3);
+const placesTok = e=>raw(t(e===1?"oneP":"nP",{e}));
+function stepChips(i){ return `<div class="steps" aria-hidden="true">`+["stEst","stSolve"].map((k,j)=>`<span class="stepchip ${j<i?"done":j===i?"on":""}">${j+1}. ${t(k)}</span>`).join("")+`</div>`; }
+function newOps(){
+  roundIds.ops++; made.ops=true; hideFb($("#opsFb"));
+  if(settings.pow && Math.random()<.35) return newPow();
+  const sub=Math.random()<.5, dp=settings.dp;
+  let a,b;
+  if(dp===0){ const k=settings.grade===3?3:ri(3,Math.min(6,Math.max(3,settings.wd))); a=rnum(k,0); b=rnum(ri(Math.max(2,k-1),k),0); }
+  else{ const d1=ri(0,dp), d2=ri(1,dp); a=rnum(ri(1,2),d1); b=rnum(ri(0,2),d2); if(Math.random()<.5) [a,b]=[b,a]; }
+  if(sub && a.u<b.u) [a,b]=[b,a];
+  if(sub && a.u===b.u) a=N(a.u+1000,a.d);
+  const D=Math.max(a.d,b.d), r=N(sub?a.u-b.u:a.u+b.u,D);
+  const q=dp>0&&(a.d||b.d)?0:Math.max(1,Math.min(topP(a.u),topP(b.u)));
+  const ea=roundTo(a.u,q), eb=roundTo(b.u,q), E=sub?ea-eb:ea+eb;
+  oS={kind:"as",sub,a,b,r,D,q,ea,eb,E,phase:0,done:false};
+  const op=sub?"−":"+";
+  setPrompt("ops",L("estQ",{a,b,op:raw(op,t(sub?"minusW":"plusW"))}));
+  const eD=Math.max(0,-q), cands=[E*10,Math.floor(E/10/P10(q+3))*P10(q+3),E+P10(q+4),E-P10(q+4)].filter(x=>x>=0&&Number.isInteger(x));
+  const opts=[E].concat(uniqVals(E,cands,2)).map(u=>{ const v=N(u,eD); return {h:M("≈ "+fmt(v)),s:sayNum(v),v,ok:u===E}; });
+  $("#opsArea").innerHTML=stepChips(0)+`<div class="bignum">${M(fmt(a)+" "+op+" "+fmt(b))}</div><div id="opsCh"></div><div id="opsWork"></div>`;
+  choiceButtons($("#opsCh"),shuffle(opts),pickOps);
+  maybeAuto("ops");
+}
+function opsTable(withR){
+  const {a,b,r,sub}=oS, rows=[{n:a,lab:""},{n:b,lab:sub?"−":"+"}];
+  if(withR) rows.push({n:r,lab:"=",cls:"sum"});
+  return pvTable(rows,{annex:true});
+}
+// A tempting wrong answer: digits right-aligned, ignoring the decimal point
+function misaligned(){
+  const {a,b,sub,D}=oS, ia=a.u/P10(3-a.d), ib=b.u/P10(3-b.d), x=sub?ia-ib:ia+ib;
+  return x>=0 ? x*P10(3-D) : null;
+}
+function noRegroup(){
+  const {a,b,sub,D}=oS; let u=0;
+  for(let p=Math.max(topP(a.u),topP(b.u));p>=-D;p--){ const x=dig(a.u,p), y=dig(b.u,p); u+=(sub?Math.abs(x-y):(x+y)%10)*P10(p+3); }
+  return u;
+}
+function solvePhase(){
+  oS.phase=1; const {a,b,r,sub,E}=oS, op=sub?"−":"+";
+  setPrompt("ops",L("solveQ",{a,b,op:raw(op,t(sub?"minusW":"plusW")),e:N(E,Math.max(0,-oS.q))}));
+  const mis=misaligned(), nr=noRegroup();
+  const cands=[mis,nr,r.u*10,r.u%10===0?r.u/10:null,r.u+P10(3-oS.D)*(sub?-10:10)].filter(x=>x!=null&&x>=0&&Number.isInteger(x));
+  const opts=[r.u].concat(uniqVals(r.u,cands,3)).map(u=>{ const v=N(u,Math.max(oS.D,decs(u))); return {h:M(fmt(v)),s:sayNum(v),v,ok:u===r.u,mis:u===mis,nr:u===nr}; });
+  $("#opsArea").innerHTML=stepChips(1)+`<div class="bignum">${M(fmt(a)+" "+op+" "+fmt(b))}</div>${opsTable(false)}<p class="symhelp">${t("opsZeros")}</p><div id="opsCh"></div>`;
+  choiceButtons($("#opsCh"),shuffle(opts),pickOps);
+  maybeAuto("ops");
+}
+function pickOps(b,o){
+  if(!oS||oS.done) return;
+  const el=$("#opsCh");
+  if(oS.kind==="pow"){
+    const {n,x,r,mul,e}=oS;
+    if(o.ok){ oS.done=true; lockChoices(el,b);
+      good("ops",J(t("yes"),L(mul?"powM":"powD",{x,k:placesTok(e),r})),newOps,powTable(true),2800);
+    }else{ wrongChoice(b); hint("ops",J(L("youPicked",{x:o.v}),L("powHint",{x,k:placesTok(e)}),L(mul?"powMw":"powDw"))); }
+    return;
+  }
+  const eT=N(oS.E,Math.max(0,-oS.q));
+  if(oS.phase===0){
+    if(o.ok){ lockChoices(el,b); hideFb($("#opsFb"));
+      const m=J(t("yes"),L("estGood",{a:N(oS.ea,Math.max(0,-oS.q)),b:N(oS.eb,Math.max(0,-oS.q)),op:raw(oS.sub?"−":"+",t(oS.sub?"minusW":"plusW")),e:eT}));
+      showFb($("#opsFb"),"good",m); const id=roundIds.ops;
+      speak(m.s,()=>setTimeout(()=>{ if(roundIds.ops===id&&oS.phase===0){ solvePhase(); } },500));
+    }else{ wrongChoice(b);
+      hint("ops",J(L("youPicked",{x:o.v}),L("estHint",{a:oS.a,b:oS.b,x:N(oS.ea,Math.max(0,-oS.q)),y:N(oS.eb,Math.max(0,-oS.q)),pl:nearTok(oS.q)}))); }
+    return;
+  }
+  const {r}=oS;
+  if(o.ok){ oS.done=true; lockChoices(el,b);
+    good("ops",J(t("yes"),L("opsGood",{r,e:eT})),newOps,opsTable(true),2600);
+  }else{ wrongChoice(b);
+    const far=Math.abs(o.v.u-oS.E)>Math.max(Math.abs(r.u-oS.E)*2,P10(oS.q+3));
+    hint("ops",J(L("youPicked",{x:o.v}),far?L("opsFar",{e:eT}):null,o.mis?L("opsAlign"):o.nr?L(oS.sub?"opsRegS":"opsRegA"):L("opsCheck")));
+  }
+}
+function newPow(){
+  const mul=Math.random()<.5, e=ri(1,3), x=N(P10(e+3),0), dp=settings.dp;
+  let n;
+  if(mul){ n=rnum(ri(0,2),Math.min(3,Math.max(dp,1))); if(!n.u) n=N(1500,1); }
+  else{ const d0=dp-e; n=d0>=0?rnum(ri(1,3),ri(0,d0)):N(ri(1,99)*1000*P10(e-dp),0); }
+  const ru=mul?n.u*P10(e):n.u/P10(e), r=N(ru,decs(ru));
+  oS={kind:"pow",mul,e,x,n,r,done:false};
+  setPrompt("ops",L("powQ",{n,x,op:raw(mul?"×":"÷",t(mul?"timesW":"divW"))}));
+  const vals=[mul?n.u/P10(e):n.u*P10(e), mul?n.u*P10(e-1):n.u/P10(e-1), mul?n.u*P10(e+1):n.u/P10(e+1)].filter(u=>Number.isInteger(u)&&u>0&&u<1e13);
+  const opts=[ru].concat(uniqVals(ru,vals,3)).map(u=>{ const v=N(u,decs(u)); return {h:M(fmt(v)),s:sayNum(v),v,ok:u===ru}; });
+  $("#opsArea").innerHTML=`<div class="bignum">${M(fmt(n)+" "+(mul?"×":"÷")+" "+fmt(x))}</div>${powTable(false)}<div id="opsCh"></div>`;
+  choiceButtons($("#opsCh"),shuffle(opts),pickOps);
+  maybeAuto("ops");
+}
+function powTable(after){
+  const {n,r,mul,e}=oS, from=Math.max(topP(n.u),topP(r.u)), to=-Math.max(n.d,r.d,1);
+  const rows=[{n,lab:""}]; if(after) rows.push({n:r,lab:"=",cls:"shift",sh:(mul?1:-1)*e*53});
+  return pvTable(rows,{from,to})+(after?`<p class="shiftnote">${L(mul?"powShiftL":"powShiftR",{k:placesTok(e)}).h}</p>`:"");
+}
+
+/* ---------- Mode switching ---------- */
+const NEWFN={pv:newPv,grid:newGrid,cmp:newCmp,rnd:newRnd,ops:newOps};
+function firstMode(){ return MODES.find(m=>modeOn(m))||"pv"; }
+function currentMode(){ const b=$$(".tabs button").find(x=>x.getAttribute("aria-selected")==="true"); return b?b.dataset.mode:firstMode(); }
+function showMode(mode){
+  if(!modeOn(mode)) mode=firstMode();
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
+  $$(".modepanel").forEach(p=>p.classList.add("hidden"));
+  $("#mode-"+mode).classList.remove("hidden");
+  $$(".tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.mode===mode?"true":"false"));
+  if(!made[mode]) NEWFN[mode]();
+  // Returning to a tab: read its current directions (unless a new round just did).
+  if(switching && speechGen===g0) maybeAuto(mode);
+}
+function syncTabs(){
+  $$(".tabs button").forEach(b=>b.classList.toggle("hidden",!modeOn(b.dataset.mode)));
+  if(!modeOn(currentMode())) showMode(firstMode());
+}
+function resetRounds(){ MODES.forEach(m=>made[m]=false); const c=currentMode(); if(modeOn(c)) NEWFN[c](); else showMode(firstMode()); }
+
+/* ---------- Settings drawer ---------- */
+function buildModeToggles(){
+  const wrap=$("#modeToggles"); wrap.innerHTML="";
+  MODES.forEach(m=>{
+    const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.modes[m]?"checked":""}> <span>${t(MODE_KEY[m])}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{ settings.modes[m]=e.target.checked;
+      if(!MODES.some(k=>modeOn(k))){ e.target.checked=true; settings.modes[m]=true; }
+      saveSettings(); syncTabs(); });
+    wrap.appendChild(l);
+  });
+}
+function syncSettingsUI(){
+  $("#setGrade").value=String(settings.grade); $("#setWd").value=String(settings.wd); $("#setDp").value=String(settings.dp);
+  $("#setPow").checked=!!settings.pow; $("#setAuto").checked=!!settings.autoRead; buildModeToggles();
+}
+function closeSettings(){ $("#settingsDrawer").classList.remove("open"); $("#openSettings").focus(); }
+function settingsChanged(){ saveSettings(); syncSettingsUI(); syncTabs(); resetRounds(); }
+function initSettings(){
+  $("#openSettings").addEventListener("click",()=>{ syncSettingsUI(); $("#settingsDrawer").classList.add("open"); $("#closeSettings").focus(); });
+  $("#closeSettings").addEventListener("click",closeSettings);
+  $("#settingsDrawer").addEventListener("click",e=>{ if(e.target.id==="settingsDrawer") closeSettings(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape" && $("#settingsDrawer").classList.contains("open")) closeSettings(); });
+  $("#setGrade").addEventListener("change",e=>{ const ar=settings.autoRead; settings=fromGrade(+e.target.value); settings.autoRead=ar; settingsChanged(); });
+  $("#setWd").addEventListener("change",e=>{ settings.wd=+e.target.value; settingsChanged(); });
+  $("#setDp").addEventListener("change",e=>{ settings.dp=+e.target.value; if(!MODES.some(k=>modeOn(k))) settings.modes.pv=true; settingsChanged(); });
+  $("#setPow").addEventListener("change",e=>{ settings.pow=e.target.checked; saveSettings(); });
+  $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
+  $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
+}
+
+/* ---------- Print cards ---------- */
+function buildPrintCards(){
+  const blank=`<span style="font-size:1.3rem">__________</span>`, big=s=>`<p style="font-size:1.45rem">${s}</p>`;
+  let d=pickD(3), n1=rnum(pickK(d),d); if(expTerms(n1).length<2) n1=rnum(4,0);
+  d=pickD(3); const n2=rnum(Math.max(pickK(d),1),d), ps=[]; for(let p=topP(n2.u);p>=-n2.d;p--) if(dig(n2.u,p)) ps.push(p);
+  const p2=rand(ps), n2u=uniqDigit(n2,p2), [ca,cb]=cmpPair(), sp=rand(rndPlaces()), step=P10(sp+3);
+  let rn=sp>=1?rnum(ri(sp+1,Math.min(settings.wd,sp+3)),0):rnum(ri(0,2),Math.min(settings.dp,-sp+1)); if(rn.u%step===0) rn=N(rn.u+step/2+(sp>=1?P10(sp+2):100),rn.d||0);
+  const cards=[
+    {title:t("mPv"), body:t("cardStd"), html:big(expTok(n1).h)+big(blank)},
+    {title:t("mPv"), body:L("pvValQ",{c:raw(M(dig(n2u.u,p2))),n:n2u}).h, html:`<div class="bignum">${fmtHL(n2u,[p2])}</div>`+big(blank)},
+    {title:t("mCmp"), body:t("cardCmp"), html:`<div class="bignum">${M(fmt(ca)+" ◯ "+fmt(cb))}</div>`},
+    {title:t("mRnd"), body:L(sp===0&&rn.d>0?"rndQw":"rndQ",{n:rn,pl:nearTok(sp)}).h, html:big(blank)}
+  ];
+  if(settings.dp>0){ const k=settings.dp>=2?ri(11,89):ri(1,9), u=settings.dp>=2?100:10;
+    cards.push({title:t("mGrid"), body:L("gShadeQ",{x:N(k*1000/u,u===100?2:1)}).h, html:`<div class="gridbox small">${gridSVG(0,u)}</div>`}); }
+  if(modeOn("ops")){ const sv=oS; newOpsData(); cards.push({title:t("mOps"), body:t("cardOps"), html:`<div class="bignum">${M(fmt(oS.a)+" "+(oS.sub?"−":"+")+" "+fmt(oS.b))}</div><p>${t("stEst")}: ${blank}</p><div class="pbox"></div>`}); oS=sv; }
+  if(settings.pow){ const x=rand([10,100,1000]), n=N(ri(101,999)*10,2); cards.push({title:t("mOps"), body:"", html:big(M(fmt(n)+" × "+fmt(N(x*1000,0))+" = ")+blank)+big(M(fmt(n)+" ÷ "+fmt(N(x*1000,0))+" = ")+blank)}); }
+  $("#printArea").innerHTML=`<h1>${t("cardTitle")}</h1><p>${t("cardName")} ____________________</p>`+
+    cards.map(c=>`<div class="card-print"><h2>${c.title}</h2>${c.body?`<p style="font-size:1.15rem">${c.body}</p>`:""}${c.html}</div>`).join("")+
+    `<p style="font-size:.85rem">${t("numNote")}</p><p style="font-size:.85rem">${stdsHTML()}</p>`;
+}
+// make an add/subtract problem without touching the screen
+function newOpsData(){
+  const sub=Math.random()<.5, dp=settings.dp; let a,b;
+  if(dp===0){ const k=settings.grade===3?3:4; a=rnum(k,0); b=rnum(k-1,0); }
+  else{ a=rnum(ri(1,2),ri(0,dp)); b=rnum(ri(0,2),ri(1,dp)); }
+  if(sub && a.u<b.u) [a,b]=[b,a];
+  oS={a,b,sub};
+}
+
+// Keep standard codes like 4.2(A, B) left-to-right inside RTL text
+const stdsHTML = ()=>t("stds").replace(/[0-9][0-9A-Za-z.]*(?:\([A-Z, ]+\))?/g,m=>`<bdi dir="ltr">${m}</bdi>`);
+
+/* ---------- Language engine ---------- */
+function resolveLang(){
+  try{ const q=new URLSearchParams(location.search).get("lang"); if(q && T[q]) return q; }catch(e){}
+  try{ const s=localStorage.getItem(LANG_KEY); if(s && T[s]) return s; }catch(e){}
+  const n=(navigator.language||"en").slice(0,2).toLowerCase();
+  if(T[n]) return n;
+  return "en";
+}
+function applyLang(){
+  const meta=LANGS.find(x=>x.code===lang)||LANGS[0];
+  document.documentElement.lang=lang;
+  document.documentElement.dir=meta.dir;
+  document.title=t("appTitle");
+  const sel=$("#langSelect"); if(sel) sel.value=lang;
+  $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
+  $("#stdsNote").innerHTML=stdsHTML();
+  buildModeToggles();
+  // refresh dynamic content: current mode now, the others when they are next opened
+  resetRounds();
+}
+function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} stopSpeech(); applyLang(); }
+function buildLangSelect(){
+  const sel=$("#langSelect"); sel.innerHTML="";
+  LANGS.forEach(m=>{ const o=document.createElement("option"); o.value=m.code; o.textContent=m.name; sel.appendChild(o); });
+  sel.value=lang;
+  sel.addEventListener("change",()=>setLang(sel.value));
+}
+
+/* ---------- Init ---------- */
+function init(){
+  lang=resolveLang();
+  buildLangSelect();
+  $$(".tabs button").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.mode)));
+  $$(".speaker").forEach(b=>b.addEventListener("click",()=>speak(currentSpeech[b.dataset.speak])));
+  MODES.forEach(m=>$("#"+m+"New").addEventListener("click",()=>{ stopSpeech(); NEWFN[m](); }));
+  initSettings();
+  const f=firstMode();
+  $$(".tabs button").forEach(b=>{ b.setAttribute("aria-selected",b.dataset.mode===f?"true":"false"); b.classList.toggle("hidden",!modeOn(b.dataset.mode)); });
+  $$(".modepanel").forEach(p=>p.classList.toggle("hidden",p.id!=="mode-"+f));
+  applyLang();
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+</script>
+<script>
+/* Student mute toggle — shared across the Digital Math Tools. Self-contained,
+   offline, stores no student data. Gates ALL speech by intercepting
+   speechSynthesis.speak, so muting works regardless of each tool's internals.
+   Reads the shared language preference only to localize its own label. */
+(function(){
+  "use strict";
+  var LKEY='tcea.mathtools.lang', MKEY='tcea.mathtools.muted';
+  var CODES=['en','es','vi','ar','hi','ur','zh'];
+  var LAB={
+    mute:{en:"Mute sound",es:"Silenciar sonido",vi:"Tắt âm thanh",ar:"كتم الصوت",hi:"आवाज़ बंद करें",ur:"آواز بند کریں",zh:"静音"},
+    unmute:{en:"Turn sound on",es:"Activar sonido",vi:"Bật âm thanh",ar:"تشغيل الصوت",hi:"आवाज़ चालू करें",ur:"آواز چالو کریں",zh:"打开声音"}
+  };
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  window.__MT_MUTED = (get(MKEY)==='1');
+  // Intercept every speech request; suppress while muted.
+  try{
+    if(window.speechSynthesis && typeof window.speechSynthesis.speak==='function'){
+      var ss=window.speechSynthesis, orig=ss.speak.bind(ss);
+      ss.speak=function(u){ if(!window.__MT_MUTED){ try{orig(u);}catch(e){} } };
+    }
+  }catch(e){}
+  function curLang(){ var l=get(LKEY)||'en'; return LAB.mute[l]?l:'en'; }
+  function label(el){
+    var on=!window.__MT_MUTED, l=curLang(), txt=on?LAB.mute[l]:LAB.unmute[l];
+    el.textContent=on?'🔊':'🔇';
+    el.setAttribute('aria-label',txt); el.setAttribute('title',txt);
+    el.setAttribute('aria-pressed', on?'false':'true');
+  }
+  function findLangSelect(){
+    var sels=document.querySelectorAll('select');
+    for(var i=0;i<sels.length;i++){ var o=sels[i].options, c=0;
+      for(var j=0;j<o.length;j++){ if(CODES.indexOf((o[j].value||'').toLowerCase())>=0) c++; }
+      if(c>=3) return sels[i];
+    }
+    return null;
+  }
+  function build(){
+    if(document.getElementById('mtMuteBtn')) return;
+    if(!(('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window))) return;
+    var btn=document.createElement('button');
+    btn.id='mtMuteBtn'; btn.type='button';
+    btn.style.cssText='font:inherit;font-size:1.15rem;line-height:1;cursor:pointer;'+
+      'min-width:44px;min-height:44px;padding:8px 12px;border:2px solid #e2dcf1;'+
+      'border-radius:10px;background:#fff;color:#5b3fa5;font-weight:700;margin:0 4px;';
+    btn.addEventListener('click',function(){
+      window.__MT_MUTED=!window.__MT_MUTED;
+      set(MKEY, window.__MT_MUTED?'1':'0');
+      if(window.__MT_MUTED){ try{window.speechSynthesis.cancel();}catch(e){} }
+      label(btn);
+    });
+    btn.addEventListener('focus',function(){btn.style.outline='3px solid #5b3fa5';btn.style.outlineOffset='2px';});
+    btn.addEventListener('blur',function(){btn.style.outline='';});
+    var sel=findLangSelect();
+    if(sel && sel.parentNode){
+      sel.parentNode.insertBefore(btn, sel);
+      sel.addEventListener('change',function(){ setTimeout(function(){label(btn);},0); });
+    }else{
+      btn.style.position='fixed'; btn.style.top='10px'; btn.style.zIndex='9999';
+      btn.style[(document.documentElement.dir==='rtl')?'left':'right']='10px';
+      (document.body||document.documentElement).appendChild(btn);
+    }
+    label(btn);
+  }
+  if(document.readyState==='complete'){ build(); }
+  else{ window.addEventListener('load', build); }
+  window.addEventListener('storage',function(e){ if(e.key===LKEY){ var b=document.getElementById('mtMuteBtn'); if(b) label(b); } });
+})();
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+
+</html>

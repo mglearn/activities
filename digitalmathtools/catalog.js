@@ -103,7 +103,9 @@ window.MATHTOOLS = (function () {
     "Division":{en:"Division",es:"División",vi:"Phép chia",ar:"القسمة",hi:"भाग",ur:"تقسیم",zh:"除法"},
     "Angles":{en:"Angles",es:"Ángulos",vi:"Góc",ar:"الزوايا",hi:"कोण",ur:"زاویے",zh:"角"},
     "Lines & symmetry":{en:"Lines & symmetry",es:"Rectas y simetría",vi:"Đường thẳng và đối xứng",ar:"المستقيمات والتماثل",hi:"रेखाएँ और सममिति",ur:"خطوط اور تشاکل",zh:"线与对称"},
-    "Coordinate plane":{en:"Coordinate plane",es:"Plano de coordenadas",vi:"Mặt phẳng tọa độ",ar:"المستوى الإحداثي",hi:"निर्देशांक तल",ur:"محدداتی سطح",zh:"坐标平面"}
+    "Coordinate plane":{en:"Coordinate plane",es:"Plano de coordenadas",vi:"Mặt phẳng tọa độ",ar:"المستوى الإحداثي",hi:"निर्देशांक तल",ur:"محدداتی سطح",zh:"坐标平面"},
+    "Decimals":{en:"Decimals",es:"Decimales",vi:"Số thập phân",ar:"الكسور العشرية",hi:"दशमलव",ur:"اعشاریے",zh:"小数"},
+    "Rounding":{en:"Rounding",es:"Redondeo",vi:"Làm tròn",ar:"التقريب",hi:"पूर्णांकन",ur:"گول کرنا",zh:"取近似数"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -275,7 +277,19 @@ window.MATHTOOLS = (function () {
         ar:"صنّف الأشكال الرباعية والمثلثات، وتعرّف المستقيمات المتوازية والمتعامدة، واطوِ الأشكال لتجد محاور التماثل، وقِس الزوايا وارسمها بالمنقلة، وعيّن الأزواج المرتبة على المستوى الإحداثي.",
         hi:"चतुर्भुजों और त्रिभुजों का वर्गीकरण करें, समांतर और लंबवत रेखाएँ पहचानें, मोड़कर सममिति रेखाएँ खोजें, चाँदे से कोण मापें और बनाएँ, और निर्देशांक तल पर क्रमित युग्म अंकित करें।",
         ur:"چوکوروں اور مثلثوں کی درجہ بندی کریں، متوازی اور عمودی خطوط پہچانیں، موڑ کر تشاکل کے خط تلاش کریں، زاویہ پیما سے زاویے ناپیں اور بنائیں، اور محدداتی سطح پر مرتب جوڑے لگائیں۔",
-        zh:"给四边形和三角形分类，找出平行线和垂直线，折一折找对称轴，用量角器量角和画角，并在坐标平面上描出有序数对。"} }
+        zh:"给四边形和三角形分类，找出平行线和垂直线，折一折找对称轴，用量角器量角和画角，并在坐标平面上描出有序数对。"} },
+    { id:"decimal-dash", collection:"g35", bandId:"3-5", icon:"🏁", accent:"#d35400",
+      title:"Decimal Dash", href:"g35/decimal-dash/index.html",
+      tags:["Place value","Decimals","Compare","Rounding","Addition","Subtraction","Money"],
+      kw:"place value decimals tenths hundredths thousandths expanded form word form standard form value of a digit 10 times place value chart decimal grid shade money dimes pennies compare order greater less round rounding halfway number line estimate add subtract line up decimal point powers of 10 multiply divide by 10 100 1000 millions billion valor posicional decimales redondear 小数 位值",
+      desc:{
+        en:"Build and read numbers to the billions and decimals to thousandths in standard, expanded, and word form; shade tenths and hundredths grids and count money; compare and order; round on a number line; and add, subtract, and multiply or divide by powers of 10.",
+        es:"Forma y lee números hasta los miles de millones y decimales hasta los milésimos en forma estándar, desarrollada y en palabras; sombrea cuadrículas de décimos y centésimos y cuenta dinero; compara y ordena; redondea en la recta numérica; y suma, resta, multiplica y divide entre potencias de 10.",
+        vi:"Lập và đọc số đến hàng tỷ và số thập phân đến hàng phần nghìn ở dạng chuẩn, dạng khai triển và theo tên hàng; tô lưới phần mười, phần trăm và đếm tiền; so sánh và sắp xếp; làm tròn trên tia số; cộng, trừ và nhân, chia cho lũy thừa của 10.",
+        ar:"كوّن الأعداد حتى المليارات والكسور العشرية حتى الأجزاء من ألف واقرأها بالصيغة القياسية والموسّعة والكلامية؛ وظلّل شبكات الأجزاء من عشرة ومن مئة وعُدّ النقود؛ وقارن ورتّب؛ وقرّب على خط الأعداد؛ واجمع واطرح واضرب واقسم على قوى العدد 10.",
+        hi:"अरबों तक की संख्याएँ और सहस्रांश तक के दशमलव मानक, विस्तारित और शब्द रूप में बनाएँ और पढ़ें; दशांश और शतांश ग्रिड रंगें और पैसे गिनें; तुलना करें और क्रम में लगाएँ; संख्या रेखा पर पूर्णांकन करें; और जोड़ें, घटाएँ तथा 10 की घातों से गुणा-भाग करें।",
+        ur:"اربوں تک کے اعداد اور ہزارویں حصے تک کے اعشاریے معیاری، پھیلی ہوئی اور لفظی شکل میں بنائیں اور پڑھیں؛ دسویں اور سوویں حصوں کے گرڈ رنگیں اور پیسے گنیں؛ موازنہ اور ترتیب دیں؛ عددی لکیر پر گول کریں؛ اور جمع، تفریق اور 10 کی طاقتوں سے ضرب و تقسیم کریں۔",
+        zh:"在十亿以内的整数和千分位以内的小数中，用标准写法、展开式和读法拼数、读数；涂十分之一和百分之一方格、数钱；比较和排序；在数轴上取近似数；并做加减法以及乘除10的乘方。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
