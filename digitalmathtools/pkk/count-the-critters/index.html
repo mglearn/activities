@@ -430,6 +430,11 @@
     hi:["duck","sheep","cow","fish","starfish","bee","butterfly","ant","caterpillar"],
     ur:["duck","sheep","cow","fish","starfish","bee","butterfly","ant","caterpillar"]
   };
+  // Oblique plurals for Hindi/Urdu, needed before the postposition को / کو (e.g. गायें → गायों को)
+  var ITEMWORDS_OBL = {
+    hi:{chick:"चूज़ों", duck:"बत्तखों", sheep:"भेड़ों", cow:"गायों", bunny:"खरगोशों", fish:"मछलियों", crab:"केकड़ों", octopus:"ऑक्टोपसों", turtle:"कछुओं", starfish:"तारामछलियों", ladybug:"गुबरैलों", bee:"मधुमक्खियों", butterfly:"तितलियों", ant:"चींटियों", caterpillar:"इल्लियों", lion:"शेरों", elephant:"हाथियों", monkey:"बंदरों", giraffe:"जिराफ़ों", penguin:"पेंगुइनों", egg:"अंडों", babydino:"बेबी डायनासोरों", crayon:"क्रेयॉनों", star:"तारों"},
+    ur:{chick:"چوزوں", duck:"بطخوں", sheep:"بھیڑوں", cow:"گایوں", bunny:"خرگوشوں", fish:"مچھلیوں", crab:"کیکڑوں", octopus:"آکٹوپسوں", turtle:"کچھوؤں", starfish:"ستارہ مچھلیوں", ladybug:"لیڈی برڈز", bee:"شہد کی مکھیوں", butterfly:"تتلیوں", ant:"چیونٹیوں", caterpillar:"سنڈیوں", lion:"شیروں", elephant:"ہاتھیوں", monkey:"بندروں", giraffe:"زرافوں", penguin:"پینگوئنوں", egg:"انڈوں", babydino:"ننھے ڈائناسوروں", crayon:"کریونوں", star:"ستاروں"}
+  };
   var THEMENAMES = {
     en:{farm:"Farm animals", sea:"Sea animals", insects:"Insects", zoo:"Wild animals", dinosaurs:"Dinosaurs", classroom:"Classroom objects", seasonal:"Seasonal"},
     es:{farm:"Animales de granja", sea:"Animales marinos", insects:"Insectos", zoo:"Animales salvajes", dinosaurs:"Dinosaurios", classroom:"Objetos del aula", seasonal:"De temporada"},
@@ -656,8 +661,8 @@
       dir_howmany_f:"कितनी {items} हैं? हर एक को छुओ, फिर संख्या चुनो।",
       fb_howmany_ok:"हाँ! तुमने {w} गिने। आख़िरी संख्या बताती है कि कितने हैं।",
       fb_howmany_hint:"हर एक को एक बार छूएँ, फिर दोबारा गिनो। दूसरी संख्या आज़माओ।",
-      dir_quick:"झटपट देखो! {items} को देखो, फिर चुनो तुमने कितने देखे।",
-      dir_quick_f:"झटपट देखो! {items} को देखो, फिर चुनो तुमने कितनी देखीं।",
+      dir_quick:"झटपट देखो! {itemsObl} को देखो, फिर चुनो तुमने कितने देखे।",
+      dir_quick_f:"झटपट देखो! {itemsObl} को देखो, फिर चुनो तुमने कितनी देखीं।",
       fb_quick_ok:"बहुत बढ़िया! तुमने एक झलक में {w} देखे।",
       fb_quick_hint:"फिर से देखें और ध्यान से गिनें। झलक के लिए मुझे दिखाओ दबाओ।",
       dir_cmp_same:"क्या दोनों समूहों में समान संख्या है? अगर बराबर हैं, तो बराबर दबाओ!",
@@ -703,8 +708,8 @@
       dir_howmany_f:"کتنی {items} ہیں؟ ہر ایک کو چھوئیں، پھر نمبر چنیں۔",
       fb_howmany_ok:"جی ہاں! تم نے {w} گنے۔ آخری عدد بتاتا ہے کہ کتنے ہیں۔",
       fb_howmany_hint:"ہر ایک کو ایک بار چھوئیں، پھر دوبارہ گنیں۔ دوسرا نمبر آزمائیں۔",
-      dir_quick:"جھٹ سے دیکھیں! {items} کو دیکھیں، پھر چنیں کتنے دیکھے۔",
-      dir_quick_f:"جھٹ سے دیکھیں! {items} کو دیکھیں، پھر چنیں کتنی دیکھیں۔",
+      dir_quick:"جھٹ سے دیکھیں! {itemsObl} کو دیکھیں، پھر چنیں کتنے دیکھے۔",
+      dir_quick_f:"جھٹ سے دیکھیں! {itemsObl} کو دیکھیں، پھر چنیں کتنی دیکھیں۔",
       fb_quick_ok:"بہت خوب! تم نے ایک نظر میں {w} دیکھے۔",
       fb_quick_hint:"دوبارہ دیکھیں اور غور سے گنیں۔ جھلک کے لیے مجھے دکھائیں دبائیں۔",
       dir_cmp_same:"کیا دونوں گروپوں میں برابر تعداد ہے؟ اگر برابر ہیں تو برابر دبائیں!",
@@ -796,6 +801,7 @@
     return (a[n]!=null) ? a[n] : String(n);
   }
   function itemWord(){ var k=curKind(); return (ITEMWORDS[lang]||ITEMWORDS.en)[k] || ITEMWORDS.en[k]; }
+  function itemWordObl(){ var o=ITEMWORDS_OBL[lang]; return (o && o[curKind()]) || itemWord(); }
   // Use the feminine "_f" variant of a direction when the round's item word needs it (es/hi/ur).
   function gk(key){ var f=FEM[lang]; return (f && f.indexOf(curKind())!==-1 && T[lang][key+"_f"]) ? key+"_f" : key; }
   function themeName(id){ return (THEMENAMES[lang]||THEMENAMES.en)[id]; }
@@ -1183,7 +1189,7 @@
   /* ================= MODE 3: QUICK LOOK ================= */
   function renderQuick(){
     var n=roundState.n;
-    setDirection(t(gk("dir_quick"),{items:itemWord()}));
+    setDirection(t(gk("dir_quick"),{items:itemWord(), itemsObl:itemWordObl()}));
     var flash=el("div","flashbox"); stage.appendChild(flash);
     var inner=el("div"); inner.style.width="100%";
     if(roundState.organized){ if(roundState.useTen) renderTenFrame(inner,n,false); else renderLine(inner,n,false); }
