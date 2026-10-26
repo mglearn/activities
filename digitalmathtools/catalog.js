@@ -156,7 +156,9 @@ window.MATHTOOLS = (function () {
     "Factoring":{en:"Factoring",es:"Factorización",vi:"Phân tích nhân tử",ar:"التحليل إلى عوامل",hi:"गुणनखंडन",ur:"تجزی",zh:"因式分解"},
     "Exponential functions":{en:"Exponential functions",es:"Funciones exponenciales",vi:"Hàm số mũ",ar:"الدوال الأسية",hi:"घातीय फलन",ur:"قوت نمائی فنکشنز",zh:"指数函数"},
     "Logarithms":{en:"Logarithms",es:"Logaritmos",vi:"Lôgarit",ar:"اللوغاريتمات",hi:"लघुगणक",ur:"لوگارتھم",zh:"对数"},
-    "Systems":{en:"Systems",es:"Sistemas",vi:"Hệ phương trình",ar:"أنظمة المعادلات",hi:"समीकरण निकाय",ur:"مساوات کے نظام",zh:"方程组"}
+    "Systems":{en:"Systems",es:"Sistemas",vi:"Hệ phương trình",ar:"أنظمة المعادلات",hi:"समीकरण निकाय",ur:"مساوات کے نظام",zh:"方程组"},
+    "Statistics":{en:"Statistics",es:"Estadística",vi:"Thống kê",ar:"الإحصاء",hi:"सांख्यिकी",ur:"شماریات",zh:"统计"},
+    "Probability":{en:"Probability",es:"Probabilidad",vi:"Xác suất",ar:"الاحتمال",hi:"प्रायिकता",ur:"احتمال",zh:"概率"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -436,7 +438,19 @@ window.MATHTOOLS = (function () {
         ar:"حوّل بين صيغة الميل والمقطع وصيغة النقطة والميل والصيغة القياسية، ومثّل أنظمة المعادلات بيانيًا وجِد نقطة التقاطع، وحُلّ خطوة بخطوة بالتعويض والحذف، ومثّل المتباينات الخطية باستخدام نقاط الاختبار، ونمذج المسائل اللفظية بأنظمة المعادلات.",
         hi:"ढलान-अंतःखंड, बिंदु-ढलान और मानक रूप के बीच बदलें, समीकरण निकायों का आलेख बनाकर प्रतिच्छेद बिंदु खोजें, प्रतिस्थापन और विलोपन से चरण-दर-चरण हल करें, परीक्षण बिंदुओं से रैखिक असमिकाओं का आलेख बनाएँ, और शब्द-समस्याओं को समीकरण निकायों से मॉडल करें।",
         ur:"ڈھلان-مقطع، نقطہ-ڈھلان اور معیاری شکل کے درمیان تبدیل کریں، مساوات کے نظاموں کا گراف بنا کر نقطۂ تقاطع تلاش کریں، تعویض اور اخراج سے مرحلہ وار حل کریں، آزمائشی نقاط سے خطی عدم مساوات کا گراف بنائیں، اور لفظی سوالات کو نظاموں سے ماڈل کریں۔",
-        zh:"在斜截式、点斜式和一般式之间转换，用图像法解方程组并找出交点，用代入消元法和加减消元法逐步求解，借助测试点画出线性不等式的图像，并用方程组为应用题建模。"} }
+        zh:"在斜截式、点斜式和一般式之间转换，用图像法解方程组并找出交点，用代入消元法和加减消元法逐步求解，借助测试点画出线性不等式的图像，并用方程组为应用题建模。"} },
+    { id:"data-chance-lab", collection:"g912", bandId:"9-12", icon:"🎲", accent:"#d35400",
+      title:"Data & Chance Lab", href:"g912/data-chance-lab/index.html",
+      tags:["Data","Statistics","Probability","Line plot","Compare","Percent"],
+      kw:"statistics probability mean median mode range IQR interquartile MAD standard deviation dot plot histogram box plot skew outlier compare groups scatter plot line of fit least squares regression residual correlation coefficient r causation interpolation extrapolation sample space tree diagram simulation experimental theoretical independent dependent addition rule complement two-way table relative frequency conditional probability estadística probabilidad media mediana 统计 概率",
+      desc:{
+        en:"Build dot plots, histograms and box plots from generated data; find center and spread; compare groups; fit lines to scatter plots and interpret r and residuals; run probability simulations and tree diagrams; and read two-way tables for conditional probability and independence.",
+        es:"Construye diagramas de puntos, histogramas y diagramas de caja con datos generados; halla el centro y la dispersión; compara grupos; ajusta rectas a diagramas de dispersión e interpreta r y los residuos; realiza simulaciones de probabilidad y diagramas de árbol; y lee tablas de doble entrada para la probabilidad condicional y la independencia.",
+        vi:"Dựng biểu đồ chấm, biểu đồ tần số và biểu đồ hộp từ dữ liệu được tạo; tìm số đo trung tâm và độ phân tán; so sánh các nhóm; vẽ đường phù hợp cho biểu đồ phân tán và giải thích r và phần dư; chạy mô phỏng xác suất và sơ đồ cây; và đọc bảng hai chiều để tìm xác suất có điều kiện và tính độc lập.",
+        ar:"أنشئ تمثيلات بالنقاط ومدرجات تكرارية ومخططات صندوق من بيانات مولَّدة؛ وأوجد مقاييس النزعة المركزية والتشتت؛ وقارن بين المجموعات؛ وارسم خط الملاءمة لمخططات الانتشار وفسّر r والبواقي؛ وأجرِ محاكاة احتمالية ومخططات شجرية؛ واقرأ الجداول ذات الاتجاهين لإيجاد الاحتمال الشرطي واختبار الاستقلال.",
+        hi:"उत्पन्न आँकड़ों से डॉट प्लॉट, आयतचित्र और बॉक्स प्लॉट बनाएँ; केंद्र और फैलाव ज्ञात करें; समूहों की तुलना करें; प्रकीर्ण आरेख पर सर्वोत्तम-अनुरूप रेखा खींचें और r व अवशेषों की व्याख्या करें; प्रायिकता अनुकरण और वृक्ष आरेख चलाएँ; तथा सप्रतिबंध प्रायिकता और स्वतंत्रता के लिए द्वि-मार्गी तालिकाएँ पढ़ें।",
+        ur:"تیار کردہ ڈیٹا سے ڈاٹ پلاٹ، ہسٹوگرام اور باکس پلاٹ بنائیں؛ مرکز اور پھیلاؤ معلوم کریں؛ گروہوں کا موازنہ کریں؛ اسکیٹر پلاٹ پر موزوں ترین لکیر کھینچیں اور r اور باقیات کی تشریح کریں؛ احتمال کی نقالی اور درختی خاکے چلائیں؛ اور مشروط احتمال اور آزادی کے لیے دو طرفہ جدول پڑھیں۔",
+        zh:"用生成的数据绘制点图、直方图和箱线图；求集中趋势和离散程度；比较两组数据；为散点图拟合直线并解释 r 和残差；进行概率模拟并画树状图；阅读双向表以求条件概率并判断独立性。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
