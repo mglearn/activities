@@ -1,0 +1,2017 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Slope &amp; Function Grapher — a Grades 6–8 app for linear relationships: tables and graphs, slope, y = mx + b, functions, and comparing lines. Works offline. No data collected.">
+<title>Slope &amp; Function Grapher</title>
+<style>
+  :root{
+    --bg:#eef4f9;--panel:#ffffff;--ink:#14212d;--muted:#46576a;--line:#c6d7e6;
+    --accent:#2980b9;--accentD:#1f618d;--accent-ink:#ffffff;--good:#166534;--good-bg:#dcfce7;
+    --hint:#7a4a00;--hint-bg:#fff4d6;--focus:#0a58ca;--tgt:#d35400;--l2:#8e44ad;
+    --tap:48px;font-size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4;-webkit-text-size-adjust:100%}
+  h1,h2,h3{line-height:1.15;margin:0 0 .3em}
+  button{font-family:inherit;font-size:1rem;cursor:pointer}
+  button:disabled{cursor:default}
+
+  .topbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--accentD);color:var(--accent-ink);padding:.55rem .8rem}
+  .topbar .brand{font-weight:800;font-size:1.2rem;display:flex;align-items:center;gap:.4rem;margin-inline-end:auto}
+  .topbar a.homebtn,.topbar button.tb{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.4rem .7rem;min-height:var(--tap);min-width:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;font-weight:700;font-size:.95rem}
+  .globe{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.2rem .5rem;min-height:var(--tap)}
+  .globe span{font-size:1.2rem}
+  .globe select{border:0;background:#fff;color:var(--ink);border-radius:8px;min-height:44px;font-weight:700;font-size:1rem;padding:.2rem .4rem}
+
+  main{max-width:1200px;margin:0 auto;padding:.7rem}
+  .tabsrow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:.4rem 0 .7rem}
+  .tabs{display:flex;gap:.4rem;flex-wrap:wrap;flex:1 1 auto}
+  .tabs button{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:.45rem .75rem;min-height:var(--tap);font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .tabs button[aria-selected="true"]{background:var(--accentD);color:#fff;border-color:var(--accentD)}
+  .tabs button .ic{font-size:1.15rem}
+  .stars{background:#fff;border:2px solid var(--line);border-radius:14px;padding:.4rem .8rem;font-weight:800;font-size:1.1rem;min-height:48px;display:inline-flex;align-items:center;gap:.3rem}
+  .stars.pop{animation:pop .5s ease}
+  @keyframes pop{50%{transform:scale(1.15)}}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  .panel{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:.9rem;margin-bottom:.8rem}
+  .panelhead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+  .panelhead h2{margin:0;font-size:1.25rem;margin-inline-end:auto}
+
+  .prompt{display:flex;align-items:center;gap:.6rem;background:#eaf3fa;border:2px solid #b9d5ea;border-radius:14px;padding:.6rem .8rem;margin-bottom:.7rem;font-size:1.08rem;font-weight:600;line-height:1.75}
+  .speaker{background:var(--accentD);color:#fff;border:0;border-radius:50%;width:var(--tap);height:var(--tap);min-width:var(--tap);font-size:1.3rem;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+
+  .btn{background:var(--accentD);color:#fff;border:2px solid var(--accentD);border-radius:12px;padding:.5rem .85rem;min-height:var(--tap);font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:.3rem}
+  .btn.ghost{background:var(--panel);color:var(--accentD)}
+  .btn.sq{min-width:var(--tap);font-size:1.3rem;padding:.2rem .6rem}
+  .btn:disabled{opacity:.45}
+
+  .feedback{margin-top:.6rem;border-radius:12px;padding:.6rem .8rem;font-weight:600;display:none;line-height:1.8}
+  .feedback.show{display:block}
+  .feedback.good{background:var(--good-bg);color:var(--good);border:2px solid #86efac}
+  .feedback.hint{background:var(--hint-bg);color:var(--hint);border:2px solid #f6d271}
+
+  /* Math: always left-to-right, even inside Arabic/Urdu sentences */
+  .math{unicode-bidi:isolate;direction:ltr;display:inline;font-weight:800;white-space:nowrap}
+  .math i{font-family:Georgia,'Times New Roman',serif;font-weight:700}
+  .fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.05;font-weight:800;margin:0 .08em;white-space:nowrap;font-size:.9em}
+  .fr>span{padding:0 .16em}
+  .fr>span:first-child{border-bottom:.12em solid currentColor}
+
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem;margin-top:.7rem}
+  .choices:empty{display:none}
+  .choice{background:var(--panel);border:3px solid var(--line);border-radius:16px;padding:.5rem;min-height:64px;display:flex;align-items:center;justify-content:center;position:relative;font-size:1.25rem;font-weight:800;color:var(--ink)}
+  .choice .lbl{unicode-bidi:isolate;direction:ltr}
+  .choice.txt{font-size:1.05rem}
+  .choice.txt .lbl{direction:inherit}
+  .choice.correctpick{border-color:var(--good);background:var(--good-bg)}
+  .choice.wrongpick{border-color:#e3b341;background:var(--hint-bg);opacity:.75}
+  .choice .badge{position:absolute;top:4px;inset-inline-end:6px;font-size:1rem;display:none}
+  .choice.correctpick .badge{display:block}
+
+  .work:empty{display:none}
+  .split{display:grid;grid-template-columns:minmax(0,1fr);gap:.7rem;align-items:start}
+  @media (min-width:820px){ .split{grid-template-columns:minmax(0,1fr) minmax(0,440px)} }
+  .side{display:flex;flex-direction:column;gap:.6rem;align-items:center;min-width:0}
+  .pwrap{width:100%;max-width:440px;margin:0 auto}
+  .plane{width:100%;height:auto;display:block;touch-action:none;background:#fff;border:2px solid var(--line);border-radius:12px}
+  .plane[tabindex]{cursor:crosshair}
+  .plane:focus{outline:none}
+  .plane:focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  .gl{stroke:#dde8f2;stroke-width:1}
+  .ax{stroke:#1b2a38;stroke-width:2.2}
+  .tl{font:600 14px system-ui,sans-serif;fill:#4a5a6a}
+  .axn{font:italic 700 18px Georgia,serif;fill:#1b2a38}
+  .ln{stroke:var(--accent);stroke-width:4;stroke-linecap:round}
+  .ln.tg{stroke:var(--tgt);stroke-dasharray:12 8;stroke-width:3.5}
+  .ln.l2{stroke:var(--l2)}
+  .ln.fit{stroke:#16a34a;stroke-dasharray:8 6;stroke-width:3}
+  .lnl{font:800 17px system-ui,sans-serif;fill:var(--accentD);paint-order:stroke;stroke:#fff;stroke-width:4}
+  .lnl.l2{fill:var(--l2)}
+  .pt{fill:var(--accent);stroke:#fff;stroke-width:2.5}
+  .pt.bad{fill:#e3a008}
+  .pt.ok{fill:#16a34a}
+  .pt.hit{fill:#c0392b}
+  .pt.dr{fill:#c0392b;stroke:#fff;stroke-width:3}
+  .pt.dr.sel{stroke:#14212d;stroke-width:4}
+  .ptl{font:800 16px system-ui,sans-serif;fill:#14212d;paint-order:stroke;stroke:#fff;stroke-width:4}
+  .tri{fill:rgba(22,163,74,.10);stroke:#16a34a;stroke-width:3;stroke-dasharray:7 5}
+  .tri.t2{fill:rgba(142,68,173,.10);stroke:var(--l2)}
+  .trit{font:800 16px system-ui,sans-serif;fill:#166534;paint-order:stroke;stroke:#fff;stroke-width:4}
+  .trit.t2{fill:#6c3483}
+  .scan{stroke:#c0392b;stroke-width:3;stroke-dasharray:6 5}
+  .cur{fill:none;stroke:var(--focus);stroke-width:3;display:none}
+  .plane:focus-visible .cur{display:inline}
+
+  table.io{border-collapse:collapse;margin:.2rem auto;font-weight:800;font-size:1.15rem;direction:ltr}
+  table.io th,table.io td{border:2px solid #9fbcd6;padding:.35rem .55rem;min-width:2.6rem;text-align:center}
+  table.io th{background:#eaf3fa;font-family:Georgia,serif;font-style:italic}
+  table.io td.blank{background:#fff8e1;color:#b45309}
+  table.io td.act{outline:3px solid var(--tgt);outline-offset:-3px}
+  table.io td.done{background:var(--good-bg);color:var(--good)}
+  .rule{background:#f5f9fc;border:2px dashed #b9d5ea;border-radius:12px;padding:.45rem .7rem;text-align:center;font-weight:700;line-height:1.8}
+  .big{font-size:1.5rem;text-align:center;margin:.2rem 0}
+  .readout{font-weight:700;text-align:center;line-height:1.9;min-height:2em}
+  .acts{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:center;margin:.5rem 0}
+  .acts:empty{display:none}
+  .ctl{display:flex;align-items:center;gap:.4rem;justify-content:center;flex-wrap:wrap}
+  .ctl .clab{font-weight:800;min-width:7.5rem;text-align:center}
+  .ctl output{min-width:3.4rem;text-align:center;font-size:1.3rem;font-weight:800}
+  .legend{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;font-weight:700}
+  .legend .sw{display:inline-block;width:26px;height:5px;border-radius:3px;vertical-align:middle;margin-inline-end:.3rem;background:var(--accent)}
+  .legend .sw.tg{background:repeating-linear-gradient(90deg,var(--tgt) 0 8px,transparent 8px 13px)}
+  .legend .sw.l2{background:var(--l2)}
+  .fnbox{border:2px solid var(--line);border-radius:12px;padding:.5rem;width:100%}
+  .fnbox h3{font-size:1.05rem;text-align:center}
+  .mapsvg{width:min(100%,340px);height:auto;display:block;margin:0 auto}
+  .mapsvg text{font:800 18px system-ui,sans-serif;fill:#14212d}
+  .mapsvg .hd{font:700 15px system-ui,sans-serif;fill:#46576a}
+  .pairs{font-size:1.25rem;text-align:center;line-height:1.8}
+  .pairs .math{white-space:normal}
+  .pairs .pr{white-space:nowrap}
+
+  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
+  .drawer.open{display:flex}
+  .drawer .card{background:var(--panel);border-radius:16px;max-width:600px;width:100%;padding:1rem;max-height:90vh;overflow:auto}
+  .setrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+  .setrow .lab{font-weight:700;min-width:150px}
+  .toggle{display:inline-flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:10px;padding:.35rem .55rem;background:#fff;min-height:44px}
+  .toggle input{width:22px;height:22px}
+  select.diff{font-size:1rem;padding:.4rem;border-radius:10px;border:2px solid var(--line);min-height:48px}
+  .wrapflex{display:flex;flex-wrap:wrap;gap:.4rem}
+
+  footer{max-width:1200px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+  footer a{color:var(--accentD);font-weight:700}
+  .stds{font-size:.82rem;color:var(--muted);background:#f5f9fc;border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  .hidden{display:none !important}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  @media (max-width:480px){ :root{font-size:16.5px} main{padding:.5rem} .panel{padding:.6rem} .tabs button{padding:.4rem .5rem;font-size:.9rem} table.io{font-size:1rem} table.io th,table.io td{padding:.3rem .35rem;min-width:2.1rem} .ctl .clab{min-width:0;flex:1 1 100%} }
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+  .printonly{display:none}
+  @media print{
+    .topbar,.tabsrow,footer,.modepanel,#stdsNote,.no-print,#mtMuteBtn{display:none !important}
+    body{background:#fff}
+    .printonly{display:block}
+    .card-print{border:2px solid #000;border-radius:12px;padding:1rem;margin:0 0 1rem;page-break-inside:avoid}
+    .card-print h2{margin:.2rem 0}
+    .card-print svg.plane{max-width:260px;border:1px solid #000}
+    main{max-width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">📈 <span data-t="appTitle">Slope &amp; Function Grapher</span></span>
+  <a class="homebtn" href="../../index.html">🏠 <span data-t="home">Home</span></a>
+  <label class="globe"><span aria-hidden="true">🌐</span>
+    <select id="langSelect" aria-label="Language / Idioma"></select>
+  </label>
+  <button class="tb settingsbtn" id="openSettings" type="button">⚙️ <span data-t="teacher">Teacher</span></button>
+</header>
+
+<main>
+  <div class="tabsrow">
+    <div class="tabs" id="tabs" role="tablist" data-ta="modesLbl" aria-label="Modes"></div>
+    <span class="stars" id="stars"><span aria-hidden="true">✔</span><span class="sr" data-t="stars">Correct answers</span> <b id="starCount">0</b></span>
+  </div>
+  <div id="panels"></div>
+  <div class="stds" id="stdsNote"></div>
+  <div class="printonly" id="printArea"></div>
+</main>
+
+<footer>
+  <p data-t="footNote">No accounts · No data collected · Works offline</p>
+  <p><a href="../../index.html" data-t="home">Home</a> · <a href="../../policy.html" data-t="privacy">Privacy</a></p>
+</footer>
+
+<!-- SETTINGS -->
+<div class="drawer" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <div class="panelhead"><h2 id="setTitle" data-t="teacherTitle">Teacher settings</h2>
+      <button class="btn ghost" id="closeSettings" type="button" data-t="close">Close</button></div>
+    <div class="setrow"><label class="lab" for="setGrade" data-t="setGrade">Grade level</label>
+      <select class="diff" id="setGrade">
+        <option value="6" data-t="g6">Grade 6</option>
+        <option value="7" data-t="g7">Grade 7</option>
+        <option value="8" data-t="g8">Grade 8</option></select>
+      <p class="stds" style="margin:0;flex:1 1 100%" data-t="gradeNote"></p></div>
+    <div class="setrow"><label class="lab" for="setRange" data-t="setRange">Grid size</label>
+      <select class="diff" id="setRange">
+        <option value="6">−6 … 6</option>
+        <option value="8">−8 … 8</option>
+        <option value="10">−10 … 10</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setNums">Numbers</span>
+      <label class="toggle"><input type="checkbox" id="setNeg"> <span data-t="negOn">Negative slopes and intercepts</span></label>
+      <label class="toggle"><input type="checkbox" id="setFrac"> <span data-t="fracOn">Fraction slopes</span></label></div>
+    <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
+      <div id="modeToggles" class="wrapflex"></div></div>
+    <div class="setrow"><span class="lab" data-t="setSpeech">Speech</span>
+      <label class="toggle"><input type="checkbox" id="setAuto"> <span data-t="autoRead">Auto-read directions</span></label></div>
+    <div class="setrow" style="border:0"><button class="btn" id="printCards" type="button">🖨 <span data-t="printCards">Print challenge cards</span></button></div>
+    <p class="stds" data-t="setStored">Settings are saved only on this device. No student information is ever stored.</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   Slope & Function Grapher — single-file Grades 6–8 linear relationships app.
+   7 languages. No frameworks, no network, no data collection.
+   ========================================================================= */
+
+/* ---------- Language metadata ---------- */
+const LANGS = [
+  {code:"en", name:"English",     dir:"ltr", bcp:"en-US"},
+  {code:"es", name:"Español",     dir:"ltr", bcp:"es-ES"},
+  {code:"vi", name:"Tiếng Việt",  dir:"ltr", bcp:"vi-VN"},
+  {code:"ar", name:"العربية",     dir:"rtl", bcp:"ar-SA"},
+  {code:"hi", name:"हिन्दी",       dir:"ltr", bcp:"hi-IN"},
+  {code:"ur", name:"اردو",        dir:"rtl", bcp:"ur-PK"},
+  {code:"zh", name:"中文",         dir:"ltr", bcp:"zh-CN"}
+];
+const LANG_KEY = "tcea.mathtools.lang";
+
+/* ---------- Translations ---------- */
+const T = {
+  en:{
+    appTitle:"Slope & Function Grapher", home:"Home", privacy:"Privacy", teacher:"Teacher", modesLbl:"Modes", stars:"Correct answers",
+    newRound:"New round", readAloud:"Read aloud", check:"Check", clear:"Clear", choicesLbl:"Answer choices",
+    footNote:"No accounts · No data collected · Works offline",
+    mTables:"Tables & Graphs", mSlope:"Slope Explorer", mBuild:"y = mx + b Builder", mFunc:"Function or Not?", mCompare:"Compare & Intersect",
+    teacherTitle:"Teacher settings", close:"Close", setGrade:"Grade level", g6:"Grade 6", g7:"Grade 7", g8:"Grade 8",
+    gradeNote:"Grade 6: tables, rules and graphing points. Grade 7: proportional relationships y = kx with positive whole-number rates. Grade 8: slope, y = mx + b, functions and systems. Choosing a grade resets the options below.",
+    setRange:"Grid size", setNums:"Numbers", negOn:"Negative slopes and intercepts", fracOn:"Fraction slopes",
+    setModes:"Modes", setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
+    setStored:"Settings are saved only on this device. No student information is ever stored.",
+    neg:"negative {n}", frSay:"{n} over {d}", ptSay:"{x} comma {y}", wPlus:"plus", wMinus:"minus", wTimes:"times", wEq:"equals",
+    undef:"undefined", yes:"Yes!", youPicked:"You picked {x}.",
+    planeLbl:"Coordinate plane", kbTap:"Coordinate plane. Arrow keys move the cursor; Enter places or removes a point.",
+    kbDrag:"Coordinate plane. Arrow keys move the red point; Space switches to the other point.",
+    kbScan:"Coordinate plane. Left and right arrow keys slide the vertical line.",
+    ruleLbl:"Rule", inp:"Input", out:"Output",
+    ruleAdd:"Add {b} to x.", ruleSub:"Subtract {b} from x.", ruleMul:"Multiply x by {m}.", ruleLin:"Multiply x by {m}, then add {b}.", ruleLinS:"Multiply x by {m}, then subtract {b}.",
+    fillDir:"Use the rule to fill in the table. What is y when x = {x}?",
+    hintFill:"Substitute x = {x} into the rule: {calc}.",
+    goodFill:"Right: {calc}.",
+    plotDir:"Now plot every point (x, y) from the table. Tap the grid to place a point; tap it again to remove it. Then press Check.",
+    hintSwap:"You plotted {p}, but the table has {q}. The x-coordinate comes first: move across first, then up or down.",
+    hintOff:"{p} is not in the table. Start at the origin, move x units across, then y units up or down.",
+    hintMissing:"The table has {n} points. You have plotted {k} of them correctly. Plot the rest.",
+    goodPlot:"Yes! All {n} points match the table, and they line up on a straight line: {eq}.",
+    readDir:"What are the coordinates of point P?",
+    hintRead:"P lines up with {x} on the x-axis and {y} on the y-axis. Write the x-coordinate first: (x, y).",
+    hintReadSwap:"Close — those are reversed. The x-coordinate (across) comes first, then the y-coordinate (up or down).",
+    goodRead:"Yes! P is {x} across and {y} up or down, so P = {p}.",
+    eqDir:"Which equation matches every column of the table?",
+    hintEqT:"Test it with x = {x}: {calc}, but the table says y = {y}. An equation must work for every column.",
+    goodEqT:"Yes! {eq} works for every column. For example, x = {x}: {calc}.",
+    rise:"rise", run:"run", slopeW:"slope", intW:"y-intercept",
+    makeDir:"Drag the two red points to make a line with slope {m}. Then press Check.",
+    makeDir0:"Drag the two red points to make a line with slope 0. Then press Check.",
+    makeDirU:"Drag the two red points to make a line whose slope is undefined. Then press Check.",
+    readout:"rise {r} ÷ run {u} = slope {m}", readoutU:"run is 0, so the slope is undefined", readoutSame:"The two points are on top of each other.",
+    hintSame:"The two points must be different to make a line.",
+    hintMake:"Your slope is {c}. For a slope of {m}, start at the left point and go {u} to the right, then {r} up.",
+    hintMakeN:"Your slope is {c}. For a slope of {m}, start at the left point and go {u} to the right, then {r} down.",
+    hintMake0:"A slope of 0 means no rise: make a horizontal line, with both points at the same height.",
+    hintMakeU:"An undefined slope means the run is 0: make a vertical line, with one point straight above the other.",
+    goodMake:"Yes! rise {r} ÷ run {u} = {m}.", goodMake0:"Yes! The rise is 0, so the slope is 0: a horizontal line.", goodMakeU:"Yes! The run is 0 and you cannot divide by 0, so the slope is undefined: a vertical line.",
+    findDir:"What is the slope of the line through A and B?", showTri:"Show slope triangle", hideTri:"Hide slope triangle",
+    findTDir:"What is the slope (rate of change) of the function in the table?",
+    findPDir:"What is the slope of the line through {a} and {b}?",
+    hintFind:"Go from the left point to the right point. Run = {u} across; rise = {r} (up is positive, down is negative). Slope = rise ÷ run.",
+    hintRecip:"That is run ÷ rise. Slope is rise ÷ run: the change in y over the change in x.",
+    hintSign:"Read the line from left to right. It goes {dir}, so the slope is {sgn}.",
+    hintFindT:"Pick two columns. y changes by {dy} while x changes by {dx}, so the slope is {dy} ÷ {dx}.",
+    hintFindP:"Slope = change in y ÷ change in x = ({y2} − {y1}) ÷ ({x2} − {x1}) = {dy} ÷ {dx}.",
+    goodFind:"Yes! rise {r} ÷ run {u} = {m}.", goodFindT:"Yes! change in y ÷ change in x = {dy} ÷ {dx} = {m}.",
+    dirUp:"up", dirDown:"down", sgnPos:"positive", sgnNeg:"negative",
+    kindDir:"Is the slope of this line positive, negative, zero, or undefined?",
+    kPos:"Positive", kNeg:"Negative", kZero:"Zero", kUndef:"Undefined",
+    whyPos:"From left to right the line goes up, so the slope is positive.", whyNeg:"From left to right the line goes down, so the slope is negative.",
+    whyZero:"The line is horizontal: the rise is 0, so the slope is 0.", whyUndef:"The line is vertical: the run is 0, and dividing by 0 is undefined.",
+    simDir:"Both slope triangles sit on the same line. The small one has rise {r} and run {u}. The large one has run {U}. What is its rise?",
+    hintSim:"The triangles are similar. The large one is {k} times as wide, so it must be {k} times as tall: rise ÷ run stays {m}.",
+    goodSim:"Yes! {r} ÷ {u} = {R} ÷ {U} = {m}. Similar slope triangles on one line always give the same slope.",
+    slopeM:"slope m", interB:"y-intercept b", constK:"constant k", lessM:"Smaller slope", moreM:"Larger slope", lessB:"Move the line down", moreB:"Move the line up",
+    lessK:"Smaller k", moreK:"Larger k",
+    bGraphDir:"Use the buttons to build the line that matches the dashed orange line. Then press Check.",
+    bTableDir:"Use the buttons to build the line that matches this table. Then press Check.",
+    bWordDir:"Build this line: it crosses the y-axis at {b} and goes {r} {dir} for every {u} to the right. Then press Check.",
+    bWordDirK:"Build this line: y is always {k} times x. Then press Check.",
+    yourLine:"Your line", targetLine:"Target",
+    hintBSlope:"Check the steepness. Your slope is {c}, but the target changes by {r} in y for every {u} across.",
+    hintBInt:"The slope is right. Now check where the line crosses the y-axis: when x = 0, y should be {b}, not {c}.",
+    goodBuild:"Yes! {eq}: slope {m}, y-intercept {b}.", goodBuildK:"Yes! {eq}: y is {k} times x, and the line passes through the origin.",
+    pickEqDir:"Which equation matches this graph?",
+    hintPickM:"That equation has slope {c}, but the graph goes {dir} {r} for every {u} to the right.",
+    hintPickB:"That line crosses the y-axis at {c}, but the graph crosses at {b}.",
+    goodPickEq:"Yes! The graph crosses the y-axis at {b} and has slope {m}: {eq}.",
+    names:"Ana,Leo,Mia,Sam,Lina,Omar,Priya,Minh",
+    cxGym:"A climbing gym charges a ${b} membership fee plus ${m} per visit. Which equation gives the total cost y for x visits?",
+    cxPlant:"A plant is {b} cm tall and grows {m} cm each week. Which equation gives its height y after x weeks?",
+    cxSave:"{name} has ${b} saved and adds ${m} each week. Which equation gives the savings y after x weeks?",
+    cxPrice:"Apples cost ${m} per pound. Which equation gives the cost y of x pounds?",
+    cxWalk:"{name} bikes at {m} miles per hour. Which equation gives the distance y after x hours?",
+    hintCx:"The rate ({m} for each one) multiplies x, so it is the slope. The starting amount ({b}) is the value when x = 0, so it is the y-intercept.",
+    hintCxK:"This is proportional: y is always {m} times x, and when x = 0, y = 0. So the equation is y = kx with k = {m}.",
+    goodCx:"Yes! {eq}. The rate {m} is the slope and the starting amount {b} is the y-intercept.", goodCxK:"Yes! {eq}. The unit rate {m} is the constant of proportionality — the slope of the line.",
+    meanDir:"In the equation {eq}, what does the {what} {v} mean?",
+    mGym:"the cost of each visit", sGym:"the one-time membership fee", tGym:"the total cost",
+    mPlant:"how many cm it grows each week", sPlant:"its height at the start", tPlant:"its height after x weeks",
+    mSave:"how much is added each week", sSave:"the amount saved at the start", tSave:"the total savings",
+    hintMean:"The slope is the rate of change — the amount per visit or per week. The y-intercept is the value when x = 0 — the starting amount.",
+    goodMean:"Yes! {v} is {ans}.",
+    isF:"Function", notF:"Not a function", isLin:"Linear", notLin:"Nonlinear", isProp:"Proportional", notProp:"Not proportional",
+    fDir:"Is this relation a function?", fScanDir:"Is this relation a function? Slide the red vertical line across the graph to test it.",
+    whyNotF:"Input {x} is paired with two different outputs, {y1} and {y2}. A function gives each input exactly one output.",
+    whyFRep:"Each input has exactly one output. Two inputs share the output {y}, and that is allowed in a function.",
+    whyF:"Each input appears once, so each input has exactly one output.",
+    whyScanNot:"A vertical line at x = {x} hits two points, so input {x} has two outputs. It fails the vertical line test.",
+    whyScanF:"No vertical line hits more than one point, so it passes the vertical line test.",
+    linDir:"Is this function linear or nonlinear?",
+    whyLinT:"y changes by the same amount ({d}) each time x increases by 1 — a constant rate of change, so it is linear.",
+    whyNonT:"When x increases by 1, y changes by {ds}. The changes are not equal, so the rate is not constant: nonlinear.",
+    whyLinE:"{eq} has the form y = mx + b, so its graph is a straight line: linear.",
+    whyNonE:"In {eq}, x is raised to a power, so the rate of change is not constant and the graph curves: nonlinear.",
+    whyLinG:"The points all lie on one straight line, so it is linear.", whyNonG:"The points curve; they do not lie on one straight line, so it is nonlinear.",
+    xSq:"x squared", xCu:"x cubed",
+    propDir:"Is this relationship proportional?",
+    whyPropT:"y ÷ x is {k} in every column, so y = {k}x. It is proportional.",
+    whyNonPT:"y ÷ x is not constant: {a} in one column and {b} in another. It is not proportional.",
+    whyPropG:"The graph is a straight line through the origin (0, 0), so it is proportional.",
+    whyNonPG:"The line is straight but crosses the y-axis at {b}, not at the origin, so it is not proportional.",
+    whyPropE:"{eq} has the form y = kx, so it is proportional.", whyNonPE:"In {eq}, when x = 0, y = {b}, not 0, so it is not proportional.",
+    fnA:"Function A", fnB:"Function B", fnSame:"They are equal",
+    cmpRateDir:"Which function has the greater rate of change?", cmpUnitDir:"Which proportional relationship has the greater unit rate?",
+    cmpIntDir:"Which function has the greater y-intercept (starting value)?",
+    rateA:"Function A (table): y changes by {dy} when x changes by {dx}, so its rate is {m}.",
+    rateB:"Function B: the rate of change is {m}, the number multiplying x.",
+    rateBG:"Function B (graph): rise {r} over run {u}, so its rate is {m}.",
+    intA:"Function A: work back to x = 0 using the rate; y = {b}.", intB:"Function B: the y-intercept is {b}.",
+    intBG:"Function B (graph): the line crosses the y-axis at {b}.",
+    greaterA:"So Function A is greater.", greaterB:"So Function B is greater.", greaterSame:"So they are equal.",
+    meetDir:"Tap the point where the two lines intersect, then press Check.",
+    hintMeetNo:"Place one point first: tap where the lines cross.",
+    hintMeet1:"{p} is on line {L} but not on the other line. The solution must be on both lines.",
+    hintMeet0:"{p} is not on either line. Look for the point where the two lines cross.",
+    goodMeet:"Yes! {p} is on both lines: it makes {e1} and {e2} true. It is the solution to the system.",
+    lineA:"A", lineB:"B",
+    stds:"Aligned standards — Texas TEKS: Grade 6 6.6(B, C), 6.11(A); Grade 7 7.4(A), 7.7(A); Grade 8 8.4(A, B, C), 8.5(A, B, F, G, H, I), 8.9(A). Common Core: 6.EE.9, 6.NS.6c, 6.NS.8; 7.RP.2a, 7.RP.2b, 7.RP.2c; 8.EE.5, 8.EE.6, 8.EE.8a; 8.F.1, 8.F.2, 8.F.3, 8.F.4.",
+    cardTitle:"Slope & Function Grapher — Challenge Cards", cardName:"Name:",
+    cardTable:"Complete the table, then graph the points.", cardSlope:"Find the slope of the line through these two points.",
+    cardEq:"Write the equation of the line in the form y = mx + b.", cardFunc:"Is this relation a function? Explain.",
+    cardMeet:"Graph both lines. Where do they intersect? Check that the point makes both equations true.", cardProp:"Is this relationship proportional? Explain."
+  },
+  es:{
+    appTitle:"Graficador de pendientes y funciones", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", modesLbl:"Modos", stars:"Respuestas correctas",
+    newRound:"Nueva ronda", readAloud:"Leer en voz alta", check:"Comprobar", clear:"Borrar", choicesLbl:"Opciones de respuesta",
+    footNote:"Sin cuentas · Sin datos · Funciona sin conexión",
+    mTables:"Tablas y gráficas", mSlope:"Explorador de pendiente", mBuild:"Constructor y = mx + b", mFunc:"¿Función o no?", mCompare:"Comparar e intersecar",
+    teacherTitle:"Ajustes del maestro", close:"Cerrar", setGrade:"Grado", g6:"6.º grado", g7:"7.º grado", g8:"8.º grado",
+    gradeNote:"6.º grado: tablas, reglas y graficar puntos. 7.º grado: relaciones proporcionales y = kx con tasas enteras positivas. 8.º grado: pendiente, y = mx + b, funciones y sistemas. Al elegir un grado, las opciones de abajo vuelven a sus valores.",
+    setRange:"Tamaño de la cuadrícula", setNums:"Números", negOn:"Pendientes e intersecciones negativas", fracOn:"Pendientes fraccionarias",
+    setModes:"Modos", setSpeech:"Voz", autoRead:"Leer instrucciones automáticamente", printCards:"Imprimir tarjetas de reto",
+    setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información del estudiante.",
+    neg:"menos {n}", frSay:"{n} sobre {d}", ptSay:"{x} coma {y}", wPlus:"más", wMinus:"menos", wTimes:"por", wEq:"es igual a",
+    undef:"indefinida", yes:"¡Sí!", youPicked:"Elegiste {x}.",
+    planeLbl:"Plano de coordenadas", kbTap:"Plano de coordenadas. Las flechas mueven el cursor; Enter coloca o quita un punto.",
+    kbDrag:"Plano de coordenadas. Las flechas mueven el punto rojo; la barra espaciadora cambia al otro punto.",
+    kbScan:"Plano de coordenadas. Las flechas izquierda y derecha deslizan la recta vertical.",
+    ruleLbl:"Regla", inp:"Entrada", out:"Salida",
+    ruleAdd:"Suma {b} a x.", ruleSub:"Resta {b} a x.", ruleMul:"Multiplica x por {m}.", ruleLin:"Multiplica x por {m} y luego suma {b}.", ruleLinS:"Multiplica x por {m} y luego resta {b}.",
+    fillDir:"Usa la regla para completar la tabla. ¿Cuánto vale y cuando x = {x}?",
+    hintFill:"Sustituye x = {x} en la regla: {calc}.",
+    goodFill:"Correcto: {calc}.",
+    plotDir:"Ahora grafica cada punto (x, y) de la tabla. Toca la cuadrícula para colocar un punto; tócalo otra vez para quitarlo. Luego presiona Comprobar.",
+    hintSwap:"Graficaste {p}, pero la tabla tiene {q}. La coordenada x va primero: muévete primero hacia los lados y luego hacia arriba o hacia abajo.",
+    hintOff:"{p} no está en la tabla. Empieza en el origen, muévete x unidades hacia los lados y luego y unidades hacia arriba o hacia abajo.",
+    hintMissing:"La tabla tiene {n} puntos. Has graficado {k} correctamente. Grafica los demás.",
+    goodPlot:"¡Sí! Los {n} puntos coinciden con la tabla y quedan sobre una recta: {eq}.",
+    readDir:"¿Cuáles son las coordenadas del punto P?",
+    hintRead:"P está alineado con {x} en el eje x y con {y} en el eje y. Escribe primero la coordenada x: (x, y).",
+    hintReadSwap:"Casi: están al revés. La coordenada x (hacia los lados) va primero y luego la coordenada y (arriba o abajo).",
+    goodRead:"¡Sí! P está {x} hacia los lados y {y} hacia arriba o abajo, así que P = {p}.",
+    eqDir:"¿Qué ecuación funciona para todas las columnas de la tabla?",
+    hintEqT:"Pruébala con x = {x}: {calc}, pero la tabla dice y = {y}. Una ecuación debe funcionar para todas las columnas.",
+    goodEqT:"¡Sí! {eq} funciona para todas las columnas. Por ejemplo, x = {x}: {calc}.",
+    rise:"elevación", run:"avance", slopeW:"pendiente", intW:"intersección con el eje y",
+    makeDir:"Arrastra los dos puntos rojos para formar una recta con pendiente {m}. Luego presiona Comprobar.",
+    makeDir0:"Arrastra los dos puntos rojos para formar una recta con pendiente 0. Luego presiona Comprobar.",
+    makeDirU:"Arrastra los dos puntos rojos para formar una recta con pendiente indefinida. Luego presiona Comprobar.",
+    readout:"elevación {r} ÷ avance {u} = pendiente {m}", readoutU:"el avance es 0, así que la pendiente es indefinida", readoutSame:"Los dos puntos están uno encima del otro.",
+    hintSame:"Los dos puntos deben ser diferentes para formar una recta.",
+    hintMake:"Tu pendiente es {c}. Para una pendiente de {m}, empieza en el punto de la izquierda, avanza {u} a la derecha y luego sube {r}.",
+    hintMakeN:"Tu pendiente es {c}. Para una pendiente de {m}, empieza en el punto de la izquierda, avanza {u} a la derecha y luego baja {r}.",
+    hintMake0:"Una pendiente de 0 significa que no hay elevación: forma una recta horizontal, con los dos puntos a la misma altura.",
+    hintMakeU:"Una pendiente indefinida significa que el avance es 0: forma una recta vertical, con un punto justo encima del otro.",
+    goodMake:"¡Sí! elevación {r} ÷ avance {u} = {m}.", goodMake0:"¡Sí! La elevación es 0, así que la pendiente es 0: una recta horizontal.", goodMakeU:"¡Sí! El avance es 0 y no se puede dividir entre 0, así que la pendiente es indefinida: una recta vertical.",
+    findDir:"¿Cuál es la pendiente de la recta que pasa por A y B?", showTri:"Mostrar triángulo de pendiente", hideTri:"Ocultar triángulo de pendiente",
+    findTDir:"¿Cuál es la pendiente (tasa de cambio) de la función de la tabla?",
+    findPDir:"¿Cuál es la pendiente de la recta que pasa por {a} y {b}?",
+    hintFind:"Ve del punto de la izquierda al de la derecha. Avance = {u} hacia los lados; elevación = {r} (hacia arriba es positivo, hacia abajo es negativo). Pendiente = elevación ÷ avance.",
+    hintRecip:"Eso es avance ÷ elevación. La pendiente es elevación ÷ avance: el cambio en y entre el cambio en x.",
+    hintSign:"Lee la recta de izquierda a derecha. Va hacia {dir}, así que la pendiente es {sgn}.",
+    hintFindT:"Elige dos columnas. y cambia {dy} mientras x cambia {dx}, así que la pendiente es {dy} ÷ {dx}.",
+    hintFindP:"Pendiente = cambio en y ÷ cambio en x = ({y2} − {y1}) ÷ ({x2} − {x1}) = {dy} ÷ {dx}.",
+    goodFind:"¡Sí! elevación {r} ÷ avance {u} = {m}.", goodFindT:"¡Sí! cambio en y ÷ cambio en x = {dy} ÷ {dx} = {m}.",
+    dirUp:"arriba", dirDown:"abajo", sgnPos:"positiva", sgnNeg:"negativa",
+    kindDir:"¿La pendiente de esta recta es positiva, negativa, cero o indefinida?",
+    kPos:"Positiva", kNeg:"Negativa", kZero:"Cero", kUndef:"Indefinida",
+    whyPos:"De izquierda a derecha la recta sube, así que la pendiente es positiva.", whyNeg:"De izquierda a derecha la recta baja, así que la pendiente es negativa.",
+    whyZero:"La recta es horizontal: la elevación es 0, así que la pendiente es 0.", whyUndef:"La recta es vertical: el avance es 0, y dividir entre 0 no está definido.",
+    simDir:"Los dos triángulos de pendiente están sobre la misma recta. El pequeño tiene elevación {r} y avance {u}. El grande tiene avance {U}. ¿Cuál es su elevación?",
+    hintSim:"Los triángulos son semejantes. El grande es {k} veces más ancho, así que debe ser {k} veces más alto: elevación ÷ avance sigue siendo {m}.",
+    goodSim:"¡Sí! {r} ÷ {u} = {R} ÷ {U} = {m}. Los triángulos de pendiente semejantes sobre una recta siempre dan la misma pendiente.",
+    slopeM:"pendiente m", interB:"intersección con el eje y b", constK:"constante k", lessM:"Pendiente menor", moreM:"Pendiente mayor", lessB:"Bajar la recta", moreB:"Subir la recta",
+    lessK:"k menor", moreK:"k mayor",
+    bGraphDir:"Usa los botones para construir la recta que coincide con la recta anaranjada punteada. Luego presiona Comprobar.",
+    bTableDir:"Usa los botones para construir la recta que coincide con esta tabla. Luego presiona Comprobar.",
+    bWordDir:"Construye esta recta: cruza el eje y en {b} y va {r} hacia {dir} por cada {u} a la derecha. Luego presiona Comprobar.",
+    bWordDirK:"Construye esta recta: y siempre es {k} veces x. Luego presiona Comprobar.",
+    yourLine:"Tu recta", targetLine:"Objetivo",
+    hintBSlope:"Revisa la inclinación. Tu pendiente es {c}, pero el objetivo cambia {r} en y por cada {u} hacia los lados.",
+    hintBInt:"La pendiente está bien. Ahora revisa dónde cruza la recta el eje y: cuando x = 0, y debe ser {b}, no {c}.",
+    goodBuild:"¡Sí! {eq}: pendiente {m}, intersección con el eje y {b}.", goodBuildK:"¡Sí! {eq}: y es {k} veces x, y la recta pasa por el origen.",
+    pickEqDir:"¿Qué ecuación corresponde a esta gráfica?",
+    hintPickM:"Esa ecuación tiene pendiente {c}, pero la gráfica va {r} hacia {dir} por cada {u} a la derecha.",
+    hintPickB:"Esa recta cruza el eje y en {c}, pero la gráfica lo cruza en {b}.",
+    goodPickEq:"¡Sí! La gráfica cruza el eje y en {b} y tiene pendiente {m}: {eq}.",
+    names:"Ana,Mateo,Sofía,Diego,Lucía,Carlos,Valeria,Luis",
+    cxGym:"Un gimnasio de escalada cobra una inscripción de ${b} más ${m} por visita. ¿Qué ecuación da el costo total y por x visitas?",
+    cxPlant:"Una planta mide {b} cm y crece {m} cm cada semana. ¿Qué ecuación da su altura y después de x semanas?",
+    cxSave:"{name} tiene ${b} ahorrados y agrega ${m} cada semana. ¿Qué ecuación da los ahorros y después de x semanas?",
+    cxPrice:"Las manzanas cuestan ${m} la libra. ¿Qué ecuación da el costo y de x libras?",
+    cxWalk:"{name} va en bicicleta a {m} millas por hora. ¿Qué ecuación da la distancia y después de x horas?",
+    hintCx:"La tasa ({m} por cada uno) multiplica a x, así que es la pendiente. La cantidad inicial ({b}) es el valor cuando x = 0, así que es la intersección con el eje y.",
+    hintCxK:"Es proporcional: y siempre es {m} veces x, y cuando x = 0, y = 0. Así que la ecuación es y = kx con k = {m}.",
+    goodCx:"¡Sí! {eq}. La tasa {m} es la pendiente y la cantidad inicial {b} es la intersección con el eje y.", goodCxK:"¡Sí! {eq}. La tasa unitaria {m} es la constante de proporcionalidad: la pendiente de la recta.",
+    meanDir:"En la ecuación {eq}, ¿qué significa la {what} {v}?",
+    mGym:"el costo de cada visita", sGym:"la inscripción, que se paga una sola vez", tGym:"el costo total",
+    mPlant:"cuántos cm crece cada semana", sPlant:"su altura al principio", tPlant:"su altura después de x semanas",
+    mSave:"cuánto se agrega cada semana", sSave:"lo ahorrado al principio", tSave:"el total ahorrado",
+    hintMean:"La pendiente es la tasa de cambio: la cantidad por visita o por semana. La intersección con el eje y es el valor cuando x = 0: la cantidad inicial.",
+    goodMean:"¡Sí! {v} es {ans}.",
+    isF:"Función", notF:"No es función", isLin:"Lineal", notLin:"No lineal", isProp:"Proporcional", notProp:"No proporcional",
+    fDir:"¿Esta relación es una función?", fScanDir:"¿Esta relación es una función? Desliza la recta vertical roja por la gráfica para comprobarlo.",
+    whyNotF:"La entrada {x} está emparejada con dos salidas distintas, {y1} y {y2}. Una función da exactamente una salida para cada entrada.",
+    whyFRep:"Cada entrada tiene exactamente una salida. Dos entradas comparten la salida {y}, y eso está permitido en una función.",
+    whyF:"Cada entrada aparece una sola vez, así que cada entrada tiene exactamente una salida.",
+    whyScanNot:"Una recta vertical en x = {x} toca dos puntos, así que la entrada {x} tiene dos salidas. No pasa la prueba de la recta vertical.",
+    whyScanF:"Ninguna recta vertical toca más de un punto, así que pasa la prueba de la recta vertical.",
+    linDir:"¿Esta función es lineal o no lineal?",
+    whyLinT:"y cambia en la misma cantidad ({d}) cada vez que x aumenta 1: una tasa de cambio constante, así que es lineal.",
+    whyNonT:"Cuando x aumenta 1, y cambia {ds}. Los cambios no son iguales, así que la tasa no es constante: no lineal.",
+    whyLinE:"{eq} tiene la forma y = mx + b, así que su gráfica es una recta: lineal.",
+    whyNonE:"En {eq}, x está elevada a una potencia, así que la tasa de cambio no es constante y la gráfica es curva: no lineal.",
+    whyLinG:"Todos los puntos están sobre una misma recta, así que es lineal.", whyNonG:"Los puntos forman una curva; no están sobre una misma recta, así que no es lineal.",
+    xSq:"x al cuadrado", xCu:"x al cubo",
+    propDir:"¿Esta relación es proporcional?",
+    whyPropT:"y ÷ x es {k} en todas las columnas, así que y = {k}x. Es proporcional.",
+    whyNonPT:"y ÷ x no es constante: {a} en una columna y {b} en otra. No es proporcional.",
+    whyPropG:"La gráfica es una recta que pasa por el origen (0, 0), así que es proporcional.",
+    whyNonPG:"La recta cruza el eje y en {b}, no en el origen, así que no es proporcional.",
+    whyPropE:"{eq} tiene la forma y = kx, así que es proporcional.", whyNonPE:"En {eq}, cuando x = 0, y = {b}, no 0, así que no es proporcional.",
+    fnA:"Función A", fnB:"Función B", fnSame:"Son iguales",
+    cmpRateDir:"¿Qué función tiene la mayor tasa de cambio?", cmpUnitDir:"¿Qué relación proporcional tiene la mayor tasa unitaria?",
+    cmpIntDir:"¿Qué función tiene la mayor intersección con el eje y (valor inicial)?",
+    rateA:"Función A (tabla): y cambia {dy} cuando x cambia {dx}, así que su tasa es {m}.",
+    rateB:"Función B: la tasa de cambio es {m}, el número que multiplica a x.",
+    rateBG:"Función B (gráfica): elevación {r} entre avance {u}, así que su tasa es {m}.",
+    intA:"Función A: regresa hasta x = 0 usando la tasa; y = {b}.", intB:"Función B: la intersección con el eje y es {b}.",
+    intBG:"Función B (gráfica): la recta cruza el eje y en {b}.",
+    greaterA:"Así que la función A es mayor.", greaterB:"Así que la función B es mayor.", greaterSame:"Así que son iguales.",
+    meetDir:"Toca el punto donde se intersecan las dos rectas y luego presiona Comprobar.",
+    hintMeetNo:"Primero coloca un punto: toca donde se cruzan las rectas.",
+    hintMeet1:"{p} está en la recta {L}, pero no en la otra. La solución debe estar en las dos rectas.",
+    hintMeet0:"{p} no está en ninguna de las rectas. Busca el punto donde se cruzan.",
+    goodMeet:"¡Sí! {p} está en las dos rectas: hace verdaderas {e1} y {e2}. Es la solución del sistema.",
+    lineA:"A", lineB:"B",
+    stds:"Estándares alineados — TEKS de Texas: 6.º grado 6.6(B, C), 6.11(A); 7.º grado 7.4(A), 7.7(A); 8.º grado 8.4(A, B, C), 8.5(A, B, F, G, H, I), 8.9(A). Common Core: 6.EE.9, 6.NS.6c, 6.NS.8; 7.RP.2a, 7.RP.2b, 7.RP.2c; 8.EE.5, 8.EE.6, 8.EE.8a; 8.F.1, 8.F.2, 8.F.3, 8.F.4.",
+    cardTitle:"Graficador de pendientes y funciones — Tarjetas de reto", cardName:"Nombre:",
+    cardTable:"Completa la tabla y luego grafica los puntos.", cardSlope:"Encuentra la pendiente de la recta que pasa por estos dos puntos.",
+    cardEq:"Escribe la ecuación de la recta en la forma y = mx + b.", cardFunc:"¿Esta relación es una función? Explica.",
+    cardMeet:"Grafica las dos rectas. ¿Dónde se intersecan? Comprueba que el punto hace verdaderas las dos ecuaciones.", cardProp:"¿Esta relación es proporcional? Explica."
+  },
+  vi:{
+    appTitle:"Vẽ Độ Dốc & Hàm Số", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", modesLbl:"Chế độ", stars:"Số câu đúng",
+    newRound:"Vòng mới", readAloud:"Đọc to", check:"Kiểm tra", clear:"Xóa", choicesLbl:"Các lựa chọn",
+    footNote:"Không tài khoản · Không thu thập dữ liệu · Hoạt động ngoại tuyến",
+    mTables:"Bảng & Đồ thị", mSlope:"Khám phá độ dốc", mBuild:"Dựng y = mx + b", mFunc:"Có phải hàm số?", mCompare:"So sánh & Giao điểm",
+    teacherTitle:"Cài đặt giáo viên", close:"Đóng", setGrade:"Lớp", g6:"Lớp 6", g7:"Lớp 7", g8:"Lớp 8",
+    gradeNote:"Lớp 6: bảng, quy tắc và vẽ điểm. Lớp 7: quan hệ tỉ lệ thuận y = kx với tốc độ là số nguyên dương. Lớp 8: độ dốc, y = mx + b, hàm số và hệ phương trình. Khi chọn lớp, các tùy chọn bên dưới sẽ trở về mặc định.",
+    setRange:"Kích thước lưới", setNums:"Các số", negOn:"Độ dốc và tung độ gốc âm", fracOn:"Độ dốc là phân số",
+    setModes:"Chế độ", setSpeech:"Giọng nói", autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
+    setStored:"Cài đặt chỉ lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
+    neg:"âm {n}", frSay:"{n} phần {d}", ptSay:"{x} phẩy {y}", wPlus:"cộng", wMinus:"trừ", wTimes:"nhân", wEq:"bằng",
+    undef:"không xác định", yes:"Đúng!", youPicked:"Em đã chọn {x}.",
+    planeLbl:"Mặt phẳng tọa độ", kbTap:"Mặt phẳng tọa độ. Phím mũi tên di chuyển con trỏ; Enter đặt hoặc bỏ một điểm.",
+    kbDrag:"Mặt phẳng tọa độ. Phím mũi tên di chuyển điểm đỏ; phím cách chuyển sang điểm kia.",
+    kbScan:"Mặt phẳng tọa độ. Phím mũi tên trái và phải trượt đường thẳng đứng.",
+    ruleLbl:"Quy tắc", inp:"Đầu vào", out:"Đầu ra",
+    ruleAdd:"Cộng {b} vào x.", ruleSub:"Lấy x trừ {b}.", ruleMul:"Nhân x với {m}.", ruleLin:"Nhân x với {m}, rồi cộng {b}.", ruleLinS:"Nhân x với {m}, rồi trừ {b}.",
+    fillDir:"Dùng quy tắc để điền vào bảng. Khi x = {x} thì y bằng bao nhiêu?",
+    hintFill:"Thay x = {x} vào quy tắc: {calc}.",
+    goodFill:"Đúng: {calc}.",
+    plotDir:"Bây giờ hãy vẽ mọi điểm (x, y) trong bảng. Chạm vào lưới để đặt điểm; chạm lần nữa để bỏ. Rồi bấm Kiểm tra.",
+    hintSwap:"Em đã vẽ {p}, nhưng bảng có {q}. Tọa độ x đứng trước: đi ngang trước, rồi lên hoặc xuống.",
+    hintOff:"{p} không có trong bảng. Bắt đầu từ gốc tọa độ, đi ngang x đơn vị, rồi lên hoặc xuống y đơn vị.",
+    hintMissing:"Bảng có {n} điểm. Em đã vẽ đúng {k} điểm. Hãy vẽ các điểm còn lại.",
+    goodPlot:"Đúng! Cả {n} điểm khớp với bảng, và chúng nằm trên một đường thẳng: {eq}.",
+    readDir:"Tọa độ của điểm P là gì?",
+    hintRead:"P thẳng hàng với {x} trên trục x và {y} trên trục y. Viết tọa độ x trước: (x, y).",
+    hintReadSwap:"Gần đúng rồi, nhưng bị đảo ngược. Tọa độ x (đi ngang) đứng trước, sau đó là tọa độ y (lên hoặc xuống).",
+    goodRead:"Đúng! P cách {x} theo chiều ngang và {y} theo chiều dọc, nên P = {p}.",
+    eqDir:"Phương trình nào đúng với mọi cột của bảng?",
+    hintEqT:"Thử với x = {x}: {calc}, nhưng bảng ghi y = {y}. Phương trình phải đúng với mọi cột.",
+    goodEqT:"Đúng! {eq} đúng với mọi cột. Ví dụ, x = {x}: {calc}.",
+    rise:"độ tăng", run:"độ chạy", slopeW:"độ dốc", intW:"tung độ gốc",
+    makeDir:"Kéo hai điểm đỏ để tạo đường thẳng có độ dốc {m}. Rồi bấm Kiểm tra.",
+    makeDir0:"Kéo hai điểm đỏ để tạo đường thẳng có độ dốc 0. Rồi bấm Kiểm tra.",
+    makeDirU:"Kéo hai điểm đỏ để tạo đường thẳng có độ dốc không xác định. Rồi bấm Kiểm tra.",
+    readout:"độ tăng {r} ÷ độ chạy {u} = độ dốc {m}", readoutU:"độ chạy bằng 0, nên độ dốc không xác định", readoutSame:"Hai điểm đang trùng nhau.",
+    hintSame:"Hai điểm phải khác nhau mới tạo thành đường thẳng.",
+    hintMake:"Độ dốc của em là {c}. Để có độ dốc {m}, bắt đầu từ điểm bên trái, đi sang phải {u}, rồi lên {r}.",
+    hintMakeN:"Độ dốc của em là {c}. Để có độ dốc {m}, bắt đầu từ điểm bên trái, đi sang phải {u}, rồi xuống {r}.",
+    hintMake0:"Độ dốc 0 nghĩa là không tăng: tạo đường nằm ngang, hai điểm cao bằng nhau.",
+    hintMakeU:"Độ dốc không xác định nghĩa là độ chạy bằng 0: tạo đường thẳng đứng, một điểm nằm ngay trên điểm kia.",
+    goodMake:"Đúng! độ tăng {r} ÷ độ chạy {u} = {m}.", goodMake0:"Đúng! Độ tăng bằng 0, nên độ dốc bằng 0: một đường nằm ngang.", goodMakeU:"Đúng! Độ chạy bằng 0 và không thể chia cho 0, nên độ dốc không xác định: một đường thẳng đứng.",
+    findDir:"Độ dốc của đường thẳng đi qua A và B là bao nhiêu?", showTri:"Hiện tam giác độ dốc", hideTri:"Ẩn tam giác độ dốc",
+    findTDir:"Độ dốc (tốc độ thay đổi) của hàm số trong bảng là bao nhiêu?",
+    findPDir:"Độ dốc của đường thẳng đi qua {a} và {b} là bao nhiêu?",
+    hintFind:"Đi từ điểm bên trái sang điểm bên phải. Độ chạy = {u} theo chiều ngang; độ tăng = {r} (lên là dương, xuống là âm). Độ dốc = độ tăng ÷ độ chạy.",
+    hintRecip:"Đó là độ chạy ÷ độ tăng. Độ dốc là độ tăng ÷ độ chạy: thay đổi của y chia cho thay đổi của x.",
+    hintSign:"Đọc đường thẳng từ trái sang phải. Nó đi {dir}, nên độ dốc là {sgn}.",
+    hintFindT:"Chọn hai cột. y thay đổi {dy} khi x thay đổi {dx}, nên độ dốc là {dy} ÷ {dx}.",
+    hintFindP:"Độ dốc = thay đổi của y ÷ thay đổi của x = ({y2} − {y1}) ÷ ({x2} − {x1}) = {dy} ÷ {dx}.",
+    goodFind:"Đúng! độ tăng {r} ÷ độ chạy {u} = {m}.", goodFindT:"Đúng! thay đổi của y ÷ thay đổi của x = {dy} ÷ {dx} = {m}.",
+    dirUp:"lên", dirDown:"xuống", sgnPos:"dương", sgnNeg:"âm",
+    kindDir:"Độ dốc của đường thẳng này là dương, âm, bằng 0 hay không xác định?",
+    kPos:"Dương", kNeg:"Âm", kZero:"Bằng 0", kUndef:"Không xác định",
+    whyPos:"Từ trái sang phải đường thẳng đi lên, nên độ dốc dương.", whyNeg:"Từ trái sang phải đường thẳng đi xuống, nên độ dốc âm.",
+    whyZero:"Đường thẳng nằm ngang: độ tăng bằng 0, nên độ dốc bằng 0.", whyUndef:"Đường thẳng đứng: độ chạy bằng 0, và chia cho 0 là không xác định.",
+    simDir:"Hai tam giác độ dốc nằm trên cùng một đường thẳng. Tam giác nhỏ có độ tăng {r} và độ chạy {u}. Tam giác lớn có độ chạy {U}. Độ tăng của nó là bao nhiêu?",
+    hintSim:"Hai tam giác đồng dạng. Tam giác lớn rộng gấp {k} lần, nên nó phải cao gấp {k} lần: độ tăng ÷ độ chạy vẫn bằng {m}.",
+    goodSim:"Đúng! {r} ÷ {u} = {R} ÷ {U} = {m}. Các tam giác độ dốc đồng dạng trên một đường thẳng luôn cho cùng một độ dốc.",
+    slopeM:"độ dốc m", interB:"tung độ gốc b", constK:"hằng số k", lessM:"Độ dốc nhỏ hơn", moreM:"Độ dốc lớn hơn", lessB:"Dời đường thẳng xuống", moreB:"Dời đường thẳng lên",
+    lessK:"k nhỏ hơn", moreK:"k lớn hơn",
+    bGraphDir:"Dùng các nút để dựng đường thẳng khớp với đường nét đứt màu cam. Rồi bấm Kiểm tra.",
+    bTableDir:"Dùng các nút để dựng đường thẳng khớp với bảng này. Rồi bấm Kiểm tra.",
+    bWordDir:"Dựng đường thẳng này: nó cắt trục y tại {b} và đi {dir} {r} với mỗi {u} sang phải. Rồi bấm Kiểm tra.",
+    bWordDirK:"Dựng đường thẳng này: y luôn bằng {k} lần x. Rồi bấm Kiểm tra.",
+    yourLine:"Đường của em", targetLine:"Mục tiêu",
+    hintBSlope:"Kiểm tra độ dốc. Độ dốc của em là {c}, nhưng đường mục tiêu thay đổi {r} theo y với mỗi {u} theo chiều ngang.",
+    hintBInt:"Độ dốc đúng rồi. Bây giờ kiểm tra chỗ đường thẳng cắt trục y: khi x = 0, y phải bằng {b}, không phải {c}.",
+    goodBuild:"Đúng! {eq}: độ dốc {m}, tung độ gốc {b}.", goodBuildK:"Đúng! {eq}: y bằng {k} lần x, và đường thẳng đi qua gốc tọa độ.",
+    pickEqDir:"Phương trình nào khớp với đồ thị này?",
+    hintPickM:"Phương trình đó có độ dốc {c}, nhưng đồ thị đi {dir} {r} với mỗi {u} sang phải.",
+    hintPickB:"Đường thẳng đó cắt trục y tại {c}, nhưng đồ thị cắt tại {b}.",
+    goodPickEq:"Đúng! Đồ thị cắt trục y tại {b} và có độ dốc {m}: {eq}.",
+    names:"An,Minh,Lan,Hùng,Mai,Tuấn,Linh,Nam",
+    cxGym:"Một phòng tập leo núi thu phí hội viên ${b} cộng ${m} mỗi lần đến. Phương trình nào cho tổng chi phí y khi đến x lần?",
+    cxPlant:"Một cái cây cao {b} cm và mỗi tuần cao thêm {m} cm. Phương trình nào cho chiều cao y sau x tuần?",
+    cxSave:"{name} đã để dành ${b} và mỗi tuần thêm ${m}. Phương trình nào cho số tiền tiết kiệm y sau x tuần?",
+    cxPrice:"Táo giá ${m} một pound. Phương trình nào cho số tiền y khi mua x pound?",
+    cxWalk:"{name} đạp xe với vận tốc {m} dặm một giờ. Phương trình nào cho quãng đường y sau x giờ?",
+    hintCx:"Tốc độ ({m} cho mỗi lần) nhân với x, nên đó là độ dốc. Lượng ban đầu ({b}) là giá trị khi x = 0, nên đó là tung độ gốc.",
+    hintCxK:"Đây là tỉ lệ thuận: y luôn bằng {m} lần x, và khi x = 0 thì y = 0. Vậy phương trình là y = kx với k = {m}.",
+    goodCx:"Đúng! {eq}. Tốc độ {m} là độ dốc và lượng ban đầu {b} là tung độ gốc.", goodCxK:"Đúng! {eq}. Tốc độ đơn vị {m} là hằng số tỉ lệ, cũng là độ dốc của đường thẳng.",
+    meanDir:"Trong phương trình {eq}, {what} {v} có nghĩa là gì?",
+    mGym:"chi phí cho mỗi lần đến", sGym:"phí hội viên trả một lần", tGym:"tổng chi phí",
+    mPlant:"số cm cây cao thêm mỗi tuần", sPlant:"chiều cao lúc đầu", tPlant:"chiều cao sau x tuần",
+    mSave:"số tiền thêm vào mỗi tuần", sSave:"số tiền để dành lúc đầu", tSave:"tổng số tiền tiết kiệm",
+    hintMean:"Độ dốc là tốc độ thay đổi: lượng cho mỗi lần đến hoặc mỗi tuần. Tung độ gốc là giá trị khi x = 0: lượng ban đầu.",
+    goodMean:"Đúng! {v} là {ans}.",
+    isF:"Là hàm số", notF:"Không phải hàm số", isLin:"Tuyến tính", notLin:"Phi tuyến", isProp:"Tỉ lệ thuận", notProp:"Không tỉ lệ thuận",
+    fDir:"Quan hệ này có phải là hàm số không?", fScanDir:"Quan hệ này có phải là hàm số không? Trượt đường thẳng đứng màu đỏ qua đồ thị để kiểm tra.",
+    whyNotF:"Đầu vào {x} được ghép với hai đầu ra khác nhau, {y1} và {y2}. Một hàm số cho mỗi đầu vào đúng một đầu ra.",
+    whyFRep:"Mỗi đầu vào có đúng một đầu ra. Hai đầu vào có chung đầu ra {y}, và điều đó được phép trong hàm số.",
+    whyF:"Mỗi đầu vào chỉ xuất hiện một lần, nên mỗi đầu vào có đúng một đầu ra.",
+    whyScanNot:"Đường thẳng đứng tại x = {x} chạm hai điểm, nên đầu vào {x} có hai đầu ra. Nó không qua được phép thử đường thẳng đứng.",
+    whyScanF:"Không có đường thẳng đứng nào chạm quá một điểm, nên nó qua được phép thử đường thẳng đứng.",
+    linDir:"Hàm số này là tuyến tính hay phi tuyến?",
+    whyLinT:"y thay đổi cùng một lượng ({d}) mỗi khi x tăng 1, tốc độ thay đổi không đổi, nên đây là hàm tuyến tính.",
+    whyNonT:"Khi x tăng 1, y thay đổi {ds}. Các thay đổi không bằng nhau, nên tốc độ thay đổi không cố định: phi tuyến.",
+    whyLinE:"{eq} có dạng y = mx + b, nên đồ thị là một đường thẳng: tuyến tính.",
+    whyNonE:"Trong {eq}, x được nâng lên lũy thừa, nên tốc độ thay đổi không cố định và đồ thị cong: phi tuyến.",
+    whyLinG:"Các điểm đều nằm trên một đường thẳng, nên đây là tuyến tính.", whyNonG:"Các điểm tạo thành đường cong, không nằm trên một đường thẳng, nên đây là phi tuyến.",
+    xSq:"x bình phương", xCu:"x lập phương",
+    propDir:"Quan hệ này có tỉ lệ thuận không?",
+    whyPropT:"y ÷ x bằng {k} ở mọi cột, nên y = {k}x. Đây là tỉ lệ thuận.",
+    whyNonPT:"y ÷ x không cố định: {a} ở một cột và {b} ở cột khác. Không tỉ lệ thuận.",
+    whyPropG:"Đồ thị là đường thẳng đi qua gốc tọa độ (0, 0), nên đây là tỉ lệ thuận.",
+    whyNonPG:"Đường thẳng cắt trục y tại {b}, không phải tại gốc tọa độ, nên không tỉ lệ thuận.",
+    whyPropE:"{eq} có dạng y = kx, nên đây là tỉ lệ thuận.", whyNonPE:"Trong {eq}, khi x = 0 thì y = {b}, không phải 0, nên không tỉ lệ thuận.",
+    fnA:"Hàm số A", fnB:"Hàm số B", fnSame:"Bằng nhau",
+    cmpRateDir:"Hàm số nào có tốc độ thay đổi lớn hơn?", cmpUnitDir:"Quan hệ tỉ lệ thuận nào có tốc độ đơn vị lớn hơn?",
+    cmpIntDir:"Hàm số nào có tung độ gốc (giá trị ban đầu) lớn hơn?",
+    rateA:"Hàm số A (bảng): y thay đổi {dy} khi x thay đổi {dx}, nên tốc độ là {m}.",
+    rateB:"Hàm số B: tốc độ thay đổi là {m}, số nhân với x.",
+    rateBG:"Hàm số B (đồ thị): độ tăng {r} trên độ chạy {u}, nên tốc độ là {m}.",
+    intA:"Hàm số A: dùng tốc độ để lùi về x = 0; y = {b}.", intB:"Hàm số B: tung độ gốc là {b}.",
+    intBG:"Hàm số B (đồ thị): đường thẳng cắt trục y tại {b}.",
+    greaterA:"Vậy hàm số A lớn hơn.", greaterB:"Vậy hàm số B lớn hơn.", greaterSame:"Vậy chúng bằng nhau.",
+    meetDir:"Chạm vào điểm mà hai đường thẳng cắt nhau, rồi bấm Kiểm tra.",
+    hintMeetNo:"Hãy đặt một điểm trước: chạm vào chỗ hai đường cắt nhau.",
+    hintMeet1:"{p} nằm trên đường {L} nhưng không nằm trên đường kia. Nghiệm phải nằm trên cả hai đường.",
+    hintMeet0:"{p} không nằm trên đường nào. Hãy tìm điểm mà hai đường cắt nhau.",
+    goodMeet:"Đúng! {p} nằm trên cả hai đường: nó làm cho {e1} và {e2} đều đúng. Đó là nghiệm của hệ.",
+    lineA:"A", lineB:"B",
+    stds:"Tiêu chuẩn phù hợp — TEKS Texas: Lớp 6 6.6(B, C), 6.11(A); Lớp 7 7.4(A), 7.7(A); Lớp 8 8.4(A, B, C), 8.5(A, B, F, G, H, I), 8.9(A). Common Core: 6.EE.9, 6.NS.6c, 6.NS.8; 7.RP.2a, 7.RP.2b, 7.RP.2c; 8.EE.5, 8.EE.6, 8.EE.8a; 8.F.1, 8.F.2, 8.F.3, 8.F.4.",
+    cardTitle:"Vẽ Độ Dốc & Hàm Số — Thẻ thử thách", cardName:"Tên:",
+    cardTable:"Hoàn thành bảng, rồi vẽ các điểm.", cardSlope:"Tìm độ dốc của đường thẳng đi qua hai điểm này.",
+    cardEq:"Viết phương trình đường thẳng dưới dạng y = mx + b.", cardFunc:"Quan hệ này có phải là hàm số không? Giải thích.",
+    cardMeet:"Vẽ cả hai đường thẳng. Chúng cắt nhau ở đâu? Kiểm tra rằng điểm đó làm cho cả hai phương trình đúng.", cardProp:"Quan hệ này có tỉ lệ thuận không? Giải thích."
+  },
+  ar:{
+    appTitle:"راسم الميل والدوال", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", modesLbl:"الأنماط", stars:"الإجابات الصحيحة",
+    newRound:"جولة جديدة", readAloud:"اقرأ بصوت عالٍ", check:"تحقّق", clear:"مسح", choicesLbl:"خيارات الإجابة",
+    footNote:"بدون حسابات · لا جمع للبيانات · يعمل بدون إنترنت",
+    mTables:"الجداول والتمثيل البياني", mSlope:"مستكشف الميل", mBuild:"بنّاء y = mx + b", mFunc:"دالة أم لا؟", mCompare:"المقارنة والتقاطع",
+    teacherTitle:"إعدادات المعلم", close:"إغلاق", setGrade:"الصف", g6:"الصف السادس", g7:"الصف السابع", g8:"الصف الثامن",
+    gradeNote:"الصف السادس: الجداول والقواعد وتمثيل النقاط. الصف السابع: العلاقات التناسبية y = kx بمعدلات صحيحة موجبة. الصف الثامن: الميل و y = mx + b والدوال وأنظمة المعادلات. اختيار الصف يعيد الخيارات أدناه إلى قيمها الافتراضية.",
+    setRange:"حجم الشبكة", setNums:"الأعداد", negOn:"ميول ومقاطع سالبة", fracOn:"ميول كسرية",
+    setModes:"الأنماط", setSpeech:"النطق", autoRead:"قراءة التعليمات تلقائياً", printCards:"طباعة بطاقات التحدي",
+    setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُحفظ أي معلومات عن الطالب أبداً.",
+    neg:"سالب {n}", frSay:"{n} على {d}", ptSay:"{x} فاصلة {y}", wPlus:"زائد", wMinus:"ناقص", wTimes:"ضرب", wEq:"يساوي",
+    undef:"غير معرّف", yes:"نعم!", youPicked:"اخترت {x}.",
+    planeLbl:"المستوى الإحداثي", kbTap:"المستوى الإحداثي. مفاتيح الأسهم تحرّك المؤشر، وزر الإدخال يضع نقطة أو يزيلها.",
+    kbDrag:"المستوى الإحداثي. مفاتيح الأسهم تحرّك النقطة الحمراء، ومفتاح المسافة ينتقل إلى النقطة الأخرى.",
+    kbScan:"المستوى الإحداثي. سهما اليمين واليسار يحرّكان الخط الرأسي.",
+    ruleLbl:"القاعدة", inp:"المدخلات", out:"المخرجات",
+    ruleAdd:"أضف {b} إلى x.", ruleSub:"اطرح {b} من x.", ruleMul:"اضرب x في {m}.", ruleLin:"اضرب x في {m}، ثم أضف {b}.", ruleLinS:"اضرب x في {m}، ثم اطرح {b}.",
+    fillDir:"استخدم القاعدة لإكمال الجدول. ما قيمة y عندما x = {x}؟",
+    hintFill:"عوّض x = {x} في القاعدة: {calc}.",
+    goodFill:"صحيح: {calc}.",
+    plotDir:"الآن مثّل كل نقطة (x, y) من الجدول. المس الشبكة لوضع نقطة، والمسها مرة أخرى لإزالتها. ثم اضغط تحقّق.",
+    hintSwap:"مثّلت {p}، لكن الجدول فيه {q}. الإحداثي x يأتي أولاً: تحرّك أفقياً أولاً، ثم لأعلى أو لأسفل.",
+    hintOff:"{p} ليست في الجدول. ابدأ من نقطة الأصل، وتحرّك x وحدة أفقياً، ثم y وحدة لأعلى أو لأسفل.",
+    hintMissing:"في الجدول {n} نقاط. مثّلت {k} منها بشكل صحيح. مثّل الباقي.",
+    goodPlot:"نعم! النقاط الـ {n} كلها تطابق الجدول، وتقع على خط مستقيم واحد: {eq}.",
+    readDir:"ما إحداثيات النقطة P؟",
+    hintRead:"النقطة P على استقامة {x} على المحور x و{y} على المحور y. اكتب الإحداثي x أولاً: (x, y).",
+    hintReadSwap:"قريب، لكنهما معكوسان. الإحداثي x (الأفقي) يأتي أولاً، ثم الإحداثي y (لأعلى أو لأسفل).",
+    goodRead:"نعم! النقطة P تبعد {x} أفقياً و{y} رأسياً، إذن P = {p}.",
+    eqDir:"أي معادلة تنطبق على كل أعمدة الجدول؟",
+    hintEqT:"جرّبها عند x = {x}: {calc}، لكن الجدول يقول y = {y}. يجب أن تنطبق المعادلة على كل الأعمدة.",
+    goodEqT:"نعم! {eq} تنطبق على كل الأعمدة. مثلاً عند x = {x}: {calc}.",
+    rise:"الارتفاع", run:"الإزاحة", slopeW:"الميل", intW:"المقطع الصادي",
+    makeDir:"اسحب النقطتين الحمراوين لتكوين خط ميله {m}. ثم اضغط تحقّق.",
+    makeDir0:"اسحب النقطتين الحمراوين لتكوين خط ميله 0. ثم اضغط تحقّق.",
+    makeDirU:"اسحب النقطتين الحمراوين لتكوين خط ميله غير معرّف. ثم اضغط تحقّق.",
+    readout:"الارتفاع {r} ÷ الإزاحة {u} = الميل {m}", readoutU:"الإزاحة 0، إذن الميل غير معرّف", readoutSame:"النقطتان فوق بعضهما.",
+    hintSame:"يجب أن تكون النقطتان مختلفتين لتكوين خط.",
+    hintMake:"ميلك {c}. للحصول على ميل {m}، ابدأ من النقطة اليسرى، وتحرّك {u} إلى اليمين، ثم {r} لأعلى.",
+    hintMakeN:"ميلك {c}. للحصول على ميل {m}، ابدأ من النقطة اليسرى، وتحرّك {u} إلى اليمين، ثم {r} لأسفل.",
+    hintMake0:"الميل 0 يعني عدم وجود ارتفاع: كوّن خطاً أفقياً تكون فيه النقطتان على الارتفاع نفسه.",
+    hintMakeU:"الميل غير المعرّف يعني أن الإزاحة 0: كوّن خطاً رأسياً تكون فيه نقطة فوق الأخرى مباشرة.",
+    goodMake:"نعم! الارتفاع {r} ÷ الإزاحة {u} = {m}.", goodMake0:"نعم! الارتفاع 0، إذن الميل 0: خط أفقي.", goodMakeU:"نعم! الإزاحة 0 ولا يمكن القسمة على 0، إذن الميل غير معرّف: خط رأسي.",
+    findDir:"ما ميل الخط المار بالنقطتين A و B؟", showTri:"أظهر مثلث الميل", hideTri:"أخفِ مثلث الميل",
+    findTDir:"ما ميل (معدل تغيّر) الدالة في الجدول؟",
+    findPDir:"ما ميل الخط المار بالنقطتين {a} و {b}؟",
+    hintFind:"انتقل من النقطة اليسرى إلى اليمنى. الإزاحة = {u} أفقياً، والارتفاع = {r} (لأعلى موجب، ولأسفل سالب). الميل = الارتفاع ÷ الإزاحة.",
+    hintRecip:"هذه الإزاحة ÷ الارتفاع. الميل هو الارتفاع ÷ الإزاحة: التغيّر في y على التغيّر في x.",
+    hintSign:"اقرأ الخط من اليسار إلى اليمين. إنه يتجه {dir}، إذن الميل {sgn}.",
+    hintFindT:"اختر عمودين. تتغيّر y بمقدار {dy} بينما تتغيّر x بمقدار {dx}، إذن الميل {dy} ÷ {dx}.",
+    hintFindP:"الميل = التغيّر في y ÷ التغيّر في x = ({y2} − {y1}) ÷ ({x2} − {x1}) = {dy} ÷ {dx}.",
+    goodFind:"نعم! الارتفاع {r} ÷ الإزاحة {u} = {m}.", goodFindT:"نعم! التغيّر في y ÷ التغيّر في x = {dy} ÷ {dx} = {m}.",
+    dirUp:"لأعلى", dirDown:"لأسفل", sgnPos:"موجب", sgnNeg:"سالب",
+    kindDir:"هل ميل هذا الخط موجب أم سالب أم صفر أم غير معرّف؟",
+    kPos:"موجب", kNeg:"سالب", kZero:"صفر", kUndef:"غير معرّف",
+    whyPos:"من اليسار إلى اليمين يصعد الخط، إذن الميل موجب.", whyNeg:"من اليسار إلى اليمين ينزل الخط، إذن الميل سالب.",
+    whyZero:"الخط أفقي: الارتفاع 0، إذن الميل 0.", whyUndef:"الخط رأسي: الإزاحة 0، والقسمة على 0 غير معرّفة.",
+    simDir:"مثلثا الميل يقعان على الخط نفسه. المثلث الصغير ارتفاعه {r} وإزاحته {u}. المثلث الكبير إزاحته {U}. ما ارتفاعه؟",
+    hintSim:"المثلثان متشابهان. الكبير أعرض بـ {k} مرات، فيجب أن يكون أطول بـ {k} مرات: يبقى الارتفاع ÷ الإزاحة {m}.",
+    goodSim:"نعم! {r} ÷ {u} = {R} ÷ {U} = {m}. مثلثات الميل المتشابهة على خط واحد تعطي دائماً الميل نفسه.",
+    slopeM:"الميل m", interB:"المقطع الصادي b", constK:"الثابت k", lessM:"ميل أصغر", moreM:"ميل أكبر", lessB:"حرّك الخط لأسفل", moreB:"حرّك الخط لأعلى",
+    lessK:"k أصغر", moreK:"k أكبر",
+    bGraphDir:"استخدم الأزرار لبناء الخط الذي يطابق الخط البرتقالي المتقطع. ثم اضغط تحقّق.",
+    bTableDir:"استخدم الأزرار لبناء الخط الذي يطابق هذا الجدول. ثم اضغط تحقّق.",
+    bWordDir:"ابنِ هذا الخط: يقطع المحور y عند {b} ويتحرك {r} {dir} لكل {u} إلى اليمين. ثم اضغط تحقّق.",
+    bWordDirK:"ابنِ هذا الخط: y دائماً يساوي {k} أمثال x. ثم اضغط تحقّق.",
+    yourLine:"خطك", targetLine:"الهدف",
+    hintBSlope:"تحقّق من الانحدار. ميلك {c}، لكن الهدف يتغيّر {r} في y لكل {u} أفقياً.",
+    hintBInt:"الميل صحيح. الآن تحقّق من نقطة تقاطع الخط مع المحور y: عندما x = 0 يجب أن تكون y = {b}، لا {c}.",
+    goodBuild:"نعم! {eq}: الميل {m}، والمقطع الصادي {b}.", goodBuildK:"نعم! {eq}: y يساوي {k} أمثال x، والخط يمر بنقطة الأصل.",
+    pickEqDir:"أي معادلة تطابق هذا التمثيل البياني؟",
+    hintPickM:"ميل تلك المعادلة {c}، لكن الخط يتحرك {r} {dir} لكل {u} إلى اليمين.",
+    hintPickB:"ذلك الخط يقطع المحور y عند {c}، لكن التمثيل البياني يقطعه عند {b}.",
+    goodPickEq:"نعم! التمثيل البياني يقطع المحور y عند {b} وميله {m}: {eq}.",
+    names:"سارة,ليلى,مريم,نور,هدى,سلمى,ريم,جنى",
+    cxGym:"صالة تسلّق تتقاضى رسوم اشتراك ${b} بالإضافة إلى ${m} لكل زيارة. أي معادلة تعطي التكلفة الكلية y مقابل x زيارة؟",
+    cxPlant:"نبتة طولها {b} سم وتنمو {m} سم كل أسبوع. أي معادلة تعطي طولها y بعد x أسبوع؟",
+    cxSave:"لدى {name} مدخرات ${b} وتضيف ${m} كل أسبوع. أي معادلة تعطي المدخرات y بعد x أسبوع؟",
+    cxPrice:"سعر رطل التفاح ${m}. أي معادلة تعطي تكلفة y لـ x رطل؟",
+    cxWalk:"تقود {name} دراجتها بسرعة {m} ميل في الساعة. أي معادلة تعطي المسافة y بعد x ساعة؟",
+    hintCx:"المعدل ({m} لكل واحدة) يُضرب في x، إذن هو الميل. الكمية الابتدائية ({b}) هي القيمة عندما x = 0، إذن هي المقطع الصادي.",
+    hintCxK:"هذه علاقة تناسبية: y دائماً يساوي {m} أمثال x، وعندما x = 0 تكون y = 0. إذن المعادلة y = kx حيث k = {m}.",
+    goodCx:"نعم! {eq}. المعدل {m} هو الميل، والكمية الابتدائية {b} هي المقطع الصادي.", goodCxK:"نعم! {eq}. معدل الوحدة {m} هو ثابت التناسب، أي ميل الخط.",
+    meanDir:"في المعادلة {eq}، ماذا يعني {what} {v}؟",
+    mGym:"تكلفة كل زيارة", sGym:"رسوم الاشتراك التي تُدفع مرة واحدة", tGym:"التكلفة الكلية",
+    mPlant:"عدد السنتيمترات التي تنموها كل أسبوع", sPlant:"طولها في البداية", tPlant:"طولها بعد x أسبوع",
+    mSave:"المبلغ المضاف كل أسبوع", sSave:"المبلغ المدّخر في البداية", tSave:"مجموع المدخرات",
+    hintMean:"الميل هو معدل التغيّر: المقدار لكل زيارة أو لكل أسبوع. المقطع الصادي هو القيمة عندما x = 0: الكمية الابتدائية.",
+    goodMean:"نعم! {v} هو {ans}.",
+    isF:"دالة", notF:"ليست دالة", isLin:"خطية", notLin:"غير خطية", isProp:"تناسبية", notProp:"غير تناسبية",
+    fDir:"هل هذه العلاقة دالة؟", fScanDir:"هل هذه العلاقة دالة؟ حرّك الخط الرأسي الأحمر عبر التمثيل البياني لتختبرها.",
+    whyNotF:"المُدخل {x} مرتبط بمُخرجين مختلفين، {y1} و{y2}. الدالة تعطي كل مُدخل مُخرجاً واحداً فقط.",
+    whyFRep:"لكل مُدخل مُخرج واحد فقط. مُدخلان يشتركان في المُخرج {y}، وهذا مسموح في الدالة.",
+    whyF:"كل مُدخل يظهر مرة واحدة، إذن لكل مُدخل مُخرج واحد فقط.",
+    whyScanNot:"خط رأسي عند x = {x} يمر بنقطتين، إذن للمُدخل {x} مُخرجان. لا يجتاز اختبار الخط الرأسي.",
+    whyScanF:"لا يمر أي خط رأسي بأكثر من نقطة واحدة، إذن يجتاز اختبار الخط الرأسي.",
+    linDir:"هل هذه الدالة خطية أم غير خطية؟",
+    whyLinT:"تتغيّر y بالمقدار نفسه ({d}) كلما زادت x بمقدار 1، أي أن معدل التغيّر ثابت، إذن هي خطية.",
+    whyNonT:"عندما تزيد x بمقدار 1 تتغيّر y بمقدار {ds}. التغيّرات غير متساوية، فالمعدل غير ثابت: غير خطية.",
+    whyLinE:"{eq} على الصورة y = mx + b، إذن تمثيلها خط مستقيم: خطية.",
+    whyNonE:"في {eq} مرفوعة x إلى قوة، فمعدل التغيّر غير ثابت والتمثيل منحنٍ: غير خطية.",
+    whyLinG:"كل النقاط تقع على خط مستقيم واحد، إذن هي خطية.", whyNonG:"النقاط تنحني ولا تقع على خط مستقيم واحد، إذن هي غير خطية.",
+    xSq:"x تربيع", xCu:"x تكعيب",
+    propDir:"هل هذه العلاقة تناسبية؟",
+    whyPropT:"ناتج y ÷ x يساوي {k} في كل عمود، إذن y = {k}x. العلاقة تناسبية.",
+    whyNonPT:"ناتج y ÷ x غير ثابت: {a} في عمود و{b} في عمود آخر. العلاقة غير تناسبية.",
+    whyPropG:"التمثيل البياني خط مستقيم يمر بنقطة الأصل (0, 0)، إذن العلاقة تناسبية.",
+    whyNonPG:"الخط يقطع المحور y عند {b} وليس عند نقطة الأصل، إذن العلاقة غير تناسبية.",
+    whyPropE:"{eq} على الصورة y = kx، إذن العلاقة تناسبية.", whyNonPE:"في {eq} عندما x = 0 تكون y = {b} وليس 0، إذن العلاقة غير تناسبية.",
+    fnA:"الدالة A", fnB:"الدالة B", fnSame:"متساويتان",
+    cmpRateDir:"أي دالة معدل تغيّرها أكبر؟", cmpUnitDir:"أي علاقة تناسبية معدل الوحدة فيها أكبر؟",
+    cmpIntDir:"أي دالة مقطعها الصادي (قيمتها الابتدائية) أكبر؟",
+    rateA:"الدالة A (جدول): تتغيّر y بمقدار {dy} عندما تتغيّر x بمقدار {dx}، إذن معدلها {m}.",
+    rateB:"الدالة B: معدل التغيّر {m}، وهو العدد المضروب في x.",
+    rateBG:"الدالة B (تمثيل بياني): ارتفاع {r} على إزاحة {u}، إذن معدلها {m}.",
+    intA:"الدالة A: ارجع إلى x = 0 باستخدام المعدل؛ y = {b}.", intB:"الدالة B: المقطع الصادي {b}.",
+    intBG:"الدالة B (تمثيل بياني): الخط يقطع المحور y عند {b}.",
+    greaterA:"إذن الدالة A أكبر.", greaterB:"إذن الدالة B أكبر.", greaterSame:"إذن هما متساويتان.",
+    meetDir:"المس النقطة التي يتقاطع عندها الخطان، ثم اضغط تحقّق.",
+    hintMeetNo:"ضع نقطة أولاً: المس مكان تقاطع الخطين.",
+    hintMeet1:"{p} تقع على الخط {L} لكن ليس على الخط الآخر. يجب أن يقع الحل على الخطين معاً.",
+    hintMeet0:"{p} لا تقع على أي من الخطين. ابحث عن النقطة التي يتقاطع عندها الخطان.",
+    goodMeet:"نعم! {p} تقع على الخطين: تجعل {e1} و{e2} صحيحتين. إنها حل النظام.",
+    lineA:"A", lineB:"B",
+    stds:"المعايير المتوافقة — TEKS تكساس: الصف السادس 6.6(B, C)، 6.11(A)؛ الصف السابع 7.4(A)، 7.7(A)؛ الصف الثامن 8.4(A, B, C)، 8.5(A, B, F, G, H, I)، 8.9(A). Common Core: 6.EE.9، 6.NS.6c، 6.NS.8؛ 7.RP.2a، 7.RP.2b، 7.RP.2c؛ 8.EE.5، 8.EE.6، 8.EE.8a؛ 8.F.1، 8.F.2، 8.F.3، 8.F.4.",
+    cardTitle:"راسم الميل والدوال — بطاقات التحدي", cardName:"الاسم:",
+    cardTable:"أكمل الجدول، ثم مثّل النقاط بيانياً.", cardSlope:"أوجد ميل الخط المار بهاتين النقطتين.",
+    cardEq:"اكتب معادلة الخط على الصورة y = mx + b.", cardFunc:"هل هذه العلاقة دالة؟ اشرح.",
+    cardMeet:"مثّل الخطين بيانياً. أين يتقاطعان؟ تحقّق أن النقطة تجعل المعادلتين صحيحتين.", cardProp:"هل هذه العلاقة تناسبية؟ اشرح."
+  },
+  hi:{
+    appTitle:"ढलान और फलन ग्राफ़र", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", modesLbl:"मोड", stars:"सही उत्तर",
+    newRound:"नया राउंड", readAloud:"ज़ोर से पढ़ें", check:"जाँचें", clear:"मिटाएँ", choicesLbl:"उत्तर विकल्प",
+    footNote:"कोई खाता नहीं · कोई डेटा संग्रह नहीं · ऑफ़लाइन चलता है",
+    mTables:"तालिका और ग्राफ़", mSlope:"ढलान खोजक", mBuild:"y = mx + b निर्माता", mFunc:"फलन है या नहीं?", mCompare:"तुलना और प्रतिच्छेदन",
+    teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setGrade:"कक्षा", g6:"कक्षा 6", g7:"कक्षा 7", g8:"कक्षा 8",
+    gradeNote:"कक्षा 6: तालिकाएँ, नियम और बिंदु आलेखन। कक्षा 7: धनात्मक पूर्ण-संख्या दरों के साथ समानुपाती संबंध y = kx। कक्षा 8: ढलान, y = mx + b, फलन और समीकरण निकाय। कक्षा चुनने पर नीचे के विकल्प उस कक्षा के डिफ़ॉल्ट पर लौट आते हैं।",
+    setRange:"ग्रिड का आकार", setNums:"संख्याएँ", negOn:"ऋणात्मक ढलान और अंतःखंड", fracOn:"भिन्न वाले ढलान",
+    setModes:"मोड", setSpeech:"आवाज़", autoRead:"निर्देश अपने-आप पढ़ें", printCards:"चुनौती कार्ड छापें",
+    setStored:"सेटिंग्स केवल इसी डिवाइस पर सहेजी जाती हैं। विद्यार्थी की कोई जानकारी कभी संग्रहीत नहीं होती।",
+    neg:"ऋण {n}", frSay:"{n} बटा {d}", ptSay:"{x} कॉमा {y}", wPlus:"धन", wMinus:"ऋण", wTimes:"गुणा", wEq:"बराबर",
+    undef:"अपरिभाषित", yes:"हाँ!", youPicked:"आपने {x} चुना।",
+    planeLbl:"निर्देशांक तल", kbTap:"निर्देशांक तल। तीर कुंजियाँ कर्सर को हिलाती हैं; Enter बिंदु रखता या हटाता है।",
+    kbDrag:"निर्देशांक तल। तीर कुंजियाँ लाल बिंदु को हिलाती हैं; स्पेस दूसरे बिंदु पर बदलता है।",
+    kbScan:"निर्देशांक तल। बाएँ और दाएँ तीर ऊर्ध्वाधर रेखा को खिसकाते हैं।",
+    ruleLbl:"नियम", inp:"इनपुट", out:"आउटपुट",
+    ruleAdd:"x में {b} जोड़ें।", ruleSub:"x में से {b} घटाएँ।", ruleMul:"x को {m} से गुणा करें।", ruleLin:"x को {m} से गुणा करें, फिर {b} जोड़ें।", ruleLinS:"x को {m} से गुणा करें, फिर {b} घटाएँ।",
+    fillDir:"नियम से तालिका भरें। जब x = {x} हो, तो y क्या है?",
+    hintFill:"नियम में x = {x} रखें: {calc}।",
+    goodFill:"सही: {calc}।",
+    plotDir:"अब तालिका का हर बिंदु (x, y) आलेखित करें। बिंदु रखने के लिए ग्रिड पर टैप करें; हटाने के लिए फिर से टैप करें। फिर जाँचें दबाएँ।",
+    hintSwap:"आपने {p} आलेखित किया, पर तालिका में {q} है। x-निर्देशांक पहले आता है: पहले आड़े चलें, फिर ऊपर या नीचे।",
+    hintOff:"{p} तालिका में नहीं है। मूल बिंदु से शुरू करें, x इकाई आड़े चलें, फिर y इकाई ऊपर या नीचे।",
+    hintMissing:"तालिका में {n} बिंदु हैं। आपने {k} सही आलेखित किए हैं। बाकी भी आलेखित करें।",
+    goodPlot:"हाँ! सभी {n} बिंदु तालिका से मेल खाते हैं, और वे एक सीधी रेखा पर हैं: {eq}।",
+    readDir:"बिंदु P के निर्देशांक क्या हैं?",
+    hintRead:"P, x-अक्ष पर {x} और y-अक्ष पर {y} की सीध में है। पहले x-निर्देशांक लिखें: (x, y)।",
+    hintReadSwap:"करीब है, पर ये उलटे हैं। x-निर्देशांक (आड़ा) पहले आता है, फिर y-निर्देशांक (ऊपर या नीचे)।",
+    goodRead:"हाँ! P आड़े {x} और खड़े {y} पर है, इसलिए P = {p}।",
+    eqDir:"कौन-सा समीकरण तालिका के हर स्तंभ पर खरा उतरता है?",
+    hintEqT:"x = {x} से जाँचें: {calc}, पर तालिका में y = {y} है। समीकरण हर स्तंभ पर सही होना चाहिए।",
+    goodEqT:"हाँ! {eq} हर स्तंभ पर सही है। उदाहरण, x = {x}: {calc}।",
+    rise:"उठान", run:"फैलाव", slopeW:"ढलान", intW:"y-अंतःखंड",
+    makeDir:"दोनों लाल बिंदुओं को खींचकर ढलान {m} वाली रेखा बनाएँ। फिर जाँचें दबाएँ।",
+    makeDir0:"दोनों लाल बिंदुओं को खींचकर ढलान 0 वाली रेखा बनाएँ। फिर जाँचें दबाएँ।",
+    makeDirU:"दोनों लाल बिंदुओं को खींचकर अपरिभाषित ढलान वाली रेखा बनाएँ। फिर जाँचें दबाएँ।",
+    readout:"उठान {r} ÷ फैलाव {u} = ढलान {m}", readoutU:"फैलाव 0 है, इसलिए ढलान अपरिभाषित है", readoutSame:"दोनों बिंदु एक-दूसरे के ऊपर हैं।",
+    hintSame:"रेखा बनाने के लिए दोनों बिंदु अलग होने चाहिए।",
+    hintMake:"आपका ढलान {c} है। ढलान {m} के लिए बाएँ बिंदु से शुरू करें, {u} दाएँ जाएँ, फिर {r} ऊपर।",
+    hintMakeN:"आपका ढलान {c} है। ढलान {m} के लिए बाएँ बिंदु से शुरू करें, {u} दाएँ जाएँ, फिर {r} नीचे।",
+    hintMake0:"ढलान 0 का अर्थ है कोई उठान नहीं: क्षैतिज रेखा बनाएँ, दोनों बिंदु एक ही ऊँचाई पर।",
+    hintMakeU:"अपरिभाषित ढलान का अर्थ है फैलाव 0: ऊर्ध्वाधर रेखा बनाएँ, एक बिंदु दूसरे के ठीक ऊपर।",
+    goodMake:"हाँ! उठान {r} ÷ फैलाव {u} = {m}।", goodMake0:"हाँ! उठान 0 है, इसलिए ढलान 0 है: एक क्षैतिज रेखा।", goodMakeU:"हाँ! फैलाव 0 है और 0 से भाग नहीं हो सकता, इसलिए ढलान अपरिभाषित है: एक ऊर्ध्वाधर रेखा।",
+    findDir:"A और B से होकर जाने वाली रेखा का ढलान क्या है?", showTri:"ढलान त्रिभुज दिखाएँ", hideTri:"ढलान त्रिभुज छिपाएँ",
+    findTDir:"तालिका वाले फलन का ढलान (परिवर्तन की दर) क्या है?",
+    findPDir:"{a} और {b} से होकर जाने वाली रेखा का ढलान क्या है?",
+    hintFind:"बाएँ बिंदु से दाएँ बिंदु तक जाएँ। फैलाव = {u} आड़े; उठान = {r} (ऊपर धनात्मक, नीचे ऋणात्मक)। ढलान = उठान ÷ फैलाव।",
+    hintRecip:"यह फैलाव ÷ उठान है। ढलान उठान ÷ फैलाव होता है: y में बदलाव बटा x में बदलाव।",
+    hintSign:"रेखा को बाएँ से दाएँ पढ़ें। यह {dir} जाती है, इसलिए ढलान {sgn} है।",
+    hintFindT:"दो स्तंभ चुनें। जब x में {dx} का बदलाव होता है, y में {dy} का बदलाव होता है, इसलिए ढलान {dy} ÷ {dx} है।",
+    hintFindP:"ढलान = y में बदलाव ÷ x में बदलाव = ({y2} − {y1}) ÷ ({x2} − {x1}) = {dy} ÷ {dx}।",
+    goodFind:"हाँ! उठान {r} ÷ फैलाव {u} = {m}।", goodFindT:"हाँ! y में बदलाव ÷ x में बदलाव = {dy} ÷ {dx} = {m}।",
+    dirUp:"ऊपर", dirDown:"नीचे", sgnPos:"धनात्मक", sgnNeg:"ऋणात्मक",
+    kindDir:"इस रेखा का ढलान धनात्मक, ऋणात्मक, शून्य या अपरिभाषित है?",
+    kPos:"धनात्मक", kNeg:"ऋणात्मक", kZero:"शून्य", kUndef:"अपरिभाषित",
+    whyPos:"बाएँ से दाएँ रेखा ऊपर जाती है, इसलिए ढलान धनात्मक है।", whyNeg:"बाएँ से दाएँ रेखा नीचे जाती है, इसलिए ढलान ऋणात्मक है।",
+    whyZero:"रेखा क्षैतिज है: उठान 0 है, इसलिए ढलान 0 है।", whyUndef:"रेखा ऊर्ध्वाधर है: फैलाव 0 है, और 0 से भाग अपरिभाषित है।",
+    simDir:"दोनों ढलान त्रिभुज एक ही रेखा पर हैं। छोटे का उठान {r} और फैलाव {u} है। बड़े का फैलाव {U} है। उसका उठान क्या है?",
+    hintSim:"त्रिभुज समरूप हैं। बड़ा त्रिभुज {k} गुना चौड़ा है, इसलिए वह {k} गुना ऊँचा भी होगा: उठान ÷ फैलाव {m} ही रहता है।",
+    goodSim:"हाँ! {r} ÷ {u} = {R} ÷ {U} = {m}। एक रेखा पर समरूप ढलान त्रिभुज हमेशा एक ही ढलान देते हैं।",
+    slopeM:"ढलान m", interB:"y-अंतःखंड b", constK:"स्थिरांक k", lessM:"कम ढलान", moreM:"अधिक ढलान", lessB:"रेखा नीचे करें", moreB:"रेखा ऊपर करें",
+    lessK:"छोटा k", moreK:"बड़ा k",
+    bGraphDir:"बटनों से वह रेखा बनाएँ जो नारंगी बिंदीदार रेखा से मेल खाए। फिर जाँचें दबाएँ।",
+    bTableDir:"बटनों से वह रेखा बनाएँ जो इस तालिका से मेल खाए। फिर जाँचें दबाएँ।",
+    bWordDir:"यह रेखा बनाएँ: यह y-अक्ष को {b} पर काटती है और दाएँ हर {u} पर {r} {dir} जाती है। फिर जाँचें दबाएँ।",
+    bWordDirK:"यह रेखा बनाएँ: y हमेशा x का {k} गुना है। फिर जाँचें दबाएँ।",
+    yourLine:"आपकी रेखा", targetLine:"लक्ष्य",
+    hintBSlope:"झुकाव जाँचें। आपका ढलान {c} है, पर लक्ष्य में हर {u} आड़े पर y में {r} का बदलाव होता है।",
+    hintBInt:"ढलान सही है। अब देखें कि रेखा y-अक्ष को कहाँ काटती है: x = 0 पर y को {b} होना चाहिए, {c} नहीं।",
+    goodBuild:"हाँ! {eq}: ढलान {m}, y-अंतःखंड {b}।", goodBuildK:"हाँ! {eq}: y, x का {k} गुना है, और रेखा मूल बिंदु से होकर जाती है।",
+    pickEqDir:"कौन-सा समीकरण इस ग्राफ़ से मेल खाता है?",
+    hintPickM:"उस समीकरण का ढलान {c} है, पर ग्राफ़ दाएँ हर {u} पर {r} {dir} जाता है।",
+    hintPickB:"वह रेखा y-अक्ष को {c} पर काटती है, पर ग्राफ़ {b} पर काटता है।",
+    goodPickEq:"हाँ! ग्राफ़ y-अक्ष को {b} पर काटता है और उसका ढलान {m} है: {eq}।",
+    names:"प्रिया,अनन्या,मीरा,ईशा,सिया,दिया,रिया,नेहा",
+    cxGym:"एक क्लाइंबिंग जिम ${b} सदस्यता शुल्क और हर बार आने पर ${m} लेता है। x बार आने की कुल लागत y कौन-सा समीकरण देता है?",
+    cxPlant:"एक पौधा {b} सेमी ऊँचा है और हर हफ़्ते {m} सेमी बढ़ता है। x हफ़्तों बाद उसकी ऊँचाई y कौन-सा समीकरण देता है?",
+    cxSave:"{name} के पास ${b} बचत है और वह हर हफ़्ते ${m} जोड़ती है। x हफ़्तों बाद बचत y कौन-सा समीकरण देता है?",
+    cxPrice:"सेब ${m} प्रति पाउंड हैं। x पाउंड की लागत y कौन-सा समीकरण देता है?",
+    cxWalk:"{name} {m} मील प्रति घंटे से साइकिल चलाती है। x घंटे बाद दूरी y कौन-सा समीकरण देता है?",
+    hintCx:"दर (हर एक के लिए {m}) x से गुणा होती है, इसलिए वह ढलान है। शुरुआती मात्रा ({b}) x = 0 पर मान है, इसलिए वह y-अंतःखंड है।",
+    hintCxK:"यह समानुपाती है: y हमेशा x का {m} गुना है, और x = 0 पर y = 0। इसलिए समीकरण y = kx है, जहाँ k = {m}।",
+    goodCx:"हाँ! {eq}। दर {m} ढलान है और शुरुआती मात्रा {b} y-अंतःखंड है।", goodCxK:"हाँ! {eq}। इकाई दर {m} समानुपात स्थिरांक है, यानी रेखा का ढलान।",
+    meanDir:"समीकरण {eq} में {what} {v} का क्या अर्थ है?",
+    mGym:"हर बार आने की लागत", sGym:"एक बार का सदस्यता शुल्क", tGym:"कुल लागत",
+    mPlant:"हर हफ़्ते कितने सेमी बढ़ता है", sPlant:"शुरुआत में उसकी ऊँचाई", tPlant:"x हफ़्तों बाद उसकी ऊँचाई",
+    mSave:"हर हफ़्ते कितना जोड़ा जाता है", sSave:"शुरुआत में बचत", tSave:"कुल बचत",
+    hintMean:"ढलान परिवर्तन की दर है: हर बार या हर हफ़्ते की मात्रा। y-अंतःखंड x = 0 पर मान है: शुरुआती मात्रा।",
+    goodMean:"हाँ! {v} {ans} है।",
+    isF:"फलन है", notF:"फलन नहीं है", isLin:"रैखिक", notLin:"अरैखिक", isProp:"समानुपाती", notProp:"समानुपाती नहीं",
+    fDir:"क्या यह संबंध एक फलन है?", fScanDir:"क्या यह संबंध एक फलन है? जाँचने के लिए लाल ऊर्ध्वाधर रेखा को ग्राफ़ पर खिसकाएँ।",
+    whyNotF:"इनपुट {x} दो अलग आउटपुट, {y1} और {y2}, से जुड़ा है। फलन हर इनपुट को ठीक एक आउटपुट देता है।",
+    whyFRep:"हर इनपुट का ठीक एक आउटपुट है। दो इनपुट का आउटपुट {y} एक ही है, और फलन में यह अनुमत है।",
+    whyF:"हर इनपुट एक ही बार आता है, इसलिए हर इनपुट का ठीक एक आउटपुट है।",
+    whyScanNot:"x = {x} पर एक ऊर्ध्वाधर रेखा दो बिंदुओं को छूती है, इसलिए इनपुट {x} के दो आउटपुट हैं। यह ऊर्ध्वाधर रेखा परीक्षण में विफल है।",
+    whyScanF:"कोई भी ऊर्ध्वाधर रेखा एक से अधिक बिंदु को नहीं छूती, इसलिए यह ऊर्ध्वाधर रेखा परीक्षण पास करता है।",
+    linDir:"यह फलन रैखिक है या अरैखिक?",
+    whyLinT:"हर बार x के 1 बढ़ने पर y उतना ही ({d}) बदलता है: परिवर्तन की दर स्थिर है, इसलिए यह रैखिक है।",
+    whyNonT:"x के 1 बढ़ने पर y में {ds} का बदलाव होता है। बदलाव बराबर नहीं हैं, इसलिए दर स्थिर नहीं है: अरैखिक।",
+    whyLinE:"{eq} का रूप y = mx + b है, इसलिए इसका ग्राफ़ एक सीधी रेखा है: रैखिक।",
+    whyNonE:"{eq} में x पर घात है, इसलिए परिवर्तन की दर स्थिर नहीं और ग्राफ़ वक्र है: अरैखिक।",
+    whyLinG:"सभी बिंदु एक सीधी रेखा पर हैं, इसलिए यह रैखिक है।", whyNonG:"बिंदु मुड़ते हैं; वे एक सीधी रेखा पर नहीं हैं, इसलिए यह अरैखिक है।",
+    xSq:"x का वर्ग", xCu:"x का घन",
+    propDir:"क्या यह संबंध समानुपाती है?",
+    whyPropT:"हर स्तंभ में y ÷ x = {k} है, इसलिए y = {k}x। यह समानुपाती है।",
+    whyNonPT:"y ÷ x स्थिर नहीं है: एक स्तंभ में {a} और दूसरे में {b}। यह समानुपाती नहीं है।",
+    whyPropG:"ग्राफ़ मूल बिंदु (0, 0) से होकर जाने वाली सीधी रेखा है, इसलिए यह समानुपाती है।",
+    whyNonPG:"रेखा y-अक्ष को {b} पर काटती है, मूल बिंदु पर नहीं, इसलिए यह समानुपाती नहीं है।",
+    whyPropE:"{eq} का रूप y = kx है, इसलिए यह समानुपाती है।", whyNonPE:"{eq} में x = 0 पर y = {b} है, 0 नहीं, इसलिए यह समानुपाती नहीं है।",
+    fnA:"फलन A", fnB:"फलन B", fnSame:"दोनों बराबर हैं",
+    cmpRateDir:"किस फलन की परिवर्तन की दर अधिक है?", cmpUnitDir:"किस समानुपाती संबंध की इकाई दर अधिक है?",
+    cmpIntDir:"किस फलन का y-अंतःखंड (शुरुआती मान) अधिक है?",
+    rateA:"फलन A (तालिका): x में {dx} के बदलाव पर y में {dy} का बदलाव होता है, इसलिए इसकी दर {m} है।",
+    rateB:"फलन B: परिवर्तन की दर {m} है, जो x से गुणा होने वाली संख्या है।",
+    rateBG:"फलन B (ग्राफ़): उठान {r} बटा फैलाव {u}, इसलिए इसकी दर {m} है।",
+    intA:"फलन A: दर का उपयोग करके x = 0 तक पीछे जाएँ; y = {b}।", intB:"फलन B: y-अंतःखंड {b} है।",
+    intBG:"फलन B (ग्राफ़): रेखा y-अक्ष को {b} पर काटती है।",
+    greaterA:"इसलिए फलन A बड़ा है।", greaterB:"इसलिए फलन B बड़ा है।", greaterSame:"इसलिए दोनों बराबर हैं।",
+    meetDir:"उस बिंदु पर टैप करें जहाँ दोनों रेखाएँ प्रतिच्छेद करती हैं, फिर जाँचें दबाएँ।",
+    hintMeetNo:"पहले एक बिंदु रखें: जहाँ रेखाएँ कटती हैं वहाँ टैप करें।",
+    hintMeet1:"{p} रेखा {L} पर है, पर दूसरी रेखा पर नहीं। हल दोनों रेखाओं पर होना चाहिए।",
+    hintMeet0:"{p} किसी भी रेखा पर नहीं है। वह बिंदु ढूँढें जहाँ दोनों रेखाएँ कटती हैं।",
+    goodMeet:"हाँ! {p} दोनों रेखाओं पर है: यह {e1} और {e2} दोनों को सही बनाता है। यही निकाय का हल है।",
+    lineA:"A", lineB:"B",
+    stds:"संरेखित मानक — टेक्सास TEKS: कक्षा 6 6.6(B, C), 6.11(A); कक्षा 7 7.4(A), 7.7(A); कक्षा 8 8.4(A, B, C), 8.5(A, B, F, G, H, I), 8.9(A)। Common Core: 6.EE.9, 6.NS.6c, 6.NS.8; 7.RP.2a, 7.RP.2b, 7.RP.2c; 8.EE.5, 8.EE.6, 8.EE.8a; 8.F.1, 8.F.2, 8.F.3, 8.F.4।",
+    cardTitle:"ढलान और फलन ग्राफ़र — चुनौती कार्ड", cardName:"नाम:",
+    cardTable:"तालिका पूरी करें, फिर बिंदुओं को आलेखित करें।", cardSlope:"इन दो बिंदुओं से होकर जाने वाली रेखा का ढलान ज्ञात करें।",
+    cardEq:"रेखा का समीकरण y = mx + b के रूप में लिखें।", cardFunc:"क्या यह संबंध एक फलन है? समझाइए।",
+    cardMeet:"दोनों रेखाओं का ग्राफ़ बनाएँ। वे कहाँ प्रतिच्छेद करती हैं? जाँचें कि वह बिंदु दोनों समीकरणों को सही बनाता है।", cardProp:"क्या यह संबंध समानुपाती है? समझाइए।"
+  },
+  ur:{
+    appTitle:"ڈھلان اور تفاعل گرافر", home:"ہوم", privacy:"رازداری", teacher:"استاد", modesLbl:"موڈ", stars:"درست جوابات",
+    newRound:"نیا راؤنڈ", readAloud:"بلند آواز سے پڑھیں", check:"جانچیں", clear:"صاف کریں", choicesLbl:"جواب کے انتخاب",
+    footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا جمع نہیں · آف لائن چلتا ہے",
+    mTables:"جدول اور گراف", mSlope:"ڈھلان کی کھوج", mBuild:"y = mx + b بنائیں", mFunc:"تفاعل ہے یا نہیں؟", mCompare:"موازنہ اور تقاطع",
+    teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setGrade:"جماعت", g6:"جماعت 6", g7:"جماعت 7", g8:"جماعت 8",
+    gradeNote:"جماعت 6: جدول، قاعدے اور نقاط کا گراف۔ جماعت 7: مثبت مکمل عددی شرح کے ساتھ متناسب تعلق y = kx۔ جماعت 8: ڈھلان، y = mx + b، تفاعل اور مساواتوں کے نظام۔ جماعت چننے سے نیچے کے اختیارات اس جماعت کی ابتدائی قدروں پر آ جاتے ہیں۔",
+    setRange:"گرڈ کا سائز", setNums:"اعداد", negOn:"منفی ڈھلان اور قطع", fracOn:"کسری ڈھلان",
+    setModes:"موڈ", setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں", printCards:"چیلنج کارڈ پرنٹ کریں",
+    setStored:"ترتیبات صرف اسی آلے پر محفوظ ہوتی ہیں۔ طالب علم کی کوئی معلومات کبھی محفوظ نہیں ہوتی۔",
+    neg:"منفی {n}", frSay:"{n} بٹا {d}", ptSay:"{x} کاما {y}", wPlus:"جمع", wMinus:"منفی", wTimes:"ضرب", wEq:"برابر",
+    undef:"غیر متعین", yes:"جی ہاں!", youPicked:"آپ نے {x} چنا۔",
+    planeLbl:"محدداتی سطح", kbTap:"محدداتی سطح۔ تیر والی کلیدیں کرسر ہلاتی ہیں؛ Enter نقطہ رکھتا یا ہٹاتا ہے۔",
+    kbDrag:"محدداتی سطح۔ تیر والی کلیدیں سرخ نقطہ ہلاتی ہیں؛ اسپیس دوسرے نقطے پر لے جاتی ہے۔",
+    kbScan:"محدداتی سطح۔ بائیں اور دائیں تیر عمودی خط کو سرکاتے ہیں۔",
+    ruleLbl:"قاعدہ", inp:"ان پٹ", out:"آؤٹ پٹ",
+    ruleAdd:"x میں {b} جمع کریں۔", ruleSub:"x میں سے {b} تفریق کریں۔", ruleMul:"x کو {m} سے ضرب دیں۔", ruleLin:"x کو {m} سے ضرب دیں، پھر {b} جمع کریں۔", ruleLinS:"x کو {m} سے ضرب دیں، پھر {b} تفریق کریں۔",
+    fillDir:"قاعدے سے جدول مکمل کریں۔ جب x = {x} ہو تو y کیا ہے؟",
+    hintFill:"قاعدے میں x = {x} رکھیں: {calc}۔",
+    goodFill:"درست: {calc}۔",
+    plotDir:"اب جدول کا ہر نقطہ (x, y) گراف پر لگائیں۔ نقطہ لگانے کے لیے گرڈ کو چھوئیں؛ ہٹانے کے لیے دوبارہ چھوئیں۔ پھر جانچیں دبائیں۔",
+    hintSwap:"آپ نے {p} لگایا، لیکن جدول میں {q} ہے۔ x محدد پہلے آتا ہے: پہلے افقی چلیں، پھر اوپر یا نیچے۔",
+    hintOff:"{p} جدول میں نہیں ہے۔ مبدا سے شروع کریں، x اکائیاں افقی چلیں، پھر y اکائیاں اوپر یا نیچے۔",
+    hintMissing:"جدول میں {n} نقاط ہیں۔ آپ نے {k} درست لگائے ہیں۔ باقی بھی لگائیں۔",
+    goodPlot:"جی ہاں! تمام {n} نقاط جدول سے ملتے ہیں، اور ایک سیدھے خط پر ہیں: {eq}۔",
+    readDir:"نقطہ P کے محددات کیا ہیں؟",
+    hintRead:"P، x محور پر {x} اور y محور پر {y} کی سیدھ میں ہے۔ پہلے x محدد لکھیں: (x, y)۔",
+    hintReadSwap:"قریب ہے، لیکن یہ الٹے ہیں۔ x محدد (افقی) پہلے آتا ہے، پھر y محدد (اوپر یا نیچے)۔",
+    goodRead:"جی ہاں! P افقی {x} اور عمودی {y} پر ہے، اس لیے P = {p}۔",
+    eqDir:"کون سی مساوات جدول کے ہر کالم پر پوری اترتی ہے؟",
+    hintEqT:"x = {x} سے جانچیں: {calc}، لیکن جدول میں y = {y} ہے۔ مساوات کو ہر کالم پر درست ہونا چاہیے۔",
+    goodEqT:"جی ہاں! {eq} ہر کالم پر درست ہے۔ مثال کے طور پر x = {x}: {calc}۔",
+    rise:"اٹھان", run:"پھیلاؤ", slopeW:"ڈھلان", intW:"y-قطع",
+    makeDir:"دونوں سرخ نقاط کو گھسیٹ کر ڈھلان {m} والا خط بنائیں۔ پھر جانچیں دبائیں۔",
+    makeDir0:"دونوں سرخ نقاط کو گھسیٹ کر ڈھلان 0 والا خط بنائیں۔ پھر جانچیں دبائیں۔",
+    makeDirU:"دونوں سرخ نقاط کو گھسیٹ کر غیر متعین ڈھلان والا خط بنائیں۔ پھر جانچیں دبائیں۔",
+    readout:"اٹھان {r} ÷ پھیلاؤ {u} = ڈھلان {m}", readoutU:"پھیلاؤ 0 ہے، اس لیے ڈھلان غیر متعین ہے", readoutSame:"دونوں نقاط ایک دوسرے کے اوپر ہیں۔",
+    hintSame:"خط بنانے کے لیے دونوں نقاط مختلف ہونے چاہییں۔",
+    hintMake:"آپ کی ڈھلان {c} ہے۔ ڈھلان {m} کے لیے بائیں نقطے سے شروع کریں، {u} دائیں جائیں، پھر {r} اوپر۔",
+    hintMakeN:"آپ کی ڈھلان {c} ہے۔ ڈھلان {m} کے لیے بائیں نقطے سے شروع کریں، {u} دائیں جائیں، پھر {r} نیچے۔",
+    hintMake0:"ڈھلان 0 کا مطلب ہے کوئی اٹھان نہیں: افقی خط بنائیں، دونوں نقاط ایک ہی اونچائی پر۔",
+    hintMakeU:"غیر متعین ڈھلان کا مطلب ہے پھیلاؤ 0: عمودی خط بنائیں، ایک نقطہ دوسرے کے بالکل اوپر۔",
+    goodMake:"جی ہاں! اٹھان {r} ÷ پھیلاؤ {u} = {m}۔", goodMake0:"جی ہاں! اٹھان 0 ہے، اس لیے ڈھلان 0 ہے: ایک افقی خط۔", goodMakeU:"جی ہاں! پھیلاؤ 0 ہے اور 0 سے تقسیم نہیں ہو سکتی، اس لیے ڈھلان غیر متعین ہے: ایک عمودی خط۔",
+    findDir:"A اور B سے گزرنے والے خط کی ڈھلان کیا ہے؟", showTri:"ڈھلان مثلث دکھائیں", hideTri:"ڈھلان مثلث چھپائیں",
+    findTDir:"جدول والے تفاعل کی ڈھلان (تبدیلی کی شرح) کیا ہے؟",
+    findPDir:"{a} اور {b} سے گزرنے والے خط کی ڈھلان کیا ہے؟",
+    hintFind:"بائیں نقطے سے دائیں نقطے تک جائیں۔ پھیلاؤ = {u} افقی؛ اٹھان = {r} (اوپر مثبت، نیچے منفی)۔ ڈھلان = اٹھان ÷ پھیلاؤ۔",
+    hintRecip:"یہ پھیلاؤ ÷ اٹھان ہے۔ ڈھلان اٹھان ÷ پھیلاؤ ہوتی ہے: y میں تبدیلی بٹا x میں تبدیلی۔",
+    hintSign:"خط کو بائیں سے دائیں پڑھیں۔ یہ {dir} جاتا ہے، اس لیے ڈھلان {sgn} ہے۔",
+    hintFindT:"دو کالم چنیں۔ جب x میں {dx} کی تبدیلی ہوتی ہے تو y میں {dy} کی تبدیلی ہوتی ہے، اس لیے ڈھلان {dy} ÷ {dx} ہے۔",
+    hintFindP:"ڈھلان = y میں تبدیلی ÷ x میں تبدیلی = ({y2} − {y1}) ÷ ({x2} − {x1}) = {dy} ÷ {dx}۔",
+    goodFind:"جی ہاں! اٹھان {r} ÷ پھیلاؤ {u} = {m}۔", goodFindT:"جی ہاں! y میں تبدیلی ÷ x میں تبدیلی = {dy} ÷ {dx} = {m}۔",
+    dirUp:"اوپر", dirDown:"نیچے", sgnPos:"مثبت", sgnNeg:"منفی",
+    kindDir:"اس خط کی ڈھلان مثبت، منفی، صفر یا غیر متعین ہے؟",
+    kPos:"مثبت", kNeg:"منفی", kZero:"صفر", kUndef:"غیر متعین",
+    whyPos:"بائیں سے دائیں خط اوپر جاتا ہے، اس لیے ڈھلان مثبت ہے۔", whyNeg:"بائیں سے دائیں خط نیچے جاتا ہے، اس لیے ڈھلان منفی ہے۔",
+    whyZero:"خط افقی ہے: اٹھان 0 ہے، اس لیے ڈھلان 0 ہے۔", whyUndef:"خط عمودی ہے: پھیلاؤ 0 ہے، اور 0 سے تقسیم غیر متعین ہے۔",
+    simDir:"دونوں ڈھلان مثلث ایک ہی خط پر ہیں۔ چھوٹے کی اٹھان {r} اور پھیلاؤ {u} ہے۔ بڑے کا پھیلاؤ {U} ہے۔ اس کی اٹھان کیا ہے؟",
+    hintSim:"مثلث متشابہ ہیں۔ بڑا مثلث {k} گنا چوڑا ہے، اس لیے وہ {k} گنا اونچا بھی ہوگا: اٹھان ÷ پھیلاؤ {m} ہی رہتا ہے۔",
+    goodSim:"جی ہاں! {r} ÷ {u} = {R} ÷ {U} = {m}۔ ایک خط پر متشابہ ڈھلان مثلث ہمیشہ ایک ہی ڈھلان دیتے ہیں۔",
+    slopeM:"ڈھلان m", interB:"y-قطع b", constK:"مستقل k", lessM:"کم ڈھلان", moreM:"زیادہ ڈھلان", lessB:"خط نیچے کریں", moreB:"خط اوپر کریں",
+    lessK:"چھوٹا k", moreK:"بڑا k",
+    bGraphDir:"بٹنوں سے وہ خط بنائیں جو نارنجی نقطہ دار خط سے ملے۔ پھر جانچیں دبائیں۔",
+    bTableDir:"بٹنوں سے وہ خط بنائیں جو اس جدول سے ملے۔ پھر جانچیں دبائیں۔",
+    bWordDir:"یہ خط بنائیں: یہ y محور کو {b} پر کاٹتا ہے اور دائیں ہر {u} پر {r} {dir} جاتا ہے۔ پھر جانچیں دبائیں۔",
+    bWordDirK:"یہ خط بنائیں: y ہمیشہ x کا {k} گنا ہے۔ پھر جانچیں دبائیں۔",
+    yourLine:"آپ کا خط", targetLine:"ہدف",
+    hintBSlope:"جھکاؤ جانچیں۔ آپ کی ڈھلان {c} ہے، لیکن ہدف میں ہر {u} افقی پر y میں {r} کی تبدیلی ہوتی ہے۔",
+    hintBInt:"ڈھلان درست ہے۔ اب دیکھیں خط y محور کو کہاں کاٹتا ہے: x = 0 پر y کو {b} ہونا چاہیے، {c} نہیں۔",
+    goodBuild:"جی ہاں! {eq}: ڈھلان {m}، y-قطع {b}۔", goodBuildK:"جی ہاں! {eq}: y، x کا {k} گنا ہے، اور خط مبدا سے گزرتا ہے۔",
+    pickEqDir:"کون سی مساوات اس گراف سے ملتی ہے؟",
+    hintPickM:"اس مساوات کی ڈھلان {c} ہے، لیکن گراف دائیں ہر {u} پر {r} {dir} جاتا ہے۔",
+    hintPickB:"وہ خط y محور کو {c} پر کاٹتا ہے، لیکن گراف {b} پر کاٹتا ہے۔",
+    goodPickEq:"جی ہاں! گراف y محور کو {b} پر کاٹتا ہے اور اس کی ڈھلان {m} ہے: {eq}۔",
+    names:"عائشہ,زینب,فاطمہ,مریم,حنا,سارہ,نور,ثنا",
+    cxGym:"ایک کلائمبنگ جم ${b} رکنیت فیس اور ہر بار آنے پر ${m} لیتا ہے۔ x بار آنے کی کل لاگت y کون سی مساوات دیتی ہے؟",
+    cxPlant:"ایک پودا {b} سینٹی میٹر اونچا ہے اور ہر ہفتے {m} سینٹی میٹر بڑھتا ہے۔ x ہفتوں بعد اس کی اونچائی y کون سی مساوات دیتی ہے؟",
+    cxSave:"{name} کے پاس ${b} کی بچت ہے اور وہ ہر ہفتے ${m} جمع کرتی ہے۔ x ہفتوں بعد بچت y کون سی مساوات دیتی ہے؟",
+    cxPrice:"سیب ${m} فی پاؤنڈ ہیں۔ x پاؤنڈ کی قیمت y کون سی مساوات دیتی ہے؟",
+    cxWalk:"{name} {m} میل فی گھنٹہ سے سائیکل چلاتی ہے۔ x گھنٹے بعد فاصلہ y کون سی مساوات دیتی ہے؟",
+    hintCx:"شرح (ہر ایک کے لیے {m}) x سے ضرب ہوتی ہے، اس لیے وہ ڈھلان ہے۔ ابتدائی مقدار ({b}) x = 0 پر قدر ہے، اس لیے وہ y-قطع ہے۔",
+    hintCxK:"یہ متناسب ہے: y ہمیشہ x کا {m} گنا ہے، اور x = 0 پر y = 0۔ اس لیے مساوات y = kx ہے، جہاں k = {m}۔",
+    goodCx:"جی ہاں! {eq}۔ شرح {m} ڈھلان ہے اور ابتدائی مقدار {b} y-قطع ہے۔", goodCxK:"جی ہاں! {eq}۔ اکائی شرح {m} تناسب کا مستقل ہے، یعنی خط کی ڈھلان۔",
+    meanDir:"مساوات {eq} میں {what} {v} کا کیا مطلب ہے؟",
+    mGym:"ہر بار آنے کی لاگت", sGym:"ایک بار کی رکنیت فیس", tGym:"کل لاگت",
+    mPlant:"ہر ہفتے کتنے سینٹی میٹر بڑھتا ہے", sPlant:"شروع میں اس کی اونچائی", tPlant:"x ہفتوں بعد اس کی اونچائی",
+    mSave:"ہر ہفتے کتنا جمع ہوتا ہے", sSave:"شروع میں بچت", tSave:"کل بچت",
+    hintMean:"ڈھلان تبدیلی کی شرح ہے: ہر بار یا ہر ہفتے کی مقدار۔ y-قطع x = 0 پر قدر ہے: ابتدائی مقدار۔",
+    goodMean:"جی ہاں! {v} {ans} ہے۔",
+    isF:"تفاعل ہے", notF:"تفاعل نہیں", isLin:"خطی", notLin:"غیر خطی", isProp:"متناسب", notProp:"غیر متناسب",
+    fDir:"کیا یہ تعلق ایک تفاعل ہے؟", fScanDir:"کیا یہ تعلق ایک تفاعل ہے؟ جانچنے کے لیے سرخ عمودی خط کو گراف پر سرکائیں۔",
+    whyNotF:"ان پٹ {x} دو مختلف آؤٹ پٹ، {y1} اور {y2}، سے جڑا ہے۔ تفاعل ہر ان پٹ کو بالکل ایک آؤٹ پٹ دیتا ہے۔",
+    whyFRep:"ہر ان پٹ کا بالکل ایک آؤٹ پٹ ہے۔ دو ان پٹ کا آؤٹ پٹ {y} ایک ہی ہے، اور تفاعل میں اس کی اجازت ہے۔",
+    whyF:"ہر ان پٹ ایک ہی بار آتا ہے، اس لیے ہر ان پٹ کا بالکل ایک آؤٹ پٹ ہے۔",
+    whyScanNot:"x = {x} پر ایک عمودی خط دو نقاط کو چھوتا ہے، اس لیے ان پٹ {x} کے دو آؤٹ پٹ ہیں۔ یہ عمودی خط کے امتحان میں ناکام ہے۔",
+    whyScanF:"کوئی عمودی خط ایک سے زیادہ نقطے کو نہیں چھوتا، اس لیے یہ عمودی خط کا امتحان پاس کرتا ہے۔",
+    linDir:"یہ تفاعل خطی ہے یا غیر خطی؟",
+    whyLinT:"ہر بار x کے 1 بڑھنے پر y اتنا ہی ({d}) بدلتا ہے: تبدیلی کی شرح مستقل ہے، اس لیے یہ خطی ہے۔",
+    whyNonT:"x کے 1 بڑھنے پر y میں {ds} کی تبدیلی ہوتی ہے۔ تبدیلیاں برابر نہیں، اس لیے شرح مستقل نہیں: غیر خطی۔",
+    whyLinE:"{eq} کی شکل y = mx + b ہے، اس لیے اس کا گراف سیدھا خط ہے: خطی۔",
+    whyNonE:"{eq} میں x پر قوت ہے، اس لیے تبدیلی کی شرح مستقل نہیں اور گراف خم دار ہے: غیر خطی۔",
+    whyLinG:"تمام نقاط ایک سیدھے خط پر ہیں، اس لیے یہ خطی ہے۔", whyNonG:"نقاط مڑتے ہیں؛ وہ ایک سیدھے خط پر نہیں، اس لیے یہ غیر خطی ہے۔",
+    xSq:"x کا مربع", xCu:"x کا مکعب",
+    propDir:"کیا یہ تعلق متناسب ہے؟",
+    whyPropT:"ہر کالم میں y ÷ x = {k} ہے، اس لیے y = {k}x۔ یہ متناسب ہے۔",
+    whyNonPT:"y ÷ x مستقل نہیں: ایک کالم میں {a} اور دوسرے میں {b}۔ یہ متناسب نہیں ہے۔",
+    whyPropG:"گراف مبدا (0, 0) سے گزرنے والا سیدھا خط ہے، اس لیے یہ متناسب ہے۔",
+    whyNonPG:"خط y محور کو {b} پر کاٹتا ہے، مبدا پر نہیں، اس لیے یہ متناسب نہیں ہے۔",
+    whyPropE:"{eq} کی شکل y = kx ہے، اس لیے یہ متناسب ہے۔", whyNonPE:"{eq} میں x = 0 پر y = {b} ہے، 0 نہیں، اس لیے یہ متناسب نہیں ہے۔",
+    fnA:"تفاعل A", fnB:"تفاعل B", fnSame:"دونوں برابر ہیں",
+    cmpRateDir:"کس تفاعل کی تبدیلی کی شرح زیادہ ہے؟", cmpUnitDir:"کس متناسب تعلق کی اکائی شرح زیادہ ہے؟",
+    cmpIntDir:"کس تفاعل کا y-قطع (ابتدائی قدر) زیادہ ہے؟",
+    rateA:"تفاعل A (جدول): x میں {dx} کی تبدیلی پر y میں {dy} کی تبدیلی ہوتی ہے، اس لیے اس کی شرح {m} ہے۔",
+    rateB:"تفاعل B: تبدیلی کی شرح {m} ہے، جو x سے ضرب ہونے والا عدد ہے۔",
+    rateBG:"تفاعل B (گراف): اٹھان {r} بٹا پھیلاؤ {u}، اس لیے اس کی شرح {m} ہے۔",
+    intA:"تفاعل A: شرح استعمال کر کے x = 0 تک واپس جائیں؛ y = {b}۔", intB:"تفاعل B: y-قطع {b} ہے۔",
+    intBG:"تفاعل B (گراف): خط y محور کو {b} پر کاٹتا ہے۔",
+    greaterA:"اس لیے تفاعل A بڑا ہے۔", greaterB:"اس لیے تفاعل B بڑا ہے۔", greaterSame:"اس لیے دونوں برابر ہیں۔",
+    meetDir:"اس نقطے کو چھوئیں جہاں دونوں خط ایک دوسرے کو کاٹتے ہیں، پھر جانچیں دبائیں۔",
+    hintMeetNo:"پہلے ایک نقطہ لگائیں: جہاں خط کٹتے ہیں وہاں چھوئیں۔",
+    hintMeet1:"{p} خط {L} پر ہے لیکن دوسرے خط پر نہیں۔ حل دونوں خطوط پر ہونا چاہیے۔",
+    hintMeet0:"{p} کسی بھی خط پر نہیں ہے۔ وہ نقطہ تلاش کریں جہاں دونوں خط کٹتے ہیں۔",
+    goodMeet:"جی ہاں! {p} دونوں خطوط پر ہے: یہ {e1} اور {e2} دونوں کو درست بناتا ہے۔ یہی نظام کا حل ہے۔",
+    lineA:"A", lineB:"B",
+    stds:"ہم آہنگ معیارات — ٹیکساس TEKS: جماعت 6 6.6(B, C)، 6.11(A)؛ جماعت 7 7.4(A)، 7.7(A)؛ جماعت 8 8.4(A, B, C)، 8.5(A, B, F, G, H, I)، 8.9(A)۔ Common Core: 6.EE.9، 6.NS.6c، 6.NS.8؛ 7.RP.2a، 7.RP.2b، 7.RP.2c؛ 8.EE.5، 8.EE.6، 8.EE.8a؛ 8.F.1، 8.F.2، 8.F.3، 8.F.4۔",
+    cardTitle:"ڈھلان اور تفاعل گرافر — چیلنج کارڈ", cardName:"نام:",
+    cardTable:"جدول مکمل کریں، پھر نقاط کا گراف بنائیں۔", cardSlope:"ان دو نقاط سے گزرنے والے خط کی ڈھلان معلوم کریں۔",
+    cardEq:"خط کی مساوات y = mx + b کی شکل میں لکھیں۔", cardFunc:"کیا یہ تعلق ایک تفاعل ہے؟ وضاحت کریں۔",
+    cardMeet:"دونوں خطوط کا گراف بنائیں۔ وہ کہاں کٹتے ہیں؟ جانچیں کہ وہ نقطہ دونوں مساواتوں کو درست بناتا ہے۔", cardProp:"کیا یہ تعلق متناسب ہے؟ وضاحت کریں۔"
+  },
+  zh:{
+    appTitle:"斜率与函数绘图器", home:"首页", privacy:"隐私", teacher:"教师", modesLbl:"模式", stars:"答对题数",
+    newRound:"新一轮", readAloud:"朗读", check:"检查", clear:"清除", choicesLbl:"答案选项",
+    footNote:"无需账号 · 不收集数据 · 可离线使用",
+    mTables:"表格与图像", mSlope:"斜率探索", mBuild:"y = mx + b 构建器", mFunc:"是不是函数？", mCompare:"比较与交点",
+    teacherTitle:"教师设置", close:"关闭", setGrade:"年级", g6:"六年级", g7:"七年级", g8:"八年级",
+    gradeNote:"六年级：表格、规则和描点。七年级：正整数比率的正比例关系 y = kx。八年级：斜率、y = mx + b、函数和方程组。选择年级会把下面的选项恢复为该年级的默认值。",
+    setRange:"网格大小", setNums:"数", negOn:"负斜率和负截距", fracOn:"分数斜率",
+    setModes:"模式", setSpeech:"语音", autoRead:"自动朗读说明", printCards:"打印挑战卡",
+    setStored:"设置只保存在这台设备上，从不保存任何学生信息。",
+    neg:"负{n}", frSay:"{d}分之{n}", ptSay:"{x}，{y}", wPlus:"加", wMinus:"减", wTimes:"乘", wEq:"等于",
+    undef:"不存在", yes:"对了！", youPicked:"你选了 {x}。",
+    planeLbl:"坐标平面", kbTap:"坐标平面。方向键移动光标；按回车键放置或移除一个点。",
+    kbDrag:"坐标平面。方向键移动红点；按空格键切换到另一个点。",
+    kbScan:"坐标平面。左右方向键滑动竖直线。",
+    ruleLbl:"规则", inp:"输入", out:"输出",
+    ruleAdd:"x 加 {b}。", ruleSub:"x 减 {b}。", ruleMul:"x 乘 {m}。", ruleLin:"x 乘 {m}，再加 {b}。", ruleLinS:"x 乘 {m}，再减 {b}。",
+    fillDir:"用规则填写表格。当 x = {x} 时，y 是多少？",
+    hintFill:"把 x = {x} 代入规则：{calc}。",
+    goodFill:"正确：{calc}。",
+    plotDir:"现在把表格中的每个点 (x, y) 画出来。点一下网格放置一个点；再点一下可以移除。然后按检查。",
+    hintSwap:"你画的是 {p}，但表格中是 {q}。x 坐标在前：先左右移动，再上下移动。",
+    hintOff:"{p} 不在表格中。从原点出发，先左右移动 x 个单位，再上下移动 y 个单位。",
+    hintMissing:"表格中有 {n} 个点。你已经正确画出 {k} 个。请画出其余的点。",
+    goodPlot:"对了！{n} 个点都和表格一致，而且它们在同一条直线上：{eq}。",
+    readDir:"点 P 的坐标是什么？",
+    hintRead:"P 对着 x 轴上的 {x} 和 y 轴上的 {y}。先写 x 坐标：(x, y)。",
+    hintReadSwap:"很接近，但顺序反了。x 坐标（左右）在前，然后是 y 坐标（上下）。",
+    goodRead:"对了！P 左右方向是 {x}，上下方向是 {y}，所以 P = {p}。",
+    eqDir:"哪个方程对表格的每一列都成立？",
+    hintEqT:"用 x = {x} 检验：{calc}，但表格中 y = {y}。方程必须对每一列都成立。",
+    goodEqT:"对了！{eq} 对每一列都成立。例如 x = {x}：{calc}。",
+    rise:"竖直变化", run:"水平变化", slopeW:"斜率", intW:"y 轴截距",
+    makeDir:"拖动两个红点，做出一条斜率为 {m} 的直线。然后按检查。",
+    makeDir0:"拖动两个红点，做出一条斜率为 0 的直线。然后按检查。",
+    makeDirU:"拖动两个红点，做出一条斜率不存在的直线。然后按检查。",
+    readout:"竖直变化 {r} ÷ 水平变化 {u} = 斜率 {m}", readoutU:"水平变化为 0，所以斜率不存在", readoutSame:"两个点重合了。",
+    hintSame:"两个点必须不同才能确定一条直线。",
+    hintMake:"你的斜率是 {c}。要得到斜率 {m}，从左边的点出发，向右 {u}，再向上 {r}。",
+    hintMakeN:"你的斜率是 {c}。要得到斜率 {m}，从左边的点出发，向右 {u}，再向下 {r}。",
+    hintMake0:"斜率为 0 表示没有竖直变化：做一条水平线，两个点一样高。",
+    hintMakeU:"斜率不存在表示水平变化为 0：做一条竖直线，一个点在另一个点的正上方。",
+    goodMake:"对了！竖直变化 {r} ÷ 水平变化 {u} = {m}。", goodMake0:"对了！竖直变化为 0，所以斜率为 0：一条水平线。", goodMakeU:"对了！水平变化为 0，而 0 不能作除数，所以斜率不存在：一条竖直线。",
+    findDir:"经过 A 和 B 的直线的斜率是多少？", showTri:"显示斜率三角形", hideTri:"隐藏斜率三角形",
+    findTDir:"表格中函数的斜率（变化率）是多少？",
+    findPDir:"经过 {a} 和 {b} 的直线的斜率是多少？",
+    hintFind:"从左边的点走到右边的点。水平变化 = {u}；竖直变化 = {r}（向上为正，向下为负）。斜率 = 竖直变化 ÷ 水平变化。",
+    hintRecip:"那是水平变化 ÷ 竖直变化。斜率是竖直变化 ÷ 水平变化：y 的变化量除以 x 的变化量。",
+    hintSign:"从左往右看这条直线。它向{dir}走，所以斜率是{sgn}的。",
+    hintFindT:"选两列。x 变化 {dx} 时，y 变化 {dy}，所以斜率是 {dy} ÷ {dx}。",
+    hintFindP:"斜率 = y 的变化量 ÷ x 的变化量 = ({y2} − {y1}) ÷ ({x2} − {x1}) = {dy} ÷ {dx}。",
+    goodFind:"对了！竖直变化 {r} ÷ 水平变化 {u} = {m}。", goodFindT:"对了！y 的变化量 ÷ x 的变化量 = {dy} ÷ {dx} = {m}。",
+    dirUp:"上", dirDown:"下", sgnPos:"正", sgnNeg:"负",
+    kindDir:"这条直线的斜率是正、负、零，还是不存在？",
+    kPos:"正", kNeg:"负", kZero:"零", kUndef:"不存在",
+    whyPos:"从左往右，直线向上，所以斜率为正。", whyNeg:"从左往右，直线向下，所以斜率为负。",
+    whyZero:"这是一条水平线：竖直变化为 0，所以斜率为 0。", whyUndef:"这是一条竖直线：水平变化为 0，而除以 0 没有意义，所以斜率不存在。",
+    simDir:"两个斜率三角形在同一条直线上。小三角形的竖直变化是 {r}，水平变化是 {u}。大三角形的水平变化是 {U}。它的竖直变化是多少？",
+    hintSim:"这两个三角形相似。大三角形宽 {k} 倍，所以也要高 {k} 倍：竖直变化 ÷ 水平变化仍然是 {m}。",
+    goodSim:"对了！{r} ÷ {u} = {R} ÷ {U} = {m}。同一条直线上相似的斜率三角形总是得到相同的斜率。",
+    slopeM:"斜率 m", interB:"y 轴截距 b", constK:"常数 k", lessM:"减小斜率", moreM:"增大斜率", lessB:"把直线下移", moreB:"把直线上移",
+    lessK:"减小 k", moreK:"增大 k",
+    bGraphDir:"用按钮做出与橙色虚线重合的直线。然后按检查。",
+    bTableDir:"用按钮做出与这个表格相符的直线。然后按检查。",
+    bWordDir:"做出这条直线：它与 y 轴交于 {b}，每向右 {u}，就向{dir} {r}。然后按检查。",
+    bWordDirK:"做出这条直线：y 总是 x 的 {k} 倍。然后按检查。",
+    yourLine:"你的直线", targetLine:"目标",
+    hintBSlope:"检查倾斜程度。你的斜率是 {c}，但目标每水平移动 {u}，y 变化 {r}。",
+    hintBInt:"斜率对了。现在看看直线与 y 轴的交点：x = 0 时，y 应该是 {b}，而不是 {c}。",
+    goodBuild:"对了！{eq}：斜率 {m}，y 轴截距 {b}。", goodBuildK:"对了！{eq}：y 是 x 的 {k} 倍，直线经过原点。",
+    pickEqDir:"哪个方程与这个图像相符？",
+    hintPickM:"那个方程的斜率是 {c}，但图像每向右 {u}，就向{dir} {r}。",
+    hintPickB:"那条直线与 y 轴交于 {c}，但图像与 y 轴交于 {b}。",
+    goodPickEq:"对了！图像与 y 轴交于 {b}，斜率是 {m}：{eq}。",
+    names:"小明,小红,小华,小丽,小刚,小芳,小军,小雪",
+    cxGym:"一家攀岩馆收取 ${b} 的会员费，每次去另收 ${m}。哪个方程表示去 x 次的总费用 y？",
+    cxPlant:"一株植物高 {b} 厘米，每周长高 {m} 厘米。哪个方程表示 x 周后它的高度 y？",
+    cxSave:"{name}已经存了 ${b}，每周再存 ${m}。哪个方程表示 x 周后的存款 y？",
+    cxPrice:"苹果每磅 ${m}。哪个方程表示 x 磅苹果的价钱 y？",
+    cxWalk:"{name}骑自行车的速度是每小时 {m} 英里。哪个方程表示 x 小时后的路程 y？",
+    hintCx:"比率（每次 {m}）与 x 相乘，所以它是斜率。初始量（{b}）是 x = 0 时的值，所以它是 y 轴截距。",
+    hintCxK:"这是正比例关系：y 总是 x 的 {m} 倍，而且 x = 0 时 y = 0。所以方程是 y = kx，其中 k = {m}。",
+    goodCx:"对了！{eq}。比率 {m} 是斜率，初始量 {b} 是 y 轴截距。", goodCxK:"对了！{eq}。单位比率 {m} 就是比例常数，也就是直线的斜率。",
+    meanDir:"在方程 {eq} 中，{what} {v} 表示什么？",
+    mGym:"每次去的费用", sGym:"一次性的会员费", tGym:"总费用",
+    mPlant:"每周长高多少厘米", sPlant:"开始时的高度", tPlant:"x 周后的高度",
+    mSave:"每周存入多少钱", sSave:"开始时的存款", tSave:"总存款",
+    hintMean:"斜率是变化率：每次或每周的量。y 轴截距是 x = 0 时的值：初始量。",
+    goodMean:"对了！{v} 是{ans}。",
+    isF:"是函数", notF:"不是函数", isLin:"线性", notLin:"非线性", isProp:"成正比例", notProp:"不成正比例",
+    fDir:"这个关系是函数吗？", fScanDir:"这个关系是函数吗？在图像上滑动红色竖直线来检验。",
+    whyNotF:"输入 {x} 对应两个不同的输出：{y1} 和 {y2}。函数中每个输入只能对应一个输出。",
+    whyFRep:"每个输入都只对应一个输出。有两个输入的输出都是 {y}，这在函数中是允许的。",
+    whyF:"每个输入只出现一次，所以每个输入都只对应一个输出。",
+    whyScanNot:"在 x = {x} 处的竖直线碰到两个点，所以输入 {x} 有两个输出。它没有通过竖直线检验。",
+    whyScanF:"没有任何竖直线碰到一个以上的点，所以它通过了竖直线检验。",
+    linDir:"这个函数是线性的还是非线性的？",
+    whyLinT:"x 每增加 1，y 都变化相同的量（{d}）：变化率是常数，所以是线性的。",
+    whyNonT:"x 每增加 1，y 分别变化 {ds}。变化量不相等，变化率不是常数：非线性。",
+    whyLinE:"{eq} 是 y = mx + b 的形式，所以它的图像是一条直线：线性。",
+    whyNonE:"在 {eq} 中，x 有乘方，所以变化率不是常数，图像是弯曲的：非线性。",
+    whyLinG:"所有点都在同一条直线上，所以是线性的。", whyNonG:"这些点是弯曲的，不在同一条直线上，所以是非线性的。",
+    xSq:"x 的平方", xCu:"x 的立方",
+    propDir:"这个关系成正比例吗？",
+    whyPropT:"每一列的 y ÷ x 都是 {k}，所以 y = {k}x。成正比例。",
+    whyNonPT:"y ÷ x 不是常数：一列是 {a}，另一列是 {b}。不成正比例。",
+    whyPropG:"图像是一条经过原点 (0, 0) 的直线，所以成正比例。",
+    whyNonPG:"这条直线与 y 轴交于 {b}，而不是原点，所以不成正比例。",
+    whyPropE:"{eq} 是 y = kx 的形式，所以成正比例。", whyNonPE:"在 {eq} 中，x = 0 时 y = {b}，不是 0，所以不成正比例。",
+    fnA:"函数 A", fnB:"函数 B", fnSame:"一样大",
+    cmpRateDir:"哪个函数的变化率更大？", cmpUnitDir:"哪个正比例关系的单位比率更大？",
+    cmpIntDir:"哪个函数的 y 轴截距（初始值）更大？",
+    rateA:"函数 A（表格）：x 变化 {dx} 时 y 变化 {dy}，所以它的变化率是 {m}。",
+    rateB:"函数 B：变化率是 {m}，也就是 x 前面的系数。",
+    rateBG:"函数 B（图像）：竖直变化 {r} 比水平变化 {u}，所以它的变化率是 {m}。",
+    intA:"函数 A：利用变化率倒推到 x = 0；y = {b}。", intB:"函数 B：y 轴截距是 {b}。",
+    intBG:"函数 B（图像）：直线与 y 轴交于 {b}。",
+    greaterA:"所以函数 A 更大。", greaterB:"所以函数 B 更大。", greaterSame:"所以它们一样大。",
+    meetDir:"点一下两条直线的交点，然后按检查。",
+    hintMeetNo:"先放一个点：点一下两条直线相交的地方。",
+    hintMeet1:"{p} 在直线 {L} 上，但不在另一条直线上。解必须同时在两条直线上。",
+    hintMeet0:"{p} 不在任何一条直线上。找一找两条直线相交的点。",
+    goodMeet:"对了！{p} 在两条直线上：它使 {e1} 和 {e2} 都成立。它就是这个方程组的解。",
+    lineA:"A", lineB:"B",
+    stds:"对应标准 — 德州 TEKS：六年级 6.6(B, C)、6.11(A)；七年级 7.4(A)、7.7(A)；八年级 8.4(A, B, C)、8.5(A, B, F, G, H, I)、8.9(A)。Common Core：6.EE.9、6.NS.6c、6.NS.8；7.RP.2a、7.RP.2b、7.RP.2c；8.EE.5、8.EE.6、8.EE.8a；8.F.1、8.F.2、8.F.3、8.F.4。",
+    cardTitle:"斜率与函数绘图器 — 挑战卡", cardName:"姓名：",
+    cardTable:"完成表格，然后描出这些点。", cardSlope:"求经过这两个点的直线的斜率。",
+    cardEq:"用 y = mx + b 的形式写出这条直线的方程。", cardFunc:"这个关系是函数吗？说明理由。",
+    cardMeet:"画出两条直线。它们在哪里相交？检验这个点是否使两个方程都成立。", cardProp:"这个关系成正比例吗？说明理由。"
+  }
+};
+
+let lang = "en";
+function t(key, vars){
+  let s = (T[lang] && T[lang][key]!==undefined) ? T[lang][key] : (T.en[key]!==undefined? T.en[key] : key);
+  if(vars) for(const k in vars) s = s.replaceAll("{"+k+"}", vars[k]);
+  return s;
+}
+
+/* ---------- Settings ---------- */
+const MODES = ["tables","slope","build","func","compare"];
+const MODE_KEY = {tables:"mTables",slope:"mSlope",build:"mBuild",func:"mFunc",compare:"mCompare"};
+const MODE_IC = {tables:"📋",slope:"📐",build:"🎛️",func:"🔍",compare:"⚖️"};
+const GRADES = { 6:{R:8,neg:false,frac:false}, 7:{R:8,neg:false,frac:false}, 8:{R:8,neg:true,frac:true} };
+const clone = o=>JSON.parse(JSON.stringify(o));
+const DEFAULTS = {grade:7, R:8, neg:false, frac:false,
+  modes:{tables:true,slope:true,build:true,func:true,compare:true}, autoRead:false};
+let settings = loadSettings();
+function loadSettings(){
+  try{
+    const raw = localStorage.getItem("sfg_settings");
+    if(raw){ const o=JSON.parse(raw), s=Object.assign(clone(DEFAULTS), o, {modes:Object.assign({},DEFAULTS.modes,o.modes)});
+      if(!GRADES[s.grade]) s.grade=DEFAULTS.grade; s.grade=+s.grade;
+      if(![6,8,10].includes(+s.R)) s.R=GRADES[s.grade].R; s.R=+s.R;
+      s.neg=!!s.neg; s.frac=!!s.frac;
+      if(!MODES.some(m=>s.modes[m])) s.modes=clone(DEFAULTS.modes);
+      return s; }
+  }catch(e){}
+  return clone(DEFAULTS);
+}
+function saveSettings(){ try{ localStorage.setItem("sfg_settings", JSON.stringify(settings)); }catch(e){} }
+
+/* ---------- Utils ---------- */
+const $ = s=>document.querySelector(s);
+const $$ = s=>Array.from(document.querySelectorAll(s));
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const ri = (a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const range = (a,b)=>{ const o=[]; for(let i=a;i<=b;i++) o.push(i); return o; };
+const gcd = (a,b)=>{ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a||1; };
+const G = ()=>+settings.grade;
+const RR = ()=>+settings.R;
+const M = s=>`<bdi class="math" dir="ltr">${s}</bdi>`;
+const frH = (n,d)=>`<span class="fr"><span>${n}</span><span>${d}</span></span>`;
+const MINUS = "−";
+let stars=0;
+function addStar(){ stars++; $("#starCount").textContent=stars; const w=$("#stars"); w.classList.remove("pop"); void w.offsetWidth; w.classList.add("pop"); }
+
+/* ---------- Numbers, rationals, equations: shown {h} and spoken {s} ---------- */
+const nH = n=>n<0?MINUS+(-n):""+n;
+function nS(n){ return n<0?t("neg",{n:-n}):""+n; }
+const N2 = n=>({h:nH(n), s:nS(n)});
+const PN = n=>({h:n<0?"("+nH(n)+")":nH(n), s:nS(n)});
+const ORD = {
+  en:{2:["half","halves"],3:["third","thirds"],4:["fourth","fourths"],5:["fifth","fifths"],6:["sixth","sixths"]},
+  es:{2:["medio","medios"],3:["tercio","tercios"],4:["cuarto","cuartos"],5:["quinto","quintos"],6:["sexto","sextos"]}
+};
+function fracSay(n,d){ const o=ORD[lang]&&ORD[lang][d];
+  if(o) return (n===1?(lang==="es"?"un":"one"):n)+" "+o[n===1?0:1]; return t("frSay",{n,d}); }
+// Rational slope {p,q} (q>0, reduced). null = undefined slope.
+function Q(p,q){ q=q||1; if(q<0){ p=-p; q=-q; } const g=gcd(p,q); return {p:p/g, q:q/g}; }
+const qv = r=>r.p/r.q;
+const qeq = (a,b)=>(a===null||b===null)?a===b:(a.p===b.p&&a.q===b.q);
+function qH(r){ if(r===null) return t("undef"); if(r.q===1) return nH(r.p); return (r.p<0?MINUS:"")+frH(Math.abs(r.p),r.q); }
+function qS(r){ if(r===null) return t("undef"); if(r.q===1) return nS(r.p); const f=fracSay(Math.abs(r.p),r.q); return r.p<0?t("neg",{n:f}):f; }
+const QV = r=>({h:qH(r), s:qS(r)});
+const PT = (x,y)=>({h:"("+nH(x)+", "+nH(y)+")", s:t("ptSay",{x:nS(x),y:nS(y)})});
+// y = mx + b  (m rational, b integer)
+function EQ(m,b,raw){
+  const h=["<i>y</i> ="], s=["y",t("wEq")]; let first=true;
+  if(m.p!==0){ first=false;
+    if(m.p===m.q){ h.push("<i>x</i>"); s.push("x"); }
+    else if(m.p===-m.q){ h.push(MINUS+"<i>x</i>"); s.push(t("neg",{n:"x"})); }
+    else { h.push(qH(m)+"<i>x</i>"); s.push(qS(m)+" x"); } }
+  if(b!==0||first){ if(first){ h.push(nH(b)); s.push(nS(b)); }
+    else { h.push((b<0?MINUS:"+")+" "+Math.abs(b)); s.push(t(b<0?"wMinus":"wPlus")+" "+Math.abs(b)); } }
+  return {h:raw?h.join(" "):M(h.join(" ")), s:s.join(" ")};
+}
+// "2 × (−3) + 1 = −5"
+function subst(m,b,x){
+  const xh=x<0?"("+nH(x)+")":nH(x), H=[], S=[];
+  if(m!==1){ H.push(nH(m)+" × "+xh); S.push(nS(m)+" "+t("wTimes")+" "+nS(x)); } else { H.push(nH(x)); S.push(nS(x)); }
+  if(b){ H.push((b<0?MINUS:"+")+" "+Math.abs(b)); S.push(t(b<0?"wMinus":"wPlus")+" "+Math.abs(b)); }
+  const y=m*x+b; return {h:M(H.join(" ")+" = "+nH(y)), s:S.join(" ")+" "+t("wEq")+" "+nS(y), y};
+}
+// In Arabic/Urdu, keep literal math runs ("x = {x}", "(x, y)", "y ÷ x") left-to-right.
+const isRTL = ()=>(LANGS.find(x=>x.code===lang)||{}).dir==="rtl";
+function rtlFix(str){ if(!isRTL()) return str;
+  return str.replace(/[A-Za-z0-9({][A-Za-z0-9(){},.÷×=+−\- ]*[A-Za-z0-9)}]/g,r=>/[=÷]|\(\w+, \w+\)/.test(r)?`<bdi dir="ltr">${r}</bdi>`:r); }
+function tm(key,vars){ const h={},s={}; vars=vars||{};
+  for(const k in vars){ const v=vars[k]; if(v&&typeof v==="object"){ h[k]=v.h.indexOf("<bdi")===0?v.h:M(v.h); s[k]=v.s; } else { h[k]=v; s[k]=v; } }
+  return {h:rtlFix(t(key)).replace(/\{(\w+)\}/g,(m0,k)=>k in h?h[k]:m0), s:t(key,s)};
+}
+const cat = (...m)=>({h:m.map(x=>x.h).join(" "), s:m.map(x=>x.s).join(" ")});
+const TX = k=>({h:rtlFix(t(k)), s:t(k)});
+// Slopes available for the current grade/settings.
+const SL8=[[-3,1],[-2,1],[-3,2],[-1,1],[-2,3],[-1,2],[-1,3],[0,1],[1,3],[1,2],[2,3],[1,1],[3,2],[2,1],[3,1]];
+function slopeList(noZero){
+  let L;
+  if(G()<8) L=[1,2,3,4].map(k=>Q(k)).concat(settings.neg?[-1,-2,-3].map(k=>Q(k)):[]);
+  else { L=SL8.map(a=>Q(a[0],a[1])); if(!settings.neg) L=L.filter(r=>r.p>=0); if(!settings.frac) L=L.filter(r=>r.q===1); }
+  if(noZero) L=L.filter(r=>r.p!==0);
+  return L.length?L:[Q(1),Q(2)];
+}
+const bMin = ()=>settings.neg?-5:0;
+
+/* ---------- Coordinate plane (SVG 440×440, grid −R…R) ---------- */
+const PL = {};
+function plane(o){
+  const R=o.R||RR(), u=200/R, X=x=>(220+x*u).toFixed(1), Y=y=>(220-y*u).toFixed(1); let s="";
+  for(let i=-R;i<=R;i++) s+=`<line class="gl" x1="${X(i)}" y1="20" x2="${X(i)}" y2="420"/><line class="gl" x1="20" y1="${Y(i)}" x2="420" y2="${Y(i)}"/>`;
+  s+=`<line class="ax" x1="12" y1="220" x2="428" y2="220"/><line class="ax" x1="220" y1="12" x2="220" y2="428"/>`;
+  s+=`<text class="axn" x="424" y="210" text-anchor="end">x</text><text class="axn" x="230" y="24">y</text>`;
+  const step=R>8?2:1;
+  for(let i=-R;i<=R;i+=step){ if(!i) continue;
+    s+=`<text class="tl" x="${X(i)}" y="237" text-anchor="middle">${nH(i)}</text><text class="tl" x="214" y="${(+Y(i)+5).toFixed(1)}" text-anchor="end">${nH(i)}</text>`; }
+  (o.tris||[]).forEach(tr=>{ const [ax,ay]=tr.a, [bx,by]=tr.b, c=tr.cls||"";
+    s+=`<path class="tri ${c}" d="M${X(ax)} ${Y(ay)}L${X(bx)} ${Y(ay)}L${X(bx)} ${Y(by)}Z"/>`;
+    if(tr.ru!=null) s+=`<text class="trit ${c}" x="${((+X(ax)+ +X(bx))/2).toFixed(1)}" y="${(+Y(ay)+(by>=ay?22:-10)).toFixed(1)}" text-anchor="middle">${tr.ru}</text>`;
+    if(tr.ri!=null) s+=`<text class="trit ${c}" x="${(+X(bx)+8).toFixed(1)}" y="${((+Y(ay)+ +Y(by))/2+6).toFixed(1)}">${tr.ri}</text>`; });
+  (o.lines||[]).forEach(L=>{ let p=null;
+    if(L.vx!=null){ if(Math.abs(L.vx)<=R) p=[[L.vx,-R],[L.vx,R]]; }
+    else { const m=qv(L.m), f=x=>m*x+L.b; let x1=-R, x2=R;
+      if(m!==0){ const a=(-R-L.b)/m, b=(R-L.b)/m; x1=Math.max(x1,Math.min(a,b)); x2=Math.min(x2,Math.max(a,b)); }
+      else if(Math.abs(L.b)>R) x2=x1-1;
+      if(x2>x1) p=[[x1,f(x1)],[x2,f(x2)]]; }
+    if(!p) return;
+    s+=`<line class="ln ${L.cls||""}" x1="${X(p[0][0])}" y1="${Y(p[0][1])}" x2="${X(p[1][0])}" y2="${Y(p[1][1])}"/>`;
+    if(L.lab){ const e=p[1][1]>p[0][1]?p[1]:p[0], lx=Math.max(-R+.6,Math.min(R-.9,e[0]-(e[0]>0?.9:-.4))), ly=Math.max(-R+.6,Math.min(R-.3,e[1]));
+      s+=`<text class="lnl ${L.cls||""}" x="${X(lx)}" y="${Y(ly)}">${L.lab}</text>`; } });
+  if(o.scan!=null) s+=`<line class="scan" x1="${X(o.scan)}" y1="14" x2="${X(o.scan)}" y2="426"/>`;
+  (o.pts||[]).forEach(p=>{ s+=`<circle class="pt ${p.cls||""}" cx="${X(p.x)}" cy="${Y(p.y)}" r="${/\bdr\b/.test(p.cls||"")?11:8}"/>`;
+    if(p.lab) s+=`<text class="ptl" x="${(+X(p.x)+11).toFixed(1)}" y="${(+Y(p.y)-11).toFixed(1)}">${p.lab}</text>`; });
+  if(o.cur) s+=`<circle class="cur" cx="${X(o.cur.x)}" cy="${Y(o.cur.y)}" r="15"/>`;
+  return s;
+}
+function planeStatic(o){ return `<svg class="plane" viewBox="0 0 440 440" role="img" aria-label="${t("planeLbl")}">${plane(o)}</svg>`; }
+// Interactive plane for mode m. cfg: {R, view(), tap(x,y)?, drag:{get(),set(i,x,y)}?, slide?}
+function planeBox(m,cfg){
+  cfg.R=cfg.R||RR(); cfg.cur=cfg.cur||{x:0,y:0}; cfg.sel=cfg.sel||0; PL[m]=cfg;
+  const live=!!(cfg.tap||cfg.drag), lbl=cfg.drag?t("kbDrag"):cfg.slide?t("kbScan"):live?t("kbTap"):t("planeLbl");
+  return `<div class="pwrap" dir="ltr"><svg class="plane" viewBox="0 0 440 440" ${live?`tabindex="0" role="application"`:`role="img"`} aria-label="${lbl}">${plane(planeView(cfg))}</svg></div>`;
+}
+function planeView(cfg){ const o=Object.assign({R:cfg.R},cfg.view()); if(cfg.tap&&!cfg.drag&&!cfg.slide) o.cur=cfg.cur; return o; }
+function redraw(m){ const svg=$(`#w-${m} svg.plane`), c=PL[m]; if(svg&&c) svg.innerHTML=plane(planeView(c)); }
+function wirePlane(m){
+  const w=$("#w-"+m); let dragI=null, down=false;
+  const at=(svg,e,R)=>{ const r=svg.getBoundingClientRect(), u=200/R, fx=((e.clientX-r.left)/r.width*440-220)/u, fy=(220-(e.clientY-r.top)/r.height*440)/u;
+    const cl=v=>Math.max(-R,Math.min(R,Math.round(v))); return {x:cl(fx), y:cl(fy), fx, fy}; };
+  w.addEventListener("pointerdown",e=>{ const svg=e.target.closest("svg.plane[tabindex]"), c=PL[m]; if(!svg||!c||!st[m]||st[m].done) return;
+    const p=at(svg,e,c.R);
+    if(c.drag){ const pts=c.drag.get(); let bi=0,bd=1e9; pts.forEach((q,i)=>{ const d=Math.hypot(q.x-p.fx,q.y-p.fy); if(d<bd){ bd=d; bi=i; } });
+      dragI=bi; c.sel=bi; c.drag.set(bi,p.x,p.y); try{ svg.setPointerCapture(e.pointerId); }catch(_){} }
+    else if(c.slide){ down=true; c.tap(p.x,p.y); try{ svg.setPointerCapture(e.pointerId); }catch(_){} }
+    else if(c.tap){ c.cur={x:p.x,y:p.y}; c.tap(p.x,p.y); }
+    e.preventDefault(); });
+  w.addEventListener("pointermove",e=>{ const c=PL[m], svg=e.target.closest("svg.plane"); if(!c||!svg||!st[m]||st[m].done) return;
+    if(dragI!==null&&c.drag){ const p=at(svg,e,c.R); c.drag.set(dragI,p.x,p.y); }
+    else if(down&&c.slide){ const p=at(svg,e,c.R); c.tap(p.x,p.y); } });
+  const up=()=>{ dragI=null; down=false; }; w.addEventListener("pointerup",up); w.addEventListener("pointercancel",up);
+  w.addEventListener("keydown",e=>{ const svg=e.target.closest("svg.plane[tabindex]"), c=PL[m]; if(!svg||!c||st[m].done) return;
+    const K={ArrowRight:[1,0],ArrowLeft:[-1,0],ArrowUp:[0,1],ArrowDown:[0,-1]}[e.key], R=c.R, cl=v=>Math.max(-R,Math.min(R,v));
+    if(c.drag){ if(K){ const q=c.drag.get()[c.sel]; c.drag.set(c.sel,cl(q.x+K[0]),cl(q.y+K[1])); e.preventDefault(); }
+      else if(e.key===" "||e.key==="Enter"){ c.sel=(c.sel+1)%c.drag.get().length; redraw(m); e.preventDefault(); } }
+    else if(c.slide){ if(K&&K[0]){ c.cur.x=cl(c.cur.x+K[0]); c.tap(c.cur.x,0); e.preventDefault(); } }
+    else if(c.tap){ if(K){ c.cur={x:cl(c.cur.x+K[0]),y:cl(c.cur.y+K[1])}; redraw(m); e.preventDefault(); }
+      else if(e.key===" "||e.key==="Enter"){ c.tap(c.cur.x,c.cur.y); e.preventDefault(); } } });
+}
+// x/y table (rows). ys entries: number, null (blank) or {h} for custom cells.
+function ioTable(xs,ys,act,done){
+  return `<table class="io" dir="ltr"><tr><th scope="row">x</th>${xs.map(x=>`<td>${nH(x)}</td>`).join("")}</tr><tr><th scope="row">y</th>${ys.map((y,i)=>
+    y===null?`<td class="blank${i===act?" act":""}">?</td>`:`<td${done&&done.includes(i)?' class="done"':""}>${typeof y==="object"?y.h:nH(y)}</td>`).join("")}</tr></table>`;
+}
+
+/* ---------- Speech ---------- */
+const speechOK = ("speechSynthesis" in window);
+function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
+function pickWarmVoice(code){
+  const vs = speechSynthesis.getVoices()||[];
+  const want=code.toLowerCase(), two=want.slice(0,2);
+  let best=null, bs=-1;
+  for(const v of vs){
+    const lc=(v.lang||'').toLowerCase().replace('_','-');
+    if(lc!==want && lc.slice(0,2)!==two) continue;
+    let s=(lc===want?100:60); const n=(v.name||'').toLowerCase();
+    if(/google|natural|neural|online|premium|enhanced|siri/.test(n)) s+=40;
+    if(/female|woman|samantha|karen|tessa|moira|fiona|serena|victoria|allison|ava|susan|zoe|amelie|amélie|paulina|monica|mónica|zira|hazel|catherine|linda|kanya|lekha|ting-ting|mei-jia|sin-ji|yu-shu|huihui|xiaoxiao/.test(n)) s+=18;
+    if(/espeak|compact|festival|pico|robot|eloquence/.test(n)) s-=60;
+    if(v.localService===false) s+=8;
+    if(v.default) s+=2;
+    if(s>bs){ bs=s; best=v; }
+  }
+  return best;
+}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  const parts=String(text).match(/[^.!?。！？؟।۔]+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.9; u.pitch=1.15;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={tables:0,slope:0,build:0,func:0,compare:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
+}
+if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
+if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
+
+const currentSpeech = {tables:"",slope:"",build:"",func:"",compare:""};
+function setSpeech(mode,text){ currentSpeech[mode]=text; }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===mode) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,svg.plane")) return;
+  speak(currentSpeech[currentMode()]);
+},true);
+
+/* ---------- Feedback & round helpers ---------- */
+function showFb(el,type,msg){ el.className="feedback show "+type; el.innerHTML=(type==="good"?"✅ ":"💡 ")+msg; }
+function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
+const made={}, st={};
+function startRound(m){ roundIds[m]++; made[m]=true; st[m]={done:false}; PL[m]=null;
+  ["w","a","c"].forEach(p=>{ $("#"+p+"-"+m).innerHTML=""; }); hideFb($("#f-"+m)); }
+function setPrompt(m,msg){ $("#p-"+m).innerHTML=msg.h; setSpeech(m,msg.s); }
+function win(m,msg){ st[m].done=true;
+  $$(`#c-${m} button,#a-${m} button,#w-${m} button`).forEach(b=>b.disabled=true);
+  const svg=$(`#w-${m} svg.plane[tabindex]`); if(svg) svg.removeAttribute("tabindex");
+  addStar(); showFb($("#f-"+m),"good",msg.h); afterPraise(msg.s,m,NEWFN[m],1800); }
+function nope(m,msg){ showFb($("#f-"+m),"hint",msg.h); speak(msg.s); }
+// A correct step inside a multi-step round (no star, no new round).
+function step(m,msg){ showFb($("#f-"+m),"good",msg.h); speak(msg.s); }
+function actBtn(m,html,fn,cls,aria){ const b=document.createElement("button"); b.type="button"; b.className="btn"+(cls?" "+cls:""); b.innerHTML=html;
+  if(aria){ b.setAttribute("aria-label",aria); b.title=aria; } b.addEventListener("click",fn); $("#a-"+m).appendChild(b); return b; }
+function checkBtn(m,fn){ return actBtn(m,"✔ "+t("check"),fn); }
+// Choice buttons. pick(item) is called for every tap; wrong picks are greyed out.
+function choices(m,items,pick){
+  const g=$("#c-"+m); g.innerHTML="";
+  items.forEach(it=>{ const b=document.createElement("button"); b.type="button"; b.className="choice"+(it.txt?" txt":"");
+    b.innerHTML=`<span class="badge" aria-hidden="true">✅</span><span class="lbl">${it.txt?it.h:M(it.h)}</span>`; b.setAttribute("aria-label",it.s);
+    b.addEventListener("click",()=>{ if(st[m].done) return; if(it.ok) b.classList.add("correctpick"); else { b.classList.add("wrongpick"); b.disabled=true; } pick(it,b); });
+    g.appendChild(b); });
+}
+// Distinct slope choices; first candidates are the likeliest mistakes.
+function slopeOpts(m,extra){
+  const out=[{...QV(m),ok:true,v:m}], seen=[m];
+  const cands=(extra||[]).concat(m===null?[Q(0),Q(1),Q(-1)]:[m.p?Q(m.q,m.p):null, Q(-m.p,m.q), Q(m.p+m.q,m.q), m.p?Q(2*m.p,m.q):Q(1), Q(m.p,2*m.q), Q(1)]);
+  for(const c of cands){ if(out.length>=4) break; if(c===undefined||seen.some(x=>qeq(x,c))) continue; seen.push(c); out.push({...QV(c),ok:false,v:c}); }
+  return shuffle(out);
+}
+const TCH = (k,ok,v)=>({...TX(k),ok,v,txt:true});
+
+/* =========================================================================
+   1. TABLES & GRAPHS — fill a table from a rule, plot the points, read points,
+      match an equation to a table.
+   ========================================================================= */
+function ruleGen(){
+  const g=G(), R=RR(), neg=settings.neg;
+  for(let k=0;k<300;k++){
+    let m,b,kind;
+    if(g===6){ kind=rand(["add","mul"]); if(kind==="add"){ m=1; b=neg&&Math.random()<.35?-ri(1,4):ri(1,5); } else { m=ri(2,4); b=0; } }
+    else if(g===7){ kind=rand(["mul","mul","lin","add"]); if(kind==="mul"){ m=ri(2,4); b=0; } else if(kind==="add"){ m=1; b=ri(1,5); } else { m=ri(2,3); b=neg?rand([-3,-2,-1,1,2,3]):ri(1,3); } }
+    else { kind="lin"; m=rand(neg?[-3,-2,-1,2,3]:[1,2,3]); b=ri(neg?-4:0,4); if(m===1&&!b) continue; }
+    const xs=shuffle(range(-4,5).filter(x=>Math.abs(m*x+b)<=R)).slice(0,4).sort((a,c)=>a-c);
+    if(xs.length<4||!xs.some(x=>x<0)) continue;
+    return {m,b,kind,xs};
+  }
+  return {m:2,b:0,kind:"mul",xs:[-2,-1,1,3]};
+}
+function ruleH(r){
+  const k=r.kind==="add"?(r.b<0?"ruleSub":"ruleAdd"):r.kind==="mul"?"ruleMul":(r.b<0?"ruleLinS":"ruleLin");
+  return cat(tm(k,{m:N2(r.m),b:Math.abs(r.b)}),EQ(Q(r.m),r.b));
+}
+function newTables(){
+  const m="tables"; startRound(m); const s=st[m], R=RR(), w=$("#w-"+m);
+  const type=rand(["fill","fill","fill","read","eq"]); s.type=type;
+  if(type==="read"){
+    let x,y; do{ x=ri(-R+1,R-1); y=ri(-R+1,R-1); }while(!x||!y||Math.abs(x)===Math.abs(y));
+    w.innerHTML=planeBox(m,{view:()=>({pts:[{x,y,lab:"P"}]})});
+    const opts=[[x,y,1],[y,x],[-x,y],[x,-y]].map(([a,b,ok])=>({...PT(a,b),ok:!!ok,a,b}));
+    choices(m,shuffle(opts),it=>{
+      if(it.ok) return win(m,tm("goodRead",{p:PT(x,y),x:N2(x),y:N2(y)}));
+      nope(m,cat(tm("youPicked",{x:it}),it.a===y&&it.b===x?TX("hintReadSwap"):tm("hintRead",{x:N2(x),y:N2(y)}))); });
+    setPrompt(m,TX("readDir")); return maybeAuto(m);
+  }
+  const r=ruleGen(), ys=r.xs.map(x=>r.m*x+r.b);
+  Object.assign(s,{r,ys,placed:[]});
+  if(type==="eq"){
+    w.innerHTML=`<div class="side">${ioTable(r.xs,ys)}</div>`;
+    const fits=(a,b)=>r.xs.every((x,i)=>a*x+b===ys[i]);
+    const c=[[r.b,r.m],[r.m,r.b+1],[r.m+1,r.b],[r.m,-r.b],[1,ys[0]-r.xs[0]],[ys[1]?ys[1]:2,0],[r.m,r.b-1]], opts=[{...EQ(Q(r.m),r.b,1),ok:true}], seen=[r.m+","+r.b];
+    for(const [a,b] of c){ if(opts.length>=4) break; if(!a&&!b) continue; if(fits(a,b)||seen.includes(a+","+b)) continue; seen.push(a+","+b); opts.push({...EQ(Q(a),b,1),ok:false,a,b}); }
+    choices(m,shuffle(opts),it=>{ const i=r.xs.length>1?1:0;
+      if(it.ok) return win(m,tm("goodEqT",{eq:EQ(Q(r.m),r.b),x:N2(r.xs[i]),calc:subst(r.m,r.b,r.xs[i])}));
+      const j=r.xs.findIndex((x,k)=>it.a*x+it.b!==ys[k]);
+      nope(m,tm("hintEqT",{x:N2(r.xs[j]),calc:subst(it.a,it.b,r.xs[j]),y:N2(ys[j])})); });
+    setPrompt(m,TX("eqDir")); return maybeAuto(m);
+  }
+  s.blanks=shuffle([0,1,2,3]).slice(0,2).sort(); s.bi=0; s.shown=ys.map((y,i)=>s.blanks.includes(i)?null:y); s.phase="fill";
+  w.innerHTML=`<div class="split"><div class="side"><div class="rule">${t("ruleLbl")}: ${ruleH(r).h}</div><div id="tbT"></div></div><div>${planeBox(m,{
+    view:()=>({pts:s.placed.map(p=>({x:p.x,y:p.y,cls:p.cls||""})),lines:s.done?[{m:Q(r.m),b:r.b,cls:"fit"}]:[]}),
+    tap:(x,y)=>{ if(s.phase!=="plot") return; const i=s.placed.findIndex(p=>p.x===x&&p.y===y);
+      if(i>=0) s.placed.splice(i,1); else s.placed.push({x,y}); s.placed.forEach(p=>p.cls=""); hideFb($("#f-"+m)); redraw(m); } })}</div></div>`;
+  fillStep();
+}
+function fillStep(){
+  const m="tables", s=st[m], r=s.r;
+  $("#tbT").innerHTML=ioTable(r.xs,s.shown,s.blanks[s.bi],s.blanks.slice(0,s.bi));
+  if(s.bi>=s.blanks.length){ s.phase="plot"; $("#c-"+m).innerHTML="";
+    checkBtn(m,plotCheck); actBtn(m,t("clear"),()=>{ s.placed=[]; hideFb($("#f-"+m)); redraw(m); },"ghost");
+    setPrompt(m,TX("plotDir")); return; }
+  const i=s.blanks[s.bi], x=r.xs[i], y=s.ys[i], calc=subst(r.m,r.b,x);
+  const c=[r.kind==="add"?x*r.b:r.kind==="mul"?x+r.m:r.m*x-r.b, r.m*(x+r.b), y+1, y-1, -y, y+2], opts=[{...N2(y),ok:true,v:y}], seen=[y];
+  for(const v of c){ if(opts.length>=4) break; if(seen.includes(v)) continue; seen.push(v); opts.push({...N2(v),ok:false,v}); }
+  choices(m,shuffle(opts),it=>{
+    if(!it.ok) return nope(m,cat(tm("youPicked",{x:it}),tm("hintFill",{x:N2(x),calc})));
+    s.shown[i]=y; s.bi++; const msg=tm("goodFill",{calc}); fillStep();
+    showFb($("#f-"+m),"good",msg.h); speak(msg.s+" "+currentSpeech[m]); });
+  setPrompt(m,tm("fillDir",{x:N2(x)}));
+  if(s.bi===0) maybeAuto(m);
+}
+function plotCheck(){
+  const m="tables", s=st[m], r=s.r, want=r.xs.map((x,i)=>[x,s.ys[i]]), has=(x,y)=>want.some(p=>p[0]===x&&p[1]===y);
+  const bad=s.placed.filter(p=>!has(p.x,p.y));
+  s.placed.forEach(p=>p.cls=has(p.x,p.y)?"ok":"bad");
+  if(!bad.length && s.placed.length===want.length){ s.done=true; redraw(m); return win(m,tm("goodPlot",{n:want.length,eq:EQ(Q(r.m),r.b)})); }
+  redraw(m);
+  if(bad.length){ const p=bad[0], sw=want.find(q=>q[0]===p.y&&q[1]===p.x);
+    return nope(m,sw?tm("hintSwap",{p:PT(p.x,p.y),q:PT(sw[0],sw[1])}):tm("hintOff",{p:PT(p.x,p.y)})); }
+  nope(m,tm("hintMissing",{n:want.length,k:s.placed.length}));
+}
+
+/* =========================================================================
+   2. SLOPE EXPLORER — drag two points, find slope (graph, table, points),
+      classify slope, similar slope triangles.
+   ========================================================================= */
+function latPair(m,R){ // two lattice points on a line of slope m, within ±(R-1)
+  for(let k=0;k<400;k++){
+    const ax=ri(-R+1,R-2), ay=ri(-R+1,R-1);
+    if(m===null){ const by=ri(-R+1,R-1); if(by!==ay) return [[ax,Math.min(ay,by)],[ax,Math.max(ay,by)]]; continue; }
+    const j=ri(1,Math.max(1,Math.floor((R-1)/Math.max(m.q,1)))), bx=ax+j*m.q, by=ay+j*m.p;
+    if(Math.abs(bx)<=R-1&&Math.abs(by)<=R-1&&(j*m.q>=2||Math.abs(j*m.p)>=2)) return [[ax,ay],[bx,by]];
+  }
+  return [[0,0],[m&&m.q||1,m?m.p:2]];
+}
+function slTargets(){ const L=slopeList(); return G()<8?L.filter(r=>r.p!==0):L.concat(settings.neg&&settings.frac||G()===8?[null]:[]); }
+function riseRun(A,B){ const [L,Rt]=A.x<=B.x?[A,B]:[B,A]; return {r:Rt.y-L.y, u:Rt.x-L.x, L, Rt}; }
+function newSlope(){
+  const m="slope"; startRound(m); const s=st[m], g=G(), R=RR(), w=$("#w-"+m);
+  const type=rand(g<8?["make","make","find"]:["make","make","find","table","points","kind","sim"]); s.type=type;
+  if(type==="make"){
+    const tg=rand(slTargets()); s.tg=tg;
+    s.P=[{x:-2,y:-1},{x:1,y:3}];
+    do{ s.P=[{x:ri(-4,0),y:ri(-4,0)},{x:ri(1,4),y:ri(-4,4)}]; }while(tg!==null&&qeq(Q(s.P[1].y-s.P[0].y,s.P[1].x-s.P[0].x),tg));
+    w.innerHTML=`<div class="split"><div class="side"><div class="readout big" id="slRO" aria-live="polite"></div></div><div>${planeBox(m,{
+      view:()=>{ const [A,B]=s.P, rr=riseRun(A,B), o={pts:s.P.map((p,i)=>({x:p.x,y:p.y,cls:"dr"+(i===PL[m].sel?" sel":""),lab:"AB"[i]}))};
+        if(A.x!==B.x||A.y!==B.y){ const mm=A.x===B.x?null:Q(B.y-A.y,B.x-A.x); o.lines=[mm===null?{vx:A.x}:{m:mm,b:A.y-qv(mm)*A.x}];
+          if(rr.u&&rr.r) o.tris=[{a:[rr.L.x,rr.L.y],b:[rr.Rt.x,rr.Rt.y],ru:t("run")+" "+rr.u,ri:t("rise")+" "+nH(rr.r)}]; }
+        return o; },
+      drag:{get:()=>s.P, set:(i,x,y)=>{ s.P[i]={x,y}; hideFb($("#f-"+m)); redraw(m); slRO(); }} })}</div></div>`;
+    slRO();
+    checkBtn(m,()=>{ const [A,B]=s.P, rr=riseRun(A,B);
+      if(A.x===B.x&&A.y===B.y) return nope(m,TX("hintSame"));
+      const c=rr.u?Q(rr.r,rr.u):null;
+      if(qeq(c,tg)) return win(m,tg===null?TX("goodMakeU"):tg.p===0?TX("goodMake0"):tm("goodMake",{r:N2(rr.r),u:rr.u,m:QV(tg)}));
+      if(tg===null) return nope(m,TX("hintMakeU")); if(tg.p===0) return nope(m,TX("hintMake0"));
+      nope(m,tm(tg.p<0?"hintMakeN":"hintMake",{c:QV(c),m:QV(tg),r:Math.abs(tg.p),u:tg.q})); });
+    setPrompt(m,tg===null?TX("makeDirU"):tg.p===0?TX("makeDir0"):tm("makeDir",{m:QV(tg)}));
+    return maybeAuto(m);
+  }
+  if(type==="kind"){
+    const k=rand(["pos","neg","zero","undef"]), tg=k==="zero"?Q(0):k==="undef"?null:rand(slopeList(true).filter(r=>(r.p>0)===(k==="pos")).concat(k==="neg"?[Q(-1)]:[Q(1)]));
+    const [A,B]=latPair(tg,R);
+    w.innerHTML=planeBox(m,{view:()=>({lines:[tg===null?{vx:A[0]}:{m:tg,b:A[1]-qv(tg)*A[0]}]})});
+    const why={pos:"whyPos",neg:"whyNeg",zero:"whyZero",undef:"whyUndef"}[k];
+    choices(m,[TCH("kPos",k==="pos"),TCH("kNeg",k==="neg"),TCH("kZero",k==="zero"),TCH("kUndef",k==="undef")],it=>{
+      if(it.ok) return win(m,cat(TX("yes"),TX(why))); nope(m,TX(why)); });
+    setPrompt(m,TX("kindDir")); return maybeAuto(m);
+  }
+  const tg=rand(type==="find"?slopeList(true):slopeList()); s.tg=tg;
+  if(type==="find"){
+    const [A,B]=latPair(tg,R); s.tri=false;
+    w.innerHTML=planeBox(m,{view:()=>({lines:[{m:tg,b:A[1]-qv(tg)*A[0]}],pts:[{x:A[0],y:A[1],lab:"A"},{x:B[0],y:B[1],lab:"B"}],
+      tris:s.tri?[{a:A,b:B,ru:t("run")+" "+(B[0]-A[0]),ri:t("rise")+" "+nH(B[1]-A[1])}]:[]})});
+    const tb=actBtn(m,"📐 "+t("showTri"),()=>{ s.tri=!s.tri; tb.innerHTML="📐 "+t(s.tri?"hideTri":"showTri"); redraw(m); },"ghost");
+    const r=B[1]-A[1], u=B[0]-A[0];
+    choices(m,slopeOpts(tg),it=>{
+      if(it.ok){ s.tri=true; redraw(m); return win(m,tm("goodFind",{r:N2(r),u,m:QV(tg)})); }
+      const v=it.v, why=v&&tg.p&&qeq(v,Q(tg.q,tg.p))?TX("hintRecip"):v&&qv(v)*qv(tg)<0?tm("hintSign",{dir:t(tg.p>0?"dirUp":"dirDown"),sgn:t(tg.p>0?"sgnPos":"sgnNeg")}):tm("hintFind",{u,r:N2(r)});
+      nope(m,cat(tm("youPicked",{x:it}),why)); });
+    setPrompt(m,TX("findDir")); return maybeAuto(m);
+  }
+  if(type==="table"){
+    const dx=tg.q*rand([1,1,2]), x0=ri(-3,1), b=ri(-4,5), xs=[0,1,2,3].map(i=>x0+i*dx), ys=xs.map(x=>Math.round(qv(tg)*x)+b);
+    if(tg.q>1){ const off=((x0%tg.q)+tg.q)%tg.q; for(let i=0;i<4;i++){ xs[i]-=off; ys[i]=qv(tg)*xs[i]+b; } }
+    w.innerHTML=`<div class="side">${ioTable(xs,ys)}</div>`;
+    const dy=ys[1]-ys[0];
+    choices(m,slopeOpts(tg,[Q(dy),Q(dx,dy||1)]),it=>{
+      if(it.ok) return win(m,tm("goodFindT",{dy:N2(dy),dx,m:QV(tg)}));
+      nope(m,cat(tm("youPicked",{x:it}),tm("hintFindT",{dy:N2(dy),dx}))); });
+    setPrompt(m,TX("findTDir")); return maybeAuto(m);
+  }
+  if(type==="points"){
+    let [A,B]=latPair(tg,R); if(Math.random()<.5) [A,B]=[B,A];
+    const dy=B[1]-A[1], dx=B[0]-A[0];
+    w.innerHTML="";
+    choices(m,slopeOpts(tg,dx?[Q(dx,dy||1)]:[]),it=>{
+      if(it.ok) return win(m,tm("goodFindT",{dy:N2(dy),dx:PN(dx),m:QV(tg)}));
+      nope(m,cat(tm("youPicked",{x:it}),tm("hintFindP",{y2:N2(B[1]),y1:N2(A[1]),x2:N2(B[0]),x1:N2(A[0]),dy:N2(dy),dx:PN(dx)}))); });
+    setPrompt(m,tm("findPDir",{a:PT(A[0],A[1]),b:PT(B[0],B[1])})); return maybeAuto(m);
+  }
+  // sim: two similar slope triangles on one line
+  let mm, k, x0, y0, ok=false;
+  for(let i=0;i<300&&!ok;i++){ mm=rand(slopeList(true).filter(r=>Math.abs(r.p)<=3&&r.q<=3)); k=rand([2,3]); x0=ri(-R+1,0); y0=mm.p>0?ri(-R+1,-1):ri(1,R-1);
+    const x1=x0+mm.q, y1=y0+mm.p, x2=x1+1, y2=y1+qv(mm), X3=x2+k*mm.q, Y3=y2+k*mm.p;
+    ok=Number.isInteger(y2)&&Math.abs(X3)<=R&&Math.abs(Y3)<=R&&Math.abs(y1)<=R; }
+  if(!ok){ mm=Q(1,2); k=2; x0=-6; y0=-4; }
+  const P1=[x0,y0], P2=[x0+mm.q,y0+mm.p], Q1=[P2[0]+mm.q,P2[1]+mm.p], Q2=[Q1[0]+k*mm.q,Q1[1]+k*mm.p];
+  const r=mm.p, u=mm.q, Rr=k*r, U=k*u;
+  w.innerHTML=planeBox(m,{view:()=>({lines:[{m:mm,b:y0-qv(mm)*x0}],tris:[{a:P1,b:P2,ru:u,ri:nH(r)},{a:Q1,b:Q2,ru:U,ri:s.done?nH(Rr):"?",cls:"t2"}]})});
+  const c=[Rr,r+(U-u),U,r,Rr+(r>0?1:-1),-Rr], opts=[{...N2(Rr),ok:true}], seen=[Rr];
+  for(const v of c){ if(opts.length>=4) break; if(seen.includes(v)) continue; seen.push(v); opts.push({...N2(v),ok:false,v}); }
+  choices(m,shuffle(opts),it=>{
+    if(it.ok){ s.done=true; redraw(m); return win(m,tm("goodSim",{r:N2(r),u,R:N2(Rr),U,m:QV(mm)})); }
+    nope(m,cat(tm("youPicked",{x:it}),tm("hintSim",{k,m:QV(mm)}))); });
+  setPrompt(m,tm("simDir",{r:N2(r),u,U})); maybeAuto(m);
+}
+function slRO(){ const s=st.slope, [A,B]=s.P, el=$("#slRO"); if(!el) return; const rr=riseRun(A,B);
+  el.innerHTML=(A.x===B.x&&A.y===B.y)?t("readoutSame"):!rr.u?t("readoutU"):tm("readout",{r:N2(rr.r),u:rr.u,m:QV(Q(rr.r,rr.u))}).h; }
+
+/* =========================================================================
+   3. y = mx + b BUILDER — buttons for m and b with a live graph and table;
+      match graph / table / words; pick the equation; contexts.
+   ========================================================================= */
+function newBuild(){
+  const m="build"; startRound(m); const s=st[m], g=G(), R=RR(), w=$("#w-"+m), prop=g<8;
+  const type=rand(prop?["graph","table","words","ctx","ctx"]:["graph","table","words","pick","ctx","mean"]); s.type=type;
+  const L=slopeList(), bR=prop?[0,0]:[bMin(),5];
+  const fitsR=(mm,b)=>[-2,0,2].every(x=>Math.abs(qv(mm)*x+b)<=R);
+  if(type==="ctx"||type==="mean"){
+    const isP=prop?true:(type==="mean"?false:Math.random()<.3), names=t("names").split(","), name=rand(names);
+    const key=isP?rand(["cxPrice","cxWalk"]):rand(["cxGym","cxPlant","cxSave"]);
+    const mv=ri(2,isP?9:6), bv=isP?0:ri(mv+1,12)+(Math.random()<.5?mv:0), eq=EQ(Q(mv),bv);
+    const q=tm(key,{m:mv,b:bv,name});
+    if(type==="mean"){
+      const base=key.slice(2), what=rand(["m","b"]), v=what==="m"?mv:bv;
+      const it=[["m"+base,what==="m"],["s"+base,what==="b"],["t"+base,false]].map(([k,ok])=>TCH(k,ok));
+      w.innerHTML=`<div class="rule">${q.h}</div><p class="big">${eq.h}</p>`;
+      choices(m,shuffle(it),x=>{ const ans=TX((what==="m"?"m":"s")+base);
+        if(x.ok) return win(m,tm("goodMean",{v,ans:ans.h}));
+        nope(m,TX("hintMean")); });
+      setPrompt(m,cat(q,tm("meanDir",{eq,what:t(what==="m"?"slopeW":"intW"),v})));
+      return maybeAuto(m);
+    }
+    const c=isP?[[1,mv],[mv,mv],[mv+1,0],[1,0]]:[[bv,mv],[mv+bv,0],[mv,0],[1,bv]];
+    const opts=[{...EQ(Q(mv),bv,1),ok:true}], seen=[mv+","+bv];
+    c.forEach(([a,b])=>{ if(opts.length<4&&!seen.includes(a+","+b)){ seen.push(a+","+b); opts.push({...EQ(Q(a),b,1),ok:false}); } });
+    w.innerHTML="";
+    choices(m,shuffle(opts),it=>{
+      if(it.ok) return win(m,tm(isP?"goodCxK":"goodCx",{eq,m:mv,b:bv}));
+      nope(m,tm(isP?"hintCxK":"hintCx",{m:mv,b:bv})); });
+    setPrompt(m,q); return maybeAuto(m);
+  }
+  let tm_, tb, n_=0; do{ tm_=rand(L); tb=ri(bR[0],bR[1]); }while(!fitsR(tm_,tb)&&++n_<200);
+  s.tg={m:tm_,b:tb};
+  if(type==="pick"){
+    w.innerHTML=planeBox(m,{view:()=>({lines:[{m:tm_,b:tb}]})});
+    const cands=[[Q(tb||1),tm_.q===1?tm_.p:tb],[Q(-tm_.p,tm_.q),tb],[tm_,-tb],[tm_.p?Q(tm_.q,tm_.p):Q(1),tb],[tm_,tb+1],[Q(tm_.p+tm_.q,tm_.q),tb]];
+    const opts=[{...EQ(tm_,tb,1),ok:true,mm:tm_,b:tb}];
+    cands.forEach(([a,b])=>{ if(opts.length<4&&!opts.some(o=>qeq(o.mm,a)&&o.b===b)) opts.push({...EQ(a,b,1),ok:false,mm:a,b}); });
+    choices(m,shuffle(opts),it=>{
+      if(it.ok) return win(m,tm("goodPickEq",{b:N2(tb),m:QV(tm_),eq:EQ(tm_,tb)}));
+      nope(m,!qeq(it.mm,tm_)?tm("hintPickM",{c:QV(it.mm),dir:t(tm_.p>=0?"dirUp":"dirDown"),r:Math.abs(tm_.p),u:tm_.q}):tm("hintPickB",{c:N2(it.b),b:N2(tb)})); });
+    setPrompt(m,TX("pickEqDir")); return maybeAuto(m);
+  }
+  // Build: start somewhere else
+  let mi, b0; do{ mi=ri(0,L.length-1); b0=ri(bR[0],bR[1]); }while(qeq(L[mi],tm_)&&b0===tb);
+  Object.assign(s,{L,mi,b:b0,bR});
+  const txs=tm_.q>1?[0,tm_.q,2*tm_.q,-tm_.q].sort((a,b)=>a-b):[-1,0,1,2];
+  const target=type==="graph"?`<div class="legend"><span><span class="sw tg"></span>${t("targetLine")}</span><span><span class="sw"></span>${t("yourLine")}</span></div>`:
+    type==="table"?ioTable(txs,txs.map(x=>qv(tm_)*x+tb)):"";
+  w.innerHTML=`<div class="split"><div class="side">${target}<div class="big" id="bEq" aria-live="polite"></div>
+    <div class="ctl"><span class="clab">${t(prop?"constK":"slopeM")}</span><button type="button" class="btn ghost sq" id="mDn" aria-label="${t(prop?"lessK":"lessM")}" title="${t(prop?"lessK":"lessM")}">−</button><output id="mOut"></output><button type="button" class="btn ghost sq" id="mUp" aria-label="${t(prop?"moreK":"moreM")}" title="${t(prop?"moreK":"moreM")}">+</button></div>
+    ${prop?"":`<div class="ctl"><span class="clab">${t("interB")}</span><button type="button" class="btn ghost sq" id="bDn" aria-label="${t("lessB")}" title="${t("lessB")}">−</button><output id="bOut"></output><button type="button" class="btn ghost sq" id="bUp" aria-label="${t("moreB")}" title="${t("moreB")}">+</button></div>`}
+    <div id="bTab"></div></div><div>${planeBox(m,{view:()=>({lines:(type==="graph"?[{m:tm_,b:tb,cls:"tg"}]:[]).concat([{m:s.L[s.mi],b:s.b}])})})}</div></div>`;
+  const upd=()=>{ const mm=s.L[s.mi]; $("#bEq").innerHTML=EQ(mm,s.b).h; $("#mOut").innerHTML=M(qH(mm));
+    if($("#bOut")) $("#bOut").innerHTML=M(nH(s.b)); $("#bTab").innerHTML=ioTable([-1,0,1,2],[-1,0,1,2].map(x=>{ const v=Q(mm.p*x+s.b*mm.q,mm.q); return {h:qH(v)}; }));
+    $("#mDn").disabled=s.mi<=0; $("#mUp").disabled=s.mi>=s.L.length-1;
+    if($("#bDn")){ $("#bDn").disabled=s.b<=bR[0]-2; $("#bUp").disabled=s.b>=bR[1]+2; } hideFb($("#f-"+m)); redraw(m); };
+  const bump=(id,fn)=>$("#"+id)&&$("#"+id).addEventListener("click",()=>{ if(s.done) return; fn(); upd(); });
+  bump("mDn",()=>s.mi=Math.max(0,s.mi-1)); bump("mUp",()=>s.mi=Math.min(s.L.length-1,s.mi+1));
+  bump("bDn",()=>s.b--); bump("bUp",()=>s.b++);
+  upd();
+  checkBtn(m,()=>{ const mm=s.L[s.mi], eq=EQ(mm,s.b);
+    if(qeq(mm,tm_)&&s.b===tb) return win(m,prop?tm("goodBuildK",{eq,k:QV(mm)}):tm("goodBuild",{eq,m:QV(mm),b:N2(tb)}));
+    if(!qeq(mm,tm_)) return nope(m,tm("hintBSlope",{c:QV(mm),r:N2(tm_.p),u:tm_.q}));
+    nope(m,tm("hintBInt",{b:N2(tb),c:N2(s.b)})); });
+  setPrompt(m,type==="graph"?TX("bGraphDir"):type==="table"?TX("bTableDir"):prop?tm("bWordDirK",{k:QV(tm_)}):
+    tm("bWordDir",{b:N2(tb),r:Math.abs(tm_.p),dir:t(tm_.p>=0?"dirUp":"dirDown"),u:tm_.q}));
+  maybeAuto(m);
+}
+
+/* =========================================================================
+   4. FUNCTION OR NOT? — mappings, tables, ordered pairs, graphs (vertical line
+      test); linear vs nonlinear; proportional vs not.
+   ========================================================================= */
+function relGen(isF,R){
+  const lo=settings.neg||G()===8?-R+2:0, hi=R-1, n=ri(4,5);
+  const xs=shuffle(range(lo,hi)).slice(0,isF?n:n-1); const P=xs.map(x=>[x,ri(lo,hi)]);
+  let info={};
+  if(isF){ if(Math.random()<.5){ P[1][1]=P[0][1]; info.rep=P[0][1]; } }
+  else { const i=ri(0,P.length-1); let y2; do{ y2=ri(lo,hi); }while(y2===P[i][1]); info={x:P[i][0],y1:P[i][1],y2}; P.splice(ri(0,P.length),0,[P[i][0],y2]); }
+  return {P,info};
+}
+function mapSVG(P){
+  const xs=[...new Set(P.map(p=>p[0]))].sort((a,b)=>a-b), ys=[...new Set(P.map(p=>p[1]))].sort((a,b)=>a-b), n=Math.max(xs.length,ys.length), H=n*46+70;
+  const yx=(i,k)=>60+(i+.5)*(n*46/k); let s=`<text class="hd" x="70" y="22" text-anchor="middle">${t("inp")}</text><text class="hd" x="250" y="22" text-anchor="middle">${t("out")}</text>`;
+  s+=`<ellipse cx="70" cy="${(H+40)/2}" rx="44" ry="${(H-40)/2}" fill="#eaf3fa" stroke="#9fbcd6" stroke-width="2"/><ellipse cx="250" cy="${(H+40)/2}" rx="44" ry="${(H-40)/2}" fill="#fdf2e9" stroke="#e0b48a" stroke-width="2"/>`;
+  P.forEach(([x,y])=>{ const y1=yx(xs.indexOf(x),xs.length), y2=yx(ys.indexOf(y),ys.length), a=Math.atan2(y2-y1,110);
+    s+=`<line x1="92" y1="${y1-6}" x2="226" y2="${y2-6}" stroke="#1f618d" stroke-width="2.5"/><polygon fill="#1f618d" points="${226},${y2-6} ${226-11*Math.cos(a)+5*Math.sin(a)},${y2-6-11*Math.sin(a)-5*Math.cos(a)} ${226-11*Math.cos(a)-5*Math.sin(a)},${y2-6-11*Math.sin(a)+5*Math.cos(a)}"/>`; });
+  xs.forEach((x,i)=>s+=`<text x="70" y="${yx(i,xs.length)}" text-anchor="middle">${nH(x)}</text>`);
+  ys.forEach((y,i)=>s+=`<text x="250" y="${yx(i,ys.length)}" text-anchor="middle">${nH(y)}</text>`);
+  return `<svg class="mapsvg" viewBox="0 0 320 ${H+20}" role="img" aria-label="${P.map(p=>nS(p[0])+" → "+nS(p[1])).join(", ")}">${s}</svg>`;
+}
+function newFunc(){
+  const m="func"; startRound(m); const s=st[m], g=G(), R=RR(), w=$("#w-"+m);
+  const type=rand(g<8?["f","f","f","prop","prop"]:["f","f","f","lin","lin","prop"]); s.type=type;
+  if(type==="f"){
+    const isF=Math.random()<.5, rep=rand(g<8?["map","table","pairs"]:["map","table","pairs","graph","graph"]), {P,info}=relGen(isF,R);
+    const why=isF?(info.rep!=null?tm("whyFRep",{y:N2(info.rep)}):TX("whyF")):tm("whyNotF",{x:N2(info.x),y1:N2(info.y1),y2:N2(info.y2)});
+    let whyG=why;
+    if(rep==="map") w.innerHTML=mapSVG(P);
+    else if(rep==="table"){ const Q_=shuffle(P); w.innerHTML=`<div class="side">${ioTable(Q_.map(p=>p[0]),Q_.map(p=>p[1]))}</div>`; }
+    else if(rep==="pairs") w.innerHTML=`<p class="pairs">${M("{ "+shuffle(P).map(p=>`<span class="pr">${PT(p[0],p[1]).h}</span>`).join(", ")+" }")}</p>`;
+    else { s.scan=0;
+      w.innerHTML=planeBox(m,{slide:true,cur:{x:0,y:0},view:()=>({scan:s.scan,pts:P.map(([x,y])=>({x,y,cls:x===s.scan?"hit":""}))}),tap:x=>{ s.scan=x; redraw(m); }});
+      whyG=isF?TX("whyScanF"):tm("whyScanNot",{x:N2(info.x)}); }
+    choices(m,[TCH("isF",isF),TCH("notF",!isF)],it=>{ if(it.ok){ if(rep==="graph"&&!isF){ s.scan=info.x; redraw(m); } return win(m,cat(TX("yes"),whyG)); } nope(m,whyG); });
+    setPrompt(m,TX(rep==="graph"?"fScanDir":"fDir")); return maybeAuto(m);
+  }
+  if(type==="lin"){
+    const isL=Math.random()<.5, rep=rand(["table","eq","graph"]);
+    const mm=rand([-3,-2,-1,1,2,3].filter(v=>settings.neg||v>0)), b=ri(bMin(),4), c=ri(-3,3), sg=rand([1,-1]);
+    const cube=Math.random()<.3, f=isL?(x=>mm*x+b):cube?(x=>x*x*x+c):(x=>sg*x*x+c);
+    let why;
+    if(rep==="table"){ const xs=[0,1,2,3,4].map(x=>x-(settings.neg?2:0)), ys=xs.map(f), ds=ys.slice(1).map((y,i)=>y-ys[i]);
+      w.innerHTML=`<div class="side">${ioTable(xs,ys)}</div>`;
+      why=isL?tm("whyLinT",{d:N2(mm)}):tm("whyNonT",{ds:{h:ds.map(nH).join(", "),s:ds.map(nS).join(", ")}}); }
+    else if(rep==="eq"){ const eq=isL?EQ(Q(mm),b):{h:M(`<i>y</i> = ${sg<0?MINUS:""}<i>x</i><sup>${cube?3:2}</sup>`+(c?` ${c<0?MINUS:"+"} ${Math.abs(c)}`:"")),
+        s:"y "+t("wEq")+" "+(sg<0?t("neg",{n:t(cube?"xCu":"xSq")}):t(cube?"xCu":"xSq"))+(c?" "+t(c<0?"wMinus":"wPlus")+" "+Math.abs(c):"")};
+      w.innerHTML=`<p class="big">${eq.h}</p>`; why=tm(isL?"whyLinE":"whyNonE",{eq}); }
+    else { const pts=range(-R,R).map(x=>({x,y:f(x)})).filter(p=>Math.abs(p.y)<=R&&Math.abs(p.x)<=4);
+      w.innerHTML=planeBox(m,{view:()=>({pts})}); why=TX(isL?"whyLinG":"whyNonG"); }
+    choices(m,[TCH("isLin",isL),TCH("notLin",!isL)],it=>{ if(it.ok) return win(m,cat(TX("yes"),why)); nope(m,why); });
+    setPrompt(m,TX("linDir")); return maybeAuto(m);
+  }
+  // prop
+  const isP=Math.random()<.5, rep=rand(g<8?["table","graph"]:["table","graph","eq"]), k=ri(1,g<8?4:3), b=isP?0:(settings.neg&&Math.random()<.3?-ri(1,3):ri(1,4));
+  let why;
+  if(rep==="table"){ const xs=shuffle(range(1,6)).slice(0,4).sort((a,c)=>a-c), ys=xs.map(x=>k*x+b);
+    w.innerHTML=`<div class="side">${ioTable(xs,ys)}</div>`;
+    why=isP?tm("whyPropT",{k}):tm("whyNonPT",{a:QV(Q(ys[0],xs[0])),b:QV(Q(ys[3],xs[3]))}); }
+  else if(rep==="graph"){ const kk=Math.min(k,Math.floor((R-Math.max(b,0))/3))||1;
+    w.innerHTML=planeBox(m,{view:()=>({lines:[{m:Q(isP?k:kk),b}]})}); why=isP?TX("whyPropG"):tm("whyNonPG",{b:N2(b)}); }
+  else { const eq=EQ(Q(k),b); w.innerHTML=`<p class="big">${eq.h}</p>`; why=isP?tm("whyPropE",{eq}):tm("whyNonPE",{eq,b:N2(b)}); }
+  choices(m,[TCH("isProp",isP),TCH("notProp",!isP)],it=>{ if(it.ok) return win(m,cat(TX("yes"),why)); nope(m,why); });
+  setPrompt(m,TX("propDir")); maybeAuto(m);
+}
+
+/* =========================================================================
+   5. COMPARE & INTERSECT — compare two functions shown differently;
+      find where two lines meet (systems preview).
+   ========================================================================= */
+function newCompare(){
+  const m="compare"; startRound(m); const s=st[m], g=G(), R=RR(), w=$("#w-"+m);
+  const type=rand(g<8?["rate","rate","meet"]:["rate","rate","int","meet","meet"]); s.type=type;
+  if(type==="meet"){
+    let e=null;
+    for(let i=0;i<500&&!e;i++){
+      let m1,b1,m2,b2,x0,y0;
+      if(g<8){ m1=ri(2,3); b1=0; m2=1; b2=ri(1,5); if((b2)%(m1-1)) continue; x0=b2/(m1-1); y0=m1*x0; }
+      else { const L=slopeList().filter(r=>r.q===1).map(r=>r.p).concat(settings.neg?[-1,-2]:[0,1]); m1=rand(L); m2=rand(L); if(m1===m2) continue;
+        x0=ri(-R+2,R-2); y0=ri(-R+2,R-2); b1=y0-m1*x0; b2=y0-m2*x0; if(Math.abs(b1)>R||Math.abs(b2)>R||(!settings.neg&&(b1<0||b2<0))) continue; }
+      if(Math.abs(x0)>R-1||Math.abs(y0)>R-1) continue;
+      e={m1,b1,m2,b2,x0,y0};
+    }
+    if(!e) e={m1:2,b1:0,m2:1,b2:2,x0:2,y0:4};
+    const E1=EQ(Q(e.m1),e.b1), E2=EQ(Q(e.m2),e.b2); s.pt=null; s.e=e;
+    w.innerHTML=`<div class="split"><div class="side"><div class="legend"><span><span class="sw"></span>${t("lineA")}: ${E1.h}</span><span><span class="sw l2"></span>${t("lineB")}: ${E2.h}</span></div></div><div>${planeBox(m,{
+      view:()=>({lines:[{m:Q(e.m1),b:e.b1,lab:t("lineA")},{m:Q(e.m2),b:e.b2,cls:"l2",lab:t("lineB")}],pts:s.pt?[{...s.pt}]:[]}),
+      tap:(x,y)=>{ s.pt={x,y,cls:""}; hideFb($("#f-"+m)); redraw(m); } })}</div></div>`;
+    checkBtn(m,()=>{ const p=s.pt; if(!p) return nope(m,TX("hintMeetNo"));
+      const on1=e.m1*p.x+e.b1===p.y, on2=e.m2*p.x+e.b2===p.y, P_=PT(p.x,p.y);
+      if(on1&&on2){ p.cls="ok"; redraw(m); return win(m,tm("goodMeet",{p:P_,e1:E1,e2:E2})); }
+      p.cls="bad"; redraw(m);
+      nope(m,on1||on2?tm("hintMeet1",{p:P_,L:t(on1?"lineA":"lineB")}):tm("hintMeet0",{p:P_})); });
+    setPrompt(m,TX("meetDir")); return maybeAuto(m);
+  }
+  // rate / int: A is a table, B is an equation or a graph
+  const ints=g<8?[1,2,3,4,5]:[-3,-2,-1,1,2,3,4].filter(v=>settings.neg||v>0);
+  let mA,mB,bA,bB,same=Math.random()<.2;
+  mA=rand(ints); mB=same&&type==="rate"?mA:rand(ints.filter(v=>v!==mA));
+  bA=g<8?0:ri(bMin(),5); bB=g<8?0:(same&&type==="int"?bA:ri(bMin(),5)); if(type==="int"&&!same&&bA===bB) bB=bA+rand([1,2]);
+  const dx=rand([1,2]), x0=ri(1,3), xs=[0,1,2,3].map(i=>x0+i*dx), ys=xs.map(x=>mA*x+bA);
+  const bGraph=g===8&&Math.random()<.5&&Math.abs(mB)*3+Math.abs(bB)<=R&&Math.abs(bB)<=R;
+  const E=EQ(Q(mB),bB);
+  w.innerHTML=`<div class="split"><div class="fnbox"><h3>${t("fnA")}</h3>${ioTable(xs,ys)}</div><div class="fnbox"><h3>${t("fnB")}</h3>${bGraph?planeBox(m,{view:()=>({lines:[{m:Q(mB),b:bB,cls:"l2"}]})}):`<p class="big">${E.h}</p>`}</div></div>`;
+  const vA=type==="rate"?mA:bA, vB=type==="rate"?mB:bB, ans=vA>vB?"A":vA<vB?"B":"S";
+  const wa=type==="rate"?tm("rateA",{dy:N2(mA*dx),dx,m:N2(mA)}):tm("intA",{b:N2(bA)});
+  const wb=type==="rate"?(bGraph?tm("rateBG",{r:N2(mB),u:1,m:N2(mB)}):tm("rateB",{m:N2(mB)})):tm(bGraph?"intBG":"intB",{b:N2(bB)});
+  const why=cat(wa,wb,TX(ans==="A"?"greaterA":ans==="B"?"greaterB":"greaterSame"));
+  choices(m,[TCH("fnA",ans==="A"),TCH("fnB",ans==="B"),TCH("fnSame",ans==="S")],it=>{ if(it.ok) return win(m,cat(TX("yes"),why)); nope(m,cat(wa,wb)); });
+  setPrompt(m,TX(type==="int"?"cmpIntDir":g<8?"cmpUnitDir":"cmpRateDir")); maybeAuto(m);
+}
+
+/* ---------- Mode switching ---------- */
+const NEWFN={tables:newTables,slope:newSlope,build:newBuild,func:newFunc,compare:newCompare};
+function firstMode(){ return MODES.find(m=>settings.modes[m])||"tables"; }
+function currentMode(){ const b=$$(".tabs button").find(x=>x.getAttribute("aria-selected")==="true"); return b?b.dataset.mode:firstMode(); }
+function showMode(mode){
+  if(!settings.modes[mode]) mode=firstMode();
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
+  $$(".modepanel").forEach(p=>p.classList.add("hidden"));
+  $("#mode-"+mode).classList.remove("hidden");
+  $$(".tabs button").forEach(b=>{ const on=b.dataset.mode===mode; b.setAttribute("aria-selected",on?"true":"false"); b.tabIndex=on?0:-1; });
+  if(!made[mode]) NEWFN[mode]();
+  if(switching && speechGen===g0) maybeAuto(mode);
+}
+function syncTabs(){
+  $$(".tabs button").forEach(b=>b.classList.toggle("hidden",!settings.modes[b.dataset.mode]));
+  if(!settings.modes[currentMode()]) showMode(firstMode());
+}
+function resetRounds(){ MODES.forEach(m=>made[m]=false); stopSpeech(); NEWFN[currentMode()](); }
+
+/* ---------- Settings drawer ---------- */
+function buildModeToggles(){
+  const wrap=$("#modeToggles"); wrap.innerHTML="";
+  MODES.forEach(m=>{ const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.modes[m]?"checked":""}> <span>${t(MODE_KEY[m])}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{ settings.modes[m]=e.target.checked;
+      if(!MODES.some(k=>settings.modes[k])){ e.target.checked=true; settings.modes[m]=true; }
+      saveSettings(); syncTabs(); });
+    wrap.appendChild(l); });
+}
+function syncSettingsUI(){
+  $("#setGrade").value=String(settings.grade); $("#setRange").value=String(settings.R);
+  $("#setNeg").checked=settings.neg; $("#setFrac").checked=settings.frac; $("#setAuto").checked=settings.autoRead; buildModeToggles();
+}
+function closeSettings(){ $("#settingsDrawer").classList.remove("open"); $("#openSettings").focus(); }
+function initSettings(){
+  $("#openSettings").addEventListener("click",()=>{ syncSettingsUI(); $("#settingsDrawer").classList.add("open"); $("#closeSettings").focus(); });
+  $("#closeSettings").addEventListener("click",closeSettings);
+  $("#settingsDrawer").addEventListener("click",e=>{ if(e.target.id==="settingsDrawer") closeSettings(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape" && $("#settingsDrawer").classList.contains("open")) closeSettings(); });
+  $("#setGrade").addEventListener("change",e=>{ const g=+e.target.value; settings.grade=g; Object.assign(settings,clone(GRADES[g])); saveSettings(); syncSettingsUI(); resetRounds(); });
+  $("#setRange").addEventListener("change",e=>{ settings.R=+e.target.value; saveSettings(); resetRounds(); });
+  $("#setNeg").addEventListener("change",e=>{ settings.neg=e.target.checked; saveSettings(); resetRounds(); });
+  $("#setFrac").addEventListener("change",e=>{ settings.frac=e.target.checked; saveSettings(); resetRounds(); });
+  $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
+  $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
+}
+
+/* ---------- Print cards ---------- */
+function buildPrintCards(){
+  const r=ruleGen(), ys=r.xs.map((x,i)=>i%2?null:r.m*x+r.b), R=RR();
+  const tg=rand(slopeList(true)), [A,B]=latPair(tg,R);
+  const lm=rand(slopeList(true)), lb=ri(bMin(),3);
+  const {P}=relGen(Math.random()<.5,R);
+  const k=ri(2,4), pb=Math.random()<.5?0:ri(1,4), pxs=[1,2,3,4];
+  const blank=`<span style="display:inline-block;min-width:5rem;border-bottom:2px solid #000">&nbsp;</span>`;
+  const meet=G()<8?[2,0,1,2]:rand([[1,1,-1,5],[2,-3,-1,3],[1,2,3,-2],[-1,4,1,0]]);
+  const cards=[
+    {title:t("mTables"), body:t("cardTable"), html:`<p>${t("ruleLbl")}: ${ruleH(r).h}</p>${ioTable(r.xs,ys.map(y=>y===null?{h:"&nbsp;&nbsp;&nbsp;"}:y))}${planeStatic({R})}`},
+    {title:t("mSlope"), body:t("cardSlope"), html:`<p style="font-size:1.4rem">${M(PT(A[0],A[1]).h+" , "+PT(B[0],B[1]).h)} &nbsp; ${blank}</p>`},
+    {title:t("mBuild"), body:t("cardEq"), html:`${planeStatic({R,lines:[{m:lm,b:lb}]})}<p>${blank}</p>`},
+    {title:t("mFunc"), body:t("cardFunc"), html:`<p class="pairs">${M("{ "+P.map(p=>`<span class="pr">${PT(p[0],p[1]).h}</span>`).join(", ")+" }")}</p><p>${blank}${blank}</p>`},
+    {title:t("mFunc"), body:t("cardProp"), html:`${ioTable(pxs,pxs.map(x=>k*x+pb))}<p>${blank}${blank}</p>`},
+    {title:t("mCompare"), body:t("cardMeet"), html:`<p style="font-size:1.3rem">${EQ(Q(meet[0]),meet[1]).h} &nbsp; ${EQ(Q(meet[2]),meet[3]).h}</p>${planeStatic({R})}`}
+  ];
+  $("#printArea").innerHTML=`<h1>${t("cardTitle")}</h1><p>${t("cardName")} ____________________</p>`+
+    cards.map(c=>`<div class="card-print"><h2>${c.title}</h2><p style="font-size:1.15rem;line-height:1.8">${c.body}</p>${c.html}</div>`).join("")+
+    `<p style="font-size:.85rem">${stdsHTML()}</p>`;
+}
+
+// Standards codes stay left-to-right inside Arabic/Urdu text.
+function stdsHTML(){ return t("stds").replace(/(TEKS|Common Core|\d\.(?:[A-Z]{1,2}\.)?\d+[a-z]?(?:\([^)]*\))?)/g,'<bdi dir="ltr">$1</bdi>'); }
+
+/* ---------- Language engine ---------- */
+function resolveLang(){
+  try{ const q=new URLSearchParams(location.search).get("lang"); if(q && T[q]) return q; }catch(e){}
+  try{ const s=localStorage.getItem(LANG_KEY); if(s && T[s]) return s; }catch(e){}
+  const n=(navigator.language||"en").slice(0,2).toLowerCase();
+  if(T[n]) return n;
+  return "en";
+}
+function applyLang(){
+  const meta=LANGS.find(x=>x.code===lang)||LANGS[0];
+  document.documentElement.lang=lang;
+  document.documentElement.dir=meta.dir;
+  document.title=t("appTitle");
+  const sel=$("#langSelect"); if(sel) sel.value=lang;
+  $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
+  $("#stdsNote").innerHTML=stdsHTML();
+  buildModeToggles();
+  resetRounds();
+}
+function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} applyLang(); }
+function buildLangSelect(){
+  const sel=$("#langSelect"); sel.innerHTML="";
+  LANGS.forEach(m=>{ const o=document.createElement("option"); o.value=m.code; o.textContent=m.name; sel.appendChild(o); });
+  sel.value=lang;
+  sel.addEventListener("change",()=>setLang(sel.value));
+}
+
+/* ---------- Init ---------- */
+function buildUI(){
+  $("#tabs").innerHTML=MODES.map(m=>`<button type="button" role="tab" id="tab-${m}" aria-controls="mode-${m}" aria-selected="false" data-mode="${m}"><span class="ic" aria-hidden="true">${MODE_IC[m]}</span><span data-t="${MODE_KEY[m]}"></span></button>`).join("");
+  $("#panels").innerHTML=MODES.map(m=>`<section id="mode-${m}" class="panel modepanel hidden" role="tabpanel" aria-labelledby="tab-${m}">
+    <div class="panelhead"><h2 data-t="${MODE_KEY[m]}"></h2><button type="button" class="btn ghost no-print" data-new="${m}" data-t="newRound"></button></div>
+    <div class="prompt"><button type="button" class="speaker" data-speak="${m}" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="p-${m}">…</span></div>
+    <div class="work" id="w-${m}"></div>
+    <div class="acts no-print" id="a-${m}"></div>
+    <div class="choices" id="c-${m}" role="group" data-ta="choicesLbl" aria-label="Answer choices"></div>
+    <div class="feedback" id="f-${m}" role="status" aria-live="polite"></div></section>`).join("");
+  MODES.forEach(wirePlane);
+  $("#tabs").addEventListener("keydown",e=>{ const vis=$$(".tabs button").filter(b=>!b.classList.contains("hidden")), i=vis.indexOf(document.activeElement); if(i<0) return;
+    const rtl=document.documentElement.dir==="rtl", stp={ArrowRight:rtl?-1:1,ArrowLeft:rtl?1:-1}[e.key]; if(!stp) return;
+    const nb=vis[(i+stp+vis.length)%vis.length]; nb.focus(); showMode(nb.dataset.mode); e.preventDefault(); });
+}
+function init(){
+  lang=resolveLang();
+  buildUI();
+  buildLangSelect();
+  $$(".tabs button").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.mode)));
+  $$(".speaker").forEach(b=>b.addEventListener("click",()=>speak(currentSpeech[b.dataset.speak])));
+  $$("[data-new]").forEach(b=>b.addEventListener("click",()=>{ stopSpeech(); NEWFN[b.dataset.new](); }));
+  initSettings();
+  const f=firstMode();
+  $$(".tabs button").forEach(b=>{ const on=b.dataset.mode===f; b.setAttribute("aria-selected",on?"true":"false"); b.tabIndex=on?0:-1; b.classList.toggle("hidden",!settings.modes[b.dataset.mode]); });
+  $$(".modepanel").forEach(p=>p.classList.toggle("hidden",p.id!=="mode-"+f));
+  applyLang();
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+</script>
+<script>
+/* Student mute toggle — shared across the Digital Math Tools. Self-contained,
+   offline, stores no student data. Gates ALL speech by intercepting
+   speechSynthesis.speak, so muting works regardless of each tool's internals.
+   Reads the shared language preference only to localize its own label. */
+(function(){
+  "use strict";
+  var LKEY='tcea.mathtools.lang', MKEY='tcea.mathtools.muted';
+  var CODES=['en','es','vi','ar','hi','ur','zh'];
+  var LAB={
+    mute:{en:"Mute sound",es:"Silenciar sonido",vi:"Tắt âm thanh",ar:"كتم الصوت",hi:"आवाज़ बंद करें",ur:"آواز بند کریں",zh:"静音"},
+    unmute:{en:"Turn sound on",es:"Activar sonido",vi:"Bật âm thanh",ar:"تشغيل الصوت",hi:"आवाज़ चालू करें",ur:"آواز چالو کریں",zh:"打开声音"}
+  };
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  window.__MT_MUTED = (get(MKEY)==='1');
+  // Intercept every speech request; suppress while muted.
+  try{
+    if(window.speechSynthesis && typeof window.speechSynthesis.speak==='function'){
+      var ss=window.speechSynthesis, orig=ss.speak.bind(ss);
+      ss.speak=function(u){ if(!window.__MT_MUTED){ try{orig(u);}catch(e){} } };
+    }
+  }catch(e){}
+  function curLang(){ var l=get(LKEY)||'en'; return LAB.mute[l]?l:'en'; }
+  function label(el){
+    var on=!window.__MT_MUTED, l=curLang(), txt=on?LAB.mute[l]:LAB.unmute[l];
+    el.textContent=on?'🔊':'🔇';
+    el.setAttribute('aria-label',txt); el.setAttribute('title',txt);
+    el.setAttribute('aria-pressed', on?'false':'true');
+  }
+  function findLangSelect(){
+    var sels=document.querySelectorAll('select');
+    for(var i=0;i<sels.length;i++){ var o=sels[i].options, c=0;
+      for(var j=0;j<o.length;j++){ if(CODES.indexOf((o[j].value||'').toLowerCase())>=0) c++; }
+      if(c>=3) return sels[i];
+    }
+    return null;
+  }
+  function build(){
+    if(document.getElementById('mtMuteBtn')) return;
+    if(!(('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window))) return;
+    var btn=document.createElement('button');
+    btn.id='mtMuteBtn'; btn.type='button';
+    btn.style.cssText='font:inherit;font-size:1.15rem;line-height:1;cursor:pointer;'+
+      'min-width:44px;min-height:44px;padding:8px 12px;border:2px solid #e2dcf1;'+
+      'border-radius:10px;background:#fff;color:#5b3fa5;font-weight:700;margin:0 4px;';
+    btn.addEventListener('click',function(){
+      window.__MT_MUTED=!window.__MT_MUTED;
+      set(MKEY, window.__MT_MUTED?'1':'0');
+      if(window.__MT_MUTED){ try{window.speechSynthesis.cancel();}catch(e){} }
+      label(btn);
+    });
+    btn.addEventListener('focus',function(){btn.style.outline='3px solid #5b3fa5';btn.style.outlineOffset='2px';});
+    btn.addEventListener('blur',function(){btn.style.outline='';});
+    var sel=findLangSelect();
+    if(sel && sel.parentNode){
+      sel.parentNode.insertBefore(btn, sel);
+      sel.addEventListener('change',function(){ setTimeout(function(){label(btn);},0); });
+    }else{
+      btn.style.position='fixed'; btn.style.top='10px'; btn.style.zIndex='9999';
+      btn.style[(document.documentElement.dir==='rtl')?'left':'right']='10px';
+      (document.body||document.documentElement).appendChild(btn);
+    }
+    label(btn);
+  }
+  if(document.readyState==='complete'){ build(); }
+  else{ window.addEventListener('load', build); }
+  window.addEventListener('storage',function(e){ if(e.key===LKEY){ var b=document.getElementById('mtMuteBtn'); if(b) label(b); } });
+})();
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+
+</html>

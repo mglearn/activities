@@ -128,7 +128,9 @@ window.MATHTOOLS = (function () {
     "Expressions":{en:"Expressions",es:"Expresiones",vi:"Biểu thức",ar:"العبارات الجبرية",hi:"व्यंजक",ur:"عبارتیں",zh:"代数式"},
     "Equations":{en:"Equations",es:"Ecuaciones",vi:"Phương trình",ar:"المعادلات",hi:"समीकरण",ur:"مساواتیں",zh:"方程"},
     "Inequalities":{en:"Inequalities",es:"Desigualdades",vi:"Bất phương trình",ar:"المتباينات",hi:"असमिकाएँ",ur:"عدم مساوات",zh:"不等式"},
-    "Order of operations":{en:"Order of operations",es:"Orden de las operaciones",vi:"Thứ tự phép tính",ar:"ترتيب العمليات",hi:"संक्रियाओं का क्रम",ur:"اعمال کی ترتیب",zh:"运算顺序"}
+    "Order of operations":{en:"Order of operations",es:"Orden de las operaciones",vi:"Thứ tự phép tính",ar:"ترتيب العمليات",hi:"संक्रियाओं का क्रम",ur:"اعمال کی ترتیب",zh:"运算顺序"},
+    "Slope":{en:"Slope",es:"Pendiente",vi:"Độ dốc",ar:"الميل",hi:"ढलान",ur:"ڈھلان",zh:"斜率"},
+    "Functions":{en:"Functions",es:"Funciones",vi:"Hàm số",ar:"الدوال",hi:"फलन",ur:"تفاعل",zh:"函数"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -336,7 +338,19 @@ window.MATHTOOLS = (function () {
         ar:"كوّن العبارات وبسّطها بالبلاطات الجبرية، وحُلّ المعادلات على ميزان متحرك، ومثّل المتباينات وحُلّها، وحوّل الكلمات والجداول إلى جبر، واستخدم ترتيب العمليات، وحدّد عدد حلول المعادلة.",
         hi:"बीजीय टाइलों से व्यंजक बनाएँ और सरल करें, चलते तराज़ू पर समीकरण हल करें, असमिकाएँ हल करें और उनका आलेख बनाएँ, शब्दों और तालिकाओं को बीजगणित में बदलें, संक्रियाओं के क्रम का उपयोग करें और तय करें कि समीकरण के कितने हल हैं।",
         ur:"الجبری ٹائلوں سے عبارتیں بنائیں اور سادہ کریں، متحرک ترازو پر مساواتیں حل کریں، عدم مساوات حل کریں اور ان کا گراف بنائیں، الفاظ اور جدولوں کو الجبرا میں بدلیں، اعمال کی ترتیب استعمال کریں اور طے کریں کہ مساوات کے کتنے حل ہیں۔",
-        zh:"用代数砖摆出并化简式子，在会动的天平上解方程，解不等式并在数轴上表示，把文字和表格写成代数式，运用运算顺序，并判断方程有几个解。"} }
+        zh:"用代数砖摆出并化简式子，在会动的天平上解方程，解不等式并在数轴上表示，把文字和表格写成代数式，运用运算顺序，并判断方程有几个解。"} },
+    { id:"slope-function-grapher", collection:"g68", bandId:"6-8", icon:"📈", accent:"#2980b9",
+      title:"Slope & Function Grapher", href:"g68/slope-function-grapher/index.html",
+      tags:["Coordinate plane","Slope","Functions","Proportional reasoning","Compare"],
+      kw:"slope rise run rate of change y-intercept y=mx+b linear function nonlinear proportional y=kx constant of proportionality unit rate input output table rule graph ordered pair four quadrants coordinate plane vertical line test mapping diagram similar triangles slope triangle system of equations intersection compare functions pendiente función 斜率 函数",
+      desc:{
+        en:"Complete tables from rules and graph points, explore slope with draggable points and slope triangles, build y = mx + b lines, decide whether relations are functions, and compare lines and find where they intersect.",
+        es:"Completa tablas a partir de reglas y grafica puntos, explora la pendiente con puntos que se arrastran y triángulos de pendiente, construye rectas y = mx + b, decide si una relación es función, y compara rectas y encuentra dónde se intersecan.",
+        vi:"Hoàn thành bảng từ quy tắc và vẽ điểm, khám phá độ dốc bằng các điểm kéo được và tam giác độ dốc, dựng đường thẳng y = mx + b, xác định quan hệ có phải là hàm số, và so sánh các đường thẳng, tìm giao điểm.",
+        ar:"أكمل الجداول من القواعد ومثّل النقاط، واستكشف الميل بنقاط قابلة للسحب ومثلثات الميل، وابنِ خطوط y = mx + b، وحدّد هل العلاقة دالة، وقارن الخطوط وجِد نقطة تقاطعها.",
+        hi:"नियमों से तालिकाएँ पूरी करें और बिंदु आलेखित करें, खिसकाए जा सकने वाले बिंदुओं और ढलान त्रिभुजों से ढलान समझें, y = mx + b रेखाएँ बनाएँ, तय करें कि संबंध फलन है या नहीं, और रेखाओं की तुलना कर उनका प्रतिच्छेद बिंदु खोजें।",
+        ur:"قاعدوں سے جدول مکمل کریں اور نقاط کا گراف بنائیں، گھسیٹنے والے نقاط اور ڈھلان مثلثوں سے ڈھلان سمجھیں، y = mx + b خطوط بنائیں، طے کریں کہ تعلق تفاعل ہے یا نہیں، اور خطوط کا موازنہ کر کے ان کا نقطۂ تقاطع تلاش کریں۔",
+        zh:"根据规则完成表格并描点，用可拖动的点和斜率三角形探索斜率，构建 y = mx + b 直线，判断关系是否为函数，并比较直线、找出交点。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
