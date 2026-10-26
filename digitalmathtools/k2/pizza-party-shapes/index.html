@@ -1,0 +1,1920 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Pizza Party Shapes — a Grade 1–2 geometry and early-fractions app: sort 2-D shapes by attributes, investigate 3-D solids, compose shapes with pattern blocks, and cut pizzas and sandwiches into fair shares. Works offline. No data collected.">
+<title>Pizza Party Shapes</title>
+<style>
+  :root{
+    --bg:#eef4f9;--panel:#ffffff;--ink:#1c2733;--muted:#4a5a6a;--line:#c3d2dd;
+    --accent:#2980b9;--accent-ink:#ffffff;--good:#166534;--good-bg:#dcfce7;
+    --hint:#7a4a00;--hint-bg:#fff4d6;--focus:#0a58ca;
+    --tap:56px;font-size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4;-webkit-text-size-adjust:100%}
+  h1,h2,h3{line-height:1.15;margin:0 0 .3em}
+  button{font-family:inherit;font-size:1rem;cursor:pointer;color:var(--ink)}
+
+  .topbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--accent);color:var(--accent-ink);padding:.55rem .8rem}
+  .topbar .brand{font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:.4rem;margin-inline-end:auto}
+  .topbar a.homebtn,.topbar button.tb{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.55);border-radius:12px;padding:.4rem .7rem;min-height:var(--tap);min-width:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;font-weight:700;font-size:.95rem}
+  .globe{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.55);border-radius:12px;padding:.2rem .5rem;min-height:var(--tap)}
+  .globe span{font-size:1.2rem}
+  .globe select{border:0;background:#fff;color:var(--ink);border-radius:8px;min-height:44px;font-weight:700;font-size:1rem;padding:.2rem .4rem}
+
+  main{max-width:1200px;margin:0 auto;padding:.7rem}
+  .tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin:.4rem 0 .7rem;align-items:center}
+  .tabs button{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:.5rem .8rem;min-height:var(--tap);font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .tabs button[aria-selected="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .tabs button .ic{font-size:1.15rem}
+  .starbox{margin-inline-start:auto;background:#fff8db;border:2px solid #f3d36b;border-radius:14px;padding:.35rem .7rem;font-weight:800;min-height:44px;display:inline-flex;align-items:center;gap:.3rem}
+
+  .panel{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:.9rem;margin-bottom:.8rem}
+  .panelhead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+  .panelhead h2{margin:0;font-size:1.25rem}
+  .panelhead .btn{margin-inline-start:auto}
+
+  .prompt{display:flex;align-items:center;gap:.6rem;background:#eaf3fa;border:2px solid #b9d7ec;border-radius:14px;padding:.6rem .8rem;margin-bottom:.7rem;font-size:1.12rem;font-weight:600}
+  .speaker{background:var(--accent);color:#fff;border:0;border-radius:50%;width:var(--tap);height:var(--tap);min-width:var(--tap);font-size:1.4rem;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+
+  .btn{background:var(--accent);color:#fff;border:2px solid var(--accent);border-radius:12px;padding:.55rem .9rem;min-height:var(--tap);font-weight:700}
+  .btn.ghost{background:var(--panel);color:var(--accent)}
+  .btn:disabled{opacity:.55;cursor:default}
+
+  .feedback{margin-top:.6rem;border-radius:12px;padding:.6rem .8rem;font-weight:600;display:none}
+  .feedback.show{display:flex;gap:.5rem;align-items:flex-start}
+  .feedback.good{background:var(--good-bg);color:var(--good);border:2px solid #86efac}
+  .feedback.hint{background:var(--hint-bg);color:var(--hint);border:2px solid #f6d271}
+
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.6rem}
+  .choices.wide{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+  .choice{background:var(--panel);border:3px solid var(--line);border-radius:16px;padding:.5rem;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem;position:relative}
+  .choice svg{width:100%;height:100px;pointer-events:none}
+  .choices.wide .choice svg{height:auto;max-height:170px}
+  .choice .lbl{font-weight:700;font-size:.95rem;text-align:center}
+  .choice.correctpick,.bin.correctpick,.numbtn.correctpick,.yn .btn.correctpick{border-color:var(--good);background:var(--good-bg);color:var(--good)}
+  .choice.wrongpick,.bin.wrongpick,.numbtn.wrongpick,.yn .btn.wrongpick{border-color:#d99a00;background:var(--hint-bg);color:var(--hint)}
+  .choice .badge{position:absolute;top:4px;inset-inline-end:6px;font-size:1.3rem;display:none}
+  .choice.correctpick .badge.ok{display:block}
+  .choice.wrongpick .badge.no{display:block}
+  .kids{font-size:1.3rem;letter-spacing:1px;text-align:center;line-height:1.2}
+
+  /* sorter */
+  .progress{font-weight:700;color:var(--muted);margin:.1rem 0 .3rem;text-align:center}
+  .sortwrap{display:flex;gap:.7rem;align-items:flex-start}
+  .sorthold{flex:0 0 auto;display:flex;justify-content:center}
+  .sortwrap .bins{flex:1 1 0;min-width:0}
+  .dragcard{width:140px;height:140px;background:#fff;border:3px solid var(--line);border-radius:18px;touch-action:none;cursor:grab;padding:8px;position:relative;z-index:2}
+  .dragcard.dragging{cursor:grabbing;box-shadow:0 8px 24px rgba(0,0,0,.25);border-color:var(--accent)}
+  .dragcard svg{width:100%;height:100%;pointer-events:none}
+  .bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.5rem}
+  .bin{min-height:72px;border:3px dashed var(--accent);border-radius:16px;background:#f1f7fc;font-weight:800;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;padding:.4rem}
+  .bin .num{font-size:2.1rem;line-height:1}
+  .pair{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+  .pair .shapebox{width:150px;background:#fff;border:3px solid var(--line);border-radius:16px;padding:.4rem;text-align:center;font-weight:800}
+  .pair .shapebox svg{width:100%;height:130px}
+  .yn{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-top:.7rem}
+  .yn .btn{min-width:150px;font-size:1.1rem;background:#fff;color:var(--accent);border-width:3px}
+
+  /* solids */
+  .solidwrap{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;justify-content:center}
+  .solidbig{width:100%;max-width:300px;background:#f6fafd;border:2px solid var(--line);border-radius:16px;padding:.3rem}
+  .solidbig svg{width:100%;height:auto;display:block}
+  .solidside{flex:1 1 240px;min-width:0}
+  .vdot{cursor:pointer}
+  .vdot:focus{outline:none}
+  .vdot:focus-visible .dv{stroke:var(--focus);stroke-width:4}
+  .vdot.on .dv{fill:#c2410c}
+  .counted{font-weight:800;font-size:1.1rem;text-align:center;margin:.3rem 0}
+  .numrow{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-top:.4rem}
+  .numbtn{min-width:64px;min-height:64px;font-size:1.5rem;font-weight:800;border-radius:14px;border:3px solid var(--line);background:#fff;padding:.2rem .7rem}
+  .numbtn.word{font-size:1.05rem}
+
+  /* compose */
+  .builder{display:grid;grid-template-columns:200px 1fr;gap:.7rem}
+  @media(max-width:820px){.builder{grid-template-columns:1fr}}
+  .tray{background:#f3f8fb;border:2px solid var(--line);border-radius:14px;padding:.6rem}
+  .tray h3{font-size:1rem;margin:.1rem 0 .5rem}
+  .traygrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:.5rem}
+  .blockbtn{background:#fff;border:3px solid var(--line);border-radius:12px;padding:.25rem;min-height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;touch-action:none;font-size:.78rem;font-weight:700}
+  .blockbtn svg{width:58px;height:44px;pointer-events:none}
+  .blockbtn[aria-pressed="true"]{border-color:var(--accent);background:#dcecf8;box-shadow:0 0 0 2px var(--accent) inset}
+  .cmpboard{background:#fbfdff;border:2px solid var(--line);border-radius:14px;padding:.5rem;touch-action:manipulation}
+  .cmpboard svg{width:100%;max-width:460px;max-height:380px;height:auto;display:block;margin:0 auto}
+  .cell{cursor:pointer}
+  .cell:focus{outline:none}
+  .cell:focus-visible{fill:#bcd8f0}
+  .placedb{cursor:pointer}
+  .placedb:focus{outline:none}
+  .placedb:focus-visible{stroke:var(--focus);stroke-width:5}
+  .dragghost{position:fixed;pointer-events:none;transform:translate(-50%,-50%);width:80px;z-index:60;opacity:.85}
+  .dragghost svg{width:80px;height:60px}
+  .stagetools{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
+  .stagetools .btn{padding:.45rem .7rem;min-height:48px}
+
+  /* fair shares */
+  .foodbox{max-width:380px;margin:0 auto}
+  .foodbox svg{width:100%;height:auto;display:block}
+  .hit{cursor:pointer}
+  .hit:focus{outline:none}
+  .hit:focus-visible{stroke:rgba(10,88,202,.4)}
+
+  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
+  .drawer.open{display:flex}
+  .drawer .card{background:var(--panel);border-radius:16px;max-width:560px;width:100%;padding:1rem;max-height:90vh;overflow:auto}
+  .setrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+  .setrow .lab{font-weight:700;min-width:150px}
+  .toggle{display:inline-flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:10px;padding:.35rem .55rem;background:#fff;min-height:44px}
+  .toggle input{width:22px;height:22px}
+  select.diff{font-size:1rem;padding:.4rem;border-radius:10px;border:2px solid var(--line);min-height:48px}
+
+  footer{max-width:1200px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+  footer a{color:var(--accent);font-weight:700}
+  .stds{font-size:.82rem;color:var(--muted);background:#f3f8fb;border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  .hidden{display:none !important}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+  @media (max-width:560px){
+    :root{--tap:50px;font-size:17px}
+    .topbar{padding:.4rem .5rem;gap:.35rem}
+    .topbar .brand{font-size:1.05rem;flex-basis:100%}
+    .topbar .tlabel{display:none}
+    .globe select{max-width:120px}
+    main{padding:.5rem}
+    .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:.35rem}
+    .tabs button{flex-direction:column;gap:0;padding:.3rem .2rem;font-size:.74rem;line-height:1.15;justify-content:center;text-align:center}
+    .starbox{margin:0;justify-content:center}
+    .panel{padding:.6rem}
+    .prompt{font-size:1rem;padding:.5rem .6rem}
+    .dragcard{width:112px;height:112px}
+    .bin{min-height:60px;flex-direction:row;gap:.4rem;font-size:.9rem}
+    .bin .num{font-size:1.6rem}
+  }
+  .printonly{display:none}
+  @media print{
+    .topbar,.tabs,footer,.modepanel,.drawer,.no-print,#stdsNote{display:none !important}
+    body{background:#fff}
+    .printonly{display:block !important}
+    .card-print{border:2px solid #000;border-radius:12px;padding:1rem;margin:0 0 1rem;page-break-inside:avoid}
+    .card-print h2{margin:.2rem 0}
+    main{max-width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">🍕 <span data-t="appTitle">Pizza Party Shapes</span></span>
+  <a class="homebtn" href="../../index.html" data-ta="home" aria-label="Home">🏠 <span class="tlabel" data-t="home">Home</span></a>
+  <label class="globe"><span aria-hidden="true">🌐</span>
+    <select id="langSelect" aria-label="Language / Idioma"></select>
+  </label>
+  <button class="tb" id="openSettings" data-ta="teacher" aria-label="Teacher">⚙️ <span class="tlabel" data-t="teacher">Teacher</span></button>
+</header>
+
+<main>
+  <div class="tabs" role="tablist" data-ta="setModes" aria-label="Modes">
+    <button role="tab" aria-selected="true" data-mode="sort"><span class="ic" aria-hidden="true">🔷</span><span data-t="mSort">Shape Sorter</span></button>
+    <button role="tab" aria-selected="false" data-mode="solid"><span class="ic" aria-hidden="true">🧊</span><span data-t="mSolid">Solid Detective</span></button>
+    <button role="tab" aria-selected="false" data-mode="compose"><span class="ic" aria-hidden="true">🧩</span><span data-t="mCompose">Shape Puzzles</span></button>
+    <button role="tab" aria-selected="false" data-mode="fair"><span class="ic" aria-hidden="true">🍕</span><span data-t="mFair">Fair Shares</span></button>
+    <button role="tab" aria-selected="false" data-mode="big"><span class="ic" aria-hidden="true">🍰</span><span data-t="mBig">Bigger Slice</span></button>
+    <span class="starbox" id="starBox" role="img" aria-label="Stars: 0"><span aria-hidden="true">⭐</span><span id="starN" aria-hidden="true">0</span></span>
+  </div>
+
+  <section id="mode-sort" class="panel modepanel" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mSort">Shape Sorter</h2>
+      <button class="btn ghost no-print" id="sortNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="sort" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="sortPrompt">…</span></div>
+    <div id="sortArea"></div>
+    <div class="feedback" id="sortFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-solid" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mSolid">Solid Detective</h2>
+      <button class="btn ghost no-print" id="solidNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="solid" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="solidPrompt">…</span></div>
+    <div id="solidArea"></div>
+    <div class="feedback" id="solidFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-compose" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mCompose">Shape Puzzles</h2>
+      <button class="btn ghost no-print" id="composeNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="compose" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="composePrompt">…</span></div>
+    <div class="builder">
+      <div class="tray"><h3 data-t="blocksLbl">Blocks</h3>
+        <div class="traygrid" id="cmpTray" role="group" data-ta="blocksLbl" aria-label="Blocks"></div></div>
+      <div>
+        <div class="cmpboard" id="cmpBoard"></div>
+        <div class="stagetools no-print">
+          <button class="btn" id="cmpTurn" data-t="btnTurn">↻ Turn</button>
+          <button class="btn" id="cmpUndo" data-t="btnUndo">↶ Undo</button>
+          <button class="btn ghost" id="cmpClear" data-t="btnClear">Clear</button>
+          <button class="btn ghost" id="cmpAnother" data-t="btnAnother">Another way</button>
+        </div>
+        <div class="feedback" id="composeFb" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="mode-fair" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mFair">Fair Shares</h2>
+      <button class="btn ghost no-print" id="fairNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="fair" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="fairPrompt">…</span></div>
+    <div id="fairArea"></div>
+    <div class="feedback" id="fairFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-big" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mBig">Bigger Slice</h2>
+      <button class="btn ghost no-print" id="bigNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="big" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="bigPrompt">…</span></div>
+    <div id="bigArea"></div>
+    <div class="feedback" id="bigFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <div class="stds" id="stdsNote"></div>
+  <div class="printonly" id="printArea"></div>
+</main>
+
+<footer>
+  <p data-t="footNote">No accounts · No data collected · Works offline</p>
+  <p><a href="../../index.html" data-t="home">Home</a> · <a href="../../policy.html" data-t="privacy">Privacy</a></p>
+</footer>
+
+<div class="drawer" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <div class="panelhead"><h2 id="setTitle" data-t="teacherTitle">Teacher settings</h2>
+      <button class="btn ghost" id="closeSettings" style="margin-inline-start:auto" data-t="close">Close</button></div>
+    <div class="setrow"><label class="lab" for="setGrade" data-t="setGrade">Grade level</label>
+      <select class="diff" id="setGrade">
+        <option value="1" data-t="grade1">Grade 1</option>
+        <option value="2" data-t="grade2">Grade 2</option></select>
+      <p class="stds" style="flex-basis:100%;margin:0" data-t="gradeNote"></p></div>
+    <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
+      <div id="modeToggles" style="display:flex;flex-wrap:wrap;gap:.4rem"></div></div>
+    <div class="setrow"><span class="lab" data-t="setCut">Shapes to share</span>
+      <label class="toggle"><input type="checkbox" id="setCircles"> <span data-t="cutCircle">Circles</span></label>
+      <label class="toggle"><input type="checkbox" id="setRects"> <span data-t="cutRect">Rectangles</span></label></div>
+    <div class="setrow"><span class="lab" data-t="setSpeech">Speech</span>
+      <label class="toggle"><input type="checkbox" id="setAuto"> <span data-t="autoRead">Auto-read directions</span></label></div>
+    <div class="setrow" style="border:0"><button class="btn" id="printCards" data-t="printCards">🖨 Print challenge cards</button></div>
+    <p class="stds" data-t="setStored">Settings are saved only on this device. No student information is ever stored.</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   Pizza Party Shapes — single-file Grade 1–2 geometry + early fractions app.
+   7 languages. No frameworks, no network, no data collection.
+   ========================================================================= */
+const LANGS = [
+  {code:"en", name:"English",     dir:"ltr", bcp:"en-US"},
+  {code:"es", name:"Español",     dir:"ltr", bcp:"es-ES"},
+  {code:"vi", name:"Tiếng Việt",  dir:"ltr", bcp:"vi-VN"},
+  {code:"ar", name:"العربية",     dir:"rtl", bcp:"ar-SA"},
+  {code:"hi", name:"हिन्दी",       dir:"ltr", bcp:"hi-IN"},
+  {code:"ur", name:"اردو",        dir:"rtl", bcp:"ur-PK"},
+  {code:"zh", name:"中文",         dir:"ltr", bcp:"zh-CN"}
+];
+const LANG_KEY = "tcea.mathtools.lang";
+/* ---------- Translations ---------- */
+const T = {
+  en:{
+    appTitle:"Pizza Party Shapes", home:"Home", privacy:"Privacy", teacher:"Teacher", readAloud:"Read aloud", newRound:"New round", stars:"Stars",
+    mSort:"Shape Sorter", mSolid:"Solid Detective", mCompose:"Shape Puzzles", mFair:"Fair Shares", mBig:"Bigger Slice",
+    footNote:"No accounts · No data collected · Works offline",
+    teacherTitle:"Teacher settings", close:"Close", setGrade:"Grade level", grade1:"Grade 1", grade2:"Grade 2",
+    gradeNote:"Grade 2 adds thirds, eighths, pentagons, octagons, edges, and puzzles that use an exact number of blocks.",
+    setModes:"Modes", setCut:"Shapes to share", cutCircle:"Circles (pizzas)", cutRect:"Rectangles (sandwiches, brownies)",
+    setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"🖨 Print challenge cards",
+    setStored:"Settings are saved only on this device. No student information is ever stored.",
+    stds:"Aligned standards: Texas TEKS Grade 1: 1.6(A–H). Grade 2: 2.3(A, B, D), 2.3(C) (how many parts make one whole), 2.8(B–E). Common Core: 1.G.1, 1.G.2, 1.G.3, 2.G.1, 2.G.3. Grade 2 adds thirds (Common Core) and eighths (TEKS).",
+    cardTitle:"Pizza Party Shapes — Challenge Cards",
+    yes:"Yes", no:"No", done:"Done",
+    circle:"circle", triangle:"triangle", square:"square", rectangle:"rectangle", rhombus:"rhombus", trapezoid:"trapezoid", quad:"quadrilateral", pentagon:"pentagon", hexagon:"hexagon", octagon:"octagon", house:"house",
+    cube:"cube", rprism:"rectangular prism", tprism:"triangular prism", sphere:"sphere", cone:"cone", cylinder:"cylinder",
+    the_cube:"the cube", the_rprism:"the rectangular prism", the_tprism:"the triangular prism", the_sphere:"the sphere", the_cone:"the cone", the_cylinder:"the cylinder",
+    fact_cube:"It has 6 square faces, 12 edges and 8 vertices.",
+    fact_rprism:"It has 6 rectangle faces, 12 edges and 8 vertices.",
+    fact_tprism:"It has 2 triangle faces, 3 rectangle faces, 9 edges and 6 vertices.",
+    fact_sphere:"It is round all over. It has no flat faces, no edges and no vertices.",
+    fact_cylinder:"It has 2 flat faces shaped like circles and a curved surface.",
+    fact_cone:"It has 1 flat face shaped like a circle and a curved surface that comes to a point.",
+    uSides:"sides", uVerts:"vertices", uFaces:"faces", uEdges:"edges",
+    sortDir:"Sort the shapes. Drag each shape to its box, or tap the box.",
+    binNoS:"no straight sides", binNoV:"no vertices", progress:"Shape {i} of {n}",
+    goodSort:"Yes! This {shape} has {n} {unit}.", goodSortCircle:"Yes! A circle has no straight sides and no vertices.",
+    hintSort:"Not that box. Count again, and touch each one as you count. Size, color and turning do not change the count.",
+    hintSortCircle:"A circle is round. It has no straight sides and no vertices. Find the box for that.",
+    sortDone:"Great sorting!",
+    sameDir:"The first shape is a {shape}. Is the second shape a {shape} too?",
+    goodSameYes:"Yes! Both have {n} sides and {n} vertices. Color, size and turning do not change a shape.",
+    goodSameNo:"Right! The second shape has {m} sides, so it is not a {shape}. A {shape} has {n} sides.",
+    hintSameYes:"Look again. Count the sides. Both have {n}. Color, size and turning do not change a shape.",
+    hintSameNo:"Count the sides. The first one has {n}, but the second one has {m}. The same color does not make the same shape.",
+    findSidesDir:"Tap every shape with {n} sides.", findVertsDir:"Tap every shape with {n} vertices.", findNameDir:"Tap every {shape}.",
+    findLeft:"Yes! {k} more to find.",
+    goodFindAll:"You found them all! Each one has {n} {unit}.",
+    goodFindName:"You found every {shape}! Each one has {n} sides, even the ones that look different.",
+    hintFindCount:"That shape has {m} {unit}. We need shapes with {n}.",
+    hintFindName:"That is a {other}. It has {m} sides. A {shape} has {n} sides.",
+    solidTapDir:"Tap {dsolid}.", goodSolid:"Yes! That is {dsolid}. {fact}", hintSolidTap:"That is {dsolid}. {fact} Look for {dtarget}.", hintSolidQ:"That is {dsolid}. {fact} Read the clue again.",
+    faceDir:"Which shape is a flat face of this solid?", goodFace:"Yes! A flat face of {dsolid} is a {shape}. {fact}", hintFace:"No flat face of {dsolid} is a {shape}. {fact}",
+    countDir_faces:"How many faces does this solid have?", countDir_edges:"How many edges does this solid have?", countDir_verts:"How many vertices does this solid have?",
+    tapDots:"Tap each dot to count the vertices. Dashed lines are hidden in the back.", counted:"Counted: {n}",
+    goodCount:"Yes! In all, {dsolid} has {n} {unit}.",
+    hint_faces:"Faces are the flat sides. Count front, back, top, bottom and the other sides too, even the ones you cannot see.",
+    hint_edges:"Edges are the lines where two faces meet. Count every line, even the dashed hidden ones.",
+    hint_verts:"Vertices are the corners where edges meet. Tap every dot, even the hidden one in the back.",
+    q_sphere:"Which solid has no flat faces, no edges and no vertices?",
+    q_cylinder:"Which solid has 2 flat faces that are both circles?",
+    q_cone:"Which solid has only 1 flat face, a circle, and comes to a point?",
+    q_cube:"Which solid has 6 faces that are all squares?",
+    q_tprism:"Which solid has faces shaped like triangles?",
+    q_rprism:"Which solid has 6 rectangle faces and 8 vertices, but is not a cube?",
+    composeDir:"Fill the {target} with blocks. Pick a block, then tap inside the outline.",
+    composeDirN:"Fill the {target} with exactly {k} blocks. Pick a block, then tap inside the outline.",
+    pickFirst:"Pick a block first.",
+    noFit:"That block does not fit there. It would go outside the line or on top of another block. Try another spot or a smaller block.",
+    goodCompose:"You did it! You made a {target} with {k} blocks.",
+    newWay:"Ways found: {w}. Can you find another way?",
+    sameWay:"You already found that way. Try a different way!",
+    hintExact:"You used {k} blocks, but we need exactly {n}. Try bigger or smaller blocks.",
+    btnTurn:"↻ Turn", btnUndo:"↶ Undo", btnClear:"Clear", btnAnother:"Another way", blocksLbl:"Blocks",
+    f_pizza:"the pizza", f_sandwich:"the sandwich", f_brownie:"the brownie",
+    fairDir:"Look at {food}. Are all the pieces fair shares?",
+    btnFair:"Yes, fair shares", btnUnfair:"No, not fair",
+    goodFair:"Yes! All {n} pieces are the same size, so they are fair shares. Each piece is {part}.",
+    fairShapeNote:"The pieces have different shapes, but each one is the same amount.",
+    goodUnfair:"Right! Some pieces are bigger than others. Fair shares must all be the same size.",
+    hintFair:"Look again. All {n} pieces are the same size. Each piece is {part}.",
+    hintUnfair:"Look closely. Some pieces are bigger than others. Would you want the small piece? Fair shares must be the same size.",
+    nameDir:"Look at {food}. What part is blue?",
+    goodName:"Yes! There are {n} equal pieces. The blue piece is {part}.",
+    hintName:"Count all the pieces first. “{chosen}” means one of {m} equal pieces. How many equal pieces are here?",
+    exampleDir:"Tap the one cut into {parts}.",
+    goodExample:"Yes! It has {n} equal pieces, so each piece is {part}.",
+    hintExUneq:"That one has {m} pieces, but they are not the same size. To make {parts}, all the pieces must be the same size.",
+    hintExCount:"That one has {m} equal pieces. To make {parts}, we need {n} equal pieces.",
+    howDir:"How many {parts} make one whole?",
+    goodHow:"Yes! {whole}", hintHow:"Count the pieces in the whole. Each piece is {part}.",
+    cutDir:"Cut {food} into {parts}.", cutHow:"Tap the dashed lines to cut. Tap a cut again to undo it. Then tap Done.",
+    hintCutNone:"Tap a dashed line to make a cut.",
+    hintCutCount:"You made {k} pieces. To make {parts}, we need {n} equal pieces.",
+    hintCutUneq:"You made {n} pieces, but they are not the same size. Fair shares must be equal. Try other lines.",
+    goodCut:"Yes! {n} fair shares. Each piece is {part}. {whole}",
+    piecesLbl:"Pieces: {k}",
+    part2:"one half", part3:"one third", part4:"one fourth", part8:"one eighth",
+    parts2:"halves", parts3:"thirds", parts4:"fourths", parts8:"eighths",
+    whole2:"Two halves make one whole.", whole3:"Three thirds make one whole.", whole4:"Four fourths, or four quarters, make one whole.", whole8:"Eight eighths make one whole.",
+    bigDir2:"The two wholes are the same size. Tap the one with the bigger blue piece.",
+    smallDir2:"The two wholes are the same size. Tap the one with the smaller blue piece.",
+    bigDir3:"All the wholes are the same size. Tap the one with the biggest blue piece.",
+    smallDir3:"All the wholes are the same size. Tap the one with the smallest blue piece.",
+    goodBig:"Yes! That blue piece is {part}. The fewer equal pieces, the bigger each piece.",
+    goodSmall:"Yes! That blue piece is {part}. The more equal pieces, the smaller each piece.",
+    hintBig:"That one is cut into {n} equal pieces. More pieces means smaller pieces. Look for fewer pieces.",
+    hintSmall:"That one is cut into {n} equal pieces. Fewer pieces means bigger pieces. Look for more pieces.",
+    friendsDir:"Each group of friends shares one whole. The wholes are the same size. Which group gets bigger pieces?",
+    friendsLbl:"{n} friends", goodFriends:"Yes! {n} friends each get {part}. Fewer friends sharing means bigger pieces.",
+    hintFriends:"When more friends share the same whole, it is cut into more pieces, so each piece is smaller.",
+    choiceLbl:"Choice {i}", cutLine:"Cut line {i}", spot:"Spot {i}", ariaBoard:"Puzzle board", ariaBins:"Sorting boxes", dotLbl:"Vertex dot {i}"
+  },
+  es:{
+    appTitle:"Figuras de la Fiesta de Pizza", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", readAloud:"Leer en voz alta", newRound:"Nueva ronda", stars:"Estrellas",
+    mSort:"Clasifica Figuras", mSolid:"Detective de Cuerpos", mCompose:"Rompecabezas", mFair:"Partes Iguales", mBig:"Pedazo Más Grande",
+    footNote:"Sin cuentas · Sin datos · Funciona sin conexión",
+    teacherTitle:"Ajustes del maestro", close:"Cerrar", setGrade:"Grado", grade1:"1.er grado", grade2:"2.º grado",
+    gradeNote:"2.º grado añade tercios, octavos, pentágonos, octágonos, aristas y rompecabezas con un número exacto de bloques.",
+    setModes:"Modos", setCut:"Figuras para repartir", cutCircle:"Círculos (pizzas)", cutRect:"Rectángulos (sándwiches, brownies)",
+    setSpeech:"Voz", autoRead:"Leer instrucciones", printCards:"🖨 Imprimir tarjetas de reto",
+    setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información del estudiante.",
+    stds:"Estándares alineados: TEKS de Texas, 1.er grado: 1.6(A–H). 2.º grado: 2.3(A, B, D), 2.3(C) (cuántas partes forman un entero), 2.8(B–E). Common Core: 1.G.1, 1.G.2, 1.G.3, 2.G.1, 2.G.3. 2.º grado añade tercios (Common Core) y octavos (TEKS).",
+    cardTitle:"Figuras de la Fiesta de Pizza — Tarjetas de reto",
+    yes:"Sí", no:"No", done:"Listo",
+    circle:"círculo", triangle:"triángulo", square:"cuadrado", rectangle:"rectángulo", rhombus:"rombo", trapezoid:"trapecio", quad:"cuadrilátero", pentagon:"pentágono", hexagon:"hexágono", octagon:"octágono", house:"casa",
+    cube:"cubo", rprism:"prisma rectangular", tprism:"prisma triangular", sphere:"esfera", cone:"cono", cylinder:"cilindro",
+    the_cube:"el cubo", the_rprism:"el prisma rectangular", the_tprism:"el prisma triangular", the_sphere:"la esfera", the_cone:"el cono", the_cylinder:"el cilindro",
+    fact_cube:"Tiene 6 caras cuadradas, 12 aristas y 8 vértices.",
+    fact_rprism:"Tiene 6 caras rectangulares, 12 aristas y 8 vértices.",
+    fact_tprism:"Tiene 2 caras triangulares, 3 caras rectangulares, 9 aristas y 6 vértices.",
+    fact_sphere:"Es redonda por todos lados. No tiene caras planas, ni aristas, ni vértices.",
+    fact_cylinder:"Tiene 2 caras planas en forma de círculo y una superficie curva.",
+    fact_cone:"Tiene 1 cara plana en forma de círculo y una superficie curva que termina en punta.",
+    uSides:"lados", uVerts:"vértices", uFaces:"caras", uEdges:"aristas",
+    sortDir:"Clasifica las figuras. Arrastra cada figura a su caja o toca la caja.",
+    binNoS:"sin lados rectos", binNoV:"sin vértices", progress:"Figura {i} de {n}",
+    goodSort:"¡Sí! Este {shape} tiene {n} {unit}.", goodSortCircle:"¡Sí! Un círculo no tiene lados rectos ni vértices.",
+    hintSort:"Esa caja no. Cuenta otra vez y toca cada uno al contar. El tamaño, el color y el giro no cambian la cuenta.",
+    hintSortCircle:"Un círculo es redondo. No tiene lados rectos ni vértices. Busca esa caja.",
+    sortDone:"¡Muy bien clasificado!",
+    sameDir:"La primera figura es un {shape}. ¿La segunda figura también es un {shape}?",
+    goodSameYes:"¡Sí! Las dos tienen {n} lados y {n} vértices. El color, el tamaño y el giro no cambian una figura.",
+    goodSameNo:"¡Correcto! La segunda figura tiene {m} lados, así que no es un {shape}. Un {shape} tiene {n} lados.",
+    hintSameYes:"Mira otra vez. Cuenta los lados. Las dos tienen {n}. El color, el tamaño y el giro no cambian una figura.",
+    hintSameNo:"Cuenta los lados. La primera tiene {n}, pero la segunda tiene {m}. El mismo color no hace la misma figura.",
+    findSidesDir:"Toca cada figura que tenga {n} lados.", findVertsDir:"Toca cada figura que tenga {n} vértices.", findNameDir:"Toca cada {shape}.",
+    findLeft:"¡Sí! Faltan {k}.",
+    goodFindAll:"¡Las encontraste todas! Cada una tiene {n} {unit}.",
+    goodFindName:"¡Encontraste cada {shape}! Cada uno tiene {n} lados, aunque se vean diferentes.",
+    hintFindCount:"Esa figura tiene {m} {unit}. Buscamos figuras con {n}.",
+    hintFindName:"Ese es un {other}. Tiene {m} lados. Un {shape} tiene {n} lados.",
+    solidTapDir:"Toca {dsolid}.", goodSolid:"¡Sí! Encontraste {dsolid}. {fact}", hintSolidTap:"Eso es {dsolid}. {fact} Busca {dtarget}.", hintSolidQ:"Eso es {dsolid}. {fact} Lee la pista otra vez.",
+    faceDir:"¿Qué figura es una cara plana de este cuerpo?", goodFace:"¡Sí! En {dsolid}, una cara plana es un {shape}. {fact}", hintFace:"En {dsolid}, ninguna cara plana es un {shape}. {fact}",
+    countDir_faces:"¿Cuántas caras tiene este cuerpo?", countDir_edges:"¿Cuántas aristas tiene este cuerpo?", countDir_verts:"¿Cuántos vértices tiene este cuerpo?",
+    tapDots:"Toca cada punto para contar los vértices. Las líneas punteadas están escondidas atrás.", counted:"Contados: {n}",
+    goodCount:"¡Sí! En total, {dsolid} tiene {n} {unit}.",
+    hint_faces:"Las caras son los lados planos. Cuenta adelante, atrás, arriba, abajo y los otros lados, aunque no se vean.",
+    hint_edges:"Las aristas son las líneas donde se juntan dos caras. Cuenta cada línea, también las punteadas escondidas.",
+    hint_verts:"Los vértices son las esquinas donde se juntan las aristas. Toca cada punto, también el escondido atrás.",
+    q_sphere:"¿Qué cuerpo no tiene caras planas, ni aristas, ni vértices?",
+    q_cylinder:"¿Qué cuerpo tiene 2 caras planas y las dos son círculos?",
+    q_cone:"¿Qué cuerpo tiene solo 1 cara plana, un círculo, y termina en punta?",
+    q_cube:"¿Qué cuerpo tiene 6 caras y todas son cuadrados?",
+    q_tprism:"¿Qué cuerpo tiene caras en forma de triángulo?",
+    q_rprism:"¿Qué cuerpo tiene 6 caras rectangulares y 8 vértices, pero no es un cubo?",
+    composeDir:"Rellena la forma de {target} con bloques. Elige un bloque y toca dentro del contorno.",
+    composeDirN:"Rellena la forma de {target} con exactamente {k} bloques. Elige un bloque y toca dentro del contorno.",
+    pickFirst:"Primero elige un bloque.",
+    noFit:"Ese bloque no cabe ahí. Se saldría de la línea o quedaría encima de otro bloque. Prueba otro lugar o un bloque más pequeño.",
+    goodCompose:"¡Lo lograste! Rellenaste la forma de {target} con {k} bloques.",
+    newWay:"Maneras encontradas: {w}. ¿Puedes encontrar otra manera?",
+    sameWay:"Ya encontraste esa manera. ¡Prueba una diferente!",
+    hintExact:"Usaste {k} bloques, pero necesitamos exactamente {n}. Prueba bloques más grandes o más pequeños.",
+    btnTurn:"↻ Girar", btnUndo:"↶ Deshacer", btnClear:"Borrar", btnAnother:"Otra manera", blocksLbl:"Bloques",
+    f_pizza:"la pizza", f_sandwich:"el sándwich", f_brownie:"el brownie",
+    fairDir:"Mira {food}. ¿Todos los pedazos son partes iguales?",
+    btnFair:"Sí, partes iguales", btnUnfair:"No, no son iguales",
+    goodFair:"¡Sí! Los {n} pedazos son del mismo tamaño, así que son partes iguales. Cada pedazo es {part}.",
+    fairShapeNote:"Los pedazos tienen formas diferentes, pero cada uno es la misma cantidad.",
+    goodUnfair:"¡Correcto! Algunos pedazos son más grandes que otros. Las partes iguales deben ser todas del mismo tamaño.",
+    hintFair:"Mira otra vez. Los {n} pedazos son del mismo tamaño. Cada pedazo es {part}.",
+    hintUnfair:"Mira con cuidado. Algunos pedazos son más grandes que otros. ¿Querrías el pedazo pequeño? Las partes iguales deben ser del mismo tamaño.",
+    nameDir:"Mira {food}. ¿Qué parte es azul?",
+    goodName:"¡Sí! Hay {n} pedazos iguales. El pedazo azul es {part}.",
+    hintName:"Primero cuenta todos los pedazos. «{chosen}» quiere decir uno de {m} pedazos iguales. ¿Cuántos pedazos iguales hay aquí?",
+    exampleDir:"Toca el dibujo cortado en {parts}.",
+    goodExample:"¡Sí! Tiene {n} pedazos iguales, así que cada pedazo es {part}.",
+    hintExUneq:"Ese tiene {m} pedazos, pero no son del mismo tamaño. Para hacer {parts}, todos los pedazos deben ser del mismo tamaño.",
+    hintExCount:"Ese tiene {m} pedazos iguales. Para hacer {parts}, necesitamos {n} pedazos iguales.",
+    howDir:"¿Cuántos {parts} forman un entero?",
+    goodHow:"¡Sí! {whole}", hintHow:"Cuenta los pedazos del entero. Cada pedazo es {part}.",
+    cutDir:"Corta {food} en {parts}.", cutHow:"Toca las líneas punteadas para cortar. Toca un corte otra vez para quitarlo. Luego toca Listo.",
+    hintCutNone:"Toca una línea punteada para hacer un corte.",
+    hintCutCount:"Hiciste {k} pedazos. Para hacer {parts}, necesitamos {n} pedazos iguales.",
+    hintCutUneq:"Hiciste {n} pedazos, pero no son del mismo tamaño. Las partes iguales deben ser del mismo tamaño. Prueba otras líneas.",
+    goodCut:"¡Sí! {n} partes iguales. Cada pedazo es {part}. {whole}",
+    piecesLbl:"Pedazos: {k}",
+    part2:"un medio", part3:"un tercio", part4:"un cuarto", part8:"un octavo",
+    parts2:"medios", parts3:"tercios", parts4:"cuartos", parts8:"octavos",
+    whole2:"Dos medios forman un entero.", whole3:"Tres tercios forman un entero.", whole4:"Cuatro cuartos forman un entero.", whole8:"Ocho octavos forman un entero.",
+    bigDir2:"Los dos enteros son del mismo tamaño. Toca el que tiene el pedazo azul más grande.",
+    smallDir2:"Los dos enteros son del mismo tamaño. Toca el que tiene el pedazo azul más pequeño.",
+    bigDir3:"Todos los enteros son del mismo tamaño. Toca el que tiene el pedazo azul más grande.",
+    smallDir3:"Todos los enteros son del mismo tamaño. Toca el que tiene el pedazo azul más pequeño.",
+    goodBig:"¡Sí! Ese pedazo azul es {part}. Entre menos pedazos iguales, más grande es cada pedazo.",
+    goodSmall:"¡Sí! Ese pedazo azul es {part}. Entre más pedazos iguales, más pequeño es cada pedazo.",
+    hintBig:"Ese está cortado en {n} pedazos iguales. Más pedazos quiere decir pedazos más pequeños. Busca menos pedazos.",
+    hintSmall:"Ese está cortado en {n} pedazos iguales. Menos pedazos quiere decir pedazos más grandes. Busca más pedazos.",
+    friendsDir:"Cada grupo de amigos comparte un entero. Los enteros son del mismo tamaño. ¿Qué grupo recibe pedazos más grandes?",
+    friendsLbl:"{n} amigos", goodFriends:"¡Sí! Cada uno de los {n} amigos recibe {part}. Entre menos amigos comparten, más grandes son los pedazos.",
+    hintFriends:"Cuando más amigos comparten el mismo entero, se corta en más pedazos, así que cada pedazo es más pequeño.",
+    choiceLbl:"Opción {i}", cutLine:"Línea de corte {i}", spot:"Lugar {i}", ariaBoard:"Tablero del rompecabezas", ariaBins:"Cajas para clasificar", dotLbl:"Punto de vértice {i}"
+  },
+  vi:{
+    appTitle:"Hình Học Tiệc Pizza", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", readAloud:"Đọc to", newRound:"Vòng mới", stars:"Ngôi sao",
+    mSort:"Phân Loại Hình", mSolid:"Thám Tử Khối", mCompose:"Ghép Hình", mFair:"Chia Đều", mBig:"Miếng Nào To Hơn",
+    footNote:"Không tài khoản · Không thu thập dữ liệu · Hoạt động ngoại tuyến",
+    teacherTitle:"Cài đặt giáo viên", close:"Đóng", setGrade:"Lớp", grade1:"Lớp 1", grade2:"Lớp 2",
+    gradeNote:"Lớp 2 thêm phần ba, phần tám, hình ngũ giác, hình bát giác, cạnh của khối và câu đố dùng đúng số khối cho trước.",
+    setModes:"Chế độ", setCut:"Hình để chia", cutCircle:"Hình tròn (pizza)", cutRect:"Hình chữ nhật (bánh mì kẹp, bánh brownie)",
+    setSpeech:"Giọng nói", autoRead:"Tự động đọc hướng dẫn", printCards:"🖨 In thẻ thử thách",
+    setStored:"Cài đặt chỉ lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
+    stds:"Tiêu chuẩn phù hợp: Texas TEKS Lớp 1: 1.6(A–H). Lớp 2: 2.3(A, B, D), 2.3(C) (bao nhiêu phần bằng một hình nguyên), 2.8(B–E). Common Core: 1.G.1, 1.G.2, 1.G.3, 2.G.1, 2.G.3. Lớp 2 thêm phần ba (Common Core) và phần tám (TEKS).",
+    cardTitle:"Hình Học Tiệc Pizza — Thẻ Thử Thách",
+    yes:"Có", no:"Không", done:"Xong",
+    circle:"hình tròn", triangle:"hình tam giác", square:"hình vuông", rectangle:"hình chữ nhật", rhombus:"hình thoi", trapezoid:"hình thang", quad:"hình tứ giác", pentagon:"hình ngũ giác", hexagon:"hình lục giác", octagon:"hình bát giác", house:"ngôi nhà",
+    cube:"khối lập phương", rprism:"khối hộp chữ nhật", tprism:"khối lăng trụ tam giác", sphere:"khối cầu", cone:"khối nón", cylinder:"khối trụ",
+    the_cube:"khối lập phương", the_rprism:"khối hộp chữ nhật", the_tprism:"khối lăng trụ tam giác", the_sphere:"khối cầu", the_cone:"khối nón", the_cylinder:"khối trụ",
+    fact_cube:"Nó có 6 mặt hình vuông, 12 cạnh và 8 đỉnh.",
+    fact_rprism:"Nó có 6 mặt hình chữ nhật, 12 cạnh và 8 đỉnh.",
+    fact_tprism:"Nó có 2 mặt hình tam giác, 3 mặt hình chữ nhật, 9 cạnh và 6 đỉnh.",
+    fact_sphere:"Nó tròn khắp mọi phía. Nó không có mặt phẳng, không có cạnh và không có đỉnh.",
+    fact_cylinder:"Nó có 2 mặt phẳng hình tròn và một mặt cong.",
+    fact_cone:"Nó có 1 mặt phẳng hình tròn và một mặt cong nhọn dần thành một điểm.",
+    uSides:"cạnh", uVerts:"đỉnh", uFaces:"mặt", uEdges:"cạnh",
+    sortDir:"Phân loại các hình. Kéo mỗi hình vào hộp của nó, hoặc chạm vào hộp.",
+    binNoS:"không có cạnh thẳng", binNoV:"không có đỉnh", progress:"Hình {i} trên {n}",
+    goodSort:"Đúng rồi! Đây là {shape}, có {n} {unit}.", goodSortCircle:"Đúng rồi! Hình tròn không có cạnh thẳng và không có đỉnh.",
+    hintSort:"Không phải hộp đó. Hãy đếm lại, chạm vào từng cái khi đếm. Kích thước, màu sắc và việc xoay không làm thay đổi số đếm.",
+    hintSortCircle:"Hình tròn thì tròn. Nó không có cạnh thẳng và không có đỉnh. Hãy tìm hộp đó.",
+    sortDone:"Phân loại giỏi lắm!",
+    sameDir:"Hình thứ nhất là {shape}. Hình thứ hai cũng là {shape} phải không?",
+    goodSameYes:"Đúng rồi! Cả hai đều có {n} cạnh và {n} đỉnh. Màu sắc, kích thước và việc xoay không làm thay đổi hình.",
+    goodSameNo:"Đúng rồi! Hình thứ hai có {m} cạnh, nên nó không phải {shape}. Mỗi {shape} có {n} cạnh.",
+    hintSameYes:"Nhìn lại nhé. Đếm các cạnh. Cả hai đều có {n}. Màu sắc, kích thước và việc xoay không làm thay đổi hình.",
+    hintSameNo:"Đếm các cạnh. Hình thứ nhất có {n}, nhưng hình thứ hai có {m}. Cùng màu không có nghĩa là cùng hình.",
+    findSidesDir:"Chạm vào mọi hình có {n} cạnh.", findVertsDir:"Chạm vào mọi hình có {n} đỉnh.", findNameDir:"Chạm vào mọi {shape}.",
+    findLeft:"Đúng rồi! Còn {k} hình nữa.",
+    goodFindAll:"Em tìm được hết rồi! Mỗi hình đều có {n} {unit}.",
+    goodFindName:"Em đã tìm được mọi {shape}! Mỗi hình đều có {n} cạnh, kể cả những hình trông khác.",
+    hintFindCount:"Hình đó có {m} {unit}. Ta cần hình có {n}.",
+    hintFindName:"Đó là {other}. Nó có {m} cạnh. Mỗi {shape} có {n} cạnh.",
+    solidTapDir:"Chạm vào {dsolid}.", goodSolid:"Đúng rồi! Đó là {dsolid}. {fact}", hintSolidTap:"Đó là {dsolid}. {fact} Hãy tìm {dtarget}.", hintSolidQ:"Đó là {dsolid}. {fact} Hãy đọc lại gợi ý.",
+    faceDir:"Hình nào là một mặt phẳng của khối này?", goodFace:"Đúng rồi! Một mặt phẳng của {dsolid} là {shape}. {fact}", hintFace:"Không có mặt phẳng nào của {dsolid} là {shape}. {fact}",
+    countDir_faces:"Khối này có bao nhiêu mặt?", countDir_edges:"Khối này có bao nhiêu cạnh?", countDir_verts:"Khối này có bao nhiêu đỉnh?",
+    tapDots:"Chạm vào từng chấm để đếm đỉnh. Đường nét đứt bị che ở phía sau.", counted:"Đã đếm: {n}",
+    goodCount:"Đúng rồi! Khối này là {dsolid}, có {n} {unit}.",
+    hint_faces:"Mặt là các phần phẳng. Đếm mặt trước, mặt sau, mặt trên, mặt dưới và các mặt bên, kể cả những mặt em không nhìn thấy.",
+    hint_edges:"Cạnh là đường nơi hai mặt gặp nhau. Đếm mọi đường, kể cả các đường nét đứt bị che.",
+    hint_verts:"Đỉnh là các góc nơi các cạnh gặp nhau. Chạm vào mọi chấm, kể cả chấm bị che ở phía sau.",
+    q_sphere:"Khối nào không có mặt phẳng, không có cạnh và không có đỉnh?",
+    q_cylinder:"Khối nào có 2 mặt phẳng và cả hai đều là hình tròn?",
+    q_cone:"Khối nào chỉ có 1 mặt phẳng hình tròn và nhọn ở một đầu?",
+    q_cube:"Khối nào có 6 mặt đều là hình vuông?",
+    q_tprism:"Khối nào có mặt hình tam giác?",
+    q_rprism:"Khối nào có 6 mặt hình chữ nhật và 8 đỉnh, nhưng không phải khối lập phương?",
+    composeDir:"Lấp đầy {target} bằng các khối. Chọn một khối, rồi chạm vào bên trong đường viền.",
+    composeDirN:"Lấp đầy {target} bằng đúng {k} khối. Chọn một khối, rồi chạm vào bên trong đường viền.",
+    pickFirst:"Hãy chọn một khối trước.",
+    noFit:"Khối đó không vừa chỗ này. Nó sẽ ra ngoài đường viền hoặc đè lên khối khác. Thử chỗ khác hoặc khối nhỏ hơn.",
+    goodCompose:"Em làm được rồi! Em đã tạo {target} bằng {k} khối.",
+    newWay:"Số cách đã tìm: {w}. Em có tìm được cách khác không?",
+    sameWay:"Em đã tìm ra cách này rồi. Hãy thử một cách khác!",
+    hintExact:"Em đã dùng {k} khối, nhưng ta cần đúng {n}. Thử khối lớn hơn hoặc nhỏ hơn.",
+    btnTurn:"↻ Xoay", btnUndo:"↶ Hoàn tác", btnClear:"Xóa", btnAnother:"Cách khác", blocksLbl:"Các khối",
+    f_pizza:"cái bánh pizza", f_sandwich:"cái bánh mì kẹp", f_brownie:"cái bánh brownie",
+    fairDir:"Nhìn {food}. Các miếng có được chia đều không?",
+    btnFair:"Có, chia đều", btnUnfair:"Không, chưa đều",
+    goodFair:"Đúng rồi! Cả {n} miếng đều bằng nhau, nên chúng được chia đều. Mỗi miếng là {part}.",
+    fairShapeNote:"Các miếng có hình dạng khác nhau, nhưng mỗi miếng có lượng bằng nhau.",
+    goodUnfair:"Đúng rồi! Có miếng to hơn miếng khác. Chia đều thì mọi miếng phải bằng nhau.",
+    hintFair:"Nhìn lại nhé. Cả {n} miếng đều bằng nhau. Mỗi miếng là {part}.",
+    hintUnfair:"Nhìn kỹ nhé. Có miếng to hơn miếng khác. Em có muốn miếng nhỏ không? Chia đều thì các miếng phải bằng nhau.",
+    nameDir:"Nhìn {food}. Phần màu xanh là bao nhiêu?",
+    goodName:"Đúng rồi! Có {n} miếng bằng nhau. Miếng màu xanh là {part}.",
+    hintName:"Hãy đếm tất cả các miếng trước. “{chosen}” nghĩa là một trong {m} miếng bằng nhau. Ở đây có bao nhiêu miếng bằng nhau?",
+    exampleDir:"Chạm vào hình được chia thành các {parts}.",
+    goodExample:"Đúng rồi! Nó có {n} miếng bằng nhau, nên mỗi miếng là {part}.",
+    hintExUneq:"Hình đó có {m} miếng, nhưng chúng không bằng nhau. Để có các {parts}, mọi miếng phải bằng nhau.",
+    hintExCount:"Hình đó có {m} miếng bằng nhau. Để có các {parts}, ta cần {n} miếng bằng nhau.",
+    howDir:"Bao nhiêu {parts} thì bằng một hình nguyên?",
+    goodHow:"Đúng rồi! {whole}", hintHow:"Đếm các miếng trong cả hình. Mỗi miếng là {part}.",
+    cutDir:"Cắt {food} thành các {parts}.", cutHow:"Chạm vào đường nét đứt để cắt. Chạm lại để bỏ đường cắt. Rồi chạm Xong.",
+    hintCutNone:"Chạm vào một đường nét đứt để cắt.",
+    hintCutCount:"Em đã cắt thành {k} miếng. Để có các {parts}, ta cần {n} miếng bằng nhau.",
+    hintCutUneq:"Em đã cắt thành {n} miếng, nhưng chúng không bằng nhau. Chia đều thì các miếng phải bằng nhau. Thử các đường khác.",
+    goodCut:"Đúng rồi! {n} phần bằng nhau. Mỗi miếng là {part}. {whole}",
+    piecesLbl:"Số miếng: {k}",
+    part2:"một phần hai", part3:"một phần ba", part4:"một phần tư", part8:"một phần tám",
+    parts2:"phần hai", parts3:"phần ba", parts4:"phần tư", parts8:"phần tám",
+    whole2:"Hai phần hai bằng một hình nguyên.", whole3:"Ba phần ba bằng một hình nguyên.", whole4:"Bốn phần tư bằng một hình nguyên.", whole8:"Tám phần tám bằng một hình nguyên.",
+    bigDir2:"Hai hình nguyên to bằng nhau. Chạm vào hình có miếng màu xanh to hơn.",
+    smallDir2:"Hai hình nguyên to bằng nhau. Chạm vào hình có miếng màu xanh nhỏ hơn.",
+    bigDir3:"Các hình nguyên to bằng nhau. Chạm vào hình có miếng màu xanh to nhất.",
+    smallDir3:"Các hình nguyên to bằng nhau. Chạm vào hình có miếng màu xanh nhỏ nhất.",
+    goodBig:"Đúng rồi! Miếng xanh đó là {part}. Càng ít miếng bằng nhau, mỗi miếng càng to.",
+    goodSmall:"Đúng rồi! Miếng xanh đó là {part}. Càng nhiều miếng bằng nhau, mỗi miếng càng nhỏ.",
+    hintBig:"Hình đó được cắt thành {n} miếng bằng nhau. Nhiều miếng hơn thì miếng nhỏ hơn. Hãy tìm hình có ít miếng hơn.",
+    hintSmall:"Hình đó được cắt thành {n} miếng bằng nhau. Ít miếng hơn thì miếng to hơn. Hãy tìm hình có nhiều miếng hơn.",
+    friendsDir:"Mỗi nhóm bạn chia nhau một hình nguyên. Các hình nguyên to bằng nhau. Nhóm nào được miếng to hơn?",
+    friendsLbl:"{n} bạn", goodFriends:"Đúng rồi! Mỗi bạn trong {n} bạn được {part}. Càng ít bạn chia, miếng càng to.",
+    hintFriends:"Khi nhiều bạn hơn chia cùng một hình nguyên, nó được cắt thành nhiều miếng hơn, nên mỗi miếng nhỏ hơn.",
+    choiceLbl:"Lựa chọn {i}", cutLine:"Đường cắt {i}", spot:"Ô {i}", ariaBoard:"Bảng ghép hình", ariaBins:"Các hộp phân loại", dotLbl:"Chấm đỉnh {i}"
+  },
+  ar:{
+    appTitle:"أشكال حفلة البيتزا", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", readAloud:"اقرأ بصوت عالٍ", newRound:"جولة جديدة", stars:"النجوم",
+    mSort:"فرز الأشكال", mSolid:"محقق المجسمات", mCompose:"ألغاز الأشكال", mFair:"حصص متساوية", mBig:"القطعة الأكبر",
+    footNote:"بدون حسابات · لا جمع للبيانات · يعمل بدون إنترنت",
+    teacherTitle:"إعدادات المعلم", close:"إغلاق", setGrade:"الصف", grade1:"الصف الأول", grade2:"الصف الثاني",
+    gradeNote:"يضيف الصف الثاني الأثلاث والأثمان والخماسي والثماني والأحرف وألغازاً بعدد محدد من القطع.",
+    setModes:"الأنماط", setCut:"أشكال للمشاركة", cutCircle:"دوائر (بيتزا)", cutRect:"مستطيلات (شطائر، براونيز)",
+    setSpeech:"النطق", autoRead:"قراءة التعليمات تلقائياً", printCards:"🖨 طباعة بطاقات التحدي",
+    setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُحفظ أي معلومات عن الطالب أبداً.",
+    stds:"المعايير المتوافقة: Texas TEKS الصف الأول: 1.6(A–H). الصف الثاني: 2.3(A, B, D)، و2.3(C) (كم جزءاً يكوّن واحداً كاملاً)، و2.8(B–E). Common Core: ‏1.G.1، 1.G.2، 1.G.3، 2.G.1، 2.G.3. يضيف الصف الثاني الأثلاث (Common Core) والأثمان (TEKS).",
+    cardTitle:"أشكال حفلة البيتزا — بطاقات التحدي",
+    yes:"نعم", no:"لا", done:"تم",
+    circle:"دائرة", triangle:"مثلث", square:"مربع", rectangle:"مستطيل", rhombus:"معيّن", trapezoid:"شبه منحرف", quad:"شكل رباعي", pentagon:"خماسي", hexagon:"سداسي", octagon:"ثماني", house:"بيت",
+    cube:"مكعب", rprism:"متوازي مستطيلات", tprism:"منشور ثلاثي", sphere:"كرة", cone:"مخروط", cylinder:"أسطوانة",
+    the_cube:"المكعب", the_rprism:"متوازي المستطيلات", the_tprism:"المنشور الثلاثي", the_sphere:"الكرة", the_cone:"المخروط", the_cylinder:"الأسطوانة",
+    fact_cube:"له 6 أوجه مربعة و12 حرفاً و8 رؤوس.",
+    fact_rprism:"له 6 أوجه مستطيلة و12 حرفاً و8 رؤوس.",
+    fact_tprism:"له وجهان مثلثان و3 أوجه مستطيلة و9 أحرف و6 رؤوس.",
+    fact_sphere:"إنها مستديرة من كل الجهات. ليس لها أوجه مستوية ولا أحرف ولا رؤوس.",
+    fact_cylinder:"لها وجهان مستويان على شكل دائرة وسطح منحنٍ.",
+    fact_cone:"له وجه مستوٍ واحد على شكل دائرة وسطح منحنٍ ينتهي برأس.",
+    uSides:"أضلاع", uVerts:"رؤوس", uFaces:"أوجه", uEdges:"أحرف",
+    sortDir:"افرز الأشكال. اسحب كل شكل إلى صندوقه، أو المس الصندوق.",
+    binNoS:"لا أضلاع مستقيمة", binNoV:"لا رؤوس", progress:"الشكل {i} من {n}",
+    goodSort:"نعم! هذا {shape}، وله {n} {unit}.", goodSortCircle:"نعم! الدائرة ليس لها أضلاع مستقيمة ولا رؤوس.",
+    hintSort:"ليس هذا الصندوق. عُدّ مرة أخرى، والمس كل واحد وأنت تعدّ. الحجم واللون والتدوير لا تغيّر العدد.",
+    hintSortCircle:"الدائرة مستديرة. ليس لها أضلاع مستقيمة ولا رؤوس. ابحث عن ذلك الصندوق.",
+    sortDone:"فرز رائع!",
+    sameDir:"الشكل الأول {shape}. هل الشكل الثاني {shape} أيضاً؟",
+    goodSameYes:"نعم! لكليهما {n} أضلاع و{n} رؤوس. اللون والحجم والتدوير لا تغيّر الشكل.",
+    goodSameNo:"صحيح! للشكل الثاني {m} أضلاع، لذا فهو ليس {shape}. أي {shape} له {n} أضلاع.",
+    hintSameYes:"انظر مرة أخرى. عُدّ الأضلاع. لكليهما {n}. اللون والحجم والتدوير لا تغيّر الشكل.",
+    hintSameNo:"عُدّ الأضلاع. للأول {n}، لكن للثاني {m}. اللون نفسه لا يعني الشكل نفسه.",
+    findSidesDir:"المس كل شكل له {n} أضلاع.", findVertsDir:"المس كل شكل له {n} رؤوس.", findNameDir:"المس كل {shape}.",
+    findLeft:"نعم! بقي {k}.",
+    goodFindAll:"وجدتها كلها! لكل واحد منها {n} {unit}.",
+    goodFindName:"وجدت كل {shape}! لكل واحد {n} أضلاع، حتى التي تبدو مختلفة.",
+    hintFindCount:"لهذا الشكل {m} {unit}. نحتاج أشكالاً لها {n}.",
+    hintFindName:"هذا {other}. له {m} أضلاع. أي {shape} له {n} أضلاع.",
+    solidTapDir:"المس {dsolid}.", goodSolid:"نعم! وجدت {dsolid}. {fact}", hintSolidTap:"هذا الشكل هو {dsolid}. {fact} ابحث عن {dtarget}.", hintSolidQ:"هذا الشكل هو {dsolid}. {fact} اقرأ الدليل مرة أخرى.",
+    faceDir:"أي شكل هو وجه مستوٍ لهذا المجسم؟", goodFace:"نعم! في {dsolid}، أحد الأوجه المستوية {shape}. {fact}", hintFace:"في {dsolid}، لا يوجد وجه مستوٍ على شكل {shape}. {fact}",
+    countDir_faces:"كم وجهاً لهذا المجسم؟", countDir_edges:"كم حرفاً لهذا المجسم؟", countDir_verts:"كم رأساً لهذا المجسم؟",
+    tapDots:"المس كل نقطة لعدّ الرؤوس. الخطوط المتقطعة مخفية في الخلف.", counted:"العدد: {n}",
+    goodCount:"نعم! في {dsolid} {n} {unit}.",
+    hint_faces:"الأوجه هي الجوانب المستوية. عُدّ الأمام والخلف والأعلى والأسفل والجوانب الأخرى، حتى التي لا تراها.",
+    hint_edges:"الأحرف هي الخطوط التي يلتقي فيها وجهان. عُدّ كل خط، حتى الخطوط المتقطعة المخفية.",
+    hint_verts:"الرؤوس هي الزوايا التي تلتقي فيها الأحرف. المس كل نقطة، حتى المخفية في الخلف.",
+    q_sphere:"أي مجسم ليس له أوجه مستوية ولا أحرف ولا رؤوس؟",
+    q_cylinder:"أي مجسم له وجهان مستويان وكلاهما دائرة؟",
+    q_cone:"أي مجسم له وجه مستوٍ واحد فقط على شكل دائرة وينتهي برأس؟",
+    q_cube:"أي مجسم له 6 أوجه كلها مربعات؟",
+    q_tprism:"أي مجسم له أوجه على شكل مثلثات؟",
+    q_rprism:"أي مجسم له 6 أوجه مستطيلة و8 رؤوس، لكنه ليس مكعباً؟",
+    composeDir:"املأ شكل {target} بالقطع. اختر قطعة، ثم المس داخل الحدود.",
+    composeDirN:"املأ شكل {target} باستخدام {k} قطع بالضبط. اختر قطعة، ثم المس داخل الحدود.",
+    pickFirst:"اختر قطعة أولاً.",
+    noFit:"هذه القطعة لا تناسب هذا المكان. ستخرج عن الخط أو تقع فوق قطعة أخرى. جرّب مكاناً آخر أو قطعة أصغر.",
+    goodCompose:"أحسنت! صنعت شكل {target} باستخدام {k} قطع.",
+    newWay:"الطرق التي وجدتها: {w}. هل يمكنك إيجاد طريقة أخرى؟",
+    sameWay:"لقد وجدت هذه الطريقة من قبل. جرّب طريقة مختلفة!",
+    hintExact:"استخدمت {k} قطع، لكننا نحتاج {n} بالضبط. جرّب قطعاً أكبر أو أصغر.",
+    btnTurn:"↻ تدوير", btnUndo:"↶ تراجع", btnClear:"مسح", btnAnother:"طريقة أخرى", blocksLbl:"القطع",
+    f_pizza:"البيتزا", f_sandwich:"الشطيرة", f_brownie:"البراونيز",
+    fairDir:"انظر إلى {food}. هل كل القطع حصص متساوية؟",
+    btnFair:"نعم، حصص متساوية", btnUnfair:"لا، غير متساوية",
+    goodFair:"نعم! القطع كلها، وعددها {n}، بالحجم نفسه، لذا فهي حصص متساوية. كل قطعة هي {part}.",
+    fairShapeNote:"للقطع أشكال مختلفة، لكن كل قطعة بالمقدار نفسه.",
+    goodUnfair:"صحيح! بعض القطع أكبر من غيرها. الحصص المتساوية يجب أن تكون كلها بالحجم نفسه.",
+    hintFair:"انظر مرة أخرى. القطع كلها، وعددها {n}، بالحجم نفسه. كل قطعة هي {part}.",
+    hintUnfair:"انظر جيداً. بعض القطع أكبر من غيرها. هل تريد القطعة الصغيرة؟ الحصص المتساوية يجب أن تكون بالحجم نفسه.",
+    nameDir:"انظر إلى {food}. ما الجزء الملوّن بالأزرق؟",
+    goodName:"نعم! هناك {n} قطع متساوية. القطعة الزرقاء هي {part}.",
+    hintName:"عُدّ كل القطع أولاً. «{chosen}» يعني قطعة واحدة من {m} قطع متساوية. كم قطعة متساوية هنا؟",
+    exampleDir:"المس الشكل المقسوم إلى {parts}.",
+    goodExample:"نعم! فيه {n} قطع متساوية، لذا كل قطعة هي {part}.",
+    hintExUneq:"هذا فيه {m} قطع، لكنها ليست بالحجم نفسه. لتكوين {parts}، يجب أن تكون كل القطع بالحجم نفسه.",
+    hintExCount:"هذا فيه {m} قطع متساوية. لتكوين {parts}، نحتاج {n} قطع متساوية.",
+    howDir:"كم {part} نحتاج لتكوين واحد كامل؟",
+    goodHow:"نعم! {whole}", hintHow:"عُدّ القطع في الشكل كله. كل قطعة هي {part}.",
+    cutDir:"قسّم {food} إلى {parts}.", cutHow:"المس الخطوط المتقطعة للقطع. المس القطع مرة أخرى لإلغائه. ثم المس تم.",
+    hintCutNone:"المس خطاً متقطعاً لتقطع.",
+    hintCutCount:"صنعت {k} قطع. لتكوين {parts}، نحتاج {n} قطع متساوية.",
+    hintCutUneq:"صنعت {n} قطع، لكنها ليست بالحجم نفسه. الحصص المتساوية يجب أن تكون متساوية. جرّب خطوطاً أخرى.",
+    goodCut:"نعم! {n} حصص متساوية. كل قطعة هي {part}. {whole}",
+    piecesLbl:"القطع: {k}",
+    part2:"نصف", part3:"ثلث", part4:"ربع", part8:"ثُمن",
+    parts2:"أنصاف", parts3:"أثلاث", parts4:"أرباع", parts8:"أثمان",
+    whole2:"نصفان يكوّنان واحداً كاملاً.", whole3:"ثلاثة أثلاث تكوّن واحداً كاملاً.", whole4:"أربعة أرباع تكوّن واحداً كاملاً.", whole8:"ثمانية أثمان تكوّن واحداً كاملاً.",
+    bigDir2:"الشكلان الكاملان بالحجم نفسه. المس الذي فيه القطعة الزرقاء الأكبر.",
+    smallDir2:"الشكلان الكاملان بالحجم نفسه. المس الذي فيه القطعة الزرقاء الأصغر.",
+    bigDir3:"كل الأشكال الكاملة بالحجم نفسه. المس الذي فيه أكبر قطعة زرقاء.",
+    smallDir3:"كل الأشكال الكاملة بالحجم نفسه. المس الذي فيه أصغر قطعة زرقاء.",
+    goodBig:"نعم! تلك القطعة الزرقاء هي {part}. كلما قلّ عدد القطع المتساوية، كبرت كل قطعة.",
+    goodSmall:"نعم! تلك القطعة الزرقاء هي {part}. كلما زاد عدد القطع المتساوية، صغرت كل قطعة.",
+    hintBig:"هذا مقسوم إلى {n} قطع متساوية. قطع أكثر تعني قطعاً أصغر. ابحث عن قطع أقل.",
+    hintSmall:"هذا مقسوم إلى {n} قطع متساوية. قطع أقل تعني قطعاً أكبر. ابحث عن قطع أكثر.",
+    friendsDir:"كل مجموعة من الأصدقاء تتشارك شكلاً كاملاً واحداً. الأشكال بالحجم نفسه. أي مجموعة تحصل على قطع أكبر؟",
+    friendsLbl:"{n} أصدقاء", goodFriends:"نعم! كل واحد من الأصدقاء الـ{n} يحصل على {part}. كلما قلّ عدد الأصدقاء، كبرت القطع.",
+    hintFriends:"عندما يتشارك أصدقاء أكثر الشكل نفسه، يُقسم إلى قطع أكثر، فتصبح كل قطعة أصغر.",
+    choiceLbl:"الخيار {i}", cutLine:"خط القطع {i}", spot:"المكان {i}", ariaBoard:"لوحة اللغز", ariaBins:"صناديق الفرز", dotLbl:"نقطة الرأس {i}"
+  },
+  hi:{
+    appTitle:"पिज़्ज़ा पार्टी आकृतियाँ", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", readAloud:"ज़ोर से पढ़ें", newRound:"नया दौर", stars:"सितारे",
+    mSort:"आकृति छँटाई", mSolid:"ठोस जासूस", mCompose:"आकृति पहेली", mFair:"बराबर हिस्से", mBig:"बड़ा टुकड़ा",
+    footNote:"कोई खाता नहीं · कोई डेटा नहीं · ऑफ़लाइन काम करता है",
+    teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setGrade:"कक्षा", grade1:"कक्षा 1", grade2:"कक्षा 2",
+    gradeNote:"कक्षा 2 में तिहाई, आठवाँ भाग, पंचभुज, अष्टभुज, किनारे और तय संख्या के ब्लॉक वाली पहेलियाँ जुड़ती हैं।",
+    setModes:"मोड", setCut:"बाँटने की आकृतियाँ", cutCircle:"वृत्त (पिज़्ज़ा)", cutRect:"आयत (सैंडविच, ब्राउनी)",
+    setSpeech:"आवाज़", autoRead:"निर्देश अपने आप पढ़ें", printCards:"🖨 चुनौती कार्ड छापें",
+    setStored:"सेटिंग्स केवल इस डिवाइस पर सहेजी जाती हैं। छात्र की जानकारी कभी नहीं सहेजी जाती।",
+    stds:"संरेखित मानक: Texas TEKS कक्षा 1: 1.6(A–H)। कक्षा 2: 2.3(A, B, D), 2.3(C) (कितने भाग मिलकर एक पूरा बनाते हैं), 2.8(B–E)। Common Core: 1.G.1, 1.G.2, 1.G.3, 2.G.1, 2.G.3। कक्षा 2 में तिहाई (Common Core) और आठवाँ भाग (TEKS) जुड़ते हैं।",
+    cardTitle:"पिज़्ज़ा पार्टी आकृतियाँ — चुनौती कार्ड",
+    yes:"हाँ", no:"नहीं", done:"हो गया",
+    circle:"वृत्त", triangle:"त्रिभुज", square:"वर्ग", rectangle:"आयत", rhombus:"समचतुर्भुज", trapezoid:"समलंब", quad:"चतुर्भुज", pentagon:"पंचभुज", hexagon:"षट्भुज", octagon:"अष्टभुज", house:"घर",
+    cube:"घन", rprism:"घनाभ", tprism:"त्रिभुजाकार प्रिज़्म", sphere:"गोला", cone:"शंकु", cylinder:"बेलन",
+    the_cube:"घन", the_rprism:"घनाभ", the_tprism:"त्रिभुजाकार प्रिज़्म", the_sphere:"गोला", the_cone:"शंकु", the_cylinder:"बेलन",
+    fact_cube:"इसके 6 वर्गाकार फलक, 12 किनारे और 8 शीर्ष हैं।",
+    fact_rprism:"इसके 6 आयताकार फलक, 12 किनारे और 8 शीर्ष हैं।",
+    fact_tprism:"इसके 2 त्रिभुजाकार फलक, 3 आयताकार फलक, 9 किनारे और 6 शीर्ष हैं।",
+    fact_sphere:"यह हर तरफ़ से गोल है। इसका कोई सपाट फलक, किनारा या शीर्ष नहीं है।",
+    fact_cylinder:"इसके 2 सपाट फलक वृत्त के आकार के हैं और एक घुमावदार सतह है।",
+    fact_cone:"इसका 1 सपाट फलक वृत्त के आकार का है और एक घुमावदार सतह है जो एक नोक पर मिलती है।",
+    uSides:"भुजाएँ", uVerts:"शीर्ष", uFaces:"फलक", uEdges:"किनारे",
+    sortDir:"आकृतियों को छाँटो। हर आकृति को उसके डिब्बे में खींचो, या डिब्बे को छुओ।",
+    binNoS:"कोई सीधी भुजा नहीं", binNoV:"कोई शीर्ष नहीं", progress:"आकृति {i} / {n}",
+    goodSort:"हाँ! इस {shape} में {n} {unit} हैं।", goodSortCircle:"हाँ! वृत्त में कोई सीधी भुजा और कोई शीर्ष नहीं होता।",
+    hintSort:"यह डिब्बा नहीं। फिर से गिनो, और गिनते समय हर एक को छुओ। आकार, रंग और घुमाने से गिनती नहीं बदलती।",
+    hintSortCircle:"वृत्त गोल होता है। इसमें कोई सीधी भुजा और कोई शीर्ष नहीं होता। उसी का डिब्बा ढूँढो।",
+    sortDone:"बहुत बढ़िया छँटाई!",
+    sameDir:"पहली आकृति {shape} है। क्या दूसरी आकृति भी {shape} है?",
+    goodSameYes:"हाँ! दोनों में {n} भुजाएँ और {n} शीर्ष हैं। रंग, आकार और घुमाने से आकृति नहीं बदलती।",
+    goodSameNo:"सही! दूसरी आकृति में {m} भुजाएँ हैं, इसलिए यह {shape} नहीं है। {shape} में {n} भुजाएँ होती हैं।",
+    hintSameYes:"फिर से देखो। भुजाएँ गिनो। दोनों में {n} हैं। रंग, आकार और घुमाने से आकृति नहीं बदलती।",
+    hintSameNo:"भुजाएँ गिनो। पहली में {n} हैं, पर दूसरी में {m}। एक जैसा रंग होने से एक जैसी आकृति नहीं बनती।",
+    findSidesDir:"{n} भुजाओं वाली हर आकृति को छुओ।", findVertsDir:"{n} शीर्षों वाली हर आकृति को छुओ।", findNameDir:"हर {shape} को छुओ।",
+    findLeft:"हाँ! {k} और ढूँढने हैं।",
+    goodFindAll:"तुमने सब ढूँढ लिए! हर एक में {n} {unit} हैं।",
+    goodFindName:"तुमने हर {shape} ढूँढ लिया! हर एक में {n} भुजाएँ हैं, अलग दिखने वालों में भी।",
+    hintFindCount:"उस आकृति में {m} {unit} हैं। हमें {n} वाली आकृतियाँ चाहिए।",
+    hintFindName:"वह {other} है। उसमें {m} भुजाएँ हैं। {shape} में {n} भुजाएँ होती हैं।",
+    solidTapDir:"{dsolid} को छुओ।", goodSolid:"हाँ! यह {dsolid} है। {fact}", hintSolidTap:"यह {dsolid} है। {fact} {dtarget} ढूँढो।", hintSolidQ:"यह {dsolid} है। {fact} संकेत फिर से पढ़ो।",
+    faceDir:"इस ठोस का सपाट फलक कौन सी आकृति है?", goodFace:"हाँ! {dsolid} का एक सपाट फलक {shape} है। {fact}", hintFace:"{dsolid} का कोई भी सपाट फलक {shape} नहीं है। {fact}",
+    countDir_faces:"इस ठोस के कितने फलक हैं?", countDir_edges:"इस ठोस के कितने किनारे हैं?", countDir_verts:"इस ठोस के कितने शीर्ष हैं?",
+    tapDots:"शीर्ष गिनने के लिए हर बिंदु को छुओ। टूटी रेखाएँ पीछे छिपी हैं।", counted:"गिने गए: {n}",
+    goodCount:"हाँ! {dsolid} के {n} {unit} हैं।",
+    hint_faces:"फलक सपाट सतहें हैं। आगे, पीछे, ऊपर, नीचे और बाकी तरफ़ भी गिनो, जो दिखते नहीं वे भी।",
+    hint_edges:"किनारे वे रेखाएँ हैं जहाँ दो फलक मिलते हैं। हर रेखा गिनो, छिपी टूटी रेखाएँ भी।",
+    hint_verts:"शीर्ष वे कोने हैं जहाँ किनारे मिलते हैं। हर बिंदु को छुओ, पीछे छिपे बिंदु को भी।",
+    q_sphere:"किस ठोस का कोई सपाट फलक, किनारा या शीर्ष नहीं है?",
+    q_cylinder:"किस ठोस के 2 सपाट फलक हैं और दोनों वृत्त हैं?",
+    q_cone:"किस ठोस का केवल 1 सपाट फलक है, एक वृत्त, और ऊपर नोक है?",
+    q_cube:"किस ठोस के 6 फलक हैं और सभी वर्ग हैं?",
+    q_tprism:"किस ठोस के फलक त्रिभुज के आकार के हैं?",
+    q_rprism:"किस ठोस के 6 आयताकार फलक और 8 शीर्ष हैं, पर वह घन नहीं है?",
+    composeDir:"{target} को ब्लॉकों से भरो। एक ब्लॉक चुनो, फिर रेखा के अंदर छुओ।",
+    composeDirN:"{target} को ठीक {k} ब्लॉकों से भरो। एक ब्लॉक चुनो, फिर रेखा के अंदर छुओ।",
+    pickFirst:"पहले एक ब्लॉक चुनो।",
+    noFit:"वह ब्लॉक वहाँ नहीं आता। वह रेखा से बाहर जाएगा या दूसरे ब्लॉक के ऊपर आएगा। दूसरी जगह या छोटा ब्लॉक आज़माओ।",
+    goodCompose:"तुमने कर दिखाया! तुमने {k} ब्लॉकों से {target} बनाया।",
+    newWay:"मिले तरीके: {w}। क्या तुम कोई और तरीका ढूँढ सकते हो?",
+    sameWay:"यह तरीका तुम पहले ढूँढ चुके हो। कोई अलग तरीका आज़माओ!",
+    hintExact:"तुमने {k} ब्लॉक लगाए, पर हमें ठीक {n} चाहिए। बड़े या छोटे ब्लॉक आज़माओ।",
+    btnTurn:"↻ घुमाओ", btnUndo:"↶ वापस", btnClear:"साफ़ करो", btnAnother:"दूसरा तरीका", blocksLbl:"ब्लॉक",
+    f_pizza:"पिज़्ज़ा", f_sandwich:"सैंडविच", f_brownie:"ब्राउनी",
+    fairDir:"{food} को देखो। क्या सभी टुकड़े बराबर हिस्से हैं?",
+    btnFair:"हाँ, बराबर हिस्से", btnUnfair:"नहीं, बराबर नहीं",
+    goodFair:"हाँ! सभी {n} टुकड़े एक ही आकार के हैं, इसलिए ये बराबर हिस्से हैं। हर टुकड़ा {part} है।",
+    fairShapeNote:"टुकड़ों की आकृतियाँ अलग हैं, पर हर टुकड़ा उतना ही है।",
+    goodUnfair:"सही! कुछ टुकड़े दूसरों से बड़े हैं। बराबर हिस्से सभी एक ही आकार के होने चाहिए।",
+    hintFair:"फिर से देखो। सभी {n} टुकड़े एक ही आकार के हैं। हर टुकड़ा {part} है।",
+    hintUnfair:"ध्यान से देखो। कुछ टुकड़े दूसरों से बड़े हैं। क्या तुम छोटा टुकड़ा लेना चाहोगे? बराबर हिस्से एक ही आकार के होने चाहिए।",
+    nameDir:"{food} को देखो। नीला भाग कितना है?",
+    goodName:"हाँ! {n} बराबर टुकड़े हैं। नीला टुकड़ा {part} है।",
+    hintName:"पहले सभी टुकड़े गिनो। “{chosen}” का मतलब {m} बराबर टुकड़ों में से एक। यहाँ कितने बराबर टुकड़े हैं?",
+    exampleDir:"वह छुओ जो {parts} में बँटा है।",
+    goodExample:"हाँ! इसमें {n} बराबर टुकड़े हैं, इसलिए हर टुकड़ा {part} है।",
+    hintExUneq:"उसमें {m} टुकड़े हैं, पर वे एक ही आकार के नहीं हैं। {parts} बनाने के लिए सभी टुकड़े बराबर होने चाहिए।",
+    hintExCount:"उसमें {m} बराबर टुकड़े हैं। {parts} बनाने के लिए हमें {n} बराबर टुकड़े चाहिए।",
+    howDir:"कितने {parts} मिलकर एक पूरा बनाते हैं?",
+    goodHow:"हाँ! {whole}", hintHow:"पूरे में टुकड़े गिनो। हर टुकड़ा {part} है।",
+    cutDir:"{food} को {parts} में काटो।", cutHow:"काटने के लिए टूटी रेखाओं को छुओ। हटाने के लिए फिर से छुओ। फिर “हो गया” छुओ।",
+    hintCutNone:"काटने के लिए एक टूटी रेखा छुओ।",
+    hintCutCount:"तुमने {k} टुकड़े बनाए। {parts} बनाने के लिए हमें {n} बराबर टुकड़े चाहिए।",
+    hintCutUneq:"तुमने {n} टुकड़े बनाए, पर वे एक ही आकार के नहीं हैं। बराबर हिस्से बराबर होने चाहिए। दूसरी रेखाएँ आज़माओ।",
+    goodCut:"हाँ! {n} बराबर हिस्से। हर टुकड़ा {part} है। {whole}",
+    piecesLbl:"टुकड़े: {k}",
+    part2:"एक आधा", part3:"एक तिहाई", part4:"एक चौथाई", part8:"एक आठवाँ भाग",
+    parts2:"आधे भाग", parts3:"तिहाई भाग", parts4:"चौथाई भाग", parts8:"आठवें भाग",
+    whole2:"दो आधे मिलकर एक पूरा बनाते हैं।", whole3:"तीन तिहाई मिलकर एक पूरा बनाते हैं।", whole4:"चार चौथाई मिलकर एक पूरा बनाते हैं।", whole8:"आठ आठवें भाग मिलकर एक पूरा बनाते हैं।",
+    bigDir2:"दोनों पूरे एक ही आकार के हैं। उसे छुओ जिसका नीला टुकड़ा बड़ा है।",
+    smallDir2:"दोनों पूरे एक ही आकार के हैं। उसे छुओ जिसका नीला टुकड़ा छोटा है।",
+    bigDir3:"सभी पूरे एक ही आकार के हैं। उसे छुओ जिसका नीला टुकड़ा सबसे बड़ा है।",
+    smallDir3:"सभी पूरे एक ही आकार के हैं। उसे छुओ जिसका नीला टुकड़ा सबसे छोटा है।",
+    goodBig:"हाँ! वह नीला टुकड़ा {part} है। जितने कम बराबर टुकड़े, हर टुकड़ा उतना बड़ा।",
+    goodSmall:"हाँ! वह नीला टुकड़ा {part} है। जितने ज़्यादा बराबर टुकड़े, हर टुकड़ा उतना छोटा।",
+    hintBig:"वह {n} बराबर टुकड़ों में कटा है। ज़्यादा टुकड़े मतलब छोटे टुकड़े। कम टुकड़ों वाला ढूँढो।",
+    hintSmall:"वह {n} बराबर टुकड़ों में कटा है। कम टुकड़े मतलब बड़े टुकड़े। ज़्यादा टुकड़ों वाला ढूँढो।",
+    friendsDir:"दोस्तों का हर समूह एक पूरा बाँटता है। सभी पूरे एक ही आकार के हैं। किस समूह को बड़े टुकड़े मिलेंगे?",
+    friendsLbl:"{n} दोस्त", goodFriends:"हाँ! {n} दोस्तों में हर एक को {part} मिलता है। कम दोस्त बाँटें तो टुकड़े बड़े होते हैं।",
+    hintFriends:"जब ज़्यादा दोस्त एक ही पूरा बाँटते हैं, तो वह ज़्यादा टुकड़ों में कटता है, इसलिए हर टुकड़ा छोटा होता है।",
+    choiceLbl:"विकल्प {i}", cutLine:"काटने की रेखा {i}", spot:"जगह {i}", ariaBoard:"पहेली बोर्ड", ariaBins:"छँटाई के डिब्बे", dotLbl:"शीर्ष बिंदु {i}"
+  },
+  ur:{
+    appTitle:"پیزا پارٹی اشکال", home:"ہوم", privacy:"رازداری", teacher:"استاد", readAloud:"بلند آواز سے پڑھیں", newRound:"نیا دور", stars:"ستارے",
+    mSort:"اشکال کی چھانٹی", mSolid:"ٹھوس جاسوس", mCompose:"اشکال کی پہیلیاں", mFair:"برابر حصے", mBig:"بڑا ٹکڑا",
+    footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا نہیں · آف لائن کام کرتا ہے",
+    teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setGrade:"جماعت", grade1:"جماعت 1", grade2:"جماعت 2",
+    gradeNote:"جماعت 2 میں تہائی، آٹھواں حصہ، مخمس، مثمن، کنارے اور مقررہ تعداد کے بلاکس والی پہیلیاں شامل ہوتی ہیں۔",
+    setModes:"موڈز", setCut:"بانٹنے کی اشکال", cutCircle:"دائرے (پیزا)", cutRect:"مستطیل (سینڈوچ، براؤنی)",
+    setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں", printCards:"🖨 چیلنج کارڈ پرنٹ کریں",
+    setStored:"ترتیبات صرف اسی ڈیوائس پر محفوظ ہوتی ہیں۔ طالب علم کی معلومات کبھی محفوظ نہیں ہوتیں۔",
+    stds:"منسلک معیارات: Texas TEKS جماعت 1: ‏1.6(A–H)۔ جماعت 2: ‏2.3(A, B, D)، 2.3(C) (کتنے حصے مل کر ایک پورا بناتے ہیں)، 2.8(B–E)۔ Common Core: ‏1.G.1، 1.G.2، 1.G.3، 2.G.1، 2.G.3۔ جماعت 2 میں تہائی (Common Core) اور آٹھواں حصہ (TEKS) شامل ہیں۔",
+    cardTitle:"پیزا پارٹی اشکال — چیلنج کارڈ",
+    yes:"ہاں", no:"نہیں", done:"ہو گیا",
+    circle:"دائرہ", triangle:"مثلث", square:"مربع", rectangle:"مستطیل", rhombus:"معین", trapezoid:"ذوزنقہ", quad:"چوکور", pentagon:"مخمس", hexagon:"مسدس", octagon:"مثمن", house:"گھر",
+    cube:"مکعب", rprism:"مستطیلی منشور", tprism:"مثلثی منشور", sphere:"کرہ", cone:"مخروط", cylinder:"استوانہ",
+    the_cube:"مکعب", the_rprism:"مستطیلی منشور", the_tprism:"مثلثی منشور", the_sphere:"کرہ", the_cone:"مخروط", the_cylinder:"استوانہ",
+    fact_cube:"اس کے 6 مربع رخ، 12 کنارے اور 8 راس ہیں۔",
+    fact_rprism:"اس کے 6 مستطیل رخ، 12 کنارے اور 8 راس ہیں۔",
+    fact_tprism:"اس کے 2 مثلث رخ، 3 مستطیل رخ، 9 کنارے اور 6 راس ہیں۔",
+    fact_sphere:"یہ ہر طرف سے گول ہے۔ اس کا کوئی ہموار رخ، کنارہ یا راس نہیں۔",
+    fact_cylinder:"اس کے 2 ہموار رخ دائرے کی شکل کے ہیں اور ایک خمدار سطح ہے۔",
+    fact_cone:"اس کا 1 ہموار رخ دائرے کی شکل کا ہے اور ایک خمدار سطح ہے جو ایک نوک پر ملتی ہے۔",
+    uSides:"اطراف", uVerts:"راس", uFaces:"رخ", uEdges:"کنارے",
+    sortDir:"اشکال کو چھانٹو۔ ہر شکل کو اس کے ڈبے میں کھینچو، یا ڈبے کو چھوؤ۔",
+    binNoS:"کوئی سیدھی طرف نہیں", binNoV:"کوئی راس نہیں", progress:"شکل {i} از {n}",
+    goodSort:"ہاں! اس {shape} کی {n} {unit} ہیں۔", goodSortCircle:"ہاں! دائرے کی کوئی سیدھی طرف اور کوئی راس نہیں ہوتا۔",
+    hintSort:"یہ ڈبہ نہیں۔ دوبارہ گنو، اور گنتے ہوئے ہر ایک کو چھوؤ۔ سائز، رنگ اور گھمانے سے گنتی نہیں بدلتی۔",
+    hintSortCircle:"دائرہ گول ہوتا ہے۔ اس کی کوئی سیدھی طرف اور کوئی راس نہیں ہوتا۔ وہی ڈبہ تلاش کرو۔",
+    sortDone:"بہت اچھی چھانٹی!",
+    sameDir:"پہلی شکل {shape} ہے۔ کیا دوسری شکل بھی {shape} ہے؟",
+    goodSameYes:"ہاں! دونوں کی {n} اطراف اور {n} راس ہیں۔ رنگ، سائز اور گھمانے سے شکل نہیں بدلتی۔",
+    goodSameNo:"درست! دوسری شکل کی {m} اطراف ہیں، اس لیے یہ {shape} نہیں ہے۔ {shape} کی {n} اطراف ہوتی ہیں۔",
+    hintSameYes:"دوبارہ دیکھو۔ اطراف گنو۔ دونوں کی {n} ہیں۔ رنگ، سائز اور گھمانے سے شکل نہیں بدلتی۔",
+    hintSameNo:"اطراف گنو۔ پہلی کی {n} ہیں، مگر دوسری کی {m}۔ ایک جیسا رنگ ہونے سے ایک جیسی شکل نہیں بنتی۔",
+    findSidesDir:"{n} اطراف والی ہر شکل کو چھوؤ۔", findVertsDir:"{n} راس والی ہر شکل کو چھوؤ۔", findNameDir:"ہر {shape} کو چھوؤ۔",
+    findLeft:"ہاں! {k} اور تلاش کرنی ہیں۔",
+    goodFindAll:"تم نے سب تلاش کر لیں! ہر ایک کی {n} {unit} ہیں۔",
+    goodFindName:"تم نے ہر {shape} تلاش کر لیا! ہر ایک کی {n} اطراف ہیں، مختلف نظر آنے والوں کی بھی۔",
+    hintFindCount:"اس شکل کی {m} {unit} ہیں۔ ہمیں {n} والی اشکال چاہییں۔",
+    hintFindName:"وہ {other} ہے۔ اس کی {m} اطراف ہیں۔ {shape} کی {n} اطراف ہوتی ہیں۔",
+    solidTapDir:"{dsolid} کو چھوؤ۔", goodSolid:"ہاں! یہ {dsolid} ہے۔ {fact}", hintSolidTap:"یہ {dsolid} ہے۔ {fact} {dtarget} تلاش کرو۔", hintSolidQ:"یہ {dsolid} ہے۔ {fact} اشارہ دوبارہ پڑھو۔",
+    faceDir:"اس ٹھوس کا ہموار رخ کون سی شکل ہے؟", goodFace:"ہاں! {dsolid} کا ایک ہموار رخ {shape} ہے۔ {fact}", hintFace:"{dsolid} کا کوئی بھی ہموار رخ {shape} نہیں ہے۔ {fact}",
+    countDir_faces:"اس ٹھوس کے کتنے رخ ہیں؟", countDir_edges:"اس ٹھوس کے کتنے کنارے ہیں؟", countDir_verts:"اس ٹھوس کے کتنے راس ہیں؟",
+    tapDots:"راس گننے کے لیے ہر نقطے کو چھوؤ۔ ٹوٹی لکیریں پیچھے چھپی ہیں۔", counted:"گنے گئے: {n}",
+    goodCount:"ہاں! {dsolid} کے {n} {unit} ہیں۔",
+    hint_faces:"رخ ہموار سطحیں ہیں۔ آگے، پیچھے، اوپر، نیچے اور باقی اطراف بھی گنو، جو نظر نہیں آتے وہ بھی۔",
+    hint_edges:"کنارے وہ لکیریں ہیں جہاں دو رخ ملتے ہیں۔ ہر لکیر گنو، چھپی ہوئی ٹوٹی لکیریں بھی۔",
+    hint_verts:"راس وہ کونے ہیں جہاں کنارے ملتے ہیں۔ ہر نقطے کو چھوؤ، پیچھے چھپے نقطے کو بھی۔",
+    q_sphere:"کس ٹھوس کا کوئی ہموار رخ، کنارہ یا راس نہیں؟",
+    q_cylinder:"کس ٹھوس کے 2 ہموار رخ ہیں اور دونوں دائرے ہیں؟",
+    q_cone:"کس ٹھوس کا صرف 1 ہموار رخ ہے، ایک دائرہ، اور اوپر نوک ہے؟",
+    q_cube:"کس ٹھوس کے 6 رخ ہیں اور سب مربع ہیں؟",
+    q_tprism:"کس ٹھوس کے رخ مثلث کی شکل کے ہیں؟",
+    q_rprism:"کس ٹھوس کے 6 مستطیل رخ اور 8 راس ہیں، مگر وہ مکعب نہیں؟",
+    composeDir:"{target} کو بلاکس سے بھرو۔ ایک بلاک چنو، پھر لکیر کے اندر چھوؤ۔",
+    composeDirN:"{target} کو ٹھیک {k} بلاکس سے بھرو۔ ایک بلاک چنو، پھر لکیر کے اندر چھوؤ۔",
+    pickFirst:"پہلے ایک بلاک چنو۔",
+    noFit:"وہ بلاک وہاں نہیں آتا۔ وہ لکیر سے باہر جائے گا یا دوسرے بلاک کے اوپر آئے گا۔ کوئی اور جگہ یا چھوٹا بلاک آزماؤ۔",
+    goodCompose:"تم نے کر دکھایا! تم نے {k} بلاکس سے {target} بنایا۔",
+    newWay:"ملے طریقے: {w}۔ کیا تم کوئی اور طریقہ تلاش کر سکتے ہو؟",
+    sameWay:"یہ طریقہ تم پہلے تلاش کر چکے ہو۔ کوئی مختلف طریقہ آزماؤ!",
+    hintExact:"تم نے {k} بلاکس لگائے، مگر ہمیں ٹھیک {n} چاہییں۔ بڑے یا چھوٹے بلاکس آزماؤ۔",
+    btnTurn:"↻ گھماؤ", btnUndo:"↶ واپس", btnClear:"صاف کرو", btnAnother:"دوسرا طریقہ", blocksLbl:"بلاکس",
+    f_pizza:"پیزا", f_sandwich:"سینڈوچ", f_brownie:"براؤنی",
+    fairDir:"{food} کو دیکھو۔ کیا سب ٹکڑے برابر حصے ہیں؟",
+    btnFair:"ہاں، برابر حصے", btnUnfair:"نہیں، برابر نہیں",
+    goodFair:"ہاں! سب {n} ٹکڑے ایک ہی سائز کے ہیں، اس لیے یہ برابر حصے ہیں۔ ہر ٹکڑا {part} ہے۔",
+    fairShapeNote:"ٹکڑوں کی شکلیں مختلف ہیں، مگر ہر ٹکڑا اتنا ہی ہے۔",
+    goodUnfair:"درست! کچھ ٹکڑے دوسروں سے بڑے ہیں۔ برابر حصے سب ایک ہی سائز کے ہونے چاہییں۔",
+    hintFair:"دوبارہ دیکھو۔ سب {n} ٹکڑے ایک ہی سائز کے ہیں۔ ہر ٹکڑا {part} ہے۔",
+    hintUnfair:"غور سے دیکھو۔ کچھ ٹکڑے دوسروں سے بڑے ہیں۔ کیا تم چھوٹا ٹکڑا لینا چاہو گے؟ برابر حصے ایک ہی سائز کے ہونے چاہییں۔",
+    nameDir:"{food} کو دیکھو۔ نیلا حصہ کتنا ہے؟",
+    goodName:"ہاں! {n} برابر ٹکڑے ہیں۔ نیلا ٹکڑا {part} ہے۔",
+    hintName:"پہلے سب ٹکڑے گنو۔ “{chosen}” کا مطلب ہے {m} برابر ٹکڑوں میں سے ایک۔ یہاں کتنے برابر ٹکڑے ہیں؟",
+    exampleDir:"وہ چھوؤ جو {parts} میں بٹا ہے۔",
+    goodExample:"ہاں! اس میں {n} برابر ٹکڑے ہیں، اس لیے ہر ٹکڑا {part} ہے۔",
+    hintExUneq:"اس میں {m} ٹکڑے ہیں، مگر وہ ایک ہی سائز کے نہیں۔ {parts} بنانے کے لیے سب ٹکڑے برابر ہونے چاہییں۔",
+    hintExCount:"اس میں {m} برابر ٹکڑے ہیں۔ {parts} بنانے کے لیے ہمیں {n} برابر ٹکڑے چاہییں۔",
+    howDir:"کتنے {parts} مل کر ایک پورا بناتے ہیں؟",
+    goodHow:"ہاں! {whole}", hintHow:"پورے میں ٹکڑے گنو۔ ہر ٹکڑا {part} ہے۔",
+    cutDir:"{food} کو {parts} میں کاٹو۔", cutHow:"کاٹنے کے لیے ٹوٹی لکیروں کو چھوؤ۔ ہٹانے کے لیے دوبارہ چھوؤ۔ پھر “ہو گیا” چھوؤ۔",
+    hintCutNone:"کاٹنے کے لیے ایک ٹوٹی لکیر چھوؤ۔",
+    hintCutCount:"تم نے {k} ٹکڑے بنائے۔ {parts} بنانے کے لیے ہمیں {n} برابر ٹکڑے چاہییں۔",
+    hintCutUneq:"تم نے {n} ٹکڑے بنائے، مگر وہ ایک ہی سائز کے نہیں۔ برابر حصے برابر ہونے چاہییں۔ دوسری لکیریں آزماؤ۔",
+    goodCut:"ہاں! {n} برابر حصے۔ ہر ٹکڑا {part} ہے۔ {whole}",
+    piecesLbl:"ٹکڑے: {k}",
+    part2:"ایک آدھا", part3:"ایک تہائی", part4:"ایک چوتھائی", part8:"ایک آٹھواں حصہ",
+    parts2:"آدھے حصے", parts3:"تہائی حصے", parts4:"چوتھائی حصے", parts8:"آٹھویں حصے",
+    whole2:"دو آدھے مل کر ایک پورا بناتے ہیں۔", whole3:"تین تہائیاں مل کر ایک پورا بناتی ہیں۔", whole4:"چار چوتھائیاں مل کر ایک پورا بناتی ہیں۔", whole8:"آٹھ آٹھویں حصے مل کر ایک پورا بناتے ہیں۔",
+    bigDir2:"دونوں پورے ایک ہی سائز کے ہیں۔ اسے چھوؤ جس کا نیلا ٹکڑا بڑا ہے۔",
+    smallDir2:"دونوں پورے ایک ہی سائز کے ہیں۔ اسے چھوؤ جس کا نیلا ٹکڑا چھوٹا ہے۔",
+    bigDir3:"سب پورے ایک ہی سائز کے ہیں۔ اسے چھوؤ جس کا نیلا ٹکڑا سب سے بڑا ہے۔",
+    smallDir3:"سب پورے ایک ہی سائز کے ہیں۔ اسے چھوؤ جس کا نیلا ٹکڑا سب سے چھوٹا ہے۔",
+    goodBig:"ہاں! وہ نیلا ٹکڑا {part} ہے۔ جتنے کم برابر ٹکڑے، ہر ٹکڑا اتنا بڑا۔",
+    goodSmall:"ہاں! وہ نیلا ٹکڑا {part} ہے۔ جتنے زیادہ برابر ٹکڑے، ہر ٹکڑا اتنا چھوٹا۔",
+    hintBig:"وہ {n} برابر ٹکڑوں میں کٹا ہے۔ زیادہ ٹکڑوں کا مطلب چھوٹے ٹکڑے۔ کم ٹکڑوں والا تلاش کرو۔",
+    hintSmall:"وہ {n} برابر ٹکڑوں میں کٹا ہے۔ کم ٹکڑوں کا مطلب بڑے ٹکڑے۔ زیادہ ٹکڑوں والا تلاش کرو۔",
+    friendsDir:"دوستوں کا ہر گروپ ایک پورا بانٹتا ہے۔ سب پورے ایک ہی سائز کے ہیں۔ کس گروپ کو بڑے ٹکڑے ملیں گے؟",
+    friendsLbl:"{n} دوست", goodFriends:"ہاں! {n} دوستوں میں ہر ایک کو {part} ملتا ہے۔ کم دوست بانٹیں تو ٹکڑے بڑے ہوتے ہیں۔",
+    hintFriends:"جب زیادہ دوست ایک ہی پورا بانٹتے ہیں تو وہ زیادہ ٹکڑوں میں کٹتا ہے، اس لیے ہر ٹکڑا چھوٹا ہوتا ہے۔",
+    choiceLbl:"انتخاب {i}", cutLine:"کاٹنے کی لکیر {i}", spot:"جگہ {i}", ariaBoard:"پہیلی کا بورڈ", ariaBins:"چھانٹی کے ڈبے", dotLbl:"راس کا نقطہ {i}"
+  },
+  zh:{
+    appTitle:"披萨派对图形", home:"主页", privacy:"隐私", teacher:"教师", readAloud:"朗读", newRound:"新一轮", stars:"星星",
+    mSort:"图形分类", mSolid:"立体侦探", mCompose:"图形拼图", mFair:"平均分", mBig:"哪块更大",
+    footNote:"无账号 · 不收集数据 · 离线可用",
+    teacherTitle:"教师设置", close:"关闭", setGrade:"年级", grade1:"一年级", grade2:"二年级",
+    gradeNote:"二年级增加三分之一、八分之一、五边形、八边形、棱，以及指定块数的拼图。",
+    setModes:"模式", setCut:"要平分的图形", cutCircle:"圆形（披萨）", cutRect:"长方形（三明治、布朗尼）",
+    setSpeech:"语音", autoRead:"自动朗读指令", printCards:"🖨 打印挑战卡",
+    setStored:"设置只保存在本设备上。绝不保存任何学生信息。",
+    stds:"对应标准：Texas TEKS 一年级：1.6(A–H)。二年级：2.3(A, B, D)、2.3(C)（几份合成一个整体）、2.8(B–E)。Common Core：1.G.1、1.G.2、1.G.3、2.G.1、2.G.3。二年级增加三分之一（Common Core）和八分之一（TEKS）。",
+    cardTitle:"披萨派对图形 — 挑战卡",
+    yes:"是", no:"不是", done:"完成",
+    circle:"圆形", triangle:"三角形", square:"正方形", rectangle:"长方形", rhombus:"菱形", trapezoid:"梯形", quad:"四边形", pentagon:"五边形", hexagon:"六边形", octagon:"八边形", house:"房子",
+    cube:"正方体", rprism:"长方体", tprism:"三棱柱", sphere:"球", cone:"圆锥", cylinder:"圆柱",
+    the_cube:"正方体", the_rprism:"长方体", the_tprism:"三棱柱", the_sphere:"球", the_cone:"圆锥", the_cylinder:"圆柱",
+    fact_cube:"它有 6 个正方形的面、12 条棱和 8 个顶点。",
+    fact_rprism:"它有 6 个长方形的面、12 条棱和 8 个顶点。",
+    fact_tprism:"它有 2 个三角形的面、3 个长方形的面、9 条棱和 6 个顶点。",
+    fact_sphere:"它到处都是圆的。它没有平的面，没有棱，也没有顶点。",
+    fact_cylinder:"它有 2 个圆形的平面和一个曲面。",
+    fact_cone:"它有 1 个圆形的平面和一个收成尖顶的曲面。",
+    uSides:"条边", uVerts:"个顶点", uFaces:"个面", uEdges:"条棱",
+    sortDir:"给图形分类。把每个图形拖到它的盒子里，或点一点盒子。",
+    binNoS:"没有直边", binNoV:"没有顶点", progress:"第 {i} 个，共 {n} 个",
+    goodSort:"对了！这个{shape}有 {n} {unit}。", goodSortCircle:"对了！圆形没有直边，也没有顶点。",
+    hintSort:"不是这个盒子。再数一数，数的时候点一点每一个。大小、颜色和转动都不会改变数量。",
+    hintSortCircle:"圆形是圆的。它没有直边，也没有顶点。找一找那个盒子。",
+    sortDone:"分类得真好！",
+    sameDir:"第一个图形是{shape}。第二个图形也是{shape}吗？",
+    goodSameYes:"对了！两个都有 {n} 条边和 {n} 个顶点。颜色、大小和转动不会改变图形。",
+    goodSameNo:"对了！第二个图形有 {m} 条边，所以它不是{shape}。{shape}有 {n} 条边。",
+    hintSameYes:"再看看。数一数边。两个都有 {n} 条。颜色、大小和转动不会改变图形。",
+    hintSameNo:"数一数边。第一个有 {n} 条，第二个有 {m} 条。颜色一样不代表图形一样。",
+    findSidesDir:"点出所有有 {n} 条边的图形。", findVertsDir:"点出所有有 {n} 个顶点的图形。", findNameDir:"点出所有的{shape}。",
+    findLeft:"对了！还要找 {k} 个。",
+    goodFindAll:"你全找到了！每一个都有 {n} {unit}。",
+    goodFindName:"你找到了所有的{shape}！每一个都有 {n} 条边，看起来不一样的也是。",
+    hintFindCount:"那个图形有 {m} {unit}。我们要找的是有 {n} {unit}的图形。",
+    hintFindName:"那是{other}。它有 {m} 条边。{shape}有 {n} 条边。",
+    solidTapDir:"点一点{dsolid}。", goodSolid:"对了！那是{dsolid}。{fact}", hintSolidTap:"那是{dsolid}。{fact}找一找{dtarget}。", hintSolidQ:"那是{dsolid}。{fact}再读一读提示。",
+    faceDir:"哪个图形是这个立体图形的一个平面？", goodFace:"对了！{dsolid}的一个平面是{shape}。{fact}", hintFace:"{dsolid}没有哪个平面是{shape}。{fact}",
+    countDir_faces:"这个立体图形有几个面？", countDir_edges:"这个立体图形有几条棱？", countDir_verts:"这个立体图形有几个顶点？",
+    tapDots:"点一点每个圆点来数顶点。虚线是藏在后面的。", counted:"已数：{n}",
+    goodCount:"对了！{dsolid}有 {n} {unit}。",
+    hint_faces:"面是平平的部分。数一数前面、后面、上面、下面和其他侧面，看不见的也要数。",
+    hint_edges:"棱是两个面相交的线。每条线都要数，藏起来的虚线也要数。",
+    hint_verts:"顶点是棱相交的角。每个圆点都要点，藏在后面的那个也要点。",
+    q_sphere:"哪个立体图形没有平的面、没有棱、也没有顶点？",
+    q_cylinder:"哪个立体图形有 2 个平面，而且都是圆形？",
+    q_cone:"哪个立体图形只有 1 个圆形的平面，还有一个尖顶？",
+    q_cube:"哪个立体图形有 6 个面，而且都是正方形？",
+    q_tprism:"哪个立体图形有三角形的面？",
+    q_rprism:"哪个立体图形有 6 个长方形的面和 8 个顶点，但不是正方体？",
+    composeDir:"用积木填满这个{target}。先选一块积木，再点轮廓里面。",
+    composeDirN:"正好用 {k} 块积木填满这个{target}。先选一块积木，再点轮廓里面。",
+    pickFirst:"先选一块积木。",
+    noFit:"那块积木放不进那里。它会超出线外，或者压在别的积木上。换个地方或用小一点的积木试试。",
+    goodCompose:"你做到了！你用 {k} 块积木拼成了{target}。",
+    newWay:"已找到的方法：{w} 种。你能找到另一种方法吗？",
+    sameWay:"这种方法你已经找到了。试试不同的方法！",
+    hintExact:"你用了 {k} 块积木，但我们要正好 {n} 块。试试大一点或小一点的积木。",
+    btnTurn:"↻ 转动", btnUndo:"↶ 撤销", btnClear:"清除", btnAnother:"另一种方法", blocksLbl:"积木",
+    f_pizza:"披萨", f_sandwich:"三明治", f_brownie:"布朗尼",
+    fairDir:"看看这个{food}。所有的块都是平均分的吗？",
+    btnFair:"是，平均分", btnUnfair:"不是，不平均",
+    goodFair:"对了！{n} 块都一样大，所以是平均分。每一块是{part}。",
+    fairShapeNote:"这些块形状不同，但每一块一样多。",
+    goodUnfair:"对了！有些块比别的大。平均分的每一块都必须一样大。",
+    hintFair:"再看看。{n} 块都一样大。每一块是{part}。",
+    hintUnfair:"仔细看。有些块比别的大。你想要小的那块吗？平均分的每一块必须一样大。",
+    nameDir:"看看这个{food}。蓝色部分是多少？",
+    goodName:"对了！一共有 {n} 块一样大的。蓝色这块是{part}。",
+    hintName:"先数一数所有的块。“{chosen}”是平均分成 {m} 块中的一块。这里有几块一样大的？",
+    exampleDir:"点一点平均分成{parts}的那个。",
+    goodExample:"对了！它有 {n} 块一样大的，所以每一块是{part}。",
+    hintExUneq:"那个有 {m} 块，但不一样大。要分成{parts}，每一块都要一样大。",
+    hintExCount:"那个有 {m} 块一样大的。要分成{parts}，需要 {n} 块一样大的。",
+    howDir:"几个{part}合成一个整体？",
+    goodHow:"对了！{whole}", hintHow:"数一数整体里有几块。每一块是{part}。",
+    cutDir:"把{food}平均分成{parts}。", cutHow:"点虚线来切。再点一次可以取消。然后点“完成”。",
+    hintCutNone:"点一条虚线来切一刀。",
+    hintCutCount:"你切成了 {k} 块。要分成{parts}，需要 {n} 块一样大的。",
+    hintCutUneq:"你切成了 {n} 块，但不一样大。平均分必须一样大。试试别的线。",
+    goodCut:"对了！平均分成 {n} 份。每一块是{part}。{whole}",
+    piecesLbl:"块数：{k}",
+    part2:"二分之一", part3:"三分之一", part4:"四分之一", part8:"八分之一",
+    parts2:"2 等份", parts3:"3 等份", parts4:"4 等份", parts8:"8 等份",
+    whole2:"2 个二分之一合成一个整体。", whole3:"3 个三分之一合成一个整体。", whole4:"4 个四分之一合成一个整体。", whole8:"8 个八分之一合成一个整体。",
+    bigDir2:"两个整体一样大。点一点蓝色块更大的那个。", smallDir2:"两个整体一样大。点一点蓝色块更小的那个。",
+    bigDir3:"所有整体都一样大。点一点蓝色块最大的那个。", smallDir3:"所有整体都一样大。点一点蓝色块最小的那个。",
+    goodBig:"对了！那块蓝色的是{part}。平均分的块数越少，每一块越大。",
+    goodSmall:"对了！那块蓝色的是{part}。平均分的块数越多，每一块越小。",
+    hintBig:"那个被平均分成 {n} 块。块数越多，每块越小。找块数少的。",
+    hintSmall:"那个被平均分成 {n} 块。块数越少，每块越大。找块数多的。",
+    friendsDir:"每组朋友分一个整体。整体都一样大。哪一组分到的块更大？",
+    friendsLbl:"{n} 个朋友", goodFriends:"对了！{n} 个朋友每人分到{part}。分的人越少，每块越大。",
+    hintFriends:"更多朋友分同一个整体时，要切成更多块，所以每块更小。",
+    choiceLbl:"选项 {i}", cutLine:"切线 {i}", spot:"位置 {i}", ariaBoard:"拼图板", ariaBins:"分类盒", dotLbl:"顶点圆点 {i}"
+  }
+};
+
+let lang = "en";
+function t(key, vars){
+  let s = (T[lang] && T[lang][key]!==undefined) ? T[lang][key] : (T.en[key]!==undefined? T.en[key] : key);
+  if(vars) for(const k in vars) s = s.replaceAll("{"+k+"}", vars[k]);
+  if(vars && !(T[lang] && T[lang][key]!==undefined && lang!=="en")) s = s.replace(/\b([Aa]) (?=[aeiou])/g,"$1n ");  // English a/an
+  return s;
+}
+
+/* ---------- Settings ---------- */
+const MODES = ["sort","solid","compose","fair","big"];
+const MODE_KEY = {sort:"mSort",solid:"mSolid",compose:"mCompose",fair:"mFair",big:"mBig"};
+const DEFAULTS = {grade:1, modes:{sort:true,solid:true,compose:true,fair:true,big:true}, circles:true, rects:true, autoRead:true};
+let settings = loadSettings();
+function loadSettings(){
+  try{
+    const raw = localStorage.getItem("pps_settings");
+    if(raw){ const o=JSON.parse(raw); return Object.assign(JSON.parse(JSON.stringify(DEFAULTS)), o, {modes:Object.assign({},DEFAULTS.modes,o.modes)}); }
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULTS));
+}
+function saveSettings(){ try{ localStorage.setItem("pps_settings", JSON.stringify(settings)); }catch(e){} }
+const G2 = ()=>String(settings.grade)==="2";
+
+/* ---------- Utils ---------- */
+const $ = s=>document.querySelector(s);
+const $$ = s=>Array.from(document.querySelectorAll(s));
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const f1 = n=>(+n).toFixed(1);
+let stars=0;
+function addStar(){ stars++; $("#starN").textContent=stars; starLabel(); }
+function starLabel(){ $("#starBox").setAttribute("aria-label",t("stars")+": "+stars); $("#starBox").title=t("stars"); }
+function showFb(el,type,msg){ el.className="feedback show "+type; el.innerHTML=(type==="good"?"✅ ":"💡 ")+msg; }
+function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
+function cardBtn(inner,label,onClick,cls){
+  const b=document.createElement("button"); b.type="button"; b.className="choice"+(cls?" "+cls:"");
+  b.innerHTML=`<span class="badge ok" aria-hidden="true">✅</span><span class="badge no" aria-hidden="true">↻</span>`+inner;
+  b.setAttribute("aria-label",label); b.addEventListener("click",()=>onClick(b)); return b;
+}
+function flashWrong(b){ b.classList.add("wrongpick"); setTimeout(()=>b.classList.remove("wrongpick"),1400); }
+function lockAll(sel){ $$(sel).forEach(c=>c.disabled=true); }
+function pip(p,poly){ let ins=false; for(let i=0,j=poly.length-1;i<poly.length;j=i++){ const [xi,yi]=poly[i],[xj,yj]=poly[j];
+  if(((yi>p[1])!==(yj>p[1])) && (p[0] < (xj-xi)*(p[1]-yi)/(yj-yi)+xi)) ins=!ins; } return ins; }
+function areaOf(P){ let a=0; for(let i=0;i<P.length;i++){ const [x1,y1]=P[i],[x2,y2]=P[(i+1)%P.length]; a+=x1*y2-x2*y1; } return Math.abs(a)/2; }
+function centroid(P){ return [P.reduce((s,p)=>s+p[0],0)/P.length, P.reduce((s,p)=>s+p[1],0)/P.length]; }
+const ptsStr = P=>P.map(p=>f1(p[0])+","+f1(p[1])).join(" ");
+
+/* =========================================================================
+   2-D SHAPES
+   ========================================================================= */
+const SIDES = {circle:0,triangle:3,square:4,rectangle:4,rhombus:4,trapezoid:4,quad:4,pentagon:5,hexagon:6,octagon:8};
+const G1SH = ["circle","triangle","square","rectangle","rhombus","trapezoid","hexagon"];
+const G2SH = G1SH.concat(["quad","pentagon","octagon"]);
+function pool(){ return G2()?G2SH:G1SH; }
+const COLORS = ["#e11d48","#2563eb","#16a34a","#d97706","#7c3aed","#0891b2","#db2777","#65a30d"];
+function regPts(n,r,a0){ const p=[]; for(let i=0;i<n;i++){ const a=(a0+360*i/n)*Math.PI/180; p.push([r*Math.cos(a),r*Math.sin(a)]); } return p; }
+function jitter(n){ const p=[]; for(let i=0;i<n;i++){ const a=(-90+360*i/n+(Math.random()*16-8))*Math.PI/180, r=.62+Math.random()*.33; p.push([r*Math.cos(a),r*Math.sin(a)]); } return p; }
+function polyPts(kind,irr){
+  switch(kind){
+    case "triangle": return irr?rand([[[-.8,.7],[.8,.7],[-.8,-.7]],[[-.95,.55],[.95,.6],[.25,-.75]],[[-.95,.45],[.95,.45],[-.45,-.45]]]):regPts(3,.9,-90).map(([x,y])=>[x,y+.15]);
+    case "square": return [[-.7,-.7],[.7,-.7],[.7,.7],[-.7,.7]];
+    case "rectangle": { const h=rand([.4,.48,.55]); return [[-.9,-h],[.9,-h],[.9,h],[-.9,h]]; }
+    case "rhombus": return irr?[[-.75,.43],[.25,.43],[.75,-.43],[-.25,-.43]]:[[0,-.9],[.55,0],[0,.9],[-.55,0]];
+    case "trapezoid": return irr?[[-.85,.5],[.85,.5],[.2,-.5],[-.85,-.5]]:[[-.9,.45],[.9,.45],[.45,-.45],[-.45,-.45]];
+    case "quad": return rand([[[-.8,.6],[.9,.45],[.5,-.7],[-.45,-.5]],[[-.9,.2],[.1,.75],[.85,.1],[-.1,-.8]]]);
+    case "pentagon": return irr?rand([[[-.7,.75],[.7,.75],[.7,-.1],[0,-.8],[-.7,-.1]],jitter(5)]):regPts(5,.9,-90);
+    case "hexagon": return irr?rand([jitter(6),[[-.8,-.8],[0,-.8],[0,0],[.8,0],[.8,.8],[-.8,.8]]]):regPts(6,.9,0);
+    case "octagon": return irr?jitter(8):regPts(8,.9,22.5);
+  }
+  return regPts(4,.8,45);
+}
+const IRR_OK = ["triangle","rhombus","trapezoid","pentagon","hexagon","octagon"];
+function randShape(kind,irr){
+  if(irr===undefined) irr=IRR_OK.includes(kind)&&Math.random()<.45;
+  return {kind, pts:kind==="circle"?null:polyPts(kind,irr), fill:rand(COLORS), rot:rand([0,15,30,45,60,90,120,180,210,270]), scale:rand([.62,.75,.88,1])};
+}
+function shapeSVG(kind,o){
+  o=o||{}; const fill=o.fill||"#2563eb", sc=o.scale||1, rot=o.rot||0, st=o.stroke||"#12303f";
+  let inner;
+  if(kind==="circle") inner=`<circle cx="50" cy="50" r="${f1(42*sc)}" fill="${fill}" stroke="${st}" stroke-width="3"/>`;
+  else{
+    const P=o.pts||polyPts(kind,o.irr); const R=Math.max(...P.map(([x,y])=>Math.hypot(x,y))); const s=44*sc/R;
+    inner=`<polygon points="${ptsStr(P.map(([x,y])=>[50+x*s,50+y*s]))}" fill="${fill}" stroke="${st}" stroke-width="3" stroke-linejoin="round" transform="rotate(${rot} 50 50)"/>`;
+  }
+  return `<svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">${inner}</svg>`;
+}
+
+/* =========================================================================
+   3-D SOLIDS
+   ========================================================================= */
+const SOLIDS = ["cube","rprism","tprism","sphere","cone","cylinder"];
+const SCOUNT = {cube:{faces:6,edges:12,verts:8},rprism:{faces:6,edges:12,verts:8},tprism:{faces:5,edges:9,verts:6}};
+const FACE = {cube:"square",rprism:"rectangle",tprism:"triangle",cylinder:"circle",cone:"circle"};
+const FACESET = {cube:["square"],rprism:["rectangle","square"],tprism:["triangle","rectangle","square"],cylinder:["circle"],cone:["circle"]};
+const UNIT = {faces:"uFaces",edges:"uEdges",verts:"uVerts"};
+function proj(x,y,z){ return [28+x+z*.62, 124-y-z*.46]; }
+function solidSVG(kind,o){
+  o=o||{}; const L="#12303f"; let s="";
+  if(kind==="cube"||kind==="rprism"||kind==="tprism"){
+    let V,E,F,hid;
+    if(kind==="tprism"){ const w=92,h=76,d=50; V=[[0,0,0],[w,0,0],[w/2,h,0],[0,0,d],[w,0,d],[w/2,h,d]];
+      E=[[0,1],[1,2],[2,0],[3,4],[4,5],[5,3],[0,3],[1,4],[2,5]]; F=[[[1,2,5,4],"#86bfe0"],[[0,1,2],"#c4e3f4"]]; hid=3; }
+    else{ const [w,h,d]=kind==="cube"?[68,68,48]:[92,50,44];
+      V=[[0,0,0],[w,0,0],[w,h,0],[0,h,0],[0,0,d],[w,0,d],[w,h,d],[0,h,d]];
+      E=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+      F=[[[3,2,6,7],"#ddeffa"],[[1,5,6,2],"#86bfe0"],[[0,1,2,3],"#c4e3f4"]]; hid=4; }
+    const P=V.map(v=>proj(...v));
+    F.forEach(([ix,c])=>s+=`<polygon points="${ptsStr(ix.map(i=>P[i]))}" fill="${c}"/>`);
+    E.forEach(([a,b])=>{ const h=a===hid||b===hid;
+      s+=`<line x1="${f1(P[a][0])}" y1="${f1(P[a][1])}" x2="${f1(P[b][0])}" y2="${f1(P[b][1])}" stroke="${L}" stroke-width="${h?2:3}" stroke-linecap="round"${h?' stroke-dasharray="5 5" opacity=".7"':''}/>`; });
+    if(o.dots) P.forEach((p,i)=>{ s+=`<g class="vdot" data-i="${i}" tabindex="0" role="button" aria-pressed="false" aria-label="${t("dotLbl",{i:i+1})}"><circle cx="${f1(p[0])}" cy="${f1(p[1])}" r="15" fill="transparent"/><circle class="dv" cx="${f1(p[0])}" cy="${f1(p[1])}" r="7.5" fill="#fff" stroke="#c2410c" stroke-width="3"/><text class="dn" x="${f1(p[0])}" y="${f1(p[1]+3.6)}" text-anchor="middle" font-size="10" font-weight="800" fill="#fff" pointer-events="none"></text></g>`; });
+  }else if(kind==="sphere"){
+    s=`<circle cx="80" cy="72" r="52" fill="#f6b8b8" stroke="${L}" stroke-width="3"/><path d="M28 72 A52 16 0 0 1 132 72" fill="none" stroke="${L}" stroke-width="2" stroke-dasharray="5 5" opacity=".6"/><path d="M28 72 A52 16 0 0 0 132 72" fill="none" stroke="${L}" stroke-width="2.5"/><ellipse cx="62" cy="52" rx="14" ry="9" fill="#fff" opacity=".55"/>`;
+  }else if(kind==="cylinder"){
+    s=`<path d="M36 34 L36 108 A44 14 0 0 0 124 108 L124 34 Z" fill="#bfe3c8" stroke="${L}" stroke-width="3" stroke-linejoin="round"/><path d="M36 108 A44 14 0 0 1 124 108" fill="none" stroke="${L}" stroke-width="2" stroke-dasharray="5 5" opacity=".6"/><ellipse cx="80" cy="34" rx="44" ry="14" fill="#8fce9f" stroke="${L}" stroke-width="3"/>`;
+  }else if(kind==="cone"){
+    s=`<path d="M80 16 L126 110 A46 14 0 0 1 34 110 Z" fill="#e7c58a" stroke="${L}" stroke-width="3" stroke-linejoin="round"/><path d="M34 110 A46 14 0 0 1 126 110" fill="none" stroke="${L}" stroke-width="2" stroke-dasharray="5 5" opacity=".6"/>`;
+  }
+  return `<svg viewBox="0 0 160 140" aria-hidden="true" focusable="false">${s}</svg>`;
+}
+
+/* =========================================================================
+   FOOD + PARTITIONS
+   ========================================================================= */
+const CR=84, RX=14, RY=14, RW=212, RH=132;
+const PEPP=[[70,64],[128,68],[114,112],[64,120],[134,124],[96,146],[104,46],[150,96],[50,90],[120,150]];
+function rp(u,v){ return [RX+u*RW, RY+v*RH]; }
+function upoly(pts){ return "M"+pts.map(p=>rp(p[0],p[1]).map(f1).join(",")).join(" L")+" Z"; }
+function strips(ws,vert){ let a=0; return ws.map(w=>{ const b=a+w; const p=vert?[[a,0],[b,0],[b,1],[a,1]]:[[0,a],[1,a],[1,b],[0,b]]; a=b; return upoly(p); }); }
+function grid(cs,rs){ const out=[]; let y=0; rs.forEach(h=>{ let x=0; cs.forEach(w=>{ out.push(upoly([[x,y],[x+w,y],[x+w,y+h],[x,y+h]])); x+=w; }); y+=h; }); return out; }
+function diagX(){ const c=[.5,.5]; return [upoly([[0,0],[1,0],c]),upoly([[1,0],[1,1],c]),upoly([[1,1],[0,1],c]),upoly([[0,1],[0,0],c])]; }
+function sectorD(a0,a1){ const P=a=>[f1(100+CR*Math.cos(a*Math.PI/180)),f1(100+CR*Math.sin(a*Math.PI/180))]; const p0=P(a0),p1=P(a1);
+  return `M100,100 L${p0} A${CR},${CR} 0 ${a1-a0>180?1:0} 1 ${p1} Z`; }
+function sectors(spans,rot){ let a=-90+rot; return spans.map(sp=>{ const d=sectorD(a,a+sp); a+=sp; return d; }); }
+function chordD(dx){ const h=Math.sqrt(CR*CR-dx*dx), x=f1(100+dx), y0=f1(100-h), y1=f1(100+h);
+  return [`M${x},${y0} A${CR},${CR} 0 ${dx>0?1:0} 0 ${x},${y1} Z`,`M${x},${y0} A${CR},${CR} 0 ${dx>0?0:1} 1 ${x},${y1} Z`]; }
+function makePart(shape,n,equal,simple){
+  if(shape==="circle"){
+    const rot=simple?0:rand([0,0,15,30,45,90]);
+    if(equal) return {shape,n,equal,pieces:sectors(Array(n).fill(360/n),rot)};
+    if(n===2&&Math.random()<.6) return {shape,n,equal,pieces:chordD(rand([28,34,-28,-34])),rot:rand([0,30,60,90])};
+    const S={2:[[140,220],[120,240]],3:[[180,90,90],[160,120,80]],4:[[60,120,60,120],[90,90,130,50],[45,135,90,90]],8:[[30,60,30,60,30,60,30,60],[20,25,50,45,20,70,60,70]]}[n];
+    return {shape,n,equal,pieces:sectors(shuffle(rand(S)),rot)};
+  }
+  let pieces, diff=false;
+  if(simple) pieces = n===8?grid([.25,.25,.25,.25],[.5,.5]):strips(Array(n).fill(1/n),true);
+  else if(equal){
+    if(n===2){ const v=rand(["v","h","d"]); pieces=v==="d"?[upoly([[0,0],[1,0],[1,1]]),upoly([[0,0],[1,1],[0,1]])]:strips([.5,.5],v==="v"); }
+    else if(n===3) pieces=strips([1/3,1/3,1/3],Math.random()<.7);
+    else if(n===4){ const v=rand(G2()?["v","g","g","x"]:["v","g","g"]); pieces=v==="v"?strips([.25,.25,.25,.25],true):v==="g"?grid([.5,.5],[.5,.5]):diagX(); diff=v==="x"; }
+    else pieces=grid([.25,.25,.25,.25],[.5,.5]);
+  }else{
+    if(n===2) pieces=rand([strips([.3,.7],true),strips([.68,.32],true),[upoly([[0,0],[1,0],[1,.5]]),upoly([[0,0],[1,.5],[1,1],[0,1]])]]);
+    else if(n===3) pieces=rand([strips([.25,.25,.5],true),strips([.2,.4,.4],false)]);
+    else if(n===4) pieces=rand([strips([.15,.35,.15,.35],true),grid([.3,.7],[.5,.5]),grid([.35,.65],[.35,.65])]);
+    else pieces=grid([.15,.35,.15,.35],[.5,.5]);
+  }
+  return {shape,n,equal,diff,pieces};
+}
+function foodSVG(p,hi,extra){
+  hi = hi===undefined?-1:hi; let s="";
+  if(p.shape==="circle"){
+    s=`<circle cx="100" cy="100" r="95" fill="#d99a45" stroke="#8a5a1f" stroke-width="3"/><circle cx="100" cy="100" r="${CR}" fill="#f6cf5f"/>`+
+      PEPP.map(([x,y])=>`<circle cx="${x}" cy="${y}" r="9" fill="#c0392b" opacity=".9"/>`).join("");
+    s+=`<g transform="rotate(${p.rot||0} 100 100)">`;
+    if(hi>=0) s+=`<path d="${p.pieces[hi]}" fill="#2563eb" fill-opacity=".62"/>`;
+    p.pieces.forEach(d=>s+=`<path d="${d}" fill="none" stroke="#6b3d0e" stroke-width="3" stroke-linejoin="round"/>`);
+    if(hi>=0) s+=`<path d="${p.pieces[hi]}" fill="none" stroke="#1e3a8a" stroke-width="4" stroke-linejoin="round"/>`;
+    s+="</g>"+(extra||"");
+    return `<svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">${s}</svg>`;
+  }
+  const br=p.food==="brownie", line=br?"#fbe9d0":"#6b3d0e";
+  s=`<rect x="3" y="3" width="234" height="154" rx="16" fill="${br?"#4a2816":"#c98a3d"}"/><rect x="${RX}" y="${RY}" width="${RW}" height="${RH}" rx="6" fill="${br?"#7b4a2d":"#f8e2b6"}"/>`;
+  s+=(br?[[40,40],[90,70],[150,40],[200,90],[60,120],[130,125],[180,135],[110,30]]:[[50,50],[120,40],[190,60],[80,110],[160,115],[200,130]])
+     .map(([x,y])=>`<ellipse cx="${x}" cy="${y}" rx="${br?4:3}" ry="${br?3:2}" fill="${br?"#d9b38c":"#d8b77c"}"/>`).join("");
+  if(hi>=0) s+=`<path d="${p.pieces[hi]}" fill="#2563eb" fill-opacity=".62"/>`;
+  p.pieces.forEach(d=>s+=`<path d="${d}" fill="none" stroke="${line}" stroke-width="3" stroke-linejoin="round"/>`);
+  if(hi>=0) s+=`<path d="${p.pieces[hi]}" fill="none" stroke="#1e3a8a" stroke-width="4" stroke-linejoin="round"/>`;
+  s+=(extra||"");
+  return `<svg viewBox="0 0 240 160" aria-hidden="true" focusable="false">${s}</svg>`;
+}
+function shapesAllowed(){ const a=[]; if(settings.circles) a.push("circle"); if(settings.rects) a.push("rect"); return a.length?a:["circle"]; }
+function partsList(){ return G2()?[2,3,4,8]:[2,4]; }
+function foodFor(shape){ return shape==="circle"?"pizza":rand(["sandwich","brownie"]); }
+
+/* ---------- Speech ---------- */
+const speechOK = ("speechSynthesis" in window);
+function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
+// Prefer warm, natural voices for young learners; avoid harsh robotic engines.
+function pickWarmVoice(code){
+  const vs = speechSynthesis.getVoices()||[];
+  const want=code.toLowerCase(), two=want.slice(0,2);
+  let best=null, bs=-1;
+  for(const v of vs){
+    const lc=(v.lang||'').toLowerCase().replace('_','-');
+    if(lc!==want && lc.slice(0,2)!==two) continue;
+    let s=(lc===want?100:60); const n=(v.name||'').toLowerCase();
+    if(/google|natural|neural|online|premium|enhanced|siri/.test(n)) s+=40;
+    if(/female|woman|samantha|karen|tessa|moira|fiona|serena|victoria|allison|ava|susan|zoe|amelie|amélie|paulina|monica|mónica|zira|hazel|catherine|linda|kanya|lekha|ting-ting|mei-jia|sin-ji|yu-shu|huihui|xiaoxiao/.test(n)) s+=18;
+    if(/espeak|compact|festival|pico|robot|eloquence/.test(n)) s-=60;
+    if(v.localService===false) s+=8;
+    if(v.default) s+=2;
+    if(s>bs){ bs=s; best=v; }
+  }
+  return best;
+}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  const parts=String(text).match(/[^.!?。！？؟।۔]+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.9; u.pitch=1.15;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={sort:0,solid:0,compose:0,fair:0,big:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
+}
+if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
+if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
+
+const currentSpeech = {sort:"",solid:"",compose:"",fair:"",big:""};
+const SPEECH_MODE = {sort:"sort",solid:"solid",compose:"compose",fair:"fair",big:"big"};
+function setSpeech(mode,text){ currentSpeech[mode]=text; }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===SPEECH_MODE[mode]) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,.dragcard,.cmpboard,.hit,.vdot")) return;
+  const key=Object.keys(SPEECH_MODE).find(k=>SPEECH_MODE[k]===currentMode());
+  if(key) speak(currentSpeech[key]);
+},true);
+function setPrompt(mode,text,spoken){ $("#"+mode+"Prompt").textContent=text; setSpeech(mode,spoken||text); }
+
+/* =========================================================================
+   MODE 1 — SHAPE SORTER (sort bins · same shape? · find all)
+   ========================================================================= */
+let sortS=null;
+const unitWord = u=>t(u==="sides"?"uSides":"uVerts");
+function newSort(){
+  roundIds.sort++; hideFb($("#sortFb"));
+  const type=rand(G2()?["bins","bins","same","find","find"]:["bins","bins","same","find"]);
+  if(type==="bins") startBins(); else if(type==="same") startSame(); else startFind();
+  maybeAuto("sort");
+}
+function kindsWith(n){ return pool().filter(k=>SIDES[k]===n); }
+function startBins(){
+  const g2=G2(), unit=g2?rand(["sides","verts"]):rand(["sides","sides","verts"]);
+  const vals=shuffle(g2?[0,3,4,5,6,8]:[0,3,4,6]).slice(0,g2?4:3).sort((a,b)=>a-b);
+  let items=vals.slice(); while(items.length<(g2?5:4)) items.push(rand(vals));
+  items=shuffle(items).map(v=>randShape(rand(kindsWith(v))));
+  sortS={type:"bins",unit,vals,items,i:0,busy:false};
+  setPrompt("sort",t("sortDir")); renderBinItem();
+}
+function binLabel(v,unit){ return v===0?t(unit==="sides"?"binNoS":"binNoV"):unitWord(unit); }
+function renderBinItem(){
+  const s=sortS, it=s.items[s.i], a=$("#sortArea"); s.busy=false;
+  a.innerHTML=`<p class="progress">${t("progress",{i:s.i+1,n:s.items.length})}</p><div class="sortwrap"><div class="sorthold"><div class="dragcard" id="sortCard">${shapeSVG(it.kind,it)}</div></div>`+
+    `<div class="bins" role="group" aria-label="${t("ariaBins")}">`+s.vals.map(v=>`<button type="button" class="bin" data-v="${v}">${v?`<span class="num">${v}</span>`:""}<span>${binLabel(v,s.unit)}</span></button>`).join("")+`</div></div>`;
+  $$("#sortArea .bin").forEach(b=>b.addEventListener("click",()=>checkBin(+b.dataset.v,b)));
+  makeDraggable($("#sortCard"),(x,y)=>{ const el=document.elementFromPoint(x,y); const b=el&&el.closest(".bin"); if(b) checkBin(+b.dataset.v,b); });
+}
+function makeDraggable(el,onDrop){
+  let sx=0,sy=0,drag=false,id=null;
+  el.addEventListener("pointerdown",e=>{ if(sortS&&sortS.busy) return; id=e.pointerId; sx=e.clientX; sy=e.clientY; drag=true; try{el.setPointerCapture(id);}catch(_){} el.classList.add("dragging"); });
+  el.addEventListener("pointermove",e=>{ if(!drag||e.pointerId!==id) return; el.style.transform=`translate(${e.clientX-sx}px,${e.clientY-sy}px)`; });
+  const end=e=>{ if(!drag||e.pointerId!==id) return; drag=false; el.classList.remove("dragging");
+    const moved=Math.hypot(e.clientX-sx,e.clientY-sy)>10; el.style.pointerEvents="none"; el.style.transform="";
+    if(moved && e.type==="pointerup") onDrop(e.clientX,e.clientY); el.style.pointerEvents=""; };
+  el.addEventListener("pointerup",end); el.addEventListener("pointercancel",end);
+}
+function checkBin(v,btn){
+  const s=sortS; if(!s||s.type!=="bins"||s.busy) return;
+  const it=s.items[s.i], n=SIDES[it.kind], fb=$("#sortFb");
+  if(v===n){
+    s.busy=true; btn.classList.add("correctpick");
+    let m=n===0?t("goodSortCircle"):t("goodSort",{shape:t(it.kind),n,unit:unitWord(s.unit)});
+    const last=s.i===s.items.length-1; if(last){ m+=" "+t("sortDone"); addStar(); }
+    showFb(fb,"good",m);
+    afterPraise(m,"sort",()=>{ if(last) newSort(); else { s.i++; hideFb(fb); renderBinItem(); } },last?1500:900);
+  }else{
+    flashWrong(btn); const m=n===0?t("hintSortCircle"):t("hintSort"); showFb(fb,"hint",m); speak(m);
+  }
+}
+function startSame(){
+  const kinds=pool().filter(k=>k!=="circle"), kind=rand(kinds), yes=Math.random()<.5, a=randShape(kind);
+  let b;
+  if(yes){ b=randShape(kind); while(b.fill===a.fill) b.fill=rand(COLORS); b.scale=a.scale>.8?.62:1; if(b.rot===a.rot) b.rot=(a.rot+90)%360; }
+  else{ b=randShape(rand(kinds.filter(k=>SIDES[k]!==SIDES[kind]))); b.fill=a.fill; b.scale=a.scale; b.rot=a.rot; }
+  sortS={type:"same",kind,yes,a,b,done:false};
+  setPrompt("sort",t("sameDir",{shape:t(kind)}));
+  $("#sortArea").innerHTML=`<div class="pair"><div class="shapebox"><div aria-hidden="true">1</div>${shapeSVG(a.kind,a)}</div><div class="shapebox"><div aria-hidden="true">2</div>${shapeSVG(b.kind,b)}</div></div>`+
+    `<div class="yn"><button type="button" class="btn" data-a="1">👍 ${t("yes")}</button><button type="button" class="btn" data-a="0">👎 ${t("no")}</button></div>`;
+  $$("#sortArea .yn .btn").forEach(btn=>btn.addEventListener("click",()=>checkSame(btn.dataset.a==="1",btn)));
+}
+function checkSame(ans,btn){
+  const s=sortS; if(s.done) return; const fb=$("#sortFb"), n=SIDES[s.kind], m=SIDES[s.b.kind];
+  if(ans===s.yes){
+    s.done=true; btn.classList.add("correctpick"); lockAll("#sortArea .yn .btn"); addStar();
+    const msg=s.yes?t("goodSameYes",{n}):t("goodSameNo",{m,n,shape:t(s.kind)});
+    showFb(fb,"good",msg); afterPraise(msg,"sort",newSort,1600);
+  }else{
+    flashWrong(btn); const msg=s.yes?t("hintSameYes",{n}):t("hintSameNo",{n,m}); showFb(fb,"hint",msg); speak(msg);
+  }
+}
+function startFind(){
+  const g2=G2(), by=rand(g2?["sides","verts","name"]:["sides","sides","verts","name"]);
+  const polys=pool().filter(k=>k!=="circle");
+  let target,isAns;
+  if(by==="name"){ target=rand(g2?["triangle","pentagon","hexagon","octagon"]:["triangle","hexagon"]); isAns=k=>k===target; }
+  else{ target=rand([...new Set(polys.map(k=>SIDES[k]))]); isAns=k=>SIDES[k]===target; }
+  const nAns=rand([2,3]), ansK=polys.filter(isAns), othK=polys.filter(k=>!isAns(k));
+  let items=[]; for(let i=0;i<nAns;i++) items.push(Object.assign(randShape(rand(ansK),i===0?true:undefined),{ans:true}));
+  while(items.length<6) items.push(Object.assign(randShape(rand(othK)),{ans:false}));
+  items=shuffle(items);
+  sortS={type:"find",by,target,nAns,found:0,done:false};
+  setPrompt("sort",by==="name"?t("findNameDir",{shape:t(target)}):t(by==="sides"?"findSidesDir":"findVertsDir",{n:target}));
+  const g=document.createElement("div"); g.className="choices"; g.setAttribute("role","group");
+  items.forEach((it,i)=>{ const b=cardBtn(shapeSVG(it.kind,it),t("choiceLbl",{i:i+1}),b=>checkFind(b,it)); b.dataset.ans=it.ans?1:0; g.appendChild(b); });
+  const a=$("#sortArea"); a.innerHTML=""; a.appendChild(g);
+}
+function checkFind(btn,it){
+  const s=sortS; if(s.done||btn.classList.contains("correctpick")) return; const fb=$("#sortFb");
+  const unit=s.by==="verts"?"verts":"sides";
+  if(it.ans){
+    btn.classList.add("correctpick"); s.found++;
+    if(s.found>=s.nAns){
+      s.done=true; lockAll("#sortArea .choice"); addStar();
+      const m=s.by==="name"?t("goodFindName",{shape:t(s.target),n:SIDES[s.target]}):t("goodFindAll",{n:s.target,unit:unitWord(unit)});
+      showFb(fb,"good",m); afterPraise(m,"sort",newSort,1600);
+    }else{ const m=t("findLeft",{k:s.nAns-s.found}); showFb(fb,"good",m); speak(m); }
+  }else{
+    flashWrong(btn); const m=SIDES[it.kind];
+    const msg=s.by==="name"?t("hintFindName",{other:t(it.kind),m,shape:t(s.target),n:SIDES[s.target]}):t("hintFindCount",{m,unit:unitWord(unit),n:s.target});
+    showFb(fb,"hint",msg); speak(msg);
+  }
+}
+
+/* =========================================================================
+   MODE 2 — SOLID DETECTIVE (tap · face · count · clue)
+   ========================================================================= */
+let solidS=null;
+function newSolid(){
+  roundIds.solid++; hideFb($("#solidFb"));
+  const g2=G2(), type=rand(["tap","face","count","count","clue"]), a=$("#solidArea"); a.innerHTML="";
+  if(type==="tap"||type==="clue"){
+    const qs=g2?["sphere","cylinder","cone","cube","tprism","rprism"]:["sphere","cylinder","cone","cube","tprism"];
+    const target=type==="tap"?rand(SOLIDS):rand(qs);
+    let others=shuffle(SOLIDS.filter(k=>k!==target)).slice(0,g2?3:2);
+    if(target==="rprism"&&!others.includes("cube")) others[0]="cube";
+    if(target==="cube"&&type==="clue"&&!others.includes("rprism")) others[0]="rprism";
+    solidS={type,target,done:false};
+    setPrompt("solid",type==="tap"?t("solidTapDir",{dsolid:t("the_"+target)}):t("q_"+target));
+    const g=document.createElement("div"); g.className="choices wide"; g.setAttribute("role","group");
+    shuffle([target].concat(others)).forEach((k,i)=>{ const b=cardBtn(solidSVG(k),t("choiceLbl",{i:i+1}),b=>checkSolidPick(b,k)); b.dataset.k=k; g.appendChild(b); });
+    a.appendChild(g);
+  }else if(type==="face"){
+    const target=rand(["cube","rprism","tprism","cylinder","cone"]), right=FACE[target];
+    const dis=shuffle(["square","rectangle","triangle","circle","hexagon"].concat(g2?["pentagon"]:[]).filter(k=>!FACESET[target].includes(k))).slice(0,g2?3:2);
+    solidS={type,target,right,done:false};
+    setPrompt("solid",t("faceDir"));
+    a.innerHTML=`<div class="solidwrap"><div class="solidbig">${solidSVG(target)}</div><div class="solidside"><div class="choices" role="group" id="faceGrid"></div></div></div>`;
+    shuffle([right].concat(dis)).forEach(k=>{ const b=cardBtn(shapeSVG(k,{fill:"#f4c95d"})+`<span class="lbl">${t(k)}</span>`,t(k),b=>checkFace(b,k)); b.dataset.k=k; $("#faceGrid").appendChild(b); });
+  }else{
+    const target=rand(["cube","rprism","tprism"]), attr=rand(g2?["faces","edges","verts"]:["faces","verts"]), ans=SCOUNT[target][attr];
+    const pool2=[...new Set([ans-2,ans-1,ans+1,ans+2,SCOUNT[target].faces,SCOUNT[target].edges,SCOUNT[target].verts].filter(v=>v>0&&v!==ans))];
+    const nums=shuffle(pool2).slice(0,3).concat([ans]).sort((x,y)=>x-y);
+    solidS={type,target,attr,ans,done:false,tapped:[]};
+    const dir=t("countDir_"+attr);
+    setPrompt("solid",dir,attr==="verts"?dir+" "+t("tapDots"):dir);
+    a.innerHTML=`<div class="solidwrap"><div class="solidbig" id="solidPic">${solidSVG(target,{dots:attr==="verts"})}</div><div class="solidside">`+
+      (attr==="verts"?`<p class="stds" style="margin:0 0 .4rem">${t("tapDots")}</p><p class="counted" id="countedLbl" aria-live="polite">${t("counted",{n:0})}</p>`:"")+
+      `<div class="numrow" role="group">${nums.map(v=>`<button type="button" class="numbtn" data-v="${v}">${v}</button>`).join("")}</div></div></div>`;
+    $$("#solidArea .numbtn").forEach(b=>b.addEventListener("click",()=>checkCount(b,+b.dataset.v)));
+    $$("#solidArea .vdot").forEach(g=>{ g.addEventListener("click",()=>tapDot(g)); g.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); tapDot(g); } }); });
+  }
+  maybeAuto("solid");
+}
+function tapDot(g){
+  const s=solidS, i=+g.dataset.i, k=s.tapped.indexOf(i);
+  if(k>=0) s.tapped.splice(k,1); else s.tapped.push(i);
+  $$("#solidArea .vdot").forEach(d=>{ const j=s.tapped.indexOf(+d.dataset.i); d.classList.toggle("on",j>=0); d.setAttribute("aria-pressed",j>=0); d.querySelector(".dn").textContent=j>=0?j+1:""; });
+  $("#countedLbl").textContent=t("counted",{n:s.tapped.length});
+}
+function checkSolidPick(btn,k){
+  const s=solidS; if(s.done) return; const fb=$("#solidFb");
+  if(k===s.target){
+    s.done=true; btn.classList.add("correctpick"); lockAll("#solidArea .choice"); addStar();
+    const m=t("goodSolid",{dsolid:t("the_"+k),fact:t("fact_"+k)}); showFb(fb,"good",m); afterPraise(m,"solid",newSolid,1800);
+  }else{
+    flashWrong(btn);
+    const m=s.type==="tap"?t("hintSolidTap",{dsolid:t("the_"+k),fact:t("fact_"+k),dtarget:t("the_"+s.target)}):t("hintSolidQ",{dsolid:t("the_"+k),fact:t("fact_"+k)});
+    showFb(fb,"hint",m); speak(m);
+  }
+}
+function checkFace(btn,k){
+  const s=solidS; if(s.done) return; const fb=$("#solidFb"), d=t("the_"+s.target), f=t("fact_"+s.target);
+  if(k===s.right){
+    s.done=true; btn.classList.add("correctpick"); lockAll("#solidArea .choice"); addStar();
+    const m=t("goodFace",{dsolid:d,shape:t(k),fact:f}); showFb(fb,"good",m); afterPraise(m,"solid",newSolid,1800);
+  }else{ flashWrong(btn); const m=t("hintFace",{dsolid:d,shape:t(k),fact:f}); showFb(fb,"hint",m); speak(m); }
+}
+function checkCount(btn,v){
+  const s=solidS; if(s.done) return; const fb=$("#solidFb");
+  if(v===s.ans){
+    s.done=true; btn.classList.add("correctpick"); lockAll("#solidArea .numbtn"); addStar();
+    const m=t("goodCount",{dsolid:t("the_"+s.target),n:v,unit:t(UNIT[s.attr])}); showFb(fb,"good",m); afterPraise(m,"solid",newSolid,1600);
+  }else{ flashWrong(btn); const m=t("hint_"+s.attr); showFb(fb,"hint",m); speak(m); }
+}
+
+/* =========================================================================
+   MODE 3 — SHAPE PUZZLES (compose with pattern blocks on a lattice)
+   ========================================================================= */
+const SQ3=Math.sqrt(3)/2;
+const LAT={
+  tri:{xy:([i,j])=>[52*(i+j/2),52*SQ3*j], rot:([i,j])=>[-j,i+j], nrot:6,
+       cells:(i,j)=>[[[i,j],[i+1,j],[i,j+1]],[[i+1,j],[i+1,j+1],[i,j+1]]], blocks:["hex","trap","rhom","tri"]},
+  sq:{xy:([i,j])=>[58*i,58*j], rot:([i,j])=>[-j,i], nrot:4,
+      cells:(i,j)=>{ const c=[i+.5,j+.5], q=[[i,j],[i+1,j],[i+1,j+1],[i,j+1]]; return [0,1,2,3].map(k=>[q[k],q[(k+1)%4],c]); }, blocks:["sqr","rect","rtri"]}
+};
+const BLOCK={
+  hex:{pts:[[1,0],[2,0],[2,1],[1,2],[0,2],[0,1]],col:"#f2c811",name:"hexagon",lat:"tri"},
+  trap:{pts:[[0,0],[2,0],[1,1],[0,1]],col:"#e5484d",name:"trapezoid",lat:"tri"},
+  rhom:{pts:[[0,0],[1,0],[1,1],[0,1]],col:"#2f6fdc",name:"rhombus",lat:"tri"},
+  tri:{pts:[[0,0],[1,0],[0,1]],col:"#2fa84f",name:"triangle",lat:"tri"},
+  sqr:{pts:[[0,0],[1,0],[1,1],[0,1]],col:"#f57c00",name:"square",lat:"sq"},
+  rect:{pts:[[0,0],[2,0],[2,1],[0,1]],col:"#8e5bd0",name:"rectangle",lat:"sq"},
+  rtri:{pts:[[0,0],[1,0],[0,1]],col:"#10a2a2",name:"triangle",lat:"sq"}
+};
+const PUZ=[
+  {lat:"tri",name:"hexagon",poly:[[1,0],[2,0],[2,1],[1,2],[0,2],[0,1]],g:1},
+  {lat:"tri",name:"trapezoid",poly:[[0,0],[2,0],[1,1],[0,1]],g:1},
+  {lat:"tri",name:"rhombus",poly:[[0,0],[1,0],[1,1],[0,1]],g:1,small:1},
+  {lat:"tri",name:"triangle",poly:[[0,0],[2,0],[0,2]],g:1},
+  {lat:"tri",name:"rhombus",poly:[[0,0],[2,0],[2,2],[0,2]],g:1},
+  {lat:"tri",name:"trapezoid",poly:[[0,0],[4,0],[2,2],[0,2]],g:2},
+  {lat:"tri",name:"triangle",poly:[[0,0],[3,0],[0,3]],g:2},
+  {lat:"sq",name:"square",poly:[[0,0],[2,0],[2,2],[0,2]],g:1},
+  {lat:"sq",name:"rectangle",poly:[[0,0],[2,0],[2,1],[0,1]],g:1},
+  {lat:"sq",name:"triangle",poly:[[0,0],[2,2],[0,2]],g:1},
+  {lat:"sq",name:"house",poly:[[0,1],[1,0],[2,1],[2,3],[0,3]],g:2}
+];
+function prepPuzzle(pz){
+  const L=LAT[pz.lat], ox=pz.poly.map(L.xy), is=pz.poly.map(p=>p[0]), js=pz.poly.map(p=>p[1]);
+  const i0=Math.min(...is)-4,i1=Math.max(...is)+4,j0=Math.min(...js)-1,j1=Math.max(...js)+1;
+  const cells=[];
+  for(let j=j0;j<=j1;j++) for(let i=i0;i<=i1;i++) L.cells(i,j).forEach(tr=>{ const P=tr.map(L.xy), c=centroid(P); if(pip(c,ox)) cells.push({P,c}); });
+  const cellA=areaOf(cells[0].P), pls=[], seen=new Set(), blocks=[];
+  L.blocks.forEach(b=>{
+    let pts=BLOCK[b].pts; const need=Math.round(areaOf(pts.map(L.xy))/cellA);
+    if(need>=cells.length) return;  // never offer a block that is the whole target
+    blocks.push(b);
+    for(let r=0;r<L.nrot;r++){ if(r) pts=pts.map(L.rot);
+      for(let tj=j0-5;tj<=j1+5;tj++) for(let ti=i0-5;ti<=i1+5;ti++){
+        const poly=pts.map(([a,c])=>L.xy([a+ti,c+tj])), cov=[];
+        cells.forEach((cl,k)=>{ if(pip(cl.c,poly)) cov.push(k); });
+        if(cov.length!==need) continue;
+        const key=b+":"+cov.join(","); if(seen.has(key)) continue; seen.add(key);
+        let mask=0; cov.forEach(k=>mask|=1<<k);
+        pls.push({b,cells:cov,mask,poly,c:centroid(poly),id:pls.length});
+      }}
+  });
+  const byCell=cells.map((_,k)=>pls.filter(p=>p.cells.includes(k))), full=(1<<cells.length)-1, memo=new Map();
+  const rec=m=>{ if(m===full) return new Set([0]); if(memo.has(m)) return memo.get(m);
+    let i=0; while(m&(1<<i)) i++; const out=new Set();
+    byCell[i].forEach(p=>{ if(!(p.mask&m)) rec(m|p.mask).forEach(c=>out.add(c+1)); });
+    memo.set(m,out); return out; };
+  return {ox,cells,pls,blocks,full,counts:[...rec(0)].sort((a,b)=>a-b)};
+}
+let cmpS=null;
+function newCompose(){
+  roundIds.compose++; hideFb($("#composeFb"));
+  const list=PUZ.filter(p=>G2()?!p.small:p.g===1);
+  let pz=rand(list); if(cmpS&&list.length>1) while(pz===cmpS.pz) pz=rand(list);
+  const P=pz.prep||(pz.prep=prepPuzzle(pz));
+  let exact=null;
+  if(G2()){ const opts=P.counts.filter(c=>c>1&&c<P.counts[P.counts.length-1]); if(opts.length&&Math.random()<.75) exact=rand(opts); }
+  cmpS={pz,P,placed:[],sel:P.blocks[0],exact,ways:new Set(),done:false};
+  const target=t(pz.name);
+  setPrompt("compose",exact?t("composeDirN",{target,k:exact}):t("composeDir",{target}));
+  renderTray(); renderBoard(); maybeAuto("compose");
+}
+function blockSVG(b){
+  const L=LAT[BLOCK[b].lat], P=BLOCK[b].pts.map(L.xy), xs=P.map(p=>p[0]), ys=P.map(p=>p[1]);
+  const x0=Math.min(...xs)-4,y0=Math.min(...ys)-4,w=Math.max(...xs)-x0+4,h=Math.max(...ys)-y0+4;
+  return `<svg viewBox="${f1(x0)} ${f1(y0)} ${f1(w)} ${f1(h)}" aria-hidden="true" focusable="false"><polygon points="${ptsStr(P)}" fill="${BLOCK[b].col}" stroke="#1d2b36" stroke-width="3" stroke-linejoin="round"/></svg>`;
+}
+function renderTray(){
+  const tr=$("#cmpTray"); tr.innerHTML="";
+  cmpS.P.blocks.forEach(b=>{
+    const btn=document.createElement("button"); btn.type="button"; btn.className="blockbtn"; btn.dataset.b=b;
+    btn.setAttribute("aria-pressed",cmpS.sel===b?"true":"false"); btn.innerHTML=blockSVG(b)+`<span>${t(BLOCK[b].name)}</span>`;
+    let sx=0,sy=0,pid=null,moved=false,ghost=null;
+    btn.addEventListener("pointerdown",e=>{ pid=e.pointerId; sx=e.clientX; sy=e.clientY; moved=false; try{btn.setPointerCapture(pid);}catch(_){} });
+    btn.addEventListener("pointermove",e=>{ if(e.pointerId!==pid) return;
+      if(!moved&&Math.hypot(e.clientX-sx,e.clientY-sy)>10){ moved=true; selectBlock(b); ghost=document.createElement("div"); ghost.className="dragghost"; ghost.innerHTML=blockSVG(b); document.body.appendChild(ghost); }
+      if(ghost){ ghost.style.left=e.clientX+"px"; ghost.style.top=e.clientY+"px"; } });
+    const end=e=>{ if(e.pointerId!==pid) return; pid=null; if(ghost){ ghost.remove(); ghost=null; }
+      if(moved&&e.type==="pointerup"){ const el=document.elementFromPoint(e.clientX,e.clientY), c=el&&el.closest&&el.closest(".cell");
+        if(c) placeAt(+c.dataset.k,svgPt(e.clientX,e.clientY)); else if(el&&el.closest&&el.closest(".placedb")) placeAt(-1); } };
+    btn.addEventListener("pointerup",end); btn.addEventListener("pointercancel",end);
+    btn.addEventListener("click",()=>{ if(moved){ moved=false; return; } selectBlock(b); });
+    tr.appendChild(btn);
+  });
+}
+function selectBlock(b){ cmpS.sel=b; $$("#cmpTray .blockbtn").forEach(x=>x.setAttribute("aria-pressed",x.dataset.b===b?"true":"false")); }
+function filledMask(except){ return cmpS.placed.reduce((m,p)=>p===except?m:m|p.pl.mask,0); }
+function renderBoard(){
+  const s=cmpS, P=s.P, xs=P.cells.flatMap(c=>c.P.map(p=>p[0])), ys=P.cells.flatMap(c=>c.P.map(p=>p[1]));
+  const x0=Math.min(...xs)-8,y0=Math.min(...ys)-8,w=Math.max(...xs)-x0+8,h=Math.max(...ys)-y0+8, fm=filledMask();
+  let h1=`<svg viewBox="${f1(x0)} ${f1(y0)} ${f1(w)} ${f1(h)}" role="group" aria-label="${t("ariaBoard")}">`;
+  P.cells.forEach((c,k)=>{ const used=fm&(1<<k);
+    h1+=`<polygon class="cell" data-k="${k}" points="${ptsStr(c.P)}" fill="#e8f2fa" stroke="#c4d9ea" stroke-width="1"${used?' tabindex="-1" aria-hidden="true"':` tabindex="0" role="button" aria-label="${t("spot",{i:k+1})}"`}/>`; });
+  s.placed.forEach((p,i)=>{ h1+=`<polygon class="placedb" data-p="${i}" points="${ptsStr(p.pl.poly)}" fill="${BLOCK[p.pl.b].col}" stroke="#1d2b36" stroke-width="3" stroke-linejoin="round" tabindex="0" role="button" aria-label="${t(BLOCK[p.pl.b].name)}"/>`; });
+  h1+=`<polygon points="${ptsStr(P.ox)}" fill="none" stroke="#1d3b53" stroke-width="4" stroke-dasharray="10 6" stroke-linejoin="round" pointer-events="none"/></svg>`;
+  $("#cmpBoard").innerHTML=h1;
+}
+function svgPt(cx,cy){ const svg=$("#cmpBoard svg"); const pt=svg.createSVGPoint(); pt.x=cx; pt.y=cy; const r=pt.matrixTransform(svg.getScreenCTM().inverse()); return [r.x,r.y]; }
+function placeAt(k,pt){
+  const s=cmpS, fb=$("#composeFb");
+  if(!s.sel){ const m=t("pickFirst"); showFb(fb,"hint",m); speak(m); return; }
+  const fm=filledMask();
+  const cands=k<0?[]:s.P.pls.filter(p=>p.b===s.sel&&p.cells.includes(k)&&!(p.mask&fm));
+  if(!cands.length){ const m=t("noFit"); showFb(fb,"hint",m); speak(m); return; }
+  pt=pt||s.P.cells[k].c;
+  cands.sort((a,b)=>Math.hypot(a.c[0]-pt[0],a.c[1]-pt[1])-Math.hypot(b.c[0]-pt[0],b.c[1]-pt[1]));
+  s.placed.push({pl:cands[0],anchor:k}); hideFb(fb); renderBoard(); checkCompose();
+}
+function removePlaced(i){ cmpS.placed.splice(i,1); cmpS.done=false; hideFb($("#composeFb")); renderBoard(); }
+function turnLast(){
+  const s=cmpS, last=s.placed[s.placed.length-1]; if(!last) return;
+  const fm=filledMask(last), alts=s.P.pls.filter(p=>p.b===last.pl.b&&p.cells.includes(last.anchor)&&!(p.mask&fm));
+  if(alts.length<2) return;
+  last.pl=alts[(alts.indexOf(last.pl)+1)%alts.length]; s.done=false; hideFb($("#composeFb")); renderBoard(); checkCompose();
+}
+function checkCompose(){
+  const s=cmpS; if(filledMask()!==s.P.full) return;
+  const fb=$("#composeFb"), k=s.placed.length;
+  if(s.exact&&k!==s.exact){ const m=t("hintExact",{k,n:s.exact}); showFb(fb,"hint",m); speak(m); return; }
+  const sig=s.placed.map(p=>p.pl.id).sort((a,b)=>a-b).join(",");
+  let m;
+  if(s.ways.has(sig)) m=t("sameWay");
+  else{ s.ways.add(sig); addStar(); m=t("goodCompose",{target:t(s.pz.name),k})+" "+t("newWay",{w:s.ways.size}); }
+  s.done=true; showFb(fb,"good",m); speak(m);
+}
+
+/* =========================================================================
+   MODE 4 — FAIR SHARES (fair? · name the part · examples · how many · cut it)
+   ========================================================================= */
+let fairS=null;
+const V=x=>[[x,0],[x,1]], H=y=>[[0,y],[1,y]], D1=[[0,0],[1,1]], D2=[[1,0],[0,1]];
+const RCUT={2:[V(.5),H(.5),V(.3),D1],3:[V(1/3),V(2/3),V(.5),H(.5)],4:[V(.25),V(.5),V(.75),H(.5),D1,D2],8:[V(.25),V(.5),V(.75),H(.5)]};
+function newFair(){
+  roundIds.fair++; hideFb($("#fairFb"));
+  const g2=G2(), type=rand(g2?["fair","fair","name","example","how","cut","cut"]:["fair","fair","name","example","cut","cut"]);
+  const shape=rand(shapesAllowed()), food=foodFor(shape), n=rand(partsList()), fd=t("f_"+food), a=$("#fairArea");
+  const ps={parts:t("parts"+n),part:t("part"+n)};
+  fairS={type,n,food,done:false};
+  if(type==="fair"){
+    const p=Object.assign(makePart(shape,n,Math.random()<.5),{food}); fairS.p=p;
+    setPrompt("fair",t("fairDir",{food:fd}));
+    a.innerHTML=`<div class="foodbox">${foodSVG(p)}</div><div class="yn"><button type="button" class="btn" data-a="1">👍 ${t("btnFair")}</button><button type="button" class="btn" data-a="0">👎 ${t("btnUnfair")}</button></div>`;
+    $$("#fairArea .yn .btn").forEach(b=>b.addEventListener("click",()=>checkFair(b,b.dataset.a==="1")));
+  }else if(type==="name"||type==="how"){
+    const p=Object.assign(makePart(shape,n,true),{food}); const hi=type==="name"?Math.floor(Math.random()*n):-1;
+    setPrompt("fair",type==="name"?t("nameDir",{food:fd}):t("howDir",ps));
+    const opts=type==="name"?partsList():[2,3,4,8];
+    a.innerHTML=`<div class="foodbox">${foodSVG(p,hi)}</div><div class="numrow" role="group">`+
+      opts.map(k=>`<button type="button" class="numbtn${type==="name"?" word":""}" data-v="${k}">${type==="name"?t("part"+k):k}</button>`).join("")+`</div>`;
+    $$("#fairArea .numbtn").forEach(b=>b.addEventListener("click",()=>checkNameHow(b,+b.dataset.v)));
+  }else if(type==="example"){
+    const others=partsList().filter(k=>k!==n), cards=[{p:makePart(shape,n,true),ok:true},{p:makePart(shape,n,false)},{p:makePart(shape,rand(others),true)}];
+    if(g2) cards.push(Math.random()<.5?{p:makePart(shape,n,false)}:{p:makePart(shape,rand(others),true)});
+    setPrompt("fair",t("exampleDir",ps));
+    const g=document.createElement("div"); g.className="choices wide"; g.setAttribute("role","group");
+    shuffle(cards).forEach((c,i)=>{ c.p.food=food; const b=cardBtn(foodSVG(c.p),t("choiceLbl",{i:i+1}),b=>checkExample(b,c)); b.dataset.ok=c.ok?1:0; g.appendChild(b); });
+    a.innerHTML=""; a.appendChild(g);
+  }else{
+    fairS.cut={shape,food,sel:new Set(),angles:shape==="circle"?Array.from({length:n===3?6:8},(_,i)=>i*(n===3?60:45)-90):null,lines:shape==="circle"?null:RCUT[n]};
+    setPrompt("fair",t("cutDir",{food:fd,parts:ps.parts})+" "+t("cutHow"));
+    renderCut();
+  }
+  maybeAuto("fair");
+}
+function checkFair(btn,ans){
+  const s=fairS; if(s.done) return; const p=s.p, fb=$("#fairFb"), part=t("part"+p.n);
+  if(ans===p.equal){
+    s.done=true; btn.classList.add("correctpick"); lockAll("#fairArea .yn .btn"); addStar();
+    const m=p.equal?t("goodFair",{n:p.n,part})+(p.diff?" "+t("fairShapeNote"):""):t("goodUnfair");
+    showFb(fb,"good",m); afterPraise(m,"fair",newFair,1800);
+  }else{ flashWrong(btn); const m=p.equal?t("hintFair",{n:p.n,part})+(p.diff?" "+t("fairShapeNote"):""):t("hintUnfair"); showFb(fb,"hint",m); speak(m); }
+}
+function checkNameHow(btn,v){
+  const s=fairS; if(s.done) return; const fb=$("#fairFb"), n=s.n;
+  if(v===n){
+    s.done=true; btn.classList.add("correctpick"); lockAll("#fairArea .numbtn"); addStar();
+    const m=s.type==="name"?t("goodName",{n,part:t("part"+n)}):t("goodHow",{whole:t("whole"+n)});
+    showFb(fb,"good",m); afterPraise(m,"fair",newFair,1800);
+  }else{ flashWrong(btn); const m=s.type==="name"?t("hintName",{chosen:t("part"+v),m:v}):t("hintHow",{part:t("part"+n)}); showFb(fb,"hint",m); speak(m); }
+}
+function checkExample(btn,c){
+  const s=fairS; if(s.done) return; const fb=$("#fairFb"), n=s.n, parts=t("parts"+n);
+  if(c.ok){
+    s.done=true; btn.classList.add("correctpick"); lockAll("#fairArea .choice"); addStar();
+    const m=t("goodExample",{n,part:t("part"+n)})+(c.p.diff?" "+t("fairShapeNote"):""); showFb(fb,"good",m); afterPraise(m,"fair",newFair,1800);
+  }else{ flashWrong(btn); const m=c.p.equal?t("hintExCount",{m:c.p.n,parts,n}):t("hintExUneq",{m:c.p.n,parts}); showFb(fb,"hint",m); speak(m); }
+}
+function cutEval(){
+  const c=fairS.cut;
+  if(c.shape==="circle"){
+    const a=[...c.sel].map(i=>c.angles[i]).sort((x,y)=>x-y); if(a.length<2) return {k:1,eq:true};
+    const sp=a.map((x,i)=>(i<a.length-1?a[i+1]:a[0]+360)-x); return {k:a.length,eq:Math.max(...sp)-Math.min(...sp)<.5};
+  }
+  const L=[...c.sel].map(i=>c.lines[i]); if(!L.length) return {k:1,eq:true};
+  const m=new Map(), NX=120, NY=80;
+  for(let yi=0;yi<NY;yi++) for(let xi=0;xi<NX;xi++){ const u=(xi+.5)/NX, v=(yi+.5)/NY; let key="";
+    L.forEach(([[x1,y1],[x2,y2]])=>{ key+=((x2-x1)*(v-y1)-(y2-y1)*(u-x1))>0?"1":"0"; }); m.set(key,(m.get(key)||0)+1); }
+  const cnt=[...m.values()].filter(x=>x>NX*NY*.004);
+  return {k:cnt.length,eq:Math.max(...cnt)/Math.min(...cnt)<1.08};
+}
+function renderCut(focusI){
+  const c=fairS.cut; let vis="", hit="";
+  const seg=(x1,y1,x2,y2,i)=>{ const on=c.sel.has(i);
+    vis+=`<line x1="${f1(x1)}" y1="${f1(y1)}" x2="${f1(x2)}" y2="${f1(y2)}" stroke="${on?"#3b1f05":"#1d4f75"}" stroke-width="${on?5:3}" stroke-linecap="round"${on?"":' stroke-dasharray="7 6" opacity=".8"'} pointer-events="none"/>`;
+    hit+=`<line class="hit" data-i="${i}" x1="${f1(x1)}" y1="${f1(y1)}" x2="${f1(x2)}" y2="${f1(y2)}" stroke="transparent" stroke-width="26" stroke-linecap="round" tabindex="0" role="button" aria-pressed="${on}" aria-label="${t("cutLine",{i:i+1})}"/>`; };
+  if(c.shape==="circle"){
+    c.angles.forEach((a,i)=>{ const r=a*Math.PI/180, ca=Math.cos(r), sa=Math.sin(r);
+      const on=c.sel.has(i);
+      vis+=`<line x1="100" y1="100" x2="${f1(100+(CR+4)*ca)}" y2="${f1(100+(CR+4)*sa)}" stroke="${on?"#3b1f05":"#1d4f75"}" stroke-width="${on?5:3}" stroke-linecap="round"${on?"":' stroke-dasharray="7 6" opacity=".8"'} pointer-events="none"/>`;
+      hit+=`<line class="hit" data-i="${i}" x1="${f1(100+20*ca)}" y1="${f1(100+20*sa)}" x2="${f1(100+(CR+6)*ca)}" y2="${f1(100+(CR+6)*sa)}" stroke="transparent" stroke-width="26" stroke-linecap="round" tabindex="0" role="button" aria-pressed="${on}" aria-label="${t("cutLine",{i:i+1})}"/>`; });
+    vis+=`<circle cx="100" cy="100" r="4" fill="#1d4f75"/>`;
+  }else c.lines.forEach(([[x1,y1],[x2,y2]],i)=>{ const a=rp(x1,y1), b=rp(x2,y2); seg(a[0],a[1],b[0],b[1],i); });
+  const r=cutEval();
+  $("#fairArea").innerHTML=`<div class="foodbox">${foodSVG({shape:c.shape,food:c.food,pieces:[]},-1,vis+hit)}</div><p class="counted" aria-live="polite">${t("piecesLbl",{k:r.k})}</p><div class="yn"><button type="button" class="btn" id="cutDone">✂️ ${t("done")}</button></div>`;
+  $$("#fairArea .hit").forEach(h=>{ h.addEventListener("click",()=>toggleCut(+h.dataset.i)); h.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); toggleCut(+h.dataset.i); } }); });
+  $("#cutDone").addEventListener("click",checkCut);
+  if(focusI!==undefined){ const h=$(`#fairArea .hit[data-i="${focusI}"]`); if(h) h.focus(); }
+}
+function toggleCut(i){ const c=fairS.cut; if(fairS.done) return; if(c.sel.has(i)) c.sel.delete(i); else c.sel.add(i); hideFb($("#fairFb")); renderCut(i); }
+function checkCut(){
+  const s=fairS; if(s.done) return; const fb=$("#fairFb"), n=s.n, r=cutEval(), parts=t("parts"+n); let m;
+  if(!s.cut.sel.size||r.k<2) m=t("hintCutNone");
+  else if(r.k!==n) m=t("hintCutCount",{k:r.k,parts,n});
+  else if(!r.eq) m=t("hintCutUneq",{n});
+  else{
+    s.done=true; addStar(); $("#cutDone").classList.add("correctpick");
+    m=t("goodCut",{n,part:t("part"+n),whole:t("whole"+n)}); showFb(fb,"good",m); afterPraise(m,"fair",newFair,1800); return;
+  }
+  showFb(fb,"hint",m); speak(m);
+}
+
+/* =========================================================================
+   MODE 5 — BIGGER SLICE (more equal parts = smaller parts)
+   ========================================================================= */
+let bigS=null;
+function newBig(){
+  roundIds.big++; hideFb($("#bigFb"));
+  const g2=G2(), type=rand(["slice","slice","friends"]), shape=rand(shapesAllowed()), food=foodFor(shape);
+  let ns=g2?shuffle([2,3,4,8]).slice(0,Math.random()<.6?3:2):shuffle([2,4]);
+  if(type==="friends") ns=ns.slice(0,2);
+  const big=type==="friends"||Math.random()<.5, ans=big?Math.min(...ns):Math.max(...ns);
+  bigS={type,big,ans,done:false};
+  setPrompt("big",type==="friends"?t("friendsDir"):t((big?"bigDir":"smallDir")+(ns.length===2?"2":"3")));
+  const g=document.createElement("div"); g.className="choices wide"; g.setAttribute("role","group");
+  ns.forEach((n,i)=>{ const p=Object.assign(makePart(shape,n,true,true),{food});
+    const extra=type==="friends"?`<div class="kids" aria-hidden="true">${"🧒".repeat(n)}</div><span class="lbl">${t("friendsLbl",{n})}</span>`:"";
+    const b=cardBtn(foodSVG(p,0)+extra,type==="friends"?t("friendsLbl",{n}):t("choiceLbl",{i:i+1}),b=>checkBig(b,n)); b.dataset.n=n; g.appendChild(b); });
+  const a=$("#bigArea"); a.innerHTML=""; a.appendChild(g);
+  maybeAuto("big");
+}
+function checkBig(btn,n){
+  const s=bigS; if(s.done) return; const fb=$("#bigFb");
+  if(n===s.ans){
+    s.done=true; btn.classList.add("correctpick"); lockAll("#bigArea .choice"); addStar();
+    const part=t("part"+n), m=s.type==="friends"?t("goodFriends",{n,part}):t(s.big?"goodBig":"goodSmall",{part});
+    showFb(fb,"good",m); afterPraise(m,"big",newBig,1800);
+  }else{ flashWrong(btn); const m=s.type==="friends"?t("hintFriends"):t(s.big?"hintBig":"hintSmall",{n}); showFb(fb,"hint",m); speak(m); }
+}
+
+/* ---------- Mode switching ---------- */
+const AREA={sort:"#sortArea",solid:"#solidArea",compose:"#cmpBoard",fair:"#fairArea",big:"#bigArea"};
+const NEWF={sort:()=>newSort(),solid:()=>newSolid(),compose:()=>newCompose(),fair:()=>newFair(),big:()=>newBig()};
+function currentMode(){ const b=$$(".tabs button").filter(x=>x.getAttribute("aria-selected")==="true")[0]; return b?b.dataset.mode:"sort"; }
+function firstEnabled(){ return MODES.find(m=>settings.modes[m])||"sort"; }
+function showMode(mode){
+  if(!settings.modes[mode]) mode=firstEnabled();
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
+  $$(".modepanel").forEach(p=>p.classList.add("hidden"));
+  $("#mode-"+mode).classList.remove("hidden");
+  $$(".tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.mode===mode?"true":"false"));
+  if(!$(AREA[mode]).children.length) NEWF[mode]();
+  // Returning to a tab: read its current directions (unless a new round just did).
+  if(switching && speechGen===g0) maybeAuto(mode);
+}
+function resetRounds(){ MODES.forEach(m=>{ roundIds[m]++; $(AREA[m]).innerHTML=""; hideFb($("#"+m+"Fb")); }); }
+function syncTabs(){ $$(".tabs button").forEach(b=>b.style.display=settings.modes[b.dataset.mode]?"":"none"); }
+
+/* ---------- Settings drawer ---------- */
+function buildModeToggles(){
+  const wrap=$("#modeToggles"); wrap.innerHTML="";
+  MODES.forEach(m=>{
+    const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.modes[m]?"checked":""}> <span>${t(MODE_KEY[m])}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{ settings.modes[m]=e.target.checked;
+      if(!MODES.some(k=>settings.modes[k])){ e.target.checked=true; settings.modes[m]=true; }
+      saveSettings(); syncTabs(); if(!settings.modes[currentMode()]) showMode(firstEnabled()); });
+    wrap.appendChild(l);
+  });
+}
+function syncSettingsUI(){
+  $("#setGrade").value=String(settings.grade); $("#setCircles").checked=settings.circles; $("#setRects").checked=settings.rects;
+  $("#setAuto").checked=settings.autoRead; buildModeToggles();
+}
+function closeSettings(){ $("#settingsDrawer").classList.remove("open"); $("#openSettings").focus(); }
+function initSettings(){
+  $("#openSettings").addEventListener("click",()=>{ syncSettingsUI(); $("#settingsDrawer").classList.add("open"); $("#closeSettings").focus(); });
+  $("#closeSettings").addEventListener("click",closeSettings);
+  $("#settingsDrawer").addEventListener("click",e=>{ if(e.target.id==="settingsDrawer") closeSettings(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&$("#settingsDrawer").classList.contains("open")) closeSettings(); });
+  const refresh=()=>{ saveSettings(); resetRounds(); NEWF[currentMode()](); };
+  $("#setGrade").addEventListener("change",e=>{ settings.grade=+e.target.value; refresh(); });
+  $("#setCircles").addEventListener("change",e=>{ settings.circles=e.target.checked; if(!settings.circles&&!settings.rects){ settings.rects=true; $("#setRects").checked=true; } refresh(); });
+  $("#setRects").addEventListener("change",e=>{ settings.rects=e.target.checked; if(!settings.circles&&!settings.rects){ settings.circles=true; $("#setCircles").checked=true; } refresh(); });
+  $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
+  $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
+}
+
+/* ---------- Print cards ---------- */
+function box(svg,w){ return `<div style="width:${w||120}px;display:inline-block;vertical-align:middle">${svg}</div>`; }
+function outlineSVG(pz){
+  const L=LAT[pz.lat], P=pz.poly.map(L.xy), xs=P.map(p=>p[0]), ys=P.map(p=>p[1]);
+  const x0=Math.min(...xs)-6,y0=Math.min(...ys)-6,w=Math.max(...xs)-x0+6,h=Math.max(...ys)-y0+6;
+  return `<svg viewBox="${f1(x0)} ${f1(y0)} ${f1(w)} ${f1(h)}" aria-hidden="true"><polygon points="${ptsStr(P)}" fill="#fff" stroke="#000" stroke-width="3" stroke-dasharray="8 5"/></svg>`;
+}
+function buildPrintCards(){
+  const row=items=>`<div style="display:flex;gap:.8rem;flex-wrap:wrap;align-items:center">${items.join("")}</div>`;
+  const pz=PUZ[0], half=Object.assign(makePart("circle",2,false),{food:"pizza"});
+  const cards=[
+    {title:t("mSort"), body:t("findSidesDir",{n:4}), svg:row(["square","trapezoid","triangle","rhombus","hexagon","rectangle"].map((k,i)=>box(shapeSVG(k,{fill:COLORS[i],rot:i*20}),90)))},
+    {title:t("mSort"), body:t("sameDir",{shape:t("triangle")}), svg:row([box(shapeSVG("triangle",{fill:"#2563eb"})),box(shapeSVG("triangle",{fill:"#e11d48",irr:true,rot:150,scale:.7}))])},
+    {title:t("mSolid"), body:t("countDir_verts"), svg:row([box(solidSVG("cube"),170),box(solidSVG("tprism"),170)])},
+    {title:t("mCompose"), body:t("composeDir",{target:t("hexagon")}), svg:row([box(outlineSVG(pz),150),box(blockSVG("trap"),90),box(blockSVG("rhom"),70),box(blockSVG("tri"),50)])},
+    {title:t("mFair"), body:t("fairDir",{food:t("f_pizza")}), svg:row([box(foodSVG(half),170),box(foodSVG(Object.assign(makePart("rect",4,true,true),{food:"sandwich"})),200)])},
+    {title:t("mBig"), body:t("bigDir2"), svg:row([box(foodSVG(makePart("circle",2,true,true),0),160),box(foodSVG(makePart("circle",4,true,true),0),160)])}
+  ];
+  $("#printArea").innerHTML=`<h1>${t("cardTitle")}</h1>`+cards.map(c=>`<div class="card-print"><h2>${c.title}</h2><p style="font-size:1.2rem">${c.body}</p>${c.svg}</div>`).join("")+`<p style="font-size:.85rem">${stdsText()}</p>`;
+}
+
+/* ---------- Language engine ---------- */
+function resolveLang(){
+  try{ const q=new URLSearchParams(location.search).get("lang"); if(q && T[q]) return q; }catch(e){}
+  try{ const s=localStorage.getItem(LANG_KEY); if(s && T[s]) return s; }catch(e){}
+  const n=(navigator.language||"en").slice(0,2).toLowerCase();
+  if(T[n]) return n;
+  return "en";
+}
+function applyLang(){
+  const meta=LANGS.find(x=>x.code===lang)||LANGS[0];
+  document.documentElement.lang=lang;
+  document.documentElement.dir=meta.dir;
+  document.title=t("appTitle");
+  const sel=$("#langSelect"); if(sel) sel.value=lang;
+  $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
+  $("#stdsNote").textContent=stdsText(); starLabel();
+  if($("#settingsDrawer").classList.contains("open")) buildModeToggles();
+  // Rebuild rounds so every visible and spoken string is in the new language.
+  resetRounds(); NEWF[currentMode()]();
+}
+// Keep standard codes like "1.6(A–H)" readable inside right-to-left text.
+function stdsText(){ const s=t("stds"); return (LANGS.find(x=>x.code===lang)||{}).dir==="rtl"?s.replace(/[A-Za-z0-9][A-Za-z0-9.()–, ]*[A-Za-z0-9)]/g,"\u2066$&\u2069"):s; }
+function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} stopSpeech(); applyLang(); }
+function buildLangSelect(){
+  const sel=$("#langSelect"); sel.innerHTML="";
+  LANGS.forEach(m=>{ const o=document.createElement("option"); o.value=m.code; o.textContent=m.name; sel.appendChild(o); });
+  sel.value=lang;
+  sel.addEventListener("change",()=>setLang(sel.value));
+}
+
+/* ---------- Init ---------- */
+function init(){
+  lang=resolveLang();
+  buildLangSelect();
+  $$(".tabs button").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.mode)));
+  $$(".speaker").forEach(b=>b.addEventListener("click",()=>speak(currentSpeech[b.dataset.speak])));
+  MODES.forEach(m=>$("#"+m+"New").addEventListener("click",()=>{ stopSpeech(); NEWF[m](); }));
+  const board=$("#cmpBoard");
+  board.addEventListener("click",e=>{ const pb=e.target.closest(".placedb"); if(pb){ removePlaced(+pb.dataset.p); return; }
+    const c=e.target.closest(".cell"); if(c) placeAt(+c.dataset.k,svgPt(e.clientX,e.clientY)); });
+  board.addEventListener("keydown",e=>{ if(e.key!=="Enter"&&e.key!==" ") return; const pb=e.target.closest(".placedb"), c=e.target.closest(".cell");
+    if(pb){ e.preventDefault(); removePlaced(+pb.dataset.p); } else if(c){ e.preventDefault(); placeAt(+c.dataset.k); } });
+  $("#cmpTurn").addEventListener("click",turnLast);
+  $("#cmpUndo").addEventListener("click",()=>{ if(cmpS.placed.length) removePlaced(cmpS.placed.length-1); });
+  $("#cmpClear").addEventListener("click",()=>{ cmpS.placed=[]; cmpS.done=false; hideFb($("#composeFb")); renderBoard(); });
+  $("#cmpAnother").addEventListener("click",()=>{ cmpS.placed=[]; cmpS.done=false; hideFb($("#composeFb")); renderBoard(); maybeAuto("compose"); });
+  initSettings();
+  syncTabs();
+  const first=firstEnabled();
+  $$(".tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.mode===first?"true":"false"));
+  $$(".modepanel").forEach(p=>p.classList.toggle("hidden",p.id!=="mode-"+first));
+  applyLang();
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+</script>
+<script>
+/* Student mute toggle — shared across the Digital Math Tools. Self-contained,
+   offline, stores no student data. Gates ALL speech by intercepting
+   speechSynthesis.speak, so muting works regardless of each tool's internals.
+   Reads the shared language preference only to localize its own label. */
+(function(){
+  "use strict";
+  var LKEY='tcea.mathtools.lang', MKEY='tcea.mathtools.muted';
+  var CODES=['en','es','vi','ar','hi','ur','zh'];
+  var LAB={
+    mute:{en:"Mute sound",es:"Silenciar sonido",vi:"Tắt âm thanh",ar:"كتم الصوت",hi:"आवाज़ बंद करें",ur:"آواز بند کریں",zh:"静音"},
+    unmute:{en:"Turn sound on",es:"Activar sonido",vi:"Bật âm thanh",ar:"تشغيل الصوت",hi:"आवाज़ चालू करें",ur:"آواز چالو کریں",zh:"打开声音"}
+  };
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  window.__MT_MUTED = (get(MKEY)==='1');
+  // Intercept every speech request; suppress while muted.
+  try{
+    if(window.speechSynthesis && typeof window.speechSynthesis.speak==='function'){
+      var ss=window.speechSynthesis, orig=ss.speak.bind(ss);
+      ss.speak=function(u){ if(!window.__MT_MUTED){ try{orig(u);}catch(e){} } };
+    }
+  }catch(e){}
+  function curLang(){ var l=get(LKEY)||'en'; return LAB.mute[l]?l:'en'; }
+  function label(el){
+    var on=!window.__MT_MUTED, l=curLang(), txt=on?LAB.mute[l]:LAB.unmute[l];
+    el.textContent=on?'🔊':'🔇';
+    el.setAttribute('aria-label',txt); el.setAttribute('title',txt);
+    el.setAttribute('aria-pressed', on?'false':'true');
+  }
+  function findLangSelect(){
+    var sels=document.querySelectorAll('select');
+    for(var i=0;i<sels.length;i++){ var o=sels[i].options, c=0;
+      for(var j=0;j<o.length;j++){ if(CODES.indexOf((o[j].value||'').toLowerCase())>=0) c++; }
+      if(c>=3) return sels[i];
+    }
+    return null;
+  }
+  function build(){
+    if(document.getElementById('mtMuteBtn')) return;
+    if(!(('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window))) return;
+    var btn=document.createElement('button');
+    btn.id='mtMuteBtn'; btn.type='button';
+    btn.style.cssText='font:inherit;font-size:1.15rem;line-height:1;cursor:pointer;'+
+      'min-width:44px;min-height:44px;padding:8px 12px;border:2px solid #e2dcf1;'+
+      'border-radius:10px;background:#fff;color:#5b3fa5;font-weight:700;margin:0 4px;';
+    btn.addEventListener('click',function(){
+      window.__MT_MUTED=!window.__MT_MUTED;
+      set(MKEY, window.__MT_MUTED?'1':'0');
+      if(window.__MT_MUTED){ try{window.speechSynthesis.cancel();}catch(e){} }
+      label(btn);
+    });
+    btn.addEventListener('focus',function(){btn.style.outline='3px solid #5b3fa5';btn.style.outlineOffset='2px';});
+    btn.addEventListener('blur',function(){btn.style.outline='';});
+    var sel=findLangSelect();
+    if(sel && sel.parentNode){
+      sel.parentNode.insertBefore(btn, sel);
+      sel.addEventListener('change',function(){ setTimeout(function(){label(btn);},0); });
+    }else{
+      btn.style.position='fixed'; btn.style.top='10px'; btn.style.zIndex='9999';
+      btn.style[(document.documentElement.dir==='rtl')?'left':'right']='10px';
+      (document.body||document.documentElement).appendChild(btn);
+    }
+    label(btn);
+  }
+  if(document.readyState==='complete'){ build(); }
+  else{ window.addEventListener('load', build); }
+  window.addEventListener('storage',function(e){ if(e.key===LKEY){ var b=document.getElementById('mtMuteBtn'); if(b) label(b); } });
+})();
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+
+</html>

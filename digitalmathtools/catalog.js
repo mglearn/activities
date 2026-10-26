@@ -78,7 +78,8 @@ window.MATHTOOLS = (function () {
     "Money":{en:"Money",es:"Dinero",vi:"Tiền",ar:"النقود",hi:"पैसे",ur:"رقم",zh:"钱币"},
     "Bar graph":{en:"Bar graph",es:"Gráfica de barras",vi:"Biểu đồ cột",ar:"رسم بالأعمدة",hi:"बार ग्राफ़",ur:"بار گراف",zh:"条形统计图"},
     "Line plot":{en:"Line plot",es:"Diagrama de puntos",vi:"Biểu đồ chấm",ar:"تمثيل بالنقاط",hi:"लाइन प्लॉट",ur:"لائن پلاٹ",zh:"点图"},
-    "Place value":{en:"Place value",es:"Valor posicional",vi:"Giá trị theo hàng",ar:"القيمة المكانية",hi:"स्थानीय मान",ur:"مقامی قدر",zh:"位值"}
+    "Place value":{en:"Place value",es:"Valor posicional",vi:"Giá trị theo hàng",ar:"القيمة المكانية",hi:"स्थानीय मान",ur:"مقامی قدر",zh:"位值"},
+    "Fractions":{en:"Fractions",es:"Fracciones",vi:"Phân số",ar:"الكسور",hi:"भिन्न",ur:"کسور",zh:"分数"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -178,7 +179,19 @@ window.MATHTOOLS = (function () {
         ar:"ابنِ الأعداد حتى 1000 واقرأها وقارن بينها بمكعبات النظام العشري، وبدّل 10 وحدات بعشرة، وجِد ما يزيد 10 وما يقل 10، وعُدّ بالقفز على خط الأعداد.",
         hi:"दस-आधार ब्लॉकों से 1,000 तक की संख्याएँ बनाएँ, पढ़ें और तुलना करें, 10 इकाइयों के बदले 1 दहाई लें, 10 ज़्यादा और 10 कम खोजें, और संख्या रेखा पर उछल गिनती करें।",
         ur:"دس کی بنیاد کے بلاکوں سے 1,000 تک کے عدد بنائیں، پڑھیں اور موازنہ کریں، 10 اکائیوں کے بدلے 1 دہائی لیں، 10 زیادہ اور 10 کم تلاش کریں، اور عددی لکیر پر چھلانگ گنتی کریں۔",
-        zh:"用十进制积木搭出、读出并比较1000以内的数，用10个一换1个十，找出多10和少10的数，并在数轴上跳着数。"} }
+        zh:"用十进制积木搭出、读出并比较1000以内的数，用10个一换1个十，找出多10和少10的数，并在数轴上跳着数。"} },
+    { id:"pizza-party-shapes", collection:"k2", bandId:"k-2", icon:"🍕", accent:"#2980b9",
+      title:"Pizza Party Shapes", href:"k2/pizza-party-shapes/index.html",
+      tags:["2-D shapes","3-D solids","Attributes","Sort","Compose","Fractions"],
+      kw:"shape shapes geometry attribute sides vertices faces edges rhombus trapezoid pentagon hexagon octagon cube prism sphere cone cylinder pattern blocks compose fair shares equal parts half halves third thirds fourth fourths quarter eighth fraction pizza sandwich brownie figuras fracciones mitad 图形 分数",
+      desc:{
+        en:"Sort 2-D shapes by sides and vertices, investigate 3-D solids, fill puzzles with pattern blocks, and cut pizzas and sandwiches into fair shares.",
+        es:"Clasifica figuras 2-D por lados y vértices, investiga cuerpos 3-D, completa rompecabezas con bloques y corta pizzas y sándwiches en partes iguales.",
+        vi:"Phân loại hình 2-D theo cạnh và đỉnh, khám phá khối 3-D, ghép hình bằng các khối mẫu, và chia đều bánh pizza, bánh mì kẹp.",
+        ar:"افرز الأشكال ثنائية الأبعاد حسب الأضلاع والرؤوس، واستكشف المجسمات، واملأ الألغاز بالقطع، وقسّم البيتزا والشطائر إلى حصص متساوية.",
+        hi:"2-D आकृतियों को भुजाओं और शीर्षों से छाँटें, 3-D ठोस जाँचें, ब्लॉकों से पहेलियाँ भरें, और पिज़्ज़ा व सैंडविच को बराबर हिस्सों में काटें।",
+        ur:"2-D اشکال کو اطراف اور راس کے لحاظ سے چھانٹیں، 3-D ٹھوس دریافت کریں، بلاکس سے پہیلیاں بھریں، اور پیزا و سینڈوچ کو برابر حصوں میں کاٹیں۔",
+        zh:"按边和顶点给二维图形分类，探索立体图形，用图形积木拼图，并把披萨和三明治平均分。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
