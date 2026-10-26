@@ -116,6 +116,16 @@
   footer a{margin:0 8px}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
   .warn{background:#fff4e0;border:3px solid #d99a2b;color:#7a4f0c;border-radius:12px;padding:8px 12px;font-weight:700;margin-top:8px;display:none}
+  .token.drag{touch-action:none;-webkit-user-select:none;user-select:none;cursor:grab}
+  .token.lifted{opacity:.3}
+  .mat.drop-hot{outline:4px solid var(--focus);outline-offset:2px}
+  .mat.eaten{background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23f4f0ea' stroke='%23cfc3b0' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23e2d8c8' stroke-width='2'/%3E%3Cg fill='%23c99a5b'%3E%3Ccircle cx='38' cy='44' r='2.4'/%3E%3Ccircle cx='58' cy='38' r='1.8'/%3E%3Ccircle cx='62' cy='60' r='2.6'/%3E%3Ccircle cx='44' cy='63' r='1.6'/%3E%3Ccircle cx='52' cy='52' r='1.4'/%3E%3C/g%3E%3C/svg%3E") center/130px no-repeat;border-color:#b9a07a;border-style:solid}
+  .mat.ppwplate{background:#fffdf7;border-color:#d9b98a}
+  .mat.lunchbox{background:#e9f1fb;border-color:#7fabde}
+  .mat .hint.low{inset:auto 0 0 0;padding:6px;font-size:.95rem}
+  .bond{display:none;flex-direction:column;align-items:center;margin-top:10px;gap:4px}
+  .bond svg{width:100%;max-width:240px;height:auto;direction:ltr}
+  .bond .bcap{font-weight:700;color:var(--ink-soft);text-align:center;font-size:.98rem}
   @media (prefers-reduced-motion: reduce){.token.pop{animation:none}*{scroll-behavior:auto !important}.anim{transition:none !important}}
   @media (max-width:560px){.story{font-size:1.15rem}.token{width:60px;height:60px}}
 </style>
@@ -146,6 +156,7 @@
   <button class="tab" role="tab" data-mode="join" aria-selected="true"><span aria-hidden="true">➕</span> <span data-i18n="tab_join">Join</span></button>
   <button class="tab" role="tab" data-mode="separate" aria-selected="false"><span aria-hidden="true">➖</span> <span data-i18n="tab_separate">Separate</span></button>
   <button class="tab" role="tab" data-mode="make" aria-selected="false"><span aria-hidden="true">🎯</span> <span data-i18n="tab_make">Make the Number</span></button>
+  <button class="tab" role="tab" data-mode="ppw" aria-selected="false"><span aria-hidden="true">🍱</span> <span data-i18n="tab_ppw">Part–Part–Whole</span></button>
   <button class="tab" role="tab" data-mode="story" aria-selected="false"><span aria-hidden="true">👀</span> <span data-i18n="tab_story">Tell the Story</span></button>
   <button class="tab" role="tab" data-mode="own" aria-selected="false"><span aria-hidden="true">✏️</span> <span data-i18n="tab_own">Make My Own</span></button>
 </div>
@@ -193,6 +204,7 @@
       </div>
       <div class="choices" id="choices" style="display:none" role="group" aria-label="numbers"></div>
       <div class="storybtns" id="storyChoices" style="display:none"></div>
+      <div class="bond" id="bond"></div>
       <div class="feedback" id="feedback" aria-live="assertive">
         <span id="feedbackText"></span>
         <button class="speaker sm" id="speakFeedback" data-i18n-aria="readFeedback" aria-label="Read feedback aloud">🔊</button>
@@ -345,7 +357,24 @@ I18N.en={
     group1:'Group 1',group2:'Group 2',plate:'Plate',segChoose:'Choose which group to add snacks to',
     hintMain:'Tap or drag snacks from below.',hintMake:'Tap snacks below to add here.',
     readStory:'Read the story aloud',readFeedback:'Read the feedback aloud',addOne:'Add one snack',tapRemove:'tap to remove',choose:'Choose',
-    storyJoinOpt:'They joined together',storySepOpt:'Some went away'},
+    storyJoinOpt:'They joined together',storySepOpt:'Some went away',
+    tab_ppw:'Part–Part–Whole',lunchbox:'Lunchbox',whole:'Whole',eatenPlate:'Eaten plate',hintHere:'Drag snacks here',tapEat:'drag or tap to take away',tapBack:'tap to put back',tapMove:'drag or tap to move',bondCap:'Number bond: the whole is on top, the two parts are below.'},
+  ppw:{
+    story:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],nf=function(n){return n===1?sp.s:sp.p},W=p.total,k=p.a,r=p.b;
+      if(p.kind==='part')return 'There are '+w(W)+' '+nf(W)+' on the plate. Put '+w(k)+' in the lunchbox. How many '+sp.p+' are left on the plate?';
+      return 'Put '+w(k)+' '+nf(k)+' in the lunchbox. '+cap(w(r))+' '+nf(r)+' '+(r===1?'stays':'stay')+' on the plate. How many '+sp.p+' are there in all?';},
+    instr:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],nf=function(n){return n===1?sp.s:sp.p},W=p.total,k=p.a,r=p.b;
+      if(p.phase==='split')return 'Drag '+w(k)+' '+nf(k)+' into the lunchbox (or tap '+(k===1?'it':'them')+').';
+      if(p.kind==='part')return cap(w(W))+' is the whole. '+cap(w(k))+' is one part. How many are on the plate?';
+      return cap(w(k))+' and '+w(r)+' are the parts. What is the whole? How many '+sp.p+' in all?';},
+    move:function(Q,p,m){var w=function(n){return Q.words[n]},k=p.a;return m<k?'You moved '+w(m)+'. Move '+w(k-m)+' more to make '+w(k)+'.':'You moved '+w(m)+'. Move '+w(m-k)+' back to make '+w(k)+'.';},
+    win:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],nf=function(n){return n===1?sp.s:sp.p},W=p.total,k=p.a,r=p.b;
+      if(p.kind==='part')return 'Yes! '+cap(w(W))+' is '+w(k)+' and '+w(r)+'. '+cap(w(r))+' '+nf(r)+' '+(r===1?'is':'are')+' left on the plate.';
+      return 'Yes! '+cap(w(k))+' and '+w(r)+' make '+w(W)+'. There are '+w(W)+' '+nf(W)+' in all.';},
+    retry:function(Q,p,v){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a;
+      if(p.kind==='part')return cap(w(k))+' and '+w(v)+' make '+w(k+v)+', not '+w(W)+'. Count the '+sp.p+' left on the plate.';
+      return cap(w(v))+' is too '+(v<W?'few':'many')+'. The whole is all of them. Count the plate and the lunchbox together.';}
+  },
   story:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],pl=Q.scenes[p.scene.id],nf=function(n){return n===1?sp.s:sp.p};
     if(p.op==='join')return cap(w(p.a))+' '+nf(p.a)+' '+(p.a===1?'is':'are')+' on '+pl+'. '+cap(w(p.b))+' more '+nf(p.b)+' '+(p.b===1?'arrives':'arrive')+'. How many '+sp.p+' are there now?';
     if(p.op==='separate')return cap(w(p.a))+' '+nf(p.a)+' '+(p.a===1?'is':'are')+' on '+pl+'. '+cap(w(p.b))+' '+nf(p.b)+' '+(p.b===1?'is':'are')+' eaten. How many '+sp.p+' are left?';
@@ -353,7 +382,7 @@ I18N.en={
     return 'Watch the '+sp.p+'. Did they join together, or did some go away?';},
   instr:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],pl=Q.scenes[p.scene.id],nf=function(n){return n===1?sp.s:sp.p};
     if(p.op==='join'){if(p.phase==='start')return 'Step 1: Put '+w(p.a)+' '+nf(p.a)+' on '+pl+'.';if(p.phase==='change')return 'Step 2: '+cap(w(p.b))+' more '+(p.b===1?'arrives':'arrive')+'. Add '+w(p.b)+' more.';return 'Step 3: Count them all. How many '+sp.p+' now?';}
-    if(p.op==='separate'){if(p.phase==='start')return 'Step 1: Put '+w(p.a)+' '+nf(p.a)+' on '+pl+'.';if(p.phase==='change')return 'Step 2: '+cap(w(p.b))+' '+(p.b===1?'is':'are')+' eaten. Tap '+w(p.b)+' to take '+(p.b===1?'it':'them')+' away.';return 'Step 3: Count what is left. How many '+sp.p+'?';}
+    if(p.op==='separate'){if(p.phase==='start')return 'Step 1: Put '+w(p.a)+' '+nf(p.a)+' on '+pl+'.';if(p.phase==='change')return 'Step 2: '+cap(w(p.b))+' '+(p.b===1?'is':'are')+' eaten. Drag '+w(p.b)+' to the plate (or tap '+(p.b===1?'it':'them')+').';return 'Step 3: Count what is left. How many '+sp.p+'?';}
     if(p.op==='make')return 'Fill both plates so together they make '+w(p.answer)+' '+sp.p+'. Use both plates!';
     if(p.phase==='watch')return 'Watch the snacks. Press Replay Story to see it again.';return 'Did they join together, or did some go away?';},
   win:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack];
@@ -392,7 +421,24 @@ I18N.es={
     group1:'Grupo 1',group2:'Grupo 2',plate:'Plato',segChoose:'Elige a qué grupo agregar snacks',
     hintMain:'Toca o arrastra snacks desde abajo.',hintMake:'Toca los snacks de abajo para agregarlos aquí.',
     readStory:'Leer el cuento en voz alta',readFeedback:'Leer la respuesta en voz alta',addOne:'Agregar un snack',tapRemove:'toca para quitar',choose:'Elige',
-    storyJoinOpt:'Se unieron',storySepOpt:'Algunos se fueron'},
+    storyJoinOpt:'Se unieron',storySepOpt:'Algunos se fueron',
+    tab_ppw:'Parte–Parte–Todo',lunchbox:'Lonchera',whole:'Todo',eatenPlate:'Plato de lo comido',hintHere:'Arrastra snacks aquí',tapEat:'arrastra o toca para quitar',tapBack:'toca para regresar',tapMove:'arrastra o toca para mover',bondCap:'Vínculo numérico: el todo está arriba y las dos partes abajo.'},
+  ppw:{
+    story:function(Q,p){var sp=Q.snacks[p.snack],w=function(n){return Q.words[n]},c=function(n){return n===1?(sp.g==='f'?'una':'un'):w(n)},cu=sp.g==='f'?'Cuántas':'Cuántos',nf=function(n){return n===1?sp.s:sp.p},W=p.total,k=p.a,r=p.b;
+      if(p.kind==='part')return 'Hay '+c(W)+' '+nf(W)+' en el plato. Pon '+c(k)+' en la lonchera. ¿'+cu+' '+sp.p+' quedan en el plato?';
+      return 'Pon '+c(k)+' '+nf(k)+' en la lonchera. '+cap(c(r))+' se queda'+(r===1?'':'n')+' en el plato. ¿'+cu+' '+sp.p+' hay en total?';},
+    instr:function(Q,p){var sp=Q.snacks[p.snack],w=function(n){return Q.words[n]},c=function(n){return n===1?(sp.g==='f'?'una':'un'):w(n)},cu=sp.g==='f'?'Cuántas':'Cuántos',nf=function(n){return n===1?sp.s:sp.p},W=p.total,k=p.a,r=p.b;
+      if(p.phase==='split')return 'Arrastra '+c(k)+' '+nf(k)+' a la lonchera (o tóca'+(sp.g==='f'?'la':'lo')+(k===1?'':'s')+').';
+      if(p.kind==='part')return cap(w(W))+' es el todo. '+cap(w(k))+' es una parte. ¿'+cu+' hay en el plato?';
+      return cap(w(k))+' y '+w(r)+' son las partes. ¿Cuál es el todo? ¿'+cu+' '+sp.p+' hay en total?';},
+    move:function(Q,p,m){var w=function(n){return Q.words[n]},k=p.a;return m<k?'Moviste '+w(m)+'. Mueve '+w(k-m)+' más para tener '+w(k)+'.':'Moviste '+w(m)+'. Regresa '+w(m-k)+' al plato para tener '+w(k)+'.';},
+    win:function(Q,p){var sp=Q.snacks[p.snack],w=function(n){return Q.words[n]},c=function(n){return n===1?(sp.g==='f'?'una':'un'):w(n)},nf=function(n){return n===1?sp.s:sp.p},W=p.total,k=p.a,r=p.b;
+      if(p.kind==='part')return '¡Sí! '+cap(w(W))+' es '+w(k)+' y '+w(r)+'. Queda'+(r===1?'':'n')+' '+c(r)+' '+nf(r)+' en el plato.';
+      return '¡Sí! '+cap(w(k))+' y '+w(r)+' forman '+w(W)+'. Hay '+c(W)+' '+nf(W)+' en total.';},
+    retry:function(Q,p,v){var sp=Q.snacks[p.snack],w=function(n){return Q.words[n]},W=p.total,k=p.a;
+      if(p.kind==='part')return cap(w(k))+' y '+w(v)+' forman '+w(k+v)+', no '+w(W)+'. Cuenta '+(sp.g==='f'?'las':'los')+' '+sp.p+' que quedan en el plato.';
+      return cap(w(v))+(v<W?' es muy poco':' es demasiado')+'. El todo es todos juntos. Cuenta el plato y la lonchera juntos.';}
+  },
   story:function(Q,p){var sp=Q.snacks[p.snack],pl=Q.scenes[p.scene.id];var w=function(n){return Q.words[n]};var c=function(n){return n===1?(sp.g==='f'?'una':'un'):w(n)};var cu=sp.g==='f'?'Cuántas':'Cuántos';var nf=function(n){return n===1?sp.s:sp.p};
     if(p.op==='join')return 'Hay '+c(p.a)+' '+nf(p.a)+' en '+pl+'. Llega'+(p.b===1?'':'n')+' '+c(p.b)+' '+nf(p.b)+' más. ¿'+cu+' '+sp.p+' hay ahora?';
     if(p.op==='separate')return 'Hay '+c(p.a)+' '+nf(p.a)+' en '+pl+'. Se come'+(p.b===1?'':'n')+' '+c(p.b)+' '+nf(p.b)+'. ¿'+cu+' '+sp.p+' quedan?';
@@ -400,7 +446,7 @@ I18N.es={
     return 'Observa '+sp.p+'. ¿Se unieron o se fueron algunos?';},
   instr:function(Q,p){var sp=Q.snacks[p.snack],pl=Q.scenes[p.scene.id];var w=function(n){return Q.words[n]};var c=function(n){return n===1?(sp.g==='f'?'una':'un'):w(n)};var cu=sp.g==='f'?'Cuántas':'Cuántos';var nf=function(n){return n===1?sp.s:sp.p};
     if(p.op==='join'){if(p.phase==='start')return 'Paso 1: Pon '+c(p.a)+' '+nf(p.a)+' en '+pl+'.';if(p.phase==='change')return 'Paso 2: Llega'+(p.b===1?'':'n')+' '+c(p.b)+' más. Agrega '+c(p.b)+' más.';return 'Paso 3: Cuenta todos. ¿'+cu+' '+sp.p+' hay ahora?';}
-    if(p.op==='separate'){if(p.phase==='start')return 'Paso 1: Pon '+c(p.a)+' '+nf(p.a)+' en '+pl+'.';if(p.phase==='change')return 'Paso 2: Se come'+(p.b===1?'':'n')+' '+c(p.b)+'. Toca '+c(p.b)+' para quitar'+(p.b===1?'lo':'los')+'.';return 'Paso 3: Cuenta lo que queda. ¿'+cu+' '+sp.p+'?';}
+    if(p.op==='separate'){if(p.phase==='start')return 'Paso 1: Pon '+c(p.a)+' '+nf(p.a)+' en '+pl+'.';if(p.phase==='change')return 'Paso 2: Se come'+(p.b===1?'':'n')+' '+c(p.b)+'. Arrastra '+c(p.b)+' al plato (o tóca'+(sp.g==='f'?'la':'lo')+(p.b===1?'':'s')+').';return 'Paso 3: Cuenta lo que queda. ¿'+cu+' '+sp.p+'?';}
     if(p.op==='make')return 'Llena los dos platos para que juntos formen '+w(p.answer)+' '+sp.p+'. ¡Usa los dos platos!';
     if(p.phase==='watch')return 'Observa los snacks. Pulsa Repetir cuento para verlo otra vez.';return '¿Se unieron o se fueron algunos?';},
   win:function(Q,p){var w=function(n){return Q.words[n]};
@@ -439,7 +485,24 @@ I18N.vi={
     group1:'Nhóm 1',group2:'Nhóm 2',plate:'Đĩa',segChoose:'Chọn nhóm để thêm món ăn',
     hintMain:'Chạm hoặc kéo món ăn từ bên dưới.',hintMake:'Chạm món ăn bên dưới để thêm vào đây.',
     readStory:'Đọc to câu chuyện',readFeedback:'Đọc to phản hồi',addOne:'Thêm một món',tapRemove:'chạm để bỏ',choose:'Chọn',
-    storyJoinOpt:'Chúng gộp lại',storySepOpt:'Một số rời đi'},
+    storyJoinOpt:'Chúng gộp lại',storySepOpt:'Một số rời đi',
+    tab_ppw:'Phần–Phần–Tổng',lunchbox:'Hộp cơm',whole:'Tổng',eatenPlate:'Đĩa đồ đã ăn',hintHere:'Kéo món ăn vào đây',tapEat:'kéo hoặc chạm để lấy đi',tapBack:'chạm để đặt lại',tapMove:'kéo hoặc chạm để di chuyển',bondCap:'Sơ đồ tách gộp: tổng ở trên, hai phần ở dưới.'},
+  ppw:{
+    story:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
+      if(p.kind==='part')return 'Có '+w(W)+' '+sp.p+' trên đĩa. Bỏ '+w(k)+' cái vào hộp cơm. Còn lại bao nhiêu '+sp.p+' trên đĩa?';
+      return 'Bỏ '+w(k)+' '+sp.p+' vào hộp cơm. '+cap(w(r))+' '+sp.p+' ở lại trên đĩa. Có tất cả bao nhiêu '+sp.p+'?';},
+    instr:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
+      if(p.phase==='split')return 'Kéo '+w(k)+' '+sp.p+' vào hộp cơm (hoặc chạm vào chúng).';
+      if(p.kind==='part')return cap(w(W))+' là tổng. '+cap(w(k))+' là một phần. Trên đĩa có bao nhiêu?';
+      return cap(w(k))+' và '+w(r)+' là hai phần. Tổng là bao nhiêu? Có tất cả bao nhiêu '+sp.p+'?';},
+    move:function(Q,p,m){var w=function(n){return Q.words[n]},k=p.a;return m<k?'Bạn đã chuyển '+w(m)+'. Chuyển thêm '+w(k-m)+' để có '+w(k)+'.':'Bạn đã chuyển '+w(m)+'. Đưa '+w(m-k)+' trở lại đĩa để có '+w(k)+'.';},
+    win:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
+      if(p.kind==='part')return 'Đúng rồi! '+cap(w(W))+' gồm '+w(k)+' và '+w(r)+'. Còn '+w(r)+' '+sp.p+' trên đĩa.';
+      return 'Đúng rồi! '+cap(w(k))+' và '+w(r)+' tạo thành '+w(W)+'. Có tất cả '+w(W)+' '+sp.p+'.';},
+    retry:function(Q,p,v){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a;
+      if(p.kind==='part')return cap(w(k))+' và '+w(v)+' là '+w(k+v)+', không phải '+w(W)+'. Hãy đếm '+sp.p+' còn trên đĩa.';
+      return cap(w(v))+(v<W?' là ít quá':' là nhiều quá')+'. Tổng là tất cả. Hãy đếm cả đĩa và hộp cơm.';}
+  },
   story:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],pl=Q.scenes[p.scene.id];
     if(p.op==='join')return 'Có '+w(p.a)+' '+sp.p+' trên '+pl+'. '+cap(w(p.b))+' '+sp.p+' nữa đến. Bây giờ có bao nhiêu '+sp.p+'?';
     if(p.op==='separate')return 'Có '+w(p.a)+' '+sp.p+' trên '+pl+'. '+cap(w(p.b))+' '+sp.p+' bị ăn mất. Còn lại bao nhiêu '+sp.p+'?';
@@ -447,7 +510,7 @@ I18N.vi={
     return 'Xem '+sp.p+' nhé. Chúng gộp lại hay có vài cái rời đi?';},
   instr:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],pl=Q.scenes[p.scene.id];
     if(p.op==='join'){if(p.phase==='start')return 'Bước 1: Đặt '+w(p.a)+' '+sp.p+' lên '+pl+'.';if(p.phase==='change')return 'Bước 2: '+cap(w(p.b))+' cái nữa đến. Thêm '+w(p.b)+' cái nữa.';return 'Bước 3: Đếm tất cả. Bây giờ có bao nhiêu '+sp.p+'?';}
-    if(p.op==='separate'){if(p.phase==='start')return 'Bước 1: Đặt '+w(p.a)+' '+sp.p+' lên '+pl+'.';if(p.phase==='change')return 'Bước 2: '+cap(w(p.b))+' cái bị ăn mất. Chạm '+w(p.b)+' cái để lấy đi.';return 'Bước 3: Đếm phần còn lại. Có bao nhiêu '+sp.p+'?';}
+    if(p.op==='separate'){if(p.phase==='start')return 'Bước 1: Đặt '+w(p.a)+' '+sp.p+' lên '+pl+'.';if(p.phase==='change')return 'Bước 2: '+cap(w(p.b))+' cái bị ăn mất. Kéo '+w(p.b)+' cái vào đĩa (hoặc chạm vào chúng).';return 'Bước 3: Đếm phần còn lại. Có bao nhiêu '+sp.p+'?';}
     if(p.op==='make')return 'Đổ đầy hai đĩa sao cho tổng cộng là '+w(p.answer)+' '+sp.p+'. Dùng cả hai đĩa!';
     if(p.phase==='watch')return 'Xem các món ăn. Nhấn Kể lại để xem lần nữa.';return 'Chúng gộp lại hay có vài cái rời đi?';},
   win:function(Q,p){var w=function(n){return Q.words[n]};
@@ -486,7 +549,24 @@ I18N.ar={
     group1:'المجموعة 1',group2:'المجموعة 2',plate:'الطبق',segChoose:'اختر المجموعة لإضافة الوجبات',
     hintMain:'انقر أو اسحب الوجبات من الأسفل.',hintMake:'انقر الوجبات في الأسفل لإضافتها هنا.',
     readStory:'اقرأ القصة بصوت عالٍ',readFeedback:'اقرأ الملاحظة بصوت عالٍ',addOne:'أضف وجبة',tapRemove:'انقر للإزالة',choose:'اختر',
-    storyJoinOpt:'اجتمعت معاً',storySepOpt:'ذهب بعضها'},
+    storyJoinOpt:'اجتمعت معاً',storySepOpt:'ذهب بعضها',
+    tab_ppw:'جزء–جزء–كل',lunchbox:'علبة الغداء',whole:'الكل',eatenPlate:'طبق المأكول',hintHere:'اسحب الوجبات إلى هنا',tapEat:'اسحب أو انقر للأخذ',tapBack:'انقر للإرجاع',tapMove:'اسحب أو انقر للنقل',bondCap:'رابطة الأعداد: الكل في الأعلى، والجزءان في الأسفل.'},
+  ppw:{
+    story:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
+      if(p.kind==='part')return 'يوجد '+w(W)+' '+sp.p+' في الطبق. ضع '+w(k)+' في علبة الغداء. كم عدد '+sp.p+' الباقية في الطبق؟';
+      return 'ضع '+w(k)+' '+sp.p+' في علبة الغداء. يبقى '+w(r)+' في الطبق. كم عدد '+sp.p+' كلها؟';},
+    instr:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
+      if(p.phase==='split')return 'اسحب '+w(k)+' إلى علبة الغداء (أو انقر عليها).';
+      if(p.kind==='part')return w(W)+' هو الكل. '+w(k)+' جزء. كم في الطبق؟';
+      return w(k)+' و'+w(r)+' هما الجزءان. ما الكل؟ كم عدد '+sp.p+' كلها؟';},
+    move:function(Q,p,m){var w=function(n){return Q.words[n]},k=p.a;return m<k?'نقلت '+w(m)+'. انقل '+w(k-m)+' أخرى ليصبح العدد '+w(k)+'.':'نقلت '+w(m)+'. أعد '+w(m-k)+' إلى الطبق ليصبح العدد '+w(k)+'.';},
+    win:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
+      if(p.kind==='part')return 'نعم! '+w(W)+' هو '+w(k)+' و'+w(r)+'. بقي '+w(r)+' في الطبق.';
+      return 'نعم! '+w(k)+' و'+w(r)+' يكوّنان '+w(W)+'. المجموع '+w(W)+' '+sp.p+'.';},
+    retry:function(Q,p,v){var w=function(n){return Q.words[n]},W=p.total,k=p.a;
+      if(p.kind==='part')return w(k)+' و'+w(v)+' يكوّنان '+w(k+v)+'، وليس '+w(W)+'. عُدّ ما بقي في الطبق.';
+      return w(v)+(v<W?' قليل جداً':' كثير جداً')+'. الكل هو جميعها. عُدّ الطبق وعلبة الغداء معاً.';}
+  },
   story:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],pl=Q.scenes[p.scene.id];
     if(p.op==='join')return 'يوجد '+w(p.a)+' '+sp.p+' على '+pl+'. يصل '+w(p.b)+' '+sp.p+' أخرى. كم عدد '+sp.p+' الآن؟';
     if(p.op==='separate')return 'يوجد '+w(p.a)+' '+sp.p+' على '+pl+'. أُكل '+w(p.b)+' '+sp.p+'. كم عدد '+sp.p+' المتبقي؟';
@@ -494,7 +574,7 @@ I18N.ar={
     return 'شاهد '+sp.p+'. هل اجتمعت أم ذهب بعضها؟';},
   instr:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],pl=Q.scenes[p.scene.id];
     if(p.op==='join'){if(p.phase==='start')return 'الخطوة 1: ضع '+w(p.a)+' '+sp.p+' على '+pl+'.';if(p.phase==='change')return 'الخطوة 2: يصل '+w(p.b)+' أخرى. أضف '+w(p.b)+' أخرى.';return 'الخطوة 3: عُدّها كلها. كم عدد '+sp.p+' الآن؟';}
-    if(p.op==='separate'){if(p.phase==='start')return 'الخطوة 1: ضع '+w(p.a)+' '+sp.p+' على '+pl+'.';if(p.phase==='change')return 'الخطوة 2: أُكل '+w(p.b)+'. انقر '+w(p.b)+' لأخذها.';return 'الخطوة 3: عُدّ ما تبقّى. كم عدد '+sp.p+'؟';}
+    if(p.op==='separate'){if(p.phase==='start')return 'الخطوة 1: ضع '+w(p.a)+' '+sp.p+' على '+pl+'.';if(p.phase==='change')return 'الخطوة 2: أُكل '+w(p.b)+'. اسحب '+w(p.b)+' إلى الطبق (أو انقر عليها).';return 'الخطوة 3: عُدّ ما تبقّى. كم عدد '+sp.p+'؟';}
     if(p.op==='make')return 'املأ الطبقين ليصبح المجموع '+w(p.answer)+' '+sp.p+'. استخدم كلا الطبقين!';
     if(p.phase==='watch')return 'شاهد الوجبات. اضغط أعد القصة لمشاهدتها ثانية.';return 'هل اجتمعت أم ذهب بعضها؟';},
   win:function(Q,p){var w=function(n){return Q.words[n]};
@@ -533,7 +613,24 @@ I18N.hi={
     group1:'समूह 1',group2:'समूह 2',plate:'प्लेट',segChoose:'नाश्ता जोड़ने के लिए समूह चुनो',
     hintMain:'नीचे से नाश्ते टैप या खींचो।',hintMake:'यहाँ जोड़ने के लिए नीचे के नाश्ते टैप करो।',
     readStory:'कहानी ज़ोर से पढ़ो',readFeedback:'प्रतिक्रिया ज़ोर से पढ़ो',addOne:'एक नाश्ता जोड़ो',tapRemove:'हटाने के लिए टैप',choose:'चुनो',
-    storyJoinOpt:'वे जुड़ गए',storySepOpt:'कुछ चले गए'},
+    storyJoinOpt:'वे जुड़ गए',storySepOpt:'कुछ चले गए',
+    tab_ppw:'भाग–भाग–पूर्ण',lunchbox:'लंचबॉक्स',whole:'पूरा',eatenPlate:'खाए हुए की प्लेट',hintHere:'नाश्ते यहाँ खींचो',tapEat:'हटाने के लिए खींचो या टैप करो',tapBack:'वापस रखने के लिए टैप',tapMove:'हिलाने के लिए खींचो या टैप करो',bondCap:'संख्या बंधन: ऊपर पूरा, नीचे दो भाग।'},
+  ppw:{
+    story:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
+      if(p.kind==='part')return 'प्लेट पर '+w(W)+' '+sp.p+' हैं। '+w(k)+' लंचबॉक्स में रखो। प्लेट पर कितने '+sp.p+' बचे हैं?';
+      return w(k)+' '+sp.p+' लंचबॉक्स में रखो। '+w(r)+' प्लेट पर '+(r===1?'रहता है':'रहते हैं')+'। कुल कितने '+sp.p+' हैं?';},
+    instr:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
+      if(p.phase==='split')return w(k)+' '+sp.p+' को लंचबॉक्स में खींचो (या '+(k===1?'उसे':'उन्हें')+' टैप करो)।';
+      if(p.kind==='part')return w(W)+' पूरा है। '+w(k)+' एक भाग है। प्लेट पर कितने हैं?';
+      return w(k)+' और '+w(r)+' दो भाग हैं। पूरा कितना है? कुल कितने '+sp.p+' हैं?';},
+    move:function(Q,p,m){var w=function(n){return Q.words[n]},k=p.a;return m<k?'तुमने '+w(m)+' रखे। '+w(k)+' बनाने के लिए '+w(k-m)+' और रखो।':'तुमने '+w(m)+' रखे। '+w(k)+' बनाने के लिए '+w(m-k)+' वापस प्लेट पर रखो।';},
+    win:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
+      if(p.kind==='part')return 'हाँ! '+w(W)+' में '+w(k)+' और '+w(r)+' हैं। प्लेट पर '+w(r)+' '+sp.p+' बचे हैं।';
+      return 'हाँ! '+w(k)+' और '+w(r)+' मिलकर '+w(W)+' बनते हैं। कुल '+w(W)+' '+sp.p+' हैं।';},
+    retry:function(Q,p,v){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a;
+      if(p.kind==='part')return w(k)+' और '+w(v)+' मिलकर '+w(k+v)+' बनते हैं, '+w(W)+' नहीं। प्लेट पर बचे '+sp.p+' गिनो।';
+      return w(v)+(v<W?' बहुत कम है':' बहुत ज़्यादा है')+'। पूरा मतलब सब। प्लेट और लंचबॉक्स दोनों को साथ गिनो।';}
+  },
   story:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],pl=Q.scenes[p.scene.id];
     if(p.op==='join')return pl+' पर '+w(p.a)+' '+sp.p+' हैं। '+w(p.b)+' और '+sp.p+' आते हैं। अब कितने '+sp.p+' हैं?';
     if(p.op==='separate')return pl+' पर '+w(p.a)+' '+sp.p+' हैं। '+w(p.b)+' '+sp.p+' खा लिए जाते हैं। अब कितने '+sp.p+' बचे हैं?';
@@ -541,7 +638,7 @@ I18N.hi={
     return sp.p+' को देखो। क्या वे जुड़ गए या कुछ चले गए?';},
   instr:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],pl=Q.scenes[p.scene.id];
     if(p.op==='join'){if(p.phase==='start')return 'चरण 1: '+pl+' पर '+w(p.a)+' '+sp.p+' रखो।';if(p.phase==='change')return 'चरण 2: '+w(p.b)+' और आते हैं। '+w(p.b)+' और जोड़ो।';return 'चरण 3: सब गिनो। अब कितने '+sp.p+' हैं?';}
-    if(p.op==='separate'){if(p.phase==='start')return 'चरण 1: '+pl+' पर '+w(p.a)+' '+sp.p+' रखो।';if(p.phase==='change')return 'चरण 2: '+w(p.b)+' खा लिए जाते हैं। हटाने के लिए '+w(p.b)+' टैप करो।';return 'चरण 3: बचे हुए गिनो। कितने '+sp.p+' हैं?';}
+    if(p.op==='separate'){if(p.phase==='start')return 'चरण 1: '+pl+' पर '+w(p.a)+' '+sp.p+' रखो।';if(p.phase==='change')return 'चरण 2: '+w(p.b)+' खा लिए जाते हैं। '+w(p.b)+' को प्लेट पर खींचो (या '+(p.b===1?'उसे':'उन्हें')+' टैप करो)।';return 'चरण 3: बचे हुए गिनो। कितने '+sp.p+' हैं?';}
     if(p.op==='make')return 'दोनों प्लेटें भरो ताकि मिलाकर '+w(p.answer)+' '+sp.p+' हों। दोनों प्लेटें उपयोग करो!';
     if(p.phase==='watch')return 'नाश्तों को देखो। फिर देखने के लिए कहानी दोहराओ दबाओ।';return 'क्या वे जुड़ गए या कुछ चले गए?';},
   win:function(Q,p){var w=function(n){return Q.words[n]};
@@ -580,7 +677,24 @@ I18N.ur={
     group1:'گروہ 1',group2:'گروہ 2',plate:'پلیٹ',segChoose:'ناشتہ جوڑنے کے لیے گروہ چنو',
     hintMain:'نیچے سے ناشتے ٹیپ یا کھینچو۔',hintMake:'یہاں جوڑنے کے لیے نیچے کے ناشتے ٹیپ کرو۔',
     readStory:'کہانی بلند آواز میں پڑھو',readFeedback:'جواب بلند آواز میں پڑھو',addOne:'ایک ناشتہ جوڑو',tapRemove:'ہٹانے کے لیے ٹیپ',choose:'چنو',
-    storyJoinOpt:'وہ مل گئے',storySepOpt:'کچھ چلے گئے'},
+    storyJoinOpt:'وہ مل گئے',storySepOpt:'کچھ چلے گئے',
+    tab_ppw:'حصہ–حصہ–کل',lunchbox:'لنچ باکس',whole:'پورا',eatenPlate:'کھائے ہوئے کی پلیٹ',hintHere:'ناشتے یہاں کھینچو',tapEat:'ہٹانے کے لیے کھینچو یا ٹیپ کرو',tapBack:'واپس رکھنے کے لیے ٹیپ',tapMove:'ہلانے کے لیے کھینچو یا ٹیپ کرو',bondCap:'عددی بندھن: اوپر پورا، نیچے دو حصے۔'},
+  ppw:{
+    story:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
+      if(p.kind==='part')return 'پلیٹ پر '+w(W)+' '+sp.p+' ہیں۔ '+w(k)+' لنچ باکس میں رکھو۔ پلیٹ پر کتنے '+sp.p+' بچے ہیں؟';
+      return w(k)+' '+sp.p+' لنچ باکس میں رکھو۔ '+w(r)+' پلیٹ پر '+(r===1?'رہتا ہے':'رہتے ہیں')+'۔ کل کتنے '+sp.p+' ہیں؟';},
+    instr:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
+      if(p.phase==='split')return w(k)+' '+sp.p+' کو لنچ باکس میں کھینچو (یا '+(k===1?'اسے':'انہیں')+' ٹیپ کرو)۔';
+      if(p.kind==='part')return w(W)+' پورا ہے۔ '+w(k)+' ایک حصہ ہے۔ پلیٹ پر کتنے ہیں؟';
+      return w(k)+' اور '+w(r)+' دو حصے ہیں۔ پورا کتنا ہے؟ کل کتنے '+sp.p+' ہیں؟';},
+    move:function(Q,p,m){var w=function(n){return Q.words[n]},k=p.a;return m<k?'تم نے '+w(m)+' رکھے۔ '+w(k)+' بنانے کے لیے '+w(k-m)+' اور رکھو۔':'تم نے '+w(m)+' رکھے۔ '+w(k)+' بنانے کے لیے '+w(m-k)+' واپس پلیٹ پر رکھو۔';},
+    win:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
+      if(p.kind==='part')return 'ہاں! '+w(W)+' میں '+w(k)+' اور '+w(r)+' ہیں۔ پلیٹ پر '+w(r)+' '+sp.p+' بچے ہیں۔';
+      return 'ہاں! '+w(k)+' اور '+w(r)+' مل کر '+w(W)+' بنتے ہیں۔ کل '+w(W)+' '+sp.p+' ہیں۔';},
+    retry:function(Q,p,v){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a;
+      if(p.kind==='part')return w(k)+' اور '+w(v)+' مل کر '+w(k+v)+' بنتے ہیں، '+w(W)+' نہیں۔ پلیٹ پر بچے ہوئے '+sp.p+' گنو۔';
+      return w(v)+(v<W?' بہت کم ہے':' بہت زیادہ ہے')+'۔ پورا مطلب سب۔ پلیٹ اور لنچ باکس دونوں کو ساتھ گنو۔';}
+  },
   story:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],pl=Q.scenes[p.scene.id];
     if(p.op==='join')return pl+' پر '+w(p.a)+' '+sp.p+' ہیں۔ '+w(p.b)+' اور '+sp.p+' آتے ہیں۔ اب کتنے '+sp.p+' ہیں؟';
     if(p.op==='separate')return pl+' پر '+w(p.a)+' '+sp.p+' ہیں۔ '+w(p.b)+' '+sp.p+' کھا لیے جاتے ہیں۔ اب کتنے '+sp.p+' بچے ہیں؟';
@@ -588,7 +702,7 @@ I18N.ur={
     return sp.p+' کو دیکھو۔ کیا وہ مل گئے یا کچھ چلے گئے؟';},
   instr:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],pl=Q.scenes[p.scene.id];
     if(p.op==='join'){if(p.phase==='start')return 'مرحلہ 1: '+pl+' پر '+w(p.a)+' '+sp.p+' رکھو۔';if(p.phase==='change')return 'مرحلہ 2: '+w(p.b)+' اور آتے ہیں۔ '+w(p.b)+' اور جوڑو۔';return 'مرحلہ 3: سب گنو۔ اب کتنے '+sp.p+' ہیں؟';}
-    if(p.op==='separate'){if(p.phase==='start')return 'مرحلہ 1: '+pl+' پر '+w(p.a)+' '+sp.p+' رکھو۔';if(p.phase==='change')return 'مرحلہ 2: '+w(p.b)+' کھا لیے جاتے ہیں۔ ہٹانے کے لیے '+w(p.b)+' ٹیپ کرو۔';return 'مرحلہ 3: بچے ہوئے گنو۔ کتنے '+sp.p+' ہیں؟';}
+    if(p.op==='separate'){if(p.phase==='start')return 'مرحلہ 1: '+pl+' پر '+w(p.a)+' '+sp.p+' رکھو۔';if(p.phase==='change')return 'مرحلہ 2: '+w(p.b)+' کھا لیے جاتے ہیں۔ '+w(p.b)+' کو پلیٹ پر کھینچو (یا '+(p.b===1?'اسے':'انہیں')+' ٹیپ کرو)۔';return 'مرحلہ 3: بچے ہوئے گنو۔ کتنے '+sp.p+' ہیں؟';}
     if(p.op==='make')return 'دونوں پلیٹیں بھرو تاکہ مل کر '+w(p.answer)+' '+sp.p+' ہوں۔ دونوں پلیٹیں استعمال کرو!';
     if(p.phase==='watch')return 'ناشتوں کو دیکھو۔ دوبارہ دیکھنے کے لیے کہانی دہراؤ دبائیں۔';return 'کیا وہ مل گئے یا کچھ چلے گئے؟';},
   win:function(Q,p){var w=function(n){return Q.words[n]};
@@ -628,7 +742,24 @@ I18N.zh={
     group1:'第 1 组',group2:'第 2 组',plate:'盘子',segChoose:'选择把零食加到哪一组',
     hintMain:'点击或拖动下面的零食。',hintMake:'点击下面的零食加到这里。',
     readStory:'朗读故事',readFeedback:'朗读反馈',addOne:'加一个零食',tapRemove:'点击移除',choose:'选择',
-    storyJoinOpt:'它们合在一起了',storySepOpt:'一些离开了'},
+    storyJoinOpt:'它们合在一起了',storySepOpt:'一些离开了',
+    tab_ppw:'部分–部分–整体',lunchbox:'午餐盒',whole:'整体',eatenPlate:'吃掉的盘子',hintHere:'把零食拖到这里',tapEat:'拖动或点击拿走',tapBack:'点击放回',tapMove:'拖动或点击移动',bondCap:'数的分合：整体在上面，两个部分在下面。'},
+  ppw:{
+    story:function(Q,p){var c=function(n){return Q.cw[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
+      if(p.kind==='part')return '盘子上有'+c(W)+'个'+sp.p+'。把'+c(k)+'个放进午餐盒。盘子上还剩几个'+sp.p+'？';
+      return '把'+c(k)+'个'+sp.p+'放进午餐盒。'+c(r)+'个留在盘子上。一共有几个'+sp.p+'？';},
+    instr:function(Q,p){var w=function(n){return Q.words[n]},c=function(n){return Q.cw[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
+      if(p.phase==='split')return '把'+c(k)+'个'+sp.p+'拖进午餐盒（或点击'+(k===1?'它':'它们')+'）。';
+      if(p.kind==='part')return w(W)+'是整体。'+w(k)+'是一个部分。盘子上有几个？';
+      return w(k)+'和'+w(r)+'是两个部分。整体是几？一共有几个'+sp.p+'？';},
+    move:function(Q,p,m){var c=function(n){return Q.cw[n]},k=p.a;return m<k?'你移了'+c(m)+'个。再移'+c(k-m)+'个，凑成'+c(k)+'个。':'你移了'+c(m)+'个。把'+c(m-k)+'个移回盘子，变成'+c(k)+'个。';},
+    win:function(Q,p){var w=function(n){return Q.words[n]},c=function(n){return Q.cw[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
+      if(p.kind==='part')return '对了！'+w(W)+'可以分成'+w(k)+'和'+w(r)+'。盘子上还剩'+c(r)+'个'+sp.p+'。';
+      return '对了！'+w(k)+'和'+w(r)+'合成'+w(W)+'。一共有'+c(W)+'个'+sp.p+'。';},
+    retry:function(Q,p,v){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a;
+      if(p.kind==='part')return w(k)+'和'+w(v)+'合成'+w(k+v)+'，不是'+w(W)+'。数一数盘子上剩下的'+sp.p+'。';
+      return w(v)+(v<W?'太少了':'太多了')+'。整体是全部。把盘子和午餐盒里的一起数。';}
+  },
   story:function(Q,p){var w=function(n){return Q.words[n]},c=function(n){return Q.cw[n]},sp=Q.snacks[p.snack],pl=Q.scenes[p.scene.id];
     if(p.op==='join')return pl+'上有'+c(p.a)+'个'+sp.p+'。又来了'+c(p.b)+'个'+sp.p+'。现在一共有几个'+sp.p+'？';
     if(p.op==='separate')return pl+'上有'+c(p.a)+'个'+sp.p+'。'+c(p.b)+'个'+sp.p+'被吃掉了。还剩几个'+sp.p+'？';
@@ -636,7 +767,7 @@ I18N.zh={
     return '看看这些'+sp.p+'。它们是合在一起了，还是有一些离开了？';},
   instr:function(Q,p){var w=function(n){return Q.words[n]},c=function(n){return Q.cw[n]},sp=Q.snacks[p.snack],pl=Q.scenes[p.scene.id];
     if(p.op==='join'){if(p.phase==='start')return '第一步：在'+pl+'上放'+c(p.a)+'个'+sp.p+'。';if(p.phase==='change')return '第二步：又来了'+c(p.b)+'个。再加'+c(p.b)+'个。';return '第三步：全部数一数。现在有几个'+sp.p+'？';}
-    if(p.op==='separate'){if(p.phase==='start')return '第一步：在'+pl+'上放'+c(p.a)+'个'+sp.p+'。';if(p.phase==='change')return '第二步：'+c(p.b)+'个被吃掉了。点击'+c(p.b)+'个把它们拿走。';return '第三步：数一数剩下的。有几个'+sp.p+'？';}
+    if(p.op==='separate'){if(p.phase==='start')return '第一步：在'+pl+'上放'+c(p.a)+'个'+sp.p+'。';if(p.phase==='change')return '第二步：'+c(p.b)+'个被吃掉了。把'+c(p.b)+'个拖到盘子里（或点击'+(p.b===1?'它':'它们')+'）。';return '第三步：数一数剩下的。有几个'+sp.p+'？';}
     if(p.op==='make')return '把两个盘子装满，让它们合起来是'+c(p.answer)+'个'+sp.p+'。两个盘子都要用！';
     if(p.phase==='watch')return '看看这些零食。按重播故事再看一次。';return '它们是合在一起了，还是有一些离开了？';},
   win:function(Q,p){var c=function(n){return Q.cw[n]};
@@ -761,6 +892,7 @@ function makeProblem(){
   if(scene.id==='animal'&&Math.random()<0.6) snack='fish';
   var op;
   if(mode==='make') op='make';
+  else if(mode==='ppw') return ppwProblem(max,scene,snack);
   else if(mode==='story') op='story'; // story()/instr()/loadProblem test for op 'story'; the real action is storyOp
   else{ op=(mode==='separate')?'separate':'join'; if(settings.practice==='mixed'&&(mode==='join'||mode==='separate')) op=Math.random()<0.5?'join':'separate'; }
   var a=null,b=null,answer,total=null;
@@ -771,6 +903,14 @@ function makeProblem(){
     phase:(op==='make'?'build':(mode==='story'?'watch':'start')),
     zones:(op==='make'?{g1:[],g2:[]}:{main:[]}),activeZone:'g1',solved:false};
 }
+/* Part–Part–Whole: W snacks start on the plate; move k into the lunchbox. kind 'part' asks for the plate part, 'whole' asks for W. */
+function ppwProblem(max,scene,snack){
+  var W=settings.level==='kchallenge'?10:rand(2,Math.max(2,max)), k=rand(1,W-1), kind=Math.random()<0.5?'part':'whole';
+  var p={op:'ppw',kind:kind,snack:snack,scene:scene,max:max,a:k,b:W-k,total:W,answer:(kind==='part'?W-k:W),phase:'split',activeZone:'g1',solved:false};
+  ppwReset(p); return p;
+}
+function ppwReset(p){ p.zones={plate:[],box:[]}; for(var i=0;i<p.total;i++) p.zones.plate.push({}); p.phase='split'; p.solved=false; }
+function storyText(){ return P.op==='ppw'?L().ppw.story(L(),P):L().story(L(),P); }
 function ownProblem(snack,op,a,b){
   var scene=pick(SCENES);
   var answer=op==='join'?a+b:a-b;
@@ -788,9 +928,53 @@ function makeToken(zoneKey,index,removable){
   else{ b.setAttribute('aria-label',sp.s); b.setAttribute('tabindex','-1'); }
   return b;
 }
+function zoneBox(zk,label,cls,count){
+  var z=document.createElement('div'); z.className='zone';
+  var head=document.createElement('div'); head.className='zhead';
+  var name=document.createElement('span'); name.textContent=label;
+  var cnt=document.createElement('span'); cnt.className='zcount'; cnt.textContent=count; cnt.style.direction='ltr';
+  head.appendChild(name); head.appendChild(cnt);
+  var mat=document.createElement('div'); mat.className='mat '+cls; mat.setAttribute('data-zone',zk);
+  z.appendChild(head); z.appendChild(mat); return {zone:z,mat:mat};
+}
+function justDragged(el){ return el._dragT&&Date.now()-el._dragT<500; }
+/* A snack that can be dragged to another zone, or tapped / Enter / Space to send it there. */
+function moveToken(zk,to,label){
+  var b=document.createElement('button'); b.className='token removable';
+  b.innerHTML=ART[P.snack]; b.setAttribute('aria-label',L().snacks[P.snack].s+', '+label);
+  b.addEventListener('click',function(){ if(!justDragged(b)) moveSnack(zk,to); });
+  enableDrag(b,function(dz){ if(dz===to) moveSnack(zk,to); });
+  return b;
+}
+function moveSnack(from,to){
+  if(P.solved||!P.zones[from]||!P.zones[from].length) return;
+  var hadFocus=els.matWrap.contains(document.activeElement);
+  P.zones[from].pop(); P.zones[to].push({}); renderMat();
+  if(hadFocus){ var f=els.matWrap.querySelector('.mat[data-zone="'+from+'"] .token.removable')||els.matWrap.querySelector('.mat[data-zone="'+to+'"] .token.removable'); if(f) f.focus({preventScroll:true}); }
+}
 function renderMat(){
   var wrap=els.matWrap; wrap.innerHTML='';
   var removable=buildPhaseCanRemove();
+  if(P.op==='ppw'){
+    var live=P.phase==='split'&&!P.solved, zs=document.createElement('div'); zs.className='zones';
+    var pz=zoneBox('plate','🍽️ '+T('plate'),'ppwplate',P.solved?P.zones.plate.length:'?');
+    var bz=zoneBox('box','🍱 '+T('lunchbox'),'lunchbox',P.zones.box.length);
+    [['plate','box',pz],['box','plate',bz]].forEach(function(x){
+      var zk=x[0],to=x[1],m=x[2].mat;
+      if(!P.zones[zk].length){ var h=document.createElement('div'); h.className='hint'; h.textContent=T('hintHere'); m.appendChild(h); }
+      P.zones[zk].forEach(function(){ m.appendChild(live?moveToken(zk,to,T('tapMove')):makeToken(zk,0,false)); });
+      zs.appendChild(x[2].zone);
+    });
+    wrap.appendChild(zs); updateCounts(); renderBond(); return;
+  }
+  if(P.op==='separate'&&P.zones.eaten){
+    var live2=P.phase==='change'&&!P.solved, zs2=document.createElement('div'); zs2.className='zones';
+    var mz=zoneBox('main',T('onMat'),P.scene.id,P.zones.main.length), ez=zoneBox('eaten','🍽️ '+T('eatenPlate'),'eaten',P.zones.eaten.length);
+    P.zones.main.forEach(function(){ mz.mat.appendChild(live2?moveToken('main','eaten',T('tapEat')):makeToken('main',0,false)); });
+    if(!P.zones.eaten.length){ var h2=document.createElement('div'); h2.className='hint low'; h2.textContent=T('hintHere'); ez.mat.appendChild(h2); }
+    P.zones.eaten.forEach(function(){ ez.mat.appendChild(live2?moveToken('eaten','main',T('tapBack')):makeToken('eaten',0,false)); });
+    zs2.appendChild(mz.zone); zs2.appendChild(ez.zone); wrap.appendChild(zs2); updateCounts(); return;
+  }
   if(P.op==='make'){
     var zones=document.createElement('div'); zones.className='zones';
     ['g1','g2'].forEach(function(zk,i){
@@ -817,6 +1001,7 @@ function updateCounts(){
   if(!P) return;
   if(P.op==='make'){ els.countBadge.textContent=T('total')+': '+(P.zones.g1.length+P.zones.g2.length);
     var m=els.matWrap.querySelectorAll('.zcount'); if(m.length===2){ m[0].textContent=P.zones.g1.length; m[1].textContent=P.zones.g2.length; } }
+  else if(P.op==='ppw') els.countBadge.textContent=T('whole')+': '+((P.kind==='whole'&&!P.solved)?'?':P.total);
   else els.countBadge.textContent=T('onMat')+': '+P.zones.main.length;
   refreshStepBtn();
 }
@@ -839,22 +1024,33 @@ function addOne(){ if(P.solved) return; P.zones[activeAddZone()].push({}); rende
 function removeToken(zk,idx){ if(P.solved) return; P.zones[zk].splice(idx,1); renderMat(); renderSupply(); }
 
 var dragGhost=null;
-function enableDrag(el){
+function matAt(x,y){ var tg=document.elementFromPoint(x,y); return tg&&tg.closest?tg.closest('.mat'):null; }
+function enableDrag(el,onDrop){
+  el.classList.add('drag');
   el.addEventListener('pointerdown',function(ev){
     if(ev.pointerType==='mouse'&&ev.button!==0) return;
-    var started=false,sx=ev.clientX,sy=ev.clientY;
+    if(dragGhost) return;
+    var started=false,sx=ev.clientX,sy=ev.clientY,hot=null,sz=el.getBoundingClientRect().width||74;
     function move(e){
-      if(!started){ if(Math.abs(e.clientX-sx)<6&&Math.abs(e.clientY-sy)<6) return; started=true;
-        dragGhost=el.cloneNode(true); dragGhost.style.cssText='position:fixed;z-index:999;pointer-events:none;width:74px;height:74px;opacity:.9'; document.body.appendChild(dragGhost); }
-      dragGhost.style.left=(e.clientX-37)+'px'; dragGhost.style.top=(e.clientY-37)+'px';
+      if(!started){ if(Math.abs(e.clientX-sx)<6&&Math.abs(e.clientY-sy)<6) return; started=true; el.classList.add('lifted');
+        dragGhost=el.cloneNode(true); dragGhost.classList.remove('lifted','pop'); dragGhost.style.cssText='position:fixed;z-index:999;pointer-events:none;width:'+sz+'px;height:'+sz+'px;opacity:.9'; document.body.appendChild(dragGhost); }
+      dragGhost.style.left=(e.clientX-sz/2)+'px'; dragGhost.style.top=(e.clientY-sz/2)+'px';
+      var m=matAt(e.clientX,e.clientY); if(m!==hot){ if(hot) hot.classList.remove('drop-hot'); hot=m; if(hot) hot.classList.add('drop-hot'); }
+      e.preventDefault();
     }
-    function up(e){
-      document.removeEventListener('pointermove',move); document.removeEventListener('pointerup',up);
+    function end(e,cancel){
+      document.removeEventListener('pointermove',move); document.removeEventListener('pointerup',up); document.removeEventListener('pointercancel',cnc);
       if(dragGhost){ dragGhost.remove(); dragGhost=null; }
-      if(started){ var tg=document.elementFromPoint(e.clientX,e.clientY); var mat=tg&&tg.closest?tg.closest('.mat'):null;
-        if(mat){ var zk=mat.getAttribute('data-zone'); if(zk){ if(P.op==='make') P.activeZone=zk; addOne(); } } }
+      if(hot) hot.classList.remove('drop-hot');
+      el.classList.remove('lifted');
+      if(!started) return;
+      el._dragT=Date.now();
+      var mat=cancel?null:matAt(e.clientX,e.clientY), zk=mat?mat.getAttribute('data-zone'):null;
+      if(onDrop){ onDrop(zk); return; }   /* released elsewhere: nothing moves, the snack stays where it was */
+      if(zk==='main'||zk==='g1'||zk==='g2'){ if(P.op==='make') P.activeZone=zk; addOne(); }
     }
-    document.addEventListener('pointermove',move); document.addEventListener('pointerup',up);
+    function up(e){ end(e,false); } function cnc(e){ end(e,true); }
+    document.addEventListener('pointermove',move); document.addEventListener('pointerup',up); document.addEventListener('pointercancel',cnc);
   });
 }
 
@@ -867,14 +1063,22 @@ function neededForStep(){
 }
 function refreshStepBtn(){
   if(!P){ els.stepBtn.disabled=true; return; }
+  if(P.op==='ppw'){ els.checkBtn.style.display='none'; els.stepBtn.style.display=P.phase==='split'?'':'none'; els.stepBtn.disabled=false; return; }
   if(P.op==='make'){ els.stepBtn.style.display='none'; els.checkBtn.style.display=P.solved?'none':''; return; }
   els.checkBtn.style.display='none';
   if(P.op==='story'){ els.stepBtn.style.display='none'; return; }
   if(P.phase==='answer'||P.phase==='done'){ els.stepBtn.style.display='none'; return; }
   els.stepBtn.style.display=''; els.stepBtn.disabled=(P.zones.main.length!==neededForStep());
 }
-function setInstruction(){ els.instruction.textContent=L().instr(L(),P); }
+function setInstruction(){ els.instruction.textContent=P.op==='ppw'?L().ppw.instr(L(),P):L().instr(L(),P); }
 function onStep(){
+  if(P.op==='ppw'){
+    if(P.phase!=='split') return;
+    var m=P.zones.box.length;
+    if(m!==P.a){ showFeedback(L().ppw.move(L(),P,m),'retry'); return; }
+    els.feedback.classList.remove('show'); P.phase='answer'; renderMat(); setInstruction(); showChoices(); refreshStepBtn(); return;
+  }
+  if(P.op==='separate'&&P.phase==='start') P.zones.eaten=[];
   if(P.op==='join'||P.op==='separate'){
     if(P.phase==='start'){ P.phase='change'; renderMat(); renderSupply(); setInstruction(); refreshStepBtn(); }
     else if(P.phase==='change'){ P.phase='answer'; renderMat(); renderSupply(); setInstruction(); showChoices(); refreshStepBtn(); }
@@ -897,7 +1101,7 @@ function showChoices(){
 function chooseNumber(v,btn){
   if(P.solved) return;
   if(v===P.answer){ btn.classList.add('right'); P.solved=true; P.phase='done'; disableChoices(); winFeedback(); }
-  else{ btn.classList.add('wrong'); btn.disabled=true; showFeedback(L().numRetry(L(),P),'retry'); }
+  else{ btn.classList.add('wrong'); btn.disabled=true; showFeedback(P.op==='ppw'?L().ppw.retry(L(),P,v):L().numRetry(L(),P),'retry'); }
 }
 function disableChoices(){ els.choices.querySelectorAll('.numbtn').forEach(function(b){ b.disabled=true; }); }
 
@@ -946,7 +1150,25 @@ function chooseStory(k,btn){
 
 /* ===== Feedback ===== */
 function showFeedback(text,kind){ els.feedback.className='feedback show '+(kind==='good'?'good':'retry'); els.feedbackText.textContent=text; if(settings.narration||kind==='good') speak(text); }
+function renderBond(){
+  var b=g('bond');
+  if(!P||P.op!=='ppw'){ b.style.display='none'; b.innerHTML=''; return; }
+  var s=P.solved, W=(P.kind==='whole'&&!s)?'?':P.total, r=(P.kind==='part'&&!s)?'?':P.b, k=P.a;
+  var rtl=L().dir==='rtl', xp=rtl?190:70, xb=rtl?70:190, ok='#e6f4e9';
+  function node(x,y,v,fill,stroke,unk){ return '<circle cx="'+x+'" cy="'+y+'" r="28" fill="'+(unk&&s?ok:fill)+'" stroke="'+(unk&&s?'#1f7a34':stroke)+'" stroke-width="4"/><text x="'+x+'" y="'+(y+10)+'" text-anchor="middle" font-size="28" font-weight="900" fill="#2b2118">'+v+'</text>'; }
+  b.innerHTML='<svg viewBox="0 0 260 180" role="img" aria-label="'+T('whole')+' '+W+'; '+T('plate')+' '+r+'; '+T('lunchbox')+' '+k+'">'+
+    '<line x1="130" y1="44" x2="'+xp+'" y2="122" stroke="#9c8a70" stroke-width="4"/><line x1="130" y1="44" x2="'+xb+'" y2="122" stroke="#9c8a70" stroke-width="4"/>'+
+    node(130,38,W,'#fff3e0','#c25a1a',P.kind==='whole')+node(xp,128,r,'#fffdf7','#d9b98a',P.kind==='part')+node(xb,128,k,'#e9f1fb','#7fabde',false)+
+    '<text x="'+xp+'" y="176" text-anchor="middle" font-size="16">🍽️</text><text x="'+xb+'" y="176" text-anchor="middle" font-size="16">🍱</text></svg>'+
+    '<div class="bcap"></div>';
+  b.querySelector('.bcap').textContent=T('bondCap'); b.style.display='flex';
+}
 function winFeedback(){
+  if(P.op==='ppw'){
+    showFeedback(L().ppw.win(L(),P),'good');
+    if(settings.equations&&(settings.level==='k'||settings.level==='kchallenge')){ els.equation.style.display='block'; els.equation.textContent=P.kind==='part'?(P.total+' − '+P.a+' = '+P.b):(P.a+' + '+P.b+' = '+P.total); }
+    renderMat(); finishSolved(); return;
+  }
   showFeedback(L().win(L(),P),'good');
   if(settings.equations&&(settings.level==='k'||settings.level==='kchallenge')){ els.equation.style.display='block'; els.equation.textContent=P.op==='join'?(P.a+' + '+P.b+' = '+P.answer):(P.a+' − '+P.b+' = '+P.answer); }
   finishSolved();
@@ -962,7 +1184,9 @@ function loadProblem(p){
   els.storyChoices.style.display='none'; els.storyChoices.innerHTML='';
   els.nextBtn.disabled=true;
   els.sceneLabel.textContent=L().scenes[P.scene.id]; els.sceneIcon.textContent=P.scene.icon;
-  var story=L().story(L(),P); els.storyText.textContent=story; setInstruction();
+  if(P.op==='ppw'){ els.sceneLabel.textContent=T('tab_ppw'); els.sceneIcon.textContent='🍱'; }
+  renderBond();
+  var story=storyText(); els.storyText.textContent=story; setInstruction();
   if(P.op==='story'){ els.supplyBox.style.display='none'; els.stepBtn.style.display='none'; els.checkBtn.style.display='none'; els.countBadge.style.display='none'; renderStoryAnim(); P.phase='watch'; setTimeout(function(){ if(P!==p) return; P.phase='answer'; setInstruction(); showStoryChoices(); },1600); }
   else{ els.countBadge.style.display=''; renderMat(); renderSupply(); refreshStepBtn(); }
   if(settings.narration) speak(story);
@@ -984,14 +1208,15 @@ els.nextBtn.addEventListener('click',function(){ if(mode==='own') return; loadPr
 g('startOverBtn').addEventListener('click',function(){
   if(!P) return;
   if(P.custom){ loadProblem(ownProblem(P.snack,P.op,P.a,P.b)); return; }
+  if(P.op==='ppw'){ ppwReset(P); els.feedback.classList.remove('show'); els.equation.style.display='none'; els.choices.style.display='none'; els.nextBtn.disabled=true; setInstruction(); renderMat(); return; }
   P.zones=(P.op==='make')?{g1:[],g2:[]}:{main:[]}; P.solved=false; P.phase=(P.op==='make')?'build':(mode==='story'?'watch':'start');
   els.feedback.classList.remove('show'); els.equation.style.display='none'; els.choices.style.display='none'; els.storyChoices.style.display='none'; els.nextBtn.disabled=true;
   var t=g('tryAnother'); if(t) t.remove(); setInstruction();
   if(P.op==='story'){ var q=P; renderStoryAnim(); setTimeout(function(){ if(P!==q||q.phase!=='watch') return; P.phase='answer'; setInstruction(); showStoryChoices(); },1600); }
   else{ renderMat(); renderSupply(); refreshStepBtn(); }
 });
-g('replayBtn').addEventListener('click',function(){ if(!P) return; speak(L().story(L(),P)); if(P.op==='story') renderStoryAnim(); });
-g('speakStory').addEventListener('click',function(){ if(P) speak(L().story(L(),P)); });
+g('replayBtn').addEventListener('click',function(){ if(!P) return; speak(storyText()); if(P.op==='story') renderStoryAnim(); });
+g('speakStory').addEventListener('click',function(){ if(P) speak(storyText()); });
 g('speakFeedback').addEventListener('click',function(){ speak(els.feedbackText.textContent); });
 g('segG1').addEventListener('click',function(){ P.activeZone='g1'; this.setAttribute('aria-pressed','true'); g('segG2').setAttribute('aria-pressed','false'); });
 g('segG2').addEventListener('click',function(){ P.activeZone='g2'; this.setAttribute('aria-pressed','true'); g('segG1').setAttribute('aria-pressed','false'); });
@@ -1053,7 +1278,7 @@ document.addEventListener('pointerdown',function firstTap(e){
   document.removeEventListener('pointerdown',firstTap,true);
   if(speechStarted||!settings.narration||!P||mode==='own') return;
   if(e.target.closest('select,a,input,.tab,.speaker,#replayBtn,#nextBtn,#startOverBtn,#checkBtn,#teacherBtn,#mtMuteBtn,.numbtn,.choicebig,.overlay')) return;
-  speak(L().story(L(),P));
+  speak(storyText());
 },true);
 
 /* ===== Boot ===== */
