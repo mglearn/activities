@@ -1,0 +1,1614 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Fraction Forge — a Grades 3–5 fractions app: fraction models, number lines, equivalence and comparison, adding and subtracting, and fraction word problems. Works offline. No data collected.">
+<title>Fraction Forge</title>
+<style>
+  :root{
+    --bg:#f4eff8;--panel:#ffffff;--ink:#22172b;--muted:#54465f;--line:#d7c8e3;
+    --accent:#8e44ad;--accentD:#6c3483;--accent-ink:#ffffff;--good:#166534;--good-bg:#dcfce7;
+    --hint:#7a4a00;--hint-bg:#fff4d6;--focus:#0a58ca;--sh:#b07cd0;--sh2:#f5b041;
+    --tap:52px;font-size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4;-webkit-text-size-adjust:100%}
+  h1,h2,h3{line-height:1.15;margin:0 0 .3em}
+  button{font-family:inherit;font-size:1rem;cursor:pointer}
+  button:disabled{cursor:default}
+
+  .topbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--accent);color:var(--accent-ink);padding:.55rem .8rem}
+  .topbar .brand{font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:.4rem;margin-inline-end:auto}
+  .topbar a.homebtn,.topbar button.tb{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.4rem .7rem;min-height:var(--tap);min-width:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;font-weight:700;font-size:.95rem}
+  .globe{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.2rem .5rem;min-height:var(--tap)}
+  .globe span{font-size:1.2rem}
+  .globe select{border:0;background:#fff;color:var(--ink);border-radius:8px;min-height:44px;font-weight:700;font-size:1rem;padding:.2rem .4rem}
+
+  main{max-width:1200px;margin:0 auto;padding:.7rem}
+  .tabsrow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:.4rem 0 .7rem}
+  .tabs{display:flex;gap:.4rem;flex-wrap:wrap;flex:1 1 auto}
+  .tabs button{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:.45rem .75rem;min-height:var(--tap);font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .tabs button[aria-selected="true"]{background:var(--accentD);color:#fff;border-color:var(--accentD)}
+  .tabs button .ic{font-size:1.15rem}
+  .stars{background:#fff;border:2px solid var(--line);border-radius:14px;padding:.4rem .8rem;font-weight:800;font-size:1.15rem;min-height:48px;display:inline-flex;align-items:center;gap:.3rem}
+  .stars.pop{animation:pop .5s ease}
+  @keyframes pop{50%{transform:scale(1.18)}}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  .panel{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:.9rem;margin-bottom:.8rem}
+  .panelhead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+  .panelhead h2{margin:0;font-size:1.25rem;margin-inline-end:auto}
+
+  .prompt{display:flex;align-items:center;gap:.6rem;background:#f6eefb;border:2px solid #dcc3ea;border-radius:14px;padding:.6rem .8rem;margin-bottom:.7rem;font-size:1.12rem;font-weight:600;line-height:1.7}
+  .speaker{background:var(--accentD);color:#fff;border:0;border-radius:50%;width:var(--tap);height:var(--tap);min-width:var(--tap);font-size:1.4rem;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+
+  .btn{background:var(--accentD);color:#fff;border:2px solid var(--accentD);border-radius:12px;padding:.5rem .85rem;min-height:var(--tap);font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:.3rem}
+  .btn.ghost{background:var(--panel);color:var(--accentD)}
+  .btn.sq{min-width:var(--tap);font-size:1.4rem;padding:.2rem .6rem}
+  .btn:disabled{opacity:.45}
+
+  .feedback{margin-top:.6rem;border-radius:12px;padding:.6rem .8rem;font-weight:600;display:none;line-height:1.8}
+  .feedback.show{display:block}
+  .feedback.good{background:var(--good-bg);color:var(--good);border:2px solid #86efac}
+  .feedback.hint{background:var(--hint-bg);color:var(--hint);border:2px solid #f6d271}
+
+  /* Math: always left-to-right, even inside Arabic/Urdu sentences */
+  .math{unicode-bidi:isolate;direction:ltr;display:inline;font-weight:800}
+  .fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.05;font-weight:800;margin:0 .08em;white-space:nowrap;font-size:.92em}
+  .fr>span{padding:0 .16em}
+  .fr>span:first-child{border-bottom:.12em solid currentColor}
+  .mx{display:inline-flex;align-items:center;gap:.08em;white-space:nowrap;vertical-align:middle}
+  .big{font-size:1.9rem;text-align:center;margin:.2rem 0 .6rem}
+
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.6rem;margin-top:.7rem}
+  .choices.syms{grid-template-columns:repeat(3,1fr);max-width:420px;margin-inline:auto}
+  .choices:empty{display:none}
+  .choice{background:var(--panel);border:3px solid var(--line);border-radius:16px;padding:.5rem;min-height:72px;display:flex;align-items:center;justify-content:center;position:relative;font-size:1.45rem;font-weight:800;color:var(--ink)}
+  .choice .lbl{unicode-bidi:isolate;direction:ltr}
+  .choice.wide{font-size:1.2rem}
+  .choice.correctpick{border-color:var(--good);background:var(--good-bg)}
+  .choice.wrongpick{border-color:#e3b341;background:var(--hint-bg);opacity:.75}
+  .choice .badge{position:absolute;top:4px;inset-inline-end:6px;font-size:1.1rem;display:none}
+  .choice.correctpick .badge{display:block}
+
+  .work:empty{display:none}
+  .mdls{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;align-items:center;margin:.3rem 0}
+  .mdls.col{flex-direction:column;gap:.4rem}
+  .mdl{display:block;max-width:100%;height:auto}
+  .m-strip{width:min(100%,460px)}
+  .m-circle{width:min(42vw,200px)}
+  .m-rect{width:min(100%,260px)}
+  .m-set{width:min(100%,330px)}
+  .m-grid{width:min(100%,280px)}
+  .m-groups{width:min(100%,520px)}
+  .pc{fill:#fff;stroke:#3b1f4a;stroke-width:2;transition:fill .15s}
+  .thin .pc{stroke-width:.6}
+  .pc.on{fill:var(--sh)}
+  .pc.on2{fill:var(--sh2)}
+  .pc.dim{fill:#eadcf3}
+  .pc.blue{fill:#3b82f6}
+  .pc.red{fill:#e74c3c}
+  .pc[tabindex]{cursor:pointer}
+  .pc:focus{outline:none;stroke:var(--focus);stroke-width:5}
+  .grpbox{fill:#faf6fd;stroke:#9b7bb0;stroke-width:2;stroke-dasharray:5 4}
+  .acts{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:center;margin:.5rem 0}
+  .acts:empty{display:none}
+  .stripRow{display:flex;align-items:center;gap:.6rem;justify-content:center;flex-wrap:wrap;margin:.35rem 0}
+  .stripRow .lab{min-width:3.4rem;font-size:1.35rem;text-align:center}
+  .opsym{font-size:1.6rem;font-weight:800;text-align:center;line-height:1}
+  .built{font-weight:700;text-align:center;margin:.3rem 0;font-size:1.1rem;line-height:1.9}
+  .anslab{font-weight:800;text-align:center;margin:.6rem 0 .1rem;color:var(--accentD)}
+  .cmprow{display:flex;align-items:center;justify-content:center;gap:1rem;font-size:2.1rem;margin:.2rem 0 .5rem}
+  .box{width:60px;height:60px;border:3px dashed #b79acb;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;color:var(--accentD)}
+  .nl{width:100%;max-width:760px;display:block;margin:0 auto;touch-action:none;height:auto}
+  .nlax{stroke:#3b1f4a;stroke-width:4;stroke-linecap:round}
+  .tk{stroke:#3b1f4a;stroke-width:3}
+  .tk.wh{stroke-width:5}
+  .nlt{font-size:32px;font-weight:800;text-anchor:middle;fill:#22172b;font-family:system-ui,sans-serif}
+  .nlf{font-size:22px;font-weight:800;text-anchor:middle;fill:var(--good);font-family:system-ui,sans-serif}
+  .pin line{stroke:#c0392b;stroke-width:5;stroke-linecap:round}
+  .pin circle{fill:#e74c3c;stroke:#7b241c;stroke-width:3}
+  .pin[tabindex]{cursor:grab}
+  .pin:focus{outline:none}
+  .pin:focus circle{stroke:var(--focus);stroke-width:6}
+
+  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
+  .drawer.open{display:flex}
+  .drawer .card{background:var(--panel);border-radius:16px;max-width:600px;width:100%;padding:1rem;max-height:90vh;overflow:auto}
+  .setrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+  .setrow .lab{font-weight:700;min-width:150px}
+  .toggle{display:inline-flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:10px;padding:.35rem .55rem;background:#fff;min-height:44px}
+  .toggle input{width:22px;height:22px}
+  select.diff{font-size:1rem;padding:.4rem;border-radius:10px;border:2px solid var(--line);min-height:48px}
+  .wrapflex{display:flex;flex-wrap:wrap;gap:.4rem}
+
+  footer{max-width:1200px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+  footer a{color:var(--accentD);font-weight:700}
+  .stds{font-size:.82rem;color:var(--muted);background:#faf6fd;border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  .hidden{display:none !important}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  @media (max-width:480px){ :root{font-size:17px} .big{font-size:1.6rem} .cmprow{font-size:1.8rem} .tabs button{padding:.4rem .55rem;font-size:.92rem} }
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+  .printonly{display:none}
+  @media print{
+    .topbar,.tabsrow,footer,.modepanel,#stdsNote,.no-print,#mtMuteBtn{display:none !important}
+    body{background:#fff}
+    .printonly{display:block}
+    .card-print{border:2px solid #000;border-radius:12px;padding:1rem;margin:0 0 1rem;page-break-inside:avoid}
+    .card-print h2{margin:.2rem 0}
+    .card-print svg{max-height:170px;max-width:100%}
+    .card-print .pc.on{fill:#999}
+    main{max-width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">🧪 <span data-t="appTitle">Fraction Forge</span></span>
+  <a class="homebtn" href="../../index.html">🏠 <span data-t="home">Home</span></a>
+  <label class="globe"><span aria-hidden="true">🌐</span>
+    <select id="langSelect" aria-label="Language / Idioma"></select>
+  </label>
+  <button class="tb settingsbtn" id="openSettings" type="button">⚙️ <span data-t="teacher">Teacher</span></button>
+</header>
+
+<main>
+  <div class="tabsrow">
+    <div class="tabs" id="tabs" role="tablist" data-ta="modesLbl" aria-label="Modes"></div>
+    <span class="stars" id="stars"><span aria-hidden="true">⭐</span><span class="sr" data-t="stars">Stars earned</span> <b id="starCount">0</b></span>
+  </div>
+  <div id="panels"></div>
+  <div class="stds" id="stdsNote"></div>
+  <div class="printonly" id="printArea"></div>
+</main>
+
+<footer>
+  <p data-t="footNote">No accounts · No data collected · Works offline</p>
+  <p><a href="../../index.html" data-t="home">Home</a> · <a href="../../policy.html" data-t="privacy">Privacy</a></p>
+</footer>
+
+<!-- SETTINGS -->
+<div class="drawer" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <div class="panelhead"><h2 id="setTitle" data-t="teacherTitle">Teacher settings</h2>
+      <button class="btn ghost" id="closeSettings" type="button" data-t="close">Close</button></div>
+    <div class="setrow"><label class="lab" for="setGrade" data-t="setGrade">Grade level</label>
+      <select class="diff" id="setGrade">
+        <option value="3" data-t="g3">Grade 3</option>
+        <option value="4" data-t="g4">Grade 4</option>
+        <option value="5" data-t="g5">Grade 5</option></select>
+      <p class="stds" style="margin:0;flex:1 1 100%" data-t="gradeNote"></p></div>
+    <div class="setrow"><span class="lab" data-t="setDens">Denominators</span>
+      <div id="denToggles" class="wrapflex"></div></div>
+    <div class="setrow"><span class="lab" data-t="setMixed">Greater than 1</span>
+      <label class="toggle"><input type="checkbox" id="setMixed"> <span data-t="mixedOn">Fractions greater than 1 and mixed numbers</span></label></div>
+    <div class="setrow"><label class="lab" for="setLine" data-t="setLine">Number line</label>
+      <select class="diff" id="setLine">
+        <option value="1" data-t="line1">0 to 1</option>
+        <option value="2" data-t="line2">0 to 2</option>
+        <option value="3" data-t="line3">0 to 3</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
+      <div id="modeToggles" class="wrapflex"></div></div>
+    <div class="setrow"><span class="lab" data-t="setSpeech">Speech</span>
+      <label class="toggle"><input type="checkbox" id="setAuto"> <span data-t="autoRead">Auto-read directions</span></label></div>
+    <div class="setrow" style="border:0"><button class="btn" id="printCards" type="button">🖨 <span data-t="printCards">Print challenge cards</span></button></div>
+    <p class="stds" data-t="setStored">Settings are saved only on this device. No student information is ever stored.</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   Fraction Forge — single-file Grades 3–5 fractions app. 7 languages.
+   No frameworks, no network, no data collection.
+   ========================================================================= */
+
+/* ---------- Language metadata ---------- */
+const LANGS = [
+  {code:"en", name:"English",     dir:"ltr", bcp:"en-US"},
+  {code:"es", name:"Español",     dir:"ltr", bcp:"es-ES"},
+  {code:"vi", name:"Tiếng Việt",  dir:"ltr", bcp:"vi-VN"},
+  {code:"ar", name:"العربية",     dir:"rtl", bcp:"ar-SA"},
+  {code:"hi", name:"हिन्दी",       dir:"ltr", bcp:"hi-IN"},
+  {code:"ur", name:"اردو",        dir:"rtl", bcp:"ur-PK"},
+  {code:"zh", name:"中文",         dir:"ltr", bcp:"zh-CN"}
+];
+const LANG_KEY = "tcea.mathtools.lang";
+
+/* ---------- Translations ---------- */
+const T = {
+  en:{
+    appTitle:"Fraction Forge", home:"Home", privacy:"Privacy", teacher:"Teacher", modesLbl:"Modes", stars:"Stars earned",
+    newRound:"New round", readAloud:"Read aloud", check:"Check", clear:"Clear", choicesLbl:"Answer choices",
+    footNote:"No accounts · No data collected · Works offline",
+    mModels:"Fraction Models", mLine:"Number Line", mEquiv:"Equivalence & Compare", mAdd:"Add & Subtract", mStory:"Fraction Stories",
+    teacherTitle:"Teacher settings", close:"Close", setGrade:"Grade level", g3:"Grade 3", g4:"Grade 4", g5:"Grade 5",
+    gradeNote:"Choosing a grade resets the options below to that grade's defaults.",
+    setDens:"Denominators", setMixed:"Greater than 1", mixedOn:"Fractions greater than 1 and mixed numbers",
+    setLine:"Number line", line1:"0 to 1", line2:"0 to 2", line3:"0 to 3",
+    setModes:"Modes", setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
+    setStored:"Settings are saved only on this device. No student information is ever stored.",
+    pieceLbl:"Part {i}", modelLbl:"Fraction model", shadedLbl:"{n} of {d} equal parts shaded", lineLbl:"Number line from 0 to {m}",
+    pinLbl:"Number line pin", builderLbl:"Answer strip", left:"Move left", right:"Move right",
+    frSay:"{n} over {d}", mixSay:"{w} and {f}", cmpSay:"{a} {op} {b}",
+    wPlus:"plus", wMinus:"minus", wTimes:"times", wDiv:"divided by", wEq:"equals",
+    gtW:"is greater than", ltW:"is less than", eqW:"is equal to",
+    youPicked:"You picked {x}.",
+    nameDir:"What fraction of the shape is shaded?", nameSetDir:"What fraction of the counters is shaded?",
+    nameMultiDir:"Each shape is 1 whole. What fraction is shaded in all?",
+    buildDir:"Shade {f}. Tap the parts, then press Check.", buildMultiDir:"Each shape is 1 whole. Shade {f}. Tap the parts, then press Check.",
+    unitDir:"How many {u} pieces make {f}?",
+    goodName:"Yes! Shaded: {n} of {d} equal parts, so it is {f}.",
+    goodNameMulti:"Yes! Each whole has {d} equal parts, and {n} parts are shaded in all: {f}.",
+    hintNameDen:"Count all the equal parts in one whole. There are {d}, so the denominator is {d}.",
+    hintNameNum:"The bottom number is right. Now count only the shaded parts for the top number.",
+    hintNameMulti:"Each whole has {d} equal parts. Count the shaded parts in both wholes.",
+    goodBuild:"Yes! {n} parts of size {u} make {f}.",
+    hintFew:"You shaded {k}. {f} means {n} parts of size {u}, so shade {m} more.",
+    hintMany:"You shaded {k}. {f} means {n} parts of size {u}, so remove {m}.",
+    goodUnit:"Yes! {sum}. {n} pieces of size {u} make {f}.",
+    hintUnit:"The bottom number of {f} tells the size of each piece: {u}. The top number tells how many pieces.",
+    placeDir:"Drag the pin to {f}, then press Check.", readDir:"What number is at the pin?",
+    goodLine:"Yes! Each whole is cut into {d} equal parts, so each jump is {u}. {n} jumps from 0 lands on {f}.",
+    hintPlace:"Your pin is at {x}. Each whole has {d} equal jumps of {u}. Count {n} jumps from 0.",
+    hintRead:"Count the equal jumps from 0 to 1. There are {d}, so each jump is {u}. Now count the jumps from 0 to the pin.",
+    equivDir:"Find the missing number. Split the parts to help.", eqSay:"{f} equals how many {dn}?",
+    splitBy:"Split each part into {k}", reset:"Reset",
+    goodEquiv:"Yes! Split every part into {k}. That makes {k} times as many shaded parts and {k} times as many parts in all: {eq}.",
+    hintEquiv:"Keep the same amount shaded. When {b} parts are each split into {k}, there are {nb} parts in all, and the shaded parts become {ak}.",
+    cmpDir:"Compare {f1} and {f2}. Which symbol is true?", showStrips:"Show strips", hideStrips:"Hide strips",
+    goodCmp:"Yes! {stmt}.", notTrue:"Not quite: {stmt} is not true.",
+    rDen:"The parts are the same size ({u}), so more parts means a greater fraction.",
+    rNum:"Both have {n} parts, but {u1} parts are bigger than {u2} parts. Fewer parts in a whole means bigger parts.",
+    rEq:"They cover the same amount of the same whole, and they sit at the same point on a number line.",
+    rHalf:"Use {h} as a benchmark: {s} is less than {h}, and {b} is more than {h}.",
+    rOne:"Use 1 whole as a benchmark: {s} is less than 1, and {b} is more than 1.",
+    rCommon:"Rename them with the same denominator: {e1} and {e2}. Now compare the top numbers.",
+    addDir:"Solve. Build the answer on the strip, then press Check.", whatSay:"{e} equals what?", decDir:"Which sum is equal to {f}?",
+    useCommon:"Use a common denominator", showOrig:"Show the original parts",
+    youBuilt:"You built {x}.", addOne:"Add one part", remOne:"Take away one part",
+    goodAdd:"Yes! {eq}.", tooMuch:"That is too much.", tooLittle:"That is not enough yet.",
+    expLike:"The parts are the same size ({u}), so add or subtract the top numbers and keep the bottom number.",
+    expUnit:"Count the unit fractions: {n} pieces of {u}.",
+    expUnlike:"Rename first so the parts are the same size: {r1} and {r2}.",
+    same:"{f} is the same as {g}.",
+    goodDec:"Yes! {sum}. With same-size parts, the top numbers add up to {n}.",
+    hintDec:"The top numbers in that sum add up to {x}, but we need {n} parts of size {u}.",
+    hintDecDen:"Those pieces are {u2}, not {u}. Look for parts of size {u}.",
+    showModel:"Show a model", hideModel:"Hide the model",
+    names:"Ana,Leo,Mia,Sam,Lina,Omar,Priya,Minh",
+    stShare:"{r} friends share {n} same-size pizzas equally. How much pizza does each friend get?",
+    goodShare:"Yes! Cut each one into {r} equal parts. Each friend gets {n} parts of size {u}: {eq}.",
+    hintShare:"Picture cutting each one into {r} equal parts, one part for each friend. How many parts does one friend get?",
+    stSet:"{name} has {d} marbles. {n} of them are blue. What fraction of the marbles is blue?",
+    goodSet:"Yes! {n} out of {d} marbles is {f}.",
+    hintSet:"The whole set is {d} marbles, so the bottom number is {d}. The top number is how many are blue.",
+    stAdd:"{name} walked {f1} mile to the park and {f2} mile to school. How far did {name} walk in all?",
+    stSub:"{name} had {f1} of a pan of cornbread. The family ate {f2} of the pan. How much is left?",
+    goodStory:"Yes! {eq}.", hintStAdd:"“In all” means add: {ex}.", hintStSub:"“Left” means subtract: {ex}.",
+    stMul:"{name} uses {f} cup of flour for each batch of muffins. How much flour does {name} need for {n} batches?",
+    goodMul:"Yes! {n} groups of {f}: {eq}.",
+    hintMul:"{n} batches means {n} groups of {f}. Multiply the whole number by the top number: {nx} parts of size {u}.",
+    stOf:"A bag has {n} marbles. {f} of them are red. How many marbles are red?",
+    goodOf:"Yes! Split {n} into {d} equal groups of {g}. {a} groups make {ans}.",
+    hintOf:"Split the {n} marbles into {d} equal groups. How many marbles are in {a} of those groups?",
+    stDivU:"{name} has {f} of a pan of brownies and shares it equally among {n} friends. What fraction of the whole pan does each friend get?",
+    goodDivU:"Yes! {eq}. Cutting {f} into {n} equal parts makes pieces that are {u} of the whole pan.",
+    hintDivU:"Cut the {f} into {n} equal parts. How many of those small parts would fill the whole pan?",
+    stDivW:"{name} has {n} cups of trail mix. Each bag holds {f} cup. How many bags can {name} fill?",
+    goodDivW:"Yes! {eq}. Each cup fills {d} bags, so {n} cups fill {ans} bags.",
+    hintDivW:"How many {f} cup bags fit in 1 cup? Then think about {n} cups.",
+    stds:"Aligned standards — Texas TEKS: Grade 3 3.3(A–H); Grade 4 4.3(A–E, G); Grade 5 5.3(H, I, J, L). Common Core: 3.NF.1, 3.NF.2, 3.NF.3; 4.NF.1, 4.NF.2, 4.NF.3, 4.NF.4; 5.NF.1, 5.NF.2, 5.NF.3, 5.NF.4a, 5.NF.7.",
+    cardTitle:"Fraction Forge — Challenge Cards", cardName:"Name:", cardModel:"Write the fraction that is shaded.",
+    cardLine:"Mark {f} on the number line.", cardEquiv:"Fill in the missing number.", cardCmp:"Write >, <, or =.",
+    cardAdd:"Solve. Draw a model to show your thinking.", cardStory:"Solve. Show your thinking."
+  },
+  es:{
+    appTitle:"Forja de Fracciones", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", modesLbl:"Modos", stars:"Estrellas ganadas",
+    newRound:"Nueva ronda", readAloud:"Leer en voz alta", check:"Comprobar", clear:"Borrar", choicesLbl:"Opciones de respuesta",
+    footNote:"Sin cuentas · Sin datos · Funciona sin conexión",
+    mModels:"Modelos de fracciones", mLine:"Recta numérica", mEquiv:"Equivalentes y comparar", mAdd:"Sumar y restar", mStory:"Problemas con fracciones",
+    teacherTitle:"Ajustes del maestro", close:"Cerrar", setGrade:"Grado", g3:"3.er grado", g4:"4.º grado", g5:"5.º grado",
+    gradeNote:"Al elegir un grado, las opciones de abajo vuelven a los valores de ese grado.",
+    setDens:"Denominadores", setMixed:"Mayores que 1", mixedOn:"Fracciones mayores que 1 y números mixtos",
+    setLine:"Recta numérica", line1:"de 0 a 1", line2:"de 0 a 2", line3:"de 0 a 3",
+    setModes:"Modos", setSpeech:"Voz", autoRead:"Leer instrucciones automáticamente", printCards:"Imprimir tarjetas de reto",
+    setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información del estudiante.",
+    pieceLbl:"Parte {i}", modelLbl:"Modelo de fracción", shadedLbl:"{n} de {d} partes iguales sombreadas", lineLbl:"Recta numérica de 0 a {m}",
+    pinLbl:"Marcador de la recta numérica", builderLbl:"Tira de respuesta", left:"Mover a la izquierda", right:"Mover a la derecha",
+    frSay:"{n} sobre {d}", mixSay:"{w} y {f}", cmpSay:"{a} {op} {b}",
+    wPlus:"más", wMinus:"menos", wTimes:"por", wDiv:"entre", wEq:"es igual a",
+    gtW:"es mayor que", ltW:"es menor que", eqW:"es igual a",
+    youPicked:"Elegiste {x}.",
+    nameDir:"¿Qué fracción de la figura está sombreada?", nameSetDir:"¿Qué fracción de las fichas está sombreada?",
+    nameMultiDir:"Cada figura es 1 entero. ¿Qué fracción está sombreada en total?",
+    buildDir:"Sombrea {f}. Toca las partes y luego presiona Comprobar.", buildMultiDir:"Cada figura es 1 entero. Sombrea {f}. Toca las partes y luego presiona Comprobar.",
+    unitDir:"¿Cuántas piezas de {u} forman {f}?",
+    goodName:"¡Sí! Sombreadas: {n} de {d} partes iguales, así que es {f}.",
+    goodNameMulti:"¡Sí! Cada entero tiene {d} partes iguales y hay {n} partes sombreadas en total: {f}.",
+    hintNameDen:"Cuenta todas las partes iguales de un entero. Hay {d}, así que el denominador es {d}.",
+    hintNameNum:"El número de abajo está bien. Ahora cuenta solo las partes sombreadas para el número de arriba.",
+    hintNameMulti:"Cada entero tiene {d} partes iguales. Cuenta las partes sombreadas en los dos enteros.",
+    goodBuild:"¡Sí! {n} partes de tamaño {u} forman {f}.",
+    hintFew:"Sombreaste {k}. {f} significa {n} partes de tamaño {u}, así que sombrea {m} más.",
+    hintMany:"Sombreaste {k}. {f} significa {n} partes de tamaño {u}, así que quita {m}.",
+    goodUnit:"¡Sí! {sum}. {n} piezas de tamaño {u} forman {f}.",
+    hintUnit:"El número de abajo de {f} dice el tamaño de cada pieza: {u}. El número de arriba dice cuántas piezas hay.",
+    placeDir:"Arrastra el marcador hasta {f} y luego presiona Comprobar.", readDir:"¿Qué número está en el marcador?",
+    goodLine:"¡Sí! Cada entero está dividido en {d} partes iguales, así que cada salto es {u}. {n} saltos desde 0 llegan a {f}.",
+    hintPlace:"Tu marcador está en {x}. Cada entero tiene {d} saltos iguales de {u}. Cuenta {n} saltos desde 0.",
+    hintRead:"Cuenta los saltos iguales de 0 a 1. Hay {d}, así que cada salto es {u}. Ahora cuenta los saltos de 0 al marcador.",
+    equivDir:"Encuentra el número que falta. Divide las partes para ayudarte.", eqSay:"¿{f} es igual a cuántos {dn}?",
+    splitBy:"Divide cada parte en {k}", reset:"Reiniciar",
+    goodEquiv:"¡Sí! Divide cada parte en {k}. Así hay {k} veces más partes sombreadas y {k} veces más partes en total: {eq}.",
+    hintEquiv:"Mantén la misma cantidad sombreada. Si {b} partes se dividen en {k} cada una, hay {nb} partes en total, y las partes sombreadas son {ak}.",
+    cmpDir:"Compara {f1} y {f2}. ¿Qué símbolo es verdadero?", showStrips:"Mostrar tiras", hideStrips:"Ocultar tiras",
+    goodCmp:"¡Sí! {stmt}.", notTrue:"Casi: {stmt} no es verdad.",
+    rDen:"Las partes son del mismo tamaño ({u}), así que más partes es una fracción mayor.",
+    rNum:"Las dos tienen {n} partes, pero las partes de {u1} son más grandes que las de {u2}. Menos partes en un entero significa partes más grandes.",
+    rEq:"Cubren la misma cantidad del mismo entero y están en el mismo punto de la recta numérica.",
+    rHalf:"Usa {h} como referencia: {s} es menor que {h} y {b} es mayor que {h}.",
+    rOne:"Usa 1 entero como referencia: {s} es menor que 1 y {b} es mayor que 1.",
+    rCommon:"Escríbelas con el mismo denominador: {e1} y {e2}. Ahora compara los números de arriba.",
+    addDir:"Resuelve. Forma la respuesta en la tira y luego presiona Comprobar.", whatSay:"¿Cuánto es {e}?", decDir:"¿Qué suma es igual a {f}?",
+    useCommon:"Usar un denominador común", showOrig:"Ver las partes originales",
+    youBuilt:"Formaste {x}.", addOne:"Agregar una parte", remOne:"Quitar una parte",
+    goodAdd:"¡Sí! {eq}.", tooMuch:"Es demasiado.", tooLittle:"Todavía no es suficiente.",
+    expLike:"Las partes son del mismo tamaño ({u}), así que suma o resta los números de arriba y deja igual el de abajo.",
+    expUnit:"Cuenta las fracciones unitarias: {n} piezas de {u}.",
+    expUnlike:"Primero cambia el nombre para que las partes sean del mismo tamaño: {r1} y {r2}.",
+    same:"{f} es lo mismo que {g}.",
+    goodDec:"¡Sí! {sum}. Con partes del mismo tamaño, los números de arriba suman {n}.",
+    hintDec:"Los números de arriba de esa suma dan {x}, pero necesitamos {n} partes de tamaño {u}.",
+    hintDecDen:"Esas piezas son de {u2}, no de {u}. Busca partes de tamaño {u}.",
+    showModel:"Mostrar un modelo", hideModel:"Ocultar el modelo",
+    names:"Ana,Mateo,Sofía,Diego,Lucía,Carlos,Valeria,Luis",
+    stShare:"{r} amigos comparten {n} pizzas del mismo tamaño en partes iguales. ¿Cuánta pizza recibe cada amigo?",
+    goodShare:"¡Sí! Corta cada una en {r} partes iguales. Cada amigo recibe {n} partes de tamaño {u}: {eq}.",
+    hintShare:"Imagina que cortas cada una en {r} partes iguales, una parte para cada amigo. ¿Cuántas partes recibe un amigo?",
+    stSet:"{name} tiene {d} canicas. {n} son azules. ¿Qué fracción de las canicas es azul?",
+    goodSet:"¡Sí! {n} de {d} canicas es {f}.",
+    hintSet:"El conjunto completo tiene {d} canicas, así que el número de abajo es {d}. El de arriba es cuántas son azules.",
+    stAdd:"{name} caminó {f1} de milla hasta el parque y {f2} de milla hasta la escuela. ¿Cuánto caminó en total?",
+    stSub:"{name} tenía {f1} de una bandeja de pan de maíz. La familia comió {f2} de la bandeja. ¿Cuánto queda?",
+    goodStory:"¡Sí! {eq}.", hintStAdd:"«En total» significa sumar: {ex}.", hintStSub:"«Queda» significa restar: {ex}.",
+    stMul:"{name} usa {f} de taza de harina para cada tanda de panecillos. ¿Cuánta harina necesita para {n} tandas?",
+    goodMul:"¡Sí! {n} grupos de {f}: {eq}.",
+    hintMul:"{n} tandas son {n} grupos de {f}. Multiplica el número entero por el número de arriba: {nx} partes de tamaño {u}.",
+    stOf:"Una bolsa tiene {n} canicas. {f} de ellas son rojas. ¿Cuántas canicas son rojas?",
+    goodOf:"¡Sí! Separa {n} en {d} grupos iguales de {g}. {a} grupos son {ans}.",
+    hintOf:"Separa las {n} canicas en {d} grupos iguales. ¿Cuántas canicas hay en {a} de esos grupos?",
+    stDivU:"{name} tiene {f} de una bandeja de brownies y la reparte en partes iguales entre {n} amigos. ¿Qué fracción de la bandeja entera recibe cada amigo?",
+    goodDivU:"¡Sí! {eq}. Al cortar {f} en {n} partes iguales, cada pedazo es {u} de la bandeja entera.",
+    hintDivU:"Corta {f} en {n} partes iguales. ¿Cuántas de esas partes pequeñas llenarían la bandeja entera?",
+    stDivW:"{name} tiene {n} tazas de mezcla de frutos secos. Cada bolsa lleva {f} de taza. ¿Cuántas bolsas puede llenar?",
+    goodDivW:"¡Sí! {eq}. Cada taza llena {d} bolsas, así que {n} tazas llenan {ans} bolsas.",
+    hintDivW:"¿Cuántas bolsas de {f} de taza caben en 1 taza? Luego piensa en {n} tazas.",
+    stds:"Estándares alineados — TEKS de Texas: 3.er grado 3.3(A–H); 4.º grado 4.3(A–E, G); 5.º grado 5.3(H, I, J, L). Common Core: 3.NF.1, 3.NF.2, 3.NF.3; 4.NF.1, 4.NF.2, 4.NF.3, 4.NF.4; 5.NF.1, 5.NF.2, 5.NF.3, 5.NF.4a, 5.NF.7.",
+    cardTitle:"Forja de Fracciones — Tarjetas de reto", cardName:"Nombre:", cardModel:"Escribe la fracción sombreada.",
+    cardLine:"Marca {f} en la recta numérica.", cardEquiv:"Escribe el número que falta.", cardCmp:"Escribe >, < o =.",
+    cardAdd:"Resuelve. Dibuja un modelo para mostrar tu razonamiento.", cardStory:"Resuelve. Muestra tu razonamiento."
+  },
+  vi:{
+    appTitle:"Xưởng Phân Số", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", modesLbl:"Chế độ", stars:"Số sao đạt được",
+    newRound:"Vòng mới", readAloud:"Đọc to", check:"Kiểm tra", clear:"Xóa", choicesLbl:"Các lựa chọn",
+    footNote:"Không tài khoản · Không thu thập dữ liệu · Hoạt động ngoại tuyến",
+    mModels:"Mô hình phân số", mLine:"Tia số", mEquiv:"Phân số bằng nhau & So sánh", mAdd:"Cộng & Trừ", mStory:"Bài toán phân số",
+    teacherTitle:"Cài đặt giáo viên", close:"Đóng", setGrade:"Lớp", g3:"Lớp 3", g4:"Lớp 4", g5:"Lớp 5",
+    gradeNote:"Khi chọn lớp, các tùy chọn bên dưới sẽ trở về mặc định của lớp đó.",
+    setDens:"Mẫu số", setMixed:"Lớn hơn 1", mixedOn:"Phân số lớn hơn 1 và hỗn số",
+    setLine:"Tia số", line1:"từ 0 đến 1", line2:"từ 0 đến 2", line3:"từ 0 đến 3",
+    setModes:"Chế độ", setSpeech:"Giọng nói", autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
+    setStored:"Cài đặt chỉ lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
+    pieceLbl:"Phần {i}", modelLbl:"Mô hình phân số", shadedLbl:"{n} trong {d} phần bằng nhau được tô", lineLbl:"Tia số từ 0 đến {m}",
+    pinLbl:"Ghim trên tia số", builderLbl:"Thanh trả lời", left:"Sang trái", right:"Sang phải",
+    frSay:"{n} phần {d}", mixSay:"{w} và {f}", cmpSay:"{a} {op} {b}",
+    wPlus:"cộng", wMinus:"trừ", wTimes:"nhân", wDiv:"chia", wEq:"bằng",
+    gtW:"lớn hơn", ltW:"bé hơn", eqW:"bằng",
+    youPicked:"Em đã chọn {x}.",
+    nameDir:"Phân số nào chỉ phần được tô màu của hình?", nameSetDir:"Phân số nào chỉ số hạt được tô màu?",
+    nameMultiDir:"Mỗi hình là 1 đơn vị. Tất cả phần được tô là phân số nào?",
+    buildDir:"Hãy tô {f}. Chạm vào các phần, rồi bấm Kiểm tra.", buildMultiDir:"Mỗi hình là 1 đơn vị. Hãy tô {f}. Chạm vào các phần, rồi bấm Kiểm tra.",
+    unitDir:"Cần bao nhiêu mảnh {u} để được {f}?",
+    goodName:"Đúng! Cả hình có {d} phần bằng nhau và {n} phần được tô, nên đó là {f}.",
+    goodNameMulti:"Đúng! Mỗi đơn vị có {d} phần bằng nhau, và tổng cộng {n} phần được tô: {f}.",
+    hintNameDen:"Đếm tất cả các phần bằng nhau trong một hình. Có {d} phần, nên mẫu số là {d}.",
+    hintNameNum:"Số ở dưới (mẫu số) đúng rồi. Bây giờ chỉ đếm các phần được tô để có số ở trên.",
+    hintNameMulti:"Mỗi đơn vị có {d} phần bằng nhau. Đếm các phần được tô ở cả hai hình.",
+    goodBuild:"Đúng! {n} phần, mỗi phần {u}, tạo thành {f}.",
+    hintFew:"Em đã tô {k}. {f} nghĩa là {n} phần, mỗi phần {u}, nên tô thêm {m}.",
+    hintMany:"Em đã tô {k}. {f} nghĩa là {n} phần, mỗi phần {u}, nên bỏ bớt {m}.",
+    goodUnit:"Đúng! {sum}. {n} mảnh {u} tạo thành {f}.",
+    hintUnit:"Mẫu số của {f} cho biết kích thước mỗi mảnh: {u}. Tử số cho biết có bao nhiêu mảnh.",
+    placeDir:"Kéo ghim đến {f}, rồi bấm Kiểm tra.", readDir:"Ghim đang ở số nào?",
+    goodLine:"Đúng! Mỗi đơn vị được chia thành {d} phần bằng nhau, nên mỗi bước nhảy là {u}. {n} bước nhảy từ 0 đến {f}.",
+    hintPlace:"Ghim của em ở {x}. Mỗi đơn vị có {d} bước nhảy bằng nhau, mỗi bước {u}. Hãy đếm {n} bước từ 0.",
+    hintRead:"Đếm các bước nhảy bằng nhau từ 0 đến 1. Có {d} bước, nên mỗi bước là {u}. Bây giờ đếm số bước từ 0 đến ghim.",
+    equivDir:"Tìm số còn thiếu. Chia nhỏ các phần để giúp em.", eqSay:"{f} bằng bao nhiêu phần {d}?",
+    splitBy:"Chia mỗi phần thành {k}", reset:"Đặt lại",
+    goodEquiv:"Đúng! Chia mỗi phần thành {k}. Số phần được tô và tổng số phần đều gấp {k} lần: {eq}.",
+    hintEquiv:"Giữ nguyên lượng được tô. Khi chia mỗi phần trong {b} phần thành {k}, sẽ có {nb} phần tất cả, và số phần được tô là {ak}.",
+    cmpDir:"So sánh {f1} và {f2}. Dấu nào đúng?", showStrips:"Hiện thanh phân số", hideStrips:"Ẩn thanh phân số",
+    goodCmp:"Đúng! {stmt}.", notTrue:"Chưa đúng: {stmt} là sai.",
+    rDen:"Các phần có cùng kích thước ({u}), nên nhiều phần hơn thì phân số lớn hơn.",
+    rNum:"Cả hai đều có {n} phần, nhưng phần {u1} lớn hơn phần {u2}. Chia thành ít phần hơn thì mỗi phần lớn hơn.",
+    rEq:"Chúng chiếm cùng một lượng của cùng một đơn vị, và nằm ở cùng một điểm trên tia số.",
+    rHalf:"Dùng {h} làm mốc: {s} bé hơn {h}, còn {b} lớn hơn {h}.",
+    rOne:"Dùng 1 đơn vị làm mốc: {s} bé hơn 1, còn {b} lớn hơn 1.",
+    rCommon:"Viết lại với cùng mẫu số: {e1} và {e2}. Bây giờ so sánh tử số.",
+    addDir:"Hãy giải. Tạo đáp án trên thanh, rồi bấm Kiểm tra.", whatSay:"{e} bằng bao nhiêu?", decDir:"Tổng nào bằng {f}?",
+    useCommon:"Dùng mẫu số chung", showOrig:"Xem các phần ban đầu",
+    youBuilt:"Em đã tạo {x}.", addOne:"Thêm một phần", remOne:"Bớt một phần",
+    goodAdd:"Đúng! {eq}.", tooMuch:"Nhiều quá rồi.", tooLittle:"Vẫn chưa đủ.",
+    expLike:"Các phần có cùng kích thước ({u}), nên cộng hoặc trừ tử số và giữ nguyên mẫu số.",
+    expUnit:"Đếm các phân số đơn vị: {n} mảnh {u}.",
+    expUnlike:"Trước hết, viết lại để các phần có cùng kích thước: {r1} và {r2}.",
+    same:"{f} cũng chính là {g}.",
+    goodDec:"Đúng! {sum}. Với các phần cùng kích thước, tử số cộng lại được {n}.",
+    hintDec:"Các tử số trong tổng đó cộng lại được {x}, nhưng ta cần {n} phần, mỗi phần {u}.",
+    hintDecDen:"Các mảnh đó là {u2}, không phải {u}. Hãy tìm các phần có kích thước {u}.",
+    showModel:"Hiện mô hình", hideModel:"Ẩn mô hình",
+    names:"An,Minh,Lan,Hùng,Mai,Tuấn,Linh,Nam",
+    stShare:"{r} bạn chia đều {n} chiếc pizza cùng cỡ. Mỗi bạn được bao nhiêu pizza?",
+    goodShare:"Đúng! Cắt mỗi cái thành {r} phần bằng nhau. Mỗi bạn được {n} phần, mỗi phần {u}: {eq}.",
+    hintShare:"Hãy tưởng tượng cắt mỗi cái thành {r} phần bằng nhau, mỗi bạn một phần. Một bạn được bao nhiêu phần?",
+    stSet:"{name} có {d} viên bi. {n} viên màu xanh dương. Phân số nào chỉ số bi màu xanh dương?",
+    goodSet:"Đúng! {n} trong {d} viên bi là {f}.",
+    hintSet:"Cả nhóm có {d} viên bi, nên mẫu số là {d}. Tử số là số bi màu xanh dương.",
+    stAdd:"{name} đi bộ {f1} dặm đến công viên và {f2} dặm đến trường. {name} đã đi tất cả bao nhiêu dặm?",
+    stSub:"{name} có {f1} khay bánh ngô. Cả nhà đã ăn {f2} khay. Còn lại bao nhiêu?",
+    goodStory:"Đúng! {eq}.", hintStAdd:"“Tất cả” nghĩa là cộng: {ex}.", hintStSub:"“Còn lại” nghĩa là trừ: {ex}.",
+    stMul:"{name} dùng {f} cốc bột cho mỗi mẻ bánh muffin. {name} cần bao nhiêu bột cho {n} mẻ?",
+    goodMul:"Đúng! {n} nhóm {f}: {eq}.",
+    hintMul:"{n} mẻ là {n} nhóm {f}. Nhân số tự nhiên với tử số: {nx} phần, mỗi phần {u}.",
+    stOf:"Một túi có {n} viên bi. {f} số bi là màu đỏ. Có bao nhiêu viên bi màu đỏ?",
+    goodOf:"Đúng! Chia {n} thành {d} nhóm bằng nhau, mỗi nhóm {g}. {a} nhóm là {ans}.",
+    hintOf:"Chia {n} viên bi thành {d} nhóm bằng nhau. {a} nhóm đó có bao nhiêu viên bi?",
+    stDivU:"{name} có {f} khay bánh brownie và chia đều cho {n} bạn. Mỗi bạn được bao nhiêu phần của cả khay?",
+    goodDivU:"Đúng! {eq}. Cắt {f} thành {n} phần bằng nhau thì mỗi miếng bằng {u} cả khay.",
+    hintDivU:"Cắt {f} thành {n} phần bằng nhau. Bao nhiêu phần nhỏ như vậy thì đầy cả khay?",
+    stDivW:"{name} có {n} cốc hạt trộn. Mỗi túi đựng {f} cốc. {name} có thể đổ đầy bao nhiêu túi?",
+    goodDivW:"Đúng! {eq}. Mỗi cốc đầy {d} túi, nên {n} cốc đầy {ans} túi.",
+    hintDivW:"Bao nhiêu túi {f} cốc thì vừa 1 cốc? Sau đó nghĩ về {n} cốc.",
+    stds:"Tiêu chuẩn phù hợp — TEKS Texas: Lớp 3 3.3(A–H); Lớp 4 4.3(A–E, G); Lớp 5 5.3(H, I, J, L). Common Core: 3.NF.1, 3.NF.2, 3.NF.3; 4.NF.1, 4.NF.2, 4.NF.3, 4.NF.4; 5.NF.1, 5.NF.2, 5.NF.3, 5.NF.4a, 5.NF.7.",
+    cardTitle:"Xưởng Phân Số — Thẻ thử thách", cardName:"Tên:", cardModel:"Viết phân số chỉ phần được tô.",
+    cardLine:"Đánh dấu {f} trên tia số.", cardEquiv:"Điền số còn thiếu.", cardCmp:"Viết >, < hoặc =.",
+    cardAdd:"Hãy giải. Vẽ mô hình để thể hiện cách nghĩ.", cardStory:"Hãy giải. Trình bày cách nghĩ của em."
+  },
+  ar:{
+    appTitle:"مصنع الكسور", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", modesLbl:"الأنماط", stars:"النجوم المكتسبة",
+    newRound:"جولة جديدة", readAloud:"اقرأ بصوت عالٍ", check:"تحقّق", clear:"مسح", choicesLbl:"خيارات الإجابة",
+    footNote:"بدون حسابات · لا جمع للبيانات · يعمل بدون إنترنت",
+    mModels:"نماذج الكسور", mLine:"خط الأعداد", mEquiv:"التكافؤ والمقارنة", mAdd:"الجمع والطرح", mStory:"مسائل الكسور",
+    teacherTitle:"إعدادات المعلم", close:"إغلاق", setGrade:"الصف", g3:"الصف الثالث", g4:"الصف الرابع", g5:"الصف الخامس",
+    gradeNote:"اختيار الصف يعيد الخيارات أدناه إلى الإعدادات الافتراضية لذلك الصف.",
+    setDens:"المقامات", setMixed:"أكبر من 1", mixedOn:"كسور أكبر من 1 وأعداد كسرية",
+    setLine:"خط الأعداد", line1:"من 0 إلى 1", line2:"من 0 إلى 2", line3:"من 0 إلى 3",
+    setModes:"الأنماط", setSpeech:"النطق", autoRead:"قراءة التعليمات تلقائياً", printCards:"طباعة بطاقات التحدي",
+    setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُحفظ أي معلومات عن الطالب أبداً.",
+    pieceLbl:"الجزء {i}", modelLbl:"نموذج كسر", shadedLbl:"{n} من {d} أجزاء متساوية مظللة", lineLbl:"خط الأعداد من 0 إلى {m}",
+    pinLbl:"دبوس خط الأعداد", builderLbl:"شريط الإجابة", left:"حرّك لليسار", right:"حرّك لليمين",
+    frSay:"{n} على {d}", mixSay:"{w} و {f}", cmpSay:"{a} {op} {b}",
+    wPlus:"زائد", wMinus:"ناقص", wTimes:"ضرب", wDiv:"قسمة", wEq:"يساوي",
+    gtW:"أكبر من", ltW:"أصغر من", eqW:"يساوي",
+    youPicked:"اخترت {x}.",
+    nameDir:"ما الكسر الذي يمثل الجزء المظلل من الشكل؟", nameSetDir:"ما الكسر الذي يمثل الأقراص المظللة؟",
+    nameMultiDir:"كل شكل يمثل واحداً صحيحاً. ما الكسر المظلل كله؟",
+    buildDir:"ظلّل {f}. المس الأجزاء، ثم اضغط تحقّق.", buildMultiDir:"كل شكل يمثل واحداً صحيحاً. ظلّل {f}. المس الأجزاء، ثم اضغط تحقّق.",
+    unitDir:"كم قطعة من {u} تكوّن {f}؟",
+    goodName:"نعم! الكل فيه {d} أجزاء متساوية، و{n} منها مظللة، إذن الكسر هو {f}.",
+    goodNameMulti:"نعم! كل واحد صحيح فيه {d} أجزاء متساوية، والمظلل كله {n} أجزاء: {f}.",
+    hintNameDen:"عُدّ كل الأجزاء المتساوية في الواحد الصحيح. عددها {d}، إذن المقام {d}.",
+    hintNameNum:"المقام (العدد السفلي) صحيح. الآن عُدّ الأجزاء المظللة فقط لتعرف البسط.",
+    hintNameMulti:"كل واحد صحيح فيه {d} أجزاء متساوية. عُدّ الأجزاء المظللة في الشكلين.",
+    goodBuild:"نعم! {n} أجزاء، كل جزء {u}، تكوّن {f}.",
+    hintFew:"ظلّلت {k}. الكسر {f} يعني {n} أجزاء، كل جزء {u}، فظلّل {m} أكثر.",
+    hintMany:"ظلّلت {k}. الكسر {f} يعني {n} أجزاء، كل جزء {u}، فأزل {m}.",
+    goodUnit:"نعم! {sum}. {n} قطع من {u} تكوّن {f}.",
+    hintUnit:"مقام {f} يدل على حجم كل قطعة: {u}. والبسط يدل على عدد القطع.",
+    placeDir:"اسحب الدبوس إلى {f}، ثم اضغط تحقّق.", readDir:"ما العدد عند الدبوس؟",
+    goodLine:"نعم! كل واحد صحيح مقسوم إلى {d} أجزاء متساوية، فكل قفزة {u}. {n} قفزات من 0 تصل إلى {f}.",
+    hintPlace:"دبوسك عند {x}. كل واحد صحيح فيه {d} قفزات متساوية، كل قفزة {u}. عُدّ {n} قفزات من 0.",
+    hintRead:"عُدّ القفزات المتساوية من 0 إلى 1. عددها {d}، فكل قفزة {u}. الآن عُدّ القفزات من 0 إلى الدبوس.",
+    equivDir:"جِد العدد الناقص. قسّم الأجزاء لتساعدك.", eqSay:"{f} يساوي كم على {d}؟",
+    splitBy:"قسّم كل جزء إلى {k}", reset:"إعادة",
+    goodEquiv:"نعم! قسّم كل جزء إلى {k}. فيصبح عدد الأجزاء المظللة وعدد الأجزاء كلها {k} أضعاف: {eq}.",
+    hintEquiv:"أبقِ الكمية المظللة نفسها. عندما يُقسّم كل جزء من {b} أجزاء إلى {k}، يصبح المجموع {nb} أجزاء، والأجزاء المظللة {ak}.",
+    cmpDir:"قارن بين {f1} و{f2}. أي رمز صحيح؟", showStrips:"أظهر الأشرطة", hideStrips:"أخفِ الأشرطة",
+    goodCmp:"نعم! {stmt}.", notTrue:"ليس تماماً: {stmt} غير صحيح.",
+    rDen:"الأجزاء بالحجم نفسه ({u})، فالكسر الذي له أجزاء أكثر هو الأكبر.",
+    rNum:"لكليهما {n} أجزاء، لكن أجزاء {u1} أكبر من أجزاء {u2}. كلما قلّ عدد الأجزاء في الواحد الصحيح كبرت الأجزاء.",
+    rEq:"يغطيان المقدار نفسه من الواحد الصحيح نفسه، ويقعان عند النقطة نفسها على خط الأعداد.",
+    rHalf:"استخدم {h} مرجعاً: {s} أصغر من {h}، و{b} أكبر من {h}.",
+    rOne:"استخدم الواحد الصحيح مرجعاً: {s} أصغر من 1، و{b} أكبر من 1.",
+    rCommon:"اكتبهما بمقام مشترك: {e1} و{e2}. الآن قارن البسطين.",
+    addDir:"حُلّ. كوّن الإجابة على الشريط، ثم اضغط تحقّق.", whatSay:"{e} يساوي كم؟", decDir:"أي مجموع يساوي {f}؟",
+    useCommon:"استخدم مقاماً مشتركاً", showOrig:"أظهر الأجزاء الأصلية",
+    youBuilt:"كوّنت {x}.", addOne:"أضف جزءاً", remOne:"أزل جزءاً",
+    goodAdd:"نعم! {eq}.", tooMuch:"هذا أكثر من اللازم.", tooLittle:"هذا لا يكفي بعد.",
+    expLike:"الأجزاء بالحجم نفسه ({u})، فاجمع البسطين أو اطرحهما وأبقِ المقام كما هو.",
+    expUnit:"عُدّ كسور الوحدة: {n} قطع من {u}.",
+    expUnlike:"أعد الكتابة أولاً لتصبح الأجزاء بالحجم نفسه: {r1} و{r2}.",
+    same:"{f} هو نفسه {g}.",
+    goodDec:"نعم! {sum}. الأجزاء بالحجم نفسه، ومجموع البسوط {n}.",
+    hintDec:"مجموع البسوط في هذا المجموع {x}، لكننا نحتاج {n} أجزاء، كل جزء {u}.",
+    hintDecDen:"هذه القطع من {u2} وليست من {u}. ابحث عن أجزاء حجمها {u}.",
+    showModel:"أظهر نموذجاً", hideModel:"أخفِ النموذج",
+    names:"سارة,ليلى,مريم,نور,هدى,سلمى,ريم,جنى",
+    stShare:"يتقاسم {r} أصدقاء {n} بيتزا متساوية الحجم بالتساوي. كم بيتزا يأخذ كل صديق؟",
+    goodShare:"نعم! قسّم كل واحدة إلى {r} أجزاء متساوية. يأخذ كل صديق {n} أجزاء، كل جزء {u}: {eq}.",
+    hintShare:"تخيّل أنك تقسم كل واحدة إلى {r} أجزاء متساوية، جزءاً لكل صديق. كم جزءاً يأخذ الصديق الواحد؟",
+    stSet:"مع {name} {d} كرات زجاجية. {n} منها زرقاء. ما الكسر الذي يمثل الكرات الزرقاء؟",
+    goodSet:"نعم! {n} من {d} كرات هي {f}.",
+    hintSet:"المجموعة كلها {d} كرات، إذن المقام {d}. والبسط هو عدد الكرات الزرقاء.",
+    stAdd:"مشت {name} {f1} ميل إلى الحديقة و{f2} ميل إلى المدرسة. كم مشت {name} إجمالاً؟",
+    stSub:"كان مع {name} {f1} صينية من خبز الذرة. أكلت العائلة {f2} الصينية. كم بقي؟",
+    goodStory:"نعم! {eq}.", hintStAdd:"«إجمالاً» تعني الجمع: {ex}.", hintStSub:"«بقي» تعني الطرح: {ex}.",
+    stMul:"تستخدم {name} {f} كوب من الدقيق لكل دفعة من الكعك. كم دقيقاً تحتاج لـ {n} دفعات؟",
+    goodMul:"نعم! {n} مجموعات من {f}: {eq}.",
+    hintMul:"{n} دفعات تعني {n} مجموعات من {f}. اضرب العدد الصحيح في البسط: {nx} أجزاء، كل جزء {u}.",
+    stOf:"في كيس {n} كرة زجاجية. {f} منها حمراء. كم كرة حمراء؟",
+    goodOf:"نعم! قسّم {n} إلى {d} مجموعات متساوية في كل منها {g}. {a} مجموعات فيها {ans}.",
+    hintOf:"قسّم الكرات {n} إلى {d} مجموعات متساوية. كم كرة في {a} من هذه المجموعات؟",
+    stDivU:"مع {name} {f} صينية من البراونيز، وتقسمها بالتساوي على {n} صديقات. ما الكسر الذي تأخذه كل صديقة من الصينية كلها؟",
+    goodDivU:"نعم! {eq}. تقسيم {f} إلى {n} أجزاء متساوية يعطي قطعاً كل منها {u} من الصينية كلها.",
+    hintDivU:"قسّم {f} إلى {n} أجزاء متساوية. كم جزءاً صغيراً مثله يملأ الصينية كلها؟",
+    stDivW:"مع {name} {n} أكواب من خليط المكسرات. كل كيس يتسع لـ {f} كوب. كم كيساً تملأ {name}؟",
+    goodDivW:"نعم! {eq}. كل كوب يملأ {d} أكياس، فـ {n} أكواب تملأ {ans} كيساً.",
+    hintDivW:"كم كيساً سعته {f} كوب يكفي لكوب واحد؟ ثم فكّر في {n} أكواب.",
+    stds:"المعايير المتوافقة — TEKS تكساس: الصف الثالث 3.3(A–H)؛ الصف الرابع 4.3(A–E, G)؛ الصف الخامس 5.3(H, I, J, L). Common Core: 3.NF.1، 3.NF.2، 3.NF.3؛ 4.NF.1، 4.NF.2، 4.NF.3، 4.NF.4؛ 5.NF.1، 5.NF.2، 5.NF.3، 5.NF.4a، 5.NF.7.",
+    cardTitle:"مصنع الكسور — بطاقات التحدي", cardName:"الاسم:", cardModel:"اكتب الكسر المظلل.",
+    cardLine:"حدّد {f} على خط الأعداد.", cardEquiv:"اكتب العدد الناقص.", cardCmp:"اكتب > أو < أو =.",
+    cardAdd:"حُلّ. ارسم نموذجاً يوضح تفكيرك.", cardStory:"حُلّ. وضّح تفكيرك."
+  },
+  hi:{
+    appTitle:"भिन्न कार्यशाला", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", modesLbl:"मोड", stars:"मिले हुए तारे",
+    newRound:"नया दौर", readAloud:"ज़ोर से पढ़ें", check:"जाँचें", clear:"साफ़ करें", choicesLbl:"उत्तर के विकल्प",
+    footNote:"कोई खाता नहीं · कोई डेटा नहीं · ऑफ़लाइन काम करता है",
+    mModels:"भिन्न मॉडल", mLine:"संख्या रेखा", mEquiv:"तुल्य भिन्न और तुलना", mAdd:"जोड़ और घटाव", mStory:"भिन्न की कहानियाँ",
+    teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setGrade:"कक्षा", g3:"कक्षा 3", g4:"कक्षा 4", g5:"कक्षा 5",
+    gradeNote:"कक्षा चुनने पर नीचे के विकल्प उस कक्षा की डिफ़ॉल्ट सेटिंग पर लौट आते हैं।",
+    setDens:"हर", setMixed:"1 से बड़े", mixedOn:"1 से बड़ी भिन्न और मिश्रित संख्याएँ",
+    setLine:"संख्या रेखा", line1:"0 से 1", line2:"0 से 2", line3:"0 से 3",
+    setModes:"मोड", setSpeech:"आवाज़", autoRead:"निर्देश अपने आप पढ़ें", printCards:"चुनौती कार्ड छापें",
+    setStored:"सेटिंग्स केवल इस डिवाइस पर सहेजी जाती हैं। छात्र की जानकारी कभी नहीं सहेजी जाती।",
+    pieceLbl:"भाग {i}", modelLbl:"भिन्न मॉडल", shadedLbl:"{d} बराबर भागों में से {n} रंगे हुए", lineLbl:"0 से {m} तक संख्या रेखा",
+    pinLbl:"संख्या रेखा का पिन", builderLbl:"उत्तर पट्टी", left:"बाएँ खिसकाएँ", right:"दाएँ खिसकाएँ",
+    frSay:"{n} बटा {d}", mixSay:"{w} पूर्णांक {f}", cmpSay:"{a}, {b} {op}",
+    wPlus:"जमा", wMinus:"घटा", wTimes:"गुणा", wDiv:"भाग", wEq:"बराबर",
+    gtW:"से बड़ा है", ltW:"से छोटा है", eqW:"के बराबर है",
+    youPicked:"तुमने {x} चुना।",
+    nameDir:"आकृति का कौन-सा भिन्न भाग रंगा हुआ है?", nameSetDir:"गोटियों का कौन-सा भिन्न भाग रंगा हुआ है?",
+    nameMultiDir:"हर आकृति 1 पूरा है। कुल मिलाकर कितना भाग रंगा हुआ है?",
+    buildDir:"{f} रंगो। भागों को छुओ, फिर जाँचें दबाओ।", buildMultiDir:"हर आकृति 1 पूरा है। {f} रंगो। भागों को छुओ, फिर जाँचें दबाओ।",
+    unitDir:"{u} के कितने टुकड़े मिलकर {f} बनाते हैं?",
+    goodName:"हाँ! पूरे में {d} बराबर भाग हैं और {n} रंगे हुए हैं, इसलिए यह {f} है।",
+    goodNameMulti:"हाँ! हर पूरे में {d} बराबर भाग हैं, और कुल {n} भाग रंगे हुए हैं: {f}।",
+    hintNameDen:"एक पूरे के सभी बराबर भाग गिनो। वे {d} हैं, इसलिए हर {d} है।",
+    hintNameNum:"नीचे की संख्या (हर) सही है। अब ऊपर की संख्या के लिए केवल रंगे हुए भाग गिनो।",
+    hintNameMulti:"हर पूरे में {d} बराबर भाग हैं। दोनों आकृतियों के रंगे हुए भाग गिनो।",
+    goodBuild:"हाँ! {u} आकार के {n} भाग मिलकर {f} बनाते हैं।",
+    hintFew:"तुमने {k} रंगे। {f} का मतलब है {u} आकार के {n} भाग, इसलिए {m} और रंगो।",
+    hintMany:"तुमने {k} रंगे। {f} का मतलब है {u} आकार के {n} भाग, इसलिए {m} हटाओ।",
+    goodUnit:"हाँ! {sum}। {u} आकार के {n} टुकड़े मिलकर {f} बनाते हैं।",
+    hintUnit:"{f} की नीचे की संख्या टुकड़े का आकार बताती है: {u}। ऊपर की संख्या बताती है कि कितने टुकड़े हैं।",
+    placeDir:"पिन को {f} तक खींचो, फिर जाँचें दबाओ।", readDir:"पिन पर कौन-सी संख्या है?",
+    goodLine:"हाँ! हर पूरे को {d} बराबर भागों में बाँटा गया है, इसलिए हर छलाँग {u} है। 0 से {n} छलाँगें {f} पर पहुँचती हैं।",
+    hintPlace:"तुम्हारा पिन {x} पर है। हर पूरे में {u} की {d} बराबर छलाँगें हैं। 0 से {n} छलाँगें गिनो।",
+    hintRead:"0 से 1 तक बराबर छलाँगें गिनो। वे {d} हैं, इसलिए हर छलाँग {u} है। अब 0 से पिन तक छलाँगें गिनो।",
+    equivDir:"छूटी हुई संख्या ढूँढो। मदद के लिए भागों को बाँटो।", eqSay:"{f} बराबर कितने बटा {d}?",
+    splitBy:"हर भाग को {k} में बाँटो", reset:"फिर से",
+    goodEquiv:"हाँ! हर भाग को {k} में बाँटो। तब रंगे हुए भाग और कुल भाग दोनों {k} गुना हो जाते हैं: {eq}।",
+    hintEquiv:"रंगी हुई मात्रा उतनी ही रखो। जब {b} भागों में से हर एक को {k} में बाँटते हैं, तो कुल {nb} भाग होते हैं, और रंगे हुए भाग {ak} हो जाते हैं।",
+    cmpDir:"{f1} और {f2} की तुलना करो। कौन-सा चिह्न सही है?", showStrips:"पट्टियाँ दिखाएँ", hideStrips:"पट्टियाँ छिपाएँ",
+    goodCmp:"हाँ! {stmt}।", notTrue:"पूरी तरह नहीं: {stmt} सही नहीं है।",
+    rDen:"भाग एक ही आकार के हैं ({u}), इसलिए ज़्यादा भागों वाली भिन्न बड़ी है।",
+    rNum:"दोनों में {n} भाग हैं, पर {u1} वाले भाग {u2} वाले भागों से बड़े हैं। पूरे में कम भाग हों तो भाग बड़े होते हैं।",
+    rEq:"दोनों एक ही पूरे की बराबर मात्रा ढकती हैं और संख्या रेखा पर एक ही बिंदु पर हैं।",
+    rHalf:"{h} को आधार मानो: {s}, {h} से छोटा है और {b}, {h} से बड़ा है।",
+    rOne:"1 पूरे को आधार मानो: {s}, 1 से छोटा है और {b}, 1 से बड़ा है।",
+    rCommon:"दोनों को एक ही हर के साथ लिखो: {e1} और {e2}। अब ऊपर की संख्याओं की तुलना करो।",
+    addDir:"हल करो। पट्टी पर उत्तर बनाओ, फिर जाँचें दबाओ।", whatSay:"{e} बराबर कितना?", decDir:"कौन-सा योग {f} के बराबर है?",
+    useCommon:"एक समान हर का उपयोग करो", showOrig:"मूल भाग दिखाओ",
+    youBuilt:"तुमने {x} बनाया।", addOne:"एक भाग जोड़ो", remOne:"एक भाग हटाओ",
+    goodAdd:"हाँ! {eq}।", tooMuch:"यह ज़्यादा है।", tooLittle:"यह अभी कम है।",
+    expLike:"भाग एक ही आकार के हैं ({u}), इसलिए ऊपर की संख्याएँ जोड़ो या घटाओ और नीचे की संख्या वही रखो।",
+    expUnit:"इकाई भिन्न गिनो: {u} के {n} टुकड़े।",
+    expUnlike:"पहले दोबारा लिखो ताकि भाग एक ही आकार के हों: {r1} और {r2}।",
+    same:"{f} और {g} एक ही हैं।",
+    goodDec:"हाँ! {sum}। एक जैसे भागों में ऊपर की संख्याओं का योग {n} है।",
+    hintDec:"उस योग की ऊपर की संख्याएँ मिलकर {x} होती हैं, पर हमें {u} आकार के {n} भाग चाहिए।",
+    hintDecDen:"वे टुकड़े {u2} के हैं, {u} के नहीं। {u} आकार के भाग ढूँढो।",
+    showModel:"मॉडल दिखाएँ", hideModel:"मॉडल छिपाएँ",
+    names:"प्रिया,अनन्या,मीरा,ईशा,सिया,दिया,रिया,नेहा",
+    stShare:"{r} दोस्त एक जैसे आकार के {n} पिज़्ज़ा बराबर-बराबर बाँटते हैं। हर दोस्त को कितना पिज़्ज़ा मिलता है?",
+    goodShare:"हाँ! हर एक को {r} बराबर भागों में काटो। हर दोस्त को {u} आकार के {n} भाग मिलते हैं: {eq}।",
+    hintShare:"सोचो कि हर एक को {r} बराबर भागों में काटा, हर दोस्त के लिए एक भाग। एक दोस्त को कितने भाग मिलते हैं?",
+    stSet:"{name} के पास {d} कंचे हैं। उनमें से {n} नीले हैं। कंचों का कितना भाग नीला है?",
+    goodSet:"हाँ! {d} में से {n} कंचे यानी {f}।",
+    hintSet:"पूरे समूह में {d} कंचे हैं, इसलिए नीचे की संख्या {d} है। ऊपर की संख्या नीले कंचों की गिनती है।",
+    stAdd:"{name} पार्क तक {f1} मील और स्कूल तक {f2} मील चली। {name} कुल कितना चली?",
+    stSub:"{name} के पास मक्के की रोटी की ट्रे का {f1} भाग था। परिवार ने ट्रे का {f2} भाग खा लिया। कितना बचा?",
+    goodStory:"हाँ! {eq}।", hintStAdd:"“कुल” का मतलब जोड़ना: {ex}।", hintStSub:"“बचा” का मतलब घटाना: {ex}।",
+    stMul:"{name} मफ़िन के हर बैच में {f} कप आटा डालती है। {n} बैच के लिए कितना आटा चाहिए?",
+    goodMul:"हाँ! {f} के {n} समूह: {eq}।",
+    hintMul:"{n} बैच यानी {f} के {n} समूह। पूर्ण संख्या को ऊपर की संख्या से गुणा करो: {u} आकार के {nx} भाग।",
+    stOf:"एक थैले में {n} कंचे हैं। उनमें से {f} लाल हैं। कितने कंचे लाल हैं?",
+    goodOf:"हाँ! {n} को {d} बराबर समूहों में बाँटो, हर समूह में {g}। {a} समूहों में {ans} हैं।",
+    hintOf:"{n} कंचों को {d} बराबर समूहों में बाँटो। उनमें से {a} समूहों में कितने कंचे हैं?",
+    stDivU:"{name} के पास ब्राउनी की ट्रे का {f} भाग है और वह उसे {n} सहेलियों में बराबर बाँटती है। हर सहेली को पूरी ट्रे का कितना भाग मिलता है?",
+    goodDivU:"हाँ! {eq}। {f} को {n} बराबर भागों में काटने पर हर टुकड़ा पूरी ट्रे का {u} होता है।",
+    hintDivU:"{f} को {n} बराबर भागों में काटो। ऐसे कितने छोटे भाग पूरी ट्रे भर देंगे?",
+    stDivW:"{name} के पास {n} कप ट्रेल मिक्स है। हर थैली में {f} कप आता है। {name} कितनी थैलियाँ भर सकती है?",
+    goodDivW:"हाँ! {eq}। हर कप से {d} थैलियाँ भरती हैं, इसलिए {n} कप से {ans} थैलियाँ भरती हैं।",
+    hintDivW:"1 कप में {f} कप वाली कितनी थैलियाँ भरेंगी? फिर {n} कप के बारे में सोचो।",
+    stds:"संरेखित मानक — टेक्सास TEKS: कक्षा 3 3.3(A–H); कक्षा 4 4.3(A–E, G); कक्षा 5 5.3(H, I, J, L)। Common Core: 3.NF.1, 3.NF.2, 3.NF.3; 4.NF.1, 4.NF.2, 4.NF.3, 4.NF.4; 5.NF.1, 5.NF.2, 5.NF.3, 5.NF.4a, 5.NF.7।",
+    cardTitle:"भिन्न कार्यशाला — चुनौती कार्ड", cardName:"नाम:", cardModel:"रंगे हुए भाग की भिन्न लिखो।",
+    cardLine:"संख्या रेखा पर {f} अंकित करो।", cardEquiv:"छूटी हुई संख्या लिखो।", cardCmp:">, < या = लिखो।",
+    cardAdd:"हल करो। अपनी सोच दिखाने के लिए मॉडल बनाओ।", cardStory:"हल करो। अपनी सोच दिखाओ।"
+  },
+  ur:{
+    appTitle:"کسور کا کارخانہ", home:"ہوم", privacy:"رازداری", teacher:"استاد", modesLbl:"موڈ", stars:"حاصل کیے گئے ستارے",
+    newRound:"نیا دور", readAloud:"بلند آواز سے پڑھیں", check:"جانچیں", clear:"صاف کریں", choicesLbl:"جواب کے اختیارات",
+    footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا نہیں · آف لائن کام کرتا ہے",
+    mModels:"کسر کے ماڈل", mLine:"عددی خط", mEquiv:"مساوی کسور اور موازنہ", mAdd:"جمع اور تفریق", mStory:"کسور کی کہانیاں",
+    teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setGrade:"جماعت", g3:"جماعت 3", g4:"جماعت 4", g5:"جماعت 5",
+    gradeNote:"جماعت منتخب کرنے پر نیچے کے اختیارات اس جماعت کی بنیادی ترتیب پر واپس آ جاتے ہیں۔",
+    setDens:"نسب نما", setMixed:"1 سے بڑے", mixedOn:"1 سے بڑی کسور اور مخلوط اعداد",
+    setLine:"عددی خط", line1:"0 سے 1", line2:"0 سے 2", line3:"0 سے 3",
+    setModes:"موڈ", setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں", printCards:"چیلنج کارڈ پرنٹ کریں",
+    setStored:"ترتیبات صرف اسی ڈیوائس پر محفوظ ہوتی ہیں۔ طالب علم کی معلومات کبھی محفوظ نہیں ہوتیں۔",
+    pieceLbl:"حصہ {i}", modelLbl:"کسر کا ماڈل", shadedLbl:"{d} برابر حصوں میں سے {n} رنگے ہوئے", lineLbl:"0 سے {m} تک عددی خط",
+    pinLbl:"عددی خط کی پن", builderLbl:"جواب کی پٹی", left:"بائیں کریں", right:"دائیں کریں",
+    frSay:"{n} بٹا {d}", mixSay:"{w} اور {f}", cmpSay:"{a}، {b} {op}",
+    wPlus:"جمع", wMinus:"منفی", wTimes:"ضرب", wDiv:"تقسیم", wEq:"برابر",
+    gtW:"سے بڑا ہے", ltW:"سے چھوٹا ہے", eqW:"کے برابر ہے",
+    youPicked:"تم نے {x} چنا۔",
+    nameDir:"شکل کا کتنا کسر حصہ رنگا ہوا ہے؟", nameSetDir:"گوٹیوں کا کتنا کسر حصہ رنگا ہوا ہے؟",
+    nameMultiDir:"ہر شکل 1 مکمل ہے۔ کل کتنا حصہ رنگا ہوا ہے؟",
+    buildDir:"{f} رنگو۔ حصوں کو چھوؤ، پھر جانچیں دباؤ۔", buildMultiDir:"ہر شکل 1 مکمل ہے۔ {f} رنگو۔ حصوں کو چھوؤ، پھر جانچیں دباؤ۔",
+    unitDir:"{u} کے کتنے ٹکڑے مل کر {f} بناتے ہیں؟",
+    goodName:"ہاں! مکمل میں {d} برابر حصے ہیں اور {n} رنگے ہوئے ہیں، اس لیے یہ {f} ہے۔",
+    goodNameMulti:"ہاں! ہر مکمل میں {d} برابر حصے ہیں، اور کل {n} حصے رنگے ہوئے ہیں: {f}۔",
+    hintNameDen:"ایک مکمل کے سب برابر حصے گنو۔ وہ {d} ہیں، اس لیے نسب نما {d} ہے۔",
+    hintNameNum:"نیچے والا عدد درست ہے۔ اب اوپر والے عدد کے لیے صرف رنگے ہوئے حصے گنو۔",
+    hintNameMulti:"ہر مکمل میں {d} برابر حصے ہیں۔ دونوں شکلوں کے رنگے ہوئے حصے گنو۔",
+    goodBuild:"ہاں! {u} سائز کے {n} حصے مل کر {f} بناتے ہیں۔",
+    hintFew:"تم نے {k} رنگے۔ {f} کا مطلب ہے {u} سائز کے {n} حصے، اس لیے {m} اور رنگو۔",
+    hintMany:"تم نے {k} رنگے۔ {f} کا مطلب ہے {u} سائز کے {n} حصے، اس لیے {m} ہٹاؤ۔",
+    goodUnit:"ہاں! {sum}۔ {u} سائز کے {n} ٹکڑے مل کر {f} بناتے ہیں۔",
+    hintUnit:"{f} کا نیچے والا عدد ٹکڑے کا سائز بتاتا ہے: {u}۔ اوپر والا عدد بتاتا ہے کہ کتنے ٹکڑے ہیں۔",
+    placeDir:"پن کو {f} تک گھسیٹو، پھر جانچیں دباؤ۔", readDir:"پن پر کون سا عدد ہے؟",
+    goodLine:"ہاں! ہر مکمل کو {d} برابر حصوں میں بانٹا گیا ہے، اس لیے ہر چھلانگ {u} ہے۔ 0 سے {n} چھلانگیں {f} پر پہنچتی ہیں۔",
+    hintPlace:"تمہاری پن {x} پر ہے۔ ہر مکمل میں {u} کی {d} برابر چھلانگیں ہیں۔ 0 سے {n} چھلانگیں گنو۔",
+    hintRead:"0 سے 1 تک برابر چھلانگیں گنو۔ وہ {d} ہیں، اس لیے ہر چھلانگ {u} ہے۔ اب 0 سے پن تک چھلانگیں گنو۔",
+    equivDir:"غائب عدد تلاش کرو۔ مدد کے لیے حصوں کو تقسیم کرو۔", eqSay:"{f} برابر کتنے بٹا {d}؟",
+    splitBy:"ہر حصے کو {k} میں بانٹو", reset:"دوبارہ",
+    goodEquiv:"ہاں! ہر حصے کو {k} میں بانٹو۔ تب رنگے ہوئے حصے اور کل حصے دونوں {k} گنا ہو جاتے ہیں: {eq}۔",
+    hintEquiv:"رنگی ہوئی مقدار اتنی ہی رکھو۔ جب {b} حصوں میں سے ہر ایک کو {k} میں بانٹتے ہیں تو کل {nb} حصے ہوتے ہیں، اور رنگے ہوئے حصے {ak} ہو جاتے ہیں۔",
+    cmpDir:"{f1} اور {f2} کا موازنہ کرو۔ کون سی علامت درست ہے؟", showStrips:"پٹیاں دکھائیں", hideStrips:"پٹیاں چھپائیں",
+    goodCmp:"ہاں! {stmt}۔", notTrue:"بالکل نہیں: {stmt} درست نہیں ہے۔",
+    rDen:"حصے ایک ہی سائز کے ہیں ({u})، اس لیے زیادہ حصوں والی کسر بڑی ہے۔",
+    rNum:"دونوں میں {n} حصے ہیں، مگر {u1} والے حصے {u2} والے حصوں سے بڑے ہیں۔ مکمل میں کم حصے ہوں تو حصے بڑے ہوتے ہیں۔",
+    rEq:"دونوں ایک ہی مکمل کی برابر مقدار ڈھانپتی ہیں اور عددی خط پر ایک ہی نقطے پر ہیں۔",
+    rHalf:"{h} کو معیار بناؤ: {s}، {h} سے چھوٹا ہے اور {b}، {h} سے بڑا ہے۔",
+    rOne:"1 مکمل کو معیار بناؤ: {s}، 1 سے چھوٹا ہے اور {b}، 1 سے بڑا ہے۔",
+    rCommon:"دونوں کو ایک ہی نسب نما کے ساتھ لکھو: {e1} اور {e2}۔ اب اوپر والے اعداد کا موازنہ کرو۔",
+    addDir:"حل کرو۔ پٹی پر جواب بناؤ، پھر جانچیں دباؤ۔", whatSay:"{e} برابر کتنا؟", decDir:"کون سا مجموعہ {f} کے برابر ہے؟",
+    useCommon:"مشترک نسب نما استعمال کرو", showOrig:"اصل حصے دکھاؤ",
+    youBuilt:"تم نے {x} بنایا۔", addOne:"ایک حصہ جوڑو", remOne:"ایک حصہ ہٹاؤ",
+    goodAdd:"ہاں! {eq}۔", tooMuch:"یہ زیادہ ہے۔", tooLittle:"یہ ابھی کم ہے۔",
+    expLike:"حصے ایک ہی سائز کے ہیں ({u})، اس لیے اوپر والے اعداد جمع یا تفریق کرو اور نیچے والا عدد وہی رکھو۔",
+    expUnit:"اکائی کسور گنو: {u} کے {n} ٹکڑے۔",
+    expUnlike:"پہلے دوبارہ لکھو تاکہ حصے ایک ہی سائز کے ہوں: {r1} اور {r2}۔",
+    same:"{f} اور {g} ایک ہی ہیں۔",
+    goodDec:"ہاں! {sum}۔ ایک جیسے حصوں میں اوپر والے اعداد کا مجموعہ {n} ہے۔",
+    hintDec:"اس مجموعے کے اوپر والے اعداد مل کر {x} بنتے ہیں، مگر ہمیں {u} سائز کے {n} حصے چاہییں۔",
+    hintDecDen:"وہ ٹکڑے {u2} کے ہیں، {u} کے نہیں۔ {u} سائز کے حصے تلاش کرو۔",
+    showModel:"ماڈل دکھائیں", hideModel:"ماڈل چھپائیں",
+    names:"عائشہ,زینب,فاطمہ,مریم,حنا,سارہ,نور,ثنا",
+    stShare:"{r} دوست ایک جیسے سائز کے {n} پیزا برابر بانٹتے ہیں۔ ہر دوست کو کتنا پیزا ملتا ہے؟",
+    goodShare:"ہاں! ہر ایک کو {r} برابر حصوں میں کاٹو۔ ہر دوست کو {u} سائز کے {n} حصے ملتے ہیں: {eq}۔",
+    hintShare:"سوچو کہ ہر ایک کو {r} برابر حصوں میں کاٹا، ہر دوست کے لیے ایک حصہ۔ ایک دوست کو کتنے حصے ملتے ہیں؟",
+    stSet:"{name} کے پاس {d} کنچے ہیں۔ ان میں سے {n} نیلے ہیں۔ کنچوں کا کتنا کسر حصہ نیلا ہے؟",
+    goodSet:"ہاں! {d} میں سے {n} کنچے یعنی {f}۔",
+    hintSet:"پورے گروپ میں {d} کنچے ہیں، اس لیے نیچے والا عدد {d} ہے۔ اوپر والا عدد نیلے کنچوں کی گنتی ہے۔",
+    stAdd:"{name} پارک تک {f1} میل اور اسکول تک {f2} میل چلی۔ {name} کل کتنا چلی؟",
+    stSub:"{name} کے پاس مکئی کی روٹی کی ٹرے کا {f1} حصہ تھا۔ گھر والوں نے ٹرے کا {f2} حصہ کھا لیا۔ کتنا بچا؟",
+    goodStory:"ہاں! {eq}۔", hintStAdd:"“کل” کا مطلب ہے جمع کرنا: {ex}۔", hintStSub:"“بچا” کا مطلب ہے تفریق کرنا: {ex}۔",
+    stMul:"{name} مفن کے ہر بیچ میں {f} کپ آٹا ڈالتی ہے۔ {n} بیچ کے لیے کتنا آٹا چاہیے؟",
+    goodMul:"ہاں! {f} کے {n} گروپ: {eq}۔",
+    hintMul:"{n} بیچ یعنی {f} کے {n} گروپ۔ مکمل عدد کو اوپر والے عدد سے ضرب دو: {u} سائز کے {nx} حصے۔",
+    stOf:"ایک تھیلے میں {n} کنچے ہیں۔ ان میں سے {f} سرخ ہیں۔ کتنے کنچے سرخ ہیں؟",
+    goodOf:"ہاں! {n} کو {d} برابر گروپوں میں بانٹو، ہر گروپ میں {g}۔ {a} گروپوں میں {ans} ہیں۔",
+    hintOf:"{n} کنچوں کو {d} برابر گروپوں میں بانٹو۔ ان میں سے {a} گروپوں میں کتنے کنچے ہیں؟",
+    stDivU:"{name} کے پاس براؤنی کی ٹرے کا {f} حصہ ہے اور وہ اسے {n} سہیلیوں میں برابر بانٹتی ہے۔ ہر سہیلی کو پوری ٹرے کا کتنا حصہ ملتا ہے؟",
+    goodDivU:"ہاں! {eq}۔ {f} کو {n} برابر حصوں میں کاٹنے سے ہر ٹکڑا پوری ٹرے کا {u} ہوتا ہے۔",
+    hintDivU:"{f} کو {n} برابر حصوں میں کاٹو۔ ایسے کتنے چھوٹے حصے پوری ٹرے بھر دیں گے؟",
+    stDivW:"{name} کے پاس {n} کپ ٹریل مکس ہے۔ ہر تھیلی میں {f} کپ آتا ہے۔ {name} کتنی تھیلیاں بھر سکتی ہے؟",
+    goodDivW:"ہاں! {eq}۔ ہر کپ سے {d} تھیلیاں بھرتی ہیں، اس لیے {n} کپ سے {ans} تھیلیاں بھرتی ہیں۔",
+    hintDivW:"1 کپ میں {f} کپ والی کتنی تھیلیاں بھریں گی؟ پھر {n} کپ کے بارے میں سوچو۔",
+    stds:"منسلک معیارات — ٹیکساس TEKS: جماعت 3 3.3(A–H)؛ جماعت 4 4.3(A–E, G)؛ جماعت 5 5.3(H, I, J, L)۔ Common Core: 3.NF.1، 3.NF.2، 3.NF.3؛ 4.NF.1، 4.NF.2، 4.NF.3، 4.NF.4؛ 5.NF.1، 5.NF.2، 5.NF.3، 5.NF.4a، 5.NF.7۔",
+    cardTitle:"کسور کا کارخانہ — چیلنج کارڈ", cardName:"نام:", cardModel:"رنگے ہوئے حصے کی کسر لکھو۔",
+    cardLine:"عددی خط پر {f} کا نشان لگاؤ۔", cardEquiv:"غائب عدد لکھو۔", cardCmp:">، < یا = لکھو۔",
+    cardAdd:"حل کرو۔ اپنی سوچ دکھانے کے لیے ماڈل بناؤ۔", cardStory:"حل کرو۔ اپنی سوچ دکھاؤ۔"
+  },
+  zh:{
+    appTitle:"分数工坊", home:"主页", privacy:"隐私", teacher:"教师", modesLbl:"模式", stars:"获得的星星",
+    newRound:"新一轮", readAloud:"朗读", check:"检查", clear:"清除", choicesLbl:"答案选项",
+    footNote:"无账号 · 不收集数据 · 离线可用",
+    mModels:"分数模型", mLine:"数轴", mEquiv:"等值与比较", mAdd:"加法与减法", mStory:"分数应用题",
+    teacherTitle:"教师设置", close:"关闭", setGrade:"年级", g3:"三年级", g4:"四年级", g5:"五年级",
+    gradeNote:"选择年级后，下面的选项会恢复为该年级的默认设置。",
+    setDens:"分母", setMixed:"大于 1", mixedOn:"大于 1 的分数和带分数",
+    setLine:"数轴", line1:"0 到 1", line2:"0 到 2", line3:"0 到 3",
+    setModes:"模式", setSpeech:"语音", autoRead:"自动朗读说明", printCards:"打印挑战卡",
+    setStored:"设置只保存在本设备上。从不保存任何学生信息。",
+    pieceLbl:"第 {i} 份", modelLbl:"分数模型", shadedLbl:"{d} 等份中涂色 {n} 份", lineLbl:"0 到 {m} 的数轴",
+    pinLbl:"数轴上的图钉", builderLbl:"答案条", left:"向左移", right:"向右移",
+    frSay:"{d}分之{n}", mixSay:"{w}又{f}", cmpSay:"{a}{op}{b}",
+    wPlus:"加", wMinus:"减", wTimes:"乘", wDiv:"除以", wEq:"等于",
+    gtW:"大于", ltW:"小于", eqW:"等于",
+    youPicked:"你选了 {x}。",
+    nameDir:"图形的涂色部分是几分之几？", nameSetDir:"涂色的圆片占几分之几？",
+    nameMultiDir:"每个图形是 1 个整体。涂色部分一共是多少？",
+    buildDir:"涂出 {f}。点一点各部分，然后按“检查”。", buildMultiDir:"每个图形是 1 个整体。涂出 {f}。点一点各部分，然后按“检查”。",
+    unitDir:"几个 {u} 组成 {f}？",
+    goodName:"对了！整体平均分成 {d} 份，涂了 {n} 份，所以是 {f}。",
+    goodNameMulti:"对了！每个整体平均分成 {d} 份，一共涂了 {n} 份：{f}。",
+    hintNameDen:"数一数一个整体被平均分成几份。有 {d} 份，所以分母是 {d}。",
+    hintNameNum:"分母是对的。现在只数涂色的部分，得到分子。",
+    hintNameMulti:"每个整体平均分成 {d} 份。把两个图形中涂色的部分都数一数。",
+    goodBuild:"对了！{n} 个 {u} 组成 {f}。",
+    hintFew:"你涂了 {k} 份。{f} 表示 {n} 个 {u}，所以再涂 {m} 份。",
+    hintMany:"你涂了 {k} 份。{f} 表示 {n} 个 {u}，所以去掉 {m} 份。",
+    goodUnit:"对了！{sum}。{n} 个 {u} 组成 {f}。",
+    hintUnit:"{f} 的分母表示每一份的大小：{u}。分子表示有几份。",
+    placeDir:"把图钉拖到 {f}，然后按“检查”。", readDir:"图钉指着哪个数？",
+    goodLine:"对了！每个整体平均分成 {d} 份，所以每跳一次是 {u}。从 0 跳 {n} 次就到 {f}。",
+    hintPlace:"你的图钉在 {x}。每个整体有 {d} 个相等的 {u}。从 0 开始数 {n} 跳。",
+    hintRead:"数一数从 0 到 1 有几个相等的间隔。有 {d} 个，所以每跳一次是 {u}。再数从 0 到图钉跳了几次。",
+    equivDir:"找出缺少的数。可以把每份再分一分来帮忙。", eqSay:"{f}等于{d}分之几？",
+    splitBy:"每份再分成 {k} 份", reset:"重置",
+    goodEquiv:"对了！把每一份再分成 {k} 份，涂色的份数和总份数都变成原来的 {k} 倍：{eq}。",
+    hintEquiv:"涂色的大小要保持不变。把 {b} 份中的每一份再分成 {k} 份，一共有 {nb} 份，涂色的份数变成 {ak}。",
+    cmpDir:"比较 {f1} 和 {f2}。哪个符号是对的？", showStrips:"显示分数条", hideStrips:"隐藏分数条",
+    goodCmp:"对了！{stmt}。", notTrue:"还不对：{stmt} 不成立。",
+    rDen:"每份大小相同（{u}），所以份数多的分数大。",
+    rNum:"两个都是 {n} 份，但 {u1} 比 {u2} 大。整体分的份数越少，每份越大。",
+    rEq:"它们占同一个整体的同样多，在数轴上也是同一个点。",
+    rHalf:"用 {h} 作参照：{s} 小于 {h}，{b} 大于 {h}。",
+    rOne:"用 1 作参照：{s} 小于 1，{b} 大于 1。",
+    rCommon:"先通分：{e1}，{e2}。再比较分子。",
+    addDir:"计算。在分数条上拼出答案，然后按“检查”。", whatSay:"{e}等于多少？", decDir:"哪个算式的和等于 {f}？",
+    useCommon:"通分", showOrig:"显示原来的份",
+    youBuilt:"你拼出了 {x}。", addOne:"加一份", remOne:"减一份",
+    goodAdd:"对了！{eq}。", tooMuch:"多了。", tooLittle:"还不够。",
+    expLike:"每份大小相同（{u}），所以分子相加或相减，分母不变。",
+    expUnit:"数一数单位分数：{n} 个 {u}。",
+    expUnlike:"先通分，让每份一样大：{r1}，{r2}。",
+    same:"{f} 和 {g} 一样大。",
+    goodDec:"对了！{sum}。每份大小相同，分子加起来是 {n}。",
+    hintDec:"这个算式的分子加起来是 {x}，但我们需要 {n} 个 {u}。",
+    hintDecDen:"那些是 {u2}，不是 {u}。找每份是 {u} 的算式。",
+    showModel:"显示模型", hideModel:"隐藏模型",
+    names:"小明,小红,小华,小丽,小刚,小芳,小军,小雪",
+    stShare:"{r} 个朋友平均分 {n} 个一样大的比萨。每个朋友分到多少个比萨？",
+    goodShare:"对了！把每个都平均分成 {r} 份。每个朋友分到 {n} 个 {u}：{eq}。",
+    hintShare:"想象把每个都平均分成 {r} 份，每个朋友一份。一个朋友能分到几份？",
+    stSet:"{name}有 {d} 颗弹珠，其中 {n} 颗是蓝色的。蓝色弹珠占几分之几？",
+    goodSet:"对了！{d} 颗中的 {n} 颗就是 {f}。",
+    hintSet:"整组有 {d} 颗弹珠，所以分母是 {d}。分子是蓝色弹珠的颗数。",
+    stAdd:"{name}走了 {f1} 英里到公园，又走了 {f2} 英里到学校。{name}一共走了多少英里？",
+    stSub:"{name}有 {f1} 盘玉米面包，家人吃了 {f2} 盘。还剩多少盘？",
+    goodStory:"对了！{eq}。", hintStAdd:"“一共”表示用加法：{ex}。", hintStSub:"“还剩”表示用减法：{ex}。",
+    stMul:"{name}每做一批松饼要用 {f} 杯面粉。做 {n} 批需要多少杯面粉？",
+    goodMul:"对了！{n} 个 {f}：{eq}。",
+    hintMul:"{n} 批就是 {n} 个 {f}。用整数乘分子：{nx} 个 {u}。",
+    stOf:"袋子里有 {n} 颗弹珠，其中 {f} 是红色的。红色弹珠有多少颗？",
+    goodOf:"对了！把 {n} 平均分成 {d} 组，每组 {g} 颗。{a} 组就是 {ans} 颗。",
+    hintOf:"把 {n} 颗弹珠平均分成 {d} 组。{a} 组一共有多少颗？",
+    stDivU:"{name}有 {f} 盘布朗尼，平均分给 {n} 个朋友。每个朋友分到整盘的几分之几？",
+    goodDivU:"对了！{eq}。把 {f} 平均分成 {n} 份，每份是整盘的 {u}。",
+    hintDivU:"把 {f} 平均分成 {n} 份。这样的小份要几个才能拼成整盘？",
+    stDivW:"{name}有 {n} 杯什锦果仁，每袋装 {f} 杯。{name}能装满几袋？",
+    goodDivW:"对了！{eq}。每杯能装 {d} 袋，所以 {n} 杯能装 {ans} 袋。",
+    hintDivW:"1 杯能装几袋 {f} 杯的？再想想 {n} 杯。",
+    stds:"对应标准 — 德州 TEKS：三年级 3.3(A–H)；四年级 4.3(A–E, G)；五年级 5.3(H, I, J, L)。Common Core：3.NF.1、3.NF.2、3.NF.3；4.NF.1、4.NF.2、4.NF.3、4.NF.4；5.NF.1、5.NF.2、5.NF.3、5.NF.4a、5.NF.7。",
+    cardTitle:"分数工坊 — 挑战卡", cardName:"姓名：", cardModel:"写出涂色部分的分数。",
+    cardLine:"在数轴上标出 {f}。", cardEquiv:"填出缺少的数。", cardCmp:"填 >、< 或 =。",
+    cardAdd:"计算。画一个模型说明你的想法。", cardStory:"解答。写出你的想法。"
+  }
+};
+
+let lang = "en";
+function t(key, vars){
+  let s = (T[lang] && T[lang][key]!==undefined) ? T[lang][key] : (T.en[key]!==undefined? T.en[key] : key);
+  if(vars) for(const k in vars) s = s.replaceAll("{"+k+"}", vars[k]);
+  return s;
+}
+
+/* ---------- Settings ---------- */
+const MODES = ["models","line","equiv","addsub","stories"];
+const MODE_KEY = {models:"mModels",line:"mLine",equiv:"mEquiv",addsub:"mAdd",stories:"mStory"};
+const MODE_IC = {models:"🧩",line:"📏",equiv:"⚖️",addsub:"➕",stories:"📖"};
+const ALLD = [2,3,4,5,6,7,8,9,10,11,12,100];
+const GRADES = {
+  3:{dens:[2,3,4,6,8], mixed:false, line:1},
+  4:{dens:[2,3,4,5,6,8,10,12,100], mixed:true, line:2},
+  5:{dens:[2,3,4,5,6,7,8,9,10,11,12], mixed:true, line:3}
+};
+const clone = o=>JSON.parse(JSON.stringify(o));
+const DEFAULTS = {grade:4, dens:GRADES[4].dens.slice(), mixed:true, line:2,
+  modes:{models:true,line:true,equiv:true,addsub:true,stories:true}, autoRead:false};
+let settings = loadSettings();
+function loadSettings(){
+  try{
+    const raw = localStorage.getItem("ff_settings");
+    if(raw){ const o=JSON.parse(raw), s=Object.assign(clone(DEFAULTS), o, {modes:Object.assign({},DEFAULTS.modes,o.modes)});
+      if(!GRADES[s.grade]) s.grade=DEFAULTS.grade;
+      s.dens=(Array.isArray(s.dens)?s.dens:[]).map(Number).filter(d=>ALLD.includes(d));
+      if(!s.dens.length) s.dens=GRADES[s.grade].dens.slice();
+      if(![1,2,3].includes(+s.line)) s.line=GRADES[s.grade].line; s.line=+s.line;
+      if(!MODES.some(m=>s.modes[m])) s.modes=clone(DEFAULTS.modes);
+      return s; }
+  }catch(e){}
+  return clone(DEFAULTS);
+}
+function saveSettings(){ try{ localStorage.setItem("ff_settings", JSON.stringify(settings)); }catch(e){} }
+
+/* ---------- Utils ---------- */
+const $ = s=>document.querySelector(s);
+const $$ = s=>Array.from(document.querySelectorAll(s));
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const ri = (a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const gcd = (a,b)=>{ while(b){ [a,b]=[b,a%b]; } return a; };
+const lcm = (a,b)=>a/gcd(a,b)*b;
+const G = ()=>+settings.grade;
+// Enabled denominators (optionally capped); never empty.
+function dens(max){ max=max||100; let a=settings.dens.filter(d=>d<=max);
+  if(!a.length) a=GRADES[G()].dens.filter(d=>d<=max); if(!a.length) a=[2,4]; return a; }
+const M = s=>`<bdi class="math" dir="ltr">${s}</bdi>`;
+const frH = (n,d)=>`<span class="fr"><span>${n}</span><span>${d}</span></span>`;
+let stars=0;
+function addStar(){ stars++; $("#starCount").textContent=stars; const w=$("#stars"); w.classList.remove("pop"); void w.offsetWidth; w.classList.add("pop"); }
+
+/* ---------- Fractions: shown stacked, spoken in words ----------
+   Every message is a pair {h: HTML to show, s: plain text to speak}. */
+const ORD = {
+  en:{2:["half","halves"],3:["third","thirds"],4:["fourth","fourths"],5:["fifth","fifths"],6:["sixth","sixths"],7:["seventh","sevenths"],
+      8:["eighth","eighths"],9:["ninth","ninths"],10:["tenth","tenths"],11:["eleventh","elevenths"],12:["twelfth","twelfths"],
+      14:["fourteenth","fourteenths"],15:["fifteenth","fifteenths"],16:["sixteenth","sixteenths"],18:["eighteenth","eighteenths"],
+      20:["twentieth","twentieths"],21:["twenty-first","twenty-firsts"],22:["twenty-second","twenty-seconds"],24:["twenty-fourth","twenty-fourths"],
+      100:["hundredth","hundredths"]},
+  es:{2:["medio","medios"],3:["tercio","tercios"],4:["cuarto","cuartos"],5:["quinto","quintos"],6:["sexto","sextos"],7:["séptimo","séptimos"],
+      8:["octavo","octavos"],9:["noveno","novenos"],10:["décimo","décimos"],11:["onceavo","onceavos"],12:["doceavo","doceavos"],
+      14:["catorceavo","catorceavos"],15:["quinceavo","quinceavos"],16:["dieciseisavo","dieciseisavos"],18:["dieciochoavo","dieciochoavos"],
+      20:["veinteavo","veinteavos"],21:["veintiunavo","veintiunavos"],22:["veintidosavo","veintidosavos"],24:["veinticuatroavo","veinticuatroavos"],
+      100:["centésimo","centésimos"]}
+};
+function fracSay(n,d){ const o=ORD[lang]&&ORD[lang][d];
+  if(o) return (n===1?(lang==="es"?"un":"one"):n)+" "+o[n===1?0:1]; return t("frSay",{n,d}); }
+function ordPl(d){ const o=ORD[lang]&&ORD[lang][d]; return o?o[1]:String(d); }
+// A fraction value. mix=true shows numbers ≥ 1 as mixed/whole numbers.
+function F(n,d,mix){
+  if(mix===undefined) mix=settings.mixed;
+  if(mix && n>=d){ const w=Math.floor(n/d), r=n%d;
+    if(!r) return {h:""+w, s:""+w, n, d};
+    return {h:`<span class="mx">${w}${frH(r,d)}</span>`, s:t("mixSay",{w,f:fracSay(r,d)}), n, d}; }
+  return {h:frH(n,d), s:fracSay(n,d), n, d};
+}
+const N = k=>({h:""+k, s:""+k});
+const OPS = {"+":"wPlus","−":"wMinus","×":"wTimes","÷":"wDiv","=":"wEq","<":"ltW",">":"gtW"};
+// An expression: X(F(1,4),"+",F(2,4),"=",F(3,4))
+function X(...p){ const h=[],s=[];
+  p.forEach(x=>{ if(typeof x==="string"&&OPS[x]){ h.push(x==="<"?"&lt;":x===">"?"&gt;":x); s.push(t(OPS[x])); }
+    else if(x&&typeof x==="object"){ h.push(x.h); s.push(x.s); } else { h.push(""+x); s.push(""+x); } });
+  return {h:M(h.join(" ")), s:s.join(" ")};
+}
+// A comparison statement, word order per language.
+function S3(a,sym,b){ return {h:M(a.h+" "+(sym==="<"?"&lt;":sym===">"?"&gt;":sym)+" "+b.h), s:t("cmpSay",{a:a.s,b:b.s,op:t(OPS[sym]||"eqW")})}; }
+function tm(key,vars){ const h={},s={}; vars=vars||{};
+  for(const k in vars){ const v=vars[k]; if(v&&typeof v==="object"){ h[k]=v.h.indexOf("<bdi")===0?v.h:M(v.h); s[k]=v.s; } else { h[k]=v; s[k]=v; } }
+  return {h:t(key,h), s:t(key,s)};
+}
+const cat = (...m)=>({h:m.map(x=>x.h).join(" "), s:m.map(x=>x.s).join(" ")});
+// Up to 4 fraction choices with distinct values; first candidates are the likeliest mistakes.
+function fOpts(n,d,mix,extra){
+  const out=[{...F(n,d,mix),ok:true}], seen=[n/d];
+  const c=(extra||[]).concat([[n+1,d],[n-1,d],[d,n],[n,d+1],[n,d-1],[n+2,d],[n-2,d],[n+d,d],[n,2*d],[2*n,d]]);
+  for(const [a,b] of c){ if(out.length>=4) break; if(!(a>=1&&b>=2&&b<=100)) continue;
+    const v=a/b; if(seen.some(x=>Math.abs(x-v)<1e-9)) continue; seen.push(v); out.push({...F(a,b,mix),ok:false}); }
+  return shuffle(out);
+}
+function iOpts(ans,cands){ const out=[{...N(ans),ok:true,v:ans}], seen=[ans];
+  cands.concat([ans+1,ans-1,ans+2,ans*2,ans+3]).forEach(v=>{ if(out.length<4&&v>0&&Number.isInteger(v)&&!seen.includes(v)){ seen.push(v); out.push({...N(v),ok:false,v}); } });
+  return shuffle(out);
+}
+
+/* ---------- Fraction model SVGs ---------- */
+const GRID = {2:[1,2],3:[1,3],4:[2,2],5:[1,5],6:[2,3],7:[1,7],8:[2,4],9:[3,3],10:[2,5],11:[1,11],12:[3,4],100:[10,10]};
+// One whole: kind = strip | circle | rect | set. cls(i) gives the class for global part i (whole w covers w*d..w*d+d-1).
+function wholeSVG(kind,d,w,cls,tap,lbl){
+  const A=j=>{ const i=w*d+j, c=cls(i)||""; return `class="pc ${c}" data-i="${i}"`+(tap?` tabindex="0" role="button" aria-pressed="${/\bon\b/.test(c)}" aria-label="${t("pieceLbl",{i:i+1})}"`:""); };
+  let s="", vb;
+  if(kind==="strip"){ vb="0 0 304 64"; const pw=300/d; for(let j=0;j<d;j++) s+=`<rect x="${(2+j*pw).toFixed(2)}" y="2" width="${pw.toFixed(2)}" height="60" ${A(j)}/>`; }
+  else if(kind==="rect"){ const [r,c]=GRID[d]||[1,d], W0=r===1?300:(r===c?200:240), cw=W0/c, ch=r===1?70:cw;
+    vb=`0 0 ${W0+4} ${(r*ch+4).toFixed(1)}`;
+    for(let y=0;y<r;y++) for(let x=0;x<c;x++) s+=`<rect x="${(2+x*cw).toFixed(2)}" y="${(2+y*ch).toFixed(2)}" width="${cw.toFixed(2)}" height="${ch.toFixed(2)}" ${A(y*c+x)}/>`; }
+  else if(kind==="circle"){ vb="0 0 200 200"; const R=94, P=a=>[(100+R*Math.cos(a)).toFixed(2),(100+R*Math.sin(a)).toFixed(2)];
+    for(let j=0;j<d;j++){ const a0=-Math.PI/2+2*Math.PI*j/d, a1=-Math.PI/2+2*Math.PI*(j+1)/d, p0=P(a0), p1=P(a1);
+      s+=`<path d="M100 100L${p0[0]} ${p0[1]}A${R} ${R} 0 ${d===1?1:0} 1 ${p1[0]} ${p1[1]}Z" ${A(j)}/>`; } }
+  else { const cols=d<=6?d:(d===9?3:Math.ceil(d/2)), rows=Math.ceil(d/cols); vb=`0 0 ${cols*52+4} ${rows*52+4}`;
+    for(let j=0;j<d;j++) s+=`<circle cx="${30+(j%cols)*52}" cy="${30+Math.floor(j/cols)*52}" r="21" ${A(j)}/>`; }
+  return `<svg viewBox="${vb}" class="mdl m-${kind}${d>24?" thin":""}" role="${tap?"group":"img"}" aria-label="${lbl||t("modelLbl")}">${s}</svg>`;
+}
+function modelsHTML(kind,d,W,cls,tap,col){ let s=""; for(let w=0;w<W;w++){ const k=[...Array(d).keys()].filter(j=>/\bon\b/.test(cls(w*d+j)||"")).length;
+  s+=wholeSVG(kind,d,w,cls,tap,tap?t("modelLbl"):t("shadedLbl",{n:k,d})); } return `<div class="mdls${col?" col":""}" dir="ltr">${s}</div>`; }
+// Strip(s) for a fraction n/d (several wholes if n > d), with a label.
+function stripRow(lab,n,d,c){ const W=Math.max(1,Math.ceil(n/d)); let s="";
+  for(let w=0;w<W;w++) s+=wholeSVG("strip",d,w,i=>i<n?(c||"on"):"",false,t("shadedLbl",{n:Math.min(d,Math.max(0,n-w*d)),d}));
+  return `<div class="stripRow" dir="ltr"><span class="lab">${lab}</span><div class="mdls col">${s}</div></div>`; }
+
+/* ---------- Number line ---------- */
+const NX0=34, NX1=606;
+function nlSVG(max,d,o){ o=o||{}; const T_=max*d, x=k=>(NX0+(NX1-NX0)*k/T_).toFixed(2);
+  let s=`<line class="nlax" x1="${NX0-14}" y1="80" x2="${NX1+14}" y2="80"/>`;
+  for(let k=0;k<=T_;k++){ const wh=k%d===0; s+=`<line class="tk${wh?" wh":""}" x1="${x(k)}" y1="${wh?60:68}" x2="${x(k)}" y2="${wh?100:92}"/>`;
+    if(wh) s+=`<text class="nlt" x="${x(k)}" y="132">${k/d}</text>`; }
+  if(o.mark!=null&&o.mark%d){ s+=`<text class="nlf" x="${x(o.mark)}" y="22">${o.mark}</text><line x1="${(+x(o.mark)-10)}" x2="${(+x(o.mark)+10)}" y1="28" y2="28" stroke="#166534" stroke-width="2.5"/><text class="nlf" x="${x(o.mark)}" y="47">${d}</text>`; }
+  if(o.pin!=null) s+=`<g class="pin" transform="translate(${x(o.pin)} 0)"`+(o.drag?` tabindex="0" role="slider" aria-label="${t("pinLbl")}" aria-valuemin="0" aria-valuemax="${T_}" aria-valuenow="${o.pin}" aria-valuetext="${o.pin?F(o.pin,d).s:"0"}"`:"")+
+    `><line x1="0" y1="${o.mark!=null?52:34}" x2="0" y2="80"/><circle cx="0" cy="${o.mark!=null?52:26}" r="${o.mark!=null?9:17}"/></g>`;
+  return `<svg class="nl" viewBox="0 0 640 140" role="${o.drag?"group":"img"}" aria-label="${t("lineLbl",{m:max})}">${s}</svg>`;
+}
+
+/* ---------- Speech ---------- */
+const speechOK = ("speechSynthesis" in window);
+function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
+// Prefer warm, natural voices for young learners; avoid harsh robotic engines.
+function pickWarmVoice(code){
+  const vs = speechSynthesis.getVoices()||[];
+  const want=code.toLowerCase(), two=want.slice(0,2);
+  let best=null, bs=-1;
+  for(const v of vs){
+    const lc=(v.lang||'').toLowerCase().replace('_','-');
+    if(lc!==want && lc.slice(0,2)!==two) continue;
+    let s=(lc===want?100:60); const n=(v.name||'').toLowerCase();
+    if(/google|natural|neural|online|premium|enhanced|siri/.test(n)) s+=40;
+    if(/female|woman|samantha|karen|tessa|moira|fiona|serena|victoria|allison|ava|susan|zoe|amelie|amélie|paulina|monica|mónica|zira|hazel|catherine|linda|kanya|lekha|ting-ting|mei-jia|sin-ji|yu-shu|huihui|xiaoxiao/.test(n)) s+=18;
+    if(/espeak|compact|festival|pico|robot|eloquence/.test(n)) s-=60;
+    if(v.localService===false) s+=8;
+    if(v.default) s+=2;
+    if(s>bs){ bs=s; best=v; }
+  }
+  return best;
+}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  const parts=String(text).match(/[^.!?。！？؟।۔]+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.9; u.pitch=1.15;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={models:0,line:0,equiv:0,addsub:0,stories:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
+}
+if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
+if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
+
+const currentSpeech = {models:"",line:"",equiv:"",addsub:"",stories:""};
+function setSpeech(mode,text){ currentSpeech[mode]=text; }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===mode) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,.pc,.nl")) return;
+  speak(currentSpeech[currentMode()]);
+},true);
+
+/* ---------- Feedback & round helpers ---------- */
+function showFb(el,type,msg){ el.className="feedback show "+type; el.innerHTML=(type==="good"?"✅ ":"💡 ")+msg; }
+function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
+const made={}, st={}, PIECE={};
+function startRound(m){ roundIds[m]++; made[m]=true; st[m]={done:false};
+  ["w","a","c"].forEach(p=>{ const el=$("#"+p+"-"+m); el.innerHTML=""; el.className=el.className.replace(/\s*syms/,""); }); hideFb($("#f-"+m)); }
+function setPrompt(m,msg){ $("#p-"+m).innerHTML=msg.h; setSpeech(m,msg.s); }
+function win(m,msg){ st[m].done=true;
+  $$(`#c-${m} button,#a-${m} button`).forEach(b=>b.disabled=true);
+  $$(`#w-${m} [tabindex]`).forEach(p=>p.removeAttribute("tabindex"));
+  addStar(); showFb($("#f-"+m),"good",msg.h); afterPraise(msg.s,m,NEWFN[m],1800); }
+function nope(m,msg){ showFb($("#f-"+m),"hint",msg.h); speak(msg.s); }
+function actBtn(m,html,fn,cls,aria){ const b=document.createElement("button"); b.type="button"; b.className="btn"+(cls?" "+cls:""); b.innerHTML=html;
+  if(aria){ b.setAttribute("aria-label",aria); b.title=aria; } b.addEventListener("click",fn); $("#a-"+m).appendChild(b); return b; }
+function checkBtn(m,fn){ return actBtn(m,"✔ "+t("check"),fn); }
+// Choice buttons. pick(item) is called for every tap; wrong picks are greyed out.
+function choices(m,items,pick,cls){
+  const g=$("#c-"+m); g.innerHTML=""; if(cls) g.classList.add(cls);
+  items.forEach(it=>{ const b=document.createElement("button"); b.type="button"; b.className="choice"+(it.wide?" wide":"");
+    b.innerHTML=`<span class="badge" aria-hidden="true">✅</span><span class="lbl">${it.h}</span>`; b.setAttribute("aria-label",it.s);
+    b.addEventListener("click",()=>{ if(st[m].done) return; if(it.ok) b.classList.add("correctpick"); else { b.classList.add("wrongpick"); b.disabled=true; } pick(it,b); });
+    g.appendChild(b); });
+}
+
+/* =========================================================================
+   1. FRACTION MODELS — name, build (tap parts), unit fractions
+   ========================================================================= */
+function newModels(){
+  const m="models"; startRound(m); const s=st[m], g=G();
+  const type=rand(g===3?["name","build","build","unit"]:["name","name","build","build","unit"]);
+  const D3=dens(12).filter(x=>x>=3);
+  let d=rand(type==="name"?dens():(D3.length?D3:dens(12))), n, W=1;
+  if(type!=="unit" && settings.mixed && d<=12 && Math.random()<.35){ W=2; n=ri(d+1,2*d-1); }
+  else if(type==="unit") n=ri(2,d);
+  else n=d===100?ri(1,99):(Math.random()<.1?d:ri(type==="build"&&d>=3?2:1,d-1));
+  let kind;
+  if(d===100) kind="rect";
+  else if(type==="unit") kind="strip";
+  else { const ks=["circle","set"]; if(d<=8) ks.push("strip"); if(type==="name"||[4,6,8,9,10,12].includes(d)) ks.push("rect"); kind=rand(ks); }
+  const mix=W>1 && settings.mixed && Math.random()<.5;
+  Object.assign(s,{type,d,n,W,kind,mix,on:new Set()});
+  const w=$("#w-"+m), f=F(n,d,mix), u=F(1,d,false);
+  if(type==="build"){
+    w.innerHTML=modelsHTML(kind,d,W,()=>"",true);
+    checkBtn(m,()=>{ const k=s.on.size;
+      if(k===n) return win(m,tm("goodBuild",{n,u,f}));
+      nope(m,tm(k<n?"hintFew":"hintMany",{k,f,n,u,m:Math.abs(n-k)})); });
+    actBtn(m,t("clear"),()=>{ s.on.clear(); $$("#w-models .pc").forEach(p=>{ p.classList.remove("on"); p.setAttribute("aria-pressed","false"); }); hideFb($("#f-models")); },"ghost");
+    setPrompt(m,tm(W>1?"buildMultiDir":"buildDir",{f}));
+  }else{
+    let shaded;
+    if(W===1 && (kind==="rect"||kind==="set")) shaded=new Set(shuffle([...Array(d).keys()]).slice(0,n));
+    else shaded=new Set([...Array(n).keys()]);
+    w.innerHTML=modelsHTML(kind,d,W,i=>shaded.has(i)?"on":"",false);
+    if(type==="unit"){
+      const sum=n<=6?X(...[].concat(...Array(n).fill(0).map((_,i)=>i?["+",u]:[u])),"=",F(n,d,false)):X(n,"×",u,"=",F(n,d,false));
+      choices(m,iOpts(n,[n-1,n+1,d!==n?d:n+2]),it=>{ if(it.ok) win(m,tm("goodUnit",{sum,n,u,f:F(n,d,false)}));
+        else nope(m,cat(tm("youPicked",{x:it.v}),tm("hintUnit",{f:F(n,d,false),u}))); });
+      setPrompt(m,tm("unitDir",{u,f:F(n,d,false)}));
+    }else{
+      choices(m,fOpts(n,d,mix,W>1?[[n,2*d],[n-d,d]]:[[n,d-n>=2?d-n:d+2],[d-n,d]]),it=>{
+        if(it.ok) return win(m,tm(W>1?"goodNameMulti":"goodName",{n,d,f}));
+        const why=W>1?tm("hintNameMulti",{d}):tm(it.d!==d?"hintNameDen":"hintNameNum",{d});
+        nope(m,cat(tm("youPicked",{x:it}),why)); });
+      setPrompt(m,{h:t(W>1?"nameMultiDir":kind==="set"?"nameSetDir":"nameDir"),s:t(W>1?"nameMultiDir":kind==="set"?"nameSetDir":"nameDir")});
+    }
+  }
+  maybeAuto(m);
+}
+PIECE.models=(i,p)=>{ const s=st.models; if(s.done||s.type!=="build") return;
+  if(s.on.has(i)) s.on.delete(i); else s.on.add(i);
+  const on=s.on.has(i); p.classList.toggle("on",on); p.setAttribute("aria-pressed",String(on)); hideFb($("#f-models")); };
+
+/* =========================================================================
+   2. NUMBER LINE — drag the pin to a fraction, or read the pin
+   ========================================================================= */
+function newLine(){
+  const m="line"; startRound(m); const s=st[m];
+  let max=settings.line, D=dens(12).filter(d=>d*max<=36); if(!D.length){ max=1; D=dens(12); }
+  const D3=D.filter(x=>x>=3), d=rand(D3.length?D3:D), type=rand(["place","place","read"]);
+  const n=(max>1&&Math.random()<.6)?ri(d+1,max*d-1):ri(2,d);
+  const f=F(n,d), u=F(1,d,false);
+  Object.assign(s,{type,max,d,n,pin:0});
+  const w=$("#w-"+m);
+  if(type==="place"){
+    w.innerHTML=nlSVG(max,d,{pin:0,drag:true});
+    wireLine();
+    actBtn(m,"◀",()=>s.set(s.pin-1),"ghost sq",t("left"));
+    actBtn(m,"▶",()=>s.set(s.pin+1),"ghost sq",t("right"));
+    checkBtn(m,()=>{
+      if(s.pin===n){ w.innerHTML=nlSVG(max,d,{pin:n,mark:n}); return win(m,tm("goodLine",{d,u,n,f})); }
+      nope(m,tm("hintPlace",{x:s.pin?F(s.pin,d):N(0),d,u,n})); });
+    setPrompt(m,tm("placeDir",{f}));
+  }else{
+    w.innerHTML=nlSVG(max,d,{pin:n});
+    choices(m,fOpts(n,d,settings.mixed,[[n,d+1],[n+1,d],[n-1,d]]),it=>{
+      if(it.ok){ w.innerHTML=nlSVG(max,d,{pin:n,mark:n}); return win(m,tm("goodLine",{d,u,n,f})); }
+      nope(m,cat(tm("youPicked",{x:it}),tm("hintRead",{d,u}))); });
+    setPrompt(m,{h:t("readDir"),s:t("readDir")});
+  }
+  maybeAuto(m);
+}
+function wireLine(){
+  const s=st.line, svg=$("#w-line svg.nl"), pin=svg.querySelector(".pin"), T_=s.max*s.d;
+  s.set=k=>{ if(s.done) return; k=Math.max(0,Math.min(T_,k)); s.pin=k;
+    pin.setAttribute("transform",`translate(${(NX0+(NX1-NX0)*k/T_).toFixed(2)} 0)`);
+    pin.setAttribute("aria-valuenow",k); pin.setAttribute("aria-valuetext",k?F(k,s.d).s:"0"); hideFb($("#f-line")); };
+  const at=e=>{ const r=svg.getBoundingClientRect(), px=(e.clientX-r.left)/r.width*640; return Math.round((px-NX0)/(NX1-NX0)*T_); };
+  let drag=false;
+  svg.addEventListener("pointerdown",e=>{ if(s.done) return; drag=true; try{ svg.setPointerCapture(e.pointerId); }catch(_){} s.set(at(e)); e.preventDefault(); });
+  svg.addEventListener("pointermove",e=>{ if(drag) s.set(at(e)); });
+  const up=()=>{ drag=false; }; svg.addEventListener("pointerup",up); svg.addEventListener("pointercancel",up);
+  pin.addEventListener("keydown",e=>{ const K={ArrowRight:1,ArrowUp:1,ArrowLeft:-1,ArrowDown:-1};
+    if(K[e.key]){ s.set(s.pin+K[e.key]); e.preventDefault(); } else if(e.key==="Home"){ s.set(0); e.preventDefault(); } else if(e.key==="End"){ s.set(T_); e.preventDefault(); } });
+}
+
+/* =========================================================================
+   3. EQUIVALENCE & COMPARE — split strips; compare with <, >, =
+   ========================================================================= */
+function equivPairs(){ const D=dens(), out=[];
+  D.forEach(b=>{ if(b>=100) return; for(let k=2;k<=10;k++) if(D.includes(b*k)) out.push([b,k]); });
+  return out.length?out:[[2,2],[3,2],[4,2]]; }
+function newEquiv(){
+  const m="equiv"; startRound(m); const s=st[m];
+  const type=rand(G()===3?["eq","eq","cmp","cmp"]:["eq","cmp","cmp"]);
+  s.type=type; const w=$("#w-"+m);
+  if(type==="eq"){
+    const [b,k]=rand(equivPairs()), a=ri(1,b-1), nb=b*k, na=a*k;
+    Object.assign(s,{a,b,k,cur:1});
+    w.innerHTML=`<div class="big">${M(frH(a,b)+" = "+frH("?",nb))}</div><div id="eqStrips"></div>`;
+    drawEq();
+    [2,3,5].forEach(f=>{ actBtn(m,"✂️ "+t("splitBy",{k:f}),()=>{ if(s.b*s.cur*f<=120){ s.cur*=f; drawEq(); } },"ghost").dataset.f=f; });
+    actBtn(m,"↺ "+t("reset"),()=>{ s.cur=1; drawEq(); },"ghost");
+    const opts=[...new Set([na,a,na+1,na-1,a+k,nb-na,na+k,na+2])].filter(x=>x>=1&&x<=nb&&x!==na).slice(0,3).concat([na]);
+    choices(m,shuffle(opts).map(x=>({h:M(frH(x,nb)),s:F(x,nb,false).s,ok:x===na,v:x})),it=>{
+      if(it.ok){ s.cur=k; drawEq(); return win(m,tm("goodEquiv",{k,eq:X(F(a,b,false),"=",F(na,nb,false))})); }
+      nope(m,cat(tm("youPicked",{x:F(it.v,nb,false)}),tm("hintEquiv",{b,k,nb,ak:X(a,"×",k)}))); });
+    setPrompt(m,{h:t("equivDir"),s:t("eqSay",{f:F(a,b,false).s,d:nb,dn:ordPl(nb)})+" "+t("equivDir")});
+  }else{
+    const [a,b,c,d]=cmpPair(), F1=F(a,b,false), F2=F(c,d,false), sym=a*d>c*b?">":a*d<c*b?"<":"=";
+    Object.assign(s,{a,b,c,d,sym,show:G()===3});
+    w.innerHTML=`<div class="cmprow" dir="ltr">${M(F1.h)}<span class="box" id="cmpBox">?</span>${M(F2.h)}</div><div id="cmpStrips"></div>`;
+    const tog=actBtn(m,"",()=>{ s.show=!s.show; drawCmp(tog); },"ghost"); drawCmp(tog);
+    choices(m,[">","<","="].map(x=>({h:x==="<"?"&lt;":x===">"?"&gt;":x,s:t(OPS[x]||"eqW"),ok:x===sym,sym:x})),it=>{
+      const why=cmpReason(a,b,c,d);
+      if(it.ok){ $("#cmpBox").textContent=sym; s.show=true; drawCmp(tog); return win(m,cat(tm("goodCmp",{stmt:S3(F1,sym,F2)}),why)); }
+      nope(m,cat(tm("notTrue",{stmt:S3(F1,it.sym,F2)}),why)); },"syms");
+    setPrompt(m,tm("cmpDir",{f1:F1,f2:F2}));
+  }
+  maybeAuto(m);
+}
+function drawEq(){ const s=st.equiv, n=s.b*s.cur;
+  $("#eqStrips").innerHTML=stripRow(M(frH(s.a,s.b)),s.a,s.b)+stripRow(M(frH(s.a*s.cur,n)),s.a*s.cur,n);
+  $$("#a-equiv button[data-f]").forEach(b=>b.disabled=s.done||s.b*s.cur*(+b.dataset.f)>120); }
+function drawCmp(tog){ const s=st.equiv;
+  $("#cmpStrips").innerHTML=s.show?stripRow(M(frH(s.a,s.b)),s.a,s.b)+stripRow(M(frH(s.c,s.d)),s.c,s.d,"on2"):"";
+  tog.textContent=t(s.show?"hideStrips":"showStrips"); }
+function cmpPair(){
+  const D=dens(12), g=G(), kind=g===3?rand(["den","num"]):rand(["den","num","half","eq","any","any"]);
+  for(let tries=0;tries<300;tries++){
+    let a,b,c,d;
+    if(kind==="den"||D.length<2){ b=d=rand(D); a=ri(1,b); c=ri(1,b); if(a===c) continue; }
+    else if(kind==="num"){ [b,d]=shuffle(D).slice(0,2); a=c=ri(1,Math.min(b,d)); }
+    else if(kind==="eq"){ const [p,k]=rand(equivPairs()); if(p*k>12&&!D.includes(p*k)) continue; a=ri(1,p-1); b=p; c=a*k; d=p*k; if(d>12) continue; if(Math.random()<.5) [a,b,c,d]=[c,d,a,b]; }
+    else { [b,d]=shuffle(D).slice(0,2); a=ri(1,b-1); c=ri(1,d-1); if(a===c||a*d===c*b) continue;
+      if(kind==="half" && !((a/b<.5&&c/d>.5)||(a/b>.5&&c/d<.5))) continue; }
+    if(b>12||d>12) continue;
+    return [a,b,c,d];
+  }
+  return [1,4,3,4];
+}
+function cmpReason(a,b,c,d){
+  const v1=a/b, v2=c/d, F1=F(a,b,false), F2=F(c,d,false);
+  if(a*d===c*b) return tm("rEq");
+  if(b===d) return tm("rDen",{u:F(1,b,false)});
+  if(a===c) return tm("rNum",{n:a,u1:F(1,Math.min(b,d),false),u2:F(1,Math.max(b,d),false)});
+  const [S,B]=v1<v2?[F1,F2]:[F2,F1], lo=Math.min(v1,v2), hi=Math.max(v1,v2);
+  if(lo<.5&&hi>.5) return tm("rHalf",{h:F(1,2,false),s:S,b:B});
+  if(lo<1&&hi>1) return tm("rOne",{s:S,b:B});
+  const L=lcm(b,d); return tm("rCommon",{e1:X(F1,"=",F(a*L/b,L,false)),e2:X(F2,"=",F(c*L/d,L,false))});
+}
+
+/* =========================================================================
+   4. ADD & SUBTRACT — build the answer on a strip; decompose into sums
+   ========================================================================= */
+function unlikePair(){ const D=dens(12);
+  for(let i=0;i<80;i++){ const [b,d]=shuffle(D).slice(0,2); if(d&&b!==d&&lcm(b,d)<=24) return [b,d]; }
+  return [2,3]; }
+function addProblem(type){
+  let ops, op="+", L, ans, terms=null;
+  if(type==="unit"){ const d=rand(dens(12)); L=d; ans=ri(2,Math.min(d,8)); terms=ans; }
+  else if(type==="add"||type==="sub"){ const d=rand(dens(12)); L=d; let a,c;
+    const big=settings.mixed&&Math.random()<.4;
+    if(type==="add"){ if(big){ a=ri(d+1,2*d-1); c=ri(1,d-1); } else { const cap=settings.mixed?2*d-1:d; a=ri(1,d-1); c=ri(1,Math.max(1,Math.min(d-1,cap-a))); } ans=a+c; }
+    else { op="−"; if(big){ a=ri(d+1,2*d-1); c=ri(1,d-1); } else { a=d>=3?ri(2,d-1):2; c=ri(1,a-1); } ans=a-c; }
+    ops=[[a,d],[c,d]]; }
+  else { let [b,d]=unlikePair(); L=lcm(b,d); let a=ri(1,b-1), c=ri(1,d-1);
+    if(type==="usub"){ op="−"; if(a*d===c*b){ a=b-1; c=1; } if(a*d<c*b) [a,b,c,d]=[c,d,a,b]; ans=a*L/b-c*L/d; }
+    else ans=a*L/b+c*L/d;
+    ops=[[a,b],[c,d]]; }
+  return {ops,op,L,ans,terms,type};
+}
+function addExpr(p){ if(p.terms){ const u=F(1,p.L,false); return [].concat(...Array(p.terms).fill(0).map((_,i)=>i?["+",u]:[u])); }
+  return [F(p.ops[0][0],p.ops[0][1]),p.op,F(p.ops[1][0],p.ops[1][1])]; }
+function addExp(p){
+  if(p.terms) return tm("expUnit",{n:p.ans,u:F(1,p.L,false)});
+  const [[a,b],[c,d]]=p.ops; let msg;
+  if(b===d) msg=tm("expLike",{u:F(1,b,false)});
+  else msg=tm("expUnlike",{r1:X(F(a,b),"=",F(a*p.L/b,p.L,false)),r2:X(F(c,d),"=",F(c*p.L/d,p.L,false))});
+  if(b===d && settings.mixed && a>b && a%b) msg=cat(tm("same",{f:F(a,b,true),g:F(a,b,false)}),msg);
+  return msg;
+}
+function ansMsg(p){ let msg=X(...addExpr(p),"=",F(p.ans,p.L));
+  return {eq:msg, extra:(settings.mixed&&p.ans>p.L&&p.ans%p.L)?tm("same",{f:F(p.ans,p.L,false),g:F(p.ans,p.L,true)}):null}; }
+function newAdd(){
+  const m="addsub", g=G(); startRound(m); const s=st[m];
+  const type=g===3?rand(["unit","unit","dec"]):g===4?rand(["add","sub","add","sub","dec"]):rand(["uadd","usub","uadd","usub","add","sub"]);
+  if(type==="dec") return newDec();
+  const p=addProblem(type); Object.assign(s,p,{count:0,ren:false});
+  const first=p.ops?p.ops[0][0]*p.L/p.ops[0][1]:0; s.W=Math.min(3,Math.max(1,Math.ceil(Math.max(p.ans,first)/p.L)));
+  const e=X(...addExpr(p),"=","?");
+  $("#w-"+m).innerHTML=`<div class="big">${e.h}</div><div id="addOps"></div><div class="anslab">${t("builderLbl")}</div><div id="bStrips" role="group" aria-label="${t("builderLbl")}"></div><div class="built" id="bBuilt" aria-live="polite"></div>`;
+  drawAddOps();
+  $("#bStrips").innerHTML=`<div class="mdls col" dir="ltr">${[...Array(s.W).keys()].map(w=>wholeSVG("strip",p.L,w,()=>"",true,t("builderLbl"))).join("")}</div>`;
+  actBtn(m,"−",()=>setCount(s.count-1),"ghost sq",t("remOne"));
+  actBtn(m,"+",()=>setCount(s.count+1),"ghost sq",t("addOne"));
+  actBtn(m,t("clear"),()=>setCount(0),"ghost");
+  if(p.ops&&p.ops[0][1]!==p.ops[1][1]){ const rb=actBtn(m,t("useCommon"),()=>{ s.ren=!s.ren; rb.textContent=t(s.ren?"showOrig":"useCommon"); drawAddOps(); },"ghost"); }
+  checkBtn(m,()=>{ const am=ansMsg(p), ex=addExp(p);
+    if(s.count===p.ans) return win(m,cat(tm("goodAdd",{eq:am.eq}),...(am.extra?[am.extra]:[]),ex));
+    nope(m,cat(tm(s.count>p.ans?"tooMuch":"tooLittle"),tm("youBuilt",{x:s.count?F(s.count,p.L):N(0)}),ex)); });
+  setCount(0);
+  setPrompt(m,{h:t("addDir"),s:t("whatSay",{e:X(...addExpr(p)).s})+" "+t("addDir")});
+  maybeAuto(m);
+}
+function drawAddOps(){ const s=st.addsub, el=$("#addOps"); if(!el) return;
+  if(!s.ops){ el.innerHTML=""; return; }
+  el.innerHTML=s.ops.map(([n,d],i)=>{ const nn=s.ren?n*s.L/d:n, dd=s.ren?s.L:d;
+    return (i?`<div class="opsym">${s.op==="−"?"−":"+"}</div>`:"")+stripRow(M(F(n,d).h),nn,dd,i?"on2":"on"); }).join(""); }
+function setCount(k){ const s=st.addsub; if(s.done) return; s.count=Math.max(0,Math.min(s.W*s.L,k));
+  $$("#bStrips .pc").forEach(p=>{ const on=+p.dataset.i<s.count; p.classList.toggle("on",on); p.setAttribute("aria-pressed",String(on)); });
+  const f=s.count?F(s.count,s.L,false):N(0), mx=settings.mixed&&s.count>s.L&&s.count%s.L?" = "+F(s.count,s.L,true).h:"";
+  $("#bBuilt").innerHTML=M(f.h+mx); hideFb($("#f-addsub")); }
+PIECE.addsub=i=>{ const s=st.addsub; if(s.done||s.type==="dec") return; setCount(s.count===i+1?i:i+1); };
+function newDec(){
+  const m="addsub", s=st[m], g=G(); s.type="dec";
+  const d=rand(dens(12).filter(x=>x>=3).length?dens(12).filter(x=>x>=3):[4]);
+  const mk=(nums,den)=>{ const parts=[]; nums.forEach((x,i)=>{ if(i) parts.push("+"); parts.push(F(x,den,false)); }); const e=X(...parts);
+    return {h:e.h,s:e.s,parts,sum:nums.reduce((p,q)=>p+q,0),den,wide:true}; };
+  const split=k=>{ if(k>=4&&Math.random()<.35){ const p=ri(1,k-2), q=ri(1,k-p-1); return [p,q,k-p-q]; } const p=ri(1,k-1); return [p,k-p]; };
+  let n, items=[];
+  if(g===3){ n=ri(2,Math.min(d,6)); items.push(mk(Array(n).fill(1),d),mk(Array(n-1).fill(1),d));
+    if(n<6) items.push(mk(Array(n+1).fill(1),d));
+    const d2=rand(dens(12).filter(x=>x!==d))||(d===2?4:2); items.push(mk(Array(n).fill(1),d2)); }
+  else { n=ri(3,Math.max(3,settings.mixed?Math.min(2*d-1,16):d)); items.push(mk(split(n),d));
+    shuffle([n-1,n+1,n+2,n-2]).filter(x=>x>=2).forEach(x=>items.push(mk(split(x),d))); }
+  const seen=new Set(); items=items.filter(it=>{ const k=it.sum/it.den; if(seen.has(k)) return false; seen.add(k); return true; }).slice(0,4);
+  items.forEach(it=>it.ok=(it.sum===n&&it.den===d));
+  const u=F(1,d,false), f=F(n,d,false);
+  $("#w-"+m).innerHTML=stripRow(M(f.h),n,d);
+  choices(m,shuffle(items),it=>{
+    if(it.ok) return win(m,tm("goodDec",{sum:X(...it.parts,"=",f),n}));
+    nope(m,it.den!==d?tm("hintDecDen",{u2:F(1,it.den,false),u}):tm("hintDec",{x:it.sum,n,u})); });
+  setPrompt(m,tm("decDir",{f}));
+  maybeAuto(m);
+}
+
+/* =========================================================================
+   5. FRACTION STORIES — word problems with a model to show/hide
+   ========================================================================= */
+function gridSVG(r,c,cls,lbl){ const cw=Math.min(60,240/c), ch=Math.min(48,200/r); let s="";
+  for(let y=0;y<r;y++) for(let x=0;x<c;x++) s+=`<rect x="${(2+x*cw).toFixed(1)}" y="${(2+y*ch).toFixed(1)}" width="${cw.toFixed(1)}" height="${ch.toFixed(1)}" class="pc ${cls(y,x)||""}"/>`;
+  return `<svg viewBox="0 0 ${(c*cw+4).toFixed(1)} ${(r*ch+4).toFixed(1)}" class="mdl m-grid" role="img" aria-label="${lbl}">${s}</svg>`; }
+function groupsSVG(d,g,a,lbl){ const gw=Math.max(44,Math.min(64,500/d)), r=Math.min(14,gw/2-6), gh=g*(2*r+6)+12; let s="";
+  for(let i=0;i<d;i++){ const x=4+i*gw; s+=`<rect class="grpbox" x="${x}" y="4" width="${gw-6}" height="${gh}" rx="10"/>`;
+    for(let j=0;j<g;j++) s+=`<circle class="pc ${i<a?"red":""}" cx="${x+(gw-6)/2}" cy="${4+12+r+j*(2*r+6)}" r="${r}"/>`; }
+  return `<svg viewBox="0 0 ${d*gw+4} ${gh+8}" class="mdl m-groups" role="img" aria-label="${lbl}">${s}</svg>`; }
+function storyGen(){
+  const g=G(), D=dens(12), name=rand(t("names").split(",")), mix=settings.mixed;
+  const type=rand(g===3?["share","share","set"]:g===4?["add","sub","mul","share"]:["of","mul","divU","divW","uadd","usub","share"]);
+  let q,good,hint,model,opts;
+  if(type==="share"){
+    const R=D.filter(x=>x<=8&&x>=3); const r=rand(R.length?R:[3,4]);
+    const n=(g===5&&mix&&Math.random()<.5)?ri(r+1,Math.min(2*r-1,r+5)):ri(2,r-1);
+    q=tm("stShare",{r,n});
+    opts=fOpts(n,r,mix,[[r,n],[1,r],[n,r+1]]);
+    good=tm("goodShare",{r,n,u:F(1,r,false),eq:X(n,"÷",r,"=",F(n,r))}); hint=tm("hintShare",{r});
+    model=`<div class="mdls col">${[...Array(n).keys()].map(w=>wholeSVG("strip",r,w,i=>i%r===0?"on":"",false,t("modelLbl"))).join("")}</div>`;
+  }else if(type==="set"){
+    const S=D.filter(x=>x>=3); const d=rand(S.length?S:[4,6,8]), n=ri(2,d-1);
+    q=tm("stSet",{name,d,n}); opts=fOpts(n,d,false,[[n,d-n],[d-n,d],[d,n]]);
+    good=tm("goodSet",{n,d,f:F(n,d,false)}); hint=tm("hintSet",{d});
+    model=`<div class="mdls">${wholeSVG("set",d,0,i=>i<n?"blue":"",false,t("shadedLbl",{n,d}))}</div>`;
+  }else if(type==="add"||type==="sub"||type==="uadd"||type==="usub"){
+    const p=addProblem(type), [[a,b],[c,d]]=p.ops, F1=F(a,b), F2=F(c,d), am=ansMsg(p), ex=addExp(p);
+    q=tm(p.op==="+"?"stAdd":"stSub",{name,f1:F1,f2:F2});
+    opts=fOpts(p.ans,p.L,mix,b===d?[[a+c,2*b],[Math.abs(a-c),2*b]]:[[p.op==="+"?a+c:Math.abs(a-c),b+d]]);
+    good=cat(tm("goodStory",{eq:am.eq}),...(am.extra?[am.extra]:[]),ex);
+    hint=cat(tm(p.op==="+"?"hintStAdd":"hintStSub",{ex:X(F1,p.op,F2)}),ex);
+    model=stripRow(M(F1.h),a,b)+`<div class="opsym">${p.op}</div>`+stripRow(M(F2.h),c,d,"on2");
+  }else if(type==="mul"){
+    const d=rand(D), a=ri(1,d-1), n=ri(2,g===4?5:6), f=F(a,d,false);
+    q=tm("stMul",{name,f,n}); opts=fOpts(n*a,d,mix,[[n*a,n*d],[a,n*d],[n+a,d]]);
+    good=tm("goodMul",{n,f,eq:X(n,"×",f,"=",F(n*a,d))}); hint=tm("hintMul",{n,f,nx:X(n,"×",a),u:F(1,d,false)});
+    model=`<div class="mdls col">${[...Array(n).keys()].map(()=>wholeSVG("strip",d,0,i=>i<a?"on":"",false,t("shadedLbl",{n:a,d}))).join("")}</div>`;
+  }else if(type==="of"){
+    const O=D.filter(x=>x<=10); const d=rand(O.length?O:[2,3,4,5]), gs=ri(2,Math.max(2,Math.min(5,Math.floor(40/d)))), n=d*gs, a=ri(1,d-1), ans=a*gs;
+    q=tm("stOf",{n,f:F(a,d,false)}); opts=iOpts(ans,[gs,a,n-ans,a+gs,d]);
+    good=tm("goodOf",{n,d,g:gs,a,ans}); hint=tm("hintOf",{n,d,a});
+    model=`<div class="mdls">${groupsSVG(d,gs,a,t("modelLbl"))}</div>`;
+  }else if(type==="divU"){
+    const U=D.filter(x=>x<=5); const d=rand(U.length?U:[2,3,4]), n=ri(2,4), f=F(1,d,false);
+    q=tm("stDivU",{name,f,n}); opts=fOpts(1,d*n,false,[[n,d],[1,d+n],[d*n,1],[d,n]]);
+    good=tm("goodDivU",{eq:X(f,"÷",n,"=",F(1,d*n,false)),f,n,u:F(1,d*n,false)}); hint=tm("hintDivU",{f,n});
+    model=`<div class="mdls">${gridSVG(n,d,(y,x)=>x===0?(y===0?"on":"dim"):"",t("modelLbl"))}</div>`;
+  }else{ // divW
+    const U=D.filter(x=>x<=5); const d=rand(U.length?U:[2,3,4]), n=ri(2,6), f=F(1,d,false), ans=n*d;
+    q=tm("stDivW",{name,n,f}); opts=iOpts(ans,[n+d,d,n,ans+d]);
+    good=tm("goodDivW",{eq:X(n,"÷",f,"=",ans),d,n,ans}); hint=tm("hintDivW",{f,n});
+    model=`<div class="mdls col">${[...Array(n).keys()].map(w=>wholeSVG("strip",d,w,i=>i%2?"on2":"on",false,t("modelLbl"))).join("")}</div>`;
+  }
+  return {type,q,good,hint,model,opts};
+}
+function newStory(){
+  const m="stories"; startRound(m); const s=st[m], S=storyGen(); Object.assign(s,S); s.show=G()===3;
+  $("#w-"+m).innerHTML=`<div id="stModel" dir="ltr">${S.model}</div>`;
+  const tog=actBtn(m,"",()=>{ s.show=!s.show; drawTog(); },"ghost");
+  const drawTog=()=>{ $("#stModel").classList.toggle("hidden",!s.show); tog.textContent="🧩 "+t(s.show?"hideModel":"showModel"); }; drawTog();
+  choices(m,S.opts,it=>{ if(it.ok){ s.show=true; drawTog(); return win(m,S.good); } nope(m,cat(tm("youPicked",{x:it}),S.hint)); });
+  setPrompt(m,S.q);
+  maybeAuto(m);
+}
+
+/* ---------- Mode switching ---------- */
+const NEWFN={models:newModels,line:newLine,equiv:newEquiv,addsub:newAdd,stories:newStory};
+function firstMode(){ return MODES.find(m=>settings.modes[m])||"models"; }
+function currentMode(){ const b=$$(".tabs button").find(x=>x.getAttribute("aria-selected")==="true"); return b?b.dataset.mode:firstMode(); }
+function showMode(mode){
+  if(!settings.modes[mode]) mode=firstMode();
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
+  $$(".modepanel").forEach(p=>p.classList.add("hidden"));
+  $("#mode-"+mode).classList.remove("hidden");
+  $$(".tabs button").forEach(b=>{ const on=b.dataset.mode===mode; b.setAttribute("aria-selected",on?"true":"false"); b.tabIndex=on?0:-1; });
+  if(!made[mode]) NEWFN[mode]();
+  // Returning to a tab: read its current directions (unless a new round just did).
+  if(switching && speechGen===g0) maybeAuto(mode);
+}
+function syncTabs(){
+  $$(".tabs button").forEach(b=>b.classList.toggle("hidden",!settings.modes[b.dataset.mode]));
+  if(!settings.modes[currentMode()]) showMode(firstMode());
+}
+function resetRounds(){ MODES.forEach(m=>made[m]=false); stopSpeech(); NEWFN[currentMode()](); }
+
+/* ---------- Settings drawer ---------- */
+function buildDenToggles(){
+  const wrap=$("#denToggles"); wrap.innerHTML="";
+  ALLD.forEach(d=>{ const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.dens.includes(d)?"checked":""}> <span>${d}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{
+      settings.dens=e.target.checked?[...new Set(settings.dens.concat(d))].sort((a,b)=>a-b):settings.dens.filter(x=>x!==d);
+      if(!settings.dens.filter(x=>x<100).length){ e.target.checked=true; settings.dens=[...new Set(settings.dens.concat(d))]; if(d===100) settings.dens.push(10); }
+      saveSettings(); resetRounds(); });
+    wrap.appendChild(l); });
+}
+function buildModeToggles(){
+  const wrap=$("#modeToggles"); wrap.innerHTML="";
+  MODES.forEach(m=>{ const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.modes[m]?"checked":""}> <span>${t(MODE_KEY[m])}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{ settings.modes[m]=e.target.checked;
+      if(!MODES.some(k=>settings.modes[k])){ e.target.checked=true; settings.modes[m]=true; }
+      saveSettings(); syncTabs(); });
+    wrap.appendChild(l); });
+}
+function syncSettingsUI(){
+  $("#setGrade").value=String(settings.grade); $("#setMixed").checked=settings.mixed; $("#setLine").value=String(settings.line);
+  $("#setAuto").checked=settings.autoRead; buildDenToggles(); buildModeToggles();
+}
+function closeSettings(){ $("#settingsDrawer").classList.remove("open"); $("#openSettings").focus(); }
+function initSettings(){
+  $("#openSettings").addEventListener("click",()=>{ syncSettingsUI(); $("#settingsDrawer").classList.add("open"); $("#closeSettings").focus(); });
+  $("#closeSettings").addEventListener("click",closeSettings);
+  $("#settingsDrawer").addEventListener("click",e=>{ if(e.target.id==="settingsDrawer") closeSettings(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape" && $("#settingsDrawer").classList.contains("open")) closeSettings(); });
+  $("#setGrade").addEventListener("change",e=>{ const g=+e.target.value; settings.grade=g;
+    Object.assign(settings,{dens:GRADES[g].dens.slice(),mixed:GRADES[g].mixed,line:GRADES[g].line}); saveSettings(); syncSettingsUI(); resetRounds(); });
+  $("#setMixed").addEventListener("change",e=>{ settings.mixed=e.target.checked; saveSettings(); resetRounds(); });
+  $("#setLine").addEventListener("change",e=>{ settings.line=+e.target.value; saveSettings(); resetRounds(); });
+  $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
+  $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
+}
+
+/* ---------- Print cards ---------- */
+function buildPrintCards(){
+  const D=dens(12), D3=D.filter(x=>x>=3).length?D.filter(x=>x>=3):[4];
+  const d1=rand(D3), n1=ri(1,d1-1), kind=rand(["circle","rect","strip"]);
+  const d2=rand(D.filter(x=>x*settings.line<=36).length?D.filter(x=>x*settings.line<=36):[4]), n2=ri(1,settings.line*d2-1);
+  const [b,k]=rand(equivPairs()), a=ri(1,b-1);
+  const [ca,cb,cc,cd]=cmpPair();
+  const p=addProblem(G()===3?"unit":G()===4?rand(["add","sub"]):rand(["uadd","usub"]));
+  const S=storyGen(), blank=`<span style="display:inline-block;min-width:4rem;border-bottom:2px solid #000">&nbsp;</span>`;
+  const cards=[
+    {title:t("mModels"), body:t("cardModel"), html:`<div style="display:flex;gap:1rem;align-items:center">${wholeSVG(kind,d1,0,i=>i<n1?"on":"",false,t("modelLbl"))}${blank}</div>`},
+    {title:t("mLine"), body:tm("cardLine",{f:F(n2,d2)}).h, html:nlSVG(settings.line,d2,{})},
+    {title:t("mEquiv"), body:t("cardEquiv"), html:`<p style="font-size:1.8rem">${M(frH(a,b)+" = "+frH("___",b*k))}</p>`},
+    {title:t("mEquiv"), body:t("cardCmp"), html:`<p style="font-size:1.8rem">${M(frH(ca,cb)+" ◯ "+frH(cc,cd))}</p>`},
+    {title:t("mAdd"), body:t("cardAdd"), html:`<p style="font-size:1.6rem">${X(...addExpr(p),"=","____").h}</p>`},
+    {title:t("mStory"), body:S.q.h, html:`<p>${t("cardStory")} ${blank}</p>`}
+  ];
+  $("#printArea").innerHTML=`<h1>${t("cardTitle")}</h1><p>${t("cardName")} ____________________</p>`+
+    cards.map(c=>`<div class="card-print"><h2>${c.title}</h2><p style="font-size:1.2rem;line-height:1.8">${c.body}</p>${c.html}</div>`).join("")+
+    `<p style="font-size:.85rem">${stdsHTML()}</p>`;
+}
+
+// Standards codes stay left-to-right inside Arabic/Urdu text.
+function stdsHTML(){ return t("stds").replace(/(TEKS|Common Core|\d\.(?:NF\.)?\d+[a-z]?(?:\([^)]*\))?)/g,'<bdi dir="ltr">$1</bdi>'); }
+
+/* ---------- Language engine ---------- */
+function resolveLang(){
+  try{ const q=new URLSearchParams(location.search).get("lang"); if(q && T[q]) return q; }catch(e){}
+  try{ const s=localStorage.getItem(LANG_KEY); if(s && T[s]) return s; }catch(e){}
+  const n=(navigator.language||"en").slice(0,2).toLowerCase();
+  if(T[n]) return n;
+  return "en";
+}
+function applyLang(){
+  const meta=LANGS.find(x=>x.code===lang)||LANGS[0];
+  document.documentElement.lang=lang;
+  document.documentElement.dir=meta.dir;
+  document.title=t("appTitle");
+  const sel=$("#langSelect"); if(sel) sel.value=lang;
+  $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
+  $("#stdsNote").innerHTML=stdsHTML();
+  buildModeToggles();
+  // refresh dynamic content: current mode now, the others when they are next opened
+  resetRounds();
+}
+function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} applyLang(); }
+function buildLangSelect(){
+  const sel=$("#langSelect"); sel.innerHTML="";
+  LANGS.forEach(m=>{ const o=document.createElement("option"); o.value=m.code; o.textContent=m.name; sel.appendChild(o); });
+  sel.value=lang;
+  sel.addEventListener("change",()=>setLang(sel.value));
+}
+
+/* ---------- Init ---------- */
+function buildUI(){
+  $("#tabs").innerHTML=MODES.map(m=>`<button type="button" role="tab" id="tab-${m}" aria-controls="mode-${m}" aria-selected="false" data-mode="${m}"><span class="ic" aria-hidden="true">${MODE_IC[m]}</span><span data-t="${MODE_KEY[m]}"></span></button>`).join("");
+  $("#panels").innerHTML=MODES.map(m=>`<section id="mode-${m}" class="panel modepanel hidden" role="tabpanel" aria-labelledby="tab-${m}">
+    <div class="panelhead"><h2 data-t="${MODE_KEY[m]}"></h2><button type="button" class="btn ghost no-print" data-new="${m}" data-t="newRound"></button></div>
+    <div class="prompt"><button type="button" class="speaker" data-speak="${m}" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="p-${m}">…</span></div>
+    <div class="work" id="w-${m}"></div>
+    <div class="acts no-print" id="a-${m}"></div>
+    <div class="choices" id="c-${m}" role="group" data-ta="choicesLbl" aria-label="Answer choices"></div>
+    <div class="feedback" id="f-${m}" role="status" aria-live="polite"></div></section>`).join("");
+  MODES.forEach(m=>{ const w=$("#w-"+m);
+    w.addEventListener("click",e=>{ const p=e.target.closest(".pc[tabindex]"); if(p&&PIECE[m]) PIECE[m](+p.dataset.i,p); });
+    w.addEventListener("keydown",e=>{ if(e.key!=="Enter"&&e.key!==" ") return; const p=e.target.closest(".pc[tabindex]"); if(p&&PIECE[m]){ e.preventDefault(); PIECE[m](+p.dataset.i,p); } }); });
+  // Arrow keys move between tabs (WAI-ARIA tabs pattern).
+  $("#tabs").addEventListener("keydown",e=>{ const vis=$$(".tabs button").filter(b=>!b.classList.contains("hidden")), i=vis.indexOf(document.activeElement); if(i<0) return;
+    const rtl=document.documentElement.dir==="rtl", step={ArrowRight:rtl?-1:1,ArrowLeft:rtl?1:-1}[e.key]; if(!step) return;
+    const nb=vis[(i+step+vis.length)%vis.length]; nb.focus(); showMode(nb.dataset.mode); e.preventDefault(); });
+}
+function init(){
+  lang=resolveLang();
+  buildUI();
+  buildLangSelect();
+  $$(".tabs button").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.mode)));
+  $$(".speaker").forEach(b=>b.addEventListener("click",()=>speak(currentSpeech[b.dataset.speak])));
+  $$("[data-new]").forEach(b=>b.addEventListener("click",()=>{ stopSpeech(); NEWFN[b.dataset.new](); }));
+  initSettings();
+  const f=firstMode();
+  $$(".tabs button").forEach(b=>{ const on=b.dataset.mode===f; b.setAttribute("aria-selected",on?"true":"false"); b.tabIndex=on?0:-1; b.classList.toggle("hidden",!settings.modes[b.dataset.mode]); });
+  $$(".modepanel").forEach(p=>p.classList.toggle("hidden",p.id!=="mode-"+f));
+  applyLang();
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+</script>
+<script>
+/* Student mute toggle — shared across the Digital Math Tools. Self-contained,
+   offline, stores no student data. Gates ALL speech by intercepting
+   speechSynthesis.speak, so muting works regardless of each tool's internals.
+   Reads the shared language preference only to localize its own label. */
+(function(){
+  "use strict";
+  var LKEY='tcea.mathtools.lang', MKEY='tcea.mathtools.muted';
+  var CODES=['en','es','vi','ar','hi','ur','zh'];
+  var LAB={
+    mute:{en:"Mute sound",es:"Silenciar sonido",vi:"Tắt âm thanh",ar:"كتم الصوت",hi:"आवाज़ बंद करें",ur:"آواز بند کریں",zh:"静音"},
+    unmute:{en:"Turn sound on",es:"Activar sonido",vi:"Bật âm thanh",ar:"تشغيل الصوت",hi:"आवाज़ चालू करें",ur:"آواز چالو کریں",zh:"打开声音"}
+  };
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  window.__MT_MUTED = (get(MKEY)==='1');
+  // Intercept every speech request; suppress while muted.
+  try{
+    if(window.speechSynthesis && typeof window.speechSynthesis.speak==='function'){
+      var ss=window.speechSynthesis, orig=ss.speak.bind(ss);
+      ss.speak=function(u){ if(!window.__MT_MUTED){ try{orig(u);}catch(e){} } };
+    }
+  }catch(e){}
+  function curLang(){ var l=get(LKEY)||'en'; return LAB.mute[l]?l:'en'; }
+  function label(el){
+    var on=!window.__MT_MUTED, l=curLang(), txt=on?LAB.mute[l]:LAB.unmute[l];
+    el.textContent=on?'🔊':'🔇';
+    el.setAttribute('aria-label',txt); el.setAttribute('title',txt);
+    el.setAttribute('aria-pressed', on?'false':'true');
+  }
+  function findLangSelect(){
+    var sels=document.querySelectorAll('select');
+    for(var i=0;i<sels.length;i++){ var o=sels[i].options, c=0;
+      for(var j=0;j<o.length;j++){ if(CODES.indexOf((o[j].value||'').toLowerCase())>=0) c++; }
+      if(c>=3) return sels[i];
+    }
+    return null;
+  }
+  function build(){
+    if(document.getElementById('mtMuteBtn')) return;
+    if(!(('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window))) return;
+    var btn=document.createElement('button');
+    btn.id='mtMuteBtn'; btn.type='button';
+    btn.style.cssText='font:inherit;font-size:1.15rem;line-height:1;cursor:pointer;'+
+      'min-width:44px;min-height:44px;padding:8px 12px;border:2px solid #e2dcf1;'+
+      'border-radius:10px;background:#fff;color:#5b3fa5;font-weight:700;margin:0 4px;';
+    btn.addEventListener('click',function(){
+      window.__MT_MUTED=!window.__MT_MUTED;
+      set(MKEY, window.__MT_MUTED?'1':'0');
+      if(window.__MT_MUTED){ try{window.speechSynthesis.cancel();}catch(e){} }
+      label(btn);
+    });
+    btn.addEventListener('focus',function(){btn.style.outline='3px solid #5b3fa5';btn.style.outlineOffset='2px';});
+    btn.addEventListener('blur',function(){btn.style.outline='';});
+    var sel=findLangSelect();
+    if(sel && sel.parentNode){
+      sel.parentNode.insertBefore(btn, sel);
+      sel.addEventListener('change',function(){ setTimeout(function(){label(btn);},0); });
+    }else{
+      btn.style.position='fixed'; btn.style.top='10px'; btn.style.zIndex='9999';
+      btn.style[(document.documentElement.dir==='rtl')?'left':'right']='10px';
+      (document.body||document.documentElement).appendChild(btn);
+    }
+    label(btn);
+  }
+  if(document.readyState==='complete'){ build(); }
+  else{ window.addEventListener('load', build); }
+  window.addEventListener('storage',function(e){ if(e.key===LKEY){ var b=document.getElementById('mtMuteBtn'); if(b) label(b); } });
+})();
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+
+</html>

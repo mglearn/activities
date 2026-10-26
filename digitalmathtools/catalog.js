@@ -234,7 +234,19 @@ window.MATHTOOLS = (function () {
         ar:"بلّط المستطيلات لإيجاد المساحة، وامشِ حول الأضلاع لإيجاد المحيط، واملأ الصناديق بمكعبات الوحدة لإيجاد الحجم، وحوّل الوحدات بالجداول، وحلّ مسائل القياس.",
         hi:"क्षेत्रफल के लिए आयतों पर टाइल लगाएँ, परिमाप के लिए भुजाओं पर चलें, आयतन के लिए डिब्बों में इकाई घन भरें, तालिकाओं से इकाइयाँ बदलें और माप की कहानियाँ हल करें।",
         ur:"رقبہ معلوم کرنے کے لیے مستطیلوں پر ٹائلیں لگائیں، احاطے کے لیے اضلاع پر چلیں، حجم کے لیے ڈبوں میں اکائی مکعب بھریں، جدولوں سے اکائیاں بدلیں اور پیمائش کے سوال حل کریں۔",
-        zh:"铺方格求面积，沿边走一圈求周长，用单位小正方体装箱求体积，用表格换算单位，并解决测量问题。"} }
+        zh:"铺方格求面积，沿边走一圈求周长，用单位小正方体装箱求体积，用表格换算单位，并解决测量问题。"} },
+    { id:"fraction-forge", collection:"g35", bandId:"3-5", icon:"🧪", accent:"#8e44ad",
+      title:"Fraction Forge", href:"g35/fraction-forge/index.html",
+      tags:["Fractions","Compare","Addition","Subtraction","Story problems","Compose"],
+      kw:"fractions fraction strips area model circle set unit fraction numerator denominator number line mixed numbers improper equivalent fractions compare benchmark half greater less equal add subtract like unlike common denominator decompose multiply fraction by whole number fraction of a set divide unit fraction word problems fracciones recta numérica fracciones equivalentes 分数",
+      desc:{
+        en:"Build and name fractions with strips, circles, and sets, place them on a number line, find equivalent fractions, compare, add and subtract, and solve fraction story problems.",
+        es:"Forma y nombra fracciones con tiras, círculos y conjuntos, ubícalas en la recta numérica, encuentra fracciones equivalentes, compara, suma y resta, y resuelve problemas con fracciones.",
+        vi:"Tạo và gọi tên phân số bằng thanh, hình tròn và nhóm đồ vật, đặt phân số trên tia số, tìm phân số bằng nhau, so sánh, cộng trừ và giải bài toán đố về phân số.",
+        ar:"كوّن الكسور وسمِّها باستخدام الأشرطة والدوائر والمجموعات، وضعها على خط الأعداد، وجِد الكسور المتكافئة، وقارن، واجمع واطرح، وحُلّ مسائل قصصية عن الكسور.",
+        hi:"पट्टियों, वृत्तों और समूहों से भिन्न बनाएँ और पहचानें, उन्हें संख्या रेखा पर रखें, तुल्य भिन्न खोजें, तुलना करें, जोड़ें-घटाएँ और भिन्न की कहानी वाले सवाल हल करें।",
+        ur:"پٹیوں، دائروں اور گروپوں سے کسور بنائیں اور پہچانیں، انہیں عددی خط پر رکھیں، مساوی کسور تلاش کریں، موازنہ کریں، جمع اور تفریق کریں، اور کسور کے کہانی والے سوال حل کریں۔",
+        zh:"用分数条、圆形和集合来拼出并认读分数，在数轴上标出分数，找等值分数，比较大小，做加减法，并解答分数应用题。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
