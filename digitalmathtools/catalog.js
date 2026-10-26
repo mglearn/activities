@@ -77,7 +77,8 @@ window.MATHTOOLS = (function () {
     "Time":{en:"Time",es:"La hora",vi:"Thời gian",ar:"الوقت",hi:"समय",ur:"وقت",zh:"时间"},
     "Money":{en:"Money",es:"Dinero",vi:"Tiền",ar:"النقود",hi:"पैसे",ur:"رقم",zh:"钱币"},
     "Bar graph":{en:"Bar graph",es:"Gráfica de barras",vi:"Biểu đồ cột",ar:"رسم بالأعمدة",hi:"बार ग्राफ़",ur:"بار گراف",zh:"条形统计图"},
-    "Line plot":{en:"Line plot",es:"Diagrama de puntos",vi:"Biểu đồ chấm",ar:"تمثيل بالنقاط",hi:"लाइन प्लॉट",ur:"لائن پلاٹ",zh:"点图"}
+    "Line plot":{en:"Line plot",es:"Diagrama de puntos",vi:"Biểu đồ chấm",ar:"تمثيل بالنقاط",hi:"लाइन प्लॉट",ur:"لائن پلاٹ",zh:"点图"},
+    "Place value":{en:"Place value",es:"Valor posicional",vi:"Giá trị theo hàng",ar:"القيمة المكانية",hi:"स्थानीय मान",ur:"مقامی قدر",zh:"位值"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -165,7 +166,19 @@ window.MATHTOOLS = (function () {
         ar:"قِس أشياء الحديقة بالوحدات والمساطر، واكتشف لماذا تعطي الوحدات الأصغر أعداداً أكبر، ثم صنّف البيانات وابنِ واقرأ الرسوم بالصور والأعمدة والتمثيل بالنقاط.",
         hi:"बगीचे की चीज़ों को इकाइयों और स्केल से मापें, समझें कि छोटी इकाई से बड़ी संख्या क्यों आती है, फिर आँकड़े छाँटें और चित्र ग्राफ़, बार ग्राफ़ और लाइन प्लॉट बनाएँ और पढ़ें।",
         ur:"باغ کی چیزوں کو اکائیوں اور پیمانے سے ناپیں، سمجھیں کہ چھوٹی اکائی سے بڑا عدد کیوں آتا ہے، پھر ڈیٹا چھانٹیں اور تصویری گراف، بار گراف اور لائن پلاٹ بنائیں اور پڑھیں۔",
-        zh:"用单位和尺子测量花园里的物品，理解为什么单位越小数越大，再分类数据，制作并阅读象形统计图、条形统计图和点图。"} }
+        zh:"用单位和尺子测量花园里的物品，理解为什么单位越小数越大，再分类数据，制作并阅读象形统计图、条形统计图和点图。"} },
+    { id:"base-ten-builders", collection:"k2", bandId:"k-2", icon:"🧱", accent:"#d35400",
+      title:"Base-Ten Builders", href:"k2/base-ten-builders/index.html",
+      tags:["Place value","Counting","Compare","Compose"],
+      kw:"place value base ten blocks hundreds tens ones flat rod cube regroup trade expanded form compare greater less equal 10 more 10 less 100 more hundred chart skip count number line valor posicional decenas unidades 位值",
+      desc:{
+        en:"Build, read, and compare numbers to 1,000 with base-ten blocks, trade 10 ones for a ten, find 10 more and 10 less, and skip count on a number line.",
+        es:"Construye, lee y compara números hasta 1,000 con bloques de base diez, cambia 10 unidades por una decena, encuentra 10 más y 10 menos, y cuenta salteado en la recta numérica.",
+        vi:"Xây, đọc và so sánh các số đến 1.000 bằng khối hệ mười, đổi 10 đơn vị lấy 1 chục, tìm số thêm 10 và bớt 10, và đếm cách quãng trên tia số.",
+        ar:"ابنِ الأعداد حتى 1000 واقرأها وقارن بينها بمكعبات النظام العشري، وبدّل 10 وحدات بعشرة، وجِد ما يزيد 10 وما يقل 10، وعُدّ بالقفز على خط الأعداد.",
+        hi:"दस-आधार ब्लॉकों से 1,000 तक की संख्याएँ बनाएँ, पढ़ें और तुलना करें, 10 इकाइयों के बदले 1 दहाई लें, 10 ज़्यादा और 10 कम खोजें, और संख्या रेखा पर उछल गिनती करें।",
+        ur:"دس کی بنیاد کے بلاکوں سے 1,000 تک کے عدد بنائیں، پڑھیں اور موازنہ کریں، 10 اکائیوں کے بدلے 1 دہائی لیں، 10 زیادہ اور 10 کم تلاش کریں، اور عددی لکیر پر چھلانگ گنتی کریں۔",
+        zh:"用十进制积木搭出、读出并比较1000以内的数，用10个一换1个十，找出多10和少10的数，并在数轴上跳着数。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
