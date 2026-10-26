@@ -153,7 +153,9 @@ window.MATHTOOLS = (function () {
     "Rational numbers":{en:"Rational numbers",es:"Números racionales",vi:"Số hữu tỉ",ar:"الأعداد النسبية",hi:"परिमेय संख्याएँ",ur:"ناطق اعداد",zh:"有理数"},
     "Real numbers":{en:"Real numbers",es:"Números reales",vi:"Số thực",ar:"الأعداد الحقيقية",hi:"वास्तविक संख्याएँ",ur:"حقیقی اعداد",zh:"实数"},
     "Quadratics":{en:"Quadratics",es:"Funciones cuadráticas",vi:"Hàm bậc hai",ar:"الدوال التربيعية",hi:"द्विघात",ur:"دو درجی",zh:"二次函数"},
-    "Factoring":{en:"Factoring",es:"Factorización",vi:"Phân tích nhân tử",ar:"التحليل إلى عوامل",hi:"गुणनखंडन",ur:"تجزی",zh:"因式分解"}
+    "Factoring":{en:"Factoring",es:"Factorización",vi:"Phân tích nhân tử",ar:"التحليل إلى عوامل",hi:"गुणनखंडन",ur:"تجزی",zh:"因式分解"},
+    "Exponential functions":{en:"Exponential functions",es:"Funciones exponenciales",vi:"Hàm số mũ",ar:"الدوال الأسية",hi:"घातीय फलन",ur:"قوت نمائی فنکشنز",zh:"指数函数"},
+    "Logarithms":{en:"Logarithms",es:"Logaritmos",vi:"Lôgarit",ar:"اللوغاريتمات",hi:"लघुगणक",ur:"لوگارتھم",zh:"对数"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -409,7 +411,19 @@ window.MATHTOOLS = (function () {
         ar:"أنشئ القطوع المكافئة من صيغة الرأس واقرأ خصائصها الأساسية، وحلّل ثلاثيات الحدود باستخدام نماذج المساحة والتجميع، وحُلّ المعادلات بالتحليل والجذور التربيعية وإكمال المربع والقانون العام، واربط الأصفار بالعوامل والتمثيلات البيانية، ونمذج المقذوفات والمساحة والإيرادات.",
         hi:"शीर्ष रूप से परवलय बनाएँ और उनकी मुख्य विशेषताएँ पढ़ें, क्षेत्रफल मॉडल और समूहन से त्रिपदों के गुणनखंड करें, गुणनखंड, वर्गमूल, वर्ग पूरा करने और द्विघात सूत्र से समीकरण हल करें, शून्यकों, गुणनखंडों और ग्राफ़ को जोड़ें, तथा प्रक्षेप्य, क्षेत्रफल और आय का मॉडल बनाएँ।",
         ur:"راس کی شکل سے قطع مکافی بنائیں اور ان کی اہم خصوصیات پڑھیں، رقبہ ماڈل اور گروہ بندی سے سہ رقمی کی تجزی کریں، تجزی، جذر المربع، مربع مکمل کرنے اور دو درجی فارمولے سے مساوات حل کریں، صفر، اجزائے ضربی اور گراف کو جوڑیں، اور پھینکی گئی چیزوں، رقبے اور آمدنی کا ماڈل بنائیں۔",
-        zh:"用顶点式构建抛物线并读出其关键特征，用面积模型和分组法分解三项式，用因式分解、开平方、配方法和求根公式解方程，联系零点、因式与图像，并为抛体运动、面积和收入建模。"} }
+        zh:"用顶点式构建抛物线并读出其关键特征，用面积模型和分组法分解三项式，用因式分解、开平方、配方法和求根公式解方程，联系零点、因式与图像，并为抛体运动、面积和收入建模。"} },
+    { id:"function-families-studio", collection:"g912", bandId:"9-12", icon:"🧬", accent:"#8e44ad",
+      title:"Function Families Studio", href:"g912/function-families-studio/index.html",
+      tags:["Functions","Transformations","Exponential functions","Logarithms","Inequalities","Number line"],
+      kw:"parent function family linear quadratic cubic absolute value square root cube root exponential logarithmic reciprocal transformations shift stretch compress reflect vertex asymptote domain range interval notation end behavior increasing decreasing growth decay compound interest half-life doubling constant ratio inverse function reflect y=x restrict domain logarithm log ln solve exponential equation composition f(g(x)) combine functions función exponencial logaritmo 函数 对数",
+      desc:{
+        en:"Explore the nine parent functions and their key features, transform graphs with live a, h, k sliders, model exponential growth and decay, reflect to find inverses, work with logarithms, and compose functions and build domains on a number line.",
+        es:"Explora las nueve funciones madre y sus características, transforma gráficas con deslizadores a, h, k en vivo, modela crecimiento y decaimiento exponencial, refleja para hallar inversas, trabaja con logaritmos, compón funciones y construye dominios en la recta numérica.",
+        vi:"Khám phá chín hàm số cơ bản và các đặc điểm chính, biến đổi đồ thị bằng thanh trượt a, h, k, mô hình hóa tăng trưởng và suy giảm mũ, phản chiếu để tìm hàm ngược, làm việc với lôgarit, hợp hàm và biểu diễn tập xác định trên trục số.",
+        ar:"استكشف الدوال الأم التسع وخصائصها الرئيسية، وحوّل التمثيلات البيانية بمنزلقات a وh وk، ونمذج النمو والاضمحلال الأسي، واعكس لإيجاد الدوال العكسية، وتعامل مع اللوغاريتمات، وركّب الدوال ومثّل المجالات على خط الأعداد.",
+        hi:"नौ मूल फलनों और उनकी मुख्य विशेषताओं को जानें, a, h, k स्लाइडरों से ग्राफ़ रूपांतरित करें, घातीय वृद्धि और क्षय का मॉडल बनाएँ, प्रतिलोम खोजने के लिए परावर्तन करें, लघुगणक के साथ काम करें, और फलनों का संयोजन कर संख्या रेखा पर प्रांत बनाएँ।",
+        ur:"نو بنیادی فنکشنز اور ان کی اہم خصوصیات دریافت کریں، a، h، k سلائیڈرز سے گراف بدلیں، قوت نمائی اضافہ اور کمی کا ماڈل بنائیں، معکوس معلوم کرنے کے لیے عکس لیں، لوگارتھم کے ساتھ کام کریں، اور فنکشنز کو مرکب کر کے عددی خط پر ڈومین بنائیں۔",
+        zh:"探索九种基本初等函数及其关键特征，用 a、h、k 滑块实时变换图像，建立指数增长与衰减模型，通过关于 y = x 的对称求反函数，学习对数，并进行函数复合、在数轴上表示定义域。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
