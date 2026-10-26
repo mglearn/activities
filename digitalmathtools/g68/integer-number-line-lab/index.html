@@ -1,0 +1,1958 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Integer &amp; Rational Number Lab — a Grades 6–8 app for number lines, opposites and absolute value, integer and rational operations with counters and number-line moves, sorting real numbers, and temperature, elevation and money stories. Works offline. No data collected.">
+<title>Integer &amp; Rational Number Lab</title>
+<style>
+  :root{
+    --bg:#f8f1f0;--panel:#ffffff;--ink:#2a1a18;--muted:#5a4644;--line:#e2cfcc;
+    --accent:#c0392b;--accentD:#a93226;--accent-ink:#ffffff;--good:#166534;--good-bg:#dcfce7;
+    --hint:#7a4a00;--hint-bg:#fff4d6;--focus:#0a58ca;--pos:#f4c430;--neg:#d64541;
+    --tap:52px;font-size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4;-webkit-text-size-adjust:100%}
+  h1,h2,h3{line-height:1.15;margin:0 0 .3em}
+  button{font-family:inherit;font-size:1rem;cursor:pointer}
+
+  .topbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--accentD);color:var(--accent-ink);padding:.55rem .8rem}
+  .topbar .brand{font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:.4rem;margin-inline-end:auto}
+  .topbar a.homebtn,.topbar button.tb{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.55);border-radius:12px;padding:.4rem .7rem;min-height:var(--tap);min-width:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;font-weight:700;font-size:.95rem}
+  .globe{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.55);border-radius:12px;padding:.2rem .5rem;min-height:var(--tap)}
+  .globe span{font-size:1.2rem}
+  .globe select{border:0;background:#fff;color:var(--ink);border-radius:8px;min-height:44px;font-weight:700;font-size:1rem;padding:.2rem .4rem}
+
+  main{max-width:1200px;margin:0 auto;padding:.7rem}
+  .tabsrow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:.4rem 0 .7rem}
+  .tabs{display:flex;gap:.4rem;flex-wrap:wrap;flex:1 1 auto}
+  .tabs button{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:.45rem .75rem;min-height:var(--tap);font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .tabs button[aria-selected="true"]{background:var(--accentD);color:#fff;border-color:var(--accentD)}
+  .tabs button .ic{font-size:1.15rem}
+  .stars{background:#fff;border:2px solid var(--line);border-radius:14px;padding:.4rem .8rem;font-weight:800;font-size:1.15rem;min-height:48px;display:inline-flex;align-items:center;gap:.3rem}
+  .stars.pop{animation:pop .5s ease}
+  @keyframes pop{50%{transform:scale(1.15)}}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  .panel{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:.9rem;margin-bottom:.8rem}
+  .panelhead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+  .panelhead h2{margin:0;font-size:1.25rem;margin-inline-end:auto}
+
+  .prompt{display:flex;align-items:center;gap:.6rem;background:#fbeeec;border:2px solid #efc9c4;border-radius:14px;padding:.6rem .8rem;margin-bottom:.7rem;font-size:1.12rem;font-weight:600;line-height:1.7}
+  .speaker{background:var(--accentD);color:#fff;border:0;border-radius:50%;width:var(--tap);height:var(--tap);min-width:var(--tap);font-size:1.4rem;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+
+  .btn{background:var(--accentD);color:#fff;border:2px solid var(--accentD);border-radius:12px;padding:.5rem .85rem;min-height:var(--tap);font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:.3rem}
+  .btn.ghost{background:var(--panel);color:var(--accentD)}
+  .btn:disabled{opacity:.45}
+
+  .feedback{margin-top:.6rem;border-radius:12px;padding:.6rem .8rem;font-weight:600;display:none;line-height:1.8}
+  .feedback.show{display:block}
+  .feedback.good{background:var(--good-bg);color:var(--good);border:2px solid #86efac}
+  .feedback.hint{background:var(--hint-bg);color:var(--hint);border:2px solid #f6d271}
+
+  /* Math: always left-to-right, even inside Arabic/Urdu sentences */
+  .math{unicode-bidi:isolate;direction:ltr;display:inline;font-weight:800;white-space:nowrap}
+  .fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.05;font-weight:800;margin:0 .08em;white-space:nowrap;font-size:.92em}
+  .fr>span{padding:0 .16em}
+  .fr>span:first-child{border-bottom:.12em solid currentColor}
+  .feedback .math,.prompt .math{white-space:normal}
+  .rep{text-decoration:overline;text-decoration-thickness:.1em}
+  .rad{border-top:.1em solid currentColor;padding:0 .1em}
+  .big{font-size:1.9rem;text-align:center;margin:.2rem 0 .6rem}
+
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.6rem;margin-top:.7rem}
+  .choices.syms{grid-template-columns:repeat(3,1fr);max-width:420px;margin-inline:auto}
+  .choices:empty{display:none}
+  .choice{background:var(--panel);border:3px solid var(--line);border-radius:16px;padding:.5rem;min-height:72px;display:flex;align-items:center;justify-content:center;position:relative;font-size:1.4rem;font-weight:800;color:var(--ink)}
+  .choice .lbl{unicode-bidi:isolate;direction:ltr}
+  .choice.wide{font-size:1.15rem}
+  .choice.correctpick{border-color:var(--good);background:var(--good-bg)}
+  .choice.wrongpick{border-color:#e3b341;background:var(--hint-bg);opacity:.75}
+  .choice .badge{position:absolute;top:4px;inset-inline-end:6px;font-size:1.1rem;display:none}
+  .choice.correctpick .badge{display:block}
+
+  .work:empty{display:none}
+  .acts{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:center;margin:.5rem 0}
+  .acts:empty{display:none}
+  .nlwrap{display:flex;justify-content:center}
+  .nl{width:100%;max-width:760px;display:block;margin:0 auto;touch-action:none;height:auto}
+  .nl.v{width:240px;max-width:70vw}
+  .nlax{stroke:#2a1a18;stroke-width:4;stroke-linecap:round}
+  .tk{stroke:#2a1a18;stroke-width:3}
+  .tk.mn{stroke-width:1.6;stroke:#6b5552}
+  .nlt{font-size:24px;font-weight:800;text-anchor:middle;fill:#2a1a18;font-family:system-ui,sans-serif}
+  .nl.v .nlt{text-anchor:end;font-size:20px}
+  .nlm{font-size:20px;font-weight:800;text-anchor:middle;font-family:system-ui,sans-serif}
+  .nls{font-size:15px;font-weight:700;fill:#1f4f6b;font-family:system-ui,sans-serif}
+  .pin line{stroke:#1d4ed8;stroke-width:5;stroke-linecap:round}
+  .pin circle{fill:#3b82f6;stroke:#1e3a8a;stroke-width:3}
+  .pin[tabindex]{cursor:grab}
+  .pin:focus{outline:none}
+  .pin:focus circle{stroke:var(--focus);stroke-width:6}
+
+  .ctrs{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;align-items:stretch}
+  .ctrbox{border:2px dashed var(--line);border-radius:14px;padding:.5rem;display:flex;flex-wrap:wrap;gap:.35rem;max-width:300px;justify-content:center;align-content:flex-start;min-height:60px}
+  .ctrbox .cap{flex:1 1 100%;text-align:center;font-weight:800}
+  .ctr{width:48px;height:48px;border-radius:50%;border:3px solid #6b4f00;background:var(--pos);font-size:1.5rem;font-weight:900;color:#3a2a00;display:inline-flex;align-items:center;justify-content:center;padding:0;transition:opacity .25s,transform .25s}
+  .ctr.n{background:var(--neg);border-color:#7b1d1a;color:#fff}
+  .ctr.sel{outline:4px solid var(--focus);outline-offset:2px;transform:scale(1.08)}
+  .ctr.gone{opacity:.15;pointer-events:none}
+  .ctrnote{text-align:center;font-weight:700;margin:.4rem 0;color:var(--muted)}
+  .grps{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
+  .grp{border:2px dashed #b9837d;border-radius:12px;padding:.35rem;display:flex;flex-wrap:wrap;gap:.25rem;max-width:120px;justify-content:center}
+  .dot{width:24px;height:24px;border-radius:50%;background:var(--neg);border:2px solid #7b1d1a;display:inline-block}
+  .dot.p{background:var(--pos);border-color:#6b4f00}
+  table.pat{border-collapse:collapse;margin:.2rem auto;font-size:1.25rem;font-weight:800}
+  table.pat td{padding:.25rem .6rem;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
+  table.pat tr.q td{background:var(--hint-bg)}
+  table.pat tr.blank td{color:#bbb}
+  .venn{width:100%;max-width:520px;display:block;margin:0 auto;height:auto}
+  .vr rect{stroke-width:3;cursor:pointer}
+  .vr:focus{outline:none}
+  .vr:focus>rect{stroke:var(--focus);stroke-width:6}
+  .vr.hit>rect{fill:#bbf7d0}
+  .vr.miss>rect{fill:#fde68a}
+  .vt{font-size:21px;font-weight:800;font-family:system-ui,sans-serif;pointer-events:none}
+  .chips{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin:.4rem 0}
+  .chip{min-width:84px;min-height:64px;border:3px solid var(--line);border-radius:14px;background:#fff;font-size:1.35rem;font-weight:800;padding:.3rem .6rem;display:inline-flex;align-items:center;justify-content:center;color:var(--ink)}
+  .chip.used{opacity:.25;pointer-events:none}
+  .ordrow{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;align-items:center;min-height:64px;border:2px dashed var(--line);border-radius:14px;padding:.4rem;margin:.4rem 0}
+  .ordrow .lab{font-weight:700;color:var(--muted)}
+  .ordrow .chip{border-color:var(--good);background:var(--good-bg);pointer-events:none}
+  .box{display:inline-flex;width:1.6em;height:1.6em;border:3px dashed #d39a93;border-radius:12px;align-items:center;justify-content:center;color:var(--accentD);vertical-align:middle}
+
+  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
+  .drawer.open{display:flex}
+  .drawer .card{background:var(--panel);border-radius:16px;max-width:600px;width:100%;padding:1rem;max-height:90vh;overflow:auto}
+  .setrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+  .setrow .lab{font-weight:700;min-width:150px}
+  .toggle{display:inline-flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:10px;padding:.35rem .55rem;background:#fff;min-height:44px}
+  .toggle input{width:22px;height:22px}
+  select.diff{font-size:1rem;padding:.4rem;border-radius:10px;border:2px solid var(--line);min-height:48px}
+  .wrapflex{display:flex;flex-wrap:wrap;gap:.4rem}
+
+  footer{max-width:1200px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+  footer a{color:var(--accentD);font-weight:700}
+  .stds{font-size:.82rem;color:var(--muted);background:#fcf5f4;border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  .hidden{display:none !important}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  @media (max-width:480px){ :root{font-size:17px} .big{font-size:1.6rem} .tabs button{padding:.4rem .55rem;font-size:.92rem} .ctr{width:44px;height:44px} .choice{font-size:1.25rem} }
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+  .printonly{display:none}
+  @media print{
+    .topbar,.tabsrow,footer,.modepanel,#stdsNote,.no-print,#mtMuteBtn{display:none !important}
+    body{background:#fff}
+    .printonly{display:block}
+    .card-print{border:2px solid #000;border-radius:12px;padding:1rem;margin:0 0 1rem;page-break-inside:avoid}
+    .card-print h2{margin:.2rem 0}
+    .card-print svg{max-height:200px;max-width:100%}
+    main{max-width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">🌡️ <span data-t="appTitle">Integer &amp; Rational Number Lab</span></span>
+  <a class="homebtn" href="../../index.html">🏠 <span data-t="home">Home</span></a>
+  <label class="globe"><span aria-hidden="true">🌐</span>
+    <select id="langSelect" aria-label="Language / Idioma"></select>
+  </label>
+  <button class="tb settingsbtn" id="openSettings" type="button">⚙️ <span data-t="teacher">Teacher</span></button>
+</header>
+
+<main>
+  <div class="tabsrow">
+    <div class="tabs" id="tabs" role="tablist" data-ta="modesLbl" aria-label="Modes"></div>
+    <span class="stars" id="stars"><span aria-hidden="true">✔</span><span class="sr" data-t="solved">Problems solved</span> <b id="starCount">0</b></span>
+  </div>
+  <div id="panels"></div>
+  <div class="stds" id="stdsNote"></div>
+  <div class="printonly" id="printArea"></div>
+</main>
+
+<footer>
+  <p data-t="footNote">No accounts · No data collected · Works offline</p>
+  <p><a href="../../index.html" data-t="home">Home</a> · <a href="../../policy.html" data-t="privacy">Privacy</a></p>
+</footer>
+
+<!-- SETTINGS -->
+<div class="drawer" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <div class="panelhead"><h2 id="setTitle" data-t="teacherTitle">Teacher settings</h2>
+      <button class="btn ghost" id="closeSettings" type="button" data-t="close">Close</button></div>
+    <div class="setrow"><label class="lab" for="setGrade" data-t="setGrade">Grade level</label>
+      <select class="diff" id="setGrade">
+        <option value="6" data-t="g6">Grade 6</option>
+        <option value="7" data-t="g7">Grade 7</option>
+        <option value="8" data-t="g8">Grade 8</option></select>
+      <p class="stds" style="margin:0;flex:1 1 100%" data-t="gradeNote"></p></div>
+    <div class="setrow"><label class="lab" for="setRange" data-t="setRange">Integer range</label>
+      <select class="diff" id="setRange">
+        <option value="10">−10 … 10</option>
+        <option value="20">−20 … 20</option>
+        <option value="50">−50 … 50</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setRat">Rational numbers</span>
+      <label class="toggle"><input type="checkbox" id="setRatIn"> <span data-t="ratOn">Include fractions and decimals</span></label></div>
+    <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
+      <div id="modeToggles" class="wrapflex"></div></div>
+    <div class="setrow"><span class="lab" data-t="setSpeech">Speech</span>
+      <label class="toggle"><input type="checkbox" id="setAuto"> <span data-t="autoRead">Auto-read directions</span></label></div>
+    <div class="setrow" style="border:0"><button class="btn" id="printCards" type="button">🖨 <span data-t="printCards">Print challenge cards</span></button></div>
+    <p class="stds" data-t="setStored">Settings are saved only on this device. No student information is ever stored.</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   Integer & Rational Number Lab — single-file Grades 6–8 app. 7 languages.
+   No frameworks, no network, no data collection.
+   ========================================================================= */
+
+/* ---------- Language metadata ---------- */
+const LANGS = [
+  {code:"en", name:"English",     dir:"ltr", bcp:"en-US"},
+  {code:"es", name:"Español",     dir:"ltr", bcp:"es-ES"},
+  {code:"vi", name:"Tiếng Việt",  dir:"ltr", bcp:"vi-VN"},
+  {code:"ar", name:"العربية",     dir:"rtl", bcp:"ar-SA"},
+  {code:"hi", name:"हिन्दी",       dir:"ltr", bcp:"hi-IN"},
+  {code:"ur", name:"اردو",        dir:"rtl", bcp:"ur-PK"},
+  {code:"zh", name:"中文",         dir:"ltr", bcp:"zh-CN"}
+];
+const LANG_KEY = "tcea.mathtools.lang";
+
+/* ---------- Translations ---------- */
+const T = {
+  en:{
+    appTitle:"Integer & Rational Number Lab", home:"Home", privacy:"Privacy", teacher:"Teacher",
+    mLine:"Number Line & Opposites", mAdd:"Add & Subtract", mMul:"Multiply & Divide", mReal:"Real Number Sorter", mStory:"Context Stories",
+    newRound:"New problem", readAloud:"Read aloud", choicesLbl:"Answer choices", modesLbl:"Modes", solved:"Problems solved",
+    footNote:"No accounts · No data collected · Works offline",
+    teacherTitle:"Teacher settings", close:"Close", setGrade:"Grade level", g6:"Grade 6", g7:"Grade 7", g8:"Grade 8",
+    gradeNote:"Choosing a grade resets the options below to that grade's defaults. Grade 6: integers and locating rationals. Grade 7: operations with rational numbers. Grade 8: irrational numbers and square roots.",
+    setRange:"Integer range", setRat:"Rational numbers", ratOn:"Include fractions and decimals", setModes:"Modes",
+    setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
+    setStored:"Settings are saved only on this device. No student information is ever stored.",
+    check:"Check", startOver:"Start over", youPicked:"You chose {x}.",
+    wPlus:"plus", wMinus:"minus", wTimes:"times", wDiv:"divided by", wEq:"equals", ltW:"is less than", gtW:"is greater than", eqW:"is equal to",
+    cmpSay:"{a} {op} {b}", negSay:"negative {x}", frSay:"{n} over {d}", repSay:"{x} repeating", sqrtSay:"the square root of {n}", piSay:"pi",
+    absSay:"the absolute value of {x}", dolSay:"{x} dollars", degSay:"{x} degrees Celsius", mSay:"{x} meters", approx:"about",
+    pinLbl:"Number line pin", lineLbl:"Number line from {a} to {b}", seaLvl:"sea level (0)",
+    ctrPos:"positive counter", ctrNeg:"negative counter", pairsGone:"Zero pairs removed: {k}",
+    vennLbl:"Sets of numbers", setNat:"Natural numbers", setWhole:"Whole numbers", setInt:"Integers", setRatN:"Rational numbers", setIrr:"Irrational numbers", setReal:"Real numbers",
+    wRight:"right", wLeft:"left", wUp:"up", wDown:"down", posW:"positive", negW:"negative", oddW:"an odd number", evenW:"an even number",
+    goesUp:"goes up by {k}", goesDown:"goes down by {k}",
+    placeDir:"Drag the pin to {x} on the number line. Then press Check.",
+    placeGood:"Yes! {x} is {d} units from 0, on the {side} side.", placeZero:"Yes! 0 is neither positive nor negative.",
+    hintGreater:"Your pin is at {p}. {x} is greater than {p}, so it is farther {dir}.",
+    hintLess:"Your pin is at {p}. {x} is less than {p}, so it is farther {dir}.",
+    tickNote:"Each small tick is {u}.",
+    oppDir:"The point shows {x}. Drag the pin to the opposite of {x}, then press Check.",
+    oppGood:"Yes! The opposite of {x} is {y}. Both are {d} units from 0, on opposite sides.",
+    oppHint:"Opposites are the same distance from 0 on opposite sides of 0. {x} is {d} units from 0.",
+    absDir:"The point shows {x}. What is {e}?",
+    absGood:"Yes! {e} = {d}, because {x} is {d} units from 0. Distance is never negative.",
+    absHint:"Absolute value is the distance from 0, and a distance is never negative. Count the units from {x} to 0.",
+    cmpDir:"Compare. Choose <, =, or >.",
+    cmpGoodGt:"Yes! {stmt}, because {a} is to the right of {b} on the number line.",
+    cmpGoodLt:"Yes! {stmt}, because {a} is to the left of {b} on the number line.",
+    cmpGoodEq:"Yes! {stmt}. They name the same point on the number line.",
+    cmpHint:"Picture both numbers on a number line: the one farther right is greater. Of two negatives, the one closer to 0 is greater.",
+    ctrDir:"Model {e} with counters. Tap a yellow (+) counter and a red (−) counter to remove a zero pair. Then choose the sum.",
+    ctrGood:"Yes! {eq}. Each zero pair is worth 0, so the counters left over show the sum.",
+    ctrHint:"Not yet. A yellow and a red counter make a zero pair: 1 + (−1) = 0. Remove all the zero pairs, then count what is left and its color.",
+    moveDir:"Start at {a}. Add {b}. Drag the pin to the sum, then press Check.",
+    moveGood:"Yes! {eq}. Starting at {a}, adding {b} moves {d} units {dir}.",
+    moveHint:"Adding a positive number moves right; adding a negative number moves left. From {a}, move {d} units {dir}.",
+    subDir1:"Rewrite {e} as an addition problem.",
+    subGood1:"Right! Subtracting {b} is the same as adding its opposite, {nb}. Now drag the pin to the answer and press Check.",
+    subHint1:"Subtracting a number is the same as adding its opposite. Keep the first number, change − to +, and use the opposite of {b}.",
+    subDir2:"Now find {e2}. Drag the pin to the answer, then press Check.", subGood2:"Yes! {eq}.", sqPair:"{a} and {b}",
+    distDir:"What is the distance between {a} and {b} on the number line?",
+    distGood:"Yes! The distance is {e} = {d}.",
+    distHint:"Distance is the absolute value of the difference, {e}. Count the units between the two points.",
+    raddDir:"Find the value. Write your answer in simplest form.",
+    raddGood:"Yes! With a common denominator: {e}.",
+    raddHint:"Rewrite both fractions with a common denominator, {e}. Then combine the numerators, keeping track of the signs.",
+    patDir:"Follow the pattern. What number belongs in the ? row?",
+    patGood:"Yes! Each time the first factor goes down by 1, the product {chg}. So {eq}.",
+    patHint:"Look down the product column: each step the product {chg}. Keep the pattern going past 0.",
+    grpDir:"There are {a} groups, and each group is {b}. What is {e}?",
+    grpGood:"Yes! {a} groups of {b} make {p}: {eq}.",
+    grpHint:"Every counter is negative. Count {a} groups with {k} negative counters in each.",
+    signDir:"Find the product.",
+    signGood:"Yes! {eq}. There are {k} negative factors, {oe}, so the product is {pn}.",
+    signHint:"Count the negative factors. An even number of negative factors gives a positive product; an odd number gives a negative product.",
+    divDir:"Find the quotient.",
+    divGood:"Yes! {eq}, because {chk}.",
+    divHint:"Think of the missing factor: {b} × ? = {a}. Same signs give a positive quotient; different signs give a negative quotient.",
+    ratDir:"Find the value. Write your answer in simplest form.",
+    ratGood:"Yes! {eq}.", ratDivNote:"Dividing by {b} is the same as multiplying by its reciprocal, {rb}.",
+    ratHint:"Find the sign first: same signs give a positive answer, different signs give a negative answer. Then multiply or divide the absolute values.",
+    vennDir:"Where does {x} belong? Tap the smallest set that contains it.",
+    vennGood:"Yes! {x} belongs to {set}. It is also in every set around it: {list}.",
+    vennTooBig:"{x} is in {set}, but a smaller set inside it also contains {x}. Look inside.",
+    vennNotIn:"{x} is not in {set}. {why}",
+    whyNat:"Natural numbers are the counting numbers 1, 2, 3, …", whyWhole:"Whole numbers are 0, 1, 2, 3, … with no negatives and no fractions.",
+    whyInt:"Integers are the whole numbers and their opposites, with no fractions or decimals in between.",
+    whyRat:"Rational numbers can be written as a fraction of two integers; their decimals end or repeat.",
+    whyIrr:"Irrational numbers cannot be written as a fraction of two integers; their decimals never end and never repeat.",
+    simpNote:"Simplify first: {x} = {y}.",
+    decDir:"Write {f} as a decimal.",
+    decGoodT:"Yes! {f} = {x}. The division ends, so this is a terminating decimal.",
+    decGoodR:"Yes! {f} = {x}. A remainder repeats, so the digits {r} repeat forever: a repeating decimal.",
+    decHint:"Divide the numerator by the denominator: {n} ÷ {d}. Watch the remainders. If a remainder repeats, the digits repeat too.",
+    sqDir:"{x} is between which two consecutive integers?",
+    sqGood:"Yes! {a2} < {n} < {b2}, so {x} is between {a} and {b}.",
+    sqHint:"Find the perfect squares just below and just above {n}.",
+    sqPlaceDir:"Drag the pin to estimate {x} to the nearest tenth, then press Check.",
+    sqPlaceGood:"Yes! {x} ≈ {v}. Check: {v} × {v} = {sq}, which is close to {n}.",
+    sqPlaceHint:"{x} is between {a} and {b} because {a2} < {n} < {b2}. Is {n} closer to {a2} or to {b2}?",
+    ordDir:"Tap the numbers in order from least to greatest.",
+    ordGood:"Yes! In order: {list}.",
+    ordHint:"Not yet: {y} is less than {x}. On a number line, the number farther left comes first.",
+    ordRow:"Least → greatest:",
+    tempRise:"At 6 a.m. the temperature was {a}. By noon it had risen {c}. Drag the pin to the noon temperature, then press Check.",
+    tempFall:"At 6 p.m. the temperature was {a}. By midnight it had fallen {c}. Drag the pin to the midnight temperature, then press Check.",
+    tempGood:"Yes! {eq}, so the temperature is {r}.",
+    tempHint:"A rise is a positive change and a fall is a negative change. Start at {a} and move {c} {dir}.",
+    elevDist:"A diver is at {a}. A pelican is flying at {b}. How far apart are they?",
+    elevDistGood:"Yes! The distance is {e} = {r}.",
+    elevDistHint:"Sea level is 0. The diver is {da} below 0 and the pelican is {db} above 0. Add the two distances.",
+    elevRise:"A submarine is at {a}. It rises {c}. What is its new elevation?",
+    elevDive:"A diver is at {a}. She swims down {c} more. What is her new elevation?",
+    elevGood:"Yes! {eq}. The new elevation is {r}.",
+    elevHint:"Up is a positive change and down is a negative change. Start at {a}.",
+    moneyDep:"An account has a balance of {a} (money is owed). Then {c} is deposited. What is the new balance?",
+    moneyWd:"An account has a balance of {a}. Then {c} is spent with a debit card. What is the new balance?",
+    moneyGood:"Yes! {eq}. The new balance is {r}.",
+    moneyHint:"A deposit adds money (a positive change). Spending removes money (a negative change). Start at {a}.",
+    feeDir:"A {c} fee is charged to an account every week for {n} weeks. What is the total change in the balance?",
+    feeGood:"Yes! A fee is a negative change: {eq}.",
+    feeHint:"Each fee lowers the balance, so each change is {nc}. Multiply that by {n} weeks.",
+    shareDir:"{n} friends split a debt of {a} equally. What is the change in each friend's balance?",
+    shareGood:"Yes! {eq}. Each friend's balance changes by {r}.",
+    shareHint:"A debt is negative. A negative number divided by a positive number is negative.",
+    coldDir:"Which temperature is colder?", deepDir:"Which elevation is farther below sea level?",
+    coldGood:"Yes! {stmt}, so {x} is colder. It is lower on the thermometer.",
+    deepGood:"Yes! {stmt}, so {x} is deeper. It is farther below sea level.",
+    coldHint:"On a thermometer, colder means lower. Of two negative temperatures, the one farther from 0 is colder.",
+    deepHint:"Below sea level means negative. The elevation farther from 0 in the negative direction is deeper.",
+    stds:"Aligned standards — Texas TEKS: Grade 6: 6.2(A), 6.2(B), 6.2(C), 6.2(D), 6.3(C), 6.3(D); Grade 7: 7.2(A), 7.3(A), 7.3(B); Grade 8: 8.2(A), 8.2(B), 8.2(D). Common Core: 6.NS.5, 6.NS.6a, 6.NS.6c, 6.NS.7a–d; 7.NS.1a–d, 7.NS.2a–d, 7.NS.3; 8.NS.1, 8.NS.2.",
+    cardTitle:"Integer & Rational Number Lab — Challenge Cards", cardName:"Name:",
+    cardLine:"Plot and label each number on the number line.", cardAdd:"Find each value. Show counters or number-line jumps.",
+    cardMul:"Find each value. Explain how you chose the sign.", cardReal:"Write each number in the smallest set that contains it.",
+    cardStory:"Solve. Write an equation that shows your thinking."
+  },
+  es:{
+    appTitle:"Laboratorio de Enteros y Racionales", home:"Inicio", privacy:"Privacidad", teacher:"Maestro",
+    mLine:"Recta numérica y opuestos", mAdd:"Sumar y restar", mMul:"Multiplicar y dividir", mReal:"Clasificador de números reales", mStory:"Situaciones reales",
+    newRound:"Nuevo problema", readAloud:"Leer en voz alta", choicesLbl:"Opciones de respuesta", modesLbl:"Modos", solved:"Problemas resueltos",
+    footNote:"Sin cuentas · Sin datos · Funciona sin conexión",
+    teacherTitle:"Ajustes del maestro", close:"Cerrar", setGrade:"Grado", g6:"6.º grado", g7:"7.º grado", g8:"8.º grado",
+    gradeNote:"Al elegir un grado, las opciones de abajo vuelven a los valores de ese grado. 6.º: enteros y ubicar racionales. 7.º: operaciones con números racionales. 8.º: números irracionales y raíces cuadradas.",
+    setRange:"Rango de enteros", setRat:"Números racionales", ratOn:"Incluir fracciones y decimales", setModes:"Modos",
+    setSpeech:"Voz", autoRead:"Leer instrucciones automáticamente", printCards:"Imprimir tarjetas de reto",
+    setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información del estudiante.",
+    check:"Revisar", startOver:"Empezar de nuevo", youPicked:"Elegiste {x}.",
+    wPlus:"más", wMinus:"menos", wTimes:"por", wDiv:"entre", wEq:"es igual a", ltW:"es menor que", gtW:"es mayor que", eqW:"es igual a",
+    cmpSay:"{a} {op} {b}", negSay:"{x} negativo", frSay:"{n} sobre {d}", repSay:"{x} periódico", sqrtSay:"la raíz cuadrada de {n}", piSay:"pi",
+    absSay:"el valor absoluto de {x}", dolSay:"{x} dólares", degSay:"{x} grados Celsius", mSay:"{x} metros", approx:"aproximadamente",
+    pinLbl:"Marcador de la recta numérica", lineLbl:"Recta numérica de {a} a {b}", seaLvl:"nivel del mar (0)",
+    ctrPos:"ficha positiva", ctrNeg:"ficha negativa", pairsGone:"Pares cero quitados: {k}",
+    vennLbl:"Conjuntos de números", setNat:"Números naturales", setWhole:"Números cardinales", setInt:"Enteros", setRatN:"Números racionales", setIrr:"Números irracionales", setReal:"Números reales",
+    wRight:"a la derecha", wLeft:"a la izquierda", wUp:"hacia arriba", wDown:"hacia abajo", posW:"positivo", negW:"negativo", oddW:"un número impar", evenW:"un número par",
+    goesUp:"aumenta {k}", goesDown:"disminuye {k}",
+    placeDir:"Arrastra el marcador hasta {x} en la recta numérica. Luego oprime Revisar.",
+    placeGood:"¡Sí! {x} está a {d} unidades del 0, del lado {side}.", placeZero:"¡Sí! El 0 no es ni positivo ni negativo.",
+    hintGreater:"Tu marcador está en {p}. {x} es mayor que {p}, así que está más {dir}.",
+    hintLess:"Tu marcador está en {p}. {x} es menor que {p}, así que está más {dir}.",
+    tickNote:"Cada marca pequeña vale {u}.",
+    oppDir:"El punto muestra {x}. Arrastra el marcador al opuesto de {x} y oprime Revisar.",
+    oppGood:"¡Sí! El opuesto de {x} es {y}. Los dos están a {d} unidades del 0, en lados opuestos.",
+    oppHint:"Los opuestos están a la misma distancia del 0, en lados opuestos del 0. {x} está a {d} unidades del 0.",
+    absDir:"El punto muestra {x}. ¿Cuánto es {e}?",
+    absGood:"¡Sí! {e} = {d}, porque {x} está a {d} unidades del 0. Una distancia nunca es negativa.",
+    absHint:"El valor absoluto es la distancia al 0, y una distancia nunca es negativa. Cuenta las unidades de {x} a 0.",
+    cmpDir:"Compara. Elige <, = o >.",
+    cmpGoodGt:"¡Sí! {stmt}, porque {a} está a la derecha de {b} en la recta numérica.",
+    cmpGoodLt:"¡Sí! {stmt}, porque {a} está a la izquierda de {b} en la recta numérica.",
+    cmpGoodEq:"¡Sí! {stmt}. Nombran el mismo punto de la recta numérica.",
+    cmpHint:"Imagina los dos números en una recta numérica: el que está más a la derecha es mayor. Entre dos negativos, el más cercano al 0 es mayor.",
+    ctrDir:"Representa {e} con fichas. Toca una ficha amarilla (+) y una roja (−) para quitar un par cero. Luego elige la suma.",
+    ctrGood:"¡Sí! {eq}. Cada par cero vale 0, así que las fichas que quedan muestran la suma.",
+    ctrHint:"Todavía no. Una ficha amarilla y una roja forman un par cero: 1 + (−1) = 0. Quita todos los pares cero y cuenta lo que queda y su color.",
+    moveDir:"Empieza en {a}. Suma {b}. Arrastra el marcador hasta la suma y oprime Revisar.",
+    moveGood:"¡Sí! {eq}. Desde {a}, sumar {b} mueve {d} unidades {dir}.",
+    moveHint:"Sumar un número positivo mueve a la derecha; sumar un negativo mueve a la izquierda. Desde {a}, muévete {d} unidades {dir}.",
+    subDir1:"Escribe {e} como una suma.",
+    subGood1:"¡Correcto! Restar {b} es lo mismo que sumar su opuesto, {nb}. Ahora arrastra el marcador a la respuesta y oprime Revisar.",
+    subHint1:"Restar un número es lo mismo que sumar su opuesto. Deja el primer número, cambia − por + y usa el opuesto de {b}.",
+    subDir2:"Ahora calcula {e2}. Arrastra el marcador a la respuesta y oprime Revisar.", subGood2:"¡Sí! {eq}.", sqPair:"{a} y {b}",
+    distDir:"¿Cuál es la distancia entre {a} y {b} en la recta numérica?",
+    distGood:"¡Sí! La distancia es {e} = {d}.",
+    distHint:"La distancia es el valor absoluto de la diferencia, {e}. Cuenta las unidades entre los dos puntos.",
+    raddDir:"Calcula el valor. Escribe tu respuesta en su forma más simple.",
+    raddGood:"¡Sí! Con un denominador común: {e}.",
+    raddHint:"Escribe las dos fracciones con un denominador común, {e}. Luego combina los numeradores sin perder de vista los signos.",
+    patDir:"Sigue el patrón. ¿Qué número va en la fila del ?",
+    patGood:"¡Sí! Cada vez que el primer factor baja 1, el producto {chg}. Entonces {eq}.",
+    patHint:"Mira la columna de productos: en cada paso el producto {chg}. Continúa el patrón después del 0.",
+    grpDir:"Hay {a} grupos y cada grupo es {b}. ¿Cuánto es {e}?",
+    grpGood:"¡Sí! {a} grupos de {b} forman {p}: {eq}.",
+    grpHint:"Todas las fichas son negativas. Cuenta {a} grupos con {k} fichas negativas cada uno.",
+    signDir:"Calcula el producto.",
+    signGood:"¡Sí! {eq}. Hay {k} factores negativos, {oe}, así que el producto es {pn}.",
+    signHint:"Cuenta los factores negativos. Un número par de factores negativos da un producto positivo; un número impar da un producto negativo.",
+    divDir:"Calcula el cociente.",
+    divGood:"¡Sí! {eq}, porque {chk}.",
+    divHint:"Piensa en el factor que falta: {b} × ? = {a}. Signos iguales dan un cociente positivo; signos distintos dan un cociente negativo.",
+    ratDir:"Calcula el valor. Escribe tu respuesta en su forma más simple.",
+    ratGood:"¡Sí! {eq}.", ratDivNote:"Dividir entre {b} es lo mismo que multiplicar por su recíproco, {rb}.",
+    ratHint:"Primero decide el signo: signos iguales dan positivo, signos distintos dan negativo. Luego multiplica o divide los valores absolutos.",
+    vennDir:"¿Dónde va {x}? Toca el conjunto más pequeño que lo contiene.",
+    vennGood:"¡Sí! {x} pertenece a {set}. También está en cada conjunto que lo rodea: {list}.",
+    vennTooBig:"{x} está en {set}, pero un conjunto más pequeño dentro de él también contiene {x}. Busca adentro.",
+    vennNotIn:"{x} no está en {set}. {why}",
+    whyNat:"Los números naturales son los números para contar: 1, 2, 3, …", whyWhole:"Los números cardinales son 0, 1, 2, 3, … sin negativos ni fracciones.",
+    whyInt:"Los enteros son los números cardinales y sus opuestos, sin fracciones ni decimales entre ellos.",
+    whyRat:"Los números racionales se pueden escribir como una fracción de dos enteros; sus decimales terminan o se repiten.",
+    whyIrr:"Los números irracionales no se pueden escribir como una fracción de dos enteros; sus decimales nunca terminan ni se repiten.",
+    simpNote:"Simplifica primero: {x} = {y}.",
+    decDir:"Escribe {f} como decimal.",
+    decGoodT:"¡Sí! {f} = {x}. La división termina, así que es un decimal finito.",
+    decGoodR:"¡Sí! {f} = {x}. Un residuo se repite, así que los dígitos {r} se repiten para siempre: un decimal periódico.",
+    decHint:"Divide el numerador entre el denominador: {n} ÷ {d}. Fíjate en los residuos. Si un residuo se repite, los dígitos también se repiten.",
+    sqDir:"¿Entre qué dos enteros consecutivos está {x}?",
+    sqGood:"¡Sí! {a2} < {n} < {b2}, así que {x} está entre {a} y {b}.",
+    sqHint:"Busca los cuadrados perfectos justo debajo y justo encima de {n}.",
+    sqPlaceDir:"Arrastra el marcador para estimar {x} a la décima más cercana y oprime Revisar.",
+    sqPlaceGood:"¡Sí! {x} ≈ {v}. Comprueba: {v} × {v} = {sq}, que está cerca de {n}.",
+    sqPlaceHint:"{x} está entre {a} y {b} porque {a2} < {n} < {b2}. ¿{n} está más cerca de {a2} o de {b2}?",
+    ordDir:"Toca los números en orden de menor a mayor.",
+    ordGood:"¡Sí! En orden: {list}.",
+    ordHint:"Todavía no: {y} es menor que {x}. En una recta numérica, el número que está más a la izquierda va primero.",
+    ordRow:"Menor → mayor:",
+    tempRise:"A las 6 a. m. la temperatura era {a}. Al mediodía había subido {c}. Arrastra el marcador a la temperatura del mediodía y oprime Revisar.",
+    tempFall:"A las 6 p. m. la temperatura era {a}. A la medianoche había bajado {c}. Arrastra el marcador a la temperatura de la medianoche y oprime Revisar.",
+    tempGood:"¡Sí! {eq}, así que la temperatura es {r}.",
+    tempHint:"Una subida es un cambio positivo y una bajada es un cambio negativo. Empieza en {a} y muévete {c} {dir}.",
+    elevDist:"Una buceadora está a {a}. Un pelícano vuela a {b}. ¿Qué distancia los separa?",
+    elevDistGood:"¡Sí! La distancia es {e} = {r}.",
+    elevDistHint:"El nivel del mar es 0. La buceadora está {da} debajo del 0 y el pelícano {db} encima del 0. Suma las dos distancias.",
+    elevRise:"Un submarino está a {a}. Sube {c}. ¿Cuál es su nueva elevación?",
+    elevDive:"Una buceadora está a {a}. Baja {c} más. ¿Cuál es su nueva elevación?",
+    elevGood:"¡Sí! {eq}. La nueva elevación es {r}.",
+    elevHint:"Subir es un cambio positivo y bajar es un cambio negativo. Empieza en {a}.",
+    moneyDep:"Una cuenta tiene un saldo de {a} (se debe dinero). Luego se depositan {c}. ¿Cuál es el nuevo saldo?",
+    moneyWd:"Una cuenta tiene un saldo de {a}. Luego se gastan {c} con una tarjeta de débito. ¿Cuál es el nuevo saldo?",
+    moneyGood:"¡Sí! {eq}. El nuevo saldo es {r}.",
+    moneyHint:"Un depósito agrega dinero (un cambio positivo). Gastar quita dinero (un cambio negativo). Empieza en {a}.",
+    feeDir:"A una cuenta se le cobra un cargo de {c} cada semana durante {n} semanas. ¿Cuál es el cambio total del saldo?",
+    feeGood:"¡Sí! Un cargo es un cambio negativo: {eq}.",
+    feeHint:"Cada cargo baja el saldo, así que cada cambio es {nc}. Multiplica eso por {n} semanas.",
+    shareDir:"{n} amigos se reparten por igual una deuda de {a}. ¿Cuál es el cambio en el saldo de cada amigo?",
+    shareGood:"¡Sí! {eq}. El saldo de cada amigo cambia {r}.",
+    shareHint:"Una deuda es negativa. Un número negativo dividido entre uno positivo es negativo.",
+    coldDir:"¿Qué temperatura es más fría?", deepDir:"¿Qué elevación está más por debajo del nivel del mar?",
+    coldGood:"¡Sí! {stmt}, así que {x} es más fría. Está más abajo en el termómetro.",
+    deepGood:"¡Sí! {stmt}, así que {x} es más profunda. Está más por debajo del nivel del mar.",
+    coldHint:"En un termómetro, más frío significa más abajo. Entre dos temperaturas negativas, la que está más lejos del 0 es más fría.",
+    deepHint:"Debajo del nivel del mar significa negativo. La elevación más lejos del 0 en dirección negativa es la más profunda.",
+    stds:"Estándares alineados — TEKS de Texas: 6.º grado: 6.2(A), 6.2(B), 6.2(C), 6.2(D), 6.3(C), 6.3(D); 7.º grado: 7.2(A), 7.3(A), 7.3(B); 8.º grado: 8.2(A), 8.2(B), 8.2(D). Common Core: 6.NS.5, 6.NS.6a, 6.NS.6c, 6.NS.7a–d; 7.NS.1a–d, 7.NS.2a–d, 7.NS.3; 8.NS.1, 8.NS.2.",
+    cardTitle:"Laboratorio de Enteros y Racionales — Tarjetas de reto", cardName:"Nombre:",
+    cardLine:"Ubica y rotula cada número en la recta numérica.", cardAdd:"Calcula cada valor. Muestra fichas o saltos en la recta numérica.",
+    cardMul:"Calcula cada valor. Explica cómo elegiste el signo.", cardReal:"Escribe cada número en el conjunto más pequeño que lo contiene.",
+    cardStory:"Resuelve. Escribe una ecuación que muestre tu razonamiento."
+  },
+  vi:{
+    appTitle:"Phòng Thí Nghiệm Số Nguyên & Số Hữu Tỉ", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên",
+    mLine:"Trục số & số đối", mAdd:"Cộng & trừ", mMul:"Nhân & chia", mReal:"Phân loại số thực", mStory:"Tình huống thực tế",
+    newRound:"Bài mới", readAloud:"Đọc to", choicesLbl:"Các lựa chọn trả lời", modesLbl:"Chế độ", solved:"Số bài đã giải",
+    footNote:"Không tài khoản · Không thu thập dữ liệu · Hoạt động ngoại tuyến",
+    teacherTitle:"Cài đặt giáo viên", close:"Đóng", setGrade:"Lớp", g6:"Lớp 6", g7:"Lớp 7", g8:"Lớp 8",
+    gradeNote:"Khi chọn lớp, các tùy chọn bên dưới sẽ trở về mặc định của lớp đó. Lớp 6: số nguyên và biểu diễn số hữu tỉ. Lớp 7: phép tính với số hữu tỉ. Lớp 8: số vô tỉ và căn bậc hai.",
+    setRange:"Phạm vi số nguyên", setRat:"Số hữu tỉ", ratOn:"Có phân số và số thập phân", setModes:"Chế độ",
+    setSpeech:"Giọng nói", autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
+    setStored:"Cài đặt chỉ lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
+    check:"Kiểm tra", startOver:"Làm lại", youPicked:"Em đã chọn {x}.",
+    wPlus:"cộng", wMinus:"trừ", wTimes:"nhân", wDiv:"chia cho", wEq:"bằng", ltW:"nhỏ hơn", gtW:"lớn hơn", eqW:"bằng",
+    cmpSay:"{a} {op} {b}", negSay:"âm {x}", frSay:"{n} phần {d}", repSay:"{x} tuần hoàn", sqrtSay:"căn bậc hai của {n}", piSay:"pi",
+    absSay:"giá trị tuyệt đối của {x}", dolSay:"{x} đô la", degSay:"{x} độ C", mSay:"{x} mét", approx:"khoảng",
+    pinLbl:"Ghim trên trục số", lineLbl:"Trục số từ {a} đến {b}", seaLvl:"mực nước biển (0)",
+    ctrPos:"thẻ dương", ctrNeg:"thẻ âm", pairsGone:"Số cặp bằng 0 đã bỏ: {k}",
+    vennLbl:"Các tập hợp số", setNat:"Số tự nhiên khác 0", setWhole:"Số tự nhiên", setInt:"Số nguyên", setRatN:"Số hữu tỉ", setIrr:"Số vô tỉ", setReal:"Số thực",
+    wRight:"sang phải", wLeft:"sang trái", wUp:"lên trên", wDown:"xuống dưới", posW:"dương", negW:"âm", oddW:"một số lẻ", evenW:"một số chẵn",
+    goesUp:"tăng {k}", goesDown:"giảm {k}",
+    placeDir:"Kéo ghim đến {x} trên trục số. Rồi bấm Kiểm tra.",
+    placeGood:"Đúng! {x} cách 0 là {d} đơn vị, ở phía {side}.", placeZero:"Đúng! Số 0 không dương cũng không âm.",
+    hintGreater:"Ghim của em ở {p}. {x} lớn hơn {p}, nên nó nằm xa hơn về phía {dir}.",
+    hintLess:"Ghim của em ở {p}. {x} nhỏ hơn {p}, nên nó nằm xa hơn về phía {dir}.",
+    tickNote:"Mỗi vạch nhỏ là {u}.",
+    oppDir:"Điểm này là {x}. Kéo ghim đến số đối của {x}, rồi bấm Kiểm tra.",
+    oppGood:"Đúng! Số đối của {x} là {y}. Cả hai cách 0 là {d} đơn vị, ở hai phía ngược nhau.",
+    oppHint:"Hai số đối nhau cách 0 bằng nhau và nằm ở hai phía của 0. {x} cách 0 là {d} đơn vị.",
+    absDir:"Điểm này là {x}. {e} bằng bao nhiêu?",
+    absGood:"Đúng! {e} = {d}, vì {x} cách 0 là {d} đơn vị. Khoảng cách không bao giờ âm.",
+    absHint:"Giá trị tuyệt đối là khoảng cách đến 0, và khoảng cách không bao giờ âm. Đếm số đơn vị từ {x} đến 0.",
+    cmpDir:"So sánh. Chọn <, = hoặc >.",
+    cmpGoodGt:"Đúng! {stmt}, vì {a} nằm bên phải {b} trên trục số.",
+    cmpGoodLt:"Đúng! {stmt}, vì {a} nằm bên trái {b} trên trục số.",
+    cmpGoodEq:"Đúng! {stmt}. Chúng là cùng một điểm trên trục số.",
+    cmpHint:"Hãy hình dung hai số trên trục số: số nằm bên phải hơn thì lớn hơn. Giữa hai số âm, số gần 0 hơn thì lớn hơn.",
+    ctrDir:"Biểu diễn {e} bằng thẻ. Chạm một thẻ vàng (+) và một thẻ đỏ (−) để bỏ một cặp bằng 0. Rồi chọn tổng.",
+    ctrGood:"Đúng! {eq}. Mỗi cặp bằng 0 có giá trị 0, nên các thẻ còn lại cho biết tổng.",
+    ctrHint:"Chưa đúng. Một thẻ vàng và một thẻ đỏ tạo thành cặp bằng 0: 1 + (−1) = 0. Bỏ hết các cặp bằng 0, rồi đếm số thẻ còn lại và xem màu của chúng.",
+    moveDir:"Bắt đầu ở {a}. Cộng {b}. Kéo ghim đến tổng, rồi bấm Kiểm tra.",
+    moveGood:"Đúng! {eq}. Từ {a}, cộng {b} là di chuyển {d} đơn vị {dir}.",
+    moveHint:"Cộng số dương thì di chuyển sang phải; cộng số âm thì di chuyển sang trái. Từ {a}, di chuyển {d} đơn vị {dir}.",
+    subDir1:"Viết lại {e} thành một phép cộng.",
+    subGood1:"Đúng! Trừ {b} cũng giống như cộng với số đối của nó, {nb}. Giờ kéo ghim đến đáp án và bấm Kiểm tra.",
+    subHint1:"Trừ một số cũng giống như cộng với số đối của số đó. Giữ số thứ nhất, đổi − thành +, và dùng số đối của {b}.",
+    subDir2:"Giờ hãy tính {e2}. Kéo ghim đến đáp án, rồi bấm Kiểm tra.", subGood2:"Đúng! {eq}.", sqPair:"{a} và {b}",
+    distDir:"Khoảng cách giữa {a} và {b} trên trục số là bao nhiêu?",
+    distGood:"Đúng! Khoảng cách là {e} = {d}.",
+    distHint:"Khoảng cách là giá trị tuyệt đối của hiệu, {e}. Đếm số đơn vị giữa hai điểm.",
+    raddDir:"Tính giá trị. Viết đáp án ở dạng tối giản.",
+    raddGood:"Đúng! Với mẫu số chung: {e}.",
+    raddHint:"Viết lại hai phân số với mẫu số chung, {e}. Rồi gộp các tử số, chú ý đến dấu.",
+    patDir:"Theo quy luật. Số nào nằm ở hàng có dấu ?",
+    patGood:"Đúng! Mỗi lần thừa số thứ nhất giảm 1, tích {chg}. Vậy {eq}.",
+    patHint:"Nhìn xuống cột tích: mỗi bước tích {chg}. Tiếp tục quy luật qua khỏi 0.",
+    grpDir:"Có {a} nhóm, mỗi nhóm là {b}. {e} bằng bao nhiêu?",
+    grpGood:"Đúng! {a} nhóm {b} tạo thành {p}: {eq}.",
+    grpHint:"Mọi thẻ đều âm. Đếm {a} nhóm, mỗi nhóm có {k} thẻ âm.",
+    signDir:"Tính tích.",
+    signGood:"Đúng! {eq}. Có {k} thừa số âm, là {oe}, nên tích là số {pn}.",
+    signHint:"Đếm số thừa số âm. Số chẵn thừa số âm cho tích dương; số lẻ thừa số âm cho tích âm.",
+    divDir:"Tính thương.",
+    divGood:"Đúng! {eq}, vì {chk}.",
+    divHint:"Hãy nghĩ đến thừa số còn thiếu: {b} × ? = {a}. Cùng dấu thì thương dương; khác dấu thì thương âm.",
+    ratDir:"Tính giá trị. Viết đáp án ở dạng tối giản.",
+    ratGood:"Đúng! {eq}.", ratDivNote:"Chia cho {b} cũng giống như nhân với số nghịch đảo của nó, {rb}.",
+    ratHint:"Xác định dấu trước: cùng dấu cho kết quả dương, khác dấu cho kết quả âm. Rồi nhân hoặc chia các giá trị tuyệt đối.",
+    vennDir:"{x} thuộc về đâu? Chạm vào tập hợp nhỏ nhất chứa nó.",
+    vennGood:"Đúng! {x} thuộc {set}. Nó cũng thuộc mọi tập hợp bao quanh: {list}.",
+    vennTooBig:"{x} thuộc {set}, nhưng có một tập hợp nhỏ hơn bên trong cũng chứa {x}. Hãy nhìn vào bên trong.",
+    vennNotIn:"{x} không thuộc {set}. {why}",
+    whyNat:"Số tự nhiên khác 0 là các số đếm 1, 2, 3, …", whyWhole:"Số tự nhiên là 0, 1, 2, 3, … không có số âm và không có phân số.",
+    whyInt:"Số nguyên gồm các số tự nhiên và số đối của chúng, không có phân số hay số thập phân ở giữa.",
+    whyRat:"Số hữu tỉ viết được dưới dạng phân số của hai số nguyên; phần thập phân của nó hữu hạn hoặc tuần hoàn.",
+    whyIrr:"Số vô tỉ không viết được dưới dạng phân số của hai số nguyên; phần thập phân của nó vô hạn và không tuần hoàn.",
+    simpNote:"Rút gọn trước: {x} = {y}.",
+    decDir:"Viết {f} dưới dạng số thập phân.",
+    decGoodT:"Đúng! {f} = {x}. Phép chia kết thúc, nên đây là số thập phân hữu hạn.",
+    decGoodR:"Đúng! {f} = {x}. Một số dư lặp lại, nên các chữ số {r} lặp lại mãi: số thập phân vô hạn tuần hoàn.",
+    decHint:"Chia tử số cho mẫu số: {n} ÷ {d}. Theo dõi các số dư. Nếu một số dư lặp lại, các chữ số cũng lặp lại.",
+    sqDir:"{x} nằm giữa hai số nguyên liên tiếp nào?",
+    sqGood:"Đúng! {a2} < {n} < {b2}, nên {x} nằm giữa {a} và {b}.",
+    sqHint:"Tìm các số chính phương ngay dưới và ngay trên {n}.",
+    sqPlaceDir:"Kéo ghim để ước lượng {x} đến hàng phần mười, rồi bấm Kiểm tra.",
+    sqPlaceGood:"Đúng! {x} ≈ {v}. Kiểm tra: {v} × {v} = {sq}, gần với {n}.",
+    sqPlaceHint:"{x} nằm giữa {a} và {b} vì {a2} < {n} < {b2}. {n} gần {a2} hơn hay gần {b2} hơn?",
+    ordDir:"Chạm các số theo thứ tự từ nhỏ đến lớn.",
+    ordGood:"Đúng! Theo thứ tự: {list}.",
+    ordHint:"Chưa đúng: {y} nhỏ hơn {x}. Trên trục số, số nằm bên trái hơn đứng trước.",
+    ordRow:"Nhỏ → lớn:",
+    tempRise:"Lúc 6 giờ sáng nhiệt độ là {a}. Đến trưa nhiệt độ đã tăng {c}. Kéo ghim đến nhiệt độ buổi trưa, rồi bấm Kiểm tra.",
+    tempFall:"Lúc 6 giờ chiều nhiệt độ là {a}. Đến nửa đêm nhiệt độ đã giảm {c}. Kéo ghim đến nhiệt độ lúc nửa đêm, rồi bấm Kiểm tra.",
+    tempGood:"Đúng! {eq}, nên nhiệt độ là {r}.",
+    tempHint:"Tăng là thay đổi dương và giảm là thay đổi âm. Bắt đầu ở {a} và di chuyển {c} {dir}.",
+    elevDist:"Một thợ lặn ở {a}. Một con bồ nông bay ở {b}. Chúng cách nhau bao xa?",
+    elevDistGood:"Đúng! Khoảng cách là {e} = {r}.",
+    elevDistHint:"Mực nước biển là 0. Thợ lặn ở dưới 0 là {da} và bồ nông ở trên 0 là {db}. Cộng hai khoảng cách lại.",
+    elevRise:"Một tàu ngầm ở {a}. Nó nổi lên {c}. Độ cao mới của nó là bao nhiêu?",
+    elevDive:"Một thợ lặn ở {a}. Cô ấy lặn xuống thêm {c}. Độ cao mới của cô ấy là bao nhiêu?",
+    elevGood:"Đúng! {eq}. Độ cao mới là {r}.",
+    elevHint:"Đi lên là thay đổi dương và đi xuống là thay đổi âm. Bắt đầu ở {a}.",
+    moneyDep:"Một tài khoản có số dư {a} (đang nợ tiền). Sau đó gửi vào {c}. Số dư mới là bao nhiêu?",
+    moneyWd:"Một tài khoản có số dư {a}. Sau đó chi tiêu {c} bằng thẻ ghi nợ. Số dư mới là bao nhiêu?",
+    moneyGood:"Đúng! {eq}. Số dư mới là {r}.",
+    moneyHint:"Gửi tiền làm tăng tiền (thay đổi dương). Chi tiêu làm giảm tiền (thay đổi âm). Bắt đầu ở {a}.",
+    feeDir:"Một tài khoản bị trừ phí {c} mỗi tuần trong {n} tuần. Tổng thay đổi của số dư là bao nhiêu?",
+    feeGood:"Đúng! Phí là một thay đổi âm: {eq}.",
+    feeHint:"Mỗi lần trừ phí làm số dư giảm, nên mỗi thay đổi là {nc}. Nhân số đó với {n} tuần.",
+    shareDir:"{n} người bạn chia đều một khoản nợ {a}. Số dư của mỗi bạn thay đổi bao nhiêu?",
+    shareGood:"Đúng! {eq}. Số dư của mỗi bạn thay đổi {r}.",
+    shareHint:"Khoản nợ là số âm. Số âm chia cho số dương thì được số âm.",
+    coldDir:"Nhiệt độ nào lạnh hơn?", deepDir:"Độ cao nào ở sâu hơn dưới mực nước biển?",
+    coldGood:"Đúng! {stmt}, nên {x} lạnh hơn. Nó thấp hơn trên nhiệt kế.",
+    deepGood:"Đúng! {stmt}, nên {x} sâu hơn. Nó ở xa hơn dưới mực nước biển.",
+    coldHint:"Trên nhiệt kế, lạnh hơn nghĩa là thấp hơn. Giữa hai nhiệt độ âm, nhiệt độ xa 0 hơn thì lạnh hơn.",
+    deepHint:"Dưới mực nước biển nghĩa là số âm. Độ cao nào xa 0 hơn về phía âm thì sâu hơn.",
+    stds:"Tiêu chuẩn phù hợp — Texas TEKS: Lớp 6: 6.2(A), 6.2(B), 6.2(C), 6.2(D), 6.3(C), 6.3(D); Lớp 7: 7.2(A), 7.3(A), 7.3(B); Lớp 8: 8.2(A), 8.2(B), 8.2(D). Common Core: 6.NS.5, 6.NS.6a, 6.NS.6c, 6.NS.7a–d; 7.NS.1a–d, 7.NS.2a–d, 7.NS.3; 8.NS.1, 8.NS.2.",
+    cardTitle:"Phòng Thí Nghiệm Số Nguyên & Số Hữu Tỉ — Thẻ thử thách", cardName:"Họ tên:",
+    cardLine:"Biểu diễn và ghi tên từng số trên trục số.", cardAdd:"Tính từng giá trị. Vẽ thẻ hoặc bước nhảy trên trục số.",
+    cardMul:"Tính từng giá trị. Giải thích cách em chọn dấu.", cardReal:"Viết mỗi số vào tập hợp nhỏ nhất chứa nó.",
+    cardStory:"Giải bài. Viết một phương trình thể hiện cách em suy nghĩ."
+  },
+  ar:{
+    appTitle:"مختبر الأعداد الصحيحة والنسبية", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم",
+    mLine:"خط الأعداد والأعداد المتعاكسة", mAdd:"الجمع والطرح", mMul:"الضرب والقسمة", mReal:"تصنيف الأعداد الحقيقية", mStory:"مواقف من الحياة",
+    newRound:"مسألة جديدة", readAloud:"اقرأ بصوت عالٍ", choicesLbl:"خيارات الإجابة", modesLbl:"الأنماط", solved:"المسائل المحلولة",
+    footNote:"بدون حسابات · لا جمع للبيانات · يعمل بدون إنترنت",
+    teacherTitle:"إعدادات المعلم", close:"إغلاق", setGrade:"الصف", g6:"الصف السادس", g7:"الصف السابع", g8:"الصف الثامن",
+    gradeNote:"اختيار الصف يعيد الخيارات أدناه إلى الإعدادات الافتراضية لذلك الصف. السادس: الأعداد الصحيحة وتحديد مواقع الأعداد النسبية. السابع: العمليات على الأعداد النسبية. الثامن: الأعداد غير النسبية والجذور التربيعية.",
+    setRange:"مدى الأعداد الصحيحة", setRat:"الأعداد النسبية", ratOn:"تضمين الكسور والكسور العشرية", setModes:"الأنماط",
+    setSpeech:"النطق", autoRead:"قراءة التعليمات تلقائياً", printCards:"طباعة بطاقات التحدي",
+    setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُحفظ أي معلومات عن الطالب أبداً.",
+    check:"تحقّق", startOver:"ابدأ من جديد", youPicked:"اخترت {x}.",
+    wPlus:"زائد", wMinus:"ناقص", wTimes:"ضرب", wDiv:"مقسوماً على", wEq:"يساوي", ltW:"أصغر من", gtW:"أكبر من", eqW:"يساوي",
+    cmpSay:"{a} {op} {b}", negSay:"سالب {x}", frSay:"{n} على {d}", repSay:"{x} دوري", sqrtSay:"الجذر التربيعي لـ {n}", piSay:"باي",
+    absSay:"القيمة المطلقة لـ {x}", dolSay:"{x} دولار", degSay:"{x} درجة مئوية", mSay:"{x} متر", approx:"تقريباً",
+    pinLbl:"دبوس خط الأعداد", lineLbl:"خط أعداد من {a} إلى {b}", seaLvl:"مستوى سطح البحر (0)",
+    ctrPos:"قطعة موجبة", ctrNeg:"قطعة سالبة", pairsGone:"الأزواج الصفرية المحذوفة: {k}",
+    vennLbl:"مجموعات الأعداد", setNat:"الأعداد الطبيعية", setWhole:"الأعداد الكلية", setInt:"الأعداد الصحيحة", setRatN:"الأعداد النسبية", setIrr:"الأعداد غير النسبية", setReal:"الأعداد الحقيقية",
+    wRight:"إلى اليمين", wLeft:"إلى اليسار", wUp:"إلى الأعلى", wDown:"إلى الأسفل", posW:"موجب", negW:"سالب", oddW:"عدد فردي", evenW:"عدد زوجي",
+    goesUp:"يزداد بمقدار {k}", goesDown:"ينقص بمقدار {k}",
+    placeDir:"اسحب الدبوس إلى {x} على خط الأعداد. ثم اضغط تحقّق.",
+    placeGood:"نعم! يبعد {x} عن 0 بمقدار {d} وحدة، في الجهة {side}.", placeZero:"نعم! الصفر ليس موجباً ولا سالباً.",
+    hintGreater:"دبوسك عند {p}. العدد {x} أكبر من {p}، لذلك هو أبعد {dir}.",
+    hintLess:"دبوسك عند {p}. العدد {x} أصغر من {p}، لذلك هو أبعد {dir}.",
+    tickNote:"كل علامة صغيرة تساوي {u}.",
+    oppDir:"النقطة تمثل {x}. اسحب الدبوس إلى معاكس {x}، ثم اضغط تحقّق.",
+    oppGood:"نعم! معاكس {x} هو {y}. كلاهما يبعد {d} وحدة عن 0، في جهتين متعاكستين.",
+    oppHint:"العددان المتعاكسان على البعد نفسه من 0، في جهتين متعاكستين منه. يبعد {x} عن 0 بمقدار {d} وحدة.",
+    absDir:"النقطة تمثل {x}. ما قيمة {e}؟",
+    absGood:"نعم! {e} = {d}، لأن {x} يبعد {d} وحدة عن 0. المسافة لا تكون سالبة أبداً.",
+    absHint:"القيمة المطلقة هي المسافة عن 0، والمسافة لا تكون سالبة أبداً. عُدّ الوحدات من {x} إلى 0.",
+    cmpDir:"قارن. اختر < أو = أو >.",
+    cmpGoodGt:"نعم! {stmt}، لأن {a} يقع على يمين {b} على خط الأعداد.",
+    cmpGoodLt:"نعم! {stmt}، لأن {a} يقع على يسار {b} على خط الأعداد.",
+    cmpGoodEq:"نعم! {stmt}. كلاهما يمثل النقطة نفسها على خط الأعداد.",
+    cmpHint:"تخيّل العددين على خط الأعداد: العدد الأبعد إلى اليمين هو الأكبر. ومن بين عددين سالبين، الأقرب إلى 0 هو الأكبر.",
+    ctrDir:"مثّل {e} بالقطع. المس قطعة صفراء (+) وقطعة حمراء (−) لحذف زوج صفري. ثم اختر المجموع.",
+    ctrGood:"نعم! {eq}. قيمة كل زوج صفري 0، لذلك القطع المتبقية تُظهر المجموع.",
+    ctrHint:"ليس بعد. القطعة الصفراء والقطعة الحمراء تكوّنان زوجاً صفرياً: 1 + (−1) = 0. احذف كل الأزواج الصفرية، ثم عُدّ ما تبقّى وانظر إلى لونه.",
+    moveDir:"ابدأ عند {a}. أضف {b}. اسحب الدبوس إلى المجموع، ثم اضغط تحقّق.",
+    moveGood:"نعم! {eq}. بدءاً من {a}، إضافة {b} تحرّكك {d} وحدة {dir}.",
+    moveHint:"إضافة عدد موجب تحرّكك إلى اليمين؛ وإضافة عدد سالب تحرّكك إلى اليسار. من {a}، تحرّك {d} وحدة {dir}.",
+    subDir1:"أعد كتابة {e} في صورة عملية جمع.",
+    subGood1:"صحيح! طرح {b} يساوي إضافة معاكسه، {nb}. الآن اسحب الدبوس إلى الإجابة واضغط تحقّق.",
+    subHint1:"طرح عدد يساوي إضافة معاكسه. أبقِ العدد الأول، وغيّر − إلى +، واستخدم معاكس {b}.",
+    subDir2:"الآن أوجد {e2}. اسحب الدبوس إلى الإجابة، ثم اضغط تحقّق.", subGood2:"نعم! {eq}.", sqPair:"{a} و {b}",
+    distDir:"ما المسافة بين {a} و {b} على خط الأعداد؟",
+    distGood:"نعم! المسافة هي {e} = {d}.",
+    distHint:"المسافة هي القيمة المطلقة للفرق، {e}. عُدّ الوحدات بين النقطتين.",
+    raddDir:"أوجد القيمة. اكتب إجابتك في أبسط صورة.",
+    raddGood:"نعم! باستخدام مقام مشترك: {e}.",
+    raddHint:"أعد كتابة الكسرين بمقام مشترك، {e}. ثم اجمع البسطين مع الانتباه إلى الإشارات.",
+    patDir:"اتبع النمط. ما العدد الذي يوضع في صف علامة ؟",
+    patGood:"نعم! كلما نقص العامل الأول بمقدار 1، فإن الناتج {chg}. إذن {eq}.",
+    patHint:"انظر إلى عمود النواتج: في كل خطوة الناتج {chg}. واصل النمط بعد الصفر.",
+    grpDir:"توجد {a} مجموعات، وكل مجموعة تساوي {b}. ما قيمة {e}؟",
+    grpGood:"نعم! {a} مجموعات من {b} تساوي {p}: {eq}.",
+    grpHint:"كل القطع سالبة. عُدّ {a} مجموعات في كل منها {k} قطع سالبة.",
+    signDir:"أوجد ناتج الضرب.",
+    signGood:"نعم! {eq}. توجد {k} عوامل سالبة، وهو {oe}، لذلك الناتج {pn}.",
+    signHint:"عُدّ العوامل السالبة. عدد زوجي من العوامل السالبة يعطي ناتجاً موجباً؛ وعدد فردي يعطي ناتجاً سالباً.",
+    divDir:"أوجد ناتج القسمة.",
+    divGood:"نعم! {eq}، لأن {chk}.",
+    divHint:"فكّر في العامل المفقود: {b} × ? = {a}. الإشارتان المتشابهتان تعطيان ناتجاً موجباً؛ والمختلفتان تعطيان ناتجاً سالباً.",
+    ratDir:"أوجد القيمة. اكتب إجابتك في أبسط صورة.",
+    ratGood:"نعم! {eq}.", ratDivNote:"القسمة على {b} تساوي الضرب في مقلوبه، {rb}.",
+    ratHint:"حدّد الإشارة أولاً: الإشارتان المتشابهتان تعطيان إجابة موجبة، والمختلفتان تعطيان إجابة سالبة. ثم اضرب القيم المطلقة أو اقسمها.",
+    vennDir:"أين يوضع {x}؟ المس أصغر مجموعة تحتويه.",
+    vennGood:"نعم! {x} ينتمي إلى {set}. وهو أيضاً في كل مجموعة تحيط بها: {list}.",
+    vennTooBig:"{x} موجود في {set}، لكن توجد مجموعة أصغر داخلها تحتوي {x} أيضاً. انظر إلى الداخل.",
+    vennNotIn:"{x} ليس في {set}. {why}",
+    whyNat:"الأعداد الطبيعية هي أعداد العدّ 1، 2، 3، …", whyWhole:"الأعداد الكلية هي 0، 1، 2، 3، … بدون أعداد سالبة وبدون كسور.",
+    whyInt:"الأعداد الصحيحة هي الأعداد الكلية ومعاكساتها، بدون كسور أو كسور عشرية بينها.",
+    whyRat:"يمكن كتابة العدد النسبي في صورة كسر بسطه ومقامه عددان صحيحان؛ وأرقامه العشرية تنتهي أو تتكرر.",
+    whyIrr:"لا يمكن كتابة العدد غير النسبي في صورة كسر من عددين صحيحين؛ وأرقامه العشرية لا تنتهي ولا تتكرر.",
+    simpNote:"بسّط أولاً: {x} = {y}.",
+    decDir:"اكتب {f} في صورة كسر عشري.",
+    decGoodT:"نعم! {f} = {x}. القسمة تنتهي، لذلك هذا كسر عشري منتهٍ.",
+    decGoodR:"نعم! {f} = {x}. أحد البواقي يتكرر، لذلك الأرقام {r} تتكرر إلى الأبد: كسر عشري دوري.",
+    decHint:"اقسم البسط على المقام: {n} ÷ {d}. راقب البواقي. إذا تكرر باقٍ، تتكرر الأرقام أيضاً.",
+    sqDir:"بين أي عددين صحيحين متتاليين يقع {x}؟",
+    sqGood:"نعم! {a2} < {n} < {b2}، لذلك يقع {x} بين {a} و {b}.",
+    sqHint:"أوجد المربعين الكاملين اللذين يقعان مباشرة أسفل {n} وأعلاه.",
+    sqPlaceDir:"اسحب الدبوس لتقدير {x} لأقرب جزء من عشرة، ثم اضغط تحقّق.",
+    sqPlaceGood:"نعم! {x} ≈ {v}. تحقّق: {v} × {v} = {sq}، وهو قريب من {n}.",
+    sqPlaceHint:"يقع {x} بين {a} و {b} لأن {a2} < {n} < {b2}. هل {n} أقرب إلى {a2} أم إلى {b2}؟",
+    ordDir:"المس الأعداد بالترتيب من الأصغر إلى الأكبر.",
+    ordGood:"نعم! بالترتيب: {list}.",
+    ordHint:"ليس بعد: {y} أصغر من {x}. على خط الأعداد، العدد الأبعد إلى اليسار يأتي أولاً.",
+    ordRow:"الأصغر ← الأكبر:",
+    tempRise:"في الساعة 6 صباحاً كانت درجة الحرارة {a}. وبحلول الظهر ارتفعت {c}. اسحب الدبوس إلى درجة حرارة الظهر، ثم اضغط تحقّق.",
+    tempFall:"في الساعة 6 مساءً كانت درجة الحرارة {a}. وبحلول منتصف الليل انخفضت {c}. اسحب الدبوس إلى درجة حرارة منتصف الليل، ثم اضغط تحقّق.",
+    tempGood:"نعم! {eq}، لذلك درجة الحرارة {r}.",
+    tempHint:"الارتفاع تغيّر موجب والانخفاض تغيّر سالب. ابدأ عند {a} وتحرّك {c} {dir}.",
+    elevDist:"غوّاصة على ارتفاع {a}. وطائر بجع يطير على ارتفاع {b}. ما المسافة بينهما؟",
+    elevDistGood:"نعم! المسافة هي {e} = {r}.",
+    elevDistHint:"مستوى سطح البحر هو 0. الغوّاصة على بعد {da} أسفل 0 والبجعة على بعد {db} أعلى 0. اجمع المسافتين.",
+    elevRise:"غوّاصة بحرية على ارتفاع {a}. تصعد {c}. ما ارتفاعها الجديد؟",
+    elevDive:"غوّاصة على ارتفاع {a}. تنزل {c} أخرى. ما ارتفاعها الجديد؟",
+    elevGood:"نعم! {eq}. الارتفاع الجديد {r}.",
+    elevHint:"الصعود تغيّر موجب والنزول تغيّر سالب. ابدأ عند {a}.",
+    moneyDep:"رصيد حساب {a} (يوجد دَين). ثم أُودع مبلغ {c}. ما الرصيد الجديد؟",
+    moneyWd:"رصيد حساب {a}. ثم صُرف مبلغ {c} ببطاقة خصم. ما الرصيد الجديد؟",
+    moneyGood:"نعم! {eq}. الرصيد الجديد {r}.",
+    moneyHint:"الإيداع يضيف مالاً (تغيّر موجب). والصرف ينقص المال (تغيّر سالب). ابدأ عند {a}.",
+    feeDir:"تُخصم رسوم قدرها {c} من حساب كل أسبوع لمدة {n} أسابيع. ما التغيّر الكلي في الرصيد؟",
+    feeGood:"نعم! الرسوم تغيّر سالب: {eq}.",
+    feeHint:"كل رسم يُنقص الرصيد، لذلك كل تغيّر يساوي {nc}. اضربه في {n} أسابيع.",
+    shareDir:"يتقاسم {n} أصدقاء دَيناً قدره {a} بالتساوي. ما التغيّر في رصيد كل صديق؟",
+    shareGood:"نعم! {eq}. يتغيّر رصيد كل صديق بمقدار {r}.",
+    shareHint:"الدَّين سالب. العدد السالب مقسوماً على عدد موجب يكون سالباً.",
+    coldDir:"أي درجتي الحرارة أبرد؟", deepDir:"أي الارتفاعين أبعد تحت مستوى سطح البحر؟",
+    coldGood:"نعم! {stmt}، لذلك {x} أبرد. فهي أدنى على مقياس الحرارة.",
+    deepGood:"نعم! {stmt}، لذلك {x} أعمق. فهو أبعد تحت مستوى سطح البحر.",
+    coldHint:"على مقياس الحرارة، الأبرد يعني الأدنى. ومن بين درجتين سالبتين، الأبعد عن 0 هي الأبرد.",
+    deepHint:"تحت مستوى سطح البحر يعني سالباً. الارتفاع الأبعد عن 0 في الاتجاه السالب هو الأعمق.",
+    stds:"المعايير المتوافقة — Texas TEKS: الصف السادس: 6.2(A)، 6.2(B)، 6.2(C)، 6.2(D)، 6.3(C)، 6.3(D)؛ الصف السابع: 7.2(A)، 7.3(A)، 7.3(B)؛ الصف الثامن: 8.2(A)، 8.2(B)، 8.2(D). Common Core: 6.NS.5، 6.NS.6a، 6.NS.6c، 6.NS.7a–d؛ 7.NS.1a–d، 7.NS.2a–d، 7.NS.3؛ 8.NS.1، 8.NS.2.",
+    cardTitle:"مختبر الأعداد الصحيحة والنسبية — بطاقات التحدي", cardName:"الاسم:",
+    cardLine:"عيّن كل عدد على خط الأعداد واكتب اسمه.", cardAdd:"أوجد كل قيمة. وضّح بالقطع أو بقفزات على خط الأعداد.",
+    cardMul:"أوجد كل قيمة. اشرح كيف اخترت الإشارة.", cardReal:"اكتب كل عدد في أصغر مجموعة تحتويه.",
+    cardStory:"حُلّ المسألة. اكتب معادلة توضح طريقة تفكيرك."
+  },
+  hi:{
+    appTitle:"पूर्णांक और परिमेय संख्या प्रयोगशाला", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक",
+    mLine:"संख्या रेखा और विपरीत संख्याएँ", mAdd:"जोड़ और घटाव", mMul:"गुणा और भाग", mReal:"वास्तविक संख्या छँटाई", mStory:"वास्तविक जीवन के प्रसंग",
+    newRound:"नया सवाल", readAloud:"ज़ोर से पढ़ें", choicesLbl:"उत्तर के विकल्प", modesLbl:"मोड", solved:"हल किए गए सवाल",
+    footNote:"कोई खाता नहीं · कोई डेटा नहीं · ऑफ़लाइन काम करता है",
+    teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setGrade:"कक्षा", g6:"कक्षा 6", g7:"कक्षा 7", g8:"कक्षा 8",
+    gradeNote:"कक्षा चुनने पर नीचे के विकल्प उस कक्षा की डिफ़ॉल्ट सेटिंग पर लौट आते हैं। कक्षा 6: पूर्णांक और परिमेय संख्याओं को रेखा पर दिखाना। कक्षा 7: परिमेय संख्याओं पर संक्रियाएँ। कक्षा 8: अपरिमेय संख्याएँ और वर्गमूल।",
+    setRange:"पूर्णांकों की सीमा", setRat:"परिमेय संख्याएँ", ratOn:"भिन्न और दशमलव शामिल करें", setModes:"मोड",
+    setSpeech:"आवाज़", autoRead:"निर्देश अपने आप पढ़ें", printCards:"चुनौती कार्ड छापें",
+    setStored:"सेटिंग्स केवल इस डिवाइस पर सहेजी जाती हैं। छात्र की जानकारी कभी नहीं सहेजी जाती।",
+    check:"जाँचें", startOver:"फिर से शुरू करें", youPicked:"तुमने {x} चुना।",
+    wPlus:"धन", wMinus:"ऋण", wTimes:"गुणा", wDiv:"भाग", wEq:"बराबर है", ltW:"से छोटा है", gtW:"से बड़ा है", eqW:"के बराबर है",
+    cmpSay:"{a} {b} {op}", negSay:"ऋण {x}", frSay:"{n} बटा {d}", repSay:"{x} आवर्ती", sqrtSay:"{n} का वर्गमूल", piSay:"पाई",
+    absSay:"{x} का निरपेक्ष मान", dolSay:"{x} डॉलर", degSay:"{x} डिग्री सेल्सियस", mSay:"{x} मीटर", approx:"लगभग",
+    pinLbl:"संख्या रेखा की पिन", lineLbl:"{a} से {b} तक की संख्या रेखा", seaLvl:"समुद्र तल (0)",
+    ctrPos:"धनात्मक काउंटर", ctrNeg:"ऋणात्मक काउंटर", pairsGone:"हटाए गए शून्य जोड़े: {k}",
+    vennLbl:"संख्याओं के समुच्चय", setNat:"प्राकृत संख्याएँ", setWhole:"पूर्ण संख्याएँ", setInt:"पूर्णांक", setRatN:"परिमेय संख्याएँ", setIrr:"अपरिमेय संख्याएँ", setReal:"वास्तविक संख्याएँ",
+    wRight:"दाईं ओर", wLeft:"बाईं ओर", wUp:"ऊपर", wDown:"नीचे", posW:"धनात्मक", negW:"ऋणात्मक", oddW:"एक विषम संख्या", evenW:"एक सम संख्या",
+    goesUp:"{k} बढ़ता है", goesDown:"{k} घटता है",
+    placeDir:"पिन को संख्या रेखा पर {x} तक खींचो। फिर जाँचें दबाओ।",
+    placeGood:"हाँ! {x} शून्य से {d} इकाई दूर है, {side} ओर।", placeZero:"हाँ! 0 न धनात्मक है न ऋणात्मक।",
+    hintGreater:"तुम्हारी पिन {p} पर है। {x}, {p} से बड़ा है, इसलिए वह और {dir} है।",
+    hintLess:"तुम्हारी पिन {p} पर है। {x}, {p} से छोटा है, इसलिए वह और {dir} है।",
+    tickNote:"हर छोटा निशान {u} है।",
+    oppDir:"बिंदु {x} दिखाता है। पिन को {x} की विपरीत संख्या तक खींचो, फिर जाँचें दबाओ।",
+    oppGood:"हाँ! {x} की विपरीत संख्या {y} है। दोनों 0 से {d} इकाई दूर हैं, विपरीत ओर।",
+    oppHint:"विपरीत संख्याएँ 0 से बराबर दूरी पर, 0 के विपरीत ओर होती हैं। {x} शून्य से {d} इकाई दूर है।",
+    absDir:"बिंदु {x} दिखाता है। {e} क्या है?",
+    absGood:"हाँ! {e} = {d}, क्योंकि {x} शून्य से {d} इकाई दूर है। दूरी कभी ऋणात्मक नहीं होती।",
+    absHint:"निरपेक्ष मान 0 से दूरी है, और दूरी कभी ऋणात्मक नहीं होती। {x} से 0 तक की इकाइयाँ गिनो।",
+    cmpDir:"तुलना करो। <, = या > चुनो।",
+    cmpGoodGt:"हाँ! {stmt}, क्योंकि संख्या रेखा पर {a}, {b} के दाईं ओर है।",
+    cmpGoodLt:"हाँ! {stmt}, क्योंकि संख्या रेखा पर {a}, {b} के बाईं ओर है।",
+    cmpGoodEq:"हाँ! {stmt}। ये संख्या रेखा पर एक ही बिंदु हैं।",
+    cmpHint:"दोनों संख्याओं को संख्या रेखा पर सोचो: जो ज़्यादा दाईं ओर है वह बड़ी है। दो ऋणात्मक संख्याओं में, जो 0 के ज़्यादा पास है वह बड़ी है।",
+    ctrDir:"{e} को काउंटरों से दिखाओ। एक पीला (+) और एक लाल (−) काउंटर छूकर शून्य जोड़ा हटाओ। फिर योग चुनो।",
+    ctrGood:"हाँ! {eq}। हर शून्य जोड़े का मान 0 है, इसलिए बचे हुए काउंटर योग दिखाते हैं।",
+    ctrHint:"अभी नहीं। एक पीला और एक लाल काउंटर मिलकर शून्य जोड़ा बनाते हैं: 1 + (−1) = 0। सारे शून्य जोड़े हटाओ, फिर बचे काउंटर और उनका रंग देखो।",
+    moveDir:"{a} से शुरू करो। {b} जोड़ो। पिन को योग तक खींचो, फिर जाँचें दबाओ।",
+    moveGood:"हाँ! {eq}। {a} से शुरू करके {b} जोड़ने पर {d} इकाई {dir} चलते हैं।",
+    moveHint:"धनात्मक संख्या जोड़ने पर दाईं ओर चलते हैं; ऋणात्मक संख्या जोड़ने पर बाईं ओर। {a} से {d} इकाई {dir} चलो।",
+    subDir1:"{e} को जोड़ के रूप में फिर से लिखो।",
+    subGood1:"सही! {b} घटाना उसकी विपरीत संख्या {nb} जोड़ने जैसा है। अब पिन को उत्तर तक खींचो और जाँचें दबाओ।",
+    subHint1:"किसी संख्या को घटाना उसकी विपरीत संख्या जोड़ने जैसा है। पहली संख्या वैसी ही रखो, − को + बनाओ, और {b} की विपरीत संख्या लो।",
+    subDir2:"अब {e2} ज्ञात करो। पिन को उत्तर तक खींचो, फिर जाँचें दबाओ।", subGood2:"हाँ! {eq}।", sqPair:"{a} और {b}",
+    distDir:"संख्या रेखा पर {a} और {b} के बीच की दूरी कितनी है?",
+    distGood:"हाँ! दूरी {e} = {d} है।",
+    distHint:"दूरी अंतर का निरपेक्ष मान है, {e}। दोनों बिंदुओं के बीच की इकाइयाँ गिनो।",
+    raddDir:"मान ज्ञात करो। उत्तर सरलतम रूप में लिखो।",
+    raddGood:"हाँ! समान हर के साथ: {e}।",
+    raddHint:"दोनों भिन्नों को समान हर के साथ लिखो, {e}। फिर चिह्नों का ध्यान रखते हुए अंशों को मिलाओ।",
+    patDir:"पैटर्न देखो। ? वाली पंक्ति में कौन सी संख्या आएगी?",
+    patGood:"हाँ! हर बार पहला गुणनखंड 1 घटता है, तो गुणनफल {chg}। इसलिए {eq}।",
+    patHint:"गुणनफल वाले स्तंभ को नीचे तक देखो: हर कदम पर गुणनफल {chg}। पैटर्न को 0 के आगे भी जारी रखो।",
+    grpDir:"{a} समूह हैं, और हर समूह {b} है। {e} क्या है?",
+    grpGood:"हाँ! {b} के {a} समूह मिलकर {p} बनाते हैं: {eq}।",
+    grpHint:"हर काउंटर ऋणात्मक है। {a} समूह गिनो, हर समूह में {k} ऋणात्मक काउंटर हैं।",
+    signDir:"गुणनफल ज्ञात करो।",
+    signGood:"हाँ! {eq}। {k} ऋणात्मक गुणनखंड हैं, जो {oe} है, इसलिए गुणनफल {pn} है।",
+    signHint:"ऋणात्मक गुणनखंड गिनो। ऋणात्मक गुणनखंडों की सम संख्या धनात्मक गुणनफल देती है; विषम संख्या ऋणात्मक गुणनफल देती है।",
+    divDir:"भागफल ज्ञात करो।",
+    divGood:"हाँ! {eq}, क्योंकि {chk}।",
+    divHint:"छूटे हुए गुणनखंड के बारे में सोचो: {b} × ? = {a}। समान चिह्न धनात्मक भागफल देते हैं; अलग चिह्न ऋणात्मक भागफल देते हैं।",
+    ratDir:"मान ज्ञात करो। उत्तर सरलतम रूप में लिखो।",
+    ratGood:"हाँ! {eq}।", ratDivNote:"{b} से भाग देना उसके व्युत्क्रम {rb} से गुणा करने जैसा है।",
+    ratHint:"पहले चिह्न तय करो: समान चिह्न धनात्मक उत्तर देते हैं, अलग चिह्न ऋणात्मक उत्तर। फिर निरपेक्ष मानों का गुणा या भाग करो।",
+    vennDir:"{x} कहाँ आएगा? उस सबसे छोटे समुच्चय को छुओ जिसमें यह है।",
+    vennGood:"हाँ! {x}, {set} में आता है। यह अपने चारों ओर के हर समुच्चय में भी है: {list}।",
+    vennTooBig:"{x}, {set} में है, लेकिन उसके अंदर का एक छोटा समुच्चय भी {x} को रखता है। अंदर देखो।",
+    vennNotIn:"{x}, {set} में नहीं है। {why}",
+    whyNat:"प्राकृत संख्याएँ गिनती की संख्याएँ हैं: 1, 2, 3, …", whyWhole:"पूर्ण संख्याएँ 0, 1, 2, 3, … हैं, इनमें न ऋणात्मक संख्याएँ हैं न भिन्न।",
+    whyInt:"पूर्णांक पूर्ण संख्याएँ और उनकी विपरीत संख्याएँ हैं, इनके बीच कोई भिन्न या दशमलव नहीं।",
+    whyRat:"परिमेय संख्या को दो पूर्णांकों की भिन्न के रूप में लिखा जा सकता है; उसका दशमलव रुकता है या दोहराता है।",
+    whyIrr:"अपरिमेय संख्या को दो पूर्णांकों की भिन्न के रूप में नहीं लिखा जा सकता; उसका दशमलव न रुकता है न दोहराता है।",
+    simpNote:"पहले सरल करो: {x} = {y}।",
+    decDir:"{f} को दशमलव के रूप में लिखो।",
+    decGoodT:"हाँ! {f} = {x}। भाग पूरा हो जाता है, इसलिए यह सांत दशमलव है।",
+    decGoodR:"हाँ! {f} = {x}। एक शेषफल दोहराता है, इसलिए अंक {r} हमेशा दोहराते रहते हैं: यह आवर्ती दशमलव है।",
+    decHint:"अंश को हर से भाग दो: {n} ÷ {d}। शेषफलों पर ध्यान दो। अगर कोई शेषफल दोहराता है, तो अंक भी दोहराते हैं।",
+    sqDir:"{x} किन दो क्रमागत पूर्णांकों के बीच है?",
+    sqGood:"हाँ! {a2} < {n} < {b2}, इसलिए {x}, {a} और {b} के बीच है।",
+    sqHint:"{n} के ठीक नीचे और ठीक ऊपर के पूर्ण वर्ग ढूँढो।",
+    sqPlaceDir:"पिन खींचकर {x} का निकटतम दशांश तक अनुमान लगाओ, फिर जाँचें दबाओ।",
+    sqPlaceGood:"हाँ! {x} ≈ {v}। जाँच: {v} × {v} = {sq}, जो {n} के पास है।",
+    sqPlaceHint:"{x}, {a} और {b} के बीच है क्योंकि {a2} < {n} < {b2}। क्या {n}, {a2} के ज़्यादा पास है या {b2} के?",
+    ordDir:"संख्याओं को सबसे छोटी से सबसे बड़ी के क्रम में छुओ।",
+    ordGood:"हाँ! क्रम में: {list}।",
+    ordHint:"अभी नहीं: {y}, {x} से छोटा है। संख्या रेखा पर जो संख्या ज़्यादा बाईं ओर है, वह पहले आती है।",
+    ordRow:"छोटी → बड़ी:",
+    tempRise:"सुबह 6 बजे तापमान {a} था। दोपहर तक यह {c} बढ़ गया। पिन को दोपहर के तापमान तक खींचो, फिर जाँचें दबाओ।",
+    tempFall:"शाम 6 बजे तापमान {a} था। आधी रात तक यह {c} गिर गया। पिन को आधी रात के तापमान तक खींचो, फिर जाँचें दबाओ।",
+    tempGood:"हाँ! {eq}, इसलिए तापमान {r} है।",
+    tempHint:"बढ़ना धनात्मक बदलाव है और गिरना ऋणात्मक बदलाव। {a} से शुरू करो और {c} {dir} जाओ।",
+    elevDist:"एक गोताखोर {a} पर है। एक पेलिकन {b} पर उड़ रहा है। वे कितनी दूर हैं?",
+    elevDistGood:"हाँ! दूरी {e} = {r} है।",
+    elevDistHint:"समुद्र तल 0 है। गोताखोर 0 से {da} नीचे है और पेलिकन 0 से {db} ऊपर। दोनों दूरियाँ जोड़ो।",
+    elevRise:"एक पनडुब्बी {a} पर है। वह {c} ऊपर उठती है। उसकी नई ऊँचाई क्या है?",
+    elevDive:"एक गोताखोर {a} पर है। वह {c} और नीचे जाती है। उसकी नई ऊँचाई क्या है?",
+    elevGood:"हाँ! {eq}। नई ऊँचाई {r} है।",
+    elevHint:"ऊपर जाना धनात्मक बदलाव है और नीचे जाना ऋणात्मक बदलाव। {a} से शुरू करो।",
+    moneyDep:"एक खाते का शेष {a} है (पैसा बकाया है)। फिर {c} जमा किए जाते हैं। नया शेष क्या है?",
+    moneyWd:"एक खाते का शेष {a} है। फिर डेबिट कार्ड से {c} खर्च किए जाते हैं। नया शेष क्या है?",
+    moneyGood:"हाँ! {eq}। नया शेष {r} है।",
+    moneyHint:"जमा करने से पैसा बढ़ता है (धनात्मक बदलाव)। खर्च करने से पैसा घटता है (ऋणात्मक बदलाव)। {a} से शुरू करो।",
+    feeDir:"एक खाते से हर हफ़्ते {c} का शुल्क {n} हफ़्तों तक कटता है। शेष में कुल बदलाव क्या है?",
+    feeGood:"हाँ! शुल्क एक ऋणात्मक बदलाव है: {eq}।",
+    feeHint:"हर शुल्क शेष को घटाता है, इसलिए हर बदलाव {nc} है। इसे {n} हफ़्तों से गुणा करो।",
+    shareDir:"{n} दोस्त {a} का कर्ज़ बराबर बाँटते हैं। हर दोस्त के शेष में कितना बदलाव होता है?",
+    shareGood:"हाँ! {eq}। हर दोस्त का शेष {r} बदलता है।",
+    shareHint:"कर्ज़ ऋणात्मक होता है। ऋणात्मक संख्या को धनात्मक संख्या से भाग देने पर ऋणात्मक संख्या मिलती है।",
+    coldDir:"कौन सा तापमान ज़्यादा ठंडा है?", deepDir:"कौन सी ऊँचाई समुद्र तल से ज़्यादा नीचे है?",
+    coldGood:"हाँ! {stmt}, इसलिए {x} ज़्यादा ठंडा है। यह थर्मामीटर पर नीचे है।",
+    deepGood:"हाँ! {stmt}, इसलिए {x} ज़्यादा गहरा है। यह समुद्र तल से ज़्यादा नीचे है।",
+    coldHint:"थर्मामीटर पर ज़्यादा ठंडा मतलब ज़्यादा नीचे। दो ऋणात्मक तापमानों में, जो 0 से ज़्यादा दूर है वह ज़्यादा ठंडा है।",
+    deepHint:"समुद्र तल से नीचे मतलब ऋणात्मक। ऋणात्मक दिशा में 0 से ज़्यादा दूर वाली ऊँचाई ज़्यादा गहरी है।",
+    stds:"संरेखित मानक — Texas TEKS: कक्षा 6: 6.2(A), 6.2(B), 6.2(C), 6.2(D), 6.3(C), 6.3(D); कक्षा 7: 7.2(A), 7.3(A), 7.3(B); कक्षा 8: 8.2(A), 8.2(B), 8.2(D)। Common Core: 6.NS.5, 6.NS.6a, 6.NS.6c, 6.NS.7a–d; 7.NS.1a–d, 7.NS.2a–d, 7.NS.3; 8.NS.1, 8.NS.2।",
+    cardTitle:"पूर्णांक और परिमेय संख्या प्रयोगशाला — चुनौती कार्ड", cardName:"नाम:",
+    cardLine:"हर संख्या को संख्या रेखा पर अंकित करो और नाम लिखो।", cardAdd:"हर मान ज्ञात करो। काउंटर या संख्या रेखा पर छलाँगें दिखाओ।",
+    cardMul:"हर मान ज्ञात करो। समझाओ कि तुमने चिह्न कैसे चुना।", cardReal:"हर संख्या को उस सबसे छोटे समुच्चय में लिखो जिसमें वह है।",
+    cardStory:"हल करो। एक समीकरण लिखो जो तुम्हारी सोच दिखाए।"
+  },
+  ur:{
+    appTitle:"صحیح اور ناطق اعداد کی تجربہ گاہ", home:"ہوم", privacy:"رازداری", teacher:"استاد",
+    mLine:"عددی خط اور مخالف اعداد", mAdd:"جمع اور تفریق", mMul:"ضرب اور تقسیم", mReal:"حقیقی اعداد کی درجہ بندی", mStory:"روزمرہ زندگی کے سوال",
+    newRound:"نیا سوال", readAloud:"بلند آواز سے پڑھیں", choicesLbl:"جواب کے اختیارات", modesLbl:"موڈ", solved:"حل شدہ سوال",
+    footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا نہیں · آف لائن کام کرتا ہے",
+    teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setGrade:"جماعت", g6:"جماعت 6", g7:"جماعت 7", g8:"جماعت 8",
+    gradeNote:"جماعت منتخب کرنے پر نیچے کے اختیارات اس جماعت کی بنیادی ترتیب پر واپس آ جاتے ہیں۔ جماعت 6: صحیح اعداد اور ناطق اعداد کو خط پر دکھانا۔ جماعت 7: ناطق اعداد پر عمل۔ جماعت 8: غیر ناطق اعداد اور جذر۔",
+    setRange:"صحیح اعداد کی حد", setRat:"ناطق اعداد", ratOn:"کسور اور اعشاریے شامل کریں", setModes:"موڈ",
+    setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں", printCards:"چیلنج کارڈ پرنٹ کریں",
+    setStored:"ترتیبات صرف اسی ڈیوائس پر محفوظ ہوتی ہیں۔ طالب علم کی معلومات کبھی محفوظ نہیں ہوتیں۔",
+    check:"جانچیں", startOver:"دوبارہ شروع کریں", youPicked:"تم نے {x} چنا۔",
+    wPlus:"جمع", wMinus:"منفی", wTimes:"ضرب", wDiv:"تقسیم", wEq:"برابر ہے", ltW:"سے چھوٹا ہے", gtW:"سے بڑا ہے", eqW:"کے برابر ہے",
+    cmpSay:"{a} {b} {op}", negSay:"منفی {x}", frSay:"{n} بٹا {d}", repSay:"{x} دہرایا جانے والا", sqrtSay:"{n} کا جذر", piSay:"پائی",
+    absSay:"{x} کی مطلق قیمت", dolSay:"{x} ڈالر", degSay:"{x} ڈگری سیلسیئس", mSay:"{x} میٹر", approx:"تقریباً",
+    pinLbl:"عددی خط کی پن", lineLbl:"{a} سے {b} تک عددی خط", seaLvl:"سطح سمندر (0)",
+    ctrPos:"مثبت کاؤنٹر", ctrNeg:"منفی کاؤنٹر", pairsGone:"ہٹائے گئے صفر جوڑے: {k}",
+    vennLbl:"اعداد کے سیٹ", setNat:"قدرتی اعداد", setWhole:"مکمل اعداد", setInt:"صحیح اعداد", setRatN:"ناطق اعداد", setIrr:"غیر ناطق اعداد", setReal:"حقیقی اعداد",
+    wRight:"دائیں طرف", wLeft:"بائیں طرف", wUp:"اوپر", wDown:"نیچے", posW:"مثبت", negW:"منفی", oddW:"ایک طاق عدد", evenW:"ایک جفت عدد",
+    goesUp:"{k} بڑھتا ہے", goesDown:"{k} گھٹتا ہے",
+    placeDir:"پن کو عددی خط پر {x} تک کھینچو۔ پھر جانچیں دباؤ۔",
+    placeGood:"ہاں! {x} صفر سے {d} اکائی دور ہے، {side} طرف۔", placeZero:"ہاں! 0 نہ مثبت ہے نہ منفی۔",
+    hintGreater:"تمہاری پن {p} پر ہے۔ {x}، {p} سے بڑا ہے، اس لیے وہ مزید {dir} ہے۔",
+    hintLess:"تمہاری پن {p} پر ہے۔ {x}، {p} سے چھوٹا ہے، اس لیے وہ مزید {dir} ہے۔",
+    tickNote:"ہر چھوٹا نشان {u} ہے۔",
+    oppDir:"نقطہ {x} دکھاتا ہے۔ پن کو {x} کے مخالف عدد تک کھینچو، پھر جانچیں دباؤ۔",
+    oppGood:"ہاں! {x} کا مخالف {y} ہے۔ دونوں 0 سے {d} اکائی دور ہیں، مخالف طرفوں میں۔",
+    oppHint:"مخالف اعداد 0 سے برابر فاصلے پر، 0 کی مخالف طرفوں میں ہوتے ہیں۔ {x} صفر سے {d} اکائی دور ہے۔",
+    absDir:"نقطہ {x} دکھاتا ہے۔ {e} کیا ہے؟",
+    absGood:"ہاں! {e} = {d}، کیونکہ {x} صفر سے {d} اکائی دور ہے۔ فاصلہ کبھی منفی نہیں ہوتا۔",
+    absHint:"مطلق قیمت 0 سے فاصلہ ہے، اور فاصلہ کبھی منفی نہیں ہوتا۔ {x} سے 0 تک اکائیاں گنو۔",
+    cmpDir:"موازنہ کرو۔ < ، = یا > چنو۔",
+    cmpGoodGt:"ہاں! {stmt}، کیونکہ عددی خط پر {a}، {b} کے دائیں طرف ہے۔",
+    cmpGoodLt:"ہاں! {stmt}، کیونکہ عددی خط پر {a}، {b} کے بائیں طرف ہے۔",
+    cmpGoodEq:"ہاں! {stmt}۔ یہ عددی خط پر ایک ہی نقطہ ہیں۔",
+    cmpHint:"دونوں اعداد کو عددی خط پر تصور کرو: جو زیادہ دائیں طرف ہے وہ بڑا ہے۔ دو منفی اعداد میں، جو 0 کے زیادہ قریب ہے وہ بڑا ہے۔",
+    ctrDir:"{e} کو کاؤنٹروں سے دکھاؤ۔ ایک پیلا (+) اور ایک سرخ (−) کاؤنٹر چھو کر صفر جوڑا ہٹاؤ۔ پھر مجموعہ چنو۔",
+    ctrGood:"ہاں! {eq}۔ ہر صفر جوڑے کی قیمت 0 ہے، اس لیے بچے ہوئے کاؤنٹر مجموعہ دکھاتے ہیں۔",
+    ctrHint:"ابھی نہیں۔ ایک پیلا اور ایک سرخ کاؤنٹر مل کر صفر جوڑا بناتے ہیں: 1 + (−1) = 0۔ تمام صفر جوڑے ہٹاؤ، پھر بچے ہوئے کاؤنٹر اور ان کا رنگ دیکھو۔",
+    moveDir:"{a} سے شروع کرو۔ {b} جمع کرو۔ پن کو مجموعے تک کھینچو، پھر جانچیں دباؤ۔",
+    moveGood:"ہاں! {eq}۔ {a} سے شروع کر کے {b} جمع کرنے پر {d} اکائی {dir} جاتے ہیں۔",
+    moveHint:"مثبت عدد جمع کرنے پر دائیں طرف جاتے ہیں؛ منفی عدد جمع کرنے پر بائیں طرف۔ {a} سے {d} اکائی {dir} جاؤ۔",
+    subDir1:"{e} کو جمع کی صورت میں دوبارہ لکھو۔",
+    subGood1:"درست! {b} تفریق کرنا اس کا مخالف {nb} جمع کرنے جیسا ہے۔ اب پن کو جواب تک کھینچو اور جانچیں دباؤ۔",
+    subHint1:"کسی عدد کو تفریق کرنا اس کا مخالف جمع کرنے جیسا ہے۔ پہلا عدد ویسا ہی رکھو، − کو + بناؤ، اور {b} کا مخالف لو۔",
+    subDir2:"اب {e2} معلوم کرو۔ پن کو جواب تک کھینچو، پھر جانچیں دباؤ۔", subGood2:"ہاں! {eq}۔", sqPair:"{a} اور {b}",
+    distDir:"عددی خط پر {a} اور {b} کے درمیان فاصلہ کتنا ہے؟",
+    distGood:"ہاں! فاصلہ {e} = {d} ہے۔",
+    distHint:"فاصلہ فرق کی مطلق قیمت ہے، {e}۔ دونوں نقطوں کے درمیان اکائیاں گنو۔",
+    raddDir:"قیمت معلوم کرو۔ جواب سادہ ترین صورت میں لکھو۔",
+    raddGood:"ہاں! مشترک نسب نما کے ساتھ: {e}۔",
+    raddHint:"دونوں کسور کو مشترک نسب نما کے ساتھ لکھو، {e}۔ پھر علامتوں کا خیال رکھتے ہوئے شمار کنندوں کو ملاؤ۔",
+    patDir:"نمونہ دیکھو۔ ? والی قطار میں کون سا عدد آئے گا؟",
+    patGood:"ہاں! جب بھی پہلا جزو ضربی 1 کم ہوتا ہے، حاصل ضرب {chg}۔ اس لیے {eq}۔",
+    patHint:"حاصل ضرب والے کالم کو نیچے تک دیکھو: ہر قدم پر حاصل ضرب {chg}۔ نمونے کو 0 کے بعد بھی جاری رکھو۔",
+    grpDir:"{a} گروہ ہیں، اور ہر گروہ {b} ہے۔ {e} کیا ہے؟",
+    grpGood:"ہاں! {b} کے {a} گروہ مل کر {p} بناتے ہیں: {eq}۔",
+    grpHint:"ہر کاؤنٹر منفی ہے۔ {a} گروہ گنو، ہر گروہ میں {k} منفی کاؤنٹر ہیں۔",
+    signDir:"حاصل ضرب معلوم کرو۔",
+    signGood:"ہاں! {eq}۔ {k} منفی اجزائے ضربی ہیں، جو {oe} ہے، اس لیے حاصل ضرب {pn} ہے۔",
+    signHint:"منفی اجزائے ضربی گنو۔ منفی اجزا کی جفت تعداد مثبت حاصل ضرب دیتی ہے؛ طاق تعداد منفی حاصل ضرب دیتی ہے۔",
+    divDir:"حاصل تقسیم معلوم کرو۔",
+    divGood:"ہاں! {eq}، کیونکہ {chk}۔",
+    divHint:"گمشدہ جزو ضربی کے بارے میں سوچو: {b} × ? = {a}۔ ایک جیسی علامتیں مثبت حاصل تقسیم دیتی ہیں؛ مختلف علامتیں منفی۔",
+    ratDir:"قیمت معلوم کرو۔ جواب سادہ ترین صورت میں لکھو۔",
+    ratGood:"ہاں! {eq}۔", ratDivNote:"{b} سے تقسیم کرنا اس کے معکوس {rb} سے ضرب دینے جیسا ہے۔",
+    ratHint:"پہلے علامت طے کرو: ایک جیسی علامتیں مثبت جواب دیتی ہیں، مختلف علامتیں منفی۔ پھر مطلق قیمتوں کو ضرب یا تقسیم کرو۔",
+    vennDir:"{x} کہاں آئے گا؟ اس سب سے چھوٹے سیٹ کو چھوؤ جس میں یہ شامل ہے۔",
+    vennGood:"ہاں! {x}، {set} میں شامل ہے۔ یہ اپنے اردگرد کے ہر سیٹ میں بھی ہے: {list}۔",
+    vennTooBig:"{x}، {set} میں ہے، لیکن اس کے اندر ایک چھوٹا سیٹ بھی {x} کو شامل کرتا ہے۔ اندر دیکھو۔",
+    vennNotIn:"{x}، {set} میں نہیں ہے۔ {why}",
+    whyNat:"قدرتی اعداد گنتی کے اعداد ہیں: 1، 2، 3، …", whyWhole:"مکمل اعداد 0، 1، 2، 3، … ہیں، ان میں نہ منفی اعداد ہیں نہ کسور۔",
+    whyInt:"صحیح اعداد مکمل اعداد اور ان کے مخالف ہیں، ان کے درمیان کوئی کسر یا اعشاریہ نہیں۔",
+    whyRat:"ناطق عدد کو دو صحیح اعداد کی کسر کی صورت میں لکھا جا سکتا ہے؛ اس کا اعشاریہ ختم ہو جاتا ہے یا دہرایا جاتا ہے۔",
+    whyIrr:"غیر ناطق عدد کو دو صحیح اعداد کی کسر کی صورت میں نہیں لکھا جا سکتا؛ اس کا اعشاریہ نہ ختم ہوتا ہے نہ دہرایا جاتا ہے۔",
+    simpNote:"پہلے سادہ کرو: {x} = {y}۔",
+    decDir:"{f} کو اعشاریے کی صورت میں لکھو۔",
+    decGoodT:"ہاں! {f} = {x}۔ تقسیم ختم ہو جاتی ہے، اس لیے یہ ختم ہونے والا اعشاریہ ہے۔",
+    decGoodR:"ہاں! {f} = {x}۔ ایک باقی دہرایا جاتا ہے، اس لیے ہندسے {r} ہمیشہ دہرائے جاتے ہیں: یہ دہرایا جانے والا اعشاریہ ہے۔",
+    decHint:"شمار کنندہ کو نسب نما سے تقسیم کرو: {n} ÷ {d}۔ باقیوں پر نظر رکھو۔ اگر کوئی باقی دہرایا جائے تو ہندسے بھی دہرائے جاتے ہیں۔",
+    sqDir:"{x} کن دو مسلسل صحیح اعداد کے درمیان ہے؟",
+    sqGood:"ہاں! {a2} < {n} < {b2}، اس لیے {x}، {a} اور {b} کے درمیان ہے۔",
+    sqHint:"{n} سے بالکل نیچے اور بالکل اوپر کے مکمل مربع تلاش کرو۔",
+    sqPlaceDir:"پن کھینچ کر {x} کا قریب ترین دسویں حصے تک اندازہ لگاؤ، پھر جانچیں دباؤ۔",
+    sqPlaceGood:"ہاں! {x} ≈ {v}۔ جانچ: {v} × {v} = {sq}، جو {n} کے قریب ہے۔",
+    sqPlaceHint:"{x}، {a} اور {b} کے درمیان ہے کیونکہ {a2} < {n} < {b2}۔ کیا {n}، {a2} کے زیادہ قریب ہے یا {b2} کے؟",
+    ordDir:"اعداد کو سب سے چھوٹے سے سب سے بڑے کی ترتیب میں چھوؤ۔",
+    ordGood:"ہاں! ترتیب میں: {list}۔",
+    ordHint:"ابھی نہیں: {y}، {x} سے چھوٹا ہے۔ عددی خط پر جو عدد زیادہ بائیں طرف ہے وہ پہلے آتا ہے۔",
+    ordRow:"چھوٹا ← بڑا:",
+    tempRise:"صبح 6 بجے درجہ حرارت {a} تھا۔ دوپہر تک یہ {c} بڑھ گیا۔ پن کو دوپہر کے درجہ حرارت تک کھینچو، پھر جانچیں دباؤ۔",
+    tempFall:"شام 6 بجے درجہ حرارت {a} تھا۔ آدھی رات تک یہ {c} گر گیا۔ پن کو آدھی رات کے درجہ حرارت تک کھینچو، پھر جانچیں دباؤ۔",
+    tempGood:"ہاں! {eq}، اس لیے درجہ حرارت {r} ہے۔",
+    tempHint:"بڑھنا مثبت تبدیلی ہے اور گرنا منفی تبدیلی۔ {a} سے شروع کرو اور {c} {dir} جاؤ۔",
+    elevDist:"ایک غوطہ خور {a} پر ہے۔ ایک پیلیکن {b} پر اڑ رہا ہے۔ ان کے درمیان کتنا فاصلہ ہے؟",
+    elevDistGood:"ہاں! فاصلہ {e} = {r} ہے۔",
+    elevDistHint:"سطح سمندر 0 ہے۔ غوطہ خور 0 سے {da} نیچے ہے اور پیلیکن 0 سے {db} اوپر۔ دونوں فاصلے جمع کرو۔",
+    elevRise:"ایک آبدوز {a} پر ہے۔ وہ {c} اوپر اٹھتی ہے۔ اس کی نئی بلندی کیا ہے؟",
+    elevDive:"ایک غوطہ خور {a} پر ہے۔ وہ {c} مزید نیچے جاتی ہے۔ اس کی نئی بلندی کیا ہے؟",
+    elevGood:"ہاں! {eq}۔ نئی بلندی {r} ہے۔",
+    elevHint:"اوپر جانا مثبت تبدیلی ہے اور نیچے جانا منفی تبدیلی۔ {a} سے شروع کرو۔",
+    moneyDep:"ایک اکاؤنٹ کا بیلنس {a} ہے (رقم واجب الادا ہے)۔ پھر {c} جمع کیے جاتے ہیں۔ نیا بیلنس کیا ہے؟",
+    moneyWd:"ایک اکاؤنٹ کا بیلنس {a} ہے۔ پھر ڈیبٹ کارڈ سے {c} خرچ کیے جاتے ہیں۔ نیا بیلنس کیا ہے؟",
+    moneyGood:"ہاں! {eq}۔ نیا بیلنس {r} ہے۔",
+    moneyHint:"رقم جمع کرانے سے پیسے بڑھتے ہیں (مثبت تبدیلی)۔ خرچ کرنے سے پیسے کم ہوتے ہیں (منفی تبدیلی)۔ {a} سے شروع کرو۔",
+    feeDir:"ایک اکاؤنٹ سے ہر ہفتے {c} کی فیس {n} ہفتوں تک کٹتی ہے۔ بیلنس میں کل تبدیلی کیا ہے؟",
+    feeGood:"ہاں! فیس ایک منفی تبدیلی ہے: {eq}۔",
+    feeHint:"ہر فیس بیلنس کو کم کرتی ہے، اس لیے ہر تبدیلی {nc} ہے۔ اسے {n} ہفتوں سے ضرب دو۔",
+    shareDir:"{n} دوست {a} کا قرض برابر بانٹتے ہیں۔ ہر دوست کے بیلنس میں کتنی تبدیلی آتی ہے؟",
+    shareGood:"ہاں! {eq}۔ ہر دوست کا بیلنس {r} بدلتا ہے۔",
+    shareHint:"قرض منفی ہوتا ہے۔ منفی عدد کو مثبت عدد سے تقسیم کرنے پر منفی عدد ملتا ہے۔",
+    coldDir:"کون سا درجہ حرارت زیادہ ٹھنڈا ہے؟", deepDir:"کون سی بلندی سطح سمندر سے زیادہ نیچے ہے؟",
+    coldGood:"ہاں! {stmt}، اس لیے {x} زیادہ ٹھنڈا ہے۔ یہ تھرمامیٹر پر نیچے ہے۔",
+    deepGood:"ہاں! {stmt}، اس لیے {x} زیادہ گہرا ہے۔ یہ سطح سمندر سے زیادہ نیچے ہے۔",
+    coldHint:"تھرمامیٹر پر زیادہ ٹھنڈا یعنی زیادہ نیچے۔ دو منفی درجہ حرارت میں، جو 0 سے زیادہ دور ہے وہ زیادہ ٹھنڈا ہے۔",
+    deepHint:"سطح سمندر سے نیچے یعنی منفی۔ منفی سمت میں 0 سے زیادہ دور والی بلندی زیادہ گہری ہے۔",
+    stds:"منسلک معیارات — Texas TEKS: جماعت 6: 6.2(A)، 6.2(B)، 6.2(C)، 6.2(D)، 6.3(C)، 6.3(D)؛ جماعت 7: 7.2(A)، 7.3(A)، 7.3(B)؛ جماعت 8: 8.2(A)، 8.2(B)، 8.2(D)۔ Common Core: 6.NS.5، 6.NS.6a، 6.NS.6c، 6.NS.7a–d؛ 7.NS.1a–d، 7.NS.2a–d، 7.NS.3؛ 8.NS.1، 8.NS.2۔",
+    cardTitle:"صحیح اور ناطق اعداد کی تجربہ گاہ — چیلنج کارڈ", cardName:"نام:",
+    cardLine:"ہر عدد کو عددی خط پر لگاؤ اور اس کا نام لکھو۔", cardAdd:"ہر قیمت معلوم کرو۔ کاؤنٹر یا عددی خط پر چھلانگیں دکھاؤ۔",
+    cardMul:"ہر قیمت معلوم کرو۔ بتاؤ کہ تم نے علامت کیسے چنی۔", cardReal:"ہر عدد کو اس سب سے چھوٹے سیٹ میں لکھو جس میں وہ شامل ہے۔",
+    cardStory:"حل کرو۔ ایک مساوات لکھو جو تمہاری سوچ دکھائے۔"
+  },
+  zh:{
+    appTitle:"整数与有理数实验室", home:"主页", privacy:"隐私", teacher:"教师",
+    mLine:"数轴与相反数", mAdd:"加法与减法", mMul:"乘法与除法", mReal:"实数分类", mStory:"生活情境",
+    newRound:"新题目", readAloud:"朗读", choicesLbl:"答案选项", modesLbl:"模式", solved:"已解答题数",
+    footNote:"无账号 · 不收集数据 · 离线可用",
+    teacherTitle:"教师设置", close:"关闭", setGrade:"年级", g6:"六年级", g7:"七年级", g8:"八年级",
+    gradeNote:"选择年级后，下面的选项会恢复为该年级的默认设置。六年级：整数与在数轴上表示有理数。七年级：有理数运算。八年级：无理数与平方根。",
+    setRange:"整数范围", setRat:"有理数", ratOn:"包含分数和小数", setModes:"模式",
+    setSpeech:"语音", autoRead:"自动朗读说明", printCards:"打印挑战卡",
+    setStored:"设置只保存在本设备上。从不保存任何学生信息。",
+    check:"检查", startOver:"重新开始", youPicked:"你选了 {x}。",
+    wPlus:"加", wMinus:"减", wTimes:"乘", wDiv:"除以", wEq:"等于", ltW:"小于", gtW:"大于", eqW:"等于",
+    cmpSay:"{a} {op} {b}", negSay:"负 {x}", frSay:"{d}分之{n}", repSay:"{x}，循环", sqrtSay:"根号 {n}", piSay:"圆周率 π",
+    absSay:"{x} 的绝对值", dolSay:"{x} 美元", degSay:"{x} 摄氏度", mSay:"{x} 米", approx:"大约",
+    pinLbl:"数轴上的图钉", lineLbl:"从 {a} 到 {b} 的数轴", seaLvl:"海平面 (0)",
+    ctrPos:"正计数片", ctrNeg:"负计数片", pairsGone:"已移走的零对：{k}",
+    vennLbl:"数的集合", setNat:"正整数（自然数）", setWhole:"非负整数", setInt:"整数", setRatN:"有理数", setIrr:"无理数", setReal:"实数",
+    wRight:"右边", wLeft:"左边", wUp:"上方", wDown:"下方", posW:"正", negW:"负", oddW:"奇数", evenW:"偶数",
+    goesUp:"增加 {k}", goesDown:"减少 {k}",
+    placeDir:"把图钉拖到数轴上的 {x}。然后按“检查”。",
+    placeGood:"对了！{x} 离 0 有 {d} 个单位，在{side}的一侧。", placeZero:"对了！0 既不是正数也不是负数。",
+    hintGreater:"你的图钉在 {p}。{x} 比 {p} 大，所以它在更{dir}。",
+    hintLess:"你的图钉在 {p}。{x} 比 {p} 小，所以它在更{dir}。",
+    tickNote:"每个小刻度是 {u}。",
+    oppDir:"这个点表示 {x}。把图钉拖到 {x} 的相反数，然后按“检查”。",
+    oppGood:"对了！{x} 的相反数是 {y}。它们离 0 都是 {d} 个单位，分别在 0 的两侧。",
+    oppHint:"相反数离 0 的距离相同，分别在 0 的两侧。{x} 离 0 有 {d} 个单位。",
+    absDir:"这个点表示 {x}。{e} 是多少？",
+    absGood:"对了！{e} = {d}，因为 {x} 离 0 有 {d} 个单位。距离永远不是负数。",
+    absHint:"绝对值是到 0 的距离，而距离永远不是负数。数一数从 {x} 到 0 有几个单位。",
+    cmpDir:"比较大小。选择 <、= 或 >。",
+    cmpGoodGt:"对了！{stmt}，因为在数轴上 {a} 在 {b} 的右边。",
+    cmpGoodLt:"对了！{stmt}，因为在数轴上 {a} 在 {b} 的左边。",
+    cmpGoodEq:"对了！{stmt}。它们表示数轴上的同一个点。",
+    cmpHint:"想象两个数在数轴上：越靠右的数越大。两个负数中，离 0 越近的越大。",
+    ctrDir:"用计数片表示 {e}。点一个黄色 (+) 和一个红色 (−) 计数片，移走一个零对。然后选出和。",
+    ctrGood:"对了！{eq}。每个零对的值是 0，所以剩下的计数片就表示和。",
+    ctrHint:"还不对。一个黄色和一个红色计数片组成一个零对：1 + (−1) = 0。移走所有零对，再数剩下的计数片并看它们的颜色。",
+    moveDir:"从 {a} 开始。加上 {b}。把图钉拖到和的位置，然后按“检查”。",
+    moveGood:"对了！{eq}。从 {a} 开始，加上 {b} 就是向{dir}移动 {d} 个单位。",
+    moveHint:"加正数向右移；加负数向左移。从 {a} 开始，向{dir}移动 {d} 个单位。",
+    subDir1:"把 {e} 改写成加法算式。",
+    subGood1:"正确！减去 {b} 等于加上它的相反数 {nb}。现在把图钉拖到答案处，然后按“检查”。",
+    subHint1:"减去一个数等于加上它的相反数。第一个数不变，把 − 改成 +，再用 {b} 的相反数。",
+    subDir2:"现在求 {e2}。把图钉拖到答案处，然后按“检查”。", subGood2:"对了！{eq}。", sqPair:"{a} 和 {b}",
+    distDir:"数轴上 {a} 和 {b} 之间的距离是多少？",
+    distGood:"对了！距离是 {e} = {d}。",
+    distHint:"距离是差的绝对值，{e}。数一数两点之间有几个单位。",
+    raddDir:"求值。答案写成最简形式。",
+    raddGood:"对了！通分后：{e}。",
+    raddHint:"先把两个分数通分，{e}。再合并分子，注意正负号。",
+    patDir:"找规律。“?”那一行应该填什么数？",
+    patGood:"对了！第一个因数每减少 1，积就{chg}。所以 {eq}。",
+    patHint:"看积这一列：每一步积都{chg}。越过 0 之后继续这个规律。",
+    grpDir:"有 {a} 组，每组是 {b}。{e} 是多少？",
+    grpGood:"对了！{a} 组 {b} 合起来是 {p}：{eq}。",
+    grpHint:"每个计数片都是负的。数一数 {a} 组，每组有 {k} 个负计数片。",
+    signDir:"求积。",
+    signGood:"对了！{eq}。有 {k} 个负因数，是{oe}，所以积是{pn}数。",
+    signHint:"数一数负因数的个数。负因数有偶数个时积为正；有奇数个时积为负。",
+    divDir:"求商。",
+    divGood:"对了！{eq}，因为 {chk}。",
+    divHint:"想一想缺少的因数：{b} × ? = {a}。同号得正，异号得负。",
+    ratDir:"求值。答案写成最简形式。",
+    ratGood:"对了！{eq}。", ratDivNote:"除以 {b} 等于乘它的倒数 {rb}。",
+    ratHint:"先确定符号：同号得正，异号得负。再把绝对值相乘或相除。",
+    vennDir:"{x} 属于哪里？点出包含它的最小集合。",
+    vennGood:"对了！{x} 属于{set}。它也在外面每一个集合里：{list}。",
+    vennTooBig:"{x} 在{set}里，但它里面还有一个更小的集合也包含 {x}。往里看。",
+    vennNotIn:"{x} 不在{set}里。{why}",
+    whyNat:"正整数是用来数数的数：1、2、3、…", whyWhole:"非负整数是 0、1、2、3、…，没有负数，也没有分数。",
+    whyInt:"整数包括非负整数和它们的相反数，中间没有分数或小数。",
+    whyRat:"有理数可以写成两个整数相除的分数；它的小数要么有限，要么循环。",
+    whyIrr:"无理数不能写成两个整数相除的分数；它的小数无限且不循环。",
+    simpNote:"先化简：{x} = {y}。",
+    decDir:"把 {f} 写成小数。",
+    decGoodT:"对了！{f} = {x}。除法能除尽，所以这是有限小数。",
+    decGoodR:"对了！{f} = {x}。余数重复出现，所以数字 {r} 不断重复：这是循环小数。",
+    decHint:"用分子除以分母：{n} ÷ {d}。注意余数。如果余数重复，数字也会重复。",
+    sqDir:"{x} 在哪两个相邻整数之间？",
+    sqGood:"对了！{a2} < {n} < {b2}，所以 {x} 在 {a} 和 {b} 之间。",
+    sqHint:"找出紧挨在 {n} 下面和上面的完全平方数。",
+    sqPlaceDir:"拖动图钉，把 {x} 估计到十分位，然后按“检查”。",
+    sqPlaceGood:"对了！{x} ≈ {v}。检验：{v} × {v} = {sq}，接近 {n}。",
+    sqPlaceHint:"{x} 在 {a} 和 {b} 之间，因为 {a2} < {n} < {b2}。{n} 更接近 {a2} 还是 {b2}？",
+    ordDir:"按从小到大的顺序点这些数。",
+    ordGood:"对了！顺序是：{list}。",
+    ordHint:"还不对：{y} 比 {x} 小。在数轴上，越靠左的数越排在前面。",
+    ordRow:"从小 → 到大：",
+    tempRise:"早上 6 点气温是 {a}。到中午气温上升了 {c}。把图钉拖到中午的气温，然后按“检查”。",
+    tempFall:"傍晚 6 点气温是 {a}。到午夜气温下降了 {c}。把图钉拖到午夜的气温，然后按“检查”。",
+    tempGood:"对了！{eq}，所以气温是 {r}。",
+    tempHint:"上升是正的变化，下降是负的变化。从 {a} 开始，向{dir}移动 {c}。",
+    elevDist:"一名潜水员在 {a}。一只鹈鹕在 {b} 飞。它们相距多远？",
+    elevDistGood:"对了！距离是 {e} = {r}。",
+    elevDistHint:"海平面是 0。潜水员在 0 下方 {da}，鹈鹕在 0 上方 {db}。把两段距离相加。",
+    elevRise:"一艘潜艇在 {a}。它上升了 {c}。它现在的海拔是多少？",
+    elevDive:"一名潜水员在 {a}。她又下潜了 {c}。她现在的海拔是多少？",
+    elevGood:"对了！{eq}。新的海拔是 {r}。",
+    elevHint:"向上是正的变化，向下是负的变化。从 {a} 开始。",
+    moneyDep:"一个账户的余额是 {a}（欠着钱）。然后存入 {c}。新的余额是多少？",
+    moneyWd:"一个账户的余额是 {a}。然后用借记卡花了 {c}。新的余额是多少？",
+    moneyGood:"对了！{eq}。新的余额是 {r}。",
+    moneyHint:"存钱使钱增加（正的变化）。花钱使钱减少（负的变化）。从 {a} 开始。",
+    feeDir:"一个账户每周被扣 {c} 的费用，共扣 {n} 周。余额的总变化是多少？",
+    feeGood:"对了！费用是负的变化：{eq}。",
+    feeHint:"每次扣费都会让余额减少，所以每次变化是 {nc}。再乘 {n} 周。",
+    shareDir:"{n} 个朋友平均分担一笔 {a} 的债务。每个朋友的余额变化是多少？",
+    shareGood:"对了！{eq}。每个朋友的余额变化 {r}。",
+    shareHint:"债务是负数。负数除以正数得负数。",
+    coldDir:"哪个温度更冷？", deepDir:"哪个海拔在海平面以下更深？",
+    coldGood:"对了！{stmt}，所以 {x} 更冷。它在温度计上更低。",
+    deepGood:"对了！{stmt}，所以 {x} 更深。它在海平面以下更远。",
+    coldHint:"在温度计上，越冷就越低。两个零下温度中，离 0 越远的越冷。",
+    deepHint:"海平面以下表示负数。在负方向上离 0 越远的海拔越深。",
+    stds:"对应标准 — 德州 TEKS：六年级 6.2(A)、6.2(B)、6.2(C)、6.2(D)、6.3(C)、6.3(D)；七年级 7.2(A)、7.3(A)、7.3(B)；八年级 8.2(A)、8.2(B)、8.2(D)。Common Core：6.NS.5、6.NS.6a、6.NS.6c、6.NS.7a–d；7.NS.1a–d、7.NS.2a–d、7.NS.3；8.NS.1、8.NS.2。",
+    cardTitle:"整数与有理数实验室 — 挑战卡", cardName:"姓名：",
+    cardLine:"在数轴上标出每个数并写上它。", cardAdd:"求每个算式的值。画出计数片或数轴上的跳跃。",
+    cardMul:"求每个算式的值。说明你是怎样确定符号的。", cardReal:"把每个数写在包含它的最小集合里。",
+    cardStory:"解答。写一个能表示你思路的算式。"
+  }
+};
+
+let lang = "en";
+function t(key, vars){
+  let s = (T[lang] && T[lang][key]!==undefined) ? T[lang][key] : (T.en[key]!==undefined? T.en[key] : key);
+  if(vars) for(const k in vars) s = s.replaceAll("{"+k+"}", vars[k]);
+  return s;
+}
+
+/* ---------- Settings ---------- */
+const MODES = ["line","addsub","muldiv","real","story"];
+const MODE_KEY = {line:"mLine",addsub:"mAdd",muldiv:"mMul",real:"mReal",story:"mStory"};
+const MODE_IC = {line:"📏",addsub:"➕",muldiv:"✖️",real:"🗂️",story:"🌡️"};
+const GRADES = {6:{range:10,rat:true},7:{range:20,rat:true},8:{range:20,rat:true}};
+const clone = o=>JSON.parse(JSON.stringify(o));
+const DEFAULTS = {grade:7, range:20, rat:true, modes:{line:true,addsub:true,muldiv:true,real:true,story:true}, autoRead:false};
+let settings = loadSettings();
+function loadSettings(){
+  try{
+    const raw = localStorage.getItem("irl_settings");
+    if(raw){ const o=JSON.parse(raw), s=Object.assign(clone(DEFAULTS), o, {modes:Object.assign({},DEFAULTS.modes,o.modes)});
+      if(!GRADES[s.grade]) s.grade=DEFAULTS.grade; s.grade=+s.grade;
+      if(![10,20,50].includes(+s.range)) s.range=GRADES[s.grade].range; s.range=+s.range; s.rat=!!s.rat;
+      if(!MODES.some(m=>s.modes[m])) s.modes=clone(DEFAULTS.modes);
+      return s; }
+  }catch(e){}
+  return clone(DEFAULTS);
+}
+function saveSettings(){ try{ localStorage.setItem("irl_settings", JSON.stringify(settings)); }catch(e){} }
+
+/* ---------- Utils ---------- */
+const $ = s=>document.querySelector(s);
+const $$ = s=>Array.from(document.querySelectorAll(s));
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const ri = (a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const nz = (a,b)=>{ let v; do v=ri(a,b); while(!v); return v; };
+const sgn = ()=>Math.random()<.5?-1:1;
+const gcd = (a,b)=>{ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a||1; };
+const lcm = (a,b)=>a/gcd(a,b)*b;
+const G = ()=>+settings.grade, RG = ()=>+settings.range, RAT = ()=>!!settings.rat;
+const R7 = ()=>G()>=7 && RAT();
+const MINUS = "−";
+const M = s=>`<bdi class="math" dir="ltr">${s}</bdi>`;
+const frH = (n,d)=>`<span class="fr"><span>${n}</span><span>${d}</span></span>`;
+const near = (a,b)=>Math.abs(a-b)<1e-9;
+let stars=0;
+function addStar(){ stars++; $("#starCount").textContent=stars; const w=$("#stars"); w.classList.remove("pop"); void w.offsetWidth; w.classList.add("pop"); }
+
+/* ---------- Rational numbers ----------
+   Q(n,d,sty): a reduced rational; sty = "f" (show as fraction) or "d" (show as decimal). */
+function Q(n,d,sty){ d=d||1; if(d<0){ n=-n; d=-d; } const g=gcd(n,d); n/=g; d/=g;
+  let s=d===1?"i":(sty||"f"); if(s==="d" && decPlaces(d)<0) s="f"; return {n,d,v:n/d,sty:s}; }
+const I = k=>Q(k,1);
+function decPlaces(d){ for(let k=0;k<=6;k++) if(Math.pow(10,k)%d===0) return k; return -1; }
+const mSty = (a,b)=>(a.sty==="d"||b.sty==="d")?"d":"f";
+const qAdd = (a,b)=>Q(a.n*b.d+b.n*a.d,a.d*b.d,mSty(a,b));
+const qNeg = a=>Q(-a.n,a.d,a.sty);
+const qMul = (a,b)=>Q(a.n*b.n,a.d*b.d,mSty(a,b));
+const qDiv = (a,b)=>Q(a.n*b.d,a.d*b.n,mSty(a,b));
+const qAbs = a=>Q(Math.abs(a.n),a.d,a.sty);
+function decStr(q){ const k=decPlaces(q.d); return Math.abs(q.v).toFixed(Math.max(0,k)); }
+// Plain-text form (for SVG labels): −3/4, −2.5
+function qT(q){ const a=Math.abs(q.n); return (q.n<0?MINUS:"")+(q.d===1?a:q.sty==="d"?decStr(q):a+"/"+q.d); }
+function qH(q,paren){ const a=Math.abs(q.n); let b=q.d===1?String(a):q.sty==="d"?decStr(q):frH(a,q.d);
+  let s=(q.n<0?MINUS:"")+b; if(paren && q.n<0) s="("+s+")"; return s; }
+/* Fractions: shown stacked, spoken in words */
+const ORD = {
+  en:{2:["half","halves"],3:["third","thirds"],4:["fourth","fourths"],5:["fifth","fifths"],6:["sixth","sixths"],7:["seventh","sevenths"],
+      8:["eighth","eighths"],9:["ninth","ninths"],10:["tenth","tenths"],11:["eleventh","elevenths"],12:["twelfth","twelfths"]},
+  es:{2:["medio","medios"],3:["tercio","tercios"],4:["cuarto","cuartos"],5:["quinto","quintos"],6:["sexto","sextos"],7:["séptimo","séptimos"],
+      8:["octavo","octavos"],9:["noveno","novenos"],10:["décimo","décimos"],11:["onceavo","onceavos"],12:["doceavo","doceavos"]}
+};
+function fracSay(n,d){ const o=ORD[lang]&&ORD[lang][d];
+  if(o) return (n===1?(lang==="es"?"un":"one"):n)+" "+o[n===1?0:1]; return t("frSay",{n,d}); }
+function qS(q){ const a=Math.abs(q.n); const b=q.d===1?String(a):q.sty==="d"?decStr(q):fracSay(a,q.d); return q.n<0?t("negSay",{x:b}):b; }
+const QV = (q,paren)=>({h:qH(q,paren),s:qS(q),v:q.v,q});
+// An unreduced fraction (e.g. 12/4 or 9/12 when showing common denominators)
+const rawF = (n,d)=>({h:(n<0?MINUS:"")+frH(Math.abs(n),d), s:(n<0?t("negSay",{x:fracSay(Math.abs(n),d)}):fracSay(n,d)), v:n/d});
+// Quantities with units: temperature (°C), elevation (m), money ($)
+function U(q,u){ const a=qAbs(q), sg=q.n<0?MINUS:"";
+  if(u==="$"){ const num=q.d===1?String(a.n):Math.abs(q.v).toFixed(2); return {h:sg+"$"+num, s:t("dolSay",{x:q.n<0?t("negSay",{x:num}):num}), v:q.v, q}; }
+  return {h:qH(q)+(u==="C"?" °C":" m"), s:t(u==="C"?"degSay":"mSay",{x:qS(q)}), v:q.v, q}; }
+const OPS = {"+":"wPlus","−":"wMinus","×":"wTimes","÷":"wDiv","=":"wEq","<":"ltW",">":"gtW"};
+// An expression: X(a,"+",b,"=",c) — items are {h,s} objects, op strings, or plain numbers.
+function X(...p){ const h=[],s=[];
+  p.forEach(x=>{ if(typeof x==="string"&&OPS[x]){ h.push(x==="<"?"&lt;":x===">"?"&gt;":x); s.push(t(OPS[x])); }
+    else if(x&&typeof x==="object"){ h.push(x.h); s.push(x.s); } else { h.push(""+x); s.push(""+x); } });
+  return {h:M(h.join(" ")), s:s.join(" ")};
+}
+const absX = x=>({h:M("|"+x.h+"|"), s:t("absSay",{x:x.s})});
+function S3(a,sym,b){ return {h:M(a.h+" "+(sym==="<"?"&lt;":sym===">"?"&gt;":sym)+" "+b.h), s:t("cmpSay",{a:a.s,b:b.s,op:t(sym==="<"?"ltW":sym===">"?"gtW":"eqW")})}; }
+function tm(key,vars){ const h={},s={}; vars=vars||{};
+  for(const k in vars){ const v=vars[k]; if(v&&typeof v==="object"){ h[k]=String(v.h).indexOf("<bdi")===0?v.h:M(v.h); s[k]=v.s; } else { h[k]=v; s[k]=v; } }
+  return {h:t(key,h), s:t(key,s)};
+}
+const W = k=>({h:t(k),s:t(k)});
+const cat = (...m)=>({h:m.map(x=>x.h).join(" "), s:m.map(x=>x.s).join(" ")});
+// Up to 4 numeric choices with distinct values; the first candidates are the likeliest mistakes.
+function qOpts(r,cands,fmt){ fmt=fmt||(q=>QV(q)); const out=[{...fmt(r),ok:true}], seen=[r.v];
+  cands.forEach(c=>{ if(out.length>=4||!c||!isFinite(c.v)) return; if(seen.some(x=>near(x,c.v))) return; seen.push(c.v); out.push({...fmt(c),ok:false}); });
+  let k=1; while(out.length<4 && k<20){ const c=qAdd(r,I(k%2?Math.ceil(k/2):-Math.ceil(k/2))); k++; if(seen.some(x=>near(x,c.v))) continue; seen.push(c.v); out.push({...fmt(c),ok:false}); }
+  return shuffle(out);
+}
+// A random non-integer rational with |value| < lim, on a number line with `sub` ticks per unit.
+function rndRat(lim,dens){ const d=rand(dens||(G()===6?[2,4,10]:[2,3,4,5,8,10])); if(d===10) lim=Math.min(lim,2); let n; do n=ri(-lim*d+1,lim*d-1); while(n%d===0);
+  const sty=d===10?"d":[3,5,8].includes(d)?"f":rand(["f","d"]); return {q:Q(n,d,sty), sub:d}; }
+
+/* ---------- Number line (horizontal or vertical, optional draggable pin) ----------
+   o: {min,max,sub,vert,kind:"thermo"|"sea",marks:[{q|t,c}],arrows:[{a,b,c}],spans:[{a,b,lab}],pin,drag} */
+let uid=0;
+function svgLab(m,x,y,cls,anchor){ const c=m.c||"#2a1a18", a=anchor?` text-anchor="${anchor}"`:"";
+  if(m.q && m.q.sty==="f" && m.q.d>1){ const n=Math.abs(m.q.n), dx=anchor==="start"?14:0;
+    return (m.q.n<0?`<text class="${cls}" x="${x+dx-16}" y="${y+2}" fill="${c}" text-anchor="middle">${MINUS}</text>`:"")+
+      `<text class="${cls}" x="${x+dx}" y="${y-8}" fill="${c}" text-anchor="middle" style="font-size:17px">${n}</text><line x1="${x+dx-9}" x2="${x+dx+9}" y1="${y-3}" y2="${y-3}" stroke="${c}" stroke-width="2.4"/><text class="${cls}" x="${x+dx}" y="${y+14}" fill="${c}" text-anchor="middle" style="font-size:17px">${m.q.d}</text>`; }
+  return `<text class="${cls}" x="${x}" y="${y}" fill="${c}"${a}>${m.t!=null?m.t:qT(m.q)}</text>`;
+}
+function NL(o){
+  const DF={sub:1,marks:[],arrows:[],spans:[]}; for(const k in DF) if(o[k]==null) o[k]=DF[k];
+  const span=o.max-o.min, V=!!o.vert;
+  o.lab=o.lab||(V?(span<=10?1:span<=20?2:span<=50?5:10):(span<=12?1:span<=24?2:span<=60?5:10));
+  const tu=span<=30?1:5, A0=V?400:40, A1=V?24:600, P=v=>+(A0+(A1-A0)*(v-o.min)/span).toFixed(2); o.P=P;
+  const H=V?444:(o.spans.length||o.marks.some(k=>k.low)?182:150), id="ah"+(++uid);
+  let s=`<defs><marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker></defs>`;
+  if(V){
+    if(o.kind==="sea"){ const z=P(0); s+=`<rect x="0" y="0" width="240" height="${z}" fill="#eef7fc"/><rect x="0" y="${z}" width="240" height="${H-z}" fill="#a9daf2"/><line x1="0" x2="240" y1="${z}" y2="${z}" stroke="#1f6f8b" stroke-width="3" stroke-dasharray="8 5"/><text class="nls" x="236" y="${z+20}" text-anchor="end">${t("seaLvl")}</text>`; }
+    if(o.kind==="thermo"){ s+=`<rect x="108" y="10" width="24" height="404" rx="12" fill="#fff" stroke="#7b5c58" stroke-width="3"/><circle cx="120" cy="420" r="20" fill="#e74c3c" stroke="#7b5c58" stroke-width="3"/><rect class="tfill" x="114" y="${P(o.fill!=null?o.fill:o.min)}" width="12" height="${(420-P(o.fill!=null?o.fill:o.min)).toFixed(1)}" fill="#e74c3c"/>`; }
+    else s+=`<line class="nlax" x1="120" y1="12" x2="120" y2="412"/>`;
+  } else s+=`<line class="nlax" x1="${A0-16}" y1="96" x2="${A1+16}" y2="96"/>`;
+  const sub=span*o.sub<=(V?64:72)?o.sub:1, th=o.kind==="thermo"?12:0;
+  for(let k=Math.ceil(o.min*sub-1e-9);k<=Math.floor(o.max*sub+1e-9);k++){ const v=k/sub, maj=Math.abs(v-Math.round(v))<1e-9;
+    if(maj && Math.round(v)%tu!==0) continue;
+    const L=maj?16:8;
+    s+=V?`<line class="tk${maj?"":" mn"}" x1="${120-L-th}" x2="${120-th}" y1="${P(v)}" y2="${P(v)}"/>`
+        :`<line class="tk${maj?"":" mn"}" x1="${P(v)}" x2="${P(v)}" y1="${96-L}" y2="${96+L}"/>`;
+    if(maj && Math.round(v)%o.lab===0) s+=V?`<text class="nlt" x="${th?86:98}" y="${P(v)+7}">${v<0?MINUS+(-v):v}</text>`
+        :`<text class="nlt" x="${P(v)}" y="138">${v<0?MINUS+(-v):v}</text>`; }
+  o.spans.forEach(sp=>{ const a=P(sp.a), b=P(sp.b), c=sp.c||"#7c3aed";
+    s+=V?`<path d="M150 ${a}H170V${b}H150" fill="none" stroke="${c}" stroke-width="3"/><text class="nlm" x="200" y="${(a+b)/2+7}" fill="${c}">${sp.lab}</text>`
+        :`<path d="M${a} 150V160H${b}V150" fill="none" stroke="${c}" stroke-width="3"/><text class="nlm" x="${(a+b)/2}" y="178" fill="${c}">${sp.lab}</text>`; });
+  o.arrows.forEach(ar=>{ const a=P(ar.a), b=P(ar.b), c=ar.c||"#7c3aed";
+    s+=V?`<path d="M136 ${a}C176 ${a} 176 ${b} 136 ${b}" fill="none" stroke="${c}" stroke-width="4" marker-end="url(#${id})"/>`
+        :`<path d="M${a} 44C${a} 10 ${b} 10 ${b} 44" fill="none" stroke="${c}" stroke-width="4" marker-end="url(#${id})"/>`; });
+  o.marks.forEach((mk,i)=>{ const p=P(mk.q?mk.q.v:mk.v), c=mk.c||"#c0392b";
+    s+=V?`<circle cx="120" cy="${p}" r="8" fill="${c}" stroke="#fff" stroke-width="2"/>`+svgLab({...mk,c},150,p+7,"nlm","start")
+        :`<circle cx="${p}" cy="96" r="9" fill="${c}" stroke="#fff" stroke-width="2"/>`+svgLab({...mk,c},p,mk.low?174:(o.arrows.length?66:70),"nlm"); });
+  if(o.pin!=null){ const pv=P(o.pin);
+    s+=`<g class="pin" transform="${V?`translate(0 ${pv})`:`translate(${pv} 0)`}"`+(o.drag?` tabindex="0" role="slider" aria-label="${t("pinLbl")}" aria-valuemin="${o.min}" aria-valuemax="${o.max}" aria-valuenow="${o.pin}"`:"")+">"+
+      (V?`<line x1="120" y1="0" x2="190" y2="0"/><circle cx="204" cy="0" r="15"/>`:`<line x1="0" y1="34" x2="0" y2="96"/><circle cx="0" cy="22" r="16"/>`)+`</g>`; }
+  o.html=`<div class="nlwrap" dir="ltr"><svg class="nl${V?" v":""}" viewBox="0 0 ${V?240:640} ${H}" role="${o.drag?"group":"img"}" aria-label="${t("lineLbl",{a:qT(I(o.min)),b:qT(I(o.max))})}">${s}</svg></div>`;
+  return o;
+}
+// Make the pin draggable (pointer + arrow keys). Calls onMove(value).
+function bindPin(m,o,onMove){
+  const svg=$("#w-"+m+" svg.nl"), pin=svg&&svg.querySelector(".pin"); if(!pin) return;
+  const step=1/o.sub;
+  const set=v=>{ v=Math.max(o.min,Math.min(o.max,Math.round(v*o.sub)/o.sub)); st[m].pin=v; const p=o.P(v);
+    pin.setAttribute("transform",o.vert?`translate(0 ${p})`:`translate(${p} 0)`);
+    const q=Q(Math.round(v*o.sub),o.sub,o.sty||"f"); pin.setAttribute("aria-valuenow",v); pin.setAttribute("aria-valuetext",qS(q));
+    const tf=svg.querySelector(".tfill"); if(tf){ tf.setAttribute("y",p); tf.setAttribute("height",(420-p).toFixed(1)); }
+    if(onMove) onMove(v); };
+  const fromEv=e=>{ const pt=svg.createSVGPoint(); pt.x=e.clientX; pt.y=e.clientY; const c=pt.matrixTransform(svg.getScreenCTM().inverse());
+    const A0=o.vert?400:40, A1=o.vert?24:600, k=((o.vert?c.y:c.x)-A0)/(A1-A0); return o.min+k*(o.max-o.min); };
+  let drag=false;
+  svg.addEventListener("pointerdown",e=>{ if(st[m].done) return; drag=true; try{ svg.setPointerCapture(e.pointerId); }catch(er){} set(fromEv(e)); pin.focus({preventScroll:true}); e.preventDefault(); });
+  svg.addEventListener("pointermove",e=>{ if(drag) set(fromEv(e)); });
+  ["pointerup","pointercancel"].forEach(n=>svg.addEventListener(n,()=>{ drag=false; }));
+  pin.addEventListener("keydown",e=>{ if(st[m].done) return; const d={ArrowRight:step,ArrowUp:step,ArrowLeft:-step,ArrowDown:-step,PageUp:1,PageDown:-1}[e.key];
+    if(d){ set((st[m].pin||0)+d); e.preventDefault(); } else if(e.key==="Enter"&&st[m].check){ st[m].check(); e.preventDefault(); } });
+  set(o.pin);
+}
+// A display window that contains all values (with padding), always including 0.
+function winFor(vals,pad,maxSpan){ pad=pad==null?1:pad; let lo=Math.floor(Math.min(0,...vals))-pad, hi=Math.ceil(Math.max(0,...vals))+pad;
+  while(hi-lo<6){ hi++; if(hi-lo<6) lo--; }
+  const span=hi-lo, u=span<=12?1:span<=24?2:5; lo=Math.floor(lo/u)*u; hi=Math.ceil(hi/u)*u; return {min:lo,max:hi}; }
+
+/* ---------- Speech ---------- */
+const speechOK = ("speechSynthesis" in window);
+function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
+// Prefer warm, natural voices for young learners; avoid harsh robotic engines.
+function pickWarmVoice(code){
+  const vs = speechSynthesis.getVoices()||[];
+  const want=code.toLowerCase(), two=want.slice(0,2);
+  let best=null, bs=-1;
+  for(const v of vs){
+    const lc=(v.lang||'').toLowerCase().replace('_','-');
+    if(lc!==want && lc.slice(0,2)!==two) continue;
+    let s=(lc===want?100:60); const n=(v.name||'').toLowerCase();
+    if(/google|natural|neural|online|premium|enhanced|siri/.test(n)) s+=40;
+    if(/female|woman|samantha|karen|tessa|moira|fiona|serena|victoria|allison|ava|susan|zoe|amelie|amélie|paulina|monica|mónica|zira|hazel|catherine|linda|kanya|lekha|ting-ting|mei-jia|sin-ji|yu-shu|huihui|xiaoxiao/.test(n)) s+=18;
+    if(/espeak|compact|festival|pico|robot|eloquence/.test(n)) s-=60;
+    if(v.localService===false) s+=8;
+    if(v.default) s+=2;
+    if(s>bs){ bs=s; best=v; }
+  }
+  return best;
+}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  const parts=String(text).match(/[^.!?。！？؟।۔]+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.9; u.pitch=1.15;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={line:0,addsub:0,muldiv:0,real:0,story:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
+}
+if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
+if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
+
+const currentSpeech = {line:"",addsub:"",muldiv:"",real:"",story:""};
+function setSpeech(mode,text){ currentSpeech[mode]=text; }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===mode) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,.nl,.venn,.vr")) return;
+  speak(currentSpeech[currentMode()]);
+},true);
+
+/* ---------- Feedback & round helpers ---------- */
+function showFb(el,type,msg){ el.className="feedback show "+type; el.innerHTML=(type==="good"?"✅ ":"💡 ")+msg; }
+function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
+const made={}, st={}; window.__irl=st; // round state (for automated tests; no student data)
+function startRound(m){ roundIds[m]++; made[m]=true; st[m]={done:false};
+  const ow=$("#w-"+m), nw=ow.cloneNode(false); ow.replaceWith(nw); // drop the previous round's listeners
+  ["w","a","c"].forEach(p=>{ const el=$("#"+p+"-"+m); el.innerHTML=""; el.className=el.className.replace(/\s*syms/,""); }); hideFb($("#f-"+m)); }
+function setPrompt(m,msg){ $("#p-"+m).innerHTML=msg.h; setSpeech(m,msg.s); }
+function win(m,msg,vis){ st[m].done=true;
+  $$(`#c-${m} button,#a-${m} button`).forEach(b=>b.disabled=true);
+  $$(`#w-${m} [tabindex]`).forEach(p=>p.removeAttribute("tabindex"));
+  if(vis) $("#w-"+m).innerHTML=vis;
+  addStar(); showFb($("#f-"+m),"good",msg.h); afterPraise(msg.s,m,NEWFN[m],2200); }
+function nope(m,msg){ showFb($("#f-"+m),"hint",msg.h); speak(msg.s); }
+function actBtn(m,html,fn,cls,aria){ const b=document.createElement("button"); b.type="button"; b.className="btn"+(cls?" "+cls:""); b.innerHTML=html;
+  if(aria){ b.setAttribute("aria-label",aria); b.title=aria; } b.addEventListener("click",fn); $("#a-"+m).appendChild(b); return b; }
+function checkBtn(m,fn){ st[m].check=fn; return actBtn(m,"✔ "+t("check"),fn); }
+// Choice buttons. pick(item) is called for every tap; wrong picks are greyed out.
+function choices(m,items,pick,cls){
+  const g=$("#c-"+m); g.innerHTML=""; g.classList.remove("syms"); if(cls) g.classList.add(cls);
+  items.forEach(it=>{ const b=document.createElement("button"); b.type="button"; b.className="choice"+(it.wide?" wide":"");
+    b.innerHTML=`<span class="badge" aria-hidden="true">✅</span><span class="lbl">${it.h}</span>`; b.setAttribute("aria-label",it.s);
+    b.addEventListener("click",()=>{ if(st[m].done) return; if(it.ok) b.classList.add("correctpick"); else { b.classList.add("wrongpick"); b.disabled=true; } pick(it,b); });
+    g.appendChild(b); });
+}
+// A pin-on-number-line task: target q, window o. good/hint are message builders.
+function pinTask(m,o,target,good,x){ x=x||{}; o.sub=o.sub||1;
+  st[m].target=target.v; st[m].sub=o.sub; o.drag=true; if(o.pin==null) o.pin=o.min+Math.round((o.max-o.min)/2*o.sub)/o.sub; if(near(o.pin,target.v)) o.pin=o.min;
+  NL(o); $("#w-"+m).innerHTML=o.html; bindPin(m,o);
+  checkBtn(m,()=>{ const p=st[m].pin, pq=Q(Math.round(p*o.sub),o.sub,target.sty==="d"?"d":"f");
+    if(near(p,target.v)) return win(m,good(),x.vis||NL(Object.assign({},o,{drag:false,pin:null,marks:(o.marks||[]).concat([{q:target,c:"#1d4ed8"}])})).html);
+    const gt=target.v>p, dir=o.vert?(gt?"wUp":"wDown"):(gt?"wRight":"wLeft");
+    let msg=tm(gt?"hintGreater":"hintLess",{p:QV(pq),x:QV(target),dir:t(dir)});
+    if(o.sub>1) msg=cat(msg,tm("tickNote",{u:QV(Q(1,o.sub,target.sty==="d"?"d":"f"))}));
+    if(x.extra) msg=cat(msg,x.extra);
+    nope(m,msg); });
+}
+
+/* =========================================================================
+   1. NUMBER LINE & OPPOSITES — place, opposite, absolute value, compare
+   ========================================================================= */
+function intWindow(v,span){ const R=RG(); if(R<=10||span>=2*R) return {min:-Math.min(R,10),max:Math.min(R,10)};
+  let lo=5*Math.floor((v-ri(2,span-2))/5); lo=Math.max(-R,Math.min(R-span,lo)); return {min:lo,max:lo+span}; }
+function newLine(){
+  const m="line"; startRound(m); const g=G(), R=RG();
+  const type=rand(["place","place","opp","abs","cmp","cmp"]);
+  if(type==="place"||type==="opp"){
+    let q,sub=1,o;
+    if(RAT() && Math.random()<(g===6?.45:.55)){ const r=rndRat(4); q=r.q; sub=r.sub; const L=sub===10?2:4; o={min:-L,max:L,sub}; }
+    else { const lim=type==="opp"?Math.min(R,20):R; q=I(nz(-lim,lim)); o=type==="opp"?(Math.abs(q.v)<=10?{min:-10,max:10}:{min:-20,max:20}):intWindow(q.v,20); }
+    o.sub=sub; o.sty=q.sty; o.vert=type==="place"&&Math.random()<.35;
+    if(type==="place"){ if(Math.random()<.12 && sub===1) q=I(0);
+      pinTask(m,o,q,()=>q.v===0?W("placeZero"):tm("placeGood",{x:QV(q),d:QV(qAbs(q)),side:t(q.v<0?"negW":"posW")}));
+      setPrompt(m,tm("placeDir",{x:QV(q)})); }
+    else { o.marks=[{q,c:"#c0392b"}]; o.pin=0; const op=qNeg(q);
+      pinTask(m,o,op,()=>tm("oppGood",{x:QV(q),y:QV(op),d:QV(qAbs(q))}),{extra:tm("oppHint",{x:QV(q),d:QV(qAbs(q))})});
+      setPrompt(m,tm("oppDir",{x:QV(q)})); }
+  }else if(type==="abs"){
+    let q,sub=1,o;
+    if(RAT() && Math.random()<.4){ q=rndRat(4,[2,4,10]).q; o=winFor([q.v],1); }
+    else { q=I(nz(-Math.min(R,20),Math.min(R,20))); if(Math.random()<.7&&q.v>0) q=qNeg(q); o=winFor([q.v],1); }
+    const x=QV(q), e=absX(x), a=qAbs(q);
+    const vis=NL(Object.assign({},o,{marks:[{q,c:"#c0392b"}],spans:[{a:Math.min(0,q.v),b:Math.max(0,q.v),lab:qT(a)}]})).html;
+    $("#w-"+m).innerHTML=NL(Object.assign({},o,{marks:[{q,c:"#c0392b"}]})).html;
+    choices(m,qOpts(a,[q.v<0?q:qNeg(q),qAdd(a,I(1)),Q(a.n,a.d*2,a.sty)]),it=>{
+      if(it.ok) return win(m,tm("absGood",{e,d:QV(a),x}),vis);
+      nope(m,cat(tm("youPicked",{x:it}),W("absHint"))); });
+    setPrompt(m,tm("absDir",{x,e}));
+  }else{
+    let a,b;
+    if(RAT() && Math.random()<.5){
+      const k=Math.random();
+      if(k<.2){ const d=rand([2,4,5]), n=nz(-3*d,3*d); a=Q(n,d,"f"); b=Q(n,d,"d"); if(a.sty===b.sty){ b=qAdd(a,Q(-1,d,"f")); } }
+      else { a=rndRat(4,[2,4,10]).q; do b=rndRat(4,[2,3,4,5,10]).q; while(near(a.v,b.v)); if(Math.random()<.5){ b=Q(b.n*(b.v>0?-1:1),b.d,b.sty); if(a.v>0) a=qNeg(a); if(near(a.v,b.v)) b=qAdd(b,I(-1)); } }
+    } else { const L=Math.min(R,20); a=I(nz(-L,L)); do b=I(nz(-L,L)); while(b.v===a.v); if(Math.random()<.6){ a=I(-Math.abs(a.v)); b=I(-Math.abs(b.v)); if(a.v===b.v) b=I(b.v-1); } }
+    const A=QV(a), B=QV(b), sym=near(a.v,b.v)?"=":a.v<b.v?"<":">";
+    $("#w-"+m).innerHTML=`<div class="big">${M(A.h+` <span class="box" aria-hidden="true">◯</span> `+B.h)}</div>`;
+    const o=winFor([a.v,b.v],1), vis=$("#w-"+m).innerHTML+NL(Object.assign({},o,{marks:[{q:a,c:"#c0392b"},{q:b,c:"#1d4ed8",low:Math.abs(a.v-b.v)<(o.max-o.min)/8}]})).html;
+    choices(m,["<","=",">"].map(x=>({h:x==="<"?"&lt;":x===">"?"&gt;":"=",s:t(x==="<"?"ltW":x===">"?"gtW":"eqW"),ok:x===sym})),it=>{
+      if(it.ok) return win(m,tm(sym==="="?"cmpGoodEq":sym===">"?"cmpGoodGt":"cmpGoodLt",{stmt:S3(A,sym,B),a:A,b:B}),vis);
+      nope(m,W("cmpHint")); },"syms");
+    setPrompt(m,W("cmpDir"));
+  }
+  maybeAuto(m);
+}
+
+/* =========================================================================
+   2. ADD & SUBTRACT — counters, number-line moves, add the opposite, distance
+   ========================================================================= */
+function ctrHTML(a,b){
+  const box=(k,start)=>`<div class="ctrbox">`+Array.from({length:Math.abs(k)},(_,i)=>`<button type="button" class="ctr${k<0?" n":""}" data-i="${start+i}" data-p="${k>0?1:0}" aria-label="${t(k>0?"ctrPos":"ctrNeg")}">${k>0?"+":MINUS}</button>`).join("")+`</div>`;
+  return `<div class="ctrs" dir="ltr">${box(a,0)}<div class="big" aria-hidden="true" style="align-self:center">+</div>${box(b,100)}</div><p class="ctrnote" id="ctrNote" aria-live="polite">${t("pairsGone",{k:0})}</p>`;
+}
+function newAdd(){
+  const m="addsub"; startRound(m); const s=st[m], g=G(), R=RG();
+  const types=["ctr","move","sub","dist"]; if(R7()) types.push("radd","move");
+  const type=rand(types);
+  if(type==="ctr"){
+    const L=Math.min(R,9); let a=nz(-L,L), b=nz(-L,L); if(a*b>0) b=-b;
+    const A=QV(I(a)), B=QV(I(b),true), r=I(a+b), e=X(A,"+",B), eq=X(A,"+",B,"=",QV(r));
+    $("#w-"+m).innerHTML=ctrHTML(a,b); s.sel=null; s.gone=0;
+    $("#w-"+m).addEventListener("click",ev=>{ const c=ev.target.closest(".ctr"); if(!c||s.done||c.classList.contains("gone")) return;
+      if(s.sel && s.sel.dataset.p!==c.dataset.p){ s.sel.classList.remove("sel"); s.sel.classList.add("gone"); c.classList.add("gone"); s.sel.disabled=c.disabled=true; s.sel=null; s.gone++;
+        $("#ctrNote").textContent=t("pairsGone",{k:s.gone}); return; }
+      if(s.sel) s.sel.classList.remove("sel"); s.sel=c; c.classList.add("sel"); });
+    choices(m,qOpts(r,[I(-(a+b)),I(a-b),I(Math.abs(a)+Math.abs(b))]),it=>{
+      if(it.ok){ $$("#w-addsub .ctr").forEach(c=>c.disabled=true); return win(m,tm("ctrGood",{eq})); }
+      nope(m,cat(tm("youPicked",{x:it}),W("ctrHint"))); });
+    setPrompt(m,tm("ctrDir",{e}));
+  }else if(type==="move"){
+    let a,b,sub=1;
+    if(R7() && Math.random()<.6){ const d=rand([2,4,10]); sub=d; const lim=d===10?2:3, sty=d===10||Math.random()<.5?"d":"f";
+      do{ a=Q(ri(-lim*d,lim*d),d,sty); b=Q(nz(-lim*d,lim*d),d,sty); }while(Math.abs(a.v+b.v)>lim+1 || (a.d===1&&b.d===1)); }
+    else { const L=Math.min(R,15); a=I(nz(-L,L)); b=I(nz(-L,L)); if(Math.abs(a.v+b.v)>L){ b=I(-b.v); } }
+    const r=qAdd(a,b), o=winFor([a.v,r.v],1); o.sub=sub; o.sty=r.sty; o.marks=[{q:a,c:"#c0392b"}];
+    const A=QV(a), B=QV(b,true), eq=X(A,"+",B,"=",QV(r)), dir=t(b.v>0?"wRight":"wLeft"), d=QV(qAbs(b));
+    o.pin=near(r.v,0)?o.min:0;
+    // after the win, show the jump arrow
+    const vis=NL(Object.assign({},o,{drag:false,pin:null,arrows:[{a:a.v,b:r.v}],marks:[{q:a,c:"#c0392b"},{q:r,c:"#1d4ed8"}]})).html;
+    pinTask(m,o,r,()=>tm("moveGood",{eq,a:A,b:B,d,dir}),{vis,extra:tm("moveHint",{a:A,d,dir})});
+    setPrompt(m,tm("moveDir",{a:A,b:QV(b)}));
+  }else if(type==="sub"){
+    const L=Math.min(R,12); let a=nz(-L,L), b=nz(-L,L); if(Math.random()<.6 && b>0) b=-b; if(Math.abs(a-b)>Math.min(R,20)) a=-a;
+    const A=QV(I(a)), B=QV(I(b),true), nb=QV(I(-b),true), r=I(a-b), e=X(A,"−",B), e2=X(A,"+",nb);
+    const opts=[{e:e2,ok:true},{e:X(A,"+",B)},{e:X(QV(I(-a)),"+",nb)},{e:X(QV(I(-a)),"+",B)}].filter((x,i,arr)=>arr.findIndex(y=>y.e.h===x.e.h)===i);
+    s.step=1;
+    $("#w-"+m).innerHTML=`<div class="big">${e.h}</div>`;
+    choices(m,shuffle(opts.map(x=>({h:x.e.h,s:x.e.s,ok:!!x.ok,wide:true}))),it=>{
+      if(!it.ok) return nope(m,tm("subHint1",{b:QV(I(b))}));
+      s.step=2; const msg=tm("subGood1",{b:QV(I(b)),nb:QV(I(-b))}); showFb($("#f-"+m),"good",msg.h); speak(msg.s);
+      $$("#c-addsub button").forEach(x=>x.disabled=true);
+      const o=winFor([a,a-b],1); o.marks=[{q:I(a),c:"#c0392b"}]; o.pin=a; o.sty="f";
+      pinTask(m,o,r,()=>tm("subGood2",{eq:X(A,"−",B,"=",e2,"=",QV(r))}));
+      $("#w-"+m).insertAdjacentHTML("afterbegin",`<div class="big">${X(A,"−",B,"=",e2).h}</div>`);
+      setPrompt(m,tm("subDir2",{e2})); });
+    setPrompt(m,tm("subDir1",{e}));
+  }else if(type==="dist"){
+    let a,b;
+    if(R7() && Math.random()<.5){ const d=rand([2,4,10]); a=Q(nz(-5*d,-1),d,"d"); b=Q(nz(1,5*d),d,"d"); }
+    else { const L=Math.min(R,15); a=I(-ri(1,L)); b=Math.random()<.7?I(ri(1,L)):I(-ri(1,L)); if(a.v===b.v) b=I(b.v+3); }
+    if(Math.random()<.5) [a,b]=[b,a];
+    const A=QV(a), B=QV(b), d=qAbs(qAdd(a,qNeg(b))), e=absX(X(A,"−",QV(b,true)));
+    const o=winFor([a.v,b.v],1);
+    $("#w-"+m).innerHTML=NL(Object.assign({},o,{marks:[{q:a,c:"#c0392b"},{q:b,c:"#1d4ed8"}]})).html;
+    const vis=NL(Object.assign({},o,{marks:[{q:a,c:"#c0392b"},{q:b,c:"#1d4ed8"}],spans:[{a:Math.min(a.v,b.v),b:Math.max(a.v,b.v),lab:qT(d)}]})).html;
+    choices(m,qOpts(d,[qAbs(qAdd(a,b)),qAdd(d,I(1)),qAdd(d,I(-1))]),it=>{
+      if(it.ok) return win(m,tm("distGood",{e,d:QV(d)}),vis);
+      nope(m,cat(tm("youPicked",{x:it}),tm("distHint",{e}))); });
+    setPrompt(m,tm("distDir",{a:A,b:B}));
+  }else{ // radd: fractions with unlike denominators
+    const D=[2,3,4,5,6,8]; let d1=rand(D), d2; do d2=rand(D); while(d2===d1);
+    const a=Q(sgn()*ri(1,d1-1)+(Math.random()<.3?sgn()*d1:0),d1,"f"), b0=Q(sgn()*ri(1,d2-1),d2,"f"), op=rand(["+","−"]);
+    const b=b0, r=qAdd(a,op==="+"?b:qNeg(b)), L=lcm(a.d,b.d);
+    const A=QV(a), B=QV(b,true), eq=X(A,op,B,"=",QV(r));
+    const ra=rawF(a.n*L/a.d,L), rb=rawF(b.n*L/b.d,L); rb.h=b.n<0?"("+rb.h+")":rb.h;
+    const ecd=X(ra,op,rb,"=",rawF((op==="+"?qAdd(a,b):qAdd(a,qNeg(b))).v*L,L),"=",QV(r));
+    $("#w-"+m).innerHTML=`<div class="big">${X(A,op,B,"=","?").h}</div>`;
+    choices(m,qOpts(r,[qNeg(r),Q(a.n*b.d+(op==="+"?1:-1)*b.n*a.d,a.d*b.d+a.d*b.d),qAdd(a,op==="+"?qNeg(b):b)]),it=>{
+      if(it.ok) return win(m,tm("raddGood",{e:ecd}));
+      nope(m,cat(tm("youPicked",{x:it}),tm("raddHint",{e:X(ra,op,rb)}))); });
+    setPrompt(m,W("raddDir"));
+  }
+  maybeAuto(m);
+}
+
+/* =========================================================================
+   3. MULTIPLY & DIVIDE — pattern tables, groups, sign rules, missing factor, rationals
+   ========================================================================= */
+function newMul(){
+  const m="muldiv"; startRound(m); const g=G(), R=RG();
+  const types=["pat","grp","sign","div"]; if(R7()) types.push("rat","rat");
+  const type=rand(types);
+  if(type==="pat"){
+    const f=nz(2,9)*sgn(), ask=rand([-1,-2]), ks=[3,2,1,0,-1,-2];
+    const F=k=>QV(I(k),true), P=k=>QV(I(k*f));
+    const rows=ks.map(k=>`<tr class="${k===ask?"q":k<ask?"blank":""}"><td>${F(k).h} × ${QV(I(f),true).h}</td><td>=</td><td>${k===ask?"?":k<ask?"":P(k).h}</td></tr>`).join("");
+    $("#w-"+m).innerHTML=`<table class="pat" dir="ltr">${rows}</table>`;
+    const r=I(ask*f), chg=t(f<0?"goesUp":"goesDown",{k:Math.abs(f)}), eq=X(F(ask),"×",QV(I(f),true),"=",QV(r));
+    choices(m,qOpts(r,[I(-ask*f),I(ask*f+f),I(ask*f-f)]),it=>{
+      if(it.ok) return win(m,tm("patGood",{chg,eq}));
+      nope(m,cat(tm("youPicked",{x:it}),tm("patHint",{chg}))); });
+    setPrompt(m,W("patDir"));
+  }else if(type==="grp"){
+    const a=ri(2,g===6?5:6), b=-ri(2,6), r=I(a*b), e=X(QV(I(a)),"×",QV(I(b),true));
+    $("#w-"+m).innerHTML=`<div class="grps" dir="ltr">`+Array.from({length:a},()=>`<div class="grp" role="img" aria-label="${QV(I(b)).s}">`+Array.from({length:-b},()=>`<span class="dot"></span>`).join("")+`</div>`).join("")+`</div>`;
+    choices(m,qOpts(r,[I(-a*b),I(a+b),I(a*b+b)]),it=>{
+      if(it.ok) return win(m,tm("grpGood",{a,b:QV(I(b)),p:QV(r),eq:X(QV(I(a)),"×",QV(I(b),true),"=",QV(r))}),$("#w-"+m).innerHTML);
+      nope(m,cat(tm("youPicked",{x:it}),tm("grpHint",{a,k:-b}))); });
+    setPrompt(m,tm("grpDir",{a,b:QV(I(b)),e}));
+  }else if(type==="sign"){
+    const n=g===6?3:rand([3,4]); let fs; do{ fs=Array.from({length:n},()=>ri(1,g===6?4:5)*sgn()); }while(!fs.some(x=>x<0) || Math.abs(fs.reduce((p,x)=>p*x,1))>180 || Math.abs(fs.reduce((p,x)=>p*x,1))<6);
+    const p=fs.reduce((a,x)=>a*x,1), k=fs.filter(x=>x<0).length, r=I(p);
+    const parts=[]; fs.forEach((x,i)=>{ if(i) parts.push("×"); parts.push(QV(I(x),true)); });
+    const e=X(...parts), eq=X(...parts,"=",QV(r));
+    $("#w-"+m).innerHTML=`<div class="big">${X(...parts,"=","?").h}</div>`;
+    choices(m,qOpts(r,[I(-p),I(p+(p>0?fs[0]:-fs[0])),I(-p-(p>0?1:-1)*Math.abs(fs[1]))]),it=>{
+      if(it.ok) return win(m,tm("signGood",{eq,k,oe:t(k%2?"oddW":"evenW"),pn:t(p<0?"negW":"posW")}));
+      nope(m,cat(tm("youPicked",{x:it}),W("signHint"))); });
+    setPrompt(m,W("signDir"));
+  }else if(type==="div"){
+    const L=Math.min(R,12); let b=nz(-9,9); if(Math.abs(b)===1) b*=ri(2,9); const q=nz(-L,L), a=b*q, r=I(q);
+    const A=QV(I(a)), B=QV(I(b),true), eq=X(A,"÷",B,"=",QV(r)), chk=X(QV(I(b)),"×",QV(r,true),"=",A);
+    $("#w-"+m).innerHTML=`<div class="big">${X(A,"÷",B,"=","?").h}</div>`;
+    choices(m,qOpts(r,[I(-q),I(q+1),I(q-1)]),it=>{
+      if(it.ok) return win(m,tm("divGood",{eq,chk}));
+      nope(m,cat(tm("youPicked",{x:it}),tm("divHint",{a:A,b:QV(I(b),true)}))); });
+    setPrompt(m,W("divDir"));
+  }else{
+    const k=rand(["fm","fd","dm","dd"]); let a,b,op,r,note=null,c=[];
+    if(k==="fm"||k==="fd"){ const D=[2,3,4,5,6,8,9]; const fr=()=>{ const d=rand(D); return Q(sgn()*ri(1,d-1),d,"f"); };
+      do{ a=fr(); b=fr(); }while(near(Math.abs(a.v),Math.abs(b.v)));
+      if(a.v>0&&b.v>0) a=qNeg(a);
+      if(k==="fm"){ op="×"; r=qMul(a,b); c=[qNeg(r),qDiv(a,b),Q(a.n+b.n,a.d+b.d)]; }
+      else { op="÷"; r=qDiv(a,b); c=[qNeg(r),qMul(a,b),qDiv(b,a)]; note=tm("ratDivNote",{b:QV(b,true),rb:QV(Q(b.d,b.n,"f"),true)}); }
+    } else { a=Q(nz(-40,40),10,"d"); if(a.d===1) a=Q(a.n*10+5*sgn(),10,"d");
+      if(k==="dm"){ op="×"; b=Math.random()<.5?I(nz(-6,6)):Q(nz(-9,9)*(Math.random()<.5?1:5),10,"d"); if(b.v>0&&a.v>0) a=qNeg(a); r=qMul(a,b); c=[qNeg(r),qMul(r,I(10)),qDiv(r,I(10))]; }
+      else { op="÷"; b=Math.random()<.5?I(nz(-6,6)):Q(nz(2,9)*sgn(),10,"d"); if(Math.abs(b.v)===1) b=I(2*b.v); const q=Q(nz(-30,30),10,"d"); a=qMul(b,q); r=qDiv(a,b); r=Q(r.n,r.d,"d"); c=[qNeg(r),qMul(r,I(10)),qDiv(r,I(10))]; } }
+    if(r.d>1 && k[0]==="d") r=Q(r.n,r.d,"d");
+    const A=QV(a), B=QV(b,true), eq=X(A,op,B,"=",QV(r)), fmt=x=>QV(k[0]==="d"?Q(x.n,x.d,"d"):x);
+    $("#w-"+m).innerHTML=`<div class="big">${X(A,op,B,"=","?").h}</div>`;
+    choices(m,qOpts(r,c,fmt),it=>{
+      if(it.ok) return win(m,note?cat(tm("ratGood",{eq}),note):tm("ratGood",{eq}));
+      nope(m,cat(tm("youPicked",{x:it}),W("ratHint"),note||{h:"",s:""})); });
+    setPrompt(m,W("ratDir"));
+  }
+  maybeAuto(m);
+}
+
+/* =========================================================================
+   4. REAL NUMBER SORTER — nested Venn, decimals, square roots, ordering
+   ========================================================================= */
+const CHAIN=["nat","whole","int","rat","real"], SETK={nat:"setNat",whole:"setWhole",int:"setInt",rat:"setRatN",irr:"setIrr",real:"setReal"};
+const WHY={nat:"whyNat",whole:"whyWhole",int:"whyInt",rat:"whyRat",irr:"whyIrr"};
+function inSet(set,x){ if(set==="real") return true; if(x.set==="irr") return set==="irr"; if(set==="irr") return false; return CHAIN.indexOf(set)>=CHAIN.indexOf(x.set); }
+const sqH = n=>`√<span class="rad">${n}</span>`;
+// Repeating/terminating decimal expansion by long division
+function decExp(n,d){ const ip=Math.floor(n/d); let r=n%d, ds="", seen={}, i=0;
+  while(r && seen[r]===undefined && i<12){ seen[r]=i++; r*=10; ds+=Math.floor(r/d); r%=d; }
+  if(r && seen[r]===undefined) return null;
+  return r?{ip,pre:ds.slice(0,seen[r]),rep:ds.slice(seen[r])}:{ip,pre:ds,rep:""}; }
+const decHtml = (e,neg)=>!e||(e.pre+e.rep).length>8?null:({h:(neg?MINUS:"")+e.ip+(e.pre||e.rep?".":"")+e.pre+(e.rep?`<span class="rep">${e.rep}</span>`:""),
+  s:(()=>{ const x=e.ip+(e.pre||e.rep?".":"")+e.pre+e.rep; const b=e.rep?t("repSay",{x}):x; return neg?t("negSay",{x:b}):b; })()});
+function vennItem(){
+  const g=G(), R=Math.min(RG(),20), pool=["nat","zero","negint","frac","dec"];
+  if(g>=7) pool.push("rep","imp"); if(g>=8) pool.push("sq","nsq","irr","irr","pi");
+  const k=rand(pool);
+  if(k==="nat"){ const v=ri(1,R); return {...QV(I(v)),v,set:"nat"}; }
+  if(k==="zero") return {h:"0",s:"0",v:0,set:"whole"};
+  if(k==="negint"){ const v=-ri(1,R); return {...QV(I(v)),v,set:"int"}; }
+  if(k==="frac"){ const d=rand([2,3,4,5,7,8]); const q=Q(sgn()*ri(1,3*d),d,"f"); if(q.d===1) return {...QV(Q(q.n*d+sgn(),d,"f")),set:"rat"}; return {...QV(q),set:"rat"}; }
+  if(k==="dec"){ const q=Q(sgn()*nz(1,99)+(Math.random()<.5?0:0),Math.random()<.5?10:100,"d"); if(q.d===1) return {...QV(Q(q.n*10+3,10,"d")),set:"rat"}; return {...QV(q),set:"rat"}; }
+  if(k==="rep"){ const d=rand([3,6,9,11]); let n=ri(1,d-1); while(gcd(n,d)!==1) n=ri(1,d-1); const neg=Math.random()<.4, e=decExp(n,d), x=decHtml(e,neg); return {...x,v:(neg?-1:1)*n/d,set:"rat"}; }
+  if(k==="imp"){ const d=rand([2,3,4,5,6]), w=ri(1,8)*(Math.random()<.4?-1:1), f=rawF(w*d,d); return {...f,v:w,set:w>0?"nat":"int",simp:QV(I(w))}; }
+  if(k==="sq"){ const r=ri(1,12), neg=Math.random()<.4; return {h:(neg?MINUS:"")+sqH(r*r),s:(neg?t("negSay",{x:t("sqrtSay",{n:r*r})}):t("sqrtSay",{n:r*r})),v:(neg?-r:r),set:neg?"int":"nat",simp:QV(I(neg?-r:r))}; }
+  if(k==="nsq"||k==="irr"){ let n; do n=ri(2,99); while(Number.isInteger(Math.sqrt(n))); const neg=Math.random()<.3; return {h:(neg?MINUS:"")+sqH(n),s:(neg?t("negSay",{x:t("sqrtSay",{n})}):t("sqrtSay",{n})),v:(neg?-1:1)*Math.sqrt(n),set:"irr"}; }
+  return {h:"π",s:t("piSay"),v:Math.PI,set:"irr"};
+}
+function vennSVG(full,hit,miss){
+  const lv=full?["real","rat","int","whole","nat"]:["rat","int","whole","nat"], band=50, ins=14;
+  const C={real:"#7c3aed",rat:"#1d4ed8",int:"#0f766e",whole:"#b45309",nat:"#c0392b",irr:"#be185d"}, F={real:"#f5f0ff",rat:"#eef4ff",int:"#ecfdf5",whole:"#fff7ed",nat:"#fdecea",irr:"#fdf2f8"};
+  const n=lv.length, natH=88, natTop=4+band*(n-1); const rects={};
+  let bottom=natTop+natH;
+  for(let i=n-1;i>=0;i--){ const k=lv[i], x=4+ins*i, y=4+band*i; if(i<n-1) bottom+=ins; if(k==="real") bottom+=86; rects[k]={x,y,w:392-2*ins*i,h:bottom-y}; }
+  if(full){ const r=rects.rat; rects.irr={x:r.x,y:r.y+r.h+12,w:r.w,h:62}; }
+  const H=rects[lv[0]].y+rects[lv[0]].h+4;
+  const order=full?["real","irr","rat","int","whole","nat"]:lv;
+  const s=order.map(k=>{ const r=rects[k];
+    return `<g class="vr${hit===k?" hit":""}${miss===k?" miss":""}" data-set="${k}" tabindex="0" role="button" aria-label="${t(SETK[k])}"><rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" rx="16" fill="${F[k]}" stroke="${C[k]}"/><text class="vt" x="${r.x+14}" y="${r.y+(k==="irr"?38:33)}" fill="${C[k]}">${t(SETK[k])}</text></g>`; }).join("");
+  return `<div dir="ltr"><svg class="venn" viewBox="0 0 400 ${H}" role="group" aria-label="${t("vennLbl")}">${s}</svg></div>`;
+}
+function newReal(){
+  const m="real"; startRound(m); const s=st[m], g=G();
+  const types=["venn","venn","order"]; if(g>=7) types.push("dec"); if(g>=8) types.push("sq","sqp");
+  const type=rand(types);
+  if(type==="venn"){
+    const x=vennItem(), full=g>=8; s.x=x;
+    const draw=(hit,miss)=>{ $("#w-"+m).innerHTML=`<div class="big">${M(x.h)}</div>`+vennSVG(full,hit,miss); };
+    draw();
+    const pickSet=set=>{ if(s.done) return; const X_={h:M(x.h),s:x.s};
+      if(set===x.set){ draw(set); const list=(x.set==="irr"?["irr","real"]:CHAIN.slice(CHAIN.indexOf(x.set)+1).filter(k=>full||k!=="real")).filter(k=>k!==x.set).map(k=>t(SETK[k])).join(", ");
+        let msg=tm("vennGood",{x:X_,set:t(SETK[set]),list:list||"—"}); if(x.simp) msg=cat(tm("simpNote",{x:X_,y:x.simp}),msg); return win(m,msg); }
+      draw(null,set);
+      let msg=inSet(set,x)?tm("vennTooBig",{x:X_,set:t(SETK[set])}):tm("vennNotIn",{x:X_,set:t(SETK[set]),why:t(WHY[set]||"whyRat")});
+      if(x.simp) msg=cat(msg,tm("simpNote",{x:X_,y:x.simp}));
+      nope(m,msg); };
+    const w=$("#w-"+m);
+    w.addEventListener("click",e=>{ const r=e.target.closest(".vr"); if(r) pickSet(r.dataset.set); });
+    w.addEventListener("keydown",e=>{ if(e.key!=="Enter"&&e.key!==" ") return; const r=e.target.closest(".vr"); if(r){ e.preventDefault(); const k=r.dataset.set; pickSet(k); const nr=$(`#w-real .vr[data-set="${k}"]`); if(nr&&!s.done) nr.focus(); } });
+    setPrompt(m,tm("vennDir",{x:{h:M(x.h),s:x.s}}));
+  }else if(type==="dec"){
+    const d=rand([3,6,7,9,11,12,8,20,25,40]); let n=ri(1,d-1); while(gcd(n,d)!==1) n=ri(1,d-1);
+    if(Math.random()<.25) n+=d*ri(1,2);
+    const neg=Math.random()<.35, f=rawF(neg?-n:n,d), e=decExp(n,d), r=decHtml(e,neg);
+    const wrong=[]; const add=x=>{ if(x && x.h!==r.h && !wrong.some(w=>w.h===x.h)) wrong.push(x); };
+    if(e.rep) add(decHtml({ip:e.ip,pre:e.pre+e.rep,rep:""},neg)); else add(decHtml({ip:e.ip,pre:e.pre.slice(0,-1),rep:e.pre.slice(-1)},neg));
+    add({h:(neg?MINUS:"")+n+"."+d,s:(neg?t("negSay",{x:n+"."+d}):n+"."+d)});
+    const e2=decExp(d%n===0?d+1:d,n); if(e2&&e2.ip<10) add(decHtml(e2,neg));
+    add(decHtml(decExp(n+1,d),neg)); add(decHtml(e,!neg));
+    choices(m,shuffle([{...r,ok:true}].concat(wrong.slice(0,3))).map(x=>({...x,h:M(x.h)})),it=>{
+      if(it.ok) return win(m,e.rep?tm("decGoodR",{f,x:r,r:e.rep}):tm("decGoodT",{f,x:r}));
+      nope(m,cat(tm("youPicked",{x:it}),tm("decHint",{n,d}))); });
+    $("#w-"+m).innerHTML=`<div class="big">${M(f.h+" = ?")}</div>`;
+    setPrompt(m,tm("decDir",{f}));
+  }else if(type==="sq"||type==="sqp"){
+    let n; do n=ri(3,G()>=8?224:99); while(Number.isInteger(Math.sqrt(n)));
+    const a=Math.floor(Math.sqrt(n)), b=a+1, x={h:M(sqH(n)),s:t("sqrtSay",{n})}, a2=`${a*a}`, b2=`${b*b}`;
+    if(type==="sq"){
+      const pr=(p,q)=>({h:t("sqPair",{a:p,b:q}),s:t("sqPair",{a:p,b:q}),ok:p===a,wide:true});
+      const cs=[[a,b],[a-1,a],[b,b+1]]; const h=Math.floor(n/2); if(h>b+1) cs.push([h,h+1]); else cs.push([b+1,b+2]);
+      choices(m,shuffle(cs.slice(0,4).map(([p,q])=>pr(p,q))),it=>{
+        if(it.ok) return win(m,tm("sqGood",{a2,b2,n,x,a,b}),NL({min:a-1,max:b+1,sub:10,marks:[{q:Q(Math.round(Math.sqrt(n)*10),10,"d"),t:"√"+n,c:"#c0392b"}]}).html);
+        nope(m,cat(tm("youPicked",{x:{h:it.h,s:it.s}}),tm("sqHint",{n}))); });
+      $("#w-"+m).innerHTML=`<div class="big">${x.h}</div>`;
+      setPrompt(m,tm("sqDir",{x}));
+    } else {
+      const v=Math.round(Math.sqrt(n)*10), tq=Q(v,10,"d"), o={min:a-1,max:b+1,sub:10,sty:"d",pin:a-1}; s.target=v/10; s.sub=10;
+      o.drag=true; NL(o); $("#w-"+m).innerHTML=o.html; bindPin(m,o);
+      checkBtn(m,()=>{ const p=Math.round(st[m].pin*10);
+        if(Math.abs(p-v)<=1){ const vq=Q(p,10,"d");
+          return win(m,tm("sqPlaceGood",{x,v:QV(vq),sq:(p*p/100).toFixed(2),n}),NL({min:a-1,max:b+1,sub:10,marks:[{q:vq,t:"√"+n,c:"#1d4ed8"}]}).html); }
+        nope(m,cat(tm("hint"+(v>p?"Greater":"Less"),{p:QV(Q(p,10,"d")),x,dir:t(v>p?"wRight":"wLeft")}),tm("sqPlaceHint",{x,a,b,a2,b2,n}))); });
+      setPrompt(m,tm("sqPlaceDir",{x}));
+    }
+  }else{ // order
+    const items=[]; const used=[];
+    const addIt=it=>{ if(!used.some(u=>Math.abs(u-it.v)<0.05)){ used.push(it.v); items.push(it); } };
+    let guard=0;
+    while(items.length<4 && guard++<60){
+      const k=rand(g>=8?["int","rat","rat","sq","pi"]:["int","rat","rat","dec"]);
+      if(k==="int"){ const q=I(nz(-9,9)); addIt({...QV(q),lab:{q}}); }
+      else if(k==="rat"||k==="dec"){ const r=rndRat(5,k==="dec"?[10,4]:[2,3,4,5,8]); addIt({...QV(r.q),lab:{q:r.q}}); }
+      else if(k==="sq"){ let n; do n=ri(2,80); while(Number.isInteger(Math.sqrt(n))); const neg=Math.random()<.3, v=(neg?-1:1)*Math.sqrt(n);
+        addIt({h:(neg?MINUS:"")+sqH(n),s:(neg?t("negSay",{x:t("sqrtSay",{n})}):t("sqrtSay",{n})),v,q:null,lab:{t:(neg?MINUS:"")+"√"+n,v},irr:true}); }
+      else addIt({h:"π",s:t("piSay"),v:Math.PI,lab:{t:"π",v:Math.PI},irr:true}); }
+    items.forEach(it=>{ if(it.v===undefined) it.v=it.q?it.q.v:0; });
+    const sorted=items.slice().sort((p,q)=>p.v-q.v); s.k=0; s.order=sorted.map(x=>items.indexOf(x));
+    const w=$("#w-"+m);
+    w.innerHTML=`<div class="ordrow" id="ordRow"><span class="lab">${t("ordRow")}</span></div><div class="chips" dir="ltr">`+items.map((it,i)=>`<button type="button" class="chip" data-i="${i}" aria-label="${it.s}">${M(it.h)}</button>`).join("")+`</div>`;
+    const lo=Math.floor(sorted[0].v)-1, hi=Math.ceil(sorted[3].v)+1;
+    const vis=()=>NL({min:Math.min(lo,-1),max:Math.max(hi,1),marks:sorted.map((it,i)=>Object.assign({c:["#c0392b","#1d4ed8","#0f766e","#7c3aed"][i],low:i%2===1},it.lab.q?{q:it.lab.q}:{t:it.lab.t,v:it.lab.v}))}).html;
+    w.addEventListener("click",e=>{ const c=e.target.closest(".chip"); if(!c||s.done||c.classList.contains("used")) return; const it=items[+c.dataset.i];
+      if(near(it.v,sorted[s.k].v)){ c.classList.add("used"); c.disabled=true; $("#ordRow").insertAdjacentHTML("beforeend",`<span class="chip">${M(it.h)}</span>`); s.k++; hideFb($("#f-"+m));
+        if(s.k===4){ const list={h:sorted.map(x=>M(x.h)).join(" &lt; "),s:sorted.map(x=>x.s).join(", ")};
+          const ex=$("#ordRow").outerHTML; return win(m,tm("ordGood",{list}),ex+vis()); } return; }
+      const y=sorted[s.k], ap=v=>Number.isInteger(v)?"":` (≈ ${(Math.round(v*100)/100).toString().replace("-",MINUS)})`;
+      nope(m,tm("ordHint",{x:{h:M(it.h)+ap(it.v),s:it.s},y:{h:M(y.h)+ap(y.v),s:y.s}})); });
+    actBtn(m,"↺ "+t("startOver"),()=>{ if(s.done) return; s.k=0; $$("#w-real .chip").forEach(c=>{ c.classList.remove("used"); c.disabled=false; }); $$("#ordRow .chip").forEach(c=>c.remove()); hideFb($("#f-"+m)); },"ghost");
+    setPrompt(m,W("ordDir"));
+  }
+  maybeAuto(m);
+}
+
+/* =========================================================================
+   5. CONTEXT STORIES — temperature, elevation, money
+   ========================================================================= */
+function storyGen(){
+  const g=G(), r7=R7(), types=["temp","temp","elev","money","cmp"]; if(g>=6) types.push("fee"); if(g>=7) types.push("share");
+  const type=rand(types);
+  const half=()=>r7&&Math.random()<.5;
+  if(type==="temp"){ const h=half(), sub=h?2:1, a=Q(ri(-12*sub,10*sub),sub,"d"), up=Math.random()<.5;
+    let c=Q(ri(3*sub,14*sub),sub,"d"); let r=qAdd(a,up?c:qNeg(c)); if(Math.abs(r.v)>20){ c=Q(ri(2*sub,5*sub),sub,"d"); r=qAdd(a,up?c:qNeg(c)); }
+    const A=U(a,"C"), C=U(c,"C"), cc=up?c:qNeg(c);
+    return {type,pin:true,o:Object.assign(winFor([a.v,r.v],2),{vert:true,kind:"thermo",sub,sty:"d",marks:[{q:a,c:"#7c3aed"}],pin:a.v,fill:a.v}),target:r,
+      q:tm(up?"tempRise":"tempFall",{a:A,c:C}), good:tm("tempGood",{eq:X(QV(a),"+",QV(cc,true),"=",QV(r)),r:U(r,"C")}), hint:tm("tempHint",{a:A,c:C,dir:t(up?"wUp":"wDown")})}; }
+  if(type==="elev"){ const k=rand(["dist","rise","dive"]);
+    if(k==="dist"){ const h=half(), a=Q(-ri(2,30)*(h?2:1)-(h?1:0),h?2:1,"d"), b=I(ri(3,40)); const d=qAdd(b,qNeg(a));
+      return {type,o:Object.assign(winFor([a.v,b.v],3),{vert:true,kind:"sea",marks:[{q:a,c:"#c0392b"},{q:b,c:"#1d4ed8"}]}),
+        q:tm("elevDist",{a:U(a,"m"),b:U(b,"m")}), r:d, unit:"m", cands:[qAbs(qAdd(a,b)),qAdd(d,I(10)),qNeg(d)],
+        good:tm("elevDistGood",{e:absX(X(QV(b),"−",QV(a,true))),r:U(d,"m")}), hint:tm("elevDistHint",{da:U(qAbs(a),"m"),db:U(b,"m")}),
+        spans:[{a:a.v,b:b.v,lab:qT(d)}]}; }
+    const up=k==="rise", h=half(), a=Q(-ri(10,60)*(h?2:1)-(h?1:0),h?2:1,"d"); let c=I(ri(5,25)); if(!up) c=I(ri(4,15)); const cc=up?c:qNeg(c), r=qAdd(a,cc);
+    return {type,o:Object.assign(winFor([a.v,r.v,0],3),{vert:true,kind:"sea",marks:[{q:a,c:"#c0392b"}]}),
+      q:tm(up?"elevRise":"elevDive",{a:U(a,"m"),c:U(c,"m")}), r, unit:"m", cands:[qAdd(a,up?qNeg(c):c),qNeg(r),qAbs(qAdd(qAbs(a),c))],
+      good:tm("elevGood",{eq:X(QV(a),"+",QV(cc,true),"=",QV(r)),r:U(r,"m")}), hint:tm("elevHint",{a:U(a,"m")}), after:[{q:r,c:"#1d4ed8"}]}; }
+  if(type==="money"){ const dep=Math.random()<.5, cents=r7&&Math.random()<.6, D=cents?100:1;
+    const mk=(lo,hi)=>Q(ri(lo,hi)*D+(cents?rand([25,50,75,0,5,95,40]):0)*(1),D,"d");
+    let a=dep?qNeg(mk(5,60)):mk(5,40), c=mk(5,60); if(!dep && c.v<=a.v) c=qAdd(a,mk(3,20));
+    const cc=dep?c:qNeg(c), r=qAdd(a,cc), fm=x=>U(Q(x.n,x.d,"d"),"$");
+    return {type,q:tm(dep?"moneyDep":"moneyWd",{a:U(a,"$"),c:U(c,"$")}), r, unit:"$", fmt:fm, cands:[qAdd(a,dep?qNeg(c):c),qNeg(r),qAdd(qAbs(a),c)],
+      good:tm("moneyGood",{eq:X(U(a,"$"),"+",(x=>({h:x.v<0?"("+fm(x).h+")":fm(x).h,s:fm(x).s}))(cc),"=",U(r,"$")),r:U(r,"$")}), hint:tm("moneyHint",{a:U(a,"$")})}; }
+  if(type==="fee"){ const n=ri(2,8), c=r7&&Math.random()<.5?Q(ri(2,15)*100+rand([25,50,75]),100,"d"):I(ri(2,15)), nc=qNeg(c), r=qMul(I(n),nc);
+    const fm=x=>U(Q(x.n,x.d,"d"),"$");
+    return {type,q:tm("feeDir",{c:U(c,"$"),n}), r, unit:"$", fmt:fm, cands:[qNeg(r),qAdd(r,nc),Q(nc.n-n*nc.d,nc.d)],
+      good:tm("feeGood",{eq:X(QV(I(n)),"×",{h:"("+U(nc,"$").h+")",s:U(nc,"$").s},"=",U(r,"$"))}), hint:tm("feeHint",{nc:U(nc,"$"),n})}; }
+  if(type==="share"){ const n=ri(2,6), each=r7&&Math.random()<.5?Q(ri(2,20)*100+rand([25,50,75]),100,"d"):I(ri(2,25)), a=qNeg(qMul(each,I(n))), r=qDiv(a,I(n));
+    const fm=x=>U(Q(x.n,x.d,"d"),"$");
+    return {type,q:tm("shareDir",{n,a:U(a,"$")}), r, unit:"$", fmt:fm, cands:[qNeg(r),qMul(a,I(1)),qDiv(qNeg(a),I(n+1))],
+      good:tm("shareGood",{eq:X(U(a,"$"),"÷",QV(I(n)),"=",U(r,"$")),r:U(r,"$")}), hint:W("shareHint")}; }
+  // cmp: colder / deeper
+  const cold=Math.random()<.5, u=cold?"C":"m", L=cold?20:60; let a=I(-ri(1,L)), b=I(Math.random()<.7?-ri(1,L):ri(0,L)); if(a.v===b.v) b=I(b.v+3);
+  if(r7&&cold&&Math.random()<.5){ a=Q(a.n*2-1,2,"d"); }
+  const lo=a.v<b.v?a:b, hi=lo===a?b:a, X1=U(lo,u), X2=U(hi,u);
+  return {type,cmp:true,q:W(cold?"coldDir":"deepDir"), items:[a,b], lo, u, o:Object.assign(winFor([a.v,b.v],2),{vert:true,kind:cold?"thermo":"sea",fill:cold?Math.max(a.v,b.v):null,marks:[{q:a,c:"#c0392b"},{q:b,c:"#1d4ed8"}]}),
+    good:tm(cold?"coldGood":"deepGood",{stmt:S3(QV(lo),"<",QV(hi)),x:X1}), hint:W(cold?"coldHint":"deepHint")};
+}
+function newStory(){
+  const m="story"; startRound(m); const S=storyGen(), w=$("#w-"+m);
+  if(S.pin) pinTask(m,S.o,S.target,()=>S.good,{extra:S.hint});
+  else if(S.cmp){ if(S.o.kind==="thermo") S.o.fill=Math.max(...S.items.map(x=>x.v));
+    w.innerHTML=NL(S.o).html;
+    choices(m,S.items.map(q=>({...U(q,S.u),ok:q===S.lo})),it=>{ if(it.ok) return win(m,S.good,w.innerHTML); nope(m,cat(tm("youPicked",{x:it}),S.hint)); }); }
+  else { const fmt=S.fmt||(x=>U(x,S.unit));
+    if(S.o){ w.innerHTML=NL(S.o).html; }
+    else w.innerHTML=`<div class="big" aria-hidden="true">${S.type==="fee"||S.type==="share"?"🧾":"💳"}</div>`;
+    const vis=S.o?NL(Object.assign({},S.o,{spans:S.spans||[],marks:S.o.marks.concat(S.after||[])})).html:null;
+    choices(m,qOpts(S.r,S.cands,fmt),it=>{ if(it.ok) return win(m,S.good,vis); nope(m,cat(tm("youPicked",{x:it}),S.hint)); }); }
+  setPrompt(m,S.q);
+  maybeAuto(m);
+}
+
+/* ---------- Mode switching ---------- */
+const NEWFN={line:newLine,addsub:newAdd,muldiv:newMul,real:newReal,story:newStory};
+function firstMode(){ return MODES.find(m=>settings.modes[m])||"line"; }
+function currentMode(){ const b=$$(".tabs button").find(x=>x.getAttribute("aria-selected")==="true"); return b?b.dataset.mode:firstMode(); }
+function showMode(mode){
+  if(!settings.modes[mode]) mode=firstMode();
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
+  $$(".modepanel").forEach(p=>p.classList.add("hidden"));
+  $("#mode-"+mode).classList.remove("hidden");
+  $$(".tabs button").forEach(b=>{ const on=b.dataset.mode===mode; b.setAttribute("aria-selected",on?"true":"false"); b.tabIndex=on?0:-1; });
+  if(!made[mode]) NEWFN[mode]();
+  if(switching && speechGen===g0) maybeAuto(mode);
+}
+function syncTabs(){
+  $$(".tabs button").forEach(b=>b.classList.toggle("hidden",!settings.modes[b.dataset.mode]));
+  if(!settings.modes[currentMode()]) showMode(firstMode());
+}
+function resetRounds(){ MODES.forEach(m=>made[m]=false); stopSpeech(); NEWFN[currentMode()](); }
+
+/* ---------- Settings drawer ---------- */
+function buildModeToggles(){
+  const wrap=$("#modeToggles"); wrap.innerHTML="";
+  MODES.forEach(m=>{ const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.modes[m]?"checked":""}> <span>${MODE_IC[m]} ${t(MODE_KEY[m])}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{ settings.modes[m]=e.target.checked;
+      if(!MODES.some(k=>settings.modes[k])){ e.target.checked=true; settings.modes[m]=true; }
+      saveSettings(); syncTabs(); });
+    wrap.appendChild(l); });
+}
+function syncSettingsUI(){
+  $("#setGrade").value=String(settings.grade); $("#setRange").value=String(settings.range); $("#setRatIn").checked=settings.rat;
+  $("#setAuto").checked=settings.autoRead; buildModeToggles();
+}
+function closeSettings(){ $("#settingsDrawer").classList.remove("open"); $("#openSettings").focus(); }
+function initSettings(){
+  $("#openSettings").addEventListener("click",()=>{ syncSettingsUI(); $("#settingsDrawer").classList.add("open"); $("#closeSettings").focus(); });
+  $("#closeSettings").addEventListener("click",closeSettings);
+  $("#settingsDrawer").addEventListener("click",e=>{ if(e.target.id==="settingsDrawer") closeSettings(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape" && $("#settingsDrawer").classList.contains("open")) closeSettings(); });
+  $("#setGrade").addEventListener("change",e=>{ const g=+e.target.value; settings.grade=g;
+    Object.assign(settings,{range:GRADES[g].range,rat:GRADES[g].rat}); saveSettings(); syncSettingsUI(); resetRounds(); });
+  $("#setRange").addEventListener("change",e=>{ settings.range=+e.target.value; saveSettings(); resetRounds(); });
+  $("#setRatIn").addEventListener("change",e=>{ settings.rat=e.target.checked; saveSettings(); resetRounds(); });
+  $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
+  $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
+}
+
+/* ---------- Print cards ---------- */
+function buildPrintCards(){
+  const blank=`<span style="display:inline-block;min-width:4rem;border-bottom:2px solid #000">&nbsp;</span>`;
+  const pts=[I(-ri(2,6)),I(ri(1,5)),RAT()?Q(-ri(1,3)*2-1,2,"d"):I(-1),RAT()?Q(sgn()*ri(1,3),4,"f"):I(3)];
+  const a1=nz(-9,-2), b1=ri(2,9), a2=nz(-9,9), b2=-ri(2,9);
+  const f1=-ri(2,9), f2=-ri(2,9), dv=nz(-9,9)*ri(2,8), dd=nz(2,9)*sgn();
+  const vi=[vennItem(),vennItem(),vennItem(),vennItem()];
+  const S=storyGen();
+  const lineSvg=NL({min:-6,max:6,sub:RAT()?2:1}).html;
+  const cards=[
+    {title:t("mLine"), body:t("cardLine"), html:`<p style="font-size:1.4rem">${pts.map(q=>M(qH(q))).join(" , ")}</p>${lineSvg}`},
+    {title:t("mAdd"), body:t("cardAdd"), html:`<p style="font-size:1.5rem;line-height:2">${X(QV(I(a1)),"+",QV(I(b1)),"=","____").h}<br>${X(QV(I(a2)),"−",QV(I(b2),true),"=","____").h}</p>${lineSvg}`},
+    {title:t("mMul"), body:t("cardMul"), html:`<p style="font-size:1.5rem;line-height:2">${X(QV(I(f1)),"×",QV(I(f2),true),"=","____").h}<br>${X(QV(I(dv*dd)),"÷",QV(I(dd),true),"=","____").h}</p>`},
+    {title:t("mReal"), body:t("cardReal"), html:`<p style="font-size:1.4rem">${vi.map(x=>M(x.h)).join(" , ")}</p>${vennSVG(G()>=8)}`},
+    {title:t("mStory"), body:S.q.h, html:`<p>${t("cardStory")} ${blank}</p>`}
+  ];
+  $("#printArea").innerHTML=`<h1>${t("cardTitle")}</h1><p>${t("cardName")} ____________________</p>`+
+    cards.map(c=>`<div class="card-print"><h2>${c.title}</h2><p style="font-size:1.2rem;line-height:1.8">${c.body}</p>${c.html}</div>`).join("")+
+    `<p style="font-size:.85rem">${stdsHTML()}</p>`;
+}
+
+// Standards codes stay left-to-right inside Arabic/Urdu text.
+function stdsHTML(){ return t("stds").replace(/(TEKS|Common Core|\d\.(?:NS\.)?\d+[a-z]?(?:[–-][a-z])?(?:\([^)]*\))?)/g,'<bdi dir="ltr">$1</bdi>'); }
+
+/* ---------- Language engine ---------- */
+function resolveLang(){
+  try{ const q=new URLSearchParams(location.search).get("lang"); if(q && T[q]) return q; }catch(e){}
+  try{ const s=localStorage.getItem(LANG_KEY); if(s && T[s]) return s; }catch(e){}
+  const n=(navigator.language||"en").slice(0,2).toLowerCase();
+  if(T[n]) return n;
+  return "en";
+}
+function applyLang(){
+  const meta=LANGS.find(x=>x.code===lang)||LANGS[0];
+  document.documentElement.lang=lang;
+  document.documentElement.dir=meta.dir;
+  document.title=t("appTitle");
+  const sel=$("#langSelect"); if(sel) sel.value=lang;
+  $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
+  $("#stdsNote").innerHTML=stdsHTML();
+  buildModeToggles();
+  resetRounds();
+}
+function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} applyLang(); }
+function buildLangSelect(){
+  const sel=$("#langSelect"); sel.innerHTML="";
+  LANGS.forEach(m=>{ const o=document.createElement("option"); o.value=m.code; o.textContent=m.name; sel.appendChild(o); });
+  sel.value=lang;
+  sel.addEventListener("change",()=>setLang(sel.value));
+}
+
+/* ---------- Init ---------- */
+function buildUI(){
+  $("#tabs").innerHTML=MODES.map(m=>`<button type="button" role="tab" id="tab-${m}" aria-controls="mode-${m}" aria-selected="false" data-mode="${m}"><span class="ic" aria-hidden="true">${MODE_IC[m]}</span><span data-t="${MODE_KEY[m]}"></span></button>`).join("");
+  $("#panels").innerHTML=MODES.map(m=>`<section id="mode-${m}" class="panel modepanel hidden" role="tabpanel" aria-labelledby="tab-${m}">
+    <div class="panelhead"><h2 data-t="${MODE_KEY[m]}"></h2><button type="button" class="btn ghost no-print" data-new="${m}" data-t="newRound"></button></div>
+    <div class="prompt"><button type="button" class="speaker" data-speak="${m}" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="p-${m}">…</span></div>
+    <div class="work" id="w-${m}"></div>
+    <div class="acts no-print" id="a-${m}"></div>
+    <div class="choices" id="c-${m}" role="group" data-ta="choicesLbl" aria-label="Answer choices"></div>
+    <div class="feedback" id="f-${m}" role="status" aria-live="polite"></div></section>`).join("");
+  // Arrow keys move between tabs (WAI-ARIA tabs pattern).
+  $("#tabs").addEventListener("keydown",e=>{ const vis=$$(".tabs button").filter(b=>!b.classList.contains("hidden")), i=vis.indexOf(document.activeElement); if(i<0) return;
+    const rtl=document.documentElement.dir==="rtl", step={ArrowRight:rtl?-1:1,ArrowLeft:rtl?1:-1}[e.key]; if(!step) return;
+    const nb=vis[(i+step+vis.length)%vis.length]; nb.focus(); showMode(nb.dataset.mode); e.preventDefault(); });
+}
+function init(){
+  lang=resolveLang();
+  buildUI();
+  buildLangSelect();
+  $$(".tabs button").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.mode)));
+  $$(".speaker").forEach(b=>b.addEventListener("click",()=>speak(currentSpeech[b.dataset.speak])));
+  $$("[data-new]").forEach(b=>b.addEventListener("click",()=>{ stopSpeech(); NEWFN[b.dataset.new](); }));
+  initSettings();
+  const f=firstMode();
+  $$(".tabs button").forEach(b=>{ const on=b.dataset.mode===f; b.setAttribute("aria-selected",on?"true":"false"); b.tabIndex=on?0:-1; b.classList.toggle("hidden",!settings.modes[b.dataset.mode]); });
+  $$(".modepanel").forEach(p=>p.classList.toggle("hidden",p.id!=="mode-"+f));
+  applyLang();
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+</script>
+<script>
+/* Student mute toggle — shared across the Digital Math Tools. Self-contained,
+   offline, stores no student data. Gates ALL speech by intercepting
+   speechSynthesis.speak, so muting works regardless of each tool's internals.
+   Reads the shared language preference only to localize its own label. */
+(function(){
+  "use strict";
+  var LKEY='tcea.mathtools.lang', MKEY='tcea.mathtools.muted';
+  var CODES=['en','es','vi','ar','hi','ur','zh'];
+  var LAB={
+    mute:{en:"Mute sound",es:"Silenciar sonido",vi:"Tắt âm thanh",ar:"كتم الصوت",hi:"आवाज़ बंद करें",ur:"آواز بند کریں",zh:"静音"},
+    unmute:{en:"Turn sound on",es:"Activar sonido",vi:"Bật âm thanh",ar:"تشغيل الصوت",hi:"आवाज़ चालू करें",ur:"آواز چالو کریں",zh:"打开声音"}
+  };
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  window.__MT_MUTED = (get(MKEY)==='1');
+  // Intercept every speech request; suppress while muted.
+  try{
+    if(window.speechSynthesis && typeof window.speechSynthesis.speak==='function'){
+      var ss=window.speechSynthesis, orig=ss.speak.bind(ss);
+      ss.speak=function(u){ if(!window.__MT_MUTED){ try{orig(u);}catch(e){} } };
+    }
+  }catch(e){}
+  function curLang(){ var l=get(LKEY)||'en'; return LAB.mute[l]?l:'en'; }
+  function label(el){
+    var on=!window.__MT_MUTED, l=curLang(), txt=on?LAB.mute[l]:LAB.unmute[l];
+    el.textContent=on?'🔊':'🔇';
+    el.setAttribute('aria-label',txt); el.setAttribute('title',txt);
+    el.setAttribute('aria-pressed', on?'false':'true');
+  }
+  function findLangSelect(){
+    var sels=document.querySelectorAll('select');
+    for(var i=0;i<sels.length;i++){ var o=sels[i].options, c=0;
+      for(var j=0;j<o.length;j++){ if(CODES.indexOf((o[j].value||'').toLowerCase())>=0) c++; }
+      if(c>=3) return sels[i];
+    }
+    return null;
+  }
+  function build(){
+    if(document.getElementById('mtMuteBtn')) return;
+    if(!(('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window))) return;
+    var btn=document.createElement('button');
+    btn.id='mtMuteBtn'; btn.type='button';
+    btn.style.cssText='font:inherit;font-size:1.15rem;line-height:1;cursor:pointer;'+
+      'min-width:44px;min-height:44px;padding:8px 12px;border:2px solid #e2dcf1;'+
+      'border-radius:10px;background:#fff;color:#5b3fa5;font-weight:700;margin:0 4px;';
+    btn.addEventListener('click',function(){
+      window.__MT_MUTED=!window.__MT_MUTED;
+      set(MKEY, window.__MT_MUTED?'1':'0');
+      if(window.__MT_MUTED){ try{window.speechSynthesis.cancel();}catch(e){} }
+      label(btn);
+    });
+    btn.addEventListener('focus',function(){btn.style.outline='3px solid #5b3fa5';btn.style.outlineOffset='2px';});
+    btn.addEventListener('blur',function(){btn.style.outline='';});
+    var sel=findLangSelect();
+    if(sel && sel.parentNode){
+      sel.parentNode.insertBefore(btn, sel);
+      sel.addEventListener('change',function(){ setTimeout(function(){label(btn);},0); });
+    }else{
+      btn.style.position='fixed'; btn.style.top='10px'; btn.style.zIndex='9999';
+      btn.style[(document.documentElement.dir==='rtl')?'left':'right']='10px';
+      (document.body||document.documentElement).appendChild(btn);
+    }
+    label(btn);
+  }
+  if(document.readyState==='complete'){ build(); }
+  else{ window.addEventListener('load', build); }
+  window.addEventListener('storage',function(e){ if(e.key===LKEY){ var b=document.getElementById('mtMuteBtn'); if(b) label(b); } });
+})();
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+
+</html>

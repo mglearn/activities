@@ -133,7 +133,11 @@ window.MATHTOOLS = (function () {
     "Functions":{en:"Functions",es:"Funciones",vi:"Hàm số",ar:"الدوال",hi:"फलन",ur:"تفاعل",zh:"函数"},
     "Circles":{en:"Circles",es:"Círculos",vi:"Hình tròn",ar:"الدوائر",hi:"वृत्त",ur:"دائرے",zh:"圆"},
     "Transformations":{en:"Transformations",es:"Transformaciones",vi:"Phép biến hình",ar:"التحويلات الهندسية",hi:"रूपांतरण",ur:"تبدیلیاں",zh:"图形变换"},
-    "Pythagorean theorem":{en:"Pythagorean theorem",es:"Teorema de Pitágoras",vi:"Định lý Pythagore",ar:"نظرية فيثاغورس",hi:"पाइथागोरस प्रमेय",ur:"فیثاغورث کا مسئلہ",zh:"勾股定理"}
+    "Pythagorean theorem":{en:"Pythagorean theorem",es:"Teorema de Pitágoras",vi:"Định lý Pythagore",ar:"نظرية فيثاغورس",hi:"पाइथागोरस प्रमेय",ur:"فیثاغورث کا مسئلہ",zh:"勾股定理"},
+    "Integers":{en:"Integers",es:"Números enteros",vi:"Số nguyên",ar:"الأعداد الصحيحة",hi:"पूर्णांक",ur:"صحیح اعداد",zh:"整数"},
+    "Number line":{en:"Number line",es:"Recta numérica",vi:"Trục số",ar:"خط الأعداد",hi:"संख्या रेखा",ur:"عددی خط",zh:"数轴"},
+    "Rational numbers":{en:"Rational numbers",es:"Números racionales",vi:"Số hữu tỉ",ar:"الأعداد النسبية",hi:"परिमेय संख्याएँ",ur:"ناطق اعداد",zh:"有理数"},
+    "Real numbers":{en:"Real numbers",es:"Números reales",vi:"Số thực",ar:"الأعداد الحقيقية",hi:"वास्तविक संख्याएँ",ur:"حقیقی اعداد",zh:"实数"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -365,7 +369,19 @@ window.MATHTOOLS = (function () {
         ar:"قصّ الأشكال وأعِد ترتيبها لتكتشف صيغ المساحة، دحرج الدوائر واسكب المجسمات لترى π و⅓، ارسم التحويلات على المستوى الإحداثي، أوجد الزوايا الناقصة، وشاهد برهان نظرية فيثاغورس.",
         hi:"आकृतियों को काटकर फिर से जमाओ और क्षेत्रफल के सूत्र खोजो, वृत्त लुढ़काकर और ठोस भरकर π और ⅓ देखो, निर्देशांक तल पर रूपांतरण बनाओ, छूटे कोण ज्ञात करो और पाइथागोरस प्रमेय का प्रमाण देखो।",
         ur:"اشکال کاٹ کر دوبارہ جوڑیں اور رقبے کے فارمولے دریافت کریں، دائرے لڑھکا کر اور ٹھوس اشکال بھر کر π اور ⅓ دیکھیں، محدداتی سطح پر تبدیلیاں بنائیں، غائب زاویے معلوم کریں اور فیثاغورث کے مسئلے کا ثبوت دیکھیں۔",
-        zh:"剪开并重新拼合图形，发现面积公式；滚动圆、倾倒立体图形，看懂 π 和 ⅓；在坐标平面上画出图形变换；求未知角；观看勾股定理的证明。"} }
+        zh:"剪开并重新拼合图形，发现面积公式；滚动圆、倾倒立体图形，看懂 π 和 ⅓；在坐标平面上画出图形变换；求未知角；观看勾股定理的证明。"} },
+    { id:"integer-number-line-lab", collection:"g68", bandId:"6-8", icon:"🌡️", accent:"#c0392b",
+      title:"Integer & Rational Number Lab", href:"g68/integer-number-line-lab/index.html",
+      tags:["Integers","Rational numbers","Real numbers","Number line","Compare","Classify","Story problems"],
+      kw:"integer integers negative positive opposite opposites absolute value number line rational irrational real numbers venn natural whole two-color counters zero pair add the opposite sign rules multiply divide repeating decimal terminating square root estimate temperature elevation sea level debt money enteros números racionales 整数 有理数",
+      desc:{
+        en:"Place integers and rational numbers on number lines, use counters and number-line moves to add and subtract, discover sign rules for multiplying and dividing, sort real numbers in a Venn diagram, and solve temperature, elevation, and money stories.",
+        es:"Ubica enteros y números racionales en rectas numéricas, usa fichas y saltos para sumar y restar, descubre las reglas de los signos al multiplicar y dividir, clasifica números reales en un diagrama de Venn y resuelve situaciones de temperatura, elevación y dinero.",
+        vi:"Đặt số nguyên và số hữu tỉ trên trục số, dùng thẻ và bước nhảy để cộng trừ, khám phá quy tắc dấu khi nhân chia, phân loại số thực bằng sơ đồ Venn, và giải bài toán về nhiệt độ, độ cao và tiền.",
+        ar:"عيّن الأعداد الصحيحة والنسبية على خطوط الأعداد، واستخدم القطع والقفزات للجمع والطرح، واكتشف قواعد الإشارات في الضرب والقسمة، وصنّف الأعداد الحقيقية في مخطط فن، وحُلّ مسائل عن درجة الحرارة والارتفاع والمال.",
+        hi:"पूर्णांकों और परिमेय संख्याओं को संख्या रेखा पर रखें, जोड़-घटाव के लिए काउंटर और छलाँगें इस्तेमाल करें, गुणा-भाग के चिह्न नियम खोजें, वेन आरेख में वास्तविक संख्याएँ छाँटें, और तापमान, ऊँचाई व पैसों के सवाल हल करें।",
+        ur:"صحیح اور ناطق اعداد کو عددی خط پر رکھیں، جمع و تفریق کے لیے کاؤنٹر اور چھلانگیں استعمال کریں، ضرب و تقسیم کے علامتی اصول دریافت کریں، وین ڈایاگرام میں حقیقی اعداد کی درجہ بندی کریں، اور درجہ حرارت، بلندی اور رقم کے سوال حل کریں۔",
+        zh:"在数轴上表示整数和有理数，用计数片和数轴跳跃做加减法，探索乘除法的符号规则，用韦恩图给实数分类，并解决温度、海拔和钱的情境问题。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
