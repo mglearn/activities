@@ -100,7 +100,10 @@ window.MATHTOOLS = (function () {
     "Volume":{en:"Volume",es:"Volumen",vi:"Thể tích",ar:"الحجم",hi:"आयतन",ur:"حجم",zh:"体积"},
     "Conversions":{en:"Conversions",es:"Conversiones",vi:"Đổi đơn vị",ar:"تحويل الوحدات",hi:"इकाई रूपांतरण",ur:"اکائیوں کی تبدیلی",zh:"单位换算"},
     "Multiplication":{en:"Multiplication",es:"Multiplicación",vi:"Phép nhân",ar:"الضرب",hi:"गुणा",ur:"ضرب",zh:"乘法"},
-    "Division":{en:"Division",es:"División",vi:"Phép chia",ar:"القسمة",hi:"भाग",ur:"تقسیم",zh:"除法"}
+    "Division":{en:"Division",es:"División",vi:"Phép chia",ar:"القسمة",hi:"भाग",ur:"تقسیم",zh:"除法"},
+    "Angles":{en:"Angles",es:"Ángulos",vi:"Góc",ar:"الزوايا",hi:"कोण",ur:"زاویے",zh:"角"},
+    "Lines & symmetry":{en:"Lines & symmetry",es:"Rectas y simetría",vi:"Đường thẳng và đối xứng",ar:"المستقيمات والتماثل",hi:"रेखाएँ और सममिति",ur:"خطوط اور تشاکل",zh:"线与对称"},
+    "Coordinate plane":{en:"Coordinate plane",es:"Plano de coordenadas",vi:"Mặt phẳng tọa độ",ar:"المستوى الإحداثي",hi:"निर्देशांक तल",ur:"محدداتی سطح",zh:"坐标平面"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -260,7 +263,19 @@ window.MATHTOOLS = (function () {
         ar:"ابنِ المصفوفات والمجموعات المتساوية، وقسّم نماذج المساحة إلى نواتج جزئية، واقسم بنواتج القسمة الجزئية وفسّر الباقي، وتدرّب على عائلات الحقائق والعوامل والأعداد الأولية، وحُلّ قصصًا متعددة الخطوات.",
         hi:"सरणियाँ और बराबर समूह बनाएँ, क्षेत्रफल मॉडल को आंशिक गुणनफलों में बाँटें, आंशिक भागफलों से भाग करें और शेषफल का अर्थ समझें, तथ्य परिवार, गुणनखंड और अभाज्य संख्याओं का अभ्यास करें, और बहु-चरण कहानियाँ हल करें।",
         ur:"صف بندیاں اور برابر گروہ بنائیں، رقبے کے ماڈل کو جزوی حاصلِ ضرب میں تقسیم کریں، جزوی حاصلِ قسمت سے تقسیم کریں اور باقی کو سمجھیں، حقائق کے خاندان، اجزائے ضربی اور مفرد اعداد کی مشق کریں، اور کئی مراحل والی کہانیاں حل کریں۔",
-        zh:"搭建阵列和等分组，把面积模型拆成部分积，用部分商做除法并理解余数，练习算式家族、因数和质数，并解答多步应用题。"} }
+        zh:"搭建阵列和等分组，把面积模型拆成部分积，用部分商做除法并理解余数，练习算式家族、因数和质数，并解答多步应用题。"} },
+    { id:"angle-and-grid-explorer", collection:"g35", bandId:"3-5", icon:"🧭", accent:"#2980b9",
+      title:"Angle & Grid Explorer", href:"g35/angle-and-grid-explorer/index.html",
+      tags:["2-D shapes","Attributes","Classify","Angles","Lines & symmetry","Coordinate plane"],
+      kw:"geometry quadrilateral rhombus trapezoid parallelogram rectangle square hierarchy venn parallel perpendicular point line ray segment symmetry fold angle acute right obtuse straight protractor degrees measure draw additive triangle equilateral isosceles scalene coordinate plane ordered pair plot quadrant x y axis origin table ángulo transportador simetría coordenadas 角 量角器 对称 坐标",
+      desc:{
+        en:"Classify quadrilaterals and triangles, spot parallel and perpendicular lines, fold to find lines of symmetry, measure and draw angles with a protractor, and plot ordered pairs on the coordinate plane.",
+        es:"Clasifica cuadriláteros y triángulos, identifica rectas paralelas y perpendiculares, dobla para hallar ejes de simetría, mide y dibuja ángulos con un transportador y ubica pares ordenados en el plano de coordenadas.",
+        vi:"Phân loại tứ giác và tam giác, nhận ra đường song song và vuông góc, gấp hình để tìm trục đối xứng, đo và vẽ góc bằng thước đo góc, và vẽ cặp số có thứ tự trên mặt phẳng tọa độ.",
+        ar:"صنّف الأشكال الرباعية والمثلثات، وتعرّف المستقيمات المتوازية والمتعامدة، واطوِ الأشكال لتجد محاور التماثل، وقِس الزوايا وارسمها بالمنقلة، وعيّن الأزواج المرتبة على المستوى الإحداثي.",
+        hi:"चतुर्भुजों और त्रिभुजों का वर्गीकरण करें, समांतर और लंबवत रेखाएँ पहचानें, मोड़कर सममिति रेखाएँ खोजें, चाँदे से कोण मापें और बनाएँ, और निर्देशांक तल पर क्रमित युग्म अंकित करें।",
+        ur:"چوکوروں اور مثلثوں کی درجہ بندی کریں، متوازی اور عمودی خطوط پہچانیں، موڑ کر تشاکل کے خط تلاش کریں، زاویہ پیما سے زاویے ناپیں اور بنائیں، اور محدداتی سطح پر مرتب جوڑے لگائیں۔",
+        zh:"给四边形和三角形分类，找出平行线和垂直线，折一折找对称轴，用量角器量角和画角，并在坐标平面上描出有序数对。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
