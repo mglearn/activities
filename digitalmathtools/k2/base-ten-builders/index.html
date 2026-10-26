@@ -106,6 +106,14 @@
   .pop{animation:pop .45s ease}
   @keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
   .dragghost{position:fixed;z-index:80;pointer-events:none;transform:translate(-50%,-50%);opacity:.85;--fl:70px;--rh:70px;--rw:12px;--cu:20px}
+  .dragghost.back{transition:left .2s ease,top .2s ease,opacity .2s ease;opacity:0}
+  .colblocks .bh,.colblocks .bt,.colblocks .bo{touch-action:none;cursor:grab}
+  .colblocks .lift{opacity:.3}
+  .col.over{outline:4px dashed var(--accent);outline-offset:-2px}
+  .split{animation:split .45s ease forwards}
+  @keyframes split{60%{transform:scaleX(1.6)}100%{transform:scale(1.2);opacity:0}}
+  .mathelp{margin:.4rem 0 0;font-size:.9rem;color:var(--muted);text-align:center}
+  .feedback.note{background:#eef7fc;color:#0b4a6f;border:2px solid #9fd3f0}
 
   /* Compare */
   .cmprow{display:grid;grid-template-columns:1fr auto 1fr;gap:.5rem;align-items:center}
@@ -196,7 +204,7 @@
       <button class="btn ghost no-print" id="buildNew" data-t="newRound">New round</button></div>
     <div class="prompt"><button class="speaker" data-speak="build" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="buildPrompt">…</span></div>
     <div class="builder">
-      <div class="tray"><h3 data-t="trayTitle">Blocks</h3><p data-t="trayHelp">Tap or drag a block onto the mat.</p>
+      <div class="tray"><h3 data-t="trayTitle">Blocks</h3><p data-t="trayHelp">Tap or drag a block onto the mat. Drag it back off the mat to take it away.</p>
         <div class="traygrid">
           <button type="button" class="traybtn" id="trayH" data-add="h" data-ta="addH" aria-label="Add a hundred"><span class="tvis bh" aria-hidden="true"></span><span class="tl" aria-hidden="true"><span data-t="nmH">hundred</span> <b>100</b></span></button>
           <button type="button" class="traybtn" id="trayT" data-add="t" data-ta="addT" aria-label="Add a ten"><span class="tvis bt" aria-hidden="true"></span><span class="tl" aria-hidden="true"><span data-t="nmT">ten</span> <b>10</b></span></button>
@@ -213,6 +221,7 @@
             <div class="colblocks" id="blkO"></div><div class="colfoot"><button type="button" class="btn ghost minus" data-rem="o" data-ta="remO" aria-label="Take away a one">−</button></div></div>
         </div>
         <div class="mattotal" id="matTotal"></div>
+        <p class="mathelp no-print" id="matHelp"></p>
         <div class="matacts no-print" id="matActs"></div>
         <div class="stagetools no-print">
           <button type="button" class="btn" id="buildCheck">✔ <span data-t="check">Check</span></button>
@@ -325,7 +334,8 @@ const T = {
     appTitle:"Base-Ten Builders", home:"Home", privacy:"Privacy", teacher:"Teacher", language:"Language", readAloud:"Read aloud",
     modesLbl:"Modes", stars:"Stars earned", newRound:"New round", footNote:"No accounts · No data collected · Works offline",
     mBuild:"Build It", mRead:"Read It", mCmp:"Compare", mChart:"More & Less", mSkip:"Skip Count",
-    trayTitle:"Blocks", trayHelp:"Tap or drag a block onto the mat.", addH:"Add a hundred", addT:"Add a ten", addO:"Add a one",
+    trayTitle:"Blocks", trayHelp:"Tap or drag a block onto the mat. Drag it back off the mat to take it away.", matHelp:"Tip: drag a ten onto Ones to break it into 10 ones.", matHelpH:"Drag a hundred onto Tens to break it into 10 tens.",
+    needO:"You need 10 ones to make 1 ten. You have {x}.", needT:"You need 10 tens to make 1 hundred. You have {x}.", noRoom:"That column is full. Take some blocks away first.", addH:"Add a hundred", addT:"Add a ten", addO:"Add a one",
     nmH:"hundred", nmT:"ten", nmO:"one", colH:"Hundreds", colT:"Tens", colO:"Ones", matLbl:"Place value mat",
     remH:"Take away a hundred", remT:"Take away a ten", remO:"Take away a one", check:"Check", clear:"Clear", totalLbl:"Total:",
     tradeO:"Trade 10 ones for 1 ten", tradeT:"Trade 10 tens for 1 hundred", breakT:"Break 1 ten into 10 ones", breakH:"Break 1 hundred into 10 tens",
@@ -366,7 +376,8 @@ const T = {
     appTitle:"Constructores de Base Diez", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", language:"Idioma", readAloud:"Leer en voz alta",
     modesLbl:"Modos", stars:"Estrellas ganadas", newRound:"Nueva ronda", footNote:"Sin cuentas · Sin datos · Funciona sin conexión",
     mBuild:"Constrúyelo", mRead:"Léelo", mCmp:"Compara", mChart:"Más y Menos", mSkip:"Cuenta Salteado",
-    trayTitle:"Bloques", trayHelp:"Toca o arrastra un bloque al tapete.", addH:"Agregar una centena", addT:"Agregar una decena", addO:"Agregar una unidad",
+    trayTitle:"Bloques", trayHelp:"Toca o arrastra un bloque al tapete. Arrástralo fuera del tapete para quitarlo.", matHelp:"Consejo: arrastra una decena a las Unidades para romperla en 10 unidades.", matHelpH:"Arrastra una centena a las Decenas para romperla en 10 decenas.",
+    needO:"Necesitas 10 unidades para formar 1 decena. Tienes {x}.", needT:"Necesitas 10 decenas para formar 1 centena. Tienes {x}.", noRoom:"Esa columna está llena. Primero quita algunos bloques.", addH:"Agregar una centena", addT:"Agregar una decena", addO:"Agregar una unidad",
     nmH:"centena", nmT:"decena", nmO:"unidad", colH:"Centenas", colT:"Decenas", colO:"Unidades", matLbl:"Tapete de valor posicional",
     remH:"Quitar una centena", remT:"Quitar una decena", remO:"Quitar una unidad", check:"Revisar", clear:"Borrar", totalLbl:"Total:",
     tradeO:"Cambia 10 unidades por 1 decena", tradeT:"Cambia 10 decenas por 1 centena", breakT:"Rompe 1 decena en 10 unidades", breakH:"Rompe 1 centena en 10 decenas",
@@ -407,7 +418,8 @@ const T = {
     appTitle:"Thợ Xây Hệ Mười", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", language:"Ngôn ngữ", readAloud:"Đọc to",
     modesLbl:"Chế độ", stars:"Số sao đạt được", newRound:"Vòng mới", footNote:"Không tài khoản · Không thu thập dữ liệu · Hoạt động ngoại tuyến",
     mBuild:"Xây Số", mRead:"Đọc Số", mCmp:"So Sánh", mChart:"Thêm & Bớt", mSkip:"Đếm Cách Quãng",
-    trayTitle:"Khối", trayHelp:"Chạm hoặc kéo một khối vào bảng.", addH:"Thêm một trăm", addT:"Thêm một chục", addO:"Thêm một đơn vị",
+    trayTitle:"Khối", trayHelp:"Chạm hoặc kéo một khối vào bảng. Kéo khối ra khỏi bảng để bỏ đi.", matHelp:"Mẹo: kéo một chục vào cột Đơn vị để tách thành 10 đơn vị.", matHelpH:"Kéo một trăm vào cột Chục để tách thành 10 chục.",
+    needO:"Cần 10 đơn vị để đổi lấy 1 chục. Em có {x}.", needT:"Cần 10 chục để đổi lấy 1 trăm. Em có {x}.", noRoom:"Cột đó đã đầy. Hãy bỏ bớt vài khối trước.", addH:"Thêm một trăm", addT:"Thêm một chục", addO:"Thêm một đơn vị",
     nmH:"trăm", nmT:"chục", nmO:"đơn vị", colH:"Trăm", colT:"Chục", colO:"Đơn vị", matLbl:"Bảng giá trị theo hàng",
     remH:"Bớt một trăm", remT:"Bớt một chục", remO:"Bớt một đơn vị", check:"Kiểm tra", clear:"Xóa", totalLbl:"Tổng:",
     tradeO:"Đổi 10 đơn vị lấy 1 chục", tradeT:"Đổi 10 chục lấy 1 trăm", breakT:"Tách 1 chục thành 10 đơn vị", breakH:"Tách 1 trăm thành 10 chục",
@@ -448,7 +460,8 @@ const T = {
     appTitle:"بُناة النظام العشري", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", language:"اللغة", readAloud:"اقرأ بصوت عالٍ",
     modesLbl:"الأنماط", stars:"النجوم المكتسبة", newRound:"جولة جديدة", footNote:"بدون حسابات · لا جمع للبيانات · يعمل بدون إنترنت",
     mBuild:"ابنِ العدد", mRead:"اقرأ العدد", mCmp:"قارن", mChart:"أكثر وأقل", mSkip:"العدّ بالقفز",
-    trayTitle:"المكعبات", trayHelp:"المس مكعباً أو اسحبه إلى اللوحة.", addH:"أضف مئة", addT:"أضف عشرة", addO:"أضف وحدة",
+    trayTitle:"المكعبات", trayHelp:"المس مكعباً أو اسحبه إلى اللوحة. اسحبه خارج اللوحة لإزالته.", matHelp:"نصيحة: اسحب عشرة إلى عمود الآحاد لتفكّها إلى 10 وحدات.", matHelpH:"اسحب مئة إلى عمود العشرات لتفكّها إلى 10 عشرات.",
+    needO:"تحتاج إلى 10 وحدات لتكوين عشرة واحدة. لديك {x}.", needT:"تحتاج إلى 10 عشرات لتكوين مئة واحدة. لديك {x}.", noRoom:"هذا العمود ممتلئ. أزل بعض المكعبات أولاً.", addH:"أضف مئة", addT:"أضف عشرة", addO:"أضف وحدة",
     nmH:"مئة", nmT:"عشرة", nmO:"وحدة", colH:"المئات", colT:"العشرات", colO:"الآحاد", matLbl:"لوحة القيمة المكانية",
     remH:"أزِل مئة", remT:"أزِل عشرة", remO:"أزِل وحدة", check:"تحقّق", clear:"امسح", totalLbl:"المجموع:",
     tradeO:"بدّل 10 وحدات بعشرة واحدة", tradeT:"بدّل 10 عشرات بمئة واحدة", breakT:"فُكّ عشرة إلى 10 وحدات", breakH:"فُكّ مئة إلى 10 عشرات",
@@ -489,7 +502,8 @@ const T = {
     appTitle:"दस-आधार निर्माता", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", language:"भाषा", readAloud:"ज़ोर से पढ़ें",
     modesLbl:"मोड", stars:"मिले हुए तारे", newRound:"नया दौर", footNote:"कोई खाता नहीं · कोई डेटा नहीं · ऑफ़लाइन काम करता है",
     mBuild:"बनाओ", mRead:"पढ़ो", mCmp:"तुलना करो", mChart:"ज़्यादा और कम", mSkip:"उछल गिनती",
-    trayTitle:"ब्लॉक", trayHelp:"किसी ब्लॉक को छुओ या खींचकर मैट पर रखो।", addH:"एक सैकड़ा जोड़ो", addT:"एक दहाई जोड़ो", addO:"एक इकाई जोड़ो",
+    trayTitle:"ब्लॉक", trayHelp:"किसी ब्लॉक को छुओ या खींचकर मैट पर रखो। हटाने के लिए उसे मैट से बाहर खींचो।", matHelp:"सुझाव: एक दहाई को इकाई वाले खाने में खींचो, वह 10 इकाइयों में टूट जाएगी।", matHelpH:"एक सैकड़े को दहाई वाले खाने में खींचो, वह 10 दहाइयों में टूट जाएगा।",
+    needO:"1 दहाई बनाने के लिए 10 इकाइयाँ चाहिए। तुम्हारे पास {x} हैं।", needT:"1 सैकड़ा बनाने के लिए 10 दहाइयाँ चाहिए। तुम्हारे पास {x} हैं।", noRoom:"यह खाना भरा हुआ है। पहले कुछ ब्लॉक हटाओ।", addH:"एक सैकड़ा जोड़ो", addT:"एक दहाई जोड़ो", addO:"एक इकाई जोड़ो",
     nmH:"सैकड़ा", nmT:"दहाई", nmO:"इकाई", colH:"सैकड़े", colT:"दहाई", colO:"इकाई", matLbl:"स्थानीय मान मैट",
     remH:"एक सैकड़ा हटाओ", remT:"एक दहाई हटाओ", remO:"एक इकाई हटाओ", check:"जाँचो", clear:"साफ़ करो", totalLbl:"कुल:",
     tradeO:"10 इकाइयों के बदले 1 दहाई लो", tradeT:"10 दहाइयों के बदले 1 सैकड़ा लो", breakT:"1 दहाई को 10 इकाइयों में तोड़ो", breakH:"1 सैकड़े को 10 दहाइयों में तोड़ो",
@@ -530,7 +544,8 @@ const T = {
     appTitle:"دس کی بنیاد کے معمار", home:"ہوم", privacy:"رازداری", teacher:"استاد", language:"زبان", readAloud:"بلند آواز سے پڑھیں",
     modesLbl:"موڈ", stars:"حاصل کیے گئے ستارے", newRound:"نیا دور", footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا نہیں · آف لائن کام کرتا ہے",
     mBuild:"بناؤ", mRead:"پڑھو", mCmp:"موازنہ کرو", mChart:"زیادہ اور کم", mSkip:"چھلانگ گنتی",
-    trayTitle:"بلاک", trayHelp:"کسی بلاک کو چھوؤ یا گھسیٹ کر میٹ پر رکھو۔", addH:"ایک سینکڑا جوڑو", addT:"ایک دہائی جوڑو", addO:"ایک اکائی جوڑو",
+    trayTitle:"بلاک", trayHelp:"کسی بلاک کو چھوؤ یا گھسیٹ کر میٹ پر رکھو۔ ہٹانے کے لیے اسے میٹ سے باہر گھسیٹو۔", matHelp:"مشورہ: ایک دہائی کو اکائیوں والے خانے میں گھسیٹو، وہ 10 اکائیوں میں ٹوٹ جائے گی۔", matHelpH:"ایک سینکڑے کو دہائیوں والے خانے میں گھسیٹو، وہ 10 دہائیوں میں ٹوٹ جائے گا۔",
+    needO:"1 دہائی بنانے کے لیے 10 اکائیاں چاہئیں۔ تمہارے پاس {x} ہیں۔", needT:"1 سینکڑا بنانے کے لیے 10 دہائیاں چاہئیں۔ تمہارے پاس {x} ہیں۔", noRoom:"یہ خانہ بھرا ہوا ہے۔ پہلے کچھ بلاک ہٹاؤ۔", addH:"ایک سینکڑا جوڑو", addT:"ایک دہائی جوڑو", addO:"ایک اکائی جوڑو",
     nmH:"سینکڑا", nmT:"دہائی", nmO:"اکائی", colH:"سینکڑے", colT:"دہائیاں", colO:"اکائیاں", matLbl:"مقامی قدر کا میٹ",
     remH:"ایک سینکڑا ہٹاؤ", remT:"ایک دہائی ہٹاؤ", remO:"ایک اکائی ہٹاؤ", check:"جانچو", clear:"صاف کرو", totalLbl:"کل:",
     tradeO:"10 اکائیوں کے بدلے 1 دہائی لو", tradeT:"10 دہائیوں کے بدلے 1 سینکڑا لو", breakT:"1 دہائی کو 10 اکائیوں میں توڑو", breakH:"1 سینکڑے کو 10 دہائیوں میں توڑو",
@@ -571,7 +586,8 @@ const T = {
     appTitle:"十进制积木工坊", home:"主页", privacy:"隐私", teacher:"教师", language:"语言", readAloud:"朗读",
     modesLbl:"模式", stars:"获得的星星", newRound:"新一轮", footNote:"无账号 · 不收集数据 · 离线可用",
     mBuild:"搭一搭", mRead:"读一读", mCmp:"比一比", mChart:"多与少", mSkip:"跳着数",
-    trayTitle:"积木", trayHelp:"点一点或把积木拖到垫子上。", addH:"加一个百", addT:"加一个十", addO:"加一个一",
+    trayTitle:"积木", trayHelp:"点一点或把积木拖到垫子上。把积木拖出垫子就能拿走它。", matHelp:"小提示：把一个十拖到个位，就能拆成10个一。", matHelpH:"把一个百拖到十位，就能拆成10个十。",
+    needO:"要10个一才能换1个十。你有{x}。", needT:"要10个十才能换1个百。你有{x}。", noRoom:"这一位已经满了。先拿走一些积木。", addH:"加一个百", addT:"加一个十", addO:"加一个一",
     nmH:"百", nmT:"十", nmO:"一", colH:"百位", colT:"十位", colO:"个位", matLbl:"数位垫",
     remH:"拿走一个百", remT:"拿走一个十", remO:"拿走一个一", check:"检查", clear:"清除", totalLbl:"合计：",
     tradeO:"用10个一换1个十", tradeT:"用10个十换1个百", breakT:"把1个十拆成10个一", breakH:"把1个百拆成10个十",
@@ -782,7 +798,7 @@ document.addEventListener("pointerdown",function firstTap(e){
 },true);
 
 /* ---------- Feedback ---------- */
-function showFb(el,type,msg){ el.className="feedback show "+type; el.innerHTML=(type==="good"?"✅ ":"💡 ")+msg; }
+function showFb(el,type,msg){ el.className="feedback show "+type; el.innerHTML=({good:"✅ ",note:"🔨 "}[type]||"💡 ")+msg; }
 function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
 const made={};
 
@@ -811,6 +827,7 @@ function renderMat(){
   $("#blkT").innerHTML=`<span class="bt">${SV.t}</span>`.repeat(c.t);
   $("#blkO").innerHTML=onesHTML(c.o);
   $("#matTotal").innerHTML=settings.showTotal?`${t("totalLbl")} ${M(val(c))}`:"";
+  $("#matHelp").textContent=t("matHelp")+(H?(lang==="zh"?"":" ")+t("matHelpH"):"");
   const acts=$("#matActs"); acts.innerHTML="";
   const add=(key,glow,fn)=>{ const b=document.createElement("button"); b.type="button";
     b.className="btn act "+(glow?"glow":"ghost"); b.textContent=(glow?"🔁 ":"🔨 ")+t(key);
@@ -849,15 +866,21 @@ function doTrade(p){
   setTimeout(()=>{
     if(bState!==bs) return;
     c[p]-=10; c[up]++; bs.busy=false; renderMat(); popLast(up);
-    speak(t(p==="o"?"tradedO":"tradedT"));
+    const m=t(p==="o"?"tradedO":"tradedT"); showFb($("#buildFb"),"note",m); speak(m);
   }, reduced()?0:450);
 }
-function doBreak(p){
+// Break 1 ten → 10 ones (or 1 hundred → 10 tens): the block stretches and fades, then 10 smaller blocks pop in.
+function doBreak(p,el){
   if(!canAct()) return;
-  const c=bState.c, dn=p==="t"?"o":"t";
+  const c=bState.c, dn=p==="t"?"o":"t", bs=bState;
   if(!c[p] || c[dn]+10>CAP[dn]) return;
-  c[p]--; c[dn]+=10; hideFb($("#buildFb")); renderMat(); popLast(dn,10);
-  speak(t(p==="t"?"brokeT":"brokeH"));
+  bs.busy=true; hideFb($("#buildFb"));
+  const src=el&&el.isConnected?el:blocksOf(p).slice(-1)[0]; if(src){ src.classList.remove("lift"); src.classList.add("split"); }
+  setTimeout(()=>{
+    if(bState!==bs) return;
+    c[p]--; c[dn]+=10; bs.busy=false; renderMat(); popLast(dn,10);
+    const m=t(p==="t"?"brokeT":"brokeH"); showFb($("#buildFb"),"note",m); speak(m);
+  }, reduced()?0:450);
 }
 function checkBuild(){
   if(!canAct()) return;
@@ -878,6 +901,21 @@ function checkBuild(){
   showFb(fb,"good",m); afterPraise(m,"build",newBuild,1800);
 }
 function overMat(e){ const r=$("#mat").getBoundingClientRect(); return e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom; }
+function colAt(e){ return PL.find(p=>{ const el=$("#col"+p.toUpperCase()); if(el.classList.contains("hidden")) return false;
+  const r=el.getBoundingClientRect(); return e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom; })||null; }
+// A mat block dropped on a neighbouring column: down a place = break, up a place = trade.
+const DROP={t:{o:"break",h:"trade"},h:{t:"break"},o:{t:"trade"}};
+function matDrop(d,to){
+  const act=DROP[d.p][to], c=bState.c, fb=$("#buildFb");
+  if(!act || !canAct()) return false;
+  let m;
+  if(act==="break"){ if(c[to]+10<=CAP[to]){ doBreak(d.p,d.el); return true; } m=t("noRoom"); }
+  else if(c[d.p]<10) m=t(d.p==="o"?"needO":"needT",{x:cnt(d.p,c[d.p])});
+  else if(to==="h" && c.h>=hCap()) m=t("noRoom");
+  else { doTrade(d.p); return true; }
+  showFb(fb,"hint",m); speak(m); return false;
+}
+let dragQuiet=0;
 function dragMove(e){
   if(!drag) return;
   if(!drag.moved && Math.hypot(e.clientX-drag.x,e.clientY-drag.y)>8){
@@ -885,16 +923,31 @@ function dragMove(e){
     drag.g=document.createElement("div"); drag.g.className="dragghost";
     drag.g.innerHTML=`<span class="b${drag.p}">${SV[drag.p]}</span>`;
     document.body.appendChild(drag.g);
+    if(drag.el) drag.el.classList.add("lift");
   }
-  if(drag.moved){ drag.g.style.left=e.clientX+"px"; drag.g.style.top=e.clientY+"px"; $("#mat").classList.toggle("over",overMat(e)); }
+  if(!drag.moved) return;
+  drag.g.style.left=e.clientX+"px"; drag.g.style.top=e.clientY+"px";
+  if(!drag.el){ $("#mat").classList.toggle("over",overMat(e)); return; }
+  const to=colAt(e); PL.forEach(p=>$("#col"+p.toUpperCase()).classList.toggle("over",p===to&&!!DROP[drag.p][p]));
 }
 function dragEnd(e){
   if(!drag) return;
   const d=drag; drag=null;
   if(!d.moved) return;
-  d.g.remove(); document.body.classList.remove("dragging"); $("#mat").classList.remove("over");
-  d.btn.dataset.dragged="1"; setTimeout(()=>{ delete d.btn.dataset.dragged; },250);
-  if(e.type==="pointerup" && overMat(e)) addBlock(d.p);
+  document.body.classList.remove("dragging"); $("#mat").classList.remove("over"); $$(".col.over").forEach(x=>x.classList.remove("over"));
+  dragQuiet=Date.now()+300;
+  const up=e.type==="pointerup";
+  if(!d.el){   // from the tray
+    d.g.remove(); d.btn.dataset.dragged="1"; setTimeout(()=>{ delete d.btn.dataset.dragged; },250);
+    if(up && overMat(e)) addBlock(d.p);
+    return;
+  }
+  // from the mat: off the mat = take it away; onto a neighbouring column = break or trade; otherwise snap back
+  if(up && canAct() && !overMat(e)){ d.g.remove(); remBlock(d.p); return; }
+  if(up && overMat(e) && matDrop(d,colAt(e))){ d.g.remove(); return; }
+  const r=d.el.isConnected?d.el.getBoundingClientRect():null;
+  d.g.classList.add("back"); d.g.style.left=(r?r.left+r.width/2:d.x)+"px"; d.g.style.top=(r?r.top+r.height/2:d.y)+"px";
+  setTimeout(()=>{ d.g.remove(); d.el.classList.remove("lift"); },reduced()?0:220);
 }
 function initBuild(){
   $$(".traybtn").forEach(b=>{
@@ -902,11 +955,14 @@ function initBuild(){
     b.addEventListener("click",()=>{ if(b.dataset.dragged) return; addBlock(p); });
     b.addEventListener("pointerdown",e=>{ if(e.button>0) return; drag={p,x:e.clientX,y:e.clientY,moved:false,g:null,btn:b}; });
   });
+  const kind=el=>el.classList.contains("bh")?"h":el.classList.contains("bt")?"t":"o";
+  $("#mat").addEventListener("pointerdown",e=>{ const el=e.target.closest(".colblocks .bh,.colblocks .bt,.colblocks .bo");
+    if(!el || e.button>0 || !canAct()) return; e.preventDefault(); drag={p:kind(el),x:e.clientX,y:e.clientY,moved:false,g:null,el}; });
   window.addEventListener("pointermove",dragMove);
   window.addEventListener("pointerup",dragEnd);
   window.addEventListener("pointercancel",dragEnd);
   $$(".minus").forEach(b=>b.addEventListener("click",()=>remBlock(b.dataset.rem)));
-  $("#mat").addEventListener("click",e=>{ const el=e.target.closest(".bh,.bt,.bo"); if(el) remBlock(el.classList.contains("bh")?"h":el.classList.contains("bt")?"t":"o"); });
+  $("#mat").addEventListener("click",e=>{ if(Date.now()<dragQuiet) return; const el=e.target.closest(".bh,.bt,.bo"); if(el) remBlock(kind(el)); });
   $("#buildCheck").addEventListener("click",checkBuild);
   $("#buildClear").addEventListener("click",()=>{ if(!canAct()) return; bState.c={h:0,t:0,o:0}; hideFb($("#buildFb")); renderMat(); });
 }
