@@ -1,0 +1,1656 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Fact Family Fair — a Grade 1–2 addition and subtraction fluency app: ten frames, number line hops, missing numbers, true/false equations, fact families, and story problems with bar models. Works offline. No data collected.">
+<title>Fact Family Fair</title>
+<style>
+  :root{
+    --bg:#f8f0ee;--panel:#ffffff;--ink:#2a1d1b;--muted:#5d4b48;--line:#e2cbc6;
+    --accent:#c0392b;--accent-ink:#ffffff;--good:#166534;--good-bg:#dcfce7;
+    --hint:#7a4a00;--hint-bg:#fff4d6;--focus:#0a58ca;--red:#d63c3c;--blue:#2563eb;
+    --cell:clamp(48px,11vw,58px);--tap:56px;font-size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4;-webkit-text-size-adjust:100%}
+  h1,h2,h3{line-height:1.15;margin:0 0 .3em}
+  button{font-family:inherit;font-size:1rem;cursor:pointer}
+
+  .topbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--accent);color:var(--accent-ink);padding:.55rem .8rem}
+  .topbar .brand{font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:.4rem;margin-inline-end:auto}
+  .topbar a.homebtn,.topbar button.tb{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.55);border-radius:12px;padding:.4rem .7rem;min-height:var(--tap);min-width:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;font-weight:700;font-size:.95rem}
+  .globe{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.55);border-radius:12px;padding:.2rem .5rem;min-height:var(--tap)}
+  .globe span{font-size:1.2rem}
+  .globe select{border:0;background:#fff;color:var(--ink);border-radius:8px;min-height:44px;font-weight:700;font-size:1rem;padding:.2rem .4rem}
+
+  main{max-width:1200px;margin:0 auto;padding:.7rem}
+  .tabrow{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin:.4rem 0 .7rem}
+  .tabs{display:flex;gap:.4rem;flex-wrap:wrap;flex:1 1 auto}
+  .tabs button{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:.5rem .8rem;min-height:var(--tap);font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .tabs button[aria-selected="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .tabs button .ic{font-size:1.15rem}
+  .stars{font-weight:800;background:#fff;border:2px solid var(--line);border-radius:14px;padding:.4rem .8rem;min-height:48px;display:inline-flex;align-items:center;gap:.3rem}
+
+  .panel{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:.9rem;margin-bottom:.8rem}
+  .panelhead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+  .panelhead h2{margin:0;font-size:1.25rem;margin-inline-end:auto}
+
+  .prompt{display:flex;align-items:center;gap:.6rem;background:#fdf0ee;border:2px solid #f3c5bf;border-radius:14px;padding:.6rem .8rem;margin-bottom:.7rem;font-size:1.15rem;font-weight:600}
+  .speaker{background:var(--accent);color:#fff;border:0;border-radius:50%;width:var(--tap);height:var(--tap);min-width:var(--tap);font-size:1.4rem;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+
+  .btn{background:var(--accent);color:#fff;border:2px solid var(--accent);border-radius:12px;padding:.55rem .9rem;min-height:var(--tap);font-weight:700}
+  .btn.ghost{background:var(--panel);color:var(--accent)}
+  .btnrow{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem}
+
+  .feedback{margin-top:.6rem;border-radius:12px;padding:.6rem .8rem;font-weight:600;display:none}
+  .feedback.show{display:flex;gap:.5rem;align-items:center}
+  .feedback.good{background:var(--good-bg);color:var(--good);border:2px solid #86efac}
+  .feedback.hint{background:var(--hint-bg);color:var(--hint);border:2px solid #f6d271}
+
+  .eq{direction:ltr;unicode-bidi:isolate;white-space:nowrap;display:inline-block}
+  .eqbig{direction:ltr;line-height:1.6;font-size:2.1rem;font-weight:800;text-align:center;margin:.3rem 0 .6rem;letter-spacing:.02em}
+  .blank{display:inline-block;min-width:1.6em;border:3px dashed var(--accent);border-radius:10px;padding:0 .2em;color:var(--accent);background:#fff8f6}
+
+  .nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem;margin-top:.6rem;max-width:560px}
+  .num{background:#fff;border:3px solid var(--line);border-radius:16px;min-height:64px;font-size:1.7rem;font-weight:800;color:var(--ink)}
+  .num:hover{border-color:var(--accent)}
+  .num.right{border-color:var(--good);background:var(--good-bg);color:var(--good)}
+  .num.wrong{border-color:var(--hint);background:var(--hint-bg);color:var(--hint);opacity:.75}
+  .num.tf{font-size:1.25rem}
+
+  /* ten frames */
+  .tfwrap{display:flex;flex-wrap:wrap;gap:.9rem;align-items:flex-start}
+  .tfbox{display:flex;flex-direction:column;align-items:center;gap:.25rem}
+  .tf{display:grid;grid-template-columns:repeat(5,var(--cell));gap:3px;background:#5d4b48;border:3px solid #5d4b48;border-radius:8px;direction:ltr}
+  .cell{width:var(--cell);height:var(--cell);background:#fffdf8;border:0;padding:0;display:flex;align-items:center;justify-content:center;border-radius:3px}
+  .cell:focus-visible{outline:4px solid var(--focus);outline-offset:-4px}
+  .ctr{width:72%;height:72%;border-radius:50%;display:block;box-shadow:inset 0 -3px 0 rgba(0,0,0,.2)}
+  .ctr.r{background:var(--red)}
+  .ctr.b{background:var(--blue);border:3px dashed #bfdbfe}
+  .ctr.x{background:#f3d4d0;position:relative;box-shadow:none}
+  .ctr.x::after{content:"✕";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#8a2a20;font-weight:900;font-size:1.3rem}
+  .tfcount{font-weight:800;font-size:1.3rem;min-height:1.6rem}
+
+  /* number line */
+  .nl{width:100%;max-width:820px;height:auto;display:block;touch-action:manipulation;background:#fffdf8;border:2px solid var(--line);border-radius:14px;cursor:pointer}
+  .nl:focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+
+  /* missing / tf */
+  .vis{display:flex;justify-content:center;margin:.4rem 0}
+  .vis svg{width:100%;max-width:300px;height:auto}
+  .vis.wide svg{max-width:640px}
+
+  /* fact families */
+  .famtop{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+  .famtri svg{width:170px;height:auto;display:block}
+  .tiles{display:flex;gap:.6rem;flex-wrap:wrap}
+  .tile{min-width:72px;min-height:64px;font-size:1.8rem;font-weight:800;border:3px solid #a3341f;background:#fde7e3;color:#5a1a10;border-radius:14px;touch-action:none;user-select:none;-webkit-user-select:none}
+  .tile[aria-pressed="true"]{background:#a3341f;color:#fff;box-shadow:0 0 0 4px #f6b7ad}
+  .dragghost{position:fixed;transform:translate(-50%,-50%);pointer-events:none;z-index:60;opacity:.9}
+  .famrows{display:flex;flex-direction:column;gap:.5rem;margin-top:.8rem}
+  .famrow{direction:ltr;display:flex;align-items:center;gap:.35rem;padding:.3rem .4rem;border-radius:12px;border:2px solid transparent;width:max-content;max-width:100%}
+  .famrow.bad{border-color:#f6d271;background:var(--hint-bg)}
+  .famrow.ok{border-color:#86efac;background:var(--good-bg)}
+  .famrow .op{font-size:1.7rem;font-weight:800;width:1.2em;text-align:center}
+  .slot{width:62px;height:58px;border:3px dashed #b9a19c;background:#fff;border-radius:12px;font-size:1.6rem;font-weight:800;color:var(--ink)}
+  .slot.filled{border-style:solid;border-color:#a3341f;background:#fff8f6}
+
+  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
+  .drawer.open{display:flex}
+  .drawer .card{background:var(--panel);border-radius:16px;max-width:560px;width:100%;padding:1rem;max-height:90vh;overflow:auto}
+  .setrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+  .setrow:last-child{border-bottom:0}
+  .setrow .lab{font-weight:700;min-width:150px}
+  .toggle{display:inline-flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:10px;padding:.35rem .55rem;background:#fff;min-height:48px}
+  .toggle input{width:22px;height:22px}
+  select.diff{font-size:1rem;padding:.4rem;border-radius:10px;border:2px solid var(--line);min-height:48px;max-width:100%}
+
+  footer{max-width:1200px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+  footer a{color:var(--accent);font-weight:700}
+  .stds{font-size:.82rem;color:var(--muted);background:#fbf3f1;border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  .hidden{display:none !important}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+  @media (max-width:520px){.tabs button{padding:.4rem .55rem;font-size:.92rem;flex:1 1 auto}.stars{margin-inline-start:auto}}
+  @media (max-width:420px){.eqbig{font-size:1.7rem}.nums{gap:.4rem}.num{font-size:1.45rem}.slot{width:56px}}
+
+  .printonly{display:none}
+  @media print{
+    .topbar,.tabrow,footer,.speaker,.settingsbtn,.no-print,.modepanel,#mtMuteBtn,#stdsNote{display:none !important}
+    body{background:#fff}
+    .printonly{display:block}
+    .card-print{border:2px solid #000;border-radius:12px;padding:1rem;margin:0 0 1rem;page-break-inside:avoid}
+    .card-print h2{margin:.2rem 0}
+    .card-print svg{max-height:170px;max-width:100%}
+    main{max-width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">🎡 <span data-t="appTitle">Fact Family Fair</span></span>
+  <a class="homebtn" href="../../index.html">🏠 <span data-t="home">Home</span></a>
+  <label class="globe"><span aria-hidden="true">🌐</span>
+    <select id="langSelect" aria-label="Language / Idioma"></select>
+  </label>
+  <button class="tb settingsbtn" id="openSettings">⚙️ <span data-t="teacher">Teacher</span></button>
+</header>
+
+<main>
+  <div class="tabrow">
+    <div class="tabs" role="tablist" data-ta="modesAria" aria-label="Modes">
+      <button role="tab" aria-selected="true" data-mode="frames"><span class="ic" aria-hidden="true">🔟</span><span data-t="mFrames">Ten-Frame Facts</span></button>
+      <button role="tab" aria-selected="false" data-mode="line"><span class="ic" aria-hidden="true">🐸</span><span data-t="mLine">Number Line Hops</span></button>
+      <button role="tab" aria-selected="false" data-mode="missing"><span class="ic" aria-hidden="true">❓</span><span data-t="mMissing">Missing Number</span></button>
+      <button role="tab" aria-selected="false" data-mode="family"><span class="ic" aria-hidden="true">🔺</span><span data-t="mFamily">Fact Families</span></button>
+      <button role="tab" aria-selected="false" data-mode="story"><span class="ic" aria-hidden="true">📖</span><span data-t="mStory">Story Problems</span></button>
+    </div>
+    <span class="stars" id="stars" role="img" aria-label="Stars: 0">⭐ <span id="starN">0</span></span>
+  </div>
+
+  <!-- TEN-FRAME FACTS -->
+  <section id="mode-frames" class="panel modepanel" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mFrames">Ten-Frame Facts</h2>
+      <button class="btn ghost no-print" id="framesNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="frames" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="framesPrompt">…</span></div>
+    <div class="tfwrap" id="tfWrap"></div>
+    <div class="nums" id="framesNums" role="group" data-ta="choicesAria" aria-label="Answer choices"></div>
+    <div class="feedback" id="framesFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- NUMBER LINE HOPS -->
+  <section id="mode-line" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mLine">Number Line Hops</h2>
+      <button class="btn ghost no-print" id="lineNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="line" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="linePrompt">…</span></div>
+    <div class="eqbig" id="lineEq" dir="ltr"></div>
+    <div id="lineBox"></div>
+    <div class="btnrow"><button class="btn" id="lineCheck" data-t="check">Check</button></div>
+    <div class="feedback" id="lineFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- MISSING NUMBER -->
+  <section id="mode-missing" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mMissing">Missing Number</h2>
+      <button class="btn ghost no-print" id="missingNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="missing" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="missingPrompt">…</span></div>
+    <div class="eqbig" id="missingEq" dir="ltr"></div>
+    <div class="vis" id="missingVis"></div>
+    <div class="btnrow" style="justify-content:center"><button class="btn ghost" id="bondToggle" data-t="showBond">Show a picture</button></div>
+    <div class="nums" id="missingNums" role="group" data-ta="choicesAria" aria-label="Answer choices" style="margin-inline:auto"></div>
+    <div class="feedback" id="missingFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- FACT FAMILIES -->
+  <section id="mode-family" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mFamily">Fact Families</h2>
+      <button class="btn ghost no-print" id="familyNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="family" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="familyPrompt">…</span></div>
+    <div class="famtop">
+      <div class="famtri" id="famTri"></div>
+      <div class="tiles" id="famTiles" role="group" data-ta="tilesAria" aria-label="Number tiles"></div>
+    </div>
+    <div class="famrows" id="famRows"></div>
+    <div class="btnrow"><button class="btn" id="famCheck" data-t="check">Check</button>
+      <button class="btn ghost" id="famClear" data-t="clear">Clear</button></div>
+    <div class="feedback" id="familyFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- STORY PROBLEMS -->
+  <section id="mode-story" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mStory">Story Problems</h2>
+      <button class="btn ghost no-print" id="storyNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="story" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="storyPrompt">…</span></div>
+    <div class="vis wide" id="storyVis"></div>
+    <div class="nums" id="storyNums" role="group" data-ta="choicesAria" aria-label="Answer choices"></div>
+    <div class="feedback" id="storyFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <div class="stds" id="stdsNote"></div>
+  <div class="printonly" id="printArea"></div>
+</main>
+
+<footer>
+  <p data-t="footNote">No accounts · No data collected · Works offline</p>
+  <p><a href="../../index.html" data-t="home">Home</a> · <a href="../../policy.html" data-t="privacy">Privacy</a></p>
+</footer>
+
+<!-- SETTINGS -->
+<div class="drawer" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <div class="panelhead"><h2 id="setTitle" data-t="teacherTitle">Teacher settings</h2>
+      <button class="btn ghost" id="closeSettings" style="margin-inline-start:auto" data-t="close">Close</button></div>
+    <div class="setrow"><span class="lab" data-t="setMax">Numbers up to</span>
+      <select class="diff" id="setMax">
+        <option value="10" data-t="max10">10</option>
+        <option value="20" data-t="max20">20 (Grade 1)</option>
+        <option value="100" data-t="max100">100 (Grade 2)</option></select>
+      <span class="stds" data-t="maxNote" style="flex-basis:100%">Ten frames always stay within 20.</span></div>
+    <div class="setrow"><span class="lab" data-t="setSub">Subtraction</span>
+      <label class="toggle"><input type="checkbox" id="setSub" checked> <span data-t="subOn">Include subtraction</span></label></div>
+    <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
+      <div id="modeToggles" style="display:flex;flex-wrap:wrap;gap:.4rem"></div></div>
+    <div class="setrow"><span class="lab" data-t="setSpeech">Speech</span>
+      <label class="toggle"><input type="checkbox" id="setAuto" checked> <span data-t="autoRead">Auto-read directions</span></label></div>
+    <div class="setrow" style="border:0"><button class="btn" id="printCards" data-t="printCards">🖨 Print challenge cards</button></div>
+    <p class="stds" data-t="setStored">Settings are saved only on this device. No student information is ever stored.</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   Fact Family Fair — single-file Grade 1–2 addition/subtraction app. 7 languages.
+   No frameworks, no network, no data collection.
+   ========================================================================= */
+
+/* ---------- Language metadata ---------- */
+const LANGS = [
+  {code:"en", name:"English",     dir:"ltr", bcp:"en-US"},
+  {code:"es", name:"Español",     dir:"ltr", bcp:"es-ES"},
+  {code:"vi", name:"Tiếng Việt",  dir:"ltr", bcp:"vi-VN"},
+  {code:"ar", name:"العربية",     dir:"rtl", bcp:"ar-SA"},
+  {code:"hi", name:"हिन्दी",       dir:"ltr", bcp:"hi-IN"},
+  {code:"ur", name:"اردو",        dir:"rtl", bcp:"ur-PK"},
+  {code:"zh", name:"中文",         dir:"ltr", bcp:"zh-CN"}
+];
+const LANG_KEY = "tcea.mathtools.lang";
+
+/* ---------- Translations ---------- */
+const T = {
+  en:{
+    appTitle:"Fact Family Fair", home:"Home", privacy:"Privacy", teacher:"Teacher", modesAria:"Modes",
+    mFrames:"Ten-Frame Facts", mLine:"Number Line Hops", mMissing:"Missing Number", mFamily:"Fact Families", mStory:"Story Problems",
+    newRound:"New round", readAloud:"Read aloud", choicesAria:"Answer choices", check:"Check", clear:"Clear",
+    showBond:"Show a picture", hideBond:"Hide the picture", tilesAria:"Number tiles",
+    footNote:"No accounts · No data collected · Works offline",
+    teacherTitle:"Teacher settings", close:"Close", setMax:"Numbers up to", max10:"10", max20:"20 (Grade 1)", max100:"100 (Grade 2)",
+    maxNote:"Ten frames always stay within 20.", setSub:"Subtraction", subOn:"Include subtraction", setModes:"Modes",
+    setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
+    setStored:"Settings are saved only on this device. No student information is ever stored.",
+    starsAria:"Stars: {n}", wPlus:"plus", wMinus:"minus", wEquals:"equals", wBlank:"what number",
+    tooBig:"{x} is too big.", tooSmall:"{x} is too small.", yes:"Yes!", lookAgain:"Let's look again.",
+    frame1:"First ten frame", frame2:"Second ten frame", cRed:"Red counter", cBlue:"Blue counter", cGone:"Taken away", cEmpty:"Empty box",
+    fP_makeTen:"What is {eq}? Tap a blue counter to move it. Fill the first frame to make 10.",
+    fP_double:"What is {eq}? It is a double!",
+    fP_near:"What is {eq}? Think of a double you know.",
+    fP_countOn:"What is {eq}? Start at {a} and count on.",
+    fP_partner:"{eq}. How many more make 10? Tap the empty boxes to fill the frame.",
+    fP_sub:"What is {eq}? Tap {b} counters to take them away.",
+    fP_subDouble:"What is {eq}? Think of a double.",
+    fG_makeTen:"Yes! {a} needs {k} more to make 10. Then 10 + {r} = {c}. So {a} + {b} = {c}.",
+    fG_double:"Yes! {a} + {a} = {c}. Doubles are fast facts to remember.",
+    fG_near:"Yes! {d} + {d} = {e}, and one more is {c}. So {a} + {b} = {c}.",
+    fG_countOn:"Yes! Start at {a} and count on: {seq}. So {a} + {b} = {c}.",
+    fG_partner:"Yes! {a} + {b} = 10. {a} and {b} are partners of 10.",
+    fG_sub:"Yes! {c} take away {b} leaves {r}. {c} − {b} = {r}.",
+    fG_subTen:"Yes! Take away {k} to get to 10. Then take away {m} more: 10 − {m} = {r}. So {c} − {b} = {r}.",
+    fG_subDouble:"Yes! {r} + {r} = {c}, so {c} − {r} = {r}.",
+    fH_makeTen:"{a} needs {k} more to make 10. Move blue counters to fill the first frame. Then add the rest to 10.",
+    fH_double:"There are {a} red and {a} blue counters. Count them all, or think: {a} and {a} more.",
+    fH_near:"{a} and {b} are next-door numbers. Use the double {d} + {d} = {e}, then add one more.",
+    fH_countOn:"Say {a} in your head. Then count on one number for each blue counter.",
+    fH_partner:"A full ten frame has 10 boxes. Count the empty boxes. That is how many more you need.",
+    fH_sub:"Tap {b} counters to take them away. Then count the counters that are left.",
+    fH_subTen:"First take away {k} to get to 10. {b} is {k} and {m}. Then take away {m} more from 10.",
+    fH_subDouble:"Think of a double. What number plus the same number makes {c}?",
+    lnDirAdd:"Start at {a}. Hop forward {b}. Where do you land? Tap the number line, then tap Check.",
+    lnDirSub:"Start at {a}. Hop back {b}. Where do you land? Tap the number line, then tap Check.",
+    start:"start", lineAria:"Number line. Use the arrow keys to move the marker.",
+    lnNoPin:"Tap the number line to show where you land.",
+    lnGood:"Yes! {eq}.", lnFar:"You hopped too far.", lnShort:"Not far enough yet.",
+    lnCross:"Start at {a}. Hop {k} to get to {ten}. Then hop {r} more.",
+    lnCrossBack:"Start at {a}. Hop back {k} to get to {ten}. Then hop back {r} more.",
+    lnOnes:"Start at {a}. Count {b} small hops forward.",
+    lnOnesBack:"Start at {a}. Count {b} small hops back.",
+    lnTens:"Start at {a}. Make {n} big hops of 10 forward. Only the tens digit changes.",
+    lnTensBack:"Start at {a}. Make {n} big hops of 10 back. Only the tens digit changes.",
+    msDir:"Find the missing number.", msG:"Yes! {eq}. The missing number is {x}.",
+    msH_sum:"Put {a} and {b} together. Making 10 or using a double can help.",
+    msH_addend:"Think: {a} plus what number makes {c}? Count up from {a} to {c}.",
+    msH_diff:"Start at {c} and count back {b}. Or think: {b} plus what number makes {c}?",
+    msH_takeHow:"How many do you take from {c} to leave {a}? Count up from {a} to {c}.",
+    msH_start:"What number take away {b} leaves {a}? Put the two parts back together: {a} and {b}.",
+    bondAria:"Number bond: a whole and two parts", balanceAria:"Balance scale",
+    tfDir:"Is this true or false?", trueBtn:"True", falseBtn:"False",
+    tfSide:"{e} is {v}.", tfSame:"Both sides are the same amount, so it is true.",
+    tfNotSame:"The two sides are not the same amount, so it is false.", tfEqual:"The equal sign means “is the same as.”",
+    triAria:"Fact triangle: {c} at the top, {a} and {b} at the bottom",
+    famDir:"Build the fact family for {a}, {b} and {c}. Drag a number into a box, or tap a number and then tap a box.",
+    famDirAdd:"Build two addition facts with {a}, {b} and {c}. Drag a number into a box, or tap a number and then tap a box.",
+    tileAria:"Number {n}", factN:"Fact {n}", slotAria:"Empty box", slotFilled:"Box with {n}",
+    famPickFirst:"Pick a number tile first. Then tap a box.",
+    famEmpty:"Fill every box. Use {a}, {b} and {c}.",
+    famUse:"Each fact uses {a}, {b} and {c}, one time each. Look at the yellow fact.",
+    famFalseAdd:"{eq} is not true. In an addition fact, the two parts, {a} and {b}, make the whole, {c}.",
+    famFalseSub:"{eq} is not true. In a subtraction fact, start with the whole, {c}, and take away one part.",
+    famDup:"Two facts are the same. Switch the order of the numbers to make a new fact.",
+    famGood:"Yes! You built the whole fact family. The parts are {a} and {b}. The whole is {c}.",
+    famGoodAdd:"Yes! {a} + {b} = {c} and {b} + {a} = {c}. You can switch the order of the parts.",
+    barAria:"Bar model", storyG:"Yes! {eq}. The answer is {x}.",
+    st_joinRU:"Mia has {a} stickers. She gets {b} more stickers. How many stickers does Mia have now?",
+    st_joinCU:"Leo has {a} marbles. His friend gives him some more. Now Leo has {c} marbles. How many marbles did his friend give him?",
+    st_startU:"Some ducks are swimming in a pond. Then {b} more ducks come. Now there are {c} ducks. How many ducks were in the pond at the start?",
+    st_sepRU:"There are {c} birds on a fence. {b} birds fly away. How many birds are still on the fence?",
+    st_sepCU:"Ana has {c} crayons. She gives some to Sam. Now Ana has {a} crayons. How many crayons did she give to Sam?",
+    st_pptTotal:"A basket has {a} red apples and {b} green apples. How many apples are in the basket?",
+    st_pptPart:"There are {c} fish in a tank. {a} fish are orange. The rest are blue. How many fish are blue?",
+    st_compDiff:"Ben has {c} toy cars. Zoe has {a} toy cars. How many more toy cars does Ben have than Zoe?",
+    st_compBig:"Kim reads {a} books. Raj reads {b} more books than Kim. How many books does Raj read?",
+    ex_joinRU:"More stickers came, so the group gets bigger. We add: the two parts make the whole.",
+    ex_joinCU:"We know the start, {a}, and the end, {c}. Count up from {a} to {c} to find how many were added.",
+    ex_startU:"We know the ducks that came, {b}, and the total, {c}. Take {b} away from {c} to find the start.",
+    ex_sepRU:"Some birds flew away, so the group gets smaller. Start with {c} and take away {b}.",
+    ex_sepCU:"Ana started with {c} and has {a} left. The missing part is how many she gave away. Count up from {a} to {c}.",
+    ex_pptTotal:"Red apples and green apples are two parts. Put the parts together to find the whole.",
+    ex_pptPart:"The whole is {c}. One part is {a}. Take {a} away from {c} to find the other part.",
+    ex_compDiff:"Compare the two bars. The dashed piece is how many more. Count up from {a} to {c}.",
+    ex_compBig:"Raj has the same as Kim, {a}, plus {b} more. Add to find the longer bar.",
+    cardTitle:"Fact Family Fair — Challenge Cards",
+    stds:"Aligned standards: Texas TEKS Grade 1: 1.3(B)–(E), 1.5(D)–(G); Grade 2: 2.4(A)–(C), 2.7(C). Common Core: 1.OA.1, 1.OA.3–8; 2.OA.1–2; 2.NBT.5."
+  },
+  es:{
+    appTitle:"Feria de Familias de Operaciones", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", modesAria:"Modos",
+    mFrames:"Marcos de Diez", mLine:"Saltos en la Recta", mMissing:"Número Perdido", mFamily:"Familias de Operaciones", mStory:"Problemas de Cuentos",
+    newRound:"Nueva ronda", readAloud:"Leer en voz alta", choicesAria:"Opciones de respuesta", check:"Revisar", clear:"Borrar",
+    showBond:"Mostrar un dibujo", hideBond:"Ocultar el dibujo", tilesAria:"Fichas de números",
+    footNote:"Sin cuentas · Sin datos · Funciona sin conexión",
+    teacherTitle:"Ajustes del maestro", close:"Cerrar", setMax:"Números hasta", max10:"10", max20:"20 (1.er grado)", max100:"100 (2.º grado)",
+    maxNote:"Los marcos de diez siempre usan números hasta 20.", setSub:"Resta", subOn:"Incluir resta", setModes:"Modos",
+    setSpeech:"Voz", autoRead:"Leer instrucciones", printCards:"Imprimir tarjetas de reto",
+    setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información del estudiante.",
+    starsAria:"Estrellas: {n}", wPlus:"más", wMinus:"menos", wEquals:"es igual a", wBlank:"qué número",
+    tooBig:"{x} es demasiado grande.", tooSmall:"{x} es demasiado pequeño.", yes:"¡Sí!", lookAgain:"Miremos otra vez.",
+    frame1:"Primer marco de diez", frame2:"Segundo marco de diez", cRed:"Ficha roja", cBlue:"Ficha azul", cGone:"Quitada", cEmpty:"Casilla vacía",
+    fP_makeTen:"¿Cuánto es {eq}? Toca una ficha azul para moverla. Llena el primer marco para formar 10.",
+    fP_double:"¿Cuánto es {eq}? ¡Es un doble!",
+    fP_near:"¿Cuánto es {eq}? Piensa en un doble que ya sabes.",
+    fP_countOn:"¿Cuánto es {eq}? Empieza en {a} y sigue contando.",
+    fP_partner:"{eq}. ¿Cuántos más forman 10? Toca las casillas vacías para llenar el marco.",
+    fP_sub:"¿Cuánto es {eq}? Toca {b} fichas para quitarlas.",
+    fP_subDouble:"¿Cuánto es {eq}? Piensa en un doble.",
+    fG_makeTen:"¡Sí! {a} necesita {k} para formar 10. Luego 10 + {r} = {c}. Entonces {a} + {b} = {c}.",
+    fG_double:"¡Sí! {a} + {a} = {c}. Los dobles son fáciles de recordar.",
+    fG_near:"¡Sí! {d} + {d} = {e}, y uno más es {c}. Entonces {a} + {b} = {c}.",
+    fG_countOn:"¡Sí! Empieza en {a} y sigue contando: {seq}. Entonces {a} + {b} = {c}.",
+    fG_partner:"¡Sí! {a} + {b} = 10. {a} y {b} son compañeros del 10.",
+    fG_sub:"¡Sí! A {c} le quitas {b} y quedan {r}. {c} − {b} = {r}.",
+    fG_subTen:"¡Sí! Quita {k} para llegar a 10. Luego quita {m} más: 10 − {m} = {r}. Entonces {c} − {b} = {r}.",
+    fG_subDouble:"¡Sí! {r} + {r} = {c}, así que {c} − {r} = {r}.",
+    fH_makeTen:"{a} necesita {k} para formar 10. Mueve fichas azules para llenar el primer marco. Luego suma el resto a 10.",
+    fH_double:"Hay {a} fichas rojas y {a} fichas azules. Cuéntalas todas, o piensa: {a} y {a} más.",
+    fH_near:"{a} y {b} son números vecinos. Usa el doble {d} + {d} = {e} y luego suma uno más.",
+    fH_countOn:"Di {a} en tu cabeza. Luego cuenta un número más por cada ficha azul.",
+    fH_partner:"Un marco de diez lleno tiene 10 casillas. Cuenta las casillas vacías. Esos son los que te faltan.",
+    fH_sub:"Toca {b} fichas para quitarlas. Luego cuenta las fichas que quedan.",
+    fH_subTen:"Primero quita {k} para llegar a 10. {b} es {k} y {m}. Luego quita {m} más de 10.",
+    fH_subDouble:"Piensa en un doble. ¿Qué número más el mismo número da {c}?",
+    lnDirAdd:"Empieza en {a}. Salta {b} hacia adelante. ¿Dónde caes? Toca la recta numérica y luego toca Revisar.",
+    lnDirSub:"Empieza en {a}. Salta {b} hacia atrás. ¿Dónde caes? Toca la recta numérica y luego toca Revisar.",
+    start:"inicio", lineAria:"Recta numérica. Usa las flechas para mover la marca.",
+    lnNoPin:"Toca la recta numérica para mostrar dónde caes.",
+    lnGood:"¡Sí! {eq}.", lnFar:"Saltaste demasiado lejos.", lnShort:"Todavía no llegas.",
+    lnCross:"Empieza en {a}. Salta {k} para llegar a {ten}. Luego salta {r} más.",
+    lnCrossBack:"Empieza en {a}. Salta {k} hacia atrás para llegar a {ten}. Luego salta {r} más hacia atrás.",
+    lnOnes:"Empieza en {a}. Cuenta {b} saltitos hacia adelante.",
+    lnOnesBack:"Empieza en {a}. Cuenta {b} saltitos hacia atrás.",
+    lnTens:"Empieza en {a}. Da {n} saltos grandes de 10 hacia adelante. Solo cambia el dígito de las decenas.",
+    lnTensBack:"Empieza en {a}. Da {n} saltos grandes de 10 hacia atrás. Solo cambia el dígito de las decenas.",
+    msDir:"Encuentra el número que falta.", msG:"¡Sí! {eq}. El número que falta es {x}.",
+    msH_sum:"Junta {a} y {b}. Formar 10 o usar un doble te puede ayudar.",
+    msH_addend:"Piensa: ¿{a} más qué número da {c}? Cuenta desde {a} hasta {c}.",
+    msH_diff:"Empieza en {c} y cuenta {b} hacia atrás. O piensa: ¿{b} más qué número da {c}?",
+    msH_takeHow:"¿Cuántos le quitas a {c} para que queden {a}? Cuenta desde {a} hasta {c}.",
+    msH_start:"¿A qué número le quitas {b} y quedan {a}? Vuelve a juntar las dos partes: {a} y {b}.",
+    bondAria:"Enlace numérico: un total y dos partes", balanceAria:"Balanza",
+    tfDir:"¿Es verdadero o falso?", trueBtn:"Verdadero", falseBtn:"Falso",
+    tfSide:"{e} es {v}.", tfSame:"Los dos lados tienen la misma cantidad, así que es verdadero.",
+    tfNotSame:"Los dos lados no tienen la misma cantidad, así que es falso.", tfEqual:"El signo igual significa “es lo mismo que”.",
+    triAria:"Triángulo de operaciones: {c} arriba, {a} y {b} abajo",
+    famDir:"Forma la familia de operaciones de {a}, {b} y {c}. Arrastra un número a una casilla, o toca un número y luego una casilla.",
+    famDirAdd:"Forma dos sumas con {a}, {b} y {c}. Arrastra un número a una casilla, o toca un número y luego una casilla.",
+    tileAria:"Número {n}", factN:"Operación {n}", slotAria:"Casilla vacía", slotFilled:"Casilla con {n}",
+    famPickFirst:"Primero escoge una ficha de número. Luego toca una casilla.",
+    famEmpty:"Llena todas las casillas. Usa {a}, {b} y {c}.",
+    famUse:"Cada operación usa {a}, {b} y {c}, una vez cada uno. Mira la operación en amarillo.",
+    famFalseAdd:"{eq} no es verdadero. En una suma, las dos partes, {a} y {b}, forman el total, {c}.",
+    famFalseSub:"{eq} no es verdadero. En una resta, empieza con el total, {c}, y quita una parte.",
+    famDup:"Dos operaciones son iguales. Cambia el orden de los números para formar una nueva.",
+    famGood:"¡Sí! Formaste toda la familia de operaciones. Las partes son {a} y {b}. El total es {c}.",
+    famGoodAdd:"¡Sí! {a} + {b} = {c} y {b} + {a} = {c}. Puedes cambiar el orden de las partes.",
+    barAria:"Modelo de barras", storyG:"¡Sí! {eq}. La respuesta es {x}.",
+    st_joinRU:"Mía tiene {a} calcomanías. Le dan {b} calcomanías más. ¿Cuántas calcomanías tiene Mía ahora?",
+    st_joinCU:"Leo tiene {a} canicas. Su amigo le da algunas más. Ahora Leo tiene {c} canicas. ¿Cuántas canicas le dio su amigo?",
+    st_startU:"Hay algunos patos nadando en un estanque. Luego llegan {b} patos más. Ahora hay {c} patos. ¿Cuántos patos había en el estanque al principio?",
+    st_sepRU:"Hay {c} pájaros en una cerca. {b} pájaros se van volando. ¿Cuántos pájaros quedan en la cerca?",
+    st_sepCU:"Ana tiene {c} crayones. Le da algunos a Sam. Ahora Ana tiene {a} crayones. ¿Cuántos crayones le dio a Sam?",
+    st_pptTotal:"Una canasta tiene {a} manzanas rojas y {b} manzanas verdes. ¿Cuántas manzanas hay en la canasta?",
+    st_pptPart:"Hay {c} peces en una pecera. {a} peces son anaranjados. Los demás son azules. ¿Cuántos peces son azules?",
+    st_compDiff:"Ben tiene {c} carritos. Zoe tiene {a} carritos. ¿Cuántos carritos más tiene Ben que Zoe?",
+    st_compBig:"Kim lee {a} libros. Raj lee {b} libros más que Kim. ¿Cuántos libros lee Raj?",
+    ex_joinRU:"Llegaron más calcomanías, así que el grupo crece. Sumamos: las dos partes forman el total.",
+    ex_joinCU:"Sabemos el principio, {a}, y el final, {c}. Cuenta desde {a} hasta {c} para saber cuántas se agregaron.",
+    ex_startU:"Sabemos los patos que llegaron, {b}, y el total, {c}. Quita {b} de {c} para saber cuántos había al principio.",
+    ex_sepRU:"Algunos pájaros se fueron, así que el grupo se hace más pequeño. Empieza con {c} y quita {b}.",
+    ex_sepCU:"Ana empezó con {c} y le quedan {a}. La parte que falta es cuántos regaló. Cuenta desde {a} hasta {c}.",
+    ex_pptTotal:"Las manzanas rojas y las verdes son dos partes. Junta las partes para encontrar el total.",
+    ex_pptPart:"El total es {c}. Una parte es {a}. Quita {a} de {c} para encontrar la otra parte.",
+    ex_compDiff:"Compara las dos barras. El pedazo punteado es cuántos más. Cuenta desde {a} hasta {c}.",
+    ex_compBig:"Raj tiene lo mismo que Kim, {a}, y {b} más. Suma para encontrar la barra más larga.",
+    cardTitle:"Feria de Familias de Operaciones — Tarjetas de Reto",
+    stds:"Estándares alineados: Texas TEKS 1.er grado: 1.3(B)–(E), 1.5(D)–(G); 2.º grado: 2.4(A)–(C), 2.7(C). Common Core: 1.OA.1, 1.OA.3–8; 2.OA.1–2; 2.NBT.5."
+  },
+  vi:{
+    appTitle:"Hội Chợ Gia Đình Phép Tính", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", modesAria:"Chế độ",
+    mFrames:"Khung Mười", mLine:"Nhảy Trên Tia Số", mMissing:"Số Còn Thiếu", mFamily:"Gia Đình Phép Tính", mStory:"Bài Toán Đố",
+    newRound:"Vòng mới", readAloud:"Đọc to", choicesAria:"Các lựa chọn trả lời", check:"Kiểm tra", clear:"Xóa",
+    showBond:"Xem hình minh họa", hideBond:"Ẩn hình minh họa", tilesAria:"Thẻ số",
+    footNote:"Không tài khoản · Không thu thập dữ liệu · Hoạt động ngoại tuyến",
+    teacherTitle:"Cài đặt giáo viên", close:"Đóng", setMax:"Số đến", max10:"10", max20:"20 (Lớp 1)", max100:"100 (Lớp 2)",
+    maxNote:"Khung mười luôn dùng số trong phạm vi 20.", setSub:"Phép trừ", subOn:"Có phép trừ", setModes:"Chế độ",
+    setSpeech:"Giọng nói", autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
+    setStored:"Cài đặt chỉ lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
+    starsAria:"Ngôi sao: {n}", wPlus:"cộng", wMinus:"trừ", wEquals:"bằng", wBlank:"mấy",
+    tooBig:"{x} lớn quá.", tooSmall:"{x} nhỏ quá.", yes:"Đúng rồi!", lookAgain:"Cùng xem lại nhé.",
+    frame1:"Khung mười thứ nhất", frame2:"Khung mười thứ hai", cRed:"Hạt đỏ", cBlue:"Hạt xanh", cGone:"Đã bỏ ra", cEmpty:"Ô trống",
+    fP_makeTen:"{eq} bằng mấy? Chạm vào hạt xanh để di chuyển. Lấp đầy khung thứ nhất để được 10.",
+    fP_double:"{eq} bằng mấy? Đây là phép cộng hai số giống nhau!",
+    fP_near:"{eq} bằng mấy? Hãy nghĩ đến phép cộng hai số giống nhau mà em đã biết.",
+    fP_countOn:"{eq} bằng mấy? Bắt đầu từ {a} rồi đếm tiếp.",
+    fP_partner:"{eq}. Cần thêm mấy để được 10? Chạm vào các ô trống để lấp đầy khung.",
+    fP_sub:"{eq} bằng mấy? Chạm vào {b} hạt để bỏ chúng ra.",
+    fP_subDouble:"{eq} bằng mấy? Hãy nghĩ đến phép cộng hai số giống nhau.",
+    fG_makeTen:"Đúng rồi! {a} cần thêm {k} để được 10. Rồi 10 + {r} = {c}. Vậy {a} + {b} = {c}.",
+    fG_double:"Đúng rồi! {a} + {a} = {c}. Cộng hai số giống nhau rất dễ nhớ.",
+    fG_near:"Đúng rồi! {d} + {d} = {e}, thêm một nữa là {c}. Vậy {a} + {b} = {c}.",
+    fG_countOn:"Đúng rồi! Bắt đầu từ {a} và đếm tiếp: {seq}. Vậy {a} + {b} = {c}.",
+    fG_partner:"Đúng rồi! {a} + {b} = 10. {a} và {b} là đôi bạn của 10.",
+    fG_sub:"Đúng rồi! {c} bớt {b} còn {r}. {c} − {b} = {r}.",
+    fG_subTen:"Đúng rồi! Bớt {k} để còn 10. Rồi bớt thêm {m}: 10 − {m} = {r}. Vậy {c} − {b} = {r}.",
+    fG_subDouble:"Đúng rồi! {r} + {r} = {c}, nên {c} − {r} = {r}.",
+    fH_makeTen:"{a} cần thêm {k} để được 10. Di chuyển hạt xanh để lấp đầy khung thứ nhất. Rồi cộng phần còn lại vào 10.",
+    fH_double:"Có {a} hạt đỏ và {a} hạt xanh. Đếm tất cả, hoặc nghĩ: {a} và thêm {a}.",
+    fH_near:"{a} và {b} là hai số liền nhau. Dùng {d} + {d} = {e}, rồi thêm một.",
+    fH_countOn:"Nhẩm {a} trong đầu. Rồi đếm tiếp một số cho mỗi hạt xanh.",
+    fH_partner:"Khung mười đầy có 10 ô. Đếm các ô trống. Đó là số em cần thêm.",
+    fH_sub:"Chạm vào {b} hạt để bỏ ra. Rồi đếm số hạt còn lại.",
+    fH_subTen:"Trước tiên bớt {k} để còn 10. {b} gồm {k} và {m}. Rồi bớt thêm {m} từ 10.",
+    fH_subDouble:"Hãy nghĩ đến hai số giống nhau. Số nào cộng với chính nó được {c}?",
+    lnDirAdd:"Bắt đầu ở {a}. Nhảy tới {b}. Em đáp ở đâu? Chạm vào tia số, rồi chạm Kiểm tra.",
+    lnDirSub:"Bắt đầu ở {a}. Nhảy lùi {b}. Em đáp ở đâu? Chạm vào tia số, rồi chạm Kiểm tra.",
+    start:"bắt đầu", lineAria:"Tia số. Dùng phím mũi tên để di chuyển dấu.",
+    lnNoPin:"Chạm vào tia số để chỉ chỗ em đáp xuống.",
+    lnGood:"Đúng rồi! {eq}.", lnFar:"Em nhảy xa quá rồi.", lnShort:"Chưa đủ xa.",
+    lnCross:"Bắt đầu ở {a}. Nhảy {k} để đến {ten}. Rồi nhảy thêm {r}.",
+    lnCrossBack:"Bắt đầu ở {a}. Nhảy lùi {k} để đến {ten}. Rồi nhảy lùi thêm {r}.",
+    lnOnes:"Bắt đầu ở {a}. Đếm {b} bước nhảy nhỏ về phía trước.",
+    lnOnesBack:"Bắt đầu ở {a}. Đếm {b} bước nhảy nhỏ lùi lại.",
+    lnTens:"Bắt đầu ở {a}. Nhảy {n} bước lớn về phía trước, mỗi bước 10. Chỉ chữ số hàng chục thay đổi.",
+    lnTensBack:"Bắt đầu ở {a}. Nhảy lùi {n} bước lớn, mỗi bước 10. Chỉ chữ số hàng chục thay đổi.",
+    msDir:"Tìm số còn thiếu.", msG:"Đúng rồi! {eq}. Số còn thiếu là {x}.",
+    msH_sum:"Gộp {a} và {b} lại. Tạo số 10 hoặc cộng hai số giống nhau sẽ giúp em.",
+    msH_addend:"Hãy nghĩ: {a} cộng mấy thì được {c}? Đếm tiếp từ {a} đến {c}.",
+    msH_diff:"Bắt đầu ở {c} và đếm lùi {b}. Hoặc nghĩ: {b} cộng mấy thì được {c}?",
+    msH_takeHow:"Bớt bao nhiêu từ {c} để còn {a}? Đếm tiếp từ {a} đến {c}.",
+    msH_start:"Số nào bớt {b} thì còn {a}? Gộp hai phần lại: {a} và {b}.",
+    bondAria:"Sơ đồ tách gộp số: một tổng và hai phần", balanceAria:"Cái cân",
+    tfDir:"Điều này đúng hay sai?", trueBtn:"Đúng", falseBtn:"Sai",
+    tfSide:"{e} là {v}.", tfSame:"Hai bên bằng nhau, nên điều này đúng.",
+    tfNotSame:"Hai bên không bằng nhau, nên điều này sai.", tfEqual:"Dấu bằng nghĩa là “bằng với”.",
+    triAria:"Tam giác phép tính: {c} ở trên, {a} và {b} ở dưới",
+    famDir:"Lập gia đình phép tính cho {a}, {b} và {c}. Kéo một số vào ô, hoặc chạm vào một số rồi chạm vào ô.",
+    famDirAdd:"Lập hai phép cộng với {a}, {b} và {c}. Kéo một số vào ô, hoặc chạm vào một số rồi chạm vào ô.",
+    tileAria:"Số {n}", factN:"Phép tính {n}", slotAria:"Ô trống", slotFilled:"Ô có số {n}",
+    famPickFirst:"Hãy chọn một thẻ số trước. Rồi chạm vào ô.",
+    famEmpty:"Điền vào tất cả các ô. Dùng {a}, {b} và {c}.",
+    famUse:"Mỗi phép tính dùng {a}, {b} và {c}, mỗi số một lần. Hãy xem phép tính màu vàng.",
+    famFalseAdd:"{eq} không đúng. Trong phép cộng, hai phần {a} và {b} gộp lại thành tổng {c}.",
+    famFalseSub:"{eq} không đúng. Trong phép trừ, bắt đầu từ tổng {c} rồi bớt đi một phần.",
+    famDup:"Có hai phép tính giống nhau. Đổi thứ tự các số để tạo phép tính mới.",
+    famGood:"Đúng rồi! Em đã lập cả gia đình phép tính. Hai phần là {a} và {b}. Tổng là {c}.",
+    famGoodAdd:"Đúng rồi! {a} + {b} = {c} và {b} + {a} = {c}. Em có thể đổi chỗ các phần.",
+    barAria:"Sơ đồ đoạn thẳng", storyG:"Đúng rồi! {eq}. Đáp án là {x}.",
+    st_joinRU:"Mia có {a} nhãn dán. Bạn ấy được thêm {b} nhãn dán. Bây giờ Mia có bao nhiêu nhãn dán?",
+    st_joinCU:"Leo có {a} viên bi. Bạn của Leo cho thêm một ít. Bây giờ Leo có {c} viên bi. Bạn đã cho Leo bao nhiêu viên bi?",
+    st_startU:"Có vài con vịt đang bơi trong ao. Rồi có thêm {b} con vịt đến. Bây giờ có {c} con vịt. Lúc đầu có bao nhiêu con vịt trong ao?",
+    st_sepRU:"Có {c} con chim trên hàng rào. {b} con chim bay đi. Còn lại bao nhiêu con chim trên hàng rào?",
+    st_sepCU:"Ana có {c} cây bút sáp. Bạn ấy cho Sam một ít. Bây giờ Ana còn {a} cây. Ana đã cho Sam bao nhiêu cây bút sáp?",
+    st_pptTotal:"Một giỏ có {a} quả táo đỏ và {b} quả táo xanh. Trong giỏ có tất cả bao nhiêu quả táo?",
+    st_pptPart:"Có {c} con cá trong bể. {a} con cá màu cam. Số còn lại màu xanh. Có bao nhiêu con cá màu xanh?",
+    st_compDiff:"Ben có {c} xe đồ chơi. Zoe có {a} xe đồ chơi. Ben có nhiều hơn Zoe bao nhiêu xe?",
+    st_compBig:"Kim đọc {a} cuốn sách. Raj đọc nhiều hơn Kim {b} cuốn. Raj đọc bao nhiêu cuốn sách?",
+    ex_joinRU:"Có thêm nhãn dán, nên nhóm lớn hơn. Ta làm phép cộng: hai phần gộp thành tổng.",
+    ex_joinCU:"Ta biết lúc đầu là {a} và lúc sau là {c}. Đếm tiếp từ {a} đến {c} để biết đã thêm bao nhiêu.",
+    ex_startU:"Ta biết số vịt đến thêm là {b} và tổng là {c}. Lấy {c} bớt {b} để tìm số vịt lúc đầu.",
+    ex_sepRU:"Một số con chim bay đi, nên nhóm nhỏ lại. Bắt đầu từ {c} và bớt {b}.",
+    ex_sepCU:"Lúc đầu Ana có {c} và còn lại {a}. Phần còn thiếu là số đã cho đi. Đếm tiếp từ {a} đến {c}.",
+    ex_pptTotal:"Táo đỏ và táo xanh là hai phần. Gộp hai phần lại để tìm tổng.",
+    ex_pptPart:"Tổng là {c}. Một phần là {a}. Lấy {c} bớt {a} để tìm phần kia.",
+    ex_compDiff:"So sánh hai thanh. Phần nét đứt là số nhiều hơn. Đếm tiếp từ {a} đến {c}.",
+    ex_compBig:"Raj có bằng Kim là {a}, và thêm {b} nữa. Cộng lại để tìm thanh dài hơn.",
+    cardTitle:"Hội Chợ Gia Đình Phép Tính — Thẻ Thử Thách",
+    stds:"Tiêu chuẩn phù hợp: Texas TEKS Lớp 1: 1.3(B)–(E), 1.5(D)–(G); Lớp 2: 2.4(A)–(C), 2.7(C). Common Core: 1.OA.1, 1.OA.3–8; 2.OA.1–2; 2.NBT.5."
+  },
+  ar:{
+    appTitle:"معرض عائلات الحقائق", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", modesAria:"الأنماط",
+    mFrames:"حقائق الإطار العشري", mLine:"قفزات على خط الأعداد", mMissing:"العدد المفقود", mFamily:"عائلات الحقائق", mStory:"مسائل قصصية",
+    newRound:"جولة جديدة", readAloud:"اقرأ بصوت عالٍ", choicesAria:"خيارات الإجابة", check:"تحقّق", clear:"امسح",
+    showBond:"اعرض صورة", hideBond:"أخفِ الصورة", tilesAria:"بطاقات الأعداد",
+    footNote:"بدون حسابات · لا جمع للبيانات · يعمل بدون إنترنت",
+    teacherTitle:"إعدادات المعلم", close:"إغلاق", setMax:"الأعداد حتى", max10:"10", max20:"20 (الصف الأول)", max100:"100 (الصف الثاني)",
+    maxNote:"الإطارات العشرية تبقى دائماً ضمن 20.", setSub:"الطرح", subOn:"تضمين الطرح", setModes:"الأنماط",
+    setSpeech:"النطق", autoRead:"قراءة التعليمات تلقائياً", printCards:"طباعة بطاقات التحدي",
+    setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُحفظ أي معلومات عن الطالب أبداً.",
+    starsAria:"النجوم: {n}", wPlus:"زائد", wMinus:"ناقص", wEquals:"يساوي", wBlank:"كم",
+    tooBig:"{x} أكبر من اللازم.", tooSmall:"{x} أصغر من اللازم.", yes:"نعم!", lookAgain:"لننظر مرة أخرى.",
+    frame1:"الإطار العشري الأول", frame2:"الإطار العشري الثاني", cRed:"قرص أحمر", cBlue:"قرص أزرق", cGone:"أُزيل", cEmpty:"مربع فارغ",
+    fP_makeTen:"كم يساوي {eq}؟ المس قرصاً أزرق لتنقله. املأ الإطار الأول لتكوّن 10.",
+    fP_double:"كم يساوي {eq}؟ إنه جمع العدد مع نفسه!",
+    fP_near:"كم يساوي {eq}؟ فكّر في عدد مع نفسه تعرفه.",
+    fP_countOn:"كم يساوي {eq}؟ ابدأ من {a} وتابع العدّ.",
+    fP_partner:"{eq}. كم نحتاج أيضاً لنكوّن 10؟ المس المربعات الفارغة لتملأ الإطار.",
+    fP_sub:"كم يساوي {eq}؟ المس {b} من الأقراص لتزيلها.",
+    fP_subDouble:"كم يساوي {eq}؟ فكّر في عدد مع نفسه.",
+    fG_makeTen:"نعم! {a} يحتاج إلى {k} ليصبح 10. ثم 10 + {r} = {c}. إذن {a} + {b} = {c}.",
+    fG_double:"نعم! {a} + {a} = {c}. جمع العدد مع نفسه سهل التذكّر.",
+    fG_near:"نعم! {d} + {d} = {e}، وواحد أكثر يساوي {c}. إذن {a} + {b} = {c}.",
+    fG_countOn:"نعم! ابدأ من {a} وتابع العدّ: {seq}. إذن {a} + {b} = {c}.",
+    fG_partner:"نعم! {a} + {b} = 10. العددان {a} و{b} شريكان في تكوين 10.",
+    fG_sub:"نعم! إذا أخذنا {b} من {c} يبقى {r}. {c} − {b} = {r}.",
+    fG_subTen:"نعم! أزل {k} لتصل إلى 10. ثم أزل {m} أخرى: 10 − {m} = {r}. إذن {c} − {b} = {r}.",
+    fG_subDouble:"نعم! {r} + {r} = {c}، إذن {c} − {r} = {r}.",
+    fH_makeTen:"{a} يحتاج إلى {k} ليصبح 10. انقل أقراصاً زرقاء لتملأ الإطار الأول. ثم أضف الباقي إلى 10.",
+    fH_double:"هناك {a} من الأقراص الحمراء و{a} من الأقراص الزرقاء. عُدّها كلها، أو فكّر: {a} و{a} أخرى.",
+    fH_near:"{a} و{b} عددان متجاوران. استخدم {d} + {d} = {e}، ثم أضف واحداً.",
+    fH_countOn:"قل {a} في رأسك. ثم عُدّ عدداً واحداً لكل قرص أزرق.",
+    fH_partner:"الإطار العشري الممتلئ فيه 10 مربعات. عُدّ المربعات الفارغة. هذا ما تحتاجه.",
+    fH_sub:"المس {b} من الأقراص لتزيلها. ثم عُدّ الأقراص الباقية.",
+    fH_subTen:"أولاً أزل {k} لتصل إلى 10. العدد {b} هو {k} و{m}. ثم أزل {m} أخرى من 10.",
+    fH_subDouble:"فكّر في عدد مع نفسه. أي عدد إذا جمعته مع نفسه يعطي {c}؟",
+    lnDirAdd:"ابدأ من {a}. اقفز {b} إلى الأمام. أين تهبط؟ المس خط الأعداد، ثم المس تحقّق.",
+    lnDirSub:"ابدأ من {a}. اقفز {b} إلى الخلف. أين تهبط؟ المس خط الأعداد، ثم المس تحقّق.",
+    start:"البداية", lineAria:"خط الأعداد. استخدم مفاتيح الأسهم لتحريك العلامة.",
+    lnNoPin:"المس خط الأعداد لتُظهر أين تهبط.",
+    lnGood:"نعم! {eq}.", lnFar:"قفزت أبعد من اللازم.", lnShort:"لم تصل بعد.",
+    lnCross:"ابدأ من {a}. اقفز {k} لتصل إلى {ten}. ثم اقفز {r} أخرى.",
+    lnCrossBack:"ابدأ من {a}. اقفز {k} إلى الخلف لتصل إلى {ten}. ثم اقفز {r} أخرى إلى الخلف.",
+    lnOnes:"ابدأ من {a}. عُدّ {b} من القفزات الصغيرة إلى الأمام.",
+    lnOnesBack:"ابدأ من {a}. عُدّ {b} من القفزات الصغيرة إلى الخلف.",
+    lnTens:"ابدأ من {a}. اقفز {n} من القفزات الكبيرة إلى الأمام، كل قفزة 10. يتغيّر رقم العشرات فقط.",
+    lnTensBack:"ابدأ من {a}. اقفز {n} من القفزات الكبيرة إلى الخلف، كل قفزة 10. يتغيّر رقم العشرات فقط.",
+    msDir:"جِد العدد المفقود.", msG:"نعم! {eq}. العدد المفقود هو {x}.",
+    msH_sum:"اجمع {a} و{b} معاً. تكوين 10 أو جمع عدد مع نفسه قد يساعدك.",
+    msH_addend:"فكّر: {a} زائد أي عدد يعطي {c}؟ عُدّ من {a} حتى {c}.",
+    msH_diff:"ابدأ من {c} وعُدّ {b} إلى الخلف. أو فكّر: {b} زائد أي عدد يعطي {c}؟",
+    msH_takeHow:"كم تأخذ من {c} ليبقى {a}؟ عُدّ من {a} حتى {c}.",
+    msH_start:"أي عدد إذا أخذت منه {b} يبقى {a}؟ اجمع الجزأين معاً: {a} و{b}.",
+    bondAria:"رابطة الأعداد: كلٌّ وجزآن", balanceAria:"ميزان",
+    tfDir:"هل هذا صحيح أم خطأ؟", trueBtn:"صحيح", falseBtn:"خطأ",
+    tfSide:"{e} يساوي {v}.", tfSame:"الطرفان متساويان، إذن هذا صحيح.",
+    tfNotSame:"الطرفان غير متساويين، إذن هذا خطأ.", tfEqual:"علامة المساواة تعني «له نفس المقدار».",
+    triAria:"مثلث الحقائق: {c} في الأعلى، و{a} و{b} في الأسفل",
+    famDir:"كوّن عائلة الحقائق للأعداد {a} و{b} و{c}. اسحب عدداً إلى مربع، أو المس عدداً ثم المس مربعاً.",
+    famDirAdd:"كوّن حقيقتي جمع بالأعداد {a} و{b} و{c}. اسحب عدداً إلى مربع، أو المس عدداً ثم المس مربعاً.",
+    tileAria:"العدد {n}", factN:"الحقيقة {n}", slotAria:"مربع فارغ", slotFilled:"مربع فيه {n}",
+    famPickFirst:"اختر بطاقة عدد أولاً. ثم المس مربعاً.",
+    famEmpty:"املأ كل المربعات. استخدم {a} و{b} و{c}.",
+    famUse:"كل حقيقة تستخدم {a} و{b} و{c}، كل عدد مرة واحدة. انظر إلى الحقيقة الصفراء.",
+    famFalseAdd:"{eq} ليست صحيحة. في حقيقة الجمع، الجزآن {a} و{b} يكوّنان الكل {c}.",
+    famFalseSub:"{eq} ليست صحيحة. في حقيقة الطرح، ابدأ بالكل {c} ثم اطرح جزءاً.",
+    famDup:"هناك حقيقتان متشابهتان. بدّل ترتيب الأعداد لتكوّن حقيقة جديدة.",
+    famGood:"نعم! كوّنت عائلة الحقائق كاملة. الجزآن هما {a} و{b}. والكل هو {c}.",
+    famGoodAdd:"نعم! {a} + {b} = {c} و {b} + {a} = {c}. يمكنك تبديل ترتيب الجزأين.",
+    barAria:"نموذج الأشرطة", storyG:"نعم! {eq}. الإجابة هي {x}.",
+    st_joinRU:"لدى ميا {a} من الملصقات. حصلت على {b} من الملصقات الأخرى. كم ملصقاً لدى ميا الآن؟",
+    st_joinCU:"لدى ليو {a} من الكرات الزجاجية. أعطاه صديقه بعض الكرات. الآن لدى ليو {c} من الكرات. كم كرة أعطاه صديقه؟",
+    st_startU:"كان بعض البط يسبح في بركة. ثم جاء {b} من البط. الآن هناك {c} من البط. كم بطة كانت في البركة في البداية؟",
+    st_sepRU:"هناك {c} من العصافير على السياج. طار {b} من العصافير. كم عصفوراً بقي على السياج؟",
+    st_sepCU:"لدى آنا {c} من أقلام التلوين. أعطت بعضها لسام. الآن لديها {a} من الأقلام. كم قلماً أعطت سام؟",
+    st_pptTotal:"في سلة {a} من التفاح الأحمر و{b} من التفاح الأخضر. كم تفاحة في السلة؟",
+    st_pptPart:"في الحوض {c} من الأسماك. {a} منها برتقالية، والباقي زرقاء. كم سمكة زرقاء؟",
+    st_compDiff:"لدى بن {c} من السيارات الصغيرة. ولدى زوي {a} من السيارات. كم سيارة لدى بن أكثر من زوي؟",
+    st_compBig:"قرأت كيم {a} من الكتب. وقرأ راج {b} من الكتب أكثر من كيم. كم كتاباً قرأ راج؟",
+    ex_joinRU:"جاءت ملصقات أخرى، فكبرت المجموعة. نجمع: الجزآن يكوّنان الكل.",
+    ex_joinCU:"نعرف البداية {a} والنهاية {c}. عُدّ من {a} حتى {c} لتعرف كم أُضيف.",
+    ex_startU:"نعرف عدد البط الذي جاء {b} والمجموع {c}. اطرح {b} من {c} لتجد عدد البط في البداية.",
+    ex_sepRU:"طارت بعض العصافير، فصغرت المجموعة. ابدأ من {c} واطرح {b}.",
+    ex_sepCU:"بدأت آنا بـ {c} وبقي لديها {a}. الجزء المفقود هو ما أعطته. عُدّ من {a} حتى {c}.",
+    ex_pptTotal:"التفاح الأحمر والتفاح الأخضر جزآن. اجمع الجزأين لتجد الكل.",
+    ex_pptPart:"الكل هو {c}. وجزء منه {a}. اطرح {a} من {c} لتجد الجزء الآخر.",
+    ex_compDiff:"قارن بين الشريطين. الجزء المنقّط هو الفرق. عُدّ من {a} حتى {c}.",
+    ex_compBig:"لدى راج مثل كيم، أي {a}، و{b} أخرى. اجمع لتجد الشريط الأطول.",
+    cardTitle:"معرض عائلات الحقائق — بطاقات التحدي",
+    stds:"المعايير المتوافقة: Texas TEKS الصف الأول: 1.3(B)–(E)، 1.5(D)–(G)؛ الصف الثاني: 2.4(A)–(C)، 2.7(C). Common Core: 1.OA.1، 1.OA.3–8؛ 2.OA.1–2؛ 2.NBT.5."
+  },
+  hi:{
+    appTitle:"तथ्य परिवार मेला", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", modesAria:"मोड",
+    mFrames:"दस-फ्रेम तथ्य", mLine:"संख्या रेखा पर छलांग", mMissing:"छूटी हुई संख्या", mFamily:"तथ्य परिवार", mStory:"कहानी सवाल",
+    newRound:"नया दौर", readAloud:"ज़ोर से पढ़ें", choicesAria:"उत्तर के विकल्प", check:"जाँचें", clear:"मिटाएँ",
+    showBond:"चित्र दिखाएँ", hideBond:"चित्र छिपाएँ", tilesAria:"संख्या टाइलें",
+    footNote:"कोई खाता नहीं · कोई डेटा नहीं · ऑफ़लाइन काम करता है",
+    teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setMax:"संख्याएँ कहाँ तक", max10:"10", max20:"20 (कक्षा 1)", max100:"100 (कक्षा 2)",
+    maxNote:"दस-फ्रेम हमेशा 20 तक की संख्याएँ लेते हैं।", setSub:"घटाव", subOn:"घटाव शामिल करें", setModes:"मोड",
+    setSpeech:"आवाज़", autoRead:"निर्देश अपने आप पढ़ें", printCards:"चुनौती कार्ड छापें",
+    setStored:"सेटिंग्स केवल इस डिवाइस पर सहेजी जाती हैं। छात्र की जानकारी कभी नहीं सहेजी जाती।",
+    starsAria:"तारे: {n}", wPlus:"जमा", wMinus:"घटा", wEquals:"बराबर", wBlank:"कितना",
+    tooBig:"{x} बहुत बड़ा है।", tooSmall:"{x} बहुत छोटा है।", yes:"हाँ!", lookAgain:"चलो फिर से देखें।",
+    frame1:"पहला दस-फ्रेम", frame2:"दूसरा दस-फ्रेम", cRed:"लाल गोटी", cBlue:"नीली गोटी", cGone:"हटाई गई", cEmpty:"खाली खाना",
+    fP_makeTen:"{eq} कितना होता है? नीली गोटी को छूकर खिसकाओ। 10 बनाने के लिए पहला फ्रेम भरो।",
+    fP_double:"{eq} कितना होता है? यह दुगुना है!",
+    fP_near:"{eq} कितना होता है? कोई दुगुना सोचो जो तुम्हें पता है।",
+    fP_countOn:"{eq} कितना होता है? {a} से शुरू करो और आगे गिनो।",
+    fP_partner:"{eq}। 10 बनाने के लिए और कितने चाहिए? फ्रेम भरने के लिए खाली खाने छुओ।",
+    fP_sub:"{eq} कितना होता है? {b} गोटियाँ छूकर हटाओ।",
+    fP_subDouble:"{eq} कितना होता है? किसी दुगुने के बारे में सोचो।",
+    fG_makeTen:"हाँ! {a} को 10 बनने के लिए {k} और चाहिए। फिर 10 + {r} = {c}। तो {a} + {b} = {c}।",
+    fG_double:"हाँ! {a} + {a} = {c}। दुगुने याद रखना आसान है।",
+    fG_near:"हाँ! {d} + {d} = {e}, और एक ज़्यादा {c} है। तो {a} + {b} = {c}।",
+    fG_countOn:"हाँ! {a} से शुरू करके आगे गिनो: {seq}। तो {a} + {b} = {c}।",
+    fG_partner:"हाँ! {a} + {b} = 10। {a} और {b} दस के साथी हैं।",
+    fG_sub:"हाँ! {c} में से {b} हटाने पर {r} बचते हैं। {c} − {b} = {r}।",
+    fG_subTen:"हाँ! 10 तक पहुँचने के लिए {k} हटाओ। फिर {m} और हटाओ: 10 − {m} = {r}। तो {c} − {b} = {r}।",
+    fG_subDouble:"हाँ! {r} + {r} = {c}, इसलिए {c} − {r} = {r}।",
+    fH_makeTen:"{a} को 10 बनने के लिए {k} और चाहिए। पहला फ्रेम भरने के लिए नीली गोटियाँ खिसकाओ। फिर बाकी को 10 में जोड़ो।",
+    fH_double:"{a} लाल और {a} नीली गोटियाँ हैं। सब गिनो, या सोचो: {a} और {a} और।",
+    fH_near:"{a} और {b} पड़ोसी संख्याएँ हैं। दुगुना {d} + {d} = {e} लो, फिर एक और जोड़ो।",
+    fH_countOn:"मन में {a} बोलो। फिर हर नीली गोटी के लिए एक संख्या आगे गिनो।",
+    fH_partner:"भरे हुए दस-फ्रेम में 10 खाने होते हैं। खाली खाने गिनो। उतने ही और चाहिए।",
+    fH_sub:"{b} गोटियाँ छूकर हटाओ। फिर बची हुई गोटियाँ गिनो।",
+    fH_subTen:"पहले 10 तक पहुँचने के लिए {k} हटाओ। {b} में {k} और {m} हैं। फिर 10 में से {m} और हटाओ।",
+    fH_subDouble:"किसी दुगुने के बारे में सोचो। कौन सी संख्या खुद में जुड़कर {c} बनाती है?",
+    lnDirAdd:"{a} से शुरू करो। {b} आगे कूदो। तुम कहाँ पहुँचे? संख्या रेखा छुओ, फिर जाँचें छुओ।",
+    lnDirSub:"{a} से शुरू करो। {b} पीछे कूदो। तुम कहाँ पहुँचे? संख्या रेखा छुओ, फिर जाँचें छुओ।",
+    start:"शुरू", lineAria:"संख्या रेखा। निशान खिसकाने के लिए तीर वाली कुंजियाँ दबाएँ।",
+    lnNoPin:"संख्या रेखा छूकर दिखाओ कि तुम कहाँ पहुँचे।",
+    lnGood:"हाँ! {eq}।", lnFar:"तुम बहुत दूर कूद गए।", lnShort:"अभी उतनी दूर नहीं पहुँचे।",
+    lnCross:"{a} से शुरू करो। {ten} तक पहुँचने के लिए {k} कूदो। फिर {r} और कूदो।",
+    lnCrossBack:"{a} से शुरू करो। {ten} तक पहुँचने के लिए {k} पीछे कूदो। फिर {r} और पीछे कूदो।",
+    lnOnes:"{a} से शुरू करो। {b} छोटी छलांगें आगे गिनो।",
+    lnOnesBack:"{a} से शुरू करो। {b} छोटी छलांगें पीछे गिनो।",
+    lnTens:"{a} से शुरू करो। दस-दस की {n} बड़ी छलांगें आगे लगाओ। सिर्फ़ दहाई का अंक बदलता है।",
+    lnTensBack:"{a} से शुरू करो। दस-दस की {n} बड़ी छलांगें पीछे लगाओ। सिर्फ़ दहाई का अंक बदलता है।",
+    msDir:"छूटी हुई संख्या ढूँढो।", msG:"हाँ! {eq}। छूटी हुई संख्या {x} है।",
+    msH_sum:"{a} और {b} को मिलाओ। 10 बनाना या दुगुना सोचना मदद करेगा।",
+    msH_addend:"सोचो: {a} में कितना जोड़ें कि {c} बने? {a} से {c} तक आगे गिनो।",
+    msH_diff:"{c} से शुरू करके {b} पीछे गिनो। या सोचो: {b} में कितना जोड़ें कि {c} बने?",
+    msH_takeHow:"{c} में से कितने हटाएँ कि {a} बचें? {a} से {c} तक आगे गिनो।",
+    msH_start:"किस संख्या में से {b} हटाने पर {a} बचते हैं? दोनों भाग फिर से मिलाओ: {a} और {b}।",
+    bondAria:"संख्या बंधन: एक पूरा और दो भाग", balanceAria:"तराज़ू",
+    tfDir:"क्या यह सही है या गलत?", trueBtn:"सही", falseBtn:"गलत",
+    tfSide:"{e} का मान {v} है।", tfSame:"दोनों तरफ़ बराबर मात्रा है, इसलिए यह सही है।",
+    tfNotSame:"दोनों तरफ़ बराबर मात्रा नहीं है, इसलिए यह गलत है।", tfEqual:"बराबर के चिह्न का मतलब है “उतना ही जितना”।",
+    triAria:"तथ्य त्रिभुज: ऊपर {c}, नीचे {a} और {b}",
+    famDir:"{a}, {b} और {c} का तथ्य परिवार बनाओ। किसी संख्या को खाने में खींचो, या संख्या छूकर फिर खाना छुओ।",
+    famDirAdd:"{a}, {b} और {c} से जोड़ के दो तथ्य बनाओ। किसी संख्या को खाने में खींचो, या संख्या छूकर फिर खाना छुओ।",
+    tileAria:"संख्या {n}", factN:"तथ्य {n}", slotAria:"खाली खाना", slotFilled:"खाने में {n}",
+    famPickFirst:"पहले एक संख्या टाइल चुनो। फिर खाना छुओ।",
+    famEmpty:"हर खाना भरो। {a}, {b} और {c} का उपयोग करो।",
+    famUse:"हर तथ्य में {a}, {b} और {c} एक-एक बार आते हैं। पीले तथ्य को देखो।",
+    famFalseAdd:"{eq} सही नहीं है। जोड़ के तथ्य में दो भाग, {a} और {b}, मिलकर पूरा, {c}, बनाते हैं।",
+    famFalseSub:"{eq} सही नहीं है। घटाव के तथ्य में पूरे, {c}, से शुरू करो और एक भाग हटाओ।",
+    famDup:"दो तथ्य एक जैसे हैं। नया तथ्य बनाने के लिए संख्याओं का क्रम बदलो।",
+    famGood:"हाँ! तुमने पूरा तथ्य परिवार बना लिया। भाग {a} और {b} हैं। पूरा {c} है।",
+    famGoodAdd:"हाँ! {a} + {b} = {c} और {b} + {a} = {c}। तुम भागों का क्रम बदल सकते हो।",
+    barAria:"पट्टी मॉडल", storyG:"हाँ! {eq}। उत्तर {x} है।",
+    st_joinRU:"मिया के पास {a} स्टिकर हैं। उसे {b} स्टिकर और मिलते हैं। अब मिया के पास कितने स्टिकर हैं?",
+    st_joinCU:"लियो के पास {a} कंचे हैं। उसका दोस्त उसे कुछ और देता है। अब लियो के पास {c} कंचे हैं। दोस्त ने उसे कितने कंचे दिए?",
+    st_startU:"एक तालाब में कुछ बत्तखें तैर रही हैं। फिर {b} बत्तखें और आती हैं। अब {c} बत्तखें हैं। शुरू में तालाब में कितनी बत्तखें थीं?",
+    st_sepRU:"बाड़ पर {c} चिड़ियाँ बैठी हैं। {b} चिड़ियाँ उड़ जाती हैं। बाड़ पर कितनी चिड़ियाँ बचीं?",
+    st_sepCU:"आना के पास {c} क्रेयॉन हैं। वह कुछ सैम को दे देती है। अब आना के पास {a} क्रेयॉन हैं। उसने सैम को कितने क्रेयॉन दिए?",
+    st_pptTotal:"एक टोकरी में {a} लाल सेब और {b} हरे सेब हैं। टोकरी में कुल कितने सेब हैं?",
+    st_pptPart:"एक टैंक में {c} मछलियाँ हैं। {a} मछलियाँ नारंगी हैं। बाकी नीली हैं। कितनी मछलियाँ नीली हैं?",
+    st_compDiff:"बेन के पास {c} खिलौना कारें हैं। ज़ोई के पास {a} खिलौना कारें हैं। बेन के पास ज़ोई से कितनी कारें ज़्यादा हैं?",
+    st_compBig:"किम {a} किताबें पढ़ती है। राज किम से {b} किताबें ज़्यादा पढ़ता है। राज कितनी किताबें पढ़ता है?",
+    ex_joinRU:"और स्टिकर आए, इसलिए समूह बड़ा हुआ। हम जोड़ते हैं: दो भाग मिलकर पूरा बनाते हैं।",
+    ex_joinCU:"हमें शुरुआत, {a}, और अंत, {c}, पता है। कितने जुड़े यह जानने के लिए {a} से {c} तक आगे गिनो।",
+    ex_startU:"हमें आने वाली बत्तखें, {b}, और कुल, {c}, पता हैं। शुरुआत जानने के लिए {c} में से {b} घटाओ।",
+    ex_sepRU:"कुछ चिड़ियाँ उड़ गईं, इसलिए समूह छोटा हुआ। {c} से शुरू करो और {b} घटाओ।",
+    ex_sepCU:"आना ने {c} से शुरू किया और {a} बचे। छूटा भाग वह है जो उसने दिया। {a} से {c} तक आगे गिनो।",
+    ex_pptTotal:"लाल सेब और हरे सेब दो भाग हैं। पूरा जानने के लिए भागों को मिलाओ।",
+    ex_pptPart:"पूरा {c} है। एक भाग {a} है। दूसरा भाग जानने के लिए {c} में से {a} घटाओ।",
+    ex_compDiff:"दोनों पट्टियों की तुलना करो। बिंदुदार टुकड़ा बताता है कितने ज़्यादा। {a} से {c} तक आगे गिनो।",
+    ex_compBig:"राज के पास किम जितनी, {a}, और {b} ज़्यादा हैं। लंबी पट्टी जानने के लिए जोड़ो।",
+    cardTitle:"तथ्य परिवार मेला — चुनौती कार्ड",
+    stds:"संरेखित मानक: Texas TEKS कक्षा 1: 1.3(B)–(E), 1.5(D)–(G); कक्षा 2: 2.4(A)–(C), 2.7(C)। Common Core: 1.OA.1, 1.OA.3–8; 2.OA.1–2; 2.NBT.5।"
+  },
+  ur:{
+    appTitle:"حقائق کے خاندان کا میلہ", home:"ہوم", privacy:"رازداری", teacher:"استاد", modesAria:"موڈ",
+    mFrames:"دس خانوں کے حقائق", mLine:"عددی لکیر پر چھلانگیں", mMissing:"گمشدہ عدد", mFamily:"حقائق کے خاندان", mStory:"کہانی کے سوال",
+    newRound:"نیا دور", readAloud:"بلند آواز سے پڑھیں", choicesAria:"جواب کے اختیارات", check:"جانچیں", clear:"مٹائیں",
+    showBond:"تصویر دکھائیں", hideBond:"تصویر چھپائیں", tilesAria:"عددی ٹائلیں",
+    footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا نہیں · آف لائن کام کرتا ہے",
+    teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setMax:"اعداد کہاں تک", max10:"10", max20:"20 (پہلی جماعت)", max100:"100 (دوسری جماعت)",
+    maxNote:"دس خانوں والے فریم ہمیشہ 20 تک رہتے ہیں۔", setSub:"تفریق", subOn:"تفریق شامل کریں", setModes:"موڈ",
+    setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں", printCards:"چیلنج کارڈ پرنٹ کریں",
+    setStored:"ترتیبات صرف اسی ڈیوائس پر محفوظ ہوتی ہیں۔ طالب علم کی معلومات کبھی محفوظ نہیں ہوتیں۔",
+    starsAria:"ستارے: {n}", wPlus:"جمع", wMinus:"منفی", wEquals:"برابر", wBlank:"کتنے",
+    tooBig:"{x} بہت بڑا ہے۔", tooSmall:"{x} بہت چھوٹا ہے۔", yes:"ہاں!", lookAgain:"آؤ دوبارہ دیکھیں۔",
+    frame1:"پہلا دس خانوں والا فریم", frame2:"دوسرا دس خانوں والا فریم", cRed:"سرخ گوٹی", cBlue:"نیلی گوٹی", cGone:"ہٹا دی گئی", cEmpty:"خالی خانہ",
+    fP_makeTen:"{eq} کتنے ہوتے ہیں؟ نیلی گوٹی کو چھو کر منتقل کرو۔ 10 بنانے کے لیے پہلا فریم بھرو۔",
+    fP_double:"{eq} کتنے ہوتے ہیں؟ یہ دُگنا ہے!",
+    fP_near:"{eq} کتنے ہوتے ہیں؟ کوئی دُگنا سوچو جو تمہیں آتا ہے۔",
+    fP_countOn:"{eq} کتنے ہوتے ہیں؟ {a} سے شروع کرو اور آگے گنو۔",
+    fP_partner:"{eq}۔ 10 بنانے کے لیے اور کتنے چاہییں؟ فریم بھرنے کے لیے خالی خانے چھوؤ۔",
+    fP_sub:"{eq} کتنے ہوتے ہیں؟ {b} گوٹیاں چھو کر ہٹاؤ۔",
+    fP_subDouble:"{eq} کتنے ہوتے ہیں؟ کسی دُگنے کے بارے میں سوچو۔",
+    fG_makeTen:"ہاں! {a} کو 10 بننے کے لیے {k} اور چاہییں۔ پھر 10 + {r} = {c}۔ تو {a} + {b} = {c}۔",
+    fG_double:"ہاں! {a} + {a} = {c}۔ دُگنے یاد رکھنا آسان ہے۔",
+    fG_near:"ہاں! {d} + {d} = {e}، اور ایک زیادہ {c} ہے۔ تو {a} + {b} = {c}۔",
+    fG_countOn:"ہاں! {a} سے شروع کر کے آگے گنو: {seq}۔ تو {a} + {b} = {c}۔",
+    fG_partner:"ہاں! {a} + {b} = 10۔ {a} اور {b} دس کے ساتھی ہیں۔",
+    fG_sub:"ہاں! {c} میں سے {b} ہٹانے پر {r} بچتے ہیں۔ {c} − {b} = {r}۔",
+    fG_subTen:"ہاں! 10 تک پہنچنے کے لیے {k} ہٹاؤ۔ پھر {m} اور ہٹاؤ: 10 − {m} = {r}۔ تو {c} − {b} = {r}۔",
+    fG_subDouble:"ہاں! {r} + {r} = {c}، اس لیے {c} − {r} = {r}۔",
+    fH_makeTen:"{a} کو 10 بننے کے لیے {k} اور چاہییں۔ پہلا فریم بھرنے کے لیے نیلی گوٹیاں منتقل کرو۔ پھر باقی کو 10 میں جمع کرو۔",
+    fH_double:"{a} سرخ اور {a} نیلی گوٹیاں ہیں۔ سب گنو، یا سوچو: {a} اور {a} مزید۔",
+    fH_near:"{a} اور {b} پڑوسی اعداد ہیں۔ دُگنا {d} + {d} = {e} لو، پھر ایک اور جمع کرو۔",
+    fH_countOn:"دل میں {a} کہو۔ پھر ہر نیلی گوٹی کے لیے ایک عدد آگے گنو۔",
+    fH_partner:"بھرے ہوئے دس خانوں والے فریم میں 10 خانے ہوتے ہیں۔ خالی خانے گنو۔ اتنے ہی اور چاہییں۔",
+    fH_sub:"{b} گوٹیاں چھو کر ہٹاؤ۔ پھر باقی گوٹیاں گنو۔",
+    fH_subTen:"پہلے 10 تک پہنچنے کے لیے {k} ہٹاؤ۔ {b} میں {k} اور {m} ہیں۔ پھر 10 میں سے {m} اور ہٹاؤ۔",
+    fH_subDouble:"کسی دُگنے کے بارے میں سوچو۔ کون سا عدد اپنے آپ میں جمع ہو کر {c} بنتا ہے؟",
+    lnDirAdd:"{a} سے شروع کرو۔ {b} آگے چھلانگ لگاؤ۔ تم کہاں پہنچے؟ عددی لکیر کو چھوؤ، پھر جانچیں چھوؤ۔",
+    lnDirSub:"{a} سے شروع کرو۔ {b} پیچھے چھلانگ لگاؤ۔ تم کہاں پہنچے؟ عددی لکیر کو چھوؤ، پھر جانچیں چھوؤ۔",
+    start:"شروع", lineAria:"عددی لکیر۔ نشان ہلانے کے لیے تیر والی کلیدیں استعمال کریں۔",
+    lnNoPin:"عددی لکیر کو چھو کر دکھاؤ کہ تم کہاں پہنچے۔",
+    lnGood:"ہاں! {eq}۔", lnFar:"تم بہت دور کود گئے۔", lnShort:"ابھی اتنی دور نہیں پہنچے۔",
+    lnCross:"{a} سے شروع کرو۔ {ten} تک پہنچنے کے لیے {k} کودو۔ پھر {r} اور کودو۔",
+    lnCrossBack:"{a} سے شروع کرو۔ {ten} تک پہنچنے کے لیے {k} پیچھے کودو۔ پھر {r} اور پیچھے کودو۔",
+    lnOnes:"{a} سے شروع کرو۔ {b} چھوٹی چھلانگیں آگے گنو۔",
+    lnOnesBack:"{a} سے شروع کرو۔ {b} چھوٹی چھلانگیں پیچھے گنو۔",
+    lnTens:"{a} سے شروع کرو۔ دس دس کی {n} بڑی چھلانگیں آگے لگاؤ۔ صرف دہائی کا ہندسہ بدلتا ہے۔",
+    lnTensBack:"{a} سے شروع کرو۔ دس دس کی {n} بڑی چھلانگیں پیچھے لگاؤ۔ صرف دہائی کا ہندسہ بدلتا ہے۔",
+    msDir:"گمشدہ عدد تلاش کرو۔", msG:"ہاں! {eq}۔ گمشدہ عدد {x} ہے۔",
+    msH_sum:"{a} اور {b} کو ملاؤ۔ 10 بنانا یا دُگنا سوچنا مدد کرے گا۔",
+    msH_addend:"سوچو: {a} میں کتنا جمع کریں کہ {c} بنے؟ {a} سے {c} تک آگے گنو۔",
+    msH_diff:"{c} سے شروع کر کے {b} پیچھے گنو۔ یا سوچو: {b} میں کتنا جمع کریں کہ {c} بنے؟",
+    msH_takeHow:"{c} میں سے کتنے ہٹائیں کہ {a} بچیں؟ {a} سے {c} تک آگے گنو۔",
+    msH_start:"کس عدد میں سے {b} ہٹانے پر {a} بچتے ہیں؟ دونوں حصے دوبارہ ملاؤ: {a} اور {b}۔",
+    bondAria:"عددی بندھن: ایک کُل اور دو حصے", balanceAria:"ترازو",
+    tfDir:"کیا یہ درست ہے یا غلط؟", trueBtn:"درست", falseBtn:"غلط",
+    tfSide:"{e} کی قیمت {v} ہے۔", tfSame:"دونوں طرف برابر مقدار ہے، اس لیے یہ درست ہے۔",
+    tfNotSame:"دونوں طرف برابر مقدار نہیں ہے، اس لیے یہ غلط ہے۔", tfEqual:"برابر کے نشان کا مطلب ہے “اتنا ہی جتنا”۔",
+    triAria:"حقائق کی مثلث: اوپر {c}، نیچے {a} اور {b}",
+    famDir:"{a}، {b} اور {c} کا حقائق خاندان بناؤ۔ کسی عدد کو خانے میں گھسیٹو، یا عدد چھو کر پھر خانہ چھوؤ۔",
+    famDirAdd:"{a}، {b} اور {c} سے جمع کے دو حقائق بناؤ۔ کسی عدد کو خانے میں گھسیٹو، یا عدد چھو کر پھر خانہ چھوؤ۔",
+    tileAria:"عدد {n}", factN:"حقیقت {n}", slotAria:"خالی خانہ", slotFilled:"خانے میں {n}",
+    famPickFirst:"پہلے ایک عددی ٹائل چنو۔ پھر خانہ چھوؤ۔",
+    famEmpty:"ہر خانہ بھرو۔ {a}، {b} اور {c} استعمال کرو۔",
+    famUse:"ہر حقیقت میں {a}، {b} اور {c} ایک ایک بار آتے ہیں۔ پیلی حقیقت کو دیکھو۔",
+    famFalseAdd:"{eq} درست نہیں۔ جمع کی حقیقت میں دو حصے، {a} اور {b}، مل کر کُل، {c}، بناتے ہیں۔",
+    famFalseSub:"{eq} درست نہیں۔ تفریق کی حقیقت میں کُل، {c}، سے شروع کرو اور ایک حصہ ہٹاؤ۔",
+    famDup:"دو حقائق ایک جیسے ہیں۔ نئی حقیقت بنانے کے لیے اعداد کی ترتیب بدلو۔",
+    famGood:"ہاں! تم نے پورا حقائق خاندان بنا لیا۔ حصے {a} اور {b} ہیں۔ کُل {c} ہے۔",
+    famGoodAdd:"ہاں! {a} + {b} = {c} اور {b} + {a} = {c}۔ تم حصوں کی ترتیب بدل سکتے ہو۔",
+    barAria:"پٹی ماڈل", storyG:"ہاں! {eq}۔ جواب {x} ہے۔",
+    st_joinRU:"میا کے پاس {a} اسٹیکر ہیں۔ اسے {b} اسٹیکر اور ملتے ہیں۔ اب میا کے پاس کتنے اسٹیکر ہیں؟",
+    st_joinCU:"لیو کے پاس {a} کنچے ہیں۔ اس کا دوست اسے کچھ اور دیتا ہے۔ اب لیو کے پاس {c} کنچے ہیں۔ دوست نے اسے کتنے کنچے دیے؟",
+    st_startU:"ایک تالاب میں کچھ بطخیں تیر رہی ہیں۔ پھر {b} بطخیں اور آتی ہیں۔ اب {c} بطخیں ہیں۔ شروع میں تالاب میں کتنی بطخیں تھیں؟",
+    st_sepRU:"باڑ پر {c} چڑیاں بیٹھی ہیں۔ {b} چڑیاں اڑ جاتی ہیں۔ باڑ پر کتنی چڑیاں بچیں؟",
+    st_sepCU:"آنا کے پاس {c} کریون ہیں۔ وہ کچھ سام کو دے دیتی ہے۔ اب آنا کے پاس {a} کریون ہیں۔ اس نے سام کو کتنے کریون دیے؟",
+    st_pptTotal:"ایک ٹوکری میں {a} سرخ سیب اور {b} سبز سیب ہیں۔ ٹوکری میں کل کتنے سیب ہیں؟",
+    st_pptPart:"ایک ٹینک میں {c} مچھلیاں ہیں۔ {a} مچھلیاں نارنجی ہیں۔ باقی نیلی ہیں۔ کتنی مچھلیاں نیلی ہیں؟",
+    st_compDiff:"بین کے پاس {c} کھلونا گاڑیاں ہیں۔ زوئی کے پاس {a} کھلونا گاڑیاں ہیں۔ بین کے پاس زوئی سے کتنی گاڑیاں زیادہ ہیں؟",
+    st_compBig:"زینب {a} کتابیں پڑھتی ہے۔ راج زینب سے {b} کتابیں زیادہ پڑھتا ہے۔ راج کتنی کتابیں پڑھتا ہے؟",
+    ex_joinRU:"اور اسٹیکر آئے، اس لیے گروہ بڑا ہو گیا۔ ہم جمع کرتے ہیں: دو حصے مل کر کُل بناتے ہیں۔",
+    ex_joinCU:"ہمیں شروع، {a}، اور آخر، {c}، معلوم ہے۔ کتنے ملے یہ جاننے کے لیے {a} سے {c} تک آگے گنو۔",
+    ex_startU:"ہمیں آنے والی بطخیں، {b}، اور کل، {c}، معلوم ہیں۔ شروع جاننے کے لیے {c} میں سے {b} نکالو۔",
+    ex_sepRU:"کچھ چڑیاں اڑ گئیں، اس لیے گروہ چھوٹا ہو گیا۔ {c} سے شروع کرو اور {b} نکالو۔",
+    ex_sepCU:"آنا نے {c} سے شروع کیا اور {a} بچے۔ گمشدہ حصہ وہ ہے جو اس نے دیا۔ {a} سے {c} تک آگے گنو۔",
+    ex_pptTotal:"سرخ سیب اور سبز سیب دو حصے ہیں۔ کُل جاننے کے لیے حصوں کو ملاؤ۔",
+    ex_pptPart:"کُل {c} ہے۔ ایک حصہ {a} ہے۔ دوسرا حصہ جاننے کے لیے {c} میں سے {a} نکالو۔",
+    ex_compDiff:"دونوں پٹیوں کا موازنہ کرو۔ نقطے دار ٹکڑا بتاتا ہے کتنے زیادہ۔ {a} سے {c} تک آگے گنو۔",
+    ex_compBig:"راج کے پاس زینب جتنی، {a}، اور {b} زیادہ ہیں۔ لمبی پٹی جاننے کے لیے جمع کرو۔",
+    cardTitle:"حقائق کے خاندان کا میلہ — چیلنج کارڈ",
+    stds:"منسلک معیارات: Texas TEKS پہلی جماعت: 1.3(B)–(E)، 1.5(D)–(G)؛ دوسری جماعت: 2.4(A)–(C)، 2.7(C)۔ Common Core: 1.OA.1، 1.OA.3–8؛ 2.OA.1–2؛ 2.NBT.5۔"
+  },
+  zh:{
+    appTitle:"算式家族游园会", home:"主页", privacy:"隐私", teacher:"教师", modesAria:"模式",
+    mFrames:"十格框算式", mLine:"数轴跳一跳", mMissing:"缺少的数", mFamily:"算式家族", mStory:"故事题",
+    newRound:"新一轮", readAloud:"朗读", choicesAria:"答案选项", check:"检查", clear:"清除",
+    showBond:"显示图示", hideBond:"隐藏图示", tilesAria:"数字卡片",
+    footNote:"无账号 · 不收集数据 · 离线可用",
+    teacherTitle:"教师设置", close:"关闭", setMax:"数的范围", max10:"10以内", max20:"20以内（一年级）", max100:"100以内（二年级）",
+    maxNote:"十格框始终在20以内。", setSub:"减法", subOn:"包含减法", setModes:"模式",
+    setSpeech:"语音", autoRead:"自动朗读说明", printCards:"打印挑战卡",
+    setStored:"设置只保存在本设备上。从不保存任何学生信息。",
+    starsAria:"星星：{n}", wPlus:"加", wMinus:"减", wEquals:"等于", wBlank:"几",
+    tooBig:"{x}太大了。", tooSmall:"{x}太小了。", yes:"对了！", lookAgain:"我们再看一看。",
+    frame1:"第一个十格框", frame2:"第二个十格框", cRed:"红色圆片", cBlue:"蓝色圆片", cGone:"已拿走", cEmpty:"空格",
+    fP_makeTen:"{eq}等于几？点一点蓝色圆片把它移过去。把第一个框填满，凑成10。",
+    fP_double:"{eq}等于几？这是两个相同的数相加！",
+    fP_near:"{eq}等于几？想一想你知道的相同数相加。",
+    fP_countOn:"{eq}等于几？从{a}开始接着数。",
+    fP_partner:"{eq}。还要几个才能凑成10？点一点空格，把框填满。",
+    fP_sub:"{eq}等于几？点{b}个圆片把它们拿走。",
+    fP_subDouble:"{eq}等于几？想一想相同数相加。",
+    fG_makeTen:"对了！{a}再加{k}就是10。然后10 + {r} = {c}。所以{a} + {b} = {c}。",
+    fG_double:"对了！{a} + {a} = {c}。相同数相加很好记。",
+    fG_near:"对了！{d} + {d} = {e}，再多1就是{c}。所以{a} + {b} = {c}。",
+    fG_countOn:"对了！从{a}开始接着数：{seq}。所以{a} + {b} = {c}。",
+    fG_partner:"对了！{a} + {b} = 10。{a}和{b}是10的好朋友。",
+    fG_sub:"对了！{c}拿走{b}还剩{r}。{c} − {b} = {r}。",
+    fG_subTen:"对了！先拿走{k}得到10。再拿走{m}：10 − {m} = {r}。所以{c} − {b} = {r}。",
+    fG_subDouble:"对了！{r} + {r} = {c}，所以{c} − {r} = {r}。",
+    fH_makeTen:"{a}再加{k}就是10。移动蓝色圆片，把第一个框填满。然后把剩下的加到10上。",
+    fH_double:"有{a}个红色圆片和{a}个蓝色圆片。全部数一数，或者想：{a}再加{a}。",
+    fH_near:"{a}和{b}是相邻的数。用{d} + {d} = {e}，再加1。",
+    fH_countOn:"心里先说{a}。然后每个蓝色圆片接着数一个数。",
+    fH_partner:"填满的十格框有10个格子。数一数空格。这就是还需要的数量。",
+    fH_sub:"点{b}个圆片把它们拿走。然后数一数剩下的圆片。",
+    fH_subTen:"先拿走{k}得到10。{b}可以分成{k}和{m}。然后从10里再拿走{m}。",
+    fH_subDouble:"想一想相同数相加。哪个数加上它自己等于{c}？",
+    lnDirAdd:"从{a}开始。向前跳{b}。你会落在哪里？点一点数轴，再点“检查”。",
+    lnDirSub:"从{a}开始。向后跳{b}。你会落在哪里？点一点数轴，再点“检查”。",
+    start:"起点", lineAria:"数轴。用方向键移动标记。",
+    lnNoPin:"点一点数轴，表示你落在哪里。",
+    lnGood:"对了！{eq}。", lnFar:"你跳得太远了。", lnShort:"还没跳到。",
+    lnCross:"从{a}开始。先跳{k}到{ten}。再跳{r}。",
+    lnCrossBack:"从{a}开始。先向后跳{k}到{ten}。再向后跳{r}。",
+    lnOnes:"从{a}开始。向前数{b}个小跳。",
+    lnOnesBack:"从{a}开始。向后数{b}个小跳。",
+    lnTens:"从{a}开始。向前跳{n}个大跳，每跳10。只有十位上的数变了。",
+    lnTensBack:"从{a}开始。向后跳{n}个大跳，每跳10。只有十位上的数变了。",
+    msDir:"找出缺少的数。", msG:"对了！{eq}。缺少的数是{x}。",
+    msH_sum:"把{a}和{b}合起来。凑十或用相同数相加会有帮助。",
+    msH_addend:"想一想：{a}加几等于{c}？从{a}接着数到{c}。",
+    msH_diff:"从{c}开始往回数{b}。或者想：{b}加几等于{c}？",
+    msH_takeHow:"从{c}里拿走几个还剩{a}？从{a}接着数到{c}。",
+    msH_start:"几减{b}还剩{a}？把两部分合起来：{a}和{b}。",
+    bondAria:"数的分与合：一个整体和两个部分", balanceAria:"天平",
+    tfDir:"这个算式对还是错？", trueBtn:"对", falseBtn:"错",
+    tfSide:"{e}得{v}。", tfSame:"两边一样多，所以是对的。",
+    tfNotSame:"两边不一样多，所以是错的。", tfEqual:"等号的意思是“和……一样多”。",
+    triAria:"算式三角形：上面是{c}，下面是{a}和{b}",
+    famDir:"用{a}、{b}和{c}组成算式家族。把数字拖进方框，或者先点数字再点方框。",
+    famDirAdd:"用{a}、{b}和{c}写出两个加法算式。把数字拖进方框，或者先点数字再点方框。",
+    tileAria:"数字{n}", factN:"第{n}个算式", slotAria:"空方框", slotFilled:"方框里是{n}",
+    famPickFirst:"先选一张数字卡片。再点方框。",
+    famEmpty:"把每个方框都填上。用{a}、{b}和{c}。",
+    famUse:"每个算式都要用{a}、{b}和{c}，每个数用一次。看一看黄色的算式。",
+    famFalseAdd:"{eq}不对。在加法算式里，两个部分{a}和{b}合起来是整体{c}。",
+    famFalseSub:"{eq}不对。在减法算式里，先写整体{c}，再减去一个部分。",
+    famDup:"有两个算式一样。换一换数的顺序，写出新的算式。",
+    famGood:"对了！你写出了整个算式家族。部分是{a}和{b}。整体是{c}。",
+    famGoodAdd:"对了！{a} + {b} = {c}，{b} + {a} = {c}。交换两个部分的位置，和不变。",
+    barAria:"线段图", storyG:"对了！{eq}。答案是{x}。",
+    st_joinRU:"米娅有{a}张贴纸。她又得到{b}张贴纸。米娅现在有多少张贴纸？",
+    st_joinCU:"里奥有{a}颗弹珠。朋友又给了他一些。现在里奥有{c}颗弹珠。朋友给了他多少颗弹珠？",
+    st_startU:"池塘里有一些鸭子在游泳。后来又来了{b}只鸭子。现在有{c}只鸭子。池塘里原来有多少只鸭子？",
+    st_sepRU:"篱笆上有{c}只小鸟。飞走了{b}只。篱笆上还剩多少只小鸟？",
+    st_sepCU:"安娜有{c}支蜡笔。她给了山姆一些。现在安娜有{a}支蜡笔。她给了山姆多少支蜡笔？",
+    st_pptTotal:"篮子里有{a}个红苹果和{b}个青苹果。篮子里一共有多少个苹果？",
+    st_pptPart:"鱼缸里有{c}条鱼。{a}条是橙色的，其余的是蓝色的。蓝色的鱼有多少条？",
+    st_compDiff:"本有{c}辆玩具车。佐伊有{a}辆玩具车。本比佐伊多几辆玩具车？",
+    st_compBig:"小金读了{a}本书。拉吉比小金多读了{b}本。拉吉读了多少本书？",
+    ex_joinRU:"又来了一些贴纸，所以变多了。我们用加法：两个部分合起来是整体。",
+    ex_joinCU:"我们知道开始是{a}，后来是{c}。从{a}接着数到{c}，就知道加了多少。",
+    ex_startU:"我们知道又来了{b}只，一共有{c}只。用{c}减去{b}，就能找到原来有多少。",
+    ex_sepRU:"有些小鸟飞走了，所以变少了。从{c}开始，减去{b}。",
+    ex_sepCU:"安娜原来有{c}支，还剩{a}支。缺少的部分就是她送出去的。从{a}接着数到{c}。",
+    ex_pptTotal:"红苹果和青苹果是两个部分。把两个部分合起来就是整体。",
+    ex_pptPart:"整体是{c}。一个部分是{a}。用{c}减去{a}，找到另一个部分。",
+    ex_compDiff:"比较两条线段。虚线那段就是多出来的。从{a}接着数到{c}。",
+    ex_compBig:"拉吉和小金一样多，是{a}，还要再多{b}。用加法求出较长的线段。",
+    cardTitle:"算式家族游园会 — 挑战卡",
+    stds:"对应标准：Texas TEKS 一年级：1.3(B)–(E)、1.5(D)–(G)；二年级：2.4(A)–(C)、2.7(C)。Common Core：1.OA.1、1.OA.3–8；2.OA.1–2；2.NBT.5。"
+  }
+};
+
+let lang = "en";
+function t(key, vars){
+  let s = (T[lang] && T[lang][key]!==undefined) ? T[lang][key] : (T.en[key]!==undefined? T.en[key] : key);
+  if(vars) for(const k in vars) s = s.replaceAll("{"+k+"}", vars[k]);
+  return s;
+}
+
+/* ---------- Settings ---------- */
+const MODES=["frames","line","missing","family","story"];
+const MODE_KEY={frames:"mFrames",line:"mLine",missing:"mMissing",family:"mFamily",story:"mStory"};
+const DEFAULTS={max:20, sub:true, modes:{frames:true,line:true,missing:true,family:true,story:true}, autoRead:true};
+let settings = loadSettings();
+function loadSettings(){
+  try{
+    const raw=localStorage.getItem("fff_settings");
+    if(raw){ const o=JSON.parse(raw); const s=Object.assign(JSON.parse(JSON.stringify(DEFAULTS)),o,{modes:Object.assign({},DEFAULTS.modes,o.modes)});
+      if(![10,20,100].includes(+s.max)) s.max=20; s.max=+s.max; return s; }
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULTS));
+}
+function saveSettings(){ try{ localStorage.setItem("fff_settings", JSON.stringify(settings)); }catch(e){} }
+
+/* ---------- Utils ---------- */
+const $ = s=>document.querySelector(s);
+const $$ = s=>Array.from(document.querySelectorAll(s));
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function ri(a,b){ return a+Math.floor(Math.random()*(b-a+1)); }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const MINUS="−";
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+// Wrap equations so they read left-to-right inside RTL sentences.
+const EQRE=/(?:\d+|□)(?:\s?[+−=]\s?(?:\d+|□))+/g;
+function fmt(s){ return esc(s).replace(EQRE,m=>`<span class="eq" dir="ltr">${m}</span>`); }
+function fmtBig(s){ return esc(s).replace(/□/g,'<span class="blank">?</span>'); }
+// Spoken form: say the symbols as words in the current language.
+function sayify(s){ return String(s).replace(/□/g," "+t("wBlank")+" ").replace(/\s*\+\s*/g," "+t("wPlus")+" ")
+  .replace(/\s*−\s*/g," "+t("wMinus")+" ").replace(/\s*=\s*/g," "+t("wEquals")+" ").replace(/\s{2,}/g," ").trim(); }
+function choicesFor(ans,lo,hi){
+  const big=hi>20, pref=shuffle([1,-1,2,-2]).concat(big?shuffle([10,-10]):[3,-3]), out=[];
+  if(big && Math.random()<.7) pref.unshift(rand([10,-10]));
+  for(const d of pref){ const v=ans+d; if(v>=lo&&v<=hi&&v!==ans&&!out.includes(v)) out.push(v); if(out.length===3) break; }
+  let g=0; while(out.length<3 && g++<200){ const v=ri(lo,hi); if(v!==ans&&!out.includes(v)) out.push(v); }
+  return shuffle(out.concat([ans]));
+}
+let stars=0;
+function addStar(){ stars++; $("#starN").textContent=stars; $("#stars").setAttribute("aria-label",t("starsAria",{n:stars})); }
+
+/* ---------- Speech ---------- */
+const speechOK = ("speechSynthesis" in window);
+function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
+// Prefer warm, natural voices for young learners; avoid harsh robotic engines.
+function pickWarmVoice(code){
+  const vs = speechSynthesis.getVoices()||[];
+  const want=code.toLowerCase(), two=want.slice(0,2);
+  let best=null, bs=-1;
+  for(const v of vs){
+    const lc=(v.lang||'').toLowerCase().replace('_','-');
+    if(lc!==want && lc.slice(0,2)!==two) continue;
+    let s=(lc===want?100:60); const n=(v.name||'').toLowerCase();
+    if(/google|natural|neural|online|premium|enhanced|siri/.test(n)) s+=40;
+    if(/female|woman|samantha|karen|tessa|moira|fiona|serena|victoria|allison|ava|susan|zoe|amelie|amélie|paulina|monica|mónica|zira|hazel|catherine|linda|kanya|lekha|ting-ting|mei-jia|sin-ji|yu-shu|huihui|xiaoxiao/.test(n)) s+=18;
+    if(/espeak|compact|festival|pico|robot|eloquence/.test(n)) s-=60;
+    if(v.localService===false) s+=8;
+    if(v.default) s+=2;
+    if(s>bs){ bs=s; best=v; }
+  }
+  return best;
+}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  const parts=String(text).match(/[^.!?。！？؟।۔]+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.9; u.pitch=1.15;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={frames:0,line:0,missing:0,family:0,story:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
+}
+if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
+if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
+
+const currentSpeech = {frames:"",line:"",missing:"",family:"",story:""};
+function setSpeech(mode,text){ currentSpeech[mode]=sayify(text); }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===mode) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,svg,.tile")) return;
+  speak(currentSpeech[currentMode()]);
+},true);
+
+/* ---------- Feedback ---------- */
+function showFb(el,type,msg){ el.className="feedback show "+type; el.innerHTML=`<span aria-hidden="true">${type==="good"?"✅":"💡"}</span><span>${fmt(msg)}</span>`; }
+function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
+function praise(mode,msg,next){ showFb($("#"+mode+"Fb"),"good",msg); addStar(); afterPraise(sayify(msg),mode,next,1600); }
+function hint(mode,msg){ showFb($("#"+mode+"Fb"),"hint",msg); speak(sayify(msg)); }
+function sizeHint(x,ans){ return x>ans?t("tooBig",{x}):t("tooSmall",{x}); }
+// Four big number buttons. onPick(value) returns true when correct.
+function renderNums(el,ans,lo,hi,onRight,onWrong){
+  el.innerHTML="";
+  choicesFor(ans,lo,hi).forEach(v=>{
+    const b=document.createElement("button"); b.type="button"; b.className="num"; b.textContent=v;
+    b.addEventListener("click",()=>{
+      if(v===ans){ b.classList.add("right"); el.querySelectorAll("button").forEach(x=>x.disabled=true); onRight(); }
+      else{ b.classList.add("wrong"); b.disabled=true; onWrong(v); }
+    });
+    el.appendChild(b);
+  });
+}
+function E(){ return Array.from(arguments).join(" ").replace(/-/g,MINUS); }
+// Join sentences: no space between Chinese sentences.
+function J(){ return Array.from(arguments).join(lang==="zh"?"":" "); }
+
+/* ---------- SVG pictures ---------- */
+const INK="#2a1d1b";
+function frameSVG(cells,single){
+  const cs=30, nf=single?1:2; let s="";
+  for(let f=0;f<nf;f++){ const ox=6+f*170;
+    s+=`<rect x="${ox}" y="6" width="${cs*5}" height="${cs*2}" fill="#fff" stroke="${INK}" stroke-width="3"/>`;
+    for(let i=0;i<10;i++){ const x=ox+(i%5)*cs, y=6+Math.floor(i/5)*cs, v=cells[f*10+i];
+      s+=`<rect x="${x}" y="${y}" width="${cs}" height="${cs}" fill="none" stroke="${INK}" stroke-width="1.5"/>`;
+      if(v) s+=`<circle cx="${x+cs/2}" cy="${y+cs/2}" r="10" fill="${v==="r"?"#d63c3c":"#2563eb"}"/>`; } }
+  return `<svg viewBox="0 0 ${single?162:332} 72" direction="ltr" role="img" aria-hidden="true">${s}</svg>`;
+}
+function bondSVG(whole,p1,p2,unk){
+  const c=(x,y,v,u)=>`<circle cx="${x}" cy="${y}" r="31" fill="${u?"#fff3c4":"#fde7e3"}" stroke="${u?"#c08400":"#a3341f"}" stroke-width="4"${u?' stroke-dasharray="7 5"':""}/><text x="${x}" y="${y+10}" text-anchor="middle" font-size="28" font-weight="800" fill="${INK}" font-family="system-ui">${u?"?":v}</text>`;
+  return `<svg viewBox="0 0 240 172" direction="ltr" role="img" aria-label="${esc(t("bondAria"))}"><line x1="120" y1="40" x2="58" y2="132" stroke="${INK}" stroke-width="4"/><line x1="120" y1="40" x2="182" y2="132" stroke="${INK}" stroke-width="4"/>${c(120,38,whole,unk===0)}${c(58,134,p1,unk===1)}${c(182,134,p2,unk===2)}</svg>`;
+}
+function seesawSVG(L,R,tilt){
+  const a=tilt<0?-7:tilt>0?7:0;
+  return `<svg viewBox="0 0 320 150" direction="ltr" role="img" aria-label="${esc(t("balanceAria"))}">
+   <polygon points="160,92 138,140 182,140" fill="#a3341f"/><g transform="rotate(${a} 160 90)">
+   <rect x="20" y="84" width="280" height="10" rx="5" fill="#5d4b48"/>
+   <rect x="14" y="38" width="120" height="46" rx="10" fill="#fde7e3" stroke="#a3341f" stroke-width="3"/>
+   <rect x="186" y="38" width="120" height="46" rx="10" fill="#e0ebff" stroke="#2563eb" stroke-width="3"/>
+   <text x="74" y="70" text-anchor="middle" font-size="24" font-weight="800" fill="${INK}" font-family="system-ui">${esc(L)}</text>
+   <text x="246" y="70" text-anchor="middle" font-size="24" font-weight="800" fill="${INK}" font-family="system-ui">${esc(R)}</text></g></svg>`;
+}
+function triSVG(a,b,c){
+  const n=(x,y,v,col)=>`<circle cx="${x}" cy="${y}" r="27" fill="#fff" stroke="${col}" stroke-width="4"/><text x="${x}" y="${y+9}" text-anchor="middle" font-size="25" font-weight="800" fill="${INK}" font-family="system-ui">${v}</text>`;
+  return `<svg viewBox="0 0 200 175" direction="ltr" role="img" aria-label="${esc(t("triAria",{a,b,c}))}"><polygon points="100,32 32,140 168,140" fill="#fdf0ee" stroke="#a3341f" stroke-width="5" stroke-linejoin="round"/><text x="100" y="112" text-anchor="middle" font-size="26" font-weight="800" fill="#a3341f" font-family="system-ui">+ ${MINUS}</text>${n(100,32,c,"#a3341f")}${n(32,140,a,"#d63c3c")}${n(168,140,b,"#2563eb")}</svg>`;
+}
+// Bar model. kind "pw": whole on top, two parts below. kind "cmp": two bars, difference dashed.
+function barSVG(kind,big,p1,p2,unk,reveal){
+  const W=560, X=20, lab=(i,v)=>(unk===i&&!reveal)?"?":v, fill=(i,f)=>(unk===i)?"#fff3c4":f, st=i=>unk===i?` stroke-dasharray="8 6" stroke="#c08400"`:` stroke="${INK}"`;
+  const w1=Math.max(80,Math.min(W-80,Math.round(W*p1/big))), w2=W-w1;
+  const tx=(x,y,v)=>`<text x="${x}" y="${y}" text-anchor="middle" font-size="38" font-weight="800" fill="${INK}" font-family="system-ui">${v}</text>`;
+  let s="";
+  if(kind==="pw"){
+    s+=`<rect x="${X}" y="8" width="${W}" height="72" rx="8" fill="${fill(0,"#ece4e2")}" stroke-width="3"${st(0)}/>`+tx(X+W/2,57,lab(0,big));
+    s+=`<rect x="${X}" y="92" width="${w1}" height="72" rx="8" fill="${fill(1,"#f8c9c3")}" stroke-width="3"${st(1)}/>`+tx(X+w1/2,141,lab(1,p1));
+    s+=`<rect x="${X+w1}" y="92" width="${w2}" height="72" rx="8" fill="${fill(2,"#c9dcf8")}" stroke-width="3"${st(2)}/>`+tx(X+w1+w2/2,141,lab(2,p2));
+  }else{
+    s+=`<rect x="${X}" y="8" width="${W}" height="72" rx="8" fill="${fill(0,"#f8c9c3")}" stroke-width="3"${st(0)}/>`+tx(X+W/2,57,lab(0,big));
+    s+=`<rect x="${X}" y="92" width="${w1}" height="72" rx="8" fill="${fill(1,"#c9dcf8")}" stroke-width="3"${st(1)}/>`+tx(X+w1/2,141,lab(1,p1));
+    s+=`<rect x="${X+w1}" y="92" width="${w2}" height="72" rx="8" fill="${fill(2,"#fff")}" stroke-width="3" stroke-dasharray="8 6" stroke="${unk===2?"#c08400":"#8a7470"}"/>`+tx(X+w1+w2/2,141,lab(2,p2));
+  }
+  return `<svg viewBox="0 0 600 172" direction="ltr" role="img" aria-label="${esc(t("barAria"))}">${s}</svg>`;
+}
+
+/* =========================================================================
+   TEN-FRAME FACTS
+   ========================================================================= */
+let F=null;
+function newFrames(){
+  roundIds.frames++;
+  const mx=Math.min(settings.max,20), sub=settings.sub && Math.random()<.4;
+  let r;
+  if(mx===10){
+    if(sub){ const c=ri(5,10), b=ri(2,c-1); r={kind:"sub",op:-1,a:c,b,ans:c-b}; }
+    else{ const k=rand(["partner","double","countOn"]);
+      if(k==="partner"){ const a=ri(2,8); r={kind:k,op:1,a,b:10-a,ans:10-a}; }
+      else if(k==="double"){ const a=ri(2,5); r={kind:k,op:1,a,b:a,ans:2*a}; }
+      else{ const a=ri(4,8), b=ri(2,Math.min(3,10-a)); r={kind:k,op:1,a,b,ans:a+b}; } }
+    r.single=true;
+  }else{
+    if(sub){ const k=rand(["subTen","subTen","subDouble"]);
+      if(k==="subTen"){ const c=ri(11,18), b=ri(Math.max(2,c-9),9); r={kind:k,op:-1,a:c,b,ans:c-b,k:c-10,m:b-(c-10)}; }
+      else{ const h=ri(6,9); r={kind:k,op:-1,a:2*h,b:h,ans:h}; } }
+    else{ const k=rand(["makeTen","double","near"]);
+      if(k==="makeTen"){ const a=ri(6,9), b=ri(11-a,9); r={kind:k,op:1,a,b,ans:a+b,k:10-a,r:b-(10-a)}; }
+      else if(k==="double"){ const a=ri(4,9); r={kind:k,op:1,a,b:a,ans:2*a}; }
+      else{ const d=ri(3,8), sw=Math.random()<.5; r={kind:k,op:1,a:sw?d+1:d,b:sw?d:d+1,ans:2*d+1,d}; } }
+    r.single=false;
+  }
+  const c=Array(20).fill("");
+  if(r.op<0){ for(let i=0;i<r.a;i++) c[i]="r"; }
+  else{ for(let i=0;i<r.a;i++) c[i]="r";
+    if(r.kind!=="partner"){ const s=r.single?r.a:10; for(let i=0;i<r.b;i++) c[s+i]="b"; } }
+  r.cells=c; r.done=false; F=r;
+  drawFrames();
+  const eq=r.kind==="partner"?E(r.a,"+","□","=",10):E(r.a,r.op>0?"+":"-",r.b);
+  const pk={makeTen:"fP_makeTen",double:"fP_double",near:"fP_near",countOn:"fP_countOn",partner:"fP_partner",sub:"fP_sub",subTen:"fP_sub",subDouble:"fP_subDouble"}[r.kind];
+  const dir=t(pk,{eq,a:r.a,b:r.b});
+  $("#framesPrompt").innerHTML=fmt(dir); setSpeech("frames",dir); hideFb($("#framesFb"));
+  renderNums($("#framesNums"),r.ans,0,20,()=>framesRight(),v=>framesWrong(v));
+  maybeAuto("frames");
+}
+function drawFrames(focusIdx){
+  const w=$("#tfWrap"); w.innerHTML="";
+  for(let f=0;f<(F.single?1:2);f++){
+    const box=document.createElement("div"); box.className="tfbox";
+    const g=document.createElement("div"); g.className="tf"; g.setAttribute("role","group"); g.setAttribute("aria-label",t(f?"frame2":"frame1"));
+    for(let i=0;i<10;i++){ const idx=f*10+i, v=F.cells[idx];
+      const b=document.createElement("button"); b.type="button"; b.className="cell"; b.dataset.i=idx;
+      b.innerHTML=v?`<span class="ctr ${v}"></span>`:"";
+      b.setAttribute("aria-label",t(v==="r"?"cRed":v==="b"?"cBlue":v==="x"?"cGone":"cEmpty"));
+      b.addEventListener("click",()=>tapCell(idx)); g.appendChild(b); }
+    const n=document.createElement("div"); n.className="tfcount";
+    n.textContent=F.cells.slice(f*10,f*10+10).filter(v=>v==="r"||v==="b").length;
+    box.appendChild(g); box.appendChild(n); w.appendChild(box);
+  }
+  if(focusIdx!=null){ const b=w.querySelector(`.cell[data-i="${focusIdx}"]`); if(b) b.focus(); }
+}
+function compactFrames(){
+  const c=F.cells;
+  for(let f=0;f<2;f++){ const seg=c.slice(f*10,f*10+10), r=seg.filter(v=>v==="r").length, b=seg.filter(v=>v==="b").length;
+    for(let i=0;i<10;i++) c[f*10+i]=i<r?"r":i<r+b?"b":""; }
+}
+function tapCell(i){
+  if(F.done) return; const c=F.cells, v=c[i];
+  if(F.kind==="partner"){ if(!v) c[i]="b"; else if(v==="b") c[i]=""; }
+  else if(F.op<0){ if(v==="r") c[i]="x"; else if(v==="x") c[i]="r"; }
+  else if(!F.single && v==="b"){
+    if(i>=10){ const e=c.indexOf(""); if(e>-1&&e<10){ c[e]="b"; c[i]=""; } }
+    else{ const e=c.indexOf("",10); if(e>-1){ c[i]=""; c[e]="b"; } }
+    compactFrames();
+  }
+  drawFrames(i);
+}
+function framesVars(){ const r=F; return {a:r.a,b:r.b,c:r.op>0?r.ans:r.a,r:r.op>0?r.r:r.ans,k:r.k,m:r.m,d:r.d,e:2*(r.d||0),
+  seq:Array.from({length:r.b},(_,i)=>r.a+i+1).join(", ")}; }
+function framesRight(){
+  F.done=true; const r=F, v=framesVars();
+  if(r.kind==="partner"){ for(let i=0;i<10;i++) if(!r.cells[i]) r.cells[i]="b"; }
+  if(r.kind==="makeTen"){ let need=10-r.a; for(let i=10;i<20&&need>0;i++) if(r.cells[i]==="b"){ const e=r.cells.indexOf(""); if(e>-1&&e<10){ r.cells[e]="b"; r.cells[i]=""; need--; } } compactFrames(); }
+  if(r.op<0){ let left=r.b-r.cells.filter(x=>x==="x").length; for(let i=19;i>=0&&left>0;i--) if(r.cells[i]==="r"){ r.cells[i]="x"; left--; } }
+  drawFrames();
+  praise("frames",t("fG_"+r.kind,v),newFrames);
+}
+function framesWrong(x){ hint("frames",J(sizeHint(x,F.ans),t("fH_"+F.kind,framesVars()))); }
+
+/* =========================================================================
+   NUMBER LINE HOPS
+   ========================================================================= */
+let L=null;
+function newLine(){
+  roundIds.line++;
+  const mx=settings.max, sub=settings.sub && Math.random()<.45;
+  let a,b,step=1;
+  if(mx===10){ if(!sub){ a=ri(0,7); b=ri(2,10-a); } else { a=ri(4,10); b=ri(2,a); } }
+  else if(mx===20){
+    const cross=Math.random()<.65;
+    if(!sub){ if(cross){ a=ri(5,9); b=ri(11-a,9); } else { a=ri(10,16); b=ri(2,20-a); } }
+    else{ if(cross){ a=ri(11,18); b=ri(Math.max(2,a-9),9); } else { a=ri(13,20); b=ri(2,a-10); } }
+  }else{
+    if(Math.random()<.5){ step=10; const n=ri(2,4);
+      if(!sub){ a=ri(1,100-10*n); } else { a=ri(10*n,99); } b=10*n; }
+    else{ if(!sub){ const t0=ri(1,8), o=ri(5,9); a=t0*10+o; b=ri(11-o,9); }
+      else{ const t0=ri(2,9), o=ri(1,4); a=t0*10+o; b=ri(o+1,9); } }
+  }
+  const op=sub?-1:1, end=a+op*b;
+  let ticks=[];
+  if(step===10){ for(let v=a%10;v<=100;v+=10) ticks.push(v); }
+  else{ const hi=Math.max(a,end), lw=Math.min(a,end), top=Math.min(mx,100)-10;
+    const lo=ri(Math.max(0,hi-10),Math.max(Math.max(0,hi-10),Math.min(lw,top)));
+    for(let v=lo;v<=lo+10;v++) ticks.push(v); }
+  // Strategy hops: through the next ten, or in tens.
+  const hops=[];
+  if(step===10){ for(let i=0;i<b/10;i++) hops.push([a+op*10*i,a+op*10*(i+1)]); }
+  else{ const o=a%10; let ten=null;
+    if(op>0 && o>0 && o+b>10) ten=a+10-o;
+    if(op<0 && o>0 && o<b) ten=a-o;
+    if(ten!==null){ hops.push([a,ten]); hops.push([ten,end]); } else hops.push([a,end]); }
+  L={a,b,op,end,step,ticks,hops,pin:null,shown:0,done:false};
+  const eq=E(a,sub?"-":"+",b,"=","□");
+  $("#lineEq").innerHTML=fmtBig(eq);
+  const dir=t(sub?"lnDirSub":"lnDirAdd",{a,b});
+  $("#linePrompt").innerHTML=fmt(dir); setSpeech("line",dir+" "+eq); hideFb($("#lineFb"));
+  drawLine(); maybeAuto("line");
+}
+function lx(v){ const t0=L.ticks[0], t1=L.ticks[L.ticks.length-1]; return 34+(v-t0)/(t1-t0)*572; }
+function drawLine(){
+  const Y=128; let s=`<line x1="14" y1="${Y}" x2="626" y2="${Y}" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>`;
+  s+=`<polygon points="626,${Y} 612,${Y-8} 612,${Y+8}" fill="${INK}"/><polygon points="14,${Y} 28,${Y-8} 28,${Y+8}" fill="${INK}"/>`;
+  const sp=572/(L.ticks.length-1);
+  L.ticks.forEach(v=>{ const x=lx(v), tenMark=v%10===0&&L.step===1;
+    s+=`<line x1="${x}" y1="${Y-(tenMark?16:11)}" x2="${x}" y2="${Y+(tenMark?16:11)}" stroke="${INK}" stroke-width="${tenMark?4:2.5}"/>`;
+    s+=`<text x="${x}" y="${Y+46}" text-anchor="middle" font-size="${L.ticks[L.ticks.length-1]>=100?24:28}" font-weight="${tenMark?900:700}" fill="${INK}" font-family="system-ui">${v}</text>`; });
+  L.hops.slice(0,L.shown).forEach(([p,q])=>{ const x1=lx(p), x2=lx(q), h=Math.min(70,22+Math.abs(x2-x1)*.35), mx=(x1+x2)/2;
+    s+=`<path d="M${x1} ${Y-6} Q${mx} ${Y-6-h*2} ${x2} ${Y-6}" fill="none" stroke="#2563eb" stroke-width="4"/>`;
+    s+=`<polygon points="${x2},${Y-6} ${x2+(x2>x1?-12:12)},${Y-16} ${x2+(x2>x1?-3:3)},${Y-20}" fill="#2563eb"/>`;
+    s+=`<rect x="${mx-30}" y="${Y-h-38}" width="60" height="32" rx="8" fill="#e0ebff"/><text x="${mx}" y="${Y-h-14}" text-anchor="middle" font-size="24" font-weight="800" fill="#1e3a8a" font-family="system-ui">${(q>p?"+":MINUS)+Math.abs(q-p)}</text>`; });
+  const sx=lx(L.a);
+  s+=`<circle cx="${sx}" cy="${Y}" r="10" fill="#16a34a" stroke="#fff" stroke-width="3"/><text x="${sx}" y="${Y+70}" text-anchor="middle" font-size="19" font-weight="800" fill="#166534" font-family="system-ui">${esc(t("start"))}</text>`;
+  if(L.pin!==null){ const px=lx(L.pin), ok=L.done;
+    s+=`<line x1="${px}" y1="${Y}" x2="${px}" y2="${Y-30}" stroke="${ok?"#166534":"#a3341f"}" stroke-width="4"/><circle cx="${px}" cy="${Y-48}" r="23" fill="${ok?"#16a34a":"#c0392b"}"/><text x="${px}" y="${Y-40}" text-anchor="middle" font-size="22" font-weight="900" fill="#fff" font-family="system-ui">${L.pin}</text>`; }
+  L.ticks.forEach(v=>{ s+=`<rect class="hit" data-v="${v}" x="${lx(v)-sp/2}" y="0" width="${sp}" height="210" fill="transparent"/>`; });
+  const box=$("#lineBox");
+  box.innerHTML=`<svg class="nl" id="nlSvg" viewBox="0 0 640 210" direction="ltr" tabindex="0" role="slider" aria-label="${esc(t("lineAria"))}" aria-valuemin="${L.ticks[0]}" aria-valuemax="${L.ticks[L.ticks.length-1]}" aria-valuenow="${L.pin===null?L.a:L.pin}">${s}</svg>`;
+  const svg=$("#nlSvg");
+  svg.addEventListener("click",e=>{ const h=e.target.closest(".hit"); if(h&&!L.done){ L.pin=+h.dataset.v; drawLine(); $("#nlSvg").focus({preventScroll:true}); } });
+  svg.addEventListener("keydown",e=>{
+    if(L.done) return; const i=L.ticks.indexOf(L.pin===null?L.a:L.pin);
+    if(e.key==="ArrowRight"||e.key==="ArrowUp"){ L.pin=L.ticks[Math.min(L.ticks.length-1,i+1)]; }
+    else if(e.key==="ArrowLeft"||e.key==="ArrowDown"){ L.pin=L.ticks[Math.max(0,i-1)]; }
+    else if(e.key==="Enter"||e.key===" "){ e.preventDefault(); checkLine(); return; }
+    else return;
+    e.preventDefault(); drawLine(); $("#nlSvg").focus({preventScroll:true});
+  });
+}
+function lineHopText(){
+  const o={a:L.a,b:L.b,n:L.b/10};
+  if(L.step===10) return t(L.op>0?"lnTens":"lnTensBack",o);
+  if(L.hops.length===2){ o.ten=L.hops[0][1]; o.k=Math.abs(L.hops[0][1]-L.a); o.r=L.b-o.k; return t(L.op>0?"lnCross":"lnCrossBack",o); }
+  return t(L.op>0?"lnOnes":"lnOnesBack",o);
+}
+function checkLine(){
+  if(!L||L.done) return;
+  if(L.pin===null){ hint("line",t("lnNoPin")); return; }
+  if(L.pin===L.end){
+    L.done=true; L.shown=L.hops.length; drawLine();
+    $("#lineEq").innerHTML=fmtBig(E(L.a,L.op>0?"+":"-",L.b,"=",L.end));
+    praise("line",J(t("lnGood",{eq:E(L.a,L.op>0?"+":"-",L.b,"=",L.end)}),lineHopText()),newLine);
+  }else{
+    const far=(L.pin-L.end)*L.op>0;
+    if(L.hops.length>1){ L.shown=1; drawLine(); }
+    hint("line",J(t(far?"lnFar":"lnShort"),lineHopText()));
+  }
+}
+
+/* =========================================================================
+   MISSING NUMBER  (unknown in any position + true/false equations)
+   ========================================================================= */
+let M=null;
+function triple(minPart){
+  minPart=minPart||1; const mx=settings.max; let c,a;
+  if(mx===100){ c=ri(25,99); a=Math.random()<.35?ri(Math.max(minPart,c-9),c-minPart):ri(10,c-10); }
+  else{ const lo=mx===20?Math.max(2*minPart,6):Math.max(2*minPart,3); c=ri(lo,mx); a=ri(minPart,c-minPart); }
+  return [a,c-a,c];
+}
+function newMissing(){
+  roundIds.missing++;
+  hideFb($("#missingFb"));
+  if(Math.random()<.3) return newTF();
+  const [a,b,c]=triple(1), sub=settings.sub && Math.random()<.5;
+  let f;
+  if(!sub) f=rand([{s:[a,"+",b,"=","X"],x:c,h:"msH_sum",u:0},{s:[a,"+","X","=",c],x:b,h:"msH_addend",u:2,k:a},{s:["X","+",b,"=",c],x:a,h:"msH_addend",u:1,k:b},
+    {s:["X","=",a,"+",b],x:c,h:"msH_sum",u:0},{s:[c,"=",a,"+","X"],x:b,h:"msH_addend",u:2,k:a}]);
+  else f=rand([{s:[c,"-",b,"=","X"],x:a,h:"msH_diff",u:1},{s:[c,"-","X","=",a],x:b,h:"msH_takeHow",u:2},{s:["X","-",b,"=",a],x:c,h:"msH_start",u:0},
+    {s:[a,"=",c,"-","X"],x:b,h:"msH_takeHow",u:2}]);
+  const eqQ=E(...f.s.map(v=>v==="X"?"□":v)), eqA=E(...f.s.map(v=>v==="X"?f.x:v));
+  M={tf:false,a,b,c,f,eqQ,eqA,ans:f.x,bond:false,done:false};
+  $("#missingEq").innerHTML=fmtBig(eqQ);
+  $("#bondToggle").classList.remove("hidden"); drawBond();
+  const dir=t("msDir");
+  $("#missingPrompt").textContent=dir; setSpeech("missing",dir+" "+eqQ);
+  renderNums($("#missingNums"),f.x,0,settings.max,()=>{
+    M.done=true; $("#missingEq").innerHTML=fmtBig(eqA); M.bond=true; drawBond();
+    praise("missing",t("msG",{eq:eqA,x:f.x}),newMissing);
+  },v=>{ const k=f.k!=null?f.k:a; hint("missing",J(sizeHint(v,f.x),t(f.h,{a:k,b,c,k}))); });
+  maybeAuto("missing");
+}
+function drawBond(){
+  const v=$("#missingVis");
+  if(!M||M.tf) return;
+  $("#bondToggle").textContent=t(M.bond?"hideBond":"showBond");
+  v.innerHTML=M.bond?bondSVG(M.c,M.a,M.b,M.done?-1:M.f.u):"";
+}
+function evalSide(s){ return s.length===1?s[0]:s[1]==="+"?s[0]+s[2]:s[0]-s[2]; }
+function newTF(){
+  const mx=settings.max, big=mx===100;
+  const S=()=>big?ri(20,99):ri(mx===10?4:8,mx);
+  const kinds=["split","eqFirst","turn","run"].concat(settings.sub?["subEq","subSplit"]:[]);
+  const k=rand(kinds); let truth=Math.random()<.5, Ls, Rs;
+  const off=v=>{ const d=rand([-1,1]); return v+d<0||v+d>mx?v-d:v+d; };
+  if(k==="split"){ const s=S(); const a=ri(1,s-1); let d=ri(1,s-1); if(d===a||d===s-a) d=d===1?Math.min(s-1,2):d-1; if(d===a||d===s-a){ d=a; }
+    Ls=[a,"+",s-a]; const e=truth?s-d:off(s-d); Rs=[d,"+",Math.max(0,e)]; }
+  else if(k==="eqFirst"){ const s=S(), a=ri(1,s-1); Ls=[truth?s:off(s)]; Rs=[a,"+",s-a]; }
+  else if(k==="turn"){ const s=S(), a=ri(1,s-1), b=s-a; Ls=[a,"+",b]; Rs=truth?[b,"+",a]:[b,"+",off(a)]; }
+  else if(k==="run"){ truth=false; const s=big?ri(20,80):ri(5,Math.min(mx,15)), a=ri(1,s-1), e=ri(1,Math.min(9,mx-s)||1); Ls=[a,"+",s-a]; Rs=[s,"+",e]; }
+  else if(k==="subEq"){ const c=S(), b=ri(1,c-1); Ls=[c,"-",b]; Rs=[truth?c-b:off(c-b)]; if(Math.random()<.5){ const tmp=Ls; Ls=Rs; Rs=tmp; } }
+  else{ const c=S(), b=ri(1,c-2), r=c-b, d=ri(1,r-1); Ls=[c,"-",b]; Rs=[d,"+",truth?r-d:Math.max(0,off(r-d))]; }
+  const lv=evalSide(Ls), rv=evalSide(Rs); truth=lv===rv;
+  const ls=E(...Ls), rs=E(...Rs), eq=E(ls,"=",rs);
+  M={tf:true,Ls,Rs,lv,rv,truth,eq,done:false};
+  $("#missingEq").innerHTML=fmtBig(eq);
+  $("#bondToggle").classList.add("hidden");
+  $("#missingVis").innerHTML=seesawSVG(ls,rs,0);
+  const dir=t("tfDir");
+  $("#missingPrompt").textContent=dir; setSpeech("missing",dir+" "+eq);
+  const el=$("#missingNums"); el.innerHTML="";
+  [[true,"✓ "+t("trueBtn")],[false,"✗ "+t("falseBtn")]].forEach(([v,lab])=>{
+    const b=document.createElement("button"); b.type="button"; b.className="num tf"; b.textContent=lab;
+    b.addEventListener("click",()=>pickTF(b,v)); el.appendChild(b); });
+  maybeAuto("missing");
+}
+function tfExplain(){
+  const parts=[];
+  if(M.Ls.length>1) parts.push(t("tfSide",{e:E(...M.Ls),v:M.lv}));
+  if(M.Rs.length>1) parts.push(t("tfSide",{e:E(...M.Rs),v:M.rv}));
+  parts.push(t(M.truth?"tfSame":"tfNotSame"));
+  return J(...parts);
+}
+function pickTF(btn,v){
+  if(M.done) return; M.done=true;
+  $$("#missingNums button").forEach(b=>b.disabled=true);
+  $("#missingVis").innerHTML=seesawSVG(E(...M.Ls),E(...M.Rs),Math.sign(M.rv-M.lv));
+  if(v===M.truth){ btn.classList.add("right"); praise("missing",J(t("yes"),tfExplain()),newMissing); }
+  else{ btn.classList.add("wrong");
+    $$("#missingNums button").forEach(b=>{ if(b!==btn) b.classList.add("right"); });
+    const m=J(t("lookAgain"),tfExplain(),t("tfEqual"));
+    showFb($("#missingFb"),"hint",m); afterPraise(sayify(m),"missing",newMissing,4500); }
+}
+
+/* =========================================================================
+   FACT FAMILIES
+   ========================================================================= */
+let FAM=null;
+function newFamily(){
+  roundIds.family++;
+  let a,b,c,g=0; do{ [a,b,c]=triple(1); }while((a===b)&&g++<50);
+  if(a===b){ a=a+1; c=a+b; }
+  const ops=settings.sub?["+","+","-","-"]:["+","+"];
+  FAM={a,b,c,rows:ops.map(op=>({op,v:[null,null,null]})),sel:null,done:false,suppress:false};
+  $("#famTri").innerHTML=triSVG(a,b,c);
+  const tl=$("#famTiles"); tl.innerHTML="";
+  shuffle([a,b,c]).forEach(v=>{
+    const el=document.createElement("button"); el.type="button"; el.className="tile"; el.textContent=v; el.dataset.v=v;
+    el.setAttribute("aria-pressed","false"); el.setAttribute("aria-label",t("tileAria",{n:v}));
+    el.addEventListener("click",()=>{ if(FAM.suppress) return; FAM.sel=v; markTiles(); });
+    el.addEventListener("pointerdown",e=>tileDrag(e,v,el));
+    tl.appendChild(el); });
+  drawFamRows();
+  const dir=t(settings.sub?"famDir":"famDirAdd",{a,b,c});
+  $("#familyPrompt").innerHTML=fmt(dir); setSpeech("family",dir); hideFb($("#familyFb"));
+  maybeAuto("family");
+}
+function markTiles(){ $$("#famTiles .tile").forEach(x=>x.setAttribute("aria-pressed",String(+x.dataset.v===FAM.sel))); }
+function drawFamRows(focusI){
+  const w=$("#famRows"); w.innerHTML="";
+  FAM.rows.forEach((row,r)=>{
+    const d=document.createElement("div"); d.className="famrow"+(row.st?" "+row.st:""); d.setAttribute("dir","ltr");
+    d.setAttribute("role","group"); d.setAttribute("aria-label",t("factN",{n:r+1}));
+    const slot=p=>{ const i=r*3+p, v=row.v[p], b=document.createElement("button"); b.type="button";
+      b.className="slot"+(v!==null?" filled":""); b.dataset.i=i; b.textContent=v===null?"":v;
+      b.setAttribute("aria-label",v===null?t("slotAria"):t("slotFilled",{n:v}));
+      b.addEventListener("click",()=>tapSlot(i)); return b; };
+    const op=s=>{ const o=document.createElement("span"); o.className="op"; o.textContent=s; o.setAttribute("aria-label",t(s==="+"?"wPlus":s==="="?"wEquals":"wMinus")); return o; };
+    d.append(slot(0),op(row.op==="+"?"+":MINUS),slot(1),op("="),slot(2)); w.appendChild(d);
+  });
+  if(focusI!=null){ const b=w.querySelector(`.slot[data-i="${focusI}"]`); if(b) b.focus(); }
+}
+function fillSlot(i,v){ if(FAM.done) return; const row=FAM.rows[Math.floor(i/3)]; row.v[i%3]=v; FAM.rows.forEach(r=>r.st=""); drawFamRows(i); }
+function tapSlot(i){
+  if(FAM.done) return; const row=FAM.rows[Math.floor(i/3)], p=i%3;
+  if(FAM.sel!==null){ fillSlot(i,FAM.sel); return; }
+  if(row.v[p]!==null){ row.v[p]=null; drawFamRows(i); return; }
+  hint("family",t("famPickFirst"));
+}
+function tileDrag(e,v,el){
+  if(FAM.done) return;
+  const sx=e.clientX, sy=e.clientY; let ghost=null;
+  const mv=ev=>{
+    if(!ghost && Math.hypot(ev.clientX-sx,ev.clientY-sy)>8){ ghost=el.cloneNode(true); ghost.classList.add("dragghost"); ghost.removeAttribute("id"); document.body.appendChild(ghost); }
+    if(ghost){ ghost.style.left=ev.clientX+"px"; ghost.style.top=ev.clientY+"px"; }
+  };
+  const up=ev=>{
+    window.removeEventListener("pointermove",mv); window.removeEventListener("pointerup",up); window.removeEventListener("pointercancel",up);
+    if(!ghost) return;
+    ghost.remove(); FAM.suppress=true; setTimeout(()=>{ if(FAM) FAM.suppress=false; },60);
+    const tg=document.elementFromPoint(ev.clientX,ev.clientY), s=tg&&tg.closest(".slot");
+    if(s) fillSlot(+s.dataset.i,v);
+  };
+  window.addEventListener("pointermove",mv); window.addEventListener("pointerup",up); window.addEventListener("pointercancel",up);
+}
+function checkFamily(){
+  if(FAM.done) return;
+  const {a,b,c}=FAM, key=[a,b,c].sort((x,y)=>x-y).join(), V={a,b,c}, seen={};
+  FAM.rows.forEach(r=>r.st="");
+  const bad=(r,msg)=>{ r.st="bad"; drawFamRows(); hint("family",msg); };
+  for(const r of FAM.rows){ if(r.v.includes(null)) return bad(r,t("famEmpty",V)); }
+  for(const r of FAM.rows){ if(r.v.slice().sort((x,y)=>x-y).join()!==key) return bad(r,t("famUse",V)); }
+  for(const r of FAM.rows){ const ok=r.op==="+"?r.v[0]+r.v[1]===r.v[2]:r.v[0]-r.v[1]===r.v[2];
+    if(!ok) return bad(r,t(r.op==="+"?"famFalseAdd":"famFalseSub",Object.assign({eq:E(r.v[0],r.op,r.v[1],"=",r.v[2])},V))); }
+  for(const r of FAM.rows){ const k=r.op+r.v.join(); if(seen[k]) return bad(r,t("famDup")); seen[k]=1; }
+  FAM.done=true; FAM.rows.forEach(r=>r.st="ok"); drawFamRows();
+  praise("family",t(settings.sub?"famGood":"famGoodAdd",V),newFamily);
+}
+
+/* =========================================================================
+   STORY PROBLEMS  (join, separate, part-part-whole, compare)
+   ========================================================================= */
+let ST=null;
+// unk: 0 = whole/bigger, 1 = first part/smaller, 2 = second part/difference
+const STORY={
+  joinRU:{bar:"pw",unk:0,op:"+"}, joinCU:{bar:"pw",unk:2,op:"+"}, startU:{bar:"pw",unk:1,op:"+"},
+  sepRU:{bar:"pw",unk:1,op:"-"}, sepCU:{bar:"pw",unk:2,op:"-"},
+  pptTotal:{bar:"pw",unk:0,op:"+"}, pptPart:{bar:"pw",unk:2,op:"-"},
+  compDiff:{bar:"cmp",unk:2,op:"-"}, compBig:{bar:"cmp",unk:0,op:"+"}
+};
+function newStory(){
+  roundIds.story++;
+  const pool=settings.sub?Object.keys(STORY):["joinRU","pptTotal","compBig"];
+  let k=rand(pool); if(ST&&k===ST.k) k=rand(pool);
+  const [a,b,c]=triple(2), S=STORY[k], ans=[c,a,b][S.unk];
+  const eq=S.op==="+"?E(a,"+",b,"=",c):(S.unk===1?E(c,"-",b,"=",a):E(c,"-",a,"=",b));
+  ST={k,a,b,c,ans,eq,done:false};
+  const text=t("st_"+k,{a,b,c});
+  $("#storyPrompt").innerHTML=fmt(text); setSpeech("story",text); hideFb($("#storyFb"));
+  $("#storyVis").innerHTML=barSVG(S.bar,c,a,b,S.unk,false);
+  renderNums($("#storyNums"),ans,0,settings.max,()=>{
+    ST.done=true; $("#storyVis").innerHTML=barSVG(S.bar,c,a,b,S.unk,true);
+    praise("story",J(t("storyG",{eq,x:ans}),t("ex_"+k,{a,b,c})),newStory);
+  },v=>hint("story",J(sizeHint(v,ans),t("ex_"+k,{a,b,c}))));
+  maybeAuto("story");
+}
+
+/* ---------- Mode switching ---------- */
+const NEW={frames:newFrames,line:newLine,missing:newMissing,family:newFamily,story:newStory};
+const ready={};
+function currentMode(){ const b=$$(".tabs button").filter(x=>x.getAttribute("aria-selected")==="true")[0]; return b?b.dataset.mode:"frames"; }
+function showMode(mode){
+  if(!settings.modes[mode]) mode=MODES.find(m=>settings.modes[m])||"frames";
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
+  $$(".modepanel").forEach(p=>p.classList.add("hidden"));
+  $("#mode-"+mode).classList.remove("hidden");
+  $$(".tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.mode===mode?"true":"false"));
+  if(!ready[mode]){ ready[mode]=true; NEW[mode](); }
+  // Returning to a tab: read its current directions (unless a new round just did).
+  if(switching && speechGen===g0) maybeAuto(mode);
+}
+function resetRounds(){ MODES.forEach(m=>ready[m]=false); const m=currentMode(); ready[m]=true; NEW[m](); }
+
+/* ---------- Settings drawer ---------- */
+function buildModeToggles(){
+  const wrap=$("#modeToggles"); wrap.innerHTML="";
+  MODES.forEach(m=>{
+    const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.modes[m]?"checked":""} data-m="${m}"> <span>${esc(t(MODE_KEY[m]))}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{ settings.modes[m]=e.target.checked;
+      if(!MODES.some(x=>settings.modes[x])){ e.target.checked=true; settings.modes[m]=true; }
+      saveSettings(); applyModeTabs(); });
+    wrap.appendChild(l);
+  });
+}
+function applyModeTabs(){
+  $$(".tabs button").forEach(b=>b.style.display=settings.modes[b.dataset.mode]?"":"none");
+  if(!settings.modes[currentMode()]) showMode(MODES.find(m=>settings.modes[m]));
+}
+function syncSettingsUI(){ $("#setMax").value=String(settings.max); $("#setSub").checked=settings.sub; $("#setAuto").checked=settings.autoRead; buildModeToggles(); }
+function initSettings(){
+  $("#openSettings").addEventListener("click",()=>{ syncSettingsUI(); $("#settingsDrawer").classList.add("open"); $("#closeSettings").focus(); });
+  const close=()=>{ $("#settingsDrawer").classList.remove("open"); $("#openSettings").focus(); };
+  $("#closeSettings").addEventListener("click",close);
+  $("#settingsDrawer").addEventListener("click",e=>{ if(e.target.id==="settingsDrawer") close(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape" && $("#settingsDrawer").classList.contains("open")) close(); });
+  $("#setMax").addEventListener("change",e=>{ settings.max=+e.target.value; saveSettings(); stopSpeech(); resetRounds(); });
+  $("#setSub").addEventListener("change",e=>{ settings.sub=e.target.checked; saveSettings(); stopSpeech(); resetRounds(); });
+  $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
+  $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
+}
+
+/* ---------- Print cards ---------- */
+function buildPrintCards(){
+  const c1=Array(20).fill(""); for(let i=0;i<8;i++) c1[i]="r"; for(let i=10;i<15;i++) c1[i]="b";
+  const lineSvg=()=>{ let s=`<line x1="10" y1="60" x2="630" y2="60" stroke="#000" stroke-width="3"/>`;
+    for(let v=5;v<=15;v++){ const x=30+(v-5)*58; s+=`<line x1="${x}" y1="50" x2="${x}" y2="70" stroke="#000" stroke-width="${v===10?4:2}"/><text x="${x}" y="95" text-anchor="middle" font-size="20" font-family="system-ui">${v}</text>`; }
+    return `<svg viewBox="0 0 640 105" direction="ltr">${s}</svg>`; };
+  const blankRows=ops=>`<div dir="ltr" style="font-size:1.6rem;line-height:2.2;white-space:nowrap">`+ops.map(o=>`☐ ${o} ☐ = ☐`).join("<br>")+`</div>`;
+  const cards=[
+    {title:t("mFrames"), body:t("fP_makeTen",{eq:E(8,"+",5)}), pic:frameSVG(c1,false)},
+    {title:t("mLine"), body:t("lnDirAdd",{a:7,b:6})+" "+E(7,"+",6,"=","□"), pic:lineSvg()},
+    {title:t("mMissing"), body:t("msDir"), pic:`<div class="eqbig" dir="ltr" style="text-align:start">${fmtBig(E(9,"+","□","=",15))}<br>${fmtBig(E("□","-",4,"=",9))}</div>`},
+    {title:t("mMissing"), body:t("tfDir"), pic:`<div class="eqbig" dir="ltr" style="text-align:start">${fmtBig(E(6,"+",2,"=",5,"+",3))}<br>${fmtBig(E(8,"+",2,"=",10,"+",3))}</div>`},
+    {title:t("mFamily"), body:t(settings.sub?"famDir":"famDirAdd",{a:5,b:8,c:13}), pic:`<div style="display:flex;gap:2rem;align-items:center;flex-wrap:wrap"><div style="width:150px">${triSVG(5,8,13)}</div>${blankRows(settings.sub?["+","+",MINUS,MINUS]:["+","+"])}</div>`},
+    {title:t("mStory"), body:t("st_joinRU",{a:8,b:5,c:13}), pic:barSVG("pw",13,8,5,0,false)}
+  ];
+  $("#printArea").innerHTML=`<h1>${esc(t("cardTitle"))}</h1>`+cards.map(c=>`<div class="card-print"><h2>${esc(c.title)}</h2><p style="font-size:1.2rem">${fmt(c.body)}</p>${c.pic}</div>`).join("")+`<p style="font-size:.85rem">${esc(t("stds"))}</p>`;
+}
+
+/* ---------- Language engine ---------- */
+function resolveLang(){
+  try{ const q=new URLSearchParams(location.search).get("lang"); if(q && T[q]) return q; }catch(e){}
+  try{ const s=localStorage.getItem(LANG_KEY); if(s && T[s]) return s; }catch(e){}
+  const n=(navigator.language||"en").slice(0,2).toLowerCase();
+  if(T[n]) return n;
+  return "en";
+}
+function applyLang(){
+  const meta=LANGS.find(x=>x.code===lang)||LANGS[0];
+  document.documentElement.lang=lang;
+  document.documentElement.dir=meta.dir;
+  document.title=t("appTitle");
+  const sel=$("#langSelect"); if(sel) sel.value=lang;
+  $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
+  $("#stdsNote").textContent=t("stds");
+  $("#stars").setAttribute("aria-label",t("starsAria",{n:stars}));
+  if($("#settingsDrawer").classList.contains("open")) syncSettingsUI();
+  stopSpeech(); resetRounds();
+}
+function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} applyLang(); }
+function buildLangSelect(){
+  const sel=$("#langSelect"); sel.innerHTML="";
+  LANGS.forEach(m=>{ const o=document.createElement("option"); o.value=m.code; o.textContent=m.name; sel.appendChild(o); });
+  sel.value=lang;
+  sel.addEventListener("change",()=>setLang(sel.value));
+}
+
+/* ---------- Init ---------- */
+function init(){
+  lang=resolveLang();
+  buildLangSelect();
+  $$(".tabs button").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.mode)));
+  $$(".speaker").forEach(b=>b.addEventListener("click",()=>speak(currentSpeech[b.dataset.speak])));
+  MODES.forEach(m=>$("#"+m+"New").addEventListener("click",()=>{ stopSpeech(); NEW[m](); }));
+  $("#lineCheck").addEventListener("click",checkLine);
+  $("#famCheck").addEventListener("click",checkFamily);
+  $("#famClear").addEventListener("click",()=>{ if(FAM.done) return; FAM.rows.forEach(r=>{ r.v=[null,null,null]; r.st=""; }); FAM.sel=null; markTiles(); drawFamRows(); hideFb($("#familyFb")); });
+  $("#bondToggle").addEventListener("click",()=>{ if(M&&!M.tf){ M.bond=!M.bond; drawBond(); } });
+  initSettings();
+  $$(".tabs button").forEach(b=>b.style.display=settings.modes[b.dataset.mode]?"":"none");
+  const first=MODES.find(m=>settings.modes[m])||"frames";
+  $$(".tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.mode===first?"true":"false"));
+  applyLang();
+  showMode(first);
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+</script>
+
+<script>
+/* Student mute toggle — shared across the Digital Math Tools. Self-contained,
+   offline, stores no student data. Gates ALL speech by intercepting
+   speechSynthesis.speak, so muting works regardless of each tool's internals.
+   Reads the shared language preference only to localize its own label. */
+(function(){
+  "use strict";
+  var LKEY='tcea.mathtools.lang', MKEY='tcea.mathtools.muted';
+  var CODES=['en','es','vi','ar','hi','ur','zh'];
+  var LAB={
+    mute:{en:"Mute sound",es:"Silenciar sonido",vi:"Tắt âm thanh",ar:"كتم الصوت",hi:"आवाज़ बंद करें",ur:"آواز بند کریں",zh:"静音"},
+    unmute:{en:"Turn sound on",es:"Activar sonido",vi:"Bật âm thanh",ar:"تشغيل الصوت",hi:"आवाज़ चालू करें",ur:"آواز چالو کریں",zh:"打开声音"}
+  };
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  window.__MT_MUTED = (get(MKEY)==='1');
+  // Intercept every speech request; suppress while muted.
+  try{
+    if(window.speechSynthesis && typeof window.speechSynthesis.speak==='function'){
+      var ss=window.speechSynthesis, orig=ss.speak.bind(ss);
+      ss.speak=function(u){ if(!window.__MT_MUTED){ try{orig(u);}catch(e){} } };
+    }
+  }catch(e){}
+  function curLang(){ var l=get(LKEY)||'en'; return LAB.mute[l]?l:'en'; }
+  function label(el){
+    var on=!window.__MT_MUTED, l=curLang(), txt=on?LAB.mute[l]:LAB.unmute[l];
+    el.textContent=on?'🔊':'🔇';
+    el.setAttribute('aria-label',txt); el.setAttribute('title',txt);
+    el.setAttribute('aria-pressed', on?'false':'true');
+  }
+  function findLangSelect(){
+    var sels=document.querySelectorAll('select');
+    for(var i=0;i<sels.length;i++){ var o=sels[i].options, c=0;
+      for(var j=0;j<o.length;j++){ if(CODES.indexOf((o[j].value||'').toLowerCase())>=0) c++; }
+      if(c>=3) return sels[i];
+    }
+    return null;
+  }
+  function build(){
+    if(document.getElementById('mtMuteBtn')) return;
+    if(!(('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window))) return;
+    var btn=document.createElement('button');
+    btn.id='mtMuteBtn'; btn.type='button';
+    btn.style.cssText='font:inherit;font-size:1.15rem;line-height:1;cursor:pointer;'+
+      'min-width:44px;min-height:44px;padding:8px 12px;border:2px solid #e2dcf1;'+
+      'border-radius:10px;background:#fff;color:#5b3fa5;font-weight:700;margin:0 4px;';
+    btn.addEventListener('click',function(){
+      window.__MT_MUTED=!window.__MT_MUTED;
+      set(MKEY, window.__MT_MUTED?'1':'0');
+      if(window.__MT_MUTED){ try{window.speechSynthesis.cancel();}catch(e){} }
+      label(btn);
+    });
+    btn.addEventListener('focus',function(){btn.style.outline='3px solid #5b3fa5';btn.style.outlineOffset='2px';});
+    btn.addEventListener('blur',function(){btn.style.outline='';});
+    var sel=findLangSelect();
+    if(sel && sel.parentNode){
+      sel.parentNode.insertBefore(btn, sel);
+      sel.addEventListener('change',function(){ setTimeout(function(){label(btn);},0); });
+    }else{
+      btn.style.position='fixed'; btn.style.top='10px'; btn.style.zIndex='9999';
+      btn.style[(document.documentElement.dir==='rtl')?'left':'right']='10px';
+      (document.body||document.documentElement).appendChild(btn);
+    }
+    label(btn);
+  }
+  if(document.readyState==='complete'){ build(); }
+  else{ window.addEventListener('load', build); }
+  window.addEventListener('storage',function(e){ if(e.key===LKEY){ var b=document.getElementById('mtMuteBtn'); if(b) label(b); } });
+})();
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+
+</html>

@@ -79,7 +79,8 @@ window.MATHTOOLS = (function () {
     "Bar graph":{en:"Bar graph",es:"Gráfica de barras",vi:"Biểu đồ cột",ar:"رسم بالأعمدة",hi:"बार ग्राफ़",ur:"بار گراف",zh:"条形统计图"},
     "Line plot":{en:"Line plot",es:"Diagrama de puntos",vi:"Biểu đồ chấm",ar:"تمثيل بالنقاط",hi:"लाइन प्लॉट",ur:"لائن پلاٹ",zh:"点图"},
     "Place value":{en:"Place value",es:"Valor posicional",vi:"Giá trị theo hàng",ar:"القيمة المكانية",hi:"स्थानीय मान",ur:"مقامی قدر",zh:"位值"},
-    "Fractions":{en:"Fractions",es:"Fracciones",vi:"Phân số",ar:"الكسور",hi:"भिन्न",ur:"کسور",zh:"分数"}
+    "Fractions":{en:"Fractions",es:"Fracciones",vi:"Phân số",ar:"الكسور",hi:"भिन्न",ur:"کسور",zh:"分数"},
+    "Fact families":{en:"Fact families",es:"Familias de operaciones",vi:"Gia đình phép tính",ar:"عائلات الحقائق",hi:"तथ्य परिवार",ur:"حقائق کے خاندان",zh:"算式家族"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -191,7 +192,19 @@ window.MATHTOOLS = (function () {
         ar:"افرز الأشكال ثنائية الأبعاد حسب الأضلاع والرؤوس، واستكشف المجسمات، واملأ الألغاز بالقطع، وقسّم البيتزا والشطائر إلى حصص متساوية.",
         hi:"2-D आकृतियों को भुजाओं और शीर्षों से छाँटें, 3-D ठोस जाँचें, ब्लॉकों से पहेलियाँ भरें, और पिज़्ज़ा व सैंडविच को बराबर हिस्सों में काटें।",
         ur:"2-D اشکال کو اطراف اور راس کے لحاظ سے چھانٹیں، 3-D ٹھوس دریافت کریں، بلاکس سے پہیلیاں بھریں، اور پیزا و سینڈوچ کو برابر حصوں میں کاٹیں۔",
-        zh:"按边和顶点给二维图形分类，探索立体图形，用图形积木拼图，并把披萨和三明治平均分。"} }
+        zh:"按边和顶点给二维图形分类，探索立体图形，用图形积木拼图，并把披萨和三明治平均分。"} },
+    { id:"fact-family-fair", collection:"k2", bandId:"k-2", icon:"🎡", accent:"#c0392b",
+      title:"Fact Family Fair", href:"k2/fact-family-fair/index.html",
+      tags:["Addition","Subtraction","Fact families","Story problems"],
+      kw:"addition subtraction fact family fluency within 20 within 100 ten frame make ten doubles near doubles number line hops missing number unknown addend true false equal sign bar model word problems join separate compare part-part-whole suma resta familia de operaciones 加法 减法",
+      desc:{
+        en:"Build fluency within 20 and 100 with ten frames, number line hops, missing numbers, true/false equations, fact families, and story problems with bar models.",
+        es:"Desarrolla fluidez hasta 20 y 100 con marcos de diez, saltos en la recta numérica, números que faltan, igualdades verdaderas o falsas, familias de operaciones y problemas con modelos de barras.",
+        vi:"Luyện tính nhẩm trong phạm vi 20 và 100 với khung mười, nhảy trên tia số, số còn thiếu, đẳng thức đúng sai, gia đình phép tính và bài toán đố có sơ đồ đoạn thẳng.",
+        ar:"نمِّ الطلاقة في الجمع والطرح ضمن 20 و100 بالإطارات العشرية والقفز على خط الأعداد والأعداد المفقودة والمعادلات الصحيحة والخاطئة وعائلات الحقائق والمسائل القصصية بنماذج الأشرطة.",
+        hi:"दस-फ्रेम, संख्या रेखा पर छलांग, छूटी हुई संख्या, सही-गलत समीकरण, तथ्य परिवार और पट्टी मॉडल वाले कहानी सवालों से 20 और 100 तक जोड़-घटाव में प्रवाह बनाएँ।",
+        ur:"دس خانوں کے فریم، عددی لکیر پر چھلانگوں، گمشدہ اعداد، درست اور غلط مساواتوں، حقائق کے خاندانوں اور پٹی ماڈل والے کہانی کے سوالوں سے 20 اور 100 تک جمع و تفریق میں روانی بڑھائیں۔",
+        zh:"用十格框、数轴跳跃、找缺少的数、判断等式对错、算式家族和线段图故事题，练习20以内和100以内的加减法。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
