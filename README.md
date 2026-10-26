@@ -62,8 +62,19 @@ numbers in the markup are the no-JS fallbacks. Update them when you add a card.
 
 ## External links
 
-`Digital Math Tools` and the `Map Puzzle` generator remain in the `tcea` repo
-and are linked root-relative (`/tcea/…`) from the hub.
+The `Map Puzzle` generator remains in the `tcea` repo and is linked
+root-relative (`/tcea/…`) from the hub.
+
+## Digital Math Tools
+
+`digitalmathtools/` holds 25 single-file tools, five per grade band:
+`pkk/` (PreK–K), `k2/`, `g35/`, `g68/` and `g912/`. Every tool is a self-contained
+`index.html` in seven languages that works offline and stores no student data.
+`digitalmathtools/catalog.js` is the one data source for the hub
+(`digitalmathtools/index.html`), each band's collection page, and the site
+search index. To add a tool, put it in its band folder and add a `tools[]` entry
+(plus any new `TAG` keys) to `catalog.js`. Then bump the card's `data-count` in
+`index.html` and rerun `node build-search-index.js`.
 
 `Getting to Know You` (`mglearn/gtky`) and `Suffrage Sojourn` (`mglearn/sojourn`)
 are their own repos, deployed to `mglearn.github.io/gtky/` and
