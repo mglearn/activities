@@ -79,6 +79,20 @@ window.MATHTOOLS = (function () {
         zh: "面向初中的互动数学工具——比与比例、整数与有理数、表达式与方程、一次函数以及几何。"
       }
     }
+,
+    {
+      id: "g912", bandId: "9-12", icon: "🎓", accent: "#3b3f8f", href: "g912/index.html",
+      name: { en: "Grades 9–12", es: "Grados 9–12", vi: "Lớp 9–12", ar: "الصفوف 9–12", hi: "कक्षा 9–12", ur: "جماعت 9–12", zh: "九至十二年级" },
+      desc: {
+        en: "Interactive high-school math tools — linear systems, quadratics, function families, geometry proof and trigonometry, and statistics and probability.",
+        es: "Herramientas matemáticas interactivas para preparatoria: sistemas lineales, cuadráticas, familias de funciones, demostraciones geométricas y trigonometría, y estadística y probabilidad.",
+        vi: "Công cụ toán tương tác cho trung học phổ thông — hệ phương trình bậc nhất, hàm bậc hai, các họ hàm số, chứng minh hình học và lượng giác, thống kê và xác suất.",
+        ar: "أدوات رياضيات تفاعلية للمرحلة الثانوية — الأنظمة الخطية، والدوال التربيعية، وعائلات الدوال، والبرهان الهندسي وحساب المثلثات، والإحصاء والاحتمالات.",
+        hi: "हाई स्कूल के लिए इंटरैक्टिव गणित उपकरण — रैखिक समीकरण निकाय, द्विघात, फलन परिवार, ज्यामितीय प्रमाण और त्रिकोणमिति, तथा सांख्यिकी और प्रायिकता।",
+        ur: "ہائی اسکول کے لیے انٹرایکٹو ریاضی اوزار — خطی نظام، دو درجی تفاعل، تفاعل کے خاندان، جیومیٹری کے ثبوت اور مثلثیات، اور شماریات و احتمال۔",
+        zh: "面向高中的互动数学工具——线性方程组、二次函数、函数族、几何证明与三角、统计与概率。"
+      }
+    }
   ];
 
   // ---- Shared tag vocabulary (English key -> per-language label) ------------
@@ -137,7 +151,9 @@ window.MATHTOOLS = (function () {
     "Integers":{en:"Integers",es:"Números enteros",vi:"Số nguyên",ar:"الأعداد الصحيحة",hi:"पूर्णांक",ur:"صحیح اعداد",zh:"整数"},
     "Number line":{en:"Number line",es:"Recta numérica",vi:"Trục số",ar:"خط الأعداد",hi:"संख्या रेखा",ur:"عددی خط",zh:"数轴"},
     "Rational numbers":{en:"Rational numbers",es:"Números racionales",vi:"Số hữu tỉ",ar:"الأعداد النسبية",hi:"परिमेय संख्याएँ",ur:"ناطق اعداد",zh:"有理数"},
-    "Real numbers":{en:"Real numbers",es:"Números reales",vi:"Số thực",ar:"الأعداد الحقيقية",hi:"वास्तविक संख्याएँ",ur:"حقیقی اعداد",zh:"实数"}
+    "Real numbers":{en:"Real numbers",es:"Números reales",vi:"Số thực",ar:"الأعداد الحقيقية",hi:"वास्तविक संख्याएँ",ur:"حقیقی اعداد",zh:"实数"},
+    "Quadratics":{en:"Quadratics",es:"Funciones cuadráticas",vi:"Hàm bậc hai",ar:"الدوال التربيعية",hi:"द्विघात",ur:"دو درجی",zh:"二次函数"},
+    "Factoring":{en:"Factoring",es:"Factorización",vi:"Phân tích nhân tử",ar:"التحليل إلى عوامل",hi:"गुणनखंडन",ur:"تجزی",zh:"因式分解"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -381,7 +397,19 @@ window.MATHTOOLS = (function () {
         ar:"عيّن الأعداد الصحيحة والنسبية على خطوط الأعداد، واستخدم القطع والقفزات للجمع والطرح، واكتشف قواعد الإشارات في الضرب والقسمة، وصنّف الأعداد الحقيقية في مخطط فن، وحُلّ مسائل عن درجة الحرارة والارتفاع والمال.",
         hi:"पूर्णांकों और परिमेय संख्याओं को संख्या रेखा पर रखें, जोड़-घटाव के लिए काउंटर और छलाँगें इस्तेमाल करें, गुणा-भाग के चिह्न नियम खोजें, वेन आरेख में वास्तविक संख्याएँ छाँटें, और तापमान, ऊँचाई व पैसों के सवाल हल करें।",
         ur:"صحیح اور ناطق اعداد کو عددی خط پر رکھیں، جمع و تفریق کے لیے کاؤنٹر اور چھلانگیں استعمال کریں، ضرب و تقسیم کے علامتی اصول دریافت کریں، وین ڈایاگرام میں حقیقی اعداد کی درجہ بندی کریں، اور درجہ حرارت، بلندی اور رقم کے سوال حل کریں۔",
-        zh:"在数轴上表示整数和有理数，用计数片和数轴跳跃做加减法，探索乘除法的符号规则，用韦恩图给实数分类，并解决温度、海拔和钱的情境问题。"} }
+        zh:"在数轴上表示整数和有理数，用计数片和数轴跳跃做加减法，探索乘除法的符号规则，用韦恩图给实数分类，并解决温度、海拔和钱的情境问题。"} },
+    { id:"quadratic-explorer", collection:"g912", bandId:"9-12", icon:"🎯", accent:"#c0392b",
+      title:"Quadratic Explorer", href:"g912/quadratic-explorer/index.html",
+      tags:["Quadratics","Factoring","Functions","Equations","Coordinate plane","Story problems"],
+      kw:"quadratic quadratics parabola vertex form standard form factored form axis of symmetry maximum minimum domain range y-intercept zeros x-intercepts roots factoring trinomial area model algebra tiles grouping ac method gcf difference of squares zero product property square roots completing the square quadratic formula discriminant complex roots imaginary i projectile motion maximize area revenue cuadrática parábola vértice fórmula cuadrática 二次函数 抛物线",
+      desc:{
+        en:"Build parabolas from vertex form and read their key features, factor trinomials with area models and grouping, solve by factoring, square roots, completing the square and the quadratic formula, connect zeros, factors and graphs, and model projectiles, area and revenue.",
+        es:"Construye parábolas en forma de vértice y lee sus características clave, factoriza trinomios con modelos de área y por agrupación, resuelve ecuaciones factorizando, con raíces cuadradas, completando el cuadrado y con la fórmula cuadrática, relaciona ceros, factores y gráficas, y modela proyectiles, áreas e ingresos.",
+        vi:"Dựng parabol từ dạng đỉnh và đọc các đặc điểm chính, phân tích tam thức thành nhân tử bằng mô hình diện tích và phương pháp nhóm, giải phương trình bằng phân tích nhân tử, căn bậc hai, hoàn thành bình phương và công thức nghiệm, liên kết nghiệm, nhân tử và đồ thị, và mô hình hóa chuyển động ném, diện tích và doanh thu.",
+        ar:"أنشئ القطوع المكافئة من صيغة الرأس واقرأ خصائصها الأساسية، وحلّل ثلاثيات الحدود باستخدام نماذج المساحة والتجميع، وحُلّ المعادلات بالتحليل والجذور التربيعية وإكمال المربع والقانون العام، واربط الأصفار بالعوامل والتمثيلات البيانية، ونمذج المقذوفات والمساحة والإيرادات.",
+        hi:"शीर्ष रूप से परवलय बनाएँ और उनकी मुख्य विशेषताएँ पढ़ें, क्षेत्रफल मॉडल और समूहन से त्रिपदों के गुणनखंड करें, गुणनखंड, वर्गमूल, वर्ग पूरा करने और द्विघात सूत्र से समीकरण हल करें, शून्यकों, गुणनखंडों और ग्राफ़ को जोड़ें, तथा प्रक्षेप्य, क्षेत्रफल और आय का मॉडल बनाएँ।",
+        ur:"راس کی شکل سے قطع مکافی بنائیں اور ان کی اہم خصوصیات پڑھیں، رقبہ ماڈل اور گروہ بندی سے سہ رقمی کی تجزی کریں، تجزی، جذر المربع، مربع مکمل کرنے اور دو درجی فارمولے سے مساوات حل کریں، صفر، اجزائے ضربی اور گراف کو جوڑیں، اور پھینکی گئی چیزوں، رقبے اور آمدنی کا ماڈل بنائیں۔",
+        zh:"用顶点式构建抛物线并读出其关键特征，用面积模型和分组法分解三项式，用因式分解、开平方、配方法和求根公式解方程，联系零点、因式与图像，并为抛体运动、面积和收入建模。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };

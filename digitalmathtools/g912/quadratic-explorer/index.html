@@ -1,0 +1,2066 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Quadratic Explorer — a Grades 9–12 app for quadratic functions and equations: vertex form, factoring with area models, solving by factoring, square roots, completing the square and the quadratic formula, and projectile and area models. Works offline. No data collected.">
+<title>Quadratic Explorer</title>
+<style>
+  :root{
+    --bg:#f8f0ef;--panel:#ffffff;--ink:#22161a;--muted:#5a4a4d;--line:#e3cbc8;
+    --accent:#c0392b;--accentD:#922b21;--accent-ink:#ffffff;--good:#166534;--good-bg:#dcfce7;
+    --hint:#7a4a00;--hint-bg:#fff4d6;--focus:#0a58ca;--tgt:#2471a3;--lin:#1e8449;
+    --tap:48px;font-size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4;-webkit-text-size-adjust:100%}
+  h1,h2,h3{line-height:1.15;margin:0 0 .3em}
+  button{font-family:inherit;font-size:1rem;cursor:pointer}
+  button:disabled{cursor:default}
+
+  .topbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--accentD);color:var(--accent-ink);padding:.55rem .8rem}
+  .topbar .brand{font-weight:800;font-size:1.2rem;display:flex;align-items:center;gap:.4rem;margin-inline-end:auto}
+  .topbar a.homebtn,.topbar button.tb{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.4rem .7rem;min-height:var(--tap);min-width:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;font-weight:700;font-size:.95rem}
+  .globe{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.2rem .5rem;min-height:var(--tap)}
+  .globe span{font-size:1.2rem}
+  .globe select{border:0;background:#fff;color:var(--ink);border-radius:8px;min-height:44px;font-weight:700;font-size:1rem;padding:.2rem .4rem}
+
+  main{max-width:1200px;margin:0 auto;padding:.7rem}
+  .tabsrow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:.4rem 0 .7rem}
+  .tabs{display:flex;gap:.4rem;flex-wrap:wrap;flex:1 1 auto}
+  .tabs button{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:.45rem .75rem;min-height:var(--tap);font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .tabs button[aria-selected="true"]{background:var(--accentD);color:#fff;border-color:var(--accentD)}
+  .tabs button .ic{font-size:1.15rem}
+  .stars{background:#fff;border:2px solid var(--line);border-radius:14px;padding:.4rem .8rem;font-weight:800;font-size:1.1rem;min-height:48px;display:inline-flex;align-items:center;gap:.3rem}
+  .stars.pop{animation:pop .5s ease}
+  @keyframes pop{50%{transform:scale(1.15)}}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  .panel{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:.9rem;margin-bottom:.8rem}
+  .panelhead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+  .panelhead h2{margin:0;font-size:1.25rem;margin-inline-end:auto}
+
+  .prompt{display:flex;align-items:center;gap:.6rem;background:#fbeeec;border:2px solid #ebc1bc;border-radius:14px;padding:.6rem .8rem;margin-bottom:.7rem;font-size:1.08rem;font-weight:600;line-height:1.85}
+  .speaker{background:var(--accentD);color:#fff;border:0;border-radius:50%;width:var(--tap);height:var(--tap);min-width:var(--tap);font-size:1.3rem;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+
+  .btn{background:var(--accentD);color:#fff;border:2px solid var(--accentD);border-radius:12px;padding:.5rem .85rem;min-height:var(--tap);font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:.3rem}
+  .btn.ghost{background:var(--panel);color:var(--accentD)}
+  .btn.sq{min-width:var(--tap);font-size:1.3rem;padding:.2rem .6rem}
+  .btn:disabled{opacity:.45}
+
+  .feedback{margin-top:.6rem;border-radius:12px;padding:.6rem .8rem;font-weight:600;display:none;line-height:1.9}
+  .feedback.show{display:block}
+  .feedback.good{background:var(--good-bg);color:var(--good);border:2px solid #86efac}
+  .feedback.hint{background:var(--hint-bg);color:var(--hint);border:2px solid #f6d271}
+
+  /* Math: always left-to-right, even inside Arabic/Urdu sentences */
+  .math{unicode-bidi:isolate;direction:ltr;display:inline;font-weight:800;white-space:nowrap}
+  .math i{font-family:Georgia,'Times New Roman',serif;font-weight:700}
+  .math sup{font-size:.7em;line-height:0}
+  .fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.1;font-weight:800;margin:0 .08em;white-space:nowrap;font-size:.9em}
+  .fr>span{padding:0 .16em}
+  .fr>span:first-child{border-bottom:.12em solid currentColor}
+  .rad{border-top:.09em solid currentColor;padding:0 .08em;margin-inline-start:.02em}
+  .orw{font-weight:600;padding:0 .2em}
+
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6rem;margin-top:.7rem}
+  .choices:empty{display:none}
+  .choice{background:var(--panel);border:3px solid var(--line);border-radius:16px;padding:.5rem;min-height:64px;display:flex;align-items:center;justify-content:center;position:relative;font-size:1.15rem;font-weight:700;color:var(--ink);line-height:1.6;text-align:center}
+  .choice .lbl{max-width:100%}
+  .choice.txt{font-size:1.02rem}
+  .choice.correctpick{border-color:var(--good);background:var(--good-bg)}
+  .choice.wrongpick{border-color:#e3b341;background:var(--hint-bg);opacity:.75}
+  .choice .badge{position:absolute;top:4px;inset-inline-end:6px;font-size:1rem;display:none}
+  .choice.correctpick .badge{display:block}
+  @media (min-width:700px){ .choices.wide{grid-template-columns:repeat(2,minmax(0,1fr))} }
+
+  .work:empty{display:none}
+  .split{display:grid;grid-template-columns:minmax(0,1fr);gap:.7rem;align-items:start}
+  @media (min-width:820px){ .split{grid-template-columns:minmax(0,440px) minmax(0,1fr)} }
+  .side{display:flex;flex-direction:column;gap:.6rem;align-items:center;min-width:0}
+  .pwrap{width:100%;max-width:440px;margin:0 auto}
+  .plane{width:100%;height:auto;display:block;touch-action:none;background:#fff;border:2px solid var(--line);border-radius:12px}
+  .plane[tabindex]{cursor:crosshair}
+  .plane:focus{outline:none}
+  .plane:focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  .gl{stroke:#efe2e0;stroke-width:1}
+  .ax{stroke:#2b1d20;stroke-width:2.2}
+  .tl{font:600 14px system-ui,sans-serif;fill:#5a4a4d}
+  .axn{font:italic 700 18px Georgia,serif;fill:#2b1d20}
+  .cv{fill:none;stroke:var(--accent);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+  .cv.tg{stroke:var(--tgt);stroke-dasharray:12 8;stroke-width:3.5}
+  .vl{stroke:#7d3c98;stroke-width:2.5;stroke-dasharray:8 6}
+  .vl.tg{stroke:var(--tgt);opacity:.6}
+  .pt{fill:var(--accent);stroke:#fff;stroke-width:2.5}
+  .pt.vx{fill:#7d3c98}
+  .pt.ok{fill:#16a34a}
+  .pt.bad{fill:#e3a008}
+  .pt.yi{fill:var(--tgt)}
+  .pt.tr{fill:#d35400;stroke:#fff;stroke-width:3}
+  .ptl{font:800 16px system-ui,sans-serif;fill:#22161a;paint-order:stroke;stroke:#fff;stroke-width:4}
+  .cur{fill:none;stroke:var(--focus);stroke-width:3;display:none}
+  .plane:focus-visible .cur{display:inline}
+
+  .big{font-size:1.4rem;text-align:center;margin:.2rem 0;line-height:2}
+  .rule{background:#fcf6f5;border:2px dashed #ebc1bc;border-radius:12px;padding:.45rem .7rem;text-align:center;font-weight:700;line-height:2;width:100%}
+  .acts{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:center;margin:.5rem 0}
+  .acts:empty{display:none}
+  .ctl{display:flex;align-items:center;gap:.4rem;justify-content:center;flex-wrap:wrap}
+  .ctl .clab{font-weight:800;min-width:9rem;text-align:center}
+  .ctl output{min-width:3.6rem;text-align:center;font-size:1.3rem;font-weight:800}
+  .legend{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;font-weight:700}
+  .legend .sw{display:inline-block;width:26px;height:5px;border-radius:3px;vertical-align:middle;margin-inline-end:.3rem;background:var(--accent)}
+  .legend .sw.tg{background:repeating-linear-gradient(90deg,var(--tgt) 0 8px,transparent 8px 13px)}
+
+  table.am{border-collapse:separate;border-spacing:4px;margin:.3rem auto;font-weight:800;font-size:1.15rem;direction:ltr}
+  table.am th{color:var(--muted);padding:.2rem .4rem;min-width:2.4rem}
+  table.am td{border:2px solid #9fb6c9;border-radius:8px;text-align:center;padding:.3rem .4rem;transition:background .3s}
+  table.am td.sq{background:#d6e9f8;min-width:5.2rem;height:4.6rem}
+  table.am td.ln{background:#d5f0dd;min-width:3.6rem}
+  table.am td.c1{background:#fdf0c4;height:3.4rem}
+  table.am td.ng{background:#f9d5d1;border-color:#d98880}
+  svg.cts{width:min(100%,300px);height:auto;display:block;margin:0 auto;direction:ltr}
+  svg.plane,svg.plane text{direction:ltr}
+  svg.cts text{font:800 17px system-ui,sans-serif;fill:#22161a;text-anchor:middle;dominant-baseline:middle}
+  svg.cts .sqx{fill:#d6e9f8;stroke:#5d8aa8;stroke-width:2}
+  svg.cts .stp{fill:#d5f0dd;stroke:#4a9a63;stroke-width:2}
+  svg.cts .stp.ng{fill:#f9d5d1;stroke:#c0392b}
+  svg.cts .cn{fill:#fff;stroke:#d35400;stroke-width:2.5;stroke-dasharray:6 4}
+  svg.cts .cn.on{fill:#fdf0c4;stroke-dasharray:none;animation:fillin .8s ease}
+  @keyframes fillin{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
+  svg.cts .cn.on{transform-box:fill-box;transform-origin:center}
+
+  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
+  .drawer.open{display:flex}
+  .drawer .card{background:var(--panel);border-radius:16px;max-width:600px;width:100%;padding:1rem;max-height:90vh;overflow:auto}
+  .setrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+  .setrow .lab{font-weight:700;min-width:150px}
+  .toggle{display:inline-flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:10px;padding:.35rem .55rem;background:#fff;min-height:44px}
+  .toggle input{width:22px;height:22px}
+  select.diff{font-size:1rem;padding:.4rem;border-radius:10px;border:2px solid var(--line);min-height:48px}
+  .wrapflex{display:flex;flex-wrap:wrap;gap:.4rem}
+
+  footer{max-width:1200px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+  footer a{color:var(--accentD);font-weight:700}
+  .stds{font-size:.82rem;color:var(--muted);background:#fcf6f5;border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  .hidden{display:none !important}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  @media (max-width:480px){ :root{font-size:16.5px} main{padding:.5rem} .panel{padding:.6rem} .tabs button{padding:.4rem .5rem;font-size:.9rem} .ctl .clab{min-width:0;flex:1 1 100%} table.am{font-size:1rem} table.am td.sq{min-width:4rem;height:3.8rem} .big{font-size:1.2rem} }
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+  .printonly{display:none}
+  @media print{
+    .topbar,.tabsrow,footer,.modepanel,#stdsNote,.no-print,#mtMuteBtn{display:none !important}
+    body{background:#fff}
+    .printonly{display:block}
+    .card-print{border:2px solid #000;border-radius:12px;padding:1rem;margin:0 0 1rem;page-break-inside:avoid}
+    .card-print h2{margin:.2rem 0}
+    .card-print svg.plane{max-width:260px;border:1px solid #000}
+    main{max-width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">🎯 <span data-t="appTitle">Quadratic Explorer</span></span>
+  <a class="homebtn" href="../../index.html">🏠 <span data-t="home">Home</span></a>
+  <label class="globe"><span aria-hidden="true">🌐</span>
+    <select id="langSelect" aria-label="Language / Idioma"></select>
+  </label>
+  <button class="tb settingsbtn" id="openSettings" type="button">⚙️ <span data-t="teacher">Teacher</span></button>
+</header>
+
+<main>
+  <div class="tabsrow">
+    <div class="tabs" id="tabs" role="tablist" data-ta="modesLbl" aria-label="Modes"></div>
+    <span class="stars" id="stars"><span aria-hidden="true">✔</span><span class="sr" data-t="stars">Correct answers</span> <b id="starCount">0</b></span>
+  </div>
+  <div id="panels"></div>
+  <div class="stds" id="stdsNote"></div>
+  <div class="printonly" id="printArea"></div>
+</main>
+
+<footer>
+  <p data-t="footNote">No accounts · No data collected · Works offline</p>
+  <p><a href="../../index.html" data-t="home">Home</a> · <a href="../../policy.html" data-t="privacy">Privacy</a></p>
+</footer>
+
+<!-- SETTINGS -->
+<div class="drawer" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <div class="panelhead"><h2 id="setTitle" data-t="teacherTitle">Teacher settings</h2>
+      <button class="btn ghost" id="closeSettings" type="button" data-t="close">Close</button></div>
+    <div class="setrow"><label class="lab" for="setLevel" data-t="setLevel">Course level</label>
+      <select class="diff" id="setLevel">
+        <option value="f" data-t="lvF">Foundations</option>
+        <option value="a1" data-t="lvA1">Algebra I</option>
+        <option value="a2" data-t="lvA2">Algebra II</option></select>
+      <p class="stds" style="margin:0;flex:1 1 100%" data-t="lvNote"></p></div>
+    <div class="setrow"><label class="lab" for="setRange" data-t="setRange">Grid size</label>
+      <select class="diff" id="setRange">
+        <option value="6">−6 … 6</option>
+        <option value="8">−8 … 8</option>
+        <option value="10">−10 … 10</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setOpts">Options</span>
+      <label class="toggle"><input type="checkbox" id="setANot1"> <span data-t="aNot1On">Leading coefficient a ≠ 1</span></label>
+      <label class="toggle"><input type="checkbox" id="setCplx"> <span data-t="cplxOn">Complex solutions</span></label></div>
+    <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
+      <div id="modeToggles" class="wrapflex"></div></div>
+    <div class="setrow"><span class="lab" data-t="setSpeech">Speech</span>
+      <label class="toggle"><input type="checkbox" id="setAuto"> <span data-t="autoRead">Auto-read directions</span></label></div>
+    <div class="setrow" style="border:0"><button class="btn" id="printCards" type="button">🖨 <span data-t="printCards">Print challenge cards</span></button></div>
+    <p class="stds" data-t="setStored">Settings are saved only on this device. No student information is ever stored.</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   Quadratic Explorer — single-file Grades 9–12 quadratics app.
+   7 languages. No frameworks, no network, no data collection.
+   ========================================================================= */
+
+/* ---------- Language metadata ---------- */
+const LANGS = [
+  {code:"en", name:"English",     dir:"ltr", bcp:"en-US"},
+  {code:"es", name:"Español",     dir:"ltr", bcp:"es-ES"},
+  {code:"vi", name:"Tiếng Việt",  dir:"ltr", bcp:"vi-VN"},
+  {code:"ar", name:"العربية",     dir:"rtl", bcp:"ar-SA"},
+  {code:"hi", name:"हिन्दी",       dir:"ltr", bcp:"hi-IN"},
+  {code:"ur", name:"اردو",        dir:"rtl", bcp:"ur-PK"},
+  {code:"zh", name:"中文",         dir:"ltr", bcp:"zh-CN"}
+];
+const LANG_KEY = "tcea.mathtools.lang";
+
+/* ---------- Translations ---------- */
+const T = {
+  en:{
+    appTitle:"Quadratic Explorer", home:"Home", privacy:"Privacy", teacher:"Teacher", modesLbl:"Modes", stars:"Correct answers",
+    newRound:"New problem", readAloud:"Read aloud", check:"Check", choicesLbl:"Answer choices",
+    footNote:"No accounts · No data collected · Works offline",
+    mBuild:"Parabola Builder", mFactor:"Factor It", mSolve:"Solve It", mConnect:"Connect Forms", mModel:"Projectiles & Area",
+    teacherTitle:"Teacher settings", close:"Close", setLevel:"Course level", lvF:"Foundations", lvA1:"Algebra I", lvA2:"Algebra II",
+    lvNote:"Foundations: vertex form with whole-number a, factoring with positive numbers, solving by factoring and square roots. Algebra I: fractional a, all factoring types, completing the square and the quadratic formula with real solutions. Algebra II: vertex from standard form, a ≠ 1, radicals and complex solutions. Choosing a level resets the options below.",
+    setRange:"Grid size", setOpts:"Options", aNot1On:"Leading coefficient a ≠ 1 (factor by grouping, converting forms)", cplxOn:"Complex solutions with i",
+    setModes:"Modes", setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
+    setStored:"Settings are saved only on this device. No student information is ever stored.",
+    neg:"negative {n}", frSay:"{n} over {d}", ptSay:"{x} comma {y}", wPlus:"plus", wMinus:"minus", wTimes:"times", wEq:"equals",
+    xSq:"x squared", qty:"the quantity {e}", sqOf:"{e}, squared", sqrtSay:"square root of {n}", pm:"plus or minus", allOver:"{n}, all over {d}",
+    orW:"or", geSay:"{a} is greater than or equal to {b}", leSay:"{a} is less than or equal to {b}", discSay:"b squared minus 4 a c",
+    yes:"Yes!", planeLbl:"Graph", dec:"Decrease {n}", inc:"Increase {n}",
+    kbTapX:"Graph. Left and right arrow keys move along the x-axis; Enter marks or removes a zero.",
+    lblA:"a: stretch and direction", lblH:"h: left or right", lblK:"k: up or down", yours:"Your parabola", target:"Target",
+    vtxW:"vertex", axisW:"axis of symmetry",
+    bMatchDir:"Use the a, h and k buttons to make your parabola (solid) match the dashed one. Then press Check.",
+    hintVtx:"Your vertex is {c}. Move it onto the turning point of the dashed parabola: h slides the graph left or right, and k slides it up or down.",
+    hintDirUp:"The vertex is right, but the dashed parabola opens up. It opens up when a > 0 and down when a < 0.",
+    hintDirDn:"The vertex is right, but the dashed parabola opens down. It opens up when a > 0 and down when a < 0.",
+    hintWidth:"The vertex and direction are right. Step 1 unit to the right of the vertex: the dashed parabola changes by {v}, yours by {c}. That change is the size of a.",
+    goodBuild:"Yes! {eq} has vertex {p} and axis of symmetry {ax}.", extMin:"It opens up, so {k} is the minimum value.", extMax:"It opens down, so {k} is the maximum value.",
+    stdIs:"In standard form: {e}.",
+    fVtxDir:"What is the vertex of this parabola?", fAxisDir:"What is the axis of symmetry?", fExtDir:"Does this function have a maximum or a minimum value? What is it?",
+    fYintDir:"What is the y-intercept?", fRangeDir:"What is the range of this function?", fDomDir:"What is the domain of this function?", fOpenDir:"Does this parabola open up or down?",
+    minV:"Minimum value: {v}", maxV:"Maximum value: {v}", allReal:"All real numbers", opUp:"Opens up", opDn:"Opens down",
+    hintVtxF:"In vertex form y = a(x − h)² + k, the vertex is (h, k). Watch the sign inside the parentheses: x − 3 means h = 3, and x + 3 means h = −3.",
+    hintVtxS:"For standard form, the x-coordinate of the vertex is {f} = {calc}. Substitute that x-value into the equation to find y.",
+    hintAxis:"The axis of symmetry is the vertical line through the vertex, so its equation starts with x =, using the vertex's x-coordinate.",
+    hintExtUp:"a is positive, so the parabola opens up and the vertex is its lowest point. The minimum value is the y-coordinate of the vertex.",
+    hintExtDn:"a is negative, so the parabola opens down and the vertex is its highest point. The maximum value is the y-coordinate of the vertex.",
+    hintYint:"The y-intercept is where the graph crosses the y-axis, so x = 0. Substitute 0 for x: {calc}.",
+    hintRangeUp:"The range is the set of y-values. This parabola opens up, so its outputs start at the vertex's y-value and go up forever.",
+    hintRangeDn:"The range is the set of y-values. This parabola opens down, so its outputs start at the vertex's y-value and go down forever.",
+    hintDom:"The domain is the set of x-values. You can substitute any real number for x, and the graph keeps spreading left and right.",
+    hintOpen:"Look at the sign of a, the number in front of the squared term. When a > 0 the parabola opens up; when a < 0 it opens down.",
+    whyVtx:"The vertex is {p}, the turning point of the parabola.", whyAxis:"The axis of symmetry is {ax}, the vertical line through the vertex {p}.",
+    whyExtMin:"The parabola opens up, so the vertex {p} is the lowest point: the minimum value is {k}.",
+    whyExtMax:"The parabola opens down, so the vertex {p} is the highest point: the maximum value is {k}.",
+    whyYint:"When x = 0, y = {c}, so the graph crosses the y-axis at {p}.",
+    whyRange:"The outputs start at the vertex's y-value {k}, so the range is {r}.",
+    whyDom:"Any real number can be an input, so the domain is all real numbers. It is the range that is limited by the vertex.",
+    whyOpenUp:"a = {a} is positive, so the parabola opens up.", whyOpenDn:"a = {a} is negative, so the parabola opens down.",
+    n1:"First number", n2:"Second number", amLbl:"Area model",
+    trinDir:"Factor {e}. Use the buttons to find two numbers that multiply to {c} and add to {b}. Then press Check.",
+    acDir:"Factor {e} by grouping. Step 1: find two numbers that multiply to a·c = {ac} and add to b = {b}. Then press Check.",
+    readPS:"Product: {p} (need {c}) · Sum: {s} (need {b})",
+    hintProd:"Your numbers multiply to {p}, but they must multiply to {c}. List the factor pairs of {c}.",
+    hintSum:"They multiply to {c}, good. But they add to {s}, and the two x-boxes must combine to {b}x. Try another factor pair of {c}.",
+    hintNegC:"Because {c} is negative, one number is positive and the other is negative.",
+    hintNegB:"Because {c} is positive and {b} is negative, both numbers are negative.",
+    goodTrin:"Yes! {f}: the x-boxes {px} and {qx} combine to {bx}, and the corner box is {c}.",
+    acStep:"Yes! {m} · {n} = {ac} and {m} + {n} = {b}. Split the middle term: {e}.",
+    acDir2:"Step 2: factor by grouping. Which is the factored form of {e}?",
+    hintGroup:"Group the terms in pairs and factor the GCF out of each pair: {g}. The same binomial appears in both groups, so factor it out.",
+    goodAC:"Yes! {g} = {f}. The area model's edges are the factors.",
+    gcfDir:"Factor completely: {e}", dosDir:"Factor: {e}",
+    whyNotComp:"That product equals the polynomial, but it is not factored completely: {part} can still be factored.",
+    whyWrongExp:"Multiply it back out: it gives {e}, not the original polynomial.",
+    goodGcf:"Yes! The GCF is {g}, and {f} is factored completely: no factor can be factored any further.",
+    whyDosSq:"Multiply it out: it gives {e}, which has a middle term. In a difference of squares the middle terms cancel, so use one plus sign and one minus sign.",
+    goodDos:"Yes! {e} is a difference of squares, {A} squared minus {B} squared, so it factors as {f}.",
+    solveDir:"Solve {e}.",
+    hintZpp:"A product is 0 only when one of its factors is 0. Set each factor equal to 0 and solve each small equation.",
+    hintZppT:"First factor the left side: find two numbers that multiply to {c} and add to {b}. Then set each factor equal to 0.",
+    hintSignZ:"Careful with signs: {f} = 0 gives x = {r}, not x = {w}.",
+    goodZpp:"Yes! {f}, so {sol}.", graphZ:"These are the x-intercepts of the graph of {e}.",
+    hintSqrt:"Undo the square by taking the square root of both sides. A positive number has two square roots, so write ±: {s}.",
+    hintSqrtI:"The right side is negative, so its square roots are imaginary: {s}. Write ± and use i.",
+    goodSqrt:"Yes! {s}, so {sol}.",
+    ctsDir1:"Complete the square to solve {e}. First move the constant: {e2}. What number completes the square?",
+    hintCts1:"Split {bx} into two equal strips of {hx}. The empty corner is a square with side {h}, so its area is ({h})².",
+    ctsGood1:"Yes! The corner square has area {n}. Add {n} to both sides to keep the equation balanced.",
+    ctsDir2:"Which equation is the same as {e}?",
+    hintCts2:"The left side is a perfect square because 2 · ({h}) = {b} and ({h})² = {n}: it is {sq}. Remember that {n} was added to the right side too.",
+    ctsGood2:"Yes! {e}.", ctsDir3:"Now solve {e}.",
+    goodCts:"Yes! {s}, so {sol}. Bonus: the vertex of {p} is {v}.",
+    qfDir1:"Solve {e} with the quadratic formula. Step 1: find the discriminant {d}.",
+    hintDisc:"Here a = {a}, b = {b} and c = {c}. Substitute: {calc}. Square b first; a square is never negative.",
+    qfGood1:"Yes! {calc} = {D}.",
+    qfDir2:"The discriminant is {D}. How many real solutions does the equation have?",
+    cTwo:"Two real solutions", cOne:"One real solution", cNone:"No real solutions", cTwoC:"Two complex (non-real) solutions",
+    hintCount:"Look at the sign of the discriminant. Positive: ± gives two real solutions. Zero: one solution. Negative: the square root of a negative number is not real.",
+    why2:"The discriminant {D} is positive, so there are two real solutions: the graph crosses the x-axis twice.",
+    why1:"The discriminant is 0, so there is exactly one real solution: the vertex touches the x-axis.",
+    why0:"The discriminant {D} is negative, so there are no real solutions: the graph never reaches the x-axis.",
+    whyC:"The discriminant {D} is negative, so there are two complex solutions that use i, and the graph never reaches the x-axis.",
+    qfDir3:"Step 3: use the quadratic formula. Which are the solutions?",
+    hintQF:"Substitute into the formula: −b = {nb}, the discriminant is {D}, and 2a = {ta}. Simplify the square root, then divide every term by any common factor.",
+    goodQF:"Yes! {sol}.",
+    tapDir:"Tap the x-axis to mark the zeros (x-intercepts) of {e}. Then press Check.",
+    hintTapN:"This function has two zeros, one for each factor. Mark both of them.",
+    hintTapSign:"You marked x = {w}. But {f} = 0 when x = {r}: the sign switches when you solve.",
+    hintTapOff:"y = 0 only when one of the factors is 0. Set each factor equal to 0 and solve.",
+    goodTap:"Yes! The zeros are x = {r} and x = {s}. Each factor becomes 0 there, so the graph crosses the x-axis at those points.",
+    g2fDir:"Which equation matches this graph?",
+    hintG2F:"The graph crosses the x-axis at x = {r} and x = {s}. A zero at x = {r} comes from the factor {f}.",
+    hintG2Fa:"The zeros match. Now check a: at x = 0 the equation must give the y-intercept {y}.",
+    goodG2F:"Yes! Zeros at x = {r} and x = {s} give the factors {f1} and {f2}, and x = 0 gives y = {y}, the y-intercept.",
+    s2vDir:"Rewrite {e} in vertex form.",
+    hintS2V:"Complete the square: take half of the x-coefficient ({h}) and square it ({sq}). Add and subtract {sq}, then combine the constants.",
+    hintS2Va:"First factor {a} out of the x-terms. Then complete the square inside the parentheses, and remember that what you subtract is multiplied by {a}.",
+    goodS2V:"Yes! {e}, so the vertex is {p}.",
+    v2sDir:"Rewrite {e} in standard form.", hintV2S:"Square the binomial first: {sq}. Then multiply every term by {a} and add {k}.", hintV2S1:"Square the binomial first: {sq}. Then add {k} to the constant term.",
+    hintF2S:"Multiply each term of the first factor by each term of the second (an area model helps), then combine the two x-terms.",
+    goodStd:"Yes! {e}.",
+    projCx:"A ball is launched straight up. Its height in feet after t seconds is {e}.",
+    qLaunch:"From what height is the ball launched?", qTmax:"When does the ball reach its greatest height?", qHmax:"What is the ball's maximum height?", qGround:"When does the ball hit the ground?",
+    hintLaunch:"Launch happens at t = 0. Substitute 0 for t: every term with t becomes 0, leaving only the constant term.",
+    hintTmax:"The greatest height is at the vertex. Its t-coordinate is {f} = {calc}.",
+    hintHmax:"First find when the vertex happens: t = {tv}. Then substitute that time into h(t). You can also trace the curve to its top.",
+    hintGround:"The ball hits the ground when h(t) = 0. Solve {e} = 0 by factoring or with the quadratic formula, and keep the positive time.",
+    goodLaunch:"Yes! h(0) = {h}: the ball starts {h} feet above the ground.",
+    goodTmax:"Yes! At t = {tv} s the ball stops rising and starts falling: that is the vertex.",
+    goodHmax:"Yes! h({tv}) = {hm}. The maximum value of the function is the greatest height, {hm} feet.",
+    goodGround:"Yes! h({tg}) = 0, so the ball lands after {tg} seconds: the positive zero of the function.",
+    areaCx4:"You have {P} m of fence for a rectangular garden. If one side is x m, the area is {e} square meters.",
+    areaCxW:"You have {P} m of fence for a rectangular pen against a wall (no fence along the wall). If each side touching the wall is x m, the area is {e} square meters.",
+    qAreaX:"What value of x gives the greatest area?", qAreaA:"What is the greatest possible area?",
+    hintAreaX:"A(x) is a parabola that opens down. Its zeros are x = 0 and x = {z}, and the vertex is halfway between the zeros.",
+    hintAreaA:"First find the best x: halfway between the zeros 0 and {z}. Then substitute it into A(x).",
+    goodAreaX:"Yes! Halfway between the zeros 0 and {z} is x = {xv}: that side length gives the greatest area.",
+    goodAreaA:"Yes! A({xv}) = {am} square meters is the maximum value of A(x).",
+    revCx:"A shop sells {n} T-shirts a week at ${p} each. Each $1 price increase means {k} fewer shirts sold. With x price increases, the weekly revenue is {e} dollars.",
+    qRevP:"What price gives the greatest revenue?", qRevR:"What is the maximum weekly revenue?",
+    hintRevP:"R(x) = 0 when x = {z1} or x = {z2}. The vertex is halfway between the zeros; that x is the number of $1 increases, so add it to ${p}.",
+    hintRevR:"Find the best x first (halfway between the zeros {z1} and {z2}), then substitute it into R(x).",
+    goodRevP:"Yes! The best x is {xv} increases, so the price is ${pp}.", goodRevR:"Yes! R({xv}) = {r} dollars is the maximum revenue.",
+    trL:"Trace left", trR:"Trace right",
+    uFt:"{v} ft", sFt:"{v} feet", uS:"{v} s", sS:"{v} seconds", uM:"{v} m", sM:"{v} meters", uM2:"{v} m²", sM2:"{v} square meters", uD:"${v}", sD:"{v} dollars",
+    stds:"Aligned standards — Texas TEKS: Algebra I A1.6(A, B, C), A1.7(A, B, C), A1.8(A), A1.10(D, E, F); Algebra II A2.4(D, F). Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSN-CN.C.7.",
+    cardTitle:"Quadratic Explorer — Challenge Cards", cardName:"Name:",
+    cardBuild:"Graph the function. Label the vertex, the axis of symmetry and the y-intercept. State the domain, the range, and the maximum or minimum value.",
+    cardFactor:"Factor completely. Draw an area model for the trinomial.",
+    cardSolve:"Solve each equation. Use a different method for each: factoring, square roots, completing the square, the quadratic formula.",
+    cardConnect:"Rewrite in vertex form and name the vertex. Then write an equation in factored form whose zeros are given.",
+    cardZeros:"Zeros:", cardModel:"Find the launch height, the time and value of the maximum height, and when the ball hits the ground."
+  },
+  es:{
+    appTitle:"Explorador de cuadráticas", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", modesLbl:"Modos", stars:"Respuestas correctas",
+    newRound:"Nuevo problema", readAloud:"Leer en voz alta", check:"Comprobar", choicesLbl:"Opciones de respuesta",
+    footNote:"Sin cuentas · No se recopilan datos · Funciona sin conexión",
+    mBuild:"Constructor de parábolas", mFactor:"Factoriza", mSolve:"Resuelve", mConnect:"Conecta formas", mModel:"Proyectiles y área",
+    teacherTitle:"Ajustes del maestro", close:"Cerrar", setLevel:"Nivel del curso", lvF:"Fundamentos", lvA1:"Álgebra I", lvA2:"Álgebra II",
+    lvNote:"Fundamentos: forma vértice con a entero, factorización con números positivos, resolver por factorización y raíces cuadradas. Álgebra I: a fraccionario, todos los tipos de factorización, completar el cuadrado y la fórmula cuadrática con soluciones reales. Álgebra II: vértice a partir de la forma estándar, a ≠ 1, radicales y soluciones complejas. Al elegir un nivel se restablecen las opciones de abajo.",
+    setRange:"Tamaño de la cuadrícula", setOpts:"Opciones", aNot1On:"Coeficiente principal a ≠ 1 (factorizar por agrupación, convertir formas)", cplxOn:"Soluciones complejas con i",
+    setModes:"Modos", setSpeech:"Voz", autoRead:"Leer instrucciones automáticamente", printCards:"Imprimir tarjetas de desafío",
+    setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información de los estudiantes.",
+    neg:"menos {n}", frSay:"{n} sobre {d}", ptSay:"{x} coma {y}", wPlus:"más", wMinus:"menos", wTimes:"por", wEq:"es igual a",
+    xSq:"x al cuadrado", qty:"la cantidad {e}", sqOf:"{e}, al cuadrado", sqrtSay:"raíz cuadrada de {n}", pm:"más o menos", allOver:"{n}, todo sobre {d}",
+    orW:"o", geSay:"{a} es mayor o igual que {b}", leSay:"{a} es menor o igual que {b}", discSay:"b al cuadrado menos 4 a c",
+    yes:"¡Sí!", planeLbl:"Gráfica", dec:"Disminuir {n}", inc:"Aumentar {n}",
+    kbTapX:"Gráfica. Las flechas izquierda y derecha se mueven por el eje x; Enter marca o quita un cero.",
+    lblA:"a: estiramiento y dirección", lblH:"h: izquierda o derecha", lblK:"k: arriba o abajo", yours:"Tu parábola", target:"Objetivo",
+    vtxW:"vértice", axisW:"eje de simetría",
+    bMatchDir:"Usa los botones de a, h y k para que tu parábola (continua) coincida con la punteada. Luego presiona Comprobar.",
+    hintVtx:"Tu vértice es {c}. Muévelo al punto de giro de la parábola punteada: h desplaza la gráfica a la izquierda o a la derecha, y k la desplaza hacia arriba o hacia abajo.",
+    hintDirUp:"El vértice es correcto, pero la parábola punteada abre hacia arriba. Abre hacia arriba cuando a > 0 y hacia abajo cuando a < 0.",
+    hintDirDn:"El vértice es correcto, pero la parábola punteada abre hacia abajo. Abre hacia arriba cuando a > 0 y hacia abajo cuando a < 0.",
+    hintWidth:"El vértice y la dirección son correctos. Avanza 1 unidad a la derecha del vértice: la parábola punteada cambia {v} y la tuya cambia {c}. Ese cambio es el valor de a.",
+    goodBuild:"¡Sí! {eq} tiene vértice {p} y eje de simetría {ax}.", extMin:"Abre hacia arriba, así que {k} es el valor mínimo.", extMax:"Abre hacia abajo, así que {k} es el valor máximo.",
+    stdIs:"En forma estándar: {e}.",
+    fVtxDir:"¿Cuál es el vértice de esta parábola?", fAxisDir:"¿Cuál es el eje de simetría?", fExtDir:"¿Esta función tiene un valor máximo o un valor mínimo? ¿Cuál es?",
+    fYintDir:"¿Cuál es la intersección con el eje y?", fRangeDir:"¿Cuál es el rango de esta función?", fDomDir:"¿Cuál es el dominio de esta función?", fOpenDir:"¿Esta parábola abre hacia arriba o hacia abajo?",
+    minV:"Valor mínimo: {v}", maxV:"Valor máximo: {v}", allReal:"Todos los números reales", opUp:"Abre hacia arriba", opDn:"Abre hacia abajo",
+    hintVtxF:"En la forma vértice y = a(x − h)² + k, el vértice es (h, k). Fíjate en el signo dentro del paréntesis: x − 3 significa h = 3, y x + 3 significa h = −3.",
+    hintVtxS:"En la forma estándar, la coordenada x del vértice es {f} = {calc}. Sustituye ese valor de x en la ecuación para hallar y.",
+    hintAxis:"El eje de simetría es la recta vertical que pasa por el vértice, así que su ecuación empieza con x =, usando la coordenada x del vértice.",
+    hintExtUp:"a es positivo, así que la parábola abre hacia arriba y el vértice es su punto más bajo. El valor mínimo es la coordenada y del vértice.",
+    hintExtDn:"a es negativo, así que la parábola abre hacia abajo y el vértice es su punto más alto. El valor máximo es la coordenada y del vértice.",
+    hintYint:"La intersección con el eje y es donde la gráfica cruza el eje y, es decir, x = 0. Sustituye x por 0: {calc}.",
+    hintRangeUp:"El rango es el conjunto de valores de y. Esta parábola abre hacia arriba, así que sus salidas empiezan en el valor y del vértice y suben indefinidamente.",
+    hintRangeDn:"El rango es el conjunto de valores de y. Esta parábola abre hacia abajo, así que sus salidas empiezan en el valor y del vértice y bajan indefinidamente.",
+    hintDom:"El dominio es el conjunto de valores de x. Puedes sustituir x por cualquier número real, y la gráfica sigue extendiéndose a la izquierda y a la derecha.",
+    hintOpen:"Fíjate en el signo de a, el número que multiplica al término cuadrático. Cuando a > 0 la parábola abre hacia arriba; cuando a < 0 abre hacia abajo.",
+    whyVtx:"El vértice es {p}, el punto de giro de la parábola.", whyAxis:"El eje de simetría es {ax}, la recta vertical que pasa por el vértice {p}.",
+    whyExtMin:"La parábola abre hacia arriba, así que el vértice {p} es el punto más bajo: el valor mínimo es {k}.",
+    whyExtMax:"La parábola abre hacia abajo, así que el vértice {p} es el punto más alto: el valor máximo es {k}.",
+    whyYint:"Cuando x = 0, y = {c}, así que la gráfica cruza el eje y en {p}.",
+    whyRange:"Las salidas empiezan en el valor y del vértice, {k}, así que el rango es {r}.",
+    whyDom:"Cualquier número real puede ser una entrada, así que el dominio es todos los números reales. Lo que limita el vértice es el rango.",
+    whyOpenUp:"a = {a} es positivo, así que la parábola abre hacia arriba.", whyOpenDn:"a = {a} es negativo, así que la parábola abre hacia abajo.",
+    n1:"Primer número", n2:"Segundo número", amLbl:"Modelo de área",
+    trinDir:"Factoriza {e}. Usa los botones para hallar dos números cuyo producto sea {c} y cuya suma sea {b}. Luego presiona Comprobar.",
+    acDir:"Factoriza {e} por agrupación. Paso 1: halla dos números cuyo producto sea a·c = {ac} y cuya suma sea b = {b}. Luego presiona Comprobar.",
+    readPS:"Producto: {p} (se necesita {c}) · Suma: {s} (se necesita {b})",
+    hintProd:"El producto de tus números es {p}, pero debe ser {c}. Haz una lista de los pares de factores de {c}.",
+    hintSum:"Su producto es {c}, bien. Pero su suma es {s}, y las dos cajas con x deben combinarse en {b}x. Prueba otro par de factores de {c}.",
+    hintNegC:"Como {c} es negativo, un número es positivo y el otro es negativo.",
+    hintNegB:"Como {c} es positivo y {b} es negativo, ambos números son negativos.",
+    goodTrin:"¡Sí! {f}: las cajas con x, {px} y {qx}, se combinan en {bx}, y la caja de la esquina es {c}.",
+    acStep:"¡Sí! {m} · {n} = {ac} y {m} + {n} = {b}. Separa el término del medio: {e}.",
+    acDir2:"Paso 2: factoriza por agrupación. ¿Cuál es la forma factorizada de {e}?",
+    hintGroup:"Agrupa los términos en pares y saca el MCD de cada par: {g}. El mismo binomio aparece en ambos grupos, así que sácalo como factor común.",
+    goodAC:"¡Sí! {g} = {f}. Los lados del modelo de área son los factores.",
+    gcfDir:"Factoriza completamente: {e}", dosDir:"Factoriza: {e}",
+    whyNotComp:"Ese producto es igual al polinomio, pero no está factorizado completamente: {part} todavía se puede factorizar.",
+    whyWrongExp:"Multiplícalo de nuevo: da {e}, no el polinomio original.",
+    goodGcf:"¡Sí! El MCD es {g}, y {f} está factorizado completamente: ningún factor se puede factorizar más.",
+    whyDosSq:"Multiplícalo: da {e}, que tiene un término del medio. En una diferencia de cuadrados los términos del medio se cancelan, así que usa un signo más y un signo menos.",
+    goodDos:"¡Sí! {e} es una diferencia de cuadrados, {A} al cuadrado menos {B} al cuadrado, así que se factoriza como {f}.",
+    solveDir:"Resuelve {e}.",
+    hintZpp:"Un producto es 0 solo cuando uno de sus factores es 0. Iguala cada factor a 0 y resuelve cada ecuación pequeña.",
+    hintZppT:"Primero factoriza el lado izquierdo: halla dos números cuyo producto sea {c} y cuya suma sea {b}. Luego iguala cada factor a 0.",
+    hintSignZ:"Cuidado con los signos: {f} = 0 da x = {r}, no x = {w}.",
+    goodZpp:"¡Sí! {f}, así que {sol}.", graphZ:"Estas son las intersecciones con el eje x de la gráfica de {e}.",
+    hintSqrt:"Deshaz el cuadrado sacando la raíz cuadrada de ambos lados. Un número positivo tiene dos raíces cuadradas, así que escribe ±: {s}.",
+    hintSqrtI:"El lado derecho es negativo, así que sus raíces cuadradas son imaginarias: {s}. Escribe ± y usa i.",
+    goodSqrt:"¡Sí! {s}, así que {sol}.",
+    ctsDir1:"Completa el cuadrado para resolver {e}. Primero mueve la constante: {e2}. ¿Qué número completa el cuadrado?",
+    hintCts1:"Divide {bx} en dos franjas iguales de {hx}. La esquina vacía es un cuadrado de lado {h}, así que su área es ({h})².",
+    ctsGood1:"¡Sí! El cuadrado de la esquina tiene área {n}. Suma {n} a ambos lados para mantener la ecuación equilibrada.",
+    ctsDir2:"¿Qué ecuación es equivalente a {e}?",
+    hintCts2:"El lado izquierdo es un cuadrado perfecto porque 2 · ({h}) = {b} y ({h})² = {n}: es {sq}. Recuerda que {n} también se sumó al lado derecho.",
+    ctsGood2:"¡Sí! {e}.", ctsDir3:"Ahora resuelve {e}.",
+    goodCts:"¡Sí! {s}, así que {sol}. Extra: el vértice de {p} es {v}.",
+    qfDir1:"Resuelve {e} con la fórmula cuadrática. Paso 1: halla el discriminante {d}.",
+    hintDisc:"Aquí a = {a}, b = {b} y c = {c}. Sustituye: {calc}. Eleva b al cuadrado primero; un cuadrado nunca es negativo.",
+    qfGood1:"¡Sí! {calc} = {D}.",
+    qfDir2:"El discriminante es {D}. ¿Cuántas soluciones reales tiene la ecuación?",
+    cTwo:"Dos soluciones reales", cOne:"Una solución real", cNone:"Ninguna solución real", cTwoC:"Dos soluciones complejas (no reales)",
+    hintCount:"Fíjate en el signo del discriminante. Positivo: ± da dos soluciones reales. Cero: una solución. Negativo: la raíz cuadrada de un número negativo no es real.",
+    why2:"El discriminante {D} es positivo, así que hay dos soluciones reales: la gráfica cruza el eje x dos veces.",
+    why1:"El discriminante es 0, así que hay exactamente una solución real: el vértice toca el eje x.",
+    why0:"El discriminante {D} es negativo, así que no hay soluciones reales: la gráfica nunca llega al eje x.",
+    whyC:"El discriminante {D} es negativo, así que hay dos soluciones complejas que usan i, y la gráfica nunca llega al eje x.",
+    qfDir3:"Paso 3: usa la fórmula cuadrática. ¿Cuáles son las soluciones?",
+    hintQF:"Sustituye en la fórmula: −b = {nb}, el discriminante es {D} y 2a = {ta}. Simplifica la raíz cuadrada y luego divide cada término entre cualquier factor común.",
+    goodQF:"¡Sí! {sol}.",
+    tapDir:"Toca el eje x para marcar los ceros (intersecciones con el eje x) de {e}. Luego presiona Comprobar.",
+    hintTapN:"Esta función tiene dos ceros, uno por cada factor. Márcalos los dos.",
+    hintTapSign:"Marcaste x = {w}. Pero {f} = 0 cuando x = {r}: el signo cambia al resolver.",
+    hintTapOff:"y = 0 solo cuando uno de los factores es 0. Iguala cada factor a 0 y resuelve.",
+    goodTap:"¡Sí! Los ceros son x = {r} y x = {s}. Ahí cada factor vale 0, así que la gráfica cruza el eje x en esos puntos.",
+    g2fDir:"¿Qué ecuación corresponde a esta gráfica?",
+    hintG2F:"La gráfica cruza el eje x en x = {r} y x = {s}. Un cero en x = {r} proviene del factor {f}.",
+    hintG2Fa:"Los ceros coinciden. Ahora revisa a: en x = 0 la ecuación debe dar la intersección con el eje y, {y}.",
+    goodG2F:"¡Sí! Los ceros en x = {r} y x = {s} dan los factores {f1} y {f2}, y x = 0 da y = {y}, la intersección con el eje y.",
+    s2vDir:"Escribe {e} en forma vértice.",
+    hintS2V:"Completa el cuadrado: toma la mitad del coeficiente de x ({h}) y elévala al cuadrado ({sq}). Suma y resta {sq}, y luego combina las constantes.",
+    hintS2Va:"Primero saca {a} como factor de los términos con x. Luego completa el cuadrado dentro del paréntesis, y recuerda que lo que restas se multiplica por {a}.",
+    goodS2V:"¡Sí! {e}, así que el vértice es {p}.",
+    v2sDir:"Escribe {e} en forma estándar.", hintV2S:"Primero eleva el binomio al cuadrado: {sq}. Luego multiplica cada término por {a} y suma {k}.",
+    hintF2S:"Multiplica cada término del primer factor por cada término del segundo (un modelo de área ayuda) y luego combina los dos términos con x.",
+    goodStd:"¡Sí! {e}.",
+    projCx:"Se lanza una pelota directamente hacia arriba. Su altura en pies después de t segundos es {e}.",
+    qLaunch:"¿Desde qué altura se lanza la pelota?", qTmax:"¿Cuándo alcanza la pelota su altura máxima?", qHmax:"¿Cuál es la altura máxima de la pelota?", qGround:"¿Cuándo cae la pelota al suelo?",
+    hintLaunch:"El lanzamiento ocurre en t = 0. Sustituye t por 0: cada término con t se vuelve 0 y solo queda el término constante.",
+    hintTmax:"La altura máxima está en el vértice. Su coordenada t es {f} = {calc}.",
+    hintHmax:"Primero halla cuándo ocurre el vértice: t = {tv}. Luego sustituye ese tiempo en h(t). También puedes recorrer la curva hasta su punto más alto.",
+    hintGround:"La pelota cae al suelo cuando h(t) = 0. Resuelve {e} = 0 por factorización o con la fórmula cuadrática, y quédate con el tiempo positivo.",
+    goodLaunch:"¡Sí! h(0) = {h}: la pelota sale a {h} pies sobre el suelo.",
+    goodTmax:"¡Sí! A los t = {tv} s la pelota deja de subir y empieza a caer: ese es el vértice.",
+    goodHmax:"¡Sí! h({tv}) = {hm}. El valor máximo de la función es la altura máxima, {hm} pies.",
+    goodGround:"¡Sí! h({tg}) = 0, así que la pelota cae después de {tg} segundos: el cero positivo de la función.",
+    areaCx4:"Tienes {P} m de cerca para un jardín rectangular. Si un lado mide x m, el área es {e} metros cuadrados.",
+    areaCxW:"Tienes {P} m de cerca para un corral rectangular junto a una pared (sin cerca a lo largo de la pared). Si cada lado que toca la pared mide x m, el área es {e} metros cuadrados.",
+    qAreaX:"¿Qué valor de x da el área máxima?", qAreaA:"¿Cuál es el área máxima posible?",
+    hintAreaX:"A(x) es una parábola que abre hacia abajo. Sus ceros son x = 0 y x = {z}, y el vértice está a la mitad entre los ceros.",
+    hintAreaA:"Primero halla el mejor x: a la mitad entre los ceros 0 y {z}. Luego sustitúyelo en A(x).",
+    goodAreaX:"¡Sí! A la mitad entre los ceros 0 y {z} está x = {xv}: esa longitud de lado da el área máxima.",
+    goodAreaA:"¡Sí! A({xv}) = {am} metros cuadrados es el valor máximo de A(x).",
+    revCx:"Una tienda vende {n} camisetas a la semana a ${p} cada una. Cada aumento de $1 en el precio significa {k} camisetas menos vendidas. Con x aumentos de precio, el ingreso semanal es {e} dólares.",
+    qRevP:"¿Qué precio da el ingreso máximo?", qRevR:"¿Cuál es el ingreso semanal máximo?",
+    hintRevP:"R(x) = 0 cuando x = {z1} o x = {z2}. El vértice está a la mitad entre los ceros; ese x es el número de aumentos de $1, así que súmalo a ${p}.",
+    hintRevR:"Primero halla el mejor x (a la mitad entre los ceros {z1} y {z2}) y luego sustitúyelo en R(x).",
+    goodRevP:"¡Sí! El mejor x es {xv} aumentos, así que el precio es ${pp}.", goodRevR:"¡Sí! R({xv}) = {r} dólares es el ingreso máximo.",
+    trL:"Recorrer a la izquierda", trR:"Recorrer a la derecha",
+    uFt:"{v} pies", sFt:"{v} pies", uS:"{v} s", sS:"{v} segundos", uM:"{v} m", sM:"{v} metros", uM2:"{v} m²", sM2:"{v} metros cuadrados", uD:"${v}", sD:"{v} dólares",
+    stds:"Estándares alineados — Texas TEKS: Álgebra I A1.6(A, B, C), A1.7(A, B, C), A1.8(A), A1.10(D, E, F); Álgebra II A2.4(D, F). Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSN-CN.C.7.",
+    cardTitle:"Explorador de cuadráticas — Tarjetas de desafío", cardName:"Nombre:",
+    cardBuild:"Grafica la función. Rotula el vértice, el eje de simetría y la intersección con el eje y. Indica el dominio, el rango y el valor máximo o mínimo.",
+    cardFactor:"Factoriza completamente. Dibuja un modelo de área para el trinomio.",
+    cardSolve:"Resuelve cada ecuación. Usa un método distinto para cada una: factorización, raíces cuadradas, completar el cuadrado, la fórmula cuadrática.",
+    cardConnect:"Escribe en forma vértice e indica el vértice. Luego escribe una ecuación en forma factorizada con los ceros dados.",
+    cardZeros:"Ceros:", cardModel:"Halla la altura de lanzamiento, el tiempo y el valor de la altura máxima, y cuándo cae la pelota al suelo.",
+    hintV2S1:"Primero eleva el binomio al cuadrado: {sq}. Luego suma {k} al término constante."
+  },
+  vi:{
+    appTitle:"Khám phá hàm bậc hai", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", modesLbl:"Chế độ", stars:"Câu trả lời đúng",
+    newRound:"Bài mới", readAloud:"Đọc to", check:"Kiểm tra", choicesLbl:"Các lựa chọn",
+    footNote:"Không cần tài khoản · Không thu thập dữ liệu · Dùng được khi ngoại tuyến",
+    mBuild:"Dựng parabol", mFactor:"Phân tích nhân tử", mSolve:"Giải phương trình", mConnect:"Liên kết các dạng", mModel:"Chuyển động ném và diện tích",
+    teacherTitle:"Cài đặt của giáo viên", close:"Đóng", setLevel:"Cấp độ khóa học", lvF:"Cơ bản", lvA1:"Đại số I", lvA2:"Đại số II",
+    lvNote:"Cơ bản: dạng đỉnh với a là số nguyên, phân tích nhân tử với số dương, giải bằng phân tích nhân tử và căn bậc hai. Đại số I: a là phân số, mọi kiểu phân tích nhân tử, hoàn thành bình phương và công thức nghiệm với nghiệm thực. Đại số II: tìm đỉnh từ dạng tổng quát, a ≠ 1, căn thức và nghiệm phức. Khi chọn cấp độ, các tùy chọn bên dưới sẽ được đặt lại.",
+    setRange:"Kích thước lưới", setOpts:"Tùy chọn", aNot1On:"Hệ số cao nhất a ≠ 1 (phân tích nhân tử bằng cách nhóm, chuyển đổi các dạng)", cplxOn:"Nghiệm phức với i",
+    setModes:"Chế độ", setSpeech:"Giọng đọc", autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
+    setStored:"Cài đặt chỉ được lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
+    neg:"âm {n}", frSay:"{n} phần {d}", ptSay:"{x} phẩy {y}", wPlus:"cộng", wMinus:"trừ", wTimes:"nhân", wEq:"bằng",
+    xSq:"x bình phương", qty:"biểu thức {e}", sqOf:"{e}, bình phương", sqrtSay:"căn bậc hai của {n}", pm:"cộng trừ", allOver:"{n}, tất cả chia cho {d}",
+    orW:"hoặc", geSay:"{a} lớn hơn hoặc bằng {b}", leSay:"{a} nhỏ hơn hoặc bằng {b}", discSay:"b bình phương trừ 4 a c",
+    yes:"Đúng rồi!", planeLbl:"Đồ thị", dec:"Giảm {n}", inc:"Tăng {n}",
+    kbTapX:"Đồ thị. Phím mũi tên trái và phải di chuyển dọc trục x; phím Enter đánh dấu hoặc xóa một nghiệm.",
+    lblA:"a: độ mở và hướng", lblH:"h: sang trái hoặc phải", lblK:"k: lên hoặc xuống", yours:"Parabol của bạn", target:"Mục tiêu",
+    vtxW:"đỉnh", axisW:"trục đối xứng",
+    bMatchDir:"Dùng các nút a, h và k để parabol của bạn (nét liền) trùng với parabol nét đứt. Sau đó nhấn Kiểm tra.",
+    hintVtx:"Đỉnh của bạn là {c}. Di chuyển nó đến điểm đổi chiều của parabol nét đứt: h dịch đồ thị sang trái hoặc phải, còn k dịch lên hoặc xuống.",
+    hintDirUp:"Đỉnh đã đúng, nhưng parabol nét đứt quay bề lõm lên trên. Parabol hướng lên khi a > 0 và hướng xuống khi a < 0.",
+    hintDirDn:"Đỉnh đã đúng, nhưng parabol nét đứt quay bề lõm xuống dưới. Parabol hướng lên khi a > 0 và hướng xuống khi a < 0.",
+    hintWidth:"Đỉnh và hướng đã đúng. Đi sang phải đỉnh 1 đơn vị: parabol nét đứt thay đổi {v}, của bạn thay đổi {c}. Độ thay đổi đó chính là độ lớn của a.",
+    goodBuild:"Đúng rồi! {eq} có đỉnh {p} và trục đối xứng {ax}.", extMin:"Parabol hướng lên, nên {k} là giá trị nhỏ nhất.", extMax:"Parabol hướng xuống, nên {k} là giá trị lớn nhất.",
+    stdIs:"Ở dạng tổng quát: {e}.",
+    fVtxDir:"Đỉnh của parabol này là gì?", fAxisDir:"Trục đối xứng là gì?", fExtDir:"Hàm số này có giá trị lớn nhất hay giá trị nhỏ nhất? Giá trị đó bằng bao nhiêu?",
+    fYintDir:"Giao điểm với trục y là gì?", fRangeDir:"Tập giá trị của hàm số này là gì?", fDomDir:"Tập xác định của hàm số này là gì?", fOpenDir:"Parabol này hướng lên hay hướng xuống?",
+    minV:"Giá trị nhỏ nhất: {v}", maxV:"Giá trị lớn nhất: {v}", allReal:"Tất cả các số thực", opUp:"Hướng lên", opDn:"Hướng xuống",
+    hintVtxF:"Ở dạng đỉnh y = a(x − h)² + k, đỉnh là (h, k). Chú ý dấu trong ngoặc: x − 3 nghĩa là h = 3, còn x + 3 nghĩa là h = −3.",
+    hintVtxS:"Với dạng tổng quát, hoành độ của đỉnh là {f} = {calc}. Thay giá trị x đó vào phương trình để tìm y.",
+    hintAxis:"Trục đối xứng là đường thẳng đứng đi qua đỉnh, nên phương trình của nó bắt đầu bằng x =, với hoành độ của đỉnh.",
+    hintExtUp:"a dương, nên parabol hướng lên và đỉnh là điểm thấp nhất. Giá trị nhỏ nhất là tung độ của đỉnh.",
+    hintExtDn:"a âm, nên parabol hướng xuống và đỉnh là điểm cao nhất. Giá trị lớn nhất là tung độ của đỉnh.",
+    hintYint:"Giao điểm với trục y là nơi đồ thị cắt trục y, tức là x = 0. Thay x bằng 0: {calc}.",
+    hintRangeUp:"Tập giá trị là tập hợp các giá trị y. Parabol này hướng lên, nên các giá trị đầu ra bắt đầu từ tung độ của đỉnh và tăng mãi.",
+    hintRangeDn:"Tập giá trị là tập hợp các giá trị y. Parabol này hướng xuống, nên các giá trị đầu ra bắt đầu từ tung độ của đỉnh và giảm mãi.",
+    hintDom:"Tập xác định là tập hợp các giá trị x. Bạn có thể thay x bằng bất kỳ số thực nào, và đồ thị cứ trải rộng sang trái và sang phải.",
+    hintOpen:"Xem dấu của a, hệ số đứng trước số hạng bình phương. Khi a > 0 parabol hướng lên; khi a < 0 nó hướng xuống.",
+    whyVtx:"Đỉnh là {p}, điểm đổi chiều của parabol.", whyAxis:"Trục đối xứng là {ax}, đường thẳng đứng đi qua đỉnh {p}.",
+    whyExtMin:"Parabol hướng lên, nên đỉnh {p} là điểm thấp nhất: giá trị nhỏ nhất là {k}.",
+    whyExtMax:"Parabol hướng xuống, nên đỉnh {p} là điểm cao nhất: giá trị lớn nhất là {k}.",
+    whyYint:"Khi x = 0, y = {c}, nên đồ thị cắt trục y tại {p}.",
+    whyRange:"Các giá trị đầu ra bắt đầu từ tung độ của đỉnh là {k}, nên tập giá trị là {r}.",
+    whyDom:"Mọi số thực đều có thể là đầu vào, nên tập xác định là tất cả các số thực. Chính tập giá trị mới bị giới hạn bởi đỉnh.",
+    whyOpenUp:"a = {a} là số dương, nên parabol hướng lên.", whyOpenDn:"a = {a} là số âm, nên parabol hướng xuống.",
+    n1:"Số thứ nhất", n2:"Số thứ hai", amLbl:"Mô hình diện tích",
+    trinDir:"Phân tích {e} thành nhân tử. Dùng các nút để tìm hai số có tích bằng {c} và tổng bằng {b}. Sau đó nhấn Kiểm tra.",
+    acDir:"Phân tích {e} thành nhân tử bằng cách nhóm. Bước 1: tìm hai số có tích bằng a·c = {ac} và tổng bằng b = {b}. Sau đó nhấn Kiểm tra.",
+    readPS:"Tích: {p} (cần {c}) · Tổng: {s} (cần {b})",
+    hintProd:"Tích các số của bạn là {p}, nhưng phải bằng {c}. Hãy liệt kê các cặp thừa số của {c}.",
+    hintSum:"Tích bằng {c}, tốt. Nhưng tổng là {s}, mà hai ô chứa x phải gộp lại thành {b}x. Thử một cặp thừa số khác của {c}.",
+    hintNegC:"Vì {c} âm, nên một số dương và số kia âm.",
+    hintNegB:"Vì {c} dương và {b} âm, nên cả hai số đều âm.",
+    goodTrin:"Đúng rồi! {f}: hai ô chứa x là {px} và {qx} gộp lại thành {bx}, và ô ở góc là {c}.",
+    acStep:"Đúng rồi! {m} · {n} = {ac} và {m} + {n} = {b}. Tách số hạng giữa: {e}.",
+    acDir2:"Bước 2: phân tích nhân tử bằng cách nhóm. Dạng tích của {e} là gì?",
+    hintGroup:"Nhóm các số hạng thành từng cặp và đặt ƯCLN của mỗi cặp ra ngoài: {g}. Cùng một nhị thức xuất hiện ở cả hai nhóm, nên hãy đặt nó làm nhân tử chung.",
+    goodAC:"Đúng rồi! {g} = {f}. Các cạnh của mô hình diện tích chính là các nhân tử.",
+    gcfDir:"Phân tích hoàn toàn thành nhân tử: {e}", dosDir:"Phân tích thành nhân tử: {e}",
+    whyNotComp:"Tích đó bằng đa thức, nhưng chưa được phân tích hoàn toàn: {part} vẫn còn phân tích được.",
+    whyWrongExp:"Hãy nhân ngược lại: kết quả là {e}, không phải đa thức ban đầu.",
+    goodGcf:"Đúng rồi! ƯCLN là {g}, và {f} đã được phân tích hoàn toàn: không nhân tử nào phân tích tiếp được nữa.",
+    whyDosSq:"Hãy nhân ra: kết quả là {e}, có số hạng ở giữa. Trong hiệu hai bình phương, các số hạng ở giữa triệt tiêu nhau, nên hãy dùng một dấu cộng và một dấu trừ.",
+    goodDos:"Đúng rồi! {e} là hiệu hai bình phương, {A} bình phương trừ {B} bình phương, nên phân tích được thành {f}.",
+    solveDir:"Giải {e}.",
+    hintZpp:"Một tích bằng 0 chỉ khi một trong các nhân tử bằng 0. Cho từng nhân tử bằng 0 và giải từng phương trình nhỏ.",
+    hintZppT:"Trước tiên phân tích vế trái thành nhân tử: tìm hai số có tích bằng {c} và tổng bằng {b}. Sau đó cho từng nhân tử bằng 0.",
+    hintSignZ:"Cẩn thận với dấu: {f} = 0 cho x = {r}, không phải x = {w}.",
+    goodZpp:"Đúng rồi! {f}, nên {sol}.", graphZ:"Đây là các giao điểm với trục x của đồ thị {e}.",
+    hintSqrt:"Khử bình phương bằng cách lấy căn bậc hai hai vế. Một số dương có hai căn bậc hai, nên hãy viết ±: {s}.",
+    hintSqrtI:"Vế phải là số âm, nên căn bậc hai của nó là số ảo: {s}. Viết ± và dùng i.",
+    goodSqrt:"Đúng rồi! {s}, nên {sol}.",
+    ctsDir1:"Hoàn thành bình phương để giải {e}. Trước tiên chuyển hằng số sang vế phải: {e2}. Số nào hoàn thành bình phương?",
+    hintCts1:"Chia {bx} thành hai dải bằng nhau, mỗi dải {hx}. Góc trống là một hình vuông cạnh {h}, nên diện tích của nó là ({h})².",
+    ctsGood1:"Đúng rồi! Hình vuông ở góc có diện tích {n}. Cộng {n} vào cả hai vế để giữ phương trình cân bằng.",
+    ctsDir2:"Phương trình nào tương đương với {e}?",
+    hintCts2:"Vế trái là một bình phương đúng vì 2 · ({h}) = {b} và ({h})² = {n}: đó là {sq}. Nhớ rằng {n} cũng đã được cộng vào vế phải.",
+    ctsGood2:"Đúng rồi! {e}.", ctsDir3:"Bây giờ giải {e}.",
+    goodCts:"Đúng rồi! {s}, nên {sol}. Thêm nữa: đỉnh của {p} là {v}.",
+    qfDir1:"Giải {e} bằng công thức nghiệm. Bước 1: tìm biệt thức {d}.",
+    hintDisc:"Ở đây a = {a}, b = {b} và c = {c}. Thay vào: {calc}. Bình phương b trước; một bình phương không bao giờ âm.",
+    qfGood1:"Đúng rồi! {calc} = {D}.",
+    qfDir2:"Biệt thức bằng {D}. Phương trình có bao nhiêu nghiệm thực?",
+    cTwo:"Hai nghiệm thực", cOne:"Một nghiệm thực", cNone:"Không có nghiệm thực", cTwoC:"Hai nghiệm phức (không thực)",
+    hintCount:"Xem dấu của biệt thức. Dương: ± cho hai nghiệm thực. Bằng 0: một nghiệm. Âm: căn bậc hai của một số âm không phải là số thực.",
+    why2:"Biệt thức {D} dương, nên có hai nghiệm thực: đồ thị cắt trục x tại hai điểm.",
+    why1:"Biệt thức bằng 0, nên có đúng một nghiệm thực: đỉnh tiếp xúc với trục x.",
+    why0:"Biệt thức {D} âm, nên không có nghiệm thực: đồ thị không bao giờ chạm trục x.",
+    whyC:"Biệt thức {D} âm, nên có hai nghiệm phức chứa i, và đồ thị không bao giờ chạm trục x.",
+    qfDir3:"Bước 3: dùng công thức nghiệm. Các nghiệm là gì?",
+    hintQF:"Thay vào công thức: −b = {nb}, biệt thức là {D}, và 2a = {ta}. Rút gọn căn bậc hai, rồi chia mọi số hạng cho thừa số chung nếu có.",
+    goodQF:"Đúng rồi! {sol}.",
+    tapDir:"Chạm vào trục x để đánh dấu các nghiệm (giao điểm với trục x) của {e}. Sau đó nhấn Kiểm tra.",
+    hintTapN:"Hàm số này có hai nghiệm, mỗi nhân tử cho một nghiệm. Hãy đánh dấu cả hai.",
+    hintTapSign:"Bạn đã đánh dấu x = {w}. Nhưng {f} = 0 khi x = {r}: dấu đổi khi bạn giải.",
+    hintTapOff:"y = 0 chỉ khi một trong các nhân tử bằng 0. Cho từng nhân tử bằng 0 và giải.",
+    goodTap:"Đúng rồi! Các nghiệm là x = {r} và x = {s}. Tại đó mỗi nhân tử bằng 0, nên đồ thị cắt trục x tại các điểm này.",
+    g2fDir:"Phương trình nào khớp với đồ thị này?",
+    hintG2F:"Đồ thị cắt trục x tại x = {r} và x = {s}. Nghiệm x = {r} đến từ nhân tử {f}.",
+    hintG2Fa:"Các nghiệm đã khớp. Bây giờ kiểm tra a: tại x = 0 phương trình phải cho giao điểm với trục y là {y}.",
+    goodG2F:"Đúng rồi! Các nghiệm x = {r} và x = {s} cho các nhân tử {f1} và {f2}, và x = 0 cho y = {y}, giao điểm với trục y.",
+    s2vDir:"Viết lại {e} ở dạng đỉnh.",
+    hintS2V:"Hoàn thành bình phương: lấy một nửa hệ số của x ({h}) rồi bình phương nó ({sq}). Cộng và trừ {sq}, sau đó gộp các hằng số.",
+    hintS2Va:"Trước tiên đặt {a} ra ngoài các số hạng chứa x. Sau đó hoàn thành bình phương trong ngoặc, và nhớ rằng phần bạn trừ đi được nhân với {a}.",
+    goodS2V:"Đúng rồi! {e}, nên đỉnh là {p}.",
+    v2sDir:"Viết lại {e} ở dạng tổng quát.", hintV2S:"Trước tiên bình phương nhị thức: {sq}. Sau đó nhân mọi số hạng với {a} và cộng {k}.",
+    hintF2S:"Nhân mỗi số hạng của nhân tử thứ nhất với mỗi số hạng của nhân tử thứ hai (mô hình diện tích sẽ giúp ích), rồi gộp hai số hạng chứa x.",
+    goodStd:"Đúng rồi! {e}.",
+    projCx:"Một quả bóng được ném thẳng lên. Độ cao của nó tính bằng feet sau t giây là {e}.",
+    qLaunch:"Quả bóng được ném từ độ cao bao nhiêu?", qTmax:"Khi nào quả bóng đạt độ cao lớn nhất?", qHmax:"Độ cao lớn nhất của quả bóng là bao nhiêu?", qGround:"Khi nào quả bóng chạm đất?",
+    hintLaunch:"Thời điểm ném là t = 0. Thay t bằng 0: mọi số hạng chứa t đều bằng 0, chỉ còn lại hằng số.",
+    hintTmax:"Độ cao lớn nhất nằm ở đỉnh. Tọa độ t của đỉnh là {f} = {calc}.",
+    hintHmax:"Trước tiên tìm thời điểm của đỉnh: t = {tv}. Sau đó thay thời điểm đó vào h(t). Bạn cũng có thể dò theo đường cong đến điểm cao nhất.",
+    hintGround:"Quả bóng chạm đất khi h(t) = 0. Giải {e} = 0 bằng phân tích nhân tử hoặc công thức nghiệm, và giữ lại thời gian dương.",
+    goodLaunch:"Đúng rồi! h(0) = {h}: quả bóng bắt đầu ở độ cao {h} feet so với mặt đất.",
+    goodTmax:"Đúng rồi! Tại t = {tv} s quả bóng ngừng đi lên và bắt đầu rơi xuống: đó là đỉnh.",
+    goodHmax:"Đúng rồi! h({tv}) = {hm}. Giá trị lớn nhất của hàm số là độ cao lớn nhất, {hm} feet.",
+    goodGround:"Đúng rồi! h({tg}) = 0, nên quả bóng chạm đất sau {tg} giây: nghiệm dương của hàm số.",
+    areaCx4:"Bạn có {P} m hàng rào để làm một khu vườn hình chữ nhật. Nếu một cạnh dài x m, diện tích là {e} mét vuông.",
+    areaCxW:"Bạn có {P} m hàng rào để làm một chuồng hình chữ nhật dựa vào tường (không rào dọc theo tường). Nếu mỗi cạnh chạm tường dài x m, diện tích là {e} mét vuông.",
+    qAreaX:"Giá trị nào của x cho diện tích lớn nhất?", qAreaA:"Diện tích lớn nhất có thể là bao nhiêu?",
+    hintAreaX:"A(x) là một parabol hướng xuống. Các nghiệm của nó là x = 0 và x = {z}, và đỉnh nằm chính giữa hai nghiệm.",
+    hintAreaA:"Trước tiên tìm x tốt nhất: chính giữa hai nghiệm 0 và {z}. Sau đó thay nó vào A(x).",
+    goodAreaX:"Đúng rồi! Chính giữa hai nghiệm 0 và {z} là x = {xv}: độ dài cạnh đó cho diện tích lớn nhất.",
+    goodAreaA:"Đúng rồi! A({xv}) = {am} mét vuông là giá trị lớn nhất của A(x).",
+    revCx:"Một cửa hàng bán {n} áo thun mỗi tuần với giá ${p} một chiếc. Mỗi lần tăng giá $1 thì bán ít hơn {k} chiếc. Với x lần tăng giá, doanh thu hằng tuần là {e} đô la.",
+    qRevP:"Giá nào cho doanh thu lớn nhất?", qRevR:"Doanh thu hằng tuần lớn nhất là bao nhiêu?",
+    hintRevP:"R(x) = 0 khi x = {z1} hoặc x = {z2}. Đỉnh nằm chính giữa hai nghiệm; giá trị x đó là số lần tăng giá $1, nên hãy cộng nó vào ${p}.",
+    hintRevR:"Trước tiên tìm x tốt nhất (chính giữa hai nghiệm {z1} và {z2}), sau đó thay nó vào R(x).",
+    goodRevP:"Đúng rồi! x tốt nhất là {xv} lần tăng giá, nên giá bán là ${pp}.", goodRevR:"Đúng rồi! R({xv}) = {r} đô la là doanh thu lớn nhất.",
+    trL:"Dò sang trái", trR:"Dò sang phải",
+    uFt:"{v} ft", sFt:"{v} feet", uS:"{v} s", sS:"{v} giây", uM:"{v} m", sM:"{v} mét", uM2:"{v} m²", sM2:"{v} mét vuông", uD:"${v}", sD:"{v} đô la",
+    stds:"Các chuẩn liên quan — Texas TEKS: Đại số I A1.6(A, B, C), A1.7(A, B, C), A1.8(A), A1.10(D, E, F); Đại số II A2.4(D, F). Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSN-CN.C.7.",
+    cardTitle:"Khám phá hàm bậc hai — Thẻ thử thách", cardName:"Họ tên:",
+    cardBuild:"Vẽ đồ thị hàm số. Ghi rõ đỉnh, trục đối xứng và giao điểm với trục y. Nêu tập xác định, tập giá trị, và giá trị lớn nhất hoặc nhỏ nhất.",
+    cardFactor:"Phân tích hoàn toàn thành nhân tử. Vẽ mô hình diện tích cho tam thức.",
+    cardSolve:"Giải mỗi phương trình. Dùng một phương pháp khác nhau cho mỗi phương trình: phân tích nhân tử, căn bậc hai, hoàn thành bình phương, công thức nghiệm.",
+    cardConnect:"Viết lại ở dạng đỉnh và nêu đỉnh. Sau đó viết một phương trình ở dạng tích có các nghiệm đã cho.",
+    cardZeros:"Nghiệm:", cardModel:"Tìm độ cao lúc ném, thời điểm và giá trị của độ cao lớn nhất, và thời điểm quả bóng chạm đất.",
+    hintV2S1:"Trước hết bình phương nhị thức: {sq}. Sau đó cộng {k} vào số hạng tự do."
+  },
+  ar:{
+    appTitle:"مستكشف الدوال التربيعية", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", modesLbl:"الأنماط", stars:"الإجابات الصحيحة",
+    newRound:"مسألة جديدة", readAloud:"القراءة بصوت عالٍ", check:"تحقّق", choicesLbl:"خيارات الإجابة",
+    footNote:"بلا حسابات · لا تُجمع أي بيانات · يعمل دون اتصال",
+    mBuild:"بناء القطع المكافئ", mFactor:"حلّل", mSolve:"حُلّ", mConnect:"الربط بين الصيغ", mModel:"المقذوفات والمساحة",
+    teacherTitle:"إعدادات المعلم", close:"إغلاق", setLevel:"مستوى المقرر", lvF:"الأساسيات", lvA1:"الجبر 1", lvA2:"الجبر 2",
+    lvNote:"الأساسيات: صيغة الرأس مع a عدد صحيح، والتحليل بأعداد موجبة، والحل بالتحليل والجذور التربيعية. الجبر 1: a كسري، وجميع أنواع التحليل، وإكمال المربع والقانون العام بحلول حقيقية. الجبر 2: إيجاد الرأس من الصيغة القياسية، و a ≠ 1، والجذور والحلول المركبة. اختيار المستوى يعيد ضبط الخيارات أدناه.",
+    setRange:"حجم الشبكة", setOpts:"الخيارات", aNot1On:"المعامل الرئيسي a ≠ 1 (التحليل بالتجميع، والتحويل بين الصيغ)", cplxOn:"حلول مركبة باستخدام i",
+    setModes:"الأنماط", setSpeech:"النطق", autoRead:"قراءة التعليمات تلقائيًا", printCards:"طباعة بطاقات التحدي",
+    setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُخزَّن أي معلومات عن الطلاب إطلاقًا.",
+    neg:"سالب {n}", frSay:"{n} على {d}", ptSay:"{x} فاصلة {y}", wPlus:"زائد", wMinus:"ناقص", wTimes:"ضرب", wEq:"يساوي",
+    xSq:"x تربيع", qty:"المقدار {e}", sqOf:"{e}، تربيع", sqrtSay:"الجذر التربيعي لـ {n}", pm:"زائد أو ناقص", allOver:"{n}، الكل على {d}",
+    orW:"أو", geSay:"{a} أكبر من أو يساوي {b}", leSay:"{a} أصغر من أو يساوي {b}", discSay:"b تربيع ناقص 4 a c",
+    yes:"أحسنت!", planeLbl:"التمثيل البياني", dec:"إنقاص {n}", inc:"زيادة {n}",
+    kbTapX:"التمثيل البياني. مفتاحا السهم الأيسر والأيمن يتحركان على المحور x؛ ومفتاح Enter يضع صفرًا أو يزيله.",
+    lblA:"a: التمدد والاتجاه", lblH:"h: يسارًا أو يمينًا", lblK:"k: أعلى أو أسفل", yours:"قطعك المكافئ", target:"الهدف",
+    vtxW:"الرأس", axisW:"محور التماثل",
+    bMatchDir:"استخدم أزرار a و h و k لجعل قطعك المكافئ (المتصل) يطابق القطع المتقطع. ثم اضغط تحقّق.",
+    hintVtx:"رأس قطعك هو {c}. انقله إلى نقطة التحول في القطع المتقطع: h يزيح التمثيل يسارًا أو يمينًا، و k يزيحه إلى أعلى أو إلى أسفل.",
+    hintDirUp:"الرأس صحيح، لكن القطع المتقطع مفتوح إلى أعلى. يكون مفتوحًا إلى أعلى عندما a > 0 وإلى أسفل عندما a < 0.",
+    hintDirDn:"الرأس صحيح، لكن القطع المتقطع مفتوح إلى أسفل. يكون مفتوحًا إلى أعلى عندما a > 0 وإلى أسفل عندما a < 0.",
+    hintWidth:"الرأس والاتجاه صحيحان. تحرّك وحدة واحدة إلى يمين الرأس: يتغير القطع المتقطع بمقدار {v}، ويتغير قطعك بمقدار {c}. هذا التغير هو مقدار a.",
+    goodBuild:"أحسنت! للدالة {eq} الرأس {p} ومحور التماثل {ax}.", extMin:"مفتوح إلى أعلى، إذن {k} هي القيمة الصغرى.", extMax:"مفتوح إلى أسفل، إذن {k} هي القيمة العظمى.",
+    stdIs:"بالصيغة القياسية: {e}.",
+    fVtxDir:"ما رأس هذا القطع المكافئ؟", fAxisDir:"ما محور التماثل؟", fExtDir:"هل لهذه الدالة قيمة عظمى أم قيمة صغرى؟ وما هي؟",
+    fYintDir:"ما المقطع الصادي؟", fRangeDir:"ما مدى هذه الدالة؟", fDomDir:"ما مجال هذه الدالة؟", fOpenDir:"هل هذا القطع المكافئ مفتوح إلى أعلى أم إلى أسفل؟",
+    minV:"القيمة الصغرى: {v}", maxV:"القيمة العظمى: {v}", allReal:"جميع الأعداد الحقيقية", opUp:"مفتوح إلى أعلى", opDn:"مفتوح إلى أسفل",
+    hintVtxF:"في صيغة الرأس y = a(x − h)² + k، يكون الرأس (h, k). انتبه للإشارة داخل القوسين: x − 3 تعني h = 3، و x + 3 تعني h = −3.",
+    hintVtxS:"في الصيغة القياسية، الإحداثي x للرأس هو {f} = {calc}. عوّض بقيمة x هذه في المعادلة لإيجاد y.",
+    hintAxis:"محور التماثل هو المستقيم الرأسي المار بالرأس، لذا تبدأ معادلته بـ x =، باستخدام الإحداثي x للرأس.",
+    hintExtUp:"a موجب، إذن القطع مفتوح إلى أعلى والرأس هو أدنى نقطة فيه. القيمة الصغرى هي الإحداثي y للرأس.",
+    hintExtDn:"a سالب، إذن القطع مفتوح إلى أسفل والرأس هو أعلى نقطة فيه. القيمة العظمى هي الإحداثي y للرأس.",
+    hintYint:"المقطع الصادي هو حيث يقطع التمثيل المحور y، أي عندما x = 0. عوّض عن x بـ 0: {calc}.",
+    hintRangeUp:"المدى هو مجموعة قيم y. هذا القطع مفتوح إلى أعلى، لذا تبدأ مخرجاته من قيمة y للرأس وتزداد بلا نهاية.",
+    hintRangeDn:"المدى هو مجموعة قيم y. هذا القطع مفتوح إلى أسفل، لذا تبدأ مخرجاته من قيمة y للرأس وتتناقص بلا نهاية.",
+    hintDom:"المجال هو مجموعة قيم x. يمكنك التعويض عن x بأي عدد حقيقي، ويستمر التمثيل في الامتداد يسارًا ويمينًا.",
+    hintOpen:"انظر إلى إشارة a، العدد المضروب في الحد التربيعي. عندما a > 0 يكون القطع مفتوحًا إلى أعلى؛ وعندما a < 0 يكون مفتوحًا إلى أسفل.",
+    whyVtx:"الرأس هو {p}، نقطة التحول في القطع المكافئ.", whyAxis:"محور التماثل هو {ax}، المستقيم الرأسي المار بالرأس {p}.",
+    whyExtMin:"القطع مفتوح إلى أعلى، إذن الرأس {p} هو أدنى نقطة: القيمة الصغرى هي {k}.",
+    whyExtMax:"القطع مفتوح إلى أسفل، إذن الرأس {p} هو أعلى نقطة: القيمة العظمى هي {k}.",
+    whyYint:"عندما x = 0 يكون y = {c}، إذن يقطع التمثيل المحور y عند {p}.",
+    whyRange:"تبدأ المخرجات من قيمة y للرأس وهي {k}، إذن المدى هو {r}.",
+    whyDom:"يمكن لأي عدد حقيقي أن يكون مدخلًا، إذن المجال هو جميع الأعداد الحقيقية. المدى هو الذي يحدّه الرأس.",
+    whyOpenUp:"a = {a} موجب، إذن القطع مفتوح إلى أعلى.", whyOpenDn:"a = {a} سالب، إذن القطع مفتوح إلى أسفل.",
+    n1:"العدد الأول", n2:"العدد الثاني", amLbl:"نموذج المساحة",
+    trinDir:"حلّل {e}. استخدم الأزرار لإيجاد عددين حاصل ضربهما {c} ومجموعهما {b}. ثم اضغط تحقّق.",
+    acDir:"حلّل {e} بالتجميع. الخطوة 1: أوجد عددين حاصل ضربهما a·c = {ac} ومجموعهما b = {b}. ثم اضغط تحقّق.",
+    readPS:"حاصل الضرب: {p} (المطلوب {c}) · المجموع: {s} (المطلوب {b})",
+    hintProd:"حاصل ضرب عدديك هو {p}، لكن يجب أن يكون {c}. اكتب أزواج عوامل {c}.",
+    hintSum:"حاصل ضربهما {c}، جيد. لكن مجموعهما {s}، ويجب أن يتجمع مربعا x ليعطيا {b}x. جرّب زوج عوامل آخر للعدد {c}.",
+    hintNegC:"بما أن {c} سالب، فأحد العددين موجب والآخر سالب.",
+    hintNegB:"بما أن {c} موجب و {b} سالب، فالعددان كلاهما سالبان.",
+    goodTrin:"أحسنت! {f}: مربعا x وهما {px} و {qx} يتجمعان ليعطيا {bx}، ومربع الزاوية هو {c}.",
+    acStep:"أحسنت! {m} · {n} = {ac} و {m} + {n} = {b}. جزّئ الحد الأوسط: {e}.",
+    acDir2:"الخطوة 2: حلّل بالتجميع. ما الصيغة التحليلية للمقدار {e}؟",
+    hintGroup:"جمّع الحدود في أزواج واستخرج العامل المشترك الأكبر من كل زوج: {g}. تظهر ذات الحدانية في المجموعتين، فاستخرجها عاملًا مشتركًا.",
+    goodAC:"أحسنت! {g} = {f}. أضلاع نموذج المساحة هي العوامل.",
+    gcfDir:"حلّل تحليلًا كاملًا: {e}", dosDir:"حلّل: {e}",
+    whyNotComp:"حاصل الضرب هذا يساوي كثيرة الحدود، لكنه ليس محللًا تحليلًا كاملًا: ما زال يمكن تحليل {part}.",
+    whyWrongExp:"اضربه مرة أخرى: الناتج {e}، وليس كثيرة الحدود الأصلية.",
+    goodGcf:"أحسنت! العامل المشترك الأكبر هو {g}، و {f} محلل تحليلًا كاملًا: لا يمكن تحليل أي عامل أكثر من ذلك.",
+    whyDosSq:"اضربه: الناتج {e}، وفيه حد أوسط. في الفرق بين مربعين يُحذف الحدان الأوسطان، لذا استخدم إشارة زائد وإشارة ناقص.",
+    goodDos:"أحسنت! {e} فرق بين مربعين، {A} تربيع ناقص {B} تربيع، لذا يُحلَّل إلى {f}.",
+    solveDir:"حُلّ {e}.",
+    hintZpp:"يكون حاصل الضرب 0 فقط عندما يكون أحد عوامله 0. اجعل كل عامل يساوي 0 وحُلّ كل معادلة صغيرة.",
+    hintZppT:"حلّل الطرف الأيسر أولًا: أوجد عددين حاصل ضربهما {c} ومجموعهما {b}. ثم اجعل كل عامل يساوي 0.",
+    hintSignZ:"انتبه للإشارات: {f} = 0 تعطي x = {r}، وليس x = {w}.",
+    goodZpp:"أحسنت! {f}، إذن {sol}.", graphZ:"هذه هي المقاطع السينية للتمثيل البياني للدالة {e}.",
+    hintSqrt:"تخلّص من التربيع بأخذ الجذر التربيعي للطرفين. للعدد الموجب جذران تربيعيان، لذا اكتب ±: {s}.",
+    hintSqrtI:"الطرف الأيمن سالب، لذا جذراه التربيعيان تخيليان: {s}. اكتب ± واستخدم i.",
+    goodSqrt:"أحسنت! {s}، إذن {sol}.",
+    ctsDir1:"أكمل المربع لحل {e}. انقل الحد الثابت أولًا: {e2}. ما العدد الذي يكمل المربع؟",
+    hintCts1:"قسّم {bx} إلى شريطين متساويين كل منهما {hx}. الزاوية الفارغة مربع طول ضلعه {h}، لذا مساحته ({h})².",
+    ctsGood1:"أحسنت! مساحة مربع الزاوية {n}. أضف {n} إلى الطرفين لتبقى المعادلة متوازنة.",
+    ctsDir2:"أي معادلة تكافئ {e}؟",
+    hintCts2:"الطرف الأيسر مربع كامل لأن 2 · ({h}) = {b} و ({h})² = {n}: إنه {sq}. تذكّر أن {n} أُضيف إلى الطرف الأيمن أيضًا.",
+    ctsGood2:"أحسنت! {e}.", ctsDir3:"الآن حُلّ {e}.",
+    goodCts:"أحسنت! {s}، إذن {sol}. إضافة: رأس {p} هو {v}.",
+    qfDir1:"حُلّ {e} باستخدام القانون العام. الخطوة 1: أوجد المميز {d}.",
+    hintDisc:"هنا a = {a} و b = {b} و c = {c}. عوّض: {calc}. ربّع b أولًا؛ فالمربع لا يكون سالبًا أبدًا.",
+    qfGood1:"أحسنت! {calc} = {D}.",
+    qfDir2:"المميز يساوي {D}. كم حلًا حقيقيًا للمعادلة؟",
+    cTwo:"حلان حقيقيان", cOne:"حل حقيقي واحد", cNone:"لا توجد حلول حقيقية", cTwoC:"حلان مركبان (غير حقيقيين)",
+    hintCount:"انظر إلى إشارة المميز. موجب: ± تعطي حلين حقيقيين. صفر: حل واحد. سالب: الجذر التربيعي لعدد سالب ليس عددًا حقيقيًا.",
+    why2:"المميز {D} موجب، إذن يوجد حلان حقيقيان: يقطع التمثيل المحور x مرتين.",
+    why1:"المميز يساوي 0، إذن يوجد حل حقيقي واحد تمامًا: الرأس يمس المحور x.",
+    why0:"المميز {D} سالب، إذن لا توجد حلول حقيقية: لا يصل التمثيل إلى المحور x أبدًا.",
+    whyC:"المميز {D} سالب، إذن يوجد حلان مركبان يحتويان على i، ولا يصل التمثيل إلى المحور x أبدًا.",
+    qfDir3:"الخطوة 3: استخدم القانون العام. ما الحلول؟",
+    hintQF:"عوّض في القانون: −b = {nb}، والمميز {D}، و 2a = {ta}. بسّط الجذر التربيعي، ثم اقسم كل حد على أي عامل مشترك.",
+    goodQF:"أحسنت! {sol}.",
+    tapDir:"انقر على المحور x لتحديد أصفار {e} (المقاطع السينية). ثم اضغط تحقّق.",
+    hintTapN:"لهذه الدالة صفران، واحد لكل عامل. حدّد كليهما.",
+    hintTapSign:"حدّدت x = {w}. لكن {f} = 0 عندما x = {r}: تنعكس الإشارة عند الحل.",
+    hintTapOff:"يكون y = 0 فقط عندما يكون أحد العوامل 0. اجعل كل عامل يساوي 0 وحُلّ.",
+    goodTap:"أحسنت! الأصفار هي x = {r} و x = {s}. عندها يصبح كل عامل 0، لذا يقطع التمثيل المحور x عند هاتين النقطتين.",
+    g2fDir:"أي معادلة تطابق هذا التمثيل البياني؟",
+    hintG2F:"يقطع التمثيل المحور x عند x = {r} و x = {s}. الصفر عند x = {r} ينتج عن العامل {f}.",
+    hintG2Fa:"الأصفار متطابقة. تحقّق الآن من a: عند x = 0 يجب أن تعطي المعادلة المقطع الصادي {y}.",
+    goodG2F:"أحسنت! الصفران عند x = {r} و x = {s} يعطيان العاملين {f1} و {f2}، و x = 0 تعطي y = {y}، وهو المقطع الصادي.",
+    s2vDir:"أعد كتابة {e} بصيغة الرأس.",
+    hintS2V:"أكمل المربع: خذ نصف معامل x ({h}) وربّعه ({sq}). أضف {sq} واطرحه، ثم اجمع الحدود الثابتة.",
+    hintS2Va:"استخرج {a} عاملًا مشتركًا من حدود x أولًا. ثم أكمل المربع داخل القوسين، وتذكّر أن ما تطرحه يُضرب في {a}.",
+    goodS2V:"أحسنت! {e}، إذن الرأس هو {p}.",
+    v2sDir:"أعد كتابة {e} بالصيغة القياسية.", hintV2S:"ربّع الحدانية أولًا: {sq}. ثم اضرب كل حد في {a} وأضف {k}.",
+    hintF2S:"اضرب كل حد من العامل الأول في كل حد من العامل الثاني (نموذج المساحة يساعد)، ثم اجمع حدّي x.",
+    goodStd:"أحسنت! {e}.",
+    projCx:"قُذفت كرة رأسيًا إلى أعلى. ارتفاعها بالأقدام بعد t ثانية هو {e}.",
+    qLaunch:"من أي ارتفاع قُذفت الكرة؟", qTmax:"متى تصل الكرة إلى أقصى ارتفاع؟", qHmax:"ما أقصى ارتفاع للكرة؟", qGround:"متى تصطدم الكرة بالأرض؟",
+    hintLaunch:"يحدث القذف عند t = 0. عوّض عن t بـ 0: يصبح كل حد يحتوي على t صفرًا، ولا يبقى إلا الحد الثابت.",
+    hintTmax:"أقصى ارتفاع يكون عند الرأس. الإحداثي t للرأس هو {f} = {calc}.",
+    hintHmax:"أوجد أولًا متى يحدث الرأس: t = {tv}. ثم عوّض بهذا الزمن في h(t). يمكنك أيضًا تتبّع المنحنى حتى قمته.",
+    hintGround:"تصطدم الكرة بالأرض عندما h(t) = 0. حُلّ {e} = 0 بالتحليل أو بالقانون العام، واحتفظ بالزمن الموجب.",
+    goodLaunch:"أحسنت! h(0) = {h}: تبدأ الكرة على ارتفاع {h} قدم فوق الأرض.",
+    goodTmax:"أحسنت! عند t = {tv} s تتوقف الكرة عن الصعود وتبدأ في السقوط: هذا هو الرأس.",
+    goodHmax:"أحسنت! h({tv}) = {hm}. القيمة العظمى للدالة هي أقصى ارتفاع، {hm} قدم.",
+    goodGround:"أحسنت! h({tg}) = 0، إذن تهبط الكرة بعد {tg} ثانية: وهو الصفر الموجب للدالة.",
+    areaCx4:"لديك {P} m من السياج لحديقة مستطيلة. إذا كان طول أحد الأضلاع x m، فالمساحة {e} مترًا مربعًا.",
+    areaCxW:"لديك {P} m من السياج لحظيرة مستطيلة بجوار جدار (بلا سياج على امتداد الجدار). إذا كان طول كل ضلع يلامس الجدار x m، فالمساحة {e} مترًا مربعًا.",
+    qAreaX:"ما قيمة x التي تعطي أكبر مساحة؟", qAreaA:"ما أكبر مساحة ممكنة؟",
+    hintAreaX:"A(x) قطع مكافئ مفتوح إلى أسفل. صفراه x = 0 و x = {z}، والرأس في منتصف المسافة بين الصفرين.",
+    hintAreaA:"أوجد أولًا أفضل قيمة لـ x: في منتصف المسافة بين الصفرين 0 و {z}. ثم عوّض بها في A(x).",
+    goodAreaX:"أحسنت! منتصف المسافة بين الصفرين 0 و {z} هو x = {xv}: طول الضلع هذا يعطي أكبر مساحة.",
+    goodAreaA:"أحسنت! A({xv}) = {am} مترًا مربعًا هي القيمة العظمى للدالة A(x).",
+    revCx:"يبيع متجر {n} قميصًا أسبوعيًا بسعر ${p} للقميص. كل زيادة بمقدار $1 في السعر تعني بيع {k} قمصان أقل. مع x زيادة في السعر، يكون الإيراد الأسبوعي {e} دولار.",
+    qRevP:"ما السعر الذي يعطي أكبر إيراد؟", qRevR:"ما أقصى إيراد أسبوعي؟",
+    hintRevP:"R(x) = 0 عندما x = {z1} أو x = {z2}. الرأس في منتصف المسافة بين الصفرين؛ وقيمة x هذه هي عدد الزيادات بمقدار $1، فأضفها إلى ${p}.",
+    hintRevR:"أوجد أفضل قيمة لـ x أولًا (في منتصف المسافة بين الصفرين {z1} و {z2})، ثم عوّض بها في R(x).",
+    goodRevP:"أحسنت! أفضل قيمة لـ x هي {xv} زيادات، إذن السعر ${pp}.", goodRevR:"أحسنت! R({xv}) = {r} دولار هو أقصى إيراد.",
+    trL:"تتبّع إلى اليسار", trR:"تتبّع إلى اليمين",
+    uFt:"{v} قدم", sFt:"{v} قدم", uS:"{v} s", sS:"{v} ثانية", uM:"{v} m", sM:"{v} متر", uM2:"{v} m²", sM2:"{v} متر مربع", uD:"${v}", sD:"{v} دولار",
+    stds:"المعايير المتوافقة — Texas TEKS: الجبر 1 A1.6(A, B, C), A1.7(A, B, C), A1.8(A), A1.10(D, E, F)؛ الجبر 2 A2.4(D, F). Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSN-CN.C.7.",
+    cardTitle:"مستكشف الدوال التربيعية — بطاقات التحدي", cardName:"الاسم:",
+    cardBuild:"مثّل الدالة بيانيًا. حدّد الرأس ومحور التماثل والمقطع الصادي. اذكر المجال والمدى والقيمة العظمى أو الصغرى.",
+    cardFactor:"حلّل تحليلًا كاملًا. ارسم نموذج مساحة لثلاثية الحدود.",
+    cardSolve:"حُلّ كل معادلة. استخدم طريقة مختلفة لكل منها: التحليل، والجذور التربيعية، وإكمال المربع، والقانون العام.",
+    cardConnect:"أعد الكتابة بصيغة الرأس وحدّد الرأس. ثم اكتب معادلة بالصيغة التحليلية لها الأصفار المعطاة.",
+    cardZeros:"الأصفار:", cardModel:"أوجد ارتفاع القذف، وزمن أقصى ارتفاع وقيمته، ومتى تصطدم الكرة بالأرض.",
+    hintV2S1:"ربّع ذات الحدين أولًا: {sq}. ثم أضف {k} إلى الحد الثابت."
+  },
+  hi:{
+    appTitle:"द्विघात एक्सप्लोरर", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", modesLbl:"मोड", stars:"सही उत्तर",
+    newRound:"नया प्रश्न", readAloud:"पढ़कर सुनाएँ", check:"जाँचें", choicesLbl:"उत्तर विकल्प",
+    footNote:"कोई खाता नहीं · कोई डेटा एकत्र नहीं · ऑफ़लाइन चलता है",
+    mBuild:"परवलय निर्माता", mFactor:"गुणनखंड करें", mSolve:"हल करें", mConnect:"रूपों को जोड़ें", mModel:"प्रक्षेप्य और क्षेत्रफल",
+    teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setLevel:"पाठ्यक्रम स्तर", lvF:"आधारभूत", lvA1:"बीजगणित I", lvA2:"बीजगणित II",
+    lvNote:"आधारभूत: पूर्ण संख्या a के साथ शीर्ष रूप, धनात्मक संख्याओं के साथ गुणनखंडन, गुणनखंडन और वर्गमूल द्वारा हल करना। बीजगणित I: भिन्नात्मक a, सभी प्रकार के गुणनखंडन, पूर्ण वर्ग बनाना और वास्तविक हलों के साथ द्विघात सूत्र। बीजगणित II: मानक रूप से शीर्ष, a ≠ 1, करणी और सम्मिश्र हल। स्तर चुनने पर नीचे के विकल्प रीसेट हो जाते हैं।",
+    setRange:"ग्रिड का आकार", setOpts:"विकल्प", aNot1On:"अग्रग गुणांक a ≠ 1 (समूहन द्वारा गुणनखंडन, रूप बदलना)", cplxOn:"i के साथ सम्मिश्र हल",
+    setModes:"मोड", setSpeech:"वाणी", autoRead:"निर्देश अपने-आप पढ़ें", printCards:"चुनौती कार्ड प्रिंट करें",
+    setStored:"सेटिंग्स केवल इसी डिवाइस पर सहेजी जाती हैं। किसी भी विद्यार्थी की जानकारी कभी संग्रहीत नहीं की जाती।",
+    neg:"ऋण {n}", frSay:"{n} बटा {d}", ptSay:"{x} अल्पविराम {y}", wPlus:"धन", wMinus:"ऋण", wTimes:"गुणा", wEq:"बराबर",
+    xSq:"x का वर्ग", qty:"पूरा {e}", sqOf:"{e} का वर्ग", sqrtSay:"{n} का वर्गमूल", pm:"धन या ऋण", allOver:"{n}, पूरा बटा {d}",
+    orW:"या", geSay:"{a}, {b} से बड़ा या बराबर है", leSay:"{a}, {b} से छोटा या बराबर है", discSay:"b का वर्ग ऋण 4 a c",
+    yes:"सही!", planeLbl:"ग्राफ़", dec:"{n} घटाएँ", inc:"{n} बढ़ाएँ",
+    kbTapX:"ग्राफ़। बाएँ और दाएँ तीर कुंजियाँ x-अक्ष पर चलाती हैं; Enter शून्यक को अंकित करता है या हटाता है।",
+    lblA:"a: खिंचाव और दिशा", lblH:"h: बाएँ या दाएँ", lblK:"k: ऊपर या नीचे", yours:"आपका परवलय", target:"लक्ष्य",
+    vtxW:"शीर्ष", axisW:"सममिति अक्ष",
+    bMatchDir:"a, h और k बटनों से अपने परवलय (ठोस) को धराशायी परवलय से मिलाएँ। फिर जाँचें दबाएँ।",
+    hintVtx:"आपका शीर्ष {c} है। इसे धराशायी परवलय के मोड़ बिंदु पर ले जाएँ: h ग्राफ़ को बाएँ या दाएँ खिसकाता है, और k ऊपर या नीचे।",
+    hintDirUp:"शीर्ष सही है, पर धराशायी परवलय ऊपर की ओर खुलता है। a > 0 होने पर यह ऊपर और a < 0 होने पर नीचे की ओर खुलता है।",
+    hintDirDn:"शीर्ष सही है, पर धराशायी परवलय नीचे की ओर खुलता है। a > 0 होने पर यह ऊपर और a < 0 होने पर नीचे की ओर खुलता है।",
+    hintWidth:"शीर्ष और दिशा सही हैं। शीर्ष से 1 इकाई दाईं ओर जाएँ: धराशायी परवलय में {v} का परिवर्तन होता है, आपके में {c} का। यही परिवर्तन a का मान है।",
+    goodBuild:"सही! {eq} का शीर्ष {p} और सममिति अक्ष {ax} है।", extMin:"यह ऊपर की ओर खुलता है, इसलिए {k} न्यूनतम मान है।", extMax:"यह नीचे की ओर खुलता है, इसलिए {k} अधिकतम मान है।",
+    stdIs:"मानक रूप में: {e}।",
+    fVtxDir:"इस परवलय का शीर्ष क्या है?", fAxisDir:"सममिति अक्ष क्या है?", fExtDir:"इस फलन का अधिकतम मान है या न्यूनतम मान? वह क्या है?",
+    fYintDir:"y-अंतःखंड क्या है?", fRangeDir:"इस फलन का परिसर क्या है?", fDomDir:"इस फलन का प्रांत क्या है?", fOpenDir:"यह परवलय ऊपर की ओर खुलता है या नीचे की ओर?",
+    minV:"न्यूनतम मान: {v}", maxV:"अधिकतम मान: {v}", allReal:"सभी वास्तविक संख्याएँ", opUp:"ऊपर की ओर खुलता है", opDn:"नीचे की ओर खुलता है",
+    hintVtxF:"शीर्ष रूप y = a(x − h)² + k में शीर्ष (h, k) होता है। कोष्ठक के अंदर के चिह्न पर ध्यान दें: x − 3 का अर्थ h = 3 है, और x + 3 का अर्थ h = −3 है।",
+    hintVtxS:"मानक रूप में शीर्ष का x-निर्देशांक {f} = {calc} है। y ज्ञात करने के लिए यह x-मान समीकरण में प्रतिस्थापित करें।",
+    hintAxis:"सममिति अक्ष शीर्ष से होकर जाने वाली ऊर्ध्वाधर रेखा है, इसलिए इसका समीकरण x = से शुरू होता है, जिसमें शीर्ष का x-निर्देशांक आता है।",
+    hintExtUp:"a धनात्मक है, इसलिए परवलय ऊपर की ओर खुलता है और शीर्ष इसका सबसे निचला बिंदु है। न्यूनतम मान शीर्ष का y-निर्देशांक है।",
+    hintExtDn:"a ऋणात्मक है, इसलिए परवलय नीचे की ओर खुलता है और शीर्ष इसका सबसे ऊँचा बिंदु है। अधिकतम मान शीर्ष का y-निर्देशांक है।",
+    hintYint:"y-अंतःखंड वह बिंदु है जहाँ ग्राफ़ y-अक्ष को काटता है, अर्थात x = 0। x के स्थान पर 0 रखें: {calc}।",
+    hintRangeUp:"परिसर y-मानों का समुच्चय है। यह परवलय ऊपर की ओर खुलता है, इसलिए इसके निर्गत शीर्ष के y-मान से शुरू होकर अनंत तक ऊपर जाते हैं।",
+    hintRangeDn:"परिसर y-मानों का समुच्चय है। यह परवलय नीचे की ओर खुलता है, इसलिए इसके निर्गत शीर्ष के y-मान से शुरू होकर अनंत तक नीचे जाते हैं।",
+    hintDom:"प्रांत x-मानों का समुच्चय है। आप x के स्थान पर कोई भी वास्तविक संख्या रख सकते हैं, और ग्राफ़ बाएँ और दाएँ फैलता ही जाता है।",
+    hintOpen:"a के चिह्न को देखें, जो वर्ग पद के आगे की संख्या है। a > 0 होने पर परवलय ऊपर की ओर खुलता है; a < 0 होने पर नीचे की ओर।",
+    whyVtx:"शीर्ष {p} है, जो परवलय का मोड़ बिंदु है।", whyAxis:"सममिति अक्ष {ax} है, जो शीर्ष {p} से होकर जाने वाली ऊर्ध्वाधर रेखा है।",
+    whyExtMin:"परवलय ऊपर की ओर खुलता है, इसलिए शीर्ष {p} सबसे निचला बिंदु है: न्यूनतम मान {k} है।",
+    whyExtMax:"परवलय नीचे की ओर खुलता है, इसलिए शीर्ष {p} सबसे ऊँचा बिंदु है: अधिकतम मान {k} है।",
+    whyYint:"जब x = 0, तब y = {c}, इसलिए ग्राफ़ y-अक्ष को {p} पर काटता है।",
+    whyRange:"निर्गत शीर्ष के y-मान {k} से शुरू होते हैं, इसलिए परिसर {r} है।",
+    whyDom:"कोई भी वास्तविक संख्या निवेश हो सकती है, इसलिए प्रांत सभी वास्तविक संख्याएँ हैं। शीर्ष द्वारा सीमित परिसर होता है।",
+    whyOpenUp:"a = {a} धनात्मक है, इसलिए परवलय ऊपर की ओर खुलता है।", whyOpenDn:"a = {a} ऋणात्मक है, इसलिए परवलय नीचे की ओर खुलता है।",
+    n1:"पहली संख्या", n2:"दूसरी संख्या", amLbl:"क्षेत्रफल मॉडल",
+    trinDir:"{e} का गुणनखंड करें। बटनों से ऐसी दो संख्याएँ खोजें जिनका गुणनफल {c} और योग {b} हो। फिर जाँचें दबाएँ।",
+    acDir:"समूहन द्वारा {e} का गुणनखंड करें। चरण 1: ऐसी दो संख्याएँ खोजें जिनका गुणनफल a·c = {ac} और योग b = {b} हो। फिर जाँचें दबाएँ।",
+    readPS:"गुणनफल: {p} (चाहिए {c}) · योग: {s} (चाहिए {b})",
+    hintProd:"आपकी संख्याओं का गुणनफल {p} है, पर यह {c} होना चाहिए। {c} के गुणनखंड युग्मों की सूची बनाएँ।",
+    hintSum:"गुणनफल {c} है, अच्छा। पर योग {s} है, और दोनों x-खानों को मिलकर {b}x बनना चाहिए। {c} का कोई दूसरा गुणनखंड युग्म आज़माएँ।",
+    hintNegC:"क्योंकि {c} ऋणात्मक है, एक संख्या धनात्मक और दूसरी ऋणात्मक होगी।",
+    hintNegB:"क्योंकि {c} धनात्मक है और {b} ऋणात्मक है, दोनों संख्याएँ ऋणात्मक होंगी।",
+    goodTrin:"सही! {f}: x-खाने {px} और {qx} मिलकर {bx} बनाते हैं, और कोने का खाना {c} है।",
+    acStep:"सही! {m} · {n} = {ac} और {m} + {n} = {b}। मध्य पद को विभाजित करें: {e}।",
+    acDir2:"चरण 2: समूहन द्वारा गुणनखंड करें। {e} का गुणनखंडित रूप कौन-सा है?",
+    hintGroup:"पदों को जोड़ियों में समूहित करें और प्रत्येक जोड़ी से महत्तम समापवर्तक (HCF) बाहर निकालें: {g}। दोनों समूहों में एक ही द्विपद आता है, इसलिए उसे बाहर निकालें।",
+    goodAC:"सही! {g} = {f}। क्षेत्रफल मॉडल की भुजाएँ ही गुणनखंड हैं।",
+    gcfDir:"पूर्णतः गुणनखंड करें: {e}", dosDir:"गुणनखंड करें: {e}",
+    whyNotComp:"यह गुणनफल बहुपद के बराबर है, पर पूर्णतः गुणनखंडित नहीं है: {part} का अभी भी गुणनखंड हो सकता है।",
+    whyWrongExp:"इसे वापस गुणा करें: इससे {e} मिलता है, मूल बहुपद नहीं।",
+    goodGcf:"सही! महत्तम समापवर्तक (HCF) {g} है, और {f} पूर्णतः गुणनखंडित है: किसी भी गुणनखंड का आगे गुणनखंड नहीं हो सकता।",
+    whyDosSq:"इसे गुणा करें: इससे {e} मिलता है, जिसमें मध्य पद है। वर्गों के अंतर में मध्य पद कट जाते हैं, इसलिए एक धन चिह्न और एक ऋण चिह्न का प्रयोग करें।",
+    goodDos:"सही! {e} वर्गों का अंतर है, {A} का वर्ग ऋण {B} का वर्ग, इसलिए इसके गुणनखंड {f} हैं।",
+    solveDir:"{e} को हल करें।",
+    hintZpp:"गुणनफल तभी 0 होता है जब उसका कोई गुणनखंड 0 हो। प्रत्येक गुणनखंड को 0 के बराबर रखें और हर छोटे समीकरण को हल करें।",
+    hintZppT:"पहले बाएँ पक्ष का गुणनखंड करें: ऐसी दो संख्याएँ खोजें जिनका गुणनफल {c} और योग {b} हो। फिर प्रत्येक गुणनखंड को 0 के बराबर रखें।",
+    hintSignZ:"चिह्नों पर ध्यान दें: {f} = 0 से x = {r} मिलता है, x = {w} नहीं।",
+    goodZpp:"सही! {f}, इसलिए {sol}।", graphZ:"ये {e} के ग्राफ़ के x-अंतःखंड हैं।",
+    hintSqrt:"दोनों पक्षों का वर्गमूल लेकर वर्ग को हटाएँ। धनात्मक संख्या के दो वर्गमूल होते हैं, इसलिए ± लिखें: {s}।",
+    hintSqrtI:"दायाँ पक्ष ऋणात्मक है, इसलिए इसके वर्गमूल काल्पनिक हैं: {s}। ± लिखें और i का प्रयोग करें।",
+    goodSqrt:"सही! {s}, इसलिए {sol}।",
+    ctsDir1:"पूर्ण वर्ग बनाकर {e} को हल करें। पहले अचर पद को हटाएँ: {e2}। कौन-सी संख्या वर्ग को पूर्ण करती है?",
+    hintCts1:"{bx} को {hx} की दो बराबर पट्टियों में बाँटें। खाली कोना भुजा {h} वाला वर्ग है, इसलिए इसका क्षेत्रफल ({h})² है।",
+    ctsGood1:"सही! कोने के वर्ग का क्षेत्रफल {n} है। समीकरण को संतुलित रखने के लिए दोनों पक्षों में {n} जोड़ें।",
+    ctsDir2:"कौन-सा समीकरण {e} के समान है?",
+    hintCts2:"बायाँ पक्ष पूर्ण वर्ग है क्योंकि 2 · ({h}) = {b} और ({h})² = {n}: यह {sq} है। याद रखें कि {n} दाएँ पक्ष में भी जोड़ा गया था।",
+    ctsGood2:"सही! {e}।", ctsDir3:"अब {e} को हल करें।",
+    goodCts:"सही! {s}, इसलिए {sol}। बोनस: {p} का शीर्ष {v} है।",
+    qfDir1:"द्विघात सूत्र से {e} को हल करें। चरण 1: विविक्तकर {d} ज्ञात करें।",
+    hintDisc:"यहाँ a = {a}, b = {b} और c = {c}। प्रतिस्थापित करें: {calc}। पहले b का वर्ग करें; वर्ग कभी ऋणात्मक नहीं होता।",
+    qfGood1:"सही! {calc} = {D}।",
+    qfDir2:"विविक्तकर {D} है। समीकरण के कितने वास्तविक हल हैं?",
+    cTwo:"दो वास्तविक हल", cOne:"एक वास्तविक हल", cNone:"कोई वास्तविक हल नहीं", cTwoC:"दो सम्मिश्र (अवास्तविक) हल",
+    hintCount:"विविक्तकर के चिह्न को देखें। धनात्मक: ± से दो वास्तविक हल मिलते हैं। शून्य: एक हल। ऋणात्मक: ऋणात्मक संख्या का वर्गमूल वास्तविक नहीं होता।",
+    why2:"विविक्तकर {D} धनात्मक है, इसलिए दो वास्तविक हल हैं: ग्राफ़ x-अक्ष को दो बार काटता है।",
+    why1:"विविक्तकर 0 है, इसलिए ठीक एक वास्तविक हल है: शीर्ष x-अक्ष को स्पर्श करता है।",
+    why0:"विविक्तकर {D} ऋणात्मक है, इसलिए कोई वास्तविक हल नहीं है: ग्राफ़ कभी x-अक्ष तक नहीं पहुँचता।",
+    whyC:"विविक्तकर {D} ऋणात्मक है, इसलिए i वाले दो सम्मिश्र हल हैं, और ग्राफ़ कभी x-अक्ष तक नहीं पहुँचता।",
+    qfDir3:"चरण 3: द्विघात सूत्र का प्रयोग करें। हल कौन-से हैं?",
+    hintQF:"सूत्र में प्रतिस्थापित करें: −b = {nb}, विविक्तकर {D} है, और 2a = {ta}। वर्गमूल को सरल करें, फिर हर पद को किसी भी उभयनिष्ठ गुणनखंड से भाग दें।",
+    goodQF:"सही! {sol}।",
+    tapDir:"{e} के शून्यकों (x-अंतःखंडों) को अंकित करने के लिए x-अक्ष पर टैप करें। फिर जाँचें दबाएँ।",
+    hintTapN:"इस फलन के दो शून्यक हैं, प्रत्येक गुणनखंड के लिए एक। दोनों को अंकित करें।",
+    hintTapSign:"आपने x = {w} अंकित किया। पर {f} = 0 तब होता है जब x = {r}: हल करते समय चिह्न बदल जाता है।",
+    hintTapOff:"y = 0 तभी होता है जब कोई गुणनखंड 0 हो। प्रत्येक गुणनखंड को 0 के बराबर रखें और हल करें।",
+    goodTap:"सही! शून्यक x = {r} और x = {s} हैं। वहाँ प्रत्येक गुणनखंड 0 हो जाता है, इसलिए ग्राफ़ उन बिंदुओं पर x-अक्ष को काटता है।",
+    g2fDir:"कौन-सा समीकरण इस ग्राफ़ से मेल खाता है?",
+    hintG2F:"ग्राफ़ x-अक्ष को x = {r} और x = {s} पर काटता है। x = {r} पर शून्यक गुणनखंड {f} से आता है।",
+    hintG2Fa:"शून्यक मेल खाते हैं। अब a जाँचें: x = 0 पर समीकरण से y-अंतःखंड {y} मिलना चाहिए।",
+    goodG2F:"सही! x = {r} और x = {s} पर शून्यकों से गुणनखंड {f1} और {f2} मिलते हैं, और x = 0 से y = {y} मिलता है, जो y-अंतःखंड है।",
+    s2vDir:"{e} को शीर्ष रूप में फिर से लिखें।",
+    hintS2V:"पूर्ण वर्ग बनाएँ: x के गुणांक का आधा ({h}) लें और उसका वर्ग करें ({sq})। {sq} जोड़ें और घटाएँ, फिर अचर पदों को मिलाएँ।",
+    hintS2Va:"पहले x-पदों से {a} बाहर निकालें। फिर कोष्ठक के अंदर पूर्ण वर्ग बनाएँ, और याद रखें कि जो आप घटाते हैं वह {a} से गुणा होता है।",
+    goodS2V:"सही! {e}, इसलिए शीर्ष {p} है।",
+    v2sDir:"{e} को मानक रूप में फिर से लिखें।", hintV2S:"पहले द्विपद का वर्ग करें: {sq}। फिर हर पद को {a} से गुणा करें और {k} जोड़ें।",
+    hintF2S:"पहले गुणनखंड के प्रत्येक पद को दूसरे के प्रत्येक पद से गुणा करें (क्षेत्रफल मॉडल सहायक है), फिर दोनों x-पदों को मिलाएँ।",
+    goodStd:"सही! {e}।",
+    projCx:"एक गेंद सीधे ऊपर फेंकी जाती है। t सेकंड बाद फुट में इसकी ऊँचाई {e} है।",
+    qLaunch:"गेंद किस ऊँचाई से फेंकी जाती है?", qTmax:"गेंद अपनी सबसे अधिक ऊँचाई पर कब पहुँचती है?", qHmax:"गेंद की अधिकतम ऊँचाई क्या है?", qGround:"गेंद ज़मीन से कब टकराती है?",
+    hintLaunch:"प्रक्षेपण t = 0 पर होता है। t के स्थान पर 0 रखें: t वाला हर पद 0 हो जाता है, केवल अचर पद बचता है।",
+    hintTmax:"सबसे अधिक ऊँचाई शीर्ष पर होती है। इसका t-निर्देशांक {f} = {calc} है।",
+    hintHmax:"पहले ज्ञात करें कि शीर्ष कब आता है: t = {tv}। फिर वह समय h(t) में प्रतिस्थापित करें। आप वक्र को उसके शिखर तक ट्रेस भी कर सकते हैं।",
+    hintGround:"गेंद ज़मीन से तब टकराती है जब h(t) = 0। {e} = 0 को गुणनखंडन से या द्विघात सूत्र से हल करें, और धनात्मक समय रखें।",
+    goodLaunch:"सही! h(0) = {h}: गेंद ज़मीन से {h} फुट ऊपर से शुरू होती है।",
+    goodTmax:"सही! t = {tv} s पर गेंद ऊपर जाना बंद करके नीचे गिरने लगती है: यही शीर्ष है।",
+    goodHmax:"सही! h({tv}) = {hm}। फलन का अधिकतम मान ही सबसे अधिक ऊँचाई है, {hm} फुट।",
+    goodGround:"सही! h({tg}) = 0, इसलिए गेंद {tg} सेकंड बाद ज़मीन पर गिरती है: यह फलन का धनात्मक शून्यक है।",
+    areaCx4:"एक आयताकार बगीचे के लिए आपके पास {P} m बाड़ है। यदि एक भुजा x m है, तो क्षेत्रफल {e} वर्ग मीटर है।",
+    areaCxW:"दीवार से सटे एक आयताकार बाड़े के लिए आपके पास {P} m बाड़ है (दीवार की ओर बाड़ नहीं)। यदि दीवार को छूने वाली प्रत्येक भुजा x m है, तो क्षेत्रफल {e} वर्ग मीटर है।",
+    qAreaX:"x का कौन-सा मान सबसे अधिक क्षेत्रफल देता है?", qAreaA:"अधिकतम संभव क्षेत्रफल क्या है?",
+    hintAreaX:"A(x) नीचे की ओर खुलने वाला परवलय है। इसके शून्यक x = 0 और x = {z} हैं, और शीर्ष शून्यकों के ठीक बीच में है।",
+    hintAreaA:"पहले सबसे अच्छा x ज्ञात करें: शून्यकों 0 और {z} के ठीक बीच। फिर उसे A(x) में प्रतिस्थापित करें।",
+    goodAreaX:"सही! शून्यकों 0 और {z} के ठीक बीच x = {xv} है: यह भुजा की लंबाई सबसे अधिक क्षेत्रफल देती है।",
+    goodAreaA:"सही! A({xv}) = {am} वर्ग मीटर, A(x) का अधिकतम मान है।",
+    revCx:"एक दुकान हर सप्ताह ${p} प्रति नग की दर से {n} टी-शर्ट बेचती है। कीमत में हर $1 की वृद्धि से {k} टी-शर्ट कम बिकती हैं। x मूल्य-वृद्धियों के साथ साप्ताहिक आय {e} डॉलर है।",
+    qRevP:"कौन-सी कीमत सबसे अधिक आय देती है?", qRevR:"अधिकतम साप्ताहिक आय क्या है?",
+    hintRevP:"R(x) = 0 जब x = {z1} या x = {z2}। शीर्ष शून्यकों के ठीक बीच में है; वह x $1 वृद्धियों की संख्या है, इसलिए उसे ${p} में जोड़ें।",
+    hintRevR:"पहले सबसे अच्छा x ज्ञात करें (शून्यकों {z1} और {z2} के ठीक बीच), फिर उसे R(x) में प्रतिस्थापित करें।",
+    goodRevP:"सही! सबसे अच्छा x = {xv} वृद्धियाँ है, इसलिए कीमत ${pp} है।", goodRevR:"सही! R({xv}) = {r} डॉलर अधिकतम आय है।",
+    trL:"बाएँ ट्रेस करें", trR:"दाएँ ट्रेस करें",
+    uFt:"{v} फुट", sFt:"{v} फुट", uS:"{v} s", sS:"{v} सेकंड", uM:"{v} m", sM:"{v} मीटर", uM2:"{v} m²", sM2:"{v} वर्ग मीटर", uD:"${v}", sD:"{v} डॉलर",
+    stds:"संरेखित मानक — Texas TEKS: बीजगणित I A1.6(A, B, C), A1.7(A, B, C), A1.8(A), A1.10(D, E, F); बीजगणित II A2.4(D, F)। Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSN-CN.C.7।",
+    cardTitle:"द्विघात एक्सप्लोरर — चुनौती कार्ड", cardName:"नाम:",
+    cardBuild:"फलन का ग्राफ़ बनाएँ। शीर्ष, सममिति अक्ष और y-अंतःखंड को अंकित करें। प्रांत, परिसर और अधिकतम या न्यूनतम मान बताएँ।",
+    cardFactor:"पूर्णतः गुणनखंड करें। त्रिपद के लिए क्षेत्रफल मॉडल बनाएँ।",
+    cardSolve:"प्रत्येक समीकरण हल करें। हर एक के लिए अलग विधि अपनाएँ: गुणनखंडन, वर्गमूल, पूर्ण वर्ग बनाना, द्विघात सूत्र।",
+    cardConnect:"शीर्ष रूप में फिर से लिखें और शीर्ष बताएँ। फिर दिए गए शून्यकों वाला गुणनखंडित रूप का समीकरण लिखें।",
+    cardZeros:"शून्यक:", cardModel:"प्रक्षेपण की ऊँचाई, अधिकतम ऊँचाई का समय और मान, और गेंद ज़मीन से कब टकराती है, ज्ञात करें।",
+    hintV2S1:"पहले द्विपद का वर्ग करें: {sq}. फिर अचर पद में {k} जोड़ें।"
+  },
+  ur:{
+    appTitle:"دو درجی ایکسپلورر", home:"ہوم", privacy:"رازداری", teacher:"استاد", modesLbl:"موڈ", stars:"درست جوابات",
+    newRound:"نیا سوال", readAloud:"بلند آواز سے پڑھیں", check:"جانچیں", choicesLbl:"جواب کے اختیارات",
+    footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا جمع نہیں · آف لائن کام کرتا ہے",
+    mBuild:"قطع مکافی بنائیں", mFactor:"اجزائے ضربی بنائیں", mSolve:"حل کریں", mConnect:"صورتوں کو جوڑیں", mModel:"مقذوفات اور رقبہ",
+    teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setLevel:"نصاب کی سطح", lvF:"بنیادی", lvA1:"الجبرا I", lvA2:"الجبرا II",
+    lvNote:"بنیادی: مکمل عدد a کے ساتھ راس کی صورت، مثبت اعداد کے ساتھ تجزی، تجزی اور جذر المربع سے حل۔ الجبرا I: کسری a، تجزی کی تمام اقسام، مربع مکمل کرنا اور حقیقی حلوں کے ساتھ دو درجی کلیہ۔ الجبرا II: معیاری صورت سے راس، a ≠ 1، جذری مقداریں اور مختلط حل۔ سطح منتخب کرنے سے نیچے کے اختیارات دوبارہ ترتیب پا جاتے ہیں۔",
+    setRange:"گرڈ کا سائز", setOpts:"اختیارات", aNot1On:"سرکردہ عددی سر a ≠ 1 (گروہ بندی سے تجزی، صورتیں بدلنا)", cplxOn:"i کے ساتھ مختلط حل",
+    setModes:"موڈ", setSpeech:"آواز", autoRead:"ہدایات خودکار طور پر پڑھیں", printCards:"چیلنج کارڈ پرنٹ کریں",
+    setStored:"ترتیبات صرف اسی آلے پر محفوظ ہوتی ہیں۔ کسی طالب علم کی کوئی معلومات کبھی محفوظ نہیں کی جاتی۔",
+    neg:"منفی {n}", frSay:"{n} بٹا {d}", ptSay:"{x} کاما {y}", wPlus:"جمع", wMinus:"منفی", wTimes:"ضرب", wEq:"برابر",
+    xSq:"x کا مربع", qty:"پورا {e}", sqOf:"{e} کا مربع", sqrtSay:"{n} کا جذر المربع", pm:"جمع یا منفی", allOver:"{n}، پورا بٹا {d}",
+    orW:"یا", geSay:"{a}، {b} سے بڑا یا برابر ہے", leSay:"{a}، {b} سے چھوٹا یا برابر ہے", discSay:"b کا مربع منفی 4 a c",
+    yes:"بالکل درست!", planeLbl:"گراف", dec:"{n} کم کریں", inc:"{n} بڑھائیں",
+    kbTapX:"گراف۔ بائیں اور دائیں تیر والی کلیدیں x-محور پر حرکت دیتی ہیں؛ Enter صفر کو نشان زد کرتا ہے یا ہٹاتا ہے۔",
+    lblA:"a: پھیلاؤ اور سمت", lblH:"h: بائیں یا دائیں", lblK:"k: اوپر یا نیچے", yours:"آپ کا قطع مکافی", target:"ہدف",
+    vtxW:"راس", axisW:"محورِ تشاکل",
+    bMatchDir:"a، h اور k کے بٹنوں سے اپنے قطع مکافی (ٹھوس) کو ڈیش والے قطع مکافی سے ملائیں۔ پھر جانچیں دبائیں۔",
+    hintVtx:"آپ کا راس {c} ہے۔ اسے ڈیش والے قطع مکافی کے موڑ کے نقطے پر لے جائیں: h گراف کو بائیں یا دائیں کھسکاتا ہے، اور k اوپر یا نیچے۔",
+    hintDirUp:"راس درست ہے، لیکن ڈیش والا قطع مکافی اوپر کی طرف کھلتا ہے۔ a > 0 ہو تو یہ اوپر اور a < 0 ہو تو نیچے کی طرف کھلتا ہے۔",
+    hintDirDn:"راس درست ہے، لیکن ڈیش والا قطع مکافی نیچے کی طرف کھلتا ہے۔ a > 0 ہو تو یہ اوپر اور a < 0 ہو تو نیچے کی طرف کھلتا ہے۔",
+    hintWidth:"راس اور سمت درست ہیں۔ راس سے 1 اکائی دائیں جائیں: ڈیش والے قطع مکافی میں {v} کی تبدیلی آتی ہے، آپ کے میں {c} کی۔ یہی تبدیلی a کی مقدار ہے۔",
+    goodBuild:"بالکل درست! {eq} کا راس {p} اور محورِ تشاکل {ax} ہے۔", extMin:"یہ اوپر کی طرف کھلتا ہے، اس لیے {k} کم سے کم قیمت ہے۔", extMax:"یہ نیچے کی طرف کھلتا ہے، اس لیے {k} زیادہ سے زیادہ قیمت ہے۔",
+    stdIs:"معیاری صورت میں: {e}۔",
+    fVtxDir:"اس قطع مکافی کا راس کیا ہے؟", fAxisDir:"محورِ تشاکل کیا ہے؟", fExtDir:"کیا اس تفاعل کی زیادہ سے زیادہ قیمت ہے یا کم سے کم؟ وہ کیا ہے؟",
+    fYintDir:"y-قطع کیا ہے؟", fRangeDir:"اس تفاعل کی رینج کیا ہے؟", fDomDir:"اس تفاعل کا ڈومین کیا ہے؟", fOpenDir:"کیا یہ قطع مکافی اوپر کی طرف کھلتا ہے یا نیچے کی طرف؟",
+    minV:"کم سے کم قیمت: {v}", maxV:"زیادہ سے زیادہ قیمت: {v}", allReal:"تمام حقیقی اعداد", opUp:"اوپر کی طرف کھلتا ہے", opDn:"نیچے کی طرف کھلتا ہے",
+    hintVtxF:"راس کی صورت y = a(x − h)² + k میں راس (h, k) ہوتا ہے۔ قوسین کے اندر علامت پر دھیان دیں: x − 3 کا مطلب h = 3 ہے، اور x + 3 کا مطلب h = −3 ہے۔",
+    hintVtxS:"معیاری صورت میں راس کا x-محدد {f} = {calc} ہے۔ y معلوم کرنے کے لیے یہ x کی قیمت مساوات میں رکھیں۔",
+    hintAxis:"محورِ تشاکل راس سے گزرنے والا عمودی خط ہے، اس لیے اس کی مساوات x = سے شروع ہوتی ہے، جس میں راس کا x-محدد آتا ہے۔",
+    hintExtUp:"a مثبت ہے، اس لیے قطع مکافی اوپر کی طرف کھلتا ہے اور راس اس کا سب سے نچلا نقطہ ہے۔ کم سے کم قیمت راس کا y-محدد ہے۔",
+    hintExtDn:"a منفی ہے، اس لیے قطع مکافی نیچے کی طرف کھلتا ہے اور راس اس کا سب سے اونچا نقطہ ہے۔ زیادہ سے زیادہ قیمت راس کا y-محدد ہے۔",
+    hintYint:"y-قطع وہ نقطہ ہے جہاں گراف y-محور کو کاٹتا ہے، یعنی x = 0۔ x کی جگہ 0 رکھیں: {calc}۔",
+    hintRangeUp:"رینج y کی قیمتوں کا سیٹ ہے۔ یہ قطع مکافی اوپر کی طرف کھلتا ہے، اس لیے اس کے نتائج راس کی y-قیمت سے شروع ہو کر ہمیشہ اوپر جاتے ہیں۔",
+    hintRangeDn:"رینج y کی قیمتوں کا سیٹ ہے۔ یہ قطع مکافی نیچے کی طرف کھلتا ہے، اس لیے اس کے نتائج راس کی y-قیمت سے شروع ہو کر ہمیشہ نیچے جاتے ہیں۔",
+    hintDom:"ڈومین x کی قیمتوں کا سیٹ ہے۔ آپ x کی جگہ کوئی بھی حقیقی عدد رکھ سکتے ہیں، اور گراف بائیں اور دائیں پھیلتا ہی رہتا ہے۔",
+    hintOpen:"a کی علامت دیکھیں، یعنی مربع والے رکن سے پہلے کا عدد۔ a > 0 ہو تو قطع مکافی اوپر کی طرف کھلتا ہے؛ a < 0 ہو تو نیچے کی طرف۔",
+    whyVtx:"راس {p} ہے، جو قطع مکافی کا موڑ کا نقطہ ہے۔", whyAxis:"محورِ تشاکل {ax} ہے، جو راس {p} سے گزرنے والا عمودی خط ہے۔",
+    whyExtMin:"قطع مکافی اوپر کی طرف کھلتا ہے، اس لیے راس {p} سب سے نچلا نقطہ ہے: کم سے کم قیمت {k} ہے۔",
+    whyExtMax:"قطع مکافی نیچے کی طرف کھلتا ہے، اس لیے راس {p} سب سے اونچا نقطہ ہے: زیادہ سے زیادہ قیمت {k} ہے۔",
+    whyYint:"جب x = 0 ہو تو y = {c}، اس لیے گراف y-محور کو {p} پر کاٹتا ہے۔",
+    whyRange:"نتائج راس کی y-قیمت {k} سے شروع ہوتے ہیں، اس لیے رینج {r} ہے۔",
+    whyDom:"کوئی بھی حقیقی عدد ان پٹ ہو سکتا ہے، اس لیے ڈومین تمام حقیقی اعداد ہے۔ راس سے محدود ہونے والی چیز رینج ہے۔",
+    whyOpenUp:"a = {a} مثبت ہے، اس لیے قطع مکافی اوپر کی طرف کھلتا ہے۔", whyOpenDn:"a = {a} منفی ہے، اس لیے قطع مکافی نیچے کی طرف کھلتا ہے۔",
+    n1:"پہلا عدد", n2:"دوسرا عدد", amLbl:"رقبے کا ماڈل",
+    trinDir:"{e} کی تجزی کریں۔ بٹنوں سے ایسے دو اعداد تلاش کریں جن کا حاصل ضرب {c} اور حاصل جمع {b} ہو۔ پھر جانچیں دبائیں۔",
+    acDir:"گروہ بندی سے {e} کی تجزی کریں۔ مرحلہ 1: ایسے دو اعداد تلاش کریں جن کا حاصل ضرب a·c = {ac} اور حاصل جمع b = {b} ہو۔ پھر جانچیں دبائیں۔",
+    readPS:"حاصل ضرب: {p} (درکار {c}) · حاصل جمع: {s} (درکار {b})",
+    hintProd:"آپ کے اعداد کا حاصل ضرب {p} ہے، لیکن اسے {c} ہونا چاہیے۔ {c} کے اجزائے ضربی کے جوڑوں کی فہرست بنائیں۔",
+    hintSum:"حاصل ضرب {c} ہے، اچھا۔ لیکن حاصل جمع {s} ہے، اور دونوں x-خانوں کو مل کر {b}x بننا چاہیے۔ {c} کا کوئی اور جوڑا آزمائیں۔",
+    hintNegC:"چونکہ {c} منفی ہے، ایک عدد مثبت اور دوسرا منفی ہوگا۔",
+    hintNegB:"چونکہ {c} مثبت اور {b} منفی ہے، دونوں اعداد منفی ہوں گے۔",
+    goodTrin:"بالکل درست! {f}: x-خانے {px} اور {qx} مل کر {bx} بنتے ہیں، اور کونے کا خانہ {c} ہے۔",
+    acStep:"بالکل درست! {m} · {n} = {ac} اور {m} + {n} = {b}۔ درمیانی رکن کو تقسیم کریں: {e}۔",
+    acDir2:"مرحلہ 2: گروہ بندی سے تجزی کریں۔ {e} کی تجزی شدہ صورت کون سی ہے؟",
+    hintGroup:"ارکان کو جوڑوں میں گروہ بند کریں اور ہر جوڑے سے عادِ اعظم (HCF) باہر نکالیں: {g}۔ دونوں گروہوں میں ایک ہی دو رکنی آتا ہے، اس لیے اسے باہر نکالیں۔",
+    goodAC:"بالکل درست! {g} = {f}۔ رقبے کے ماڈل کے کنارے ہی اجزائے ضربی ہیں۔",
+    gcfDir:"مکمل تجزی کریں: {e}", dosDir:"تجزی کریں: {e}",
+    whyNotComp:"یہ حاصل ضرب کثیر رکنی کے برابر ہے، لیکن مکمل تجزی نہیں ہوئی: {part} کی ابھی مزید تجزی ہو سکتی ہے۔",
+    whyWrongExp:"اسے واپس ضرب دیں: اس سے {e} ملتا ہے، اصل کثیر رکنی نہیں۔",
+    goodGcf:"بالکل درست! عادِ اعظم (HCF) {g} ہے، اور {f} کی مکمل تجزی ہو چکی ہے: کسی جزوِ ضربی کی مزید تجزی نہیں ہو سکتی۔",
+    whyDosSq:"اسے ضرب دیں: اس سے {e} ملتا ہے، جس میں درمیانی رکن ہے۔ مربعوں کے فرق میں درمیانی ارکان کٹ جاتے ہیں، اس لیے ایک جمع اور ایک منفی کی علامت استعمال کریں۔",
+    goodDos:"بالکل درست! {e} مربعوں کا فرق ہے، {A} کا مربع منفی {B} کا مربع، اس لیے اس کی تجزی {f} ہے۔",
+    solveDir:"{e} کو حل کریں۔",
+    hintZpp:"حاصل ضرب صرف تب 0 ہوتا ہے جب اس کا کوئی جزوِ ضربی 0 ہو۔ ہر جزوِ ضربی کو 0 کے برابر رکھیں اور ہر چھوٹی مساوات حل کریں۔",
+    hintZppT:"پہلے بائیں طرف کی تجزی کریں: ایسے دو اعداد تلاش کریں جن کا حاصل ضرب {c} اور حاصل جمع {b} ہو۔ پھر ہر جزوِ ضربی کو 0 کے برابر رکھیں۔",
+    hintSignZ:"علامتوں پر دھیان دیں: {f} = 0 سے x = {r} ملتا ہے، x = {w} نہیں۔",
+    goodZpp:"بالکل درست! {f}، اس لیے {sol}۔", graphZ:"یہ {e} کے گراف کے x-قطع ہیں۔",
+    hintSqrt:"دونوں طرف کا جذر المربع لے کر مربع کو ختم کریں۔ مثبت عدد کے دو جذر المربع ہوتے ہیں، اس لیے ± لکھیں: {s}۔",
+    hintSqrtI:"دایاں طرف منفی ہے، اس لیے اس کے جذر المربع خیالی ہیں: {s}۔ ± لکھیں اور i استعمال کریں۔",
+    goodSqrt:"بالکل درست! {s}، اس لیے {sol}۔",
+    ctsDir1:"مربع مکمل کر کے {e} کو حل کریں۔ پہلے مستقل رکن کو منتقل کریں: {e2}۔ کون سا عدد مربع مکمل کرتا ہے؟",
+    hintCts1:"{bx} کو {hx} کی دو برابر پٹیوں میں تقسیم کریں۔ خالی کونا {h} ضلع والا مربع ہے، اس لیے اس کا رقبہ ({h})² ہے۔",
+    ctsGood1:"بالکل درست! کونے کے مربع کا رقبہ {n} ہے۔ مساوات کو متوازن رکھنے کے لیے دونوں طرف {n} جمع کریں۔",
+    ctsDir2:"کون سی مساوات {e} کے مساوی ہے؟",
+    hintCts2:"بایاں طرف کامل مربع ہے کیونکہ 2 · ({h}) = {b} اور ({h})² = {n}: یہ {sq} ہے۔ یاد رکھیں کہ {n} دائیں طرف بھی جمع کیا گیا تھا۔",
+    ctsGood2:"بالکل درست! {e}۔", ctsDir3:"اب {e} کو حل کریں۔",
+    goodCts:"بالکل درست! {s}، اس لیے {sol}۔ اضافی: {p} کا راس {v} ہے۔",
+    qfDir1:"دو درجی کلیے سے {e} کو حل کریں۔ مرحلہ 1: ممیز {d} معلوم کریں۔",
+    hintDisc:"یہاں a = {a}، b = {b} اور c = {c}۔ قیمتیں رکھیں: {calc}۔ پہلے b کا مربع لیں؛ مربع کبھی منفی نہیں ہوتا۔",
+    qfGood1:"بالکل درست! {calc} = {D}۔",
+    qfDir2:"ممیز {D} ہے۔ مساوات کے کتنے حقیقی حل ہیں؟",
+    cTwo:"دو حقیقی حل", cOne:"ایک حقیقی حل", cNone:"کوئی حقیقی حل نہیں", cTwoC:"دو مختلط (غیر حقیقی) حل",
+    hintCount:"ممیز کی علامت دیکھیں۔ مثبت: ± سے دو حقیقی حل ملتے ہیں۔ صفر: ایک حل۔ منفی: منفی عدد کا جذر المربع حقیقی نہیں ہوتا۔",
+    why2:"ممیز {D} مثبت ہے، اس لیے دو حقیقی حل ہیں: گراف x-محور کو دو بار کاٹتا ہے۔",
+    why1:"ممیز 0 ہے، اس لیے ٹھیک ایک حقیقی حل ہے: راس x-محور کو چھوتا ہے۔",
+    why0:"ممیز {D} منفی ہے، اس لیے کوئی حقیقی حل نہیں: گراف کبھی x-محور تک نہیں پہنچتا۔",
+    whyC:"ممیز {D} منفی ہے، اس لیے i والے دو مختلط حل ہیں، اور گراف کبھی x-محور تک نہیں پہنچتا۔",
+    qfDir3:"مرحلہ 3: دو درجی کلیہ استعمال کریں۔ حل کون سے ہیں؟",
+    hintQF:"کلیے میں قیمتیں رکھیں: −b = {nb}، ممیز {D} ہے، اور 2a = {ta}۔ جذر المربع کو مختصر کریں، پھر ہر رکن کو کسی بھی مشترک جزوِ ضربی سے تقسیم کریں۔",
+    goodQF:"بالکل درست! {sol}۔",
+    tapDir:"{e} کے صفروں (x-قطع) کو نشان زد کرنے کے لیے x-محور پر ٹیپ کریں۔ پھر جانچیں دبائیں۔",
+    hintTapN:"اس تفاعل کے دو صفر ہیں، ہر جزوِ ضربی کے لیے ایک۔ دونوں کو نشان زد کریں۔",
+    hintTapSign:"آپ نے x = {w} نشان زد کیا۔ لیکن {f} = 0 تب ہوتا ہے جب x = {r}: حل کرتے وقت علامت بدل جاتی ہے۔",
+    hintTapOff:"y = 0 صرف تب ہوتا ہے جب کوئی جزوِ ضربی 0 ہو۔ ہر جزوِ ضربی کو 0 کے برابر رکھیں اور حل کریں۔",
+    goodTap:"بالکل درست! صفر x = {r} اور x = {s} ہیں۔ وہاں ہر جزوِ ضربی 0 ہو جاتا ہے، اس لیے گراف ان نقاط پر x-محور کو کاٹتا ہے۔",
+    g2fDir:"کون سی مساوات اس گراف سے مطابقت رکھتی ہے؟",
+    hintG2F:"گراف x-محور کو x = {r} اور x = {s} پر کاٹتا ہے۔ x = {r} پر صفر جزوِ ضربی {f} سے آتا ہے۔",
+    hintG2Fa:"صفر مطابقت رکھتے ہیں۔ اب a جانچیں: x = 0 پر مساوات سے y-قطع {y} ملنا چاہیے۔",
+    goodG2F:"بالکل درست! x = {r} اور x = {s} پر صفروں سے اجزائے ضربی {f1} اور {f2} ملتے ہیں، اور x = 0 سے y = {y} ملتا ہے، جو y-قطع ہے۔",
+    s2vDir:"{e} کو راس کی صورت میں دوبارہ لکھیں۔",
+    hintS2V:"مربع مکمل کریں: x کے عددی سر کا نصف ({h}) لیں اور اس کا مربع لیں ({sq})۔ {sq} جمع اور منفی کریں، پھر مستقل ارکان کو ملائیں۔",
+    hintS2Va:"پہلے x والے ارکان سے {a} باہر نکالیں۔ پھر قوسین کے اندر مربع مکمل کریں، اور یاد رکھیں کہ جو آپ منفی کرتے ہیں وہ {a} سے ضرب ہوتا ہے۔",
+    goodS2V:"بالکل درست! {e}، اس لیے راس {p} ہے۔",
+    v2sDir:"{e} کو معیاری صورت میں دوبارہ لکھیں۔", hintV2S:"پہلے دو رکنی کا مربع لیں: {sq}۔ پھر ہر رکن کو {a} سے ضرب دیں اور {k} جمع کریں۔",
+    hintF2S:"پہلے جزوِ ضربی کے ہر رکن کو دوسرے کے ہر رکن سے ضرب دیں (رقبے کا ماڈل مددگار ہے)، پھر دونوں x والے ارکان کو ملائیں۔",
+    goodStd:"بالکل درست! {e}۔",
+    projCx:"ایک گیند سیدھی اوپر پھینکی جاتی ہے۔ t سیکنڈ بعد فٹ میں اس کی اونچائی {e} ہے۔",
+    qLaunch:"گیند کس اونچائی سے پھینکی جاتی ہے؟", qTmax:"گیند اپنی سب سے زیادہ اونچائی پر کب پہنچتی ہے؟", qHmax:"گیند کی زیادہ سے زیادہ اونچائی کیا ہے؟", qGround:"گیند زمین سے کب ٹکراتی ہے؟",
+    hintLaunch:"پھینکنا t = 0 پر ہوتا ہے۔ t کی جگہ 0 رکھیں: t والا ہر رکن 0 ہو جاتا ہے، صرف مستقل رکن بچتا ہے۔",
+    hintTmax:"سب سے زیادہ اونچائی راس پر ہوتی ہے۔ اس کا t-محدد {f} = {calc} ہے۔",
+    hintHmax:"پہلے معلوم کریں کہ راس کب آتا ہے: t = {tv}۔ پھر وہ وقت h(t) میں رکھیں۔ آپ منحنی کو اس کی چوٹی تک ٹریس بھی کر سکتے ہیں۔",
+    hintGround:"گیند زمین سے تب ٹکراتی ہے جب h(t) = 0۔ {e} = 0 کو تجزی سے یا دو درجی کلیے سے حل کریں، اور مثبت وقت رکھیں۔",
+    goodLaunch:"بالکل درست! h(0) = {h}: گیند زمین سے {h} فٹ اوپر سے شروع ہوتی ہے۔",
+    goodTmax:"بالکل درست! t = {tv} s پر گیند اوپر جانا بند کر کے نیچے گرنے لگتی ہے: یہی راس ہے۔",
+    goodHmax:"بالکل درست! h({tv}) = {hm}۔ تفاعل کی زیادہ سے زیادہ قیمت ہی سب سے زیادہ اونچائی ہے، {hm} فٹ۔",
+    goodGround:"بالکل درست! h({tg}) = 0، اس لیے گیند {tg} سیکنڈ بعد زمین پر گرتی ہے: یہ تفاعل کا مثبت صفر ہے۔",
+    areaCx4:"ایک مستطیل باغ کے لیے آپ کے پاس {P} m باڑ ہے۔ اگر ایک ضلع x m ہو تو رقبہ {e} مربع میٹر ہے۔",
+    areaCxW:"دیوار کے ساتھ ایک مستطیل احاطے کے لیے آپ کے پاس {P} m باڑ ہے (دیوار کی طرف باڑ نہیں)۔ اگر دیوار کو چھونے والا ہر ضلع x m ہو تو رقبہ {e} مربع میٹر ہے۔",
+    qAreaX:"x کی کون سی قیمت سب سے زیادہ رقبہ دیتی ہے؟", qAreaA:"سب سے زیادہ ممکنہ رقبہ کیا ہے؟",
+    hintAreaX:"A(x) نیچے کی طرف کھلنے والا قطع مکافی ہے۔ اس کے صفر x = 0 اور x = {z} ہیں، اور راس صفروں کے عین درمیان ہے۔",
+    hintAreaA:"پہلے بہترین x معلوم کریں: صفروں 0 اور {z} کے عین درمیان۔ پھر اسے A(x) میں رکھیں۔",
+    goodAreaX:"بالکل درست! صفروں 0 اور {z} کے عین درمیان x = {xv} ہے: یہ ضلع کی لمبائی سب سے زیادہ رقبہ دیتی ہے۔",
+    goodAreaA:"بالکل درست! A({xv}) = {am} مربع میٹر، A(x) کی زیادہ سے زیادہ قیمت ہے۔",
+    revCx:"ایک دکان ہر ہفتے ${p} فی شرٹ کے حساب سے {n} ٹی شرٹیں بیچتی ہے۔ قیمت میں ہر $1 اضافے سے {k} شرٹیں کم بکتی ہیں۔ قیمت میں x اضافوں کے ساتھ ہفتہ وار آمدنی {e} ڈالر ہے۔",
+    qRevP:"کون سی قیمت سب سے زیادہ آمدنی دیتی ہے؟", qRevR:"زیادہ سے زیادہ ہفتہ وار آمدنی کیا ہے؟",
+    hintRevP:"R(x) = 0 جب x = {z1} یا x = {z2}۔ راس صفروں کے عین درمیان ہے؛ وہ x، $1 اضافوں کی تعداد ہے، اس لیے اسے ${p} میں جمع کریں۔",
+    hintRevR:"پہلے بہترین x معلوم کریں (صفروں {z1} اور {z2} کے عین درمیان)، پھر اسے R(x) میں رکھیں۔",
+    goodRevP:"بالکل درست! بہترین x = {xv} اضافے ہیں، اس لیے قیمت ${pp} ہے۔", goodRevR:"بالکل درست! R({xv}) = {r} ڈالر زیادہ سے زیادہ آمدنی ہے۔",
+    trL:"بائیں ٹریس کریں", trR:"دائیں ٹریس کریں",
+    uFt:"{v} فٹ", sFt:"{v} فٹ", uS:"{v} s", sS:"{v} سیکنڈ", uM:"{v} m", sM:"{v} میٹر", uM2:"{v} m²", sM2:"{v} مربع میٹر", uD:"${v}", sD:"{v} ڈالر",
+    stds:"ہم آہنگ معیارات — Texas TEKS: الجبرا I A1.6(A, B, C), A1.7(A, B, C), A1.8(A), A1.10(D, E, F)؛ الجبرا II A2.4(D, F)۔ Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSN-CN.C.7۔",
+    cardTitle:"دو درجی ایکسپلورر — چیلنج کارڈ", cardName:"نام:",
+    cardBuild:"تفاعل کا گراف بنائیں۔ راس، محورِ تشاکل اور y-قطع کو نشان زد کریں۔ ڈومین، رینج اور زیادہ سے زیادہ یا کم سے کم قیمت بتائیں۔",
+    cardFactor:"مکمل تجزی کریں۔ سہ رکنی کے لیے رقبے کا ماڈل بنائیں۔",
+    cardSolve:"ہر مساوات حل کریں۔ ہر ایک کے لیے الگ طریقہ استعمال کریں: تجزی، جذر المربع، مربع مکمل کرنا، دو درجی کلیہ۔",
+    cardConnect:"راس کی صورت میں دوبارہ لکھیں اور راس بتائیں۔ پھر دیے گئے صفروں والی تجزی شدہ صورت میں مساوات لکھیں۔",
+    cardZeros:"صفر:", cardModel:"پھینکنے کی اونچائی، زیادہ سے زیادہ اونچائی کا وقت اور قیمت، اور گیند کب زمین سے ٹکراتی ہے، معلوم کریں۔",
+    hintV2S1:"پہلے دو رقمی کا مربع کریں: {sq}۔ پھر مستقل رقم میں {k} جمع کریں۔"
+  },
+  zh:{
+    appTitle:"二次函数探索", home:"首页", privacy:"隐私", teacher:"教师", modesLbl:"模式", stars:"答对题数",
+    newRound:"新题目", readAloud:"朗读", check:"检查", choicesLbl:"答案选项",
+    footNote:"无需账号 · 不收集数据 · 可离线使用",
+    mBuild:"抛物线构建", mFactor:"因式分解", mSolve:"解方程", mConnect:"形式互化", mModel:"抛体与面积",
+    teacherTitle:"教师设置", close:"关闭", setLevel:"课程水平", lvF:"基础", lvA1:"代数 I", lvA2:"代数 II",
+    lvNote:"基础：a 为整数的顶点式，正数的因式分解，用因式分解法和开平方法解方程。代数 I：分数 a，各类因式分解，配方法及有实数解的求根公式。代数 II：由一般式求顶点，a ≠ 1，根式与复数解。选择水平会重置下方选项。",
+    setRange:"网格大小", setOpts:"选项", aNot1On:"二次项系数 a ≠ 1（分组分解法、形式互化）", cplxOn:"含 i 的复数解",
+    setModes:"模式", setSpeech:"语音", autoRead:"自动朗读题目说明", printCards:"打印挑战卡",
+    setStored:"设置仅保存在本设备上。从不存储任何学生信息。",
+    neg:"负{n}", frSay:"{d}分之{n}", ptSay:"{x}，{y}", wPlus:"加", wMinus:"减", wTimes:"乘", wEq:"等于",
+    xSq:"x的平方", qty:"{e} 整体", sqOf:"{e}的平方", sqrtSay:"根号{n}", pm:"正负", allOver:"{n}，整体除以{d}",
+    orW:"或", geSay:"{a}大于或等于{b}", leSay:"{a}小于或等于{b}", discSay:"b的平方减4ac",
+    yes:"对！", planeLbl:"图像", dec:"减小{n}", inc:"增大{n}",
+    kbTapX:"图像。左右方向键沿 x 轴移动；按 Enter 标记或删除零点。",
+    lblA:"a：伸缩与开口方向", lblH:"h：左右平移", lblK:"k：上下平移", yours:"你的抛物线", target:"目标",
+    vtxW:"顶点", axisW:"对称轴",
+    bMatchDir:"用 a、h、k 按钮使你的抛物线（实线）与虚线抛物线重合，然后点击“检查”。",
+    hintVtx:"你的顶点是 {c}。把它移到虚线抛物线的转折点：h 使图像左右平移，k 使图像上下平移。",
+    hintDirUp:"顶点正确，但虚线抛物线开口向上。a > 0 时开口向上，a < 0 时开口向下。",
+    hintDirDn:"顶点正确，但虚线抛物线开口向下。a > 0 时开口向上，a < 0 时开口向下。",
+    hintWidth:"顶点和开口方向都正确。从顶点向右移动 1 个单位：虚线抛物线变化了 {v}，你的变化了 {c}。这个变化量就是 a 的大小。",
+    goodBuild:"对！{eq} 的顶点是 {p}，对称轴是 {ax}。", extMin:"开口向上，所以 {k} 是最小值。", extMax:"开口向下，所以 {k} 是最大值。",
+    stdIs:"一般式：{e}。",
+    fVtxDir:"这条抛物线的顶点是什么？", fAxisDir:"对称轴是什么？", fExtDir:"这个函数有最大值还是最小值？是多少？",
+    fYintDir:"y 轴截距是多少？", fRangeDir:"这个函数的值域是什么？", fDomDir:"这个函数的定义域是什么？", fOpenDir:"这条抛物线开口向上还是向下？",
+    minV:"最小值：{v}", maxV:"最大值：{v}", allReal:"全体实数", opUp:"开口向上", opDn:"开口向下",
+    hintVtxF:"在顶点式 y = a(x − h)² + k 中，顶点是 (h, k)。注意括号内的符号：x − 3 表示 h = 3，x + 3 表示 h = −3。",
+    hintVtxS:"对于一般式，顶点的横坐标是 {f} = {calc}。把这个 x 值代入方程求 y。",
+    hintAxis:"对称轴是经过顶点的竖直直线，所以它的方程以 x = 开头，后面是顶点的横坐标。",
+    hintExtUp:"a 为正，所以抛物线开口向上，顶点是最低点。最小值就是顶点的纵坐标。",
+    hintExtDn:"a 为负，所以抛物线开口向下，顶点是最高点。最大值就是顶点的纵坐标。",
+    hintYint:"y 轴截距是图像与 y 轴的交点，此时 x = 0。把 0 代入 x：{calc}。",
+    hintRangeUp:"值域是所有 y 值的集合。这条抛物线开口向上，所以函数值从顶点的纵坐标开始，向上无限延伸。",
+    hintRangeDn:"值域是所有 y 值的集合。这条抛物线开口向下，所以函数值从顶点的纵坐标开始，向下无限延伸。",
+    hintDom:"定义域是所有 x 值的集合。x 可以取任意实数，图像向左右两边无限延伸。",
+    hintOpen:"看 a 的符号，即平方项前面的数。a > 0 时抛物线开口向上；a < 0 时开口向下。",
+    whyVtx:"顶点是 {p}，即抛物线的转折点。", whyAxis:"对称轴是 {ax}，即经过顶点 {p} 的竖直直线。",
+    whyExtMin:"抛物线开口向上，所以顶点 {p} 是最低点：最小值是 {k}。",
+    whyExtMax:"抛物线开口向下，所以顶点 {p} 是最高点：最大值是 {k}。",
+    whyYint:"当 x = 0 时，y = {c}，所以图像与 y 轴交于 {p}。",
+    whyRange:"函数值从顶点的纵坐标 {k} 开始，所以值域是 {r}。",
+    whyDom:"任何实数都可以作为输入，所以定义域是全体实数。受顶点限制的是值域。",
+    whyOpenUp:"a = {a} 为正，所以抛物线开口向上。", whyOpenDn:"a = {a} 为负，所以抛物线开口向下。",
+    n1:"第一个数", n2:"第二个数", amLbl:"面积模型",
+    trinDir:"因式分解 {e}。用按钮找出两个数，使它们的积为 {c}，和为 {b}。然后点击“检查”。",
+    acDir:"用分组分解法分解 {e}。第 1 步：找出两个数，使它们的积为 a·c = {ac}，和为 b = {b}。然后点击“检查”。",
+    readPS:"积：{p}（需要 {c}）· 和：{s}（需要 {b}）",
+    hintProd:"你的两个数之积是 {p}，但必须等于 {c}。列出 {c} 的所有因数对。",
+    hintSum:"积是 {c}，很好。但和是 {s}，而两个 x 格合起来必须是 {b}x。试试 {c} 的另一组因数对。",
+    hintNegC:"因为 {c} 是负数，所以一个数为正，另一个为负。",
+    hintNegB:"因为 {c} 是正数而 {b} 是负数，所以两个数都是负数。",
+    goodTrin:"对！{f}：x 格 {px} 和 {qx} 合并为 {bx}，角上的格子是 {c}。",
+    acStep:"对！{m} · {n} = {ac}，且 {m} + {n} = {b}。拆分中间项：{e}。",
+    acDir2:"第 2 步：分组分解。{e} 的因式分解形式是哪一个？",
+    hintGroup:"把各项两两分组，从每组中提取最大公因式：{g}。两组中出现相同的二项式，把它提出来。",
+    goodAC:"对！{g} = {f}。面积模型的边长就是因式。",
+    gcfDir:"完全分解因式：{e}", dosDir:"分解因式：{e}",
+    whyNotComp:"这个乘积等于原多项式，但没有分解彻底：{part} 还可以继续分解。",
+    whyWrongExp:"把它乘开：得到 {e}，而不是原多项式。",
+    goodGcf:"对！最大公因式是 {g}，{f} 已完全分解：没有任何因式可以再分解。",
+    whyDosSq:"把它乘开：得到 {e}，含有中间项。平方差中的中间项会相互抵消，所以要用一个加号和一个减号。",
+    goodDos:"对！{e} 是平方差，即 {A} 的平方减 {B} 的平方，所以分解为 {f}。",
+    solveDir:"解方程 {e}。",
+    hintZpp:"乘积为 0 当且仅当其中某个因式为 0。令每个因式等于 0，分别解这些简单方程。",
+    hintZppT:"先分解左边：找出两个数，使它们的积为 {c}，和为 {b}。然后令每个因式等于 0。",
+    hintSignZ:"注意符号：由 {f} = 0 得 x = {r}，而不是 x = {w}。",
+    goodZpp:"对！{f}，所以 {sol}。", graphZ:"这些是 {e} 的图像的 x 轴截距。",
+    hintSqrt:"两边同时开平方来消去平方。正数有两个平方根，所以写 ±：{s}。",
+    hintSqrtI:"右边是负数，所以它的平方根是虚数：{s}。写上 ± 并使用 i。",
+    goodSqrt:"对！{s}，所以 {sol}。",
+    ctsDir1:"用配方法解 {e}。先移常数项：{e2}。加上哪个数可以配成完全平方？",
+    hintCts1:"把 {bx} 分成两个相等的长条，每条为 {hx}。空出的角是边长为 {h} 的正方形，所以面积是 ({h})²。",
+    ctsGood1:"对！角上正方形的面积是 {n}。两边同时加 {n}，使方程保持平衡。",
+    ctsDir2:"哪个方程与 {e} 等价？",
+    hintCts2:"左边是完全平方，因为 2 · ({h}) = {b} 且 ({h})² = {n}：它等于 {sq}。别忘了右边也加了 {n}。",
+    ctsGood2:"对！{e}。", ctsDir3:"现在解 {e}。",
+    goodCts:"对！{s}，所以 {sol}。附加：{p} 的顶点是 {v}。",
+    qfDir1:"用求根公式解 {e}。第 1 步：求判别式 {d}。",
+    hintDisc:"这里 a = {a}，b = {b}，c = {c}。代入：{calc}。先算 b 的平方；平方永远不是负数。",
+    qfGood1:"对！{calc} = {D}。",
+    qfDir2:"判别式是 {D}。这个方程有几个实数解？",
+    cTwo:"两个实数解", cOne:"一个实数解", cNone:"没有实数解", cTwoC:"两个复数（非实数）解",
+    hintCount:"看判别式的符号。正：± 给出两个实数解。零：一个解。负：负数的平方根不是实数。",
+    why2:"判别式 {D} 为正，所以有两个实数解：图像与 x 轴有两个交点。",
+    why1:"判别式为 0，所以恰有一个实数解：顶点与 x 轴相切。",
+    why0:"判别式 {D} 为负，所以没有实数解：图像与 x 轴没有交点。",
+    whyC:"判别式 {D} 为负，所以有两个含 i 的复数解，图像与 x 轴没有交点。",
+    qfDir3:"第 3 步：使用求根公式。解是哪一组？",
+    hintQF:"代入公式：−b = {nb}，判别式是 {D}，2a = {ta}。先化简平方根，再把每一项除以公因数。",
+    goodQF:"对！{sol}。",
+    tapDir:"点击 x 轴，标出 {e} 的零点（x 轴截距）。然后点击“检查”。",
+    hintTapN:"这个函数有两个零点，每个因式对应一个。把两个都标出来。",
+    hintTapSign:"你标记了 x = {w}。但 {f} = 0 时 x = {r}：求解时符号会改变。",
+    hintTapOff:"只有当某个因式为 0 时 y = 0。令每个因式等于 0 并求解。",
+    goodTap:"对！零点是 x = {r} 和 x = {s}。在这两处各有一个因式为 0，所以图像在这两点与 x 轴相交。",
+    g2fDir:"哪个方程与这个图像对应？",
+    hintG2F:"图像与 x 轴交于 x = {r} 和 x = {s}。x = {r} 处的零点来自因式 {f}。",
+    hintG2Fa:"零点吻合。现在检查 a：x = 0 时方程必须给出 y 轴截距 {y}。",
+    goodG2F:"对！零点 x = {r} 和 x = {s} 给出因式 {f1} 和 {f2}，x = 0 时 y = {y}，即 y 轴截距。",
+    s2vDir:"把 {e} 改写成顶点式。",
+    hintS2V:"配方：取一次项系数的一半（{h}）并平方（{sq}）。加上再减去 {sq}，然后合并常数项。",
+    hintS2Va:"先从含 x 的项中提出 {a}。然后在括号内配方，别忘了减去的数要乘以 {a}。",
+    goodS2V:"对！{e}，所以顶点是 {p}。",
+    v2sDir:"把 {e} 改写成一般式。", hintV2S:"先展开二项式的平方：{sq}。然后每一项乘以 {a}，再加上 {k}。",
+    hintF2S:"用第一个因式的每一项乘以第二个因式的每一项（面积模型有帮助），然后合并两个含 x 的项。",
+    goodStd:"对！{e}。",
+    projCx:"一个球被竖直向上抛出。t 秒后它的高度（单位：英尺）为 {e}。",
+    qLaunch:"球是从多高处抛出的？", qTmax:"球何时到达最高点？", qHmax:"球的最大高度是多少？", qGround:"球何时落地？",
+    hintLaunch:"抛出时 t = 0。把 0 代入 t：所有含 t 的项都变为 0，只剩常数项。",
+    hintTmax:"最大高度出现在顶点处。顶点的 t 坐标是 {f} = {calc}。",
+    hintHmax:"先求顶点出现的时刻：t = {tv}。再把这个时间代入 h(t)。也可以沿曲线追踪到最高点。",
+    hintGround:"球落地时 h(t) = 0。用因式分解或求根公式解 {e} = 0，取正的时间。",
+    goodLaunch:"对！h(0) = {h}：球从离地 {h} 英尺处出发。",
+    goodTmax:"对！在 t = {tv} s 时球停止上升、开始下落：这就是顶点。",
+    goodHmax:"对！h({tv}) = {hm}。函数的最大值就是最大高度，{hm} 英尺。",
+    goodGround:"对！h({tg}) = 0，所以球在 {tg} 秒后落地：这是函数的正零点。",
+    areaCx4:"你有 {P} m 篱笆来围一个矩形花园。如果一边长为 x m，面积为 {e} 平方米。",
+    areaCxW:"你有 {P} m 篱笆，要靠墙围一个矩形围栏（靠墙一侧不用篱笆）。如果与墙相接的每条边长为 x m，面积为 {e} 平方米。",
+    qAreaX:"x 取何值时面积最大？", qAreaA:"最大面积是多少？",
+    hintAreaX:"A(x) 是开口向下的抛物线。它的零点是 x = 0 和 x = {z}，顶点在两个零点的正中间。",
+    hintAreaA:"先求最佳的 x：零点 0 和 {z} 的正中间。再把它代入 A(x)。",
+    goodAreaX:"对！零点 0 和 {z} 的正中间是 x = {xv}：这个边长使面积最大。",
+    goodAreaA:"对！A({xv}) = {am} 平方米是 A(x) 的最大值。",
+    revCx:"一家商店每周以每件 ${p} 的价格卖出 {n} 件 T 恤。每涨价 $1，就少卖 {k} 件。涨价 x 次后，每周收入为 {e} 美元。",
+    qRevP:"什么价格使收入最大？", qRevR:"每周最大收入是多少？",
+    hintRevP:"当 x = {z1} 或 x = {z2} 时 R(x) = 0。顶点在两个零点的正中间；这个 x 是涨价 $1 的次数，所以把它加到 ${p} 上。",
+    hintRevR:"先求最佳的 x（零点 {z1} 和 {z2} 的正中间），再把它代入 R(x)。",
+    goodRevP:"对！最佳的 x 是涨价 {xv} 次，所以价格是 ${pp}。", goodRevR:"对！R({xv}) = {r} 美元是最大收入。",
+    trL:"向左追踪", trR:"向右追踪",
+    uFt:"{v} 英尺", sFt:"{v} 英尺", uS:"{v} 秒", sS:"{v} 秒", uM:"{v} 米", sM:"{v} 米", uM2:"{v} 平方米", sM2:"{v} 平方米", uD:"${v}", sD:"{v} 美元",
+    stds:"对应标准 — Texas TEKS：代数 I A1.6(A, B, C), A1.7(A, B, C), A1.8(A), A1.10(D, E, F)；代数 II A2.4(D, F)。Common Core：HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSN-CN.C.7。",
+    cardTitle:"二次函数探索 — 挑战卡", cardName:"姓名：",
+    cardBuild:"画出函数图像。标出顶点、对称轴和 y 轴截距。写出定义域、值域以及最大值或最小值。",
+    cardFactor:"完全分解因式。为三项式画出面积模型。",
+    cardSolve:"解下列方程。每题用不同的方法：因式分解法、开平方法、配方法、求根公式。",
+    cardConnect:"改写成顶点式并写出顶点。然后根据给出的零点写出因式分解形式的方程。",
+    cardZeros:"零点：", cardModel:"求出抛出高度、到达最大高度的时间和最大高度，以及球何时落地。",
+    hintV2S1:"先把二项式平方：{sq}。然后把 {k} 加到常数项上。"
+  }
+  /*__LANGS__*/
+};
+
+let lang = "en";
+function t(key, vars){
+  let s = (T[lang] && T[lang][key]!==undefined) ? T[lang][key] : (T.en[key]!==undefined? T.en[key] : key);
+  if(vars) for(const k in vars) s = s.split("{"+k+"}").join(vars[k]);
+  return s;
+}
+
+/* ---------- Settings ---------- */
+const MODES = ["build","factor","solve","connect","model"];
+const MODE_KEY = {build:"mBuild",factor:"mFactor",solve:"mSolve",connect:"mConnect",model:"mModel"};
+const MODE_IC = {build:"🎛️",factor:"🧱",solve:"🔑",connect:"🔗",model:"🚀"};
+const LEVELS = { f:{R:8,aNot1:false,cplx:false}, a1:{R:8,aNot1:false,cplx:false}, a2:{R:10,aNot1:true,cplx:true} };
+const SKEY = "qex_settings";
+const clone = o=>JSON.parse(JSON.stringify(o));
+const DEFAULTS = {level:"a1", R:8, aNot1:false, cplx:false,
+  modes:{build:true,factor:true,solve:true,connect:true,model:true}, autoRead:false};
+let settings = loadSettings();
+function loadSettings(){
+  try{
+    const raw = localStorage.getItem(SKEY);
+    if(raw){ const o=JSON.parse(raw), s=Object.assign(clone(DEFAULTS), o, {modes:Object.assign({},DEFAULTS.modes,o.modes)});
+      if(!LEVELS[s.level]) s.level=DEFAULTS.level;
+      if(![6,8,10].includes(+s.R)) s.R=LEVELS[s.level].R; s.R=+s.R;
+      s.aNot1=!!s.aNot1; s.cplx=!!s.cplx;
+      if(!MODES.some(m=>s.modes[m])) s.modes=clone(DEFAULTS.modes);
+      return s; }
+  }catch(e){}
+  return clone(DEFAULTS);
+}
+function saveSettings(){ try{ localStorage.setItem(SKEY, JSON.stringify(settings)); }catch(e){} }
+
+/* ---------- Utils ---------- */
+const $ = s=>document.querySelector(s);
+const $$ = s=>Array.from(document.querySelectorAll(s));
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const ri = (a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const riNZ = (a,b)=>{ let v; do{ v=ri(a,b); }while(!v); return v; };
+const gcd = (a,b)=>{ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a||1; };
+const LV = ()=>settings.level;
+const RR = ()=>+settings.R;
+const M = s=>`<bdi class="math" dir="ltr">${s}</bdi>`;
+const frH = (n,d)=>`<span class="fr"><span>${n}</span><span>${d}</span></span>`;
+const MINUS = "−";
+let stars=0;
+function addStar(){ stars++; $("#starCount").textContent=stars; const w=$("#stars"); w.classList.remove("pop"); void w.offsetWidth; w.classList.add("pop"); }
+
+/* ---------- Numbers, rationals, polynomials: shown {h} and spoken {s} ---------- */
+const fmt = n=>+(+n).toFixed(2);
+const nH = n=>{ n=fmt(n); return n<0?MINUS+(-n):""+n; };
+function nS(n){ n=fmt(n); return n<0?t("neg",{n:-n}):""+n; }
+const N2 = n=>({h:nH(n), s:nS(n)});
+function Q(p,q){ q=q===undefined?1:q; if(q<0){ p=-p; q=-q; } const g=gcd(p,q); return {p:p/g, q:q/g}; }
+const toQ = v=>typeof v==="number"?Q(v):v;
+const qv = r=>r.p/r.q;
+const qeq = (a,b)=>a.p===b.p&&a.q===b.q;
+const qa = (a,b)=>Q(a.p*b.q+b.p*a.q,a.q*b.q), qm = (a,b)=>Q(a.p*b.p,a.q*b.q);
+function qH(r){ r=toQ(r); if(r.q===1) return nH(r.p); return (r.p<0?MINUS:"")+frH(Math.abs(r.p),r.q); }
+function qS(r){ r=toQ(r); if(r.q===1) return nS(r.p); const f=t("frSay",{n:Math.abs(r.p),d:r.q}); return r.p<0?t("neg",{n:f}):f; }
+const QV = r=>({h:qH(r), s:qS(r)});
+const PT = (x,y)=>({h:"("+qH(x)+", "+qH(y)+")", s:t("ptSay",{x:qS(x),y:qS(y)})});
+const VX2 = v=>[`<i>${v||"x"}</i><sup>2</sup>`,v?t("xSq").replace("x",v):t("xSq")], VX = v=>[`<i>${v||"x"}</i>`,v||"x"], VC = ()=>["",""];
+// terms: [[coef, varHtml, varSpoken], ...]
+function poly(terms){
+  const H=[], S=[];
+  terms.forEach(([c,vh,vs])=>{ c=toQ(c); if(!c.p) return;
+    const neg=c.p<0, a=Q(Math.abs(c.p),c.q), one=a.p===1&&a.q===1&&vh, mag=one?"":qH(a), ms=((one?"":qS(a))+" "+vs).trim();
+    if(!H.length){ H.push((neg?MINUS:"")+mag+vh); S.push(neg?t("neg",{n:ms}):ms); }
+    else { H.push((neg?" − ":" + ")+mag+vh); S.push(t(neg?"wMinus":"wPlus")+" "+ms); } });
+  return H.length?{h:H.join(""), s:S.join(" ")}:{h:"0",s:"0"};
+}
+const std = (a,b,c,v)=>poly([[a,...VX2(v)],[b,...VX(v)],[c,...VC()]]);
+const lin = (p,q)=>poly([[p,...VX()],[q,...VC()]]);
+const eqV = (v,e)=>({h:`<i>${v}</i> = `+e.h, s:v+" "+t("wEq")+" "+e.s});
+const eqY = e=>eqV("y",e);
+const eqF = (f,v,e)=>({h:`<i>${f}</i>(<i>${v}</i>) = `+e.h, s:f+" "+v+" "+t("wEq")+" "+e.s});
+const eq0 = e=>({h:e.h+" = 0", s:e.s+" "+t("wEq")+" 0"});
+const eqR = (e,r)=>({h:e.h+" = "+r.h, s:e.s+" "+t("wEq")+" "+r.s});
+const SQ = b=>({h:"("+b.h+")<sup>2</sup>", s:t("sqOf",{e:t("qty",{e:b.s})})});
+// pre (optional {h,s} monomial or coefficient) times binomials
+function FACT(pre,bins){
+  let H=pre?pre.h:"", S=pre?[pre.s]:[];
+  bins.forEach(b=>{ H+="("+b.h+")"; S.push(t("qty",{e:b.s})); });
+  return {h:H, s:S.join(", "+t("wTimes")+" ")};
+}
+const coefPre = a=>{ a=toQ(a); return qeq(a,Q(1))?null:qeq(a,Q(-1))?{h:MINUS,s:t("neg",{n:""}).trim()}:QV(a); };
+// y = a(x − h)² + k
+function VF(a,h,k){ a=toQ(a);
+  if(!h) return poly([[a,...VX2()],[k,...VC()]]);
+  const b=SQ(lin(1,-h)), pre=coefPre(a);
+  let H=(pre?pre.h:"")+b.h, S=(pre?pre.s+" "+(qeq(a,Q(-1))?"":t("wTimes")+" "):"")+b.s;
+  if(k){ H+=(k<0?" − ":" + ")+Math.abs(k); S+=" "+t(k<0?"wMinus":"wPlus")+" "+Math.abs(k); }
+  return {h:H, s:S};
+}
+const vstd = (a,h,k)=>{ a=toQ(a); return [a, qm(a,Q(-2*h)), qa(qm(a,Q(h*h)),Q(k))]; };
+const RAD = n=>`√<span class="rad">${n}</span>`;
+function sqf(n){ let k=1,m=n; for(let i=2;i*i<=m;i++) while(m%(i*i)===0){ m/=i*i; k*=i; } return [k,m]; }
+// Solution set {h,s,key} from a list of rationals.
+function ROOTS(rs){
+  rs=rs.map(toQ).sort((a,b)=>qv(a)-qv(b)); if(rs.length===2&&qeq(rs[0],rs[1])) rs=[rs[0]];
+  return {h:rs.map(r=>M("<i>x</i> = "+qH(r))).join(` <span class="orw">${t("orW")}</span> `),
+    s:rs.map(r=>"x "+t("wEq")+" "+qS(r)).join(" "+t("orW")+" "), key:"r"+rs.map(r=>r.p+"/"+r.q).join(","), rs};
+}
+// x = (P ± √D) / Dn, simplified. D may be negative (complex roots).
+function SOL(P,D,Dn){
+  if(Dn<0){ P=-P; Dn=-Dn; }
+  if(D===0) return ROOTS([Q(P,Dn)]);
+  const im=D<0, [k,m]=sqf(Math.abs(D));
+  if(m===1&&!im) return ROOTS([Q(P-k,Dn),Q(P+k,Dn)]);
+  const g=gcd(gcd(P,k),Dn), p=P/g, kk=k/g, d=Dn/g;
+  const rH=(kk===1?"":kk)+(im?"<i>i</i>":"")+(m>1?RAD(m):""), rS=((kk===1?"":kk+" ")+(im?"i ":"")+(m>1?t("sqrtSay",{n:m}):"")).trim();
+  const numH=(p?nH(p)+" ± ":"±")+rH, numS=(p?nS(p)+" "+t("pm")+" ":t("pm")+" ")+rS;
+  return {h:M("<i>x</i> = "+(d>1?frH(numH,d):numH)), s:"x "+t("wEq")+" "+(d>1?t("allOver",{n:numS,d}):numS), key:"pm"+[p,kk,m,d,im].join(",")};
+}
+const unit = (k,v)=>({h:t("u"+k,{v:M(nH(v))}), s:t("s"+k,{v:nS(v)})});
+const geH = (v,k,le)=>({h:`<i>${v}</i> ${le?"≤":"≥"} ${qH(k)}`, s:t(le?"leSay":"geSay",{a:v,b:qS(k)})});
+// In Arabic/Urdu, keep literal math runs ("x = {x}", "(h, k)") left-to-right.
+const isRTL = ()=>(LANGS.find(x=>x.code===lang)||{}).dir==="rtl";
+function rtlFix(str){ if(!isRTL()) return str;
+  return str.replace(/[A-Za-z0-9({][A-Za-z0-9(){},.÷×=+−<>²·\- ]*[A-Za-z0-9)}²]/g,r=>/[=÷<>²·−+]|\(\w+, \w+\)/.test(r)?`<bdi dir="ltr">${r}</bdi>`:r); }
+function tm(key,vars){ const h={},s={}; vars=vars||{};
+  for(const k in vars){ const v=vars[k]; if(v&&typeof v==="object"){ h[k]=v.h.indexOf("<bdi")===0?v.h:M(v.h); s[k]=v.s; } else { h[k]=v; s[k]=v; } }
+  return {h:rtlFix(t(key)).replace(/\{(\w+)\}/g,(m0,k)=>k in h?h[k]:m0), s:t(key,s)};
+}
+const cat = (...m)=>({h:m.map(x=>x.h).join(" "), s:m.map(x=>x.s).join(" ")});
+const TX = k=>({h:rtlFix(t(k)), s:t(k)});
+
+/* ---------- Graphs (SVG 440×430) ---------- */
+const GX=36, GW=394, GY=10, GH=394; let gid=0;
+function niceStep(span){ const raw=span/8, mag=Math.pow(10,Math.floor(Math.log10(raw))), n=raw/mag; return (n<1.5?1:n<3.5?2:n<7.5?5:10)*mag; }
+// o: {x0,x1,y0,y1, xn,yn, curves:[{f,cls,a,b}], vl:[{x,cls}], pts:[{x,y,cls,lab}], cur:{x,y}}
+function graph(o,attrs){
+  const {x0,x1,y0,y1}=o, X=x=>GX+(x-x0)/(x1-x0)*GW, Y=y=>GY+(y1-y)/(y1-y0)*GH, F=v=>(+v).toFixed(1), id="cp"+(++gid);
+  const xs=o.xs||niceStep(x1-x0), ys=o.ys||niceStep(y1-y0);
+  let s=`<defs><clipPath id="${id}"><rect x="${GX}" y="${GY}" width="${GW}" height="${GH}"/></clipPath></defs>`;
+  const xt=[], yt=[]; for(let i=Math.ceil(x0/xs-1e-9);i*xs<=x1+1e-9;i++) xt.push(i*xs); for(let i=Math.ceil(y0/ys-1e-9);i*ys<=y1+1e-9;i++) yt.push(i*ys);
+  xt.forEach(v=>s+=`<line class="gl" x1="${F(X(v))}" y1="${GY}" x2="${F(X(v))}" y2="${GY+GH}"/>`);
+  yt.forEach(v=>s+=`<line class="gl" x1="${GX}" y1="${F(Y(v))}" x2="${GX+GW}" y2="${F(Y(v))}"/>`);
+  const ax=(y0<=0&&y1>=0)?Y(0):GY+GH, ay=(x0<=0&&x1>=0)?X(0):GX, inside=x0<0&&y0<0;
+  s+=`<line class="ax" x1="${GX-4}" y1="${F(ax)}" x2="${GX+GW+4}" y2="${F(ax)}"/><line class="ax" x1="${F(ay)}" y1="${GY-4}" x2="${F(ay)}" y2="${GY+GH+4}"/>`;
+  const xk=Math.ceil(xt.length/11), yk=Math.ceil(yt.length/11);
+  xt.forEach((v,i)=>{ if((Math.round(v/xs))%xk || (inside&&Math.abs(v)<1e-9)) return; s+=`<text class="tl" x="${F(X(v))}" y="${F(Math.min(ax+18,GY+GH+18))}" text-anchor="middle">${nH(v)}</text>`; });
+  yt.forEach((v,i)=>{ if((Math.round(v/ys))%yk || (Math.abs(v)<1e-9&&(inside||ay===GX))) return; s+=`<text class="tl" x="${F(Math.max(ay-5,GX-3))}" y="${F(Y(v)+5)}" text-anchor="end">${nH(v)}</text>`; });
+  s+=`<text class="axn" x="${GX+GW-6}" y="${F(ax-8)}" text-anchor="end">${o.xn||"x"}</text><text class="axn" x="${F(ay+8)}" y="${GY+16}">${o.yn||"y"}</text>`;
+  let g="";
+  (o.vl||[]).forEach(v=>g+=`<line class="vl ${v.cls||""}" x1="${F(X(v.x))}" y1="${GY}" x2="${F(X(v.x))}" y2="${GY+GH}"/>`);
+  (o.curves||[]).forEach(c=>{ const a=c.a!=null?c.a:x0, b=c.b!=null?c.b:x1, span=y1-y0, P=[];
+    for(let i=0;i<=200;i++){ const x=a+(b-a)*i/200, y=Math.max(y0-span,Math.min(y1+span,c.f(x))); P.push(F(X(x))+" "+F(Y(y))); }
+    g+=`<path class="cv ${c.cls||""}" d="M${P.join("L")}"/>`; });
+  s+=`<g clip-path="url(#${id})">${g}</g>`;
+  (o.pts||[]).forEach(p=>{ if(p.x<x0||p.x>x1||p.y<y0||p.y>y1) return; s+=`<circle class="pt ${p.cls||""}" cx="${F(X(p.x))}" cy="${F(Y(p.y))}" r="8"/>`;
+    if(p.lab) s+=`<text class="ptl" x="${F(Math.min(X(p.x)+11,GX+GW-60))}" y="${F(Math.max(Y(p.y)-11,GY+14))}">${p.lab}</text>`; });
+  if(o.cur) s+=`<circle class="cur" cx="${F(X(o.cur.x))}" cy="${F(Y(o.cur.y))}" r="15"/>`;
+  return `<svg class="plane" viewBox="0 0 440 430" ${attrs||`role="img" aria-label="${t("planeLbl")}"`}>${s}</svg>`;
+}
+const sqWin = ()=>{ const R=RR(); return {x0:-R,x1:R,y0:-R,y1:R,xs:1,ys:1}; };
+// Window that shows the vertex, the zeros and the y-intercept of f.
+function autoWin(f,xsI){
+  let lo=Math.min(0,...xsI)-2, hi=Math.max(0,...xsI)+2; if(hi-lo<8){ const c=(lo+hi)/2; lo=c-4; hi=c+4; }
+  lo=Math.floor(lo); hi=Math.ceil(hi); const vals=xsI.map(f).concat([0,f(0)]);
+  let y0=Math.min(...vals), y1=Math.max(...vals); const pad=Math.max(2,(y1-y0)*.25); y0=Math.floor(y0-pad); y1=Math.ceil(y1+pad);
+  return {x0:lo,x1:hi,y0,y1};
+}
+const PL = {};
+
+/* ---------- Speech ---------- */
+const speechOK = ("speechSynthesis" in window);
+function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
+function pickWarmVoice(code){
+  const vs = speechSynthesis.getVoices()||[];
+  const want=code.toLowerCase(), two=want.slice(0,2);
+  let best=null, bs=-1;
+  for(const v of vs){
+    const lc=(v.lang||'').toLowerCase().replace('_','-');
+    if(lc!==want && lc.slice(0,2)!==two) continue;
+    let s=(lc===want?100:60); const n=(v.name||'').toLowerCase();
+    if(/google|natural|neural|online|premium|enhanced|siri/.test(n)) s+=40;
+    if(/female|woman|samantha|karen|tessa|moira|fiona|serena|victoria|allison|ava|susan|zoe|amelie|amélie|paulina|monica|mónica|zira|hazel|catherine|linda|kanya|lekha|ting-ting|mei-jia|sin-ji|yu-shu|huihui|xiaoxiao/.test(n)) s+=18;
+    if(/espeak|compact|festival|pico|robot|eloquence/.test(n)) s-=60;
+    if(v.localService===false) s+=8;
+    if(v.default) s+=2;
+    if(s>bs){ bs=s; best=v; }
+  }
+  return best;
+}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  // Decimal-safe: "1.5" never ends a sentence.
+  const parts=String(text).match(/(?:[^.!?。！？؟।۔]|\.(?=\d))+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.9; u.pitch=1.15;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={build:0,factor:0,solve:0,connect:0,model:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
+}
+if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
+if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
+
+const currentSpeech = {build:"",factor:"",solve:"",connect:"",model:""};
+function setSpeech(mode,text){ currentSpeech[mode]=text; }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===mode) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,svg.plane")) return;
+  speak(currentSpeech[currentMode()]);
+},true);
+
+/* ---------- Feedback & round helpers ---------- */
+function showFb(el,type,msg){ el.className="feedback show "+type; el.innerHTML=(type==="good"?"✅ ":"💡 ")+msg; }
+function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
+const made={}, st={};
+function startRound(m){ roundIds[m]++; made[m]=true; st[m]={done:false}; PL[m]=null;
+  ["w","a","c"].forEach(p=>{ $("#"+p+"-"+m).innerHTML=""; }); $("#c-"+m).classList.remove("wide"); hideFb($("#f-"+m)); }
+function setPrompt(m,msg){ $("#p-"+m).innerHTML=msg.h; setSpeech(m,msg.s); }
+function win(m,msg){ st[m].done=true;
+  $$(`#c-${m} button,#a-${m} button,#w-${m} button`).forEach(b=>b.disabled=true);
+  const svg=$(`#w-${m} svg.plane[tabindex]`); if(svg) svg.removeAttribute("tabindex");
+  addStar(); showFb($("#f-"+m),"good",msg.h); afterPraise(msg.s,m,NEWFN[m],1800); }
+function nope(m,msg){ showFb($("#f-"+m),"hint",msg.h); speak(msg.s); }
+// A correct step inside a multi-step round (no star, no new round).
+function step(m,msg){ showFb($("#f-"+m),"good",msg.h); speak(msg.s); }
+function actBtn(m,html,fn,cls,aria){ const b=document.createElement("button"); b.type="button"; b.className="btn"+(cls?" "+cls:""); b.innerHTML=html;
+  if(aria){ b.setAttribute("aria-label",aria); b.title=aria; } b.addEventListener("click",fn); $("#a-"+m).appendChild(b); return b; }
+function checkBtn(m,fn){ return actBtn(m,"✔ "+t("check"),fn); }
+// Choice buttons: items [{h,s,ok,key,why?}] with the correct one first; duplicates dropped, max 4, shuffled.
+function choices(m,items,pick,wide){
+  const g=$("#c-"+m), seen=new Set(); g.innerHTML=""; g.classList.toggle("wide",!!wide);
+  items=shuffle(items.filter(it=>{ const k=it.key||it.h; if(seen.has(k)) return false; seen.add(k); return true; }).slice(0,4));
+  st[m].chs=items;
+  items.forEach(it=>{ const b=document.createElement("button"); b.type="button"; b.className="choice"+(it.txt?" txt":"");
+    b.innerHTML=`<span class="badge" aria-hidden="true">✅</span><span class="lbl">${it.h}</span>`; b.setAttribute("aria-label",it.s);
+    b.addEventListener("click",()=>{ if(st[m].done) return; if(it.ok) b.classList.add("correctpick"); else { b.classList.add("wrongpick"); b.disabled=true; } pick(it,b); });
+    it.btn=b; g.appendChild(b); });
+}
+const CH = (o,ok,extra)=>Object.assign({h:o.h.indexOf("<bdi")===0?o.h:M(o.h), s:o.s, ok:!!ok, key:o.key}, extra||{});
+const TCH = (k,ok,extra)=>Object.assign({...TX(k), ok:!!ok, txt:true, key:k}, extra||{});
+function stepper(id,label,val){
+  return `<div class="ctl"><span class="clab">${label}</span><button type="button" class="btn sq" id="${id}Dn" aria-label="${t("dec",{n:label})}" title="${t("dec",{n:label})}">−</button><output id="${id}V">${val}</output><button type="button" class="btn sq" id="${id}Up" aria-label="${t("inc",{n:label})}" title="${t("inc",{n:label})}">+</button></div>`;
+}
+function wireStep(id,fn){ $("#"+id+"Dn").addEventListener("click",()=>fn(-1)); $("#"+id+"Up").addEventListener("click",()=>fn(1)); }
+
+/* =========================================================================
+   1. PARABOLA BUILDER — match a graph with a, h, k; read key features.
+   ========================================================================= */
+function aList(){ const L=LV();
+  if(L==="f") return [Q(-2),Q(-1),Q(1),Q(2)];
+  if(L==="a1") return [Q(-2),Q(-1),Q(-1,2),Q(1,2),Q(1),Q(2)];
+  return [Q(-3),Q(-2),Q(-1),Q(-1,2),Q(-1,3),Q(1,3),Q(1,2),Q(1),Q(2),Q(3)]; }
+const fAt = (a,h,k)=>x=>qv(a)*(x-h)*(x-h)+k;
+function newBuild(){ const m="build"; startRound(m); st[m].type=rand(["match","match","feat","feat","feat"]); return st[m].type==="match"?buildMatch():buildFeat(); }
+function buildMatch(){
+  const m="build", s=st[m], R=RR(), AL=aList(); let a,h,k;
+  do{ a=rand(AL); h=ri(-(R-3),R-3); k=ri(-(R-2),R-2); }while((qeq(a,Q(1))&&!h&&!k)||(qv(a)>0?k>R-4:k<-(R-4)));
+  s.tg={a,h,k}; s.AL=AL; s.ai=AL.findIndex(x=>qeq(x,Q(1))); s.h=0; s.k=0;
+  $("#w-"+m).innerHTML=`<div class="split"><div class="pwrap" dir="ltr" id="bG"></div><div class="side">
+    <div class="legend"><span><span class="sw"></span>${t("yours")}</span><span><span class="sw tg"></span>${t("target")}</span></div>
+    ${stepper("sa",t("lblA"),"")}${stepper("sh",t("lblH"),"")}${stepper("sk",t("lblK"),"")}<div class="rule" id="bRO"></div></div></div>`;
+  const draw=()=>{ const a=AL[s.ai], g=s.tg, [A,B,C]=vstd(a,s.h,s.k);
+    $("#bG").innerHTML=graph(Object.assign(sqWin(),{curves:[{f:fAt(g.a,g.h,g.k),cls:"tg"},{f:fAt(a,s.h,s.k)}],vl:[{x:s.h}],pts:[{x:s.h,y:s.k,cls:"vx"}]}));
+    $("#saV").innerHTML=M(qH(a)); $("#shV").innerHTML=M(nH(s.h)); $("#skV").innerHTML=M(nH(s.k));
+    $("#bRO").innerHTML=M(eqY(VF(a,s.h,s.k)).h)+"<br>"+M(eqY(std(A,B,C)).h)+"<br>"+t("vtxW")+" "+M(PT(s.h,s.k).h)+" · "+t("axisW")+" "+M("<i>x</i> = "+nH(s.h)); };
+  wireStep("sa",d=>{ s.ai=Math.max(0,Math.min(AL.length-1,s.ai+d)); draw(); });
+  wireStep("sh",d=>{ s.h=Math.max(-R,Math.min(R,s.h+d)); draw(); });
+  wireStep("sk",d=>{ s.k=Math.max(-R,Math.min(R,s.k+d)); draw(); });
+  draw();
+  checkBtn(m,()=>{ const a=AL[s.ai], g=s.tg;
+    if(s.h!==g.h||s.k!==g.k) return nope(m,tm("hintVtx",{c:PT(s.h,s.k)}));
+    if(Math.sign(qv(a))!==Math.sign(qv(g.a))) return nope(m,TX(qv(g.a)>0?"hintDirUp":"hintDirDn"));
+    if(!qeq(a,g.a)) return nope(m,tm("hintWidth",{v:QV(Q(Math.abs(g.a.p),g.a.q)),c:QV(Q(Math.abs(a.p),a.q))}));
+    const [A,B,C]=vstd(g.a,g.h,g.k);
+    win(m,cat(tm("goodBuild",{eq:eqY(VF(g.a,g.h,g.k)),p:PT(g.h,g.k),ax:eqV("x",N2(g.h))}),tm(qv(g.a)>0?"extMin":"extMax",{k:N2(g.k)}),tm("stdIs",{e:eqY(std(A,B,C))})));
+  });
+  setPrompt(m,TX("bMatchDir")); maybeAuto(m);
+}
+function buildFeat(){
+  const m="build", s=st[m], R=RR(), L=LV();
+  const useStd=L==="a2"?Math.random()<.6:L==="a1"?Math.random()<.3:false;
+  let a,h,k; do{ a=useStd?Q(rand(L==="a2"?[-2,-1,1,2]:[-1,1])):rand(aList()); h=ri(-(R-3),R-3); k=ri(-(R-2),R-2); }while(!h||(qv(a)>0?k>R-4:k<-(R-4)));
+  const [A,B,C]=vstd(a,h,k), up=qv(a)>0, E=eqY(useStd?std(A,B,C):VF(a,h,k)), f=fAt(a,h,k);
+  const q=rand(L==="f"?["vtx","axis","ext","yint","open"]:["vtx","axis","ext","yint","range","range","domain"]);
+  s.q=q;
+  $("#w-"+m).innerHTML=`<p class="big">${M(E.h)}</p><div class="pwrap" dir="ltr">${graph(Object.assign(sqWin(),{curves:[{f}]}))}</div>`;
+  const V=PT(h,k), AX=eqV("x",N2(h)), xv=(x)=>eqV("x",N2(x)), cs=useStd?tm("hintVtxS",{f:{h:frH(MINUS+"<i>b</i>","2<i>a</i>"),s:t("frSay",{n:t("neg",{n:"b"}),d:"2 a"})},calc:{h:frH(nH(-qv(B)),"2 · "+(qv(A)<0?"("+nH(qv(A))+")":nH(qv(A))))+" = "+nH(h),s:t("frSay",{n:nS(-qv(B)),d:"2 "+t("wTimes")+" "+nS(qv(A))})+" "+t("wEq")+" "+nS(h)}}):null;
+  let items, dir, why, hint;
+  const f0=f(0), F0=qa(qm(a,Q(h*h)),Q(k));
+  if(q==="vtx"){ dir="fVtxDir"; items=[CH(PT(h,k),1),CH(PT(-h,k)),CH(PT(k,h)),CH(PT(h,-k)),CH(PT(-h,-k))]; why=tm("whyVtx",{p:V}); hint=cs||TX("hintVtxF"); }
+  else if(q==="axis"){ dir="fAxisDir"; items=[CH(AX,1),CH(xv(-h)),CH(eqV("y",N2(k))),CH(xv(k)),CH(eqV("y",N2(h)))]; why=tm("whyAxis",{ax:AX,p:V}); hint=cs?cat(TX("hintAxis"),cs):TX("hintAxis"); }
+  else if(q==="ext"){ dir="fExtDir"; const mk=(mx,v)=>tm(mx?"maxV":"minV",{v:N2(v)});
+    items=[[!up,k,1],[up,k],[!up,h],[up,h]].map(([mx,v,ok])=>Object.assign(mk(mx,v),{ok:!!ok,txt:true,key:mx+":"+v}));
+    why=tm(up?"whyExtMin":"whyExtMax",{p:V,k:N2(k)}); hint=TX(up?"hintExtUp":"hintExtDn"); }
+  else if(q==="yint"){ dir="fYintDir"; items=[CH(PT(0,F0),1),CH(PT(0,k)),CH(PT(0,qa(Q(k),qm(a,Q(-h*h))))),CH(PT(F0,0)),CH(PT(0,qa(qm(a,Q(h)),Q(k))))];
+    const calc=useStd?{h:"<i>y</i> = "+qH(C),s:"y "+t("wEq")+" "+qS(C)}:{h:(coefPre(a)?coefPre(a).h:"")+"(0 "+(h<0?"+ "+(-h):"− "+h)+")<sup>2</sup>"+(k?(k<0?" − ":" + ")+Math.abs(k):"")+" = "+qH(F0),s:"y "+t("wEq")+" "+qS(F0)};
+    why=tm("whyYint",{c:QV(F0),p:PT(0,F0)}); hint=tm("hintYint",{calc}); }
+  else if(q==="range"){ dir="fRangeDir"; const r=geH("y",k,!up); items=[CH(r,1),CH(geH("y",k,up)),CH(geH("x",h,!up)),TCH("allReal")];
+    why=tm("whyRange",{k:N2(k),r}); hint=TX(up?"hintRangeUp":"hintRangeDn"); }
+  else if(q==="domain"){ dir="fDomDir"; items=[TCH("allReal",1),CH(geH("x",h,false)),CH(geH("y",k,!up)),CH(geH("x",h,true))]; why=TX("whyDom"); hint=TX("hintDom"); }
+  else { dir="fOpenDir"; items=[TCH(up?"opUp":"opDn",1),TCH(up?"opDn":"opUp")]; why=tm(up?"whyOpenUp":"whyOpenDn",{a:QV(a)}); hint=TX("hintOpen"); }
+  choices(m,items,it=>{ if(it.ok) return win(m,cat(TX("yes"),why)); nope(m,hint); });
+  setPrompt(m,TX(dir)); maybeAuto(m);
+}
+
+/* =========================================================================
+   2. FACTOR IT — area model for trinomials, grouping (a ≠ 1), GCF, difference of squares.
+   ========================================================================= */
+const tH = (c,v)=>poly([[c,...(v===2?VX2():v===1?VX():VC())]]);
+function AMtab(cols,rows,cells){
+  return `<table class="am" dir="ltr" aria-label="${t("amLbl")}"><tr><th></th>${cols.map(c=>`<th>${c}</th>`).join("")}</tr>${rows.map((r,i)=>`<tr><th>${r}</th>${cells[i].map(c=>`<td class="${c[1]}${c[2]?" ng":""}">${c[0]}</td>`).join("")}</tr>`).join("")}</table>`;
+}
+// Expand (p1 x + q1)(p2 x + q2) → [A,B,C]
+const expand = (p1,q1,p2,q2)=>[p1*p2,p1*q2+q1*p2,q1*q2];
+const sameP = (u,v)=>u[0]===v[0]&&u[1]===v[1]&&u[2]===v[2];
+function newFactor(){
+  const m="factor"; startRound(m); const L=LV();
+  const pool=L==="f"?["trin","trin","gcf"]:["trin","trin","dos","gcf"].concat(settings.aNot1?(L==="a2"?["ac","ac"]:["ac"]):[]);
+  const type=rand(pool); st[m].type=type;
+  if(type==="trin"||type==="ac") return factorBox(type==="ac"); if(type==="dos") return factorDos(); return factorGcf();
+}
+function factorBox(ac){
+  const m="factor", s=st[m], L=LV(); let A=1,B,C,p,q,r,sv;
+  if(!ac){ do{ if(L==="f"){ p=ri(1,6); q=ri(1,6); } else { p=riNZ(-8,8); q=riNZ(-8,8); } }while(p+q===0||Math.abs(p+q)>12||(L!=="f"&&p>0&&q>0&&Math.random()<.6));
+    B=p+q; C=p*q; s.tg=[p,q]; }
+  else { do{ p=rand([1,2,3]); r=rand([2,3,5]); q=riNZ(-5,5); sv=riNZ(-5,5); [A,B,C]=expand(p,q,r,sv); }while(gcd(p,q)!==1||gcd(r,sv)!==1||!B||Math.abs(A*C)>72||A>9); s.fac=[p,q,r,sv]; }
+  const target=ac?A*C:C, E=std(A,B,C); s.A=A; s.B=B; s.C=C; s.u=1; s.v=1; s.stage=1;
+  $("#w-"+m).innerHTML=`<div class="split"><div class="side" id="fAM"></div><div class="side">${stepper("fu",t("n1"),"")}${stepper("fv",t("n2"),"")}<div class="rule" id="fRO"></div></div></div>`;
+  const draw=()=>{ const u=s.u, v=s.v;
+    if(!ac){ const P=expand(1,u,1,v);
+      $("#fAM").innerHTML=AMtab([M("<i>x</i>"),M(nH(u))],[M("<i>x</i>"),M(nH(v))],[[[M(tH(1,2).h),"sq"],[M(tH(u,1).h),"ln",u<0]],[[M(tH(v,1).h),"ln",v<0],[M(nH(u*v)),"c1",u*v<0]]]);
+      $("#fRO").innerHTML=M(FACT(null,[lin(1,u),lin(1,v)]).h+" = "+std(...P).h)+"<br>"+tm("readPS",{p:N2(u*v),s:N2(u+v),c:N2(C),b:N2(B)}).h; }
+    else { const hd=s.stage>1?s.edges:null;
+      $("#fAM").innerHTML=AMtab(hd?hd.c:["?","?"],hd?hd.r:["?","?"],[[[M(tH(A,2).h),"sq"],[M(tH(u,1).h),"ln",u<0]],[[M(tH(v,1).h),"ln",v<0],[M(nH(C)),"c1",C<0]]]);
+      $("#fRO").innerHTML=M(poly([[A,...VX2()],[u,...VX()],[v,...VX()],[C,...VC()]]).h)+"<br>"+tm("readPS",{p:N2(u*v),s:N2(u+v),c:N2(target),b:N2(B)}).h; }
+    $("#fuV").innerHTML=M(nH(u)); $("#fvV").innerHTML=M(nH(v)); };
+  const lim=ac?40:15;
+  wireStep("fu",d=>{ if(s.stage>1) return; s.u=Math.max(-lim,Math.min(lim,s.u+d)); draw(); });
+  wireStep("fv",d=>{ if(s.stage>1) return; s.v=Math.max(-lim,Math.min(lim,s.v+d)); draw(); });
+  draw();
+  const extra=()=>target<0?tm("hintNegC",{c:N2(target)}):(B<0?tm("hintNegB",{c:N2(target),b:N2(B)}):{h:"",s:""});
+  const cb=checkBtn(m,()=>{ const u=s.u, v=s.v;
+    if(u*v!==target) return nope(m,cat(tm("hintProd",{p:N2(u*v),c:N2(target)}),extra()));
+    if(u+v!==B) return nope(m,cat(tm("hintSum",{c:N2(target),s:N2(u+v),b:N2(B)}),extra()));
+    if(!ac){ const F=FACT(null,[lin(1,u),lin(1,v)]);
+      return win(m,tm("goodTrin",{f:eqR(F,E),px:tH(u,1),qx:tH(v,1),bx:tH(B,1),c:N2(C)})); }
+    // grouping: (A x² + u x) + (v x + C) = g1 x (A/g1 x + u/g1) + g2 (A/g1 x + u/g1)
+    const g1=gcd(A,u)*(A<0?-1:1), b1=[A/g1,u/g1], g2=v*g1/A, bin=lin(b1[0],b1[1]);
+    const G={h:M("("+poly([[A,...VX2()],[u,...VX()]]).h+") + ("+poly([[v,...VX()],[C,...VC()]]).h+")")+" "+M("= "+tH(g1,1).h+"("+bin.h+")"+(g2<0?" − ":" + ")+Math.abs(g2)+"("+bin.h+")"),
+      s:poly([[A,...VX2()],[u,...VX()]]).s+", "+t("wPlus")+" "+poly([[v,...VX()],[C,...VC()]]).s};
+    const OK=FACT(null,[lin(g1,g2),bin]);
+    s.stage=2; s.edges={c:[M(tH(b1[0],1).h),M(nH(b1[1]))],r:[M(tH(g1,1).h),M(nH(g2))]}; cb.disabled=true; draw();
+    step(m,tm("acStep",{m:N2(u),n:N2(v),ac:N2(target),b:N2(B),e:poly([[A,...VX2()],[u,...VX()],[v,...VX()],[C,...VC()]])}));
+    const [P1,Q1,P2,Q2]=s.fac, cand=[[g1,g2,b1[0],b1[1]],[P1,Q2,P2,Q1],[P1,-Q1,P2,-Q2],[P1*P2,Q1,1,Q2],[P1,Q1*Q2,P2,1],[P2,Q1,P1,Q2]];
+    const items=cand.map((c,i)=>{ const ok=i===0, F=FACT(null,[lin(c[0],c[1]),lin(c[2],c[3])]), X=expand(...c); if(!ok&&sameP(X,[A,B,C])) return null;
+      return CH({h:F.h,s:F.s,key:[...X].join(",")+(ok?"":"w"+i)},ok,{why:tm("whyWrongExp",{e:std(...X)})}); }).filter(Boolean);
+    choices(m,items,it=>{ if(it.ok) return win(m,tm("goodAC",{g:G,f:{h:M(OK.h+" = "+E.h),s:eqR(OK,E).s}})); nope(m,cat(it.why,tm("hintGroup",{g:G}))); },true);
+    setPrompt(m,tm("acDir2",{e:E}));
+  });
+  setPrompt(m,ac?tm("acDir",{e:E,ac:N2(target),b:N2(B)}):tm("trinDir",{e:E,c:N2(C),b:N2(B)})); maybeAuto(m);
+}
+function factorDos(){
+  const m="factor", L=LV(); let a=1,n;
+  do{ a=L!=="f"&&Math.random()<.45?ri(2,5):1; n=ri(1,10); }while(gcd(a,n)!==1);
+  const E=std(a*a,0,-n*n), A=tH(a,1), B=N2(n);
+  const items=[[a,n,a,-n],[a,-n,a,-n],[a,n,a,n],[1,n,1,-n],[a*a,n,1,-n]].map((c,i)=>{ const X=expand(...c); if(i&&sameP(X,[a*a,0,-n*n])) return null;
+    const F=c[1]===c[3]?SQ(lin(c[0],c[1])):FACT(null,[lin(c[0],c[1]),lin(c[2],c[3])]);
+    return CH({h:F.h,s:F.s,key:X.join(",")+(i?"w":"")},!i,{why:tm(X[1]&&X[0]===a*a?"whyDosSq":"whyWrongExp",{e:std(...X)})}); }).filter(Boolean);
+  const OK=FACT(null,[lin(a,n),lin(a,-n)]);
+  choices(m,items,it=>{ if(it.ok) return win(m,tm("goodDos",{e:E,A,B,f:OK})); nope(m,it.why); });
+  setPrompt(m,tm("dosDir",{e:E})); maybeAuto(m);
+}
+function factorGcf(){
+  const m="factor", L=LV(); let items, E, why;
+  if(L==="f"||Math.random()<.35){ const g=ri(2,6), p=riNZ(L==="f"?1:-9,9), gx=tH(g,1);
+    E=std(g,g*p,0); const OK=FACT(gx,[lin(1,p)]);
+    items=[CH(OK,1),CH(FACT(N2(g),[std(1,p,0)]),0,{why:tm("whyNotComp",{part:std(1,p,0)})}),CH(FACT({h:"<i>x</i>",s:"x"},[lin(g,g*p)]),0,{why:tm("whyNotComp",{part:lin(g,g*p)})}),
+      CH(FACT(gx,[lin(1,g*p)]),0,{why:tm("whyWrongExp",{e:std(g,g*g*p,0)})})];
+    why=tm("goodGcf",{g:gx,f:OK}); }
+  else { const g=ri(2,5); let r,sv; do{ r=riNZ(-6,6); sv=riNZ(-6,6); }while(r===-sv);
+    const X=expand(1,-r,1,-sv).map(v=>v*g); E=std(...X); const OK=FACT(N2(g),[lin(1,-r),lin(1,-sv)]), inner=std(1,-(r+sv),r*sv);
+    items=[CH(OK,1),CH(FACT(N2(g),[inner]),0,{why:tm("whyNotComp",{part:inner})}),CH(FACT(null,[lin(g,-g*r),lin(1,-sv)]),0,{why:tm("whyNotComp",{part:lin(g,-g*r)})}),
+      CH(FACT(N2(g),[lin(1,r),lin(1,sv)]),0,{why:tm("whyWrongExp",{e:std(...expand(1,r,1,sv).map(v=>v*g))})})];
+    why=tm("goodGcf",{g:N2(g),f:OK}); }
+  items.forEach(it=>it.key=it.h);
+  choices(m,items,it=>{ if(it.ok) return win(m,why); nope(m,it.why); },true);
+  setPrompt(m,tm("gcfDir",{e:E})); maybeAuto(m);
+}
+
+/* =========================================================================
+   3. SOLVE IT — zero product property, square roots, completing the square, quadratic formula.
+   ========================================================================= */
+// Graph of y = A x² + B x + C with its real zeros marked.
+function rootGraph(A,B,C){ const f=x=>A*x*x+B*x+C, D=B*B-4*A*C, hx=-B/(2*A), zs=D>=0?[(-B-Math.sqrt(D))/(2*A),(-B+Math.sqrt(D))/(2*A)]:[];
+  return `<div class="pwrap" dir="ltr">${graph(Object.assign(autoWin(f,[hx,...zs]),{curves:[{f}],pts:zs.map(x=>({x,y:0,cls:"ok"}))}))}</div>`; }
+function newSolve(){ const m="solve"; startRound(m); const L=LV();
+  const type=rand(L==="f"?["zpp","zpp","sqrt","sqrt"]:["zpp","sqrt","cts","qf","qf"]); st[m].type=type;
+  ({zpp:solveZpp,sqrt:solveSqrt,cts:solveCts,qf:solveQf})[type](); }
+function solveZpp(){
+  const m="solve", L=LV(); let p1=1,q1,p2=1,q2;
+  do{ q1=riNZ(-7,7); q2=riNZ(-7,7); if(L==="a2"&&settings.aNot1&&Math.random()<.5){ p1=rand([2,3]); if(gcd(p1,q1)!==1) continue; } }while(q1===q2||(p1===1&&q1===-q2&&L==="f"));
+  const [A,B,C]=expand(p1,q1,p2,q2), f1=lin(p1,q1), f2=lin(p2,q2), F=FACT(null,[f1,f2]), showF=L==="f"||p1!==1||Math.random()<.35;
+  const E=eq0(showF?F:std(A,B,C)), r1=Q(-q1,p1), r2=Q(-q2,p2), OK=ROOTS([r1,r2]);
+  const items=[CH(OK,1),CH(ROOTS([Q(q1,p1),Q(q2,p2)]),0,{sg:1}),CH(ROOTS([Q(q1,p1),r2]),0,{sg:1}),CH(ROOTS([r1,Q(q2,p2)]),0,{sg:2}),CH(ROOTS([Q(-q1),Q(-q2)]))];
+  const signH=(it)=>{ const [ff,r]=it.sg===2?[f2,r2]:[f1,r1]; return tm("hintSignZ",{f:ff,r:QV(r),w:QV(Q(-r.p,r.q))}); };
+  choices(m,items,it=>{ if(it.ok){ $("#w-"+m).insertAdjacentHTML("beforeend",rootGraph(A,B,C));
+      return win(m,cat(tm("goodZpp",{f:eq0(F),sol:OK}),tm("graphZ",{e:eqY(std(A,B,C))}))); }
+    nope(m,cat(showF?TX("hintZpp"):tm("hintZppT",{c:N2(C),b:N2(B)}),it.sg?signH(it):{h:"",s:""})); },true);
+  $("#w-"+m).innerHTML=`<p class="big">${M(E.h)}</p>`;
+  setPrompt(m,tm("solveDir",{e:E})); maybeAuto(m);
+}
+function solveSqrt(){
+  const m="solve", L=LV(); let h=0,d,items,OK,E,S;
+  const sq=x=>x*x;
+  if(L==="f"){ const n=ri(2,12); d=n*n; E=eqR({h:VX2()[0],s:t("xSq")},N2(d)); OK=SOL(0,d,1);
+    items=[CH(OK,1),CH(ROOTS([n])),CH(SOL(0,d*d,1)),CH(n%2?ROOTS([-n]):ROOTS([-n/2,n/2]))];
+    S={h:"<i>x</i> = ±"+RAD(d),s:"x "+t("wEq")+" "+t("pm")+" "+t("sqrtSay",{n:d})}; }
+  else { h=riNZ(-6,6); const cplx=L==="a2"&&settings.cplx&&Math.random()<.35;
+    if(L==="a2"&&Math.random()<.6){ do{ d=ri(2,28); }while(sqf(d)[1]===1); } else d=sq(ri(1,9));
+    if(cplx) d=-d;
+    E=eqR(SQ(lin(1,-h)),N2(d)); OK=SOL(2*h,4*d,2);
+    items=[CH(OK,1),CH(SOL(-2*h,4*d,2)),CH(d>0&&sqf(d)[1]===1?ROOTS([h+Math.sqrt(d)]):SOL(2*h,4*Math.abs(d),2)),CH(ROOTS([h+d,h-d])),CH(sqf(Math.abs(d))[1]===1?ROOTS([-h+Math.sqrt(Math.abs(d))]):SOL(2*h,16*d,2))];
+    S={h:lin(1,-h).h+" = ±"+(d<0?"<i>i</i>"+RAD(-d):RAD(d)),s:lin(1,-h).s+" "+t("wEq")+" "+t("pm")+" "+(d<0?"i ":"")+t("sqrtSay",{n:Math.abs(d)})}; }
+  choices(m,items,it=>{ if(it.ok) return win(m,tm("goodSqrt",{s:S,sol:OK})); nope(m,tm(d<0?"hintSqrtI":"hintSqrt",{s:S})); },true);
+  $("#w-"+m).innerHTML=`<p class="big">${M(E.h)}</p>`;
+  setPrompt(m,tm("solveDir",{e:E})); maybeAuto(m);
+}
+function ctsSVG(k,on){
+  const X=120, w=Math.min(78,22+Math.abs(k)*9), W=30+X+w+10, ng=k<0;
+  return `<svg class="cts" viewBox="0 0 ${W} ${W}" role="img" aria-label="${t("amLbl")}" dir="ltr">
+   <text x="${30+X/2}" y="12">x</text><text x="${30+X+w/2}" y="12">${nH(k)}</text><text x="12" y="${20+X/2}">x</text><text x="12" y="${20+X+w/2}">${nH(k)}</text>
+   <rect class="sqx" x="30" y="20" width="${X}" height="${X}"/><text x="${30+X/2}" y="${20+X/2}">x²</text>
+   <rect class="stp${ng?" ng":""}" x="${30+X}" y="20" width="${w}" height="${X}"/><text x="${30+X+w/2}" y="${20+X/2}">${nH(k)}x</text>
+   <rect class="stp${ng?" ng":""}" x="30" y="${20+X}" width="${X}" height="${w}"/><text x="${30+X/2}" y="${20+X+w/2}">${nH(k)}x</text>
+   <rect class="cn${on?" on":""}" x="${30+X}" y="${20+X}" width="${w}" height="${w}"/><text x="${30+X+w/2}" y="${20+X+w/2}">${on?k*k:"?"}</text></svg>`;
+}
+function solveCts(){
+  const m="solve", s=st[m], L=LV(); let k,e;
+  do{ k=riNZ(-5,5); e=L==="a2"&&Math.random()<.6?ri(2,30):rand([1,4,9,16,25,36]); }while(k*k-e===0);
+  const b=2*k, c=k*k-e, n=k*k, d=-c, E=eq0(std(1,b,c)), E2=eqR(std(1,b,0),N2(d)), w=$("#w-"+m);
+  const draw=on=>{ w.innerHTML=`<p class="big">${M(E2.h)}</p>${ctsSVG(k,on)}`; };
+  draw(false);
+  const sqE=SQ(lin(1,k)), E3=eqR(std(1,b,n),{h:nH(d)+" + "+n,s:nS(d)+" "+t("wPlus")+" "+n}), E4=eqR(sqE,N2(e));
+  const stage2=()=>{ setPrompt(m,tm("ctsDir2",{e:E3}));
+    const items=[CH(E4,1),CH(eqR(sqE,N2(d))),CH(eqR(SQ(lin(1,b)),N2(e))),CH(eqR(SQ(lin(1,-k)),N2(e)))];
+    choices(m,items,it=>{ if(it.ok){ step(m,tm("ctsGood2",{e:E4})); return stage3(); } nope(m,tm("hintCts2",{h:N2(k),b:N2(b),n:N2(n),sq:sqE})); },true); };
+  const stage3=()=>{ setPrompt(m,tm("ctsDir3",{e:E4})); const OK=SOL(-2*k,4*e,2);
+    const S={h:lin(1,k).h+" = ±"+RAD(e),s:lin(1,k).s+" "+t("wEq")+" "+t("pm")+" "+t("sqrtSay",{n:e})};
+    const items=[CH(OK,1),CH(SOL(2*k,4*e,2)),CH(ROOTS([-k+e,-k-e])),CH(sqf(e)[1]===1?ROOTS([-k+Math.sqrt(e)]):SOL(-2*k,16*e,2))];
+    choices(m,items,it=>{ if(it.ok){ w.insertAdjacentHTML("beforeend",rootGraph(1,b,c)); return win(m,tm("goodCts",{s:S,sol:OK,p:eqY(std(1,b,c)),v:PT(-k,-e)})); }
+      nope(m,tm("hintSqrt",{s:S})); },true); };
+  const items=[CH(N2(n),1,{key:"n"+n}),CH(N2(k),0,{key:"n"+k}),CH(N2(b*b),0,{key:"n"+b*b}),CH(N2(2*b),0,{key:"n"+2*b}),CH(N2(n+1),0,{key:"n"+(n+1)})];
+  choices(m,items,it=>{ if(it.ok){ draw(true); step(m,tm("ctsGood1",{n:N2(n)})); return stage2(); }
+    nope(m,tm("hintCts1",{bx:tH(b,1),hx:tH(k,1),h:N2(k)})); });
+  setPrompt(m,tm("ctsDir1",{e:E,e2:E2})); maybeAuto(m);
+}
+function solveQf(){
+  const m="solve", L=LV(), cp=L==="a2"&&settings.cplx; let a,b,c,D;
+  for(let i=0;i<400;i++){ a=rand(L==="a2"?[1,2,3,-1,-2,4]:[1,1,2,3,-1]); b=ri(-9,9); c=riNZ(-9,9); D=b*b-4*a*c;
+    const ok=D>0?(L==="a1"?true:sqf(D)[1]!==1||Math.random()<.3):D===0?Math.random()<.4:(cp?Math.random()<.7:Math.random()<.15);
+    if(ok&&Math.abs(D)<=200&&gcd(gcd(a,b),c)===1) break; }
+  const E=eq0(std(a,b,c)), w=$("#w-"+m), dH={h:"<i>b</i><sup>2</sup> − 4<i>ac</i>",s:t("discSay")};
+  const calc={h:"("+nH(b)+")<sup>2</sup> − 4"+"("+nH(a)+")("+nH(c)+")",s:t("discSay")};
+  w.innerHTML=`<p class="big">${M(E.h)}</p><p class="big">${M("<i>x</i> = "+frH(MINUS+"<i>b</i> ± "+RAD("<i>b</i><sup>2</sup> − 4<i>ac</i>"),"2<i>a</i>"))}</p>`;
+  const stage2=()=>{ setPrompt(m,tm("qfDir2",{D:N2(D)}));
+    const ans=D>0?"cTwo":D===0?"cOne":(cp?"cTwoC":"cNone"), keys=cp?["cTwo","cOne","cTwoC"]:["cTwo","cOne","cNone"];
+    choices(m,keys.map(k=>TCH(k,k===ans)),it=>{ if(!it.ok) return nope(m,TX("hintCount"));
+      const why=tm(D>0?"why2":D===0?"why1":cp?"whyC":"why0",{D:N2(D)}); w.insertAdjacentHTML("beforeend",rootGraph(a,b,c));
+      if(D<0&&!cp) return win(m,cat(TX("yes"),why));
+      step(m,why); stage3(); }); };
+  const stage3=()=>{ setPrompt(m,TX("qfDir3")); const OK=SOL(-b,D,2*a), D2=b*b+4*a*c;
+    const items=[CH(OK,1),CH(SOL(b,D,2*a)),CH(SOL(-b,D,a)),D2!==D?CH(SOL(-b,D2,2*a)):null,cp?CH(SOL(-b,-D,2*a)):null].filter(Boolean);
+    choices(m,items,it=>{ if(it.ok) return win(m,tm("goodQF",{sol:OK})); nope(m,tm("hintQF",{nb:N2(-b),D:N2(D),ta:N2(2*a)})); },true); };
+  const D2=b*b+4*a*c, items=[D,D2,-b*b-4*a*c,b-4*a*c,b*b-4*a].map((v,i)=>CH(N2(v),!i,{key:"d"+v}));
+  choices(m,items,it=>{ if(it.ok){ step(m,tm("qfGood1",{calc,D:N2(D)})); return stage2(); } nope(m,tm("hintDisc",{a:N2(a),b:N2(b),c:N2(c),calc})); });
+  setPrompt(m,tm("qfDir1",{e:E,d:dH})); maybeAuto(m);
+}
+
+/* =========================================================================
+   4. CONNECT FORMS — zeros ↔ factors ↔ graph; standard ↔ vertex form.
+   ========================================================================= */
+function newConnect(){ const m="connect"; startRound(m); const L=LV();
+  const type=rand(L==="f"?["tapz","tapz","g2f","f2s"]:["tapz","g2f","s2v","s2v","v2s","f2s"]); st[m].type=type;
+  ({tapz:connTap,g2f:connG2F,s2v:connS2V,v2s:connV2S,f2s:connF2S})[type](); }
+const aConn = ()=>LV()==="a2"&&settings.aNot1?rand([1,-1,2,-2]):(LV()==="f"?1:rand([1,1,-1]));
+function connTap(){
+  const m="connect", s=st[m], R=RR(); let r,sv; do{ r=ri(-(R-1),R-1); sv=ri(-(R-1),R-1); }while(r===sv||(LV()!=="f"&&!r&&!sv));
+  const a=aConn(), F=eqY(FACT(coefPre(a),[lin(1,-r),lin(1,-sv)])), f=x=>a*(x-r)*(x-sv); s.marks=[]; s.cur=0; s.want=[r,sv];
+  const win0={x0:-R,x1:R,y0:-R,y1:R,xs:1,ys:1};
+  const draw=done=>{ $("#cG").innerHTML=graph(Object.assign({},win0,{curves:done?[{f}]:[],pts:s.marks.map(x=>({x,y:0,cls:done?"ok":""})),cur:done?null:{x:s.cur,y:0}}),done?null:`tabindex="0" role="application" aria-label="${t("kbTapX")}"`); };
+  $("#w-"+m).innerHTML=`<p class="big">${M(F.h)}</p><div class="pwrap" dir="ltr" id="cG"></div>`;
+  s.tap=x=>{ if(s.done) return; const i=s.marks.indexOf(x); if(i>=0) s.marks.splice(i,1); else { s.marks.push(x); if(s.marks.length>2) s.marks.shift(); } s.cur=x; draw(); };
+  const g=$("#cG");
+  g.addEventListener("pointerdown",e=>{ const svg=e.target.closest("svg.plane[tabindex]"); if(!svg) return; const rc=svg.getBoundingClientRect(), px=(e.clientX-rc.left)/rc.width*440;
+    s.tap(Math.max(-R,Math.min(R,Math.round(-R+(px-GX)/GW*2*R)))); e.preventDefault(); });
+  g.addEventListener("keydown",e=>{ if(s.done) return; const d={ArrowRight:1,ArrowLeft:-1}[e.key];
+    if(d){ s.cur=Math.max(-R,Math.min(R,s.cur+d)); draw(); g.querySelector("svg").focus(); e.preventDefault(); }
+    else if(e.key==="Enter"||e.key===" "){ s.tap(s.cur); g.querySelector("svg").focus(); e.preventDefault(); } });
+  draw();
+  checkBtn(m,()=>{ const mk=s.marks, want=[r,sv];
+    const bad=mk.find(x=>!want.includes(x));
+    if(bad!==undefined){ const j=want.findIndex(z=>z===-bad); if(j>=0) return nope(m,tm("hintTapSign",{w:N2(bad),f:lin(1,-want[j]),r:N2(want[j])})); return nope(m,TX("hintTapOff")); }
+    if(mk.length<2) return nope(m,TX("hintTapN"));
+    draw(true); const [x1,x2]=[Math.min(r,sv),Math.max(r,sv)]; win(m,tm("goodTap",{r:N2(x1),s:N2(x2)})); });
+  setPrompt(m,tm("tapDir",{e:F})); maybeAuto(m);
+}
+function connG2F(){
+  const m="connect", L=LV(); let r,sv; do{ r=ri(-6,6); sv=ri(-6,6); }while(r===sv||!r||!sv);
+  const a=aConn(), f=x=>a*(x-r)*(x-sv), y0=a*r*sv, mk=(aa,p,q)=>eqY(FACT(coefPre(aa),[lin(1,p),lin(1,q)]));
+  $("#w-"+m).innerHTML=`<div class="pwrap" dir="ltr">${graph(Object.assign(autoWin(f,[r,sv,(r+sv)/2]),{curves:[{f}],pts:[{x:r,y:0,cls:"ok"},{x:sv,y:0,cls:"ok"},{x:0,y:y0,cls:"yi",lab:"("+0+", "+nH(y0)+")"}]}))}</div>`;
+  const items=[CH(mk(a,-r,-sv),1),CH(mk(a,r,sv),0,{z:1}),CH(mk(a,-r,sv),0,{z:1}),CH(mk(a,r,-sv),0,{z:1})];
+  if(L==="a2"&&settings.aNot1) items.splice(1,0,CH(mk(-a,-r,-sv),0,{z:2}),CH(mk(a===1||a===-1?2*a:a/2,-r,-sv),0,{z:2}));
+  const x1=Math.min(r,sv), x2=Math.max(r,sv);
+  choices(m,items,it=>{ if(it.ok) return win(m,tm("goodG2F",{r:N2(x1),s:N2(x2),f1:lin(1,-x1),f2:lin(1,-x2),y:N2(y0)}));
+    nope(m,it.z===2?tm("hintG2Fa",{y:N2(y0)}):tm("hintG2F",{r:N2(x1),s:N2(x2),f:lin(1,-x1)})); },true);
+  setPrompt(m,TX("g2fDir")); maybeAuto(m);
+}
+function connS2V(){
+  const m="connect", L=LV(), a=L==="a2"&&settings.aNot1&&Math.random()<.7?rand([2,3,-1,-2]):1; let h,k; do{ h=riNZ(-6,6); k=riNZ(-9,9); }while(Math.abs(a*h*h+k)>40);
+  const [A,B,C]=vstd(a,h,k), E=eqY(std(A,B,C)), OK=eqY(VF(a,h,k)), Cn=qv(C);
+  const items=[CH(OK,1),CH(eqY(VF(a,-h,k))),CH(eqY(VF(a,h,Cn))),CH(eqY(VF(a,h,Cn+a*h*h))),CH(eqY(VF(a,h,Cn-h*h))),CH(eqY(VF(a,-h,Cn-a*h*h)))];
+  const hint=a===1?tm("hintS2V",{h:N2(-h),sq:N2(h*h)}):tm("hintS2Va",{a:N2(a)});
+  choices(m,items,it=>{ if(it.ok) return win(m,tm("goodS2V",{e:OK,p:PT(h,k)})); nope(m,hint); },true);
+  $("#w-"+m).innerHTML=`<p class="big">${M(E.h)}</p>`;
+  setPrompt(m,tm("s2vDir",{e:E})); maybeAuto(m);
+}
+function connV2S(){
+  const m="connect", L=LV(), a=L==="a2"||Math.random()<.5?rand([2,3,-1,-2,1]):1; const h=riNZ(-6,6), k=riNZ(-9,9);
+  const E=eqY(VF(a,h,k)), OK=eqY(std(...vstd(a,h,k))), sqE=eqR(SQ(lin(1,-h)),std(1,-2*h,h*h));
+  const items=[CH(OK,1),CH(eqY(std(a,0,a*h*h+k))),CH(eqY(std(a,2*a*h,a*h*h+k))),CH(eqY(std(a,-2*h,h*h+k))),CH(eqY(std(a,-a*h,a*h*h+k))),CH(eqY(std(a,-2*a*h,h*h+k)))];
+  choices(m,items,it=>{ if(it.ok) return win(m,tm("goodStd",{e:eqR(E,std(...vstd(a,h,k)))})); nope(m,tm(a===1?"hintV2S1":"hintV2S",{sq:sqE,a:N2(a),k:N2(k)})); },true);
+  $("#w-"+m).innerHTML=`<p class="big">${M(E.h)}</p>`;
+  setPrompt(m,tm("v2sDir",{e:E})); maybeAuto(m);
+}
+function connF2S(){
+  const m="connect"; let r,sv; do{ r=riNZ(-8,8); sv=riNZ(-8,8); }while(r===-sv);
+  const E=eqY(FACT(null,[lin(1,r),lin(1,sv)])), X=expand(1,r,1,sv);
+  const items=[CH(eqY(std(...X)),1),CH(eqY(std(1,-X[1],X[2]))),CH(eqY(std(1,X[1],-X[2]))),CH(eqY(std(1,0,X[2]))),CH(eqY(std(1,r*sv,r+sv)))];
+  choices(m,items,it=>{ if(it.ok) return win(m,tm("goodStd",{e:eqR(E,std(...X))})); nope(m,TX("hintF2S")); },true);
+  $("#w-"+m).innerHTML=`<p class="big">${M(E.h)}</p>${AMtab([M("<i>x</i>"),M(nH(r))],[M("<i>x</i>"),M(nH(sv))],[[["?","sq"],["?","ln"]],[["?","ln"],["?","c1"]]])}`;
+  setPrompt(m,tm("v2sDir",{e:E})); maybeAuto(m);
+}
+
+/* =========================================================================
+   5. PROJECTILES & AREA — vertex and zeros in context, with a trace point.
+   ========================================================================= */
+function newModel(){ const m="model"; startRound(m); const type=rand(["proj","proj","area","rev"]); st[m].type=type; ({proj:modelProj,area:modelArea,rev:modelRev})[type](); }
+// Graph with a trace point moved by buttons.
+function traceUI(m,f,xmax,ymax,stepX,xn,yn){
+  const s=st[m]; s.tx=0;
+  const w=$("#w-"+m); w.insertAdjacentHTML("beforeend",`<div class="split"><div class="pwrap" dir="ltr" id="mG"></div><div class="side"><div class="acts" style="width:100%"><button type="button" class="btn sq" id="trL" aria-label="${t("trL")}" title="${t("trL")}">◀</button><span class="rule" id="trRO" style="width:auto;flex:1 1 auto"></span><button type="button" class="btn sq" id="trR" aria-label="${t("trR")}" title="${t("trR")}">▶</button></div></div></div>`);
+  const draw=()=>{ const x=s.tx, y=f(x);
+    $("#mG").innerHTML=graph({x0:0,x1:xmax,y0:0,y1:ymax,xn,yn,curves:[{f,a:0,b:xmax}],pts:[{x,y:Math.max(0,y),cls:"tr"}]});
+    $("#trRO").innerHTML=M(`<i>${xn}</i> = ${nH(x)}`)+" → "+M(`<i>${yn}</i> = ${nH(fmt(y))}`); };
+  const mv=d=>{ s.tx=fmt(Math.max(0,Math.min(xmax,s.tx+d*stepX))); draw(); };
+  $("#trL").addEventListener("click",()=>mv(-1)); $("#trR").addEventListener("click",()=>mv(1)); draw();
+}
+const numCh = (k,vals,why)=>vals.map((v,i)=>Object.assign(unit(k,v),{ok:!i,txt:true,key:"v"+fmt(v)}));
+function modelProj(){
+  const m="model", L=LV(), n=ri(2,5), v=16*n; let h0=0, sq=0;
+  if(L!=="f"&&Math.random()<.7){ sq=2*n+rand([1,2]); h0=sq*sq-4*n*n; }
+  const f=t=>-16*t*t+v*t+h0, tv=n/2, hm=h0+4*n*n, tg=h0?(2*n+sq)/4:n;
+  const E=eqF("h","t",std(-16,v,h0,"t")), qs=L==="f"?["tmax","hmax","ground"]:(h0?["launch","tmax","hmax","ground","ground"]:["tmax","hmax","hmax","ground"]), q=rand(qs);
+  $("#w-"+m).innerHTML=""; traceUI(m,f,Math.ceil(tg*2)/2,Math.ceil(hm*1.15/10)*10,.25,"t","h");
+  const calc={h:frH(MINUS+nH(v),"2 · (−16)")+" = "+nH(tv),s:t("frSay",{n:t("neg",{n:v}),d:"2 "+t("wTimes")+" "+t("neg",{n:16})})+" "+t("wEq")+" "+nS(tv)};
+  const fb={h:frH(MINUS+"<i>b</i>","2<i>a</i>"),s:t("frSay",{n:t("neg",{n:"b"}),d:"2 a"})};
+  let items,why,hint,qk;
+  if(q==="launch"){ qk="qLaunch"; items=numCh("Ft",[h0,0,v,hm]); why=tm("goodLaunch",{h:N2(h0)}); hint=TX("hintLaunch"); }
+  else if(q==="tmax"){ qk="qTmax"; items=numCh("S",[tv,n,n/4,tv+1]); why=tm("goodTmax",{tv:N2(tv)}); hint=tm("hintTmax",{f:fb,calc}); }
+  else if(q==="hmax"){ qk="qHmax"; items=numCh("Ft",[hm,h0?4*n*n:2*n*n,h0+8*n*n,h0+16*n*n,v]); why=tm("goodHmax",{tv:N2(tv),hm:N2(hm)}); hint=tm("hintHmax",{tv:N2(tv)}); }
+  else { qk="qGround"; items=numCh("S",[tg,tv,n===tg?2*n:n,tg+.5]); why=tm("goodGround",{tg:N2(tg)}); hint=tm("hintGround",{e:std(-16,v,h0,"t")}); }
+  choices(m,items,it=>{ if(it.ok) return win(m,why); nope(m,hint); });
+  setPrompt(m,cat(tm("projCx",{e:E}),TX(qk))); maybeAuto(m);
+}
+function modelArea(){
+  const m="model", sd=ri(5,15), P=4*sd, wall=Math.random()<.5;
+  const f=wall?x=>x*(P-2*x):x=>x*(P/2-x), z=wall?P/2:P/2, am=wall?2*sd*sd:sd*sd;
+  const Ex=wall?{h:"<i>x</i>("+nH(P)+" − 2<i>x</i>)",s:"x, "+t("wTimes")+" "+t("qty",{e:nS(P)+" "+t("wMinus")+" 2 x"})}:{h:"<i>x</i>("+nH(P/2)+" − <i>x</i>)",s:"x, "+t("wTimes")+" "+t("qty",{e:nS(P/2)+" "+t("wMinus")+" x"})};
+  const EA=eqF("A","x",Ex), q=rand(["x","a"]);
+  $("#w-"+m).innerHTML=""; traceUI(m,f,z,Math.ceil(am*1.15/10)*10,1,"x","A");
+  const items=q==="x"?numCh("M",[sd,2*sd,sd/2,wall?P/2:sd+2,sd+1]):numCh("M2",[am,wall?sd*sd:2*sd*sd,4*sd*sd,am+sd]);
+  const why=q==="x"?tm("goodAreaX",{z:N2(z),xv:N2(sd)}):tm("goodAreaA",{xv:N2(sd),am:N2(am)}), hint=tm(q==="x"?"hintAreaX":"hintAreaA",{z:N2(z)});
+  choices(m,items,it=>{ if(it.ok) return win(m,why); nope(m,hint); });
+  setPrompt(m,cat(tm(wall?"areaCxW":"areaCx4",{P:N2(P),e:EA}),TX(q==="x"?"qAreaX":"qAreaA"))); maybeAuto(m);
+}
+function modelRev(){
+  const m="model", p0=rand([10,12,15,20]), k=rand([2,4,5]), xv=ri(2,8), n0=k*p0+2*k*xv, z2=p0+2*xv;
+  const f=x=>(p0+x)*(n0-k*x), rm=k*(p0+xv)*(p0+xv), E=eqF("R","x",FACT(null,[{h:nH(p0)+" + <i>x</i>",s:nS(p0)+" "+t("wPlus")+" x"},{h:nH(n0)+" − "+nH(k)+"<i>x</i>",s:nS(n0)+" "+t("wMinus")+" "+k+" x"}]));
+  const q=rand(["p","r"]);
+  $("#w-"+m).innerHTML=""; traceUI(m,f,z2,Math.ceil(rm*1.15/100)*100,1,"x","R");
+  const items=q==="p"?numCh("D",[p0+xv,xv,p0+2*xv,p0,p0+xv+1]):numCh("D",[rm,p0*n0,(p0+xv)*(p0+xv),rm+k*10]);
+  const why=q==="p"?tm("goodRevP",{xv:N2(xv),pp:N2(p0+xv)}):tm("goodRevR",{xv:N2(xv),r:N2(rm)});
+  const hint=tm(q==="p"?"hintRevP":"hintRevR",{z1:N2(-p0),z2:N2(z2),p:N2(p0)});
+  choices(m,items,it=>{ if(it.ok) return win(m,why); nope(m,hint); });
+  setPrompt(m,cat(tm("revCx",{n:N2(n0),p:N2(p0),k:N2(k),e:E}),TX(q==="p"?"qRevP":"qRevR"))); maybeAuto(m);
+}
+
+/* ---------- Mode switching ---------- */
+const NEWFN={build:newBuild,factor:newFactor,solve:newSolve,connect:newConnect,model:newModel};
+function firstMode(){ return MODES.find(m=>settings.modes[m])||"build"; }
+function currentMode(){ const b=$$(".tabs button").find(x=>x.getAttribute("aria-selected")==="true"); return b?b.dataset.mode:firstMode(); }
+function showMode(mode){
+  if(!settings.modes[mode]) mode=firstMode();
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
+  $$(".modepanel").forEach(p=>p.classList.add("hidden"));
+  $("#mode-"+mode).classList.remove("hidden");
+  $$(".tabs button").forEach(b=>{ const on=b.dataset.mode===mode; b.setAttribute("aria-selected",on?"true":"false"); b.tabIndex=on?0:-1; });
+  if(!made[mode]) NEWFN[mode]();
+  if(switching && speechGen===g0) maybeAuto(mode);
+}
+function syncTabs(){
+  $$(".tabs button").forEach(b=>b.classList.toggle("hidden",!settings.modes[b.dataset.mode]));
+  if(!settings.modes[currentMode()]) showMode(firstMode());
+}
+function resetRounds(){ MODES.forEach(m=>made[m]=false); stopSpeech(); NEWFN[currentMode()](); }
+
+/* ---------- Settings drawer ---------- */
+function buildModeToggles(){
+  const wrap=$("#modeToggles"); wrap.innerHTML="";
+  MODES.forEach(m=>{ const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.modes[m]?"checked":""}> <span>${t(MODE_KEY[m])}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{ settings.modes[m]=e.target.checked;
+      if(!MODES.some(k=>settings.modes[k])){ e.target.checked=true; settings.modes[m]=true; }
+      saveSettings(); syncTabs(); });
+    wrap.appendChild(l); });
+}
+function syncSettingsUI(){
+  $("#setLevel").value=settings.level; $("#setRange").value=String(settings.R);
+  $("#setANot1").checked=settings.aNot1; $("#setCplx").checked=settings.cplx; $("#setAuto").checked=settings.autoRead; buildModeToggles();
+}
+function closeSettings(){ $("#settingsDrawer").classList.remove("open"); $("#openSettings").focus(); }
+function initSettings(){
+  $("#openSettings").addEventListener("click",()=>{ syncSettingsUI(); $("#settingsDrawer").classList.add("open"); $("#closeSettings").focus(); });
+  $("#closeSettings").addEventListener("click",closeSettings);
+  $("#settingsDrawer").addEventListener("click",e=>{ if(e.target.id==="settingsDrawer") closeSettings(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape" && $("#settingsDrawer").classList.contains("open")) closeSettings(); });
+  $("#setLevel").addEventListener("change",e=>{ const l=e.target.value; settings.level=l; Object.assign(settings,clone(LEVELS[l])); saveSettings(); syncSettingsUI(); resetRounds(); });
+  $("#setRange").addEventListener("change",e=>{ settings.R=+e.target.value; saveSettings(); resetRounds(); });
+  $("#setANot1").addEventListener("change",e=>{ settings.aNot1=e.target.checked; saveSettings(); resetRounds(); });
+  $("#setCplx").addEventListener("change",e=>{ settings.cplx=e.target.checked; saveSettings(); resetRounds(); });
+  $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
+  $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
+}
+
+/* ---------- Print cards ---------- */
+function buildPrintCards(){
+  const R=RR(), AL=aList(), a=rand(AL), h=riNZ(-4,4), k=ri(-5,5);
+  const blank=`<span style="display:inline-block;min-width:6rem;border-bottom:2px solid #000">&nbsp;</span>`;
+  let p,q; do{ p=riNZ(-7,7); q=riNZ(-7,7); }while(p+q===0);
+  const n=ri(2,9), g=ri(2,5), r1=riNZ(-5,5);
+  const kk=riNZ(-4,4), e=rand([4,9,16,7,5]);
+  let qa_,qb,qc; do{ qa_=rand([1,2,3]); qb=ri(-7,7); qc=riNZ(-6,6); }while(qb*qb-4*qa_*qc<0);
+  const sh=riNZ(-5,5), sk=riNZ(-6,6), z1=riNZ(-5,5), z2=riNZ(-5,5), pn=ri(2,4);
+  const L=x=>`<p style="font-size:1.3rem;line-height:2.4">${x}</p>`;
+  const cards=[
+    {title:t("mBuild"), body:t("cardBuild"), html:L(M(eqY(VF(a,h,k)).h))+graph(sqWin())},
+    {title:t("mFactor"), body:t("cardFactor"), html:L(M(std(1,p+q,p*q).h)+" "+blank)+L(M(std(1,0,-n*n).h)+" "+blank)+L(M(std(g,-g*(r1+1),g*r1).h)+" "+blank)},
+    {title:t("mSolve"), body:t("cardSolve"), html:L(M(eq0(FACT(null,[lin(1,-p),lin(1,q)])).h)+" "+blank)+L(M(eqR(SQ(lin(1,-kk)),N2(e)).h)+" "+blank)+L(M(eq0(std(1,2*kk,kk*kk-e)).h)+" "+blank)+L(M(eq0(std(qa_,qb,qc)).h)+" "+blank)},
+    {title:t("mConnect"), body:t("cardConnect"), html:L(M(eqY(std(...vstd(1,sh,sk))).h)+" "+blank)+L(t("cardZeros")+" "+M(nH(z1)+", "+nH(z2===z1?z1+3:z2))+" "+blank)},
+    {title:t("mModel"), body:t("cardModel"), html:L(M(eqF("h","t",std(-16,16*pn,0,"t")).h))+graph({x0:0,x1:pn+.5,y0:0,y1:Math.ceil(4*pn*pn*1.2/10)*10,xn:"t",yn:"h"})}
+  ];
+  $("#printArea").innerHTML=`<h1>${t("cardTitle")}</h1><p>${t("cardName")} ____________________</p>`+
+    cards.map(c=>`<div class="card-print"><h2>${c.title}</h2><p style="font-size:1.15rem;line-height:1.8">${c.body}</p>${c.html}</div>`).join("")+
+    `<p style="font-size:.85rem">${stdsHTML()}</p>`;
+}
+
+// Standards codes stay left-to-right inside Arabic/Urdu text.
+function stdsHTML(){ return t("stds").replace(/(TEKS|Common Core|A[12]\.\d+\([^)]*\)|HS[A-Z]-[A-Z]+\.[A-Z]\.\d+[a-z]?)/g,'<bdi dir="ltr" style="white-space:nowrap">$1</bdi>'); }
+
+/* ---------- Language engine ---------- */
+function resolveLang(){
+  try{ const q=new URLSearchParams(location.search).get("lang"); if(q && T[q]) return q; }catch(e){}
+  try{ const s=localStorage.getItem(LANG_KEY); if(s && T[s]) return s; }catch(e){}
+  const n=(navigator.language||"en").slice(0,2).toLowerCase();
+  if(T[n]) return n;
+  return "en";
+}
+function applyLang(){
+  const meta=LANGS.find(x=>x.code===lang)||LANGS[0];
+  document.documentElement.lang=lang;
+  document.documentElement.dir=meta.dir;
+  document.title=t("appTitle");
+  const sel=$("#langSelect"); if(sel) sel.value=lang;
+  $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
+  $("#stdsNote").innerHTML=stdsHTML();
+  buildModeToggles();
+  resetRounds();
+}
+function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} applyLang(); }
+function buildLangSelect(){
+  const sel=$("#langSelect"); sel.innerHTML="";
+  LANGS.forEach(m=>{ const o=document.createElement("option"); o.value=m.code; o.textContent=m.name; sel.appendChild(o); });
+  sel.value=lang;
+  sel.addEventListener("change",()=>setLang(sel.value));
+}
+
+/* ---------- Init ---------- */
+function buildUI(){
+  $("#tabs").innerHTML=MODES.map(m=>`<button type="button" role="tab" id="tab-${m}" aria-controls="mode-${m}" aria-selected="false" data-mode="${m}"><span class="ic" aria-hidden="true">${MODE_IC[m]}</span><span data-t="${MODE_KEY[m]}"></span></button>`).join("");
+  $("#panels").innerHTML=MODES.map(m=>`<section id="mode-${m}" class="panel modepanel hidden" role="tabpanel" aria-labelledby="tab-${m}">
+    <div class="panelhead"><h2 data-t="${MODE_KEY[m]}"></h2><button type="button" class="btn ghost no-print" data-new="${m}" data-t="newRound"></button></div>
+    <div class="prompt"><button type="button" class="speaker" data-speak="${m}" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="p-${m}">…</span></div>
+    <div class="work" id="w-${m}"></div>
+    <div class="acts no-print" id="a-${m}"></div>
+    <div class="choices" id="c-${m}" role="group" data-ta="choicesLbl" aria-label="Answer choices"></div>
+    <div class="feedback" id="f-${m}" role="status" aria-live="polite"></div></section>`).join("");
+  $("#tabs").addEventListener("keydown",e=>{ const vis=$$(".tabs button").filter(b=>!b.classList.contains("hidden")), i=vis.indexOf(document.activeElement); if(i<0) return;
+    const rtl=document.documentElement.dir==="rtl", stp={ArrowRight:rtl?-1:1,ArrowLeft:rtl?1:-1}[e.key]; if(!stp) return;
+    const nb=vis[(i+stp+vis.length)%vis.length]; nb.focus(); showMode(nb.dataset.mode); e.preventDefault(); });
+}
+function init(){
+  lang=resolveLang();
+  buildUI();
+  buildLangSelect();
+  $$(".tabs button").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.mode)));
+  $$(".speaker").forEach(b=>b.addEventListener("click",()=>speak(currentSpeech[b.dataset.speak])));
+  $$("[data-new]").forEach(b=>b.addEventListener("click",()=>{ stopSpeech(); NEWFN[b.dataset.new](); }));
+  initSettings();
+  const f=firstMode();
+  $$(".tabs button").forEach(b=>{ const on=b.dataset.mode===f; b.setAttribute("aria-selected",on?"true":"false"); b.tabIndex=on?0:-1; b.classList.toggle("hidden",!settings.modes[b.dataset.mode]); });
+  $$(".modepanel").forEach(p=>p.classList.toggle("hidden",p.id!=="mode-"+f));
+  applyLang();
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+</script>
+<script>
+/* Student mute toggle — shared across the Digital Math Tools. Self-contained,
+   offline, stores no student data. Gates ALL speech by intercepting
+   speechSynthesis.speak, so muting works regardless of each tool's internals.
+   Reads the shared language preference only to localize its own label. */
+(function(){
+  "use strict";
+  var LKEY='tcea.mathtools.lang', MKEY='tcea.mathtools.muted';
+  var CODES=['en','es','vi','ar','hi','ur','zh'];
+  var LAB={
+    mute:{en:"Mute sound",es:"Silenciar sonido",vi:"Tắt âm thanh",ar:"كتم الصوت",hi:"आवाज़ बंद करें",ur:"آواز بند کریں",zh:"静音"},
+    unmute:{en:"Turn sound on",es:"Activar sonido",vi:"Bật âm thanh",ar:"تشغيل الصوت",hi:"आवाज़ चालू करें",ur:"آواز چالو کریں",zh:"打开声音"}
+  };
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  window.__MT_MUTED = (get(MKEY)==='1');
+  // Intercept every speech request; suppress while muted.
+  try{
+    if(window.speechSynthesis && typeof window.speechSynthesis.speak==='function'){
+      var ss=window.speechSynthesis, orig=ss.speak.bind(ss);
+      ss.speak=function(u){ if(!window.__MT_MUTED){ try{orig(u);}catch(e){} } };
+    }
+  }catch(e){}
+  function curLang(){ var l=get(LKEY)||'en'; return LAB.mute[l]?l:'en'; }
+  function label(el){
+    var on=!window.__MT_MUTED, l=curLang(), txt=on?LAB.mute[l]:LAB.unmute[l];
+    el.textContent=on?'🔊':'🔇';
+    el.setAttribute('aria-label',txt); el.setAttribute('title',txt);
+    el.setAttribute('aria-pressed', on?'false':'true');
+  }
+  function findLangSelect(){
+    var sels=document.querySelectorAll('select');
+    for(var i=0;i<sels.length;i++){ var o=sels[i].options, c=0;
+      for(var j=0;j<o.length;j++){ if(CODES.indexOf((o[j].value||'').toLowerCase())>=0) c++; }
+      if(c>=3) return sels[i];
+    }
+    return null;
+  }
+  function build(){
+    if(document.getElementById('mtMuteBtn')) return;
+    if(!(('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window))) return;
+    var btn=document.createElement('button');
+    btn.id='mtMuteBtn'; btn.type='button';
+    btn.style.cssText='font:inherit;font-size:1.15rem;line-height:1;cursor:pointer;'+
+      'min-width:44px;min-height:44px;padding:8px 12px;border:2px solid #e2dcf1;'+
+      'border-radius:10px;background:#fff;color:#5b3fa5;font-weight:700;margin:0 4px;';
+    btn.addEventListener('click',function(){
+      window.__MT_MUTED=!window.__MT_MUTED;
+      set(MKEY, window.__MT_MUTED?'1':'0');
+      if(window.__MT_MUTED){ try{window.speechSynthesis.cancel();}catch(e){} }
+      label(btn);
+    });
+    btn.addEventListener('focus',function(){btn.style.outline='3px solid #5b3fa5';btn.style.outlineOffset='2px';});
+    btn.addEventListener('blur',function(){btn.style.outline='';});
+    var sel=findLangSelect();
+    if(sel && sel.parentNode){
+      sel.parentNode.insertBefore(btn, sel);
+      sel.addEventListener('change',function(){ setTimeout(function(){label(btn);},0); });
+    }else{
+      btn.style.position='fixed'; btn.style.top='10px'; btn.style.zIndex='9999';
+      btn.style[(document.documentElement.dir==='rtl')?'left':'right']='10px';
+      (document.body||document.documentElement).appendChild(btn);
+    }
+    label(btn);
+  }
+  if(document.readyState==='complete'){ build(); }
+  else{ window.addEventListener('load', build); }
+  window.addEventListener('storage',function(e){ if(e.key===LKEY){ var b=document.getElementById('mtMuteBtn'); if(b) label(b); } });
+})();
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+</html>
