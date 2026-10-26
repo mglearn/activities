@@ -130,7 +130,10 @@ window.MATHTOOLS = (function () {
     "Inequalities":{en:"Inequalities",es:"Desigualdades",vi:"Bất phương trình",ar:"المتباينات",hi:"असमिकाएँ",ur:"عدم مساوات",zh:"不等式"},
     "Order of operations":{en:"Order of operations",es:"Orden de las operaciones",vi:"Thứ tự phép tính",ar:"ترتيب العمليات",hi:"संक्रियाओं का क्रम",ur:"اعمال کی ترتیب",zh:"运算顺序"},
     "Slope":{en:"Slope",es:"Pendiente",vi:"Độ dốc",ar:"الميل",hi:"ढलान",ur:"ڈھلان",zh:"斜率"},
-    "Functions":{en:"Functions",es:"Funciones",vi:"Hàm số",ar:"الدوال",hi:"फलन",ur:"تفاعل",zh:"函数"}
+    "Functions":{en:"Functions",es:"Funciones",vi:"Hàm số",ar:"الدوال",hi:"फलन",ur:"تفاعل",zh:"函数"},
+    "Circles":{en:"Circles",es:"Círculos",vi:"Hình tròn",ar:"الدوائر",hi:"वृत्त",ur:"دائرے",zh:"圆"},
+    "Transformations":{en:"Transformations",es:"Transformaciones",vi:"Phép biến hình",ar:"التحويلات الهندسية",hi:"रूपांतरण",ur:"تبدیلیاں",zh:"图形变换"},
+    "Pythagorean theorem":{en:"Pythagorean theorem",es:"Teorema de Pitágoras",vi:"Định lý Pythagore",ar:"نظرية فيثاغورس",hi:"पाइथागोरस प्रमेय",ur:"فیثاغورث کا مسئلہ",zh:"勾股定理"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -350,7 +353,19 @@ window.MATHTOOLS = (function () {
         ar:"أكمل الجداول من القواعد ومثّل النقاط، واستكشف الميل بنقاط قابلة للسحب ومثلثات الميل، وابنِ خطوط y = mx + b، وحدّد هل العلاقة دالة، وقارن الخطوط وجِد نقطة تقاطعها.",
         hi:"नियमों से तालिकाएँ पूरी करें और बिंदु आलेखित करें, खिसकाए जा सकने वाले बिंदुओं और ढलान त्रिभुजों से ढलान समझें, y = mx + b रेखाएँ बनाएँ, तय करें कि संबंध फलन है या नहीं, और रेखाओं की तुलना कर उनका प्रतिच्छेद बिंदु खोजें।",
         ur:"قاعدوں سے جدول مکمل کریں اور نقاط کا گراف بنائیں، گھسیٹنے والے نقاط اور ڈھلان مثلثوں سے ڈھلان سمجھیں، y = mx + b خطوط بنائیں، طے کریں کہ تعلق تفاعل ہے یا نہیں، اور خطوط کا موازنہ کر کے ان کا نقطۂ تقاطع تلاش کریں۔",
-        zh:"根据规则完成表格并描点，用可拖动的点和斜率三角形探索斜率，构建 y = mx + b 直线，判断关系是否为函数，并比较直线、找出交点。"} }
+        zh:"根据规则完成表格并描点，用可拖动的点和斜率三角形探索斜率，构建 y = mx + b 直线，判断关系是否为函数，并比较直线、找出交点。"} },
+    { id:"geometry-transform-studio", collection:"g68", bandId:"6-8", icon:"📐", accent:"#d35400",
+      title:"Geometry Transform Studio", href:"g68/geometry-transform-studio/index.html",
+      tags:["Area","Volume","Circles","Transformations","Coordinate plane","Angles","Pythagorean theorem","3-D solids"],
+      kw:"geometry area parallelogram triangle trapezoid composite decompose rearrange circle circumference pi volume prism pyramid cylinder cone sphere surface area net lateral translation reflection rotation dilation congruent similar coordinate rule complementary supplementary vertical adjacent transversal parallel lines exterior angle triangle inequality pythagorean theorem hypotenuse distance converse geometría transformaciones pitágoras 几何 勾股定理",
+      desc:{
+        en:"Cut and rearrange shapes to discover area formulas, roll circles and pour solids to see π and ⅓, plot transformations on the coordinate plane, find missing angles, and see the Pythagorean theorem proved.",
+        es:"Corta y reacomoda figuras para descubrir fórmulas de área, haz rodar círculos y vacía cuerpos para ver π y ⅓, traza transformaciones en el plano de coordenadas, halla ángulos que faltan y mira una demostración del teorema de Pitágoras.",
+        vi:"Cắt và sắp xếp lại hình để khám phá công thức diện tích, lăn hình tròn và đổ hình khối để thấy π và ⅓, vẽ phép biến hình trên mặt phẳng tọa độ, tìm góc còn thiếu và xem chứng minh định lý Pythagore.",
+        ar:"قصّ الأشكال وأعِد ترتيبها لتكتشف صيغ المساحة، دحرج الدوائر واسكب المجسمات لترى π و⅓، ارسم التحويلات على المستوى الإحداثي، أوجد الزوايا الناقصة، وشاهد برهان نظرية فيثاغورس.",
+        hi:"आकृतियों को काटकर फिर से जमाओ और क्षेत्रफल के सूत्र खोजो, वृत्त लुढ़काकर और ठोस भरकर π और ⅓ देखो, निर्देशांक तल पर रूपांतरण बनाओ, छूटे कोण ज्ञात करो और पाइथागोरस प्रमेय का प्रमाण देखो।",
+        ur:"اشکال کاٹ کر دوبارہ جوڑیں اور رقبے کے فارمولے دریافت کریں، دائرے لڑھکا کر اور ٹھوس اشکال بھر کر π اور ⅓ دیکھیں، محدداتی سطح پر تبدیلیاں بنائیں، غائب زاویے معلوم کریں اور فیثاغورث کے مسئلے کا ثبوت دیکھیں۔",
+        zh:"剪开并重新拼合图形，发现面积公式；滚动圆、倾倒立体图形，看懂 π 和 ⅓；在坐标平面上画出图形变换；求未知角；观看勾股定理的证明。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
