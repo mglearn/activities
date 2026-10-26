@@ -65,6 +65,20 @@ window.MATHTOOLS = (function () {
         zh: "为小学高年级设计的互动数学工具——分数、乘除法、小数与位值、面积与体积、角与坐标平面。"
       }
     }
+,
+    {
+      id: "g68", bandId: "6-8", icon: "📈", accent: "#2d4f8f", href: "g68/index.html",
+      name: { en: "Grades 6–8", es: "Grados 6–8", vi: "Lớp 6–8", ar: "الصفوف 6–8", hi: "कक्षा 6–8", ur: "جماعت 6–8", zh: "六至八年级" },
+      desc: {
+        en: "Interactive middle-school math tools — ratios and proportions, integers and rational numbers, expressions and equations, linear functions, and geometry.",
+        es: "Herramientas matemáticas interactivas para secundaria: razones y proporciones, enteros y números racionales, expresiones y ecuaciones, funciones lineales y geometría.",
+        vi: "Công cụ toán tương tác cho trung học cơ sở — tỉ số và tỉ lệ, số nguyên và số hữu tỉ, biểu thức và phương trình, hàm số bậc nhất, và hình học.",
+        ar: "أدوات رياضيات تفاعلية للمرحلة المتوسطة — النسب والتناسب، والأعداد الصحيحة والنسبية، والعبارات والمعادلات، والدوال الخطية، والهندسة.",
+        hi: "मिडिल स्कूल के लिए इंटरैक्टिव गणित उपकरण — अनुपात और समानुपात, पूर्णांक और परिमेय संख्याएँ, व्यंजक और समीकरण, रैखिक फलन, और ज्यामिति।",
+        ur: "مڈل اسکول کے لیے انٹرایکٹو ریاضی اوزار — نسبت اور تناسب، صحیح اور ناطق اعداد، عبارات اور مساوات، خطی تفاعل، اور جیومیٹری۔",
+        zh: "面向初中的互动数学工具——比与比例、整数与有理数、表达式与方程、一次函数以及几何。"
+      }
+    }
   ];
 
   // ---- Shared tag vocabulary (English key -> per-language label) ------------
@@ -105,7 +119,12 @@ window.MATHTOOLS = (function () {
     "Lines & symmetry":{en:"Lines & symmetry",es:"Rectas y simetría",vi:"Đường thẳng và đối xứng",ar:"المستقيمات والتماثل",hi:"रेखाएँ और सममिति",ur:"خطوط اور تشاکل",zh:"线与对称"},
     "Coordinate plane":{en:"Coordinate plane",es:"Plano de coordenadas",vi:"Mặt phẳng tọa độ",ar:"المستوى الإحداثي",hi:"निर्देशांक तल",ur:"محدداتی سطح",zh:"坐标平面"},
     "Decimals":{en:"Decimals",es:"Decimales",vi:"Số thập phân",ar:"الكسور العشرية",hi:"दशमलव",ur:"اعشاریے",zh:"小数"},
-    "Rounding":{en:"Rounding",es:"Redondeo",vi:"Làm tròn",ar:"التقريب",hi:"पूर्णांकन",ur:"گول کرنا",zh:"取近似数"}
+    "Rounding":{en:"Rounding",es:"Redondeo",vi:"Làm tròn",ar:"التقريب",hi:"पूर्णांकन",ur:"گول کرنا",zh:"取近似数"},
+    "Ratios":{en:"Ratios",es:"Razones",vi:"Tỉ số",ar:"النسب",hi:"अनुपात",ur:"تناسب",zh:"比"},
+    "Rates":{en:"Rates",es:"Tasas",vi:"Tỉ suất",ar:"المعدلات",hi:"दरें",ur:"شرحیں",zh:"比率"},
+    "Proportional reasoning":{en:"Proportional reasoning",es:"Razonamiento proporcional",vi:"Suy luận tỉ lệ",ar:"الاستدلال التناسبي",hi:"समानुपाती तर्क",ur:"متناسب استدلال",zh:"比例推理"},
+    "Percent":{en:"Percent",es:"Porcentaje",vi:"Phần trăm",ar:"النسبة المئوية",hi:"प्रतिशत",ur:"فیصد",zh:"百分数"},
+    "Scale drawings":{en:"Scale drawings",es:"Dibujos a escala",vi:"Bản vẽ tỉ lệ",ar:"الرسم بمقياس",hi:"पैमाना चित्र",ur:"پیمانہ ڈرائنگ",zh:"比例尺图"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -289,7 +308,19 @@ window.MATHTOOLS = (function () {
         ar:"كوّن الأعداد حتى المليارات والكسور العشرية حتى الأجزاء من ألف واقرأها بالصيغة القياسية والموسّعة والكلامية؛ وظلّل شبكات الأجزاء من عشرة ومن مئة وعُدّ النقود؛ وقارن ورتّب؛ وقرّب على خط الأعداد؛ واجمع واطرح واضرب واقسم على قوى العدد 10.",
         hi:"अरबों तक की संख्याएँ और सहस्रांश तक के दशमलव मानक, विस्तारित और शब्द रूप में बनाएँ और पढ़ें; दशांश और शतांश ग्रिड रंगें और पैसे गिनें; तुलना करें और क्रम में लगाएँ; संख्या रेखा पर पूर्णांकन करें; और जोड़ें, घटाएँ तथा 10 की घातों से गुणा-भाग करें।",
         ur:"اربوں تک کے اعداد اور ہزارویں حصے تک کے اعشاریے معیاری، پھیلی ہوئی اور لفظی شکل میں بنائیں اور پڑھیں؛ دسویں اور سوویں حصوں کے گرڈ رنگیں اور پیسے گنیں؛ موازنہ اور ترتیب دیں؛ عددی لکیر پر گول کریں؛ اور جمع، تفریق اور 10 کی طاقتوں سے ضرب و تقسیم کریں۔",
-        zh:"在十亿以内的整数和千分位以内的小数中，用标准写法、展开式和读法拼数、读数；涂十分之一和百分之一方格、数钱；比较和排序；在数轴上取近似数；并做加减法以及乘除10的乘方。"} }
+        zh:"在十亿以内的整数和千分位以内的小数中，用标准写法、展开式和读法拼数、读数；涂十分之一和百分之一方格、数钱；比较和排序；在数轴上取近似数；并做加减法以及乘除10的乘方。"} },
+    { id:"ratio-rate-studio", collection:"g68", bandId:"6-8", icon:"⚖️", accent:"#16a085",
+      title:"Ratio & Rate Studio", href:"g68/ratio-rate-studio/index.html",
+      tags:["Ratios","Rates","Proportional reasoning","Percent","Scale drawings","Conversions","Story problems"],
+      kw:"ratio rates unit rate ratio table tape diagram double number line proportional relationship constant of proportionality k y=kx slope percent discount tax tip percent increase decrease scale drawing map scale unit conversion best buy speed razón tasa unitaria porcentaje 比例 百分数",
+      desc:{
+        en:"Build ratio tables and tape diagrams, find unit rates on double number lines, decide whether relationships are proportional and find k, solve percent problems, and work with scale drawings and unit conversions.",
+        es:"Construye tablas de razones y diagramas de cinta, halla tasas unitarias en rectas numéricas dobles, decide si una relación es proporcional y halla k, resuelve problemas de porcentaje y trabaja con dibujos a escala y conversiones de unidades.",
+        vi:"Lập bảng tỉ số và sơ đồ đoạn thẳng, tìm tỉ suất đơn vị trên trục số kép, xác định quan hệ tỉ lệ thuận và tìm k, giải bài toán phần trăm, và làm việc với bản vẽ tỉ lệ và đổi đơn vị.",
+        ar:"أنشئ جداول النسب والمخططات الشريطية، وأوجد معدل الوحدة على خطوط الأعداد المزدوجة، وحدّد ما إذا كانت العلاقة تناسبية وأوجد k، وحلّ مسائل النسبة المئوية، واعمل مع الرسوم بمقياس رسم وتحويل الوحدات.",
+        hi:"अनुपात सारणी और पट्टी आरेख बनाएँ, दोहरी संख्या रेखा पर इकाई दर ज्ञात करें, संबंध समानुपाती है या नहीं तय करें और k ज्ञात करें, प्रतिशत के प्रश्न हल करें, तथा पैमाना चित्र और इकाई रूपांतरण पर काम करें।",
+        ur:"تناسب کے جدول اور پٹی خاکے بنائیں، دوہری عددی لکیر پر اکائی شرح معلوم کریں، فیصلہ کریں کہ تعلق متناسب ہے یا نہیں اور k معلوم کریں، فیصد کے سوال حل کریں، اور پیمانہ ڈرائنگ اور اکائیوں کی تبدیلی پر کام کریں۔",
+        zh:"建立比例表和条形图，在双数轴上求单位比率，判断关系是否成正比并求出k，解决百分数问题，并练习比例尺图和单位换算。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };

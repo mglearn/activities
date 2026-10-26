@@ -1,0 +1,3023 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Ratio & Rate Studio — a Grades 6–8 app for ratios, rates, proportional relationships, percent, scale drawings and unit conversions. Works offline. No data collected.">
+<title>Ratio &amp; Rate Studio</title>
+<style>
+  :root{
+    --bg:#eef7f4;--panel:#ffffff;--ink:#14281f;--muted:#43584f;--line:#c3e0d6;
+    --accent:#16a085;--accentT:#117a65;--accentD:#0e6655;--accent-ink:#ffffff;--good:#166534;--good-bg:#dcfce7;
+    --hint:#7a4a00;--hint-bg:#fff4d6;--focus:#0a58ca;--sh:#48c9b0;--sh2:#f5b041;--pinc:#c0392b;
+    --tap:52px;font-size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4;-webkit-text-size-adjust:100%}
+  h1,h2,h3{line-height:1.15;margin:0 0 .3em}
+  button{font-family:inherit;font-size:1rem;cursor:pointer}
+  button:disabled{cursor:default}
+
+  .topbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--accentT);color:var(--accent-ink);padding:.55rem .8rem}
+  .topbar .brand{font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:.4rem;margin-inline-end:auto}
+  .topbar a.homebtn,.topbar button.tb{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.4rem .7rem;min-height:var(--tap);min-width:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;font-weight:700;font-size:.95rem}
+  .globe{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.2rem .5rem;min-height:var(--tap)}
+  .globe span{font-size:1.2rem}
+  .globe select{border:0;background:#fff;color:var(--ink);border-radius:8px;min-height:44px;font-weight:700;font-size:1rem;padding:.2rem .4rem}
+
+  main{max-width:1200px;margin:0 auto;padding:.7rem}
+  .tabsrow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:.4rem 0 .7rem}
+  .tabs{display:flex;gap:.4rem;flex-wrap:wrap;flex:1 1 auto}
+  .tabs button{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:.45rem .75rem;min-height:var(--tap);font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .tabs button[aria-selected="true"]{background:var(--accentD);color:#fff;border-color:var(--accentD)}
+  .tabs button .ic{font-size:1.15rem}
+  .stars{background:#fff;border:2px solid var(--line);border-radius:14px;padding:.4rem .8rem;font-weight:800;font-size:1.05rem;min-height:48px;display:inline-flex;align-items:center;gap:.35rem}
+  .stars.pop{animation:pop .5s ease}
+  @keyframes pop{50%{transform:scale(1.12)}}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  .panel{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:.9rem;margin-bottom:.8rem}
+  .panelhead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+  .panelhead h2{margin:0;font-size:1.25rem;margin-inline-end:auto}
+
+  .prompt{display:flex;align-items:center;gap:.6rem;background:#e7f6f1;border:2px solid #b3ddd0;border-radius:14px;padding:.6rem .8rem;margin-bottom:.7rem;font-size:1.1rem;font-weight:600;line-height:1.75}
+  .speaker{background:var(--accentD);color:#fff;border:0;border-radius:50%;width:var(--tap);height:var(--tap);min-width:var(--tap);font-size:1.4rem;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+
+  .btn{background:var(--accentD);color:#fff;border:2px solid var(--accentD);border-radius:12px;padding:.5rem .85rem;min-height:var(--tap);font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:.3rem}
+  .btn.ghost{background:var(--panel);color:var(--accentD)}
+  .btn.sq{min-width:var(--tap);font-size:1.4rem;padding:.2rem .6rem}
+  .btn.sm{min-height:46px;min-width:46px;padding:.3rem .55rem;font-size:1rem}
+  .btn:disabled{opacity:.45}
+
+  .feedback{margin-top:.6rem;border-radius:12px;padding:.6rem .8rem;font-weight:600;display:none;line-height:1.85}
+  .feedback.show{display:block}
+  .feedback.good{background:var(--good-bg);color:var(--good);border:2px solid #86efac}
+  .feedback.hint{background:var(--hint-bg);color:var(--hint);border:2px solid #f6d271}
+
+  /* Math: always left-to-right, even inside Arabic/Urdu sentences */
+  .math{unicode-bidi:isolate;direction:ltr;display:inline;font-weight:800}
+  .fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.05;font-weight:800;margin:0 .08em;white-space:nowrap;font-size:.9em}
+  .fr>span{padding:0 .16em}
+  .fr>span:first-child{border-bottom:.12em solid currentColor}
+  .mx{direction:ltr;display:inline-flex;align-items:center;gap:.08em;white-space:nowrap;vertical-align:middle}
+  .big{font-size:1.9rem;text-align:center;margin:.2rem 0 .6rem}
+  .built{font-weight:700;text-align:center;margin:.35rem 0;font-size:1.05rem;line-height:1.9}
+
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem;margin-top:.7rem}
+  .choices:empty{display:none}
+  .choice{background:var(--panel);border:3px solid var(--line);border-radius:16px;padding:.5rem;min-height:68px;display:flex;align-items:center;justify-content:center;position:relative;font-size:1.35rem;font-weight:800;color:var(--ink);text-align:center}
+  .choice .lbl{unicode-bidi:isolate}
+  .choice.wide{font-size:1.02rem;font-weight:700;line-height:1.35}
+  .choices.wide{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .choice.correctpick{border-color:var(--good);background:var(--good-bg)}
+  .choice.wrongpick{border-color:#e3b341;background:var(--hint-bg);opacity:.75}
+  .choice .badge{position:absolute;top:4px;inset-inline-end:6px;font-size:1.1rem;display:none}
+  .choice.correctpick .badge{display:block}
+
+  .work:empty{display:none}
+  .acts{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:center;margin:.5rem 0}
+  .acts:empty{display:none}
+
+  /* Ratio table */
+  .rtbox{margin:.3rem 0}
+  .rt-wrap{overflow-x:auto;max-width:100%;padding:.2rem 0}
+  table.rt{border-collapse:separate;border-spacing:0;margin:0 auto;font-size:1.15rem}
+  table.rt th,table.rt td{border:2px solid var(--line);padding:.35rem .55rem;text-align:center;min-width:3.2rem;height:2.6rem}
+  table.rt th{background:#f2faf7;font-size:.9rem;max-width:8rem;font-weight:700;text-align:start}
+  table.rt td.given{background:#e1f3ee;font-weight:800}
+  table.rt td.work{background:#fff}
+  table.rt td.hit{background:var(--good-bg);border-color:#86efac}
+  table.rt td.tgt{border-style:dashed;border-color:#7fbfab;font-weight:800}
+  table.rt tr.ops th{border:0;background:none}
+  table.rt tr.ops td{border:0;font-size:.85rem;color:var(--accentD);font-weight:800;height:auto;padding:.1rem}
+  .rt-ops{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin:.4rem 0}
+  .rt-tip{font-size:.9rem;color:var(--muted);text-align:center;margin:.2rem 0}
+
+  /* Tape diagram */
+  .tapes{display:grid;grid-template-columns:minmax(0,7.5rem) 1fr auto;gap:.45rem .6rem;align-items:center;max-width:640px;margin:.4rem auto}
+  .tlab{font-weight:700;font-size:.9rem}
+  .tape{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:0}
+  .tu{border:2px solid #2c4a3e;margin-inline-start:-2px;height:42px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.05rem;overflow:hidden}
+  .tu.ta{background:var(--sh)}
+  .tu.tb{background:var(--sh2)}
+  .tsum{font-weight:800;min-width:2.5rem;text-align:center}
+  .ttot{grid-column:1/-1;text-align:center;font-weight:800;padding:.3rem;border-radius:10px;background:#f2faf7}
+  .ttot.hit{background:var(--good-bg);color:var(--good)}
+  .uval{font-weight:800;min-width:6rem;text-align:center}
+
+  /* Double number line, grids, graphs, maps */
+  .dnlbox{margin:.2rem auto;max-width:760px}
+  svg.dnl{width:100%;height:auto;display:block;touch-action:none}
+  .nlax{stroke:#1f3d33;stroke-width:4;stroke-linecap:round}
+  .tk{stroke:#1f3d33;stroke-width:3}
+  .dl-link{stroke:#7fbfab;stroke-width:2;stroke-dasharray:4 4}
+  .dl-name{font-size:17px;font-weight:700;fill:#43584f;font-family:system-ui,sans-serif}
+  .dl-num,.dl-giv,.dl-pin,.dl-q{font-size:19px;font-weight:800;fill:#14281f;font-family:system-ui,sans-serif}
+  .dl-giv{fill:var(--accentD)}
+  .dl-pin{fill:var(--pinc)}
+  .dl-bar{stroke-width:2}
+  .qbox{fill:#fff;stroke:#7fbfab;stroke-width:2;stroke-dasharray:4 3}
+  .pin line{stroke:var(--pinc);stroke-width:4;stroke-linecap:round}
+  .pin circle{fill:#e74c3c;stroke:#7b241c;stroke-width:3}
+  svg.dnl[role=slider]{cursor:grab}
+  svg.dnl:focus{outline:none}
+  svg.dnl:focus-visible{outline:4px solid var(--focus);outline-offset:2px;border-radius:8px}
+  .pgbox{text-align:center}
+  svg.pgrid{width:min(100%,300px);height:auto;touch-action:none}
+  .gc{fill:#fff;stroke:#5b8a7a;stroke-width:1.2}
+  .gc.on{fill:var(--sh)}
+  svg.pgrid:focus{outline:none}
+  svg.pgrid:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+  svg.graph{width:min(100%,380px);height:auto;display:block;margin:0 auto}
+  .ggrid{stroke:#d6ebe4;stroke-width:1}
+  .gax{stroke:#1f3d33;stroke-width:2.5}
+  .gtx{font-size:13px;font-family:system-ui,sans-serif;fill:#43584f;font-weight:700}
+  .gln{stroke:var(--accentD);stroke-width:3;fill:none}
+  .gray{stroke:#c0392b;stroke-width:2.5;stroke-dasharray:7 5;fill:none}
+  .gpt{fill:var(--accentD);stroke:#fff;stroke-width:2}
+  .ghi{fill:#e74c3c;stroke:#7b241c;stroke-width:2}
+  .pt-wrap{overflow-x:auto;max-width:100%}
+  .pt{display:flex;gap:.35rem;justify-content:center;margin:.3rem auto;width:max-content;max-width:100%}
+  .pth,.ptc{display:grid;grid-template-rows:2.4rem 2.4rem 2.6rem;border:2px solid var(--line);border-radius:12px;overflow:hidden;min-width:3.4rem}
+  .pth span,.ptc span{display:flex;align-items:center;justify-content:center;padding:0 .35rem;font-weight:800;font-size:1.05rem;border-bottom:1px solid var(--line)}
+  .pth{background:#f2faf7}
+  .ptc{background:#fff;padding:0;color:var(--ink)}
+  .ptc .q{color:var(--accentD);background:#f7fcfa;font-size:.95rem}
+  .ptc.shown .q{background:#e1f3ee}
+  svg.map,svg.plan{width:100%;max-width:700px;height:auto;display:block;margin:0 auto}
+  .mtx{font-size:24px;font-weight:800;font-family:system-ui,sans-serif;fill:#14281f}
+  .side{stroke:transparent;stroke-width:22;cursor:pointer}
+  .side:focus{outline:none;stroke:rgba(10,88,202,.35)}
+  .eqs{color:var(--muted);margin:0 .3em}
+
+  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
+  .drawer.open{display:flex}
+  .drawer .card{background:var(--panel);border-radius:16px;max-width:600px;width:100%;padding:1rem;max-height:90vh;overflow:auto}
+  .setrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+  .setrow .lab{font-weight:700;min-width:150px}
+  .toggle{display:inline-flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:10px;padding:.35rem .55rem;background:#fff;min-height:44px}
+  .toggle input{width:22px;height:22px}
+  select.diff{font-size:1rem;padding:.4rem;border-radius:10px;border:2px solid var(--line);min-height:48px;max-width:100%}
+  .wrapflex{display:flex;flex-wrap:wrap;gap:.4rem}
+
+  footer{max-width:1200px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+  footer a{color:var(--accentD);font-weight:700}
+  .stds{font-size:.82rem;color:var(--muted);background:#f4fbf8;border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  .hidden{display:none !important}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  @media (max-width:480px){ :root{font-size:17px} .big{font-size:1.5rem} .tabs button{padding:.4rem .55rem;font-size:.9rem} .tapes{grid-template-columns:minmax(0,5.2rem) 1fr auto} table.rt{font-size:1rem} table.rt th,table.rt td{min-width:2.6rem;padding:.3rem .35rem} .choice{font-size:1.2rem} }
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+  .printonly{display:none}
+  @media print{
+    .topbar,.tabsrow,footer,.modepanel,#stdsNote,.no-print,#mtMuteBtn{display:none !important}
+    body{background:#fff}
+    .printonly{display:block}
+    .card-print{border:2px solid #000;border-radius:12px;padding:1rem;margin:0 0 1rem;page-break-inside:avoid}
+    .card-print h2{margin:.2rem 0}
+    .card-print svg{max-height:200px;max-width:100%}
+    main{max-width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">⚖️ <span data-t="appTitle">Ratio &amp; Rate Studio</span></span>
+  <a class="homebtn" href="../../index.html">🏠 <span data-t="home">Home</span></a>
+  <label class="globe"><span aria-hidden="true">🌐</span>
+    <select id="langSelect" aria-label="Language / Idioma"></select>
+  </label>
+  <button class="tb settingsbtn" id="openSettings" type="button">⚙️ <span data-t="teacher">Teacher</span></button>
+</header>
+
+<main>
+  <div class="tabsrow">
+    <div class="tabs" id="tabs" role="tablist" data-ta="modesLbl" aria-label="Modes"></div>
+    <span class="stars" id="stars"><span aria-hidden="true">✔</span><span data-t="solved">Solved</span> <b id="starCount">0</b></span>
+  </div>
+  <div id="panels"></div>
+  <div class="stds" id="stdsNote"></div>
+  <div class="printonly" id="printArea"></div>
+</main>
+
+<footer>
+  <p data-t="footNote">No accounts · No data collected · Works offline</p>
+  <p><a href="../../index.html" data-t="home">Home</a> · <a href="../../policy.html" data-t="privacy">Privacy</a></p>
+</footer>
+
+<!-- SETTINGS -->
+<div class="drawer" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <div class="panelhead"><h2 id="setTitle" data-t="teacherTitle">Teacher settings</h2>
+      <button class="btn ghost" id="closeSettings" type="button" data-t="close">Close</button></div>
+    <div class="setrow"><label class="lab" for="setGrade" data-t="setGrade">Grade level</label>
+      <select class="diff" id="setGrade">
+        <option value="6" data-t="g6">Grade 6</option>
+        <option value="7" data-t="g7">Grade 7</option>
+        <option value="8" data-t="g8">Grade 8</option></select>
+      <p class="stds" style="margin:0;flex:1 1 100%" data-t="gradeNote"></p></div>
+    <div class="setrow"><label class="lab" for="setSize" data-t="setSize">Number size</label>
+      <select class="diff" id="setSize">
+        <option value="1" data-t="size1">Smaller numbers</option>
+        <option value="2" data-t="size2">Medium numbers</option>
+        <option value="3" data-t="size3">Larger numbers</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setFrac">Fractions</span>
+      <label class="toggle"><input type="checkbox" id="setFrac"> <span data-t="fracOn">Fraction scale factors, rates with fractions, and half units</span></label></div>
+    <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
+      <div id="modeToggles" class="wrapflex"></div></div>
+    <div class="setrow"><span class="lab" data-t="setSpeech">Speech</span>
+      <label class="toggle"><input type="checkbox" id="setAuto"> <span data-t="autoRead">Auto-read directions</span></label></div>
+    <div class="setrow" style="border:0"><button class="btn" id="printCards" type="button">🖨 <span data-t="printCards">Print challenge cards</span></button></div>
+    <p class="stds" data-t="setStored">Settings are saved only on this device. No student information is ever stored.</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   Ratio & Rate Studio — single-file Grades 6–8 ratios, rates, proportional
+   relationships, percent and scale. 7 languages. No frameworks, no network,
+   no data collection.
+   ========================================================================= */
+
+/* ---------- Language metadata ---------- */
+const LANGS = [
+  {code:"en", name:"English",     dir:"ltr", bcp:"en-US"},
+  {code:"es", name:"Español",     dir:"ltr", bcp:"es-ES"},
+  {code:"vi", name:"Tiếng Việt",  dir:"ltr", bcp:"vi-VN"},
+  {code:"ar", name:"العربية",     dir:"rtl", bcp:"ar-SA"},
+  {code:"hi", name:"हिन्दी",       dir:"ltr", bcp:"hi-IN"},
+  {code:"ur", name:"اردو",        dir:"rtl", bcp:"ur-PK"},
+  {code:"zh", name:"中文",         dir:"ltr", bcp:"zh-CN"}
+];
+const LANG_KEY = "tcea.mathtools.lang";
+
+/* ---------- Translations ---------- */
+const T = {
+  en:{
+    appTitle:"Ratio & Rate Studio", home:"Home", privacy:"Privacy", teacher:"Teacher", modesLbl:"Modes", solved:"Solved",
+    newRound:"New problem", readAloud:"Read aloud", check:"Check", clear:"Clear", choicesLbl:"Answer choices",
+    footNote:"No accounts · No data collected · Works offline",
+    mRatio:"Ratio Tables & Tapes", mRates:"Double Number Lines & Unit Rates", mProp:"Proportional or Not?", mPct:"Percent Lab", mScale:"Scale & Conversions",
+    teacherTitle:"Teacher settings", close:"Close", setGrade:"Grade level", g6:"Grade 6", g7:"Grade 7", g8:"Grade 8",
+    gradeNote:"Choosing a grade resets the options below to that grade's defaults. Grade 6 practices ratio and percent basics; Grade 7 adds rates with fractions, constant of proportionality, percent change and scale drawings; Grade 8 adds slope connections.",
+    setSize:"Number size", size1:"Smaller numbers", size2:"Medium numbers", size3:"Larger numbers",
+    setFrac:"Fractions", fracOn:"Fraction scale factors, rates with fractions, and half units",
+    setModes:"Modes", setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
+    setStored:"Settings are saved only on this device. No student information is ever stored.",
+    frSay:"{n} over {d}", mixSay:"{w} and {f}", moneySay:"{v} dollars", pctSay:"{v} percent", ratioSay:"{a} to {b}",
+    wPlus:"plus", wMinus:"minus", wTimes:"times", wDiv:"divided by", wEq:"equals", wApprox:"is about",
+    youPicked:"You picked {x}.",
+    names:"Ana,Leo,Mia,Sam,Lina,Omar,Priya,Minh",
+    /* ratio tables */
+    rtLbl:"Ratio table", opMul:"Multiply both quantities by {k}", opDiv:"Divide both quantities by {k}", opAdd:"Add the first column to the last column", undo:"Undo",
+    rtTip:"Build new columns: whatever you do to one quantity, do to the other.",
+    rc0a:"Peanuts (cups)", rc0b:"Raisins (cups)", rc0r:"A trail mix uses {a} cups of peanuts for every {b} cups of raisins.",
+    rc0qb:"How many cups of raisins go with {x} cups of peanuts?", rc0qa:"How many cups of peanuts go with {x} cups of raisins?", rc0qt:"A batch has {T} cups in all. How many cups are peanuts?",
+    rc1a:"Blue paint (cans)", rc1b:"Yellow paint (cans)", rc1r:"A shade of green uses {a} cans of blue paint for every {b} cans of yellow paint.",
+    rc1qb:"How many cans of yellow go with {x} cans of blue?", rc1qa:"How many cans of blue go with {x} cans of yellow?", rc1qt:"A painter mixes {T} cans in all. How many cans are blue?",
+    rc2a:"Students", rc2b:"Adults", rc2r:"On a field trip, there are {a} students for every {b} adults.",
+    rc2qb:"How many adults go with {x} students?", rc2qa:"How many students go with {x} adults?", rc2qt:"There are {T} people on the trip. How many are students?",
+    goodTable:"Yes! Both quantities are multiplied by the same scale factor, {k}: {e1} and {e2}.",
+    hintScale:"Equivalent ratios multiply both quantities by the same number. What number times {gb} gives {g}? Multiply {ob} by that same number. Build columns in the table to help.",
+    hintAdd:"That adds the same amount to both quantities. Ratios stay equivalent only when you multiply (or divide) both quantities by the same number.",
+    unitDown:"Smaller unit value", unitUp:"Larger unit value", unitIs:"1 unit = {u}", tapeTotal:"Total: {x} (goal: {T})",
+    goodTape:"Yes! {a} + {b} = {p} equal units. {e1}, so each unit is worth that much, and {e2}.",
+    hintTape:"The {T} in all is shared by {p} equal units ({a} + {b}). Use − and + to find the unit value that makes the total {T}.",
+    hintTapeOth:"That is the amount for the second part of the ratio. The question asks about the first part — count its units.",
+    equivDir:"Which ratio is equivalent to {r}?",
+    goodEquiv:"Yes! {e1} and {e2}. Both terms are multiplied by {k}.",
+    hintRev:"The order matters. {r} means the first quantity comes first.",
+    hintOff:"Check both terms: {e}, but {y} ÷ {b} is not {k}. Both terms must use the same factor.",
+    /* rates */
+    dnlLbl:"Double number line: {t} on top, {b} on the bottom", pinVal:"{b}: {t}",
+    rt0t:"Cost ($)", rt0b:"Notebooks", rt0s:"{n} notebooks cost {p}.", rt0u:"How much does 1 notebook cost?", rt0m:"At this rate, how much do {m} notebooks cost?", rt0r:"{v} per notebook",
+    rt1t:"Pages", rt1b:"Minutes", rt1s:"{name} reads {p} pages in {n} minutes.", rt1u:"How many pages does {name} read per minute?", rt1m:"At this rate, how many pages can {name} read in {m} minutes?", rt1r:"{v} pages per minute",
+    rt2t:"Miles", rt2b:"Hours", rt2s:"A car travels {p} miles in {n} hours at a constant speed.", rt2u:"What is the car's speed in miles per hour?", rt2m:"At this speed, how far does the car travel in {m} hours?", rt2r:"{v} miles per hour",
+    goodUnit:"Yes! {e}. The unit rate is {rr}.", goodMore:"Yes! The unit rate is {rr}, so {e}.",
+    hintUnit:"A unit rate is the amount for 1. Divide {p} by {n}. Drag the marker on the double number line to 1.",
+    hintMore:"Find the amount for 1 first ({p} ÷ {n}), then multiply by {m}. Drag the marker to see the values.",
+    hintAddRate:"Adding the same amount does not keep a rate the same. Use the amount for 1, then multiply.",
+    store:"Store {s}", storeLine:"Store {s}: {n} granola bars for {p}.", bestQ:"Which is the better buy?", bestT:"Price ($), Store {s}", bars:"Granola bars",
+    sameDeal:"Same price per bar", goodBest:"Yes! Store A: {e1} per bar. Store B: {e2} per bar. {w}",
+    bestLow:"The lower price per bar is the better buy.", bestSame:"Both stores charge the same price per bar.",
+    hintBest:"Compare the price of 1 bar at each store. Divide each price by its number of bars.",
+    rf0s:"{name} walks {a} mile in {b} hour. How many miles per hour is that?", rf0t:"Miles", rf0r:"{v} miles per hour",
+    rf1s:"{name} mows {a} of a lawn in {b} hour. How many lawns per hour is that?", rf1t:"Lawns", rf1r:"{v} lawns per hour", hoursLbl:"Hours",
+    goodFrac:"Yes! Divide to find the amount for 1 hour: {e}. That is {rr}.",
+    hintFrac:"A unit rate is the amount for 1 hour. Divide {a} by {b} (multiply by the reciprocal). On the double number line, find 1 hour.",
+    /* proportional */
+    pYes:"Proportional", pNo:"Not proportional", tableLbl:"Table of values. Tap a column to find y ÷ x.", colLbl:"x = {x}, y = {y}. Tap to find y ÷ x.",
+    ptDir:"Is the relationship in the table proportional? Tap the columns to find y ÷ x.",
+    goodPTy:"Yes! Every y ÷ x equals {k}, so the relationship is proportional: {eq}.",
+    goodPTn:"Right. y ÷ x is not the same in every column, so the relationship is not proportional.",
+    hintPT:"Tap each column to find y ÷ x. In a proportional relationship, every y ÷ x is the same number, k.",
+    graphLbl:"Coordinate graph", rayBtn:"Draw a line from (0, 0)", pgDir:"Is the relationship in the graph proportional?",
+    goodPGy:"Yes! The graph is a straight line through the origin (0, 0), so it is proportional.",
+    goodPGs:"Right. The graph is a straight line, but it does not pass through the origin (0, 0), so it is not proportional.",
+    goodPGc:"Right. The graph passes through (0, 0), but it is not a straight line, so it is not proportional.",
+    hintPG:"A proportional graph is a straight line that passes through the origin (0, 0). Tap “Draw a line from (0, 0)” to test it.",
+    kDirT:"This table shows a proportional relationship. What is the constant of proportionality, k, in y = kx?",
+    kDirG:"This graph shows a proportional relationship. What is the constant of proportionality, k, in y = kx?",
+    kDirS:"{name} earns {p} for {h} hours of babysitting. Pay is proportional to time. What is k in y = kx, where x is hours and y is dollars?",
+    goodK:"Yes! k = y ÷ x: {e}.", hintK:"Pick any pair (x, y) except (0, 0) and divide: k = y ÷ x.", hintKInv:"That is x ÷ y. The constant k is y ÷ x — how much y for each 1 of x.",
+    slopeNote:"In Grade 8 language, k = {k} is also the slope (rate of change) of the line.",
+    pt0x:"x = hours of biking", pt0y:"y = miles", pt1x:"x = pounds of apples", pt1y:"y = cost in dollars",
+    pointDir:"What does the point (1, {k}) on this graph mean?",
+    pt0a:"In 1 hour, the biker rides {k} miles.", pt0b:"In {k} hours, the biker rides 1 mile.", pt0c:"The biker starts {k} miles from home.", pt0d:"The biker rides for {k} hours in all.",
+    pt1a:"1 pound of apples costs ${k}.", pt1b:"{k} pounds of apples cost $1.", pt1c:"The store charges a ${k} fee before any apples.", pt1d:"The shopper buys {k} pounds of apples.",
+    goodPt:"Yes! The point (1, {k}) shows the unit rate: {k} for each 1. That is the constant of proportionality, k = {k}.",
+    hintPt:"Read the axes: {xl} and {yl}. The point (1, {k}) means x is 1 and y is {k}.",
+    eqDir:"Which equation matches the table?", eqSay:"y equals {k} x", eqAddSay:"y equals x plus {d}", eqPlusSay:"y equals {k} x plus {b}",
+    goodEq:"Yes! Each y is {k} times x, so {e}.",
+    hintEq:"Test each equation with every column, not just the first. Only one works for all of them.",
+    hintEqAdd:"{e} works for the first column only. A proportional relationship multiplies: y = kx.",
+    /* percent */
+    gridLbl:"Hundred grid. Tap a square to shade up to it.", gridRead:"{n} of 100 squares = {n}%", minus10:"Take away 10 squares", plus10:"Add 10 squares",
+    shadeDir:"Shade {p} of the hundred grid, then press Check.",
+    goodGrid:"Yes! {n} out of 100 squares is {p}, which is {f} or {d}.",
+    hintGrid:"You shaded {k} squares. Percent means “out of 100,” so {p} is {n} of the 100 squares. Each full row is 10 squares.",
+    nameDir:"Which shows the shaded part of the grid?",
+    goodName:"Yes! {n} of 100 squares are shaded: {tri}.",
+    hintName:"Count the shaded squares — each full row is 10 squares, or 10%. Percent means out of 100.",
+    pctLine:"Percent", amtLine:"Amount",
+    pPart:"What is {p} of {W}?", pWhole:"{P} is {p} of what number?", pPct:"{P} is what percent of {W}?",
+    sPart:"A school has {W} students. {p} of them ride the bus. How many students ride the bus?",
+    sWhole:"{P} students ride the bus. That is {p} of the school. How many students are in the school?",
+    sPct:"{P} of the {W} students in a school ride the bus. What percent ride the bus?",
+    goodPart:"Yes! {p} means {p0} out of 100: {e}.", goodWhole:"Yes! The whole is 100%: {e}.", goodPctF:"Yes! Compare the part to the whole: {e}.",
+    hintPart:"Percent means per 100. Find {p} of {W}: use the percent bar, or multiply {W} by the decimal for {p}.",
+    hintWhole:"The whole is 100%. If {p} is {P}, find the amount for one step on the percent bar, then scale up to 100%.",
+    hintPctF:"Compare the part to the whole: {P} out of {W}. Rewrite it as an amount out of 100.",
+    chDisc:"A jacket costs {W}. It is on sale for {p} off. What is the sale price?",
+    chTax:"A video game costs {W}. The sales tax is {p}. What is the total cost with tax?",
+    chTip:"A meal costs {W}. {name} leaves a {p} tip. What is the total with the tip?",
+    chInc:"A town had {W} people. The population increased by {p}. How many people live there now?",
+    chDec:"A school used {W} sheets of paper last month. This month it used {p} less. How many sheets did it use this month?",
+    goodChg:"Yes! {p} of the original: {e1}. New amount: {e2}. Another way: {e3}.",
+    hintUp:"Find {p} of {W} first, then add it to {W}.", hintDown:"Find {p} of {W} first, then subtract it from {W}.",
+    hintChgAmt:"That is the amount of the change. Combine it with the original amount to find the new amount.",
+    chUp:"The price of a ticket went from {a} to {b}. What is the percent increase?", chDown:"The price of a ticket went from {a} to {b}. What is the percent decrease?",
+    goodPchg:"Yes! The change is {e1}. Compare the change to the original amount: {e2}.",
+    hintPchg:"Percent change = change ÷ original amount. Find the change first, then divide by {a}, the original price.",
+    hintPchgBase:"Compare the change to the original amount ({a}), not to the new amount.",
+    /* scale */
+    mapLbl:"Map from A to B with a scale bar", layBar:"Lay a scale bar", layHalf:"Lay half a bar", barsLaid:"Scale bars: {n}",
+    mapDir:"The scale bar stands for {s} km. Lay scale bars from A to B. What is the actual distance from A to B?",
+    goodMap:"Yes! A to B is {L} scale bars long, so the distance is {e} km.",
+    hintMap:"Lay scale bars from A until you reach B. Each bar stands for {s} km, so multiply the number of bars by {s}.",
+    planLbl:"Floor plan on a grid", sqCount:"{n} squares", tapSide:"Tap a side to count its squares.",
+    drawLen:"In this floor plan, 1 grid square stands for {s} ft. What is the actual length of the long side of the room in feet?",
+    drawArea:"In this floor plan, 1 grid square stands for {s} ft. What is the actual area of the room in square feet?",
+    goodLen:"Yes! The long side is {w} squares: {e} ft.",
+    goodArea:"Yes! Scale each side first: {e1} ft and {e2} ft. Area: {e3} square feet.",
+    hintLen:"Count the squares along the long side (tap it), then multiply by {s} ft for each square.",
+    hintArea:"Find each actual side length first (squares × {s} ft), then multiply length × width.",
+    hintArea1:"That scales the area only once. Both the length and the width are scaled by {s}.",
+    convDir:"Use {fact}. Find the missing number: {q}",
+    goodConvMul:"Yes! Every 1 {u1} is {f} {u2}: {e}.", goodConvDiv:"Yes! Every {f} {u2} make 1 {u1}: {e}.",
+    hintConvMul:"You are changing to a smaller unit, so the number should get bigger. Multiply by {f}.",
+    hintConvDiv:"You are changing to a larger unit, so the number should get smaller. Divide by {f}.",
+    mc0a:"Flour (cups)", mc0b:"Muffins", mc0s:"{a} cups of flour make {b} muffins. How many cups of flour are needed for {c} muffins?",
+    mc1a:"Words", mc1b:"Minutes", mc1s:"{name} types {w} words in {m} minutes. At this rate, how many minutes will it take to type {W} words?",
+    mc2a:"Pay ($)", mc2b:"Hours", mc2s:"{name} earns {p} for {h} hours of work. At this rate, how much will {name} earn for {H} hours?",
+    goodMulti:"Yes! Find the unit rate: {e1}. Then: {e2}.",
+    hintMulti:"Find the unit rate first (the amount for 1), or build the ratio table until one column matches the question. Then scale.",
+    u_in:"in", u_ft:"ft", u_yd:"yd", u_mi:"mi", u_oz:"oz", u_lb:"lb", u_qt:"qt", u_gal:"gal", u_min:"min", u_h:"h", u_cm:"cm", u_m:"m", u_km:"km", u_g:"g", u_kg:"kg",
+    s_in:"inches", s_ft:"feet", s_yd:"yards", s_mi:"miles", s_oz:"ounces", s_lb:"pounds", s_qt:"quarts", s_gal:"gallons", s_min:"minutes", s_h:"hours", s_cm:"centimeters", s_m:"meters", s_km:"kilometers", s_g:"grams", s_kg:"kilograms",
+    s1_in:"inch", s1_ft:"foot", s1_yd:"yard", s1_mi:"mile", s1_lb:"pound", s1_gal:"gallon", s1_h:"hour", s1_m:"meter", s1_km:"kilometer", s1_kg:"kilogram",
+    stds:"Aligned standards — Texas TEKS: Grade 6 6.4(A–H), 6.5(A–C); Grade 7 7.4(A–E), 7.5(C); Grade 8 8.4(B), 8.5(A), 8.5(F). Common Core: 6.RP.1, 6.RP.2, 6.RP.3; 7.RP.1, 7.RP.2, 7.RP.3, 7.G.1; 8.EE.5.",
+    cardTitle:"Ratio & Rate Studio — Challenge Cards", cardName:"Name:", cardTable:"Fill in the missing value. Show the scale factor.",
+    cardShow:"Solve. Show your thinking with a table, tape diagram, or double number line.", cardProp:"Is it proportional? If yes, write the equation y = kx.", cardAns:"Answer:"
+  },
+  es:{
+    appTitle:"Estudio de razones y tasas",
+    home:"Inicio",
+    privacy:"Privacidad",
+    teacher:"Docente",
+    modesLbl:"Modos",
+    solved:"Resueltos",
+    newRound:"Nuevo problema",
+    readAloud:"Leer en voz alta",
+    check:"Comprobar",
+    clear:"Borrar",
+    choicesLbl:"Opciones de respuesta",
+    footNote:"Sin cuentas · No se recopilan datos · Funciona sin conexión",
+    mRatio:"Tablas de razones y diagramas de cinta",
+    mRates:"Rectas numéricas dobles y tasas unitarias",
+    mProp:"¿Proporcional o no?",
+    mPct:"Laboratorio de porcentajes",
+    mScale:"Escala y conversiones",
+    teacherTitle:"Configuración para docentes",
+    close:"Cerrar",
+    setGrade:"Grado",
+    g6:"6.º grado",
+    g7:"7.º grado",
+    g8:"8.º grado",
+    gradeNote:"Al elegir un grado, las opciones de abajo vuelven a los valores predeterminados de ese grado. En 6.º grado se practican las bases de razones y porcentajes; en 7.º se agregan tasas con fracciones, constante de proporcionalidad, cambio porcentual y dibujos a escala; en 8.º se agrega la conexión con la pendiente.",
+    setSize:"Tamaño de los números",
+    size1:"Números más pequeños",
+    size2:"Números medianos",
+    size3:"Números más grandes",
+    setFrac:"Fracciones",
+    fracOn:"Factores de escala fraccionarios, tasas con fracciones y medias unidades",
+    setModes:"Modos",
+    setSpeech:"Voz",
+    autoRead:"Leer las instrucciones automáticamente",
+    printCards:"Imprimir tarjetas de desafío",
+    setStored:"La configuración se guarda solo en este dispositivo. Nunca se almacena información de los estudiantes.",
+    frSay:"{n} sobre {d}",
+    mixSay:"{w} y {f}",
+    moneySay:"{v} dólares",
+    pctSay:"{v} por ciento",
+    ratioSay:"{a} a {b}",
+    wPlus:"más",
+    wMinus:"menos",
+    wTimes:"por",
+    wDiv:"dividido entre",
+    wEq:"es igual a",
+    wApprox:"es aproximadamente",
+    youPicked:"Elegiste {x}.",
+    names:"Ana,Diego,Sofía,Mateo,Lucía,Carlos,Valeria,Javier",
+    rtLbl:"Tabla de razones",
+    opMul:"Multiplica ambas cantidades por {k}",
+    opDiv:"Divide ambas cantidades entre {k}",
+    opAdd:"Suma la primera columna a la última columna",
+    undo:"Deshacer",
+    rtTip:"Crea nuevas columnas: lo que hagas a una cantidad, hazlo también a la otra.",
+    rc0a:"Cacahuates (tazas)",
+    rc0b:"Pasas (tazas)",
+    rc0r:"Una mezcla de frutos secos lleva {a} tazas de cacahuates por cada {b} tazas de pasas.",
+    rc0qb:"¿Cuántas tazas de pasas corresponden a {x} tazas de cacahuates?",
+    rc0qa:"¿Cuántas tazas de cacahuates corresponden a {x} tazas de pasas?",
+    rc0qt:"Una tanda tiene {T} tazas en total. ¿Cuántas tazas son de cacahuates?",
+    rc1a:"Pintura azul (latas)",
+    rc1b:"Pintura amarilla (latas)",
+    rc1r:"Un tono de verde lleva {a} latas de pintura azul por cada {b} latas de pintura amarilla.",
+    rc1qb:"¿Cuántas latas de amarillo corresponden a {x} latas de azul?",
+    rc1qa:"¿Cuántas latas de azul corresponden a {x} latas de amarillo?",
+    rc1qt:"Un pintor mezcla {T} latas en total. ¿Cuántas latas son de azul?",
+    rc2a:"Estudiantes",
+    rc2b:"Adultos",
+    rc2r:"En una excursión hay {a} estudiantes por cada {b} adultos.",
+    rc2qb:"¿Cuántos adultos corresponden a {x} estudiantes?",
+    rc2qa:"¿Cuántos estudiantes corresponden a {x} adultos?",
+    rc2qt:"Hay {T} personas en la excursión. ¿Cuántas son estudiantes?",
+    goodTable:"¡Sí! Ambas cantidades se multiplican por el mismo factor de escala, {k}: {e1} y {e2}.",
+    hintScale:"Las razones equivalentes multiplican ambas cantidades por el mismo número. ¿Qué número multiplicado por {gb} da {g}? Multiplica {ob} por ese mismo número. Crea columnas en la tabla como ayuda.",
+    hintAdd:"Eso suma la misma cantidad a ambas cantidades. Las razones siguen siendo equivalentes solo si multiplicas (o divides) ambas cantidades por el mismo número.",
+    unitDown:"Menor valor de la unidad",
+    unitUp:"Mayor valor de la unidad",
+    unitIs:"1 unidad = {u}",
+    tapeTotal:"Total: {x} (meta: {T})",
+    goodTape:"¡Sí! {a} + {b} = {p} unidades iguales. {e1}, así que cada unidad vale eso, y {e2}.",
+    hintTape:"El total de {T} se reparte en {p} unidades iguales ({a} + {b}). Usa − y + para hallar el valor de la unidad que hace que el total sea {T}.",
+    hintTapeOth:"Esa es la cantidad de la segunda parte de la razón. La pregunta es sobre la primera parte: cuenta sus unidades.",
+    equivDir:"¿Qué razón es equivalente a {r}?",
+    goodEquiv:"¡Sí! {e1} y {e2}. Ambos términos se multiplican por {k}.",
+    hintRev:"El orden importa. {r} significa que la primera cantidad va primero.",
+    hintOff:"Revisa ambos términos: {e}, pero {y} ÷ {b} no es {k}. Ambos términos deben usar el mismo factor.",
+    dnlLbl:"Recta numérica doble: {t} arriba, {b} abajo",
+    pinVal:"{b}: {t}",
+    rt0t:"Costo ($)",
+    rt0b:"Cuadernos",
+    rt0s:"{n} cuadernos cuestan {p}.",
+    rt0u:"¿Cuánto cuesta 1 cuaderno?",
+    rt0m:"A esta tasa, ¿cuánto cuestan {m} cuadernos?",
+    rt0r:"{v} por cuaderno",
+    rt1t:"Páginas",
+    rt1b:"Minutos",
+    rt1s:"{name} lee {p} páginas en {n} minutos.",
+    rt1u:"¿Cuántas páginas lee {name} por minuto?",
+    rt1m:"A esta tasa, ¿cuántas páginas puede leer {name} en {m} minutos?",
+    rt1r:"{v} páginas por minuto",
+    rt2t:"Millas",
+    rt2b:"Horas",
+    rt2s:"Un carro recorre {p} millas en {n} horas a velocidad constante.",
+    rt2u:"¿Cuál es la velocidad del carro en millas por hora?",
+    rt2m:"A esta velocidad, ¿qué distancia recorre el carro en {m} horas?",
+    rt2r:"{v} millas por hora",
+    goodUnit:"¡Sí! {e}. La tasa unitaria es {rr}.",
+    goodMore:"¡Sí! La tasa unitaria es {rr}, así que {e}.",
+    hintUnit:"Una tasa unitaria es la cantidad que corresponde a 1. Divide {p} entre {n}. Arrastra el marcador de la recta numérica doble hasta 1.",
+    hintMore:"Primero halla la cantidad que corresponde a 1 ({p} ÷ {n}) y luego multiplica por {m}. Arrastra el marcador para ver los valores.",
+    hintAddRate:"Sumar la misma cantidad no mantiene igual la tasa. Usa la cantidad que corresponde a 1 y luego multiplica.",
+    store:"Tienda {s}",
+    storeLine:"Tienda {s}: {n} barras de granola por {p}.",
+    bestQ:"¿Cuál es la mejor compra?",
+    bestT:"Precio ($), Tienda {s}",
+    bars:"Barras de granola",
+    sameDeal:"Mismo precio por barra",
+    goodBest:"¡Sí! Tienda A: {e1} por barra. Tienda B: {e2} por barra. {w}",
+    bestLow:"El menor precio por barra es la mejor compra.",
+    bestSame:"Ambas tiendas cobran el mismo precio por barra.",
+    hintBest:"Compara el precio de 1 barra en cada tienda. Divide cada precio entre su número de barras.",
+    rf0s:"{name} camina {a} de milla en {b} de hora. ¿Cuántas millas por hora es eso?",
+    rf0t:"Millas",
+    rf0r:"{v} millas por hora",
+    rf1s:"{name} corta {a} de un césped en {b} de hora. ¿Cuántos céspedes por hora es eso?",
+    rf1t:"Céspedes",
+    rf1r:"{v} céspedes por hora",
+    hoursLbl:"Horas",
+    goodFrac:"¡Sí! Divide para hallar la cantidad que corresponde a 1 hora: {e}. Eso es {rr}.",
+    hintFrac:"Una tasa unitaria es la cantidad que corresponde a 1 hora. Divide {a} entre {b} (multiplica por el recíproco). En la recta numérica doble, busca 1 hora.",
+    pYes:"Proporcional",
+    pNo:"No proporcional",
+    tableLbl:"Tabla de valores. Toca una columna para hallar y ÷ x.",
+    colLbl:"x = {x}, y = {y}. Toca para hallar y ÷ x.",
+    ptDir:"¿Es proporcional la relación de la tabla? Toca las columnas para hallar y ÷ x.",
+    goodPTy:"¡Sí! Cada y ÷ x es igual a {k}, así que la relación es proporcional: {eq}.",
+    goodPTn:"Correcto. y ÷ x no es igual en todas las columnas, así que la relación no es proporcional.",
+    hintPT:"Toca cada columna para hallar y ÷ x. En una relación proporcional, cada y ÷ x es el mismo número, k.",
+    graphLbl:"Gráfica de coordenadas",
+    rayBtn:"Trazar una recta desde (0, 0)",
+    pgDir:"¿Es proporcional la relación de la gráfica?",
+    goodPGy:"¡Sí! La gráfica es una recta que pasa por el origen (0, 0), así que es proporcional.",
+    goodPGs:"Correcto. La gráfica es una recta, pero no pasa por el origen (0, 0), así que no es proporcional.",
+    goodPGc:"Correcto. La gráfica pasa por (0, 0), pero no es una recta, así que no es proporcional.",
+    hintPG:"Una gráfica proporcional es una recta que pasa por el origen (0, 0). Toca “Trazar una recta desde (0, 0)” para comprobarlo.",
+    kDirT:"Esta tabla muestra una relación proporcional. ¿Cuál es la constante de proporcionalidad, k, en y = kx?",
+    kDirG:"Esta gráfica muestra una relación proporcional. ¿Cuál es la constante de proporcionalidad, k, en y = kx?",
+    kDirS:"{name} gana {p} por {h} horas cuidando niños. El pago es proporcional al tiempo. ¿Cuál es k en y = kx, donde x son las horas y y son los dólares?",
+    goodK:"¡Sí! k = y ÷ x: {e}.",
+    hintK:"Elige cualquier par (x, y) excepto (0, 0) y divide: k = y ÷ x.",
+    hintKInv:"Eso es x ÷ y. La constante k es y ÷ x: cuánto de y por cada 1 de x.",
+    slopeNote:"En el lenguaje de 8.º grado, k = {k} también es la pendiente (tasa de cambio) de la recta.",
+    pt0x:"x = horas en bicicleta",
+    pt0y:"y = millas",
+    pt1x:"x = libras de manzanas",
+    pt1y:"y = costo en dólares",
+    pointDir:"¿Qué significa el punto (1, {k}) en esta gráfica?",
+    pt0a:"En 1 hora, el ciclista recorre {k} millas.",
+    pt0b:"En {k} horas, el ciclista recorre 1 milla.",
+    pt0c:"El ciclista sale a {k} millas de su casa.",
+    pt0d:"El ciclista anda en bicicleta {k} horas en total.",
+    pt1a:"1 libra de manzanas cuesta ${k}.",
+    pt1b:"{k} libras de manzanas cuestan $1.",
+    pt1c:"La tienda cobra una tarifa de ${k} antes de cualquier manzana.",
+    pt1d:"El cliente compra {k} libras de manzanas.",
+    goodPt:"¡Sí! El punto (1, {k}) muestra la tasa unitaria: {k} por cada 1. Esa es la constante de proporcionalidad, k = {k}.",
+    hintPt:"Lee los ejes: {xl} y {yl}. El punto (1, {k}) significa que x es 1 y y es {k}.",
+    eqDir:"¿Qué ecuación corresponde a la tabla?",
+    eqSay:"y es igual a {k} x",
+    eqAddSay:"y es igual a x más {d}",
+    eqPlusSay:"y es igual a {k} x más {b}",
+    goodEq:"¡Sí! Cada y es {k} veces x, así que {e}.",
+    hintEq:"Prueba cada ecuación con todas las columnas, no solo con la primera. Solo una funciona para todas.",
+    hintEqAdd:"{e} funciona solo para la primera columna. Una relación proporcional multiplica: y = kx.",
+    gridLbl:"Cuadrícula de cien. Toca un cuadrado para sombrear hasta ahí.",
+    gridRead:"{n} de 100 cuadrados = {n}%",
+    minus10:"Quitar 10 cuadrados",
+    plus10:"Agregar 10 cuadrados",
+    shadeDir:"Sombrea el {p} de la cuadrícula de cien y luego presiona Comprobar.",
+    goodGrid:"¡Sí! {n} de 100 cuadrados es el {p}, que es {f} o {d}.",
+    hintGrid:"Sombreaste {k} cuadrados. Porcentaje significa “de cada 100”, así que el {p} son {n} de los 100 cuadrados. Cada fila completa tiene 10 cuadrados.",
+    nameDir:"¿Qué opción muestra la parte sombreada de la cuadrícula?",
+    goodName:"¡Sí! {n} de 100 cuadrados están sombreados: {tri}.",
+    hintName:"Cuenta los cuadrados sombreados: cada fila completa tiene 10 cuadrados, o sea, el 10%. Porcentaje significa de cada 100.",
+    pctLine:"Porcentaje",
+    amtLine:"Cantidad",
+    pPart:"¿Cuánto es el {p} de {W}?",
+    pWhole:"{P} es el {p} de ¿qué número?",
+    pPct:"¿Qué porcentaje de {W} es {P}?",
+    sPart:"Una escuela tiene {W} estudiantes. El {p} de ellos viaja en autobús. ¿Cuántos estudiantes viajan en autobús?",
+    sWhole:"{P} estudiantes viajan en autobús. Eso es el {p} de la escuela. ¿Cuántos estudiantes hay en la escuela?",
+    sPct:"{P} de los {W} estudiantes de una escuela viajan en autobús. ¿Qué porcentaje viaja en autobús?",
+    goodPart:"¡Sí! {p} significa {p0} de cada 100: {e}.",
+    goodWhole:"¡Sí! El total es el 100%: {e}.",
+    goodPctF:"¡Sí! Compara la parte con el total: {e}.",
+    hintPart:"Porcentaje significa por cada 100. Halla el {p} de {W}: usa la barra de porcentaje o multiplica {W} por el decimal de {p}.",
+    hintWhole:"El total es el 100%. Si el {p} es {P}, halla la cantidad de un paso en la barra de porcentaje y luego amplía hasta el 100%.",
+    hintPctF:"Compara la parte con el total: {P} de {W}. Exprésalo como una cantidad de cada 100.",
+    chDisc:"Una chaqueta cuesta {W}. Tiene un descuento del {p}. ¿Cuál es el precio de oferta?",
+    chTax:"Un videojuego cuesta {W}. El impuesto sobre la venta es del {p}. ¿Cuál es el costo total con impuesto?",
+    chTip:"Una comida cuesta {W}. {name} deja una propina del {p}. ¿Cuál es el total con la propina?",
+    chInc:"Un pueblo tenía {W} habitantes. La población aumentó un {p}. ¿Cuántas personas viven ahí ahora?",
+    chDec:"Una escuela usó {W} hojas de papel el mes pasado. Este mes usó un {p} menos. ¿Cuántas hojas usó este mes?",
+    goodChg:"¡Sí! El {p} de la cantidad original: {e1}. Nueva cantidad: {e2}. Otra forma: {e3}.",
+    hintUp:"Primero halla el {p} de {W} y luego súmalo a {W}.",
+    hintDown:"Primero halla el {p} de {W} y luego réstalo de {W}.",
+    hintChgAmt:"Esa es la cantidad del cambio. Combínala con la cantidad original para hallar la nueva cantidad.",
+    chUp:"El precio de un boleto pasó de {a} a {b}. ¿Cuál es el aumento porcentual?",
+    chDown:"El precio de un boleto pasó de {a} a {b}. ¿Cuál es la disminución porcentual?",
+    goodPchg:"¡Sí! El cambio es {e1}. Compara el cambio con la cantidad original: {e2}.",
+    hintPchg:"Cambio porcentual = cambio ÷ cantidad original. Primero halla el cambio y luego divide entre {a}, el precio original.",
+    hintPchgBase:"Compara el cambio con la cantidad original ({a}), no con la nueva cantidad.",
+    mapLbl:"Mapa de A a B con una barra de escala",
+    layBar:"Colocar una barra de escala",
+    layHalf:"Colocar media barra",
+    barsLaid:"Barras de escala: {n}",
+    mapDir:"La barra de escala representa {s} km. Coloca barras de escala de A a B. ¿Cuál es la distancia real de A a B?",
+    goodMap:"¡Sí! De A a B hay {L} barras de escala, así que la distancia es {e} km.",
+    hintMap:"Coloca barras de escala desde A hasta llegar a B. Cada barra representa {s} km, así que multiplica el número de barras por {s}.",
+    planLbl:"Plano de planta en una cuadrícula",
+    sqCount:"{n} cuadrados",
+    tapSide:"Toca un lado para contar sus cuadrados.",
+    drawLen:"En este plano, 1 cuadrado de la cuadrícula representa {s} pies. ¿Cuál es la longitud real del lado largo de la habitación en pies?",
+    drawArea:"En este plano, 1 cuadrado de la cuadrícula representa {s} pies. ¿Cuál es el área real de la habitación en pies cuadrados?",
+    goodLen:"¡Sí! El lado largo mide {w} cuadrados: {e} pies.",
+    goodArea:"¡Sí! Primero aplica la escala a cada lado: {e1} pies y {e2} pies. Área: {e3} pies cuadrados.",
+    hintLen:"Cuenta los cuadrados del lado largo (tócalo) y luego multiplica por {s} pies por cada cuadrado.",
+    hintArea:"Primero halla la longitud real de cada lado (cuadrados × {s} pies) y luego multiplica largo × ancho.",
+    hintArea1:"Así aplicas la escala al área solo una vez. Tanto el largo como el ancho se multiplican por {s}.",
+    convDir:"Usa {fact}. Halla el número que falta: {q}",
+    goodConvMul:"¡Sí! Cada 1 {u1} equivale a {f} {u2}: {e}.",
+    goodConvDiv:"¡Sí! Cada {f} {u2} forman 1 {u1}: {e}.",
+    hintConvMul:"Estás cambiando a una unidad más pequeña, así que el número debe hacerse más grande. Multiplica por {f}.",
+    hintConvDiv:"Estás cambiando a una unidad más grande, así que el número debe hacerse más pequeño. Divide entre {f}.",
+    mc0a:"Harina (tazas)",
+    mc0b:"Panquecitos",
+    mc0s:"Con {a} tazas de harina se hacen {b} panquecitos. ¿Cuántas tazas de harina se necesitan para {c} panquecitos?",
+    mc1a:"Palabras",
+    mc1b:"Minutos",
+    mc1s:"{name} escribe {w} palabras en {m} minutos en el teclado. A esta tasa, ¿cuántos minutos tardará en escribir {W} palabras?",
+    mc2a:"Pago ($)",
+    mc2b:"Horas",
+    mc2s:"{name} gana {p} por {h} horas de trabajo. A esta tasa, ¿cuánto ganará {name} por {H} horas?",
+    goodMulti:"¡Sí! Halla la tasa unitaria: {e1}. Luego: {e2}.",
+    hintMulti:"Primero halla la tasa unitaria (la cantidad que corresponde a 1) o completa la tabla de razones hasta que una columna coincida con la pregunta. Luego aplica la escala.",
+    u_in:"pulg",
+    u_ft:"pie",
+    u_yd:"yd",
+    u_mi:"mi",
+    u_oz:"oz",
+    u_lb:"lb",
+    u_qt:"ct",
+    u_gal:"gal",
+    u_min:"min",
+    u_h:"h",
+    u_cm:"cm",
+    u_m:"m",
+    u_km:"km",
+    u_g:"g",
+    u_kg:"kg",
+    s_in:"pulgadas",
+    s_ft:"pies",
+    s_yd:"yardas",
+    s_mi:"millas",
+    s_oz:"onzas",
+    s_lb:"libras",
+    s_qt:"cuartos de galón",
+    s_gal:"galones",
+    s_min:"minutos",
+    s_h:"horas",
+    s_cm:"centímetros",
+    s_m:"metros",
+    s_km:"kilómetros",
+    s_g:"gramos",
+    s_kg:"kilogramos",
+    s1_in:"pulgada",
+    s1_ft:"pie",
+    s1_yd:"yarda",
+    s1_mi:"milla",
+    s1_lb:"libra",
+    s1_gal:"galón",
+    s1_h:"hora",
+    s1_m:"metro",
+    s1_km:"kilómetro",
+    s1_kg:"kilogramo",
+    stds:"Estándares alineados — TEKS de Texas: 6.º grado 6.4(A–H), 6.5(A–C); 7.º grado 7.4(A–E), 7.5(C); 8.º grado 8.4(B), 8.5(A), 8.5(F). Common Core: 6.RP.1, 6.RP.2, 6.RP.3; 7.RP.1, 7.RP.2, 7.RP.3, 7.G.1; 8.EE.5.",
+    cardTitle:"Estudio de razones y tasas — Tarjetas de desafío",
+    cardName:"Nombre:",
+    cardTable:"Completa el valor que falta. Muestra el factor de escala.",
+    cardShow:"Resuelve. Muestra tu razonamiento con una tabla, un diagrama de cinta o una recta numérica doble.",
+    cardProp:"¿Es proporcional? Si lo es, escribe la ecuación y = kx.",
+    cardAns:"Respuesta:"
+  },
+  vi:{
+    appTitle:"Xưởng Tỉ số & Tỉ suất",
+    home:"Trang chủ",
+    privacy:"Quyền riêng tư",
+    teacher:"Giáo viên",
+    modesLbl:"Chế độ",
+    solved:"Đã giải",
+    newRound:"Bài mới",
+    readAloud:"Đọc to",
+    check:"Kiểm tra",
+    clear:"Xóa",
+    choicesLbl:"Các lựa chọn trả lời",
+    footNote:"Không cần tài khoản · Không thu thập dữ liệu · Dùng được khi không có mạng",
+    mRatio:"Bảng tỉ số & Sơ đồ đoạn thẳng",
+    mRates:"Trục số kép & Tỉ suất đơn vị",
+    mProp:"Tỉ lệ thuận hay không?",
+    mPct:"Phòng thí nghiệm phần trăm",
+    mScale:"Tỉ lệ & Đổi đơn vị",
+    teacherTitle:"Cài đặt cho giáo viên",
+    close:"Đóng",
+    setGrade:"Lớp",
+    g6:"Lớp 6",
+    g7:"Lớp 7",
+    g8:"Lớp 8",
+    gradeNote:"Khi chọn lớp, các tùy chọn bên dưới sẽ trở về mặc định của lớp đó. Lớp 6 luyện kiến thức cơ bản về tỉ số và phần trăm; Lớp 7 thêm tỉ suất có phân số, hằng số tỉ lệ, phần trăm thay đổi và bản vẽ tỉ lệ; Lớp 8 thêm liên hệ với hệ số góc.",
+    setSize:"Độ lớn của số",
+    size1:"Số nhỏ hơn",
+    size2:"Số trung bình",
+    size3:"Số lớn hơn",
+    setFrac:"Phân số",
+    fracOn:"Hệ số tỉ lệ là phân số, tỉ suất có phân số và nửa đơn vị",
+    setModes:"Chế độ",
+    setSpeech:"Giọng đọc",
+    autoRead:"Tự động đọc hướng dẫn",
+    printCards:"In thẻ thử thách",
+    setStored:"Cài đặt chỉ được lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
+    frSay:"{n} phần {d}",
+    mixSay:"{w} và {f}",
+    moneySay:"{v} đô la",
+    pctSay:"{v} phần trăm",
+    ratioSay:"{a} so với {b}",
+    wPlus:"cộng",
+    wMinus:"trừ",
+    wTimes:"nhân",
+    wDiv:"chia",
+    wEq:"bằng",
+    wApprox:"xấp xỉ",
+    youPicked:"Em đã chọn {x}.",
+    names:"An,Bảo,Chi,Dũng,Hà,Khoa,Linh,Minh",
+    rtLbl:"Bảng tỉ số",
+    opMul:"Nhân cả hai đại lượng với {k}",
+    opDiv:"Chia cả hai đại lượng cho {k}",
+    opAdd:"Cộng cột đầu tiên vào cột cuối cùng",
+    undo:"Hoàn tác",
+    rtTip:"Tạo cột mới: làm gì với đại lượng này thì cũng làm như vậy với đại lượng kia.",
+    rc0a:"Đậu phộng (cốc)",
+    rc0b:"Nho khô (cốc)",
+    rc0r:"Một hỗn hợp hạt dùng {a} cốc đậu phộng cho mỗi {b} cốc nho khô.",
+    rc0qb:"Cần bao nhiêu cốc nho khô cho {x} cốc đậu phộng?",
+    rc0qa:"Cần bao nhiêu cốc đậu phộng cho {x} cốc nho khô?",
+    rc0qt:"Một mẻ có tổng cộng {T} cốc. Có bao nhiêu cốc là đậu phộng?",
+    rc1a:"Sơn xanh dương (lon)",
+    rc1b:"Sơn vàng (lon)",
+    rc1r:"Một màu xanh lá dùng {a} lon sơn xanh dương cho mỗi {b} lon sơn vàng.",
+    rc1qb:"Cần bao nhiêu lon sơn vàng cho {x} lon sơn xanh dương?",
+    rc1qa:"Cần bao nhiêu lon sơn xanh dương cho {x} lon sơn vàng?",
+    rc1qt:"Một thợ sơn pha tổng cộng {T} lon. Có bao nhiêu lon là sơn xanh dương?",
+    rc2a:"Học sinh",
+    rc2b:"Người lớn",
+    rc2r:"Trong một chuyến tham quan, cứ {b} người lớn thì có {a} học sinh.",
+    rc2qb:"Có bao nhiêu người lớn đi cùng {x} học sinh?",
+    rc2qa:"Có bao nhiêu học sinh đi cùng {x} người lớn?",
+    rc2qt:"Chuyến tham quan có {T} người. Có bao nhiêu người là học sinh?",
+    goodTable:"Đúng rồi! Cả hai đại lượng đều được nhân với cùng một hệ số tỉ lệ, {k}: {e1} và {e2}.",
+    hintScale:"Các tỉ số bằng nhau có được khi nhân cả hai đại lượng với cùng một số. Số nào nhân với {gb} thì được {g}? Nhân {ob} với chính số đó. Hãy tạo thêm cột trong bảng để hỗ trợ.",
+    hintAdd:"Cách đó cộng cùng một lượng vào cả hai đại lượng. Tỉ số chỉ giữ nguyên khi em nhân (hoặc chia) cả hai đại lượng với cùng một số.",
+    unitDown:"Giảm giá trị một phần",
+    unitUp:"Tăng giá trị một phần",
+    unitIs:"1 phần = {u}",
+    tapeTotal:"Tổng: {x} (mục tiêu: {T})",
+    goodTape:"Đúng rồi! {a} + {b} = {p} phần bằng nhau. {e1}, nên mỗi phần có giá trị như vậy, và {e2}.",
+    hintTape:"Tổng {T} được chia thành {p} phần bằng nhau ({a} + {b}). Dùng − và + để tìm giá trị một phần sao cho tổng bằng {T}.",
+    hintTapeOth:"Đó là lượng của phần thứ hai trong tỉ số. Câu hỏi hỏi về phần thứ nhất — hãy đếm số phần của nó.",
+    equivDir:"Tỉ số nào bằng với {r}?",
+    goodEquiv:"Đúng rồi! {e1} và {e2}. Cả hai số hạng đều được nhân với {k}.",
+    hintRev:"Thứ tự rất quan trọng. {r} nghĩa là đại lượng thứ nhất đứng trước.",
+    hintOff:"Kiểm tra cả hai số hạng: {e}, nhưng {y} ÷ {b} không bằng {k}. Cả hai số hạng phải dùng cùng một hệ số.",
+    dnlLbl:"Trục số kép: {t} ở trên, {b} ở dưới",
+    pinVal:"{b}: {t}",
+    rt0t:"Giá ($)",
+    rt0b:"Quyển vở",
+    rt0s:"{n} quyển vở giá {p}.",
+    rt0u:"1 quyển vở giá bao nhiêu?",
+    rt0m:"Với tỉ suất này, {m} quyển vở giá bao nhiêu?",
+    rt0r:"{v} mỗi quyển vở",
+    rt1t:"Trang",
+    rt1b:"Phút",
+    rt1s:"{name} đọc {p} trang trong {n} phút.",
+    rt1u:"Mỗi phút {name} đọc được bao nhiêu trang?",
+    rt1m:"Với tỉ suất này, {name} đọc được bao nhiêu trang trong {m} phút?",
+    rt1r:"{v} trang mỗi phút",
+    rt2t:"Dặm",
+    rt2b:"Giờ",
+    rt2s:"Một chiếc ô tô đi được {p} dặm trong {n} giờ với tốc độ không đổi.",
+    rt2u:"Tốc độ của ô tô là bao nhiêu dặm mỗi giờ?",
+    rt2m:"Với tốc độ này, ô tô đi được bao xa trong {m} giờ?",
+    rt2r:"{v} dặm mỗi giờ",
+    goodUnit:"Đúng rồi! {e}. Tỉ suất đơn vị là {rr}.",
+    goodMore:"Đúng rồi! Tỉ suất đơn vị là {rr}, nên {e}.",
+    hintUnit:"Tỉ suất đơn vị là lượng ứng với 1. Chia {p} cho {n}. Kéo điểm đánh dấu trên trục số kép đến 1.",
+    hintMore:"Trước tiên tìm lượng ứng với 1 ({p} ÷ {n}), rồi nhân với {m}. Kéo điểm đánh dấu để xem các giá trị.",
+    hintAddRate:"Cộng cùng một lượng không giữ nguyên tỉ suất. Hãy dùng lượng ứng với 1, rồi nhân.",
+    store:"Cửa hàng {s}",
+    storeLine:"Cửa hàng {s}: {n} thanh ngũ cốc giá {p}.",
+    bestQ:"Mua ở đâu có lợi hơn?",
+    bestT:"Giá ($), Cửa hàng {s}",
+    bars:"Thanh ngũ cốc",
+    sameDeal:"Giá mỗi thanh như nhau",
+    goodBest:"Đúng rồi! Cửa hàng A: {e1} mỗi thanh. Cửa hàng B: {e2} mỗi thanh. {w}",
+    bestLow:"Giá mỗi thanh thấp hơn thì mua có lợi hơn.",
+    bestSame:"Cả hai cửa hàng bán cùng giá mỗi thanh.",
+    hintBest:"So sánh giá của 1 thanh ở mỗi cửa hàng. Chia mỗi giá cho số thanh tương ứng.",
+    rf0s:"{name} đi bộ {a} dặm trong {b} giờ. Vậy là bao nhiêu dặm mỗi giờ?",
+    rf0t:"Dặm",
+    rf0r:"{v} dặm mỗi giờ",
+    rf1s:"{name} cắt được {a} bãi cỏ trong {b} giờ. Vậy là bao nhiêu bãi cỏ mỗi giờ?",
+    rf1t:"Bãi cỏ",
+    rf1r:"{v} bãi cỏ mỗi giờ",
+    hoursLbl:"Giờ",
+    goodFrac:"Đúng rồi! Chia để tìm lượng ứng với 1 giờ: {e}. Đó là {rr}.",
+    hintFrac:"Tỉ suất đơn vị là lượng ứng với 1 giờ. Chia {a} cho {b} (nhân với số nghịch đảo). Trên trục số kép, hãy tìm 1 giờ.",
+    pYes:"Tỉ lệ thuận",
+    pNo:"Không tỉ lệ thuận",
+    tableLbl:"Bảng giá trị. Chạm vào một cột để tính y ÷ x.",
+    colLbl:"x = {x}, y = {y}. Chạm để tính y ÷ x.",
+    ptDir:"Quan hệ trong bảng có phải là tỉ lệ thuận không? Chạm vào các cột để tính y ÷ x.",
+    goodPTy:"Đúng rồi! Mọi y ÷ x đều bằng {k}, nên quan hệ này là tỉ lệ thuận: {eq}.",
+    goodPTn:"Chính xác. y ÷ x không bằng nhau ở mọi cột, nên quan hệ này không phải tỉ lệ thuận.",
+    hintPT:"Chạm vào từng cột để tính y ÷ x. Trong quan hệ tỉ lệ thuận, mọi y ÷ x đều bằng cùng một số, k.",
+    graphLbl:"Đồ thị trên mặt phẳng tọa độ",
+    rayBtn:"Vẽ đường thẳng từ (0, 0)",
+    pgDir:"Quan hệ trong đồ thị có phải là tỉ lệ thuận không?",
+    goodPGy:"Đúng rồi! Đồ thị là một đường thẳng đi qua gốc tọa độ (0, 0), nên đó là tỉ lệ thuận.",
+    goodPGs:"Chính xác. Đồ thị là một đường thẳng nhưng không đi qua gốc tọa độ (0, 0), nên không phải tỉ lệ thuận.",
+    goodPGc:"Chính xác. Đồ thị đi qua (0, 0) nhưng không phải là đường thẳng, nên không phải tỉ lệ thuận.",
+    hintPG:"Đồ thị tỉ lệ thuận là một đường thẳng đi qua gốc tọa độ (0, 0). Chạm “Vẽ đường thẳng từ (0, 0)” để kiểm tra.",
+    kDirT:"Bảng này thể hiện một quan hệ tỉ lệ thuận. Hằng số tỉ lệ k trong y = kx là bao nhiêu?",
+    kDirG:"Đồ thị này thể hiện một quan hệ tỉ lệ thuận. Hằng số tỉ lệ k trong y = kx là bao nhiêu?",
+    kDirS:"{name} kiếm được {p} cho {h} giờ trông trẻ. Tiền công tỉ lệ thuận với thời gian. k trong y = kx là bao nhiêu, với x là số giờ và y là số đô la?",
+    goodK:"Đúng rồi! k = y ÷ x: {e}.",
+    hintK:"Chọn một cặp (x, y) bất kỳ khác (0, 0) rồi chia: k = y ÷ x.",
+    hintKInv:"Đó là x ÷ y. Hằng số k là y ÷ x — lượng y ứng với mỗi 1 đơn vị x.",
+    slopeNote:"Theo cách nói của Lớp 8, k = {k} cũng là hệ số góc (tốc độ thay đổi) của đường thẳng.",
+    pt0x:"x = số giờ đạp xe",
+    pt0y:"y = số dặm",
+    pt1x:"x = số pound táo",
+    pt1y:"y = giá tiền tính bằng đô la",
+    pointDir:"Điểm (1, {k}) trên đồ thị này có ý nghĩa gì?",
+    pt0a:"Trong 1 giờ, người đạp xe đi được {k} dặm.",
+    pt0b:"Trong {k} giờ, người đạp xe đi được 1 dặm.",
+    pt0c:"Người đạp xe xuất phát cách nhà {k} dặm.",
+    pt0d:"Người đạp xe đạp tổng cộng {k} giờ.",
+    pt1a:"1 pound táo giá ${k}.",
+    pt1b:"{k} pound táo giá $1.",
+    pt1c:"Cửa hàng thu phí ${k} trước khi tính tiền táo.",
+    pt1d:"Người mua mua {k} pound táo.",
+    goodPt:"Đúng rồi! Điểm (1, {k}) cho thấy tỉ suất đơn vị: {k} cho mỗi 1. Đó chính là hằng số tỉ lệ, k = {k}.",
+    hintPt:"Đọc tên các trục: {xl} và {yl}. Điểm (1, {k}) nghĩa là x bằng 1 và y bằng {k}.",
+    eqDir:"Phương trình nào phù hợp với bảng?",
+    eqSay:"y bằng {k} x",
+    eqAddSay:"y bằng x cộng {d}",
+    eqPlusSay:"y bằng {k} x cộng {b}",
+    goodEq:"Đúng rồi! Mỗi y bằng {k} lần x, nên {e}.",
+    hintEq:"Thử từng phương trình với mọi cột, không chỉ cột đầu tiên. Chỉ có một phương trình đúng với tất cả.",
+    hintEqAdd:"{e} chỉ đúng với cột đầu tiên. Quan hệ tỉ lệ thuận là phép nhân: y = kx.",
+    gridLbl:"Lưới một trăm ô. Chạm vào một ô để tô màu đến ô đó.",
+    gridRead:"{n} trên 100 ô = {n}%",
+    minus10:"Bớt 10 ô",
+    plus10:"Thêm 10 ô",
+    shadeDir:"Tô màu {p} của lưới một trăm ô, rồi nhấn Kiểm tra.",
+    goodGrid:"Đúng rồi! {n} trên 100 ô là {p}, tức là {f} hoặc {d}.",
+    hintGrid:"Em đã tô {k} ô. Phần trăm nghĩa là “trên 100”, nên {p} là {n} trong 100 ô. Mỗi hàng đầy đủ có 10 ô.",
+    nameDir:"Lựa chọn nào biểu diễn phần được tô màu của lưới?",
+    goodName:"Đúng rồi! {n} trên 100 ô được tô màu: {tri}.",
+    hintName:"Đếm các ô được tô màu — mỗi hàng đầy đủ có 10 ô, tức là 10%. Phần trăm nghĩa là trên 100.",
+    pctLine:"Phần trăm",
+    amtLine:"Số lượng",
+    pPart:"{p} của {W} là bao nhiêu?",
+    pWhole:"{P} là {p} của số nào?",
+    pPct:"{P} là bao nhiêu phần trăm của {W}?",
+    sPart:"Một trường có {W} học sinh. {p} trong số đó đi xe buýt. Có bao nhiêu học sinh đi xe buýt?",
+    sWhole:"{P} học sinh đi xe buýt. Số đó bằng {p} số học sinh của trường. Trường có bao nhiêu học sinh?",
+    sPct:"{P} trong số {W} học sinh của một trường đi xe buýt. Bao nhiêu phần trăm học sinh đi xe buýt?",
+    goodPart:"Đúng rồi! {p} nghĩa là {p0} trên 100: {e}.",
+    goodWhole:"Đúng rồi! Toàn bộ là 100%: {e}.",
+    goodPctF:"Đúng rồi! So sánh phần với toàn bộ: {e}.",
+    hintPart:"Phần trăm nghĩa là trên 100. Tìm {p} của {W}: dùng thanh phần trăm, hoặc nhân {W} với số thập phân của {p}.",
+    hintWhole:"Toàn bộ là 100%. Nếu {p} là {P}, hãy tìm lượng ứng với một bước trên thanh phần trăm, rồi tăng lên đến 100%.",
+    hintPctF:"So sánh phần với toàn bộ: {P} trên {W}. Viết lại thành một lượng trên 100.",
+    chDisc:"Một chiếc áo khoác giá {W}. Áo đang được giảm giá {p}. Giá sau khi giảm là bao nhiêu?",
+    chTax:"Một trò chơi điện tử giá {W}. Thuế bán hàng là {p}. Tổng giá tiền có cả thuế là bao nhiêu?",
+    chTip:"Một bữa ăn giá {W}. {name} để lại {p} tiền boa. Tổng số tiền kể cả tiền boa là bao nhiêu?",
+    chInc:"Một thị trấn có {W} người. Dân số tăng {p}. Bây giờ có bao nhiêu người sống ở đó?",
+    chDec:"Tháng trước một trường dùng {W} tờ giấy. Tháng này trường dùng ít hơn {p}. Tháng này trường dùng bao nhiêu tờ giấy?",
+    goodChg:"Đúng rồi! {p} của lượng ban đầu: {e1}. Lượng mới: {e2}. Cách khác: {e3}.",
+    hintUp:"Trước tiên tìm {p} của {W}, rồi cộng vào {W}.",
+    hintDown:"Trước tiên tìm {p} của {W}, rồi lấy {W} trừ đi.",
+    hintChgAmt:"Đó là lượng thay đổi. Kết hợp nó với lượng ban đầu để tìm lượng mới.",
+    chUp:"Giá một vé tăng từ {a} lên {b}. Phần trăm tăng là bao nhiêu?",
+    chDown:"Giá một vé giảm từ {a} xuống {b}. Phần trăm giảm là bao nhiêu?",
+    goodPchg:"Đúng rồi! Lượng thay đổi là {e1}. So sánh lượng thay đổi với lượng ban đầu: {e2}.",
+    hintPchg:"Phần trăm thay đổi = lượng thay đổi ÷ lượng ban đầu. Trước tiên tìm lượng thay đổi, rồi chia cho {a}, giá ban đầu.",
+    hintPchgBase:"So sánh lượng thay đổi với lượng ban đầu ({a}), không phải với lượng mới.",
+    mapLbl:"Bản đồ từ A đến B có thước tỉ lệ",
+    layBar:"Đặt một thước tỉ lệ",
+    layHalf:"Đặt nửa thước",
+    barsLaid:"Số thước tỉ lệ: {n}",
+    mapDir:"Thước tỉ lệ biểu thị {s} km. Đặt các thước tỉ lệ từ A đến B. Khoảng cách thực tế từ A đến B là bao nhiêu?",
+    goodMap:"Đúng rồi! Từ A đến B dài {L} thước tỉ lệ, nên khoảng cách là {e} km.",
+    hintMap:"Đặt các thước tỉ lệ từ A cho đến khi tới B. Mỗi thước biểu thị {s} km, nên nhân số thước với {s}.",
+    planLbl:"Sơ đồ mặt bằng trên lưới",
+    sqCount:"{n} ô",
+    tapSide:"Chạm vào một cạnh để đếm số ô của cạnh đó.",
+    drawLen:"Trong sơ đồ mặt bằng này, 1 ô lưới biểu thị {s} ft. Chiều dài thực tế của cạnh dài của căn phòng là bao nhiêu feet?",
+    drawArea:"Trong sơ đồ mặt bằng này, 1 ô lưới biểu thị {s} ft. Diện tích thực tế của căn phòng là bao nhiêu feet vuông?",
+    goodLen:"Đúng rồi! Cạnh dài gồm {w} ô: {e} ft.",
+    goodArea:"Đúng rồi! Trước tiên đổi tỉ lệ từng cạnh: {e1} ft và {e2} ft. Diện tích: {e3} feet vuông.",
+    hintLen:"Đếm số ô dọc theo cạnh dài (chạm vào cạnh đó), rồi nhân với {s} ft cho mỗi ô.",
+    hintArea:"Trước tiên tìm độ dài thực tế của từng cạnh (số ô × {s} ft), rồi nhân chiều dài × chiều rộng.",
+    hintArea1:"Cách đó chỉ đổi tỉ lệ diện tích một lần. Cả chiều dài và chiều rộng đều được nhân với {s}.",
+    convDir:"Dùng {fact}. Tìm số còn thiếu: {q}",
+    goodConvMul:"Đúng rồi! Mỗi 1 {u1} bằng {f} {u2}: {e}.",
+    goodConvDiv:"Đúng rồi! Cứ {f} {u2} thì bằng 1 {u1}: {e}.",
+    hintConvMul:"Em đang đổi sang đơn vị nhỏ hơn, nên số phải lớn hơn. Nhân với {f}.",
+    hintConvDiv:"Em đang đổi sang đơn vị lớn hơn, nên số phải nhỏ hơn. Chia cho {f}.",
+    mc0a:"Bột mì (cốc)",
+    mc0b:"Bánh muffin",
+    mc0s:"{a} cốc bột mì làm được {b} bánh muffin. Cần bao nhiêu cốc bột mì để làm {c} bánh muffin?",
+    mc1a:"Số từ",
+    mc1b:"Phút",
+    mc1s:"{name} gõ được {w} từ trong {m} phút. Với tỉ suất này, cần bao nhiêu phút để gõ {W} từ?",
+    mc2a:"Tiền công ($)",
+    mc2b:"Giờ",
+    mc2s:"{name} kiếm được {p} cho {h} giờ làm việc. Với tỉ suất này, {name} sẽ kiếm được bao nhiêu cho {H} giờ?",
+    goodMulti:"Đúng rồi! Tìm tỉ suất đơn vị: {e1}. Sau đó: {e2}.",
+    hintMulti:"Trước tiên tìm tỉ suất đơn vị (lượng ứng với 1), hoặc lập bảng tỉ số cho đến khi có một cột khớp với câu hỏi. Sau đó nhân theo tỉ lệ.",
+    u_in:"in",
+    u_ft:"ft",
+    u_yd:"yd",
+    u_mi:"mi",
+    u_oz:"oz",
+    u_lb:"lb",
+    u_qt:"qt",
+    u_gal:"gal",
+    u_min:"phút",
+    u_h:"giờ",
+    u_cm:"cm",
+    u_m:"m",
+    u_km:"km",
+    u_g:"g",
+    u_kg:"kg",
+    s_in:"inch",
+    s_ft:"feet",
+    s_yd:"yard",
+    s_mi:"dặm",
+    s_oz:"ounce",
+    s_lb:"pound",
+    s_qt:"quart",
+    s_gal:"gallon",
+    s_min:"phút",
+    s_h:"giờ",
+    s_cm:"xăng-ti-mét",
+    s_m:"mét",
+    s_km:"ki-lô-mét",
+    s_g:"gam",
+    s_kg:"ki-lô-gam",
+    s1_in:"inch",
+    s1_ft:"foot",
+    s1_yd:"yard",
+    s1_mi:"dặm",
+    s1_lb:"pound",
+    s1_gal:"gallon",
+    s1_h:"giờ",
+    s1_m:"mét",
+    s1_km:"ki-lô-mét",
+    s1_kg:"ki-lô-gam",
+    stds:"Chuẩn liên kết — TEKS của Texas: Lớp 6 6.4(A–H), 6.5(A–C); Lớp 7 7.4(A–E), 7.5(C); Lớp 8 8.4(B), 8.5(A), 8.5(F). Common Core: 6.RP.1, 6.RP.2, 6.RP.3; 7.RP.1, 7.RP.2, 7.RP.3, 7.G.1; 8.EE.5.",
+    cardTitle:"Xưởng Tỉ số & Tỉ suất — Thẻ thử thách",
+    cardName:"Họ tên:",
+    cardTable:"Điền giá trị còn thiếu. Ghi rõ hệ số tỉ lệ.",
+    cardShow:"Giải bài. Trình bày cách suy nghĩ bằng bảng, sơ đồ đoạn thẳng hoặc trục số kép.",
+    cardProp:"Có phải tỉ lệ thuận không? Nếu đúng, hãy viết phương trình y = kx.",
+    cardAns:"Đáp án:"
+  },
+  ar:{
+    appTitle:"استوديو النسب والمعدلات",
+    home:"الرئيسية",
+    privacy:"الخصوصية",
+    teacher:"المعلم",
+    modesLbl:"الأنماط",
+    solved:"المحلولة",
+    newRound:"مسألة جديدة",
+    readAloud:"اقرأ بصوت عالٍ",
+    check:"تحقّق",
+    clear:"مسح",
+    choicesLbl:"خيارات الإجابة",
+    footNote:"بلا حسابات · لا تُجمع أي بيانات · يعمل دون اتصال",
+    mRatio:"جداول النسب والأشرطة",
+    mRates:"خطوط الأعداد المزدوجة ومعدلات الوحدة",
+    mProp:"تناسبي أم لا؟",
+    mPct:"مختبر النسبة المئوية",
+    mScale:"مقياس الرسم والتحويلات",
+    teacherTitle:"إعدادات المعلم",
+    close:"إغلاق",
+    setGrade:"الصف الدراسي",
+    g6:"الصف السادس",
+    g7:"الصف السابع",
+    g8:"الصف الثامن",
+    gradeNote:"اختيار صف يعيد الخيارات أدناه إلى الإعدادات الافتراضية لذلك الصف. يتدرّب الصف السادس على أساسيات النسب والنسبة المئوية؛ ويضيف الصف السابع المعدلات بالكسور وثابت التناسب والتغيّر المئوي والرسم بمقياس؛ ويضيف الصف الثامن الربط بالميل.",
+    setSize:"حجم الأعداد",
+    size1:"أعداد أصغر",
+    size2:"أعداد متوسطة",
+    size3:"أعداد أكبر",
+    setFrac:"الكسور",
+    fracOn:"عوامل مقياس كسرية، ومعدلات بالكسور، وأنصاف وحدات",
+    setModes:"الأنماط",
+    setSpeech:"النطق",
+    autoRead:"قراءة التعليمات تلقائيًا",
+    printCards:"طباعة بطاقات التحدي",
+    setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُخزَّن أي معلومات عن الطلاب إطلاقًا.",
+    frSay:"{n} على {d}",
+    mixSay:"{w} و {f}",
+    moneySay:"{v} دولار",
+    pctSay:"{v} بالمئة",
+    ratioSay:"{a} إلى {b}",
+    wPlus:"زائد",
+    wMinus:"ناقص",
+    wTimes:"ضرب",
+    wDiv:"مقسومًا على",
+    wEq:"يساوي",
+    wApprox:"يساوي تقريبًا",
+    youPicked:"اخترتَ {x}.",
+    names:"سارة,عمر,ليلى,يوسف,مريم,خالد,نور,سامي",
+    rtLbl:"جدول النسب",
+    opMul:"اضرب الكميتين في {k}",
+    opDiv:"اقسم الكميتين على {k}",
+    opAdd:"أضف العمود الأول إلى العمود الأخير",
+    undo:"تراجع",
+    rtTip:"أنشئ أعمدة جديدة: ما تفعله بإحدى الكميتين افعله بالأخرى.",
+    rc0a:"فول سوداني (أكواب)",
+    rc0b:"زبيب (أكواب)",
+    rc0r:"خليط مكسرات يستخدم {a} أكواب من الفول السوداني لكل {b} أكواب من الزبيب.",
+    rc0qb:"كم كوبًا من الزبيب يقابل {x} أكواب من الفول السوداني؟",
+    rc0qa:"كم كوبًا من الفول السوداني يقابل {x} أكواب من الزبيب؟",
+    rc0qt:"دفعة فيها {T} أكواب إجمالًا. كم كوبًا منها فول سوداني؟",
+    rc1a:"طلاء أزرق (علب)",
+    rc1b:"طلاء أصفر (علب)",
+    rc1r:"درجة من اللون الأخضر تستخدم {a} علب من الطلاء الأزرق لكل {b} علب من الطلاء الأصفر.",
+    rc1qb:"كم علبة من الأصفر تقابل {x} علب من الأزرق؟",
+    rc1qa:"كم علبة من الأزرق تقابل {x} علب من الأصفر؟",
+    rc1qt:"يخلط دهّان {T} علب إجمالًا. كم علبة منها زرقاء؟",
+    rc2a:"الطلاب",
+    rc2b:"البالغون",
+    rc2r:"في رحلة مدرسية، يوجد {a} طلاب لكل {b} بالغين.",
+    rc2qb:"كم بالغًا يقابل {x} طلاب؟",
+    rc2qa:"كم طالبًا يقابل {x} بالغين؟",
+    rc2qt:"في الرحلة {T} شخصًا. كم منهم طلاب؟",
+    goodTable:"أحسنت! ضُربت الكميتان في عامل المقياس نفسه {k}: {e1} و {e2}.",
+    hintScale:"النسب المتكافئة تضرب الكميتين في العدد نفسه. ما العدد الذي إذا ضُرب في {gb} أعطى {g}؟ اضرب {ob} في العدد نفسه. أنشئ أعمدة في الجدول لتساعدك.",
+    hintAdd:"هذا يضيف المقدار نفسه إلى الكميتين. تبقى النسب متكافئة فقط عندما تضرب (أو تقسم) الكميتين في العدد نفسه.",
+    unitDown:"قيمة وحدة أصغر",
+    unitUp:"قيمة وحدة أكبر",
+    unitIs:"1 وحدة = {u}",
+    tapeTotal:"المجموع: {x} (الهدف: {T})",
+    goodTape:"أحسنت! {a} + {b} = {p} وحدات متساوية. {e1}، إذن قيمة كل وحدة هي ذلك المقدار، و {e2}.",
+    hintTape:"المجموع {T} موزّع على {p} وحدات متساوية ({a} + {b}). استخدم − و + لإيجاد قيمة الوحدة التي تجعل المجموع {T}.",
+    hintTapeOth:"هذا هو مقدار الجزء الثاني من النسبة. السؤال عن الجزء الأول — عُدّ وحداته.",
+    equivDir:"أي نسبة تكافئ {r}؟",
+    goodEquiv:"أحسنت! {e1} و {e2}. ضُرب الحدّان كلاهما في {k}.",
+    hintRev:"الترتيب مهم. {r} تعني أن الكمية الأولى تأتي أولًا.",
+    hintOff:"تحقّق من الحدّين: {e}، لكن {y} ÷ {b} لا يساوي {k}. يجب أن يُستخدم العامل نفسه مع الحدّين.",
+    dnlLbl:"خط أعداد مزدوج: {t} في الأعلى، و{b} في الأسفل",
+    pinVal:"{b}: {t}",
+    rt0t:"التكلفة ($)",
+    rt0b:"الدفاتر",
+    rt0s:"ثمن {n} دفاتر هو {p}.",
+    rt0u:"كم ثمن دفتر واحد؟",
+    rt0m:"بهذا المعدل، كم ثمن {m} دفاتر؟",
+    rt0r:"{v} لكل دفتر",
+    rt1t:"الصفحات",
+    rt1b:"الدقائق",
+    rt1s:"يقرأ {name} {p} صفحة في {n} دقائق.",
+    rt1u:"كم صفحة يقرأ {name} في الدقيقة؟",
+    rt1m:"بهذا المعدل، كم صفحة يستطيع {name} قراءتها في {m} دقيقة؟",
+    rt1r:"{v} صفحة في الدقيقة",
+    rt2t:"الأميال",
+    rt2b:"الساعات",
+    rt2s:"تقطع سيارة {p} ميلًا في {n} ساعات بسرعة ثابتة.",
+    rt2u:"ما سرعة السيارة بالميل في الساعة؟",
+    rt2m:"بهذه السرعة، كم مسافة تقطع السيارة في {m} ساعات؟",
+    rt2r:"{v} ميل في الساعة",
+    goodUnit:"أحسنت! {e}. معدل الوحدة هو {rr}.",
+    goodMore:"أحسنت! معدل الوحدة هو {rr}، إذن {e}.",
+    hintUnit:"معدل الوحدة هو المقدار المقابل لـ 1. اقسم {p} على {n}. اسحب المؤشر على خط الأعداد المزدوج إلى 1.",
+    hintMore:"أوجد المقدار المقابل لـ 1 أولًا ({p} ÷ {n})، ثم اضرب في {m}. اسحب المؤشر لترى القيم.",
+    hintAddRate:"إضافة المقدار نفسه لا تحافظ على المعدل. استخدم المقدار المقابل لـ 1، ثم اضرب.",
+    store:"المتجر {s}",
+    storeLine:"المتجر {s}: {n} ألواح جرانولا مقابل {p}.",
+    bestQ:"أيهما الشراء الأفضل؟",
+    bestT:"السعر ($)، المتجر {s}",
+    bars:"ألواح الجرانولا",
+    sameDeal:"السعر نفسه لكل لوح",
+    goodBest:"أحسنت! المتجر A: {e1} لكل لوح. المتجر B: {e2} لكل لوح. {w}",
+    bestLow:"السعر الأقل لكل لوح هو الشراء الأفضل.",
+    bestSame:"يتقاضى المتجران السعر نفسه لكل لوح.",
+    hintBest:"قارن سعر لوح واحد في كل متجر. اقسم كل سعر على عدد ألواحه.",
+    rf0s:"يمشي {name} {a} ميل في {b} ساعة. كم ميلًا في الساعة يساوي ذلك؟",
+    rf0t:"الأميال",
+    rf0r:"{v} ميل في الساعة",
+    rf1s:"يقصّ {name} {a} من مرجة عشب في {b} ساعة. كم مرجة في الساعة يساوي ذلك؟",
+    rf1t:"المروج",
+    rf1r:"{v} مرجة في الساعة",
+    hoursLbl:"الساعات",
+    goodFrac:"أحسنت! اقسم لإيجاد المقدار المقابل لساعة واحدة: {e}. أي {rr}.",
+    hintFrac:"معدل الوحدة هو المقدار المقابل لساعة واحدة. اقسم {a} على {b} (اضرب في المقلوب). على خط الأعداد المزدوج، جِد الساعة 1.",
+    pYes:"تناسبي",
+    pNo:"غير تناسبي",
+    tableLbl:"جدول القيم. انقر عمودًا لإيجاد y ÷ x.",
+    colLbl:"x = {x}، y = {y}. انقر لإيجاد y ÷ x.",
+    ptDir:"هل العلاقة في الجدول تناسبية؟ انقر الأعمدة لإيجاد y ÷ x.",
+    goodPTy:"أحسنت! كل y ÷ x يساوي {k}، إذن العلاقة تناسبية: {eq}.",
+    goodPTn:"صحيح. قيمة y ÷ x ليست نفسها في كل عمود، إذن العلاقة غير تناسبية.",
+    hintPT:"انقر كل عمود لإيجاد y ÷ x. في العلاقة التناسبية، تكون كل قيم y ÷ x العدد نفسه k.",
+    graphLbl:"تمثيل بياني في المستوى الإحداثي",
+    rayBtn:"ارسم خطًا من (0, 0)",
+    pgDir:"هل العلاقة في التمثيل البياني تناسبية؟",
+    goodPGy:"أحسنت! التمثيل البياني خط مستقيم يمر بنقطة الأصل (0, 0)، إذن العلاقة تناسبية.",
+    goodPGs:"صحيح. التمثيل البياني خط مستقيم، لكنه لا يمر بنقطة الأصل (0, 0)، إذن العلاقة غير تناسبية.",
+    goodPGc:"صحيح. التمثيل البياني يمر بالنقطة (0, 0)، لكنه ليس خطًا مستقيمًا، إذن العلاقة غير تناسبية.",
+    hintPG:"التمثيل البياني التناسبي خط مستقيم يمر بنقطة الأصل (0, 0). انقر «ارسم خطًا من (0, 0)» لتختبره.",
+    kDirT:"يبيّن هذا الجدول علاقة تناسبية. ما ثابت التناسب k في y = kx؟",
+    kDirG:"يبيّن هذا التمثيل البياني علاقة تناسبية. ما ثابت التناسب k في y = kx؟",
+    kDirS:"يكسب {name} مبلغ {p} مقابل {h} ساعات من رعاية الأطفال. الأجر يتناسب مع الوقت. ما قيمة k في y = kx، حيث x عدد الساعات و y عدد الدولارات؟",
+    goodK:"أحسنت! k = y ÷ x: {e}.",
+    hintK:"اختر أي زوج (x, y) غير (0, 0) واقسم: k = y ÷ x.",
+    hintKInv:"هذا x ÷ y. الثابت k هو y ÷ x — مقدار y لكل 1 من x.",
+    slopeNote:"بلغة الصف الثامن، k = {k} هو أيضًا ميل الخط (معدل التغيّر).",
+    pt0x:"x = ساعات ركوب الدراجة",
+    pt0y:"y = الأميال",
+    pt1x:"x = أرطال التفاح",
+    pt1y:"y = التكلفة بالدولار",
+    pointDir:"ماذا تعني النقطة (1, {k}) على هذا التمثيل البياني؟",
+    pt0a:"في ساعة واحدة، يقطع راكب الدراجة {k} ميل.",
+    pt0b:"في {k} ساعة، يقطع راكب الدراجة ميلًا واحدًا.",
+    pt0c:"يبدأ راكب الدراجة على بُعد {k} ميل من المنزل.",
+    pt0d:"يركب راكب الدراجة مدة {k} ساعة إجمالًا.",
+    pt1a:"رطل واحد من التفاح ثمنه ${k}.",
+    pt1b:"{k} رطل من التفاح ثمنها $1.",
+    pt1c:"يتقاضى المتجر رسمًا قدره ${k} قبل شراء أي تفاح.",
+    pt1d:"يشتري المتسوّق {k} رطل من التفاح.",
+    goodPt:"أحسنت! النقطة (1, {k}) تبيّن معدل الوحدة: {k} لكل 1. وهذا هو ثابت التناسب، k = {k}.",
+    hintPt:"اقرأ المحورين: {xl} و {yl}. النقطة (1, {k}) تعني أن x تساوي 1 و y تساوي {k}.",
+    eqDir:"أي معادلة تطابق الجدول؟",
+    eqSay:"واي تساوي {k} إكس",
+    eqAddSay:"واي تساوي إكس زائد {d}",
+    eqPlusSay:"واي تساوي {k} إكس زائد {b}",
+    goodEq:"أحسنت! كل y يساوي {k} مضروبًا في x، إذن {e}.",
+    hintEq:"اختبر كل معادلة مع جميع الأعمدة، لا مع العمود الأول فقط. معادلة واحدة فقط تصلح لها جميعًا.",
+    hintEqAdd:"{e} تصلح للعمود الأول فقط. العلاقة التناسبية تعتمد على الضرب: y = kx.",
+    gridLbl:"شبكة المئة. انقر مربعًا لتظليل ما يصل إليه.",
+    gridRead:"{n} من 100 مربع = {n}%",
+    minus10:"أزل 10 مربعات",
+    plus10:"أضف 10 مربعات",
+    shadeDir:"ظلّل {p} من شبكة المئة، ثم اضغط «تحقّق».",
+    goodGrid:"أحسنت! {n} من 100 مربع تساوي {p}، أي {f} أو {d}.",
+    hintGrid:"ظلّلتَ {k} مربعًا. النسبة المئوية تعني «من 100»، إذن {p} هي {n} من المربعات المئة. كل صف كامل يحوي 10 مربعات.",
+    nameDir:"أيّها يمثّل الجزء المظلّل من الشبكة؟",
+    goodName:"أحسنت! {n} من 100 مربع مظلّلة: {tri}.",
+    hintName:"عُدّ المربعات المظلّلة — كل صف كامل يساوي 10 مربعات، أي 10%. النسبة المئوية تعني من 100.",
+    pctLine:"النسبة المئوية",
+    amtLine:"المقدار",
+    pPart:"ما {p} من {W}؟",
+    pWhole:"{P} يساوي {p} من أي عدد؟",
+    pPct:"{P} يمثّل أي نسبة مئوية من {W}؟",
+    sPart:"في مدرسة {W} طالبًا. {p} منهم يركبون الحافلة. كم طالبًا يركب الحافلة؟",
+    sWhole:"{P} طالبًا يركبون الحافلة. وهذا يمثّل {p} من طلاب المدرسة. كم عدد طلاب المدرسة؟",
+    sPct:"{P} من أصل {W} طالبًا في مدرسة يركبون الحافلة. ما النسبة المئوية لمن يركبون الحافلة؟",
+    goodPart:"أحسنت! {p} تعني {p0} من 100: {e}.",
+    goodWhole:"أحسنت! الكل يساوي 100%: {e}.",
+    goodPctF:"أحسنت! قارن الجزء بالكل: {e}.",
+    hintPart:"النسبة المئوية تعني لكل 100. أوجد {p} من {W}: استخدم شريط النسبة المئوية، أو اضرب {W} في الكسر العشري المقابل لـ {p}.",
+    hintWhole:"الكل يساوي 100%. إذا كانت {p} تساوي {P}، فأوجد مقدار خطوة واحدة على شريط النسبة المئوية، ثم كبّر حتى 100%.",
+    hintPctF:"قارن الجزء بالكل: {P} من {W}. أعد كتابته كمقدار من 100.",
+    chDisc:"سعر سترة {W}. عليها خصم {p}. ما سعرها بعد الخصم؟",
+    chTax:"سعر لعبة فيديو {W}. ضريبة المبيعات {p}. ما التكلفة الإجمالية مع الضريبة؟",
+    chTip:"تكلفة وجبة {W}. يترك {name} إكرامية بنسبة {p}. ما المجموع مع الإكرامية؟",
+    chInc:"كان عدد سكان بلدة {W} نسمة. زاد عدد السكان بنسبة {p}. كم يبلغ عدد السكان الآن؟",
+    chDec:"استخدمت مدرسة {W} ورقة الشهر الماضي. وفي هذا الشهر استخدمت أقل بنسبة {p}. كم ورقة استخدمت هذا الشهر؟",
+    goodChg:"أحسنت! {p} من الأصل: {e1}. المقدار الجديد: {e2}. طريقة أخرى: {e3}.",
+    hintUp:"أوجد {p} من {W} أولًا، ثم أضفه إلى {W}.",
+    hintDown:"أوجد {p} من {W} أولًا، ثم اطرحه من {W}.",
+    hintChgAmt:"هذا مقدار التغيّر. اجمعه مع المقدار الأصلي لإيجاد المقدار الجديد.",
+    chUp:"تغيّر سعر تذكرة من {a} إلى {b}. ما نسبة الزيادة المئوية؟",
+    chDown:"تغيّر سعر تذكرة من {a} إلى {b}. ما نسبة النقصان المئوية؟",
+    goodPchg:"أحسنت! التغيّر هو {e1}. قارن التغيّر بالمقدار الأصلي: {e2}.",
+    hintPchg:"التغيّر المئوي = التغيّر ÷ المقدار الأصلي. أوجد التغيّر أولًا، ثم اقسمه على {a}، السعر الأصلي.",
+    hintPchgBase:"قارن التغيّر بالمقدار الأصلي ({a})، لا بالمقدار الجديد.",
+    mapLbl:"خريطة من A إلى B مع شريط مقياس رسم",
+    layBar:"ضع شريط مقياس",
+    layHalf:"ضع نصف شريط",
+    barsLaid:"أشرطة المقياس: {n}",
+    mapDir:"يمثّل شريط المقياس {s} كم. ضع أشرطة المقياس من A إلى B. ما المسافة الفعلية من A إلى B؟",
+    goodMap:"أحسنت! طول المسافة من A إلى B يساوي {L} من أشرطة المقياس، إذن المسافة {e} كم.",
+    hintMap:"ضع أشرطة المقياس بدءًا من A حتى تصل إلى B. كل شريط يمثّل {s} كم، فاضرب عدد الأشرطة في {s}.",
+    planLbl:"مخطط أرضي على شبكة",
+    sqCount:"{n} مربعات",
+    tapSide:"انقر ضلعًا لعدّ مربعاته.",
+    drawLen:"في هذا المخطط الأرضي، يمثّل مربع الشبكة الواحد {s} قدم. ما الطول الفعلي للضلع الطويل للغرفة بالأقدام؟",
+    drawArea:"في هذا المخطط الأرضي، يمثّل مربع الشبكة الواحد {s} قدم. ما المساحة الفعلية للغرفة بالأقدام المربعة؟",
+    goodLen:"أحسنت! الضلع الطويل {w} مربعات: {e} قدم.",
+    goodArea:"أحسنت! حوّل كل ضلع بالمقياس أولًا: {e1} قدم و {e2} قدم. المساحة: {e3} قدم مربع.",
+    hintLen:"عُدّ المربعات على طول الضلع الطويل (انقره)، ثم اضرب في {s} قدم لكل مربع.",
+    hintArea:"أوجد الطول الفعلي لكل ضلع أولًا (المربعات × {s} قدم)، ثم اضرب الطول × العرض.",
+    hintArea1:"هذا يطبّق المقياس على المساحة مرة واحدة فقط. الطول والعرض كلاهما يُضربان في {s}.",
+    convDir:"استخدم {fact}. أوجد العدد الناقص: {q}",
+    goodConvMul:"أحسنت! كل 1 {u1} يساوي {f} {u2}: {e}.",
+    goodConvDiv:"أحسنت! كل {f} {u2} تساوي 1 {u1}: {e}.",
+    hintConvMul:"أنت تحوّل إلى وحدة أصغر، لذا يجب أن يكبر العدد. اضرب في {f}.",
+    hintConvDiv:"أنت تحوّل إلى وحدة أكبر، لذا يجب أن يصغر العدد. اقسم على {f}.",
+    mc0a:"الدقيق (أكواب)",
+    mc0b:"الكعكات",
+    mc0s:"{a} أكواب من الدقيق تكفي لصنع {b} كعكة. كم كوبًا من الدقيق يلزم لصنع {c} كعكة؟",
+    mc1a:"الكلمات",
+    mc1b:"الدقائق",
+    mc1s:"يكتب {name} {w} كلمة في {m} دقائق. بهذا المعدل، كم دقيقة يحتاج لكتابة {W} كلمة؟",
+    mc2a:"الأجر ($)",
+    mc2b:"الساعات",
+    mc2s:"يكسب {name} مبلغ {p} مقابل {h} ساعات عمل. بهذا المعدل، كم سيكسب {name} مقابل {H} ساعات؟",
+    goodMulti:"أحسنت! أوجد معدل الوحدة: {e1}. ثم: {e2}.",
+    hintMulti:"أوجد معدل الوحدة أولًا (المقدار المقابل لـ 1)، أو أنشئ أعمدة في جدول النسب حتى يطابق أحدها السؤال. ثم طبّق المقياس.",
+    u_in:"بوصة",
+    u_ft:"قدم",
+    u_yd:"ياردة",
+    u_mi:"ميل",
+    u_oz:"أونصة",
+    u_lb:"رطل",
+    u_qt:"كوارت",
+    u_gal:"غالون",
+    u_min:"د",
+    u_h:"س",
+    u_cm:"سم",
+    u_m:"م",
+    u_km:"كم",
+    u_g:"جم",
+    u_kg:"كجم",
+    s_in:"بوصات",
+    s_ft:"أقدام",
+    s_yd:"ياردات",
+    s_mi:"أميال",
+    s_oz:"أونصات",
+    s_lb:"أرطال",
+    s_qt:"كوارتات",
+    s_gal:"غالونات",
+    s_min:"دقائق",
+    s_h:"ساعات",
+    s_cm:"سنتيمترات",
+    s_m:"أمتار",
+    s_km:"كيلومترات",
+    s_g:"غرامات",
+    s_kg:"كيلوغرامات",
+    s1_in:"بوصة",
+    s1_ft:"قدم",
+    s1_yd:"ياردة",
+    s1_mi:"ميل",
+    s1_lb:"رطل",
+    s1_gal:"غالون",
+    s1_h:"ساعة",
+    s1_m:"متر",
+    s1_km:"كيلومتر",
+    s1_kg:"كيلوغرام",
+    stds:"المعايير المتوافقة — معايير تكساس TEKS: الصف السادس 6.4(A–H)، 6.5(A–C)؛ الصف السابع 7.4(A–E)، 7.5(C)؛ الصف الثامن 8.4(B)، 8.5(A)، 8.5(F). معايير Common Core: 6.RP.1، 6.RP.2، 6.RP.3؛ 7.RP.1، 7.RP.2، 7.RP.3، 7.G.1؛ 8.EE.5.",
+    cardTitle:"استوديو النسب والمعدلات — بطاقات التحدي",
+    cardName:"الاسم:",
+    cardTable:"أكمل القيمة الناقصة. بيّن عامل المقياس.",
+    cardShow:"حُلّ المسألة. وضّح طريقة تفكيرك بجدول أو مخطط شريطي أو خط أعداد مزدوج.",
+    cardProp:"هل العلاقة تناسبية؟ إذا كانت كذلك، فاكتب المعادلة y = kx.",
+    cardAns:"الإجابة:"
+  },
+  hi:{
+    appTitle:"अनुपात और दर स्टूडियो",
+    home:"होम",
+    privacy:"गोपनीयता",
+    teacher:"शिक्षक",
+    modesLbl:"मोड",
+    solved:"हल किए",
+    newRound:"नया प्रश्न",
+    readAloud:"पढ़कर सुनाएँ",
+    check:"जाँचें",
+    clear:"साफ़ करें",
+    choicesLbl:"उत्तर के विकल्प",
+    footNote:"कोई खाता नहीं · कोई डेटा एकत्र नहीं · ऑफ़लाइन काम करता है",
+    mRatio:"अनुपात तालिकाएँ और टेप आरेख",
+    mRates:"दोहरी संख्या रेखाएँ और इकाई दरें",
+    mProp:"समानुपाती है या नहीं?",
+    mPct:"प्रतिशत प्रयोगशाला",
+    mScale:"पैमाना और रूपांतरण",
+    teacherTitle:"शिक्षक सेटिंग्स",
+    close:"बंद करें",
+    setGrade:"कक्षा",
+    g6:"कक्षा 6",
+    g7:"कक्षा 7",
+    g8:"कक्षा 8",
+    gradeNote:"कक्षा चुनने पर नीचे के विकल्प उस कक्षा की डिफ़ॉल्ट सेटिंग पर लौट आते हैं। कक्षा 6 में अनुपात और प्रतिशत की बुनियादी बातों का अभ्यास होता है; कक्षा 7 में भिन्नों वाली दरें, आनुपातिकता स्थिरांक, प्रतिशत परिवर्तन और पैमाना चित्र जुड़ते हैं; कक्षा 8 में ढलान (स्लोप) से संबंध जुड़ता है।",
+    setSize:"संख्याओं का आकार",
+    size1:"छोटी संख्याएँ",
+    size2:"मध्यम संख्याएँ",
+    size3:"बड़ी संख्याएँ",
+    setFrac:"भिन्न",
+    fracOn:"भिन्न वाले पैमाना गुणक, भिन्नों वाली दरें और आधी इकाइयाँ",
+    setModes:"मोड",
+    setSpeech:"वाणी",
+    autoRead:"निर्देश अपने-आप पढ़कर सुनाएँ",
+    printCards:"चुनौती कार्ड प्रिंट करें",
+    setStored:"सेटिंग्स केवल इसी डिवाइस पर सहेजी जाती हैं। विद्यार्थियों की कोई भी जानकारी कभी संग्रहीत नहीं की जाती।",
+    frSay:"{n} बटा {d}",
+    mixSay:"{w} पूर्ण {f}",
+    moneySay:"{v} डॉलर",
+    pctSay:"{v} प्रतिशत",
+    ratioSay:"{a} अनुपात {b}",
+    wPlus:"धन",
+    wMinus:"ऋण",
+    wTimes:"गुणा",
+    wDiv:"भाग",
+    wEq:"बराबर",
+    wApprox:"लगभग बराबर",
+    youPicked:"आपने {x} चुना।",
+    names:"आरव,दिया,कबीर,मीरा,रोहन,अनन्या,अर्जुन,ईशा",
+    rtLbl:"अनुपात तालिका",
+    opMul:"दोनों राशियों को {k} से गुणा करें",
+    opDiv:"दोनों राशियों को {k} से भाग दें",
+    opAdd:"पहले स्तंभ को अंतिम स्तंभ में जोड़ें",
+    undo:"पूर्ववत करें",
+    rtTip:"नए स्तंभ बनाएँ: एक राशि के साथ जो भी करें, वही दूसरी राशि के साथ भी करें।",
+    rc0a:"मूँगफली (कप)",
+    rc0b:"किशमिश (कप)",
+    rc0r:"एक ट्रेल मिक्स में हर {a} कप मूँगफली के साथ {b} कप किशमिश डाली जाती है।",
+    rc0qb:"{x} कप मूँगफली के साथ कितने कप किशमिश आएगी?",
+    rc0qa:"{x} कप किशमिश के साथ कितने कप मूँगफली आएगी?",
+    rc0qt:"एक बैच में कुल {T} कप हैं। इनमें से कितने कप मूँगफली है?",
+    rc1a:"नीला पेंट (डिब्बे)",
+    rc1b:"पीला पेंट (डिब्बे)",
+    rc1r:"हरे रंग की एक छटा में हर {a} डिब्बे नीले पेंट के साथ {b} डिब्बे पीला पेंट मिलाया जाता है।",
+    rc1qb:"{x} डिब्बे नीले के साथ कितने डिब्बे पीला पेंट आएगा?",
+    rc1qa:"{x} डिब्बे पीले के साथ कितने डिब्बे नीला पेंट आएगा?",
+    rc1qt:"एक पेंटर कुल {T} डिब्बे मिलाता है। इनमें से कितने डिब्बे नीले हैं?",
+    rc2a:"विद्यार्थी",
+    rc2b:"वयस्क",
+    rc2r:"एक शैक्षिक भ्रमण पर हर {a} विद्यार्थियों के साथ {b} वयस्क हैं।",
+    rc2qb:"{x} विद्यार्थियों के साथ कितने वयस्क होंगे?",
+    rc2qa:"{x} वयस्कों के साथ कितने विद्यार्थी होंगे?",
+    rc2qt:"भ्रमण पर कुल {T} लोग हैं। इनमें से कितने विद्यार्थी हैं?",
+    goodTable:"सही! दोनों राशियों को एक ही पैमाना गुणक {k} से गुणा किया गया है: {e1} और {e2}।",
+    hintScale:"तुल्य अनुपातों में दोनों राशियों को एक ही संख्या से गुणा किया जाता है। {gb} को किस संख्या से गुणा करने पर {g} मिलता है? {ob} को भी उसी संख्या से गुणा करें। मदद के लिए तालिका में स्तंभ बनाएँ।",
+    hintAdd:"इससे दोनों राशियों में एक ही संख्या जुड़ती है। अनुपात तभी तुल्य रहते हैं जब दोनों राशियों को एक ही संख्या से गुणा (या भाग) किया जाए।",
+    unitDown:"इकाई का मान घटाएँ",
+    unitUp:"इकाई का मान बढ़ाएँ",
+    unitIs:"1 इकाई = {u}",
+    tapeTotal:"कुल: {x} (लक्ष्य: {T})",
+    goodTape:"सही! {a} + {b} = {p} बराबर इकाइयाँ। {e1}, इसलिए हर इकाई का मान इतना है, और {e2}।",
+    hintTape:"कुल {T} को {p} बराबर इकाइयों ({a} + {b}) में बाँटा गया है। − और + का उपयोग करके वह इकाई मान ज्ञात करें जिससे कुल {T} हो।",
+    hintTapeOth:"यह अनुपात के दूसरे भाग की राशि है। प्रश्न पहले भाग के बारे में पूछता है — उसकी इकाइयाँ गिनें।",
+    equivDir:"कौन-सा अनुपात {r} के तुल्य है?",
+    goodEquiv:"सही! {e1} और {e2}। दोनों पदों को {k} से गुणा किया गया है।",
+    hintRev:"क्रम महत्वपूर्ण है। {r} का अर्थ है कि पहली राशि पहले आती है।",
+    hintOff:"दोनों पद जाँचें: {e}, लेकिन {y} ÷ {b} बराबर {k} नहीं है। दोनों पदों में एक ही गुणक होना चाहिए।",
+    dnlLbl:"दोहरी संख्या रेखा: ऊपर {t}, नीचे {b}",
+    pinVal:"{b}: {t}",
+    rt0t:"लागत ($)",
+    rt0b:"नोटबुक",
+    rt0s:"{n} नोटबुक की कीमत {p} है।",
+    rt0u:"1 नोटबुक की कीमत कितनी है?",
+    rt0m:"इसी दर से {m} नोटबुक की कीमत कितनी होगी?",
+    rt0r:"{v} प्रति नोटबुक",
+    rt1t:"पृष्ठ",
+    rt1b:"मिनट",
+    rt1s:"{name} {n} मिनट में {p} पृष्ठ पढ़ते हैं।",
+    rt1u:"{name} प्रति मिनट कितने पृष्ठ पढ़ते हैं?",
+    rt1m:"इसी दर से {name} {m} मिनट में कितने पृष्ठ पढ़ सकते हैं?",
+    rt1r:"{v} पृष्ठ प्रति मिनट",
+    rt2t:"मील",
+    rt2b:"घंटे",
+    rt2s:"एक कार स्थिर गति से {n} घंटे में {p} मील चलती है।",
+    rt2u:"कार की गति कितने मील प्रति घंटा है?",
+    rt2m:"इसी गति से कार {m} घंटे में कितनी दूरी तय करेगी?",
+    rt2r:"{v} मील प्रति घंटा",
+    goodUnit:"सही! {e}। इकाई दर {rr} है।",
+    goodMore:"सही! इकाई दर {rr} है, इसलिए {e}।",
+    hintUnit:"इकाई दर 1 के लिए राशि होती है। {p} को {n} से भाग दें। दोहरी संख्या रेखा पर मार्कर को 1 तक खींचें।",
+    hintMore:"पहले 1 के लिए राशि ज्ञात करें ({p} ÷ {n}), फिर {m} से गुणा करें। मान देखने के लिए मार्कर खींचें।",
+    hintAddRate:"एक ही राशि जोड़ने से दर समान नहीं रहती। 1 के लिए राशि लें, फिर गुणा करें।",
+    store:"दुकान {s}",
+    storeLine:"दुकान {s}: {n} ग्रेनोला बार {p} में।",
+    bestQ:"कौन-सी ख़रीद बेहतर है?",
+    bestT:"कीमत ($), दुकान {s}",
+    bars:"ग्रेनोला बार",
+    sameDeal:"प्रति बार कीमत समान",
+    goodBest:"सही! दुकान A: {e1} प्रति बार। दुकान B: {e2} प्रति बार। {w}",
+    bestLow:"प्रति बार कम कीमत वाली ख़रीद बेहतर है।",
+    bestSame:"दोनों दुकानें प्रति बार समान कीमत लेती हैं।",
+    hintBest:"हर दुकान पर 1 बार की कीमत की तुलना करें। हर कीमत को उसके बारों की संख्या से भाग दें।",
+    rf0s:"{name} {b} घंटे में {a} मील चलते हैं। यह कितने मील प्रति घंटा है?",
+    rf0t:"मील",
+    rf0r:"{v} मील प्रति घंटा",
+    rf1s:"{name} {b} घंटे में {a} लॉन की घास काटते हैं। यह कितने लॉन प्रति घंटा है?",
+    rf1t:"लॉन",
+    rf1r:"{v} लॉन प्रति घंटा",
+    hoursLbl:"घंटे",
+    goodFrac:"सही! 1 घंटे की राशि ज्ञात करने के लिए भाग दें: {e}। यानी {rr}।",
+    hintFrac:"इकाई दर 1 घंटे के लिए राशि होती है। {a} को {b} से भाग दें (व्युत्क्रम से गुणा करें)। दोहरी संख्या रेखा पर 1 घंटा खोजें।",
+    pYes:"समानुपाती",
+    pNo:"समानुपाती नहीं",
+    tableLbl:"मानों की तालिका। y ÷ x ज्ञात करने के लिए किसी स्तंभ पर टैप करें।",
+    colLbl:"x = {x}, y = {y}। y ÷ x ज्ञात करने के लिए टैप करें।",
+    ptDir:"क्या तालिका में दिया गया संबंध समानुपाती है? y ÷ x ज्ञात करने के लिए स्तंभों पर टैप करें।",
+    goodPTy:"सही! हर y ÷ x बराबर {k} है, इसलिए संबंध समानुपाती है: {eq}।",
+    goodPTn:"ठीक है। हर स्तंभ में y ÷ x समान नहीं है, इसलिए संबंध समानुपाती नहीं है।",
+    hintPT:"y ÷ x ज्ञात करने के लिए हर स्तंभ पर टैप करें। समानुपाती संबंध में हर y ÷ x एक ही संख्या k होती है।",
+    graphLbl:"निर्देशांक ग्राफ़",
+    rayBtn:"(0, 0) से रेखा खींचें",
+    pgDir:"क्या ग्राफ़ में दिखाया गया संबंध समानुपाती है?",
+    goodPGy:"सही! ग्राफ़ मूल बिंदु (0, 0) से होकर जाने वाली एक सीधी रेखा है, इसलिए यह समानुपाती है।",
+    goodPGs:"ठीक है। ग्राफ़ एक सीधी रेखा है, लेकिन यह मूल बिंदु (0, 0) से होकर नहीं जाती, इसलिए यह समानुपाती नहीं है।",
+    goodPGc:"ठीक है। ग्राफ़ (0, 0) से होकर जाता है, लेकिन यह सीधी रेखा नहीं है, इसलिए यह समानुपाती नहीं है।",
+    hintPG:"समानुपाती ग्राफ़ एक सीधी रेखा होता है जो मूल बिंदु (0, 0) से होकर जाती है। जाँचने के लिए “(0, 0) से रेखा खींचें” पर टैप करें।",
+    kDirT:"यह तालिका एक समानुपाती संबंध दिखाती है। y = kx में आनुपातिकता स्थिरांक k क्या है?",
+    kDirG:"यह ग्राफ़ एक समानुपाती संबंध दिखाता है। y = kx में आनुपातिकता स्थिरांक k क्या है?",
+    kDirS:"{name} {h} घंटे बच्चों की देखभाल करके {p} कमाते हैं। भुगतान समय के समानुपाती है। y = kx में k क्या है, जहाँ x घंटे हैं और y डॉलर हैं?",
+    goodK:"सही! k = y ÷ x: {e}।",
+    hintK:"(0, 0) को छोड़कर कोई भी युग्म (x, y) चुनें और भाग दें: k = y ÷ x।",
+    hintKInv:"यह x ÷ y है। स्थिरांक k होता है y ÷ x — x के हर 1 के लिए y कितना है।",
+    slopeNote:"कक्षा 8 की भाषा में, k = {k} रेखा का ढलान (परिवर्तन की दर) भी है।",
+    pt0x:"x = साइकिल चलाने के घंटे",
+    pt0y:"y = मील",
+    pt1x:"x = सेबों के पाउंड",
+    pt1y:"y = डॉलर में लागत",
+    pointDir:"इस ग्राफ़ पर बिंदु (1, {k}) का क्या अर्थ है?",
+    pt0a:"1 घंटे में साइकिल चालक {k} मील चलता है।",
+    pt0b:"{k} घंटे में साइकिल चालक 1 मील चलता है।",
+    pt0c:"साइकिल चालक घर से {k} मील दूर से शुरू करता है।",
+    pt0d:"साइकिल चालक कुल {k} घंटे साइकिल चलाता है।",
+    pt1a:"1 पाउंड सेब की कीमत ${k} है।",
+    pt1b:"{k} पाउंड सेब की कीमत $1 है।",
+    pt1c:"दुकान सेब ख़रीदने से पहले ${k} शुल्क लेती है।",
+    pt1d:"ग्राहक {k} पाउंड सेब ख़रीदता है।",
+    goodPt:"सही! बिंदु (1, {k}) इकाई दर दिखाता है: हर 1 के लिए {k}। यही आनुपातिकता स्थिरांक है, k = {k}।",
+    hintPt:"अक्ष पढ़ें: {xl} और {yl}। बिंदु (1, {k}) का अर्थ है x = 1 और y = {k}।",
+    eqDir:"कौन-सा समीकरण तालिका से मेल खाता है?",
+    eqSay:"y बराबर {k} x",
+    eqAddSay:"y बराबर x धन {d}",
+    eqPlusSay:"y बराबर {k} x धन {b}",
+    goodEq:"सही! हर y, x का {k} गुना है, इसलिए {e}।",
+    hintEq:"हर समीकरण को केवल पहले स्तंभ से नहीं, हर स्तंभ से जाँचें। केवल एक समीकरण सभी स्तंभों के लिए सही है।",
+    hintEqAdd:"{e} केवल पहले स्तंभ के लिए सही है। समानुपाती संबंध में गुणा होता है: y = kx।",
+    gridLbl:"सौ खानों का ग्रिड। किसी खाने तक छायांकित करने के लिए उस पर टैप करें।",
+    gridRead:"100 में से {n} खाने = {n}%",
+    minus10:"10 खाने घटाएँ",
+    plus10:"10 खाने जोड़ें",
+    shadeDir:"सौ खानों के ग्रिड का {p} छायांकित करें, फिर जाँचें दबाएँ।",
+    goodGrid:"सही! 100 में से {n} खाने यानी {p}, जो {f} या {d} है।",
+    hintGrid:"आपने {k} खाने छायांकित किए। प्रतिशत का अर्थ है “100 में से”, इसलिए {p} का अर्थ है 100 में से {n} खाने। हर पूरी पंक्ति में 10 खाने हैं।",
+    nameDir:"कौन-सा विकल्प ग्रिड का छायांकित भाग दिखाता है?",
+    goodName:"सही! 100 में से {n} खाने छायांकित हैं: {tri}।",
+    hintName:"छायांकित खाने गिनें — हर पूरी पंक्ति में 10 खाने हैं, यानी 10%। प्रतिशत का अर्थ है 100 में से।",
+    pctLine:"प्रतिशत",
+    amtLine:"राशि",
+    pPart:"{W} का {p} कितना है?",
+    pWhole:"{P} किस संख्या का {p} है?",
+    pPct:"{P}, {W} का कितना प्रतिशत है?",
+    sPart:"एक स्कूल में {W} विद्यार्थी हैं। उनमें से {p} बस से आते हैं। कितने विद्यार्थी बस से आते हैं?",
+    sWhole:"{P} विद्यार्थी बस से आते हैं। यह स्कूल का {p} है। स्कूल में कितने विद्यार्थी हैं?",
+    sPct:"एक स्कूल के {W} विद्यार्थियों में से {P} बस से आते हैं। कितने प्रतिशत विद्यार्थी बस से आते हैं?",
+    goodPart:"सही! {p} का अर्थ है 100 में से {p0}: {e}।",
+    goodWhole:"सही! पूर्ण 100% है: {e}।",
+    goodPctF:"सही! भाग की तुलना पूर्ण से करें: {e}।",
+    hintPart:"प्रतिशत का अर्थ है प्रति 100। {W} का {p} ज्ञात करें: प्रतिशत पट्टी का उपयोग करें, या {W} को {p} के दशमलव रूप से गुणा करें।",
+    hintWhole:"पूर्ण 100% है। यदि {p} बराबर {P} है, तो प्रतिशत पट्टी पर एक चरण की राशि ज्ञात करें, फिर 100% तक बढ़ाएँ।",
+    hintPctF:"भाग की तुलना पूर्ण से करें: {W} में से {P}। इसे 100 में से एक राशि के रूप में फिर से लिखें।",
+    chDisc:"एक जैकेट की कीमत {W} है। इस पर {p} की छूट है। सेल कीमत क्या है?",
+    chTax:"एक वीडियो गेम की कीमत {W} है। बिक्री कर {p} है। कर सहित कुल लागत क्या है?",
+    chTip:"एक भोजन की कीमत {W} है। {name} {p} टिप देते हैं। टिप सहित कुल राशि क्या है?",
+    chInc:"एक कस्बे में {W} लोग थे। जनसंख्या {p} बढ़ गई। अब वहाँ कितने लोग रहते हैं?",
+    chDec:"एक स्कूल ने पिछले महीने {W} काग़ज़ इस्तेमाल किए। इस महीने उसने {p} कम इस्तेमाल किए। इस महीने कितने काग़ज़ इस्तेमाल हुए?",
+    goodChg:"सही! मूल राशि का {p}: {e1}। नई राशि: {e2}। दूसरा तरीका: {e3}।",
+    hintUp:"पहले {W} का {p} ज्ञात करें, फिर उसे {W} में जोड़ें।",
+    hintDown:"पहले {W} का {p} ज्ञात करें, फिर उसे {W} में से घटाएँ।",
+    hintChgAmt:"यह परिवर्तन की राशि है। नई राशि ज्ञात करने के लिए इसे मूल राशि के साथ मिलाएँ।",
+    chUp:"एक टिकट की कीमत {a} से बढ़कर {b} हो गई। प्रतिशत वृद्धि कितनी है?",
+    chDown:"एक टिकट की कीमत {a} से घटकर {b} हो गई। प्रतिशत कमी कितनी है?",
+    goodPchg:"सही! परिवर्तन {e1} है। परिवर्तन की तुलना मूल राशि से करें: {e2}।",
+    hintPchg:"प्रतिशत परिवर्तन = परिवर्तन ÷ मूल राशि। पहले परिवर्तन ज्ञात करें, फिर मूल कीमत {a} से भाग दें।",
+    hintPchgBase:"परिवर्तन की तुलना मूल राशि ({a}) से करें, नई राशि से नहीं।",
+    mapLbl:"A से B तक का नक्शा, पैमाना पट्टी के साथ",
+    layBar:"एक पैमाना पट्टी रखें",
+    layHalf:"आधी पट्टी रखें",
+    barsLaid:"पैमाना पट्टियाँ: {n}",
+    mapDir:"पैमाना पट्टी {s} किमी दर्शाती है। A से B तक पैमाना पट्टियाँ रखें। A से B की वास्तविक दूरी कितनी है?",
+    goodMap:"सही! A से B की लंबाई {L} पैमाना पट्टियाँ है, इसलिए दूरी {e} किमी है।",
+    hintMap:"A से B तक पहुँचने तक पैमाना पट्टियाँ रखें। हर पट्टी {s} किमी दर्शाती है, इसलिए पट्टियों की संख्या को {s} से गुणा करें।",
+    planLbl:"ग्रिड पर फ़्लोर प्लान",
+    sqCount:"{n} खाने",
+    tapSide:"किसी भुजा के खाने गिनने के लिए उस पर टैप करें।",
+    drawLen:"इस फ़्लोर प्लान में ग्रिड का 1 खाना {s} फुट दर्शाता है। कमरे की लंबी भुजा की वास्तविक लंबाई कितने फुट है?",
+    drawArea:"इस फ़्लोर प्लान में ग्रिड का 1 खाना {s} फुट दर्शाता है। कमरे का वास्तविक क्षेत्रफल कितने वर्ग फुट है?",
+    goodLen:"सही! लंबी भुजा {w} खाने है: {e} फुट।",
+    goodArea:"सही! पहले हर भुजा को पैमाने से बदलें: {e1} फुट और {e2} फुट। क्षेत्रफल: {e3} वर्ग फुट।",
+    hintLen:"लंबी भुजा के खाने गिनें (उस पर टैप करें), फिर हर खाने के लिए {s} फुट से गुणा करें।",
+    hintArea:"पहले हर भुजा की वास्तविक लंबाई ज्ञात करें (खाने × {s} फुट), फिर लंबाई × चौड़ाई करें।",
+    hintArea1:"इससे क्षेत्रफल केवल एक बार पैमाने से बदलता है। लंबाई और चौड़ाई दोनों को {s} से बदलना होता है।",
+    convDir:"{fact} का उपयोग करें। लुप्त संख्या ज्ञात करें: {q}",
+    goodConvMul:"सही! हर 1 {u1} = {f} {u2}: {e}।",
+    goodConvDiv:"सही! हर {f} {u2} से 1 {u1} बनता है: {e}।",
+    hintConvMul:"आप छोटी इकाई में बदल रहे हैं, इसलिए संख्या बड़ी होनी चाहिए। {f} से गुणा करें।",
+    hintConvDiv:"आप बड़ी इकाई में बदल रहे हैं, इसलिए संख्या छोटी होनी चाहिए। {f} से भाग दें।",
+    mc0a:"आटा (कप)",
+    mc0b:"मफ़िन",
+    mc0s:"{a} कप आटे से {b} मफ़िन बनते हैं। {c} मफ़िन के लिए कितने कप आटा चाहिए?",
+    mc1a:"शब्द",
+    mc1b:"मिनट",
+    mc1s:"{name} {m} मिनट में {w} शब्द टाइप करते हैं। इसी दर से {W} शब्द टाइप करने में कितने मिनट लगेंगे?",
+    mc2a:"भुगतान ($)",
+    mc2b:"घंटे",
+    mc2s:"{name} {h} घंटे काम करके {p} कमाते हैं। इसी दर से {name} {H} घंटे में कितना कमाएँगे?",
+    goodMulti:"सही! इकाई दर ज्ञात करें: {e1}। फिर: {e2}।",
+    hintMulti:"पहले इकाई दर (1 के लिए राशि) ज्ञात करें, या अनुपात तालिका तब तक बनाएँ जब तक कोई स्तंभ प्रश्न से मेल न खाए। फिर पैमाने से बढ़ाएँ या घटाएँ।",
+    u_in:"इंच",
+    u_ft:"फुट",
+    u_yd:"गज",
+    u_mi:"मील",
+    u_oz:"औंस",
+    u_lb:"पाउंड",
+    u_qt:"क्वार्ट",
+    u_gal:"गैलन",
+    u_min:"मिनट",
+    u_h:"घंटा",
+    u_cm:"सेमी",
+    u_m:"मी",
+    u_km:"किमी",
+    u_g:"ग्रा",
+    u_kg:"किग्रा",
+    s_in:"इंच",
+    s_ft:"फुट",
+    s_yd:"गज",
+    s_mi:"मील",
+    s_oz:"औंस",
+    s_lb:"पाउंड",
+    s_qt:"क्वार्ट",
+    s_gal:"गैलन",
+    s_min:"मिनट",
+    s_h:"घंटे",
+    s_cm:"सेंटीमीटर",
+    s_m:"मीटर",
+    s_km:"किलोमीटर",
+    s_g:"ग्राम",
+    s_kg:"किलोग्राम",
+    s1_in:"इंच",
+    s1_ft:"फुट",
+    s1_yd:"गज",
+    s1_mi:"मील",
+    s1_lb:"पाउंड",
+    s1_gal:"गैलन",
+    s1_h:"घंटा",
+    s1_m:"मीटर",
+    s1_km:"किलोमीटर",
+    s1_kg:"किलोग्राम",
+    stds:"संरेखित मानक — टेक्सास TEKS: कक्षा 6 6.4(A–H), 6.5(A–C); कक्षा 7 7.4(A–E), 7.5(C); कक्षा 8 8.4(B), 8.5(A), 8.5(F)। Common Core: 6.RP.1, 6.RP.2, 6.RP.3; 7.RP.1, 7.RP.2, 7.RP.3, 7.G.1; 8.EE.5।",
+    cardTitle:"अनुपात और दर स्टूडियो — चुनौती कार्ड",
+    cardName:"नाम:",
+    cardTable:"लुप्त मान भरें। पैमाना गुणक दिखाएँ।",
+    cardShow:"हल करें। तालिका, टेप आरेख या दोहरी संख्या रेखा से अपनी सोच दिखाएँ।",
+    cardProp:"क्या यह समानुपाती है? यदि हाँ, तो समीकरण y = kx लिखें।",
+    cardAns:"उत्तर:"
+  },
+  ur:{
+    appTitle:"تناسب اور شرح اسٹوڈیو",
+    home:"ہوم",
+    privacy:"رازداری",
+    teacher:"استاد",
+    modesLbl:"موڈز",
+    solved:"حل شدہ",
+    newRound:"نیا سوال",
+    readAloud:"بلند آواز سے پڑھیں",
+    check:"جانچیں",
+    clear:"صاف کریں",
+    choicesLbl:"جواب کے انتخاب",
+    footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا جمع نہیں ہوتا · آف لائن کام کرتا ہے",
+    mRatio:"تناسب کے جدول اور پٹیاں",
+    mRates:"دوہری عددی لکیریں اور اکائی شرح",
+    mProp:"متناسب ہے یا نہیں؟",
+    mPct:"فیصد لیب",
+    mScale:"پیمانہ اور تبدیلیاں",
+    teacherTitle:"استاد کی ترتیبات",
+    close:"بند کریں",
+    setGrade:"جماعت",
+    g6:"جماعت ششم",
+    g7:"جماعت ہفتم",
+    g8:"جماعت ہشتم",
+    gradeNote:"جماعت منتخب کرنے سے نیچے دیے گئے اختیارات اس جماعت کی طے شدہ ترتیبات پر واپس آ جاتے ہیں۔ جماعت ششم میں تناسب اور فیصد کی بنیادی مشق ہوتی ہے؛ جماعت ہفتم میں کسور والی شرحیں، تناسب کا مستقل، فیصد تبدیلی اور پیمانے والی ڈرائنگ شامل ہوتی ہیں؛ جماعت ہشتم میں ڈھلوان سے تعلق شامل ہوتا ہے۔",
+    setSize:"اعداد کا سائز",
+    size1:"چھوٹے اعداد",
+    size2:"درمیانے اعداد",
+    size3:"بڑے اعداد",
+    setFrac:"کسور",
+    fracOn:"کسری پیمانہ عوامل، کسور والی شرحیں، اور آدھی اکائیاں",
+    setModes:"موڈز",
+    setSpeech:"آواز",
+    autoRead:"ہدایات خودکار طور پر پڑھیں",
+    printCards:"چیلنج کارڈ پرنٹ کریں",
+    setStored:"ترتیبات صرف اسی ڈیوائس پر محفوظ ہوتی ہیں۔ طلبہ کی کوئی معلومات کبھی محفوظ نہیں کی جاتیں۔",
+    frSay:"{d} میں سے {n}",
+    mixSay:"{w} اور {f}",
+    moneySay:"{v} ڈالر",
+    pctSay:"{v} فیصد",
+    ratioSay:"{a} اور {b} کا تناسب",
+    wPlus:"جمع",
+    wMinus:"منفی",
+    wTimes:"ضرب",
+    wDiv:"تقسیم",
+    wEq:"برابر ہے",
+    wApprox:"تقریباً برابر ہے",
+    youPicked:"آپ نے {x} منتخب کیا۔",
+    names:"عائشہ,علی,زینب,حمزہ,فاطمہ,احمد,مریم,بلال",
+    rtLbl:"تناسب کا جدول",
+    opMul:"دونوں مقداروں کو {k} سے ضرب دیں",
+    opDiv:"دونوں مقداروں کو {k} سے تقسیم کریں",
+    opAdd:"پہلے کالم کو آخری کالم میں جمع کریں",
+    undo:"واپس کریں",
+    rtTip:"نئے کالم بنائیں: ایک مقدار کے ساتھ جو کریں، وہی دوسری کے ساتھ بھی کریں۔",
+    rc0a:"مونگ پھلی (کپ)",
+    rc0b:"کشمش (کپ)",
+    rc0r:"ایک ٹریل مکس میں ہر {b} کپ کشمش کے ساتھ {a} کپ مونگ پھلی استعمال ہوتی ہے۔",
+    rc0qb:"{x} کپ مونگ پھلی کے ساتھ کتنے کپ کشمش آئے گی؟",
+    rc0qa:"{x} کپ کشمش کے ساتھ کتنے کپ مونگ پھلی آئے گی؟",
+    rc0qt:"ایک کھیپ میں کل {T} کپ ہیں۔ ان میں سے کتنے کپ مونگ پھلی ہے؟",
+    rc1a:"نیلا رنگ (ڈبے)",
+    rc1b:"پیلا رنگ (ڈبے)",
+    rc1r:"سبز رنگ کے ایک شیڈ میں ہر {b} ڈبے پیلے رنگ کے ساتھ {a} ڈبے نیلا رنگ استعمال ہوتا ہے۔",
+    rc1qb:"{x} ڈبے نیلے کے ساتھ کتنے ڈبے پیلا آئے گا؟",
+    rc1qa:"{x} ڈبے پیلے کے ساتھ کتنے ڈبے نیلا آئے گا؟",
+    rc1qt:"ایک پینٹر کل {T} ڈبے ملاتا ہے۔ ان میں سے کتنے ڈبے نیلے ہیں؟",
+    rc2a:"طلبہ",
+    rc2b:"بالغ",
+    rc2r:"ایک تفریحی دورے پر ہر {b} بالغوں کے ساتھ {a} طلبہ ہیں۔",
+    rc2qb:"{x} طلبہ کے ساتھ کتنے بالغ ہوں گے؟",
+    rc2qa:"{x} بالغوں کے ساتھ کتنے طلبہ ہوں گے؟",
+    rc2qt:"دورے پر {T} افراد ہیں۔ ان میں سے کتنے طلبہ ہیں؟",
+    goodTable:"درست! دونوں مقداروں کو ایک ہی پیمانہ عامل {k} سے ضرب دی گئی ہے: {e1} اور {e2}۔",
+    hintScale:"مساوی تناسب میں دونوں مقداروں کو ایک ہی عدد سے ضرب دی جاتی ہے۔ {gb} کو کس عدد سے ضرب دینے پر {g} ملتا ہے؟ {ob} کو بھی اسی عدد سے ضرب دیں۔ مدد کے لیے جدول میں کالم بنائیں۔",
+    hintAdd:"اس سے دونوں مقداروں میں ایک ہی مقدار جمع ہوتی ہے۔ تناسب صرف اسی وقت مساوی رہتے ہیں جب آپ دونوں مقداروں کو ایک ہی عدد سے ضرب (یا تقسیم) کریں۔",
+    unitDown:"اکائی کی چھوٹی قیمت",
+    unitUp:"اکائی کی بڑی قیمت",
+    unitIs:"1 اکائی = {u}",
+    tapeTotal:"کل: {x} (ہدف: {T})",
+    goodTape:"درست! {a} + {b} = {p} برابر اکائیاں۔ {e1}، اس لیے ہر اکائی کی قیمت اتنی ہے، اور {e2}۔",
+    hintTape:"کل {T} کو {p} برابر اکائیوں ({a} + {b}) میں بانٹا گیا ہے۔ − اور + استعمال کر کے وہ اکائی قیمت معلوم کریں جس سے کل {T} بنے۔",
+    hintTapeOth:"یہ تناسب کے دوسرے حصے کی مقدار ہے۔ سوال پہلے حصے کے بارے میں ہے — اس کی اکائیاں گنیں۔",
+    equivDir:"کون سا تناسب {r} کے مساوی ہے؟",
+    goodEquiv:"درست! {e1} اور {e2}۔ دونوں ارکان کو {k} سے ضرب دی گئی ہے۔",
+    hintRev:"ترتیب اہم ہے۔ {r} کا مطلب ہے کہ پہلی مقدار پہلے آتی ہے۔",
+    hintOff:"دونوں ارکان جانچیں: {e}، لیکن {y} ÷ {b} برابر {k} نہیں۔ دونوں ارکان کے لیے ایک ہی عامل ہونا چاہیے۔",
+    dnlLbl:"دوہری عددی لکیر: اوپر {t}، نیچے {b}",
+    pinVal:"{b}: {t}",
+    rt0t:"قیمت ($)",
+    rt0b:"کاپیاں",
+    rt0s:"{n} کاپیوں کی قیمت {p} ہے۔",
+    rt0u:"1 کاپی کی قیمت کتنی ہے؟",
+    rt0m:"اسی شرح سے {m} کاپیوں کی قیمت کتنی ہوگی؟",
+    rt0r:"{v} فی کاپی",
+    rt1t:"صفحات",
+    rt1b:"منٹ",
+    rt1s:"{name} {n} منٹ میں {p} صفحات پڑھتا ہے۔",
+    rt1u:"{name} فی منٹ کتنے صفحات پڑھتا ہے؟",
+    rt1m:"اسی شرح سے {name} {m} منٹ میں کتنے صفحات پڑھ سکتا ہے؟",
+    rt1r:"{v} صفحات فی منٹ",
+    rt2t:"میل",
+    rt2b:"گھنٹے",
+    rt2s:"ایک گاڑی مستقل رفتار سے {n} گھنٹوں میں {p} میل طے کرتی ہے۔",
+    rt2u:"گاڑی کی رفتار میل فی گھنٹہ میں کتنی ہے؟",
+    rt2m:"اسی رفتار سے گاڑی {m} گھنٹوں میں کتنا فاصلہ طے کرے گی؟",
+    rt2r:"{v} میل فی گھنٹہ",
+    goodUnit:"درست! {e}۔ اکائی شرح {rr} ہے۔",
+    goodMore:"درست! اکائی شرح {rr} ہے، اس لیے {e}۔",
+    hintUnit:"اکائی شرح 1 کے لیے مقدار ہوتی ہے۔ {p} کو {n} سے تقسیم کریں۔ دوہری عددی لکیر پر نشان کو 1 تک کھینچیں۔",
+    hintMore:"پہلے 1 کے لیے مقدار معلوم کریں ({p} ÷ {n})، پھر {m} سے ضرب دیں۔ قیمتیں دیکھنے کے لیے نشان کو کھینچیں۔",
+    hintAddRate:"ایک ہی مقدار جمع کرنے سے شرح برقرار نہیں رہتی۔ 1 کے لیے مقدار استعمال کریں، پھر ضرب دیں۔",
+    store:"دکان {s}",
+    storeLine:"دکان {s}: {n} گرینولا بار {p} میں۔",
+    bestQ:"کون سی خریداری بہتر ہے؟",
+    bestT:"قیمت ($)، دکان {s}",
+    bars:"گرینولا بار",
+    sameDeal:"فی بار ایک جیسی قیمت",
+    goodBest:"درست! دکان A: {e1} فی بار۔ دکان B: {e2} فی بار۔ {w}",
+    bestLow:"فی بار کم قیمت والی خریداری بہتر ہے۔",
+    bestSame:"دونوں دکانیں فی بار ایک جیسی قیمت لیتی ہیں۔",
+    hintBest:"ہر دکان پر 1 بار کی قیمت کا موازنہ کریں۔ ہر قیمت کو اس کے بارز کی تعداد سے تقسیم کریں۔",
+    rf0s:"{name} {b} گھنٹے میں {a} میل پیدل چلتا ہے۔ یہ کتنے میل فی گھنٹہ بنتا ہے؟",
+    rf0t:"میل",
+    rf0r:"{v} میل فی گھنٹہ",
+    rf1s:"{name} {b} گھنٹے میں ایک لان کا {a} حصہ کاٹتا ہے۔ یہ کتنے لان فی گھنٹہ بنتا ہے؟",
+    rf1t:"لان",
+    rf1r:"{v} لان فی گھنٹہ",
+    hoursLbl:"گھنٹے",
+    goodFrac:"درست! 1 گھنٹے کی مقدار معلوم کرنے کے لیے تقسیم کریں: {e}۔ یعنی {rr}۔",
+    hintFrac:"اکائی شرح 1 گھنٹے کے لیے مقدار ہے۔ {a} کو {b} سے تقسیم کریں (معکوس سے ضرب دیں)۔ دوہری عددی لکیر پر 1 گھنٹہ تلاش کریں۔",
+    pYes:"متناسب",
+    pNo:"غیر متناسب",
+    tableLbl:"قیمتوں کا جدول۔ y ÷ x معلوم کرنے کے لیے کسی کالم پر ٹیپ کریں۔",
+    colLbl:"x = {x}، y = {y}۔ y ÷ x معلوم کرنے کے لیے ٹیپ کریں۔",
+    ptDir:"کیا جدول میں دیا گیا تعلق متناسب ہے؟ y ÷ x معلوم کرنے کے لیے کالموں پر ٹیپ کریں۔",
+    goodPTy:"درست! ہر y ÷ x برابر {k} ہے، اس لیے تعلق متناسب ہے: {eq}۔",
+    goodPTn:"صحیح۔ y ÷ x ہر کالم میں ایک جیسا نہیں، اس لیے تعلق متناسب نہیں ہے۔",
+    hintPT:"y ÷ x معلوم کرنے کے لیے ہر کالم پر ٹیپ کریں۔ متناسب تعلق میں ہر y ÷ x ایک ہی عدد k ہوتا ہے۔",
+    graphLbl:"محددی گراف",
+    rayBtn:"(0, 0) سے لکیر کھینچیں",
+    pgDir:"کیا گراف میں دکھایا گیا تعلق متناسب ہے؟",
+    goodPGy:"درست! گراف ایک سیدھی لکیر ہے جو مبدا (0, 0) سے گزرتی ہے، اس لیے یہ متناسب ہے۔",
+    goodPGs:"صحیح۔ گراف سیدھی لکیر ہے، لیکن مبدا (0, 0) سے نہیں گزرتی، اس لیے یہ متناسب نہیں ہے۔",
+    goodPGc:"صحیح۔ گراف (0, 0) سے گزرتا ہے، لیکن سیدھی لکیر نہیں ہے، اس لیے یہ متناسب نہیں ہے۔",
+    hintPG:"متناسب گراف ایک سیدھی لکیر ہوتا ہے جو مبدا (0, 0) سے گزرتی ہے۔ جانچنے کے لیے «(0, 0) سے لکیر کھینچیں» پر ٹیپ کریں۔",
+    kDirT:"یہ جدول ایک متناسب تعلق دکھاتا ہے۔ y = kx میں تناسب کا مستقل k کیا ہے؟",
+    kDirG:"یہ گراف ایک متناسب تعلق دکھاتا ہے۔ y = kx میں تناسب کا مستقل k کیا ہے؟",
+    kDirS:"{name} {h} گھنٹے بچوں کی دیکھ بھال کر کے {p} کماتا ہے۔ اجرت وقت کے متناسب ہے۔ y = kx میں k کیا ہے، جہاں x گھنٹے اور y ڈالر ہیں؟",
+    goodK:"درست! k = y ÷ x: {e}۔",
+    hintK:"(0, 0) کے علاوہ کوئی بھی جوڑا (x, y) چنیں اور تقسیم کریں: k = y ÷ x۔",
+    hintKInv:"یہ x ÷ y ہے۔ مستقل k برابر y ÷ x ہے — x کے ہر 1 کے لیے y کتنا ہے۔",
+    slopeNote:"جماعت ہشتم کی زبان میں، k = {k} اس لکیر کی ڈھلوان (تبدیلی کی شرح) بھی ہے۔",
+    pt0x:"x = سائیکل چلانے کے گھنٹے",
+    pt0y:"y = میل",
+    pt1x:"x = سیبوں کے پاؤنڈ",
+    pt1y:"y = ڈالر میں قیمت",
+    pointDir:"اس گراف پر نقطہ (1, {k}) کا کیا مطلب ہے؟",
+    pt0a:"1 گھنٹے میں سائیکل سوار {k} میل چلاتا ہے۔",
+    pt0b:"{k} گھنٹوں میں سائیکل سوار 1 میل چلاتا ہے۔",
+    pt0c:"سائیکل سوار گھر سے {k} میل دور سے شروع کرتا ہے۔",
+    pt0d:"سائیکل سوار کل {k} گھنٹے سائیکل چلاتا ہے۔",
+    pt1a:"1 پاؤنڈ سیب کی قیمت ${k} ہے۔",
+    pt1b:"{k} پاؤنڈ سیب کی قیمت $1 ہے۔",
+    pt1c:"دکان کوئی بھی سیب خریدنے سے پہلے ${k} فیس لیتی ہے۔",
+    pt1d:"خریدار {k} پاؤنڈ سیب خریدتا ہے۔",
+    goodPt:"درست! نقطہ (1, {k}) اکائی شرح دکھاتا ہے: ہر 1 کے لیے {k}۔ یہی تناسب کا مستقل ہے، k = {k}۔",
+    hintPt:"محور پڑھیں: {xl} اور {yl}۔ نقطہ (1, {k}) کا مطلب ہے کہ x برابر 1 اور y برابر {k} ہے۔",
+    eqDir:"کون سی مساوات جدول سے مطابقت رکھتی ہے؟",
+    eqSay:"وائی برابر {k} ایکس",
+    eqAddSay:"وائی برابر ایکس جمع {d}",
+    eqPlusSay:"وائی برابر {k} ایکس جمع {b}",
+    goodEq:"درست! ہر y، x کا {k} گنا ہے، اس لیے {e}۔",
+    hintEq:"ہر مساوات کو صرف پہلے کالم سے نہیں، تمام کالموں سے جانچیں۔ صرف ایک مساوات سب کے لیے درست ہے۔",
+    hintEqAdd:"{e} صرف پہلے کالم کے لیے درست ہے۔ متناسب تعلق میں ضرب ہوتی ہے: y = kx۔",
+    gridLbl:"سو خانوں کی گرڈ۔ کسی خانے تک رنگ بھرنے کے لیے اس پر ٹیپ کریں۔",
+    gridRead:"100 میں سے {n} خانے = {n}%",
+    minus10:"10 خانے کم کریں",
+    plus10:"10 خانے بڑھائیں",
+    shadeDir:"سو خانوں کی گرڈ کا {p} رنگیں، پھر «جانچیں» دبائیں۔",
+    goodGrid:"درست! 100 میں سے {n} خانے یعنی {p}، جو {f} یا {d} ہے۔",
+    hintGrid:"آپ نے {k} خانے رنگے ہیں۔ فیصد کا مطلب ہے «100 میں سے»، اس لیے {p} کا مطلب 100 خانوں میں سے {n} ہے۔ ہر پوری قطار میں 10 خانے ہیں۔",
+    nameDir:"گرڈ کا رنگا ہوا حصہ کون سا دکھاتا ہے؟",
+    goodName:"درست! 100 میں سے {n} خانے رنگے ہوئے ہیں: {tri}۔",
+    hintName:"رنگے ہوئے خانے گنیں — ہر پوری قطار 10 خانے یعنی 10% ہے۔ فیصد کا مطلب ہے 100 میں سے۔",
+    pctLine:"فیصد",
+    amtLine:"مقدار",
+    pPart:"{W} کا {p} کتنا ہے؟",
+    pWhole:"{P} کس عدد کا {p} ہے؟",
+    pPct:"{P}، {W} کا کتنا فیصد ہے؟",
+    sPart:"ایک اسکول میں {W} طلبہ ہیں۔ ان میں سے {p} بس میں سفر کرتے ہیں۔ کتنے طلبہ بس میں سفر کرتے ہیں؟",
+    sWhole:"{P} طلبہ بس میں سفر کرتے ہیں۔ یہ اسکول کا {p} ہے۔ اسکول میں کتنے طلبہ ہیں؟",
+    sPct:"ایک اسکول کے {W} طلبہ میں سے {P} بس میں سفر کرتے ہیں۔ کتنے فیصد طلبہ بس میں سفر کرتے ہیں؟",
+    goodPart:"درست! {p} کا مطلب ہے 100 میں سے {p0}: {e}۔",
+    goodWhole:"درست! کُل 100% ہے: {e}۔",
+    goodPctF:"درست! جزو کا کُل سے موازنہ کریں: {e}۔",
+    hintPart:"فیصد کا مطلب ہے فی 100۔ {W} کا {p} معلوم کریں: فیصد پٹی استعمال کریں، یا {W} کو {p} کے اعشاری عدد سے ضرب دیں۔",
+    hintWhole:"کُل 100% ہے۔ اگر {p} برابر {P} ہے، تو فیصد پٹی پر ایک قدم کی مقدار معلوم کریں، پھر 100% تک بڑھائیں۔",
+    hintPctF:"جزو کا کُل سے موازنہ کریں: {W} میں سے {P}۔ اسے 100 میں سے مقدار کے طور پر دوبارہ لکھیں۔",
+    chDisc:"ایک جیکٹ کی قیمت {W} ہے۔ اس پر {p} رعایت ہے۔ رعایتی قیمت کیا ہے؟",
+    chTax:"ایک ویڈیو گیم کی قیمت {W} ہے۔ سیلز ٹیکس {p} ہے۔ ٹیکس سمیت کل قیمت کیا ہے؟",
+    chTip:"ایک کھانے کی قیمت {W} ہے۔ {name} {p} ٹپ دیتا ہے۔ ٹپ سمیت کل رقم کیا ہے؟",
+    chInc:"ایک قصبے کی آبادی {W} تھی۔ آبادی میں {p} اضافہ ہوا۔ اب وہاں کتنے لوگ رہتے ہیں؟",
+    chDec:"ایک اسکول نے پچھلے مہینے کاغذ کے {W} ورق استعمال کیے۔ اس مہینے {p} کم استعمال کیے۔ اس مہینے کتنے ورق استعمال ہوئے؟",
+    goodChg:"درست! اصل کا {p}: {e1}۔ نئی مقدار: {e2}۔ دوسرا طریقہ: {e3}۔",
+    hintUp:"پہلے {W} کا {p} معلوم کریں، پھر اسے {W} میں جمع کریں۔",
+    hintDown:"پہلے {W} کا {p} معلوم کریں، پھر اسے {W} میں سے تفریق کریں۔",
+    hintChgAmt:"یہ تبدیلی کی مقدار ہے۔ نئی مقدار معلوم کرنے کے لیے اسے اصل مقدار کے ساتھ ملائیں۔",
+    chUp:"ایک ٹکٹ کی قیمت {a} سے {b} ہو گئی۔ فیصد اضافہ کتنا ہے؟",
+    chDown:"ایک ٹکٹ کی قیمت {a} سے {b} ہو گئی۔ فیصد کمی کتنی ہے؟",
+    goodPchg:"درست! تبدیلی {e1} ہے۔ تبدیلی کا اصل مقدار سے موازنہ کریں: {e2}۔",
+    hintPchg:"فیصد تبدیلی = تبدیلی ÷ اصل مقدار۔ پہلے تبدیلی معلوم کریں، پھر اسے اصل قیمت {a} سے تقسیم کریں۔",
+    hintPchgBase:"تبدیلی کا موازنہ اصل مقدار ({a}) سے کریں، نئی مقدار سے نہیں۔",
+    mapLbl:"A سے B تک کا نقشہ، پیمانہ پٹی کے ساتھ",
+    layBar:"پیمانہ پٹی رکھیں",
+    layHalf:"آدھی پٹی رکھیں",
+    barsLaid:"پیمانہ پٹیاں: {n}",
+    mapDir:"پیمانہ پٹی {s} کلومیٹر ظاہر کرتی ہے۔ A سے B تک پیمانہ پٹیاں رکھیں۔ A سے B تک اصل فاصلہ کتنا ہے؟",
+    goodMap:"درست! A سے B تک {L} پیمانہ پٹیاں ہیں، اس لیے فاصلہ {e} کلومیٹر ہے۔",
+    hintMap:"A سے B تک پہنچنے تک پیمانہ پٹیاں رکھیں۔ ہر پٹی {s} کلومیٹر ظاہر کرتی ہے، اس لیے پٹیوں کی تعداد کو {s} سے ضرب دیں۔",
+    planLbl:"گرڈ پر فرش کا نقشہ",
+    sqCount:"{n} خانے",
+    tapSide:"کسی ضلع کے خانے گننے کے لیے اس پر ٹیپ کریں۔",
+    drawLen:"اس فرش کے نقشے میں گرڈ کا 1 خانہ {s} فٹ ظاہر کرتا ہے۔ کمرے کے لمبے ضلع کی اصل لمبائی فٹ میں کتنی ہے؟",
+    drawArea:"اس فرش کے نقشے میں گرڈ کا 1 خانہ {s} فٹ ظاہر کرتا ہے۔ کمرے کا اصل رقبہ مربع فٹ میں کتنا ہے؟",
+    goodLen:"درست! لمبا ضلع {w} خانے ہے: {e} فٹ۔",
+    goodArea:"درست! پہلے ہر ضلع پر پیمانہ لگائیں: {e1} فٹ اور {e2} فٹ۔ رقبہ: {e3} مربع فٹ۔",
+    hintLen:"لمبے ضلع کے ساتھ خانے گنیں (اس پر ٹیپ کریں)، پھر ہر خانے کے لیے {s} فٹ سے ضرب دیں۔",
+    hintArea:"پہلے ہر ضلع کی اصل لمبائی معلوم کریں (خانے × {s} فٹ)، پھر لمبائی × چوڑائی ضرب دیں۔",
+    hintArea1:"اس سے رقبے پر پیمانہ صرف ایک بار لگتا ہے۔ لمبائی اور چوڑائی دونوں پر {s} کا پیمانہ لگتا ہے۔",
+    convDir:"{fact} استعمال کریں۔ نامعلوم عدد معلوم کریں: {q}",
+    goodConvMul:"درست! ہر 1 {u1} برابر {f} {u2} ہے: {e}۔",
+    goodConvDiv:"درست! ہر {f} {u2} مل کر 1 {u1} بنتے ہیں: {e}۔",
+    hintConvMul:"آپ چھوٹی اکائی میں تبدیل کر رہے ہیں، اس لیے عدد بڑا ہونا چاہیے۔ {f} سے ضرب دیں۔",
+    hintConvDiv:"آپ بڑی اکائی میں تبدیل کر رہے ہیں، اس لیے عدد چھوٹا ہونا چاہیے۔ {f} سے تقسیم کریں۔",
+    mc0a:"آٹا (کپ)",
+    mc0b:"مفن",
+    mc0s:"{a} کپ آٹے سے {b} مفن بنتے ہیں۔ {c} مفن کے لیے کتنے کپ آٹا درکار ہے؟",
+    mc1a:"الفاظ",
+    mc1b:"منٹ",
+    mc1s:"{name} {m} منٹ میں {w} الفاظ ٹائپ کرتا ہے۔ اسی شرح سے {W} الفاظ ٹائپ کرنے میں کتنے منٹ لگیں گے؟",
+    mc2a:"اجرت ($)",
+    mc2b:"گھنٹے",
+    mc2s:"{name} {h} گھنٹے کام کر کے {p} کماتا ہے۔ اسی شرح سے {name} {H} گھنٹوں میں کتنا کمائے گا؟",
+    goodMulti:"درست! اکائی شرح معلوم کریں: {e1}۔ پھر: {e2}۔",
+    hintMulti:"پہلے اکائی شرح (1 کے لیے مقدار) معلوم کریں، یا تناسب کا جدول اس وقت تک بنائیں جب تک کوئی کالم سوال سے مطابقت نہ رکھے۔ پھر پیمانہ لگائیں۔",
+    u_in:"انچ",
+    u_ft:"فٹ",
+    u_yd:"گز",
+    u_mi:"میل",
+    u_oz:"اونس",
+    u_lb:"پاؤنڈ",
+    u_qt:"کوارٹ",
+    u_gal:"گیلن",
+    u_min:"منٹ",
+    u_h:"گھنٹہ",
+    u_cm:"سینٹی میٹر",
+    u_m:"میٹر",
+    u_km:"کلومیٹر",
+    u_g:"گرام",
+    u_kg:"کلوگرام",
+    s_in:"انچ",
+    s_ft:"فٹ",
+    s_yd:"گز",
+    s_mi:"میل",
+    s_oz:"اونس",
+    s_lb:"پاؤنڈ",
+    s_qt:"کوارٹ",
+    s_gal:"گیلن",
+    s_min:"منٹ",
+    s_h:"گھنٹے",
+    s_cm:"سینٹی میٹر",
+    s_m:"میٹر",
+    s_km:"کلومیٹر",
+    s_g:"گرام",
+    s_kg:"کلوگرام",
+    s1_in:"انچ",
+    s1_ft:"فٹ",
+    s1_yd:"گز",
+    s1_mi:"میل",
+    s1_lb:"پاؤنڈ",
+    s1_gal:"گیلن",
+    s1_h:"گھنٹہ",
+    s1_m:"میٹر",
+    s1_km:"کلومیٹر",
+    s1_kg:"کلوگرام",
+    stds:"ہم آہنگ معیارات — ٹیکساس TEKS: جماعت ششم 6.4(A–H)، 6.5(A–C)؛ جماعت ہفتم 7.4(A–E)، 7.5(C)؛ جماعت ہشتم 8.4(B)، 8.5(A)، 8.5(F)۔ Common Core: 6.RP.1، 6.RP.2، 6.RP.3؛ 7.RP.1، 7.RP.2، 7.RP.3، 7.G.1؛ 8.EE.5۔",
+    cardTitle:"تناسب اور شرح اسٹوڈیو — چیلنج کارڈ",
+    cardName:"نام:",
+    cardTable:"نامعلوم قیمت پُر کریں۔ پیمانہ عامل دکھائیں۔",
+    cardShow:"حل کریں۔ اپنی سوچ جدول، ٹیپ ڈایاگرام، یا دوہری عددی لکیر سے دکھائیں۔",
+    cardProp:"کیا یہ متناسب ہے؟ اگر ہاں، تو مساوات y = kx لکھیں۔",
+    cardAns:"جواب:"
+  },
+  zh:{
+    appTitle:"比与比率工作室",
+    home:"首页",
+    privacy:"隐私",
+    teacher:"教师",
+    modesLbl:"模式",
+    solved:"已解答",
+    newRound:"新题目",
+    readAloud:"朗读",
+    check:"检查",
+    clear:"清除",
+    choicesLbl:"答案选项",
+    footNote:"无需账号 · 不收集任何数据 · 可离线使用",
+    mRatio:"比例表与条形图",
+    mRates:"双数轴与单位比率",
+    mProp:"是否成正比例？",
+    mPct:"百分数实验室",
+    mScale:"比例尺与单位换算",
+    teacherTitle:"教师设置",
+    close:"关闭",
+    setGrade:"年级",
+    g6:"6年级",
+    g7:"7年级",
+    g8:"8年级",
+    gradeNote:"选择年级后，下面的选项会重置为该年级的默认设置。6年级练习比和百分数的基础；7年级增加含分数的比率、比例常数、百分比变化和比例图；8年级增加与斜率的联系。",
+    setSize:"数字大小",
+    size1:"较小的数",
+    size2:"中等的数",
+    size3:"较大的数",
+    setFrac:"分数",
+    fracOn:"分数比例因子、含分数的比率，以及半个单位",
+    setModes:"模式",
+    setSpeech:"语音",
+    autoRead:"自动朗读题目说明",
+    printCards:"打印挑战卡",
+    setStored:"设置只保存在本设备上。从不存储任何学生信息。",
+    frSay:"{d}分之{n}",
+    mixSay:"{w}又{f}",
+    moneySay:"{v}美元",
+    pctSay:"百分之{v}",
+    ratioSay:"{a}比{b}",
+    wPlus:"加",
+    wMinus:"减",
+    wTimes:"乘",
+    wDiv:"除以",
+    wEq:"等于",
+    wApprox:"约等于",
+    youPicked:"你选择了 {x}。",
+    names:"子涵,浩然,欣怡,宇轩,思雨,俊杰,梓萱,天佑",
+    rtLbl:"比例表",
+    opMul:"两个量都乘 {k}",
+    opDiv:"两个量都除以 {k}",
+    opAdd:"把第一列加到最后一列",
+    undo:"撤销",
+    rtTip:"建立新的列：对一个量做什么运算，也要对另一个量做同样的运算。",
+    rc0a:"花生（杯）",
+    rc0b:"葡萄干（杯）",
+    rc0r:"一种什锦干果每用 {a} 杯花生，就要配 {b} 杯葡萄干。",
+    rc0qb:"{x} 杯花生要配多少杯葡萄干？",
+    rc0qa:"{x} 杯葡萄干要配多少杯花生？",
+    rc0qt:"一份共有 {T} 杯。其中花生有多少杯？",
+    rc1a:"蓝色颜料（罐）",
+    rc1b:"黄色颜料（罐）",
+    rc1r:"调一种绿色时，每用 {a} 罐蓝色颜料，就要配 {b} 罐黄色颜料。",
+    rc1qb:"{x} 罐蓝色要配多少罐黄色？",
+    rc1qa:"{x} 罐黄色要配多少罐蓝色？",
+    rc1qt:"一位油漆工一共调了 {T} 罐。其中蓝色有多少罐？",
+    rc2a:"学生",
+    rc2b:"成人",
+    rc2r:"在一次实地考察中，每 {a} 名学生对应 {b} 名成人。",
+    rc2qb:"{x} 名学生对应多少名成人？",
+    rc2qa:"{x} 名成人对应多少名学生？",
+    rc2qt:"这次考察共有 {T} 人。其中学生有多少人？",
+    goodTable:"正确！两个量都乘同一个比例因子 {k}：{e1}，{e2}。",
+    hintScale:"等值比是把两个量都乘同一个数。什么数乘 {gb} 得 {g}？把 {ob} 也乘这个数。可以在表中建立新列来帮助思考。",
+    hintAdd:"这样是给两个量加上相同的数。只有把两个量都乘（或除以）同一个数，比才保持相等。",
+    unitDown:"减小单位值",
+    unitUp:"增大单位值",
+    unitIs:"1 份 = {u}",
+    tapeTotal:"总计：{x}（目标：{T}）",
+    goodTape:"正确！{a} + {b} = {p} 个相等的份。{e1}，所以每份就是这么多，并且 {e2}。",
+    hintTape:"总数 {T} 平均分成 {p} 个相等的份（{a} + {b}）。用 − 和 + 找到使总数为 {T} 的每份的值。",
+    hintTapeOth:"这是比中第二部分的量。题目问的是第一部分——数一数它有几份。",
+    equivDir:"哪个比与 {r} 相等？",
+    goodEquiv:"正确！{e1}，{e2}。两项都乘 {k}。",
+    hintRev:"顺序很重要。{r} 表示第一个量在前。",
+    hintOff:"检查两项：{e}，但 {y} ÷ {b} 不等于 {k}。两项必须乘同一个因子。",
+    dnlLbl:"双数轴：上方是{t}，下方是{b}",
+    pinVal:"{b}：{t}",
+    rt0t:"费用（$）",
+    rt0b:"笔记本",
+    rt0s:"{n} 本笔记本售价 {p}。",
+    rt0u:"1 本笔记本多少钱？",
+    rt0m:"按这个比率，{m} 本笔记本多少钱？",
+    rt0r:"每本笔记本 {v}",
+    rt1t:"页数",
+    rt1b:"分钟",
+    rt1s:"{name} {n} 分钟读了 {p} 页。",
+    rt1u:"{name} 每分钟读多少页？",
+    rt1m:"按这个比率，{name} {m} 分钟能读多少页？",
+    rt1r:"每分钟 {v} 页",
+    rt2t:"英里",
+    rt2b:"小时",
+    rt2s:"一辆汽车以恒定速度 {n} 小时行驶了 {p} 英里。",
+    rt2u:"这辆汽车的速度是每小时多少英里？",
+    rt2m:"按这个速度，这辆汽车 {m} 小时行驶多远？",
+    rt2r:"每小时 {v} 英里",
+    goodUnit:"正确！{e}。单位比率是{rr}。",
+    goodMore:"正确！单位比率是{rr}，所以 {e}。",
+    hintUnit:"单位比率就是 1 份对应的量。用 {p} 除以 {n}。把双数轴上的标记拖到 1。",
+    hintMore:"先求 1 份对应的量（{p} ÷ {n}），再乘 {m}。拖动标记查看数值。",
+    hintAddRate:"加上相同的数并不能保持比率不变。先求 1 份对应的量，再相乘。",
+    store:"商店 {s}",
+    storeLine:"商店 {s}：{n} 根燕麦棒售价 {p}。",
+    bestQ:"哪个更划算？",
+    bestT:"价格（$），商店 {s}",
+    bars:"燕麦棒",
+    sameDeal:"每根价格相同",
+    goodBest:"正确！商店 A：每根 {e1}。商店 B：每根 {e2}。{w}",
+    bestLow:"每根价格较低的更划算。",
+    bestSame:"两家商店每根的价格相同。",
+    hintBest:"比较每家商店 1 根的价格。用各自的价格除以燕麦棒的根数。",
+    rf0s:"{name} {b} 小时走了 {a} 英里。这相当于每小时多少英里？",
+    rf0t:"英里",
+    rf0r:"每小时 {v} 英里",
+    rf1s:"{name} {b} 小时修剪了 {a} 块草坪。这相当于每小时多少块草坪？",
+    rf1t:"草坪",
+    rf1r:"每小时 {v} 块草坪",
+    hoursLbl:"小时",
+    goodFrac:"正确！用除法求 1 小时对应的量：{e}。也就是{rr}。",
+    hintFrac:"单位比率就是 1 小时对应的量。用 {a} 除以 {b}（乘它的倒数）。在双数轴上找到 1 小时。",
+    pYes:"成正比例",
+    pNo:"不成正比例",
+    tableLbl:"数值表。点击一列求 y ÷ x。",
+    colLbl:"x = {x}，y = {y}。点击求 y ÷ x。",
+    ptDir:"表中的关系成正比例吗？点击各列求 y ÷ x。",
+    goodPTy:"正确！每个 y ÷ x 都等于 {k}，所以这个关系成正比例：{eq}。",
+    goodPTn:"对。各列的 y ÷ x 不相同，所以这个关系不成正比例。",
+    hintPT:"点击每一列求 y ÷ x。在正比例关系中，每个 y ÷ x 都是同一个数 k。",
+    graphLbl:"坐标图",
+    rayBtn:"从 (0, 0) 画一条线",
+    pgDir:"图中的关系成正比例吗？",
+    goodPGy:"正确！这个图像是一条经过原点 (0, 0) 的直线，所以成正比例。",
+    goodPGs:"对。这个图像是一条直线，但不经过原点 (0, 0)，所以不成正比例。",
+    goodPGc:"对。这个图像经过 (0, 0)，但不是直线，所以不成正比例。",
+    hintPG:"正比例的图像是一条经过原点 (0, 0) 的直线。点击“从 (0, 0) 画一条线”来检验。",
+    kDirT:"这个表表示一个正比例关系。在 y = kx 中，比例常数 k 是多少？",
+    kDirG:"这个图像表示一个正比例关系。在 y = kx 中，比例常数 k 是多少？",
+    kDirS:"{name} 照看孩子 {h} 小时挣了 {p}。报酬与时间成正比例。在 y = kx 中，x 表示小时数，y 表示美元数，k 是多少？",
+    goodK:"正确！k = y ÷ x：{e}。",
+    hintK:"任选一组 (x, y)（(0, 0) 除外）相除：k = y ÷ x。",
+    hintKInv:"这是 x ÷ y。常数 k 是 y ÷ x——即每 1 个单位的 x 对应多少 y。",
+    slopeNote:"用8年级的说法，k = {k} 也是这条直线的斜率（变化率）。",
+    pt0x:"x = 骑车的小时数",
+    pt0y:"y = 英里数",
+    pt1x:"x = 苹果的磅数",
+    pt1y:"y = 费用（美元）",
+    pointDir:"这个图像上的点 (1, {k}) 表示什么？",
+    pt0a:"骑车人 1 小时骑行 {k} 英里。",
+    pt0b:"骑车人 {k} 小时骑行 1 英里。",
+    pt0c:"骑车人从离家 {k} 英里的地方出发。",
+    pt0d:"骑车人一共骑行了 {k} 小时。",
+    pt1a:"1 磅苹果的价格是 ${k}。",
+    pt1b:"{k} 磅苹果的价格是 $1。",
+    pt1c:"商店在买苹果之前先收取 ${k} 的费用。",
+    pt1d:"顾客买了 {k} 磅苹果。",
+    goodPt:"正确！点 (1, {k}) 表示单位比率：每 1 个单位对应 {k}。这就是比例常数 k = {k}。",
+    hintPt:"看坐标轴：{xl}，{yl}。点 (1, {k}) 表示 x 是 1，y 是 {k}。",
+    eqDir:"哪个方程与这个表相符？",
+    eqSay:"y等于{k}x",
+    eqAddSay:"y等于x加{d}",
+    eqPlusSay:"y等于{k}x加{b}",
+    goodEq:"正确！每个 y 都是 x 的 {k} 倍，所以 {e}。",
+    hintEq:"用每一列检验每个方程，而不只是第一列。只有一个方程对所有列都成立。",
+    hintEqAdd:"{e} 只对第一列成立。正比例关系是相乘：y = kx。",
+    gridLbl:"百格图。点击一个方格，涂色到该方格为止。",
+    gridRead:"100 个方格中的 {n} 个 = {n}%",
+    minus10:"减少 10 个方格",
+    plus10:"增加 10 个方格",
+    shadeDir:"在百格图中涂出 {p}，然后点击“检查”。",
+    goodGrid:"正确！100 个方格中的 {n} 就是 {p}，也就是 {f} 或 {d}。",
+    hintGrid:"你涂了 {k} 个方格。百分数表示“每 100 份中的多少”，所以 {p} 就是 100 个方格中的 {n} 个。每整行是 10 个方格。",
+    nameDir:"哪一项表示方格图中涂色的部分？",
+    goodName:"正确！100 个方格中有 {n} 个涂了色：{tri}。",
+    hintName:"数一数涂色的方格——每整行是 10 个方格，也就是 10%。百分数表示每 100 份中的多少。",
+    pctLine:"百分数",
+    amtLine:"数量",
+    pPart:"{W} 的 {p} 是多少？",
+    pWhole:"{P} 是什么数的 {p}？",
+    pPct:"{P} 是 {W} 的百分之几？",
+    sPart:"一所学校有 {W} 名学生，其中 {p} 乘校车。有多少名学生乘校车？",
+    sWhole:"有 {P} 名学生乘校车，占全校的 {p}。这所学校有多少名学生？",
+    sPct:"一所学校的 {W} 名学生中有 {P} 名乘校车。乘校车的学生占百分之几？",
+    goodPart:"正确！{p} 表示每 100 份中的 {p0} 份：{e}。",
+    goodWhole:"正确！整体是 100%：{e}。",
+    goodPctF:"正确！把部分与整体相比：{e}。",
+    hintPart:"百分数表示每 100 份中的多少。求 {W} 的 {p}：可以用百分数条，或者用 {W} 乘 {p} 对应的小数。",
+    hintWhole:"整体是 100%。如果 {p} 是 {P}，先求百分数条上一格对应的量，再扩大到 100%。",
+    hintPctF:"把部分与整体相比：{W} 中的 {P}。把它改写成每 100 份中的多少。",
+    chDisc:"一件夹克售价 {W}。现在打折，优惠 {p}。折后价是多少？",
+    chTax:"一款电子游戏售价 {W}，销售税是 {p}。含税总价是多少？",
+    chTip:"一顿饭花费 {W}。{name} 付了 {p} 的小费。含小费的总额是多少？",
+    chInc:"一个镇原有 {W} 人。人口增加了 {p}。现在有多少人住在那里？",
+    chDec:"一所学校上个月用了 {W} 张纸。这个月少用了 {p}。这个月用了多少张纸？",
+    goodChg:"正确！原来数量的 {p}：{e1}。新的数量：{e2}。另一种方法：{e3}。",
+    hintUp:"先求 {W} 的 {p}，再把它加到 {W} 上。",
+    hintDown:"先求 {W} 的 {p}，再从 {W} 中减去它。",
+    hintChgAmt:"这是变化的量。把它和原来的数量结合起来，求出新的数量。",
+    chUp:"一张票的价格从 {a} 涨到 {b}。增长的百分比是多少？",
+    chDown:"一张票的价格从 {a} 降到 {b}。减少的百分比是多少？",
+    goodPchg:"正确！变化量是 {e1}。把变化量与原来的数量相比：{e2}。",
+    hintPchg:"百分比变化 = 变化量 ÷ 原来的数量。先求变化量，再除以原价 {a}。",
+    hintPchgBase:"把变化量与原来的数量（{a}）相比，而不是与新的数量相比。",
+    mapLbl:"从 A 到 B 的地图，带比例尺",
+    layBar:"放一段比例尺",
+    layHalf:"放半段比例尺",
+    barsLaid:"比例尺段数：{n}",
+    mapDir:"每段比例尺代表 {s} 千米。从 A 到 B 放比例尺。A 到 B 的实际距离是多少？",
+    goodMap:"正确！A 到 B 长 {L} 段比例尺，所以距离是 {e} 千米。",
+    hintMap:"从 A 开始放比例尺，直到到达 B。每段代表 {s} 千米，所以用段数乘 {s}。",
+    planLbl:"方格上的平面图",
+    sqCount:"{n} 个方格",
+    tapSide:"点击一条边，数一数它有几个方格。",
+    drawLen:"在这张平面图中，1 个方格代表 {s} 英尺。房间长边的实际长度是多少英尺？",
+    drawArea:"在这张平面图中，1 个方格代表 {s} 英尺。房间的实际面积是多少平方英尺？",
+    goodLen:"正确！长边有 {w} 个方格：{e} 英尺。",
+    goodArea:"正确！先按比例换算每条边：{e1} 英尺和 {e2} 英尺。面积：{e3} 平方英尺。",
+    hintLen:"数一数长边上的方格（点击它），再乘每个方格代表的 {s} 英尺。",
+    hintArea:"先求每条边的实际长度（方格数 × {s} 英尺），再用长 × 宽。",
+    hintArea1:"这样只把面积换算了一次。长和宽都要按 {s} 换算。",
+    convDir:"利用 {fact}。求出缺少的数：{q}",
+    goodConvMul:"正确！每 1 {u1} 是 {f} {u2}：{e}。",
+    goodConvDiv:"正确！每 {f} {u2} 是 1 {u1}：{e}。",
+    hintConvMul:"你在换算成较小的单位，所以数应该变大。乘 {f}。",
+    hintConvDiv:"你在换算成较大的单位，所以数应该变小。除以 {f}。",
+    mc0a:"面粉（杯）",
+    mc0b:"松饼",
+    mc0s:"{a} 杯面粉可以做 {b} 个松饼。做 {c} 个松饼需要多少杯面粉？",
+    mc1a:"字数",
+    mc1b:"分钟",
+    mc1s:"{name} {m} 分钟打了 {w} 个字。按这个比率，打 {W} 个字需要多少分钟？",
+    mc2a:"报酬（$）",
+    mc2b:"小时",
+    mc2s:"{name} 工作 {h} 小时挣了 {p}。按这个比率，{name} 工作 {H} 小时能挣多少？",
+    goodMulti:"正确！先求单位比率：{e1}。然后：{e2}。",
+    hintMulti:"先求单位比率（1 份对应的量），或者在比例表中建立新列，直到某一列与问题相符。然后按比例扩大或缩小。",
+    u_in:"英寸",
+    u_ft:"英尺",
+    u_yd:"码",
+    u_mi:"英里",
+    u_oz:"盎司",
+    u_lb:"磅",
+    u_qt:"夸脱",
+    u_gal:"加仑",
+    u_min:"分",
+    u_h:"时",
+    u_cm:"厘米",
+    u_m:"米",
+    u_km:"千米",
+    u_g:"克",
+    u_kg:"千克",
+    s_in:"英寸",
+    s_ft:"英尺",
+    s_yd:"码",
+    s_mi:"英里",
+    s_oz:"盎司",
+    s_lb:"磅",
+    s_qt:"夸脱",
+    s_gal:"加仑",
+    s_min:"分钟",
+    s_h:"小时",
+    s_cm:"厘米",
+    s_m:"米",
+    s_km:"千米",
+    s_g:"克",
+    s_kg:"千克",
+    s1_in:"英寸",
+    s1_ft:"英尺",
+    s1_yd:"码",
+    s1_mi:"英里",
+    s1_lb:"磅",
+    s1_gal:"加仑",
+    s1_h:"小时",
+    s1_m:"米",
+    s1_km:"千米",
+    s1_kg:"千克",
+    stds:"对应标准 — 得克萨斯州 TEKS：6年级 6.4(A–H), 6.5(A–C)；7年级 7.4(A–E), 7.5(C)；8年级 8.4(B), 8.5(A), 8.5(F)。Common Core：6.RP.1, 6.RP.2, 6.RP.3；7.RP.1, 7.RP.2, 7.RP.3, 7.G.1；8.EE.5。",
+    cardTitle:"比与比率工作室 — 挑战卡",
+    cardName:"姓名：",
+    cardTable:"填出缺少的值，并写出比例因子。",
+    cardShow:"解答。用表格、条形图或双数轴展示你的思路。",
+    cardProp:"是否成正比例？如果是，写出方程 y = kx。",
+    cardAns:"答案："
+  }
+};
+
+let lang = "en";
+function t(key, vars){
+  let s = (T[lang] && T[lang][key]!==undefined) ? T[lang][key] : (T.en[key]!==undefined? T.en[key] : key);
+  if(vars) for(const k in vars) s = s.replaceAll("{"+k+"}", vars[k]);
+  return s;
+}
+
+/* ---------- Settings ---------- */
+const MODES = ["ratio","rates","prop","pct","scale"];
+const MODE_KEY = {ratio:"mRatio",rates:"mRates",prop:"mProp",pct:"mPct",scale:"mScale"};
+const MODE_IC = {ratio:"🧮",rates:"📏",prop:"📈",pct:"💯",scale:"🗺️"};
+const GRADES = {6:{size:1,frac:false}, 7:{size:2,frac:true}, 8:{size:3,frac:true}};
+const SZ = {1:{r:6,k:6,n:6,W:100}, 2:{r:9,k:10,n:8,W:200}, 3:{r:12,k:12,n:10,W:400}};
+const clone = o=>JSON.parse(JSON.stringify(o));
+const DEFAULTS = {grade:7, size:2, frac:true, modes:{ratio:true,rates:true,prop:true,pct:true,scale:true}, autoRead:false};
+let settings = loadSettings();
+function loadSettings(){
+  try{
+    const raw = localStorage.getItem("rrs_settings");
+    if(raw){ const o=JSON.parse(raw), s=Object.assign(clone(DEFAULTS), o, {modes:Object.assign({},DEFAULTS.modes,o.modes)});
+      if(!GRADES[s.grade]) s.grade=DEFAULTS.grade; s.grade=+s.grade;
+      if(!SZ[s.size]) s.size=GRADES[s.grade].size; s.size=+s.size; s.frac=!!s.frac;
+      if(!MODES.some(m=>s.modes[m])) s.modes=clone(DEFAULTS.modes);
+      return s; }
+  }catch(e){}
+  return clone(DEFAULTS);
+}
+function saveSettings(){ try{ localStorage.setItem("rrs_settings", JSON.stringify(settings)); }catch(e){} }
+
+/* ---------- Utils ---------- */
+const $ = s=>document.querySelector(s);
+const $$ = s=>Array.from(document.querySelectorAll(s));
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const ri = (a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const gcd = (a,b)=>{ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a; };
+const G = ()=>+settings.grade;
+const esc = s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const M = s=>`<bdi class="math" dir="ltr">${s}</bdi>`;
+const frH = (n,d)=>`<span class="fr"><span>${n}</span><span>${d}</span></span>`;
+const pickName = ()=>rand(t("names").split(/[,،、]/).map(x=>x.trim()).filter(Boolean));
+let stars=0;
+function addStar(){ stars++; $("#starCount").textContent=stars; const w=$("#stars"); w.classList.remove("pop"); void w.offsetWidth; w.classList.add("pop"); }
+
+/* ---------- Rational numbers (exact) ---------- */
+const Q = (n,d)=>{ d=d===undefined?1:d; if(d<0){ n=-n; d=-d; } const g=gcd(n,d)||1; return {n:n/g,d:d/g}; };
+const Z = x=>typeof x==="number"?Q(x):x;
+const qa=(a,b)=>{a=Z(a);b=Z(b);return Q(a.n*b.d+b.n*a.d,a.d*b.d);}, qs=(a,b)=>{a=Z(a);b=Z(b);return Q(a.n*b.d-b.n*a.d,a.d*b.d);};
+const qm=(a,b)=>{a=Z(a);b=Z(b);return Q(a.n*b.n,a.d*b.d);}, qd=(a,b)=>{a=Z(a);b=Z(b);return Q(a.n*b.d,a.d*b.n);};
+const qv=a=>{a=Z(a);return a.n/a.d;}, qe=(a,b)=>{a=Z(a);b=Z(b);return a.n===b.n&&a.d===b.d;};
+const isQ = x=>x&&typeof x==="object"&&x.n!==undefined&&x.d!==undefined&&x.h===undefined;
+const decS = v=>String(+(+v).toFixed(4));
+
+/* ---------- Numbers: shown nicely, spoken in words ----------
+   Every message is a pair {h: HTML to show, s: plain text to speak}. */
+const ORD = {
+  en:{2:["half","halves"],3:["third","thirds"],4:["fourth","fourths"],5:["fifth","fifths"],6:["sixth","sixths"],7:["seventh","sevenths"],
+      8:["eighth","eighths"],9:["ninth","ninths"],10:["tenth","tenths"],11:["eleventh","elevenths"],12:["twelfth","twelfths"],
+      20:["twentieth","twentieths"],25:["twenty-fifth","twenty-fifths"],50:["fiftieth","fiftieths"],100:["hundredth","hundredths"]},
+  es:{2:["medio","medios"],3:["tercio","tercios"],4:["cuarto","cuartos"],5:["quinto","quintos"],6:["sexto","sextos"],7:["séptimo","séptimos"],
+      8:["octavo","octavos"],9:["noveno","novenos"],10:["décimo","décimos"],11:["onceavo","onceavos"],12:["doceavo","doceavos"],
+      20:["veinteavo","veinteavos"],25:["veinticincoavo","veinticincoavos"],50:["cincuentavo","cincuentavos"],100:["centésimo","centésimos"]}
+};
+function fracSay(n,d){ const o=ORD[lang]&&ORD[lang][d];
+  if(o) return (n===1?(lang==="es"?"un":"one"):n)+" "+o[n===1?0:1]; return t("frSay",{n,d}); }
+// A value. k: "" (whole / fraction / mixed number), "$" money, "%" percent, "d" decimal.
+function V(q,k){ q=Z(q); const v=qv(q);
+  if(k==="$"){ const x=v.toFixed(2); return {h:"$"+x, s:t("moneySay",{v:x})}; }
+  if(k==="%"){ const x=decS(v); return {h:x+"%", s:t("pctSay",{v:x})}; }
+  if(k==="d"){ const x=decS(v); return {h:x, s:x}; }
+  if(q.d===1) return {h:""+q.n, s:""+q.n};
+  if(q.n>q.d){ const w=Math.floor(q.n/q.d), r=q.n%q.d;
+    return {h:`<span class="mx">${w}${frH(r,q.d)}</span>`, s:t("mixSay",{w,f:fracSay(r,q.d)})}; }
+  return {h:frH(q.n,q.d), s:fracSay(q.n,q.d)};
+}
+const P100 = p=>({h:frH(p,100), s:fracSay(p,100)});   // p/100 shown unreduced
+const OPS = {"+":"wPlus","−":"wMinus","×":"wTimes","÷":"wDiv","=":"wEq","≈":"wApprox"};
+// An expression: X(Q(1,4),"+",2,"=",...)
+function X(...p){ const h=[],s=[];
+  p.forEach(x=>{ if(isQ(x)) x=V(x);
+    if(typeof x==="string"&&OPS[x]){ h.push(x); s.push(t(OPS[x])); }
+    else if(x&&typeof x==="object"){ h.push(x.h); s.push(x.s); } else { h.push(""+x); s.push(""+x); } });
+  return {h:M(h.join(" ")), s:s.join(" ")};
+}
+function R(a,b){ const A=V(a),B=V(b); return {h:M(A.h+" : "+B.h), s:t("ratioSay",{a:A.s,b:B.s})}; }
+function tm(key,vars){ const h={},s={}; vars=vars||{};
+  for(const k in vars){ let v=vars[k]; if(isQ(v)) v=V(v);
+    if(v&&typeof v==="object"){ h[k]=v.h.indexOf("<bdi")===0?v.h:M(v.h); s[k]=v.s; } else { h[k]=v; s[k]=v; } }
+  return {h:t(key,h), s:t(key,s)};
+}
+const cat = (...m)=>({h:m.map(x=>x.h).join(" "), s:m.map(x=>x.s).join(" ")});
+const plain = key=>({h:t(key), s:t(key)});
+// Up to 4 numeric choices with distinct values; first candidates are the likeliest mistakes. cands: Q or [Q,tag]
+function qOpts(ans,k,cands){ ans=Z(ans); const VM=(q,k)=>{ const v=V(q,k); return {h:M(v.h),s:v.s}; }, out=[{...VM(ans,k),ok:true,q:ans}], seen=[qv(ans)];
+  const add=(q,tag)=>{ if(out.length>=4) return; q=Z(q); const v=qv(q);
+    if(!(v>0)||!isFinite(v)||seen.some(x=>Math.abs(x-v)<1e-9)) return;
+    if(k==="$"&&Math.abs(v*100-Math.round(v*100))>1e-6) return;
+    if((k==="d"||k==="%")&&Math.abs(v*1e4-Math.round(v*1e4))>1e-6) return;
+    seen.push(v); out.push({...VM(q,k),ok:false,q,tag}); };
+  (cands||[]).forEach(c=>Array.isArray(c)?add(c[0],c[1]):add(c));
+  const st_=k==="$"?Q(1,4):k==="%"?Q(5):Q(1);
+  [1,-1,2,3,-2,4,5,6].forEach(j=>add(qa(ans,qm(st_,Q(j)))));
+  return shuffle(out);
+}
+
+/* ---------- Speech ---------- */
+const speechOK = ("speechSynthesis" in window);
+function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
+// Prefer warm, natural voices; avoid harsh robotic engines.
+function pickWarmVoice(code){
+  const vs = speechSynthesis.getVoices()||[];
+  const want=code.toLowerCase(), two=want.slice(0,2);
+  let best=null, bs=-1;
+  for(const v of vs){
+    const lc=(v.lang||'').toLowerCase().replace('_','-');
+    if(lc!==want && lc.slice(0,2)!==two) continue;
+    let s=(lc===want?100:60); const n=(v.name||'').toLowerCase();
+    if(/google|natural|neural|online|premium|enhanced|siri/.test(n)) s+=40;
+    if(/female|woman|samantha|karen|tessa|moira|fiona|serena|victoria|allison|ava|susan|zoe|amelie|amélie|paulina|monica|mónica|zira|hazel|catherine|linda|kanya|lekha|ting-ting|mei-jia|sin-ji|yu-shu|huihui|xiaoxiao/.test(n)) s+=18;
+    if(/espeak|compact|festival|pico|robot|eloquence/.test(n)) s-=60;
+    if(v.localService===false) s+=8;
+    if(v.default) s+=2;
+    if(s>bs){ bs=s; best=v; }
+  }
+  return best;
+}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  // A period between digits (3.50, 2.54) is a decimal point, not the end of a sentence.
+  const parts=String(text).match(/(?:[^.!?。！？؟।۔]|\.(?=\d))+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.9; u.pitch=1.05;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={ratio:0,rates:0,prop:0,pct:0,scale:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
+}
+if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
+if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
+
+const currentSpeech = {ratio:"",rates:"",prop:"",pct:"",scale:""};
+function setSpeech(mode,text){ currentSpeech[mode]=text; }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===mode) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,svg")) return;
+  speak(currentSpeech[currentMode()]);
+},true);
+
+/* ---------- Feedback & round helpers ---------- */
+function showFb(el,type,msg){ el.className="feedback show "+type; el.innerHTML=(type==="good"?"✅ ":"💡 ")+msg; }
+function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
+const made={}, st={};
+function startRound(m){ roundIds[m]++; made[m]=true; st[m]={done:false};
+  ["w","a","c"].forEach(p=>{ const el=$("#"+p+"-"+m); el.innerHTML=""; el.classList.remove("wide"); }); hideFb($("#f-"+m)); }
+function setPrompt(m,msg){ $("#p-"+m).innerHTML=msg.h; setSpeech(m,msg.s); }
+function win(m,msg){ st[m].done=true;
+  $$(`#c-${m} button,#a-${m} button,#w-${m} button`).forEach(b=>b.disabled=true);
+  $$(`#w-${m} [tabindex]`).forEach(p=>p.removeAttribute("tabindex"));
+  addStar(); showFb($("#f-"+m),"good",msg.h); afterPraise(msg.s,m,NEWFN[m],1800); }
+function nope(m,msg){ showFb($("#f-"+m),"hint",msg.h); speak(msg.s); }
+function mkBtn(html,fn,cls,aria){ const b=document.createElement("button"); b.type="button"; b.className="btn"+(cls?" "+cls:""); b.innerHTML=html;
+  if(aria){ b.setAttribute("aria-label",aria); b.title=aria; } b.addEventListener("click",fn); return b; }
+function actBtn(m,html,fn,cls,aria){ const b=mkBtn(html,fn,cls,aria); $("#a-"+m).appendChild(b); return b; }
+function checkBtn(m,fn){ return actBtn(m,"✔ "+t("check"),fn); }
+// Choice buttons. pick(item) is called for every tap; wrong picks are greyed out.
+function choices(m,items,pick,wide){
+  const g=$("#c-"+m); g.innerHTML=""; g.classList.toggle("wide",!!wide); st[m].items=items;
+  items.forEach(it=>{ const b=document.createElement("button"); b.type="button"; b.className="choice"+(wide?" wide":"");
+    b.innerHTML=`<span class="badge" aria-hidden="true">✅</span><span class="lbl">${it.h}</span>`; b.setAttribute("aria-label",it.s);
+    b.addEventListener("click",()=>{ if(st[m].done) return; if(it.ok) b.classList.add("correctpick"); else { b.classList.add("wrongpick"); b.disabled=true; } pick(it,b); });
+    g.appendChild(b); });
+}
+const yesNo = ok=>[{...plain("pYes"),ok:ok},{...plain("pNo"),ok:!ok}];
+function addBox(m,cls){ const d=document.createElement("div"); if(cls) d.className=cls; d.setAttribute("dir","ltr"); $("#w-"+m).appendChild(d); return d; }
+
+/* =========================================================================
+   Manipulatives
+   ========================================================================= */
+/* ---- Ratio table: build equivalent-ratio columns with ×, ÷ and + ---- */
+function rtable(m,o){ const s=st[m]; o.cols=[{a:Z(o.base[0]),b:Z(o.base[1]),op:""}]; o.kA=o.kA||""; o.kB=o.kB||""; s.rt=o;
+  const box=addBox(m,"rtbox"); box.removeAttribute("dir");
+  box.innerHTML=`<div class="rt-wrap" dir="ltr"><table class="rt" aria-label="${esc(t("rtLbl"))}"></table></div><p class="rt-tip">${esc(t("rtTip"))}</p><div class="rt-ops" dir="ltr"></div>`;
+  o.tbl=box.querySelector("table"); const ops=box.querySelector(".rt-ops");
+  [["×",2],["×",3],["×",5],["×",10],["÷",2],["÷",3],["÷",5]].forEach(([op,k])=>ops.appendChild(mkBtn(op+k,()=>rtOp(m,op,k),"ghost sm",t(op==="×"?"opMul":"opDiv",{k}))));
+  ops.appendChild(mkBtn("+ "+M(V(o.cols[0].a).h+" : "+V(o.cols[0].b).h),()=>rtOp(m,"+"),"ghost sm",t("opAdd")));
+  ops.appendChild(mkBtn("↶",()=>rtOp(m,"u"),"ghost sm",t("undo")));
+  rtDraw(m);
+}
+function rtOp(m,op,k){ const s=st[m], o=s.rt; if(s.done) return;
+  if(op==="u"){ if(o.cols.length>1) o.cols.pop(); return rtDraw(m); }
+  if(o.cols.length>=7) return;
+  const L=o.cols[o.cols.length-1], f=o.cols[0];
+  if(op==="+") o.cols.push({a:qa(L.a,f.a),b:qa(L.b,f.b),op:"+"});
+  else if(op==="×") o.cols.push({a:qm(L.a,k),b:qm(L.b,k),op:"×"+k});
+  else o.cols.push({a:qd(L.a,k),b:qd(L.b,k),op:"÷"+k});
+  rtDraw(m);
+}
+function rtDraw(m){ const o=st[m].rt, tg=o.target;
+  const hit=c=>tg&&((tg[0]&&qe(c.a,tg[0]))||(tg[1]&&qe(c.b,tg[1])));
+  const cell=(q,k,cls)=>`<td class="${cls}">${q?M(V(q,k).h):"?"}</td>`;
+  let r0=`<tr class="ops"><th></th>`, r1=`<tr><th scope="row">${esc(o.la)}</th>`, r2=`<tr><th scope="row">${esc(o.lb)}</th>`;
+  o.cols.forEach((c,i)=>{ const cls=i===0?"given":(hit(c)?"work hit":"work"); r0+=`<td>${i?esc(c.op):""}</td>`; r1+=cell(c.a,o.kA,cls); r2+=cell(c.b,o.kB,cls); });
+  if(tg){ r0+="<td></td>"; r1+=cell(tg[0],o.kA,"tgt"); r2+=cell(tg[1],o.kB,"tgt"); }
+  o.tbl.innerHTML=r0+"</tr>"+r1+"</tr>"+r2+"</tr>";
+}
+
+/* ---- Tape diagram with a unit-value stepper ---- */
+function tape(m,a,b,T_,la,lb){ const s=st[m], n=Math.max(a,b); s.uv=1;
+  const box=addBox(m,"tapes"); let lbl;
+  const draw=()=>{ const u=s.uv, tot=(a+b)*u, row=(lab,k,cls)=>`<div class="tlab">${esc(lab)}</div><div class="tape" style="--n:${n}">${Array(k).fill(`<span class="tu ${cls}">${u}</span>`).join("")}</div><div class="tsum">${M(k*u)}</div>`;
+    box.innerHTML=row(la,a,"ta")+row(lb,b,"tb")+`<div class="ttot${tot===T_?" hit":""}">${tm("tapeTotal",{x:tot,T:T_}).h}</div>`;
+    if(lbl) lbl.innerHTML=tm("unitIs",{u}).h; };
+  actBtn(m,"−",()=>{ if(!s.done&&s.uv>1){ s.uv--; draw(); } },"ghost sq",t("unitDown"));
+  lbl=document.createElement("span"); lbl.className="uval"; lbl.setAttribute("aria-live","polite"); $("#a-"+m).appendChild(lbl);
+  actBtn(m,"+",()=>{ if(!s.done&&s.uv<99){ s.uv++; draw(); } },"ghost sq",t("unitUp"));
+  draw();
+}
+
+/* ---- Double number line with a draggable marker ----
+   o: {N ticks, stT/stB (value per tick), kT/kB kinds, labT/labB, given:[i], allT/allB, ask, askLine, pin} */
+const DX0=40, DYT=74, DYB=154;
+function svgQ(x,y,q,k,cls,an){ q=Z(q); an=an||"middle";
+  if(k||q.d===1) return `<text class="${cls}" x="${x.toFixed(1)}" y="${y+7}" text-anchor="${an}">${esc(V(q,k).h)}</text>`;
+  const w=Math.floor(q.n/q.d), r=q.n%q.d, wW=w?String(w).length*11+3:0, fW=Math.max(String(r).length,String(q.d).length)*11+6, tot=wW+fW;
+  const x0=an==="middle"?x-tot/2:an==="start"?x:x-tot, fc=x0+wW+fW/2;
+  return (w?`<text class="${cls}" x="${x0.toFixed(1)}" y="${y+7}" text-anchor="start">${w}</text>`:"")+
+    `<text class="${cls}" x="${fc.toFixed(1)}" y="${y-3}" text-anchor="middle" style="font-size:15px">${r}</text>`+
+    `<line x1="${(fc-fW/2+1).toFixed(1)}" x2="${(fc+fW/2-1).toFixed(1)}" y1="${y+1}" y2="${y+1}" stroke="currentColor" stroke-width="2" class="${cls}"/>`+
+    `<text class="${cls}" x="${fc.toFixed(1)}" y="${y+16}" text-anchor="middle" style="font-size:15px">${q.d}</text>`;
+}
+const qbox=(x,y)=>`<rect class="qbox" x="${(x-17).toFixed(1)}" y="${y-15}" width="34" height="30" rx="6"/><text class="dl-q" x="${x.toFixed(1)}" y="${y+7}" text-anchor="middle">?</text>`;
+function dnlInner(o){ const N=o.N, DX1=o.W-40, x=i=>DX0+(DX1-DX0)*i/N; let s="";
+  s+=`<text class="dl-name" x="${DX0-20}" y="18">${esc(o.labT)}</text><text class="dl-name" x="${DX0-20}" y="226">${esc(o.labB)}</text>`;
+  s+=`<line class="nlax" x1="${DX0-14}" y1="${DYT}" x2="${DX1+14}" y2="${DYT}"/><line class="nlax" x1="${DX0-14}" y1="${DYB}" x2="${DX1+14}" y2="${DYB}"/>`;
+  const nar=o.W<640, dens=N<=(nar?6:12)?1:Math.ceil(N/(nar?5:10));
+  for(let i=0;i<=N;i++){ const X_=x(i), giv=o.given.includes(i);
+    s+=`<line class="tk" x1="${X_.toFixed(1)}" y1="${DYT-10}" x2="${X_.toFixed(1)}" y2="${DYT+10}"/><line class="tk" x1="${X_.toFixed(1)}" y1="${DYB-10}" x2="${X_.toFixed(1)}" y2="${DYB+10}"/>`;
+    if(giv||(o.full&&i===o.ask)) s+=`<line class="dl-link" x1="${X_.toFixed(1)}" y1="${DYT+13}" x2="${X_.toFixed(1)}" y2="${DYB-13}"/>`;
+    const sT=o.full||i===0||giv||(o.allT&&i%dens===0), sB=o.full||i===0||giv||(o.allB&&i%dens===0);
+    if(sT&&(!o.full||i%dens===0||giv||i===o.ask)) s+=svgQ(X_,DYT-28,qm(o.stT,i),o.kT,giv?"dl-giv":"dl-num");
+    if(sB&&(!o.full||i%dens===0||giv||i===o.ask)) s+=svgQ(X_,DYB+30,qm(o.stB,i),o.kB,giv?"dl-giv":"dl-num");
+    if(!o.full&&o.ask===i){ if(o.askLine==="t"&&!sT) s+=qbox(X_,DYT-28); if(o.askLine==="b"&&!sB) s+=qbox(X_,DYB+30); }
+  }
+  if(o.pin!=null&&!o.full){ const X_=x(o.pin), right=o.pin<=N*0.6, an=right?"start":"end", dx=right?14:-14;
+    s+=`<g class="pin"><line x1="${X_.toFixed(1)}" y1="${DYT-14}" x2="${X_.toFixed(1)}" y2="${DYB+14}"/><circle cx="${X_.toFixed(1)}" cy="${(DYT+DYB)/2}" r="13"/></g>`;
+    const tv=qm(o.stT,o.pin), bv=qm(o.stB,o.pin), kT=o.knownT||o.reveal, kB=o.knownB||o.reveal;
+    s+=kT?svgQ(X_+dx,DYT+26,tv,o.kT,"dl-pin",an):`<text class="dl-pin" x="${(X_+dx).toFixed(1)}" y="${DYT+33}" text-anchor="${an}">?</text>`;
+    s+=kB?svgQ(X_+dx,DYB-24,bv,o.kB,"dl-pin",an):`<text class="dl-pin" x="${(X_+dx).toFixed(1)}" y="${DYB-17}" text-anchor="${an}">?</text>`;
+  }
+  return s;
+}
+function makeDnl(m,host,o){ const D={o}; o.knownB=o.allB; o.knownT=o.allT;
+  const wrap=document.createElement("div"); wrap.className="dnlbox"; wrap.setAttribute("dir","ltr");
+  host.appendChild(wrap); const cw=wrap.getBoundingClientRect().width; o.W=cw&&cw<560?400:640;
+  wrap.innerHTML=`<svg class="dnl" viewBox="0 0 ${o.W} 236" ${o.pin!=null?'tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="'+o.N+'"':'role="img"'} aria-label="${esc(t("dnlLbl",{t:o.labT,b:o.labB}))}"></svg>`;
+  const svg=wrap.firstChild; D.svg=svg;
+  D.draw=()=>{ svg.innerHTML=dnlInner(o);
+    if(o.pin!=null){ const tv=V(qm(o.stT,o.pin),o.kT).s, bv=V(qm(o.stB,o.pin),o.kB).s;
+      svg.setAttribute("aria-valuenow",o.pin);
+      svg.setAttribute("aria-valuetext",o.labB+" "+((o.knownB||o.reveal)?bv:"?")+", "+o.labT+" "+((o.knownT||o.reveal)?tv:"?")); } };
+  D.set=i=>{ if(st[m].done||o.full) return; i=Math.max(0,Math.min(o.N,i)); if(i===o.pin) return; o.pin=i; D.draw(); };
+  D.reveal=()=>{ o.reveal=true; D.draw(); }; D.full=()=>{ o.full=true; D.draw(); };
+  if(o.pin!=null){
+    const at=e=>{ const r=svg.getBoundingClientRect(), px=(e.clientX-r.left)/r.width*o.W; return Math.round((px-DX0)/(o.W-40-DX0)*o.N); };
+    let drag=false;
+    svg.addEventListener("pointerdown",e=>{ if(st[m].done) return; drag=true; try{ svg.setPointerCapture(e.pointerId); }catch(_){} D.set(at(e)); e.preventDefault(); });
+    svg.addEventListener("pointermove",e=>{ if(drag) D.set(at(e)); });
+    const up=()=>{ drag=false; }; svg.addEventListener("pointerup",up); svg.addEventListener("pointercancel",up);
+    svg.addEventListener("keydown",e=>{ const K={ArrowRight:1,ArrowUp:1,ArrowLeft:-1,ArrowDown:-1};
+      if(K[e.key]){ D.set(o.pin+K[e.key]); e.preventDefault(); } else if(e.key==="Home"){ D.set(0); e.preventDefault(); } else if(e.key==="End"){ D.set(o.N); e.preventDefault(); } });
+  }
+  D.draw(); return D;
+}
+
+/* ---- Hundred grid: tap a square to shade up to it ---- */
+function makeGrid(m,o){ const s=st[m], box=addBox(m,"pgbox"), Gd={n:0};
+  let cells=""; for(let i=0;i<100;i++) cells+=`<rect class="gc" data-i="${i}" x="${2+(i%10)*30}" y="${2+Math.floor(i/10)*30}" width="30" height="30"/>`;
+  box.innerHTML=`<svg class="pgrid" viewBox="0 0 304 304" ${o.tap?'tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"':'role="img"'} aria-label="${esc(o.tap?t("gridLbl"):t("gridRead",{n:o.n}))}">${cells}</svg><p class="built" aria-live="polite"></p>`;
+  const svg=box.querySelector("svg"), out=box.querySelector("p"), rects=[...svg.querySelectorAll(".gc")];
+  Gd.set=n=>{ n=Math.max(0,Math.min(100,n)); Gd.n=n; rects.forEach((r,i)=>r.classList.toggle("on",i<n));
+    if(o.tap){ svg.setAttribute("aria-valuenow",n); svg.setAttribute("aria-valuetext",n+"%"); hideFb($("#f-"+m)); out.innerHTML=tm("gridRead",{n}).h; } };
+  if(o.tap){ let down=false;
+    const at=e=>{ const el=document.elementFromPoint(e.clientX,e.clientY); return el&&el.classList&&el.classList.contains("gc")&&svg.contains(el)?+el.dataset.i:null; };
+    svg.addEventListener("pointerdown",e=>{ if(s.done) return; const i=at(e); if(i==null) return; down=true; try{ svg.setPointerCapture(e.pointerId); }catch(_){} Gd.set(Gd.n===i+1?i:i+1); e.preventDefault(); });
+    svg.addEventListener("pointermove",e=>{ if(!down||s.done) return; const i=at(e); if(i!=null&&i+1!==Gd.n) Gd.set(i+1); });
+    const up=()=>{ down=false; }; svg.addEventListener("pointerup",up); svg.addEventListener("pointercancel",up);
+    svg.addEventListener("keydown",e=>{ if(s.done) return; const K={ArrowRight:1,ArrowUp:1,ArrowLeft:-1,ArrowDown:-1,PageUp:10,PageDown:-10};
+      if(K[e.key]!==undefined){ Gd.set(Gd.n+K[e.key]); e.preventDefault(); } else if(e.key==="Home"){ Gd.set(0); e.preventDefault(); } else if(e.key==="End"){ Gd.set(100); e.preventDefault(); } });
+  }
+  Gd.set(o.n||0); return Gd;
+}
+
+/* ---- Coordinate graph (first quadrant) ---- */
+const niceUp = v=>[1,2,5,10,20,50,100,200].find(x=>x>=v)||500;
+function gsvg(o){ // o: {ys: y per grid unit, f(x)->y, pts:[[x,y]], curve, ray:[x,y], hi:[x,y], xl, yl}
+  const ox=52, oy=272, S=24, px=x=>ox+x*S, py=y=>oy-y/o.ys*S, ymax=10*o.ys; let s="";
+  for(let i=0;i<=10;i++) s+=`<line class="ggrid" x1="${px(i)}" y1="${oy}" x2="${px(i)}" y2="${oy-240}"/><line class="ggrid" x1="${ox}" y1="${oy-i*S}" x2="${ox+240}" y2="${oy-i*S}"/>`;
+  s+=`<line class="gax" x1="${ox}" y1="${oy}" x2="${ox+248}" y2="${oy}"/><line class="gax" x1="${ox}" y1="${oy}" x2="${ox}" y2="${oy-248}"/>`;
+  for(let i=0;i<=10;i+=2){ s+=`<text class="gtx" x="${px(i)}" y="${oy+17}" text-anchor="middle">${i}</text>`; if(i) s+=`<text class="gtx" x="${ox-6}" y="${oy-i*S+4}" text-anchor="end">${decS(i*o.ys)}</text>`; }
+  if(o.f){ let d=""; const n=o.curve?60:2; for(let j=0;j<=n*10;j++){ const x=j/n, y=o.f(x); if(y>ymax||y<0) break; d+=(d?"L":"M")+px(x).toFixed(1)+" "+py(y).toFixed(1); }
+    if(!o.curve){ const x1=(ymax-o.f(0))/((o.f(1)-o.f(0))||1e-9), xe=Math.min(10,x1); d=`M${px(0)} ${py(o.f(0)).toFixed(1)}L${px(xe).toFixed(1)} ${py(o.f(xe)).toFixed(1)}`; }
+    s+=`<path class="gln" d="${d}"/>`; }
+  if(o.ray){ const [rx,ry]=o.ray, kx=Math.min(10,ymax/(ry/rx)); s+=`<line class="gray" x1="${ox}" y1="${oy}" x2="${px(kx).toFixed(1)}" y2="${py(kx*ry/rx).toFixed(1)}"/>`; }
+  (o.pts||[]).forEach(([x,y])=>{ s+=`<circle class="gpt" cx="${px(x)}" cy="${py(y).toFixed(1)}" r="6"/>`; });
+  if(o.hi){ const [x,y]=o.hi; s+=`<circle class="ghi" cx="${px(x)}" cy="${py(y).toFixed(1)}" r="8"/><text class="gtx" x="${px(x)+12}" y="${py(y)+5}" style="font-size:15px;fill:#7b241c">(${x}, ${decS(y)})</text>`; }
+  s+=`<text class="gtx" x="${ox+244}" y="${oy+34}" text-anchor="end">${esc(o.xl||"x")}</text><text class="gtx" x="${ox-4}" y="16" text-anchor="start">${esc(o.yl||"y")}</text>`;
+  return `<svg class="graph" viewBox="0 0 320 314" role="img" aria-label="${esc(t("graphLbl"))}">${s}</svg>`;
+}
+
+/* ---- Proportional table: tap a column to compute y ÷ x ---- */
+function ptable(m,xs,ys){ const box=addBox(m,"pt-wrap");
+  box.innerHTML=`<div class="pt" role="group" aria-label="${esc(t("tableLbl"))}"><div class="pth" aria-hidden="true"><span>x</span><span>y</span><span>y ÷ x</span></div>`+
+    xs.map((x,i)=>`<button type="button" class="ptc" data-i="${i}" aria-label="${esc(t("colLbl",{x,y:V(ys[i]).s}))}"><span>${M(x)}</span><span>${M(V(ys[i]).h)}</span><span class="q">?</span></button>`).join("")+`</div>`;
+  box.querySelectorAll(".ptc").forEach(b=>b.addEventListener("click",()=>{ const i=+b.dataset.i, q=qd(ys[i],xs[i]);
+    b.querySelector(".q").innerHTML=M(V(q).h); b.classList.add("shown"); b.setAttribute("aria-label","x = "+xs[i]+", y = "+V(ys[i]).s+", y ÷ x = "+V(q).s); }));
+}
+
+/* =========================================================================
+   1. RATIO TABLES & TAPE DIAGRAMS
+   ========================================================================= */
+function genRatioTable(){ const z=SZ[settings.size]; let a,b,k;
+  do{ if(settings.frac&&G()>=7&&Math.random()<.4){ const q=rand([2,3]); a=q*ri(1,3); b=q*ri(1,3); let p; do p=ri(q+1,q*5); while(p%q===0); k=Q(p,q); }
+      else { a=ri(2,z.r); b=ri(2,z.r); k=Q(ri(2,z.k)); } }while(a===b);
+  const c=ri(0,2), askB=Math.random()<.5, A=qm(a,k), B=qm(b,k);
+  return {c,a,b,k,A,B,askB,giv:askB?A:B,ans:askB?B:A,gb:askB?a:b,ob:askB?b:a,
+    q:cat(tm("rc"+c+"r",{a,b}),tm("rc"+c+(askB?"qb":"qa"),{x:askB?A:B}))};
+}
+function newRatio(){
+  const m="ratio"; startRound(m); const s=st[m], z=SZ[settings.size], type=rand(["table","table","tape","equiv"]);
+  if(type==="table"){ const P=genRatioTable(); Object.assign(s,P);
+    rtable(m,{la:t("rc"+P.c+"a"),lb:t("rc"+P.c+"b"),base:[P.a,P.b],target:P.askB?[P.A,null]:[null,P.B]});
+    choices(m,qOpts(P.ans,"",[[qa(P.giv,P.ob-P.gb),"add"],[qd(qm(P.giv,P.gb),P.ob),"rev"],qa(P.ans,P.ob),qs(P.ans,P.ob),qm(P.giv,P.ob)]),it=>{
+      if(it.ok) return win(m,tm("goodTable",{k:P.k,e1:X(P.a,"×",P.k,"=",P.A),e2:X(P.b,"×",P.k,"=",P.B)}));
+      nope(m,cat(tm("youPicked",{x:it}),it.tag==="add"?plain("hintAdd"):tm("hintScale",{gb:P.gb,g:P.giv,ob:P.ob}))); });
+    setPrompt(m,P.q);
+  }else if(type==="tape"){ const mx=settings.size>1?6:4; let a,b; do{ a=ri(2,mx); b=ri(2,mx); }while(a===b);
+    const u=ri(2,z.k), p=a+b, T_=p*u, c=ri(0,2); Object.assign(s,{a,b,u,p,T:T_});
+    tape(m,a,b,T_,t("rc"+c+"a"),t("rc"+c+"b"));
+    choices(m,qOpts(a*u,"",[[b*u,"oth"],u,T_-a,a*u+u]),it=>{
+      if(it.ok) return win(m,tm("goodTape",{a,b,p,e1:X(T_,"÷",p,"=",u),e2:X(a,"×",u,"=",a*u)}));
+      nope(m,cat(tm("youPicked",{x:it}),tm(it.tag==="oth"?"hintTapeOth":"hintTape",{a,b,p,T:T_}))); });
+    setPrompt(m,cat(tm("rc"+c+"r",{a,b}),tm("rc"+c+"qt",{T:T_})));
+  }else{ let a,b; do{ a=ri(1,z.r); b=ri(1,z.r); }while(a===b||gcd(a,b)!==1); const k=ri(2,Math.min(9,z.k)); Object.assign(s,{a,b,k});
+    addBox(m,"big").innerHTML=`${R(a,b).h}<span class="eqs">=</span>${M(frH(a,b))}`;
+    rtable(m,{la:"A",lb:"B",base:[a,b]});
+    const off=rand([1,-1]), C=[[a*k,b*k,"ok"],[a+k,b+k,"add"],[b*k,a*k,"rev"],[a*k,b*k+off,"off"]];
+    choices(m,shuffle(C.map(([x,y,tag])=>({...R(x,y),ok:tag==="ok",tag,x,y}))),it=>{
+      if(it.ok) return win(m,tm("goodEquiv",{k,e1:X(a,"×",k,"=",a*k),e2:X(b,"×",k,"=",b*k)}));
+      const why=it.tag==="add"?plain("hintAdd"):it.tag==="rev"?tm("hintRev",{r:R(a,b)}):tm("hintOff",{e:X(it.x,"÷",a,"=",k),y:it.y,b,k});
+      nope(m,cat(tm("youPicked",{x:it}),why)); });
+    setPrompt(m,tm("equivDir",{r:R(a,b)}));
+  }
+  maybeAuto(m);
+}
+
+/* =========================================================================
+   2. DOUBLE NUMBER LINES & UNIT RATES
+   ========================================================================= */
+function genRate(type){ const z=SZ[settings.size], c=ri(0,2), k=c===0?"$":"";
+  const r=c===0?Q(G()>6||settings.frac?rand([50,75,125,150,175,225,250,350,120,80,60,40,90]):rand([100,200,300,400,500,150,250]),100):c===1?Q(ri(2,z.r)):Q(5*ri(6,14));
+  const n=ri(2,Math.min(8,z.n)); let mm; do mm=ri(2,Math.min(12,z.n+2)); while(mm===n);
+  const p=qm(r,n), name=pickName();
+  return {c,k,r,n,m:mm,p,name,q:cat(tm("rt"+c+"s",{n,p:V(p,k),name}),tm("rt"+c+(type==="unit"?"u":"m"),{m:mm,name}))};
+}
+function genFracRate(){ const BS=[[1,2],[1,3],[1,4],[2,3],[3,4],[1,6],[1,5],[2,5]]; let a,b,r,tries=0;
+  do{ const [bn,bd]=rand(BS); b=Q(bn,bd); const ad=rand([2,3,4,5,6,8]); a=Q(ri(1,ad-1),ad); r=qd(a,b); }
+  while((r.d>4||qv(r)>6||qv(r)<.5||qe(a,b)||r.d===r.n)&&++tries<300);
+  return {a,b,r,c:ri(0,1),name:pickName()};
+}
+function newRates(){
+  const m="rates"; startRound(m); const s=st[m], w=$("#w-"+m);
+  const type=rand(G()>=7&&settings.frac?["unit","more","best","frac","frac"]:["unit","more","more","best"]); s.type=type;
+  if(type==="unit"||type==="more"){ const P=genRate(type); Object.assign(s,P);
+    const N=type==="unit"?P.n:Math.max(P.n,P.m), ask=type==="unit"?1:P.m;
+    const D=makeDnl(m,w,{N,stT:P.r,stB:Q(1),kT:P.k,kB:"",labT:t("rt"+P.c+"t"),labB:t("rt"+P.c+"b"),given:[P.n],allB:true,ask,askLine:"t",pin:0});
+    const ans=type==="unit"?P.r:qm(P.r,P.m);
+    const cands=type==="unit"?[qd(P.n,P.p),qm(P.r,2),qa(P.r,1),qs(P.p,P.n)]:[[qa(P.p,P.m-P.n),"add"],qm(P.r,P.m+1),qm(P.p,P.m),qm(P.r,P.m-1)];
+    choices(m,qOpts(ans,P.k,cands),it=>{
+      if(it.ok){ D.full(); const rr=tm("rt"+P.c+"r",{v:V(P.r,P.k)});
+        return win(m,type==="unit"?tm("goodUnit",{e:X(V(P.p,P.k),"÷",P.n,"=",V(P.r,P.k)),rr}):tm("goodMore",{rr,e:X(V(P.r,P.k),"×",P.m,"=",V(ans,P.k))})); }
+      D.reveal(); nope(m,cat(tm("youPicked",{x:it}),it.tag==="add"?plain("hintAddRate"):tm(type==="unit"?"hintUnit":"hintMore",{p:V(P.p,P.k),n:P.n,m:P.m}))); });
+    setPrompt(m,P.q);
+  }else if(type==="best"){ let n1,n2; do{ n1=ri(2,8); n2=ri(2,8); }while(n1===n2);
+    const u1=5*ri(8,40); let u2=Math.random()<.2?u1:u1+5*rand([-6,-4,-3,-2,2,3,4,6]); if(u2<20) u2=u1+15;
+    const U1=Q(u1,100),U2=Q(u2,100),P1=qm(U1,n1),P2=qm(U2,n2), best=u1<u2?"A":u2<u1?"B":"S";
+    const Ds=[["A",n1,U1],["B",n2,U2]].map(([sx,n,U])=>makeDnl(m,w,{N:n,stT:U,stB:Q(1),kT:"$",kB:"",labT:t("bestT",{s:sx}),labB:t("bars"),given:[n],allB:true,ask:1,askLine:"t",pin:0}));
+    choices(m,[{...tm("store",{s:"A"}),ok:best==="A"},{...tm("store",{s:"B"}),ok:best==="B"},{...plain("sameDeal"),ok:best==="S"}],it=>{
+      if(it.ok){ Ds.forEach(D=>D.full()); return win(m,tm("goodBest",{e1:X(V(P1,"$"),"÷",n1,"=",V(U1,"$")),e2:X(V(P2,"$"),"÷",n2,"=",V(U2,"$")),w:t(best==="S"?"bestSame":"bestLow")})); }
+      Ds.forEach(D=>D.reveal()); nope(m,plain("hintBest")); },true);
+    setPrompt(m,cat(tm("storeLine",{s:"A",n:n1,p:V(P1,"$")}),tm("storeLine",{s:"B",n:n2,p:V(P2,"$")}),plain("bestQ")));
+  }else{ const P=genFracRate(); Object.assign(s,P); const {a,b,r,c}=P;
+    const D=makeDnl(m,w,{N:b.d,stT:qd(r,b.d),stB:Q(1,b.d),kT:"",kB:"",labT:t("rf"+c+"t"),labB:t("hoursLbl"),given:[b.n],allB:true,ask:b.d,askLine:"t",pin:0});
+    choices(m,qOpts(r,"",[qd(b,a),qm(a,b),qa(a,b),qm(r,2)]),it=>{
+      if(it.ok){ D.full(); return win(m,tm("goodFrac",{e:X(a,"÷",b,"=",a,"×",qd(1,b),"=",r),rr:tm("rf"+c+"r",{v:r})})); }
+      D.reveal(); nope(m,cat(tm("youPicked",{x:it}),tm("hintFrac",{a,b}))); });
+    setPrompt(m,tm("rf"+c+"s",{name:P.name,a,b}));
+  }
+  maybeAuto(m);
+}
+
+/* =========================================================================
+   3. PROPORTIONAL OR NOT?
+   ========================================================================= */
+function propK(){ const z=SZ[settings.size]; return settings.frac&&G()>=7&&Math.random()<.3?Q(rand([3,5,7]),2):Q(ri(2,Math.min(9,z.k))); }
+function propXs(k){ const pool=[]; for(let x=k.d;x<=12;x+=k.d) pool.push(x); return shuffle(pool).slice(0,4).sort((a,b)=>a-b); }
+function genPropTable(prop){ const k=propK(), xs=propXs(k); let ys=xs.map(x=>qm(k,x)), kind="prop";
+  if(!prop){ kind=rand(["plus","off"]); if(kind==="plus"){ const b=ri(1,5); ys=ys.map(y=>qa(y,b)); } else { const i=ri(1,3); ys[i]=qa(ys[i],rand([1,2,-1])); } }
+  return {k,xs,ys,kind};
+}
+const eqH = k=>({h:M("y = "+V(k).h+"x"), s:t("eqSay",{k:V(k).s})});
+const slope = k=>G()===8?tm("slopeNote",{k}):{h:"",s:""};
+function newProp(){
+  const m="prop"; startRound(m); const s=st[m], g=G(), w=$("#w-"+m);
+  const type=rand(g===6?["table","graph","k","eq"]:["table","graph","k","k","point","eq"]); s.type=type;
+  if(type==="table"){ const P=genPropTable(Math.random()<.5); ptable(m,P.xs,P.ys); const ok=P.kind==="prop";
+    choices(m,yesNo(ok),it=>{ if(it.ok) return win(m,ok?cat(tm("goodPTy",{k:P.k,eq:eqH(P.k)}),slope(P.k)):plain("goodPTn")); nope(m,plain("hintPT")); },true);
+    setPrompt(m,plain("ptDir"));
+  }else if(type==="graph"){ const kind=rand(["prop","prop","shift","curve"]); let k=propK(), o;
+    if(kind==="curve"){ const c=rand([2,4]); o={ys:c===4?2:5,f:x=>x*x/c,curve:true,pts:[0,2,4,6].map(x=>[x,x*x/c])}; }
+    else { const ys=niceUp(qv(k)*10/10), b=kind==="shift"?ys*ri(1,3):0; const kk=qv(k);
+      o={ys,f:x=>kk*x+b,pts:[0,2,4,6,8].filter(x=>kk*x+b<=10*ys).map(x=>[x,kk*x+b])}; }
+    const box=addBox(m), draw=()=>{ box.innerHTML=gsvg(o); }; draw();
+    const p1=o.pts.find(p=>p[0]>0); actBtn(m,"📐 "+t("rayBtn"),()=>{ o.ray=p1; draw(); },"ghost");
+    choices(m,yesNo(kind==="prop"),it=>{ if(it.ok){ o.ray=p1; draw(); return win(m,plain(kind==="prop"?"goodPGy":kind==="shift"?"goodPGs":"goodPGc")); } nope(m,plain("hintPG")); },true);
+    setPrompt(m,plain("pgDir"));
+  }else if(type==="k"){ const src=rand(["table","graph","story"]); let k,x1,y1,kk="";
+    if(src==="table"){ const P=genPropTable(true); k=P.k; x1=P.xs[0]; y1=P.ys[0]; ptable(m,P.xs,P.ys); setPrompt(m,plain("kDirT")); }
+    else if(src==="graph"){ k=propK(); const ys=niceUp(qv(k)), kv=qv(k); const pts=[2,4,6,8].filter(x=>kv*x<=10*ys&&Number.isInteger(kv*x)).map(x=>[x,kv*x]);
+      addBox(m).innerHTML=gsvg({ys,f:x=>kv*x,pts}); x1=pts[0][0]; y1=Q(pts[0][1]); setPrompt(m,plain("kDirG")); }
+    else { k=Q(ri(8,15)); kk="$"; x1=ri(2,6); y1=qm(k,x1); setPrompt(m,tm("kDirS",{name:pickName(),p:V(y1,"$"),h:x1})); }
+    choices(m,qOpts(k,kk,[[qd(1,k),"inv"],qa(k,1),y1,qs(y1,x1)]),it=>{
+      if(it.ok) return win(m,cat(tm("goodK",{e:X(V(y1,kk),"÷",x1,"=",V(k,kk))}),slope(V(k,kk))));
+      nope(m,cat(tm("youPicked",{x:it}),plain(it.tag==="inv"?"hintKInv":"hintK"))); });
+  }else if(type==="point"){ const c=ri(0,1), k=c===0?ri(6,15):ri(2,5), ys=niceUp(k*0.6), xl=t("pt"+c+"x"), yl=t("pt"+c+"y");
+    const pts=[]; for(let x=0;x<=10&&k*x<=10*ys;x++) if(x!==1&&x%2===0) pts.push([x,k*x]);
+    addBox(m).innerHTML=gsvg({ys,f:x=>k*x,pts,hi:[1,k],xl:xl,yl:yl});
+    const opts=shuffle(["a","b","c","d"].map(L=>({...tm("pt"+c+L,{k}),ok:L==="a"})));
+    choices(m,opts,it=>{ if(it.ok) return win(m,cat(tm("goodPt",{k}),slope(k))); nope(m,tm("hintPt",{xl,yl,k})); },true);
+    setPrompt(m,tm("pointDir",{k}));
+  }else{ const P=genPropTable(true), k=P.k, d=qs(P.ys[0],P.xs[0]); ptable(m,P.xs,P.ys);
+    const eAdd={h:M("y = x + "+V(d).h),s:t("eqAddSay",{d:V(d).s})};
+    const C=[{...eqH(k),ok:true},{...eAdd,tag:"add"},{...eqH(qd(1,k)),tag:"inv"},{h:M("y = "+V(k).h+"x + 1"),s:t("eqPlusSay",{k:V(k).s,b:1})}];
+    choices(m,shuffle(C),it=>{ if(it.ok) return win(m,cat(tm("goodEq",{k,e:eqH(k)}),slope(k)));
+      nope(m,it.tag==="add"?tm("hintEqAdd",{e:eAdd}):plain("hintEq")); });
+    setPrompt(m,plain("eqDir"));
+  }
+  maybeAuto(m);
+}
+
+/* =========================================================================
+   4. PERCENT LAB
+   ========================================================================= */
+function genPct(type){ const z=SZ[settings.size];
+  const p=rand(settings.size===1?[10,20,25,50,75,30,40,60,80,90]:[5,10,15,20,25,30,35,40,45,60,75,80,90]);
+  const step=p%10===0?10:gcd(p,100), unit=100/step, j=ri(1,Math.max(1,Math.floor(z.W/unit))), W=unit*j, P=W*p/100;
+  const story=Math.random()<.5, key=(story?"s":"p")+{part:"Part",whole:"Whole",pct:"Pct"}[type];
+  return {type,p,step,W,P,q:tm(key,{p:V(p,"%"),W,P})};
+}
+const CHG={disc:{up:false,k:"$",ps:[10,15,20,25,30,40,50],W:()=>5*ri(4,24),key:"chDisc"},tax:{up:true,k:"$",ps:[5,6,8,10],W:()=>ri(10,80),key:"chTax"},
+  tip:{up:true,k:"$",ps:[15,20,25],W:()=>5*ri(4,16),key:"chTip"},inc:{up:true,k:"",ps:[5,10,15,20,25,30],W:()=>100*ri(4,30),key:"chInc"},
+  dec:{up:false,k:"",ps:[5,10,15,20,25,30],W:()=>100*ri(4,30),key:"chDec"}};
+function genChg(){ const sub=rand(Object.keys(CHG)), C=CHG[sub], p=rand(C.ps), W=C.W(), Dm=qd(qm(W,p),100), ans=C.up?qa(W,Dm):qs(W,Dm);
+  return {sub,C,p,W,D:Dm,ans,q:tm(C.key,{W:V(W,C.k),p:V(p,"%"),name:pickName()})};
+}
+function genPchg(){ let a,p,up,b; do{ a=rand([10,20,25,40,50,60,80]); p=rand([10,20,25,50]); up=Math.random()<.5; b=a*(100+(up?p:-p))/100; }while(!Number.isInteger(b*100));
+  return {a,p,up,b:Q(Math.round(b*100),100),q:tm(up?"chUp":"chDown",{a:V(a,"$"),b:V(Q(Math.round(b*100),100),"$")})};
+}
+function newPct(){
+  const m="pct"; startRound(m); const s=st[m], g=G(), w=$("#w-"+m);
+  const type=rand(g===6?["grid","name","part","whole","pct"]:["grid","part","whole","pct","chg","chg","pchg"]); s.type=type;
+  if(type==="grid"){ const p=settings.size===1?rand([1,5,10,25,50,75,20,30,40,60,15,35,45,65,85]):ri(1,99);
+    const Gd=makeGrid(m,{n:0,tap:true}); Object.assign(s,{p,Gd});
+    actBtn(m,"−10",()=>{ if(!s.done) Gd.set(Gd.n-10); },"ghost",t("minus10"));
+    actBtn(m,"+10",()=>{ if(!s.done) Gd.set(Gd.n+10); },"ghost",t("plus10"));
+    actBtn(m,t("clear"),()=>{ if(!s.done) Gd.set(0); },"ghost");
+    checkBtn(m,()=>{ if(Gd.n===p) return win(m,tm("goodGrid",{n:p,p:V(p,"%"),f:Q(p,100),d:V(Q(p,100),"d")}));
+      nope(m,tm("hintGrid",{k:Gd.n,p:V(p,"%"),n:p})); });
+    setPrompt(m,tm("shadeDir",{p:V(p,"%")}));
+  }else if(type==="name"){ let v; do{ const d=rand([4,5,10,20,25,50]); v=Q(ri(1,d-1),d); }while(qe(v,Q(1,2)));
+    const n=Math.round(qv(v)*100); makeGrid(m,{n,tap:false});
+    const tri=q=>({h:M(V(q).h+" = "+V(q,"d").h+" = "+V(qm(q,100),"%").h), s:[V(q).s,V(q,"d").s,V(qm(q,100),"%").s].join(" "+t("wEq")+" ")});
+    const seen=[qv(v)], C=[{...tri(v),ok:true}];
+    [qs(1,v),qd(v,10),qa(v,Q(1,10)),qs(v,Q(1,10))].forEach(q=>{ const x=qv(q); if(C.length<4&&x>0&&x<1&&!seen.some(y=>Math.abs(x-y)<1e-9)){ seen.push(x); C.push({...tri(q),ok:false}); } });
+    choices(m,shuffle(C),it=>{ if(it.ok) return win(m,tm("goodName",{n,tri:tri(v)})); nope(m,plain("hintName")); },true);
+    setPrompt(m,plain("nameDir"));
+  }else if(type==="part"||type==="whole"||type==="pct"){ const P=genPct(type); Object.assign(s,P); const N=100/P.step, gi=P.p/P.step;
+    const D=makeDnl(m,w,{N,stT:Q(P.step),stB:Q(P.W*P.step,100),kT:"%",kB:"",labT:t("pctLine"),labB:t("amtLine"),
+      given:type==="whole"?[gi]:[N],allT:true,ask:type==="part"?gi:type==="whole"?N:null,askLine:"b",pin:0});
+    const pd=V(Q(P.p,100),"d");
+    let ans,k="",cands,good,hint;
+    if(type==="part"){ ans=P.P; cands=[[P.p,"pct"],P.W-P.P,2*P.P,P.P+P.W*P.step/100]; good=tm("goodPart",{p:V(P.p,"%"),p0:P.p,e:X(pd,"×",P.W,"=",P.P)}); hint=tm("hintPart",{p:V(P.p,"%"),W:P.W}); }
+    else if(type==="whole"){ ans=P.W; cands=[qd(qm(P.P,P.p),100),P.P+P.p,P.P*2,P.W+P.P]; good=tm("goodWhole",{e:X(P.P,"÷",pd,"=",P.W)}); hint=tm("hintWhole",{p:V(P.p,"%"),P:P.P}); }
+    else { ans=P.p; k="%"; cands=[P.P,100-P.p,P.p/10,P.p+10]; good=tm("goodPctF",{e:X(P.P,"÷",P.W,"=",pd,"=",V(P.p,"%"))}); hint=tm("hintPctF",{P:P.P,W:P.W}); }
+    choices(m,qOpts(ans,k,cands),it=>{ if(it.ok){ D.full(); return win(m,good); } D.reveal(); nope(m,cat(tm("youPicked",{x:it}),hint)); });
+    setPrompt(m,P.q);
+  }else if(type==="chg"){ const P=genChg(); Object.assign(s,P); const {C,p,W}=P, sp=p%10===0?10:5, top=C.up?100+p:100, N=Math.ceil(top/sp);
+    const D=makeDnl(m,w,{N,stT:Q(sp),stB:qd(qm(W,sp),100),kT:"%",kB:C.k,labT:t("pctLine"),labB:t("amtLine"),given:[100/sp],allT:true,
+      ask:(100+(C.up?p:-p))%sp===0?(100+(C.up?p:-p))/sp:null,askLine:"b",pin:0});
+    const k=C.k, opp=C.up?qs(W,P.D):qa(W,P.D);
+    choices(m,qOpts(P.ans,k,[[P.D,"amt"],[opp,"op"],C.up?W+p:W-p,qa(P.ans,1)]),it=>{
+      if(it.ok){ D.full(); return win(m,tm("goodChg",{p:V(p,"%"),e1:X(V(Q(p,100),"d"),"×",V(W,k),"=",V(P.D,k)),e2:X(V(W,k),C.up?"+":"−",V(P.D,k),"=",V(P.ans,k)),
+        e3:X(V(Q(100+(C.up?p:-p),100),"d"),"×",V(W,k),"=",V(P.ans,k))})); }
+      D.reveal(); nope(m,cat(tm("youPicked",{x:it}),it.tag==="amt"?plain("hintChgAmt"):tm(C.up?"hintUp":"hintDown",{p:V(p,"%"),W:V(W,k)}))); });
+    setPrompt(m,P.q);
+  }else{ const P=genPchg(); Object.assign(s,P); const {a,p,up,b}=P, sp=p%10===0?10:5, N=(up?100+p:100)/sp, chg=up?qs(b,a):qs(a,b);
+    const D=makeDnl(m,w,{N:Math.ceil(N),stT:Q(sp),stB:Q(a*sp,100),kT:"%",kB:"$",labT:t("pctLine"),labB:t("amtLine"),given:[100/sp],allT:true,ask:null,pin:0});
+    const wrongBase=qd(qm(chg,100),b);
+    choices(m,qOpts(p,"%",[[wrongBase,"base"],[qv(chg)>=1?chg:p+5,"amt"],p+10,p/2]),it=>{
+      if(it.ok){ D.full(); return win(m,tm("goodPchg",{e1:up?X(V(b,"$"),"−",V(a,"$"),"=",V(chg,"$")):X(V(a,"$"),"−",V(b,"$"),"=",V(chg,"$")),e2:X(V(chg,"$"),"÷",V(a,"$"),"=",V(Q(p,100),"d"),"=",V(p,"%"))})); }
+      D.reveal(); nope(m,cat(tm("youPicked",{x:it}),tm(it.tag==="base"?"hintPchgBase":"hintPchg",{a:V(a,"$")}))); });
+    setPrompt(m,P.q);
+  }
+  maybeAuto(m);
+}
+
+/* =========================================================================
+   5. SCALE & CONVERSIONS
+   ========================================================================= */
+const U = u=>({h:t("u_"+u), s:t("s_"+u)});
+const U1 = u=>({h:t("u_"+u), s:t("s1_"+u)});
+const CONV=[["ft","in",12],["yd","ft",3],["lb","oz",16],["gal","qt",4],["h","min",60],["m","cm",100],["kg","g",1000],["km","m",1000]];
+const CONVX=[["in","cm",Q(254,100)],["mi","km",Q(8,5)],["kg","lb",Q(11,5)]];
+function genConv(){ const between=G()>=7&&Math.random()<.35;
+  if(between){ const [u1,u2,f]=rand(CONVX), x=Q(ri(2,10)), ans=qm(x,f), ap=u1!=="in";
+    return {u1,u2,f,x,ans,mul:true,k:"d",ap,giv:x}; }
+  const [u1,u2,fn]=rand(CONV), f=Q(fn), mul=Math.random()<.5;
+  let x=Q(ri(2,9)); if(settings.frac&&G()>=7&&Math.random()<.4) x=Q(2*ri(1,4)+1,2);
+  const y=qm(x,f); return mul?{u1,u2,f,x,ans:y,mul,k:"",giv:x}:{u1,u2,f,x,ans:x,mul,k:"",giv:y};
+}
+function convQ(P){ const fact={h:M("1 "+t("u_"+P.u1)+" "+(P.ap?"≈":"=")+" "+V(P.f,P.k).h+" "+t("u_"+P.u2)), s:"1 "+t("s1_"+P.u1)+" "+t(P.ap?"wApprox":"wEq")+" "+V(P.f,P.k).s+" "+t("s_"+P.u2)};
+  const q=P.mul?{h:M(V(P.x).h+" "+t("u_"+P.u1)+" = ? "+t("u_"+P.u2)), s:V(P.x).s+" "+t("s_"+P.u1)+" "+t("wEq")+" ? "+t("s_"+P.u2)}
+               :{h:M(V(P.giv).h+" "+t("u_"+P.u2)+" = ? "+t("u_"+P.u1)), s:V(P.giv).s+" "+t("s_"+P.u2)+" "+t("wEq")+" ? "+t("s_"+P.u1)};
+  return tm("convDir",{fact,q});
+}
+function genMulti(){ const c=ri(0,2), name=pickName();
+  if(c===0){ const b=rand([4,6,8,12]), a=ri(1,4), unit=b/gcd(a,b); let cc; do cc=unit*ri(1,6); while(cc===b);
+    return {c,base:[a,b],kA:"",kB:"",target:[null,Q(cc)],ans:Q(a*cc,b),giv:cc,gb:b,ob:a,e1:X(a,"÷",b,"=",Q(a,b)),e2:X(Q(a,b),"×",cc,"=",Q(a*cc,b)),k:"",q:tm("mc0s",{a,b,c:cc})}; }
+  if(c===1){ const r=rand([20,25,30,40,45,50,60]), mm=ri(2,5), w=r*mm; let M2; do M2=ri(2,12); while(M2===mm);
+    return {c,base:[w,mm],kA:"",kB:"",target:[Q(r*M2),null],ans:Q(M2),giv:r*M2,gb:w,ob:mm,e1:X(w,"÷",mm,"=",r),e2:X(r*M2,"÷",r,"=",M2),k:"",q:tm("mc1s",{name,w,m:mm,W:r*M2})}; }
+  const r=rand([8,9,10,12,15]), h=ri(2,6), p=r*h; let H; do H=ri(2,10); while(H===h);
+  return {c,base:[p,h],kA:"$",kB:"",target:[null,Q(H)],ans:Q(r*H),giv:H,gb:h,ob:p,e1:X(V(p,"$"),"÷",h,"=",V(r,"$")),e2:X(V(r,"$"),"×",H,"=",V(r*H,"$")),k:"$",q:tm("mc2s",{name,p:V(p,"$"),h,H})};
+}
+function mapSVG(sb,L,bars){ const ax=40, pu=64, bx=ax+pu*qv(L); let s=`<rect x="0" y="0" width="640" height="230" rx="14" fill="#eaf6e8"/>`;
+  s+=`<path d="M300 0 C 280 60, 360 120, 330 230" stroke="#7fb8e6" stroke-width="16" fill="none" opacity=".8"/>`;
+  [[90,40],[160,190],[470,40],[560,190],[250,200],[420,200]].forEach(([x,y])=>{ s+=`<circle cx="${x}" cy="${y}" r="13" fill="#7fbf7f"/><rect x="${x-2}" y="${y+10}" width="4" height="10" fill="#8a5a2b"/>`; });
+  s+=`<line x1="${ax}" y1="110" x2="${bx}" y2="110" stroke="#8d8d8d" stroke-width="6" stroke-dasharray="10 7"/>`;
+  let x=ax; bars.forEach((b,i)=>{ const wd=pu*b; s+=`<rect x="${x}" y="122" width="${wd}" height="14" fill="${i%2?"#ffffff":"#0e6655"}" stroke="#0e6655" stroke-width="2"/>`; x+=wd; });
+  s+=`<circle cx="${ax}" cy="110" r="11" fill="#c0392b"/><text class="mtx" x="${ax}" y="92" text-anchor="middle">A</text>`;
+  s+=`<circle cx="${bx}" cy="110" r="11" fill="#2471a3"/><text class="mtx" x="${bx}" y="92" text-anchor="middle">B</text>`;
+  s+=`<rect x="${ax}" y="188" width="${pu}" height="12" fill="#0e6655"/><text class="mtx" x="${ax}" y="176" text-anchor="middle" style="font-size:20px">0</text><text class="mtx" x="${ax+pu}" y="176" text-anchor="middle" style="font-size:20px">${sb} ${esc(t("u_km"))}</text>`;
+  return `<svg class="map" viewBox="0 0 640 230" role="img" aria-label="${esc(t("mapLbl"))}">${s}</svg>`;
+}
+function planSVG(w,h,showW,showH,sc){ const S=34, ox=20, oy=34, cols=10, rows=Math.max(h+2,5); let s="";
+  for(let i=0;i<=cols;i++) s+=`<line x1="${ox+i*S}" y1="${oy}" x2="${ox+i*S}" y2="${oy+rows*S}" stroke="#d6ebe4"/>`;
+  for(let j=0;j<=rows;j++) s+=`<line x1="${ox}" y1="${oy+j*S}" x2="${ox+cols*S}" y2="${oy+j*S}" stroke="#d6ebe4"/>`;
+  const rx=ox+S, ry=oy+S; s+=`<rect x="${rx}" y="${ry}" width="${w*S}" height="${h*S}" fill="rgba(72,201,176,.35)" stroke="#0e6655" stroke-width="4"/>`;
+  const lw=showW?(sc?`${w*sc} ${t("u_ft")}`:t("sqCount",{n:w})):"", lh=showH?(sc?`${h*sc} ${t("u_ft")}`:t("sqCount",{n:h})):"";
+  if(lw) s+=`<text class="mtx" x="${rx+w*S/2}" y="${ry-8}" text-anchor="middle" style="font-size:20px">${esc(lw)}</text>`;
+  if(lh) s+=`<text class="mtx" x="${rx+w*S+8}" y="${ry+h*S/2+5}" text-anchor="start" style="font-size:20px">${esc(lh)}</text>`;
+  s+=`<line class="side" data-side="w" x1="${rx}" y1="${ry}" x2="${rx+w*S}" y2="${ry}" tabindex="0" role="button" aria-label="${esc(t("tapSide"))}"/>`;
+  s+=`<line class="side" data-side="h" x1="${rx+w*S}" y1="${ry}" x2="${rx+w*S}" y2="${ry+h*S}" tabindex="0" role="button" aria-label="${esc(t("tapSide"))}"/>`;
+  return `<svg class="plan" viewBox="0 0 ${ox*2+cols*S+90} ${oy+rows*S+10}" role="group" aria-label="${esc(t("planLbl"))}">${s}</svg>`;
+}
+function newScale(){
+  const m="scale"; startRound(m); const s=st[m], g=G();
+  const type=rand(g===6?["conv","conv","multi","map"]:["map","draw","conv","multi"]); s.type=type;
+  if(type==="map"){ const sb=rand(settings.size===1?[2,5,10]:[2,5,10,20,25,50]), half=g>=7&&settings.frac&&Math.random()<.45, L=Q(ri(2,half?7:8)*2+(half?1:0),2);
+    s.bars=[]; const box=addBox(m), cnt=document.createElement("p"); cnt.className="built"; cnt.setAttribute("aria-live","polite");
+    const draw=()=>{ box.innerHTML=mapSVG(sb,L,s.bars); cnt.textContent=t("barsLaid",{n:decS(s.bars.reduce((a,b)=>a+b,0))}); };
+    $("#w-"+m).appendChild(cnt); draw();
+    const lay=v=>{ if(s.done) return; if(s.bars.reduce((a,b)=>a+b,0)+v>8.5) return; s.bars.push(v); draw(); };
+    actBtn(m,"➕ "+t("layBar"),()=>lay(1),"ghost"); if(g>=7) actBtn(m,"½ "+t("layHalf"),()=>lay(.5),"ghost");
+    actBtn(m,t("clear"),()=>{ if(!s.done){ s.bars=[]; draw(); } },"ghost");
+    const ans=qm(L,sb);
+    choices(m,qOpts(ans,"",[[qa(L,sb),"add"],qm(qa(L,1),sb),Q(Math.floor(qv(L))*sb),qm(L,sb*2)]),it=>{
+      if(it.ok) return win(m,tm("goodMap",{L,e:X(L,"×",sb,"=",ans)}));
+      nope(m,cat(tm("youPicked",{x:it}),tm("hintMap",{s:sb}))); });
+    setPrompt(m,tm("mapDir",{s:sb}));
+  }else if(type==="draw"){ let w,h; do{ w=ri(3,8); h=ri(2,6); }while(h>=w); const sc=rand([2,3,4,5,10]), area=Math.random()<.5;
+    s.sw=false; s.sh=false; const box=addBox(m);
+    const draw=sc2=>{ box.innerHTML=planSVG(w,h,s.sw,s.sh,sc2);
+      box.querySelectorAll(".side").forEach(el=>{ const tog=()=>{ if(s.done) return; s[el.dataset.side==="w"?"sw":"sh"]=true; draw(); box.querySelector(`.side[data-side="${el.dataset.side}"]`).focus(); };
+        el.addEventListener("click",tog); el.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); tog(); } }); }); };
+    draw();
+    const ans=area?Q(w*sc*h*sc):Q(w*sc), cands=area?[[w*h*sc,"once"],w*h,2*(w+h)*sc,w*h*sc*2]:[[w+sc,"add"],w*h,h*sc,(w+1)*sc];
+    choices(m,qOpts(ans,"",cands),it=>{
+      if(it.ok){ s.sw=s.sh=true; draw(sc); return win(m,area?tm("goodArea",{e1:X(w,"×",sc,"=",w*sc),e2:X(h,"×",sc,"=",h*sc),e3:X(w*sc,"×",h*sc,"=",ans)}):tm("goodLen",{w,e:X(w,"×",sc,"=",w*sc)})); }
+      nope(m,cat(tm("youPicked",{x:it}),tm(area?(it.tag==="once"?"hintArea1":"hintArea"):"hintLen",{s:sc}))); });
+    setPrompt(m,tm(area?"drawArea":"drawLen",{s:sc}));
+  }else if(type==="conv"){ const P=genConv(); Object.assign(s,P);
+    rtable(m,{la:t("u_"+P.u1),lb:t("u_"+P.u2),base:[1,P.f],kA:"",kB:P.k,target:P.mul?[P.x,null]:[null,P.giv]});
+    const cands=P.mul?[[qd(P.x,P.f),"dir"],qa(P.x,P.f),qm(P.x,qa(P.f,1)),qm(P.ans,10)]:[[qm(P.giv,P.f),"dir"],qs(P.giv,P.f),qa(P.ans,1),qm(P.ans,2)];
+    choices(m,qOpts(P.ans,P.k,cands),it=>{
+      if(it.ok) return win(m,tm(P.mul?"goodConvMul":"goodConvDiv",{u1:U1(P.u1),u2:U(P.u2),f:V(P.f,P.k),e:P.mul?X(P.x,"×",V(P.f,P.k),P.ap?"≈":"=",V(P.ans,P.k)):X(P.giv,"÷",P.f,"=",P.ans)}));
+      nope(m,cat(tm("youPicked",{x:it}),tm(P.mul?"hintConvMul":"hintConvDiv",{f:V(P.f,P.k)}))); });
+    setPrompt(m,convQ(P));
+  }else{ const P=genMulti(); Object.assign(s,P);
+    rtable(m,{la:t("mc"+P.c+"a"),lb:t("mc"+P.c+"b"),base:P.base,kA:P.kA,kB:P.kB,target:P.target});
+    const add=P.c===1?qa(P.ob,P.giv-P.gb):qa(P.ob,P.giv-P.gb);
+    choices(m,qOpts(P.ans,P.k,[[add,"add"],qm(P.ans,2),qa(P.ans,P.k==="$"?5:1),qs(P.ans,P.k==="$"?5:1)]),it=>{
+      if(it.ok) return win(m,tm("goodMulti",{e1:P.e1,e2:P.e2}));
+      nope(m,cat(tm("youPicked",{x:it}),plain(it.tag==="add"?"hintAdd":"hintMulti"))); });
+    setPrompt(m,P.q);
+  }
+  maybeAuto(m);
+}
+
+/* ---------- Mode switching ---------- */
+const NEWFN={ratio:newRatio,rates:newRates,prop:newProp,pct:newPct,scale:newScale};
+function firstMode(){ return MODES.find(m=>settings.modes[m])||"ratio"; }
+function currentMode(){ const b=$$(".tabs button").find(x=>x.getAttribute("aria-selected")==="true"); return b?b.dataset.mode:firstMode(); }
+function showMode(mode){
+  if(!settings.modes[mode]) mode=firstMode();
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
+  $$(".modepanel").forEach(p=>p.classList.add("hidden"));
+  $("#mode-"+mode).classList.remove("hidden");
+  $$(".tabs button").forEach(b=>{ const on=b.dataset.mode===mode; b.setAttribute("aria-selected",on?"true":"false"); b.tabIndex=on?0:-1; });
+  if(!made[mode]) NEWFN[mode]();
+  // Returning to a tab: read its current directions (unless a new round just did).
+  if(switching && speechGen===g0) maybeAuto(mode);
+}
+function syncTabs(){
+  $$(".tabs button").forEach(b=>b.classList.toggle("hidden",!settings.modes[b.dataset.mode]));
+  if(!settings.modes[currentMode()]) showMode(firstMode());
+}
+function resetRounds(){ MODES.forEach(m=>made[m]=false); stopSpeech(); NEWFN[currentMode()](); }
+
+/* ---------- Settings drawer ---------- */
+function buildModeToggles(){
+  const wrap=$("#modeToggles"); wrap.innerHTML="";
+  MODES.forEach(m=>{ const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.modes[m]?"checked":""}> <span>${esc(t(MODE_KEY[m]))}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{ settings.modes[m]=e.target.checked;
+      if(!MODES.some(k=>settings.modes[k])){ e.target.checked=true; settings.modes[m]=true; }
+      saveSettings(); syncTabs(); });
+    wrap.appendChild(l); });
+}
+function syncSettingsUI(){
+  $("#setGrade").value=String(settings.grade); $("#setSize").value=String(settings.size); $("#setFrac").checked=settings.frac;
+  $("#setAuto").checked=settings.autoRead; buildModeToggles();
+}
+function closeSettings(){ $("#settingsDrawer").classList.remove("open"); $("#openSettings").focus(); }
+function initSettings(){
+  $("#openSettings").addEventListener("click",()=>{ syncSettingsUI(); $("#settingsDrawer").classList.add("open"); $("#closeSettings").focus(); });
+  $("#closeSettings").addEventListener("click",closeSettings);
+  $("#settingsDrawer").addEventListener("click",e=>{ if(e.target.id==="settingsDrawer") closeSettings(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape" && $("#settingsDrawer").classList.contains("open")) closeSettings(); });
+  $("#setGrade").addEventListener("change",e=>{ const g=+e.target.value; settings.grade=g; Object.assign(settings,GRADES[g]); saveSettings(); syncSettingsUI(); resetRounds(); });
+  $("#setSize").addEventListener("change",e=>{ settings.size=+e.target.value; saveSettings(); resetRounds(); });
+  $("#setFrac").addEventListener("change",e=>{ settings.frac=e.target.checked; saveSettings(); resetRounds(); });
+  $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
+  $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
+}
+
+/* ---------- Print cards ---------- */
+function buildPrintCards(){
+  const blank=`<span style="display:inline-block;min-width:5rem;border-bottom:2px solid #000">&nbsp;</span>`;
+  const P=genRatioTable(), la=t("rc"+P.c+"a"), lb=t("rc"+P.c+"b"), cell=q=>`<td style="border:2px solid #000;padding:.4rem .8rem;text-align:center">${q?M(V(q).h):"?"}</td>`;
+  const tbl=`<table style="border-collapse:collapse;font-size:1.2rem" dir="ltr"><tr><th style="border:2px solid #000;padding:.4rem;text-align:start">${esc(la)}</th>${cell(Q(P.a))}<td style="border:2px solid #000;width:4rem"></td>${cell(P.askB?P.A:null)}</tr>`+
+    `<tr><th style="border:2px solid #000;padding:.4rem;text-align:start">${esc(lb)}</th>${cell(Q(P.b))}<td style="border:2px solid #000"></td>${cell(P.askB?null:P.B)}</tr></table>`;
+  const RT=genRate("more"), FR=genFracRate(), PT=genPropTable(Math.random()<.5), PC=genPct(rand(["part","whole","pct"])), CH=G()>=7?genChg():genPct("whole"), CV=genConv(), MU=genMulti();
+  const ptbl=`<table style="border-collapse:collapse;font-size:1.2rem" dir="ltr"><tr><th style="border:2px solid #000;padding:.4rem">x</th>${PT.xs.map(x=>cell(Q(x))).join("")}</tr><tr><th style="border:2px solid #000;padding:.4rem">y</th>${PT.ys.map(y=>cell(y)).join("")}</tr></table>`;
+  const cards=[
+    {title:t("mRatio"), body:P.q.h+"<br>"+t("cardTable"), html:tbl},
+    {title:t("mRates"), body:RT.q.h, html:`<p>${t("cardShow")}</p>`},
+    G()>=7?{title:t("mRates"), body:tm("rf"+FR.c+"s",{name:FR.name,a:FR.a,b:FR.b}).h, html:""}:null,
+    {title:t("mProp"), body:t("cardProp"), html:ptbl},
+    {title:t("mPct"), body:PC.q.h, html:`<p>${t("cardShow")}</p>`},
+    {title:t("mPct"), body:CH.q.h, html:""},
+    {title:t("mScale"), body:convQ(CV).h, html:""},
+    {title:t("mScale"), body:MU.q.h, html:""}
+  ].filter(Boolean);
+  $("#printArea").innerHTML=`<h1>${esc(t("cardTitle"))}</h1><p>${esc(t("cardName"))} ____________________</p>`+
+    cards.map(c=>`<div class="card-print"><h2>${esc(c.title)}</h2><p style="font-size:1.2rem;line-height:1.9">${c.body}</p>${c.html}<p>${esc(t("cardAns"))} ${blank}</p></div>`).join("")+
+    `<p style="font-size:.85rem">${stdsHTML()}</p>`;
+}
+
+// Standards codes stay left-to-right inside Arabic/Urdu text.
+function stdsHTML(){ return esc(t("stds")).replace(/(TEKS|Common Core|\d\.(?:RP\.|G\.|EE\.)?\d+(?:\([^)]*\))?)/g,'<bdi dir="ltr">$1</bdi>'); }
+
+/* ---------- Language engine ---------- */
+function resolveLang(){
+  try{ const q=new URLSearchParams(location.search).get("lang"); if(q && T[q]) return q; }catch(e){}
+  try{ const s=localStorage.getItem(LANG_KEY); if(s && T[s]) return s; }catch(e){}
+  const n=(navigator.language||"en").slice(0,2).toLowerCase();
+  if(T[n]) return n;
+  return "en";
+}
+function applyLang(){
+  const meta=LANGS.find(x=>x.code===lang)||LANGS[0];
+  document.documentElement.lang=lang;
+  document.documentElement.dir=meta.dir;
+  document.title=t("appTitle");
+  const sel=$("#langSelect"); if(sel) sel.value=lang;
+  $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
+  $("#stdsNote").innerHTML=stdsHTML();
+  buildModeToggles();
+  // refresh dynamic content: current mode now, the others when they are next opened
+  resetRounds();
+}
+function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} applyLang(); }
+function buildLangSelect(){
+  const sel=$("#langSelect"); sel.innerHTML="";
+  LANGS.forEach(m=>{ const o=document.createElement("option"); o.value=m.code; o.textContent=m.name; sel.appendChild(o); });
+  sel.value=lang;
+  sel.addEventListener("change",()=>setLang(sel.value));
+}
+
+/* ---------- Init ---------- */
+function buildUI(){
+  $("#tabs").innerHTML=MODES.map(m=>`<button type="button" role="tab" id="tab-${m}" aria-controls="mode-${m}" aria-selected="false" data-mode="${m}"><span class="ic" aria-hidden="true">${MODE_IC[m]}</span><span data-t="${MODE_KEY[m]}"></span></button>`).join("");
+  $("#panels").innerHTML=MODES.map(m=>`<section id="mode-${m}" class="panel modepanel hidden" role="tabpanel" aria-labelledby="tab-${m}">
+    <div class="panelhead"><h2 data-t="${MODE_KEY[m]}"></h2><button type="button" class="btn ghost no-print" data-new="${m}" data-t="newRound"></button></div>
+    <div class="prompt"><button type="button" class="speaker" data-speak="${m}" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="p-${m}">…</span></div>
+    <div class="work" id="w-${m}"></div>
+    <div class="acts no-print" id="a-${m}"></div>
+    <div class="choices" id="c-${m}" role="group" data-ta="choicesLbl" aria-label="Answer choices"></div>
+    <div class="feedback" id="f-${m}" role="status" aria-live="polite"></div></section>`).join("");
+  // Arrow keys move between tabs (WAI-ARIA tabs pattern).
+  $("#tabs").addEventListener("keydown",e=>{ const vis=$$(".tabs button").filter(b=>!b.classList.contains("hidden")), i=vis.indexOf(document.activeElement); if(i<0) return;
+    const rtl=document.documentElement.dir==="rtl", step={ArrowRight:rtl?-1:1,ArrowLeft:rtl?1:-1}[e.key]; if(!step) return;
+    const nb=vis[(i+step+vis.length)%vis.length]; nb.focus(); showMode(nb.dataset.mode); e.preventDefault(); });
+}
+function init(){
+  lang=resolveLang();
+  buildUI();
+  buildLangSelect();
+  $$(".tabs button").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.mode)));
+  $$(".speaker").forEach(b=>b.addEventListener("click",()=>speak(currentSpeech[b.dataset.speak])));
+  $$("[data-new]").forEach(b=>b.addEventListener("click",()=>{ stopSpeech(); NEWFN[b.dataset.new](); }));
+  initSettings();
+  const f=firstMode();
+  $$(".tabs button").forEach(b=>{ const on=b.dataset.mode===f; b.setAttribute("aria-selected",on?"true":"false"); b.tabIndex=on?0:-1; b.classList.toggle("hidden",!settings.modes[b.dataset.mode]); });
+  $$(".modepanel").forEach(p=>p.classList.toggle("hidden",p.id!=="mode-"+f));
+  applyLang();
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+</script>
+<script>
+/* Student mute toggle — shared across the Digital Math Tools. Self-contained,
+   offline, stores no student data. Gates ALL speech by intercepting
+   speechSynthesis.speak, so muting works regardless of each tool's internals.
+   Reads the shared language preference only to localize its own label. */
+(function(){
+  "use strict";
+  var LKEY='tcea.mathtools.lang', MKEY='tcea.mathtools.muted';
+  var CODES=['en','es','vi','ar','hi','ur','zh'];
+  var LAB={
+    mute:{en:"Mute sound",es:"Silenciar sonido",vi:"Tắt âm thanh",ar:"كتم الصوت",hi:"आवाज़ बंद करें",ur:"آواز بند کریں",zh:"静音"},
+    unmute:{en:"Turn sound on",es:"Activar sonido",vi:"Bật âm thanh",ar:"تشغيل الصوت",hi:"आवाज़ चालू करें",ur:"آواز چالو کریں",zh:"打开声音"}
+  };
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  window.__MT_MUTED = (get(MKEY)==='1');
+  // Intercept every speech request; suppress while muted.
+  try{
+    if(window.speechSynthesis && typeof window.speechSynthesis.speak==='function'){
+      var ss=window.speechSynthesis, orig=ss.speak.bind(ss);
+      ss.speak=function(u){ if(!window.__MT_MUTED){ try{orig(u);}catch(e){} } };
+    }
+  }catch(e){}
+  function curLang(){ var l=get(LKEY)||'en'; return LAB.mute[l]?l:'en'; }
+  function label(el){
+    var on=!window.__MT_MUTED, l=curLang(), txt=on?LAB.mute[l]:LAB.unmute[l];
+    el.textContent=on?'🔊':'🔇';
+    el.setAttribute('aria-label',txt); el.setAttribute('title',txt);
+    el.setAttribute('aria-pressed', on?'false':'true');
+  }
+  function findLangSelect(){
+    var sels=document.querySelectorAll('select');
+    for(var i=0;i<sels.length;i++){ var o=sels[i].options, c=0;
+      for(var j=0;j<o.length;j++){ if(CODES.indexOf((o[j].value||'').toLowerCase())>=0) c++; }
+      if(c>=3) return sels[i];
+    }
+    return null;
+  }
+  function build(){
+    if(document.getElementById('mtMuteBtn')) return;
+    if(!(('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window))) return;
+    var btn=document.createElement('button');
+    btn.id='mtMuteBtn'; btn.type='button';
+    btn.style.cssText='font:inherit;font-size:1.15rem;line-height:1;cursor:pointer;'+
+      'min-width:44px;min-height:44px;padding:8px 12px;border:2px solid #e2dcf1;'+
+      'border-radius:10px;background:#fff;color:#5b3fa5;font-weight:700;margin:0 4px;';
+    btn.addEventListener('click',function(){
+      window.__MT_MUTED=!window.__MT_MUTED;
+      set(MKEY, window.__MT_MUTED?'1':'0');
+      if(window.__MT_MUTED){ try{window.speechSynthesis.cancel();}catch(e){} }
+      label(btn);
+    });
+    btn.addEventListener('focus',function(){btn.style.outline='3px solid #5b3fa5';btn.style.outlineOffset='2px';});
+    btn.addEventListener('blur',function(){btn.style.outline='';});
+    var sel=findLangSelect();
+    if(sel && sel.parentNode){
+      sel.parentNode.insertBefore(btn, sel);
+      sel.addEventListener('change',function(){ setTimeout(function(){label(btn);},0); });
+    }else{
+      btn.style.position='fixed'; btn.style.top='10px'; btn.style.zIndex='9999';
+      btn.style[(document.documentElement.dir==='rtl')?'left':'right']='10px';
+      (document.body||document.documentElement).appendChild(btn);
+    }
+    label(btn);
+  }
+  if(document.readyState==='complete'){ build(); }
+  else{ window.addEventListener('load', build); }
+  window.addEventListener('storage',function(e){ if(e.key===LKEY){ var b=document.getElementById('mtMuteBtn'); if(b) label(b); } });
+})();
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+</html>
