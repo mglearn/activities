@@ -158,7 +158,11 @@ window.MATHTOOLS = (function () {
     "Logarithms":{en:"Logarithms",es:"Logaritmos",vi:"Lôgarit",ar:"اللوغاريتمات",hi:"लघुगणक",ur:"لوگارتھم",zh:"对数"},
     "Systems":{en:"Systems",es:"Sistemas",vi:"Hệ phương trình",ar:"أنظمة المعادلات",hi:"समीकरण निकाय",ur:"مساوات کے نظام",zh:"方程组"},
     "Statistics":{en:"Statistics",es:"Estadística",vi:"Thống kê",ar:"الإحصاء",hi:"सांख्यिकी",ur:"شماریات",zh:"统计"},
-    "Probability":{en:"Probability",es:"Probabilidad",vi:"Xác suất",ar:"الاحتمال",hi:"प्रायिकता",ur:"احتمال",zh:"概率"}
+    "Probability":{en:"Probability",es:"Probabilidad",vi:"Xác suất",ar:"الاحتمال",hi:"प्रायिकता",ur:"احتمال",zh:"概率"},
+    "Congruence":{en:"Congruence",es:"Congruencia",vi:"Bằng nhau",ar:"التطابق",hi:"सर्वांगसमता",ur:"تماثل",zh:"全等"},
+    "Similarity":{en:"Similarity",es:"Semejanza",vi:"Đồng dạng",ar:"التشابه",hi:"समरूपता",ur:"تشابہ",zh:"相似"},
+    "Proofs":{en:"Proofs",es:"Demostraciones",vi:"Chứng minh",ar:"البراهين",hi:"उपपत्तियाँ",ur:"ثبوت",zh:"证明"},
+    "Trigonometry":{en:"Trigonometry",es:"Trigonometría",vi:"Lượng giác",ar:"حساب المثلثات",hi:"त्रिकोणमिति",ur:"مثلثیات",zh:"三角函数"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -450,7 +454,19 @@ window.MATHTOOLS = (function () {
         ar:"أنشئ تمثيلات بالنقاط ومدرجات تكرارية ومخططات صندوق من بيانات مولَّدة؛ وأوجد مقاييس النزعة المركزية والتشتت؛ وقارن بين المجموعات؛ وارسم خط الملاءمة لمخططات الانتشار وفسّر r والبواقي؛ وأجرِ محاكاة احتمالية ومخططات شجرية؛ واقرأ الجداول ذات الاتجاهين لإيجاد الاحتمال الشرطي واختبار الاستقلال.",
         hi:"उत्पन्न आँकड़ों से डॉट प्लॉट, आयतचित्र और बॉक्स प्लॉट बनाएँ; केंद्र और फैलाव ज्ञात करें; समूहों की तुलना करें; प्रकीर्ण आरेख पर सर्वोत्तम-अनुरूप रेखा खींचें और r व अवशेषों की व्याख्या करें; प्रायिकता अनुकरण और वृक्ष आरेख चलाएँ; तथा सप्रतिबंध प्रायिकता और स्वतंत्रता के लिए द्वि-मार्गी तालिकाएँ पढ़ें।",
         ur:"تیار کردہ ڈیٹا سے ڈاٹ پلاٹ، ہسٹوگرام اور باکس پلاٹ بنائیں؛ مرکز اور پھیلاؤ معلوم کریں؛ گروہوں کا موازنہ کریں؛ اسکیٹر پلاٹ پر موزوں ترین لکیر کھینچیں اور r اور باقیات کی تشریح کریں؛ احتمال کی نقالی اور درختی خاکے چلائیں؛ اور مشروط احتمال اور آزادی کے لیے دو طرفہ جدول پڑھیں۔",
-        zh:"用生成的数据绘制点图、直方图和箱线图；求集中趋势和离散程度；比较两组数据；为散点图拟合直线并解释 r 和残差；进行概率模拟并画树状图；阅读双向表以求条件概率并判断独立性。"} }
+        zh:"用生成的数据绘制点图、直方图和箱线图；求集中趋势和离散程度；比较两组数据；为散点图拟合直线并解释 r 和残差；进行概率模拟并画树状图；阅读双向表以求条件概率并判断独立性。"} },
+    { id:"proof-and-trig-lab", collection:"g912", bandId:"9-12", icon:"📏", accent:"#16a085",
+      title:"Proof & Trig Lab", href:"g912/proof-and-trig-lab/index.html",
+      tags:["Congruence","Similarity","Proofs","Trigonometry","Circles","Coordinate plane"],
+      kw:"geometry congruence SSS SAS ASA AAS HL SSA CPCTC similarity AA similar triangles scale factor two-column proof reasons vertical angles alternate interior angles midpoint bisector right triangle trigonometry SOHCAHTOA sine cosine tangent inverse angle of elevation depression special right triangles 45-45-90 30-60-90 radicals circles central inscribed angle arc tangent chord arc length sector area radians equation of a circle completing the square distance midpoint partition slope quadrilateral parallelogram congruencia demostración trigonometría 全等 三角函数 圆",
+      desc:{
+        en:"Decide which shortcut proves triangles congruent or similar, build two-column proofs, solve right triangles with SOH-CAH-TOA and special right triangles, explore circle angles, arcs and equations, and use distance, midpoint and slope on the coordinate plane.",
+        es:"Decide qué criterio demuestra que dos triángulos son congruentes o semejantes, construye demostraciones de dos columnas, resuelve triángulos rectángulos con SOH-CAH-TOA y triángulos rectángulos especiales, explora ángulos, arcos y ecuaciones de círculos, y usa distancia, punto medio y pendiente en el plano de coordenadas.",
+        vi:"Xác định trường hợp nào chứng minh hai tam giác bằng nhau hoặc đồng dạng, xây dựng chứng minh hai cột, giải tam giác vuông bằng SOH-CAH-TOA và các tam giác vuông đặc biệt, khám phá góc, cung và phương trình đường tròn, và dùng khoảng cách, trung điểm, độ dốc trên mặt phẳng tọa độ.",
+        ar:"حدّد الحالة التي تثبت تطابق المثلثات أو تشابهها، وابنِ براهين من عمودين، وحُلّ المثلثات القائمة باستخدام SOH-CAH-TOA والمثلثات القائمة الخاصة، واستكشف زوايا الدائرة وأقواسها ومعادلاتها، واستخدم المسافة ونقطة المنتصف والميل في المستوى الإحداثي.",
+        hi:"तय करें कि कौन-सी कसौटी त्रिभुजों को सर्वांगसम या समरूप सिद्ध करती है, दो-स्तंभ उपपत्तियाँ बनाएँ, SOH-CAH-TOA और विशेष समकोण त्रिभुजों से समकोण त्रिभुज हल करें, वृत्त के कोण, चाप और समीकरण खोजें, और निर्देशांक तल पर दूरी, मध्य-बिंदु और ढलान का उपयोग करें।",
+        ur:"طے کریں کہ کون سا اصول مثلثوں کو متماثل یا متشابہ ثابت کرتا ہے، دو کالمی ثبوت بنائیں، SOH-CAH-TOA اور خاص قائمہ مثلثوں سے قائمہ مثلث حل کریں، دائرے کے زاویے، قوسیں اور مساواتیں دریافت کریں، اور محدداتی سطح پر فاصلہ، وسطی نقطہ اور ڈھلان استعمال کریں۔",
+        zh:"判断哪种判定方法能证明三角形全等或相似，构建两栏式证明，用 SOH-CAH-TOA 和特殊直角三角形解直角三角形，探究圆的角、弧与方程，并在坐标平面上运用距离、中点和斜率。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
