@@ -1,0 +1,2195 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Array Architect — a Grade 3–5 multiplication and division app: build arrays and equal groups, split area models into partial products, divide with partial quotients and interpret remainders, practice fact families, factors and primes, and solve multi-step stories. Works offline. No data collected.">
+<title>Array Architect</title>
+<style>
+  :root{
+    --bg:#fbf1ef;--panel:#ffffff;--ink:#1c2733;--muted:#5e4440;--line:#ecc9c3;
+    --accent:#c0392b;--accentD:#a12e22;--accent-ink:#ffffff;--good:#166534;--good-bg:#dcfce7;
+    --hint:#7a4a00;--hint-bg:#fff4d6;--info:#1e4f7a;--info-bg:#e6f1fb;--focus:#0a58ca;
+    --tap:52px;font-size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4;-webkit-text-size-adjust:100%}
+  h1,h2,h3{line-height:1.15;margin:0 0 .3em}
+  button{font-family:inherit;font-size:1rem;cursor:pointer}
+  button:disabled{cursor:default}
+
+  .topbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--accent);color:var(--accent-ink);padding:.55rem .8rem}
+  .topbar .brand{font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:.4rem;margin-inline-end:auto}
+  .topbar a.homebtn,.topbar button.tb{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.4rem .7rem;min-height:var(--tap);min-width:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;font-weight:700;font-size:.95rem}
+  .globe{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.2rem .5rem;min-height:var(--tap)}
+  .globe span{font-size:1.2rem}
+  .globe select{border:0;background:#fff;color:var(--ink);border-radius:8px;min-height:44px;font-weight:700;font-size:1rem;padding:.2rem .4rem}
+
+  main{max-width:1200px;margin:0 auto;padding:.7rem}
+  .tabsrow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:.4rem 0 .7rem}
+  .tabs{display:flex;gap:.4rem;flex-wrap:wrap;flex:1 1 auto}
+  .tabs button{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:.45rem .75rem;min-height:var(--tap);font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .tabs button[aria-selected="true"]{background:var(--accentD);color:#fff;border-color:var(--accentD)}
+  .tabs button .ic{font-size:1.15rem}
+  .stars{background:#fff;border:2px solid var(--line);border-radius:14px;padding:.4rem .8rem;font-weight:800;font-size:1.15rem;min-height:48px;display:inline-flex;align-items:center;gap:.3rem}
+  .stars.pop{animation:pop .5s ease}
+  @keyframes pop{0%{transform:scale(.6)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  .panel{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:.9rem;margin-bottom:.8rem}
+  .panelhead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+  .panelhead h2{margin:0;font-size:1.25rem;margin-inline-end:auto}
+
+  .prompt{display:flex;align-items:center;gap:.6rem;background:#fdecea;border:2px solid #f2c4bd;border-radius:14px;padding:.6rem .8rem;margin-bottom:.7rem;font-size:1.12rem;font-weight:600}
+  .speaker{background:var(--accentD);color:#fff;border:0;border-radius:50%;width:var(--tap);height:var(--tap);min-width:var(--tap);font-size:1.35rem;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+
+  .btn{background:var(--accentD);color:#fff;border:2px solid var(--accentD);border-radius:12px;padding:.5rem .9rem;min-height:var(--tap);font-weight:700}
+  .btn.ghost{background:var(--panel);color:var(--accentD)}
+  .btn:disabled{opacity:.45}
+  .tools{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-top:.6rem}
+
+  .feedback{margin-top:.6rem;border-radius:12px;padding:.6rem .8rem;font-weight:600;display:none}
+  .feedback.show{display:block}
+  .feedback.good{background:var(--good-bg);color:var(--good);border:2px solid #86efac}
+  .feedback.hint{background:var(--hint-bg);color:var(--hint);border:2px solid #f6d271}
+  .feedback.info{background:var(--info-bg);color:var(--info);border:2px solid #9cc5ea}
+  .math{unicode-bidi:isolate;direction:ltr;display:inline-block;font-weight:800;white-space:nowrap}
+  .feedback .math,.prompt .math{white-space:normal}
+  .big{font-size:2rem;font-weight:900;text-align:center;margin:.4rem 0}
+
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6rem;margin-top:.6rem}
+  .choice{background:var(--panel);border:3px solid var(--line);border-radius:16px;padding:.5rem;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;font-size:1.3rem;font-weight:800;color:var(--ink)}
+  .choice .lbl{unicode-bidi:isolate;direction:ltr;white-space:nowrap}
+  .choice .sub{font-size:.85rem;font-weight:600;color:var(--muted)}
+  .choice.correctpick,.chip.correctpick{border-color:var(--good);background:var(--good-bg)}
+  .choice.wrongpick,.chip.wrongpick{border-color:var(--hint);background:var(--hint-bg)}
+  .choice:disabled{opacity:.6}
+  .choice.correctpick:disabled{opacity:1}
+
+  /* Arrays */
+  .model{display:flex;flex-direction:column;align-items:center;gap:.3rem;margin:.2rem 0 .6rem}
+  .modelcap{font-weight:700}
+  .model svg{max-width:100%;height:auto}
+  .groups{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;max-width:640px}
+  .plate{display:grid;grid-template-columns:repeat(3,16px);gap:5px;padding:12px;border:3px solid #e8a79d;border-radius:22px;background:#fff7f5;justify-content:center;align-content:center;min-width:76px;min-height:60px}
+  .pdot{width:16px;height:16px;border-radius:50%;background:var(--accent)}
+  .bwrap{display:grid;grid-template-columns:minmax(0,440px) 1fr;gap:.8rem;align-items:start}
+  @media(max-width:760px){.bwrap{grid-template-columns:1fr}}
+  .gridwrap{touch-action:none;border:2px solid var(--line);border-radius:14px;padding:6px;background:#fffaf9;cursor:pointer;max-width:440px;width:100%}
+  .gridwrap svg{display:block;width:100%;height:auto}
+  .d0{fill:#d8c4c0}.d1{fill:#c0392b}.d2{fill:#e67e22}
+  .arrbox{fill:#fde3df;stroke:#c0392b;stroke-width:2;stroke-dasharray:5 4}
+  .steppers{display:flex;flex-wrap:wrap;gap:.5rem}
+  .stepper{display:flex;align-items:center;gap:.4rem;background:#fff7f5;border:2px solid var(--line);border-radius:14px;padding:.3rem .5rem;font-weight:700}
+  .stepper .lab{min-width:5.5em}
+  .stepper b{font-size:1.5rem;min-width:2ch;text-align:center}
+  .sbtn{min-width:var(--tap);min-height:var(--tap);font-size:1.5rem;line-height:1;padding:0}
+  .status{font-weight:700;margin:.5rem 0 0}
+
+  /* Area */
+  .splitgrid{touch-action:none;cursor:col-resize;max-width:520px;width:100%;border:2px solid var(--line);border-radius:14px;padding:6px;background:#fffaf9}
+  .splitgrid svg{display:block;width:100%;height:auto}
+  .sq0{fill:#fde3df;stroke:#d39a91}.sqL{fill:#f5b7b1;stroke:#c0392b}.sqR{fill:#aed6f1;stroke:#2471a3}
+  .slab{font:700 15px system-ui,sans-serif;fill:#1c2733;text-anchor:middle}
+  .splitline{stroke:#1c2733;stroke-width:4;stroke-linecap:round}
+  .splitctl{display:flex;align-items:center;gap:.5rem;margin:.5rem 0;flex-wrap:wrap}
+  .eqblock{display:flex;flex-direction:column;gap:.45rem;margin-top:.4rem;font-size:1.25rem;font-weight:800}
+  .eqline{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+  input.num{font:inherit;font-size:1.2rem;font-weight:800;width:6.2em;max-width:100%;min-height:48px;text-align:center;border:2px solid #b9a19c;border-radius:10px;padding:.2rem .3rem;background:#fff;color:var(--ink)}
+  input.num.bad{border-color:#d08a00;background:var(--hint-bg)}
+  input.num.ok{border-color:var(--good);background:var(--good-bg)}
+  .ppgrid{display:grid;gap:4px;max-width:720px;margin:.2rem 0}
+  .pph{display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.15rem;padding:.25rem;color:var(--accentD)}
+  .ppcell{display:flex;align-items:center;justify-content:center;border-radius:10px;padding:.35rem;min-width:0}
+  .ppcell input.num{width:100%}
+  .pc0{background:#f5b7b1}.pc1{background:#fad7a0}.pc2{background:#aed6f1}.pc3{background:#d2b4de}.pc4{background:#a9dfbf}.pc5{background:#f9e79f}
+
+  /* Division */
+  .divbar{background:#fffaf9;border:2px solid var(--line);border-radius:14px;padding:.3rem;margin-bottom:.6rem}
+  .divbar svg{display:block;width:100%;height:auto}
+  .ch0{fill:#f5b7b1;stroke:#c0392b}.ch1{fill:#fad7a0;stroke:#b9770e}.ch2{fill:#aed6f1;stroke:#2471a3}
+  .rest{fill:#fff;stroke:#7b6560;stroke-width:2;stroke-dasharray:6 4}
+  .btxt{font:800 19px system-ui,sans-serif;fill:#1c2733;text-anchor:middle}
+  .divgrid{display:grid;grid-template-columns:1fr minmax(0,320px);gap:.8rem}
+  @media(max-width:760px){.divgrid{grid-template-columns:1fr}}
+  .chunks{display:flex;flex-wrap:wrap;gap:.45rem;margin:.3rem 0}
+  .chunk{display:flex;flex-direction:column;align-items:center;line-height:1.1;min-width:74px}
+  .chunk small{font-weight:600;opacity:.9}
+  .muted{color:var(--muted);font-size:.92rem;margin:.1rem 0 .3rem}
+  table.pq{border-collapse:collapse;font-size:1.15rem;font-weight:700;font-variant-numeric:tabular-nums;margin:0 auto}
+  table.pq td{padding:.1rem .45rem;text-align:end}
+  table.pq td.gq{color:var(--accentD);text-align:start;font-size:.95rem}
+  table.pq td.line{border-top:2px solid var(--ink)}
+  .leftbox{font-weight:800;font-size:1.1rem;text-align:center;margin:.3rem 0}
+  .ansrow{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-top:.7rem;font-weight:700}
+  .ansrow label{display:inline-flex;align-items:center;gap:.4rem}
+
+  /* Facts */
+  .chips{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;margin:.6rem 0;direction:ltr}
+  .chip{min-width:58px;min-height:52px;border-radius:14px;border:3px solid var(--line);background:#fff;font-size:1.2rem;font-weight:800;color:var(--ink)}
+  .chip[aria-pressed="true"]{background:var(--accentD);border-color:var(--accentD);color:#fff}
+  .chip.correctpick[aria-pressed="true"]{background:var(--good);border-color:var(--good)}
+  .famnums{display:flex;gap:.7rem;justify-content:center;margin:.4rem 0}
+  .famnums span{border:3px solid var(--accent);border-radius:50%;width:64px;height:64px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:900;background:#fff7f5}
+
+  /* Stories */
+  .steps p.done{margin:.25rem 0;color:var(--good);font-weight:700}
+  .steps h3{font-size:1.1rem;margin:.6rem 0 .2rem}
+
+  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
+  .drawer.open{display:flex}
+  .drawer .card{background:var(--panel);border-radius:16px;max-width:620px;width:100%;padding:1rem;max-height:90vh;overflow:auto}
+  .setrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+  .setrow .lab{font-weight:700;min-width:150px}
+  .setrow .note{font-size:.85rem;color:var(--muted);flex-basis:100%}
+  .toggle{display:inline-flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:10px;padding:.35rem .55rem;background:#fff;min-height:48px}
+  .toggle input{width:22px;height:22px;flex:0 0 auto}
+  select.diff{font-size:1rem;padding:.4rem;border-radius:10px;border:2px solid var(--line);min-height:48px;max-width:100%}
+
+  footer{max-width:1200px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+  footer a{color:var(--accentD);font-weight:700}
+  .stds{font-size:.82rem;color:var(--muted);background:#fdf3f1;border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  @media(max-width:480px){
+    main{padding:.4rem}
+    .panel{padding:.6rem}
+    .prompt{font-size:1.02rem;padding:.5rem .6rem}
+    .big{font-size:1.6rem}
+    .eqblock{font-size:1.1rem}
+    input.num{width:5.2em;font-size:1.1rem}
+    .choice{font-size:1.15rem}
+    .choices{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+    .pph{font-size:1rem}
+    .tabs{display:grid;grid-template-columns:1fr 1fr;width:100%}
+    .tabs button{font-size:.9rem;padding:.4rem .5rem}
+  }
+
+  .hidden{display:none !important}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+  .printonly{display:none}
+  @media print{
+    .topbar,.tabsrow,footer,.modepanel,#stdsNote,.no-print,#mtMuteBtn{display:none !important}
+    body{background:#fff}
+    .printonly{display:block}
+    .card-print{border:2px solid #000;border-radius:12px;padding:1rem;margin:0 0 1rem;page-break-inside:avoid}
+    .card-print h2{margin:.2rem 0}
+    .card-print .math{display:inline;white-space:normal}
+    .pbox{height:150px;border:2px dashed #888;border-radius:10px}
+    .ptab{border-collapse:collapse;margin:.4rem 0}
+    .ptab td{border:2px solid #000;width:110px;height:60px;text-align:center;font-weight:800}
+    .ptab td.h{border:0;height:auto}
+    main{max-width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">🏗️ <span data-t="appTitle">Array Architect</span></span>
+  <a class="homebtn" href="../../index.html">🏠 <span data-t="home">Home</span></a>
+  <label class="globe"><span aria-hidden="true">🌐</span>
+    <select id="langSelect" data-ta="language" aria-label="Language"></select>
+  </label>
+  <button class="tb settingsbtn" id="openSettings">⚙️ <span data-t="teacher">Teacher</span></button>
+</header>
+
+<main>
+  <div class="tabsrow">
+    <div class="tabs" role="tablist" data-ta="modesLbl" aria-label="Modes">
+      <button role="tab" aria-selected="true" data-mode="arr"><span class="ic" aria-hidden="true">🔴</span><span data-t="mArr">Equal Groups &amp; Arrays</span></button>
+      <button role="tab" aria-selected="false" data-mode="area"><span class="ic" aria-hidden="true">📐</span><span data-t="mArea">Area Model</span></button>
+      <button role="tab" aria-selected="false" data-mode="div"><span class="ic" aria-hidden="true">➗</span><span data-t="mDiv">Division Builder</span></button>
+      <button role="tab" aria-selected="false" data-mode="fact"><span class="ic" aria-hidden="true">⚡</span><span data-t="mFact">Fact Fluency</span></button>
+      <button role="tab" aria-selected="false" data-mode="story"><span class="ic" aria-hidden="true">📖</span><span data-t="mStory">Multi-Step Stories</span></button>
+    </div>
+    <span class="stars" id="stars"><span aria-hidden="true">⭐</span><span class="sr" data-t="stars">Stars earned</span> <b id="starCount">0</b></span>
+  </div>
+
+  <!-- EQUAL GROUPS & ARRAYS -->
+  <section id="mode-arr" class="panel modepanel" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mArr">Equal Groups &amp; Arrays</h2>
+      <button class="btn ghost no-print" id="arrNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="arr" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="arrPrompt">…</span></div>
+    <div class="model hidden" id="arrModel"></div>
+    <div class="bwrap" id="arrBuild">
+      <div class="gridwrap" id="arrGrid" dir="ltr" tabindex="0" role="group" aria-label="Array builder"></div>
+      <div>
+        <div class="steppers">
+          <div class="stepper"><span class="lab" data-t="rowsLbl">Rows</span>
+            <button type="button" class="btn ghost sbtn" data-step="r-1" data-ta="remRow" aria-label="Remove a row">−</button><b id="arrR">0</b>
+            <button type="button" class="btn ghost sbtn" data-step="r1" data-ta="addRow" aria-label="Add a row">+</button></div>
+          <div class="stepper"><span class="lab" data-t="colsLbl">Columns</span>
+            <button type="button" class="btn ghost sbtn" data-step="c-1" data-ta="remCol" aria-label="Remove a column">−</button><b id="arrC">0</b>
+            <button type="button" class="btn ghost sbtn" data-step="c1" data-ta="addCol" aria-label="Add a column">+</button></div>
+        </div>
+        <p class="status" id="arrStatus" aria-live="polite"></p>
+        <div class="tools no-print">
+          <button type="button" class="btn" id="arrCheck">✔ <span data-t="check">Check</span></button>
+          <button type="button" class="btn ghost" id="arrClear" data-t="clear">Clear</button>
+        </div>
+      </div>
+    </div>
+    <div class="choices hidden" id="arrChoices" role="group" data-ta="choicesLbl" aria-label="Answer choices"></div>
+    <div class="feedback" id="arrFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- AREA MODEL -->
+  <section id="mode-area" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mArea">Area Model</h2>
+      <button class="btn ghost no-print" id="areaNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="area" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="areaPrompt">…</span></div>
+    <div id="areaWork"></div>
+    <div class="tools no-print"><button type="button" class="btn" id="areaCheck">✔ <span data-t="check">Check</span></button></div>
+    <div class="feedback" id="areaFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- DIVISION BUILDER -->
+  <section id="mode-div" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mDiv">Division Builder</h2>
+      <button class="btn ghost no-print" id="divNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="div" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="divPrompt">…</span></div>
+    <div class="divbar" id="divBar" dir="ltr"></div>
+    <div class="divgrid">
+      <div>
+        <h3 data-t="chunkTitle">Take away groups</h3>
+        <p class="muted" id="chunkHelp"></p>
+        <div class="chunks" id="divChunks" dir="ltr"></div>
+        <div class="tools no-print"><button type="button" class="btn ghost" id="divUndo">↶ <span data-t="undo">Undo</span></button></div>
+      </div>
+      <div>
+        <p class="leftbox" id="divLeft"></p>
+        <table class="pq" id="divTable" dir="ltr"></table>
+      </div>
+    </div>
+    <div class="ansrow" id="divAns">
+      <label><span data-t="quotLbl">Quotient</span> <input class="num" id="divQ" inputmode="numeric" autocomplete="off" data-ta="quotLbl" aria-label="Quotient"></label>
+      <label id="divRwrap"><span data-t="remLbl">Remainder</span> <input class="num" id="divR" inputmode="numeric" autocomplete="off" data-ta="remLbl" aria-label="Remainder"></label>
+      <button type="button" class="btn" id="divCheck">✔ <span data-t="check">Check</span></button>
+    </div>
+    <div class="choices hidden" id="divChoices" role="group" data-ta="choicesLbl" aria-label="Answer choices"></div>
+    <div class="feedback" id="divFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- FACT FLUENCY -->
+  <section id="mode-fact" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mFact">Fact Fluency</h2>
+      <button class="btn ghost no-print" id="factNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="fact" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="factPrompt">…</span></div>
+    <div id="factShow"></div>
+    <div class="choices" id="factChoices" role="group" data-ta="choicesLbl" aria-label="Answer choices"></div>
+    <div class="chips hidden" id="factChips" role="group" data-ta="choicesLbl" aria-label="Answer choices"></div>
+    <div class="tools no-print hidden" id="factTools"><button type="button" class="btn" id="factCheck">✔ <span data-t="check">Check</span></button></div>
+    <div class="feedback" id="factFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- MULTI-STEP STORIES -->
+  <section id="mode-story" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mStory">Multi-Step Stories</h2>
+      <button class="btn ghost no-print" id="storyNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="story" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="storyPrompt">…</span></div>
+    <div class="steps" id="storySteps"></div>
+    <div class="choices" id="storyChoices" role="group" data-ta="choicesLbl" aria-label="Answer choices"></div>
+    <div class="ansrow hidden" id="storyAns"><label><span id="storyLetter" class="math">m</span> = <input class="num" id="storyIn" inputmode="numeric" autocomplete="off"></label>
+      <button type="button" class="btn" id="storyCheck">✔ <span data-t="check">Check</span></button></div>
+    <div class="feedback" id="storyFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <div class="stds" id="stdsNote"></div>
+  <div class="printonly" id="printArea"></div>
+</main>
+
+<footer>
+  <p data-t="footNote">No accounts · No data collected · Works offline</p>
+  <p><a href="../../index.html" data-t="home">Home</a> · <a href="../../policy.html" data-t="privacy">Privacy</a></p>
+</footer>
+
+<!-- SETTINGS -->
+<div class="drawer" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <div class="panelhead"><h2 id="setTitle" data-t="teacherTitle">Teacher settings</h2>
+      <button class="btn ghost" id="closeSettings" data-t="close">Close</button></div>
+    <div class="setrow"><label class="lab" for="setGrade" data-t="setGrade">Grade level</label>
+      <select class="diff" id="setGrade"><option value="3" data-t="g3">Grade 3</option><option value="4" data-t="g4">Grade 4</option><option value="5" data-t="g5">Grade 5</option></select>
+      <span class="note" data-t="gradeNote">Choosing a grade sets the options below. You can still change them.</span></div>
+    <div class="setrow"><label class="lab" for="setMaxFact" data-t="setMaxFact">Largest factor</label>
+      <select class="diff" id="setMaxFact"></select></div>
+    <div class="setrow"><label class="lab" for="setArea" data-t="setArea">Area model up to</label>
+      <select class="diff" id="setArea"><option value="f" data-t="aF">Splitting facts</option><option value="21" data-t="a21">2-digit × 1-digit</option><option value="22" data-t="a22">2-digit × 2-digit</option><option value="32" data-t="a32">3-digit × 2-digit</option></select></div>
+    <div class="setrow"><label class="lab" for="setDiv" data-t="setDiv">Division</label>
+      <select class="diff" id="setDiv"><option value="d100" data-t="dv100">Within 100</option><option value="d1000" data-t="dv1000">3-digit ÷ 1-digit</option><option value="d9999" data-t="dv9999">4-digit ÷ 1-digit</option><option value="d2dig" data-t="dv2dig">Up to 4-digit ÷ 2-digit</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setRem">Remainders</span>
+      <label class="toggle"><input type="checkbox" id="setRem"> <span data-t="remOn">Include remainders</span></label></div>
+    <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
+      <div id="modeToggles" style="display:flex;flex-wrap:wrap;gap:.4rem"></div></div>
+    <div class="setrow"><span class="lab" data-t="setSpeech">Speech</span>
+      <label class="toggle"><input type="checkbox" id="setAuto"> <span data-t="autoRead">Auto-read directions</span></label></div>
+    <div class="setrow" style="border:0"><button class="btn" id="printCards">🖨 <span data-t="printCards">Print challenge cards</span></button></div>
+    <p class="stds" data-t="setStored">Settings are saved only on this device. No student information is ever stored.</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   Array Architect — single-file Grade 3–5 multiplication & division app.
+   7 languages. No frameworks, no network, no data collection.
+   ========================================================================= */
+
+/* ---------- Language metadata ---------- */
+const LANGS = [
+  {code:"en", name:"English",     dir:"ltr", bcp:"en-US"},
+  {code:"es", name:"Español",     dir:"ltr", bcp:"es-ES"},
+  {code:"vi", name:"Tiếng Việt",  dir:"ltr", bcp:"vi-VN"},
+  {code:"ar", name:"العربية",     dir:"rtl", bcp:"ar-SA"},
+  {code:"hi", name:"हिन्दी",       dir:"ltr", bcp:"hi-IN"},
+  {code:"ur", name:"اردو",        dir:"rtl", bcp:"ur-PK"},
+  {code:"zh", name:"中文",         dir:"ltr", bcp:"zh-CN"}
+];
+const LANG_KEY = "tcea.mathtools.lang";
+
+/* ---------- Translations ---------- */
+const T = {
+  en:{
+    appTitle:"Array Architect", home:"Home", privacy:"Privacy", teacher:"Teacher", language:"Language", readAloud:"Read aloud",
+    modesLbl:"Modes", stars:"Stars earned", newRound:"New round", footNote:"No accounts · No data collected · Works offline",
+    check:"Check", clear:"Clear", undo:"Undo", choicesLbl:"Answer choices",
+    mArr:"Equal Groups & Arrays", mArea:"Area Model", mDiv:"Division Builder", mFact:"Fact Fluency", mStory:"Multi-Step Stories",
+    rowsLbl:"Rows", colsLbl:"Columns", addRow:"Add a row", remRow:"Remove a row", addCol:"Add a column", remCol:"Remove a column",
+    arrGridLbl:"Array builder. Tap or drag to set the size, or use the arrow keys.",
+    arrRC:"{r} rows, {c} columns", arrUsed:"{r} rows of {c}. Counters used: {u} of {n}",
+    arrAria:"{r} rows of {c} counters", grpAria:"{r} groups of {c} counters", thisArr:"This array:",
+    arrBuild:"Build an array with {r} rows and {c} in each row.",
+    arrTurn:"This array has {r} rows of {c}. Turn it: build {c} rows of {r}.",
+    arrShare:"Share {n} counters equally into {r} rows. Add columns until all {n} are used. How many are in each row?",
+    arrGroup:"Put {n} counters in rows of {c}. Add rows until all {n} are used. How many rows do you get?",
+    arrEqA:"Which equation matches this array?", arrEqG:"Which equation matches these equal groups?",
+    arrEmpty:"Tap the grid to start building your array.",
+    goodArr:"Yes! {r} rows of {c}. Skip count by {c}s: {seq}. So {eq}.",
+    goodTurn:"Yes! {eq}. Turning an array does not change the total. That is the commutative property.",
+    goodShare:"Yes! {n} shared into {r} equal rows gives {c} in each row: {eq}, because {eq2}.",
+    goodGroup:"Yes! {n} counters in rows of {c} make {r} rows: {eq}, because {eq2}.",
+    hintArr:"You built {r} rows with {c} in each row. We need {R} rows with {C} in each row. Rows go across; columns go up and down.",
+    hintArrSwap:"Close! You built {r} rows of {c}. Rows go across, so we need {R} rows, each with {C}.",
+    hintShareLess:"You used {u} counters, so {left} are still left to share. Add a column to give every row one more.",
+    hintShareMore:"You used {u} counters, but there are only {n}. Take away a column.",
+    hintGroupLess:"You used {u} counters, so {left} are still left. Add another row of {c}.",
+    hintGroupMore:"You used {u} counters, but there are only {n}. Take away a row.",
+    goodEqA:"Yes! {r} rows of {c}. Skip count by {c}s: {seq}. So {eq}.",
+    goodEqG:"Yes! {r} equal groups of {c}. Skip count by {c}s: {seq}. So {eq}.",
+    hintEqAdd:"Adding {s} counts only one row and one column, not every counter.",
+    hintEqA:"Look closely: there are {r} rows, with {c} in each row.",
+    hintEqG:"Look closely: there are {r} groups, with {c} in each group.",
+    areaSplitDir:"Find {eq}. Tap the array to split it into two easier facts, then fill in the boxes.",
+    areaPPDir:"Find {eq} with an area model. Fill in each partial product, then add them.",
+    splitTap:"Tap or drag on the array to split it.", splitLeft:"Move the split left", splitRight:"Move the split right",
+    splitLbl:"Array to split. Use the arrow keys to move the split.",
+    partL:"Left part", partR:"Right part", totalLbl:"Total", fillAll:"Fill in every box first.",
+    hintPartL:"The left part is {a} rows of {k}. Count by {k}s {a} times: {s} …",
+    hintPartR:"The right part is {a} rows of {k}. Count by {k}s {a} times: {s} …",
+    hintSum:"Your parts are right. Now add them: {eq}.",
+    goodSplit:"Yes! {eq}. Splitting an array into two easier facts is the distributive property.",
+    ppCell:"Partial product {eq}",
+    hintPP0:"{eq} is a basic fact. Count by {y}s {x} times if you need to.",
+    hintPP:"For {eq}, start with the basic fact {fact}. Then use place value: write {zs} after {f}.",
+    oneZero:"1 zero", nZeros:"{z} zeros",
+    hintPPSum:"Your partial products are right. Now add them all: {eq}.",
+    goodPP:"Yes! {sum}, so {eq}. Breaking numbers into hundreds, tens, and ones makes easier partial products.",
+    divDir:"Find {eq}. Take away groups of {d} with the chunk buttons, then answer.",
+    divFirst:"First, find {eq}.",
+    chunkTitle:"Take away groups", chunkHelp:"Each button takes away that many groups of {d}.",
+    chunkAria:"Take {m} groups of {d}, that is {p}",
+    leftLbl:"Left: {left}", remAbbr:"R", quotLbl:"Quotient", remLbl:"Remainder",
+    chunkBig:"{eq}, but only {left} are left. Try a smaller chunk.",
+    chunkDone:"Only {left} left, which is not enough for another group of {d}. Now add up your groups.",
+    chunkNoMore:"Less than {d} is left, so no more groups fit.",
+    hintDivUse:"Use the chunk buttons to take away groups of {d} until less than {d} is left. Then add up the groups.",
+    hintDivSum:"Add up the groups you took: {eq}.",
+    hintDivBig:"{eq}, which is more than {n}. Try a smaller quotient.",
+    hintDivSmall:"{eq}. That leaves {left}, which is enough for another group of {d}. Try a bigger quotient.",
+    hintRemBig:"A remainder must be less than {d}. Otherwise you could make another group.",
+    hintRem:"{eq}. How many are left when you take {p} away from {n}?",
+    goodDiv:"Yes! {eq}. Check: {chk}.",
+    divInterp:"Yes! {eq}. Now think about the story.",
+    ctx_up:"{n} students are coming to a class party. Each table seats {d} students. How many tables are needed?",
+    ctx_drop:"{n} muffins are packed into boxes of {d}. How many boxes can be filled completely?",
+    ctx_left:"{n} stickers are shared equally among {d} friends. How many stickers are left over?",
+    ctx_each:"{n} pencils are shared equally among {d} cups. How many pencils go in each cup?",
+    q_up:"How many tables are needed?", q_drop:"How many boxes can be filled completely?", q_left:"How many stickers are left over?",
+    good_up:"Yes! {q} tables are full and {r} students still need a seat, so {q1} tables are needed. Here the remainder makes us round up.",
+    good_drop:"Yes! {q} boxes are full. The {r} extra muffins cannot fill another box, so we drop the remainder.",
+    good_left:"Yes! Each friend gets {q}, and the remainder, {r}, is the number of stickers left over.",
+    good_each:"Each cup gets {q} pencils.",
+    hint_up:"Can {r} students go without a seat? Every student needs a seat, so think about the remainder.",
+    hint_drop:"The question asks about full boxes only. Do {r} extra muffins fill a whole box?",
+    hint_left:"The question asks what is left over, not how many each friend gets.",
+    mulDir:"Find the missing factor.", divFactDir:"Find the quotient.",
+    famDir:"Which equation belongs to the fact family for {nums}?",
+    factorsDir:"Tap ALL the factors of {n}. Then tap Check.",
+    multDir:"Tap ALL the multiples of {k}. Then tap Check.",
+    primeDir:"Is {n} prime or composite?",
+    prime:"Prime", composite:"Composite", primeSub:"exactly 2 factors", compSub:"more than 2 factors",
+    goodMul:"Yes! {eq}, so {rel}.", hintMul:"Think: how many {k}s make {p}? Count by {k}s: {seq}.",
+    goodDivF:"Yes! {eq}, because {rel}.", hintDivF:"Division is a missing-factor problem: {q}. Count by {a}s until you reach {p}.",
+    goodFam:"Yes! The whole fact family: {list}.",
+    hintFam:"A fact family uses the same three numbers, and every fact must be true. In division, the largest number comes first.",
+    chipsEmpty:"Tap some numbers first.",
+    hintNotFactor:"{x} is not a factor of {n}: {eq}. A factor divides with no remainder.",
+    hintPartner:"Factors come in pairs: {eq}. Did you get both numbers in every pair?",
+    hintFactMiss:"Some factors are missing. Try each number: does it divide {n} with no remainder?",
+    goodFactors:"Yes! The factors of {n} are {list}. Factor pairs: {pairs}.",
+    hintNotMult:"{x} is not a multiple of {k}. Counting by {k}s jumps from {lo} to {hi}.",
+    hintMultMiss:"Some multiples are missing. Count by {k}s and look for each number you say.",
+    goodMult:"Yes! The multiples of {k} are the numbers you say when you count by {k}s: {seq}.",
+    goodPrime:"Yes! {n} has exactly two factors, 1 and {n}, so it is prime.",
+    goodComp:"Yes! {eq}, so {n} has more than two factors: {list}. It is composite.",
+    hintPrime:"Look for a factor pair other than {eq}. If there is none, {n} has only two factors.",
+    hintComp:"Does {x} divide {n} with no remainder? A number with more than two factors is composite.",
+    letterNote:"Use the letter {L} for the unknown number.",
+    step1Q:"Step 1: Which equation matches the story?",
+    step2Q:"Step 2: Estimate. About how much is {L}?",
+    step3Q:"Step 3: Solve. What is {L}?",
+    estWord:"Estimate:",
+    goodStep1:"Yes! That equation matches the story.",
+    hintStep1:"Read the story again. What happens first, and what happens next? Parentheses show which step to do first.",
+    goodEst:"Yes! {expr}. So {L} should be about {e}.",
+    hintEst:"Round to friendly numbers: {list}. Then use your equation.",
+    hintEstSmall:"These numbers are small. Use your equation and work it out in your head.",
+    goodStory:"Yes! {eq}. {steps} The answer is close to the estimate of about {e}, so it is reasonable.",
+    thenW:"then",
+    hintFar:"{v} is far from your estimate of about {e}, so something went wrong.",
+    hintClose:"{v} is close to your estimate of about {e}, but it is not exact.",
+    hintStart:"Do one step at a time. Start with {s}.",
+    stBox:"There are {a} boxes of markers with {b} markers in each box. The class uses {c} markers. How many markers are left?",
+    stBus:"A bus has {a} rows of seats with {b} seats in each row. Every seat is full, and {c} more people are standing. How many people are on the bus?",
+    stApple:"A farmer picks {a} red apples and {b} green apples. She packs them equally into {c} bags. How many apples go in each bag?",
+    stTicket:"A museum ticket costs {a} dollars and a snack costs {b} dollars. {c} students each buy one ticket and one snack. How many dollars do they spend in all?",
+    stSticker:"Ana has {a} stickers. She shares them equally among {b} friends. Then each friend gives away {c} stickers. How many stickers does each friend have now?",
+    sayTimes:"times", sayDiv:"divided by", sayPlus:"plus", sayMinus:"minus", sayEq:"equals", sayAbout:"about", sayBlank:"blank", sayRem:"remainder",
+    teacherTitle:"Teacher settings", close:"Close", setGrade:"Grade level", g3:"Grade 3", g4:"Grade 4", g5:"Grade 5",
+    gradeNote:"Choosing a grade sets the options below. You can still change them.",
+    setMaxFact:"Largest factor (facts and arrays)", setArea:"Area model up to",
+    aF:"Splitting facts (like 7 × 8)", a21:"2-digit × 1-digit", a22:"2-digit × 2-digit", a32:"3-digit × 2-digit",
+    setDiv:"Division", dv100:"Within 100, 1-digit divisor", dv1000:"3-digit ÷ 1-digit", dv9999:"4-digit ÷ 1-digit", dv2dig:"Up to 4-digit ÷ 2-digit",
+    setRem:"Remainders", remOn:"Include remainders and remainder stories",
+    setModes:"Modes", setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
+    setStored:"Settings are saved only on this device. No student information is ever stored.",
+    stds:"Aligned standards — Texas TEKS: Grade 3 3.4(D, E, F, G, H, J, K), 3.5(B, D); Grade 4 4.4(C, D, E, F, G, H), 4.5(A); Grade 5 5.3(B, C), 5.4(A, B). Common Core: 3.OA.1–8, 3.NBT.3; 4.OA.3, 4.OA.4, 4.NBT.5, 4.NBT.6; 5.NBT.5, 5.NBT.6.",
+    cardTitle:"Array Architect — Challenge Cards", cardName:"Name:",
+    cardArr:"Draw an array with {r} rows of {c}. Write a multiplication equation for it.",
+    cardArea:"Use an area model to find {eq}.", cardDiv:"Use partial quotients to find {eq}.",
+    cardMiss:"Find the missing number.", cardFactors:"List all the factors of {n}.",
+    cardStory:"Write an equation with a letter for the unknown. Estimate, then solve."
+  },
+  es:{
+    appTitle:"Arquitecto de Arreglos", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", language:"Idioma", readAloud:"Leer en voz alta",
+    modesLbl:"Modos", stars:"Estrellas ganadas", newRound:"Nueva ronda", footNote:"Sin cuentas · Sin datos · Funciona sin conexión",
+    check:"Revisar", clear:"Borrar", undo:"Deshacer", choicesLbl:"Opciones de respuesta",
+    mArr:"Grupos iguales y arreglos", mArea:"Modelo de área", mDiv:"Constructor de división", mFact:"Fluidez con operaciones", mStory:"Problemas de varios pasos",
+    rowsLbl:"Filas", colsLbl:"Columnas", addRow:"Agregar una fila", remRow:"Quitar una fila", addCol:"Agregar una columna", remCol:"Quitar una columna",
+    arrGridLbl:"Constructor de arreglos. Toca o arrastra para cambiar el tamaño, o usa las flechas del teclado.",
+    arrRC:"{r} filas, {c} columnas", arrUsed:"{r} filas de {c}. Fichas usadas: {u} de {n}",
+    arrAria:"{r} filas de {c} fichas", grpAria:"{r} grupos de {c} fichas", thisArr:"Este arreglo:",
+    arrBuild:"Construye un arreglo con {r} filas y {c} en cada fila.",
+    arrTurn:"Este arreglo tiene {r} filas de {c}. Gíralo: construye {c} filas de {r}.",
+    arrShare:"Reparte {n} fichas en partes iguales en {r} filas. Agrega columnas hasta usar las {n}. ¿Cuántas hay en cada fila?",
+    arrGroup:"Pon {n} fichas en filas de {c}. Agrega filas hasta usar las {n}. ¿Cuántas filas se forman?",
+    arrEqA:"¿Qué ecuación corresponde a este arreglo?", arrEqG:"¿Qué ecuación corresponde a estos grupos iguales?",
+    arrEmpty:"Toca la cuadrícula para empezar a construir tu arreglo.",
+    goodArr:"¡Sí! {r} filas de {c}. Cuenta de {c} en {c}: {seq}. Entonces, {eq}.",
+    goodTurn:"¡Sí! {eq}. Girar un arreglo no cambia el total. Esa es la propiedad conmutativa.",
+    goodShare:"¡Sí! {n} repartidas en {r} filas iguales dan {c} en cada fila: {eq}, porque {eq2}.",
+    goodGroup:"¡Sí! {n} fichas en filas de {c} forman {r} filas: {eq}, porque {eq2}.",
+    hintArr:"Construiste {r} filas con {c} en cada fila. Necesitamos {R} filas con {C} en cada fila. Las filas van de lado a lado; las columnas van de arriba abajo.",
+    hintArrSwap:"¡Casi! Construiste {r} filas de {c}. Las filas van de lado a lado, así que necesitamos {R} filas, cada una con {C}.",
+    hintShareLess:"Usaste {u} fichas, así que todavía quedan {left} por repartir. Agrega una columna para darle una más a cada fila.",
+    hintShareMore:"Usaste {u} fichas, pero solo hay {n}. Quita una columna.",
+    hintGroupLess:"Usaste {u} fichas, así que todavía quedan {left}. Agrega otra fila de {c}.",
+    hintGroupMore:"Usaste {u} fichas, pero solo hay {n}. Quita una fila.",
+    goodEqA:"¡Sí! {r} filas de {c}. Cuenta de {c} en {c}: {seq}. Entonces, {eq}.",
+    goodEqG:"¡Sí! {r} grupos iguales de {c}. Cuenta de {c} en {c}: {seq}. Entonces, {eq}.",
+    hintEqAdd:"Sumar {s} solo cuenta una fila y una columna, no todas las fichas.",
+    hintEqA:"Mira bien: hay {r} filas, con {c} en cada fila.",
+    hintEqG:"Mira bien: hay {r} grupos, con {c} en cada grupo.",
+    areaSplitDir:"Encuentra {eq}. Toca el arreglo para dividirlo en dos operaciones más fáciles y luego completa los recuadros.",
+    areaPPDir:"Encuentra {eq} con un modelo de área. Completa cada producto parcial y luego súmalos.",
+    splitTap:"Toca o arrastra sobre el arreglo para dividirlo.", splitLeft:"Mover la división a la izquierda", splitRight:"Mover la división a la derecha",
+    splitLbl:"Arreglo para dividir. Usa las flechas para mover la división.",
+    partL:"Parte izquierda", partR:"Parte derecha", totalLbl:"Total", fillAll:"Primero completa todos los recuadros.",
+    hintPartL:"La parte izquierda tiene {a} filas de {k}. Cuenta de {k} en {k}, {a} veces: {s} …",
+    hintPartR:"La parte derecha tiene {a} filas de {k}. Cuenta de {k} en {k}, {a} veces: {s} …",
+    hintSum:"Tus partes están bien. Ahora súmalas: {eq}.",
+    goodSplit:"¡Sí! {eq}. Dividir un arreglo en dos operaciones más fáciles es la propiedad distributiva.",
+    ppCell:"Producto parcial {eq}",
+    hintPP0:"{eq} es una operación básica. Cuenta de {y} en {y}, {x} veces, si lo necesitas.",
+    hintPP:"Para {eq}, empieza con la operación básica {fact}. Luego usa el valor posicional: escribe {zs} después de {f}.",
+    oneZero:"1 cero", nZeros:"{z} ceros",
+    hintPPSum:"Tus productos parciales están bien. Ahora súmalos todos: {eq}.",
+    goodPP:"¡Sí! {sum}, entonces {eq}. Separar los números en centenas, decenas y unidades da productos parciales más fáciles.",
+    divDir:"Encuentra {eq}. Quita grupos de {d} con los botones y luego responde.",
+    divFirst:"Primero, encuentra {eq}.",
+    chunkTitle:"Quita grupos", chunkHelp:"Cada botón quita esa cantidad de grupos de {d}.",
+    chunkAria:"Quitar {m} grupos de {d}, o sea {p}",
+    leftLbl:"Quedan: {left}", remAbbr:"R", quotLbl:"Cociente", remLbl:"Residuo",
+    chunkBig:"{eq}, pero solo quedan {left}. Prueba con menos grupos.",
+    chunkDone:"Solo quedan {left}, y no alcanza para otro grupo de {d}. Ahora suma tus grupos.",
+    chunkNoMore:"Queda menos de {d}, así que no caben más grupos.",
+    hintDivUse:"Usa los botones para quitar grupos de {d} hasta que quede menos de {d}. Luego suma los grupos.",
+    hintDivSum:"Suma los grupos que quitaste: {eq}.",
+    hintDivBig:"{eq}, que es más que {n}. Prueba un cociente más pequeño.",
+    hintDivSmall:"{eq}. Quedan {left}, y eso alcanza para otro grupo de {d}. Prueba un cociente más grande.",
+    hintRemBig:"El residuo debe ser menor que {d}. Si no, podrías formar otro grupo.",
+    hintRem:"{eq}. ¿Cuántos quedan si le quitas {p} a {n}?",
+    goodDiv:"¡Sí! {eq}. Comprueba: {chk}.",
+    divInterp:"¡Sí! {eq}. Ahora piensa en el problema.",
+    ctx_up:"{n} estudiantes vienen a una fiesta de la clase. En cada mesa se sientan {d} estudiantes. ¿Cuántas mesas se necesitan?",
+    ctx_drop:"Se empacan {n} panquecitos en cajas de {d}. ¿Cuántas cajas se pueden llenar por completo?",
+    ctx_left:"Se reparten {n} calcomanías en partes iguales entre {d} amigos. ¿Cuántas calcomanías sobran?",
+    ctx_each:"Se reparten {n} lápices en partes iguales en {d} vasos. ¿Cuántos lápices van en cada vaso?",
+    q_up:"¿Cuántas mesas se necesitan?", q_drop:"¿Cuántas cajas se pueden llenar por completo?", q_left:"¿Cuántas calcomanías sobran?",
+    good_up:"¡Sí! {q} mesas están llenas y {r} estudiantes todavía necesitan asiento, así que se necesitan {q1} mesas. Aquí el residuo nos hace redondear hacia arriba.",
+    good_drop:"¡Sí! {q} cajas están llenas. Los {r} panquecitos extra no llenan otra caja, así que no contamos el residuo.",
+    good_left:"¡Sí! Cada amigo recibe {q}, y el residuo, {r}, es la cantidad de calcomanías que sobran.",
+    good_each:"Cada vaso tiene {q} lápices.",
+    hint_up:"¿Pueden quedarse {r} estudiantes sin asiento? Todos necesitan asiento, así que piensa en el residuo.",
+    hint_drop:"La pregunta es solo sobre cajas llenas. ¿{r} panquecitos extra llenan una caja completa?",
+    hint_left:"La pregunta es cuántas sobran, no cuántas recibe cada amigo.",
+    mulDir:"Encuentra el factor que falta.", divFactDir:"Encuentra el cociente.",
+    famDir:"¿Qué ecuación pertenece a la familia de operaciones de {nums}?",
+    factorsDir:"Toca TODOS los factores de {n}. Luego toca Revisar.",
+    multDir:"Toca TODOS los múltiplos de {k}. Luego toca Revisar.",
+    primeDir:"¿{n} es primo o compuesto?",
+    prime:"Primo", composite:"Compuesto", primeSub:"exactamente 2 factores", compSub:"más de 2 factores",
+    goodMul:"¡Sí! {eq}, entonces {rel}.", hintMul:"Piensa: ¿cuántos {k} forman {p}? Cuenta de {k} en {k}: {seq}.",
+    goodDivF:"¡Sí! {eq}, porque {rel}.", hintDivF:"Una división es un problema de factor que falta: {q}. Cuenta de {a} en {a} hasta llegar a {p}.",
+    goodFam:"¡Sí! Toda la familia de operaciones: {list}.",
+    hintFam:"Una familia de operaciones usa los mismos tres números y cada operación debe ser verdadera. En la división, el número mayor va primero.",
+    chipsEmpty:"Primero toca algunos números.",
+    hintNotFactor:"{x} no es factor de {n}: {eq}. Un factor divide sin residuo.",
+    hintPartner:"Los factores vienen en pares: {eq}. ¿Marcaste los dos números de cada par?",
+    hintFactMiss:"Faltan algunos factores. Prueba cada número: ¿divide a {n} sin residuo?",
+    goodFactors:"¡Sí! Los factores de {n} son {list}. Pares de factores: {pairs}.",
+    hintNotMult:"{x} no es múltiplo de {k}. Al contar de {k} en {k} saltas de {lo} a {hi}.",
+    hintMultMiss:"Faltan algunos múltiplos. Cuenta de {k} en {k} y busca cada número que digas.",
+    goodMult:"¡Sí! Los múltiplos de {k} son los números que dices al contar de {k} en {k}: {seq}.",
+    goodPrime:"¡Sí! {n} tiene exactamente dos factores, 1 y {n}, así que es primo.",
+    goodComp:"¡Sí! {eq}, así que {n} tiene más de dos factores: {list}. Es compuesto.",
+    hintPrime:"Busca un par de factores que no sea {eq}. Si no hay, {n} tiene solo dos factores.",
+    hintComp:"¿{x} divide a {n} sin residuo? Un número con más de dos factores es compuesto.",
+    letterNote:"Usa la letra {L} para el número desconocido.",
+    step1Q:"Paso 1: ¿Qué ecuación corresponde al problema?",
+    step2Q:"Paso 2: Estima. ¿Más o menos cuánto es {L}?",
+    step3Q:"Paso 3: Resuelve. ¿Cuánto es {L}?",
+    estWord:"Estimación:",
+    goodStep1:"¡Sí! Esa ecuación corresponde al problema.",
+    hintStep1:"Vuelve a leer el problema. ¿Qué pasa primero y qué pasa después? Los paréntesis muestran qué paso se hace primero.",
+    goodEst:"¡Sí! {expr}. Entonces {L} debe ser más o menos {e}.",
+    hintEst:"Redondea a números fáciles: {list}. Luego usa tu ecuación.",
+    hintEstSmall:"Estos números son pequeños. Usa tu ecuación y calcula mentalmente.",
+    goodStory:"¡Sí! {eq}. {steps} La respuesta está cerca de la estimación de más o menos {e}, así que es razonable.",
+    thenW:"luego",
+    hintFar:"{v} está lejos de tu estimación de más o menos {e}, así que algo salió mal.",
+    hintClose:"{v} está cerca de tu estimación de más o menos {e}, pero no es exacto.",
+    hintStart:"Haz un paso a la vez. Empieza con {s}.",
+    stBox:"Hay {a} cajas de marcadores con {b} marcadores en cada caja. La clase usa {c} marcadores. ¿Cuántos marcadores quedan?",
+    stBus:"Un autobús tiene {a} filas de asientos con {b} asientos en cada fila. Todos los asientos están ocupados y {c} personas más van de pie. ¿Cuántas personas hay en el autobús?",
+    stApple:"Una granjera cosecha {a} manzanas rojas y {b} manzanas verdes. Las empaca en partes iguales en {c} bolsas. ¿Cuántas manzanas van en cada bolsa?",
+    stTicket:"Un boleto del museo cuesta {a} dólares y un refrigerio cuesta {b} dólares. {c} estudiantes compran cada uno un boleto y un refrigerio. ¿Cuántos dólares gastan en total?",
+    stSticker:"Ana tiene {a} calcomanías. Las reparte en partes iguales entre {b} amigos. Luego cada amigo regala {c} calcomanías. ¿Cuántas calcomanías tiene ahora cada amigo?",
+    sayTimes:"por", sayDiv:"entre", sayPlus:"más", sayMinus:"menos", sayEq:"es igual a", sayAbout:"aproximadamente", sayBlank:"qué número", sayRem:"residuo",
+    teacherTitle:"Ajustes del maestro", close:"Cerrar", setGrade:"Grado", g3:"3.er grado", g4:"4.º grado", g5:"5.º grado",
+    gradeNote:"Al elegir un grado se ajustan las opciones de abajo. Todavía puedes cambiarlas.",
+    setMaxFact:"Factor mayor (operaciones y arreglos)", setArea:"Modelo de área hasta",
+    aF:"Dividir operaciones (como 7 × 8)", a21:"2 dígitos × 1 dígito", a22:"2 dígitos × 2 dígitos", a32:"3 dígitos × 2 dígitos",
+    setDiv:"División", dv100:"Hasta 100, divisor de 1 dígito", dv1000:"3 dígitos ÷ 1 dígito", dv9999:"4 dígitos ÷ 1 dígito", dv2dig:"Hasta 4 dígitos ÷ 2 dígitos",
+    setRem:"Residuos", remOn:"Incluir residuos y problemas con residuo",
+    setModes:"Modos", setSpeech:"Voz", autoRead:"Leer instrucciones automáticamente", printCards:"Imprimir tarjetas de reto",
+    setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información del estudiante.",
+    stds:"Estándares alineados — TEKS de Texas: 3.er grado 3.4(D, E, F, G, H, J, K), 3.5(B, D); 4.º grado 4.4(C, D, E, F, G, H), 4.5(A); 5.º grado 5.3(B, C), 5.4(A, B). Common Core: 3.OA.1–8, 3.NBT.3; 4.OA.3, 4.OA.4, 4.NBT.5, 4.NBT.6; 5.NBT.5, 5.NBT.6.",
+    cardTitle:"Arquitecto de Arreglos — Tarjetas de reto", cardName:"Nombre:",
+    cardArr:"Dibuja un arreglo con {r} filas de {c}. Escribe una ecuación de multiplicación para él.",
+    cardArea:"Usa un modelo de área para encontrar {eq}.", cardDiv:"Usa cocientes parciales para encontrar {eq}.",
+    cardMiss:"Encuentra el número que falta.", cardFactors:"Escribe todos los factores de {n}.",
+    cardStory:"Escribe una ecuación con una letra para el número desconocido. Estima y luego resuelve."
+  },
+  vi:{
+    appTitle:"Kiến Trúc Sư Mảng", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", language:"Ngôn ngữ", readAloud:"Đọc to",
+    modesLbl:"Chế độ", stars:"Số sao đạt được", newRound:"Vòng mới", footNote:"Không tài khoản · Không thu thập dữ liệu · Hoạt động ngoại tuyến",
+    check:"Kiểm tra", clear:"Xóa", undo:"Hoàn tác", choicesLbl:"Các lựa chọn",
+    mArr:"Nhóm bằng nhau & Mảng", mArea:"Mô hình diện tích", mDiv:"Xây phép chia", mFact:"Thuộc bảng nhân chia", mStory:"Bài toán nhiều bước",
+    rowsLbl:"Hàng", colsLbl:"Cột", addRow:"Thêm một hàng", remRow:"Bớt một hàng", addCol:"Thêm một cột", remCol:"Bớt một cột",
+    arrGridLbl:"Bảng xây mảng. Chạm hoặc kéo để chọn kích thước, hoặc dùng phím mũi tên.",
+    arrRC:"{r} hàng, {c} cột", arrUsed:"{r} hàng, mỗi hàng {c}. Đã dùng {u} trên {n} hạt",
+    arrAria:"{r} hàng, mỗi hàng {c} hạt", grpAria:"{r} nhóm, mỗi nhóm {c} hạt", thisArr:"Mảng này:",
+    arrBuild:"Xây một mảng có {r} hàng, mỗi hàng {c}.",
+    arrTurn:"Mảng này có {r} hàng, mỗi hàng {c}. Hãy xoay nó: xây {c} hàng, mỗi hàng {r}.",
+    arrShare:"Chia đều {n} hạt vào {r} hàng. Thêm cột cho đến khi dùng hết {n} hạt. Mỗi hàng có mấy hạt?",
+    arrGroup:"Xếp {n} hạt thành các hàng, mỗi hàng {c}. Thêm hàng cho đến khi dùng hết {n} hạt. Em được mấy hàng?",
+    arrEqA:"Phép tính nào phù hợp với mảng này?", arrEqG:"Phép tính nào phù hợp với các nhóm bằng nhau này?",
+    arrEmpty:"Chạm vào lưới để bắt đầu xây mảng.",
+    goodArr:"Đúng rồi! {r} hàng, mỗi hàng {c}. Đếm thêm {c}: {seq}. Vậy {eq}.",
+    goodTurn:"Đúng rồi! {eq}. Xoay mảng không làm thay đổi tổng. Đó là tính chất giao hoán.",
+    goodShare:"Đúng rồi! Chia {n} vào {r} hàng bằng nhau thì mỗi hàng có {c}: {eq}, vì {eq2}.",
+    goodGroup:"Đúng rồi! {n} hạt xếp mỗi hàng {c} thì được {r} hàng: {eq}, vì {eq2}.",
+    hintArr:"Em đã xây {r} hàng, mỗi hàng {c}. Ta cần {R} hàng, mỗi hàng {C}. Hàng nằm ngang; cột đứng dọc.",
+    hintArrSwap:"Gần đúng rồi! Em đã xây {r} hàng, mỗi hàng {c}. Hàng nằm ngang, nên ta cần {R} hàng, mỗi hàng {C}.",
+    hintShareLess:"Em đã dùng {u} hạt, nên còn {left} hạt chưa chia. Thêm một cột để mỗi hàng có thêm một hạt.",
+    hintShareMore:"Em đã dùng {u} hạt, nhưng chỉ có {n}. Bớt một cột nhé.",
+    hintGroupLess:"Em đã dùng {u} hạt, nên còn {left} hạt. Thêm một hàng {c} nữa.",
+    hintGroupMore:"Em đã dùng {u} hạt, nhưng chỉ có {n}. Bớt một hàng nhé.",
+    goodEqA:"Đúng rồi! {r} hàng, mỗi hàng {c}. Đếm thêm {c}: {seq}. Vậy {eq}.",
+    goodEqG:"Đúng rồi! {r} nhóm bằng nhau, mỗi nhóm {c}. Đếm thêm {c}: {seq}. Vậy {eq}.",
+    hintEqAdd:"Cộng {s} chỉ đếm một hàng và một cột, không đếm hết các hạt.",
+    hintEqA:"Nhìn kỹ nhé: có {r} hàng, mỗi hàng {c}.",
+    hintEqG:"Nhìn kỹ nhé: có {r} nhóm, mỗi nhóm {c}.",
+    areaSplitDir:"Tìm {eq}. Chạm vào mảng để tách thành hai phép nhân dễ hơn, rồi điền vào các ô.",
+    areaPPDir:"Tìm {eq} bằng mô hình diện tích. Điền từng tích riêng, rồi cộng lại.",
+    splitTap:"Chạm hoặc kéo trên mảng để tách nó.", splitLeft:"Dời đường tách sang trái", splitRight:"Dời đường tách sang phải",
+    splitLbl:"Mảng cần tách. Dùng phím mũi tên để dời đường tách.",
+    partL:"Phần bên trái", partR:"Phần bên phải", totalLbl:"Tổng", fillAll:"Hãy điền vào tất cả các ô trước.",
+    hintPartL:"Phần bên trái có {a} hàng, mỗi hàng {k}. Đếm thêm {k}, {a} lần: {s} …",
+    hintPartR:"Phần bên phải có {a} hàng, mỗi hàng {k}. Đếm thêm {k}, {a} lần: {s} …",
+    hintSum:"Hai phần của em đúng rồi. Bây giờ cộng lại: {eq}.",
+    goodSplit:"Đúng rồi! {eq}. Tách mảng thành hai phép nhân dễ hơn là tính chất phân phối.",
+    ppCell:"Tích riêng {eq}",
+    hintPP0:"{eq} là phép nhân cơ bản. Nếu cần, hãy đếm thêm {y}, {x} lần.",
+    hintPP:"Với {eq}, bắt đầu bằng phép nhân cơ bản {fact}. Rồi dùng giá trị theo hàng: viết thêm {zs} sau {f}.",
+    oneZero:"1 chữ số 0", nZeros:"{z} chữ số 0",
+    hintPPSum:"Các tích riêng của em đúng rồi. Bây giờ cộng tất cả lại: {eq}.",
+    goodPP:"Đúng rồi! {sum}, vậy {eq}. Tách số thành trăm, chục và đơn vị giúp tính tích riêng dễ hơn.",
+    divDir:"Tìm {eq}. Dùng các nút để lấy đi từng nhóm {d}, rồi trả lời.",
+    divFirst:"Trước tiên, hãy tìm {eq}.",
+    chunkTitle:"Lấy đi các nhóm", chunkHelp:"Mỗi nút lấy đi số nhóm {d} như ghi trên nút.",
+    chunkAria:"Lấy {m} nhóm {d}, tức là {p}",
+    leftLbl:"Còn lại: {left}", remAbbr:"dư", quotLbl:"Thương", remLbl:"Số dư",
+    chunkBig:"{eq}, nhưng chỉ còn {left}. Hãy thử lấy ít nhóm hơn.",
+    chunkDone:"Chỉ còn {left}, không đủ cho một nhóm {d} nữa. Bây giờ hãy cộng các nhóm lại.",
+    chunkNoMore:"Còn ít hơn {d}, nên không lấy thêm nhóm được nữa.",
+    hintDivUse:"Dùng các nút để lấy đi từng nhóm {d} cho đến khi còn ít hơn {d}. Rồi cộng các nhóm lại.",
+    hintDivSum:"Cộng các nhóm em đã lấy: {eq}.",
+    hintDivBig:"{eq}, lớn hơn {n}. Hãy thử thương nhỏ hơn.",
+    hintDivSmall:"{eq}. Còn lại {left}, vẫn đủ cho một nhóm {d} nữa. Hãy thử thương lớn hơn.",
+    hintRemBig:"Số dư phải nhỏ hơn {d}. Nếu không, em còn tạo được một nhóm nữa.",
+    hintRem:"{eq}. Lấy {n} bớt đi {p} thì còn lại bao nhiêu?",
+    goodDiv:"Đúng rồi! {eq}. Thử lại: {chk}.",
+    divInterp:"Đúng rồi! {eq}. Bây giờ hãy nghĩ về câu chuyện.",
+    ctx_up:"Có {n} học sinh đến dự tiệc lớp. Mỗi bàn ngồi được {d} học sinh. Cần bao nhiêu bàn?",
+    ctx_drop:"Có {n} cái bánh nướng xếp vào các hộp, mỗi hộp {d} cái. Có thể xếp đầy bao nhiêu hộp?",
+    ctx_left:"Chia đều {n} nhãn dán cho {d} bạn. Còn thừa bao nhiêu nhãn dán?",
+    ctx_each:"Chia đều {n} cây bút chì vào {d} cái cốc. Mỗi cốc có bao nhiêu cây bút chì?",
+    q_up:"Cần bao nhiêu bàn?", q_drop:"Có thể xếp đầy bao nhiêu hộp?", q_left:"Còn thừa bao nhiêu nhãn dán?",
+    good_up:"Đúng rồi! {q} bàn đã đầy và còn {r} học sinh chưa có chỗ, nên cần {q1} bàn. Ở đây số dư khiến ta phải làm tròn lên.",
+    good_drop:"Đúng rồi! {q} hộp đã đầy. {r} cái bánh thừa không đủ đầy một hộp nữa, nên ta bỏ số dư.",
+    good_left:"Đúng rồi! Mỗi bạn được {q}, và số dư {r} là số nhãn dán còn thừa.",
+    good_each:"Mỗi cốc có {q} cây bút chì.",
+    hint_up:"Có thể để {r} học sinh không có chỗ ngồi không? Bạn nào cũng cần chỗ, nên hãy nghĩ về số dư.",
+    hint_drop:"Câu hỏi chỉ hỏi về hộp đầy. {r} cái bánh thừa có đủ đầy một hộp không?",
+    hint_left:"Câu hỏi hỏi số còn thừa, không phải mỗi bạn được bao nhiêu.",
+    mulDir:"Tìm thừa số còn thiếu.", divFactDir:"Tìm thương.",
+    famDir:"Phép tính nào thuộc gia đình phép tính của {nums}?",
+    factorsDir:"Chạm vào TẤT CẢ các ước của {n}. Rồi chạm Kiểm tra.",
+    multDir:"Chạm vào TẤT CẢ các bội của {k}. Rồi chạm Kiểm tra.",
+    primeDir:"{n} là số nguyên tố hay hợp số?",
+    prime:"Số nguyên tố", composite:"Hợp số", primeSub:"đúng 2 ước", compSub:"nhiều hơn 2 ước",
+    goodMul:"Đúng rồi! {eq}, nên {rel}.", hintMul:"Hãy nghĩ: mấy lần {k} thì được {p}? Đếm thêm {k}: {seq}.",
+    goodDivF:"Đúng rồi! {eq}, vì {rel}.", hintDivF:"Phép chia là bài toán tìm thừa số còn thiếu: {q}. Đếm thêm {a} cho đến khi được {p}.",
+    goodFam:"Đúng rồi! Cả gia đình phép tính: {list}.",
+    hintFam:"Một gia đình phép tính dùng cùng ba số, và mỗi phép tính phải đúng. Trong phép chia, số lớn nhất đứng đầu.",
+    chipsEmpty:"Hãy chạm vào vài số trước.",
+    hintNotFactor:"{x} không phải là ước của {n}: {eq}. Ước là số chia hết, không có dư.",
+    hintPartner:"Các ước đi theo cặp: {eq}. Em đã chọn cả hai số của mỗi cặp chưa?",
+    hintFactMiss:"Còn thiếu vài ước. Thử từng số: {n} có chia hết cho số đó không?",
+    goodFactors:"Đúng rồi! Các ước của {n} là {list}. Các cặp ước: {pairs}.",
+    hintNotMult:"{x} không phải là bội của {k}. Đếm thêm {k} thì nhảy từ {lo} đến {hi}.",
+    hintMultMiss:"Còn thiếu vài bội. Đếm thêm {k} và tìm từng số em đọc.",
+    goodMult:"Đúng rồi! Bội của {k} là các số em đọc khi đếm thêm {k}: {seq}.",
+    goodPrime:"Đúng rồi! {n} có đúng hai ước là 1 và {n}, nên nó là số nguyên tố.",
+    goodComp:"Đúng rồi! {eq}, nên {n} có nhiều hơn hai ước: {list}. Nó là hợp số.",
+    hintPrime:"Hãy tìm một cặp ước khác {eq}. Nếu không có, {n} chỉ có hai ước.",
+    hintComp:"{n} có chia hết cho {x} không? Số có nhiều hơn hai ước là hợp số.",
+    letterNote:"Dùng chữ {L} cho số chưa biết.",
+    step1Q:"Bước 1: Phép tính nào phù hợp với câu chuyện?",
+    step2Q:"Bước 2: Ước lượng. {L} khoảng bao nhiêu?",
+    step3Q:"Bước 3: Giải. {L} bằng bao nhiêu?",
+    estWord:"Ước lượng:",
+    goodStep1:"Đúng rồi! Phép tính đó phù hợp với câu chuyện.",
+    hintStep1:"Đọc lại câu chuyện. Việc gì xảy ra trước, việc gì xảy ra sau? Dấu ngoặc cho biết bước nào làm trước.",
+    goodEst:"Đúng rồi! {expr}. Vậy {L} khoảng {e}.",
+    hintEst:"Làm tròn thành số dễ tính: {list}. Rồi dùng phép tính của em.",
+    hintEstSmall:"Các số này nhỏ. Dùng phép tính của em và tính nhẩm.",
+    goodStory:"Đúng rồi! {eq}. {steps} Đáp số gần với ước lượng khoảng {e}, nên đáp số hợp lý.",
+    thenW:"rồi",
+    hintFar:"{v} khác xa ước lượng khoảng {e} của em, nên có chỗ nào đó chưa đúng.",
+    hintClose:"{v} gần với ước lượng khoảng {e}, nhưng chưa chính xác.",
+    hintStart:"Làm từng bước một. Bắt đầu với {s}.",
+    stBox:"Có {a} hộp bút dạ, mỗi hộp có {b} cây. Cả lớp dùng {c} cây. Còn lại bao nhiêu cây bút dạ?",
+    stBus:"Một xe buýt có {a} hàng ghế, mỗi hàng có {b} ghế. Ghế nào cũng có người ngồi, và còn {c} người đứng. Trên xe buýt có bao nhiêu người?",
+    stApple:"Một bác nông dân hái {a} quả táo đỏ và {b} quả táo xanh. Bác chia đều vào {c} túi. Mỗi túi có bao nhiêu quả táo?",
+    stTicket:"Một vé bảo tàng giá {a} đô la và một phần ăn nhẹ giá {b} đô la. {c} học sinh, mỗi bạn mua một vé và một phần ăn nhẹ. Các bạn tiêu tất cả bao nhiêu đô la?",
+    stSticker:"An có {a} nhãn dán. An chia đều cho {b} người bạn. Sau đó mỗi bạn tặng đi {c} nhãn dán. Bây giờ mỗi bạn có bao nhiêu nhãn dán?",
+    sayTimes:"nhân", sayDiv:"chia", sayPlus:"cộng", sayMinus:"trừ", sayEq:"bằng", sayAbout:"khoảng", sayBlank:"số nào", sayRem:"dư",
+    teacherTitle:"Cài đặt giáo viên", close:"Đóng", setGrade:"Lớp", g3:"Lớp 3", g4:"Lớp 4", g5:"Lớp 5",
+    gradeNote:"Chọn lớp sẽ đặt các tùy chọn bên dưới. Thầy cô vẫn có thể thay đổi.",
+    setMaxFact:"Thừa số lớn nhất (bảng nhân và mảng)", setArea:"Mô hình diện tích đến",
+    aF:"Tách phép nhân (như 7 × 8)", a21:"2 chữ số × 1 chữ số", a22:"2 chữ số × 2 chữ số", a32:"3 chữ số × 2 chữ số",
+    setDiv:"Phép chia", dv100:"Trong phạm vi 100, số chia 1 chữ số", dv1000:"3 chữ số ÷ 1 chữ số", dv9999:"4 chữ số ÷ 1 chữ số", dv2dig:"Đến 4 chữ số ÷ 2 chữ số",
+    setRem:"Số dư", remOn:"Có số dư và bài toán có dư",
+    setModes:"Chế độ", setSpeech:"Giọng nói", autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
+    setStored:"Cài đặt chỉ lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
+    stds:"Tiêu chuẩn phù hợp — Texas TEKS: Lớp 3 3.4(D, E, F, G, H, J, K), 3.5(B, D); Lớp 4 4.4(C, D, E, F, G, H), 4.5(A); Lớp 5 5.3(B, C), 5.4(A, B). Common Core: 3.OA.1–8, 3.NBT.3; 4.OA.3, 4.OA.4, 4.NBT.5, 4.NBT.6; 5.NBT.5, 5.NBT.6.",
+    cardTitle:"Kiến Trúc Sư Mảng — Thẻ thử thách", cardName:"Tên:",
+    cardArr:"Vẽ một mảng có {r} hàng, mỗi hàng {c}. Viết phép nhân cho mảng đó.",
+    cardArea:"Dùng mô hình diện tích để tìm {eq}.", cardDiv:"Dùng thương riêng phần để tìm {eq}.",
+    cardMiss:"Tìm số còn thiếu.", cardFactors:"Viết tất cả các ước của {n}.",
+    cardStory:"Viết phép tính có một chữ cái cho số chưa biết. Ước lượng, rồi giải."
+  },
+  ar:{
+    appTitle:"مهندس المصفوفات", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", language:"اللغة", readAloud:"اقرأ بصوت عالٍ",
+    modesLbl:"الأنماط", stars:"النجوم المكتسبة", newRound:"جولة جديدة", footNote:"بدون حسابات · لا جمع للبيانات · يعمل بدون إنترنت",
+    check:"تحقّق", clear:"مسح", undo:"تراجع", choicesLbl:"خيارات الإجابة",
+    mArr:"مجموعات متساوية ومصفوفات", mArea:"نموذج المساحة", mDiv:"بنّاء القسمة", mFact:"طلاقة الحقائق", mStory:"قصص متعددة الخطوات",
+    rowsLbl:"الصفوف", colsLbl:"الأعمدة", addRow:"أضف صفًا", remRow:"احذف صفًا", addCol:"أضف عمودًا", remCol:"احذف عمودًا",
+    arrGridLbl:"بنّاء المصفوفة. المس أو اسحب لتحديد الحجم، أو استخدم مفاتيح الأسهم.",
+    arrRC:"{r} صفوف، {c} أعمدة", arrUsed:"{r} صفوف، في كل صف {c}. العدادات المستخدمة: {u} من {n}",
+    arrAria:"{r} صفوف، في كل صف {c} عدادات", grpAria:"{r} مجموعات، في كل مجموعة {c} عدادات", thisArr:"هذه المصفوفة:",
+    arrBuild:"ابنِ مصفوفة من {r} صفوف، في كل صف {c}.",
+    arrTurn:"هذه المصفوفة فيها {r} صفوف، في كل صف {c}. أدِرها: ابنِ {c} صفوف، في كل صف {r}.",
+    arrShare:"وزّع {n} عدادًا بالتساوي على {r} صفوف. أضف أعمدة حتى تستخدم العدادات كلها ({n}). كم عدادًا في كل صف؟",
+    arrGroup:"ضع {n} عدادًا في صفوف، في كل صف {c}. أضف صفوفًا حتى تستخدم العدادات كلها ({n}). كم صفًا تحصل عليه؟",
+    arrEqA:"أي معادلة تناسب هذه المصفوفة؟", arrEqG:"أي معادلة تناسب هذه المجموعات المتساوية؟",
+    arrEmpty:"المس الشبكة لتبدأ ببناء مصفوفتك.",
+    goodArr:"نعم! {r} صفوف، في كل صف {c}. عُدّ بالقفز {c} في كل مرة: {seq}. إذن {eq}.",
+    goodTurn:"نعم! {eq}. تدوير المصفوفة لا يغيّر المجموع. هذه هي خاصية الإبدال.",
+    goodShare:"نعم! توزيع {n} على {r} صفوف متساوية يعطي {c} في كل صف: {eq}، لأن {eq2}.",
+    goodGroup:"نعم! {n} عدادًا في صفوف من {c} تكوّن {r} صفوف: {eq}، لأن {eq2}.",
+    hintArr:"بنيت {r} صفوف، في كل صف {c}. نحتاج {R} صفوف، في كل صف {C}. الصفوف أفقية، والأعمدة رأسية.",
+    hintArrSwap:"اقتربت! بنيت {r} صفوف، في كل صف {c}. الصفوف أفقية، لذا نحتاج {R} صفوف، في كل صف {C}.",
+    hintShareLess:"استخدمت {u} عدادًا، فما زال {left} بحاجة إلى توزيع. أضف عمودًا ليأخذ كل صف واحدًا إضافيًا.",
+    hintShareMore:"استخدمت {u} عدادًا، لكن لدينا {n} فقط. احذف عمودًا.",
+    hintGroupLess:"استخدمت {u} عدادًا، فما زال {left} متبقيًا. أضف صفًا آخر من {c}.",
+    hintGroupMore:"استخدمت {u} عدادًا، لكن لدينا {n} فقط. احذف صفًا.",
+    goodEqA:"نعم! {r} صفوف، في كل صف {c}. عُدّ بالقفز {c} في كل مرة: {seq}. إذن {eq}.",
+    goodEqG:"نعم! {r} مجموعات متساوية، في كل مجموعة {c}. عُدّ بالقفز {c} في كل مرة: {seq}. إذن {eq}.",
+    hintEqAdd:"جمع {s} يعدّ صفًا واحدًا وعمودًا واحدًا فقط، لا كل العدادات.",
+    hintEqA:"انظر جيدًا: هناك {r} صفوف، في كل صف {c}.",
+    hintEqG:"انظر جيدًا: هناك {r} مجموعات، في كل مجموعة {c}.",
+    areaSplitDir:"جِد {eq}. المس المصفوفة لتقسمها إلى حقيقتي ضرب أسهل، ثم املأ المربعات.",
+    areaPPDir:"جِد {eq} باستخدام نموذج المساحة. املأ كل ناتج جزئي، ثم اجمعها.",
+    splitTap:"المس المصفوفة أو اسحب عليها لتقسمها.", splitLeft:"حرّك خط التقسيم إلى اليسار", splitRight:"حرّك خط التقسيم إلى اليمين",
+    splitLbl:"مصفوفة للتقسيم. استخدم مفاتيح الأسهم لتحريك خط التقسيم.",
+    partL:"الجزء الأيسر", partR:"الجزء الأيمن", totalLbl:"المجموع", fillAll:"املأ كل المربعات أولاً.",
+    hintPartL:"الجزء الأيسر فيه {a} صفوف، في كل صف {k}. عُدّ بالقفز {k}، {a} مرات: {s} …",
+    hintPartR:"الجزء الأيمن فيه {a} صفوف، في كل صف {k}. عُدّ بالقفز {k}، {a} مرات: {s} …",
+    hintSum:"الجزءان صحيحان. الآن اجمعهما: {eq}.",
+    goodSplit:"نعم! {eq}. تقسيم المصفوفة إلى حقيقتين أسهل هو خاصية التوزيع.",
+    ppCell:"ناتج جزئي {eq}",
+    hintPP0:"{eq} حقيقة ضرب أساسية. عُدّ بالقفز {y}، {x} مرات إن احتجت.",
+    hintPP:"في {eq}، ابدأ بالحقيقة الأساسية {fact}. ثم استخدم القيمة المكانية: اكتب {zs} بعد {f}.",
+    oneZero:"صفرًا واحدًا", nZeros:"{z} أصفار",
+    hintPPSum:"نواتجك الجزئية صحيحة. الآن اجمعها كلها: {eq}.",
+    goodPP:"نعم! {sum}، إذن {eq}. تجزئة الأعداد إلى مئات وعشرات وآحاد تجعل النواتج الجزئية أسهل.",
+    divDir:"جِد {eq}. اطرح مجموعات من {d} باستخدام الأزرار، ثم أجب.",
+    divFirst:"أولاً، جِد {eq}.",
+    chunkTitle:"اطرح مجموعات", chunkHelp:"كل زر يطرح هذا العدد من مجموعات {d}.",
+    chunkAria:"خذ {m} مجموعات من {d}، أي {p}",
+    leftLbl:"المتبقي: {left}", remAbbr:"R", quotLbl:"ناتج القسمة", remLbl:"الباقي",
+    chunkBig:"{eq}، لكن المتبقي {left} فقط. جرّب عددًا أقل من المجموعات.",
+    chunkDone:"المتبقي {left} فقط، وهو لا يكفي لمجموعة أخرى من {d}. الآن اجمع مجموعاتك.",
+    chunkNoMore:"المتبقي أقل من {d}، فلا تتسع مجموعات أخرى.",
+    hintDivUse:"استخدم الأزرار لتطرح مجموعات من {d} حتى يبقى أقل من {d}. ثم اجمع المجموعات.",
+    hintDivSum:"اجمع المجموعات التي أخذتها: {eq}.",
+    hintDivBig:"{eq}، وهذا أكبر من {n}. جرّب ناتج قسمة أصغر.",
+    hintDivSmall:"{eq}. يبقى {left}، وهذا يكفي لمجموعة أخرى من {d}. جرّب ناتج قسمة أكبر.",
+    hintRemBig:"يجب أن يكون الباقي أقل من {d}، وإلا يمكنك تكوين مجموعة أخرى.",
+    hintRem:"{eq}. كم يبقى عندما تطرح {p} من {n}؟",
+    goodDiv:"نعم! {eq}. تحقّق: {chk}.",
+    divInterp:"نعم! {eq}. الآن فكّر في القصة.",
+    ctx_up:"يأتي {n} طالبًا إلى حفلة الصف. تتسع كل طاولة لـ {d} طلاب. كم طاولة نحتاج؟",
+    ctx_drop:"تُعبّأ {n} كعكة في علب، في كل علبة {d}. كم علبة يمكن ملؤها بالكامل؟",
+    ctx_left:"تُوزَّع {n} ملصقًا بالتساوي على {d} أصدقاء. كم ملصقًا يتبقى؟",
+    ctx_each:"تُوزَّع {n} قلمًا بالتساوي على {d} أكواب. كم قلمًا في كل كوب؟",
+    q_up:"كم طاولة نحتاج؟", q_drop:"كم علبة يمكن ملؤها بالكامل؟", q_left:"كم ملصقًا يتبقى؟",
+    good_up:"نعم! {q} طاولات ممتلئة، و{r} طلاب ما زالوا بحاجة إلى مقعد، لذا نحتاج {q1} طاولات. هنا يجعلنا الباقي نقرّب إلى الأعلى.",
+    good_drop:"نعم! {q} علب ممتلئة. الكعكات الزائدة ({r}) لا تملأ علبة أخرى، لذا نُهمل الباقي.",
+    good_left:"نعم! يأخذ كل صديق {q}، والباقي {r} هو عدد الملصقات المتبقية.",
+    good_each:"في كل كوب {q} أقلام.",
+    hint_up:"هل يمكن أن يبقى {r} طلاب بلا مقعد؟ كل طالب يحتاج مقعدًا، ففكّر في الباقي.",
+    hint_drop:"السؤال عن العلب الممتلئة فقط. هل تملأ الكعكات الزائدة ({r}) علبة كاملة؟",
+    hint_left:"السؤال عمّا يتبقى، لا عن نصيب كل صديق.",
+    mulDir:"جِد العامل المفقود.", divFactDir:"جِد ناتج القسمة.",
+    famDir:"أي معادلة تنتمي إلى عائلة الحقائق للأعداد {nums}؟",
+    factorsDir:"المس كل عوامل العدد {n}. ثم المس تحقّق.",
+    multDir:"المس كل مضاعفات العدد {k}. ثم المس تحقّق.",
+    primeDir:"هل العدد {n} أولي أم مؤلَّف؟",
+    prime:"أولي", composite:"مؤلَّف", primeSub:"عاملان فقط", compSub:"أكثر من عاملين",
+    goodMul:"نعم! {eq}، إذن {rel}.", hintMul:"فكّر: كم مرة من {k} تعطي {p}؟ عُدّ بالقفز {k}: {seq}.",
+    goodDivF:"نعم! {eq}، لأن {rel}.", hintDivF:"القسمة مسألة عامل مفقود: {q}. عُدّ بالقفز {a} حتى تصل إلى {p}.",
+    goodFam:"نعم! عائلة الحقائق كاملة: {list}.",
+    hintFam:"تستخدم عائلة الحقائق الأعداد الثلاثة نفسها، ويجب أن تكون كل حقيقة صحيحة. في القسمة، يأتي العدد الأكبر أولاً.",
+    chipsEmpty:"المس بعض الأعداد أولاً.",
+    hintNotFactor:"{x} ليس من عوامل {n}: {eq}. العامل يقسم العدد بلا باقٍ.",
+    hintPartner:"العوامل تأتي أزواجًا: {eq}. هل اخترت العددين في كل زوج؟",
+    hintFactMiss:"بعض العوامل ناقصة. جرّب كل عدد: هل يقسم {n} بلا باقٍ؟",
+    goodFactors:"نعم! عوامل {n} هي {list}. أزواج العوامل: {pairs}.",
+    hintNotMult:"{x} ليس من مضاعفات {k}. العدّ بالقفز {k} ينتقل من {lo} إلى {hi}.",
+    hintMultMiss:"بعض المضاعفات ناقصة. عُدّ بالقفز {k} وابحث عن كل عدد تقوله.",
+    goodMult:"نعم! مضاعفات {k} هي الأعداد التي تقولها عندما تعدّ بالقفز {k}: {seq}.",
+    goodPrime:"نعم! للعدد {n} عاملان فقط، 1 و{n}، لذا فهو أولي.",
+    goodComp:"نعم! {eq}، لذا للعدد {n} أكثر من عاملين: {list}. إنه مؤلَّف.",
+    hintPrime:"ابحث عن زوج عوامل غير {eq}. إن لم يوجد، فللعدد {n} عاملان فقط.",
+    hintComp:"هل يقسم {x} العدد {n} بلا باقٍ؟ العدد الذي له أكثر من عاملين عدد مؤلَّف.",
+    letterNote:"استخدم الحرف {L} للعدد المجهول.",
+    step1Q:"الخطوة 1: أي معادلة تناسب القصة؟",
+    step2Q:"الخطوة 2: قدّر. كم تساوي {L} تقريبًا؟",
+    step3Q:"الخطوة 3: حُلّ. كم تساوي {L}؟",
+    estWord:"التقدير:",
+    goodStep1:"نعم! هذه المعادلة تناسب القصة.",
+    hintStep1:"اقرأ القصة مرة أخرى. ماذا يحدث أولاً، وماذا يحدث بعد ذلك؟ الأقواس تبيّن أي خطوة نبدأ بها.",
+    goodEst:"نعم! {expr}. إذن يجب أن تكون {L} قريبة من {e}.",
+    hintEst:"قرّب إلى أعداد سهلة: {list}. ثم استخدم معادلتك.",
+    hintEstSmall:"هذه الأعداد صغيرة. استخدم معادلتك واحسبها ذهنيًا.",
+    goodStory:"نعم! {eq}. {steps} الإجابة قريبة من التقدير، حوالي {e}، لذا فهي معقولة.",
+    thenW:"ثم",
+    hintFar:"{v} بعيد عن تقديرك، حوالي {e}، لذا هناك خطأ ما.",
+    hintClose:"{v} قريب من تقديرك، حوالي {e}، لكنه ليس دقيقًا.",
+    hintStart:"اعمل خطوة واحدة في كل مرة. ابدأ بـ {s}.",
+    stBox:"هناك {a} علب أقلام تلوين، في كل علبة {b} قلمًا. استخدم الصف {c} قلمًا. كم قلمًا تبقى؟",
+    stBus:"في حافلة {a} صفوف من المقاعد، في كل صف {b} مقاعد. كل المقاعد مشغولة، و{c} أشخاص آخرون واقفون. كم شخصًا في الحافلة؟",
+    stApple:"قطفت مزارعة {a} تفاحة حمراء و{b} تفاحة خضراء. عبّأتها بالتساوي في {c} أكياس. كم تفاحة في كل كيس؟",
+    stTicket:"ثمن تذكرة المتحف {a} دولارًا، وثمن الوجبة الخفيفة {b} دولارات. اشترى كل طالب من {c} طلاب تذكرة واحدة ووجبة خفيفة واحدة. كم دولارًا أنفقوا معًا؟",
+    stSticker:"لدى سلمى {a} ملصقًا. وزّعتها بالتساوي على {b} أصدقاء. ثم أهدى كل صديق {c} ملصقات. كم ملصقًا مع كل صديق الآن؟",
+    sayTimes:"في", sayDiv:"مقسومًا على", sayPlus:"زائد", sayMinus:"ناقص", sayEq:"يساوي", sayAbout:"حوالي", sayBlank:"ما العدد", sayRem:"والباقي",
+    teacherTitle:"إعدادات المعلم", close:"إغلاق", setGrade:"الصف الدراسي", g3:"الصف الثالث", g4:"الصف الرابع", g5:"الصف الخامس",
+    gradeNote:"اختيار الصف يضبط الخيارات أدناه، ويمكنك تغييرها بعد ذلك.",
+    setMaxFact:"أكبر عامل (الحقائق والمصفوفات)", setArea:"نموذج المساحة حتى",
+    aF:"تقسيم الحقائق (مثل 7 × 8)", a21:"منزلتان × منزلة واحدة", a22:"منزلتان × منزلتان", a32:"3 منازل × منزلتان",
+    setDiv:"القسمة", dv100:"حتى 100، والمقسوم عليه من منزلة واحدة", dv1000:"3 منازل ÷ منزلة واحدة", dv9999:"4 منازل ÷ منزلة واحدة", dv2dig:"حتى 4 منازل ÷ منزلتان",
+    setRem:"الباقي", remOn:"تضمين الباقي وقصص الباقي",
+    setModes:"الأنماط", setSpeech:"النطق", autoRead:"قراءة التعليمات تلقائيًا", printCards:"طباعة بطاقات التحدي",
+    setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُحفظ أي معلومات عن الطالب أبدًا.",
+    stds:"المعايير المتوافقة — Texas TEKS: الصف الثالث 3.4(D, E, F, G, H, J, K)، 3.5(B, D)؛ الصف الرابع 4.4(C, D, E, F, G, H)، 4.5(A)؛ الصف الخامس 5.3(B, C)، 5.4(A, B). Common Core: 3.OA.1–8، 3.NBT.3؛ 4.OA.3، 4.OA.4، 4.NBT.5، 4.NBT.6؛ 5.NBT.5، 5.NBT.6.",
+    cardTitle:"مهندس المصفوفات — بطاقات التحدي", cardName:"الاسم:",
+    cardArr:"ارسم مصفوفة من {r} صفوف، في كل صف {c}. اكتب معادلة ضرب لها.",
+    cardArea:"استخدم نموذج المساحة لتجد {eq}.", cardDiv:"استخدم نواتج القسمة الجزئية لتجد {eq}.",
+    cardMiss:"جِد العدد المفقود.", cardFactors:"اكتب كل عوامل {n}.",
+    cardStory:"اكتب معادلة فيها حرف للعدد المجهول. قدّر، ثم حُلّ."
+  },
+  hi:{
+    appTitle:"ऐरे आर्किटेक्ट", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", language:"भाषा", readAloud:"ज़ोर से पढ़ें",
+    modesLbl:"मोड", stars:"मिले हुए तारे", newRound:"नया दौर", footNote:"कोई खाता नहीं · कोई डेटा नहीं · ऑफ़लाइन काम करता है",
+    check:"जाँचें", clear:"साफ़ करें", undo:"वापस लें", choicesLbl:"उत्तर विकल्प",
+    mArr:"बराबर समूह और सरणी", mArea:"क्षेत्रफल मॉडल", mDiv:"भाग निर्माता", mFact:"तथ्य प्रवाह", mStory:"बहु-चरण कहानियाँ",
+    rowsLbl:"पंक्तियाँ", colsLbl:"स्तंभ", addRow:"एक पंक्ति जोड़ें", remRow:"एक पंक्ति हटाएँ", addCol:"एक स्तंभ जोड़ें", remCol:"एक स्तंभ हटाएँ",
+    arrGridLbl:"सरणी बनाने का ग्रिड। आकार चुनने के लिए छुएँ या खींचें, या तीर कुंजियों का उपयोग करें।",
+    arrRC:"{r} पंक्तियाँ, {c} स्तंभ", arrUsed:"{r} पंक्तियाँ, हर पंक्ति में {c}। उपयोग किए गए काउंटर: {n} में से {u}",
+    arrAria:"{r} पंक्तियाँ, हर पंक्ति में {c} काउंटर", grpAria:"{r} समूह, हर समूह में {c} काउंटर", thisArr:"यह सरणी:",
+    arrBuild:"{r} पंक्तियों वाली सरणी बनाओ, हर पंक्ति में {c}।",
+    arrTurn:"इस सरणी में {r} पंक्तियाँ हैं, हर पंक्ति में {c}। इसे घुमाओ: {c} पंक्तियाँ बनाओ, हर पंक्ति में {r}।",
+    arrShare:"{n} काउंटर को {r} पंक्तियों में बराबर बाँटो। सभी {n} उपयोग होने तक स्तंभ जोड़ो। हर पंक्ति में कितने हैं?",
+    arrGroup:"{n} काउंटर ऐसी पंक्तियों में रखो जिनमें {c}-{c} हों। सभी {n} उपयोग होने तक पंक्तियाँ जोड़ो। कितनी पंक्तियाँ बनीं?",
+    arrEqA:"कौन सा समीकरण इस सरणी से मेल खाता है?", arrEqG:"कौन सा समीकरण इन बराबर समूहों से मेल खाता है?",
+    arrEmpty:"अपनी सरणी बनाना शुरू करने के लिए ग्रिड को छुओ।",
+    goodArr:"हाँ! {r} पंक्तियाँ, हर पंक्ति में {c}। {c}-{c} करके गिनो: {seq}। तो {eq}।",
+    goodTurn:"हाँ! {eq}। सरणी घुमाने से कुल नहीं बदलता। यह क्रमविनिमेय गुण है।",
+    goodShare:"हाँ! {n} को {r} बराबर पंक्तियों में बाँटने पर हर पंक्ति में {c} आते हैं: {eq}, क्योंकि {eq2}।",
+    goodGroup:"हाँ! {n} काउंटर {c}-{c} की पंक्तियों में रखने पर {r} पंक्तियाँ बनती हैं: {eq}, क्योंकि {eq2}।",
+    hintArr:"तुमने {r} पंक्तियाँ बनाईं, हर पंक्ति में {c}। हमें {R} पंक्तियाँ चाहिए, हर पंक्ति में {C}। पंक्तियाँ आड़ी होती हैं; स्तंभ ऊपर-नीचे होते हैं।",
+    hintArrSwap:"लगभग! तुमने {r} पंक्तियाँ बनाईं, हर पंक्ति में {c}। पंक्तियाँ आड़ी होती हैं, इसलिए हमें {R} पंक्तियाँ चाहिए, हर एक में {C}।",
+    hintShareLess:"तुमने {u} काउंटर उपयोग किए, इसलिए अभी {left} बाँटने बाकी हैं। हर पंक्ति को एक और देने के लिए एक स्तंभ जोड़ो।",
+    hintShareMore:"तुमने {u} काउंटर उपयोग किए, पर केवल {n} हैं। एक स्तंभ हटाओ।",
+    hintGroupLess:"तुमने {u} काउंटर उपयोग किए, इसलिए अभी {left} बाकी हैं। {c} की एक और पंक्ति जोड़ो।",
+    hintGroupMore:"तुमने {u} काउंटर उपयोग किए, पर केवल {n} हैं। एक पंक्ति हटाओ।",
+    goodEqA:"हाँ! {r} पंक्तियाँ, हर पंक्ति में {c}। {c}-{c} करके गिनो: {seq}। तो {eq}।",
+    goodEqG:"हाँ! {r} बराबर समूह, हर समूह में {c}। {c}-{c} करके गिनो: {seq}। तो {eq}।",
+    hintEqAdd:"{s} जोड़ने से केवल एक पंक्ति और एक स्तंभ गिना जाता है, सभी काउंटर नहीं।",
+    hintEqA:"ध्यान से देखो: {r} पंक्तियाँ हैं, हर पंक्ति में {c}।",
+    hintEqG:"ध्यान से देखो: {r} समूह हैं, हर समूह में {c}।",
+    areaSplitDir:"{eq} ज्ञात करो। सरणी को छूकर दो आसान तथ्यों में बाँटो, फिर खाने भरो।",
+    areaPPDir:"क्षेत्रफल मॉडल से {eq} ज्ञात करो। हर आंशिक गुणनफल भरो, फिर उन्हें जोड़ो।",
+    splitTap:"सरणी को बाँटने के लिए उस पर छुओ या खींचो।", splitLeft:"बाँटने की रेखा बाएँ ले जाएँ", splitRight:"बाँटने की रेखा दाएँ ले जाएँ",
+    splitLbl:"बाँटने के लिए सरणी। रेखा खिसकाने के लिए तीर कुंजियों का उपयोग करें।",
+    partL:"बायाँ भाग", partR:"दायाँ भाग", totalLbl:"कुल", fillAll:"पहले सभी खाने भरो।",
+    hintPartL:"बाएँ भाग में {a} पंक्तियाँ हैं, हर पंक्ति में {k}। {k}-{k} करके {a} बार गिनो: {s} …",
+    hintPartR:"दाएँ भाग में {a} पंक्तियाँ हैं, हर पंक्ति में {k}। {k}-{k} करके {a} बार गिनो: {s} …",
+    hintSum:"तुम्हारे भाग सही हैं। अब उन्हें जोड़ो: {eq}।",
+    goodSplit:"हाँ! {eq}। सरणी को दो आसान तथ्यों में बाँटना वितरण गुण है।",
+    ppCell:"आंशिक गुणनफल {eq}",
+    hintPP0:"{eq} एक मूल तथ्य है। ज़रूरत हो तो {y}-{y} करके {x} बार गिनो।",
+    hintPP:"{eq} के लिए, मूल तथ्य {fact} से शुरू करो। फिर स्थानीय मान का उपयोग करो: {f} के बाद {zs} लिखो।",
+    oneZero:"1 शून्य", nZeros:"{z} शून्य",
+    hintPPSum:"तुम्हारे आंशिक गुणनफल सही हैं। अब सबको जोड़ो: {eq}।",
+    goodPP:"हाँ! {sum}, तो {eq}। संख्याओं को सैकड़ों, दहाइयों और इकाइयों में तोड़ने से आंशिक गुणनफल आसान हो जाते हैं।",
+    divDir:"{eq} ज्ञात करो। बटनों से {d} के समूह घटाओ, फिर उत्तर दो।",
+    divFirst:"पहले, {eq} ज्ञात करो।",
+    chunkTitle:"समूह घटाओ", chunkHelp:"हर बटन {d} के उतने समूह घटाता है।",
+    chunkAria:"{d} के {m} समूह लो, यानी {p}",
+    leftLbl:"बाकी: {left}", remAbbr:"शेष", quotLbl:"भागफल", remLbl:"शेषफल",
+    chunkBig:"{eq}, पर केवल {left} बाकी हैं। कम समूह आज़माओ।",
+    chunkDone:"केवल {left} बाकी हैं, जो {d} के एक और समूह के लिए काफ़ी नहीं। अब अपने समूह जोड़ो।",
+    chunkNoMore:"{d} से कम बचा है, इसलिए और समूह नहीं बन सकते।",
+    hintDivUse:"बटनों से {d} के समूह तब तक घटाओ जब तक {d} से कम न बचे। फिर समूहों को जोड़ो।",
+    hintDivSum:"जो समूह तुमने लिए उन्हें जोड़ो: {eq}।",
+    hintDivBig:"{eq}, जो {n} से ज़्यादा है। छोटा भागफल आज़माओ।",
+    hintDivSmall:"{eq}। इससे {left} बचते हैं, जो {d} के एक और समूह के लिए काफ़ी है। बड़ा भागफल आज़माओ।",
+    hintRemBig:"शेषफल {d} से कम होना चाहिए। वरना तुम एक और समूह बना सकते हो।",
+    hintRem:"{eq}। {n} में से {p} हटाने पर कितने बचते हैं?",
+    goodDiv:"हाँ! {eq}। जाँच: {chk}।",
+    divInterp:"हाँ! {eq}। अब कहानी के बारे में सोचो।",
+    ctx_up:"कक्षा की पार्टी में {n} छात्र आ रहे हैं। हर मेज़ पर {d} छात्र बैठ सकते हैं। कितनी मेज़ें चाहिए?",
+    ctx_drop:"{n} मफ़िन ऐसे डिब्बों में पैक किए जाते हैं जिनमें {d}-{d} आते हैं। कितने डिब्बे पूरे भरे जा सकते हैं?",
+    ctx_left:"{n} स्टिकर {d} दोस्तों में बराबर बाँटे जाते हैं। कितने स्टिकर बचते हैं?",
+    ctx_each:"{n} पेंसिलें {d} कपों में बराबर बाँटी जाती हैं। हर कप में कितनी पेंसिलें जाती हैं?",
+    q_up:"कितनी मेज़ें चाहिए?", q_drop:"कितने डिब्बे पूरे भरे जा सकते हैं?", q_left:"कितने स्टिकर बचते हैं?",
+    good_up:"हाँ! {q} मेज़ें भर गईं और {r} छात्रों को अभी भी जगह चाहिए, इसलिए {q1} मेज़ें चाहिए। यहाँ शेषफल के कारण हम ऊपर की ओर पूर्णांकित करते हैं।",
+    good_drop:"हाँ! {q} डिब्बे भरे हैं। बचे हुए {r} मफ़िन एक और डिब्बा नहीं भर सकते, इसलिए शेषफल को छोड़ देते हैं।",
+    good_left:"हाँ! हर दोस्त को {q} मिलते हैं, और शेषफल {r} बचे हुए स्टिकरों की संख्या है।",
+    good_each:"हर कप में {q} पेंसिलें हैं।",
+    hint_up:"क्या {r} छात्र बिना जगह के रह सकते हैं? हर छात्र को जगह चाहिए, इसलिए शेषफल के बारे में सोचो।",
+    hint_drop:"प्रश्न केवल पूरे भरे डिब्बों के बारे में है। क्या {r} बचे मफ़िन पूरा डिब्बा भरते हैं?",
+    hint_left:"प्रश्न यह पूछता है कि कितने बचे, यह नहीं कि हर दोस्त को कितने मिले।",
+    mulDir:"लुप्त गुणनखंड ज्ञात करो।", divFactDir:"भागफल ज्ञात करो।",
+    famDir:"कौन सा समीकरण {nums} के तथ्य परिवार का हिस्सा है?",
+    factorsDir:"{n} के सभी गुणनखंड छुओ। फिर जाँचें छुओ।",
+    multDir:"{k} के सभी गुणज छुओ। फिर जाँचें छुओ।",
+    primeDir:"क्या {n} अभाज्य है या भाज्य?",
+    prime:"अभाज्य", composite:"भाज्य", primeSub:"ठीक 2 गुणनखंड", compSub:"2 से ज़्यादा गुणनखंड",
+    goodMul:"हाँ! {eq}, इसलिए {rel}।", hintMul:"सोचो: कितने {k} मिलकर {p} बनाते हैं? {k}-{k} करके गिनो: {seq}।",
+    goodDivF:"हाँ! {eq}, क्योंकि {rel}।", hintDivF:"भाग एक लुप्त गुणनखंड वाला प्रश्न है: {q}। {p} तक पहुँचने तक {a}-{a} करके गिनो।",
+    goodFam:"हाँ! पूरा तथ्य परिवार: {list}।",
+    hintFam:"तथ्य परिवार में वही तीन संख्याएँ होती हैं, और हर तथ्य सही होना चाहिए। भाग में सबसे बड़ी संख्या पहले आती है।",
+    chipsEmpty:"पहले कुछ संख्याएँ छुओ।",
+    hintNotFactor:"{x}, {n} का गुणनखंड नहीं है: {eq}। गुणनखंड बिना शेष के भाग देता है।",
+    hintPartner:"गुणनखंड जोड़ियों में आते हैं: {eq}। क्या तुमने हर जोड़ी की दोनों संख्याएँ चुनीं?",
+    hintFactMiss:"कुछ गुणनखंड छूट गए हैं। हर संख्या आज़माओ: क्या वह {n} को बिना शेष के भाग देती है?",
+    goodFactors:"हाँ! {n} के गुणनखंड हैं {list}। गुणनखंड जोड़ियाँ: {pairs}।",
+    hintNotMult:"{x}, {k} का गुणज नहीं है। {k}-{k} करके गिनने पर {lo} से सीधे {hi} पर पहुँचते हैं।",
+    hintMultMiss:"कुछ गुणज छूट गए हैं। {k}-{k} करके गिनो और हर बोली गई संख्या ढूँढो।",
+    goodMult:"हाँ! {k} के गुणज वे संख्याएँ हैं जो {k}-{k} करके गिनने पर बोलते हो: {seq}।",
+    goodPrime:"हाँ! {n} के ठीक दो गुणनखंड हैं, 1 और {n}, इसलिए यह अभाज्य है।",
+    goodComp:"हाँ! {eq}, इसलिए {n} के दो से ज़्यादा गुणनखंड हैं: {list}। यह भाज्य है।",
+    hintPrime:"{eq} के अलावा कोई गुणनखंड जोड़ी ढूँढो। अगर नहीं है, तो {n} के केवल दो गुणनखंड हैं।",
+    hintComp:"क्या {x}, {n} को बिना शेष के भाग देता है? दो से ज़्यादा गुणनखंड वाली संख्या भाज्य होती है।",
+    letterNote:"अज्ञात संख्या के लिए अक्षर {L} का उपयोग करो।",
+    step1Q:"चरण 1: कौन सा समीकरण कहानी से मेल खाता है?",
+    step2Q:"चरण 2: अनुमान लगाओ। {L} लगभग कितना है?",
+    step3Q:"चरण 3: हल करो। {L} कितना है?",
+    estWord:"अनुमान:",
+    goodStep1:"हाँ! वह समीकरण कहानी से मेल खाता है।",
+    hintStep1:"कहानी फिर से पढ़ो। पहले क्या होता है, और फिर क्या? कोष्ठक बताते हैं कि कौन सा चरण पहले करना है।",
+    goodEst:"हाँ! {expr}। तो {L} लगभग {e} होना चाहिए।",
+    hintEst:"आसान संख्याओं तक पूर्णांकित करो: {list}। फिर अपना समीकरण उपयोग करो।",
+    hintEstSmall:"ये संख्याएँ छोटी हैं। अपने समीकरण से मन में हल करो।",
+    goodStory:"हाँ! {eq}। {steps} उत्तर लगभग {e} के अनुमान के पास है, इसलिए यह उचित है।",
+    thenW:"फिर",
+    hintFar:"{v} तुम्हारे लगभग {e} के अनुमान से बहुत दूर है, इसलिए कुछ गलत हुआ है।",
+    hintClose:"{v} तुम्हारे लगभग {e} के अनुमान के पास है, पर सटीक नहीं है।",
+    hintStart:"एक बार में एक चरण करो। {s} से शुरू करो।",
+    stBox:"मार्करों के {a} डिब्बे हैं, हर डिब्बे में {b} मार्कर। कक्षा {c} मार्कर उपयोग करती है। कितने मार्कर बचे?",
+    stBus:"एक बस में सीटों की {a} पंक्तियाँ हैं, हर पंक्ति में {b} सीटें। हर सीट भरी है, और {c} लोग और खड़े हैं। बस में कितने लोग हैं?",
+    stApple:"एक किसान {a} लाल सेब और {b} हरे सेब तोड़ती है। वह उन्हें {c} थैलों में बराबर भरती है। हर थैले में कितने सेब जाते हैं?",
+    stTicket:"संग्रहालय का एक टिकट {a} डॉलर का है और एक नाश्ता {b} डॉलर का। {c} छात्रों में से हर एक, एक टिकट और एक नाश्ता खरीदता है। वे कुल कितने डॉलर खर्च करते हैं?",
+    stSticker:"अनु के पास {a} स्टिकर हैं। वह उन्हें {b} दोस्तों में बराबर बाँटती है। फिर हर दोस्त {c} स्टिकर किसी और को दे देता है। अब हर दोस्त के पास कितने स्टिकर हैं?",
+    sayTimes:"गुणा", sayDiv:"भाग", sayPlus:"धन", sayMinus:"ऋण", sayEq:"बराबर", sayAbout:"लगभग", sayBlank:"कौन सी संख्या", sayRem:"शेष",
+    teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setGrade:"कक्षा", g3:"कक्षा 3", g4:"कक्षा 4", g5:"कक्षा 5",
+    gradeNote:"कक्षा चुनने पर नीचे के विकल्प सेट हो जाते हैं। आप उन्हें फिर भी बदल सकते हैं।",
+    setMaxFact:"सबसे बड़ा गुणनखंड (तथ्य और सरणी)", setArea:"क्षेत्रफल मॉडल अधिकतम",
+    aF:"तथ्य बाँटना (जैसे 7 × 8)", a21:"2 अंक × 1 अंक", a22:"2 अंक × 2 अंक", a32:"3 अंक × 2 अंक",
+    setDiv:"भाग", dv100:"100 तक, 1 अंक का भाजक", dv1000:"3 अंक ÷ 1 अंक", dv9999:"4 अंक ÷ 1 अंक", dv2dig:"4 अंक तक ÷ 2 अंक",
+    setRem:"शेषफल", remOn:"शेषफल और शेषफल वाली कहानियाँ शामिल करें",
+    setModes:"मोड", setSpeech:"आवाज़", autoRead:"निर्देश अपने आप पढ़ें", printCards:"चुनौती कार्ड छापें",
+    setStored:"सेटिंग्स केवल इस डिवाइस पर सहेजी जाती हैं। छात्र की जानकारी कभी नहीं सहेजी जाती।",
+    stds:"संरेखित मानक — Texas TEKS: कक्षा 3 3.4(D, E, F, G, H, J, K), 3.5(B, D); कक्षा 4 4.4(C, D, E, F, G, H), 4.5(A); कक्षा 5 5.3(B, C), 5.4(A, B)। Common Core: 3.OA.1–8, 3.NBT.3; 4.OA.3, 4.OA.4, 4.NBT.5, 4.NBT.6; 5.NBT.5, 5.NBT.6।",
+    cardTitle:"ऐरे आर्किटेक्ट — चुनौती कार्ड", cardName:"नाम:",
+    cardArr:"{r} पंक्तियों वाली सरणी बनाओ, हर पंक्ति में {c}। इसके लिए गुणा का समीकरण लिखो।",
+    cardArea:"क्षेत्रफल मॉडल से {eq} ज्ञात करो।", cardDiv:"आंशिक भागफलों से {eq} ज्ञात करो।",
+    cardMiss:"लुप्त संख्या ज्ञात करो।", cardFactors:"{n} के सभी गुणनखंड लिखो।",
+    cardStory:"अज्ञात संख्या के लिए एक अक्षर वाला समीकरण लिखो। अनुमान लगाओ, फिर हल करो।"
+  },
+  ur:{
+    appTitle:"صف بندی کا معمار", home:"ہوم", privacy:"رازداری", teacher:"استاد", language:"زبان", readAloud:"بلند آواز سے پڑھیں",
+    modesLbl:"موڈ", stars:"حاصل کیے گئے ستارے", newRound:"نیا دور", footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا نہیں · آف لائن کام کرتا ہے",
+    check:"جانچیں", clear:"صاف کریں", undo:"واپس کریں", choicesLbl:"جواب کے اختیارات",
+    mArr:"برابر گروہ اور صف بندی", mArea:"رقبے کا ماڈل", mDiv:"تقسیم بنانے والا", mFact:"حقائق کی روانی", mStory:"کئی مراحل والی کہانیاں",
+    rowsLbl:"قطاریں", colsLbl:"کالم", addRow:"ایک قطار شامل کریں", remRow:"ایک قطار ہٹائیں", addCol:"ایک کالم شامل کریں", remCol:"ایک کالم ہٹائیں",
+    arrGridLbl:"صف بندی بنانے کا جال۔ سائز چننے کے لیے چھوئیں یا گھسیٹیں، یا تیر والی کلیدیں استعمال کریں۔",
+    arrRC:"{r} قطاریں، {c} کالم", arrUsed:"{r} قطاریں، ہر قطار میں {c}۔ استعمال شدہ کاؤنٹر: {n} میں سے {u}",
+    arrAria:"{r} قطاریں، ہر قطار میں {c} کاؤنٹر", grpAria:"{r} گروہ، ہر گروہ میں {c} کاؤنٹر", thisArr:"یہ صف بندی:",
+    arrBuild:"{r} قطاروں والی صف بندی بناؤ، ہر قطار میں {c}۔",
+    arrTurn:"اس صف بندی میں {r} قطاریں ہیں، ہر قطار میں {c}۔ اسے گھماؤ: {c} قطاریں بناؤ، ہر قطار میں {r}۔",
+    arrShare:"{n} کاؤنٹر {r} قطاروں میں برابر بانٹو۔ سب {n} استعمال ہونے تک کالم شامل کرو۔ ہر قطار میں کتنے ہیں؟",
+    arrGroup:"{n} کاؤنٹر ایسی قطاروں میں رکھو جن میں {c} ہوں۔ سب {n} استعمال ہونے تک قطاریں شامل کرو۔ کتنی قطاریں بنیں؟",
+    arrEqA:"کون سی مساوات اس صف بندی سے ملتی ہے؟", arrEqG:"کون سی مساوات ان برابر گروہوں سے ملتی ہے؟",
+    arrEmpty:"اپنی صف بندی بنانا شروع کرنے کے لیے جال کو چھوؤ۔",
+    goodArr:"ہاں! {r} قطاریں، ہر قطار میں {c}۔ {c} {c} کر کے گنو: {seq}۔ تو {eq}۔",
+    goodTurn:"ہاں! {eq}۔ صف بندی گھمانے سے کل تعداد نہیں بدلتی۔ یہ خاصیتِ مبادلہ ہے۔",
+    goodShare:"ہاں! {n} کو {r} برابر قطاروں میں بانٹنے سے ہر قطار میں {c} آتے ہیں: {eq}، کیونکہ {eq2}۔",
+    goodGroup:"ہاں! {n} کاؤنٹر {c} {c} کی قطاروں میں رکھنے سے {r} قطاریں بنتی ہیں: {eq}، کیونکہ {eq2}۔",
+    hintArr:"تم نے {r} قطاریں بنائیں، ہر قطار میں {c}۔ ہمیں {R} قطاریں چاہییں، ہر قطار میں {C}۔ قطاریں آڑی ہوتی ہیں؛ کالم اوپر نیچے ہوتے ہیں۔",
+    hintArrSwap:"قریب! تم نے {r} قطاریں بنائیں، ہر قطار میں {c}۔ قطاریں آڑی ہوتی ہیں، اس لیے ہمیں {R} قطاریں چاہییں، ہر ایک میں {C}۔",
+    hintShareLess:"تم نے {u} کاؤنٹر استعمال کیے، اس لیے ابھی {left} بانٹنے باقی ہیں۔ ہر قطار کو ایک اور دینے کے لیے ایک کالم شامل کرو۔",
+    hintShareMore:"تم نے {u} کاؤنٹر استعمال کیے، لیکن صرف {n} ہیں۔ ایک کالم ہٹاؤ۔",
+    hintGroupLess:"تم نے {u} کاؤنٹر استعمال کیے، اس لیے ابھی {left} باقی ہیں۔ {c} کی ایک اور قطار شامل کرو۔",
+    hintGroupMore:"تم نے {u} کاؤنٹر استعمال کیے، لیکن صرف {n} ہیں۔ ایک قطار ہٹاؤ۔",
+    goodEqA:"ہاں! {r} قطاریں، ہر قطار میں {c}۔ {c} {c} کر کے گنو: {seq}۔ تو {eq}۔",
+    goodEqG:"ہاں! {r} برابر گروہ، ہر گروہ میں {c}۔ {c} {c} کر کے گنو: {seq}۔ تو {eq}۔",
+    hintEqAdd:"{s} جمع کرنے سے صرف ایک قطار اور ایک کالم گنا جاتا ہے، سب کاؤنٹر نہیں۔",
+    hintEqA:"غور سے دیکھو: {r} قطاریں ہیں، ہر قطار میں {c}۔",
+    hintEqG:"غور سے دیکھو: {r} گروہ ہیں، ہر گروہ میں {c}۔",
+    areaSplitDir:"{eq} معلوم کرو۔ صف بندی کو چھو کر دو آسان حقائق میں تقسیم کرو، پھر خانے بھرو۔",
+    areaPPDir:"رقبے کے ماڈل سے {eq} معلوم کرو۔ ہر جزوی حاصلِ ضرب بھرو، پھر انہیں جمع کرو۔",
+    splitTap:"صف بندی کو تقسیم کرنے کے لیے اس پر چھوؤ یا گھسیٹو۔", splitLeft:"تقسیم کی لکیر بائیں لے جائیں", splitRight:"تقسیم کی لکیر دائیں لے جائیں",
+    splitLbl:"تقسیم کرنے کے لیے صف بندی۔ لکیر ہلانے کے لیے تیر والی کلیدیں استعمال کریں۔",
+    partL:"بایاں حصہ", partR:"دایاں حصہ", totalLbl:"کل", fillAll:"پہلے سب خانے بھرو۔",
+    hintPartL:"بائیں حصے میں {a} قطاریں ہیں، ہر قطار میں {k}۔ {k} {k} کر کے {a} بار گنو: {s} …",
+    hintPartR:"دائیں حصے میں {a} قطاریں ہیں، ہر قطار میں {k}۔ {k} {k} کر کے {a} بار گنو: {s} …",
+    hintSum:"تمہارے حصے درست ہیں۔ اب انہیں جمع کرو: {eq}۔",
+    goodSplit:"ہاں! {eq}۔ صف بندی کو دو آسان حقائق میں تقسیم کرنا خاصیتِ تقسیمی ہے۔",
+    ppCell:"جزوی حاصلِ ضرب {eq}",
+    hintPP0:"{eq} ایک بنیادی حقیقت ہے۔ ضرورت ہو تو {y} {y} کر کے {x} بار گنو۔",
+    hintPP:"{eq} کے لیے بنیادی حقیقت {fact} سے شروع کرو۔ پھر مقامی قدر استعمال کرو: {f} کے بعد {zs} لکھو۔",
+    oneZero:"1 صفر", nZeros:"{z} صفر",
+    hintPPSum:"تمہارے جزوی حاصلِ ضرب درست ہیں۔ اب سب کو جمع کرو: {eq}۔",
+    goodPP:"ہاں! {sum}، تو {eq}۔ اعداد کو سینکڑوں، دہائیوں اور اکائیوں میں توڑنے سے جزوی حاصلِ ضرب آسان ہو جاتے ہیں۔",
+    divDir:"{eq} معلوم کرو۔ بٹنوں سے {d} کے گروہ گھٹاؤ، پھر جواب دو۔",
+    divFirst:"پہلے {eq} معلوم کرو۔",
+    chunkTitle:"گروہ گھٹاؤ", chunkHelp:"ہر بٹن {d} کے اتنے گروہ گھٹاتا ہے۔",
+    chunkAria:"{d} کے {m} گروہ لو، یعنی {p}",
+    leftLbl:"باقی: {left}", remAbbr:"R", quotLbl:"حاصلِ قسمت", remLbl:"باقی",
+    chunkBig:"{eq}، لیکن صرف {left} باقی ہیں۔ کم گروہ آزماؤ۔",
+    chunkDone:"صرف {left} باقی ہیں، جو {d} کے ایک اور گروہ کے لیے کافی نہیں۔ اب اپنے گروہ جمع کرو۔",
+    chunkNoMore:"{d} سے کم باقی ہے، اس لیے مزید گروہ نہیں بن سکتے۔",
+    hintDivUse:"بٹنوں سے {d} کے گروہ تب تک گھٹاؤ جب تک {d} سے کم نہ بچے۔ پھر گروہ جمع کرو۔",
+    hintDivSum:"جو گروہ تم نے لیے انہیں جمع کرو: {eq}۔",
+    hintDivBig:"{eq}، جو {n} سے زیادہ ہے۔ چھوٹا حاصلِ قسمت آزماؤ۔",
+    hintDivSmall:"{eq}۔ اس سے {left} بچتے ہیں، جو {d} کے ایک اور گروہ کے لیے کافی ہیں۔ بڑا حاصلِ قسمت آزماؤ۔",
+    hintRemBig:"باقی {d} سے کم ہونا چاہیے، ورنہ تم ایک اور گروہ بنا سکتے ہو۔",
+    hintRem:"{eq}۔ {n} میں سے {p} نکالنے پر کتنے بچتے ہیں؟",
+    goodDiv:"ہاں! {eq}۔ جانچ: {chk}۔",
+    divInterp:"ہاں! {eq}۔ اب کہانی کے بارے میں سوچو۔",
+    ctx_up:"جماعت کی پارٹی میں {n} طالب علم آ رہے ہیں۔ ہر میز پر {d} طالب علم بیٹھ سکتے ہیں۔ کتنی میزیں چاہییں؟",
+    ctx_drop:"{n} مفن ایسے ڈبوں میں پیک کیے جاتے ہیں جن میں {d} آتے ہیں۔ کتنے ڈبے پوری طرح بھرے جا سکتے ہیں؟",
+    ctx_left:"{n} اسٹیکر {d} دوستوں میں برابر بانٹے جاتے ہیں۔ کتنے اسٹیکر بچتے ہیں؟",
+    ctx_each:"{n} پنسلیں {d} کپوں میں برابر بانٹی جاتی ہیں۔ ہر کپ میں کتنی پنسلیں جاتی ہیں؟",
+    q_up:"کتنی میزیں چاہییں؟", q_drop:"کتنے ڈبے پوری طرح بھرے جا سکتے ہیں؟", q_left:"کتنے اسٹیکر بچتے ہیں؟",
+    good_up:"ہاں! {q} میزیں بھر گئیں اور {r} طالب علموں کو ابھی جگہ چاہیے، اس لیے {q1} میزیں چاہییں۔ یہاں باقی کی وجہ سے ہم اوپر کی طرف راؤنڈ کرتے ہیں۔",
+    good_drop:"ہاں! {q} ڈبے بھرے ہیں۔ بچے ہوئے {r} مفن ایک اور ڈبہ نہیں بھر سکتے، اس لیے باقی کو چھوڑ دیتے ہیں۔",
+    good_left:"ہاں! ہر دوست کو {q} ملتے ہیں، اور باقی {r} بچے ہوئے اسٹیکروں کی تعداد ہے۔",
+    good_each:"ہر کپ میں {q} پنسلیں ہیں۔",
+    hint_up:"کیا {r} طالب علم بغیر جگہ کے رہ سکتے ہیں؟ ہر طالب علم کو جگہ چاہیے، اس لیے باقی کے بارے میں سوچو۔",
+    hint_drop:"سوال صرف پوری طرح بھرے ڈبوں کے بارے میں ہے۔ کیا {r} بچے ہوئے مفن پورا ڈبہ بھرتے ہیں؟",
+    hint_left:"سوال یہ ہے کہ کتنے بچے، یہ نہیں کہ ہر دوست کو کتنے ملے۔",
+    mulDir:"گمشدہ جزوِ ضربی معلوم کرو۔", divFactDir:"حاصلِ قسمت معلوم کرو۔",
+    famDir:"کون سی مساوات {nums} کے حقائق کے خاندان میں شامل ہے؟",
+    factorsDir:"{n} کے تمام اجزائے ضربی چھوؤ۔ پھر جانچیں چھوؤ۔",
+    multDir:"{k} کے تمام اضعاف چھوؤ۔ پھر جانچیں چھوؤ۔",
+    primeDir:"کیا {n} مفرد عدد ہے یا مرکب عدد؟",
+    prime:"مفرد", composite:"مرکب", primeSub:"بالکل 2 اجزائے ضربی", compSub:"2 سے زیادہ اجزائے ضربی",
+    goodMul:"ہاں! {eq}، اس لیے {rel}۔", hintMul:"سوچو: کتنے {k} مل کر {p} بناتے ہیں؟ {k} {k} کر کے گنو: {seq}۔",
+    goodDivF:"ہاں! {eq}، کیونکہ {rel}۔", hintDivF:"تقسیم ایک گمشدہ جزوِ ضربی کا سوال ہے: {q}۔ {p} تک پہنچنے تک {a} {a} کر کے گنو۔",
+    goodFam:"ہاں! پورا حقائق کا خاندان: {list}۔",
+    hintFam:"حقائق کا خاندان وہی تین اعداد استعمال کرتا ہے، اور ہر حقیقت درست ہونی چاہیے۔ تقسیم میں سب سے بڑا عدد پہلے آتا ہے۔",
+    chipsEmpty:"پہلے کچھ اعداد چھوؤ۔",
+    hintNotFactor:"{x}، {n} کا جزوِ ضربی نہیں ہے: {eq}۔ جزوِ ضربی بغیر باقی کے تقسیم کرتا ہے۔",
+    hintPartner:"اجزائے ضربی جوڑوں میں آتے ہیں: {eq}۔ کیا تم نے ہر جوڑے کے دونوں اعداد چنے؟",
+    hintFactMiss:"کچھ اجزائے ضربی رہ گئے ہیں۔ ہر عدد آزماؤ: کیا وہ {n} کو بغیر باقی کے تقسیم کرتا ہے؟",
+    goodFactors:"ہاں! {n} کے اجزائے ضربی {list} ہیں۔ جوڑے: {pairs}۔",
+    hintNotMult:"{x}، {k} کا ضعف نہیں ہے۔ {k} {k} کر کے گننے سے {lo} کے بعد سیدھا {hi} آتا ہے۔",
+    hintMultMiss:"کچھ اضعاف رہ گئے ہیں۔ {k} {k} کر کے گنو اور ہر بولا گیا عدد تلاش کرو۔",
+    goodMult:"ہاں! {k} کے اضعاف وہ اعداد ہیں جو {k} {k} کر کے گننے میں آتے ہیں: {seq}۔",
+    goodPrime:"ہاں! {n} کے بالکل دو اجزائے ضربی ہیں، 1 اور {n}، اس لیے یہ مفرد ہے۔",
+    goodComp:"ہاں! {eq}، اس لیے {n} کے دو سے زیادہ اجزائے ضربی ہیں: {list}۔ یہ مرکب ہے۔",
+    hintPrime:"{eq} کے علاوہ کوئی جوڑا تلاش کرو۔ اگر نہیں ملتا، تو {n} کے صرف دو اجزائے ضربی ہیں۔",
+    hintComp:"کیا {x}، {n} کو بغیر باقی کے تقسیم کرتا ہے؟ دو سے زیادہ اجزائے ضربی والا عدد مرکب ہوتا ہے۔",
+    letterNote:"نامعلوم عدد کے لیے حرف {L} استعمال کرو۔",
+    step1Q:"مرحلہ 1: کون سی مساوات کہانی سے ملتی ہے؟",
+    step2Q:"مرحلہ 2: اندازہ لگاؤ۔ {L} تقریباً کتنا ہے؟",
+    step3Q:"مرحلہ 3: حل کرو۔ {L} کتنا ہے؟",
+    estWord:"اندازہ:",
+    goodStep1:"ہاں! وہ مساوات کہانی سے ملتی ہے۔",
+    hintStep1:"کہانی دوبارہ پڑھو۔ پہلے کیا ہوتا ہے، اور پھر کیا؟ قوسین بتاتی ہیں کہ کون سا مرحلہ پہلے کرنا ہے۔",
+    goodEst:"ہاں! {expr}۔ تو {L} تقریباً {e} ہونا چاہیے۔",
+    hintEst:"آسان اعداد تک راؤنڈ کرو: {list}۔ پھر اپنی مساوات استعمال کرو۔",
+    hintEstSmall:"یہ اعداد چھوٹے ہیں۔ اپنی مساوات سے ذہن میں حل کرو۔",
+    goodStory:"ہاں! {eq}۔ {steps} جواب تقریباً {e} کے اندازے کے قریب ہے، اس لیے یہ معقول ہے۔",
+    thenW:"پھر",
+    hintFar:"{v} تمہارے تقریباً {e} کے اندازے سے بہت دور ہے، اس لیے کچھ غلط ہوا ہے۔",
+    hintClose:"{v} تمہارے تقریباً {e} کے اندازے کے قریب ہے، لیکن بالکل درست نہیں۔",
+    hintStart:"ایک وقت میں ایک مرحلہ کرو۔ {s} سے شروع کرو۔",
+    stBox:"مارکروں کے {a} ڈبے ہیں، ہر ڈبے میں {b} مارکر۔ جماعت {c} مارکر استعمال کرتی ہے۔ کتنے مارکر بچے؟",
+    stBus:"ایک بس میں نشستوں کی {a} قطاریں ہیں، ہر قطار میں {b} نشستیں۔ ہر نشست بھری ہے، اور {c} مزید لوگ کھڑے ہیں۔ بس میں کتنے لوگ ہیں؟",
+    stApple:"ایک کسان خاتون {a} سرخ سیب اور {b} سبز سیب توڑتی ہے۔ وہ انہیں {c} تھیلوں میں برابر بھرتی ہے۔ ہر تھیلے میں کتنے سیب جاتے ہیں؟",
+    stTicket:"عجائب گھر کا ایک ٹکٹ {a} ڈالر کا ہے اور ایک ناشتہ {b} ڈالر کا۔ {c} طالب علموں میں سے ہر ایک، ایک ٹکٹ اور ایک ناشتہ خریدتا ہے۔ وہ کل کتنے ڈالر خرچ کرتے ہیں؟",
+    stSticker:"عائشہ کے پاس {a} اسٹیکر ہیں۔ وہ انہیں {b} دوستوں میں برابر بانٹتی ہے۔ پھر ہر دوست {c} اسٹیکر کسی اور کو دے دیتا ہے۔ اب ہر دوست کے پاس کتنے اسٹیکر ہیں؟",
+    sayTimes:"ضرب", sayDiv:"تقسیم", sayPlus:"جمع", sayMinus:"منفی", sayEq:"برابر", sayAbout:"تقریباً", sayBlank:"کون سا عدد", sayRem:"باقی",
+    teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setGrade:"جماعت", g3:"جماعت 3", g4:"جماعت 4", g5:"جماعت 5",
+    gradeNote:"جماعت چننے سے نیچے کے اختیارات طے ہو جاتے ہیں۔ آپ پھر بھی انہیں بدل سکتے ہیں۔",
+    setMaxFact:"سب سے بڑا جزوِ ضربی (حقائق اور صف بندی)", setArea:"رقبے کا ماڈل زیادہ سے زیادہ",
+    aF:"حقائق تقسیم کرنا (جیسے 7 × 8)", a21:"2 ہندسے × 1 ہندسہ", a22:"2 ہندسے × 2 ہندسے", a32:"3 ہندسے × 2 ہندسے",
+    setDiv:"تقسیم", dv100:"100 تک، 1 ہندسے کا مقسوم علیہ", dv1000:"3 ہندسے ÷ 1 ہندسہ", dv9999:"4 ہندسے ÷ 1 ہندسہ", dv2dig:"4 ہندسوں تک ÷ 2 ہندسے",
+    setRem:"باقی", remOn:"باقی اور باقی والی کہانیاں شامل کریں",
+    setModes:"موڈ", setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں", printCards:"چیلنج کارڈ پرنٹ کریں",
+    setStored:"ترتیبات صرف اسی ڈیوائس پر محفوظ ہوتی ہیں۔ طالب علم کی معلومات کبھی محفوظ نہیں ہوتیں۔",
+    stds:"منسلک معیارات — Texas TEKS: جماعت 3 3.4(D, E, F, G, H, J, K)، 3.5(B, D)؛ جماعت 4 4.4(C, D, E, F, G, H)، 4.5(A)؛ جماعت 5 5.3(B, C)، 5.4(A, B)۔ Common Core: 3.OA.1–8، 3.NBT.3؛ 4.OA.3، 4.OA.4، 4.NBT.5، 4.NBT.6؛ 5.NBT.5، 5.NBT.6۔",
+    cardTitle:"صف بندی کا معمار — چیلنج کارڈ", cardName:"نام:",
+    cardArr:"{r} قطاروں والی صف بندی بناؤ، ہر قطار میں {c}۔ اس کے لیے ضرب کی مساوات لکھو۔",
+    cardArea:"رقبے کے ماڈل سے {eq} معلوم کرو۔", cardDiv:"جزوی حاصلِ قسمت سے {eq} معلوم کرو۔",
+    cardMiss:"گمشدہ عدد معلوم کرو۔", cardFactors:"{n} کے تمام اجزائے ضربی لکھو۔",
+    cardStory:"نامعلوم عدد کے لیے ایک حرف والی مساوات لکھو۔ اندازہ لگاؤ، پھر حل کرو۔"
+  },
+  zh:{
+    appTitle:"阵列建筑师", home:"主页", privacy:"隐私", teacher:"教师", language:"语言", readAloud:"朗读",
+    modesLbl:"模式", stars:"获得的星星", newRound:"新一轮", footNote:"无账号 · 不收集数据 · 离线可用",
+    check:"检查", clear:"清除", undo:"撤销", choicesLbl:"答案选项",
+    mArr:"等分组与阵列", mArea:"面积模型", mDiv:"除法搭建", mFact:"口算熟练", mStory:"多步应用题",
+    rowsLbl:"行", colsLbl:"列", addRow:"加一行", remRow:"减一行", addCol:"加一列", remCol:"减一列",
+    arrGridLbl:"阵列搭建区。点按或拖动来设定大小，也可以用方向键。",
+    arrRC:"{r} 行，{c} 列", arrUsed:"{r} 行，每行 {c} 个。已用圆片：{u}/{n}",
+    arrAria:"{r} 行，每行 {c} 个圆片", grpAria:"{r} 组，每组 {c} 个圆片", thisArr:"这个阵列：",
+    arrBuild:"搭一个阵列：{r} 行，每行 {c} 个。",
+    arrTurn:"这个阵列有 {r} 行，每行 {c} 个。把它转过来：搭 {c} 行，每行 {r} 个。",
+    arrShare:"把 {n} 个圆片平均分成 {r} 行。一列一列地加，直到 {n} 个全部用完。每行有几个？",
+    arrGroup:"把 {n} 个圆片每 {c} 个排成一行。一行一行地加，直到 {n} 个全部用完。能排几行？",
+    arrEqA:"哪个算式和这个阵列相符？", arrEqG:"哪个算式和这些等分组相符？",
+    arrEmpty:"点按网格，开始搭你的阵列。",
+    goodArr:"对了！{r} 行，每行 {c} 个。{c} 个 {c} 个地数：{seq}。所以 {eq}。",
+    goodTurn:"对了！{eq}。把阵列转过来，总数不变。这就是乘法交换律。",
+    goodShare:"对了！把 {n} 平均分成 {r} 行，每行 {c} 个：{eq}，因为 {eq2}。",
+    goodGroup:"对了！{n} 个圆片每行 {c} 个，可以排 {r} 行：{eq}，因为 {eq2}。",
+    hintArr:"你搭了 {r} 行，每行 {c} 个。我们需要 {R} 行，每行 {C} 个。行是横着的，列是竖着的。",
+    hintArrSwap:"差一点！你搭了 {r} 行，每行 {c} 个。行是横着的，所以我们需要 {R} 行，每行 {C} 个。",
+    hintShareLess:"你用了 {u} 个圆片，还剩 {left} 个没分。加一列，让每行再多一个。",
+    hintShareMore:"你用了 {u} 个圆片，可是只有 {n} 个。去掉一列。",
+    hintGroupLess:"你用了 {u} 个圆片，还剩 {left} 个。再加一行 {c} 个。",
+    hintGroupMore:"你用了 {u} 个圆片，可是只有 {n} 个。去掉一行。",
+    goodEqA:"对了！{r} 行，每行 {c} 个。{c} 个 {c} 个地数：{seq}。所以 {eq}。",
+    goodEqG:"对了！{r} 个相等的组，每组 {c} 个。{c} 个 {c} 个地数：{seq}。所以 {eq}。",
+    hintEqAdd:"算 {s} 只数了一行和一列，没有数全部圆片。",
+    hintEqA:"仔细看：有 {r} 行，每行 {c} 个。",
+    hintEqG:"仔细看：有 {r} 组，每组 {c} 个。",
+    areaSplitDir:"求 {eq}。点按阵列，把它分成两个更容易的乘法，然后填空。",
+    areaPPDir:"用面积模型求 {eq}。填出每个部分积，再把它们加起来。",
+    splitTap:"在阵列上点按或拖动来把它分开。", splitLeft:"分割线向左移", splitRight:"分割线向右移",
+    splitLbl:"要分开的阵列。用方向键移动分割线。",
+    partL:"左边部分", partR:"右边部分", totalLbl:"总数", fillAll:"请先把所有空格填好。",
+    hintPartL:"左边部分有 {a} 行，每行 {k} 个。{k} 个 {k} 个地数 {a} 次：{s} …",
+    hintPartR:"右边部分有 {a} 行，每行 {k} 个。{k} 个 {k} 个地数 {a} 次：{s} …",
+    hintSum:"两部分都对了。现在把它们加起来：{eq}。",
+    goodSplit:"对了！{eq}。把阵列分成两个更容易的乘法，用的是乘法分配律。",
+    ppCell:"部分积 {eq}",
+    hintPP0:"{eq} 是基本口诀。需要的话，{y} 个 {y} 个地数 {x} 次。",
+    hintPP:"算 {eq}，先用基本口诀 {fact}。再想数位：在 {f} 后面添上 {zs}。",
+    oneZero:"1 个 0", nZeros:"{z} 个 0",
+    hintPPSum:"你的部分积都对了。现在把它们全部加起来：{eq}。",
+    goodPP:"对了！{sum}，所以 {eq}。把数拆成百、十、一，部分积就更容易算了。",
+    divDir:"求 {eq}。用按钮一组一组地减去 {d}，然后回答。",
+    divFirst:"先求 {eq}。",
+    chunkTitle:"减去几组", chunkHelp:"每个按钮减去这么多组 {d}。",
+    chunkAria:"拿走 {m} 组 {d}，也就是 {p}",
+    leftLbl:"还剩：{left}", remAbbr:"余", quotLbl:"商", remLbl:"余数",
+    chunkBig:"{eq}，可是只剩 {left} 了。试试少一点的组数。",
+    chunkDone:"只剩 {left} 了，不够再分一组 {d}。现在把你的组数加起来。",
+    chunkNoMore:"剩下的不到 {d}，不能再分组了。",
+    hintDivUse:"用按钮一组一组地减去 {d}，直到剩下的少于 {d}。然后把组数加起来。",
+    hintDivSum:"把你拿走的组数加起来：{eq}。",
+    hintDivBig:"{eq}，比 {n} 大。试试小一点的商。",
+    hintDivSmall:"{eq}。还剩 {left}，够再分一组 {d}。试试大一点的商。",
+    hintRemBig:"余数必须比 {d} 小，不然还能再分一组。",
+    hintRem:"{eq}。从 {n} 里去掉 {p}，还剩多少？",
+    goodDiv:"对了！{eq}。验算：{chk}。",
+    divInterp:"对了！{eq}。现在想一想题目。",
+    ctx_up:"{n} 名学生参加班级聚会。每张桌子坐 {d} 名学生。需要几张桌子？",
+    ctx_drop:"把 {n} 个松饼装进盒子，每盒装 {d} 个。可以装满几盒？",
+    ctx_left:"把 {n} 张贴纸平均分给 {d} 个朋友。还剩几张贴纸？",
+    ctx_each:"把 {n} 支铅笔平均放进 {d} 个杯子。每个杯子放几支铅笔？",
+    q_up:"需要几张桌子？", q_drop:"可以装满几盒？", q_left:"还剩几张贴纸？",
+    good_up:"对了！{q} 张桌子坐满了，还有 {r} 名学生需要座位，所以需要 {q1} 张桌子。这里因为有余数，要多加一张。",
+    good_drop:"对了！装满了 {q} 盒。多出来的 {r} 个松饼装不满一盒，所以余数不算。",
+    good_left:"对了！每个朋友分到 {q} 张，余数 {r} 就是剩下的贴纸。",
+    good_each:"每个杯子放 {q} 支铅笔。",
+    hint_up:"能让 {r} 名学生没有座位吗？每名学生都需要座位，想一想余数。",
+    hint_drop:"题目只问装满的盒子。多出来的 {r} 个松饼能装满一盒吗？",
+    hint_left:"题目问的是剩下多少，不是每个朋友分到多少。",
+    mulDir:"求出缺少的因数。", divFactDir:"求商。",
+    famDir:"哪个算式属于 {nums} 的算式家族？",
+    factorsDir:"点出 {n} 的所有因数，然后点“检查”。",
+    multDir:"点出 {k} 的所有倍数，然后点“检查”。",
+    primeDir:"{n} 是质数还是合数？",
+    prime:"质数", composite:"合数", primeSub:"只有 2 个因数", compSub:"多于 2 个因数",
+    goodMul:"对了！{eq}，所以 {rel}。", hintMul:"想一想：几个 {k} 是 {p}？{k} 个 {k} 个地数：{seq}。",
+    goodDivF:"对了！{eq}，因为 {rel}。", hintDivF:"除法就是求缺少的因数：{q}。{a} 个 {a} 个地数，一直数到 {p}。",
+    goodFam:"对了！整个算式家族：{list}。",
+    hintFam:"算式家族用的是同样的三个数，而且每个算式都必须成立。除法中，最大的数写在最前面。",
+    chipsEmpty:"请先点一些数。",
+    hintNotFactor:"{x} 不是 {n} 的因数：{eq}。因数能整除，没有余数。",
+    hintPartner:"因数是成对出现的：{eq}。每一对的两个数你都选了吗？",
+    hintFactMiss:"还漏了一些因数。逐个试一试：它能整除 {n} 吗？",
+    goodFactors:"对了！{n} 的因数是 {list}。因数对：{pairs}。",
+    hintNotMult:"{x} 不是 {k} 的倍数。{k} 个 {k} 个地数，会从 {lo} 跳到 {hi}。",
+    hintMultMiss:"还漏了一些倍数。{k} 个 {k} 个地数，找出你数到的每个数。",
+    goodMult:"对了！{k} 的倍数就是 {k} 个 {k} 个地数时数到的数：{seq}。",
+    goodPrime:"对了！{n} 只有两个因数：1 和 {n}，所以它是质数。",
+    goodComp:"对了！{eq}，所以 {n} 的因数多于两个：{list}。它是合数。",
+    hintPrime:"找一找除了 {eq} 以外的因数对。如果没有，{n} 就只有两个因数。",
+    hintComp:"{x} 能整除 {n} 吗？因数多于两个的数是合数。",
+    letterNote:"用字母 {L} 表示未知数。",
+    step1Q:"第 1 步：哪个算式和题目相符？",
+    step2Q:"第 2 步：估算。{L} 大约是多少？",
+    step3Q:"第 3 步：解答。{L} 是多少？",
+    estWord:"估算：",
+    goodStep1:"对了！这个算式和题目相符。",
+    hintStep1:"再读一遍题目。先发生什么，再发生什么？括号表示先算哪一步。",
+    goodEst:"对了！{expr}。所以 {L} 大约是 {e}。",
+    hintEst:"先把数凑成整十、整百：{list}。再用你的算式。",
+    hintEstSmall:"这些数都很小。用你的算式口算一下。",
+    goodStory:"对了！{eq}。{steps} 答案接近估算的 {e} 左右，所以是合理的。",
+    thenW:"然后",
+    hintFar:"{v} 离你的估算（大约 {e}）太远了，哪里出错了。",
+    hintClose:"{v} 接近你的估算（大约 {e}），但还不准确。",
+    hintStart:"一步一步来。先算 {s}。",
+    stBox:"有 {a} 盒马克笔，每盒 {b} 支。全班用了 {c} 支。还剩多少支马克笔？",
+    stBus:"一辆公交车有 {a} 排座位，每排 {b} 个座位。座位都坐满了，还有 {c} 人站着。车上一共有多少人？",
+    stApple:"一位农场主摘了 {a} 个红苹果和 {b} 个青苹果。她把苹果平均装进 {c} 个袋子。每袋装多少个苹果？",
+    stTicket:"博物馆门票每张 {a} 美元，零食每份 {b} 美元。{c} 名学生每人买一张门票和一份零食。他们一共花多少美元？",
+    stSticker:"小安有 {a} 张贴纸。她把贴纸平均分给 {b} 个朋友。然后每个朋友送出 {c} 张。现在每个朋友有多少张贴纸？",
+    sayTimes:"乘", sayDiv:"除以", sayPlus:"加", sayMinus:"减", sayEq:"等于", sayAbout:"约等于", sayBlank:"几", sayRem:"余",
+    teacherTitle:"教师设置", close:"关闭", setGrade:"年级", g3:"三年级", g4:"四年级", g5:"五年级",
+    gradeNote:"选择年级会设定下面的选项，之后仍可修改。",
+    setMaxFact:"最大因数（口算和阵列）", setArea:"面积模型最高到",
+    aF:"拆分乘法（如 7 × 8）", a21:"两位数 × 一位数", a22:"两位数 × 两位数", a32:"三位数 × 两位数",
+    setDiv:"除法", dv100:"100 以内，除数是一位数", dv1000:"三位数 ÷ 一位数", dv9999:"四位数 ÷ 一位数", dv2dig:"最多四位数 ÷ 两位数",
+    setRem:"余数", remOn:"包含余数和有余数的应用题",
+    setModes:"模式", setSpeech:"语音", autoRead:"自动朗读说明", printCards:"打印挑战卡",
+    setStored:"设置只保存在本设备上，绝不保存学生信息。",
+    stds:"对应标准 — Texas TEKS：三年级 3.4(D, E, F, G, H, J, K)、3.5(B, D)；四年级 4.4(C, D, E, F, G, H)、4.5(A)；五年级 5.3(B, C)、5.4(A, B)。Common Core：3.OA.1–8、3.NBT.3；4.OA.3、4.OA.4、4.NBT.5、4.NBT.6；5.NBT.5、5.NBT.6。",
+    cardTitle:"阵列建筑师 — 挑战卡", cardName:"姓名：",
+    cardArr:"画一个 {r} 行、每行 {c} 个的阵列，并写出乘法算式。",
+    cardArea:"用面积模型求 {eq}。", cardDiv:"用部分商求 {eq}。",
+    cardMiss:"求出缺少的数。", cardFactors:"写出 {n} 的所有因数。",
+    cardStory:"用字母表示未知数，写出算式。先估算，再解答。"
+  }
+};
+
+let lang = "en";
+function t(key, vars){
+  let s = (T[lang] && T[lang][key]!==undefined) ? T[lang][key] : (T.en[key]!==undefined? T.en[key] : key);
+  if(vars) for(const k in vars) s = s.replaceAll("{"+k+"}", vars[k]);
+  return s;
+}
+
+/* ---------- Settings ---------- */
+const MODES = ["arr","area","div","fact","story"];
+const MODE_KEY = {arr:"mArr",area:"mArea",div:"mDiv",fact:"mFact",story:"mStory"};
+const GRADE_DEF = {3:{maxFact:10,areaMax:"21",divLvl:"d100",rem:false}, 4:{maxFact:12,areaMax:"22",divLvl:"d1000",rem:true}, 5:{maxFact:12,areaMax:"32",divLvl:"d2dig",rem:true}};
+const AREA_POOL = {f:["f"], "21":["f","21","21"], "22":["21","31","22","22"], "32":["22","31","32","32"]};
+const DIV_LVLS = ["d100","d1000","d9999","d2dig"];
+const DEFAULTS = Object.assign({grade:3, modes:{arr:true,area:true,div:true,fact:true,story:true}, autoRead:false}, GRADE_DEF[3]);
+const clone = o=>JSON.parse(JSON.stringify(o));
+let settings = loadSettings();
+function loadSettings(){
+  try{
+    const raw = localStorage.getItem("aa_settings");
+    if(raw){ const o=JSON.parse(raw), s=Object.assign(clone(DEFAULTS), o, {modes:Object.assign({},DEFAULTS.modes,o.modes)});
+      s.grade=[3,4,5].includes(+s.grade)?+s.grade:3;
+      s.maxFact=Math.min(12,Math.max(5,+s.maxFact||10));
+      if(!AREA_POOL[s.areaMax]) s.areaMax=GRADE_DEF[s.grade].areaMax;
+      if(!DIV_LVLS.includes(s.divLvl)) s.divLvl=GRADE_DEF[s.grade].divLvl;
+      s.rem=!!s.rem; s.autoRead=!!s.autoRead;
+      if(!MODES.some(m=>s.modes[m])) s.modes=clone(DEFAULTS.modes);
+      return s; }
+  }catch(e){}
+  return clone(DEFAULTS);
+}
+function saveSettings(){ try{ localStorage.setItem("aa_settings", JSON.stringify(settings)); }catch(e){} }
+
+/* ---------- Utils ---------- */
+const $ = s=>document.querySelector(s);
+const $$ = s=>Array.from(document.querySelectorAll(s));
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const ri = (a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const M = s=>`<bdi class="math" dir="ltr">${s}</bdi>`;
+const plain = h=>String(h).replace(/<[^>]+>/g,"").replace(/\s+/g," ").trim();
+const esc = s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+// Speakable math: symbols become words in the current language.
+function sayMath(s){
+  s=String(s);
+  const ra=t("remAbbr"); if(ra) s=s.replace(new RegExp("(\\d) "+esc(ra)+" (\\d)","g"),"$1 "+t("sayRem")+" $2");
+  return s.replace(/×/g," "+t("sayTimes")+" ").replace(/÷/g," "+t("sayDiv")+" ").replace(/−/g," "+t("sayMinus")+" ")
+    .replace(/\+/g," "+t("sayPlus")+" ").replace(/=/g," "+t("sayEq")+" ").replace(/≈/g," "+t("sayAbout")+" ")
+    .replace(/▢/g," "+t("sayBlank")+" ").replace(/[()…]/g," ").replace(/\s+([,.!?])/g,"$1").replace(/\s+/g," ").trim();
+}
+// Accept Arabic-Indic and Persian digits too; empty -> NaN.
+function num(el){
+  const v=String(el.value||"").replace(/[٠-٩]/g,d=>d.charCodeAt(0)-1632).replace(/[۰-۹]/g,d=>d.charCodeAt(0)-1776).replace(/[^\d]/g,"");
+  return v===""?NaN:parseInt(v,10);
+}
+const skipSeq = (step,count)=>Array.from({length:count},(_,i)=>step*(i+1)).join(", ");
+const inp = (id,label)=>`<input class="num" id="${id}" inputmode="numeric" autocomplete="off" aria-label="${label}" title="${label}">`;
+let stars=0;
+function addStar(){ stars++; $("#starCount").textContent=stars; const w=$("#stars"); w.classList.remove("pop"); void w.offsetWidth; w.classList.add("pop"); }
+
+/* ---------- Speech ---------- */
+const speechOK = ("speechSynthesis" in window);
+function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
+// Prefer warm, natural voices for young learners; avoid harsh robotic engines.
+function pickWarmVoice(code){
+  const vs = speechSynthesis.getVoices()||[];
+  const want=code.toLowerCase(), two=want.slice(0,2);
+  let best=null, bs=-1;
+  for(const v of vs){
+    const lc=(v.lang||'').toLowerCase().replace('_','-');
+    if(lc!==want && lc.slice(0,2)!==two) continue;
+    let s=(lc===want?100:60); const n=(v.name||'').toLowerCase();
+    if(/google|natural|neural|online|premium|enhanced|siri/.test(n)) s+=40;
+    if(/female|woman|samantha|karen|tessa|moira|fiona|serena|victoria|allison|ava|susan|zoe|amelie|amélie|paulina|monica|mónica|zira|hazel|catherine|linda|kanya|lekha|ting-ting|mei-jia|sin-ji|yu-shu|huihui|xiaoxiao/.test(n)) s+=18;
+    if(/espeak|compact|festival|pico|robot|eloquence/.test(n)) s-=60;
+    if(v.localService===false) s+=8;
+    if(v.default) s+=2;
+    if(s>bs){ bs=s; best=v; }
+  }
+  return best;
+}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  const parts=String(text).match(/[^.!?。！？؟।۔]+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  text=sayMath(plain(text||""));
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.9; u.pitch=1.1;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={arr:0,area:0,div:0,fact:0,story:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
+}
+if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
+if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
+
+const currentSpeech = {arr:"",area:"",div:"",fact:"",story:""};
+function setSpeech(mode,text){ currentSpeech[mode]=plain(text); }
+function setPrompt(mode,html){ $("#"+mode+"Prompt").innerHTML=html; setSpeech(mode,html); }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===mode) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,#arrGrid,#splitGrid")) return;
+  speak(currentSpeech[currentMode()]);
+},true);
+
+/* ---------- Feedback ---------- */
+const FB_IC={good:"✅ ",hint:"💡 ",info:"👉 "};
+function showFb(el,type,msg){ el.className="feedback show "+type; el.innerHTML=FB_IC[type]+msg; }
+function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
+function fbSay(el,type,msg){ showFb(el,type,msg); speak(msg); }
+const made={};
+function mkChoices(wrap,opts,onPick){
+  wrap.innerHTML="";
+  opts.forEach(o=>{
+    const b=document.createElement("button"); b.type="button"; b.className="choice";
+    b.innerHTML=`<span class="lbl">${o.s}</span>`+(o.sub?`<span class="sub">${o.sub}</span>`:"");
+    const al=sayMath(plain(o.s))+(o.sub?" — "+o.sub:""); b.setAttribute("aria-label",al);
+    b.addEventListener("click",()=>onPick(b,o)); wrap.appendChild(b);
+  });
+}
+function lockChoices(wrap,btn){ btn.classList.add("correctpick"); wrap.querySelectorAll(".choice").forEach(b=>b.disabled=true); }
+
+/* =========================================================================
+   EQUAL GROUPS & ARRAYS — build arrays, turn them, share and group
+   ========================================================================= */
+let A=null, arrDrag=false;
+const arrG = ()=>Math.max(10,settings.maxFact);
+function dotsSVG(r,c,gr,gc,cls,lbl){
+  const S=30; let s=`<svg class="${cls||""}" viewBox="0 0 ${gc*S} ${gr*S}" ${lbl?`role="img" aria-label="${lbl}"`:`aria-hidden="true"`} focusable="false">`;
+  if(r&&c) s+=`<rect x="2" y="2" width="${c*S-4}" height="${r*S-4}" rx="9" class="arrbox"/>`;
+  for(let i=0;i<gr;i++) for(let j=0;j<gc;j++){ const on=i<r&&j<c;
+    s+=`<circle cx="${j*S+S/2}" cy="${i*S+S/2}" r="${on?10.5:3.5}" class="${on?(i%2?"d2":"d1"):"d0"}"/>`; }
+  return s+`</svg>`;
+}
+function staticArray(r,c){ return `<div dir="ltr" style="width:${Math.min(c*30,360)}px;max-width:100%">${dotsSVG(r,c,r,c,"",t("arrAria",{r,c}))}</div>`; }
+function groupsHTML(r,c){
+  return `<div class="groups" dir="ltr" role="img" aria-label="${t("grpAria",{r,c})}">`+
+    `<span class="plate">${'<span class="pdot"></span>'.repeat(c)}</span>`.repeat(r)+`</div>`;
+}
+function newArr(){
+  roundIds.arr++; made.arr=true;
+  const mx=settings.maxFact, type=rand(["build","eq","turn","share","group"]);
+  let R=ri(2,mx), C=ri(2,mx);
+  if(type==="turn" && R===C) C=C>2?C-1:C+1;
+  const show=type==="eq"&&Math.random()<.5?"groups":"array";
+  if(show==="groups"){ R=ri(2,Math.min(mx,8)); C=ri(2,Math.min(mx,9)); }
+  A={type,R,C,N:R*C,r:0,c:0,lockR:type==="share",lockC:type==="group",show,done:false};
+  if(A.lockR) A.r=R; if(A.lockC) A.c=C;
+  const dir = type==="build"?t("arrBuild",{r:R,c:C}) : type==="turn"?t("arrTurn",{r:R,c:C})
+    : type==="share"?t("arrShare",{n:A.N,r:R}) : type==="group"?t("arrGroup",{n:A.N,c:C}) : t(show==="groups"?"arrEqG":"arrEqA");
+  setPrompt("arr",dir); hideFb($("#arrFb"));
+  const model=$("#arrModel");
+  model.innerHTML = type==="turn" ? `<span class="modelcap">${t("thisArr")}</span>`+staticArray(R,C)
+    : type==="eq" ? (show==="groups"?groupsHTML(R,C):staticArray(R,C)) : "";
+  model.classList.toggle("hidden",!(type==="turn"||type==="eq"));
+  $("#arrBuild").classList.toggle("hidden",type==="eq");
+  const ch=$("#arrChoices"); ch.classList.toggle("hidden",type!=="eq"); ch.innerHTML="";
+  if(type==="eq"){
+    const alt=R+1<=mx+1?R+1:R-1;
+    mkChoices(ch,shuffle([{s:`${R} × ${C} = ${A.N}`,ok:1},{s:`${R} + ${C} = ${R+C}`,add:1},
+      {s:`${R} × ${C+1} = ${R*(C+1)}`},{s:`${alt} × ${C} = ${alt*C}`}]),checkArrEq);
+  }
+  renderArr(); maybeAuto("arr");
+}
+function renderArr(){
+  if(!A) return;
+  const G=arrG(), g=$("#arrGrid");
+  g.innerHTML=dotsSVG(A.r,A.c,G,G,"");
+  $("#arrR").textContent=A.r; $("#arrC").textContent=A.c;
+  $$("#arrBuild [data-step]").forEach(b=>{ const k=b.dataset.step[0], d=+b.dataset.step.slice(1), v=A[k]+d;
+    b.disabled=A.done||(k==="r"?A.lockR:A.lockC)||v<0||v>G; });
+  const st=(A.type==="share"||A.type==="group")?t("arrUsed",{r:A.r,c:A.c,u:A.r*A.c,n:A.N}):t("arrRC",{r:A.r,c:A.c});
+  $("#arrStatus").textContent=st; g.setAttribute("aria-label",t("arrGridLbl")+" "+st);
+  $("#arrCheck").disabled=$("#arrClear").disabled=A.done;
+}
+function setArr(r,c){
+  if(!A||A.done) return; const G=arrG();
+  r=A.lockR?A.r:Math.max(0,Math.min(G,r)); c=A.lockC?A.c:Math.max(0,Math.min(G,c));
+  if(r===A.r&&c===A.c) return;
+  A.r=r; A.c=c; hideFb($("#arrFb")); renderArr();
+}
+function arrPoint(e){
+  const svg=$("#arrGrid svg"); if(!svg||!A) return;
+  const rc=svg.getBoundingClientRect(), G=arrG();
+  const col=Math.floor((e.clientX-rc.left)/rc.width*G)+1, row=Math.floor((e.clientY-rc.top)/rc.height*G)+1;
+  setArr(Math.max(1,row),Math.max(1,col));
+}
+function checkArr(){
+  if(!A||A.done||A.type==="eq") return;
+  const {type,R,C,N,r,c}=A, fb=$("#arrFb");
+  if(!r||!c){ fbSay(fb,"hint",t("arrEmpty")); return; }
+  const tr=type==="turn"?C:R, tc=type==="turn"?R:C;
+  if(r===tr&&c===tc){
+    A.done=true; addStar(); renderArr();
+    const m = type==="build"?t("goodArr",{r,c,seq:M(skipSeq(c,r)),eq:M(`${r} × ${c} = ${N}`)})
+      : type==="turn"?t("goodTurn",{eq:M(`${R} × ${C} = ${C} × ${R} = ${N}`)})
+      : type==="share"?t("goodShare",{n:N,r:R,c:C,eq:M(`${N} ÷ ${R} = ${C}`),eq2:M(`${R} × ${C} = ${N}`)})
+      : t("goodGroup",{n:N,c:C,r:R,eq:M(`${N} ÷ ${C} = ${R}`),eq2:M(`${R} × ${C} = ${N}`)});
+    showFb(fb,"good",m); afterPraise(m,"arr",newArr,1800); return;
+  }
+  const u=r*c; let m;
+  if(type==="share") m=u<N?t("hintShareLess",{u,left:N-u}):t("hintShareMore",{u,n:N});
+  else if(type==="group") m=u<N?t("hintGroupLess",{u,left:N-u,c:C}):t("hintGroupMore",{u,n:N});
+  else if(r===tc&&c===tr) m=t("hintArrSwap",{r,c,R:tr,C:tc});
+  else m=t("hintArr",{r,c,R:tr,C:tc});
+  fbSay(fb,"hint",m);
+}
+function checkArrEq(btn,o){
+  if(!A||A.done) return;
+  const {R,C,N,show}=A, fb=$("#arrFb");
+  if(o.ok){
+    A.done=true; lockChoices($("#arrChoices"),btn); addStar();
+    const m=t(show==="groups"?"goodEqG":"goodEqA",{r:R,c:C,seq:M(skipSeq(C,R)),eq:M(`${R} × ${C} = ${N}`)});
+    showFb(fb,"good",m); afterPraise(m,"arr",newArr,1800); return;
+  }
+  btn.classList.add("wrongpick"); btn.disabled=true;
+  const m=(o.add?t("hintEqAdd",{s:M(`${R} + ${C}`)})+" ":"")+t(show==="groups"?"hintEqG":"hintEqA",{r:R,c:C});
+  fbSay(fb,"hint",m);
+}
+function initArr(){
+  const g=$("#arrGrid");
+  g.addEventListener("pointerdown",e=>{ if(!A||A.done) return; arrDrag=true; try{ g.setPointerCapture(e.pointerId); }catch(_){} arrPoint(e); });
+  g.addEventListener("pointermove",e=>{ if(arrDrag) arrPoint(e); });
+  ["pointerup","pointercancel","lostpointercapture"].forEach(ev=>g.addEventListener(ev,()=>{ arrDrag=false; }));
+  g.addEventListener("keydown",e=>{
+    if(!A) return; const k=e.key; let r=A.r,c=A.c;
+    if(k==="ArrowRight") c++; else if(k==="ArrowLeft") c--; else if(k==="ArrowDown") r++; else if(k==="ArrowUp") r--;
+    else if(k==="Enter"){ e.preventDefault(); checkArr(); return; } else return;
+    e.preventDefault(); setArr(r,c);
+  });
+  $$("#arrBuild [data-step]").forEach(b=>b.addEventListener("click",()=>{ if(!A) return; const k=b.dataset.step[0], d=+b.dataset.step.slice(1);
+    setArr(k==="r"?A.r+d:A.r, k==="c"?A.c+d:A.c); }));
+  $("#arrCheck").addEventListener("click",checkArr);
+  $("#arrClear").addEventListener("click",()=>{ if(!A||A.done) return; A.r=A.lockR?A.R:0; A.c=A.lockC?A.C:0; hideFb($("#arrFb")); renderArr(); });
+}
+
+/* =========================================================================
+   AREA MODEL — split an array (distributive property), then partial products
+   ========================================================================= */
+let AR=null, splitDrag=false;
+const SPL={S:28,L:30,T:28};
+function pickDigits(n){ let x; do{ x=ri(10**(n-1),10**n-1); }while(x%10===0); return x; }
+function placeParts(n){ const s=String(n), out=[]; for(let i=0;i<s.length;i++){ const d=+s[i]; if(d) out.push(d*10**(s.length-1-i)); } return out; }
+function newArea(){
+  roundIds.area++; made.area=true;
+  const kind=rand(AREA_POOL[settings.areaMax]), mx=Math.max(6,settings.maxFact);
+  let a,b;
+  if(kind==="f"){ a=ri(3,mx); b=ri(6,mx); }
+  else { a=pickDigits(+kind[0]); b=kind[1]==="1"?ri(3,9):pickDigits(2); }
+  AR={kind,a,b,k:0,done:false};
+  setPrompt("area",t(kind==="f"?"areaSplitDir":"areaPPDir",{eq:M(`${a} × ${b}`)}));
+  hideFb($("#areaFb")); $("#areaCheck").disabled=false;
+  const w=$("#areaWork");
+  if(kind==="f"){
+    w.innerHTML=`<div class="splitgrid" id="splitGrid" dir="ltr" tabindex="0" role="group" aria-label="${t("splitLbl")}"></div>
+      <div class="splitctl no-print" dir="ltr"><button type="button" class="btn ghost sbtn" id="splitL" aria-label="${t("splitLeft")}" title="${t("splitLeft")}">◀</button>
+      <button type="button" class="btn ghost sbtn" id="splitR" aria-label="${t("splitRight")}" title="${t("splitRight")}">▶</button></div>
+      <div class="eqblock" id="splitEq" dir="ltr"></div>`;
+    const g=$("#splitGrid");
+    g.addEventListener("pointerdown",e=>{ if(AR.done) return; splitDrag=true; try{ g.setPointerCapture(e.pointerId); }catch(_){} splitPoint(e); });
+    g.addEventListener("pointermove",e=>{ if(splitDrag) splitPoint(e); });
+    ["pointerup","pointercancel","lostpointercapture"].forEach(ev=>g.addEventListener(ev,()=>{ splitDrag=false; }));
+    g.addEventListener("keydown",e=>{ if(e.key==="ArrowRight"||e.key==="ArrowLeft"){ e.preventDefault(); moveSplit(e.key==="ArrowRight"?1:-1); } });
+    $("#splitL").addEventListener("click",()=>moveSplit(-1)); $("#splitR").addEventListener("click",()=>moveSplit(1));
+    renderSplit();
+  } else {
+    const ap=placeParts(a), bp=placeParts(b), mxp=Math.max(...ap);
+    AR.ap=ap; AR.bp=bp;
+    let h=`<div class="ppgrid" dir="ltr" style="grid-template-columns:auto ${ap.map(x=>`minmax(62px,${(0.7+1.6*x/mxp).toFixed(2)}fr)`).join(" ")}">`;
+    h+=`<div class="pph">×</div>`+ap.map(x=>`<div class="pph">${x}</div>`).join("");
+    bp.forEach((y,j)=>{
+      h+=`<div class="pph">${y}</div>`;
+      ap.forEach((x,i)=>{ h+=`<div class="ppcell pc${(i+j*2)%6}" style="min-height:${y>=10?84:60}px">${inp(`pp${i}_${j}`,t("ppCell",{eq:sayMath(`${x} × ${y}`)}))}</div>`; });
+    });
+    h+=`</div><div class="eqblock" dir="ltr"><div class="eqline"><span>${a} × ${b} =</span>${inp("ppTot",t("totalLbl"))}</div></div>`;
+    w.innerHTML=h;
+    w.querySelectorAll("input").forEach(x=>x.addEventListener("keydown",e=>{ if(e.key==="Enter") checkArea(); }));
+  }
+  maybeAuto("area");
+}
+function splitSVG(){
+  const {a,b,k}=AR, {S,L,T}=SPL, W=L+b*S+4, H=T+a*S+4;
+  let s=`<svg viewBox="0 0 ${W} ${H}" aria-hidden="true" focusable="false">`;
+  for(let i=0;i<a;i++) for(let j=0;j<b;j++) s+=`<rect x="${L+j*S}" y="${T+i*S}" width="${S}" height="${S}" class="${!k?"sq0":j<k?"sqL":"sqR"}"/>`;
+  s+=`<text class="slab" x="${L/2}" y="${T+a*S/2+5}">${a}</text>`;
+  if(k){ s+=`<line class="splitline" x1="${L+k*S}" y1="${T-8}" x2="${L+k*S}" y2="${T+a*S+2}"/>`+
+      `<text class="slab" x="${L+k*S/2}" y="${T-9}">${k}</text><text class="slab" x="${L+(k+b)*S/2}" y="${T-9}">${b-k}</text>`; }
+  else s+=`<text class="slab" x="${L+b*S/2}" y="${T-9}">${b}</text>`;
+  return s+`</svg>`;
+}
+function renderSplit(){
+  if(!AR||AR.kind!=="f") return;
+  const {a,b,k}=AR;
+  $("#splitGrid").innerHTML=splitSVG();
+  $("#splitL").disabled=AR.done||k<=1; $("#splitR").disabled=AR.done||(k>=b-1&&k>0);
+  const eq=$("#splitEq");
+  if(!k){ eq.innerHTML=`<p class="muted">${t("splitTap")}</p>`; return; }
+  eq.innerHTML=`<div class="eqline">${a} × ${b} = ${a} × ${k} + ${a} × ${b-k}</div>
+    <div class="eqline">= ${inp("sp1",t("partL"))} + ${inp("sp2",t("partR"))}</div>
+    <div class="eqline">= ${inp("spT",t("totalLbl"))}</div>`;
+  eq.querySelectorAll("input").forEach(x=>x.addEventListener("keydown",e=>{ if(e.key==="Enter") checkArea(); }));
+}
+function setSplit(k){ if(!AR||AR.done) return; k=Math.max(1,Math.min(AR.b-1,k)); if(k===AR.k) return; AR.k=k; hideFb($("#areaFb")); renderSplit(); }
+function moveSplit(d){ if(!AR) return; setSplit(AR.k?AR.k+d:(d>0?Math.min(5,AR.b-1):Math.max(1,AR.b-5))); }
+function splitPoint(e){
+  const svg=$("#splitGrid svg"); if(!svg) return;
+  const rc=svg.getBoundingClientRect(), {S,L}=SPL, W=L+AR.b*S+4, x=(e.clientX-rc.left)/rc.width*W;
+  setSplit(Math.round((x-L)/S));
+}
+function checkArea(){
+  if(!AR||AR.done) return;
+  const fb=$("#areaFb"), {a,b}=AR;
+  if(AR.kind==="f"){
+    const k=AR.k; if(!k){ fbSay(fb,"hint",t("splitTap")); return; }
+    const els=[$("#sp1"),$("#sp2"),$("#spT")], v=els.map(num), want=[a*k,a*(b-k),a*b];
+    if(v.some(isNaN)){ fbSay(fb,"hint",t("fillAll")); return; }
+    els.forEach((el,i)=>{ el.classList.toggle("ok",v[i]===want[i]); el.classList.toggle("bad",v[i]!==want[i]); });
+    if(v[0]!==want[0]){ fbSay(fb,"hint",t("hintPartL",{a,k,s:M(skipSeq(k,Math.min(2,a)))})); return; }
+    if(v[1]!==want[1]){ fbSay(fb,"hint",t("hintPartR",{a,k:b-k,s:M(skipSeq(b-k,Math.min(2,a)))})); return; }
+    if(v[2]!==want[2]){ fbSay(fb,"hint",t("hintSum",{eq:M(`${want[0]} + ${want[1]}`)})); return; }
+    AR.done=true; addStar(); els.forEach(el=>el.disabled=true); $("#areaCheck").disabled=true; renderSplitLock();
+    const m=t("goodSplit",{eq:M(`${a} × ${b} = ${a} × ${k} + ${a} × ${b-k} = ${want[0]} + ${want[1]} = ${a*b}`)});
+    showFb(fb,"good",m); afterPraise(m,"area",newArea,2000); return;
+  }
+  const {ap,bp}=AR, cells=[];
+  bp.forEach((y,j)=>ap.forEach((x,i)=>cells.push({x,y,el:$(`#pp${i}_${j}`)})));
+  const tot=$("#ppTot"), vals=cells.map(c=>num(c.el)), tv=num(tot);
+  if(vals.some(isNaN)||isNaN(tv)){ fbSay(fb,"hint",t("fillAll")); return; }
+  let firstBad=null;
+  cells.forEach((c,i)=>{ const ok=vals[i]===c.x*c.y; c.el.classList.toggle("ok",ok); c.el.classList.toggle("bad",!ok); if(!ok&&!firstBad) firstBad=c; });
+  if(firstBad){
+    const {x,y}=firstBad, zx=String(x).length-String(x).replace(/0+$/,"").length, zy=String(y).length-String(y).replace(/0+$/,"").length;
+    const dx=x/10**zx, dy=y/10**zy, f=dx*dy, z=zx+zy;
+    const m=z? t("hintPP",{eq:M(`${x} × ${y}`),fact:M(`${dx} × ${dy} = ${f}`),zs:z===1?t("oneZero"):t("nZeros",{z}),f}) : t("hintPP0",{eq:M(`${x} × ${y}`),x,y});
+    tot.classList.remove("ok","bad"); fbSay(fb,"hint",m); return;
+  }
+  const prods=cells.map(c=>c.x*c.y), total=a*b;
+  tot.classList.toggle("ok",tv===total); tot.classList.toggle("bad",tv!==total);
+  if(tv!==total){ fbSay(fb,"hint",t("hintPPSum",{eq:M(prods.join(" + "))})); return; }
+  AR.done=true; addStar(); $("#areaCheck").disabled=true; $$("#areaWork input").forEach(el=>el.disabled=true);
+  const m=t("goodPP",{sum:M(`${prods.join(" + ")} = ${total}`),eq:M(`${a} × ${b} = ${total}`)});
+  showFb(fb,"good",m); afterPraise(m,"area",newArea,2000);
+}
+function renderSplitLock(){ $("#splitL").disabled=$("#splitR").disabled=true; }
+
+/* =========================================================================
+   DIVISION BUILDER — partial quotients on an area model, remainders in context
+   ========================================================================= */
+let D=null;
+const CHUNKS=[1000,500,200,100,50,20,10,5,2,1];
+function divGen(){
+  const lv=settings.divLvl, wantR=settings.rem && Math.random()<.7;
+  let d,lo,hi;
+  if(lv==="d100"){ d=ri(2,9); lo=12; hi=100; }
+  else if(lv==="d1000"){ d=ri(2,9); lo=100; hi=999; }
+  else if(lv==="d9999"){ d=ri(2,9); lo=1000; hi=9999; }
+  else { d=ri(11,48); lo=200; hi=9999; }
+  const r=wantR?ri(1,d-1):0, qlo=Math.max(2,Math.ceil((lo-r)/d)), qhi=Math.max(qlo,Math.floor((hi-r)/d));
+  const q=ri(qlo,qhi); return {N:d*q+r,d,q,r};
+}
+const remTxt = (q,r)=>r?`${q} ${t("remAbbr")} ${r}`:`${q}`;
+function newDiv(){
+  roundIds.div++; made.div=true;
+  const g=divGen(); let ctx=null;
+  if(g.r>0 && Math.random()<.65) ctx=rand(["up","drop","left"]); else if(g.r===0 && Math.random()<.35) ctx="each";
+  D=Object.assign(g,{ctx,chunks:[],left:g.N,phase:"work",done:false});
+  const eq=M(`${D.N} ÷ ${D.d}`);
+  setPrompt("div", ctx ? t("ctx_"+ctx,{n:D.N,d:D.d})+(ctx==="each"?"":" "+t("divFirst",{eq})) : t("divDir",{eq,d:D.d}));
+  $("#chunkHelp").textContent=t("chunkHelp",{d:D.d});
+  const wrap=$("#divChunks"); wrap.innerHTML="";
+  CHUNKS.filter(m=>D.d*m<=D.N).forEach(m=>{
+    const b=document.createElement("button"); b.type="button"; b.className="btn chunk";
+    b.innerHTML=`<span>× ${m}</span><small>${D.d*m}</small>`;
+    const al=t("chunkAria",{m,d:D.d,p:D.d*m}); b.setAttribute("aria-label",al); b.title=al;
+    b.addEventListener("click",()=>takeChunk(m)); wrap.appendChild(b);
+  });
+  $("#divQ").value=""; $("#divR").value=""; $("#divQ").className="num"; $("#divR").className="num";
+  $("#divRwrap").classList.toggle("hidden",!settings.rem);
+  $("#divAns").classList.remove("hidden"); $("#divChoices").classList.add("hidden"); $("#divChoices").innerHTML="";
+  hideFb($("#divFb")); renderDiv(); maybeAuto("div");
+}
+function divBarSVG(){
+  const W=460,H=112,L=34,Tp=30,BH=70, tot=D.N/D.d, sc=(W-L-6)/tot;
+  let x=L, s=`<svg viewBox="0 0 ${W} ${H}" aria-hidden="true" focusable="false">`;
+  s+=`<text class="btxt" x="${L/2}" y="${Tp+BH/2+6}">${D.d}</text>`;
+  D.chunks.forEach((m,i)=>{ const w=m*sc;
+    s+=`<rect x="${x}" y="${Tp}" width="${w}" height="${BH}" class="ch${i%3}"/>`;
+    if(w>=12*String(m).length+6) s+=`<text class="btxt" x="${x+w/2}" y="${Tp-8}">${m}</text>`;
+    if(w>=12*String(D.d*m).length+8) s+=`<text class="btxt" x="${x+w/2}" y="${Tp+BH/2+6}">${D.d*m}</text>`;
+    x+=w; });
+  if(D.left>0){ const w=Math.max(D.left/D.d*sc,3);
+    s+=`<rect x="${x}" y="${Tp}" width="${w}" height="${BH}" class="rest"/>`;
+    if(w>=12*String(D.left).length+8) s+=`<text class="btxt" x="${x+w/2}" y="${Tp+BH/2+6}">${D.left}</text>`;
+    if(w>=22 && D.left>=D.d) s+=`<text class="btxt" x="${x+w/2}" y="${Tp-8}">?</text>`; }
+  return s+`</svg>`;
+}
+function renderDiv(){
+  if(!D) return;
+  $("#divBar").innerHTML=divBarSVG();
+  $("#divLeft").textContent=t("leftLbl",{left:D.left});
+  let rows=`<tr><td></td><td>${D.N}</td><td></td></tr>`, L=D.N;
+  D.chunks.forEach(m=>{ const p=D.d*m; L-=p;
+    rows+=`<tr><td>−</td><td>${p}</td><td class="gq">(${D.d} × ${m})</td></tr><tr><td></td><td class="line">${L}</td><td></td></tr>`; });
+  $("#divTable").innerHTML=rows;
+  const live=!D.done&&D.phase==="work";
+  $$("#divChunks button").forEach(b=>b.disabled=!live);
+  $("#divUndo").disabled=!live||!D.chunks.length;
+  $("#divCheck").disabled=!live; $("#divQ").disabled=$("#divR").disabled=!live;
+}
+function takeChunk(m){
+  if(!D||D.done||D.phase!=="work") return;
+  const p=D.d*m, fb=$("#divFb");
+  if(D.left<D.d){ fbSay(fb,"info",t("chunkNoMore",{d:D.d})); return; }
+  if(p>D.left){ fbSay(fb,"hint",t("chunkBig",{eq:M(`${D.d} × ${m} = ${p}`),left:D.left})); return; }
+  D.chunks.push(m); D.left-=p; renderDiv();
+  if(D.left<D.d) fbSay(fb,"info",t("chunkDone",{left:D.left,d:D.d})); else hideFb(fb);
+}
+function checkDiv(){
+  if(!D||D.done||D.phase!=="work") return;
+  const fb=$("#divFb"), showR=settings.rem, qv=num($("#divQ")), rv=showR?num($("#divR")):0, {N,d,q,r}=D;
+  if(isNaN(qv)||isNaN(rv)){ fbSay(fb,"hint",t("fillAll")); return; }
+  $("#divQ").classList.toggle("ok",qv===q); $("#divQ").classList.toggle("bad",qv!==q);
+  if(qv!==q){
+    $("#divR").classList.remove("ok","bad");
+    let m;
+    if(D.chunks.length && D.left<d) m=t("hintDivSum",{eq:M(D.chunks.join(" + "))});
+    else if(qv*d>N) m=t("hintDivBig",{eq:M(`${d} × ${qv} = ${d*qv}`),n:N});
+    else if(qv>0) m=t("hintDivSmall",{eq:M(`${d} × ${qv} = ${d*qv}`),left:N-d*qv,d});
+    else m=t("hintDivUse",{d});
+    fbSay(fb,"hint",m); return;
+  }
+  if(showR && rv!==r){
+    $("#divR").classList.add("bad");
+    fbSay(fb,"hint",rv>=d?t("hintRemBig",{d}):t("hintRem",{eq:M(`${d} × ${q} = ${d*q}`),p:d*q,n:N})); return;
+  }
+  $("#divR").classList.toggle("ok",showR); $("#divR").classList.remove("bad");
+  const eq=M(`${N} ÷ ${d} = ${remTxt(q,r)}`), chk=M(r?`${d} × ${q} + ${r} = ${N}`:`${d} × ${q} = ${N}`);
+  if(D.ctx && D.ctx!=="each"){
+    D.phase="interp"; renderDiv();
+    const ch=$("#divChoices"); ch.classList.remove("hidden");
+    const seen=new Set(), opts=[{v:q+1},{v:q},{v:r},{v:-1,s:remTxt(q,r)}].filter(o=>{ o.s=o.s||String(o.v); if(seen.has(o.s)) return false; seen.add(o.s); return true; });
+    const ans=D.ctx==="up"?q+1:D.ctx==="drop"?q:r;
+    mkChoices(ch,shuffle(opts).map(o=>Object.assign(o,{ok:o.v===ans})),pickInterp);
+    const m=t("divInterp",{eq})+" "+t("q_"+D.ctx);
+    setSpeech("div",t("ctx_"+D.ctx,{n:N,d}));
+    fbSay(fb,"info",m); return;
+  }
+  D.done=true; addStar(); renderDiv();
+  const m=t("goodDiv",{eq,chk})+(D.ctx==="each"?" "+t("good_each",{q}):"");
+  showFb(fb,"good",m); afterPraise(m,"div",newDiv,2000);
+}
+function pickInterp(btn,o){
+  if(!D||D.done) return;
+  const fb=$("#divFb"), {q,r,ctx}=D;
+  if(o.ok){ D.done=true; lockChoices($("#divChoices"),btn); addStar();
+    const m=t("good_"+ctx,{q,r,q1:q+1}); showFb(fb,"good",m); afterPraise(m,"div",newDiv,2000); return; }
+  btn.classList.add("wrongpick"); btn.disabled=true;
+  fbSay(fb,"hint",t("hint_"+ctx,{q,r}));
+}
+function initDiv(){
+  $("#divUndo").addEventListener("click",()=>{ if(!D||D.done||D.phase!=="work"||!D.chunks.length) return; D.left+=D.d*D.chunks.pop(); hideFb($("#divFb")); renderDiv(); });
+  $("#divCheck").addEventListener("click",checkDiv);
+  ["#divQ","#divR"].forEach(s=>$(s).addEventListener("keydown",e=>{ if(e.key==="Enter") checkDiv(); }));
+}
+
+/* =========================================================================
+   FACT FLUENCY — missing factors, fact families, factors, multiples, primes
+   ========================================================================= */
+let F=null;
+const factorsOf = n=>{ const f=[]; for(let i=1;i<=n;i++) if(n%i===0) f.push(i); return f; };
+const PRIMES=[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97];
+const TRICKY=[9,15,21,25,27,33,35,39,49,51,57,63,65,69,77,81,85,87,91,93,95,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,45,46,48,50,52,54,55,56,58,60,62,64,66,68,70,72,74,75,76,78,80,82,84,86,88,90,92,94,96,98,99,100];
+function newFact(){
+  roundIds.fact++; made.fact=true;
+  const mx=settings.maxFact, g4=settings.grade>=4;
+  const type=rand(["mul","div","fam"].concat(g4?["mul","factors","mult","prime"]:["mul","div"]));
+  const show=$("#factShow"), ch=$("#factChoices"), chips=$("#factChips");
+  ch.innerHTML=""; chips.innerHTML=""; hideFb($("#factFb"));
+  ch.classList.toggle("hidden",type==="factors"||type==="mult");
+  chips.classList.toggle("hidden",!(type==="factors"||type==="mult"));
+  $("#factTools").classList.toggle("hidden",!(type==="factors"||type==="mult"));
+  $("#factCheck").disabled=false;
+  F={type,done:false};
+  let a=ri(2,mx), b=ri(2,mx);
+  if(type==="mul"||type==="div"){
+    const p=a*b; let shown, ans, known;
+    if(type==="mul"){ if(Math.random()<.5){ shown=`${a} × ▢ = ${p}`; ans=b; known=a; } else { shown=`▢ × ${b} = ${p}`; ans=a; known=b; } }
+    else { shown=`${p} ÷ ${a} = ▢`; ans=b; known=a; }
+    Object.assign(F,{a,b,p,ans,known});
+    setPrompt("fact",t(type==="mul"?"mulDir":"divFactDir")+" "+M(shown));
+    show.innerHTML=`<p class="big">${M(shown)}</p>`;
+    const opts=new Set([ans]); [ans+1,ans-1,ans+2,known,ans-2,ans+3].forEach(v=>{ if(opts.size<4&&v>=1) opts.add(v); });
+    mkChoices(ch,shuffle([...opts]).map(v=>({s:String(v),v,ok:v===ans})),pickFact);
+  } else if(type==="fam"){
+    if(a===b) b=a<mx?a+1:a-1;
+    const p=a*b, fam=[`${a} × ${b} = ${p}`,`${b} × ${a} = ${p}`,`${p} ÷ ${a} = ${b}`,`${p} ÷ ${b} = ${a}`];
+    Object.assign(F,{a,b,p,fam});
+    setPrompt("fact",t("famDir",{nums:M(`${a}, ${b}, ${p}`)}));
+    show.innerHTML=`<div class="famnums" dir="ltr"><span>${a}</span><span>${b}</span><span>${p}</span></div>`;
+    mkChoices(ch,shuffle([{s:rand(fam),ok:1},{s:`${b} ÷ ${p} = ${a}`},{s:`${a} × ${b} = ${p+a}`},{s:`${a} + ${b} = ${a+b}`}]),pickFact);
+  } else if(type==="factors"){
+    const n=rand([12,16,18,20,24,28,30,32,36,40,42,45,48,50,54,56,60,64,72,80,84,90,96,100]);
+    const want=factorsOf(n), cand=[...new Set([...Array.from({length:12},(_,i)=>i+1),...want])].sort((x,y)=>x-y);
+    Object.assign(F,{n,want:new Set(want)});
+    setPrompt("fact",t("factorsDir",{n})); show.innerHTML=`<p class="big">${n}</p>`;
+    mkChips(cand);
+  } else if(type==="mult"){
+    const k=ri(3,Math.min(12,Math.max(5,mx))), mul=shuffle(Array.from({length:12},(_,i)=>k*(i+1))).slice(0,6);
+    const non=[]; let guard=0;
+    while(non.length<6 && guard++<200){ const x=ri(k+1,12*k); if(x%k && !non.includes(x)) non.push(x); }
+    Object.assign(F,{k,want:new Set(mul)});
+    setPrompt("fact",t("multDir",{k})); show.innerHTML="";
+    mkChips([...mul,...non].sort((x,y)=>x-y));
+  } else {
+    const n=Math.random()<.5?rand(PRIMES.filter(p=>p>3)):rand(TRICKY);
+    Object.assign(F,{n,isPrime:PRIMES.includes(n)});
+    setPrompt("fact",t("primeDir",{n})); show.innerHTML=`<p class="big">${n}</p>`;
+    mkChoices(ch,[{s:t("prime"),sub:t("primeSub"),ok:F.isPrime,v:"p"},{s:t("composite"),sub:t("compSub"),ok:!F.isPrime,v:"c"}],pickFact);
+  }
+  maybeAuto("fact");
+}
+function mkChips(list){
+  const wrap=$("#factChips"); wrap.innerHTML="";
+  list.forEach(v=>{ const b=document.createElement("button"); b.type="button"; b.className="chip"; b.textContent=v; b.dataset.v=v;
+    b.setAttribute("aria-pressed","false");
+    b.addEventListener("click",()=>{ if(F.done) return; b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true"); b.classList.remove("wrongpick"); });
+    wrap.appendChild(b); });
+}
+function pickFact(btn,o){
+  if(!F||F.done) return;
+  const fb=$("#factFb"); let m;
+  if(o.ok){
+    F.done=true; lockChoices($("#factChoices"),btn); addStar();
+    if(F.type==="mul") m=t("goodMul",{eq:M(`${F.a} × ${F.b} = ${F.p}`),rel:M(`${F.p} ÷ ${F.known} = ${F.ans}`)});
+    else if(F.type==="div") m=t("goodDivF",{eq:M(`${F.p} ÷ ${F.a} = ${F.b}`),rel:M(`${F.a} × ${F.b} = ${F.p}`)});
+    else if(F.type==="fam") m=t("goodFam",{list:F.fam.map(M).join(", ")});
+    else if(F.isPrime) m=t("goodPrime",{n:F.n});
+    else { const fs=factorsOf(F.n), x=fs[1]; m=t("goodComp",{eq:M(`${F.n} = ${x} × ${F.n/x}`),n:F.n,list:M(fs.join(", "))}); }
+    showFb(fb,"good",m); afterPraise(m,"fact",newFact,1800); return;
+  }
+  btn.classList.add("wrongpick"); btn.disabled=true;
+  if(F.type==="mul") m=t("hintMul",{k:F.known,p:F.p,seq:M(skipSeq(F.known,Math.min(F.ans,12)))});
+  else if(F.type==="div") m=t("hintDivF",{q:M(`${F.a} × ▢ = ${F.p}`),a:F.a,p:F.p});
+  else if(F.type==="fam") m=t("hintFam");
+  else if(F.isPrime) m=t("hintPrime",{eq:M(`1 × ${F.n}`),n:F.n});
+  else m=t("hintComp",{x:factorsOf(F.n)[1],n:F.n});
+  fbSay(fb,"hint",m);
+}
+function checkChips(){
+  if(!F||F.done||!(F.type==="factors"||F.type==="mult")) return;
+  const fb=$("#factFb"), btns=$$("#factChips .chip"), sel=new Set(btns.filter(b=>b.getAttribute("aria-pressed")==="true").map(b=>+b.dataset.v));
+  if(!sel.size){ fbSay(fb,"hint",t("chipsEmpty")); return; }
+  const wrong=[...sel].find(x=>!F.want.has(x)), missing=[...F.want].filter(x=>!sel.has(x));
+  if(wrong!==undefined){
+    btns.forEach(b=>{ if(+b.dataset.v===wrong) b.classList.add("wrongpick"); });
+    let m;
+    if(F.type==="factors"){ const n=F.n; m=t("hintNotFactor",{x:wrong,n,eq:M(`${n} ÷ ${wrong} = ${remTxt(Math.floor(n/wrong),n%wrong)}`)}); }
+    else { const k=F.k, lo=Math.floor(wrong/k)*k; m=t("hintNotMult",{x:wrong,k,lo,hi:lo+k}); }
+    fbSay(fb,"hint",m); return;
+  }
+  if(missing.length){
+    let m;
+    if(F.type==="factors"){ const x=[...sel].find(v=>!sel.has(F.n/v));
+      m=x!==undefined?t("hintPartner",{eq:M(`${x} × ${F.n/x} = ${F.n}`)}):t("hintFactMiss",{n:F.n}); }
+    else m=t("hintMultMiss",{k:F.k});
+    fbSay(fb,"hint",m); return;
+  }
+  F.done=true; addStar(); $("#factCheck").disabled=true;
+  btns.forEach(b=>{ if(b.getAttribute("aria-pressed")==="true") b.classList.add("correctpick"); });
+  let m;
+  if(F.type==="factors"){ const fs=factorsOf(F.n), pairs=fs.filter(x=>x*x<=F.n).map(x=>`${x} × ${F.n/x}`);
+    m=t("goodFactors",{n:F.n,list:M(fs.join(", ")),pairs:M(pairs.join(", "))}); }
+  else m=t("goodMult",{k:F.k,seq:M(skipSeq(F.k,Math.max(...F.want)/F.k))});
+  showFb(fb,"good",m); afterPraise(m,"fact",newFact,2000);
+}
+
+/* =========================================================================
+   MULTI-STEP STORIES — equation with a letter, estimate, solve, check
+   ========================================================================= */
+let S=null;
+// Round to a friendly number: 2-digit to tens, 3-digit to hundreds, 4-digit to thousands.
+const rd = x=>x<10?x:x<100?Math.round(x/10)*10:x<1000?Math.round(x/100)*100:Math.round(x/1000)*1000;
+const compat = (x,d)=>Math.max(d,Math.round(x/d)*d);
+const STORIES=[
+  {k:"stBox", L:"m", eq:"{a} × {b} − {c}", wr:["{a} × {b} + {c}","{a} + {b} − {c}","{a} × ({b} − {c})"],
+    gen:g=>{ let a,b; if(g===3){a=ri(2,9);b=ri(3,10);} else if(g===4){a=ri(3,9);b=ri(12,98);} else {a=ri(12,45);b=ri(12,75);}
+      return {a,b,c:ri(Math.max(1,Math.floor(a*b*.15)),Math.floor(a*b*.6))}; },
+    steps:n=>[[`${n.a} × ${n.b}`,n.a*n.b],[`${n.a*n.b} − ${n.c}`,n.a*n.b-n.c]],
+    est:n=>{ const A=rd(n.a),B=rd(n.b),C=rd(n.c),e=A*B-C; return {e,x:`${A} × ${B} − ${C} = ${e}`}; }},
+  {k:"stBus", L:"p", eq:"{a} × {b} + {c}", wr:["{a} × {b} − {c}","{a} + {b} + {c}","{a} × ({b} + {c})"],
+    gen:g=>{ if(g===3){ const a=ri(2,9),b=ri(2,9); return {a,b,c:ri(1,Math.max(1,Math.min(9,100-a*b)))}; }
+      if(g===4) return {a:ri(11,40),b:ri(3,9),c:ri(5,40)}; return {a:ri(12,40),b:ri(12,45),c:ri(10,99)}; },
+    steps:n=>[[`${n.a} × ${n.b}`,n.a*n.b],[`${n.a*n.b} + ${n.c}`,n.a*n.b+n.c]],
+    est:n=>{ const A=rd(n.a),B=rd(n.b),C=rd(n.c),e=A*B+C; return {e,x:`${A} × ${B} + ${C} = ${e}`}; }},
+  {k:"stApple", L:"n", eq:"({a} + {b}) ÷ {c}", wr:["({a} + {b}) × {c}","{a} + {b} − {c}","{a} + {b} ÷ {c}"],
+    gen:g=>{ let c,q; if(g===3){c=ri(2,9);q=ri(2,Math.min(10,Math.floor(100/c)));} else if(g===4){c=ri(3,9);q=ri(11,60);} else {c=ri(12,30);q=ri(11,60);}
+      const tot=c*q, a=ri(Math.max(1,Math.ceil(tot*.3)),Math.max(1,Math.floor(tot*.7))); return {a,b:tot-a,c}; },
+    steps:n=>[[`${n.a} + ${n.b}`,n.a+n.b],[`${n.a+n.b} ÷ ${n.c}`,(n.a+n.b)/n.c]],
+    est:n=>{ const A=rd(n.a),B=rd(n.b),C=rd(n.c),s=A+B,k=compat(s,C),e=k/C;
+      return {e,x:k===s?`(${A} + ${B}) ÷ ${C} = ${e}`:`(${A} + ${B}) ÷ ${C} ≈ ${k} ÷ ${C} = ${e}`}; }},
+  {k:"stTicket", L:"t", eq:"{c} × ({a} + {b})", wr:["{c} × {a} + {b}","{c} + {a} + {b}","({a} + {b}) ÷ {c}"],
+    gen:g=>{ if(g===3){ let a,b,c; do{ a=ri(2,6);b=ri(1,4);c=ri(2,9); }while(c*(a+b)>100); return {a,b,c}; }
+      if(g===4) return {a:ri(11,25),b:ri(3,9),c:ri(11,40)}; return {a:ri(12,40),b:ri(4,19),c:ri(12,60)}; },
+    steps:n=>[[`${n.a} + ${n.b}`,n.a+n.b],[`${n.c} × ${n.a+n.b}`,n.c*(n.a+n.b)]],
+    est:n=>{ const A=rd(n.a),B=rd(n.b),C=rd(n.c),e=C*(A+B); return {e,x:`${C} × (${A} + ${B}) = ${e}`}; }},
+  {k:"stSticker", L:"s", eq:"{a} ÷ {b} − {c}", wr:["{a} − {b} − {c}","{a} ÷ {b} + {c}","{a} × {b} − {c}"],
+    gen:g=>{ let b,q; if(g===3){b=ri(2,6);q=ri(3,Math.min(10,Math.floor(100/b)));} else if(g===4){b=ri(3,9);q=ri(12,50);} else {b=ri(12,25);q=ri(12,60);}
+      return {a:b*q,b,c:ri(1,Math.max(1,Math.floor(q*.5)))}; },
+    steps:n=>[[`${n.a} ÷ ${n.b}`,n.a/n.b],[`${n.a/n.b} − ${n.c}`,n.a/n.b-n.c]],
+    est:n=>{ const A=rd(n.a),B=rd(n.b),C=rd(n.c),k=compat(A,B),e=k/B-C;
+      return {e,x:k===A?`${A} ÷ ${B} − ${C} = ${e}`:`${A} ÷ ${B} − ${C} ≈ ${k} ÷ ${B} − ${C} = ${e}`}; }}
+];
+const fill = (s,n)=>s.replace(/\{(a|b|c)\}/g,(_,k)=>n[k]);
+function makeStory(){
+  const g=settings.grade;
+  for(let tries=0;tries<60;tries++){
+    const tp=rand(STORIES), n=tp.gen(g), st=tp.steps(n), ans=st[1][1], es=tp.est(n);
+    if(ans<=0||!Number.isInteger(ans)) continue;
+    if(es.e<=0||Math.abs(es.e-ans)>Math.max(ans*.35,6)) continue;
+    return {tp,n,st,ans,E:es.e,ex:es.x};
+  }
+  const tp=STORIES[0], n={a:4,b:6,c:5}, st=tp.steps(n); return {tp,n,st,ans:19,E:19,ex:"4 × 6 − 5 = 19"};
+}
+function newStory(){
+  roundIds.story++; made.story=true;
+  const s=makeStory(), L=s.tp.L;
+  S=Object.assign(s,{L,step:1,done:false,eqStr:`${L} = ${fill(s.tp.eq,s.n)}`});
+  S.text=t(s.tp.k,s.n)+" "+t("letterNote",{L:M(L)});
+  $("#storyPrompt").innerHTML=S.text;
+  hideFb($("#storyFb")); renderStory(); maybeAuto("story");
+}
+function stepQ(){ return S.step===1?t("step1Q"):S.step===2?t("step2Q",{L:M(S.L)}):t("step3Q",{L:M(S.L)}); }
+function renderStory(){
+  let h="";
+  if(S.step>1) h+=`<p class="done">✔ ${M(S.eqStr)}</p>`;
+  if(S.step>2) h+=`<p class="done">✔ ${t("estWord")} ${M(`${S.L} ≈ ${S.E}`)}</p>`;
+  h+=`<h3>${stepQ()}</h3>`;
+  $("#storySteps").innerHTML=h;
+  setSpeech("story",S.text+" "+stepQ());
+  const ch=$("#storyChoices"), ans=$("#storyAns");
+  ch.classList.toggle("hidden",S.step===3); ans.classList.toggle("hidden",S.step!==3);
+  if(S.step===1) mkChoices(ch,shuffle([{s:S.eqStr,ok:1},...S.tp.wr.map(w=>({s:`${S.L} = ${fill(w,S.n)}`}))]),pickStory);
+  else if(S.step===2){
+    const E=S.E, o=new Set([E,E*10]); o.add(E>=20?Math.round(E/10):E*100);
+    mkChoices(ch,shuffle([...o]).map(v=>({s:`≈ ${v}`,v,ok:v===E})),pickStory);
+  } else {
+    ch.innerHTML=""; $("#storyLetter").textContent=S.L; const i=$("#storyIn"); i.value=""; i.className="num"; i.disabled=false;
+    i.setAttribute("aria-label",S.L); $("#storyCheck").disabled=false;
+  }
+}
+function pickStory(btn,o){
+  if(!S||S.done) return;
+  const fb=$("#storyFb");
+  if(!o.ok){
+    btn.classList.add("wrongpick"); btn.disabled=true;
+    if(S.step===1){ fbSay(fb,"hint",t("hintStep1")); return; }
+    const nums=Object.values(S.n).filter(x=>rd(x)!==x).map(x=>`${x} → ${rd(x)}`);
+    fbSay(fb,"hint",nums.length?t("hintEst",{list:M(nums.join(", "))}):t("hintEstSmall")); return;
+  }
+  const m=S.step===1?t("goodStep1"):t("goodEst",{expr:M(S.ex),L:M(S.L),e:S.E});
+  S.step++; renderStory(); showFb(fb,"good",m); speak(m+" "+stepQ());
+  if(S.step===3) $("#storyIn").focus();
+}
+function checkStory(){
+  if(!S||S.done||S.step!==3) return;
+  const fb=$("#storyFb"), el=$("#storyIn"), v=num(el);
+  if(isNaN(v)){ fbSay(fb,"hint",t("fillAll")); return; }
+  const [s1,s2]=S.st;
+  if(v!==S.ans){
+    el.classList.add("bad");
+    const far=Math.abs(v-S.E)>Math.max(S.E*.5,10);
+    fbSay(fb,"hint",t(far?"hintFar":"hintClose",{v,e:S.E})+" "+t("hintStart",{s:M(`${s1[0]} = ▢`)})); return;
+  }
+  S.done=true; addStar(); el.classList.remove("bad"); el.classList.add("ok"); el.disabled=true; $("#storyCheck").disabled=true;
+  const m=t("goodStory",{eq:M(`${S.L} = ${S.ans}`),steps:M(`${s1[0]} = ${s1[1]}`)+", "+t("thenW")+" "+M(`${s2[0]} = ${s2[1]}`)+".",e:S.E});
+  showFb(fb,"good",m); afterPraise(m,"story",newStory,2200);
+}
+
+/* ---------- Mode switching ---------- */
+const NEWFN={arr:newArr,area:newArea,div:newDiv,fact:newFact,story:newStory};
+function firstMode(){ return MODES.find(m=>settings.modes[m])||"arr"; }
+function currentMode(){ const b=$$(".tabs button").find(x=>x.getAttribute("aria-selected")==="true"); return b?b.dataset.mode:firstMode(); }
+function showMode(mode){
+  if(!settings.modes[mode]) mode=firstMode();
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
+  $$(".modepanel").forEach(p=>p.classList.add("hidden"));
+  $("#mode-"+mode).classList.remove("hidden");
+  $$(".tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.mode===mode?"true":"false"));
+  if(!made[mode]) NEWFN[mode]();
+  // Returning to a tab: read its current directions (unless a new round just did).
+  if(switching && speechGen===g0) maybeAuto(mode);
+}
+function syncTabs(){
+  $$(".tabs button").forEach(b=>b.classList.toggle("hidden",!settings.modes[b.dataset.mode]));
+  if(!settings.modes[currentMode()]) showMode(firstMode());
+}
+function resetRounds(){ MODES.forEach(m=>made[m]=false); NEWFN[currentMode()](); }
+
+/* ---------- Settings drawer ---------- */
+function buildModeToggles(){
+  const wrap=$("#modeToggles"); wrap.innerHTML="";
+  MODES.forEach(m=>{
+    const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.modes[m]?"checked":""}> <span>${t(MODE_KEY[m])}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{ settings.modes[m]=e.target.checked;
+      if(!MODES.some(k=>settings.modes[k])){ e.target.checked=true; settings.modes[m]=true; }
+      saveSettings(); syncTabs(); });
+    wrap.appendChild(l);
+  });
+}
+function syncSettingsUI(){
+  $("#setGrade").value=String(settings.grade); $("#setMaxFact").value=String(settings.maxFact);
+  $("#setArea").value=settings.areaMax; $("#setDiv").value=settings.divLvl;
+  $("#setRem").checked=settings.rem; $("#setAuto").checked=settings.autoRead; buildModeToggles();
+}
+function closeSettings(){ $("#settingsDrawer").classList.remove("open"); $("#openSettings").focus(); }
+function initSettings(){
+  const mf=$("#setMaxFact"); for(let i=5;i<=12;i++){ const o=document.createElement("option"); o.value=String(i); o.textContent=`${i} × ${i}`; mf.appendChild(o); }
+  $("#openSettings").addEventListener("click",()=>{ syncSettingsUI(); $("#settingsDrawer").classList.add("open"); $("#closeSettings").focus(); });
+  $("#closeSettings").addEventListener("click",closeSettings);
+  $("#settingsDrawer").addEventListener("click",e=>{ if(e.target.id==="settingsDrawer") closeSettings(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape" && $("#settingsDrawer").classList.contains("open")) closeSettings(); });
+  $("#setGrade").addEventListener("change",e=>{ settings.grade=+e.target.value; Object.assign(settings,GRADE_DEF[settings.grade]); saveSettings(); syncSettingsUI(); resetRounds(); });
+  mf.addEventListener("change",e=>{ settings.maxFact=+e.target.value; saveSettings(); resetRounds(); });
+  $("#setArea").addEventListener("change",e=>{ settings.areaMax=e.target.value; saveSettings(); resetRounds(); });
+  $("#setDiv").addEventListener("change",e=>{ settings.divLvl=e.target.value; saveSettings(); resetRounds(); });
+  $("#setRem").addEventListener("change",e=>{ settings.rem=e.target.checked; saveSettings(); resetRounds(); });
+  $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
+  $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
+}
+
+/* ---------- Print cards ---------- */
+function buildPrintCards(){
+  const mx=settings.maxFact, r=ri(3,Math.min(mx,9)), c=ri(3,mx);
+  const kind=rand(AREA_POOL[settings.areaMax].filter(k=>k!=="f").concat(["21"])), a=pickDigits(+kind[0]), b=kind[1]==="1"?ri(3,9):pickDigits(2);
+  const ap=placeParts(a), bp=placeParts(b);
+  const tab=`<table class="ptab" dir="ltr"><tr><td class="h">×</td>${ap.map(x=>`<td class="h">${x}</td>`).join("")}</tr>`+
+    bp.map(y=>`<tr><td class="h">${y}</td>${ap.map(()=>"<td></td>").join("")}</tr>`).join("")+`</table>`;
+  const dv=divGen(), f1=ri(3,mx), f2=ri(3,mx), n=rand([24,36,48,60,72]), st=makeStory();
+  const cards=[
+    {title:t("mArr"), body:t("cardArr",{r,c}), html:`<div class="pbox"></div>`},
+    {title:t("mArea"), body:t("cardArea",{eq:M(`${a} × ${b}`)}), html:tab+`<p style="font-size:1.3rem">${M(`${a} × ${b} = ______`)}</p>`},
+    {title:t("mDiv"), body:t("cardDiv",{eq:M(`${dv.N} ÷ ${dv.d}`)}), html:`<div class="pbox"></div>`},
+    {title:t("mFact"), body:t("cardMiss"), html:`<p style="font-size:1.6rem">${M(`${f1} × ▢ = ${f1*f2}`)} &nbsp;&nbsp; ${M(`${f1*f2} ÷ ${f1} = ▢`)}</p>`+(settings.grade>=4?`<p style="font-size:1.2rem">${t("cardFactors",{n})} ____________________</p>`:"")},
+    {title:t("mStory"), body:t(st.tp.k,st.n)+" "+t("letterNote",{L:M(st.tp.L)}), html:`<p>${t("cardStory")}</p><div class="pbox"></div>`}
+  ];
+  $("#printArea").innerHTML=`<h1>${t("cardTitle")}</h1><p>${t("cardName")} ____________________</p>`+
+    cards.map(x=>`<div class="card-print"><h2>${x.title}</h2><p style="font-size:1.15rem">${x.body}</p>${x.html}</div>`).join("")+
+    `<p style="font-size:.85rem">${t("stds")}</p>`;
+}
+
+/* ---------- Language engine ---------- */
+function resolveLang(){
+  try{ const q=new URLSearchParams(location.search).get("lang"); if(q && T[q]) return q; }catch(e){}
+  try{ const s=localStorage.getItem(LANG_KEY); if(s && T[s]) return s; }catch(e){}
+  const n=(navigator.language||"en").slice(0,2).toLowerCase();
+  if(T[n]) return n;
+  return "en";
+}
+function applyLang(){
+  const meta=LANGS.find(x=>x.code===lang)||LANGS[0];
+  document.documentElement.lang=lang;
+  document.documentElement.dir=meta.dir;
+  document.title=t("appTitle");
+  const sel=$("#langSelect"); if(sel) sel.value=lang;
+  $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
+  $("#stdsNote").textContent=t("stds");
+  buildModeToggles();
+  // refresh dynamic content: current mode now, the others when they are next opened
+  resetRounds();
+}
+function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} applyLang(); }
+function buildLangSelect(){
+  const sel=$("#langSelect"); sel.innerHTML="";
+  LANGS.forEach(m=>{ const o=document.createElement("option"); o.value=m.code; o.textContent=m.name; sel.appendChild(o); });
+  sel.value=lang;
+  sel.addEventListener("change",()=>setLang(sel.value));
+}
+
+/* ---------- Init ---------- */
+function init(){
+  lang=resolveLang();
+  buildLangSelect();
+  $$(".tabs button").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.mode)));
+  $$(".speaker").forEach(b=>b.addEventListener("click",()=>speak(currentSpeech[b.dataset.speak])));
+  MODES.forEach(m=>$("#"+m+"New").addEventListener("click",NEWFN[m]));
+  initArr(); initDiv();
+  $("#areaCheck").addEventListener("click",checkArea);
+  $("#factCheck").addEventListener("click",checkChips);
+  $("#storyCheck").addEventListener("click",checkStory);
+  $("#storyIn").addEventListener("keydown",e=>{ if(e.key==="Enter") checkStory(); });
+  initSettings();
+  const f=firstMode();
+  $$(".tabs button").forEach(b=>{ b.setAttribute("aria-selected",b.dataset.mode===f?"true":"false"); b.classList.toggle("hidden",!settings.modes[b.dataset.mode]); });
+  $$(".modepanel").forEach(p=>p.classList.toggle("hidden",p.id!=="mode-"+f));
+  applyLang();
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+</script>
+<script>
+/* Student mute toggle — shared across the Digital Math Tools. Self-contained,
+   offline, stores no student data. Gates ALL speech by intercepting
+   speechSynthesis.speak, so muting works regardless of each tool's internals.
+   Reads the shared language preference only to localize its own label. */
+(function(){
+  "use strict";
+  var LKEY='tcea.mathtools.lang', MKEY='tcea.mathtools.muted';
+  var CODES=['en','es','vi','ar','hi','ur','zh'];
+  var LAB={
+    mute:{en:"Mute sound",es:"Silenciar sonido",vi:"Tắt âm thanh",ar:"كتم الصوت",hi:"आवाज़ बंद करें",ur:"آواز بند کریں",zh:"静音"},
+    unmute:{en:"Turn sound on",es:"Activar sonido",vi:"Bật âm thanh",ar:"تشغيل الصوت",hi:"आवाज़ चालू करें",ur:"آواز چالو کریں",zh:"打开声音"}
+  };
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  window.__MT_MUTED = (get(MKEY)==='1');
+  // Intercept every speech request; suppress while muted.
+  try{
+    if(window.speechSynthesis && typeof window.speechSynthesis.speak==='function'){
+      var ss=window.speechSynthesis, orig=ss.speak.bind(ss);
+      ss.speak=function(u){ if(!window.__MT_MUTED){ try{orig(u);}catch(e){} } };
+    }
+  }catch(e){}
+  function curLang(){ var l=get(LKEY)||'en'; return LAB.mute[l]?l:'en'; }
+  function label(el){
+    var on=!window.__MT_MUTED, l=curLang(), txt=on?LAB.mute[l]:LAB.unmute[l];
+    el.textContent=on?'🔊':'🔇';
+    el.setAttribute('aria-label',txt); el.setAttribute('title',txt);
+    el.setAttribute('aria-pressed', on?'false':'true');
+  }
+  function findLangSelect(){
+    var sels=document.querySelectorAll('select');
+    for(var i=0;i<sels.length;i++){ var o=sels[i].options, c=0;
+      for(var j=0;j<o.length;j++){ if(CODES.indexOf((o[j].value||'').toLowerCase())>=0) c++; }
+      if(c>=3) return sels[i];
+    }
+    return null;
+  }
+  function build(){
+    if(document.getElementById('mtMuteBtn')) return;
+    if(!(('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window))) return;
+    var btn=document.createElement('button');
+    btn.id='mtMuteBtn'; btn.type='button';
+    btn.style.cssText='font:inherit;font-size:1.15rem;line-height:1;cursor:pointer;'+
+      'min-width:44px;min-height:44px;padding:8px 12px;border:2px solid #e2dcf1;'+
+      'border-radius:10px;background:#fff;color:#5b3fa5;font-weight:700;margin:0 4px;';
+    btn.addEventListener('click',function(){
+      window.__MT_MUTED=!window.__MT_MUTED;
+      set(MKEY, window.__MT_MUTED?'1':'0');
+      if(window.__MT_MUTED){ try{window.speechSynthesis.cancel();}catch(e){} }
+      label(btn);
+    });
+    btn.addEventListener('focus',function(){btn.style.outline='3px solid #5b3fa5';btn.style.outlineOffset='2px';});
+    btn.addEventListener('blur',function(){btn.style.outline='';});
+    var sel=findLangSelect();
+    if(sel && sel.parentNode){
+      sel.parentNode.insertBefore(btn, sel);
+      sel.addEventListener('change',function(){ setTimeout(function(){label(btn);},0); });
+    }else{
+      btn.style.position='fixed'; btn.style.top='10px'; btn.style.zIndex='9999';
+      btn.style[(document.documentElement.dir==='rtl')?'left':'right']='10px';
+      (document.body||document.documentElement).appendChild(btn);
+    }
+    label(btn);
+  }
+  if(document.readyState==='complete'){ build(); }
+  else{ window.addEventListener('load', build); }
+  window.addEventListener('storage',function(e){ if(e.key===LKEY){ var b=document.getElementById('mtMuteBtn'); if(b) label(b); } });
+})();
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+
+</html>

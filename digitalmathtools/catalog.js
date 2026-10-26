@@ -98,7 +98,9 @@ window.MATHTOOLS = (function () {
     "Area":{en:"Area",es:"Área",vi:"Diện tích",ar:"المساحة",hi:"क्षेत्रफल",ur:"رقبہ",zh:"面积"},
     "Perimeter":{en:"Perimeter",es:"Perímetro",vi:"Chu vi",ar:"المحيط",hi:"परिमाप",ur:"احاطہ",zh:"周长"},
     "Volume":{en:"Volume",es:"Volumen",vi:"Thể tích",ar:"الحجم",hi:"आयतन",ur:"حجم",zh:"体积"},
-    "Conversions":{en:"Conversions",es:"Conversiones",vi:"Đổi đơn vị",ar:"تحويل الوحدات",hi:"इकाई रूपांतरण",ur:"اکائیوں کی تبدیلی",zh:"单位换算"}
+    "Conversions":{en:"Conversions",es:"Conversiones",vi:"Đổi đơn vị",ar:"تحويل الوحدات",hi:"इकाई रूपांतरण",ur:"اکائیوں کی تبدیلی",zh:"单位换算"},
+    "Multiplication":{en:"Multiplication",es:"Multiplicación",vi:"Phép nhân",ar:"الضرب",hi:"गुणा",ur:"ضرب",zh:"乘法"},
+    "Division":{en:"Division",es:"División",vi:"Phép chia",ar:"القسمة",hi:"भाग",ur:"تقسیم",zh:"除法"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -246,7 +248,19 @@ window.MATHTOOLS = (function () {
         ar:"كوّن الكسور وسمِّها باستخدام الأشرطة والدوائر والمجموعات، وضعها على خط الأعداد، وجِد الكسور المتكافئة، وقارن، واجمع واطرح، وحُلّ مسائل قصصية عن الكسور.",
         hi:"पट्टियों, वृत्तों और समूहों से भिन्न बनाएँ और पहचानें, उन्हें संख्या रेखा पर रखें, तुल्य भिन्न खोजें, तुलना करें, जोड़ें-घटाएँ और भिन्न की कहानी वाले सवाल हल करें।",
         ur:"پٹیوں، دائروں اور گروپوں سے کسور بنائیں اور پہچانیں، انہیں عددی خط پر رکھیں، مساوی کسور تلاش کریں، موازنہ کریں، جمع اور تفریق کریں، اور کسور کے کہانی والے سوال حل کریں۔",
-        zh:"用分数条、圆形和集合来拼出并认读分数，在数轴上标出分数，找等值分数，比较大小，做加减法，并解答分数应用题。"} }
+        zh:"用分数条、圆形和集合来拼出并认读分数，在数轴上标出分数，找等值分数，比较大小，做加减法，并解答分数应用题。"} },
+    { id:"array-architect", collection:"g35", bandId:"3-5", icon:"🏗️", accent:"#c0392b",
+      title:"Array Architect", href:"g35/array-architect/index.html",
+      tags:["Multiplication","Division","Fact families","Story problems"],
+      kw:"multiply multiplication divide division array arrays equal groups skip count commutative distributive property area model partial products partial quotients remainder interpret remainders fact family missing factor factors multiples prime composite two-step multi-step estimate reasonableness letter unknown multiplicación división arreglo 乘法 除法",
+      desc:{
+        en:"Build arrays and equal groups, split area models into partial products, divide with partial quotients and interpret remainders, practice fact families, factors and primes, and solve multi-step stories.",
+        es:"Construye arreglos y grupos iguales, divide modelos de área en productos parciales, divide con cocientes parciales e interpreta residuos, practica familias de operaciones, factores y números primos, y resuelve problemas de varios pasos.",
+        vi:"Xây mảng và nhóm bằng nhau, tách mô hình diện tích thành tích riêng, chia bằng thương riêng phần và hiểu số dư, luyện gia đình phép tính, ước và số nguyên tố, và giải bài toán nhiều bước.",
+        ar:"ابنِ المصفوفات والمجموعات المتساوية، وقسّم نماذج المساحة إلى نواتج جزئية، واقسم بنواتج القسمة الجزئية وفسّر الباقي، وتدرّب على عائلات الحقائق والعوامل والأعداد الأولية، وحُلّ قصصًا متعددة الخطوات.",
+        hi:"सरणियाँ और बराबर समूह बनाएँ, क्षेत्रफल मॉडल को आंशिक गुणनफलों में बाँटें, आंशिक भागफलों से भाग करें और शेषफल का अर्थ समझें, तथ्य परिवार, गुणनखंड और अभाज्य संख्याओं का अभ्यास करें, और बहु-चरण कहानियाँ हल करें।",
+        ur:"صف بندیاں اور برابر گروہ بنائیں، رقبے کے ماڈل کو جزوی حاصلِ ضرب میں تقسیم کریں، جزوی حاصلِ قسمت سے تقسیم کریں اور باقی کو سمجھیں، حقائق کے خاندان، اجزائے ضربی اور مفرد اعداد کی مشق کریں، اور کئی مراحل والی کہانیاں حل کریں۔",
+        zh:"搭建阵列和等分组，把面积模型拆成部分积，用部分商做除法并理解余数，练习算式家族、因数和质数，并解答多步应用题。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
