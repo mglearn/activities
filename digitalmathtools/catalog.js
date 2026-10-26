@@ -75,7 +75,9 @@ window.MATHTOOLS = (function () {
     "Data":{en:"Data",es:"Datos",vi:"Dữ liệu",ar:"البيانات",hi:"आँकड़े",ur:"ڈیٹا",zh:"数据"},
     "Picture graph":{en:"Picture graph",es:"Pictograma",vi:"Biểu đồ tranh",ar:"رسم بالصور",hi:"चित्र ग्राफ़",ur:"تصویری گراف",zh:"图画图表"},
     "Time":{en:"Time",es:"La hora",vi:"Thời gian",ar:"الوقت",hi:"समय",ur:"وقت",zh:"时间"},
-    "Money":{en:"Money",es:"Dinero",vi:"Tiền",ar:"النقود",hi:"पैसे",ur:"رقم",zh:"钱币"}
+    "Money":{en:"Money",es:"Dinero",vi:"Tiền",ar:"النقود",hi:"पैसे",ur:"رقم",zh:"钱币"},
+    "Bar graph":{en:"Bar graph",es:"Gráfica de barras",vi:"Biểu đồ cột",ar:"رسم بالأعمدة",hi:"बार ग्राफ़",ur:"بار گراف",zh:"条形统计图"},
+    "Line plot":{en:"Line plot",es:"Diagrama de puntos",vi:"Biểu đồ chấm",ar:"تمثيل بالنقاط",hi:"लाइन प्लॉट",ur:"لائن پلاٹ",zh:"点图"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -151,7 +153,19 @@ window.MATHTOOLS = (function () {
         ar:"اقرأ الساعة واضبطها على الساعة الكاملة ونصف الساعة وكل 5 دقائق، وميّز صباحًا من مساءً، وتعرّف على القطع النقدية الأمريكية، وعُدّ مجموعات القطع، وادفع السعر بالضبط في متجر.",
         hi:"घड़ी को पूरे घंटे, साढ़े और हर 5 मिनट पर पढ़ें और मिलाएँ, पूर्वाह्न और अपराह्न पहचानें, अमेरिकी सिक्के पहचानें, सिक्कों को गिनें और दुकान में ठीक कीमत चुकाएँ।",
         ur:"گھڑی کو پورے گھنٹے، ساڑھے اور ہر 5 منٹ پر پڑھیں اور ملائیں، قبل دوپہر اور بعد دوپہر پہچانیں، امریکی سکے پہچانیں، سکوں کو گنیں اور دکان میں ٹھیک قیمت ادا کریں۔",
-        zh:"读钟表并拨到整点、半点和每5分钟，分清上午和下午，认识美国硬币，数一组硬币，并在商店里正好付钱。"} }
+        zh:"读钟表并拨到整点、半点和每5分钟，分清上午和下午，认识美国硬币，数一组硬币，并在商店里正好付钱。"} },
+    { id:"garden-measure-graph-lab", collection:"k2", bandId:"k-2", icon:"🌻", accent:"#8e44ad",
+      title:"Garden Measure & Graph Lab", href:"k2/garden-measure-graph-lab/index.html",
+      tags:["Length","Compare","Data","Picture graph","Bar graph","Line plot"],
+      kw:"measure measurement length units ruler inch inches centimeter cm gaps overlaps unit size estimate longer shorter order data tally sort picture graph pictograph bar graph line plot how many more fewer total garden medir regla gráfica 测量 图表",
+      desc:{
+        en:"Measure garden objects with units and rulers, see why smaller units give bigger numbers, then sort data and build and read picture graphs, bar graphs, and line plots.",
+        es:"Mide objetos del jardín con unidades y reglas, descubre por qué las unidades más pequeñas dan números más grandes, y luego clasifica datos y crea y lee pictogramas, gráficas de barras y diagramas de puntos.",
+        vi:"Đo đồ vật trong vườn bằng đơn vị và thước, hiểu vì sao đơn vị nhỏ hơn cho số lớn hơn, rồi phân loại dữ liệu, lập và đọc biểu đồ tranh, biểu đồ cột và biểu đồ chấm.",
+        ar:"قِس أشياء الحديقة بالوحدات والمساطر، واكتشف لماذا تعطي الوحدات الأصغر أعداداً أكبر، ثم صنّف البيانات وابنِ واقرأ الرسوم بالصور والأعمدة والتمثيل بالنقاط.",
+        hi:"बगीचे की चीज़ों को इकाइयों और स्केल से मापें, समझें कि छोटी इकाई से बड़ी संख्या क्यों आती है, फिर आँकड़े छाँटें और चित्र ग्राफ़, बार ग्राफ़ और लाइन प्लॉट बनाएँ और पढ़ें।",
+        ur:"باغ کی چیزوں کو اکائیوں اور پیمانے سے ناپیں، سمجھیں کہ چھوٹی اکائی سے بڑا عدد کیوں آتا ہے، پھر ڈیٹا چھانٹیں اور تصویری گراف، بار گراف اور لائن پلاٹ بنائیں اور پڑھیں۔",
+        zh:"用单位和尺子测量花园里的物品，理解为什么单位越小数越大，再分类数据，制作并阅读象形统计图、条形统计图和点图。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };

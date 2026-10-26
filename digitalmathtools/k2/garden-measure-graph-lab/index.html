@@ -1,0 +1,1839 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Garden Measure & Graph Lab — a Grade 1–2 app to measure garden objects with units and rulers, compare unit sizes, sort data, and build and read picture graphs, bar graphs, and line plots. Works offline. No data collected.">
+<title>Garden Measure &amp; Graph Lab</title>
+<style>
+  :root{
+    --bg:#f4eff8;--panel:#ffffff;--ink:#22192b;--muted:#5a4d66;--line:#d6c8e2;
+    --accent:#8e44ad;--accent-ink:#ffffff;--good:#166534;--good-bg:#dcfce7;
+    --hint:#7a4a00;--hint-bg:#fff4d6;--focus:#0a58ca;--soil:#eaf6e4;
+    --tap:56px;font-size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4;-webkit-text-size-adjust:100%}
+  h1,h2,h3{line-height:1.15;margin:0 0 .3em}
+  button{font-family:inherit;font-size:1rem;cursor:pointer;color:var(--ink)}
+
+  .topbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--accent);color:var(--accent-ink);padding:.55rem .8rem}
+  .topbar .brand{font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:.4rem;margin-inline-end:auto}
+  .topbar a.homebtn,.topbar button.tb{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.55);border-radius:12px;padding:.4rem .7rem;min-height:var(--tap);min-width:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;font-weight:700;font-size:.95rem}
+  .globe{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.55);border-radius:12px;padding:.2rem .5rem;min-height:var(--tap)}
+  .globe span{font-size:1.2rem}
+  .globe select{border:0;background:#fff;color:var(--ink);border-radius:8px;min-height:44px;font-weight:700;font-size:1rem;padding:.2rem .4rem}
+
+  main{max-width:1200px;margin:0 auto;padding:.7rem}
+  .tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin:.4rem 0 .7rem;align-items:center}
+  .tabs button{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:.5rem .8rem;min-height:var(--tap);font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .tabs button[aria-selected="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .tabs button .ic{font-size:1.15rem}
+  .stars{margin-inline-start:auto;font-weight:800;background:#fff7d6;border:2px solid #f6d271;border-radius:14px;padding:.4rem .7rem}
+
+  .panel{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:.9rem;margin-bottom:.8rem}
+  .panelhead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+  .panelhead h2{margin:0;font-size:1.25rem}
+  .panelhead .btn{margin-inline-start:auto}
+
+  .prompt{display:flex;align-items:center;gap:.6rem;background:#f5eefa;border:2px solid #dcc6ec;border-radius:14px;padding:.6rem .8rem;margin-bottom:.7rem;font-size:1.15rem;font-weight:600}
+  .speaker{background:var(--accent);color:#fff;border:0;border-radius:50%;width:var(--tap);height:var(--tap);min-width:var(--tap);font-size:1.4rem;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+
+  .btn{background:var(--accent);color:#fff;border:2px solid var(--accent);border-radius:12px;padding:.55rem .9rem;min-height:var(--tap);font-weight:700}
+  .btn.ghost{background:var(--panel);color:var(--accent)}
+  .btn:disabled{opacity:.45;cursor:default}
+
+  .feedback{margin-top:.6rem;border-radius:12px;padding:.6rem .8rem;font-weight:600;display:none}
+  .feedback.show{display:flex;gap:.5rem;align-items:center}
+  .feedback.good{background:var(--good-bg);color:var(--good);border:2px solid #86efac}
+  .feedback.hint{background:var(--hint-bg);color:var(--hint);border:2px solid #f6d271}
+
+  .tools{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.6rem;align-items:center}
+  .nums{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:.6rem}
+  .nums:empty{display:none}
+  .nbtn{min-width:64px;min-height:var(--tap);font-size:1.3rem;font-weight:800;border:3px solid var(--line);border-radius:14px;background:#fff;padding:.3rem .8rem;display:inline-flex;align-items:center;justify-content:center;gap:.4rem}
+  .nbtn.word{justify-content:flex-start}
+  .nbtn.word{font-size:1rem;font-weight:700;text-align:start;flex:1 1 220px}
+  .nbtn.correctpick{border-color:var(--good);background:var(--good-bg)}
+  .nbtn.wrongpick{border-color:var(--hint);background:var(--hint-bg)}
+
+  /* measuring tracks (always left-to-right, like a real ruler) */
+  .mtrack{position:relative;width:100%;border:2px solid var(--line);border-radius:14px;background:linear-gradient(#f1f9ec,var(--soil));overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
+  .startline{position:absolute;top:0;bottom:0;width:0;border-left:3px dashed #b03a2e}
+  .mobj{position:absolute;pointer-events:none}
+  .lane{position:absolute;left:0;right:0;border-top:2px dotted #c9b6d8}
+  .cube{position:absolute;padding:0;border:2px solid #5b2c83;border-radius:5px;background:rgba(142,68,173,.55);touch-action:none;cursor:grab;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.8rem}
+  .cube.drag{cursor:grabbing;z-index:5;box-shadow:0 4px 10px rgba(0,0,0,.25)}
+  .cube.err{background:rgba(234,88,12,.65);border-color:#9a3412}
+  .cube.locked{cursor:default}
+  .srcbtn{min-height:var(--tap);min-width:var(--tap);border:3px dashed var(--accent);border-radius:12px;background:#fbf7fe;display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .6rem;font-weight:700;touch-action:none}
+  .srccube{display:inline-block;width:32px;height:32px;border:2px solid #5b2c83;border-radius:5px;background:rgba(142,68,173,.55)}
+
+  .robj{position:absolute;padding:0;border:0;background:transparent;touch-action:none;cursor:grab;border-radius:8px}
+  .robj::before,.robj::after{content:"";position:absolute;top:100%;height:var(--gh,12px);border-left:2px dashed #7d3c98}
+  .robj::before{left:0}.robj::after{right:0}
+  .robj.order{cursor:pointer;outline:2px dashed transparent}
+  .robj .obadge{position:absolute;top:-6px;right:-6px;background:var(--good);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:800}
+  .robj.wrongpick{outline:3px solid #f6d271}
+  .ruler{position:absolute;left:0}
+  .bench{position:absolute;display:flex;align-items:center;gap:.4rem;font-weight:700;font-size:.9rem}
+  .bench i{display:inline-block;height:26px;border:2px solid #5b2c83;border-radius:4px;background:rgba(142,68,173,.55)}
+  .tip{color:var(--muted);font-size:.9rem;margin:.4rem 0 0}
+
+  .srow{display:block;width:100%;text-align:start;background:transparent;border:2px solid transparent;border-radius:12px;padding:.25rem;margin:0 0 .3rem}
+  button.srow{border-color:#dcc6ec;background:#fbf7fe}
+  .srow .slab{display:flex;align-items:center;gap:.4rem;font-weight:700;margin:.1rem .2rem .25rem;flex-wrap:wrap}
+  .srow .sw{display:inline-block;height:18px;border:2px solid #333;border-radius:3px}
+  .srow .sarea{position:relative;display:block}
+  .blk{position:absolute;height:26px;border:2px solid #333;border-radius:3px}
+  .blk.big{background:#c39bd3;border-color:#6c3483}.sw.big{background:#c39bd3;border-color:#6c3483}
+  .blk.small{background:#82e0aa;border-color:#1e8449}.sw.small{background:#82e0aa;border-color:#1e8449}
+
+  /* graph builder */
+  .garden{display:flex;flex-wrap:wrap;gap:.45rem;min-height:72px;background:var(--soil);border:2px solid #c7e3bb;border-radius:14px;padding:.5rem}
+  .item{width:56px;height:56px;font-size:2rem;line-height:1;border:3px solid transparent;border-radius:12px;background:#fff;touch-action:none;padding:0;display:flex;align-items:center;justify-content:center}
+  .item.lp{width:auto;height:auto;padding:.25rem}
+  .item[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 3px #e8d5f3}
+  .item.drag{z-index:20;position:relative;box-shadow:0 6px 14px rgba(0,0,0,.25)}
+  .bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:.5rem;margin-top:.6rem}
+  .bin{min-height:84px;border:3px dashed var(--accent);border-radius:14px;background:#fbf7fe;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:.15rem;padding:.3rem;font-weight:700}
+  .bin.ro{border-style:solid;border-color:var(--line);background:#faf8fc;cursor:default}
+  .bin .be{font-size:1.6rem;line-height:1}
+  .bin.lpbin .be{font-size:1.1rem}
+  .bin.wrongpick{border-color:var(--hint);background:var(--hint-bg)}
+  .gtitle{text-align:center;font-weight:800;margin:.6rem 0 .2rem}
+  .gwrap{display:flex;gap:.3rem;align-items:flex-end;justify-content:center;padding:.3rem .2rem;max-width:620px;margin:0 auto}
+  .gcol{display:flex;flex-direction:column;flex:1 1 0;max-width:110px;min-width:0;border-radius:8px}
+  .gcol.hl{background:#fff4d6;box-shadow:0 0 0 3px #f6d271}
+  .gcells{display:flex;flex-direction:column-reverse;gap:2px}
+  .gcell{height:40px;border:1px dashed #cdbfe0;background:#fff;border-radius:6px;font-size:1.45rem;padding:0;display:flex;align-items:center;justify-content:center;line-height:1}
+  .gcell.on.bar{background:var(--c);border:1px solid var(--c);border-radius:0}
+  .gcell.on.pic{background:#f6effb}
+  .gcell.lp{border-color:transparent;background:transparent;font-weight:800;color:#6c3483}
+  button.gcell.lp{border:1px dashed #e3d8ec}
+  .glabel{text-align:center;font-weight:700;font-size:.85rem;min-height:3em;padding-top:.2rem;overflow-wrap:anywhere;border-top:3px solid var(--ink)}
+  .glabel .ge{display:block;font-size:1.3rem;line-height:1.1}
+  .gaxis{display:flex;flex-direction:column;flex:0 0 1.6rem}
+  .gaxis .gnums{display:flex;flex-direction:column-reverse;gap:2px}
+  .gaxis .gnum{height:40px;position:relative;font-size:.8rem;font-weight:700;color:var(--muted)}
+  .gaxis .gnum span{position:absolute;top:0;inset-inline-end:2px;transform:translateY(-50%)}
+  .gaxis .glabel{border-top-color:transparent}
+  .gkey{text-align:center;color:var(--muted);font-size:.9rem;font-weight:600}
+
+  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
+  .drawer.open{display:flex}
+  .drawer .card{background:var(--panel);border-radius:16px;max-width:560px;width:100%;padding:1rem;max-height:90vh;overflow:auto}
+  .setrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+  .setrow:last-child{border-bottom:0}
+  .setrow .lab{font-weight:700;min-width:150px}
+  .toggle{display:inline-flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:10px;padding:.35rem .55rem;background:#fff;min-height:48px}
+  .toggle input{width:22px;height:22px}
+  select.diff{font-size:1rem;padding:.4rem;border-radius:10px;border:2px solid var(--line);min-height:48px;max-width:100%}
+
+  footer{max-width:1200px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+  footer a{color:var(--accent);font-weight:700}
+  .stds{font-size:.82rem;color:var(--muted);background:#faf6fd;border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  .hidden{display:none !important}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+  @media (max-width:480px){ :root{font-size:17px} .panel{padding:.6rem} .tabs button{padding:.45rem .6rem} }
+
+  .printonly{display:none}
+  @media print{
+    .topbar,.tabs,footer,.tools,.speaker,.settingsbtn,.no-print,.modepanel,.drawer,#mtMuteBtn,#stdsNote{display:none !important}
+    body{background:#fff}
+    .printonly{display:block}
+    .card-print{border:2px solid #000;border-radius:12px;padding:1rem;margin:0 0 1rem;page-break-inside:avoid}
+    .card-print h2{margin:.2rem 0}
+    main{max-width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">🌻 <span data-t="appTitle">Garden Measure &amp; Graph Lab</span></span>
+  <a class="homebtn" href="../../index.html">🏠 <span data-t="home">Home</span></a>
+  <label class="globe"><span aria-hidden="true">🌐</span>
+    <select id="langSelect" aria-label="Language / Idioma"></select>
+  </label>
+  <button class="tb settingsbtn" id="openSettings">⚙️ <span data-t="teacher">Teacher</span></button>
+</header>
+
+<main>
+  <div class="tabs" role="tablist" data-ta="modesA" aria-label="Modes">
+    <button role="tab" aria-selected="true" data-mode="unit"><span class="ic">🧱</span><span data-t="mUnit">Unit Measure</span></button>
+    <button role="tab" aria-selected="false" data-mode="ruler"><span class="ic">📏</span><span data-t="mRuler">Ruler Read</span></button>
+    <button role="tab" aria-selected="false" data-mode="size"><span class="ic">⚖️</span><span data-t="mSize">Unit Size</span></button>
+    <button role="tab" aria-selected="false" data-mode="graph"><span class="ic">📊</span><span data-t="mGraph">Graph Builder</span></button>
+    <button role="tab" aria-selected="false" data-mode="ask"><span class="ic">❓</span><span data-t="mAsk">Graph Questions</span></button>
+    <span class="stars" id="stars">⭐ 0</span>
+  </div>
+
+  <!-- UNIT MEASURE -->
+  <section id="mode-unit" class="panel modepanel" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mUnit">Unit Measure</h2>
+      <button class="btn ghost no-print" id="unitNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="unit" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="unitPrompt">…</span></div>
+    <div class="mtrack" id="unitTrack" dir="ltr"></div>
+    <div class="tools" id="unitTools">
+      <button class="srcbtn" id="unitSrc" type="button" data-ta="dragA"><span class="srccube" aria-hidden="true"></span><span data-t="dragMe">Drag</span></button>
+      <button class="btn" id="unitAdd" type="button">➕ <span data-t="addOne">Add one</span></button>
+      <button class="btn" id="unitTake" type="button">➖ <span data-t="takeOne">Take one away</span></button>
+      <button class="btn ghost" id="unitClear" type="button" data-t="clearAll">Clear all</button>
+      <button class="btn" id="unitCheck" type="button">✔ <span data-t="check">Check</span></button>
+    </div>
+    <div class="nums" id="unitNums" role="group"></div>
+    <div class="feedback" id="unitFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- RULER READ -->
+  <section id="mode-ruler" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mRuler">Ruler Read</h2>
+      <button class="btn ghost no-print" id="rulerNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="ruler" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="rulerPrompt">…</span></div>
+    <div class="mtrack" id="rulerTrack" dir="ltr"></div>
+    <p class="tip" id="rulerTip"></p>
+    <div class="nums" id="rulerNums" role="group"></div>
+    <div class="feedback" id="rulerFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- UNIT SIZE -->
+  <section id="mode-size" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mSize">Unit Size</h2>
+      <button class="btn ghost no-print" id="sizeNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="size" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="sizePrompt">…</span></div>
+    <div id="sizeTrack" class="mtrack" dir="ltr" style="padding:.3rem"></div>
+    <div class="nums" id="sizeNums" role="group"></div>
+    <div class="feedback" id="sizeFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- GRAPH BUILDER -->
+  <section id="mode-graph" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mGraph">Graph Builder</h2>
+      <label class="no-print" style="font-weight:700;margin-inline-start:auto"><span data-t="gTypeLbl">Graph:</span>
+        <select class="diff" id="gType">
+          <option value="mix" data-t="gMix">Mix</option>
+          <option value="pic" data-t="gPic">Picture graph</option>
+          <option value="bar" data-t="gBar">Bar graph</option>
+          <option value="lp" data-t="gLP">Line plot</option></select></label>
+      <button class="btn ghost no-print" id="graphNew" data-t="newRound" style="margin-inline-start:0">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="graph" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="graphPrompt">…</span></div>
+    <div id="graphArea"></div>
+    <div class="tools" id="graphTools"><button class="btn" id="graphCheck" type="button">✔ <span data-t="check">Check</span></button></div>
+    <div class="feedback" id="graphFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- GRAPH QUESTIONS -->
+  <section id="mode-ask" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mAsk">Graph Questions</h2>
+      <button class="btn ghost no-print" id="askNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="ask" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="askPrompt">…</span></div>
+    <div id="askGraph"></div>
+    <div class="nums" id="askNums" role="group"></div>
+    <div class="feedback" id="askFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <div class="stds" id="stdsNote"></div>
+  <div class="printonly" id="printArea"></div>
+</main>
+
+<footer>
+  <p data-t="footNote">No accounts · No data collected · Works offline</p>
+  <p><a href="../../index.html" data-t="home">Home</a> · <a href="../../policy.html" data-t="privacy">Privacy</a></p>
+</footer>
+
+<!-- SETTINGS -->
+<div class="drawer" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <div class="panelhead"><h2 id="setTitle" data-t="teacherTitle">Teacher settings</h2>
+      <button class="btn ghost" id="closeSettings" style="margin-inline-start:auto" data-t="close">Close</button></div>
+    <div class="setrow"><span class="lab" data-t="setGrade">Grade level</span>
+      <select class="diff" id="setGrade"><option value="1" data-t="grade1">Grade 1</option><option value="2" data-t="grade2">Grade 2</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setUnits">Ruler units</span>
+      <select class="diff" id="setUnits"><option value="cm" data-t="unitsCm">Centimeters</option><option value="in" data-t="unitsIn">Inches</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
+      <div id="modeToggles" style="display:flex;flex-wrap:wrap;gap:.4rem"></div></div>
+    <div class="setrow"><span class="lab" data-t="setSpeech">Speech</span>
+      <label class="toggle"><input type="checkbox" id="setAuto" checked> <span data-t="autoRead">Auto-read directions</span></label></div>
+    <div class="setrow" style="border:0"><button class="btn" id="printCards">🖨 <span data-t="printCards">Print challenge cards</span></button></div>
+    <p class="stds" data-t="setStored">Settings are saved only on this device. No student information is ever stored.</p>
+    <p class="stds" data-t="gradeNote"></p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   Garden Measure & Graph Lab — single-file Grade 1–2 measurement & data app.
+   7 languages. No frameworks, no network, no data collection.
+   ========================================================================= */
+
+/* ---------- Language metadata ---------- */
+const LANGS = [
+  {code:"en", name:"English",     dir:"ltr", bcp:"en-US"},
+  {code:"es", name:"Español",     dir:"ltr", bcp:"es-ES"},
+  {code:"vi", name:"Tiếng Việt",  dir:"ltr", bcp:"vi-VN"},
+  {code:"ar", name:"العربية",     dir:"rtl", bcp:"ar-SA"},
+  {code:"hi", name:"हिन्दी",       dir:"ltr", bcp:"hi-IN"},
+  {code:"ur", name:"اردو",        dir:"rtl", bcp:"ur-PK"},
+  {code:"zh", name:"中文",         dir:"ltr", bcp:"zh-CN"}
+];
+const LANG_KEY = "tcea.mathtools.lang";
+
+/* ---------- Translations ---------- */
+const T = {
+  en:{
+    appTitle:"Garden Measure & Graph Lab", home:"Home", privacy:"Privacy", teacher:"Teacher", modesA:"Modes",
+    mUnit:"Unit Measure", mRuler:"Ruler Read", mSize:"Unit Size", mGraph:"Graph Builder", mAsk:"Graph Questions",
+    newRound:"New round", readAloud:"Read aloud", check:"Check", starsA:"Stars earned: {n}",
+    footNote:"No accounts · No data collected · Works offline",
+    teacherTitle:"Teacher settings", close:"Close", setGrade:"Grade level", grade1:"Grade 1", grade2:"Grade 2",
+    setUnits:"Ruler units", unitsCm:"Centimeters", unitsIn:"Inches", setModes:"Modes", setSpeech:"Speech", autoRead:"Auto-read directions",
+    printCards:"Print challenge cards", setStored:"Settings are saved only on this device. No student information is ever stored.",
+    gradeNote:"Grade 1: cubes, rulers that start at 0, ordering by length, 3-group graphs. Grade 2: centimeter cubes or inch tiles, rulers that do not start at 0, how much longer, estimating, 4-group graphs, line plots, and graph story problems.",
+    o_worm:"the worm", o_carrot:"the carrot", o_sunflower:"the sunflower", o_caterpillar:"the caterpillar",
+    o_peapod:"the pea pod", o_cucumber:"the cucumber", o_leaf:"the leaf", o_twig:"the twig",
+    uCubes:"cubes", uCmCubes:"centimeter cubes", uInTiles:"inch tiles", uCm:"centimeters", uIn:"inches",
+    uCubesN:"cubes", lblBig:"Big blocks", lblSmall:"Small blocks", abCm:"cm", abIn:"in",
+    dragMe:"Drag", dragA:"Drag a unit onto the garden. Tap to add one.", addOne:"Add one", takeOne:"Take one away", clearAll:"Clear all",
+    cubeA:"Measuring unit. Drag it, or use the arrow keys to slide it. Delete removes it.",
+    unitDir:"Measure {obj}. Drag {units} under it, end to end, with no gaps and no overlaps. Then tap Check.",
+    fixDir:"Bunny measured {obj}, but made a mistake. Find it and fix it. Then tap Check.",
+    errNone:"Put some {units} under {obj} first.",
+    errStartGap:"There is a space at the start. The first one must line up with the end of {obj}. Slide it over to the red line.",
+    errStartOver:"The first one sticks out past the start of {obj}. Line it up with the red line.",
+    errOverlap:"Two of them overlap. When units overlap, part of the length gets counted twice, so the number comes out too big. Slide them so they just touch.",
+    errGap:"There is a gap. A gap is length we did not count, so the number comes out too small. Slide them together so they touch.",
+    errShort:"They do not reach the other end of {obj} yet. Add more.",
+    errLong:"They go past the end of {obj}. Take one away.",
+    countDir:"No gaps and no overlaps. Great lining up! Now count. How long is {obj}?",
+    goodUnit:"Yes! The length of {obj} is {n} {units}.",
+    hintCount:"Count again. Touch each one as you count: 1, 2, 3… The last number you say is the length.",
+    ansIs:"The answer is {n}.",
+    rulerDir:"How long is {obj}? Use the ruler.",
+    slideTip:"Tip: you can drag {obj} along the ruler.",
+    goodRuler:"Yes! The length of {obj} is {n} {units}.",
+    hintEnd:"{e} is where {obj} ends, but it starts at {s}, not 0. Count the spaces from {s} to {e}, or slide it to 0.",
+    hintRuler:"Look at both ends. {obj} starts at {s} and ends at {e}. Count the spaces between them.",
+    hintRuler0:"{obj} starts at 0. Look straight down from its other end and read the number.",
+    compareDir:"How much longer is {a} than {b}?",
+    goodCompare:"Yes! {a} is {n} {units} longer than {b}. {x} − {y} = {n}.",
+    hintCompare:"{a} is {x} {units} long. {b} is {y} {units} long. Count up from {y} to {x} to find how much longer.",
+    estDir:"Estimate! About how long is {obj}? The ruler is covered. Use the purple unit to help.",
+    benchCm:"= 1 centimeter", benchIn:"= 1 inch",
+    goodEst:"Good estimate! The ruler shows {n} {units}.",
+    hintEstCm:"Picture the purple centimeter. About how many of them would fit along {obj}?",
+    hintEstIn:"Picture the purple inch. About how many of them would fit along {obj}?",
+    orderDir:"Tap them in order from shortest to longest.",
+    goodOrder:"Yes! You put them in order from shortest to longest.",
+    hintOrder:"Not that one yet. The starts line up, so look at the ends. Which one ends first? That one is the shortest.",
+    predictDir:"We will measure {obj} with big blocks and with small blocks. Which will we need more of?",
+    chMoreBig:"More big blocks", chMoreSmall:"More small blocks", chSame:"The same number of each",
+    goodPredict:"Yes! Small blocks are shorter, so it takes more of them to cover the same length. {b} big blocks, {s} small blocks.",
+    hintPredictBig:"Think about it. A big block covers more length. Will we need more of them, or fewer?",
+    hintPredictSame:"The blocks are not the same size. A small block covers less length, so the numbers will not match.",
+    fillDir:"Tap each row to lay blocks end to end under {obj}, until they reach the end.",
+    tapBig:"Tap to add a big block", tapSmall:"Tap to add a small block", fullRow:"That row already reaches the end. Try the other row.",
+    whyDir:"{b} big blocks. {s} small blocks. Why did we need more small blocks?",
+    whyA:"Small blocks are shorter, so we need more of them.", whyB:"It got longer the second time.", whyC:"Small blocks are longer.",
+    goodWhy:"Yes! The length did not change. The smaller the unit, the more units we need.",
+    hintWhy:"{obj} did not change. Look at one big block and one small block. Which one is shorter?",
+    missingDir:"{obj} is {b} big blocks long. One big block is as long as {r} small blocks. How many small blocks long is it?",
+    goodMissing:"Yes! {b} big blocks are as long as {s} small blocks. Smaller units, bigger number.",
+    hintMissing:"Each big block is {r} small blocks. Count by {r}s, {b} times.",
+    gTypeLbl:"Graph:", gMix:"Mix", gPic:"Picture graph", gBar:"Bar graph", gLP:"Line plot",
+    sortDir:"Sort it! Tap something in the garden, then tap its group to count it. You can drag it, too.",
+    sortLPDir:"Measure each worm with its ruler. Tap a worm, then tap its length.",
+    graphDir:"Graph it! Tap the squares to make each column match your count. Then tap Check.",
+    lpDir:"Make a line plot! Put one X above the number for each worm. Then tap Check.",
+    pickFirst:"Tap something in the garden first.",
+    hintSort:"That one goes with the {c}. Try that group.",
+    hintSortLP:"Look at the ruler under that worm. It ends at {n}, so it is {n} {units} long.",
+    hintGraph:"Check the {c}. You counted {n}, but the graph shows {g}.",
+    hintGraphEach:"Each square stands for 1.", hintGraphLP:"Put one X for each worm.",
+    goodPic:"Your picture graph matches your counts! The number of pictures shows how many are in each group.",
+    goodBar:"Your bar graph matches your counts! The height of each bar shows how many are in each group.",
+    goodLP:"Your line plot matches the worms! Each X stands for one worm.",
+    cellA:"{c}: make it {n}", wormA:"Worm on a ruler", binA:"Group: {c}",
+    thBugs:"Bugs in Our Garden", thVeg:"Veggies We Picked", thFlow:"Flowers in Bloom", thWorm:"How Long Are Our Worms?",
+    c_ladybug:"ladybugs", c_bee:"bees", c_butterfly:"butterflies", c_snail:"snails",
+    c_carrot:"carrots", c_tomato:"tomatoes", c_corn:"corn", c_cucumber:"cucumbers",
+    c_sunflower:"sunflowers", c_tulip:"tulips", c_rose:"roses", c_daisy:"daisies",
+    keyEach:"Each picture = 1", lpAxis:"Worm length ({u})",
+    qHow:"How many {a} are there?", qMost:"Which group has the most?", qLeast:"Which group has the fewest?",
+    qMore:"How many more {a} than {b}?", qFewer:"How many fewer {b} than {a}?", qTotal:"How many {a} and {b} in all?",
+    qAll:"How many are in the whole graph?", qStory:"{n} more {a} come to the garden. How many {a} are there now?",
+    whyHow:"The {a} column goes up to {x}.", whyMost:"The {a} column is the tallest. It has {x}.", whyLeast:"The {a} column is the shortest. It has {x}.",
+    whyMore:"{x} − {y} = {n}.", whyTotal:"{x} + {y} = {n}.", whyAll:"{list} = {n}.",
+    hintHow:"Find the {a} column. Count the pictures, or read the number at the top of the bar.",
+    hintMost:"Find the tallest column. The tallest one has the most.", hintLeast:"Find the shortest column. The shortest one has the fewest.",
+    hintMore:"There are {x} {a} and {y} {b}. Count up from {y} to {x} to find the difference.",
+    hintTotal:"There are {x} {a} and {y} {b}. Put them together: add.",
+    hintAll:"Add up every column: {list}.", hintStory:"Start with {x} {a}. {n} more come. Add {n}.",
+    ansIsC:"The answer is {c}.", yes:"Yes!",
+    stds:"Aligned standards: Texas TEKS Grade 1: 1.7(A–D) length, 1.8(A–C) data; Grade 2: 2.9(A–E) length, 2.10(A–D) data. Common Core: 1.MD.1, 1.MD.2, 1.MD.4, 2.MD.1–5, 2.MD.9, 2.MD.10.",
+    cardTitle:"Garden Measure & Graph Lab — Challenge Cards",
+    cardUnit:"Is this measured the right way? What went wrong? How long is the carrot really?",
+    cardRuler:"How long is the worm? (Careful: it does not start at 0.)",
+    cardSize:"Big blocks or small blocks: which will you need more of? Why?",
+    cardGraph:"Make a tally for each bug. Then draw a picture graph and a bar graph.",
+    cardAsk:"How many more bees than snails? How many bugs in all?"
+  },
+  es:{
+    appTitle:"Laboratorio del Jardín: Medir y Graficar", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", modesA:"Modos",
+    mUnit:"Medir con unidades", mRuler:"Leer la regla", mSize:"Tamaño de la unidad", mGraph:"Crear gráficas", mAsk:"Preguntas de gráficas",
+    newRound:"Nueva ronda", readAloud:"Leer en voz alta", check:"Revisar", starsA:"Estrellas ganadas: {n}",
+    footNote:"Sin cuentas · Sin datos · Funciona sin conexión",
+    teacherTitle:"Ajustes del maestro", close:"Cerrar", setGrade:"Grado", grade1:"1.er grado", grade2:"2.º grado",
+    setUnits:"Unidades de la regla", unitsCm:"Centímetros", unitsIn:"Pulgadas", setModes:"Modos", setSpeech:"Voz", autoRead:"Leer instrucciones en voz alta",
+    printCards:"Imprimir tarjetas de reto", setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información del estudiante.",
+    gradeNote:"1.er grado: cubos, reglas que empiezan en 0, ordenar por largo, gráficas de 3 grupos. 2.º grado: cubos de un centímetro o fichas de una pulgada, reglas que no empiezan en 0, cuánto más mide, estimar, gráficas de 4 grupos, diagramas de puntos y problemas con gráficas.",
+    o_worm:"el gusano", o_carrot:"la zanahoria", o_sunflower:"el girasol", o_caterpillar:"la oruga",
+    o_peapod:"la vaina de chícharos", o_cucumber:"el pepino", o_leaf:"la hoja", o_twig:"la ramita",
+    uCubes:"cubos", uCubesN:"cubos", uCmCubes:"cubos de un centímetro", uInTiles:"fichas de una pulgada", uCm:"centímetros", uIn:"pulgadas",
+    lblBig:"Bloques grandes", lblSmall:"Bloques pequeños", abCm:"cm", abIn:"pulg",
+    dragMe:"Arrastra", dragA:"Arrastra una unidad al jardín. Toca para agregar una.", addOne:"Agregar una", takeOne:"Quitar una", clearAll:"Borrar todo",
+    cubeA:"Unidad de medida. Arrástrala o muévela con las flechas. La tecla Suprimir la quita.",
+    unitDir:"Mide {obj}. Arrastra {units} debajo, uno tras otro, sin huecos y sin encimar. Luego toca Revisar.",
+    fixDir:"Conejito midió {obj}, pero se equivocó. Encuentra el error y corrígelo. Luego toca Revisar.",
+    errNone:"Primero pon {units} debajo para medir {obj}.",
+    errStartGap:"Hay un espacio al principio. La primera unidad debe empezar justo en la línea roja, donde empieza {obj}. Deslízala.",
+    errStartOver:"La primera unidad se sale antes del inicio. Alinéala con la línea roja.",
+    errOverlap:"Dos unidades están encimadas. Cuando se enciman, una parte del largo se cuenta dos veces y el número sale muy grande. Deslízalas para que solo se toquen.",
+    errGap:"Hay un hueco. Un hueco es largo que no contamos, así que el número sale muy pequeño. Júntalas para que se toquen.",
+    errShort:"Todavía no llegan al otro extremo. Agrega más.",
+    errLong:"Se pasan del final. Quita una.",
+    countDir:"¡Sin huecos y sin encimar! ¡Muy bien alineado! Ahora cuenta. ¿Cuánto mide {obj}?",
+    goodUnit:"¡Sí! {obj} mide {n} {units}.",
+    hintCount:"Cuenta otra vez. Toca cada una al contar: 1, 2, 3… El último número que dices es el largo.",
+    ansIs:"La respuesta es {n}.",
+    rulerDir:"¿Cuánto mide {obj}? Usa la regla.",
+    slideTip:"Consejo: puedes arrastrarlo a lo largo de la regla.",
+    goodRuler:"¡Sí! {obj} mide {n} {units}.",
+    hintEnd:"{obj} termina en {e}, pero empieza en {s}, no en 0. Cuenta los espacios de {s} a {e}, o deslízalo hasta el 0.",
+    hintRuler:"Mira los dos extremos. {obj} empieza en {s} y termina en {e}. Cuenta los espacios que hay entre ellos.",
+    hintRuler0:"{obj} empieza en 0. Mira hacia abajo desde su otro extremo y lee el número.",
+    compareDir:"¿Cuánto más mide {a} que {b}?",
+    goodCompare:"¡Sí! {a} mide {n} {units} más que {b}. {x} − {y} = {n}.",
+    hintCompare:"{a} mide {x} {units}. {b} mide {y} {units}. Cuenta de {y} a {x} para saber cuánto más mide.",
+    estDir:"¡Estima! ¿Más o menos cuánto mide {obj}? La regla está tapada. Usa la unidad morada como ayuda.",
+    benchCm:"= 1 centímetro", benchIn:"= 1 pulgada",
+    goodEst:"¡Buena estimación! La regla muestra {n} {units}.",
+    hintEstCm:"Imagina el centímetro morado. ¿Más o menos cuántos cabrían de una punta a la otra?",
+    hintEstIn:"Imagina la pulgada morada. ¿Más o menos cuántas cabrían de una punta a la otra?",
+    orderDir:"Tócalos en orden, del más corto al más largo.",
+    goodOrder:"¡Sí! Los pusiste en orden del más corto al más largo.",
+    hintOrder:"Ese todavía no. Todos empiezan en el mismo lugar, así que mira dónde terminan. ¿Cuál termina primero? Ese es el más corto.",
+    predictDir:"Vamos a medir {obj} con bloques grandes y con bloques pequeños. ¿De cuáles necesitaremos más?",
+    chMoreBig:"Más bloques grandes", chMoreSmall:"Más bloques pequeños", chSame:"El mismo número de cada uno",
+    goodPredict:"¡Sí! Los bloques pequeños son más cortos, así que se necesitan más para cubrir el mismo largo. {b} bloques grandes, {s} bloques pequeños.",
+    hintPredictBig:"Piénsalo. Un bloque grande cubre más largo. ¿Necesitaremos más de esos, o menos?",
+    hintPredictSame:"Los bloques no son del mismo tamaño. Un bloque pequeño cubre menos largo, así que los números no serán iguales.",
+    fillDir:"Toca cada fila para poner bloques uno tras otro debajo de la figura, hasta llegar al final.",
+    tapBig:"Toca para agregar un bloque grande", tapSmall:"Toca para agregar un bloque pequeño", fullRow:"Esa fila ya llega al final. Prueba la otra fila.",
+    whyDir:"{b} bloques grandes. {s} bloques pequeños. ¿Por qué necesitamos más bloques pequeños?",
+    whyA:"Los bloques pequeños son más cortos, así que necesitamos más.", whyB:"Se hizo más largo la segunda vez.", whyC:"Los bloques pequeños son más largos.",
+    goodWhy:"¡Sí! El largo no cambió. Mientras más pequeña es la unidad, más unidades necesitamos.",
+    hintWhy:"{obj} no cambió. Mira un bloque grande y uno pequeño. ¿Cuál es más corto?",
+    missingDir:"{obj} mide {b} bloques grandes. Un bloque grande mide lo mismo que {r} bloques pequeños. ¿Cuántos bloques pequeños mide?",
+    goodMissing:"¡Sí! {b} bloques grandes miden lo mismo que {s} bloques pequeños. Unidades más pequeñas, número más grande.",
+    hintMissing:"Cada bloque grande es igual a {r} bloques pequeños. Cuenta de {r} en {r}, {b} veces.",
+    gTypeLbl:"Gráfica:", gMix:"Mezcla", gPic:"Pictograma", gBar:"Gráfica de barras", gLP:"Diagrama de puntos",
+    sortDir:"¡A clasificar! Toca algo del jardín y luego toca su grupo para contarlo. También puedes arrastrarlo.",
+    sortLPDir:"Mide cada gusano con su regla. Toca un gusano y luego toca su largo.",
+    graphDir:"¡A graficar! Toca los cuadros para que cada columna sea igual a tu conteo. Luego toca Revisar.",
+    lpDir:"¡Haz un diagrama de puntos! Pon una X sobre el número por cada gusano. Luego toca Revisar.",
+    pickFirst:"Primero toca algo del jardín.",
+    hintSort:"Ese va en el grupo de {c}. Prueba ese grupo.",
+    hintSortLP:"Mira la regla debajo de ese gusano. Termina en {n}, así que mide {n} {units}.",
+    hintGraph:"Revisa la columna de {c}. Contaste {n}, pero la gráfica muestra {g}.",
+    hintGraphEach:"Cada cuadro vale 1.", hintGraphLP:"Pon una X por cada gusano.",
+    goodPic:"¡Tu pictograma coincide con tu conteo! El número de dibujos muestra cuántos hay en cada grupo.",
+    goodBar:"¡Tu gráfica de barras coincide con tu conteo! La altura de cada barra muestra cuántos hay en cada grupo.",
+    goodLP:"¡Tu diagrama de puntos coincide con los gusanos! Cada X representa un gusano.",
+    cellA:"{c}: hacerla de {n}", wormA:"Gusano sobre una regla", binA:"Grupo: {c}",
+    thBugs:"Bichos de nuestro jardín", thVeg:"Verduras que cosechamos", thFlow:"Flores del jardín", thWorm:"¿Cuánto miden nuestros gusanos?",
+    c_ladybug:"mariquitas", c_bee:"abejas", c_butterfly:"mariposas", c_snail:"caracoles",
+    c_carrot:"zanahorias", c_tomato:"tomates", c_corn:"elotes", c_cucumber:"pepinos",
+    c_sunflower:"girasoles", c_tulip:"tulipanes", c_rose:"rosas", c_daisy:"margaritas",
+    keyEach:"Cada dibujo = 1", lpAxis:"Largo del gusano ({u})",
+    qHow:"¿Cuántos hay en el grupo de {a}?", qMost:"¿Qué grupo tiene más?", qLeast:"¿Qué grupo tiene menos?",
+    qMore:"¿Cuántos más hay de {a} que de {b}?", qFewer:"¿Cuántos menos hay de {b} que de {a}?", qTotal:"¿Cuántos hay de {a} y de {b} en total?",
+    qAll:"¿Cuántos hay en toda la gráfica?", qStory:"Llegan {n} {a} más al jardín. ¿Cuántos hay de {a} ahora?",
+    whyHow:"La columna de {a} llega hasta {x}.", whyMost:"La columna de {a} es la más alta. Tiene {x}.", whyLeast:"La columna de {a} es la más baja. Tiene {x}.",
+    whyMore:"{x} − {y} = {n}.", whyTotal:"{x} + {y} = {n}.", whyAll:"{list} = {n}.",
+    hintHow:"Busca la columna de {a}. Cuenta los dibujos o lee el número en la parte de arriba de la barra.",
+    hintMost:"Busca la columna más alta. La más alta tiene más.", hintLeast:"Busca la columna más baja. La más baja tiene menos.",
+    hintMore:"{a}: {x}. {b}: {y}. Cuenta de {y} a {x} para hallar la diferencia.",
+    hintTotal:"{a}: {x}. {b}: {y}. Júntalos: suma.",
+    hintAll:"Suma todas las columnas: {list}.", hintStory:"Empieza con {x}. Llegan {n} más. Suma {n}.",
+    ansIsC:"La respuesta es: {c}.", yes:"¡Sí!",
+    stds:"Estándares alineados: TEKS de Texas, 1.er grado: 1.7(A–D) longitud, 1.8(A–C) datos; 2.º grado: 2.9(A–E) longitud, 2.10(A–D) datos. Common Core: 1.MD.1, 1.MD.2, 1.MD.4, 2.MD.1–5, 2.MD.9, 2.MD.10.",
+    cardTitle:"Laboratorio del Jardín: Medir y Graficar — Tarjetas de reto",
+    cardUnit:"¿Está bien medida? ¿Qué salió mal? ¿Cuánto mide en realidad la zanahoria?",
+    cardRuler:"¿Cuánto mide el gusano? (Cuidado: no empieza en 0.)",
+    cardSize:"Bloques grandes o pequeños: ¿de cuáles necesitarás más? ¿Por qué?",
+    cardGraph:"Haz una marca de conteo por cada bicho. Luego dibuja un pictograma y una gráfica de barras.",
+    cardAsk:"¿Cuántas abejas más que caracoles hay? ¿Cuántos bichos hay en total?"
+  },
+  vi:{
+    appTitle:"Phòng Thí Nghiệm Đo và Vẽ Biểu Đồ Trong Vườn", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", modesA:"Chế độ",
+    mUnit:"Đo bằng đơn vị", mRuler:"Đọc thước", mSize:"Cỡ đơn vị", mGraph:"Lập biểu đồ", mAsk:"Hỏi về biểu đồ",
+    newRound:"Vòng mới", readAloud:"Đọc to", check:"Kiểm tra", starsA:"Số sao đạt được: {n}",
+    footNote:"Không tài khoản · Không thu thập dữ liệu · Hoạt động ngoại tuyến",
+    teacherTitle:"Cài đặt giáo viên", close:"Đóng", setGrade:"Lớp", grade1:"Lớp 1", grade2:"Lớp 2",
+    setUnits:"Đơn vị của thước", unitsCm:"Xăng-ti-mét", unitsIn:"In-sơ", setModes:"Chế độ", setSpeech:"Giọng nói", autoRead:"Tự động đọc hướng dẫn",
+    printCards:"In thẻ thử thách", setStored:"Cài đặt chỉ lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
+    gradeNote:"Lớp 1: khối lập phương, thước bắt đầu từ 0, xếp theo chiều dài, biểu đồ 3 nhóm. Lớp 2: khối 1 xăng-ti-mét hoặc miếng 1 in-sơ, thước không bắt đầu từ 0, dài hơn bao nhiêu, ước lượng, biểu đồ 4 nhóm, biểu đồ chấm và bài toán đố với biểu đồ.",
+    o_worm:"con giun", o_carrot:"củ cà rốt", o_sunflower:"bông hoa hướng dương", o_caterpillar:"con sâu",
+    o_peapod:"quả đậu Hà Lan", o_cucumber:"quả dưa leo", o_leaf:"chiếc lá", o_twig:"cành cây nhỏ",
+    uCubes:"khối", uCubesN:"khối", uCmCubes:"khối 1 xăng-ti-mét", uInTiles:"miếng 1 in-sơ", uCm:"xăng-ti-mét", uIn:"in-sơ",
+    lblBig:"Khối lớn", lblSmall:"Khối nhỏ", abCm:"cm", abIn:"in",
+    dragMe:"Kéo", dragA:"Kéo một đơn vị vào vườn. Chạm để thêm một.", addOne:"Thêm một", takeOne:"Bớt một", clearAll:"Xóa hết",
+    cubeA:"Đơn vị đo. Kéo nó, hoặc dùng phím mũi tên để trượt. Phím Delete để bỏ nó.",
+    unitDir:"Đo {obj}. Kéo {units} đặt bên dưới, nối tiếp nhau, không có khoảng hở và không chồng lên nhau. Rồi chạm Kiểm tra.",
+    fixDir:"Thỏ con đã đo {obj} nhưng bị sai. Hãy tìm lỗi và sửa lại. Rồi chạm Kiểm tra.",
+    errNone:"Hãy đặt vài {units} bên dưới {obj} trước.",
+    errStartGap:"Có khoảng trống ở đầu. Đơn vị đầu tiên phải thẳng hàng với đầu của {obj}. Trượt nó đến vạch đỏ.",
+    errStartOver:"Đơn vị đầu tiên bị lòi ra trước đầu của {obj}. Hãy đặt nó thẳng với vạch đỏ.",
+    errOverlap:"Có hai đơn vị chồng lên nhau. Khi chồng lên nhau, một phần chiều dài bị đếm hai lần, nên con số bị lớn quá. Trượt chúng để vừa chạm nhau.",
+    errGap:"Có một khoảng hở. Khoảng hở là phần chiều dài ta không đếm, nên con số bị nhỏ quá. Trượt chúng sát lại để chạm nhau.",
+    errShort:"Chúng chưa tới đầu kia của {obj}. Thêm nữa nhé.",
+    errLong:"Chúng vượt quá cuối của {obj}. Bớt một cái.",
+    countDir:"Không có khoảng hở, không chồng lên nhau. Xếp giỏi lắm! Bây giờ hãy đếm. {obj} dài bao nhiêu?",
+    goodUnit:"Đúng rồi! Chiều dài của {obj} là {n} {units}.",
+    hintCount:"Đếm lại nhé. Chạm vào từng cái khi đếm: 1, 2, 3… Số cuối cùng em đếm là chiều dài.",
+    ansIs:"Đáp án là {n}.",
+    rulerDir:"{obj} dài bao nhiêu? Dùng thước nhé.",
+    slideTip:"Mẹo: em có thể kéo {obj} dọc theo thước.",
+    goodRuler:"Đúng rồi! Chiều dài của {obj} là {n} {units}.",
+    hintEnd:"{obj} kết thúc ở số {e}, nhưng bắt đầu ở số {s}, không phải số 0. Đếm các khoảng từ {s} đến {e}, hoặc trượt nó về số 0.",
+    hintRuler:"Nhìn cả hai đầu. {obj} bắt đầu ở {s} và kết thúc ở {e}. Đếm các khoảng ở giữa.",
+    hintRuler0:"{obj} bắt đầu ở số 0. Nhìn thẳng xuống từ đầu kia và đọc số.",
+    compareDir:"{a} dài hơn {b} bao nhiêu?",
+    goodCompare:"Đúng rồi! {a} dài hơn {b} {n} {units}. {x} − {y} = {n}.",
+    hintCompare:"{a} dài {x} {units}. {b} dài {y} {units}. Đếm thêm từ {y} đến {x} để biết dài hơn bao nhiêu.",
+    estDir:"Ước lượng nhé! {obj} dài khoảng bao nhiêu? Thước đã bị che. Dùng đơn vị màu tím để giúp em.",
+    benchCm:"= 1 xăng-ti-mét", benchIn:"= 1 in-sơ",
+    goodEst:"Ước lượng giỏi lắm! Thước cho thấy {n} {units}.",
+    hintEstCm:"Hãy nghĩ đến 1 xăng-ti-mét màu tím. Khoảng bao nhiêu cái như vậy xếp vừa dọc theo {obj}?",
+    hintEstIn:"Hãy nghĩ đến 1 in-sơ màu tím. Khoảng bao nhiêu cái như vậy xếp vừa dọc theo {obj}?",
+    orderDir:"Chạm theo thứ tự từ ngắn nhất đến dài nhất.",
+    goodOrder:"Đúng rồi! Em đã xếp đúng thứ tự từ ngắn nhất đến dài nhất.",
+    hintOrder:"Chưa phải cái đó. Các vật bắt đầu ở cùng một chỗ, nên hãy nhìn chỗ kết thúc. Cái nào kết thúc trước? Đó là cái ngắn nhất.",
+    predictDir:"Chúng ta sẽ đo {obj} bằng khối lớn và bằng khối nhỏ. Loại nào sẽ cần nhiều hơn?",
+    chMoreBig:"Nhiều khối lớn hơn", chMoreSmall:"Nhiều khối nhỏ hơn", chSame:"Số lượng hai loại bằng nhau",
+    goodPredict:"Đúng rồi! Khối nhỏ ngắn hơn, nên cần nhiều khối nhỏ hơn để phủ cùng một chiều dài. {b} khối lớn, {s} khối nhỏ.",
+    hintPredictBig:"Hãy nghĩ xem. Một khối lớn phủ được nhiều chiều dài hơn. Vậy ta cần nhiều khối lớn hơn hay ít hơn?",
+    hintPredictSame:"Các khối không cùng cỡ. Một khối nhỏ phủ ít chiều dài hơn, nên hai con số sẽ không bằng nhau.",
+    fillDir:"Chạm vào mỗi hàng để đặt các khối nối tiếp nhau dưới {obj}, cho đến khi tới cuối.",
+    tapBig:"Chạm để thêm một khối lớn", tapSmall:"Chạm để thêm một khối nhỏ", fullRow:"Hàng đó đã tới cuối rồi. Thử hàng kia nhé.",
+    whyDir:"{b} khối lớn. {s} khối nhỏ. Vì sao ta cần nhiều khối nhỏ hơn?",
+    whyA:"Khối nhỏ ngắn hơn, nên ta cần nhiều khối hơn.", whyB:"Lần thứ hai nó dài ra.", whyC:"Khối nhỏ dài hơn.",
+    goodWhy:"Đúng rồi! Chiều dài không thay đổi. Đơn vị càng nhỏ thì càng cần nhiều đơn vị.",
+    hintWhy:"{obj} không thay đổi. Nhìn một khối lớn và một khối nhỏ. Khối nào ngắn hơn?",
+    missingDir:"{obj} dài {b} khối lớn. Một khối lớn dài bằng {r} khối nhỏ. Vậy nó dài bao nhiêu khối nhỏ?",
+    goodMissing:"Đúng rồi! {b} khối lớn dài bằng {s} khối nhỏ. Đơn vị nhỏ hơn, con số lớn hơn.",
+    hintMissing:"Mỗi khối lớn bằng {r} khối nhỏ. Đếm thêm {r} mỗi lần, đếm {b} lần.",
+    gTypeLbl:"Biểu đồ:", gMix:"Trộn", gPic:"Biểu đồ tranh", gBar:"Biểu đồ cột", gLP:"Biểu đồ chấm",
+    sortDir:"Phân loại nào! Chạm vào một thứ trong vườn, rồi chạm vào nhóm của nó để đếm. Em cũng có thể kéo nó.",
+    sortLPDir:"Đo mỗi con giun bằng thước của nó. Chạm vào một con giun, rồi chạm vào chiều dài của nó.",
+    graphDir:"Vẽ biểu đồ nào! Chạm vào các ô để mỗi cột bằng với số em đếm. Rồi chạm Kiểm tra.",
+    lpDir:"Làm biểu đồ chấm! Đặt một dấu X trên con số cho mỗi con giun. Rồi chạm Kiểm tra.",
+    pickFirst:"Hãy chạm vào một thứ trong vườn trước.",
+    hintSort:"Cái đó thuộc nhóm {c}. Thử nhóm đó nhé.",
+    hintSortLP:"Nhìn thước dưới con giun đó. Nó kết thúc ở {n}, nên nó dài {n} {units}.",
+    hintGraph:"Kiểm tra cột {c}. Em đếm được {n}, nhưng biểu đồ cho thấy {g}.",
+    hintGraphEach:"Mỗi ô là 1.", hintGraphLP:"Đặt một dấu X cho mỗi con giun.",
+    goodPic:"Biểu đồ tranh của em khớp với số đếm! Số hình cho biết mỗi nhóm có bao nhiêu.",
+    goodBar:"Biểu đồ cột của em khớp với số đếm! Chiều cao của mỗi cột cho biết mỗi nhóm có bao nhiêu.",
+    goodLP:"Biểu đồ chấm của em khớp với các con giun! Mỗi dấu X là một con giun.",
+    cellA:"{c}: làm thành {n}", wormA:"Con giun trên thước", binA:"Nhóm: {c}",
+    thBugs:"Côn trùng trong vườn", thVeg:"Rau củ chúng ta hái", thFlow:"Hoa đang nở", thWorm:"Giun của chúng ta dài bao nhiêu?",
+    c_ladybug:"bọ rùa", c_bee:"ong", c_butterfly:"bướm", c_snail:"ốc sên",
+    c_carrot:"cà rốt", c_tomato:"cà chua", c_corn:"bắp", c_cucumber:"dưa leo",
+    c_sunflower:"hoa hướng dương", c_tulip:"hoa tulip", c_rose:"hoa hồng", c_daisy:"hoa cúc",
+    keyEach:"Mỗi hình = 1", lpAxis:"Chiều dài con giun ({u})",
+    qHow:"Có bao nhiêu {a}?", qMost:"Nhóm nào nhiều nhất?", qLeast:"Nhóm nào ít nhất?",
+    qMore:"Số {a} nhiều hơn số {b} bao nhiêu?", qFewer:"Số {b} ít hơn số {a} bao nhiêu?", qTotal:"Có tất cả bao nhiêu {a} và {b}?",
+    qAll:"Cả biểu đồ có tất cả bao nhiêu?", qStory:"Có thêm {n} {a} đến vườn. Bây giờ có bao nhiêu {a}?",
+    whyHow:"Cột {a} lên tới {x}.", whyMost:"Cột {a} cao nhất. Nó có {x}.", whyLeast:"Cột {a} thấp nhất. Nó có {x}.",
+    whyMore:"{x} − {y} = {n}.", whyTotal:"{x} + {y} = {n}.", whyAll:"{list} = {n}.",
+    hintHow:"Tìm cột {a}. Đếm các hình, hoặc đọc số ở đỉnh cột.",
+    hintMost:"Tìm cột cao nhất. Cột cao nhất có nhiều nhất.", hintLeast:"Tìm cột thấp nhất. Cột thấp nhất có ít nhất.",
+    hintMore:"Có {x} {a} và {y} {b}. Đếm thêm từ {y} đến {x} để tìm hiệu số.",
+    hintTotal:"Có {x} {a} và {y} {b}. Gộp lại: làm phép cộng.",
+    hintAll:"Cộng tất cả các cột: {list}.", hintStory:"Bắt đầu với {x} {a}. Có thêm {n}. Cộng thêm {n}.",
+    ansIsC:"Đáp án là {c}.", yes:"Đúng rồi!",
+    stds:"Tiêu chuẩn phù hợp: Texas TEKS Lớp 1: 1.7(A–D) chiều dài, 1.8(A–C) dữ liệu; Lớp 2: 2.9(A–E) chiều dài, 2.10(A–D) dữ liệu. Common Core: 1.MD.1, 1.MD.2, 1.MD.4, 2.MD.1–5, 2.MD.9, 2.MD.10.",
+    cardTitle:"Phòng Thí Nghiệm Đo và Vẽ Biểu Đồ Trong Vườn — Thẻ Thử Thách",
+    cardUnit:"Đo như vậy có đúng không? Sai ở đâu? Củ cà rốt thật sự dài bao nhiêu?",
+    cardRuler:"Con giun dài bao nhiêu? (Cẩn thận: nó không bắt đầu ở số 0.)",
+    cardSize:"Khối lớn hay khối nhỏ: loại nào em sẽ cần nhiều hơn? Vì sao?",
+    cardGraph:"Gạch đếm cho mỗi con côn trùng. Rồi vẽ biểu đồ tranh và biểu đồ cột.",
+    cardAsk:"Số ong nhiều hơn số ốc sên bao nhiêu? Có tất cả bao nhiêu con côn trùng?"
+  },
+  ar:{
+    appTitle:"مختبر الحديقة للقياس والرسوم البيانية", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", modesA:"الأنماط",
+    mUnit:"القياس بالوحدات", mRuler:"قراءة المسطرة", mSize:"حجم الوحدة", mGraph:"بناء الرسم البياني", mAsk:"أسئلة الرسم البياني",
+    newRound:"جولة جديدة", readAloud:"اقرأ بصوت عالٍ", check:"تحقّق", starsA:"النجوم المكتسبة: {n}",
+    footNote:"بدون حسابات · لا جمع للبيانات · يعمل بدون إنترنت",
+    teacherTitle:"إعدادات المعلم", close:"إغلاق", setGrade:"الصف", grade1:"الصف الأول", grade2:"الصف الثاني",
+    setUnits:"وحدات المسطرة", unitsCm:"سنتيمترات", unitsIn:"بوصات", setModes:"الأنماط", setSpeech:"النطق", autoRead:"قراءة التعليمات تلقائياً",
+    printCards:"طباعة بطاقات التحدي", setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُحفظ أي معلومات عن الطالب أبداً.",
+    gradeNote:"الصف الأول: مكعبات، مساطر تبدأ من 0، الترتيب حسب الطول، رسوم بيانية لثلاث مجموعات. الصف الثاني: مكعبات سنتيمتر أو بلاطات بوصة، مساطر لا تبدأ من 0، كم أطول، التقدير، رسوم بيانية لأربع مجموعات، التمثيل بالنقاط، ومسائل قصصية من الرسوم البيانية.",
+    o_worm:"الدودة", o_carrot:"الجزرة", o_sunflower:"زهرة عبّاد الشمس", o_caterpillar:"اليرقة",
+    o_peapod:"قرن البازلاء", o_cucumber:"الخيارة", o_leaf:"الورقة", o_twig:"الغصن الصغير",
+    uCubes:"مكعبات", uCubesN:"مكعبات", uCmCubes:"مكعبات سنتيمتر", uInTiles:"بلاطات بوصة", uCm:"سنتيمترات", uIn:"بوصات",
+    lblBig:"قطع كبيرة", lblSmall:"قطع صغيرة", abCm:"سم", abIn:"بوصة",
+    dragMe:"اسحب", dragA:"اسحب وحدة إلى الحديقة. المس لإضافة واحدة.", addOne:"أضف واحدة", takeOne:"أزل واحدة", clearAll:"مسح الكل",
+    cubeA:"وحدة قياس. اسحبها أو حرّكها بمفاتيح الأسهم. زر الحذف يزيلها.",
+    unitDir:"قِس {obj}. اسحب {units} وضعها تحت {obj}، واحدة بعد الأخرى، بلا فراغات ولا تداخل. ثم المس «تحقّق».",
+    fixDir:"قاس الأرنب الصغير {obj} لكنه أخطأ. جِد الخطأ وأصلحه. ثم المس «تحقّق».",
+    errNone:"ضع بعض {units} تحت {obj} أولاً.",
+    errStartGap:"يوجد فراغ في البداية. يجب أن تبدأ الوحدة الأولى عند الخط الأحمر، مع بداية {obj}. حرّكها إليه.",
+    errStartOver:"الوحدة الأولى تبرز قبل بداية {obj}. اجعلها على الخط الأحمر.",
+    errOverlap:"توجد وحدتان متداخلتان. عندما تتداخل الوحدات يُعدّ جزء من الطول مرتين، فيصبح العدد أكبر من اللازم. حرّكهما حتى تتلامسا فقط.",
+    errGap:"يوجد فراغ. الفراغ طول لم نعدّه، فيصبح العدد أصغر من اللازم. قرّب الوحدات حتى تتلامس.",
+    errShort:"لم تصل الوحدات بعد إلى الطرف الآخر من {obj}. أضف المزيد.",
+    errLong:"الوحدات تتجاوز نهاية {obj}. أزل واحدة.",
+    countDir:"لا فراغات ولا تداخل. ترتيب رائع! الآن عُدّ. كم طول {obj}؟",
+    goodUnit:"نعم! طول {obj} هو {n} {units}.",
+    hintCount:"عُدّ مرة أخرى. المس كل واحدة وأنت تعدّ: 1، 2، 3… آخر عدد تقوله هو الطول.",
+    ansIs:"الإجابة هي {n}.",
+    rulerDir:"كم طول {obj}؟ استخدم المسطرة.",
+    slideTip:"تلميح: يمكنك سحب {obj} على طول المسطرة.",
+    goodRuler:"نعم! طول {obj} هو {n} {units}.",
+    hintEnd:"{e} هو مكان نهاية {obj}، لكن البداية عند {s} وليست عند 0. عُدّ المسافات من {s} إلى {e}، أو اسحب {obj} إلى 0.",
+    hintRuler:"انظر إلى طرفي {obj}. البداية عند {s} والنهاية عند {e}. عُدّ المسافات بينهما.",
+    hintRuler0:"بداية {obj} عند 0. انظر إلى الأسفل مباشرة من الطرف الآخر واقرأ العدد.",
+    compareDir:"كم يزيد طول {a} على طول {b}؟",
+    goodCompare:"نعم! طول {a} يزيد على طول {b} بمقدار {n} {units}. {x} − {y} = {n}.",
+    hintCompare:"طول {a} هو {x} {units}. طول {b} هو {y} {units}. عُدّ من {y} إلى {x} لتعرف الفرق.",
+    estDir:"قدّر! كم طول {obj} تقريباً؟ المسطرة مغطاة. استعن بالوحدة البنفسجية.",
+    benchCm:"= 1 سنتيمتر", benchIn:"= 1 بوصة",
+    goodEst:"تقدير جيد! المسطرة تُظهر {n} {units}.",
+    hintEstCm:"تخيّل السنتيمتر البنفسجي. كم سنتيمتراً مثله تقريباً يتسع على طول {obj}؟",
+    hintEstIn:"تخيّل البوصة البنفسجية. كم بوصة مثلها تقريباً تتسع على طول {obj}؟",
+    orderDir:"المسها بالترتيب من الأقصر إلى الأطول.",
+    goodOrder:"نعم! رتّبتها من الأقصر إلى الأطول.",
+    hintOrder:"ليس هذا بعد. كلها تبدأ من المكان نفسه، فانظر إلى النهايات. أيّها ينتهي أولاً؟ ذلك هو الأقصر.",
+    predictDir:"سنقيس {obj} بقطع كبيرة وبقطع صغيرة. أيّها سنحتاج منه عدداً أكبر؟",
+    chMoreBig:"قطع كبيرة أكثر", chMoreSmall:"قطع صغيرة أكثر", chSame:"العدد نفسه من النوعين",
+    goodPredict:"نعم! القطع الصغيرة أقصر، لذلك نحتاج إلى عدد أكبر منها لتغطية الطول نفسه. {b} قطع كبيرة، و {s} قطع صغيرة.",
+    hintPredictBig:"فكّر. القطعة الكبيرة تغطي طولاً أكبر. فهل نحتاج منها أكثر أم أقل؟",
+    hintPredictSame:"القطع ليست بالحجم نفسه. القطعة الصغيرة تغطي طولاً أقل، لذلك لن يتساوى العددان.",
+    fillDir:"المس كل صف لتضع القطع واحدة بعد الأخرى تحت {obj} حتى تصل إلى النهاية.",
+    tapBig:"المس لإضافة قطعة كبيرة", tapSmall:"المس لإضافة قطعة صغيرة", fullRow:"هذا الصف وصل إلى النهاية. جرّب الصف الآخر.",
+    whyDir:"{b} قطع كبيرة. {s} قطع صغيرة. لماذا احتجنا إلى قطع صغيرة أكثر؟",
+    whyA:"القطع الصغيرة أقصر، لذلك نحتاج إلى عدد أكبر منها.", whyB:"صار الشيء أطول في المرة الثانية.", whyC:"القطع الصغيرة أطول.",
+    goodWhy:"نعم! الطول لم يتغيّر. كلما صغرت الوحدة زاد عدد الوحدات التي نحتاجها.",
+    hintWhy:"طول {obj} لم يتغيّر. انظر إلى قطعة كبيرة وقطعة صغيرة. أيّهما أقصر؟",
+    missingDir:"طول {obj} هو {b} قطع كبيرة. القطعة الكبيرة بطول {r} قطع صغيرة. كم قطعة صغيرة يساوي هذا الطول؟",
+    goodMissing:"نعم! {b} قطع كبيرة بطول {s} قطع صغيرة. وحدات أصغر، عدد أكبر.",
+    hintMissing:"كل قطعة كبيرة تساوي {r} قطع صغيرة. عُدّ قفزاً بـ {r}، {b} مرات.",
+    gTypeLbl:"الرسم:", gMix:"منوّع", gPic:"رسم بالصور", gBar:"رسم بالأعمدة", gLP:"تمثيل بالنقاط",
+    sortDir:"صنّف! المس شيئاً في الحديقة، ثم المس مجموعته لتعدّه. يمكنك سحبه أيضاً.",
+    sortLPDir:"قِس كل دودة بمسطرتها. المس دودة، ثم المس طولها.",
+    graphDir:"ارسم! المس المربعات لتجعل كل عمود مساوياً لعدّك. ثم المس «تحقّق».",
+    lpDir:"اصنع تمثيلاً بالنقاط! ضع علامة X فوق العدد لكل دودة. ثم المس «تحقّق».",
+    pickFirst:"المس شيئاً في الحديقة أولاً.",
+    hintSort:"هذا يذهب مع مجموعة {c}. جرّب تلك المجموعة.",
+    hintSortLP:"انظر إلى المسطرة تحت هذه الدودة. إنها تنتهي عند {n}، إذن طولها {n} {units}.",
+    hintGraph:"راجع عمود {c}. عددت {n}، لكن الرسم يُظهر {g}.",
+    hintGraphEach:"كل مربع يمثّل 1.", hintGraphLP:"ضع علامة X واحدة لكل دودة.",
+    goodPic:"رسمك بالصور يطابق عدّك! عدد الصور يبيّن كم يوجد في كل مجموعة.",
+    goodBar:"رسمك بالأعمدة يطابق عدّك! ارتفاع كل عمود يبيّن كم يوجد في كل مجموعة.",
+    goodLP:"تمثيلك بالنقاط يطابق الديدان! كل علامة X تمثّل دودة واحدة.",
+    cellA:"{c}: اجعله {n}", wormA:"دودة على مسطرة", binA:"المجموعة: {c}",
+    thBugs:"حشرات حديقتنا", thVeg:"خضراوات قطفناها", thFlow:"أزهار متفتحة", thWorm:"كم طول ديداننا؟",
+    c_ladybug:"الدعسوقات", c_bee:"النحل", c_butterfly:"الفراشات", c_snail:"الحلزونات",
+    c_carrot:"الجزر", c_tomato:"الطماطم", c_corn:"الذرة", c_cucumber:"الخيار",
+    c_sunflower:"عبّاد الشمس", c_tulip:"التوليب", c_rose:"الورد", c_daisy:"الأقحوان",
+    keyEach:"كل صورة = 1", lpAxis:"طول الدودة ({u})",
+    qHow:"كم عدد {a}؟", qMost:"أي مجموعة فيها العدد الأكبر؟", qLeast:"أي مجموعة فيها العدد الأقل؟",
+    qMore:"كم يزيد عدد {a} على عدد {b}؟", qFewer:"كم يقل عدد {b} عن عدد {a}؟", qTotal:"كم عدد {a} و {b} معاً؟",
+    qAll:"كم العدد في الرسم كله؟", qStory:"جاء {n} أخرى من {a} إلى الحديقة. كم عدد {a} الآن؟",
+    whyHow:"عمود {a} يصل إلى {x}.", whyMost:"عمود {a} هو الأطول. فيه {x}.", whyLeast:"عمود {a} هو الأقصر. فيه {x}.",
+    whyMore:"{x} − {y} = {n}.", whyTotal:"{x} + {y} = {n}.", whyAll:"{list} = {n}.",
+    hintHow:"جِد عمود {a}. عُدّ الصور، أو اقرأ العدد عند أعلى العمود.",
+    hintMost:"جِد أطول عمود. الأطول فيه العدد الأكبر.", hintLeast:"جِد أقصر عمود. الأقصر فيه العدد الأقل.",
+    hintMore:"عدد {a} هو {x}، وعدد {b} هو {y}. عُدّ من {y} إلى {x} لتجد الفرق.",
+    hintTotal:"عدد {a} هو {x}، وعدد {b} هو {y}. اجمعهما معاً.",
+    hintAll:"اجمع كل الأعمدة: {list}.", hintStory:"ابدأ بـ {x}. جاء {n} أخرى. أضف {n}.",
+    ansIsC:"الإجابة هي: {c}.", yes:"نعم!",
+    stds:"المعايير المتوافقة: Texas TEKS الصف الأول: 1.7(A–D) الطول، 1.8(A–C) البيانات؛ الصف الثاني: 2.9(A–E) الطول، 2.10(A–D) البيانات. Common Core: 1.MD.1، 1.MD.2، 1.MD.4، 2.MD.1–5، 2.MD.9، 2.MD.10.",
+    cardTitle:"مختبر الحديقة للقياس والرسوم البيانية — بطاقات التحدي",
+    cardUnit:"هل القياس صحيح؟ ما الخطأ؟ كم طول الجزرة حقاً؟",
+    cardRuler:"كم طول الدودة؟ (انتبه: إنها لا تبدأ من 0.)",
+    cardSize:"قطع كبيرة أم صغيرة: أيّها ستحتاج منه عدداً أكبر؟ لماذا؟",
+    cardGraph:"ضع علامة عدّ لكل حشرة. ثم ارسم رسماً بالصور ورسماً بالأعمدة.",
+    cardAsk:"كم يزيد عدد النحل على عدد الحلزونات؟ كم عدد الحشرات كلها؟"
+  },
+  hi:{
+    appTitle:"बगीचा मापन और ग्राफ़ प्रयोगशाला", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", modesA:"मोड",
+    mUnit:"इकाई से मापो", mRuler:"स्केल पढ़ो", mSize:"इकाई का आकार", mGraph:"ग्राफ़ बनाओ", mAsk:"ग्राफ़ के सवाल",
+    newRound:"नया दौर", readAloud:"ज़ोर से पढ़ें", check:"जाँचो", starsA:"मिले तारे: {n}",
+    footNote:"कोई खाता नहीं · कोई डेटा नहीं · ऑफ़लाइन काम करता है",
+    teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setGrade:"कक्षा", grade1:"कक्षा 1", grade2:"कक्षा 2",
+    setUnits:"स्केल की इकाई", unitsCm:"सेंटीमीटर", unitsIn:"इंच", setModes:"मोड", setSpeech:"आवाज़", autoRead:"निर्देश अपने आप पढ़ें",
+    printCards:"चुनौती कार्ड छापें", setStored:"सेटिंग्स केवल इस डिवाइस पर सहेजी जाती हैं। छात्र की जानकारी कभी नहीं सहेजी जाती।",
+    gradeNote:"कक्षा 1: घन, 0 से शुरू होने वाले स्केल, लंबाई के क्रम में लगाना, 3 समूहों वाले ग्राफ़। कक्षा 2: सेंटीमीटर घन या इंच टाइलें, 0 से शुरू न होने वाले स्केल, कितना ज़्यादा लंबा, अनुमान, 4 समूहों वाले ग्राफ़, लाइन प्लॉट और ग्राफ़ वाले कहानी सवाल।",
+    o_worm:"केंचुआ", o_carrot:"गाजर", o_sunflower:"सूरजमुखी", o_caterpillar:"इल्ली",
+    o_peapod:"मटर की फली", o_cucumber:"खीरा", o_leaf:"पत्ता", o_twig:"टहनी",
+    uCubes:"घन", uCubesN:"घन", uCmCubes:"सेंटीमीटर घन", uInTiles:"इंच टाइलें", uCm:"सेंटीमीटर", uIn:"इंच",
+    lblBig:"बड़े ब्लॉक", lblSmall:"छोटे ब्लॉक", abCm:"सेमी", abIn:"इंच",
+    dragMe:"खींचो", dragA:"एक इकाई को बगीचे में खींचो। एक जोड़ने के लिए छुओ।", addOne:"एक जोड़ो", takeOne:"एक हटाओ", clearAll:"सब हटाओ",
+    cubeA:"मापने की इकाई। इसे खींचो, या तीर वाली कुंजियों से खिसकाओ। डिलीट कुंजी इसे हटाती है।",
+    unitDir:"{obj} को मापो। {units} को उसके नीचे खींचो, एक के बाद एक, बिना खाली जगह और बिना एक-दूसरे पर चढ़ाए। फिर जाँचो दबाओ।",
+    fixDir:"खरगोश ने {obj} को मापा, पर गलती कर दी। गलती ढूँढो और ठीक करो। फिर जाँचो दबाओ।",
+    errNone:"पहले {obj} के नीचे कुछ {units} रखो।",
+    errStartGap:"शुरू में खाली जगह है। पहली इकाई लाल रेखा पर, {obj} के सिरे से मिलनी चाहिए। उसे खिसकाओ।",
+    errStartOver:"पहली इकाई {obj} की शुरुआत से बाहर निकल रही है। उसे लाल रेखा पर रखो।",
+    errOverlap:"दो इकाइयाँ एक-दूसरे पर चढ़ी हैं। जब इकाइयाँ चढ़ती हैं, तो लंबाई का कुछ हिस्सा दो बार गिना जाता है, इसलिए संख्या बहुत बड़ी आती है। उन्हें खिसकाओ ताकि वे बस छुएँ।",
+    errGap:"बीच में खाली जगह है। खाली जगह वह लंबाई है जो हमने नहीं गिनी, इसलिए संख्या बहुत छोटी आती है। उन्हें पास खिसकाओ ताकि वे छुएँ।",
+    errShort:"इकाइयाँ अभी {obj} के दूसरे सिरे तक नहीं पहुँचीं। और जोड़ो।",
+    errLong:"इकाइयाँ {obj} के सिरे से आगे निकल गईं। एक हटाओ।",
+    countDir:"कोई खाली जगह नहीं, कोई चढ़ाव नहीं। बढ़िया! अब गिनो। {obj} की लंबाई कितनी है?",
+    goodUnit:"हाँ! {obj} की लंबाई {n} {units} है।",
+    hintCount:"फिर से गिनो। गिनते समय हर एक को छुओ: 1, 2, 3… जो आखिरी संख्या तुम बोलते हो, वही लंबाई है।",
+    ansIs:"उत्तर {n} है।",
+    rulerDir:"{obj} की लंबाई कितनी है? स्केल का उपयोग करो।",
+    slideTip:"सुझाव: तुम {obj} को स्केल पर खिसका सकते हो।",
+    goodRuler:"हाँ! {obj} की लंबाई {n} {units} है।",
+    hintEnd:"{obj} का आखिरी सिरा {e} पर है, पर पहला सिरा {s} पर है, 0 पर नहीं। {s} से {e} तक के खाने गिनो, या उसे 0 पर खिसकाओ।",
+    hintRuler:"दोनों सिरे देखो। {obj} का पहला सिरा {s} पर और आखिरी सिरा {e} पर है। बीच के खाने गिनो।",
+    hintRuler0:"{obj} का पहला सिरा 0 पर है। दूसरे सिरे से सीधे नीचे देखो और संख्या पढ़ो।",
+    compareDir:"{a} की लंबाई {b} से कितनी ज़्यादा है?",
+    goodCompare:"हाँ! {a} की लंबाई {b} से {n} {units} ज़्यादा है। {x} − {y} = {n}।",
+    hintCompare:"{a} की लंबाई {x} {units} है। {b} की लंबाई {y} {units} है। कितना ज़्यादा है, यह जानने के लिए {y} से {x} तक आगे गिनो।",
+    estDir:"अनुमान लगाओ! {obj} की लंबाई लगभग कितनी है? स्केल ढका हुआ है। बैंगनी इकाई की मदद लो।",
+    benchCm:"= 1 सेंटीमीटर", benchIn:"= 1 इंच",
+    goodEst:"बढ़िया अनुमान! स्केल {n} {units} दिखाता है।",
+    hintEstCm:"बैंगनी सेंटीमीटर के बारे में सोचो। {obj} की लंबाई में लगभग ऐसे कितने आएँगे?",
+    hintEstIn:"बैंगनी इंच के बारे में सोचो। {obj} की लंबाई में लगभग ऐसे कितने आएँगे?",
+    orderDir:"सबसे छोटे से सबसे लंबे के क्रम में छुओ।",
+    goodOrder:"हाँ! तुमने सबसे छोटे से सबसे लंबे का क्रम सही लगाया।",
+    hintOrder:"अभी वह नहीं। सब एक ही जगह से शुरू होते हैं, इसलिए उनके सिरे देखो। कौन सबसे पहले खत्म होता है? वही सबसे छोटा है।",
+    predictDir:"हम {obj} को बड़े ब्लॉकों से और छोटे ब्लॉकों से मापेंगे। किसकी ज़्यादा ज़रूरत होगी?",
+    chMoreBig:"ज़्यादा बड़े ब्लॉक", chMoreSmall:"ज़्यादा छोटे ब्लॉक", chSame:"दोनों बराबर संख्या में",
+    goodPredict:"हाँ! छोटे ब्लॉक छोटे होते हैं, इसलिए उतनी ही लंबाई ढकने के लिए उनकी ज़्यादा ज़रूरत होती है। {b} बड़े ब्लॉक, {s} छोटे ब्लॉक।",
+    hintPredictBig:"सोचो। एक बड़ा ब्लॉक ज़्यादा लंबाई ढकता है। तो क्या हमें वे ज़्यादा चाहिए या कम?",
+    hintPredictSame:"ब्लॉक एक ही आकार के नहीं हैं। छोटा ब्लॉक कम लंबाई ढकता है, इसलिए संख्याएँ बराबर नहीं होंगी।",
+    fillDir:"हर पंक्ति को छूकर {obj} के नीचे एक के बाद एक ब्लॉक रखो, जब तक वे सिरे तक न पहुँचें।",
+    tapBig:"बड़ा ब्लॉक जोड़ने के लिए छुओ", tapSmall:"छोटा ब्लॉक जोड़ने के लिए छुओ", fullRow:"वह पंक्ति सिरे तक पहुँच चुकी है। दूसरी पंक्ति आज़माओ।",
+    whyDir:"{b} बड़े ब्लॉक। {s} छोटे ब्लॉक। हमें ज़्यादा छोटे ब्लॉक क्यों चाहिए थे?",
+    whyA:"छोटे ब्लॉक छोटे हैं, इसलिए हमें उनकी ज़्यादा ज़रूरत है।", whyB:"दूसरी बार वह लंबा हो गया।", whyC:"छोटे ब्लॉक ज़्यादा लंबे हैं।",
+    goodWhy:"हाँ! लंबाई नहीं बदली। इकाई जितनी छोटी, उतनी ज़्यादा इकाइयाँ चाहिए।",
+    hintWhy:"{obj} की लंबाई नहीं बदली। एक बड़ा ब्लॉक और एक छोटा ब्लॉक देखो। कौन छोटा है?",
+    missingDir:"{obj} की लंबाई {b} बड़े ब्लॉक है। एक बड़ा ब्लॉक {r} छोटे ब्लॉकों जितना लंबा है। इसकी लंबाई कितने छोटे ब्लॉक है?",
+    goodMissing:"हाँ! {b} बड़े ब्लॉक {s} छोटे ब्लॉकों जितने लंबे हैं। छोटी इकाई, बड़ी संख्या।",
+    hintMissing:"हर बड़ा ब्लॉक {r} छोटे ब्लॉकों के बराबर है। {r}-{r} करके {b} बार गिनो।",
+    gTypeLbl:"ग्राफ़:", gMix:"मिला-जुला", gPic:"चित्र ग्राफ़", gBar:"बार ग्राफ़", gLP:"लाइन प्लॉट",
+    sortDir:"छाँटो! बगीचे में किसी चीज़ को छुओ, फिर उसके समूह को छूकर गिनो। तुम उसे खींच भी सकते हो।",
+    sortLPDir:"हर केंचुए को उसके स्केल से मापो। एक केंचुआ छुओ, फिर उसकी लंबाई छुओ।",
+    graphDir:"ग्राफ़ बनाओ! खानों को छूकर हर स्तंभ को अपनी गिनती जितना बनाओ। फिर जाँचो दबाओ।",
+    lpDir:"लाइन प्लॉट बनाओ! हर केंचुए के लिए उसकी लंबाई की संख्या के ऊपर एक X लगाओ। फिर जाँचो दबाओ।",
+    pickFirst:"पहले बगीचे में किसी चीज़ को छुओ।",
+    hintSort:"यह {c} के समूह में जाता है। वह समूह आज़माओ।",
+    hintSortLP:"उस केंचुए के नीचे का स्केल देखो। वह {n} पर खत्म होता है, इसलिए उसकी लंबाई {n} {units} है।",
+    hintGraph:"{c} का स्तंभ जाँचो। तुमने {n} गिने, पर ग्राफ़ {g} दिखाता है।",
+    hintGraphEach:"हर खाना 1 के बराबर है।", hintGraphLP:"हर केंचुए के लिए एक X लगाओ।",
+    goodPic:"तुम्हारा चित्र ग्राफ़ तुम्हारी गिनती से मेल खाता है! चित्रों की संख्या बताती है कि हर समूह में कितने हैं।",
+    goodBar:"तुम्हारा बार ग्राफ़ तुम्हारी गिनती से मेल खाता है! हर बार की ऊँचाई बताती है कि हर समूह में कितने हैं।",
+    goodLP:"तुम्हारा लाइन प्लॉट केंचुओं से मेल खाता है! हर X एक केंचुए को दिखाता है।",
+    cellA:"{c}: इसे {n} करो", wormA:"स्केल पर केंचुआ", binA:"समूह: {c}",
+    thBugs:"हमारे बगीचे के कीड़े", thVeg:"हमने जो सब्ज़ियाँ तोड़ीं", thFlow:"खिले हुए फूल", thWorm:"हमारे केंचुए कितने लंबे हैं?",
+    c_ladybug:"लेडीबग", c_bee:"मधुमक्खियाँ", c_butterfly:"तितलियाँ", c_snail:"घोंघे",
+    c_carrot:"गाजरें", c_tomato:"टमाटर", c_corn:"भुट्टे", c_cucumber:"खीरे",
+    c_sunflower:"सूरजमुखी", c_tulip:"ट्यूलिप", c_rose:"गुलाब", c_daisy:"डेज़ी",
+    keyEach:"हर चित्र = 1", lpAxis:"केंचुए की लंबाई ({u})",
+    qHow:"{a} की संख्या कितनी है?", qMost:"किस समूह में सबसे ज़्यादा हैं?", qLeast:"किस समूह में सबसे कम हैं?",
+    qMore:"{a} की संख्या {b} से कितनी ज़्यादा है?", qFewer:"{b} की संख्या {a} से कितनी कम है?", qTotal:"{a} और {b} की कुल संख्या कितनी है?",
+    qAll:"पूरे ग्राफ़ में कुल कितने हैं?", qStory:"बगीचे में {n} और {a} आए। अब {a} की संख्या कितनी है?",
+    whyHow:"{a} का स्तंभ {x} तक जाता है।", whyMost:"{a} का स्तंभ सबसे ऊँचा है। उसमें {x} हैं।", whyLeast:"{a} का स्तंभ सबसे छोटा है। उसमें {x} हैं।",
+    whyMore:"{x} − {y} = {n}।", whyTotal:"{x} + {y} = {n}।", whyAll:"{list} = {n}।",
+    hintHow:"{a} का स्तंभ ढूँढो। चित्र गिनो, या बार के ऊपर की संख्या पढ़ो।",
+    hintMost:"सबसे ऊँचा स्तंभ ढूँढो। सबसे ऊँचे स्तंभ में सबसे ज़्यादा हैं।", hintLeast:"सबसे छोटा स्तंभ ढूँढो। सबसे छोटे स्तंभ में सबसे कम हैं।",
+    hintMore:"{a}: {x}। {b}: {y}। अंतर जानने के लिए {y} से {x} तक आगे गिनो।",
+    hintTotal:"{a}: {x}। {b}: {y}। दोनों को जोड़ो।",
+    hintAll:"हर स्तंभ जोड़ो: {list}।", hintStory:"{x} से शुरू करो। {n} और आए। {n} जोड़ो।",
+    ansIsC:"उत्तर है: {c}।", yes:"हाँ!",
+    stds:"संरेखित मानक: Texas TEKS कक्षा 1: 1.7(A–D) लंबाई, 1.8(A–C) आँकड़े; कक्षा 2: 2.9(A–E) लंबाई, 2.10(A–D) आँकड़े। Common Core: 1.MD.1, 1.MD.2, 1.MD.4, 2.MD.1–5, 2.MD.9, 2.MD.10।",
+    cardTitle:"बगीचा मापन और ग्राफ़ प्रयोगशाला — चुनौती कार्ड",
+    cardUnit:"क्या यह सही तरीके से मापा गया है? क्या गलत हुआ? गाजर की असली लंबाई कितनी है?",
+    cardRuler:"केंचुए की लंबाई कितनी है? (ध्यान दो: यह 0 से शुरू नहीं होता।)",
+    cardSize:"बड़े ब्लॉक या छोटे ब्लॉक: किसकी ज़्यादा ज़रूरत होगी? क्यों?",
+    cardGraph:"हर कीड़े के लिए एक मिलान चिह्न (टैली) बनाओ। फिर चित्र ग्राफ़ और बार ग्राफ़ बनाओ।",
+    cardAsk:"मधुमक्खियाँ घोंघों से कितनी ज़्यादा हैं? कुल कितने कीड़े हैं?"
+  },
+  ur:{
+    appTitle:"باغ میں پیمائش اور گراف کی لیب", home:"ہوم", privacy:"رازداری", teacher:"استاد", modesA:"موڈ",
+    mUnit:"اکائی سے ناپو", mRuler:"پیمانہ پڑھو", mSize:"اکائی کا سائز", mGraph:"گراف بناؤ", mAsk:"گراف کے سوال",
+    newRound:"نیا دور", readAloud:"بلند آواز سے پڑھیں", check:"جانچو", starsA:"حاصل ستارے: {n}",
+    footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا نہیں · آف لائن کام کرتا ہے",
+    teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setGrade:"جماعت", grade1:"جماعت 1", grade2:"جماعت 2",
+    setUnits:"پیمانے کی اکائی", unitsCm:"سینٹی میٹر", unitsIn:"انچ", setModes:"موڈ", setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں",
+    printCards:"چیلنج کارڈ پرنٹ کریں", setStored:"ترتیبات صرف اسی ڈیوائس پر محفوظ ہوتی ہیں۔ طالب علم کی معلومات کبھی محفوظ نہیں ہوتیں۔",
+    gradeNote:"جماعت 1: مکعب، 0 سے شروع ہونے والے پیمانے، لمبائی کی ترتیب، 3 گروپوں والے گراف۔ جماعت 2: سینٹی میٹر مکعب یا انچ ٹائلیں، 0 سے شروع نہ ہونے والے پیمانے، کتنا زیادہ لمبا، اندازہ، 4 گروپوں والے گراف، لائن پلاٹ اور گراف والے کہانی سوال۔",
+    o_worm:"کیچوا", o_carrot:"گاجر", o_sunflower:"سورج مکھی", o_caterpillar:"سنڈی",
+    o_peapod:"مٹر کی پھلی", o_cucumber:"کھیرا", o_leaf:"پتا", o_twig:"ٹہنی",
+    uCubes:"مکعب", uCubesN:"مکعب", uCmCubes:"سینٹی میٹر مکعب", uInTiles:"انچ ٹائلیں", uCm:"سینٹی میٹر", uIn:"انچ",
+    lblBig:"بڑے بلاک", lblSmall:"چھوٹے بلاک", abCm:"سم", abIn:"انچ",
+    dragMe:"گھسیٹو", dragA:"ایک اکائی باغ میں گھسیٹو۔ ایک جوڑنے کے لیے چھوؤ۔", addOne:"ایک جوڑو", takeOne:"ایک ہٹاؤ", clearAll:"سب ہٹاؤ",
+    cubeA:"ناپنے کی اکائی۔ اسے گھسیٹو، یا تیر والی کلیدوں سے کھسکاؤ۔ ڈیلیٹ کلید اسے ہٹاتی ہے۔",
+    unitDir:"{obj} کو ناپو۔ {units} کو اس کے نیچے گھسیٹو، ایک کے بعد ایک، بغیر خالی جگہ اور بغیر ایک دوسرے پر چڑھائے۔ پھر جانچو دباؤ۔",
+    fixDir:"خرگوش نے {obj} کو ناپا، مگر غلطی کر دی۔ غلطی تلاش کرو اور ٹھیک کرو۔ پھر جانچو دباؤ۔",
+    errNone:"پہلے {obj} کے نیچے کچھ {units} رکھو۔",
+    errStartGap:"شروع میں خالی جگہ ہے۔ پہلی اکائی سرخ لکیر پر، {obj} کے سرے سے ملنی چاہیے۔ اسے کھسکاؤ۔",
+    errStartOver:"پہلی اکائی {obj} کے شروع سے باہر نکل رہی ہے۔ اسے سرخ لکیر پر رکھو۔",
+    errOverlap:"دو اکائیاں ایک دوسرے پر چڑھی ہوئی ہیں۔ جب اکائیاں چڑھتی ہیں تو لمبائی کا کچھ حصہ دو بار گنا جاتا ہے، اس لیے عدد بہت بڑا آتا ہے۔ انہیں کھسکاؤ تاکہ وہ بس چھوئیں۔",
+    errGap:"بیچ میں خالی جگہ ہے۔ خالی جگہ وہ لمبائی ہے جو ہم نے نہیں گنی، اس لیے عدد بہت چھوٹا آتا ہے۔ انہیں قریب کھسکاؤ تاکہ وہ چھوئیں۔",
+    errShort:"اکائیاں ابھی {obj} کے دوسرے سرے تک نہیں پہنچیں۔ اور جوڑو۔",
+    errLong:"اکائیاں {obj} کے سرے سے آگے نکل گئیں۔ ایک ہٹاؤ۔",
+    countDir:"کوئی خالی جگہ نہیں، کوئی چڑھاؤ نہیں۔ بہت خوب! اب گنو۔ {obj} کی لمبائی کتنی ہے؟",
+    goodUnit:"ہاں! {obj} کی لمبائی {n} {units} ہے۔",
+    hintCount:"دوبارہ گنو۔ گنتے وقت ہر ایک کو چھوؤ: 1، 2، 3… جو آخری عدد تم بولتے ہو، وہی لمبائی ہے۔",
+    ansIs:"جواب {n} ہے۔",
+    rulerDir:"{obj} کی لمبائی کتنی ہے؟ پیمانہ استعمال کرو۔",
+    slideTip:"مشورہ: تم {obj} کو پیمانے پر کھسکا سکتے ہو۔",
+    goodRuler:"ہاں! {obj} کی لمبائی {n} {units} ہے۔",
+    hintEnd:"{obj} کا آخری سرا {e} پر ہے، مگر پہلا سرا {s} پر ہے، 0 پر نہیں۔ {s} سے {e} تک کے خانے گنو، یا اسے 0 پر کھسکاؤ۔",
+    hintRuler:"دونوں سرے دیکھو۔ {obj} کا پہلا سرا {s} پر اور آخری سرا {e} پر ہے۔ بیچ کے خانے گنو۔",
+    hintRuler0:"{obj} کا پہلا سرا 0 پر ہے۔ دوسرے سرے سے سیدھا نیچے دیکھو اور عدد پڑھو۔",
+    compareDir:"{a} کی لمبائی {b} سے کتنی زیادہ ہے؟",
+    goodCompare:"ہاں! {a} کی لمبائی {b} سے {n} {units} زیادہ ہے۔ {x} − {y} = {n}۔",
+    hintCompare:"{a} کی لمبائی {x} {units} ہے۔ {b} کی لمبائی {y} {units} ہے۔ کتنی زیادہ ہے، یہ جاننے کے لیے {y} سے {x} تک آگے گنو۔",
+    estDir:"اندازہ لگاؤ! {obj} کی لمبائی تقریباً کتنی ہے؟ پیمانہ ڈھکا ہوا ہے۔ جامنی اکائی سے مدد لو۔",
+    benchCm:"= 1 سینٹی میٹر", benchIn:"= 1 انچ",
+    goodEst:"اچھا اندازہ! پیمانہ {n} {units} دکھاتا ہے۔",
+    hintEstCm:"جامنی سینٹی میٹر کے بارے میں سوچو۔ {obj} کی لمبائی میں تقریباً ایسے کتنے آئیں گے؟",
+    hintEstIn:"جامنی انچ کے بارے میں سوچو۔ {obj} کی لمبائی میں تقریباً ایسے کتنے آئیں گے؟",
+    orderDir:"سب سے چھوٹے سے سب سے لمبے کی ترتیب میں چھوؤ۔",
+    goodOrder:"ہاں! تم نے سب سے چھوٹے سے سب سے لمبے کی ترتیب ٹھیک لگائی۔",
+    hintOrder:"ابھی وہ نہیں۔ سب ایک ہی جگہ سے شروع ہوتے ہیں، اس لیے ان کے سرے دیکھو۔ کون سب سے پہلے ختم ہوتا ہے؟ وہی سب سے چھوٹا ہے۔",
+    predictDir:"ہم {obj} کو بڑے بلاکوں سے اور چھوٹے بلاکوں سے ناپیں گے۔ کس کی زیادہ ضرورت ہوگی؟",
+    chMoreBig:"زیادہ بڑے بلاک", chMoreSmall:"زیادہ چھوٹے بلاک", chSame:"دونوں برابر تعداد میں",
+    goodPredict:"ہاں! چھوٹے بلاک چھوٹے ہوتے ہیں، اس لیے اتنی ہی لمبائی ڈھکنے کے لیے ان کی زیادہ ضرورت ہوتی ہے۔ {b} بڑے بلاک، {s} چھوٹے بلاک۔",
+    hintPredictBig:"سوچو۔ ایک بڑا بلاک زیادہ لمبائی ڈھکتا ہے۔ تو کیا ہمیں وہ زیادہ چاہییں یا کم؟",
+    hintPredictSame:"بلاک ایک ہی سائز کے نہیں ہیں۔ چھوٹا بلاک کم لمبائی ڈھکتا ہے، اس لیے تعداد برابر نہیں ہوگی۔",
+    fillDir:"ہر قطار کو چھو کر {obj} کے نیچے ایک کے بعد ایک بلاک رکھو، جب تک وہ سرے تک نہ پہنچ جائیں۔",
+    tapBig:"بڑا بلاک جوڑنے کے لیے چھوؤ", tapSmall:"چھوٹا بلاک جوڑنے کے لیے چھوؤ", fullRow:"وہ قطار سرے تک پہنچ چکی ہے۔ دوسری قطار آزماؤ۔",
+    whyDir:"{b} بڑے بلاک۔ {s} چھوٹے بلاک۔ ہمیں زیادہ چھوٹے بلاک کیوں چاہیے تھے؟",
+    whyA:"چھوٹے بلاک چھوٹے ہیں، اس لیے ہمیں ان کی زیادہ ضرورت ہے۔", whyB:"دوسری بار وہ لمبا ہو گیا۔", whyC:"چھوٹے بلاک زیادہ لمبے ہیں۔",
+    goodWhy:"ہاں! لمبائی نہیں بدلی۔ اکائی جتنی چھوٹی، اتنی زیادہ اکائیاں چاہییں۔",
+    hintWhy:"{obj} کی لمبائی نہیں بدلی۔ ایک بڑا بلاک اور ایک چھوٹا بلاک دیکھو۔ کون سا چھوٹا ہے؟",
+    missingDir:"{obj} کی لمبائی {b} بڑے بلاک ہے۔ ایک بڑا بلاک {r} چھوٹے بلاکوں جتنا لمبا ہے۔ اس کی لمبائی کتنے چھوٹے بلاک ہے؟",
+    goodMissing:"ہاں! {b} بڑے بلاک {s} چھوٹے بلاکوں جتنے لمبے ہیں۔ چھوٹی اکائی، بڑا عدد۔",
+    hintMissing:"ہر بڑا بلاک {r} چھوٹے بلاکوں کے برابر ہے۔ {r}-{r} کر کے {b} بار گنو۔",
+    gTypeLbl:"گراف:", gMix:"ملا جلا", gPic:"تصویری گراف", gBar:"بار گراف", gLP:"لائن پلاٹ",
+    sortDir:"چھانٹو! باغ میں کسی چیز کو چھوؤ، پھر اس کے گروپ کو چھو کر گنو۔ تم اسے گھسیٹ بھی سکتے ہو۔",
+    sortLPDir:"ہر کیچوے کو اس کے پیمانے سے ناپو۔ ایک کیچوا چھوؤ، پھر اس کی لمبائی چھوؤ۔",
+    graphDir:"گراف بناؤ! خانوں کو چھو کر ہر کالم کو اپنی گنتی کے برابر بناؤ۔ پھر جانچو دباؤ۔",
+    lpDir:"لائن پلاٹ بناؤ! ہر کیچوے کے لیے اس کی لمبائی کے عدد کے اوپر ایک X لگاؤ۔ پھر جانچو دباؤ۔",
+    pickFirst:"پہلے باغ میں کسی چیز کو چھوؤ۔",
+    hintSort:"یہ {c} کے گروپ میں جاتا ہے۔ وہ گروپ آزماؤ۔",
+    hintSortLP:"اس کیچوے کے نیچے کا پیمانہ دیکھو۔ وہ {n} پر ختم ہوتا ہے، اس لیے اس کی لمبائی {n} {units} ہے۔",
+    hintGraph:"{c} کا کالم جانچو۔ تم نے {n} گنے، مگر گراف {g} دکھاتا ہے۔",
+    hintGraphEach:"ہر خانہ 1 کے برابر ہے۔", hintGraphLP:"ہر کیچوے کے لیے ایک X لگاؤ۔",
+    goodPic:"تمہارا تصویری گراف تمہاری گنتی سے ملتا ہے! تصویروں کی تعداد بتاتی ہے کہ ہر گروپ میں کتنے ہیں۔",
+    goodBar:"تمہارا بار گراف تمہاری گنتی سے ملتا ہے! ہر بار کی اونچائی بتاتی ہے کہ ہر گروپ میں کتنے ہیں۔",
+    goodLP:"تمہارا لائن پلاٹ کیچووں سے ملتا ہے! ہر X ایک کیچوے کو دکھاتا ہے۔",
+    cellA:"{c}: اسے {n} کرو", wormA:"پیمانے پر کیچوا", binA:"گروپ: {c}",
+    thBugs:"ہمارے باغ کے کیڑے", thVeg:"ہم نے جو سبزیاں توڑیں", thFlow:"کھلے ہوئے پھول", thWorm:"ہمارے کیچوے کتنے لمبے ہیں؟",
+    c_ladybug:"لیڈی بگ", c_bee:"شہد کی مکھیاں", c_butterfly:"تتلیاں", c_snail:"گھونگے",
+    c_carrot:"گاجریں", c_tomato:"ٹماٹر", c_corn:"بھٹے", c_cucumber:"کھیرے",
+    c_sunflower:"سورج مکھی", c_tulip:"ٹیولپ", c_rose:"گلاب", c_daisy:"گل داؤدی",
+    keyEach:"ہر تصویر = 1", lpAxis:"کیچوے کی لمبائی ({u})",
+    qHow:"{a} کی تعداد کتنی ہے؟", qMost:"کس گروپ میں سب سے زیادہ ہیں؟", qLeast:"کس گروپ میں سب سے کم ہیں؟",
+    qMore:"{a} کی تعداد {b} سے کتنی زیادہ ہے؟", qFewer:"{b} کی تعداد {a} سے کتنی کم ہے؟", qTotal:"{a} اور {b} کی کل تعداد کتنی ہے؟",
+    qAll:"پورے گراف میں کل کتنے ہیں؟", qStory:"باغ میں {n} اور {a} آئے۔ اب {a} کی تعداد کتنی ہے؟",
+    whyHow:"{a} کا کالم {x} تک جاتا ہے۔", whyMost:"{a} کا کالم سب سے اونچا ہے۔ اس میں {x} ہیں۔", whyLeast:"{a} کا کالم سب سے چھوٹا ہے۔ اس میں {x} ہیں۔",
+    whyMore:"{x} − {y} = {n}۔", whyTotal:"{x} + {y} = {n}۔", whyAll:"{list} = {n}۔",
+    hintHow:"{a} کا کالم تلاش کرو۔ تصویریں گنو، یا بار کے اوپر کا عدد پڑھو۔",
+    hintMost:"سب سے اونچا کالم تلاش کرو۔ سب سے اونچے کالم میں سب سے زیادہ ہیں۔", hintLeast:"سب سے چھوٹا کالم تلاش کرو۔ سب سے چھوٹے کالم میں سب سے کم ہیں۔",
+    hintMore:"{a}: {x}۔ {b}: {y}۔ فرق جاننے کے لیے {y} سے {x} تک آگے گنو۔",
+    hintTotal:"{a}: {x}۔ {b}: {y}۔ دونوں کو جمع کرو۔",
+    hintAll:"ہر کالم جمع کرو: {list}۔", hintStory:"{x} سے شروع کرو۔ {n} اور آئے۔ {n} جمع کرو۔",
+    ansIsC:"جواب ہے: {c}۔", yes:"ہاں!",
+    stds:"منسلک معیارات: Texas TEKS جماعت 1: 1.7(A–D) لمبائی، 1.8(A–C) ڈیٹا؛ جماعت 2: 2.9(A–E) لمبائی، 2.10(A–D) ڈیٹا۔ Common Core: 1.MD.1، 1.MD.2، 1.MD.4، 2.MD.1–5، 2.MD.9، 2.MD.10۔",
+    cardTitle:"باغ میں پیمائش اور گراف کی لیب — چیلنج کارڈ",
+    cardUnit:"کیا یہ ٹھیک طریقے سے ناپا گیا ہے؟ کیا غلط ہوا؟ گاجر کی اصل لمبائی کتنی ہے؟",
+    cardRuler:"کیچوے کی لمبائی کتنی ہے؟ (دھیان دو: یہ 0 سے شروع نہیں ہوتا۔)",
+    cardSize:"بڑے بلاک یا چھوٹے بلاک: کس کی زیادہ ضرورت ہوگی؟ کیوں؟",
+    cardGraph:"ہر کیڑے کے لیے ٹیلی کا ایک نشان لگاؤ۔ پھر تصویری گراف اور بار گراف بناؤ۔",
+    cardAsk:"شہد کی مکھیاں گھونگوں سے کتنی زیادہ ہیں؟ کل کتنے کیڑے ہیں؟"
+  },
+  zh:{
+    appTitle:"花园测量与图表实验室", home:"主页", privacy:"隐私", teacher:"教师", modesA:"模式",
+    mUnit:"单位测量", mRuler:"读尺子", mSize:"单位大小", mGraph:"制作图表", mAsk:"图表问答",
+    newRound:"新一轮", readAloud:"朗读", check:"检查", starsA:"获得的星星：{n}",
+    footNote:"无账号 · 不收集数据 · 离线可用",
+    teacherTitle:"教师设置", close:"关闭", setGrade:"年级", grade1:"一年级", grade2:"二年级",
+    setUnits:"尺子单位", unitsCm:"厘米", unitsIn:"英寸", setModes:"模式", setSpeech:"语音", autoRead:"自动朗读指令",
+    printCards:"打印挑战卡", setStored:"设置只保存在本设备上。从不保存任何学生信息。",
+    gradeNote:"一年级：小方块、从 0 开始的尺子、按长短排序、3 组的图表。二年级：1 厘米方块或 1 英寸方片、不从 0 开始的尺子、长多少、估计、4 组的图表、点图和图表应用题。",
+    o_worm:"蚯蚓", o_carrot:"胡萝卜", o_sunflower:"向日葵", o_caterpillar:"毛毛虫",
+    o_peapod:"豌豆荚", o_cucumber:"黄瓜", o_leaf:"叶子", o_twig:"小树枝",
+    uCubes:"小方块", uCubesN:"个小方块", uCmCubes:"厘米方块", uInTiles:"英寸方片", uCm:"厘米", uIn:"英寸",
+    lblBig:"大积木", lblSmall:"小积木", abCm:"厘米", abIn:"英寸",
+    dragMe:"拖", dragA:"把一个单位拖到花园里。点一下可以添加一个。", addOne:"加一个", takeOne:"拿走一个", clearAll:"全部清除",
+    cubeA:"测量单位。可以拖动它，或用方向键移动。按删除键移除。",
+    unitDir:"量一量{obj}。把{units}拖到它下面，一个接一个，不留空隙，也不重叠。然后点“检查”。",
+    fixDir:"小兔子量了{obj}，可是出错了。找出错误并改正。然后点“检查”。",
+    errNone:"先在{obj}下面放一些{units}。",
+    errStartGap:"开头有空隙。第一个单位必须对准红线，和{obj}的一端对齐。把它移过去。",
+    errStartOver:"第一个单位超出了{obj}的开头。把它对准红线。",
+    errOverlap:"有两个单位重叠了。单位重叠时，有一段长度被数了两次，所以得到的数太大。移动它们，让它们刚好挨着。",
+    errGap:"中间有空隙。空隙是没有数到的长度，所以得到的数太小。把它们移到一起，让它们挨着。",
+    errShort:"还没有到{obj}的另一端。再加一些。",
+    errLong:"超过了{obj}的末端。拿走一个。",
+    countDir:"没有空隙，也没有重叠。排得真好！现在数一数。{obj}有多长？",
+    goodUnit:"对了！{obj}的长度是 {n} {units}。",
+    hintCount:"再数一遍。数的时候一个一个地点：1、2、3……最后数到的数就是长度。",
+    ansIs:"答案是 {n}。",
+    rulerDir:"{obj}有多长？用尺子量一量。",
+    slideTip:"小提示：你可以沿着尺子拖动{obj}。",
+    goodRuler:"对了！{obj}的长度是 {n} {units}。",
+    hintEnd:"{obj}的末端在 {e}，但它是从 {s} 开始的，不是从 0 开始。数一数从 {s} 到 {e} 有几格，或者把它移到 0。",
+    hintRuler:"看两端。{obj}从 {s} 开始，到 {e} 结束。数一数中间有几格。",
+    hintRuler0:"{obj}从 0 开始。从它的另一端往下看，读出数字。",
+    compareDir:"{a}比{b}长多少？",
+    goodCompare:"对了！{a}比{b}长 {n} {units}。{x} − {y} = {n}。",
+    hintCompare:"{a}长 {x} {units}。{b}长 {y} {units}。从 {y} 往上数到 {x}，就知道长多少。",
+    estDir:"估一估！{obj}大约有多长？尺子被盖住了。用紫色的单位来帮忙。",
+    benchCm:"= 1 厘米", benchIn:"= 1 英寸",
+    goodEst:"估得好！尺子显示 {n} {units}。",
+    hintEstCm:"想一想紫色的 1 厘米。沿着{obj}大约能放几个？",
+    hintEstIn:"想一想紫色的 1 英寸。沿着{obj}大约能放几个？",
+    orderDir:"按从最短到最长的顺序点一点。",
+    goodOrder:"对了！你按从最短到最长的顺序排好了。",
+    hintOrder:"还不是这个。它们的起点对齐了，所以看终点。哪个最先结束？那个就是最短的。",
+    predictDir:"我们要用大积木和小积木量{obj}。哪一种需要的个数更多？",
+    chMoreBig:"大积木更多", chMoreSmall:"小积木更多", chSame:"两种一样多",
+    goodPredict:"对了！小积木比较短，所以要用更多个才能盖住同样的长度。{b} 个大积木，{s} 个小积木。",
+    hintPredictBig:"想一想。一个大积木能盖住更长的长度。那需要的大积木会更多还是更少？",
+    hintPredictSame:"这两种积木不一样大。小积木盖住的长度比较短，所以个数不会一样。",
+    fillDir:"点每一行，在{obj}下面一个接一个地摆积木，直到摆到末端。",
+    tapBig:"点一下添加一个大积木", tapSmall:"点一下添加一个小积木", fullRow:"这一行已经摆到末端了。试试另一行。",
+    whyDir:"{b} 个大积木。{s} 个小积木。为什么需要更多的小积木？",
+    whyA:"小积木比较短，所以需要更多个。", whyB:"第二次它变长了。", whyC:"小积木比较长。",
+    goodWhy:"对了！长度没有变。单位越小，需要的单位个数就越多。",
+    hintWhy:"{obj}的长度没有变。看一个大积木和一个小积木。哪个比较短？",
+    missingDir:"{obj}长 {b} 个大积木。一个大积木和 {r} 个小积木一样长。它有几个小积木长？",
+    goodMissing:"对了！{b} 个大积木和 {s} 个小积木一样长。单位越小，数就越大。",
+    hintMissing:"每个大积木等于 {r} 个小积木。{r} 个 {r} 个地数，数 {b} 次。",
+    gTypeLbl:"图表：", gMix:"混合", gPic:"象形统计图", gBar:"条形统计图", gLP:"点图",
+    sortDir:"分一分！点一下花园里的东西，再点它的组来数一数。也可以拖动它。",
+    sortLPDir:"用每条蚯蚓下面的尺子量一量。点一条蚯蚓，再点它的长度。",
+    graphDir:"画图表！点方格，让每一列和你数的数一样。然后点“检查”。",
+    lpDir:"做一个点图！每条蚯蚓在它的长度数字上方画一个 X。然后点“检查”。",
+    pickFirst:"先点一下花园里的东西。",
+    hintSort:"那个属于{c}这一组。试试那一组。",
+    hintSortLP:"看那条蚯蚓下面的尺子。它的末端在 {n}，所以它长 {n} {units}。",
+    hintGraph:"检查一下{c}这一列。你数到 {n}，可是图表上是 {g}。",
+    hintGraphEach:"每个方格代表 1。", hintGraphLP:"每条蚯蚓画一个 X。",
+    goodPic:"你的象形统计图和你数的一样！图画的个数表示每组有多少。",
+    goodBar:"你的条形统计图和你数的一样！每个条形的高度表示每组有多少。",
+    goodLP:"你的点图和蚯蚓一致！每个 X 代表一条蚯蚓。",
+    cellA:"{c}：变成 {n}", wormA:"尺子上的蚯蚓", binA:"组：{c}",
+    thBugs:"我们花园里的虫子", thVeg:"我们摘的蔬菜", thFlow:"盛开的花", thWorm:"我们的蚯蚓有多长？",
+    c_ladybug:"瓢虫", c_bee:"蜜蜂", c_butterfly:"蝴蝶", c_snail:"蜗牛",
+    c_carrot:"胡萝卜", c_tomato:"番茄", c_corn:"玉米", c_cucumber:"黄瓜",
+    c_sunflower:"向日葵", c_tulip:"郁金香", c_rose:"玫瑰", c_daisy:"雏菊",
+    keyEach:"每个图画 = 1", lpAxis:"蚯蚓长度（{u}）",
+    qHow:"{a}有多少？", qMost:"哪一组最多？", qLeast:"哪一组最少？",
+    qMore:"{a}比{b}多多少？", qFewer:"{b}比{a}少多少？", qTotal:"{a}和{b}一共有多少？",
+    qAll:"整个图表一共有多少？", qStory:"花园里又来了 {n} 个{a}。现在{a}有多少？",
+    whyHow:"{a}这一列到 {x}。", whyMost:"{a}这一列最高，有 {x}。", whyLeast:"{a}这一列最矮，有 {x}。",
+    whyMore:"{x} − {y} = {n}。", whyTotal:"{x} + {y} = {n}。", whyAll:"{list} = {n}。",
+    hintHow:"找到{a}这一列。数一数图画，或者读条形顶端的数。",
+    hintMost:"找最高的一列。最高的一列最多。", hintLeast:"找最矮的一列。最矮的一列最少。",
+    hintMore:"{a}有 {x}，{b}有 {y}。从 {y} 往上数到 {x}，求出相差多少。",
+    hintTotal:"{a}有 {x}，{b}有 {y}。合起来：用加法。",
+    hintAll:"把每一列加起来：{list}。", hintStory:"从 {x} 开始。又来了 {n}。加上 {n}。",
+    ansIsC:"答案是：{c}。", yes:"对了！",
+    stds:"对应标准：德州 TEKS 一年级：1.7(A–D) 长度，1.8(A–C) 数据；二年级：2.9(A–E) 长度，2.10(A–D) 数据。Common Core：1.MD.1、1.MD.2、1.MD.4、2.MD.1–5、2.MD.9、2.MD.10。",
+    cardTitle:"花园测量与图表实验室 — 挑战卡",
+    cardUnit:"这样量对吗？哪里出错了？胡萝卜到底有多长？",
+    cardRuler:"蚯蚓有多长？（小心：它不是从 0 开始的。）",
+    cardSize:"大积木还是小积木：哪一种需要得更多？为什么？",
+    cardGraph:"每看到一只虫子就画一笔计数符号。然后画一个象形统计图和一个条形统计图。",
+    cardAsk:"蜜蜂比蜗牛多几只？一共有多少只虫子？"
+  }
+};
+
+let lang = "en";
+function t(key, vars){
+  let s = (T[lang] && T[lang][key]!==undefined) ? T[lang][key] : (T.en[key]!==undefined? T.en[key] : key);
+  if(vars) for(const k in vars) s = s.replaceAll("{"+k+"}", vars[k]);
+  return s;
+}
+
+/* ---------- Settings ---------- */
+const MODES=["unit","ruler","size","graph","ask"];
+const DEFAULTS = { grade:1, units:"cm", modes:{unit:true,ruler:true,size:true,graph:true,ask:true}, gtype:"mix", autoRead:true };
+let settings = loadSettings();
+function loadSettings(){
+  try{
+    const raw = localStorage.getItem("gmgl_settings");
+    if(raw){ const o=JSON.parse(raw); return Object.assign(JSON.parse(JSON.stringify(DEFAULTS)), o, {modes:Object.assign({},DEFAULTS.modes,o.modes)}); }
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULTS));
+}
+function saveSettings(){ try{ localStorage.setItem("gmgl_settings", JSON.stringify(settings)); }catch(e){} }
+
+/* ---------- Utils ---------- */
+const $ = s=>document.querySelector(s);
+const $$ = s=>Array.from(document.querySelectorAll(s));
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function ri(a,b){ return a+Math.floor(Math.random()*(b-a+1)); }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function wpick(list){ let tot=0; list.forEach(x=>tot+=x[1]); let r=Math.random()*tot; for(const x of list){ r-=x[1]; if(r<0) return x[0]; } return list[0][0]; }
+function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+const G2=()=>+settings.grade===2;
+const reduced=()=>window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+function unitPieces(){ return G2()?(settings.units==="cm"?t("uCmCubes"):t("uInTiles")):t("uCubes"); }
+function unitWord(){ return G2()?rulerUnit():t("uCubesN"); }
+function rulerUnit(){ return settings.units==="cm"?t("uCm"):t("uIn"); }
+function abbr(){ return settings.units==="cm"?t("abCm"):t("abIn"); }
+function oName(k){ return t("o_"+k); }
+// Sentence-initial object names get a capital letter (no effect on scripts without case).
+function capFirst(s){ return String(s).replace(/(^\s*|[.!?]\s+)(\p{Ll})/gu,(m,a,b)=>a+b.toUpperCase()); }
+function trackW(sel){ const el=$(sel); return (el&&el.clientWidth)||Math.max(280,Math.min(window.innerWidth,1200)-70); }
+let stars=0;
+function addStar(){ stars++; const s=$("#stars"); s.textContent="⭐ "+stars; s.setAttribute("aria-label",t("starsA",{n:stars})); }
+
+/* ---------- Garden objects (SVG, drawn to exact pixel length) ---------- */
+const OBJS=["worm","carrot","sunflower","caterpillar","peapod","cucumber","leaf","twig"];
+function objG(k,w,h){
+  const f=n=>(+n).toFixed(1); let s="";
+  if(k==="worm"){
+    const sw=Math.min(h*.42,w*.3), n=Math.max(2,Math.round(w/(h*1.8))), a=sw/2, b=w-sw/2, st=(b-a)/n;
+    let d=`M${f(a)},${f(h/2)}`;
+    for(let i=0;i<n;i++) d+=` Q${f(a+st*(i+.5))},${f(i%2?h*.8:h*.2)} ${f(a+st*(i+1))},${f(h/2)}`;
+    s=`<path d="${d}" fill="none" stroke="#e48a9c" stroke-width="${f(sw)}" stroke-linecap="round"/>`+
+      `<path d="${d}" fill="none" stroke="#c96479" stroke-width="${f(sw*.9)}" stroke-dasharray="1.5 ${f(sw*.7)}"/>`+
+      `<circle cx="${f(b-sw*.05)}" cy="${f(h/2-sw*.12)}" r="${f(sw*.13)}" fill="#3b2330"/>`;
+  }else if(k==="carrot"){
+    const bx=w-Math.min(w*.18,h*.7);
+    s=`<path d="M${f(bx)},${f(h*.42)} L${f(w)},${f(h*.06)} L${f(bx+(w-bx)*.35)},${f(h*.52)}Z" fill="#2f9e44"/>`+
+      `<path d="M${f(bx)},${f(h*.45)} L${f(w)},${f(h*.5)} L${f(bx)},${f(h*.58)}Z" fill="#37b24d"/>`+
+      `<path d="M${f(bx)},${f(h*.58)} L${f(w)},${f(h*.94)} L${f(bx+(w-bx)*.35)},${f(h*.5)}Z" fill="#2f9e44"/>`+
+      `<path d="M0,${f(h*.5)} L${f(bx)},${f(h*.2)} Q${f(bx+h*.12)},${f(h*.5)} ${f(bx)},${f(h*.8)}Z" fill="#f08c00" stroke="#d9480f" stroke-width="1.5"/>`;
+    for(let i=1;i<4;i++){ const x=bx*i/4; s+=`<line x1="${f(x)}" y1="${f(h*.5-h*.06*i)}" x2="${f(x+bx*.06)}" y2="${f(h*.5-h*.06*i+h*.08)}" stroke="#d9480f" stroke-width="1.5"/>`; }
+  }else if(k==="sunflower"){
+    const R=Math.min(h*.5,w*.3), cx=w-R, cy=h/2;
+    s=`<rect x="0" y="${f(cy-h*.06)}" width="${f(cx)}" height="${f(h*.12)}" rx="3" fill="#2f9e44"/>`+
+      `<ellipse cx="${f(cx*.45)}" cy="${f(cy-h*.18)}" rx="${f(Math.min(cx*.2,h*.35))}" ry="${f(h*.12)}" fill="#40c057"/>`;
+    for(let i=0;i<10;i++){ const a=i*Math.PI/5; s+=`<circle cx="${f(cx+Math.cos(a)*R*.62)}" cy="${f(cy+Math.sin(a)*R*.62)}" r="${f(R*.38)}" fill="#fcc419" stroke="#f08c00" stroke-width="1"/>`; }
+    s+=`<circle cx="${f(cx)}" cy="${f(cy)}" r="${f(R*.42)}" fill="#8d5524"/>`;
+  }else if(k==="caterpillar"){
+    const r=Math.min(h*.36,w/6), n=Math.max(3,Math.round((w-2*r)/(r*1.25))+1), cy=h*.58;
+    for(let i=0;i<n;i++){ const x=r+i*(w-2*r)/(n-1), head=i===n-1;
+      s+=`<circle cx="${f(x)}" cy="${f(cy)}" r="${f(r)}" fill="${head?"#5c940d":i%2?"#94d82d":"#74b816"}" stroke="#2b8a3e" stroke-width="1"/>`;
+      if(head) s+=`<line x1="${f(x-r*.3)}" y1="${f(cy-r*.8)}" x2="${f(x-r*.5)}" y2="${f(cy-r*1.5)}" stroke="#2b8a3e" stroke-width="2"/><line x1="${f(x+r*.2)}" y1="${f(cy-r*.8)}" x2="${f(x+r*.4)}" y2="${f(cy-r*1.5)}" stroke="#2b8a3e" stroke-width="2"/><circle cx="${f(x+r*.35)}" cy="${f(cy-r*.15)}" r="${f(r*.16)}" fill="#1b1b1b"/>`;
+    }
+  }else if(k==="peapod"){
+    s=`<path d="M0,${f(h/2)} Q${f(w/2)},${f(-h*.12)} ${f(w)},${f(h/2)} Q${f(w/2)},${f(h*1.12)} 0,${f(h/2)}Z" fill="#69db7c" stroke="#2b8a3e" stroke-width="2"/>`;
+    const n=Math.max(2,Math.min(8,Math.floor(w/(h*.55)))), r=Math.min(h*.16,w/(n*3));
+    for(let i=0;i<n;i++) s+=`<circle cx="${f(w*.2+(w*.6)*(n>1?i/(n-1):.5))}" cy="${f(h/2)}" r="${f(r)}" fill="#2f9e44"/>`;
+  }else if(k==="cucumber"){
+    s=`<rect x="0" y="${f(h*.22)}" width="${f(w)}" height="${f(h*.56)}" rx="${f(Math.min(h*.28,w/2))}" fill="#2b8a3e" stroke="#1b5e20" stroke-width="1.5"/>`;
+    for(let i=1;i<Math.max(2,w/16);i++) s+=`<circle cx="${f(i*14)}" cy="${f(h*(.38+.22*(i%2)))}" r="1.6" fill="#b2f2bb"/>`;
+  }else if(k==="leaf"){
+    s=`<path d="M0,${f(h/2)} Q${f(w*.45)},${f(-h*.2)} ${f(w)},${f(h/2)} Q${f(w*.45)},${f(h*1.2)} 0,${f(h/2)}Z" fill="#40c057" stroke="#2b8a3e" stroke-width="2"/>`+
+      `<line x1="0" y1="${f(h/2)}" x2="${f(w)}" y2="${f(h/2)}" stroke="#2b8a3e" stroke-width="2"/>`;
+    for(let i=1;i<4;i++){ const x=w*i/4; s+=`<line x1="${f(x)}" y1="${f(h/2)}" x2="${f(x+w*.08)}" y2="${f(h*.22)}" stroke="#2b8a3e" stroke-width="1.2"/><line x1="${f(x)}" y1="${f(h/2)}" x2="${f(x+w*.08)}" y2="${f(h*.78)}" stroke="#2b8a3e" stroke-width="1.2"/>`; }
+  }else{ // twig
+    const sw=Math.max(4,h*.14);
+    s=`<line x1="${f(sw/2)}" y1="${f(h*.55)}" x2="${f(w-sw/2)}" y2="${f(h*.5)}" stroke="#8d5524" stroke-width="${f(sw)}" stroke-linecap="round"/>`+
+      `<line x1="${f(w*.3)}" y1="${f(h*.54)}" x2="${f(w*.42)}" y2="${f(h*.18)}" stroke="#8d5524" stroke-width="${f(sw*.6)}" stroke-linecap="round"/>`+
+      `<line x1="${f(w*.6)}" y1="${f(h*.52)}" x2="${f(w*.7)}" y2="${f(h*.86)}" stroke="#8d5524" stroke-width="${f(sw*.6)}" stroke-linecap="round"/>`+
+      `<ellipse cx="${f(w*.44)}" cy="${f(h*.14)}" rx="${f(Math.min(8,w*.05))}" ry="4" fill="#40c057"/>`;
+  }
+  return s;
+}
+function objSVG(k,w,h){ return `<svg width="${w.toFixed(1)}" height="${h}" viewBox="0 0 ${w.toFixed(1)} ${h}" aria-hidden="true" focusable="false" style="display:block;overflow:visible">${objG(k,w,h)}</svg>`; }
+
+/* ---------- Ruler (SVG) ---------- */
+function rulerSVG(W,max,ppu,pad,hidden){
+  let s=`<svg width="${W}" height="56" viewBox="0 0 ${W} 56" aria-hidden="true" focusable="false" style="display:block"><rect x="${pad-10}" y="1" width="${(max*ppu+20).toFixed(1)}" height="52" rx="6" fill="#fde9a9" stroke="#b08900" stroke-width="2"/>`;
+  if(hidden) return s+`<text x="${(pad+max*ppu/2).toFixed(1)}" y="38" text-anchor="middle" font-size="28" font-weight="800" fill="#8a6d00">?</text></svg>`;
+  const sub=settings.units==="in"?4:2, fs=ppu<26?11:14;
+  for(let i=0;i<=max*sub;i++){
+    const x=(pad+i*ppu/sub).toFixed(1), major=i%sub===0, half=sub===4&&i%2===0, h=major?22:half?14:9;
+    s+=`<line x1="${x}" y1="2" x2="${x}" y2="${2+h}" stroke="#3b2f00" stroke-width="${major?2:1.2}"/>`;
+    if(major) s+=`<text x="${x}" y="42" text-anchor="middle" font-size="${fs}" font-weight="700" fill="#3b2f00">${i/sub}</text>`;
+  }
+  return s+`<text x="${pad-6}" y="52" font-size="9" fill="#6b5600">${abbr()}</text></svg>`;
+}
+
+/* ---------- Speech ---------- */
+const speechOK = ("speechSynthesis" in window);
+function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
+// Prefer warm, natural voices for young learners; avoid harsh robotic engines.
+function pickWarmVoice(code){
+  const vs = speechSynthesis.getVoices()||[];
+  const want=code.toLowerCase(), two=want.slice(0,2);
+  let best=null, bs=-1;
+  for(const v of vs){
+    const lc=(v.lang||'').toLowerCase().replace('_','-');
+    if(lc!==want && lc.slice(0,2)!==two) continue;
+    let s=(lc===want?100:60); const n=(v.name||'').toLowerCase();
+    if(/google|natural|neural|online|premium|enhanced|siri/.test(n)) s+=40;
+    if(/female|woman|samantha|karen|tessa|moira|fiona|serena|victoria|allison|ava|susan|zoe|amelie|amélie|paulina|monica|mónica|zira|hazel|catherine|linda|kanya|lekha|ting-ting|mei-jia|sin-ji|yu-shu|huihui|xiaoxiao/.test(n)) s+=18;
+    if(/espeak|compact|festival|pico|robot|eloquence/.test(n)) s-=60;
+    if(v.localService===false) s+=8;
+    if(v.default) s+=2;
+    if(s>bs){ bs=s; best=v; }
+  }
+  return best;
+}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  const parts=String(text).match(/[^.!?。！？؟।۔]+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  text=capFirst(text);
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.9; u.pitch=1.15;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={unit:0,ruler:0,size:0,graph:0,ask:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
+}
+if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
+if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
+
+const currentSpeech = {unit:"",ruler:"",size:"",graph:"",ask:""};
+const SPEECH_MODE = {unit:"unit",ruler:"ruler",size:"size",graph:"graph",ask:"ask"};
+function setSpeech(mode,text){ currentSpeech[mode]=text; }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===SPEECH_MODE[mode]) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,.cube,.robj,.item")) return;
+  const key=Object.keys(SPEECH_MODE).find(k=>SPEECH_MODE[k]===currentMode());
+  if(key) speak(currentSpeech[key]);
+},true);
+
+/* ---------- Feedback & choices ---------- */
+function showFb(el,type,msg){ el.className="feedback show "+type; el.textContent=(type==="good"?"✅ ":"💡 ")+capFirst(msg); }
+function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
+function setPrompt(mode,text){ text=capFirst(text); $("#"+mode+"Prompt").textContent=text; setSpeech(mode,text); }
+function numOpts(ans,extra,n){
+  const set=[ans]; (extra||[]).forEach(v=>{ if(v>=0 && !set.includes(v)) set.push(v); });
+  let d=1; while(set.length<(n||4)){ [ans+d,ans-d].forEach(v=>{ if(v>=0 && set.length<(n||4) && !set.includes(v)) set.push(v); }); d++; }
+  return shuffle(set.slice(0,n||4));
+}
+function choiceButtons(wrap,opts,onPick){
+  wrap.innerHTML="";
+  opts.forEach(o=>{
+    const b=document.createElement("button"); b.type="button"; b.className="nbtn"+(o.word?" word":"");
+    b.innerHTML=o.html!==undefined?o.html:String(o.label); if(o.aria) b.setAttribute("aria-label",o.aria);
+    b.addEventListener("click",()=>onPick(b,o.v));
+    wrap.appendChild(b);
+  });
+}
+function lockChoices(wrap){ wrap.querySelectorAll("button").forEach(b=>b.disabled=true); }
+function flagWrong(b){ b.classList.add("wrongpick"); setTimeout(()=>b.classList.remove("wrongpick"),1400); }
+
+/* =========================================================================
+   UNIT MEASURE — lay identical units end to end, no gaps, no overlaps
+   ========================================================================= */
+let udrag=null;
+function newUnit(){
+  roundIds.unit++;
+  const L=ri(3,G2()?10:8), kind=rand(OBJS), fix=Math.random()<.34;
+  const s={L,kind,cubes:[],fix,stage:"place",tries:0,nid:0,nums:false};
+  if(fix){
+    for(let i=0;i<L;i++) s.cubes.push({x:i});
+    const err=rand(["gap","overlap","start"]), k=ri(1,L-1);
+    if(err==="start") s.cubes.forEach(c=>c.x+=.5);
+    else s.cubes.forEach((c,i)=>{ if(i>=k) c.x+= err==="gap"?.55:-.45; });
+  }
+  s.cubes.forEach(c=>c.id=++s.nid);
+  ST.unit=s;
+  setPrompt("unit",t(fix?"fixDir":"unitDir",{obj:oName(kind),units:unitPieces()}));
+  hideFb($("#unitFb")); $("#unitNums").innerHTML="";
+  renderUnit(); maybeAuto("unit");
+}
+function renderUnit(){
+  const s=ST.unit, tr=$("#unitTrack"), W=tr.clientWidth||trackW("#unitTrack");
+  const u=Math.max(22,Math.min(56,Math.floor((W-24)/(s.L+1.6)))), x0=12, oh=Math.min(50,Math.max(36,u));
+  s.u=u; s.x0=x0; s.laneY=oh+16; s.W=W;
+  tr.style.height=(s.laneY+u+22)+"px";
+  tr.innerHTML=`<div class="startline" style="left:${x0}px"></div><div class="mobj" style="left:${x0}px;top:8px">${objSVG(s.kind,s.L*u,oh)}</div><div class="lane" style="top:${s.laneY+u+4}px"></div>`;
+  const sorted=s.cubes.slice().sort((a,b)=>a.x-b.x);
+  s.cubes.forEach(c=>{
+    const b=document.createElement("button"); b.type="button"; b.className="cube"+(s.stage!=="place"?" locked":"")+(c.err?" err":"");
+    b.style.width=b.style.height=u+"px"; b.setAttribute("aria-label",t("cubeA"));
+    if(s.nums) b.textContent=sorted.indexOf(c)+1;
+    c.el=b; placeCube(c); tr.appendChild(b);
+    b.addEventListener("pointerdown",e=>cubeDown(e,c));
+    b.addEventListener("keydown",e=>cubeKey(e,c));
+  });
+  $("#unitTools").classList.toggle("hidden",s.stage!=="place");
+}
+function placeCube(c,top){ const s=ST.unit; c.el.style.left=(s.x0+c.x*s.u)+"px"; c.el.style.top=(top!==undefined?top:s.laneY)+"px"; }
+function maxX(){ const s=ST.unit; return (s.W-s.x0-s.u-4)/s.u; }
+function clampX(c){ c.x=Math.max(-.9,Math.min(maxX(),c.x)); }
+function snapCube(c){
+  const s=ST.unit, cands=[0]; s.cubes.forEach(o=>{ if(o!==c) cands.push(o.x+1,o.x-1); });
+  let best=null,bd=.22; cands.forEach(v=>{ const d=Math.abs(v-c.x); if(d<bd){bd=d;best=v;} });
+  if(best!==null) c.x=best; c.x=Math.round(c.x*1000)/1000; clampX(c);
+}
+function clearErr(){ ST.unit.cubes.forEach(c=>{ c.err=false; if(c.el) c.el.classList.remove("err"); }); }
+function cubeDown(e,c){
+  const s=ST.unit; if(s.stage!=="place") return; e.preventDefault();
+  const r=$("#unitTrack").getBoundingClientRect();
+  udrag={c,r,ox:e.clientX-(r.left+s.x0+c.x*s.u),oy:s.u/2,moved:false,sx:e.clientX,sy:e.clientY};
+  c.el.classList.add("drag"); c.el.focus({preventScroll:true});
+}
+function srcDown(e){
+  const s=ST.unit; if(!s||s.stage!=="place") return; e.preventDefault();
+  const r=$("#unitTrack").getBoundingClientRect();
+  const c={x:(e.clientX-r.left-s.x0-s.u/2)/s.u,id:++s.nid}; clampX(c); s.cubes.push(c);
+  const b=document.createElement("button"); b.type="button"; b.className="cube drag"; b.style.width=b.style.height=s.u+"px";
+  b.setAttribute("aria-label",t("cubeA")); c.el=b; $("#unitTrack").appendChild(b);
+  b.addEventListener("pointerdown",ev=>cubeDown(ev,c)); b.addEventListener("keydown",ev=>cubeKey(ev,c));
+  udrag={c,r,ox:s.u/2,oy:s.u/2,moved:false,src:true,sx:e.clientX,sy:e.clientY};
+  placeCube(c,e.clientY-r.top-s.u/2);
+}
+window.addEventListener("pointermove",e=>{
+  if(!udrag) return; const s=ST.unit, d=udrag;
+  if(Math.abs(e.clientX-d.sx)+Math.abs(e.clientY-d.sy)>5) d.moved=true;
+  d.c.x=(e.clientX-d.r.left-s.x0-d.ox)/s.u; clampX(d.c);
+  placeCube(d.c,Math.max(-s.u,Math.min(d.r.height+s.u,e.clientY-d.r.top-d.oy)));
+});
+function cubeUp(e){
+  if(!udrag) return; const d=udrag; udrag=null; const s=ST.unit;
+  d.c.el.classList.remove("drag");
+  if(d.src && !d.moved){ removeCube(d.c); addOne(); return; }
+  if(e.clientY>d.r.bottom+8){ removeCube(d.c); return; }
+  snapCube(d.c); placeCube(d.c); clearErr(); hideFb($("#unitFb"));
+}
+window.addEventListener("pointerup",cubeUp); window.addEventListener("pointercancel",cubeUp);
+function cubeKey(e,c){
+  if(ST.unit.stage!=="place") return;
+  let dx=0;
+  if(e.key==="ArrowLeft") dx=-.25; else if(e.key==="ArrowRight") dx=.25;
+  else if(e.key==="Delete"||e.key==="Backspace"){ e.preventDefault(); removeCube(c); $("#unitSrc").focus(); return; }
+  if(!dx) return; e.preventDefault(); c.x=Math.round((c.x+dx)*4)/4; clampX(c); snapCube(c); placeCube(c); clearErr();
+}
+function removeCube(c){ const s=ST.unit; s.cubes=s.cubes.filter(x=>x!==c); if(c.el) c.el.remove(); clearErr(); }
+function addOne(){
+  const s=ST.unit; if(s.stage!=="place") return;
+  const x=s.cubes.length?Math.max(...s.cubes.map(c=>c.x+1)):0;
+  if(x>maxX()) return;
+  s.cubes.push({x,id:++s.nid}); hideFb($("#unitFb")); clearErr(); renderUnit();
+}
+function takeOne(){ const s=ST.unit; if(s.stage!=="place"||!s.cubes.length) return; let m=s.cubes[0]; s.cubes.forEach(c=>{ if(c.x>m.x) m=c; }); removeCube(m); }
+function checkUnit(){
+  const s=ST.unit, fb=$("#unitFb"), cs=s.cubes.slice().sort((a,b)=>a.x-b.x), tol=.2, O={obj:oName(s.kind),units:unitPieces()};
+  let k=null, bad=[];
+  clearErr();
+  if(!cs.length) k="errNone";
+  else if(cs[0].x>tol){ k="errStartGap"; bad=[cs[0]]; }
+  else if(cs[0].x<-tol){ k="errStartOver"; bad=[cs[0]]; }
+  else{
+    for(let i=1;i<cs.length&&!k;i++){ const d=cs[i].x-(cs[i-1].x+1);
+      if(d<-tol){ k="errOverlap"; bad=[cs[i-1],cs[i]]; } else if(d>tol){ k="errGap"; bad=[cs[i-1],cs[i]]; } }
+    if(!k){ const end=cs[cs.length-1].x+1; if(end<s.L-tol) k="errShort"; else if(end>s.L+tol){ k="errLong"; bad=[cs[cs.length-1]]; } }
+  }
+  if(k){ bad.forEach(c=>{ c.err=true; c.el.classList.add("err"); }); const m=capFirst(t(k,O)); showFb(fb,"hint",m); speak(m); return; }
+  cs.forEach((c,i)=>c.x=i); s.stage="count"; renderUnit();
+  const dir=t("countDir",{obj:oName(s.kind)}); setPrompt("unit",dir); hideFb(fb); speak(dir);
+  choiceButtons($("#unitNums"),numOpts(s.L,[s.L+1,s.L-1]).map(v=>({v,label:v})),pickUnitCount);
+}
+function pickUnitCount(b,v){
+  const s=ST.unit, fb=$("#unitFb");
+  if(v===s.L){
+    b.classList.add("correctpick"); lockChoices($("#unitNums")); addStar();
+    const m=t("goodUnit",{obj:oName(s.kind),n:s.L,units:unitWord()}); showFb(fb,"good",m);
+    afterPraise(m,"unit",newUnit,1600);
+  }else{
+    flagWrong(b); s.tries++; s.nums=true; renderUnit();
+    let m=t("hintCount"); if(s.tries>=2) m+=" "+t("ansIs",{n:s.L});
+    showFb(fb,"hint",m); speak(m);
+  }
+}
+
+/* =========================================================================
+   RULER READ — inch / centimeter ruler; objects may not start at 0 (G2)
+   ========================================================================= */
+let rdrag=null;
+function rulerMax(W){ return settings.units==="cm"?(W>=700?20:W>=480?15:12):(W>=700?10:W>=480?8:6); }
+function newRuler(){
+  roundIds.ruler++;
+  const g2=G2(), W=trackW("#rulerTrack"), max=rulerMax(W);
+  const type=g2?wpick([["read",5],["compare",2],["est",2],["order",1]]):wpick([["read",7],["order",3]]);
+  const s={type,max,tries:0,picked:[]}, kinds=shuffle(OBJS);
+  if(type==="read"){ const L=ri(2,max-(g2?2:1)), s0=g2&&Math.random()<.65?ri(1,max-L):0; s.objs=[{kind:kinds[0],L,s:s0}]; s.ans=L; }
+  else if(type==="compare"){ const a=ri(4,max-1), b=ri(2,a-2); s.objs=[{kind:kinds[0],L:a,s:0},{kind:kinds[1],L:b,s:0}]; s.ans=a-b; }
+  else if(type==="est"){ const L=ri(3,Math.min(9,max-1)); s.objs=[{kind:kinds[0],L,s:0}]; s.ans=L; s.hidden=true; }
+  else{ let ls; do{ ls=[ri(2,max-1),ri(2,max-1),ri(2,max-1)]; }while(new Set(ls).size<3 || Math.min(Math.abs(ls[0]-ls[1]),Math.abs(ls[1]-ls[2]),Math.abs(ls[0]-ls[2]))<(g2?1:2));
+    s.objs=ls.map((L,i)=>({kind:kinds[i],L,s:0})); }
+  ST.ruler=s;
+  const O={obj:oName(s.objs[0].kind)};
+  let dir;
+  if(type==="read") dir=t("rulerDir",O);
+  else if(type==="compare") dir=t("compareDir",{a:oName(s.objs[0].kind),b:oName(s.objs[1].kind)});
+  else if(type==="est") dir=t("estDir",O);
+  else dir=t("orderDir");
+  setPrompt("ruler",dir); hideFb($("#rulerFb"));
+  $("#rulerTip").textContent=type==="read"&&s.objs[0].s>0?t("slideTip",O):"";
+  const nums=$("#rulerNums"); nums.innerHTML="";
+  if(type==="read"){ const o=s.objs[0]; choiceButtons(nums,numOpts(s.ans,o.s?[o.s+o.L,s.ans+1]:[s.ans+1,s.ans-1]).map(v=>({v,label:v})),pickRuler); }
+  else if(type==="compare") choiceButtons(nums,numOpts(s.ans,[s.objs[0].L,s.objs[0].L+s.objs[1].L]).map(v=>({v,label:v})),pickRuler);
+  else if(type==="est"){ const L=s.ans; choiceButtons(nums,shuffle([L,Math.max(1,Math.round(L/3)===L?L-2:Math.round(L/3)),L*3]).map(v=>({v,label:v})),pickRuler); }
+  renderRuler(); maybeAuto("ruler");
+}
+function renderRuler(){
+  const s=ST.ruler, tr=$("#rulerTrack"), W=tr.clientWidth||trackW("#rulerTrack"), pad=18, ppu=(W-2*pad)/s.max;
+  s.ppu=ppu; s.pad=pad;
+  const oh=40, gap=14, lanes=s.objs.length+(s.type==="est"?1:0), rulerY=10+lanes*(oh+gap);
+  tr.style.height=(rulerY+64)+"px";
+  tr.innerHTML=`<div class="ruler" style="top:${rulerY}px">${rulerSVG(W,s.max,ppu,pad,s.hidden)}</div>`;
+  if(s.type==="est") tr.insertAdjacentHTML("beforeend",`<div class="bench" style="left:${pad}px;top:${10+oh+gap+6}px"><i style="width:${ppu.toFixed(1)}px"></i><span>${t(settings.units==="cm"?"benchCm":"benchIn")}</span></div>`);
+  s.objs.forEach((o,i)=>{
+    const b=document.createElement("button"); b.type="button"; b.className="robj"+(s.type==="order"?" order":"");
+    const top=10+i*(oh+gap);
+    Object.assign(b.style,{top:top+"px",height:oh+"px",left:(pad+o.s*ppu)+"px",width:(o.L*ppu)+"px"});
+    b.style.setProperty("--gh",(rulerY-top-oh+2)+"px");
+    b.innerHTML=objSVG(o.kind,o.L*ppu,oh)+(s.picked.includes(i)?`<span class="obadge">${s.picked.indexOf(i)+1}</span>`:"");
+    b.setAttribute("aria-label",cap(oName(o.kind)));
+    if(s.type==="order") b.addEventListener("click",()=>pickOrder(b,i));
+    else{ b.addEventListener("pointerdown",e=>robjDown(e,o)); b.addEventListener("keydown",e=>robjKey(e,o)); }
+    o.el=b; tr.appendChild(b);
+  });
+}
+function placeRobj(o){ const s=ST.ruler; o.el.style.left=(s.pad+o.s*s.ppu)+"px"; }
+function robjDown(e,o){ e.preventDefault(); const s=ST.ruler; rdrag={o,sx:e.clientX,s0:o.s}; o.el.style.cursor="grabbing"; }
+window.addEventListener("pointermove",e=>{ if(!rdrag) return; const s=ST.ruler, o=rdrag.o; o.s=Math.max(0,Math.min(s.max-o.L,rdrag.s0+(e.clientX-rdrag.sx)/s.ppu)); placeRobj(o); });
+function robjUp(){ if(!rdrag) return; const o=rdrag.o; rdrag=null; o.s=Math.round(o.s); o.el.style.cursor=""; placeRobj(o); }
+window.addEventListener("pointerup",robjUp); window.addEventListener("pointercancel",robjUp);
+function robjKey(e,o){ const s=ST.ruler; let d=0; if(e.key==="ArrowLeft") d=-1; else if(e.key==="ArrowRight") d=1; if(!d) return; e.preventDefault(); o.s=Math.max(0,Math.min(s.max-o.L,Math.round(o.s)+d)); placeRobj(o); }
+function pickRuler(b,v){
+  const s=ST.ruler, fb=$("#rulerFb"), U=rulerUnit();
+  if(v===s.ans){
+    b.classList.add("correctpick"); lockChoices($("#rulerNums")); addStar();
+    let m;
+    if(s.type==="compare") m=t("goodCompare",{a:oName(s.objs[0].kind),b:oName(s.objs[1].kind),n:s.ans,units:U,x:s.objs[0].L,y:s.objs[1].L});
+    else if(s.type==="est"){ s.hidden=false; renderRuler(); m=t("goodEst",{n:s.ans,units:U}); }
+    else m=t("goodRuler",{obj:oName(s.objs[0].kind),n:s.ans,units:U});
+    showFb(fb,"good",m); afterPraise(m,"ruler",newRuler,1700);
+  }else{
+    flagWrong(b); s.tries++;
+    const o=s.objs[0], O={obj:oName(o.kind)}; let m;
+    if(s.type==="compare") m=t("hintCompare",{a:oName(o.kind),b:oName(s.objs[1].kind),x:o.L,y:s.objs[1].L,units:U});
+    else if(s.type==="est") m=t(settings.units==="cm"?"hintEstCm":"hintEstIn",O);
+    else{ const st=Math.round(o.s), e=st+o.L;
+      if(st>0 && v===e) m=t("hintEnd",{e,s:st,obj:O.obj}); else if(st===0) m=t("hintRuler0",O); else m=t("hintRuler",{obj:O.obj,s:st,e}); }
+    if(s.tries>=2) m+=" "+t("ansIs",{n:s.ans});
+    m=capFirst(m); showFb(fb,"hint",m); speak(m);
+  }
+}
+function pickOrder(b,i){
+  const s=ST.ruler, fb=$("#rulerFb"); if(s.picked.includes(i)||s.picked.length===3) return;
+  const left=s.objs.map((o,j)=>j).filter(j=>!s.picked.includes(j)), minL=Math.min(...left.map(j=>s.objs[j].L));
+  if(s.objs[i].L===minL){
+    s.picked.push(i); b.insertAdjacentHTML("beforeend",`<span class="obadge">${s.picked.length}</span>`); hideFb(fb);
+    if(s.picked.length===2){ const last=left.find(j=>j!==i); s.picked.push(last); s.objs[last].el.insertAdjacentHTML("beforeend",`<span class="obadge">3</span>`); }
+    if(s.picked.length===3){ addStar(); const m=t("goodOrder"); showFb(fb,"good",m); afterPraise(m,"ruler",newRuler,1700); }
+  }else{ b.classList.add("wrongpick"); setTimeout(()=>b.classList.remove("wrongpick"),1400); const m=t("hintOrder"); showFb(fb,"hint",m); speak(m); }
+}
+
+/* =========================================================================
+   UNIT SIZE — same object, two unit sizes (inverse relationship)
+   ========================================================================= */
+function newSize(){
+  roundIds.size++;
+  const g2=G2(), r=g2?rand([2,2,3]):2, b=ri(2,r===3?4:(g2?6:5));
+  const type=g2?wpick([["predict",1],["fill",1],["missing",1]]):wpick([["predict",1],["fill",1]]);
+  const s={type,r,b,n:b*r,kind:rand(OBJS),big:type==="missing"?b:0,small:0,stage:type==="fill"?"fill":"ask",tries:0};
+  ST.size=s;
+  const O={obj:oName(s.kind),b,r};
+  setPrompt("size",capFirst(t(type==="predict"?"predictDir":type==="fill"?"fillDir":"missingDir",O)));
+  hideFb($("#sizeFb")); const nums=$("#sizeNums"); nums.innerHTML="";
+  if(type==="predict") choiceButtons(nums,shuffle([["big","chMoreBig"],["small","chMoreSmall"],["same","chSame"]]).map(x=>({v:x[0],label:t(x[1]),word:true})),pickPredict);
+  if(type==="missing") choiceButtons(nums,numOpts(s.n,[b,b+r]).map(v=>({v,label:v})),pickMissing);
+  renderSize(); maybeAuto("size");
+}
+function renderSize(){
+  const s=ST.size, tr=$("#sizeTrack"), W=(tr.clientWidth||trackW("#sizeTrack"))-16;
+  const u=Math.max(12,Math.min(40,Math.floor((W-24)/(s.n+.8)))), x0=8, oh=36; s.u=u;
+  tr.style.height="auto"; tr.innerHTML="";
+  [["big",s.r,s.big],["small",1,s.small]].forEach(([k,len,cnt])=>{
+    const full=(k==="big"?s.b:s.n);
+    const tag=s.stage==="fill"?"button":"div", el=document.createElement(tag); el.className="srow"; if(tag==="button") el.type="button";
+    let h=`<span class="slab"><span class="sw ${k}" style="width:${len*u}px"></span><span>${t(k==="big"?"lblBig":"lblSmall")}: <b>${cnt}</b>${cnt===full?" ✓":""}</span></span>`;
+    h+=`<span class="sarea" style="height:${oh+34}px"><span class="startline" style="left:${x0}px"></span><span class="mobj" style="left:${x0}px;top:0">${objSVG(s.kind,s.n*u,oh)}</span>`;
+    for(let i=0;i<cnt;i++) h+=`<span class="blk ${k}" style="left:${x0+i*len*u}px;top:${oh+4}px;width:${len*u}px"></span>`;
+    el.innerHTML=h+`</span>`;
+    if(tag==="button"){ el.setAttribute("aria-label",t(k==="big"?"tapBig":"tapSmall")+" ("+cnt+")"); el.addEventListener("click",()=>tapRow(k)); }
+    tr.appendChild(el);
+  });
+}
+function tapRow(k){
+  const s=ST.size; if(s.stage!=="fill") return;
+  const full=k==="big"?s.b:s.n;
+  if(s[k]>=full){ const m=t("fullRow"); showFb($("#sizeFb"),"hint",m); speak(m); return; }
+  s[k]++; hideFb($("#sizeFb")); renderSize();
+  const btn=$$("#sizeTrack .srow")[k==="big"?0:1]; if(btn) btn.focus({preventScroll:true});
+  if(s.big===s.b && s.small===s.n){
+    s.stage="why"; renderSize();
+    const dir=t("whyDir",{b:s.b,s:s.n}); setPrompt("size",dir); speak(dir);
+    choiceButtons($("#sizeNums"),shuffle([["a","whyA"],["b","whyB"],["c","whyC"]]).map(x=>({v:x[0],label:t(x[1]),word:true})),pickWhy);
+  }
+}
+function fillRows(cb){
+  const s=ST.size, id=roundIds.size;
+  if(reduced()){ s.big=s.b; s.small=s.n; renderSize(); if(cb) cb(); return; }
+  const step=()=>{ if(roundIds.size!==id) return;
+    if(s.big<s.b) s.big++; else if(s.small<s.n) s.small++; else { if(cb) cb(); return; }
+    renderSize(); setTimeout(step,s.big<s.b?220:120); };
+  step();
+}
+function pickPredict(b,v){
+  const s=ST.size, fb=$("#sizeFb");
+  if(v==="small"){ b.classList.add("correctpick"); lockChoices($("#sizeNums")); addStar(); s.stage="show";
+    const m=t("goodPredict",{b:s.b,s:s.n}); showFb(fb,"good",m); fillRows(); afterPraise(m,"size",newSize,2600); }
+  else{ flagWrong(b); const m=t(v==="big"?"hintPredictBig":"hintPredictSame"); showFb(fb,"hint",m); speak(m); }
+}
+function pickWhy(b,v){
+  const s=ST.size, fb=$("#sizeFb");
+  if(v==="a"){ b.classList.add("correctpick"); lockChoices($("#sizeNums")); addStar(); const m=t("goodWhy"); showFb(fb,"good",m); afterPraise(m,"size",newSize,1800); }
+  else{ flagWrong(b); const m=capFirst(t("hintWhy",{obj:oName(s.kind)})); showFb(fb,"hint",m); speak(m); }
+}
+function pickMissing(b,v){
+  const s=ST.size, fb=$("#sizeFb");
+  if(v===s.n){ b.classList.add("correctpick"); lockChoices($("#sizeNums")); addStar(); s.stage="show";
+    const m=t("goodMissing",{b:s.b,s:s.n}); showFb(fb,"good",m); fillRows(); afterPraise(m,"size",newSize,2400); }
+  else{ flagWrong(b); s.tries++; let m=t("hintMissing",{r:s.r,b:s.b}); if(s.tries>=2) m+=" "+t("ansIs",{n:s.n}); showFb(fb,"hint",m); speak(m); }
+}
+
+/* =========================================================================
+   GRAPH BUILDER — collect & sort data (tally), then build the graph
+   ========================================================================= */
+const THEMES={
+  bugs:{title:"thBugs",cats:[["ladybug","🐞"],["bee","🐝"],["butterfly","🦋"],["snail","🐌"]]},
+  veg:{title:"thVeg",cats:[["carrot","🥕"],["tomato","🍅"],["corn","🌽"],["cucumber","🥒"]]},
+  flow:{title:"thFlow",cats:[["sunflower","🌻"],["tulip","🌷"],["rose","🌹"],["daisy","🌼"]]}
+};
+const CATCOL=["#c0392b","#d4a017","#2e86c1","#27ae60","#8e44ad"];
+function themeCats(th,n){ return shuffle(THEMES[th].cats).slice(0,n).map((c,i)=>({key:c[0],emoji:c[1],label:t("c_"+c[0]),color:CATCOL[i]})); }
+function tallySVG(n){
+  if(!n) return `<svg width="20" height="26" aria-hidden="true"></svg>`;
+  const g=Math.ceil(n/5), W=g*30; let s=`<svg width="${W}" height="26" viewBox="0 0 ${W} 26" aria-hidden="true" focusable="false">`;
+  for(let i=0;i<n;i++){ const gi=Math.floor(i/5), k=i%5, x=gi*30+4+k*5;
+    s+= k<4?`<line x1="${x}" y1="3" x2="${x}" y2="23" stroke="#22192b" stroke-width="2.4" stroke-linecap="round"/>`
+           :`<line x1="${gi*30+1}" y1="20" x2="${gi*30+24}" y2="6" stroke="#22192b" stroke-width="2.4" stroke-linecap="round"/>`; }
+  return s+`</svg>`;
+}
+function miniWorm(L,max){
+  const p=15, W=max*p+16, f=n=>n.toFixed(1); let s=`<svg width="${W}" height="44" viewBox="0 0 ${W} 44" aria-hidden="true" focusable="false"><g transform="translate(8,2)">${objG("worm",L*p,16)}</g>`;
+  s+=`<rect x="2" y="21" width="${W-4}" height="21" rx="3" fill="#fde9a9" stroke="#b08900"/>`;
+  for(let i=0;i<=max;i++){ const x=8+i*p; s+=`<line x1="${f(x)}" y1="21" x2="${f(x)}" y2="29" stroke="#3b2f00" stroke-width="1.4"/><text x="${f(x)}" y="39" text-anchor="middle" font-size="9" font-weight="700" fill="#3b2f00">${i}</text>`; }
+  return s+`</svg>`;
+}
+function graphHTML(g){
+  const pic=g.type==="pic", lp=g.type==="lp", bar=g.type==="bar";
+  let h=`<div class="gtitle">${g.title}</div><div class="gwrap"${lp?' dir="ltr"':""}>`;
+  if(bar){ h+=`<div class="gaxis" aria-hidden="true"><div class="gnums">`; for(let i=1;i<=g.rows;i++) h+=`<div class="gnum"><span>${i}</span></div>`; h+=`</div><div class="glabel"></div></div>`; }
+  g.cats.forEach((c,ci)=>{
+    h+=`<div class="gcol${(g.hl||[]).includes(ci)?" hl":""}" style="--c:${c.color}"><div class="gcells">`;
+    for(let i=1;i<=g.rows;i++){
+      const on=i<=g.vals[ci], inner=on?(pic?c.emoji:lp?"✕":""):"", cls=`gcell ${g.type}${on?" on":""}`;
+      h+=g.interactive?`<button type="button" class="${cls}" data-c="${ci}" data-i="${i}" aria-label="${t("cellA",{c:c.label,n:i})}">${inner}</button>`:`<div class="${cls}">${inner}</div>`;
+    }
+    h+=`</div><div class="glabel">${lp?"":`<span class="ge" aria-hidden="true">${c.emoji}</span>`}${c.label}</div></div>`;
+  });
+  h+=`</div>`;
+  if(pic) h+=`<div class="gkey">${t("keyEach")}</div>`;
+  if(lp) h+=`<div class="gkey">${t("lpAxis",{u:rulerUnit()})}</div>`;
+  if(!g.interactive){ const sr=g.cats.map((c,i)=>c.label+": "+g.vals[i]).join(", "); h=`<div role="img" aria-label="${g.title}. ${sr}">${h}</div>`; }
+  return h;
+}
+let gdrag=null, gSuppressClick=false;
+function newGraph(){
+  roundIds.graph++;
+  const g2=G2(); let type=settings.gtype; if(type==="mix") type=rand(g2?["pic","bar","lp"]:["pic","bar"]); if(type==="lp"&&!g2) type="bar";
+  const s={type,phase:"sort",sel:null,tries:0};
+  if(type==="lp"){
+    const lo=ri(2,4); s.max=lo+5; s.title=t("thWorm");
+    s.cats=[0,1,2,3,4].map((d,i)=>({key:"v"+(lo+d),v:lo+d,label:(lo+d)+" "+abbr(),color:CATCOL[4]}));
+    do{ s.counts=s.cats.map(()=>ri(0,3)); }while(s.counts.reduce((a,b)=>a+b,0)<6||s.counts.reduce((a,b)=>a+b,0)>10||s.counts.filter(Boolean).length<3);
+  }else{
+    const th=rand(Object.keys(THEMES)); s.title=t(THEMES[th].title); s.cats=themeCats(th,g2?4:3);
+    s.counts=s.cats.map(()=>ri(1,g2?7:5));
+  }
+  s.rows=Math.min(8,Math.max(5,Math.max(...s.counts)+ri(1,2)));
+  s.tally=s.cats.map(()=>0); s.built=s.cats.map(()=>0);
+  s.items=[]; s.counts.forEach((n,ci)=>{ for(let i=0;i<n;i++) s.items.push({ci,id:s.items.length}); }); s.items=shuffle(s.items);
+  ST.graph=s;
+  setPrompt("graph",t(type==="lp"?"sortLPDir":"sortDir",{units:rulerUnit()}));
+  hideFb($("#graphFb")); renderGraph(); maybeAuto("graph");
+}
+function renderGraph(){
+  const s=ST.graph, A=$("#graphArea"); let h="";
+  const binLbl=(c,ci)=>`<span class="be" aria-hidden="true">${s.type==="lp"?"🪱":c.emoji}</span><span>${c.label}</span>${tallySVG(s.tally[ci])}<span>${s.tally[ci]}</span>`;
+  if(s.phase==="sort"){
+    h+=`<div class="garden" role="group">`;
+    s.items.forEach(it=>{ if(it.done) return; const c=s.cats[it.ci];
+      h+=s.type==="lp"?`<button type="button" class="item lp" data-id="${it.id}" aria-pressed="${s.sel===it.id}" aria-label="${t("wormA")}">${miniWorm(c.v,s.max)}</button>`
+                      :`<button type="button" class="item" data-id="${it.id}" aria-pressed="${s.sel===it.id}" aria-label="${c.label}">${c.emoji}</button>`; });
+    h+=`</div><div class="bins" role="group">`;
+    s.cats.forEach((c,ci)=>{ h+=`<button type="button" class="bin${s.type==="lp"?" lpbin":""}" data-ci="${ci}" aria-label="${t("binA",{c:c.label})}: ${s.tally[ci]}">${binLbl(c,ci)}</button>`; });
+    h+=`</div>`;
+  }else{
+    h+=`<div class="bins">`+s.cats.map((c,ci)=>`<div class="bin ro${s.type==="lp"?" lpbin":""}">${binLbl(c,ci)}</div>`).join("")+`</div>`;
+    h+=graphHTML({type:s.type,cats:s.cats,vals:s.built,rows:s.rows,interactive:true,title:s.title,hl:s.hl});
+  }
+  A.innerHTML=h;
+  $("#graphTools").classList.toggle("hidden",s.phase!=="graph");
+}
+function graphClick(e){
+  if(gSuppressClick){ gSuppressClick=false; return; }
+  const s=ST.graph; if(!s) return;
+  const it=e.target.closest(".item"), bin=e.target.closest("button.bin"), cell=e.target.closest("button.gcell");
+  if(it){ s.sel=+it.dataset.id; $$("#graphArea .item").forEach(x=>x.setAttribute("aria-pressed",String(+x.dataset.id===s.sel))); return; }
+  if(bin) return dropInto(+bin.dataset.ci,bin);
+  if(cell){ const ci=+cell.dataset.c, i=+cell.dataset.i; s.built[ci]=s.built[ci]===i?i-1:i; s.hl=null; hideFb($("#graphFb")); renderGraph();
+    const nb=$(`#graphArea button.gcell[data-c="${ci}"][data-i="${i}"]`); if(nb) nb.focus({preventScroll:true}); }
+}
+function dropInto(ci,binEl){
+  const s=ST.graph, fb=$("#graphFb");
+  if(s.sel===null){ const m=t("pickFirst"); showFb(fb,"hint",m); speak(m); return; }
+  const it=s.items.find(x=>x.id===s.sel);
+  if(it.ci===ci){
+    it.done=true; s.tally[ci]++; s.sel=null; hideFb(fb); renderGraph();
+    if(s.items.every(x=>x.done)){ s.phase="graph"; renderGraph(); const d=t(s.type==="lp"?"lpDir":"graphDir"); setPrompt("graph",d); speak(d); }
+    else { const nx=$("#graphArea .item"); if(nx) nx.focus({preventScroll:true}); }
+  }else{
+    if(binEl){ binEl.classList.add("wrongpick"); setTimeout(()=>binEl.classList.remove("wrongpick"),1200); }
+    const c=s.cats[it.ci], m=s.type==="lp"?t("hintSortLP",{n:c.v,units:rulerUnit()}):t("hintSort",{c:c.label});
+    showFb(fb,"hint",m); speak(m);
+  }
+}
+function graphDown(e){
+  const it=e.target.closest(".item"); if(!it||ST.graph.phase!=="sort") return;
+  gdrag={el:it,sx:e.clientX,sy:e.clientY,moved:false};
+}
+window.addEventListener("pointermove",e=>{
+  if(!gdrag) return; const dx=e.clientX-gdrag.sx, dy=e.clientY-gdrag.sy;
+  if(!gdrag.moved && Math.abs(dx)+Math.abs(dy)>8){ gdrag.moved=true; gdrag.el.classList.add("drag"); gdrag.el.style.pointerEvents="none"; }
+  if(gdrag.moved){ e.preventDefault(); gdrag.el.style.transform=`translate(${dx}px,${dy}px)`; }
+});
+window.addEventListener("pointerup",e=>{
+  if(!gdrag) return; const d=gdrag; gdrag=null; if(!d.moved) return;
+  gSuppressClick=true; setTimeout(()=>gSuppressClick=false,0);
+  d.el.style.transform=""; d.el.style.pointerEvents=""; d.el.classList.remove("drag");
+  const under=document.elementFromPoint(e.clientX,e.clientY), bin=under&&under.closest("button.bin");
+  if(bin){ ST.graph.sel=+d.el.dataset.id; dropInto(+bin.dataset.ci,bin); }
+});
+function checkGraph(){
+  const s=ST.graph, fb=$("#graphFb"); if(s.phase!=="graph") return;
+  const i=s.cats.findIndex((c,ci)=>s.built[ci]!==s.counts[ci]);
+  if(i<0){ addStar(); s.phase="done"; const m=t(s.type==="pic"?"goodPic":s.type==="bar"?"goodBar":"goodLP"); showFb(fb,"good",m);
+    $$("#graphArea button.gcell").forEach(b=>b.disabled=true); afterPraise(m,"graph",newGraph,2000); return; }
+  s.hl=[i]; renderGraph();
+  const m=t("hintGraph",{c:s.cats[i].label,n:s.counts[i],g:s.built[i]})+" "+t(s.type==="lp"?"hintGraphLP":"hintGraphEach");
+  showFb(fb,"hint",m); speak(m);
+}
+
+/* =========================================================================
+   GRAPH QUESTIONS — read a generated picture or bar graph
+   ========================================================================= */
+function newAsk(){
+  roundIds.ask++;
+  const g2=G2(), nc=g2?4:3, th=rand(Object.keys(THEMES)), cats=themeCats(th,nc);
+  const vals=shuffle(Array.from({length:g2?9:7},(_,i)=>i+1)).slice(0,nc);
+  const s={type:rand(["pic","bar"]),cats,vals,title:t(THEMES[th].title),tries:0,rows:Math.max(...vals)};
+  const q=wpick(g2?[["how",1],["most",1],["least",1],["more",2],["fewer",2],["total",2],["all",1],["story",2]]:[["how",2],["most",1],["least",1],["more",2],["fewer",1],["total",2]]);
+  const idx=shuffle(cats.map((c,i)=>i)); let a=idx[0], b=idx[1]; if(vals[a]<vals[b]) [a,b]=[b,a];
+  const A=cats[a].label, B=cats[b].label, x=vals[a], y=vals[b];
+  s.q=q; s.a=a; s.b=b;
+  if(q==="how"){ s.ans=x; s.text=t("qHow",{a:A}); s.why=t("whyHow",{a:A,x}); s.hint=t("hintHow",{a:A}); s.hl=[a]; s.ex=[x+1,x-1]; }
+  else if(q==="most"||q==="least"){ const v=q==="most"?Math.max(...vals):Math.min(...vals), k=vals.indexOf(v); s.ansC=k;
+    s.text=t(q==="most"?"qMost":"qLeast"); s.why=t(q==="most"?"whyMost":"whyLeast",{a:cats[k].label,x:v}); s.hint=t(q==="most"?"hintMost":"hintLeast"); s.hl=[]; }
+  else if(q==="more"||q==="fewer"){ s.ans=x-y; s.text=t(q==="more"?"qMore":"qFewer",{a:A,b:B}); s.why=t("whyMore",{x,y,n:x-y}); s.hint=t("hintMore",{a:A,b:B,x,y}); s.hl=[a,b]; s.ex=[x,x+y]; }
+  else if(q==="total"){ s.ans=x+y; s.text=t("qTotal",{a:A,b:B}); s.why=t("whyTotal",{x,y,n:x+y}); s.hint=t("hintTotal",{a:A,b:B,x,y}); s.hl=[a,b]; s.ex=[x,x-y]; }
+  else if(q==="all"){ const tot=vals.reduce((p,c)=>p+c,0), list=vals.join(" + "); s.ans=tot; s.text=t("qAll"); s.why=t("whyAll",{list,n:tot}); s.hint=t("hintAll",{list}); s.hl=cats.map((c,i)=>i); s.ex=[tot-1,tot+1]; }
+  else{ const n=ri(2,g2?5:3); s.ans=x+n; s.text=t("qStory",{a:A,n}); s.why=t("whyTotal",{x,y:n,n:x+n}); s.hint=t("hintStory",{a:A,x,n}); s.hl=[a]; s.ex=[x,n]; }
+  ST.ask=s;
+  setPrompt("ask",capFirst(s.text)); hideFb($("#askFb")); s.showHl=false;
+  renderAsk();
+  const nums=$("#askNums");
+  if(s.ansC!==undefined) choiceButtons(nums,cats.map((c,i)=>({v:i,html:`<span aria-hidden="true">${c.emoji}</span> ${c.label}`,word:true})),pickAsk);
+  else choiceButtons(nums,numOpts(s.ans,s.ex).map(v=>({v,label:v})),pickAsk);
+  maybeAuto("ask");
+}
+function renderAsk(){ const s=ST.ask; $("#askGraph").innerHTML=graphHTML({type:s.type,cats:s.cats,vals:s.vals,rows:s.rows,interactive:false,title:s.title,hl:s.showHl?s.hl:[]}); }
+function pickAsk(b,v){
+  const s=ST.ask, fb=$("#askFb"), isC=s.ansC!==undefined, ok=isC?v===s.ansC:v===s.ans;
+  if(ok){ b.classList.add("correctpick"); lockChoices($("#askNums")); addStar(); s.showHl=true; if(isC) s.hl=[s.ansC]; renderAsk();
+    const m=t("yes")+" "+capFirst(s.why); showFb(fb,"good",m); afterPraise(m,"ask",newAsk,1800); }
+  else{ flagWrong(b); s.tries++; s.showHl=true; renderAsk();
+    let m=capFirst(s.hint); if(s.tries>=2) m+=" "+(isC?t("ansIsC",{c:s.cats[s.ansC].label}):t("ansIs",{n:s.ans}));
+    showFb(fb,"hint",m); speak(m); }
+}
+
+/* ---------- Mode switching ---------- */
+const ST={};
+const NEWR={unit:newUnit,ruler:newRuler,size:newSize,graph:newGraph,ask:newAsk};
+const RENDER={unit:renderUnit,ruler:renderRuler,size:renderSize,graph:renderGraph,ask:renderAsk};
+let dirty={};
+function currentMode(){ const b=$$(".tabs button").filter(x=>x.getAttribute("aria-selected")==="true")[0]; return b?b.dataset.mode:"unit"; }
+function showMode(mode){
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
+  $$(".modepanel").forEach(p=>p.classList.add("hidden"));
+  $("#mode-"+mode).classList.remove("hidden");
+  $$(".tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.mode===mode?"true":"false"));
+  if(!ST[mode]||dirty[mode]){ dirty[mode]=false; NEWR[mode](); } else RENDER[mode]();
+  // Returning to a tab: read its current directions (unless a new round just did).
+  if(switching && speechGen===g0) maybeAuto(mode);
+}
+function refreshAll(){ const lo=$("#gType option[value='lp']"); if(lo) lo.hidden=!G2(); MODES.forEach(m=>dirty[m]=true); const m=currentMode(); dirty[m]=false; NEWR[m](); }
+let rsT=null, lastW=window.innerWidth;
+window.addEventListener("resize",()=>{ clearTimeout(rsT); rsT=setTimeout(()=>{ if(window.innerWidth===lastW||udrag||rdrag) return; lastW=window.innerWidth; const m=currentMode(); if(ST[m]&&(m==="unit"||m==="ruler"||m==="size")) RENDER[m](); },200); });
+
+/* ---------- Settings drawer ---------- */
+function applyModeVis(){
+  MODES.forEach(m=>{ $(`.tabs button[data-mode='${m}']`).style.display=settings.modes[m]?"":"none"; });
+  if(!settings.modes[currentMode()]) showMode(MODES.find(m=>settings.modes[m]));
+}
+function buildModeToggles(){
+  const wrap=$("#modeToggles"); wrap.innerHTML="";
+  const names={unit:"mUnit",ruler:"mRuler",size:"mSize",graph:"mGraph",ask:"mAsk"};
+  MODES.forEach(k=>{
+    const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.modes[k]?"checked":""}> <span>${t(names[k])}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{ settings.modes[k]=e.target.checked;
+      if(!MODES.some(m=>settings.modes[m])){ e.target.checked=true; settings.modes[k]=true; } saveSettings(); applyModeVis(); });
+    wrap.appendChild(l);
+  });
+}
+function syncSettingsUI(){
+  $("#setGrade").value=String(settings.grade); $("#setUnits").value=settings.units; $("#setAuto").checked=settings.autoRead;
+  $("#gType").value=settings.gtype; buildModeToggles();
+}
+function initSettings(){
+  $("#openSettings").addEventListener("click",()=>{ syncSettingsUI(); $("#settingsDrawer").classList.add("open"); $("#closeSettings").focus(); });
+  const close=()=>{ $("#settingsDrawer").classList.remove("open"); $("#openSettings").focus(); };
+  $("#closeSettings").addEventListener("click",close);
+  $("#settingsDrawer").addEventListener("click",e=>{ if(e.target.id==="settingsDrawer") close(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&$("#settingsDrawer").classList.contains("open")) close(); });
+  $("#setGrade").addEventListener("change",e=>{ settings.grade=+e.target.value; saveSettings(); refreshAll(); });
+  $("#setUnits").addEventListener("change",e=>{ settings.units=e.target.value; saveSettings(); refreshAll(); });
+  $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
+  $("#gType").addEventListener("change",e=>{ settings.gtype=e.target.value; saveSettings(); newGraph(); });
+  $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
+}
+
+/* ---------- Print cards ---------- */
+function buildPrintCards(){
+  const u=60, oh=50, f=n=>n.toFixed(0);
+  // 1. a carrot measured with a gap and an overlap
+  let s1=`<svg width="520" height="130" viewBox="0 0 520 130"><line x1="12" y1="0" x2="12" y2="130" stroke="#b03a2e" stroke-width="3" stroke-dasharray="6 4"/><g transform="translate(12,8)">${objG("carrot",6*u,oh)}</g>`;
+  [0,1,2.4,3.4,4.1].forEach(x=>{ s1+=`<rect x="${f(12+x*u)}" y="66" width="${u}" height="${u}" rx="5" fill="rgba(142,68,173,.45)" stroke="#5b2c83" stroke-width="2"/>`; });
+  s1+=`</svg>`;
+  // 2. a worm that starts at 2 on a ruler
+  const W=520, pad=18, max=12, ppu=(W-2*pad)/max;
+  const s2=`<div style="position:relative;width:${W}px;height:120px"><div style="position:absolute;left:${pad+2*ppu}px;top:6px">${objSVG("worm",5*ppu,40)}</div><div style="position:absolute;top:56px">${rulerSVG(W,max,ppu,pad,false)}</div></div>`;
+  // 3. big vs small blocks
+  let s3=`<svg width="520" height="150" viewBox="0 0 520 150"><g transform="translate(10,0)">${objG("sunflower",480,40)}</g>`;
+  for(let i=0;i<3;i++) s3+=`<rect x="${10+i*160}" y="46" width="160" height="26" fill="#c39bd3" stroke="#6c3483" stroke-width="2"/>`;
+  s3+=`<g transform="translate(10,78)">${objG("sunflower",480,40)}</g>`;
+  for(let i=0;i<6;i++) s3+=`<rect x="${10+i*80}" y="122" width="80" height="26" fill="#82e0aa" stroke="#1e8449" stroke-width="2"/>`;
+  s3+=`</svg>`;
+  // 4 & 5. graph cards
+  const cats=THEMES.bugs.cats.slice(0,4).map((c,i)=>({key:c[0],emoji:c[1],label:t("c_"+c[0]),color:CATCOL[i]}));
+  const tallies=`<div style="display:flex;gap:1.2rem;flex-wrap:wrap;font-size:1.6rem">`+["🐞🐝🐞🦋🐌🐝","🐞🐝🐌🐞🦋🐞"].join("")+`</div>`;
+  const tchart=`<table style="border-collapse:collapse;margin-top:.5rem">`+cats.map(c=>`<tr><td style="border:1px solid #000;padding:.3rem .6rem;font-size:1.3rem">${c.emoji} ${c.label}</td><td style="border:1px solid #000;width:180px"></td></tr>`).join("")+`</table>`;
+  const cards=[
+    {title:t("mUnit"),body:t("cardUnit"),svg:s1},
+    {title:t("mRuler"),body:t("cardRuler"),svg:s2},
+    {title:t("mSize"),body:t("cardSize"),svg:s3},
+    {title:t("mGraph"),body:t("cardGraph"),svg:tallies+tchart},
+    {title:t("mAsk"),body:t("cardAsk"),svg:`<div style="max-width:460px">${graphHTML({type:"bar",cats,vals:[5,7,3,2],rows:7,interactive:false,title:t("thBugs")})}</div>`}
+  ];
+  $("#printArea").innerHTML=`<h1>${t("cardTitle")}</h1>`+cards.map(c=>`<div class="card-print"><h2>${c.title}</h2><p style="font-size:1.2rem">${c.body}</p><div dir="ltr">${c.svg}</div></div>`).join("")+`<p style="font-size:.85rem">${t("stds")}</p>`;
+}
+
+/* ---------- Language engine ---------- */
+function resolveLang(){
+  try{ const q=new URLSearchParams(location.search).get("lang"); if(q && T[q]) return q; }catch(e){}
+  try{ const s=localStorage.getItem(LANG_KEY); if(s && T[s]) return s; }catch(e){}
+  const n=(navigator.language||"en").slice(0,2).toLowerCase();
+  if(T[n]) return n;
+  return "en";
+}
+function applyLang(){
+  const meta=LANGS.find(x=>x.code===lang)||LANGS[0];
+  document.documentElement.lang=lang;
+  document.documentElement.dir=meta.dir;
+  document.title=t("appTitle");
+  const sel=$("#langSelect"); if(sel) sel.value=lang;
+  $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
+  $("#stdsNote").textContent=t("stds");
+  $("#stars").setAttribute("aria-label",t("starsA",{n:stars}));
+  buildModeToggles();
+  refreshAll();
+}
+function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} applyLang(); }
+function buildLangSelect(){
+  const sel=$("#langSelect"); sel.innerHTML="";
+  LANGS.forEach(m=>{ const o=document.createElement("option"); o.value=m.code; o.textContent=m.name; sel.appendChild(o); });
+  sel.value=lang;
+  sel.addEventListener("change",()=>setLang(sel.value));
+}
+
+/* ---------- Init ---------- */
+function init(){
+  lang=resolveLang();
+  buildLangSelect();
+  $$(".tabs button").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.mode)));
+  $$(".speaker").forEach(b=>b.addEventListener("click",()=>speak(currentSpeech[b.dataset.speak])));
+  MODES.forEach(m=>$("#"+m+"New").addEventListener("click",NEWR[m]));
+  $("#unitSrc").addEventListener("pointerdown",srcDown);
+  $("#unitSrc").addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); addOne(); } });
+  $("#unitAdd").addEventListener("click",addOne);
+  $("#unitTake").addEventListener("click",takeOne);
+  $("#unitClear").addEventListener("click",()=>{ const s=ST.unit; if(s.stage!=="place") return; s.cubes=[]; hideFb($("#unitFb")); renderUnit(); });
+  $("#unitCheck").addEventListener("click",checkUnit);
+  $("#graphArea").addEventListener("click",graphClick);
+  $("#graphArea").addEventListener("pointerdown",graphDown);
+  $("#graphCheck").addEventListener("click",checkGraph);
+  initSettings();
+  syncSettingsUI();
+  applyLang();
+  applyModeVis();
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+</script>
+<script>
+/* Student mute toggle — shared across the Digital Math Tools. Self-contained,
+   offline, stores no student data. Gates ALL speech by intercepting
+   speechSynthesis.speak, so muting works regardless of each tool's internals.
+   Reads the shared language preference only to localize its own label. */
+(function(){
+  "use strict";
+  var LKEY='tcea.mathtools.lang', MKEY='tcea.mathtools.muted';
+  var CODES=['en','es','vi','ar','hi','ur','zh'];
+  var LAB={
+    mute:{en:"Mute sound",es:"Silenciar sonido",vi:"Tắt âm thanh",ar:"كتم الصوت",hi:"आवाज़ बंद करें",ur:"آواز بند کریں",zh:"静音"},
+    unmute:{en:"Turn sound on",es:"Activar sonido",vi:"Bật âm thanh",ar:"تشغيل الصوت",hi:"आवाज़ चालू करें",ur:"آواز چالو کریں",zh:"打开声音"}
+  };
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  window.__MT_MUTED = (get(MKEY)==='1');
+  // Intercept every speech request; suppress while muted.
+  try{
+    if(window.speechSynthesis && typeof window.speechSynthesis.speak==='function'){
+      var ss=window.speechSynthesis, orig=ss.speak.bind(ss);
+      ss.speak=function(u){ if(!window.__MT_MUTED){ try{orig(u);}catch(e){} } };
+    }
+  }catch(e){}
+  function curLang(){ var l=get(LKEY)||'en'; return LAB.mute[l]?l:'en'; }
+  function label(el){
+    var on=!window.__MT_MUTED, l=curLang(), txt=on?LAB.mute[l]:LAB.unmute[l];
+    el.textContent=on?'🔊':'🔇';
+    el.setAttribute('aria-label',txt); el.setAttribute('title',txt);
+    el.setAttribute('aria-pressed', on?'false':'true');
+  }
+  function findLangSelect(){
+    var sels=document.querySelectorAll('select');
+    for(var i=0;i<sels.length;i++){ var o=sels[i].options, c=0;
+      for(var j=0;j<o.length;j++){ if(CODES.indexOf((o[j].value||'').toLowerCase())>=0) c++; }
+      if(c>=3) return sels[i];
+    }
+    return null;
+  }
+  function build(){
+    if(document.getElementById('mtMuteBtn')) return;
+    if(!(('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window))) return;
+    var btn=document.createElement('button');
+    btn.id='mtMuteBtn'; btn.type='button';
+    btn.style.cssText='font:inherit;font-size:1.15rem;line-height:1;cursor:pointer;'+
+      'min-width:44px;min-height:44px;padding:8px 12px;border:2px solid #e2dcf1;'+
+      'border-radius:10px;background:#fff;color:#5b3fa5;font-weight:700;margin:0 4px;';
+    btn.addEventListener('click',function(){
+      window.__MT_MUTED=!window.__MT_MUTED;
+      set(MKEY, window.__MT_MUTED?'1':'0');
+      if(window.__MT_MUTED){ try{window.speechSynthesis.cancel();}catch(e){} }
+      label(btn);
+    });
+    btn.addEventListener('focus',function(){btn.style.outline='3px solid #5b3fa5';btn.style.outlineOffset='2px';});
+    btn.addEventListener('blur',function(){btn.style.outline='';});
+    var sel=findLangSelect();
+    if(sel && sel.parentNode){
+      sel.parentNode.insertBefore(btn, sel);
+      sel.addEventListener('change',function(){ setTimeout(function(){label(btn);},0); });
+    }else{
+      btn.style.position='fixed'; btn.style.top='10px'; btn.style.zIndex='9999';
+      btn.style[(document.documentElement.dir==='rtl')?'left':'right']='10px';
+      (document.body||document.documentElement).appendChild(btn);
+    }
+    label(btn);
+  }
+  if(document.readyState==='complete'){ build(); }
+  else{ window.addEventListener('load', build); }
+  window.addEventListener('storage',function(e){ if(e.key===LKEY){ var b=document.getElementById('mtMuteBtn'); if(b) label(b); } });
+})();
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+
+</html>
