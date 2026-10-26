@@ -1,0 +1,1462 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Clock &amp; Coin Shop — a Grade 1–2 app to read and set analog clocks, tell a.m. from p.m., identify and count U.S. coins, and pay exact prices. Works offline. No data collected.">
+<title>Clock &amp; Coin Shop</title>
+<style>
+  :root{
+    --bg:#edf6f3;--panel:#ffffff;--ink:#1c2733;--muted:#4a5a6a;--line:#c3d9d2;
+    --accent:#16a085;--accent-dk:#0e6b59;--accent-ink:#ffffff;--good:#166534;--good-bg:#dcfce7;
+    --hint:#7a4a00;--hint-bg:#fff4d6;--focus:#0a58ca;--tint:#e6f5f0;--tintline:#aedccd;
+    --hourc:#1f4fa3;--minc:#c0392b;
+    --tap:56px;font-size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4;-webkit-text-size-adjust:100%}
+  h1,h2,h3{line-height:1.15;margin:0 0 .3em}
+  button{font-family:inherit;font-size:1rem;cursor:pointer;color:inherit}
+
+  .topbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--accent-dk);color:var(--accent-ink);padding:.55rem .8rem;border-bottom:5px solid var(--accent)}
+  .topbar .brand{font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:.4rem;margin-inline-end:auto}
+  .topbar a.homebtn,.topbar button.tb{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.55);border-radius:12px;padding:.4rem .7rem;min-height:var(--tap);min-width:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;font-weight:700;font-size:.95rem}
+  .globe{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.55);border-radius:12px;padding:.2rem .5rem;min-height:var(--tap)}
+  .globe span{font-size:1.2rem}
+  .globe select{border:0;background:#fff;color:var(--ink);border-radius:8px;min-height:44px;font-weight:700;font-size:1rem;padding:.2rem .4rem}
+
+  main{max-width:1100px;margin:0 auto;padding:.7rem}
+  .tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin:.4rem 0 .7rem;align-items:center}
+  .tabs button{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:.5rem .8rem;min-height:var(--tap);font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .tabs button[aria-selected="true"]{background:var(--accent-dk);color:#fff;border-color:var(--accent-dk)}
+  .tabs button .ic{font-size:1.15rem}
+  .stars{margin-inline-start:auto;font-weight:800;background:#fff8dc;border:2px solid #f1d27a;border-radius:14px;padding:.35rem .7rem;min-height:44px;display:inline-flex;align-items:center;gap:.3rem}
+
+  .panel{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:.9rem;margin-bottom:.8rem}
+  .panelhead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+  .panelhead h2{margin:0;font-size:1.25rem;margin-inline-end:auto}
+
+  .prompt{display:flex;align-items:center;gap:.6rem;background:var(--tint);border:2px solid var(--tintline);border-radius:14px;padding:.6rem .8rem;margin-bottom:.7rem;font-size:1.15rem;font-weight:600}
+  .speaker{background:var(--accent-dk);color:#fff;border:0;border-radius:50%;width:var(--tap);height:var(--tap);min-width:var(--tap);font-size:1.4rem;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+
+  .btn{background:var(--accent-dk);color:#fff;border:2px solid var(--accent-dk);border-radius:12px;padding:.55rem .9rem;min-height:var(--tap);font-weight:700}
+  .btn.ghost{background:var(--panel);color:var(--accent-dk)}
+  .btn.big{font-size:1.15rem;padding:.6rem 1.4rem}
+  .row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:center}
+
+  .feedback{margin-top:.6rem;border-radius:12px;padding:.6rem .8rem;font-weight:600;display:none}
+  .feedback.show{display:flex;gap:.5rem;align-items:center}
+  .feedback.good{background:var(--good-bg);color:var(--good);border:2px solid #86efac}
+  .feedback.hint{background:var(--hint-bg);color:var(--hint);border:2px solid #f6d271}
+
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.6rem;margin-top:.6rem}
+  .choice{background:var(--panel);border:3px solid var(--line);border-radius:16px;padding:.5rem;min-height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem;position:relative;font-weight:800}
+  .choice.num{font-size:clamp(1.2rem,5.2vw,1.6rem);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .choice .lbl{font-weight:700;font-size:.95rem;text-align:center}
+  .choice.correctpick{border-color:var(--good);background:var(--good-bg)}
+  .choice.wrongpick{border-color:var(--hint);background:var(--hint-bg)}
+  .choice .badge{position:absolute;top:4px;inset-inline-end:6px;font-size:1.2rem;display:none}
+  .choice.correctpick .badge.ok{display:block}
+  .choice.wrongpick .badge.no{display:block}
+  .choice:disabled{cursor:default}
+
+  .clockarea{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;justify-content:center}
+  .clockbox{width:min(300px,82vw);aspect-ratio:1/1}
+  .clockbox svg{width:100%;height:100%;display:block}
+  #setClock{touch-action:none;border-radius:50%;cursor:grab}
+  #setClock:focus-visible{outline:4px solid var(--focus);outline-offset:4px}
+  .cue{display:flex;flex-direction:column;align-items:center;gap:.2rem;background:#fff8e6;border:2px solid #f1d27a;border-radius:16px;padding:.5rem .8rem;max-width:220px;text-align:center;font-weight:700}
+  .cue .em{font-size:3rem;line-height:1}
+  .digital{font-size:2.6rem;font-weight:900;font-variant-numeric:tabular-nums;background:#14212b;color:#7cf0c8;border-radius:14px;padding:.3rem 1rem;letter-spacing:.04em;direction:ltr;unicode-bidi:isolate}
+  .legend{font-size:.9rem;color:var(--muted);text-align:center;margin:.4rem 0}
+  .legend b.h{color:var(--hourc)} .legend b.m{color:var(--minc)}
+  .tip{font-size:.95rem;color:var(--muted);text-align:center;margin:.3rem 0}
+
+  .coin{display:inline-block;line-height:0}
+  .coin svg{width:100%;height:auto;display:block}
+  .coinwrap{display:inline-flex;flex-direction:column;align-items:center;gap:.15rem}
+  .cval{font-weight:800;font-size:.9rem;line-height:1.1}
+  .coinrow{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;justify-content:center;min-height:64px}
+  .coinbtn{background:#fff;border:3px solid var(--line);border-radius:16px;padding:.35rem;min-width:var(--tap);min-height:var(--tap);display:inline-flex;align-items:center;justify-content:center;position:relative}
+  .coinbtn.counted{border-color:var(--accent);background:var(--tint)}
+  .coinbtn .order{position:absolute;top:-10px;inset-inline-start:-8px;background:var(--accent-dk);color:#fff;border-radius:999px;font-size:.8rem;font-weight:800;min-width:24px;height:24px;display:none;align-items:center;justify-content:center;padding:0 .3rem}
+  .coinbtn.counted .order{display:flex}
+  .tally{text-align:center;font-weight:800;font-size:1.15rem;min-height:1.6em;margin:.4rem 0;font-variant-numeric:tabular-nums}
+  .eq{display:flex;align-items:center;justify-content:center;gap:.6rem;flex-wrap:wrap;font-size:2rem;font-weight:900}
+
+  .shopgrid{display:grid;grid-template-columns:minmax(150px,200px) 1fr;gap:.7rem;align-items:start}
+  @media(max-width:700px){.shopgrid{grid-template-columns:1fr}}
+  .itemcard{background:#fffaf0;border:2px solid #f1d27a;border-radius:16px;padding:.6rem;display:flex;flex-direction:column;align-items:center;gap:.2rem;text-align:center}
+  .itemcard .em{font-size:3.6rem;line-height:1.1}
+  .pricetag{background:#fff;border:3px dashed #c0392b;color:#a3281b;border-radius:10px;font-size:1.6rem;font-weight:900;padding:.1rem .7rem}
+  .box{background:#f4faf8;border:2px solid var(--line);border-radius:14px;padding:.6rem;margin-bottom:.6rem}
+  .box h3{font-size:1rem;margin:.1rem 0 .4rem}
+  .traytotal{font-weight:800;font-size:1.2rem;text-align:center;margin:.3rem 0}
+  .tiny{font-size:.85rem;color:var(--muted);text-align:center;margin:.2rem 0}
+  .purses{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem}
+  .purse{background:#fff;border:3px solid var(--line);border-radius:16px;padding:.5rem;display:flex;flex-direction:column;align-items:center;gap:.35rem;min-height:120px;position:relative}
+  .purse .ph{font-weight:800;display:flex;align-items:center;gap:.3rem}
+  .purse.correctpick{border-color:var(--good);background:var(--good-bg)}
+  .purse.wrongpick{border-color:var(--hint);background:var(--hint-bg)}
+
+  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
+  .drawer.open{display:flex}
+  .drawer .card{background:var(--panel);border-radius:16px;max-width:580px;width:100%;padding:1rem;max-height:90vh;overflow:auto}
+  .setrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+  .setrow .lab{font-weight:700;min-width:150px}
+  .toggle{display:inline-flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:10px;padding:.35rem .55rem;background:#fff;min-height:44px}
+  .toggle input{width:22px;height:22px}
+  select.diff{font-size:1rem;padding:.4rem;border-radius:10px;border:2px solid var(--line);min-height:48px;max-width:100%}
+
+  footer{max-width:1100px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+  footer a{color:var(--accent-dk);font-weight:700}
+  .stds{font-size:.82rem;color:var(--muted);background:#f4faf8;border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  .hidden{display:none !important}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  @keyframes pop{0%{transform:scale(.6)}100%{transform:scale(1)}}
+  .tray-in{animation:pop .18s ease-out}
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+  .printonly{display:none}
+  @media print{
+    .topbar,.tabs,footer,.speaker,.settingsbtn,.no-print,.modepanel,.drawer{display:none !important}
+    body{background:#fff}
+    .printonly{display:block}
+    .card-print{border:2px solid #000;border-radius:12px;padding:1rem;margin:0 0 1rem;page-break-inside:avoid}
+    .card-print h2{margin:.2rem 0}
+    main{max-width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">🕒 <span data-t="appTitle">Clock &amp; Coin Shop</span></span>
+  <a class="homebtn" href="../../index.html">🏠 <span data-t="home">Home</span></a>
+  <label class="globe"><span aria-hidden="true">🌐</span>
+    <select id="langSelect" aria-label="Language / Idioma"></select>
+  </label>
+  <button class="tb settingsbtn" id="openSettings">⚙️ <span data-t="teacher">Teacher</span></button>
+</header>
+
+<main>
+  <div class="tabs" role="tablist" data-ta="setModes" aria-label="Modes">
+    <button role="tab" aria-selected="true" data-mode="read"><span class="ic">🕒</span><span data-t="mRead">Read the Clock</span></button>
+    <button role="tab" aria-selected="false" data-mode="set"><span class="ic">✋</span><span data-t="mSet">Set the Clock</span></button>
+    <button role="tab" aria-selected="false" data-mode="coin"><span class="ic">🪙</span><span data-t="mCoin">Coin Counter</span></button>
+    <button role="tab" aria-selected="false" data-mode="shop"><span class="ic">🛒</span><span data-t="mShop">Shop</span></button>
+    <span class="stars" data-ta="starsLbl" aria-label="Stars earned" role="img">⭐ <span id="starCount">0</span></span>
+  </div>
+
+  <!-- READ THE CLOCK -->
+  <section id="mode-read" class="panel modepanel" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mRead">Read the Clock</h2>
+      <button class="btn ghost no-print" id="readNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="read" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="readPrompt">…</span></div>
+    <div class="clockarea">
+      <div class="cue hidden" id="readCue"></div>
+      <div class="clockbox" id="readClock"></div>
+    </div>
+    <p class="legend" id="readLegend"></p>
+    <div class="choices" id="readGrid" role="group" data-ta="answers" aria-label="Answers"></div>
+    <div class="feedback" id="readFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- SET THE CLOCK -->
+  <section id="mode-set" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mSet">Set the Clock</h2>
+      <button class="btn ghost no-print" id="setNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="set" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="setPrompt">…</span></div>
+    <div class="clockarea">
+      <div class="digital" id="setTarget">0:00</div>
+      <div class="clockbox" id="setClock" tabindex="0" role="group" data-ta="setAria" aria-label="Clock"></div>
+    </div>
+    <p class="legend" id="setLegend"></p>
+    <p class="tip" data-t="setTip"></p>
+    <div class="row">
+      <button class="btn ghost" id="hBack" data-t="hourBack">Hour −</button>
+      <button class="btn ghost" id="hFwd" data-t="hourFwd">Hour +</button>
+      <button class="btn ghost" id="mBack" data-t="minBack">Minutes −</button>
+      <button class="btn ghost" id="mFwd" data-t="minFwd">Minutes +</button>
+    </div>
+    <div class="row" style="margin-top:.6rem"><button class="btn big" id="setCheck" data-t="check">Check</button></div>
+    <div class="feedback" id="setFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- COIN COUNTER -->
+  <section id="mode-coin" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mCoin">Coin Counter</h2>
+      <button class="btn ghost no-print" id="coinNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="coin" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="coinPrompt">…</span></div>
+    <div id="coinArea"></div>
+    <div class="row hidden" id="coinTools">
+      <button class="btn ghost" id="coinSort" data-t="sortBtn">Most first</button>
+      <button class="btn ghost" id="coinRecount" data-t="recount">Count again</button>
+    </div>
+    <div class="tally hidden" id="coinTally" aria-live="polite"></div>
+    <div class="choices" id="coinGrid" role="group" data-ta="answers" aria-label="Answers"></div>
+    <div class="feedback" id="coinFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- SHOP -->
+  <section id="mode-shop" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mShop">Shop</h2>
+      <button class="btn ghost no-print" id="shopNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="shop" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="shopPrompt">…</span></div>
+    <div id="shopArea"></div>
+    <div class="feedback" id="shopFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <div class="stds" id="stdsNote"></div>
+  <div class="printonly" id="printArea"></div>
+</main>
+
+<footer>
+  <p data-t="footNote">No accounts · No data collected · Works offline</p>
+  <p><a href="../../index.html" data-t="home">Home</a> · <a href="../../policy.html" data-t="privacy">Privacy</a></p>
+</footer>
+
+<!-- SETTINGS -->
+<div class="drawer" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <div class="panelhead"><h2 id="setTitle" data-t="teacherTitle">Teacher settings</h2>
+      <button class="btn ghost" id="closeSettings" data-t="close">Close</button></div>
+    <div class="setrow"><span class="lab" data-t="setGrade">Grade level</span>
+      <select class="diff" id="setGradeSel">
+        <option value="1" data-t="grade1">Grade 1</option>
+        <option value="2" data-t="grade2">Grade 2</option></select>
+      <p class="stds" style="width:100%;margin:0" data-t="gradeNote"></p></div>
+    <div class="setrow"><span class="lab" data-t="setTime">Clock times</span>
+      <select class="diff" id="setStep">
+        <option value="60" data-t="tsHour">O'clock only</option>
+        <option value="30" data-t="tsHalf">Hour and half hour</option>
+        <option value="5" data-t="ts5">Every 5 minutes</option>
+        <option value="1" data-t="ts1">Every minute</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setAP">a.m. / p.m.</span>
+      <label class="toggle"><input type="checkbox" id="setAmpm"> <span data-t="on">On</span></label></div>
+    <div class="setrow"><span class="lab" data-t="setMoney">Money up to</span>
+      <select class="diff" id="setMax">
+        <option value="20">20¢</option><option value="50">50¢</option><option value="99">99¢</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setLabels">Coin values</span>
+      <label class="toggle"><input type="checkbox" id="setLabelsCb"> <span data-t="labelsOn">Show values under coins</span></label></div>
+    <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
+      <div id="modeToggles" style="display:flex;flex-wrap:wrap;gap:.4rem"></div></div>
+    <div class="setrow"><span class="lab" data-t="setSpeech">Speech</span>
+      <label class="toggle"><input type="checkbox" id="setAuto" checked> <span data-t="autoRead">Auto-read directions</span></label></div>
+    <div class="setrow" style="border:0"><button class="btn" id="printCards" data-t="printCards">🖨 Print challenge cards</button></div>
+    <p class="stds" data-t="setStored">Settings are saved only on this device. No student information is ever stored.</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   Clock & Coin Shop — single-file Grade 1–2 time & money app. 7 languages.
+   No frameworks, no network, no data collection.
+   ========================================================================= */
+
+/* ---------- Language metadata ---------- */
+const LANGS = [
+  {code:"en", name:"English",     dir:"ltr", bcp:"en-US"},
+  {code:"es", name:"Español",     dir:"ltr", bcp:"es-ES"},
+  {code:"vi", name:"Tiếng Việt",  dir:"ltr", bcp:"vi-VN"},
+  {code:"ar", name:"العربية",     dir:"rtl", bcp:"ar-SA"},
+  {code:"hi", name:"हिन्दी",       dir:"ltr", bcp:"hi-IN"},
+  {code:"ur", name:"اردو",        dir:"rtl", bcp:"ur-PK"},
+  {code:"zh", name:"中文",         dir:"ltr", bcp:"zh-CN"}
+];
+const LANG_KEY = "tcea.mathtools.lang";
+
+/* ---------- Translations ---------- */
+const T = {
+  en:{
+    appTitle:"Clock & Coin Shop", home:"Home", privacy:"Privacy", teacher:"Teacher",
+    mRead:"Read the Clock", mSet:"Set the Clock", mCoin:"Coin Counter", mShop:"Shop",
+    newRound:"New round", readAloud:"Read aloud", starsLbl:"Stars earned", answers:"Answers",
+    footNote:"No accounts · No data collected · Works offline",
+    teacherTitle:"Teacher settings", close:"Close",
+    setGrade:"Grade level", grade1:"Grade 1", grade2:"Grade 2",
+    gradeNote:"Grade 1: hour and half hour; pennies, nickels, and dimes. Grade 2: every 5 minutes, a.m./p.m., and quarters, up to 99¢.",
+    setTime:"Clock times", tsHour:"O'clock only", tsHalf:"Hour and half hour", ts5:"Every 5 minutes", ts1:"Every minute",
+    setAP:"a.m. / p.m. activity clues", on:"On",
+    setMoney:"Money up to", setLabels:"Coin values", labelsOn:"Show values under coins",
+    setModes:"Modes", setSpeech:"Speech", autoRead:"Auto-read directions",
+    printCards:"Print challenge cards", setStored:"Settings are saved only on this device. No student information is ever stored.",
+    needMode:"Turn on at least one mode.",
+    clock:"Clock", legend:"Short blue hand = hour · Long red hand = minutes",
+    readDir:"What time does the clock show?",
+    act_wake:"It is time to wake up.", act_breakfast:"It is time for breakfast.", act_school:"School is starting.",
+    act_recess:"It is time for recess.", act_lunch:"It is time for lunch.", act_home:"School is over. Time to go home.",
+    act_park:"It is time to play at the park.", act_dinner:"It is time for dinner.", act_bath:"It is time for a bath.", act_bed:"It is time for bed.",
+    readDirAP:"What time is it? Is it {am} or {pm}?",
+    am:"a.m.", pm:"p.m.", amSay:"A M", pmSay:"P M", tfmt:"{t} {ap}",
+    goodRead:"Yes! It is {time}.",
+    hHourOn:"The short hour hand points to {h}, so the hour is {h}.",
+    hHourPast:"The short hour hand is past {h}, on its way to {h2}. The hour is still {h}.",
+    hMin0:"The long minute hand points to 12. That means o'clock: zero minutes.",
+    hMin5:"The long minute hand points to {n}. Count by fives up to the {n}: {m} minutes.",
+    hHalf:"30 minutes is half past the hour.",
+    hMin1:"The long minute hand is {k} little marks past {n}. Count by fives to {f}, then count on by ones: {m} minutes.",
+    hAM:"This happens in the morning, so it is {ap}. Times from midnight until noon are {ap}.",
+    hPM:"This happens in the afternoon or evening, so it is {ap}. Times from noon until midnight are {ap}.",
+    setDir:"Move the hands to show {time}.",
+    setTip:"Drag the long minute hand. The short hour hand moves along with it.",
+    hourBack:"Hour −", hourFwd:"Hour +", minBack:"Minutes −", minFwd:"Minutes +", check:"Check",
+    setAria:"Clock you can set. Arrow keys move the minute hand. Page Up and Page Down move the hour.",
+    goodSet:"Yes! The clock shows {time}.",
+    hSetMin:"The long minute hand shows {cm} minutes, but we need {m} minutes.",
+    hPointTo:"Point the long hand at {n}.", hPoint12:"Point the long hand straight up at 12.",
+    hPointPast:"Put the long hand {k} little marks past {n}.",
+    hSetHourOn:"The minutes are right! For {time}, the short hour hand should point right at {h}. Use Hour + or Hour − to move it.",
+    hSetHourPast:"The minutes are right! For {time}, the short hour hand should be between {h} and {h2}. Use Hour + or Hour − to move it.",
+    penny:"penny", nickel:"nickel", dime:"dime", quarter:"quarter",
+    coinNameDir:"Tap the {coin}.", coinValueDir:"Which coin is worth {v}?",
+    goodCoin:"Yes! That is a {coin}. It is worth {v}.",
+    hintCoin:"That is a {coin}. It is worth {v}. {clue}",
+    clue_penny:"Look for the penny: it is copper-colored and worth {v}.",
+    clue_nickel:"Look for the nickel: it is a big silver coin with a smooth edge, worth {v}.",
+    clue_dime:"Look for the dime: it is the smallest coin. It is silver with a bumpy edge, worth {v}.",
+    clue_quarter:"Look for the quarter: it is the biggest silver coin, with a bumpy edge, worth {v}.",
+    rel_pn:"How many pennies make 1 nickel?", rel_pd:"How many pennies make 1 dime?", rel_nd:"How many nickels make 1 dime?",
+    rel_nq:"How many nickels make 1 quarter?", rel_pq:"How many pennies make 1 quarter?",
+    goodRel:"Yes! {n} × {sv} = {bv}. They are worth the same.",
+    hintRel:"A {small} is worth {sv}. A {big} is worth {bv}. Count by {k} until you reach {b}: {seq}.",
+    countDir:"How much money is this?", countTip:"Tap each coin to count it. Start with the coin worth the most!",
+    sortBtn:"Most first", recount:"Count again", counted:"Counted:",
+    goodCount:"Yes! The coins are worth {v}.", sameAs:"{c} is the same as {d}.",
+    hintCount:"Count on from the coin worth the most: {seq}. Count each coin only once.",
+    it_apple:"apple", it_pencil:"pencil", it_juice:"juice box", it_cookie:"cookie", it_car:"toy car",
+    it_ball:"ball", it_banana:"banana", it_crayon:"crayon", it_lollipop:"lollipop", it_balloon:"balloon",
+    payDir:"Buy the {item}! It costs {p}. Tap coins to put exactly {p} in the tray.",
+    bank:"Coins to use", tray:"Tray", inTray:"In the tray: {v}", trayHint:"Tap a coin in the tray to take it out.",
+    pay:"Pay", emptyTray:"Empty tray", payEmpty:"Put coins in the tray first.",
+    goodPay:"You paid exactly {p}. Thank you for shopping!",
+    hintLess:"You have {v}, but the {item} costs {p}. You need {d} more.",
+    hintMore:"You have {v}. That is {d} too much. Tap a coin in the tray to take it out.",
+    enoughDir:"Which purse has enough money to buy the {item} for {p}?",
+    purse:"Purse {n}",
+    goodEnough:"Yes! This purse has {v}. That is enough to buy the {item} for {p}.",
+    hintEnough:"This purse has {v}. {v} is less than {p}, so it is not enough. Count each purse, starting with the coin worth the most.",
+    cent1:"1 cent", centsSay:"{n} cents",
+    addCoin:"Add a {coin}", removeCoin:"Take out a {coin}",
+    stds:"Aligned standards — Telling time: Texas TEKS 1.7(E), 2.9(G); Common Core 1.MD.3, 2.MD.7. Coins and money: TEKS 1.4(A), 1.4(B), 1.4(C), 2.5(A), 2.5(B); Common Core 2.MD.8 (coins only).",
+    cardTitle:"Clock & Coin Shop — Challenge Cards",
+    cardWrite:"Write the time: ______", cardDraw:"Draw the hands to show {time}.",
+    cardCount:"How much money? ______", cardPay:"Draw coins that pay exactly {p} for the {item}."
+  },
+  es:{
+    appTitle:"Tienda del Reloj y las Monedas", home:"Inicio", privacy:"Privacidad", teacher:"Maestro",
+    mRead:"Lee el reloj", mSet:"Pon la hora", mCoin:"Cuenta monedas", mShop:"Tienda",
+    newRound:"Otra ronda", readAloud:"Leer en voz alta", starsLbl:"Estrellas ganadas", answers:"Respuestas",
+    footNote:"Sin cuentas · No se recopilan datos · Funciona sin conexión",
+    teacherTitle:"Ajustes del maestro", close:"Cerrar",
+    setGrade:"Grado", grade1:"1.er grado", grade2:"2.º grado",
+    gradeNote:"1.er grado: en punto y media hora; monedas de 1, 5 y 10 centavos. 2.º grado: cada 5 minutos, a. m./p. m. y monedas de 25 centavos, hasta 99¢.",
+    setTime:"Horas del reloj", tsHour:"Solo en punto", tsHalf:"En punto y media hora", ts5:"Cada 5 minutos", ts1:"Cada minuto",
+    setAP:"Pistas de actividades a. m. / p. m.", on:"Activado",
+    setMoney:"Dinero hasta", setLabels:"Valor de las monedas", labelsOn:"Mostrar el valor debajo de las monedas",
+    setModes:"Modos", setSpeech:"Voz", autoRead:"Leer las instrucciones automáticamente",
+    printCards:"Imprimir tarjetas de reto", setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información de los estudiantes.",
+    needMode:"Activa al menos un modo.",
+    clock:"Reloj", legend:"Manecilla corta azul = hora · Manecilla larga roja = minutos",
+    readDir:"¿Qué hora marca el reloj?",
+    act_wake:"Es hora de despertarse.", act_breakfast:"Es hora del desayuno.", act_school:"La escuela está empezando.",
+    act_recess:"Es hora del recreo.", act_lunch:"Es hora del almuerzo.", act_home:"Terminó la escuela. Es hora de ir a casa.",
+    act_park:"Es hora de jugar en el parque.", act_dinner:"Es hora de la cena.", act_bath:"Es hora del baño.", act_bed:"Es hora de dormir.",
+    readDirAP:"¿Qué hora es? ¿Es {am} o {pm}?",
+    am:"a. m.", pm:"p. m.", amSay:"a eme", pmSay:"pe eme", tfmt:"{t} {ap}",
+    goodRead:"¡Sí! La hora es {time}.",
+    hHourOn:"La manecilla corta de la hora apunta al {h}, así que la hora es {h}.",
+    hHourPast:"La manecilla corta de la hora ya pasó el {h} y va hacia el {h2}. La hora todavía es {h}.",
+    hMin0:"La manecilla larga de los minutos apunta al 12. Eso significa en punto: cero minutos.",
+    hMin5:"La manecilla larga apunta al {n}. Cuenta de cinco en cinco hasta el {n}: {m} minutos.",
+    hHalf:"30 minutos es y media.",
+    hMin1:"La manecilla larga está {k} rayitas después del {n}. Cuenta de cinco en cinco hasta {f} y luego sigue de uno en uno: {m} minutos.",
+    hAM:"Esto pasa en la mañana, así que es {ap}. Las horas desde la medianoche hasta el mediodía son {ap}.",
+    hPM:"Esto pasa en la tarde o en la noche, así que es {ap}. Las horas desde el mediodía hasta la medianoche son {ap}.",
+    setDir:"Mueve las manecillas para mostrar {time}.",
+    setTip:"Arrastra la manecilla larga de los minutos. La manecilla corta de la hora se mueve con ella.",
+    hourBack:"Hora −", hourFwd:"Hora +", minBack:"Minutos −", minFwd:"Minutos +", check:"Revisar",
+    setAria:"Reloj que puedes mover. Las flechas mueven el minutero. Re Pág y Av Pág mueven la hora.",
+    goodSet:"¡Sí! El reloj muestra {time}.",
+    hSetMin:"La manecilla larga muestra {cm} minutos, pero necesitamos {m} minutos.",
+    hPointTo:"Apunta la manecilla larga al {n}.", hPoint12:"Apunta la manecilla larga hacia arriba, al 12.",
+    hPointPast:"Pon la manecilla larga {k} rayitas después del {n}.",
+    hSetHourOn:"¡Los minutos están bien! Para {time}, la manecilla corta debe apuntar justo al {h}. Usa Hora + u Hora − para moverla.",
+    hSetHourPast:"¡Los minutos están bien! Para {time}, la manecilla corta debe estar entre el {h} y el {h2}. Usa Hora + u Hora − para moverla.",
+    penny:"moneda de 1 centavo", nickel:"moneda de 5 centavos", dime:"moneda de 10 centavos", quarter:"moneda de 25 centavos",
+    coinNameDir:"Toca la {coin}.", coinValueDir:"¿Qué moneda vale {v}?",
+    goodCoin:"¡Sí! Es una {coin}. Vale {v}.",
+    hintCoin:"Esa es una {coin}. Vale {v}. {clue}",
+    clue_penny:"Busca la moneda de 1 centavo: es de color cobre y vale {v}.",
+    clue_nickel:"Busca la moneda de 5 centavos: es plateada, grande y con el borde liso. Vale {v}.",
+    clue_dime:"Busca la moneda de 10 centavos: es la más pequeña. Es plateada con el borde rayado. Vale {v}.",
+    clue_quarter:"Busca la moneda de 25 centavos: es la moneda plateada más grande, con el borde rayado. Vale {v}.",
+    rel_pn:"¿Cuántas monedas de 1 centavo valen lo mismo que 1 moneda de 5 centavos?", rel_pd:"¿Cuántas monedas de 1 centavo valen lo mismo que 1 moneda de 10 centavos?",
+    rel_nd:"¿Cuántas monedas de 5 centavos valen lo mismo que 1 moneda de 10 centavos?",
+    rel_nq:"¿Cuántas monedas de 5 centavos valen lo mismo que 1 moneda de 25 centavos?", rel_pq:"¿Cuántas monedas de 1 centavo valen lo mismo que 1 moneda de 25 centavos?",
+    goodRel:"¡Sí! {n} × {sv} = {bv}. Valen lo mismo.",
+    hintRel:"Una {small} vale {sv}. Una {big} vale {bv}. Cuenta de {k} en {k} hasta llegar a {b}: {seq}.",
+    countDir:"¿Cuánto dinero hay?", countTip:"Toca cada moneda para contarla. ¡Empieza con la moneda que vale más!",
+    sortBtn:"La que vale más primero", recount:"Contar otra vez", counted:"Contado:",
+    goodCount:"¡Sí! Las monedas valen {v}.", sameAs:"{c} es lo mismo que {d}.",
+    hintCount:"Sigue contando desde la moneda que vale más: {seq}. Cuenta cada moneda una sola vez.",
+    it_apple:"la manzana", it_pencil:"el lápiz", it_juice:"el jugo", it_cookie:"la galleta", it_car:"el carrito",
+    it_ball:"la pelota", it_banana:"el plátano", it_crayon:"el crayón", it_lollipop:"la paleta", it_balloon:"el globo",
+    payDir:"¡Compra {item}! Cuesta {p}. Toca monedas para poner exactamente {p} en la bandeja.",
+    bank:"Monedas para usar", tray:"Bandeja", inTray:"En la bandeja: {v}", trayHint:"Toca una moneda de la bandeja para sacarla.",
+    pay:"Pagar", emptyTray:"Vaciar bandeja", payEmpty:"Primero pon monedas en la bandeja.",
+    goodPay:"¡Pagaste exactamente {p}! ¡Gracias por tu compra!",
+    hintLess:"Tienes {v}, pero {item} cuesta {p}. Te faltan {d}.",
+    hintMore:"Tienes {v}. Eso es {d} de más. Toca una moneda de la bandeja para sacarla.",
+    enoughDir:"¿Qué monedero tiene suficiente dinero para comprar {item} de {p}?",
+    purse:"Monedero {n}",
+    goodEnough:"¡Sí! Este monedero tiene {v}. Alcanza para comprar {item} de {p}.",
+    hintEnough:"Este monedero tiene {v}. {v} es menos que {p}, así que no alcanza. Cuenta cada monedero empezando por la moneda que vale más.",
+    cent1:"1 centavo", centsSay:"{n} centavos",
+    addCoin:"Agregar una {coin}", removeCoin:"Sacar una {coin}",
+    stds:"Estándares alineados — Decir la hora: TEKS de Texas 1.7(E), 2.9(G); Common Core 1.MD.3, 2.MD.7. Monedas y dinero: TEKS 1.4(A), 1.4(B), 1.4(C), 2.5(A), 2.5(B); Common Core 2.MD.8 (solo monedas).",
+    cardTitle:"Tienda del Reloj y las Monedas — Tarjetas de reto",
+    cardWrite:"Escribe la hora: ______", cardDraw:"Dibuja las manecillas para mostrar {time}.",
+    cardCount:"¿Cuánto dinero hay? ______", cardPay:"Dibuja monedas que paguen exactamente {p} por {item}."
+  },
+  vi:{
+    appTitle:"Cửa hàng Đồng hồ và Tiền xu", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên",
+    mRead:"Đọc giờ", mSet:"Chỉnh đồng hồ", mCoin:"Đếm tiền xu", mShop:"Cửa hàng",
+    newRound:"Lượt mới", readAloud:"Đọc to", starsLbl:"Số sao đạt được", answers:"Đáp án",
+    footNote:"Không cần tài khoản · Không thu thập dữ liệu · Dùng được khi không có mạng",
+    teacherTitle:"Cài đặt của giáo viên", close:"Đóng",
+    setGrade:"Lớp", grade1:"Lớp 1", grade2:"Lớp 2",
+    gradeNote:"Lớp 1: giờ đúng và giờ rưỡi; đồng 1, 5 và 10 xu. Lớp 2: mỗi 5 phút, SA/CH và đồng 25 xu, tới 99¢.",
+    setTime:"Giờ trên đồng hồ", tsHour:"Chỉ giờ đúng", tsHalf:"Giờ đúng và giờ rưỡi", ts5:"Mỗi 5 phút", ts1:"Mỗi phút",
+    setAP:"Gợi ý hoạt động SA / CH", on:"Bật",
+    setMoney:"Số tiền tối đa", setLabels:"Giá trị đồng xu", labelsOn:"Hiện giá trị dưới đồng xu",
+    setModes:"Chế độ", setSpeech:"Giọng đọc", autoRead:"Tự động đọc hướng dẫn",
+    printCards:"In thẻ thử thách", setStored:"Cài đặt chỉ được lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
+    needMode:"Hãy bật ít nhất một chế độ.",
+    clock:"Đồng hồ", legend:"Kim ngắn màu xanh = giờ · Kim dài màu đỏ = phút",
+    readDir:"Đồng hồ chỉ mấy giờ?",
+    act_wake:"Đến giờ thức dậy.", act_breakfast:"Đến giờ ăn sáng.", act_school:"Trường học bắt đầu.",
+    act_recess:"Đến giờ ra chơi.", act_lunch:"Đến giờ ăn trưa.", act_home:"Tan học rồi. Đến giờ về nhà.",
+    act_park:"Đến giờ ra công viên chơi.", act_dinner:"Đến giờ ăn tối.", act_bath:"Đến giờ tắm.", act_bed:"Đến giờ đi ngủ.",
+    readDirAP:"Bây giờ là mấy giờ? Là {am} hay {pm}?",
+    am:"SA", pm:"CH", amSay:"sáng", pmSay:"chiều", tfmt:"{t} {ap}",
+    goodRead:"Đúng rồi! Bây giờ là {time}.",
+    hHourOn:"Kim giờ ngắn chỉ vào số {h}, nên là {h} giờ.",
+    hHourPast:"Kim giờ ngắn đã qua số {h} và đang đi tới số {h2}. Vẫn là {h} giờ.",
+    hMin0:"Kim phút dài chỉ vào số 12. Nghĩa là giờ đúng: không phút.",
+    hMin5:"Kim phút dài chỉ vào số {n}. Đếm cách 5, {n} lần: {m} phút.",
+    hHalf:"30 phút là giờ rưỡi.",
+    hMin1:"Kim phút dài ở sau số {n} {k} vạch nhỏ. Đếm cách 5 tới {f}, rồi đếm thêm từng 1: {m} phút.",
+    hAM:"Việc này xảy ra vào buổi sáng, nên là {ap}. Giờ từ nửa đêm đến trưa là {ap}.",
+    hPM:"Việc này xảy ra vào buổi chiều hoặc tối, nên là {ap}. Giờ từ trưa đến nửa đêm là {ap}.",
+    setDir:"Di chuyển kim để chỉ {time}.",
+    setTip:"Kéo kim phút dài. Kim giờ ngắn sẽ di chuyển theo.",
+    hourBack:"Giờ −", hourFwd:"Giờ +", minBack:"Phút −", minFwd:"Phút +", check:"Kiểm tra",
+    setAria:"Đồng hồ có thể chỉnh. Phím mũi tên di chuyển kim phút. Page Up và Page Down di chuyển giờ.",
+    goodSet:"Đúng rồi! Đồng hồ chỉ {time}.",
+    hSetMin:"Kim phút dài đang chỉ {cm} phút, nhưng ta cần {m} phút.",
+    hPointTo:"Hãy để kim dài chỉ vào số {n}.", hPoint12:"Hãy để kim dài chỉ thẳng lên số 12.",
+    hPointPast:"Hãy đặt kim dài sau số {n} {k} vạch nhỏ.",
+    hSetHourOn:"Phút đã đúng! Với {time}, kim giờ ngắn phải chỉ đúng vào số {h}. Dùng Giờ + hoặc Giờ − để di chuyển.",
+    hSetHourPast:"Phút đã đúng! Với {time}, kim giờ ngắn phải ở giữa số {h} và số {h2}. Dùng Giờ + hoặc Giờ − để di chuyển.",
+    penny:"đồng 1 xu", nickel:"đồng 5 xu", dime:"đồng 10 xu", quarter:"đồng 25 xu",
+    coinNameDir:"Chạm vào {coin}.", coinValueDir:"Đồng xu nào có giá trị {v}?",
+    goodCoin:"Đúng rồi! Đó là {coin}. Nó có giá trị {v}.",
+    hintCoin:"Đó là {coin}. Nó có giá trị {v}. {clue}",
+    clue_penny:"Hãy tìm đồng 1 xu: nó màu đồng (nâu) và có giá trị {v}.",
+    clue_nickel:"Hãy tìm đồng 5 xu: nó màu bạc, to, viền trơn, có giá trị {v}.",
+    clue_dime:"Hãy tìm đồng 10 xu: nó là đồng xu nhỏ nhất, màu bạc, viền có khía, có giá trị {v}.",
+    clue_quarter:"Hãy tìm đồng 25 xu: nó là đồng xu bạc to nhất, viền có khía, có giá trị {v}.",
+    rel_pn:"Bao nhiêu đồng 1 xu bằng 1 đồng 5 xu?", rel_pd:"Bao nhiêu đồng 1 xu bằng 1 đồng 10 xu?", rel_nd:"Bao nhiêu đồng 5 xu bằng 1 đồng 10 xu?",
+    rel_nq:"Bao nhiêu đồng 5 xu bằng 1 đồng 25 xu?", rel_pq:"Bao nhiêu đồng 1 xu bằng 1 đồng 25 xu?",
+    goodRel:"Đúng rồi! {n} × {sv} = {bv}. Chúng có giá trị bằng nhau.",
+    hintRel:"Một {small} có giá trị {sv}. Một {big} có giá trị {bv}. Đếm cách {k} cho tới {b}: {seq}.",
+    countDir:"Đây là bao nhiêu tiền?", countTip:"Chạm vào từng đồng xu để đếm. Bắt đầu với đồng xu có giá trị lớn nhất!",
+    sortBtn:"Giá trị lớn trước", recount:"Đếm lại", counted:"Đã đếm:",
+    goodCount:"Đúng rồi! Các đồng xu có giá trị {v}.", sameAs:"{c} bằng {d}.",
+    hintCount:"Đếm tiếp từ đồng xu có giá trị lớn nhất: {seq}. Mỗi đồng xu chỉ đếm một lần.",
+    it_apple:"quả táo", it_pencil:"cây bút chì", it_juice:"hộp nước ép", it_cookie:"cái bánh quy", it_car:"chiếc xe đồ chơi",
+    it_ball:"quả bóng", it_banana:"quả chuối", it_crayon:"cây bút sáp", it_lollipop:"cây kẹo mút", it_balloon:"quả bóng bay",
+    payDir:"Hãy mua {item}! Giá {p}. Chạm vào đồng xu để đặt đúng {p} vào khay.",
+    bank:"Đồng xu để dùng", tray:"Khay", inTray:"Trong khay: {v}", trayHint:"Chạm vào đồng xu trong khay để lấy ra.",
+    pay:"Trả tiền", emptyTray:"Dọn khay", payEmpty:"Hãy đặt đồng xu vào khay trước.",
+    goodPay:"Con đã trả đúng {p}. Cảm ơn con đã mua hàng!",
+    hintLess:"Con có {v}, nhưng {item} giá {p}. Con cần thêm {d}.",
+    hintMore:"Con có {v}. Như vậy là dư {d}. Chạm vào một đồng xu trong khay để lấy ra.",
+    enoughDir:"Ví nào có đủ tiền để mua {item} giá {p}?",
+    purse:"Ví {n}",
+    goodEnough:"Đúng rồi! Ví này có {v}. Đủ để mua {item} giá {p}.",
+    hintEnough:"Ví này có {v}. {v} ít hơn {p}, nên không đủ. Đếm từng ví, bắt đầu với đồng xu có giá trị lớn nhất.",
+    cent1:"1 xu", centsSay:"{n} xu",
+    addCoin:"Thêm {coin}", removeCoin:"Lấy ra {coin}",
+    stds:"Chuẩn liên quan — Xem giờ: TEKS Texas 1.7(E), 2.9(G); Common Core 1.MD.3, 2.MD.7. Tiền xu: TEKS 1.4(A), 1.4(B), 1.4(C), 2.5(A), 2.5(B); Common Core 2.MD.8 (chỉ tiền xu).",
+    cardTitle:"Cửa hàng Đồng hồ và Tiền xu — Thẻ thử thách",
+    cardWrite:"Viết giờ: ______", cardDraw:"Vẽ kim đồng hồ để chỉ {time}.",
+    cardCount:"Bao nhiêu tiền? ______", cardPay:"Vẽ đồng xu để trả đúng {p} cho {item}."
+  },
+  ar:{
+    appTitle:"متجر الساعة والنقود", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم",
+    mRead:"اقرأ الساعة", mSet:"اضبط الساعة", mCoin:"عُدّ النقود", mShop:"المتجر",
+    newRound:"جولة جديدة", readAloud:"اقرأ بصوت عالٍ", starsLbl:"النجوم المكتسبة", answers:"الإجابات",
+    footNote:"بلا حسابات · لا تُجمع أي بيانات · يعمل دون اتصال",
+    teacherTitle:"إعدادات المعلم", close:"إغلاق",
+    setGrade:"الصف", grade1:"الصف الأول", grade2:"الصف الثاني",
+    gradeNote:"الصف الأول: الساعة الكاملة ونصف الساعة، وقطع 1 و5 و10 سنتات. الصف الثاني: كل 5 دقائق، وصباحًا/مساءً، وقطعة 25 سنتًا، حتى 99¢.",
+    setTime:"أوقات الساعة", tsHour:"الساعات الكاملة فقط", tsHalf:"الساعة الكاملة ونصف الساعة", ts5:"كل 5 دقائق", ts1:"كل دقيقة",
+    setAP:"تلميحات الأنشطة صباحًا / مساءً", on:"تشغيل",
+    setMoney:"النقود حتى", setLabels:"قيم القطع النقدية", labelsOn:"إظهار القيمة تحت القطع النقدية",
+    setModes:"الأوضاع", setSpeech:"الصوت", autoRead:"قراءة التعليمات تلقائيًا",
+    printCards:"اطبع بطاقات التحدي", setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُحفظ أي معلومات عن الطلاب أبدًا.",
+    needMode:"شغّل وضعًا واحدًا على الأقل.",
+    clock:"ساعة", legend:"العقرب القصير الأزرق = الساعة · العقرب الطويل الأحمر = الدقائق",
+    readDir:"كم الساعة على هذه الساعة؟",
+    act_wake:"حان وقت الاستيقاظ.", act_breakfast:"حان وقت الفطور.", act_school:"المدرسة تبدأ الآن.",
+    act_recess:"حان وقت الاستراحة.", act_lunch:"حان وقت الغداء.", act_home:"انتهت المدرسة. حان وقت العودة إلى البيت.",
+    act_park:"حان وقت اللعب في الحديقة.", act_dinner:"حان وقت العشاء.", act_bath:"حان وقت الاستحمام.", act_bed:"حان وقت النوم.",
+    readDirAP:"كم الساعة؟ هل هي {am} أم {pm}؟",
+    am:"صباحًا", pm:"مساءً", amSay:"صباحًا", pmSay:"مساءً", tfmt:"{t} {ap}",
+    goodRead:"أحسنت! الساعة {time}.",
+    hHourOn:"عقرب الساعات القصير يشير إلى {h}، إذن الساعة {h}.",
+    hHourPast:"عقرب الساعات القصير تجاوز {h} وهو في طريقه إلى {h2}. ما زالت الساعة {h}.",
+    hMin0:"عقرب الدقائق الطويل يشير إلى 12. هذا يعني ساعة كاملة: صفر دقائق.",
+    hMin5:"عقرب الدقائق الطويل يشير إلى {n}. عُدّ بالخمسات حتى {n}: {m} دقيقة.",
+    hHalf:"30 دقيقة تعني النصف.",
+    hMin1:"عقرب الدقائق الطويل بعد {n} بـ{k} علامات صغيرة. عُدّ بالخمسات حتى {f}، ثم واحدًا واحدًا: {m} دقيقة.",
+    hAM:"هذا يحدث في الصباح، إذن الوقت {ap}. الأوقات من منتصف الليل حتى الظهر تكون {ap}.",
+    hPM:"هذا يحدث بعد الظهر أو في المساء، إذن الوقت {ap}. الأوقات من الظهر حتى منتصف الليل تكون {ap}.",
+    setDir:"حرّك العقربين لتُظهر {time}.",
+    setTip:"اسحب عقرب الدقائق الطويل. يتحرك عقرب الساعات القصير معه.",
+    hourBack:"ساعة −", hourFwd:"ساعة +", minBack:"دقائق −", minFwd:"دقائق +", check:"تحقّق",
+    setAria:"ساعة يمكنك ضبطها. مفاتيح الأسهم تحرك عقرب الدقائق. مفتاحا Page Up وPage Down يحركان الساعة.",
+    goodSet:"أحسنت! الساعة تُظهر {time}.",
+    hSetMin:"عقرب الدقائق الطويل يُظهر {cm} دقيقة، لكننا نحتاج {m} دقيقة.",
+    hPointTo:"وجّه العقرب الطويل إلى {n}.", hPoint12:"وجّه العقرب الطويل إلى الأعلى نحو 12.",
+    hPointPast:"ضع العقرب الطويل بعد {n} بـ{k} علامات صغيرة.",
+    hSetHourOn:"الدقائق صحيحة! من أجل {time}، يجب أن يشير عقرب الساعات القصير إلى {h} تمامًا. استخدم «ساعة +» أو «ساعة −» لتحريكه.",
+    hSetHourPast:"الدقائق صحيحة! من أجل {time}، يجب أن يكون عقرب الساعات القصير بين {h} و{h2}. استخدم «ساعة +» أو «ساعة −» لتحريكه.",
+    penny:"قطعة السنت الواحد", nickel:"قطعة الخمسة سنتات", dime:"قطعة العشرة سنتات", quarter:"قطعة الخمسة والعشرين سنتًا",
+    coinNameDir:"المس {coin}.", coinValueDir:"أي قطعة قيمتها {v}؟",
+    goodCoin:"أحسنت! هذه {coin}. قيمتها {v}.",
+    hintCoin:"هذه {coin}. قيمتها {v}. {clue}",
+    clue_penny:"ابحث عن قطعة السنت الواحد: لونها نحاسي وقيمتها {v}.",
+    clue_nickel:"ابحث عن قطعة الخمسة سنتات: فضية وكبيرة وحافتها ملساء، وقيمتها {v}.",
+    clue_dime:"ابحث عن قطعة العشرة سنتات: هي أصغر قطعة، فضية وحافتها مُسنّنة، وقيمتها {v}.",
+    clue_quarter:"ابحث عن قطعة الخمسة والعشرين سنتًا: هي أكبر قطعة فضية، وحافتها مُسنّنة، وقيمتها {v}.",
+    rel_pn:"كم قطعة سنت واحد تساوي قطعة خمسة سنتات واحدة؟", rel_pd:"كم قطعة سنت واحد تساوي قطعة عشرة سنتات واحدة؟",
+    rel_nd:"كم قطعة خمسة سنتات تساوي قطعة عشرة سنتات واحدة؟",
+    rel_nq:"كم قطعة خمسة سنتات تساوي قطعة خمسة وعشرين سنتًا واحدة؟", rel_pq:"كم قطعة سنت واحد تساوي قطعة خمسة وعشرين سنتًا واحدة؟",
+    goodRel:"أحسنت! {n} × {sv} = {bv}. لهما القيمة نفسها.",
+    hintRel:"{small} قيمتها {sv}. {big} قيمتها {bv}. عُدّ بـ{k} حتى تصل إلى {b}: {seq}.",
+    countDir:"كم من المال هنا؟", countTip:"المس كل قطعة لتعدّها. ابدأ بالقطعة الأعلى قيمة!",
+    sortBtn:"الأعلى قيمة أولًا", recount:"عُدّ من جديد", counted:"تم العدّ:",
+    goodCount:"أحسنت! قيمة القطع {v}.", sameAs:"{c} يساوي {d}.",
+    hintCount:"تابع العدّ من القطعة الأعلى قيمة: {seq}. عُدّ كل قطعة مرة واحدة فقط.",
+    it_apple:"التفاحة", it_pencil:"قلم الرصاص", it_juice:"علبة العصير", it_cookie:"الكعكة", it_car:"السيارة اللعبة",
+    it_ball:"الكرة", it_banana:"الموزة", it_crayon:"قلم التلوين", it_lollipop:"المصاصة", it_balloon:"البالون",
+    payDir:"اشترِ {item}! السعر {p}. المس القطع لتضع {p} بالضبط في الصينية.",
+    bank:"القطع المتاحة", tray:"الصينية", inTray:"في الصينية: {v}", trayHint:"المس قطعة في الصينية لإخراجها.",
+    pay:"ادفع", emptyTray:"أفرغ الصينية", payEmpty:"ضع القطع في الصينية أولًا.",
+    goodPay:"دفعت {p} بالضبط. شكرًا لتسوقك!",
+    hintLess:"معك {v}، لكن سعر {item} هو {p}. تحتاج إلى {d} أخرى.",
+    hintMore:"معك {v}. هذا أكثر من اللازم بـ{d}. المس قطعة في الصينية لإخراجها.",
+    enoughDir:"أي محفظة فيها مال كافٍ لشراء {item} بسعر {p}؟",
+    purse:"المحفظة {n}",
+    goodEnough:"أحسنت! في هذه المحفظة {v}. هذا يكفي لشراء {item} بسعر {p}.",
+    hintEnough:"في هذه المحفظة {v}. {v} أقل من {p}، إذن لا يكفي. عُدّ كل محفظة بدءًا بالقطعة الأعلى قيمة.",
+    cent1:"سنت واحد", centsSay:"{n} سنت",
+    addCoin:"أضف {coin}", removeCoin:"أخرج {coin}",
+    stds:"المعايير المرتبطة — قراءة الوقت: معايير TEKS في تكساس 1.7(E)، 2.9(G)؛ Common Core ‏1.MD.3، 2.MD.7. القطع النقدية والنقود: TEKS ‏1.4(A)، 1.4(B)، 1.4(C)، 2.5(A)، 2.5(B)؛ Common Core ‏2.MD.8 (القطع النقدية فقط).",
+    cardTitle:"متجر الساعة والنقود — بطاقات التحدي",
+    cardWrite:"اكتب الوقت: ______", cardDraw:"ارسم العقربين لتُظهر {time}.",
+    cardCount:"كم من المال؟ ______", cardPay:"ارسم قطعًا نقدية مجموعها {p} بالضبط لشراء {item}."
+  },
+  hi:{
+    appTitle:"घड़ी और सिक्कों की दुकान", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक",
+    mRead:"घड़ी पढ़ो", mSet:"घड़ी मिलाओ", mCoin:"सिक्के गिनो", mShop:"दुकान",
+    newRound:"नया दौर", readAloud:"ज़ोर से पढ़ें", starsLbl:"मिले हुए तारे", answers:"उत्तर",
+    footNote:"कोई खाता नहीं · कोई डेटा नहीं · ऑफ़लाइन काम करता है",
+    teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें",
+    setGrade:"कक्षा", grade1:"कक्षा 1", grade2:"कक्षा 2",
+    gradeNote:"कक्षा 1: पूरे घंटे और साढ़े; पेनी, निकल और डाइम। कक्षा 2: हर 5 मिनट, पूर्वाह्न/अपराह्न, और क्वार्टर, 99¢ तक।",
+    setTime:"घड़ी के समय", tsHour:"केवल पूरे घंटे", tsHalf:"पूरे घंटे और साढ़े", ts5:"हर 5 मिनट", ts1:"हर मिनट",
+    setAP:"पूर्वाह्न / अपराह्न गतिविधि संकेत", on:"चालू",
+    setMoney:"पैसे की सीमा", setLabels:"सिक्कों का मूल्य", labelsOn:"सिक्कों के नीचे मूल्य दिखाएँ",
+    setModes:"मोड", setSpeech:"आवाज़", autoRead:"निर्देश अपने आप पढ़ें",
+    printCards:"चुनौती कार्ड छापें", setStored:"सेटिंग्स केवल इस डिवाइस पर सहेजी जाती हैं। छात्र की जानकारी कभी नहीं सहेजी जाती।",
+    needMode:"कम से कम एक मोड चालू करें।",
+    clock:"घड़ी", legend:"छोटी नीली सुई = घंटा · लंबी लाल सुई = मिनट",
+    readDir:"घड़ी में क्या समय है?",
+    act_wake:"उठने का समय हो गया।", act_breakfast:"नाश्ते का समय हो गया।", act_school:"स्कूल शुरू हो रहा है।",
+    act_recess:"खेल की छुट्टी का समय हो गया।", act_lunch:"दोपहर के खाने का समय हो गया।", act_home:"स्कूल खत्म हो गया। घर जाने का समय है।",
+    act_park:"पार्क में खेलने का समय हो गया।", act_dinner:"रात के खाने का समय हो गया।", act_bath:"नहाने का समय हो गया।", act_bed:"सोने का समय हो गया।",
+    readDirAP:"क्या समय है? {am} है या {pm}?",
+    am:"पूर्वाह्न", pm:"अपराह्न", amSay:"पूर्वाह्न", pmSay:"अपराह्न", tfmt:"{t} {ap}",
+    goodRead:"हाँ! समय {time} है।",
+    hHourOn:"छोटी घंटे की सुई {h} पर है, इसलिए घंटा {h} है।",
+    hHourPast:"छोटी घंटे की सुई {h} से आगे निकल गई है और {h2} की ओर जा रही है। घंटा अभी भी {h} है।",
+    hMin0:"लंबी मिनट की सुई 12 पर है। इसका मतलब पूरा घंटा: शून्य मिनट।",
+    hMin5:"लंबी मिनट की सुई {n} पर है। पाँच-पाँच करके {n} बार गिनो: {m} मिनट।",
+    hHalf:"30 मिनट का मतलब साढ़े है।",
+    hMin1:"लंबी मिनट की सुई {n} से {k} छोटे निशान आगे है। पाँच-पाँच करके {f} तक गिनो, फिर एक-एक करके आगे गिनो: {m} मिनट।",
+    hAM:"यह सुबह होता है, इसलिए यह {ap} है। आधी रात से दोपहर तक का समय {ap} होता है।",
+    hPM:"यह दोपहर बाद या शाम को होता है, इसलिए यह {ap} है। दोपहर से आधी रात तक का समय {ap} होता है।",
+    setDir:"सुइयों को घुमाकर {time} दिखाओ।",
+    setTip:"लंबी मिनट की सुई को खींचो। छोटी घंटे की सुई उसके साथ चलती है।",
+    hourBack:"घंटा −", hourFwd:"घंटा +", minBack:"मिनट −", minFwd:"मिनट +", check:"जाँचो",
+    setAria:"घड़ी जिसे तुम मिला सकते हो। तीर कुंजियाँ मिनट की सुई घुमाती हैं। Page Up और Page Down घंटा बदलते हैं।",
+    goodSet:"हाँ! घड़ी {time} दिखा रही है।",
+    hSetMin:"लंबी मिनट की सुई {cm} मिनट दिखा रही है, पर हमें {m} मिनट चाहिए।",
+    hPointTo:"लंबी सुई को {n} पर ले जाओ।", hPoint12:"लंबी सुई को सीधे ऊपर 12 पर ले जाओ।",
+    hPointPast:"लंबी सुई को {n} से {k} छोटे निशान आगे रखो।",
+    hSetHourOn:"मिनट सही हैं! {time} के लिए छोटी घंटे की सुई ठीक {h} पर होनी चाहिए। इसे घुमाने के लिए घंटा + या घंटा − दबाओ।",
+    hSetHourPast:"मिनट सही हैं! {time} के लिए छोटी घंटे की सुई {h} और {h2} के बीच होनी चाहिए। इसे घुमाने के लिए घंटा + या घंटा − दबाओ।",
+    penny:"पेनी", nickel:"निकल", dime:"डाइम", quarter:"क्वार्टर",
+    coinNameDir:"{coin} को छुओ।", coinValueDir:"किस सिक्के का मूल्य {v} है?",
+    goodCoin:"हाँ! यह {coin} है। इसका मूल्य {v} है।",
+    hintCoin:"यह {coin} है। इसका मूल्य {v} है। {clue}",
+    clue_penny:"पेनी ढूँढो: यह ताँबे के रंग की है और इसका मूल्य {v} है।",
+    clue_nickel:"निकल ढूँढो: यह बड़ा, चाँदी के रंग का सिक्का है जिसका किनारा चिकना है। इसका मूल्य {v} है।",
+    clue_dime:"डाइम ढूँढो: यह सबसे छोटा सिक्का है। यह चाँदी के रंग का है और इसका किनारा खुरदरा है। इसका मूल्य {v} है।",
+    clue_quarter:"क्वार्टर ढूँढो: यह सबसे बड़ा चाँदी के रंग का सिक्का है, खुरदरे किनारे वाला। इसका मूल्य {v} है।",
+    rel_pn:"कितनी पेनी मिलकर 1 निकल के बराबर होती हैं?", rel_pd:"कितनी पेनी मिलकर 1 डाइम के बराबर होती हैं?", rel_nd:"कितने निकल मिलकर 1 डाइम के बराबर होते हैं?",
+    rel_nq:"कितने निकल मिलकर 1 क्वार्टर के बराबर होते हैं?", rel_pq:"कितनी पेनी मिलकर 1 क्वार्टर के बराबर होती हैं?",
+    goodRel:"हाँ! {n} × {sv} = {bv}। दोनों का मूल्य बराबर है।",
+    hintRel:"एक {small} का मूल्य {sv} है। एक {big} का मूल्य {bv} है। {k}-{k} करके {b} तक गिनो: {seq}।",
+    countDir:"यह कितने पैसे हैं?", countTip:"हर सिक्के को छूकर गिनो। सबसे ज़्यादा मूल्य वाले सिक्के से शुरू करो!",
+    sortBtn:"ज़्यादा मूल्य पहले", recount:"फिर से गिनो", counted:"गिने गए:",
+    goodCount:"हाँ! सिक्कों का मूल्य {v} है।", sameAs:"{c} और {d} बराबर हैं।",
+    hintCount:"सबसे ज़्यादा मूल्य वाले सिक्के से आगे गिनो: {seq}। हर सिक्का सिर्फ़ एक बार गिनो।",
+    it_apple:"सेब", it_pencil:"पेंसिल", it_juice:"जूस का डिब्बा", it_cookie:"बिस्किट", it_car:"खिलौना कार",
+    it_ball:"गेंद", it_banana:"केला", it_crayon:"क्रेयॉन", it_lollipop:"लॉलीपॉप", it_balloon:"गुब्बारा",
+    payDir:"{item} खरीदो! इसकी कीमत {p} है। सिक्कों को छूकर ट्रे में ठीक {p} रखो।",
+    bank:"इस्तेमाल के सिक्के", tray:"ट्रे", inTray:"ट्रे में: {v}", trayHint:"ट्रे के किसी सिक्के को छूकर बाहर निकालो।",
+    pay:"पैसे दो", emptyTray:"ट्रे खाली करो", payEmpty:"पहले ट्रे में सिक्के रखो।",
+    goodPay:"तुमने ठीक {p} दिए। ख़रीदारी के लिए धन्यवाद!",
+    hintLess:"तुम्हारे पास {v} हैं, पर {item} की कीमत {p} है। तुम्हें {d} और चाहिए।",
+    hintMore:"तुम्हारे पास {v} हैं। यह {d} ज़्यादा है। ट्रे के किसी सिक्के को छूकर बाहर निकालो।",
+    enoughDir:"किस बटुए में {p} का {item} खरीदने के लिए काफ़ी पैसे हैं?",
+    purse:"बटुआ {n}",
+    goodEnough:"हाँ! इस बटुए में {v} हैं। {p} का {item} खरीदने के लिए यह काफ़ी है।",
+    hintEnough:"इस बटुए में {v} हैं। {v}, {p} से कम है, इसलिए काफ़ी नहीं है। हर बटुए को सबसे ज़्यादा मूल्य वाले सिक्के से गिनो।",
+    cent1:"1 सेंट", centsSay:"{n} सेंट",
+    addCoin:"{coin} जोड़ो", removeCoin:"{coin} निकालो",
+    stds:"संरेखित मानक — समय बताना: टेक्सास TEKS 1.7(E), 2.9(G); कॉमन कोर 1.MD.3, 2.MD.7। सिक्के और पैसे: TEKS 1.4(A), 1.4(B), 1.4(C), 2.5(A), 2.5(B); कॉमन कोर 2.MD.8 (केवल सिक्के)।",
+    cardTitle:"घड़ी और सिक्कों की दुकान — चुनौती कार्ड",
+    cardWrite:"समय लिखो: ______", cardDraw:"{time} दिखाने के लिए सुइयाँ बनाओ।",
+    cardCount:"कितने पैसे हैं? ______", cardPay:"{item} के लिए ठीक {p} देने वाले सिक्के बनाओ।"
+  },
+  ur:{
+    appTitle:"گھڑی اور سکوں کی دکان", home:"ہوم", privacy:"رازداری", teacher:"استاد",
+    mRead:"گھڑی پڑھو", mSet:"گھڑی ملاؤ", mCoin:"سکے گنو", mShop:"دکان",
+    newRound:"نیا دور", readAloud:"بلند آواز سے پڑھیں", starsLbl:"حاصل کیے گئے ستارے", answers:"جوابات",
+    footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا جمع نہیں ہوتا · آف لائن کام کرتا ہے",
+    teacherTitle:"استاد کی ترتیبات", close:"بند کریں",
+    setGrade:"جماعت", grade1:"جماعت 1", grade2:"جماعت 2",
+    gradeNote:"جماعت 1: پورے گھنٹے اور ساڑھے؛ پینی، نکل اور ڈائم۔ جماعت 2: ہر 5 منٹ، قبل دوپہر/بعد دوپہر، اور کوارٹر، 99¢ تک۔",
+    setTime:"گھڑی کے اوقات", tsHour:"صرف پورے گھنٹے", tsHalf:"پورے گھنٹے اور ساڑھے", ts5:"ہر 5 منٹ", ts1:"ہر منٹ",
+    setAP:"قبل دوپہر / بعد دوپہر سرگرمی اشارے", on:"چالو",
+    setMoney:"رقم کی حد", setLabels:"سکوں کی قیمت", labelsOn:"سکوں کے نیچے قیمت دکھائیں",
+    setModes:"طریقے", setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں",
+    printCards:"چیلنج کارڈ پرنٹ کریں", setStored:"ترتیبات صرف اسی آلے پر محفوظ ہوتی ہیں۔ طلبہ کی کوئی معلومات کبھی محفوظ نہیں ہوتی۔",
+    needMode:"کم از کم ایک طریقہ چالو کریں۔",
+    clock:"گھڑی", legend:"چھوٹی نیلی سوئی = گھنٹہ · لمبی سرخ سوئی = منٹ",
+    readDir:"گھڑی میں کیا وقت ہے؟",
+    act_wake:"جاگنے کا وقت ہو گیا۔", act_breakfast:"ناشتے کا وقت ہو گیا۔", act_school:"اسکول شروع ہو رہا ہے۔",
+    act_recess:"تفریح کا وقت ہو گیا۔", act_lunch:"دوپہر کے کھانے کا وقت ہو گیا۔", act_home:"اسکول ختم ہو گیا۔ گھر جانے کا وقت ہے۔",
+    act_park:"پارک میں کھیلنے کا وقت ہو گیا۔", act_dinner:"رات کے کھانے کا وقت ہو گیا۔", act_bath:"نہانے کا وقت ہو گیا۔", act_bed:"سونے کا وقت ہو گیا۔",
+    readDirAP:"کیا وقت ہے؟ {am} ہے یا {pm}؟",
+    am:"قبل دوپہر", pm:"بعد دوپہر", amSay:"قبل دوپہر", pmSay:"بعد دوپہر", tfmt:"{t} {ap}",
+    goodRead:"جی ہاں! وقت {time} ہے۔",
+    hHourOn:"چھوٹی گھنٹے کی سوئی {h} پر ہے، اس لیے گھنٹہ {h} ہے۔",
+    hHourPast:"چھوٹی گھنٹے کی سوئی {h} سے آگے نکل گئی ہے اور {h2} کی طرف جا رہی ہے۔ گھنٹہ ابھی بھی {h} ہے۔",
+    hMin0:"لمبی منٹ کی سوئی 12 پر ہے۔ اس کا مطلب پورا گھنٹہ: صفر منٹ۔",
+    hMin5:"لمبی منٹ کی سوئی {n} پر ہے۔ پانچ پانچ کر کے {n} بار گنو: {m} منٹ۔",
+    hHalf:"30 منٹ کا مطلب ساڑھے ہے۔",
+    hMin1:"لمبی منٹ کی سوئی {n} سے {k} چھوٹے نشان آگے ہے۔ پانچ پانچ کر کے {f} تک گنو، پھر ایک ایک کر کے آگے گنو: {m} منٹ۔",
+    hAM:"یہ صبح کے وقت ہوتا ہے، اس لیے یہ {ap} ہے۔ آدھی رات سے دوپہر تک کا وقت {ap} ہوتا ہے۔",
+    hPM:"یہ دوپہر کے بعد یا شام کو ہوتا ہے، اس لیے یہ {ap} ہے۔ دوپہر سے آدھی رات تک کا وقت {ap} ہوتا ہے۔",
+    setDir:"سوئیاں گھما کر {time} دکھاؤ۔",
+    setTip:"لمبی منٹ کی سوئی کو گھسیٹو۔ چھوٹی گھنٹے کی سوئی اس کے ساتھ چلتی ہے۔",
+    hourBack:"گھنٹہ −", hourFwd:"گھنٹہ +", minBack:"منٹ −", minFwd:"منٹ +", check:"جانچو",
+    setAria:"گھڑی جسے تم ملا سکتے ہو۔ تیر والی کلیدیں منٹ کی سوئی گھماتی ہیں۔ Page Up اور Page Down گھنٹہ بدلتے ہیں۔",
+    goodSet:"جی ہاں! گھڑی {time} دکھا رہی ہے۔",
+    hSetMin:"لمبی منٹ کی سوئی {cm} منٹ دکھا رہی ہے، لیکن ہمیں {m} منٹ چاہییں۔",
+    hPointTo:"لمبی سوئی کو {n} پر لے جاؤ۔", hPoint12:"لمبی سوئی کو سیدھا اوپر 12 پر لے جاؤ۔",
+    hPointPast:"لمبی سوئی کو {n} سے {k} چھوٹے نشان آگے رکھو۔",
+    hSetHourOn:"منٹ ٹھیک ہیں! {time} کے لیے چھوٹی گھنٹے کی سوئی ٹھیک {h} پر ہونی چاہیے۔ اسے گھمانے کے لیے «گھنٹہ +» یا «گھنٹہ −» دباؤ۔",
+    hSetHourPast:"منٹ ٹھیک ہیں! {time} کے لیے چھوٹی گھنٹے کی سوئی {h} اور {h2} کے درمیان ہونی چاہیے۔ اسے گھمانے کے لیے «گھنٹہ +» یا «گھنٹہ −» دباؤ۔",
+    penny:"پینی", nickel:"نکل", dime:"ڈائم", quarter:"کوارٹر",
+    coinNameDir:"{coin} کو چھوؤ۔", coinValueDir:"کس سکے کی قیمت {v} ہے؟",
+    goodCoin:"جی ہاں! یہ {coin} ہے۔ اس کی قیمت {v} ہے۔",
+    hintCoin:"یہ {coin} ہے۔ اس کی قیمت {v} ہے۔ {clue}",
+    clue_penny:"پینی ڈھونڈو: یہ تانبے کے رنگ کی ہے اور اس کی قیمت {v} ہے۔",
+    clue_nickel:"نکل ڈھونڈو: یہ بڑا، چاندی کے رنگ کا سکہ ہے جس کا کنارہ ہموار ہے۔ اس کی قیمت {v} ہے۔",
+    clue_dime:"ڈائم ڈھونڈو: یہ سب سے چھوٹا سکہ ہے۔ یہ چاندی کے رنگ کا ہے اور اس کا کنارہ کھردرا ہے۔ اس کی قیمت {v} ہے۔",
+    clue_quarter:"کوارٹر ڈھونڈو: یہ چاندی کے رنگ کا سب سے بڑا سکہ ہے، کھردرے کنارے والا۔ اس کی قیمت {v} ہے۔",
+    rel_pn:"کتنی پینیاں مل کر 1 نکل کے برابر ہوتی ہیں؟", rel_pd:"کتنی پینیاں مل کر 1 ڈائم کے برابر ہوتی ہیں؟", rel_nd:"کتنے نکل مل کر 1 ڈائم کے برابر ہوتے ہیں؟",
+    rel_nq:"کتنے نکل مل کر 1 کوارٹر کے برابر ہوتے ہیں؟", rel_pq:"کتنی پینیاں مل کر 1 کوارٹر کے برابر ہوتی ہیں؟",
+    goodRel:"جی ہاں! {n} × {sv} = {bv}۔ دونوں کی قیمت برابر ہے۔",
+    hintRel:"ایک {small} کی قیمت {sv} ہے۔ ایک {big} کی قیمت {bv} ہے۔ {k}-{k} کر کے {b} تک گنو: {seq}۔",
+    countDir:"یہ کتنے پیسے ہیں؟", countTip:"ہر سکے کو چھو کر گنو۔ سب سے زیادہ قیمت والے سکے سے شروع کرو!",
+    sortBtn:"زیادہ قیمت پہلے", recount:"دوبارہ گنو", counted:"گنے گئے:",
+    goodCount:"جی ہاں! سکوں کی قیمت {v} ہے۔", sameAs:"{c} اور {d} برابر ہیں۔",
+    hintCount:"سب سے زیادہ قیمت والے سکے سے آگے گنو: {seq}۔ ہر سکہ صرف ایک بار گنو۔",
+    it_apple:"سیب", it_pencil:"پنسل", it_juice:"جوس کا ڈبہ", it_cookie:"بسکٹ", it_car:"کھلونا گاڑی",
+    it_ball:"گیند", it_banana:"کیلا", it_crayon:"کریون", it_lollipop:"لالی پاپ", it_balloon:"غبارہ",
+    payDir:"{item} خریدو! اس کی قیمت {p} ہے۔ سکوں کو چھو کر ٹرے میں ٹھیک {p} رکھو۔",
+    bank:"استعمال کے سکے", tray:"ٹرے", inTray:"ٹرے میں: {v}", trayHint:"ٹرے کے کسی سکے کو چھو کر باہر نکالو۔",
+    pay:"پیسے دو", emptyTray:"ٹرے خالی کرو", payEmpty:"پہلے ٹرے میں سکے رکھو۔",
+    goodPay:"تم نے ٹھیک {p} دیے۔ خریداری کا شکریہ!",
+    hintLess:"تمہارے پاس {v} ہیں، لیکن {item} کی قیمت {p} ہے۔ تمہیں {d} اور چاہییں۔",
+    hintMore:"تمہارے پاس {v} ہیں۔ یہ {d} زیادہ ہے۔ ٹرے کے کسی سکے کو چھو کر باہر نکالو۔",
+    enoughDir:"کس بٹوے میں {p} کا {item} خریدنے کے لیے کافی پیسے ہیں؟",
+    purse:"بٹوا {n}",
+    goodEnough:"جی ہاں! اس بٹوے میں {v} ہیں۔ {p} کا {item} خریدنے کے لیے یہ کافی ہے۔",
+    hintEnough:"اس بٹوے میں {v} ہیں۔ {v}، {p} سے کم ہے، اس لیے کافی نہیں۔ ہر بٹوے کو سب سے زیادہ قیمت والے سکے سے گنو۔",
+    cent1:"1 سینٹ", centsSay:"{n} سینٹ",
+    addCoin:"{coin} ڈالو", removeCoin:"{coin} نکالو",
+    stds:"متعلقہ معیارات — وقت بتانا: ٹیکساس TEKS ‏1.7(E)، 2.9(G)؛ کامن کور ‏1.MD.3، 2.MD.7۔ سکے اور رقم: TEKS ‏1.4(A)، 1.4(B)، 1.4(C)، 2.5(A)، 2.5(B)؛ کامن کور ‏2.MD.8 (صرف سکے)۔",
+    cardTitle:"گھڑی اور سکوں کی دکان — چیلنج کارڈ",
+    cardWrite:"وقت لکھو: ______", cardDraw:"{time} دکھانے کے لیے سوئیاں بناؤ۔",
+    cardCount:"کتنے پیسے ہیں؟ ______", cardPay:"{item} کے لیے ٹھیک {p} دینے والے سکے بناؤ۔"
+  },
+  zh:{
+    appTitle:"时钟与硬币商店", home:"首页", privacy:"隐私", teacher:"老师",
+    mRead:"读钟表", mSet:"拨钟表", mCoin:"数硬币", mShop:"商店",
+    newRound:"新一轮", readAloud:"朗读", starsLbl:"获得的星星", answers:"答案",
+    footNote:"无需账号 · 不收集数据 · 可离线使用",
+    teacherTitle:"老师设置", close:"关闭",
+    setGrade:"年级", grade1:"一年级", grade2:"二年级",
+    gradeNote:"一年级：整点和半点；1美分、5美分和10美分硬币。二年级：每5分钟、上午/下午，以及25美分硬币，最多99¢。",
+    setTime:"钟表时间", tsHour:"只有整点", tsHalf:"整点和半点", ts5:"每5分钟", ts1:"每1分钟",
+    setAP:"上午/下午活动提示", on:"开",
+    setMoney:"金额上限", setLabels:"硬币面值", labelsOn:"在硬币下方显示面值",
+    setModes:"模式", setSpeech:"语音", autoRead:"自动朗读说明",
+    printCards:"打印挑战卡", setStored:"设置只保存在这台设备上。从不保存任何学生信息。",
+    needMode:"请至少打开一个模式。",
+    clock:"钟表", legend:"短的蓝色指针 = 时针 · 长的红色指针 = 分针",
+    readDir:"钟表上是几点？",
+    act_wake:"该起床了。", act_breakfast:"该吃早饭了。", act_school:"学校开始上课了。",
+    act_recess:"该课间休息了。", act_lunch:"该吃午饭了。", act_home:"放学了。该回家了。",
+    act_park:"该去公园玩了。", act_dinner:"该吃晚饭了。", act_bath:"该洗澡了。", act_bed:"该睡觉了。",
+    readDirAP:"现在几点？是{am}还是{pm}？",
+    am:"上午", pm:"下午", amSay:"上午", pmSay:"下午", tfmt:"{ap}{t}",
+    goodRead:"对了！现在是{time}。",
+    hHourOn:"短的时针指着{h}，所以是{h}点。",
+    hHourPast:"短的时针刚过{h}，正走向{h2}。所以还是{h}点。",
+    hMin0:"长的分针指着12。这表示整点：0分。",
+    hMin5:"长的分针指着{n}。五个五个地数{n}次：{m}分。",
+    hHalf:"30分就是半点。",
+    hMin1:"长的分针在{n}后面{k}个小格。先五个五个地数到{f}，再一个一个往后数：{m}分。",
+    hAM:"这件事发生在早上，所以是{ap}。从半夜到中午的时间是{ap}。",
+    hPM:"这件事发生在下午或晚上，所以是{ap}。从中午到半夜的时间是{ap}。",
+    setDir:"转动指针，拨出{time}。",
+    setTip:"拖动长的分针。短的时针会跟着一起走。",
+    hourBack:"时 −", hourFwd:"时 +", minBack:"分 −", minFwd:"分 +", check:"检查",
+    setAria:"可以拨动的钟表。方向键移动分针。Page Up 和 Page Down 移动时针。",
+    goodSet:"对了！钟表显示{time}。",
+    hSetMin:"长的分针现在是{cm}分，但我们需要{m}分。",
+    hPointTo:"让长针指着{n}。", hPoint12:"让长针直直向上指着12。",
+    hPointPast:"把长针放在{n}后面{k}个小格。",
+    hSetHourOn:"分钟对了！{time}的时候，短的时针应该正好指着{h}。用“时 +”或“时 −”来移动它。",
+    hSetHourPast:"分钟对了！{time}的时候，短的时针应该在{h}和{h2}之间。用“时 +”或“时 −”来移动它。",
+    penny:"1美分硬币", nickel:"5美分硬币", dime:"10美分硬币", quarter:"25美分硬币",
+    coinNameDir:"点一下{coin}。", coinValueDir:"哪枚硬币值{v}？",
+    goodCoin:"对了！这是{coin}，值{v}。",
+    hintCoin:"这是{coin}，值{v}。{clue}",
+    clue_penny:"找1美分硬币：它是铜色的，值{v}。",
+    clue_nickel:"找5美分硬币：它是银色的大硬币，边缘光滑，值{v}。",
+    clue_dime:"找10美分硬币：它是最小的硬币，银色，边缘有细纹，值{v}。",
+    clue_quarter:"找25美分硬币：它是最大的银色硬币，边缘有细纹，值{v}。",
+    rel_pn:"几枚1美分硬币等于1枚5美分硬币？", rel_pd:"几枚1美分硬币等于1枚10美分硬币？", rel_nd:"几枚5美分硬币等于1枚10美分硬币？",
+    rel_nq:"几枚5美分硬币等于1枚25美分硬币？", rel_pq:"几枚1美分硬币等于1枚25美分硬币？",
+    goodRel:"对了！{n} × {sv} = {bv}。它们的价值一样。",
+    hintRel:"一枚{small}值{sv}。一枚{big}值{bv}。{k}个{k}个地数，数到{b}：{seq}。",
+    countDir:"这里一共有多少钱？", countTip:"点每一枚硬币来数。从面值最大的硬币开始！",
+    sortBtn:"面值大的先", recount:"重新数", counted:"已数：",
+    goodCount:"对了！这些硬币一共值{v}。", sameAs:"{c}和{d}一样多。",
+    hintCount:"从面值最大的硬币开始接着数：{seq}。每枚硬币只数一次。",
+    it_apple:"苹果", it_pencil:"铅笔", it_juice:"盒装果汁", it_cookie:"饼干", it_car:"玩具车",
+    it_ball:"球", it_banana:"香蕉", it_crayon:"蜡笔", it_lollipop:"棒棒糖", it_balloon:"气球",
+    payDir:"买{item}吧！它要{p}。点硬币，在托盘里正好放{p}。",
+    bank:"可以用的硬币", tray:"托盘", inTray:"托盘里：{v}", trayHint:"点托盘里的硬币可以把它拿出来。",
+    pay:"付钱", emptyTray:"清空托盘", payEmpty:"先把硬币放进托盘。",
+    goodPay:"你正好付了{p}。谢谢光临！",
+    hintLess:"你有{v}，但{item}要{p}。你还需要{d}。",
+    hintMore:"你有{v}。多了{d}。点托盘里的硬币把它拿出来。",
+    enoughDir:"哪个钱包里的钱够买{p}的{item}？",
+    purse:"钱包{n}",
+    goodEnough:"对了！这个钱包有{v}，够买{p}的{item}。",
+    hintEnough:"这个钱包有{v}。{v}比{p}少，所以不够。从面值最大的硬币开始数每个钱包。",
+    cent1:"1美分", centsSay:"{n}美分",
+    addCoin:"放入{coin}", removeCoin:"拿出{coin}",
+    stds:"对应标准 — 认识时间：德州 TEKS 1.7(E)、2.9(G)；共同核心 1.MD.3、2.MD.7。硬币与钱：TEKS 1.4(A)、1.4(B)、1.4(C)、2.5(A)、2.5(B)；共同核心 2.MD.8（仅硬币）。",
+    cardTitle:"时钟与硬币商店 — 挑战卡",
+    cardWrite:"写出时间：______", cardDraw:"画出指针，表示{time}。",
+    cardCount:"一共有多少钱？______", cardPay:"画出正好{p}的硬币来买{item}。"
+  }
+};
+
+let lang = "en";
+function t(key, vars){
+  let s = (T[lang] && T[lang][key]!==undefined) ? T[lang][key] : (T.en[key]!==undefined? T.en[key] : key);
+  if(vars) for(const k in vars) s = s.replaceAll("{"+k+"}", vars[k]);
+  return s;
+}
+/* SAY mode: the same message builder produces display text (¢, a.m.) or speakable text (cents, "A M"). */
+let SAY=false;
+function both(fn){ SAY=false; const d=fn().replace(/(\w)\.\.(?!\.)/g,"$1."); SAY=true; let s; try{ s=fn(); }finally{ SAY=false; } return [d,s]; }  // "a.m.." → "a.m."
+const isRTL=()=>(LANGS.find(x=>x.code===lang)||{}).dir==="rtl";
+// Keep "32¢", "$0.45", "7:30" in reading order inside Arabic/Urdu sentences (LTR isolate).
+const ISO=s=>(isRTL()&&!SAY)?"\u2066"+s+"\u2069":s;
+
+/* ---------- Settings ---------- */
+const GRADE_DEF = {1:{tstep:30,ampm:false,max:50}, 2:{tstep:5,ampm:true,max:99}};
+const DEFAULTS = { grade:1, tstep:30, ampm:false, max:50, labels:true,
+  modes:{read:true,set:true,coin:true,shop:true}, autoRead:true };
+const MODES = ["read","set","coin","shop"];
+let settings = loadSettings();
+function loadSettings(){
+  try{
+    const raw = localStorage.getItem("ccs_settings");
+    if(raw){ const o=JSON.parse(raw); return Object.assign(JSON.parse(JSON.stringify(DEFAULTS)), o, {modes:Object.assign({},DEFAULTS.modes,o.modes)}); }
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULTS));
+}
+function saveSettings(){ try{ localStorage.setItem("ccs_settings", JSON.stringify(settings)); }catch(e){} }
+
+/* ---------- Utils ---------- */
+const $ = s=>document.querySelector(s);
+const $$ = s=>Array.from(document.querySelectorAll(s));
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function ri(a,b){ return a+Math.floor(Math.random()*(b-a+1)); }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const pad2=n=>(n<10?"0":"")+n;
+function nChoices(){ return settings.grade==1?3:4; }
+let stars=0;
+function addStar(){ stars++; $("#starCount").textContent=stars; }
+
+/* ---------- Time helpers (tot = minutes on a 12-hour dial, 0..719) ---------- */
+const norm=x=>((x%720)+720)%720;
+function hm(tot){ tot=norm(tot); return {h:Math.floor(tot/60)||12, m:tot%60}; }
+function clockStr(tot){ const o=hm(tot); return o.h+":"+pad2(o.m); }
+function apWord(ap){ return t(SAY?ap+"Say":ap); }
+function fmtTime(tot,ap){ const s=ISO(clockStr(tot)); return ap?t("tfmt",{t:s,ap:apWord(ap)}):s; }
+function stepMins(){ const s=+settings.tstep, a=[]; for(let m=0;m<60;m+=s) a.push(m); return a; }
+let lastTot=-1;
+function randTime(){ let tot,n=0; do{ tot=(ri(1,12)%12)*60+rand(stepMins()); }while(tot===lastTot && ++n<20); lastTot=tot; return tot; }
+function snapStep(){ return +settings.tstep===1?1:5; }
+
+/* ---------- Money helpers ---------- */
+const VAL = {penny:1,nickel:5,dime:10,quarter:25};
+const ALLCOINS = ["quarter","dime","nickel","penny"];
+function coinTypes(){ return settings.grade==1?["dime","nickel","penny"]:ALLCOINS.slice(); }
+function dollars(v){ return "$"+Math.floor(v/100)+"."+pad2(v%100); }
+function money(v,dollar){ if(SAY) return t(v===1?"cent1":"centsSay",{n:v}); return ISO(dollar?dollars(v):v+"¢"); }
+function sumCoins(list){ return list.reduce((s,k)=>s+VAL[k],0); }
+function sortCoins(list){ return list.slice().sort((a,b)=>VAL[b]-VAL[a]); }
+function countOnSeq(list){ let s=0; return sortCoins(list).map(k=>money(s+=VAL[k])).join(", "); }
+/* Random coin set worth exactly `total` (at most maxN coins). */
+function genCoins(total,types,maxN){
+  types=sortCoins(types);
+  for(let tries=0;tries<60;tries++){
+    const list=[]; let rem=total;
+    while(rem>0){ const opts=types.filter(k=>VAL[k]<=rem); const k=Math.random()<.55?opts[0]:rand(opts); list.push(k); rem-=VAL[k]; }
+    if(list.length<=maxN && (list.length>=2 || total<5)) return shuffle(list);
+  }
+  const list=[]; let rem=total; for(const k of types){ while(VAL[k]<=rem){ list.push(k); rem-=VAL[k]; } } return shuffle(list);
+}
+
+/* ---------- SVG: clock ---------- */
+function clockSVG(tot,opts){
+  opts=opts||{};
+  let ticks="", nums="";
+  for(let i=0;i<60;i++){ const a=i*Math.PI/30, big=i%5===0, r1=big?79:84, s=Math.sin(a), c=Math.cos(a);
+    ticks+=`<line x1="${(100+r1*s).toFixed(1)}" y1="${(100-r1*c).toFixed(1)}" x2="${(100+89*s).toFixed(1)}" y2="${(100-89*c).toFixed(1)}" stroke="#33495a" stroke-width="${big?3:1.4}"/>`; }
+  for(let n=1;n<=12;n++){ const a=n*Math.PI/6;
+    nums+=`<text x="${(100+66*Math.sin(a)).toFixed(1)}" y="${(100-66*Math.cos(a)).toFixed(1)}" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="800" fill="#1c2733" font-family="system-ui,sans-serif">${n}</text>`; }
+  const o=hm(tot), ha=norm(tot)*0.5, ma=o.m*6;
+  const hands=opts.noHands?"":`
+    <g class="hh" data-hand="h" transform="rotate(${ha} 100 100)"><line x1="100" y1="100" x2="100" y2="44" stroke="transparent" stroke-width="30"/><line x1="100" y1="112" x2="100" y2="52" stroke="#1f4fa3" stroke-width="10" stroke-linecap="round"/></g>
+    <g class="mh" data-hand="m" transform="rotate(${ma} 100 100)"><line x1="100" y1="100" x2="100" y2="18" stroke="transparent" stroke-width="26"/><line x1="100" y1="114" x2="100" y2="22" stroke="#c0392b" stroke-width="6" stroke-linecap="round"/><circle cx="100" cy="26" r="${opts.knob?7:0}" fill="#c0392b"/></g>`;
+  return `<svg viewBox="0 0 200 200" direction="ltr" role="img" aria-label="${t("clock")}">
+    <circle cx="100" cy="100" r="96" fill="#16a085"/><circle cx="100" cy="100" r="91" fill="#fffef8" stroke="#0e6b59" stroke-width="3"/>
+    ${ticks}${nums}${hands}<circle cx="100" cy="100" r="6" fill="#1c2733"/></svg>`;
+}
+function updHands(box,tot){ const h=box.querySelector(".hh"), m=box.querySelector(".mh"); if(!h) return;
+  h.setAttribute("transform",`rotate(${norm(tot)*0.5} 100 100)`); m.setAttribute("transform",`rotate(${(norm(tot)%60)*6} 100 100)`); }
+function legendHTML(){ const p=t("legend").split("·"); return `<b class="h">${p[0]||""}</b>·<b class="m">${p[1]||""}</b>`; }
+
+/* ---------- SVG: coins (drawn, true relative sizes) ---------- */
+const COIN_R = {dime:35,penny:37.5,nickel:42,quarter:48};
+const HEAD = "M6,-28 C-8,-30 -18,-20 -18,-8 L-24,1 L-18,4 L-19,10 C-19,15 -14,16 -10,16 L-9,22 L-16,30 L20,30 L15,19 C24,11 26,-4 21,-16 C17,-24 13,-27 6,-28 Z";
+function coinSVG(k){
+  const r=COIN_R[k], cu=k==="penny", s=(r/48).toFixed(3);
+  const fill=cu?"#c87533":"#d3d9df", edge=cu?"#7a3e14":"#5f6b76", inner=cu?"#a95a22":"#a7b0b9", head=cu?"#a85a24":"#a3adb7";
+  const reed=(k==="dime"||k==="quarter")?`<circle cx="50" cy="50" r="${r-2}" fill="none" stroke="${edge}" stroke-width="3.2" stroke-dasharray="1.1 1.5"/>`:"";
+  return `<svg viewBox="0 0 100 100" direction="ltr" role="img" aria-label="${t(k)}">
+    <circle cx="50" cy="50" r="${r}" fill="${fill}" stroke="${edge}" stroke-width="2"/>${reed}
+    <circle cx="50" cy="50" r="${(r*.86).toFixed(1)}" fill="none" stroke="${inner}" stroke-width="2.4" stroke-dasharray="2.2 2.6" opacity=".8"/>
+    <circle cx="50" cy="50" r="${(r*.74).toFixed(1)}" fill="none" stroke="${inner}" stroke-width="1.2"/>
+    <g transform="translate(50 51) scale(${cu?-s:s} ${s})"><path d="${HEAD}" fill="${head}" stroke="${edge}" stroke-width="1.5"/></g>
+    <ellipse cx="${50-r*.42}" cy="${50-r*.42}" rx="${(r*.22).toFixed(1)}" ry="${(r*.1).toFixed(1)}" fill="#fff" opacity=".45" transform="rotate(-45 ${50-r*.42} ${50-r*.42})"/></svg>`;
+}
+function coinEl(k,base,label){
+  const w=Math.round(base*COIN_R[k]/48);
+  return `<span class="coinwrap"><span class="coin" style="width:${w}px">${coinSVG(k)}</span>${label?`<span class="cval">${VAL[k]}¢</span>`:""}</span>`;
+}
+
+/* ---------- Speech ---------- */
+const speechOK = ("speechSynthesis" in window);
+function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
+// Prefer warm, natural voices for young learners; avoid harsh robotic engines.
+function pickWarmVoice(code){
+  const vs = speechSynthesis.getVoices()||[];
+  const want=code.toLowerCase(), two=want.slice(0,2);
+  let best=null, bs=-1;
+  for(const v of vs){
+    const lc=(v.lang||'').toLowerCase().replace('_','-');
+    if(lc!==want && lc.slice(0,2)!==two) continue;
+    let s=(lc===want?100:60); const n=(v.name||'').toLowerCase();
+    if(/google|natural|neural|online|premium|enhanced|siri/.test(n)) s+=40;
+    if(/female|woman|samantha|karen|tessa|moira|fiona|serena|victoria|allison|ava|susan|zoe|amelie|amélie|paulina|monica|mónica|zira|hazel|catherine|linda|kanya|lekha|ting-ting|mei-jia|sin-ji|yu-shu|huihui|xiaoxiao/.test(n)) s+=18;
+    if(/espeak|compact|festival|pico|robot|eloquence/.test(n)) s-=60;
+    if(v.localService===false) s+=8;
+    if(v.default) s+=2;
+    if(s>bs){ bs=s; best=v; }
+  }
+  return best;
+}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  const parts=String(text).match(/[^.!?。！？؟।۔]+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  text=String(text||"").replace(/\p{Extended_Pictographic}|️/gu,"").trim();  // never read emoji names aloud
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.9; u.pitch=1.15;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={read:0,set:0,coin:0,shop:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
+}
+if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
+if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
+
+const currentSpeech = {read:"",set:"",coin:"",shop:""};
+function setSpeech(mode,text){ currentSpeech[mode]=text; }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===mode) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,#setClock")) return;
+  speak(currentSpeech[currentMode()]);
+},true);
+
+/* ---------- Feedback ---------- */
+function showFb(el,type,msg){ el.className="feedback show "+type; el.textContent=(type==="good"?"✅ ":"💡 ")+msg; }
+function hideFb(el){ el.className="feedback"; el.textContent=""; }
+function praise(fbSel,pair,key,next){ showFb($(fbSel),"good",pair[0]); addStar(); afterPraise(pair[1],key,next,1600); }
+function hint(fbSel,pair){ showFb($(fbSel),"hint",pair[0]); speak(pair[1]); }
+function choiceBtn(html,aria,cls){
+  const b=document.createElement("button"); b.type="button"; b.className="choice "+(cls||"");
+  b.innerHTML=`<span class="badge ok" aria-hidden="true">✅</span><span class="badge no" aria-hidden="true">↻</span>`+html;
+  if(aria) b.setAttribute("aria-label",aria); return b;
+}
+function markWrong(b){ b.classList.add("wrongpick"); setTimeout(()=>b.classList.remove("wrongpick"),1400); }
+function lockAll(sel){ $$(sel).forEach(c=>c.disabled=true); }
+
+/* =========================================================================
+   READ THE CLOCK
+   ========================================================================= */
+// Activity clues for a.m./p.m. (times in minutes on the 12-hour dial).
+const ACTS = [
+  {k:"wake",ic:"⏰",ap:"am",a:390,b:450},{k:"breakfast",ic:"🥣",ap:"am",a:405,b:480},{k:"school",ic:"🏫",ap:"am",a:465,b:510},
+  {k:"recess",ic:"⚽",ap:"am",a:570,b:660},{k:"lunch",ic:"🥪",ap:"am",a:660,b:705},{k:"home",ic:"🎒",ap:"pm",a:180,b:240},
+  {k:"park",ic:"🌳",ap:"pm",a:240,b:330},{k:"dinner",ic:"🍝",ap:"pm",a:330,b:420},{k:"bath",ic:"🛁",ap:"pm",a:420,b:480},
+  {k:"bed",ic:"🌙",ap:"pm",a:450,b:525}];
+let readR=null;
+function newRead(){
+  roundIds.read++;
+  const st=+settings.tstep; let tot, act=null;
+  if(settings.ampm){ act=rand(ACTS); const c=[]; for(let x=act.a;x<=act.b;x++) if(x%st===0) c.push(x); tot=rand(c); }
+  else tot=randTime();
+  const ap=act?act.ap:null; readR={tot,act,ap,done:false};
+  const o=hm(tot), key=c=>c.tot+"|"+c.ap, seen=new Set([key({tot,ap})]), cands=[];
+  const add=(tt,a)=>{ const c={tot:norm(tt),ap:a===undefined?ap:a}; if(!seen.has(key(c))){ seen.add(key(c)); cands.push(c); } };
+  const first=[];
+  if(ap){ add(tot,ap==="am"?"pm":"am"); first.push(cands.pop()); }
+  add(o.m>=30?tot+60:tot-60);                                       // hour misread (looks at the next number)
+  if(o.m%5===0 && o.m>0) add((o.h%12)*60+o.m/5);                    // minutes read as the number pointed at
+  if(o.m%5===0) add(((o.m/5)%12)*60+(o.h%12)*5);                    // hands swapped
+  add(tot+30); add(tot-30); add(tot+60); add(tot+5); add(tot+10);
+  while(cands.length<6) add(randTime());
+  let opts=first.filter(Boolean).concat(shuffle(cands)).slice(0,nChoices()-1);
+  opts=shuffle(opts.concat([{tot,ap}]));
+  $("#readClock").innerHTML=clockSVG(tot);
+  const cue=$("#readCue");
+  if(act){ cue.classList.remove("hidden"); cue.innerHTML=`<span class="em" aria-hidden="true">${act.ic}</span><span>${t("act_"+act.k)}</span>`; }
+  else cue.classList.add("hidden");
+  $("#readLegend").innerHTML=legendHTML();
+  const grid=$("#readGrid"); grid.innerHTML="";
+  opts.forEach(c=>{ const lbl=fmtTime(c.tot,c.ap);
+    const b=choiceBtn(`<span>${lbl}</span>`,lbl,"num"); b.addEventListener("click",()=>checkRead(b,c)); grid.appendChild(b); });
+  const dir=both(()=>act?t("act_"+act.k)+" "+t("readDirAP",{am:apWord("am"),pm:apWord("pm")}):t("readDir"));
+  $("#readPrompt").textContent=dir[0]; setSpeech("read",dir[1]); hideFb($("#readFb")); maybeAuto("read");
+}
+function hourPart(tot){ const o=hm(tot); return o.m===0?t("hHourOn",{h:o.h}):t("hHourPast",{h:o.h,h2:o.h%12+1}); }
+function minPart(m){
+  if(m===0) return t("hMin0");
+  if(m%5===0) return t("hMin5",{n:m/5,m})+(m===30?" "+t("hHalf"):"");
+  const n=Math.floor(m/5); return t("hMin1",{n:n||12,k:m%5,f:n*5,m});
+}
+function apHint(ap){ return t(ap==="am"?"hAM":"hPM",{ap:apWord(ap)}); }
+function checkRead(btn,c){
+  const r=readR; if(!r||r.done) return;
+  if(c.tot===r.tot && c.ap===r.ap){
+    r.done=true; btn.classList.add("correctpick"); lockAll("#readGrid .choice");
+    praise("#readFb",both(()=>t("goodRead",{time:fmtTime(r.tot,r.ap)})),"read",newRead);
+  }else{
+    markWrong(btn);
+    const a=hm(r.tot), b=hm(c.tot);
+    hint("#readFb",both(()=>{ const p=[];
+      if(a.h!==b.h) p.push(hourPart(r.tot));
+      if(a.m!==b.m) p.push(minPart(a.m));
+      if(r.ap && c.ap!==r.ap) p.push(apHint(r.ap));
+      return p.join(" "); }));
+  }
+}
+
+/* =========================================================================
+   SET THE CLOCK
+   ========================================================================= */
+let setR=null;
+function newSet(){
+  roundIds.set++;
+  const target=randTime(); let cur=0; if(cur===target) cur=360;
+  setR={target,cur,done:false};
+  const box=$("#setClock"); box.innerHTML=clockSVG(cur,{knob:true});
+  $("#setTarget").textContent=clockStr(target);
+  $("#setLegend").innerHTML=legendHTML();
+  const dir=both(()=>t("setDir",{time:fmtTime(target)}));
+  $("#setPrompt").textContent=dir[0]; setSpeech("set",dir[1]); hideFb($("#setFb")); maybeAuto("set");
+}
+function setCur(tot){ if(!setR||setR.done) return; setR.cur=norm(tot); updHands($("#setClock"),setR.cur); }
+function nudgeMin(d){ if(setR) setCur(setR.cur+d); }
+let dragHand=null;
+function clockAngle(e){
+  const r=$("#setClock").getBoundingClientRect(), x=e.clientX-(r.left+r.width/2), y=e.clientY-(r.top+r.height/2);
+  let a=Math.atan2(x,-y)*180/Math.PI; if(a<0) a+=360; return {a,d:Math.hypot(x,y)/(r.width/2)};
+}
+function moveHand(a){
+  const sn=snapStep();
+  if(dragHand==="m"){ const nm=(Math.round(a/6/sn)*sn)%60, cm=setR.cur%60; let d=nm-cm; if(d>30) d-=60; if(d<-30) d+=60; setCur(setR.cur+d); }
+  else setCur(Math.round(a*2/sn)*sn);
+}
+function initSetClock(){
+  const box=$("#setClock");
+  box.addEventListener("pointerdown",e=>{ if(!setR||setR.done) return; e.preventDefault();
+    const h=e.target.closest("[data-hand]"), p=clockAngle(e);
+    dragHand=h?h.dataset.hand:(p.d<0.45?"h":"m");
+    try{ box.setPointerCapture(e.pointerId); }catch(err){}
+    if(!h) moveHand(p.a); box.focus({preventScroll:true}); });
+  box.addEventListener("pointermove",e=>{ if(dragHand) moveHand(clockAngle(e).a); });
+  const end=()=>{ dragHand=null; };
+  box.addEventListener("pointerup",end); box.addEventListener("pointercancel",end);
+  box.addEventListener("keydown",e=>{ const sn=snapStep();
+    const m={ArrowUp:sn,ArrowRight:sn,ArrowDown:-sn,ArrowLeft:-sn,PageUp:60,PageDown:-60}[e.key];
+    if(m!==undefined){ e.preventDefault(); nudgeMin(m); } else if(e.key==="Enter"){ e.preventDefault(); checkSet(); } });
+  $("#hBack").addEventListener("click",()=>nudgeMin(-60)); $("#hFwd").addEventListener("click",()=>nudgeMin(60));
+  $("#mBack").addEventListener("click",()=>nudgeMin(-snapStep())); $("#mFwd").addEventListener("click",()=>nudgeMin(snapStep()));
+  $("#setCheck").addEventListener("click",checkSet);
+}
+function checkSet(){
+  const r=setR; if(!r||r.done) return;
+  if(r.cur===r.target){ r.done=true; praise("#setFb",both(()=>t("goodSet",{time:fmtTime(r.target)})),"set",newSet); return; }
+  const m=r.target%60, cm=r.cur%60, o=hm(r.target);
+  hint("#setFb",both(()=>{
+    if(cm!==m){ const n=Math.floor(m/5);
+      return t("hSetMin",{cm,m})+" "+(m===0?t("hPoint12"):m%5===0?t("hPointTo",{n}):t("hPointPast",{n:n||12,k:m%5})); }
+    return m===0?t("hSetHourOn",{time:fmtTime(r.target),h:o.h}):t("hSetHourPast",{time:fmtTime(r.target),h:o.h,h2:o.h%12+1});
+  }));
+}
+
+/* =========================================================================
+   COIN COUNTER
+   ========================================================================= */
+const RELS = {pn:["penny","nickel"],pd:["penny","dime"],nd:["nickel","dime"],nq:["nickel","quarter"],pq:["penny","quarter"]};
+let coinR=null;
+function newCoin(){
+  roundIds.coin++;
+  const x=Math.random(), kind=x<.2?"name":x<.35?"value":x<.5?"rel":"count";
+  coinR={kind,done:false};
+  $("#coinArea").innerHTML=""; $("#coinGrid").innerHTML="";
+  $("#coinTools").classList.toggle("hidden",kind!=="count"); $("#coinTally").classList.toggle("hidden",kind!=="count");
+  let dir;
+  if(kind==="name"||kind==="value"){
+    const target=rand(ALLCOINS); coinR.target=target;
+    const opts=shuffle([target].concat(shuffle(ALLCOINS.filter(k=>k!==target)).slice(0,nChoices()-1)));
+    opts.forEach(k=>{ const b=choiceBtn(coinEl(k,96,false),t(k)); b.addEventListener("click",()=>checkCoinPick(b,k)); $("#coinGrid").appendChild(b); });
+    dir=both(()=>kind==="name"?t("coinNameDir",{coin:t(target)}):t("coinValueDir",{v:money(VAL[target])}));
+  }else if(kind==="rel"){
+    const rk=rand(settings.grade==1?["pn","pd","nd"]:Object.keys(RELS)), s=RELS[rk][0], g=RELS[rk][1], n=VAL[g]/VAL[s];
+    Object.assign(coinR,{rk,s,g,n});
+    $("#coinArea").innerHTML=`<div class="eq">${coinEl(s,80,settings.labels)}<span>× ?</span><span>=</span>${coinEl(g,80,settings.labels)}</div>`;
+    const opts=shuffle([n].concat(shuffle([2,3,4,5,10,15,20,25].filter(v=>v!==n)).slice(0,nChoices()-1)));
+    opts.forEach(v=>{ const b=choiceBtn(`<span>${v}</span>`,String(v),"num"); b.addEventListener("click",()=>checkRel(b,v)); $("#coinGrid").appendChild(b); });
+    dir=both(()=>t("rel_"+rk));
+  }else{
+    const max=+settings.max, total=ri(settings.grade==1?5:10,max);
+    Object.assign(coinR,{coins:genCoins(total,coinTypes(),settings.grade==1?8:9),total,counted:[],dollar:settings.grade==2&&Math.random()<.5});
+    renderCount();
+    const cand=new Set([total]), opts=[];
+    [total+5,total-5,total+10,total-10,total+1,total-1,coinR.coins.length,total+25,total-25].forEach(v=>{ if(v>0 && v<=max+25 && !cand.has(v)){ cand.add(v); opts.push(v); } });
+    shuffle(opts).slice(0,nChoices()-1).concat([total]).sort(()=>Math.random()-.5).forEach(v=>{
+      const lbl=money(v,coinR.dollar); const b=choiceBtn(`<span>${lbl}</span>`,lbl,"num"); b.addEventListener("click",()=>checkCount(b,v)); $("#coinGrid").appendChild(b); });
+    dir=both(()=>t("countDir")+" "+t("countTip"));
+  }
+  $("#coinPrompt").textContent=dir[0]; setSpeech("coin",dir[1]); hideFb($("#coinFb")); maybeAuto("coin");
+}
+function renderCount(){
+  const c=coinR, row=document.createElement("div"); row.className="coinrow";
+  c.coins.forEach((k,i)=>{ const b=document.createElement("button"); b.type="button";
+    const ord=c.counted.indexOf(i); b.className="coinbtn"+(ord>=0?" counted":"");
+    b.innerHTML=coinEl(k,84,settings.labels)+`<span class="order" aria-hidden="true">${ord+1}</span>`;
+    b.setAttribute("aria-label",t(k)); b.setAttribute("aria-pressed",ord>=0?"true":"false");
+    b.addEventListener("click",()=>{ if(c.done||c.counted.includes(i)) return; c.counted.push(i); renderCount(); const nb=$$("#coinArea .coinbtn")[i]; if(nb) nb.focus(); });
+    row.appendChild(b); });
+  $("#coinArea").innerHTML=""; $("#coinArea").appendChild(row);
+  let s=0; const seq=c.counted.map(i=>money(s+=VAL[c.coins[i]],c.dollar));
+  $("#coinTally").textContent=seq.length?t("counted")+" "+seq.join(isRTL()?" ← ":" → "):"";
+}
+function checkCoinPick(btn,k){
+  const r=coinR; if(r.done) return;
+  if(k===r.target){ r.done=true; btn.classList.add("correctpick"); lockAll("#coinGrid .choice");
+    praise("#coinFb",both(()=>t("goodCoin",{coin:t(k),v:money(VAL[k])})),"coin",newCoin); }
+  else{ markWrong(btn); hint("#coinFb",both(()=>t("hintCoin",{coin:t(k),v:money(VAL[k]),clue:t("clue_"+r.target,{v:money(VAL[r.target])})}))); }
+}
+function checkRel(btn,v){
+  const r=coinR; if(r.done) return;
+  if(v===r.n){ r.done=true; btn.classList.add("correctpick"); lockAll("#coinGrid .choice");
+    praise("#coinFb",both(()=>t("goodRel",{n:r.n,sv:money(VAL[r.s]),bv:money(VAL[r.g])})),"coin",newCoin); }
+  else{ markWrong(btn);
+    const k=VAL[r.s], b=VAL[r.g]; let seq=[]; for(let x=k;x<=b;x+=k) seq.push(x);
+    if(seq.length>10) seq=seq.slice(0,5).concat(["…",b]);
+    hint("#coinFb",both(()=>t("hintRel",{small:t(r.s),big:t(r.g),sv:money(k),bv:money(b),k,b,seq:seq.join(", ")}))); }
+}
+function checkCount(btn,v){
+  const r=coinR; if(r.done) return;
+  if(v===r.total){ r.done=true; btn.classList.add("correctpick"); lockAll("#coinGrid .choice");
+    praise("#coinFb",both(()=>t("goodCount",{v:money(r.total,r.dollar)})+(settings.grade==2&&!SAY?" "+t("sameAs",{c:ISO(r.total+"¢"),d:ISO(dollars(r.total))}):"")),"coin",newCoin); }
+  else{ markWrong(btn); hint("#coinFb",both(()=>t("hintCount",{seq:countOnSeq(r.coins)}))); }
+}
+
+/* =========================================================================
+   SHOP
+   ========================================================================= */
+const ITEMS = [{k:"apple",ic:"🍎"},{k:"pencil",ic:"✏️"},{k:"juice",ic:"🧃"},{k:"cookie",ic:"🍪"},{k:"car",ic:"🚗"},
+  {k:"ball",ic:"⚽"},{k:"banana",ic:"🍌"},{k:"crayon",ic:"🖍️"},{k:"lollipop",ic:"🍭"},{k:"balloon",ic:"🎈"}];
+let shopR=null;
+function newShop(){
+  roundIds.shop++;
+  const kind=Math.random()<.6?"pay":"enough", item=rand(ITEMS), max=+settings.max, g1=settings.grade==1;
+  shopR={kind,item,done:false,dollar:!g1&&Math.random()<.4};
+  const area=$("#shopArea"); area.innerHTML="";
+  const iname=()=>t("it_"+item.k);
+  let dir;
+  if(kind==="pay"){
+    const p=ri(g1?3:10,max); Object.assign(shopR,{p,tray:[]});
+    area.innerHTML=`<div class="shopgrid">
+      <div class="itemcard"><span class="em" aria-hidden="true">${item.ic}</span><span class="pricetag">${money(p,shopR.dollar)}</span><span>${iname()}</span></div>
+      <div><div class="box"><h3>${t("bank")}</h3><div class="coinrow" id="bankRow"></div></div>
+        <div class="box"><h3>${t("tray")}</h3><div class="coinrow" id="trayRow"></div>
+          <div class="traytotal" id="trayTotal" aria-live="polite"></div><p class="tiny">${t("trayHint")}</p>
+          <div class="row"><button class="btn big" id="payBtn" type="button">${t("pay")}</button>
+          <button class="btn ghost" id="emptyBtn" type="button">${t("emptyTray")}</button></div></div></div></div>`;
+    coinTypes().forEach(k=>{ const b=document.createElement("button"); b.type="button"; b.className="coinbtn";
+      b.innerHTML=coinEl(k,72,settings.labels); b.setAttribute("aria-label",t("addCoin",{coin:t(k)}));
+      b.addEventListener("click",()=>{ if(shopR.done||shopR.tray.length>=15) return; shopR.tray.push(k); renderTray(true); });
+      $("#bankRow").appendChild(b); });
+    $("#payBtn").addEventListener("click",checkPay);
+    $("#emptyBtn").addEventListener("click",()=>{ if(shopR.done) return; shopR.tray=[]; renderTray(); });
+    renderTray();
+    dir=both(()=>t("payDir",{item:iname(),p:money(p,shopR.dollar)}));
+  }else{
+    const p=ri(g1?10:20,Math.max(g1?12:25,max-5)); shopR.p=p;
+    const good=Math.random()<.3?p:ri(p,Math.min(p+15,99)), bad=new Set();
+    while(bad.size<2){ const v=ri(Math.max(1,p-20),p-1); bad.add(v); if(p-1<2 && bad.size>=1) break; }
+    const vals=shuffle([good].concat([...bad]));
+    area.innerHTML=`<div class="shopgrid"><div class="itemcard"><span class="em" aria-hidden="true">${item.ic}</span><span class="pricetag">${money(p,shopR.dollar)}</span><span>${iname()}</span></div>
+      <div class="purses" id="purseGrid" role="group" aria-label="${t("answers")}"></div></div>`;
+    vals.forEach((v,i)=>{ const coins=sortCoins(genCoins(v,coinTypes(),8));
+      const b=document.createElement("button"); b.type="button"; b.className="purse";
+      b.innerHTML=`<span class="ph"><span aria-hidden="true">👛</span>${t("purse",{n:i+1})}</span><span class="coinrow">${coins.map(k=>coinEl(k,50,settings.labels)).join("")}</span>`;
+      b.setAttribute("aria-label",t("purse",{n:i+1})+": "+coins.map(k=>t(k)).join(", "));
+      b.addEventListener("click",()=>checkEnough(b,v)); $("#purseGrid").appendChild(b); });
+    dir=both(()=>t("enoughDir",{item:iname(),p:money(p,shopR.dollar)}));
+  }
+  $("#shopPrompt").textContent=dir[0]; setSpeech("shop",dir[1]); hideFb($("#shopFb")); maybeAuto("shop");
+}
+function renderTray(added){
+  const r=shopR, row=$("#trayRow"); row.innerHTML="";
+  sortCoins(r.tray).forEach((k,i,arr)=>{ const b=document.createElement("button"); b.type="button"; b.className="coinbtn"+(added&&i===arr.lastIndexOf(r.tray[r.tray.length-1])?" tray-in":"");
+    b.innerHTML=coinEl(k,56,settings.labels); b.setAttribute("aria-label",t("removeCoin",{coin:t(k)}));
+    b.addEventListener("click",()=>{ if(r.done) return; r.tray.splice(r.tray.lastIndexOf(k),1); renderTray(); });
+    row.appendChild(b); });
+  $("#trayTotal").textContent=t("inTray",{v:money(sumCoins(r.tray),r.dollar)});
+}
+function checkPay(){
+  const r=shopR; if(!r||r.done) return; const v=sumCoins(r.tray), name=()=>t("it_"+r.item.k);
+  if(!r.tray.length){ hint("#shopFb",both(()=>t("payEmpty"))); return; }
+  if(v===r.p){ r.done=true; praise("#shopFb",both(()=>t("goodPay",{p:money(r.p,r.dollar)})),"shop",newShop); }
+  else if(v<r.p) hint("#shopFb",both(()=>t("hintLess",{v:money(v,r.dollar),item:name(),p:money(r.p,r.dollar),d:money(r.p-v,r.dollar)})));
+  else hint("#shopFb",both(()=>t("hintMore",{v:money(v,r.dollar),d:money(v-r.p,r.dollar)})));
+}
+function checkEnough(btn,v){
+  const r=shopR; if(r.done) return;
+  const m=()=>({v:money(v,r.dollar),p:money(r.p,r.dollar),item:t("it_"+r.item.k)});
+  if(v>=r.p){ r.done=true; btn.classList.add("correctpick"); lockAll("#purseGrid .purse"); praise("#shopFb",both(()=>t("goodEnough",m())),"shop",newShop); }
+  else{ btn.classList.add("wrongpick"); setTimeout(()=>btn.classList.remove("wrongpick"),1400); hint("#shopFb",both(()=>t("hintEnough",m()))); }
+}
+
+/* ---------- Mode switching ---------- */
+const NEWROUND={read:newRead,set:newSet,coin:newCoin,shop:newShop};
+const built={read:false,set:false,coin:false,shop:false};
+function currentMode(){ const b=$$(".tabs button").filter(x=>x.getAttribute("aria-selected")==="true")[0]; return b?b.dataset.mode:"read"; }
+function enabledModes(){ return MODES.filter(m=>settings.modes[m]); }
+function showMode(mode){
+  if(!settings.modes[mode]) mode=enabledModes()[0]||"read";
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
+  $$(".modepanel").forEach(p=>p.classList.add("hidden"));
+  $("#mode-"+mode).classList.remove("hidden");
+  $$(".tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.mode===mode?"true":"false"));
+  if(!built[mode]){ built[mode]=true; NEWROUND[mode](); }
+  // Returning to a tab: read its current directions (unless a new round just did).
+  if(switching && speechGen===g0) maybeAuto(mode);
+}
+function rebuildAll(){ MODES.forEach(m=>built[m]=false); const m=currentMode(); built[m]=true; NEWROUND[m](); }
+function applyModeTabs(){ $$(".tabs button").forEach(b=>b.style.display=settings.modes[b.dataset.mode]?"":"none"); }
+
+/* ---------- Settings drawer ---------- */
+function buildModeToggles(){
+  const wrap=$("#modeToggles"); wrap.innerHTML="";
+  MODES.forEach(k=>{
+    const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.modes[k]?"checked":""}> <span>${t("m"+k.charAt(0).toUpperCase()+k.slice(1))}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{ settings.modes[k]=e.target.checked;
+      if(!enabledModes().length){ e.target.checked=true; settings.modes[k]=true; alert(t("needMode")); }
+      saveSettings(); applyModeTabs(); if(!settings.modes[currentMode()]) showMode(enabledModes()[0]); });
+    wrap.appendChild(l);
+  });
+}
+function syncSettingsUI(){
+  $("#setGradeSel").value=String(settings.grade); $("#setStep").value=String(settings.tstep);
+  $("#setAmpm").checked=settings.ampm; $("#setMax").value=String(settings.max);
+  $("#setLabelsCb").checked=settings.labels; $("#setAuto").checked=settings.autoRead;
+  buildModeToggles();
+}
+function initSettings(){
+  const drawer=$("#settingsDrawer");
+  $("#openSettings").addEventListener("click",()=>{ syncSettingsUI(); drawer.classList.add("open"); $("#closeSettings").focus(); });
+  const close=()=>{ drawer.classList.remove("open"); $("#openSettings").focus(); };
+  $("#closeSettings").addEventListener("click",close);
+  drawer.addEventListener("click",e=>{ if(e.target===drawer) close(); });
+  drawer.addEventListener("keydown",e=>{ if(e.key==="Escape") close(); });
+  $("#setGradeSel").addEventListener("change",e=>{ settings.grade=+e.target.value; Object.assign(settings,GRADE_DEF[settings.grade]); saveSettings(); syncSettingsUI(); rebuildAll(); });
+  $("#setStep").addEventListener("change",e=>{ settings.tstep=+e.target.value; saveSettings(); rebuildAll(); });
+  $("#setAmpm").addEventListener("change",e=>{ settings.ampm=e.target.checked; saveSettings(); rebuildAll(); });
+  $("#setMax").addEventListener("change",e=>{ settings.max=+e.target.value; saveSettings(); rebuildAll(); });
+  $("#setLabelsCb").addEventListener("change",e=>{ settings.labels=e.target.checked; saveSettings(); rebuildAll(); });
+  $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
+  $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
+}
+
+/* ---------- Print cards ---------- */
+function buildPrintCards(){
+  const g2=settings.grade==2, sz=s=>`<div style="width:${s}px;height:${s}px;display:inline-block">`;
+  const coinsRow=list=>`<div style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap">${list.map(k=>coinEl(k,90,false)).join("")}</div>`;
+  const cards=[
+    {title:t("mRead"), body:t("cardWrite"), svg:sz(220)+clockSVG(g2?4*60+45:4*60+30)+"</div>"},
+    {title:t("mRead"), body:t("cardWrite"), svg:sz(220)+clockSVG(g2?10*60+10:9*60)+"</div>"},
+    {title:t("mSet"), body:t("cardDraw",{time:ISO(g2?"7:15":"3:00")}), svg:sz(220)+clockSVG(0,{noHands:true})+"</div>"},
+    {title:t("mSet"), body:t("cardDraw",{time:ISO(g2?"2:50":"8:30")}), svg:sz(220)+clockSVG(0,{noHands:true})+"</div>"},
+    {title:t("mCoin"), body:t("cardCount"), svg:coinsRow(g2?["quarter","dime","dime","nickel","penny","penny"]:["dime","dime","nickel","penny","penny","penny"])},
+    {title:t("mCoin"), body:t("rel_pd"), svg:coinsRow(["penny","dime"])},
+    {title:t("mShop"), body:t("cardPay",{p:ISO(g2?"68¢":"37¢"),item:t("it_apple")}), svg:`<div style="font-size:4rem">🍎 <span style="border:3px dashed #c0392b;border-radius:10px;padding:0 .5rem;font-size:2.4rem;font-weight:900">${g2?"68¢":"37¢"}</span></div>`}
+  ];
+  $("#printArea").innerHTML=`<h1>${t("cardTitle")}</h1>`+cards.map(c=>`<div class="card-print"><h2>${c.title}</h2><p style="font-size:1.2rem">${c.body}</p>${c.svg}</div>`).join("")+`<p style="font-size:.85rem">${t("stds")}</p>`;
+}
+
+/* ---------- Language engine ---------- */
+function resolveLang(){
+  try{ const q=new URLSearchParams(location.search).get("lang"); if(q && T[q]) return q; }catch(e){}
+  try{ const s=localStorage.getItem(LANG_KEY); if(s && T[s]) return s; }catch(e){}
+  const n=(navigator.language||"en").slice(0,2).toLowerCase();
+  if(T[n]) return n;
+  return "en";
+}
+function applyLang(){
+  const meta=LANGS.find(x=>x.code===lang)||LANGS[0];
+  document.documentElement.lang=lang;
+  document.documentElement.dir=meta.dir;
+  document.title=t("appTitle");
+  const sel=$("#langSelect"); if(sel) sel.value=lang;
+  $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
+  $("#stdsNote").textContent=t("stds");
+  if($("#settingsDrawer").classList.contains("open")) buildModeToggles();
+  rebuildAll();
+}
+function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} stopSpeech(); applyLang(); }
+function buildLangSelect(){
+  const sel=$("#langSelect"); sel.innerHTML="";
+  LANGS.forEach(m=>{ const o=document.createElement("option"); o.value=m.code; o.textContent=m.name; sel.appendChild(o); });
+  sel.value=lang;
+  sel.addEventListener("change",()=>setLang(sel.value));
+}
+
+/* ---------- Init ---------- */
+function init(){
+  lang=resolveLang();
+  buildLangSelect();
+  $$(".tabs button").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.mode)));
+  $$(".speaker").forEach(b=>b.addEventListener("click",()=>speak(currentSpeech[b.dataset.speak])));
+  $("#readNew").addEventListener("click",newRead);
+  $("#setNew").addEventListener("click",newSet);
+  $("#coinNew").addEventListener("click",newCoin);
+  $("#shopNew").addEventListener("click",newShop);
+  $("#coinSort").addEventListener("click",()=>{ if(!coinR||coinR.done) return; coinR.coins=sortCoins(coinR.coins); coinR.counted=[]; renderCount(); });
+  $("#coinRecount").addEventListener("click",()=>{ if(!coinR||coinR.done) return; coinR.counted=[]; renderCount(); });
+  initSetClock();
+  initSettings();
+  applyModeTabs();
+  const first=enabledModes()[0]||"read";
+  $$(".tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.mode===first?"true":"false"));
+  applyLang();
+  showMode(first);
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+</script>
+<script>
+/* Student mute toggle — shared across the Digital Math Tools. Self-contained,
+   offline, stores no student data. Gates ALL speech by intercepting
+   speechSynthesis.speak, so muting works regardless of each tool's internals.
+   Reads the shared language preference only to localize its own label. */
+(function(){
+  "use strict";
+  var LKEY='tcea.mathtools.lang', MKEY='tcea.mathtools.muted';
+  var CODES=['en','es','vi','ar','hi','ur','zh'];
+  var LAB={
+    mute:{en:"Mute sound",es:"Silenciar sonido",vi:"Tắt âm thanh",ar:"كتم الصوت",hi:"आवाज़ बंद करें",ur:"آواز بند کریں",zh:"静音"},
+    unmute:{en:"Turn sound on",es:"Activar sonido",vi:"Bật âm thanh",ar:"تشغيل الصوت",hi:"आवाज़ चालू करें",ur:"آواز چالو کریں",zh:"打开声音"}
+  };
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  window.__MT_MUTED = (get(MKEY)==='1');
+  // Intercept every speech request; suppress while muted.
+  try{
+    if(window.speechSynthesis && typeof window.speechSynthesis.speak==='function'){
+      var ss=window.speechSynthesis, orig=ss.speak.bind(ss);
+      ss.speak=function(u){ if(!window.__MT_MUTED){ try{orig(u);}catch(e){} } };
+    }
+  }catch(e){}
+  function curLang(){ var l=get(LKEY)||'en'; return LAB.mute[l]?l:'en'; }
+  function label(el){
+    var on=!window.__MT_MUTED, l=curLang(), txt=on?LAB.mute[l]:LAB.unmute[l];
+    el.textContent=on?'🔊':'🔇';
+    el.setAttribute('aria-label',txt); el.setAttribute('title',txt);
+    el.setAttribute('aria-pressed', on?'false':'true');
+  }
+  function findLangSelect(){
+    var sels=document.querySelectorAll('select');
+    for(var i=0;i<sels.length;i++){ var o=sels[i].options, c=0;
+      for(var j=0;j<o.length;j++){ if(CODES.indexOf((o[j].value||'').toLowerCase())>=0) c++; }
+      if(c>=3) return sels[i];
+    }
+    return null;
+  }
+  function build(){
+    if(document.getElementById('mtMuteBtn')) return;
+    if(!(('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window))) return;
+    var btn=document.createElement('button');
+    btn.id='mtMuteBtn'; btn.type='button';
+    btn.style.cssText='font:inherit;font-size:1.15rem;line-height:1;cursor:pointer;'+
+      'min-width:44px;min-height:44px;padding:8px 12px;border:2px solid #e2dcf1;'+
+      'border-radius:10px;background:#fff;color:#5b3fa5;font-weight:700;margin:0 4px;';
+    btn.addEventListener('click',function(){
+      window.__MT_MUTED=!window.__MT_MUTED;
+      set(MKEY, window.__MT_MUTED?'1':'0');
+      if(window.__MT_MUTED){ try{window.speechSynthesis.cancel();}catch(e){} }
+      label(btn);
+    });
+    btn.addEventListener('focus',function(){btn.style.outline='3px solid #5b3fa5';btn.style.outlineOffset='2px';});
+    btn.addEventListener('blur',function(){btn.style.outline='';});
+    var sel=findLangSelect();
+    if(sel && sel.parentNode){
+      sel.parentNode.insertBefore(btn, sel);
+      sel.addEventListener('change',function(){ setTimeout(function(){label(btn);},0); });
+    }else{
+      btn.style.position='fixed'; btn.style.top='10px'; btn.style.zIndex='9999';
+      btn.style[(document.documentElement.dir==='rtl')?'left':'right']='10px';
+      (document.body||document.documentElement).appendChild(btn);
+    }
+    label(btn);
+  }
+  if(document.readyState==='complete'){ build(); }
+  else{ window.addEventListener('load', build); }
+  window.addEventListener('storage',function(e){ if(e.key===LKEY){ var b=document.getElementById('mtMuteBtn'); if(b) label(b); } });
+})();
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+
+</html>

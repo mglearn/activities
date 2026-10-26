@@ -37,6 +37,19 @@ window.MATHTOOLS = (function () {
         ur: "ہمارے سب سے چھوٹے سیکھنے والوں کے لیے پانچ ٹچ دوست ریاضی اوزار — گننا، جمع، اشکال، پیمائش اور چھانٹنا۔",
         zh: "为最年幼的学习者设计的五个触控友好的数学工具——数数、加法、图形、测量和分类。"
       }
+    },
+    {
+      id: "k2", bandId: "k-2", icon: "🎒", accent: "#1f8a5b", href: "k2/index.html",
+      name: { en: "Grades K–2", es: "Grados K–2", vi: "Lớp K–2", ar: "الصفوف K–2", hi: "कक्षा K–2", ur: "جماعت K–2", zh: "幼儿园至二年级" },
+      desc: {
+        en: "Five touch-friendly math tools for early grades — place value, addition and subtraction, shapes and fractions, time and money, measuring and graphing.",
+        es: "Cinco herramientas matemáticas táctiles para los primeros grados: valor posicional, suma y resta, figuras y fracciones, tiempo y dinero, medición y gráficas.",
+        vi: "Năm công cụ toán cảm ứng cho các lớp đầu cấp — giá trị theo vị trí, cộng và trừ, hình dạng và phân số, thời gian và tiền, đo lường và biểu đồ.",
+        ar: "خمس أدوات رياضيات تعمل باللمس للصفوف الأولى — القيمة المكانية، والجمع والطرح، والأشكال والكسور، والوقت والنقود، والقياس والرسوم البيانية.",
+        hi: "शुरुआती कक्षाओं के लिए पाँच टच-अनुकूल गणित उपकरण — स्थानीय मान, जोड़ और घटाव, आकृतियाँ और भिन्न, समय और पैसा, मापना और ग्राफ़।",
+        ur: "ابتدائی جماعتوں کے لیے پانچ ٹچ دوست ریاضی اوزار — مقامی قدر، جمع اور تفریق، اشکال اور کسور، وقت اور پیسہ، پیمائش اور گراف۔",
+        zh: "为低年级设计的五个触控友好的数学工具——位值、加减法、图形与分数、时间与钱币、测量与图表。"
+      }
     }
   ];
 
@@ -60,7 +73,9 @@ window.MATHTOOLS = (function () {
     "Sort":{en:"Sort",es:"Clasificar",vi:"Phân loại",ar:"الفرز",hi:"छाँटना",ur:"چھانٹنا",zh:"分类"},
     "Classify":{en:"Classify",es:"Categorizar",vi:"Xếp nhóm",ar:"التصنيف",hi:"वर्गीकरण",ur:"درجہ بندی",zh:"归类"},
     "Data":{en:"Data",es:"Datos",vi:"Dữ liệu",ar:"البيانات",hi:"आँकड़े",ur:"ڈیٹا",zh:"数据"},
-    "Picture graph":{en:"Picture graph",es:"Pictograma",vi:"Biểu đồ tranh",ar:"رسم بالصور",hi:"चित्र ग्राफ़",ur:"تصویری گراف",zh:"图画图表"}
+    "Picture graph":{en:"Picture graph",es:"Pictograma",vi:"Biểu đồ tranh",ar:"رسم بالصور",hi:"चित्र ग्राफ़",ur:"تصویری گراف",zh:"图画图表"},
+    "Time":{en:"Time",es:"La hora",vi:"Thời gian",ar:"الوقت",hi:"समय",ur:"وقت",zh:"时间"},
+    "Money":{en:"Money",es:"Dinero",vi:"Tiền",ar:"النقود",hi:"पैसे",ur:"رقم",zh:"钱币"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -124,7 +139,19 @@ window.MATHTOOLS = (function () {
         ar:"افرز الأشياء حسب الخاصية، واشرح القاعدة، وعُدّ الفئات، وأنشئ رسمًا بالصور، وأجب عن أسئلة حول البيانات.",
         hi:"वस्तुओं को गुण के अनुसार छाँटें, नियम बताएँ, श्रेणियाँ गिनें, चित्र ग्राफ़ बनाएँ, और आँकड़ों पर सवालों के जवाब दें।",
         ur:"اشیاء کو خصوصیت کے مطابق چھانٹیں، اصول بتائیں، اقسام گنیں، تصویری گراف بنائیں، اور ڈیٹا کے بارے میں سوالوں کے جواب دیں۔",
-        zh:"按属性给物品分类、说明规则、数各类别、制作图画图表，并回答关于数据的问题。"} }
+        zh:"按属性给物品分类、说明规则、数各类别、制作图画图表，并回答关于数据的问题。"} },
+    { id:"clock-and-coin-shop", collection:"k2", bandId:"k-2", icon:"🕒", accent:"#16a085",
+      title:"Clock & Coin Shop", href:"k2/clock-and-coin-shop/index.html",
+      tags:["Time","Money","Counting","Compare"],
+      kw:"time clock analog digital hour half hour minutes a.m. p.m. tell time money coins penny nickel dime quarter cents cent symbol count coins skip count shop pay purse reloj hora monedas dinero 时钟 硬币",
+      desc:{
+        en:"Read and set analog clocks to the hour, half hour, and 5 minutes, tell a.m. from p.m., identify U.S. coins, count collections, and pay exact prices in a play shop.",
+        es:"Lee y pon la hora en relojes de manecillas (en punto, y media y cada 5 minutos), distingue a. m. de p. m., identifica monedas de EE. UU., cuenta colecciones y paga precios exactos en una tienda.",
+        vi:"Đọc và chỉnh đồng hồ kim theo giờ đúng, giờ rưỡi và mỗi 5 phút, phân biệt SA và CH, nhận biết tiền xu Mỹ, đếm nhóm đồng xu và trả đúng giá trong cửa hàng.",
+        ar:"اقرأ الساعة واضبطها على الساعة الكاملة ونصف الساعة وكل 5 دقائق، وميّز صباحًا من مساءً، وتعرّف على القطع النقدية الأمريكية، وعُدّ مجموعات القطع، وادفع السعر بالضبط في متجر.",
+        hi:"घड़ी को पूरे घंटे, साढ़े और हर 5 मिनट पर पढ़ें और मिलाएँ, पूर्वाह्न और अपराह्न पहचानें, अमेरिकी सिक्के पहचानें, सिक्कों को गिनें और दुकान में ठीक कीमत चुकाएँ।",
+        ur:"گھڑی کو پورے گھنٹے، ساڑھے اور ہر 5 منٹ پر پڑھیں اور ملائیں، قبل دوپہر اور بعد دوپہر پہچانیں، امریکی سکے پہچانیں، سکوں کو گنیں اور دکان میں ٹھیک قیمت ادا کریں۔",
+        zh:"读钟表并拨到整点、半点和每5分钟，分清上午和下午，认识美国硬币，数一组硬币，并在商店里正好付钱。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
