@@ -148,7 +148,7 @@
   <section id="mode-find" class="panel modepanel" role="tabpanel">
     <div class="panelhead"><h2 data-t="mFind">Find It</h2>
       <button class="btn ghost no-print" id="findNew" data-t="newRound">New round</button></div>
-    <div class="prompt"><button class="speaker" data-speak="find" aria-label="Read">🔊</button><span id="findPrompt">…</span></div>
+    <div class="prompt"><button class="speaker" data-speak="find" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="findPrompt">…</span></div>
     <div class="choices" id="findGrid" role="group" aria-label="Shapes"></div>
     <div class="feedback" id="findFb" role="status" aria-live="polite"></div>
   </section>
@@ -157,7 +157,7 @@
   <section id="mode-build" class="panel modepanel hidden" role="tabpanel">
     <div class="panelhead"><h2 data-t="mBuild">Build It</h2></div>
     <div class="modelbar">
-      <button class="speaker small" data-speak="build" aria-label="Read">🔊</button>
+      <button class="speaker small" data-speak="build" data-ta="readAloud" aria-label="Read aloud">🔊</button>
       <span id="buildPrompt" style="font-weight:600"></span>
       <label style="margin-inline-start:auto;font-weight:700"><span data-t="pickBuild">Picture:</span>
         <select class="diff" id="buildPick"></select></label>
@@ -169,7 +169,7 @@
     </div>
     <div class="builder">
       <div class="tray"><h3 data-t="trayTitle">Shape tray</h3>
-        <div class="traygrid" id="buildTray" role="group" aria-label="Shape tray"></div></div>
+        <div class="traygrid" id="buildTray" role="group" data-ta="trayTitle" aria-label="Shape tray"></div></div>
       <div class="stage-wrap">
         <div class="stage" id="buildStage" tabindex="0" aria-label="Construction area"></div>
         <div class="stagetools no-print">
@@ -178,6 +178,7 @@
           <button class="btn" id="bSmaller" data-t="smaller">➖ Smaller</button>
           <button class="btn" id="bDelete" data-t="remove">🗑 Remove</button>
           <button class="btn ghost" id="bClear" data-t="clearAll">Clear all</button>
+          <button class="btn" id="bDone" data-t="doneBtn">I'm done!</button>
         </div>
         <div class="feedback" id="buildFb" role="status" aria-live="polite"></div>
       </div>
@@ -188,7 +189,7 @@
   <section id="mode-detective" class="panel modepanel hidden" role="tabpanel">
     <div class="panelhead"><h2 data-t="mDet">Shape Detective</h2>
       <button class="btn ghost no-print" id="detNew" data-t="newRound">New round</button></div>
-    <div class="prompt"><button class="speaker" data-speak="det" aria-label="Read">🔊</button><span id="detPrompt">…</span></div>
+    <div class="prompt"><button class="speaker" data-speak="det" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="detPrompt">…</span></div>
     <div class="choices" id="detGrid" role="group" aria-label="Shapes"></div>
     <div class="feedback" id="detFb" role="status" aria-live="polite"></div>
   </section>
@@ -197,7 +198,7 @@
   <section id="mode-where" class="panel modepanel hidden" role="tabpanel">
     <div class="panelhead"><h2 data-t="mWhere">Where Is It?</h2>
       <button class="btn ghost no-print" id="whereNew" data-t="newRound">New round</button></div>
-    <div class="prompt"><button class="speaker" data-speak="where" aria-label="Read">🔊</button><span id="wherePrompt">…</span></div>
+    <div class="prompt"><button class="speaker" data-speak="where" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="wherePrompt">…</span></div>
     <div class="scene" id="whereScene" role="group" aria-label="Scene"></div>
     <div class="feedback" id="whereFb" role="status" aria-live="polite"></div>
   </section>
@@ -206,13 +207,13 @@
   <section id="mode-solids" class="panel modepanel hidden" role="tabpanel">
     <div class="panelhead"><h2 data-t="mSolid">Solid Shapes</h2>
       <button class="btn ghost no-print" id="solidNew" data-t="newRound">New round</button></div>
-    <div class="prompt"><button class="speaker" data-speak="solid" aria-label="Read">🔊</button><span id="solidPrompt">…</span></div>
+    <div class="prompt"><button class="speaker" data-speak="solid" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="solidPrompt">…</span></div>
     <div class="builder">
       <div class="tray"><h3 data-t="theSolid">The solid</h3>
         <div id="solidBig" style="display:flex;flex-direction:column;align-items:center;gap:.4rem"></div>
         <div class="stagetools no-print" style="justify-content:center">
-          <button class="btn" id="solidRotL" aria-label="Rotate left">↺</button>
-          <button class="btn" id="solidRotR" aria-label="Rotate right">↻</button></div>
+          <button class="btn" id="solidRotL" data-ta="rotL" aria-label="Turn left">↺</button>
+          <button class="btn" id="solidRotR" data-ta="rotR" aria-label="Turn right">↻</button></div>
       </div>
       <div><p style="font-weight:700;margin:.2rem 0" data-t="matchObj">Tap the object with this shape:</p>
         <div class="choices" id="solidGrid" role="group" aria-label="Objects"></div></div>
@@ -325,12 +326,13 @@ const T = {
     goodSolid:"Yes! A {obj} is shaped like a {solid}.",
     hintSolid:"That is not a {solid}. A {solid} looks like the shape shown. Try again.",
     buildDir:"Drag shapes to build the picture. Tap a shape to rotate or resize it.",
-    picClear:"Cleared. Start building!", doneBuild:"Nice building! You used {n} shapes.",
+    picClear:"Cleared. Start building!", doneBuildOne:"Nice building! You used 1 shape.", doneBuild:"Nice building! You used {n} shapes.",
     picHouse:"House", picRobot:"Robot", picTree:"Tree", picBoat:"Boat", picCat:"Cat", picFree:"Free build",
     composeDir:"Compose: put two triangles together to make a rectangle.",
     stds:"Aligned standards: Texas PreK PK3.V.C.1–4 and PK4.V.C.1–4; Kindergarten TEKS K.6(A–F); Common Core Kindergarten K.G.1–6.",
     cardTitle:"Shape Builder Town — Challenge Cards",
-    unitSides:"sides", noStraightSidesText:"no straight sides", refHouse:"house"
+    unitSides:"sides", noStraightSidesText:"no straight sides", refHouse:"house",
+    readAloud:"Read aloud", needShapes:"Turn on more shapes in Teacher settings.", needPos:"Turn on position words in Teacher settings.", rotL:"Turn left", rotR:"Turn right", doneBtn:"I'm done!", doneEmpty:"Put some shapes on the board first.", goodCorners:"Yes! A {shape} has {n} corners.", hintCorners:"Count the corners. That {shape} has {has}. We need a shape with {n} corners.", unitCorners:"corners", noCornersText:"no corners"
   },
   es:{
     appTitle:"Pueblo de Formas", home:"Inicio", privacy:"Privacidad", teacher:"Maestro",
@@ -381,12 +383,13 @@ const T = {
     goodSolid:"¡Sí! Una {obj} tiene forma de {solid}.",
     hintSolid:"Eso no es un {solid}. Un {solid} se ve como la forma mostrada. Intenta otra vez.",
     buildDir:"Arrastra formas para construir el dibujo. Toca una forma para girarla o cambiar su tamaño.",
-    picClear:"Borrado. ¡A construir!", doneBuild:"¡Buena construcción! Usaste {n} formas.",
+    picClear:"Borrado. ¡A construir!", doneBuildOne:"¡Buena construcción! Usaste 1 forma.", doneBuild:"¡Buena construcción! Usaste {n} formas.",
     picHouse:"Casa", picRobot:"Robot", picTree:"Árbol", picBoat:"Barco", picCat:"Gato", picFree:"Construcción libre",
     composeDir:"Compón: junta dos triángulos para formar un rectángulo.",
     stds:"Estándares alineados: Texas PreK PK3.V.C.1–4 y PK4.V.C.1–4; Kindergarten TEKS K.6(A–F); Common Core Kindergarten K.G.1–6.",
     cardTitle:"Pueblo de Formas — Tarjetas de Reto",
-    unitSides:"lados", noStraightSidesText:"ningún lado recto", refHouse:"casa"
+    unitSides:"lados", noStraightSidesText:"ningún lado recto", refHouse:"casa",
+    readAloud:"Leer en voz alta", needShapes:"Activa más formas en la configuración del maestro.", needPos:"Activa palabras de posición en la configuración del maestro.", rotL:"Girar a la izquierda", rotR:"Girar a la derecha", doneBtn:"¡Terminé!", doneEmpty:"Primero pon algunas formas en el tablero.", goodCorners:"¡Sí! Un {shape} tiene {n} vértices.", hintCorners:"Cuenta los vértices. Ese {shape} tiene {has}. Buscamos una forma con {n} vértices.", unitCorners:"vértices", noCornersText:"ningún vértice"
   },
   vi:{
     appTitle:"Thị Trấn Xây Hình", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên",
@@ -437,12 +440,13 @@ const T = {
     goodSolid:"Đúng! {obj} có hình {solid}.",
     hintSolid:"Đó không phải {solid}. {solid} trông giống hình được hiển thị. Thử lại nào.",
     buildDir:"Kéo các hình để xây bức tranh. Chạm vào hình để xoay hoặc đổi kích thước.",
-    picClear:"Đã xóa. Bắt đầu xây nào!", doneBuild:"Xây đẹp lắm! Em đã dùng {n} hình.",
+    picClear:"Đã xóa. Bắt đầu xây nào!", doneBuildOne:"Xây đẹp lắm! Em đã dùng 1 hình.", doneBuild:"Xây đẹp lắm! Em đã dùng {n} hình.",
     picHouse:"Ngôi nhà", picRobot:"Người máy", picTree:"Cây", picBoat:"Thuyền", picCat:"Con mèo", picFree:"Xây tự do",
     composeDir:"Ghép: đặt hai hình tam giác lại để tạo hình chữ nhật.",
     stds:"Tiêu chuẩn phù hợp: Texas PreK PK3.V.C.1–4 và PK4.V.C.1–4; Kindergarten TEKS K.6(A–F); Common Core Kindergarten K.G.1–6.",
     cardTitle:"Thị Trấn Xây Hình — Thẻ Thử Thách",
-    unitSides:"cạnh", noStraightSidesText:"không có cạnh thẳng", refHouse:"ngôi nhà"
+    unitSides:"cạnh", noStraightSidesText:"không có cạnh thẳng", refHouse:"ngôi nhà",
+    readAloud:"Đọc to", needShapes:"Hãy bật thêm hình trong phần cài đặt của giáo viên.", needPos:"Hãy bật từ chỉ vị trí trong phần cài đặt của giáo viên.", rotL:"Xoay trái", rotR:"Xoay phải", doneBtn:"Em xong rồi!", doneEmpty:"Hãy đặt vài hình lên bảng trước nhé.", goodCorners:"Đúng! {shape} có {n} góc.", hintCorners:"Đếm các góc. {shape} đó có {has}. Ta cần hình có {n} góc.", unitCorners:"góc", noCornersText:"không có góc nào"
   },
   ar:{
     appTitle:"بلدة بناء الأشكال", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم",
@@ -493,12 +497,13 @@ const T = {
     goodSolid:"نعم! {obj} على شكل {solid}.",
     hintSolid:"هذا ليس {solid}. {solid} يشبه الشكل المعروض. حاول مرة أخرى.",
     buildDir:"اسحب الأشكال لبناء الصورة. المس شكلاً لتدويره أو تغيير حجمه.",
-    picClear:"تم المسح. ابدأ البناء!", doneBuild:"بناء رائع! استخدمت {n} أشكال.",
+    picClear:"تم المسح. ابدأ البناء!", doneBuildOne:"بناء رائع! استخدمت شكلاً واحداً.", doneBuild:"بناء رائع! استخدمت {n} أشكال.",
     picHouse:"بيت", picRobot:"روبوت", picTree:"شجرة", picBoat:"قارب", picCat:"قطة", picFree:"بناء حر",
     composeDir:"ركّب: ضع مثلثين معاً لتصنع مستطيلاً.",
     stds:"المعايير المتوافقة: Texas PreK PK3.V.C.1–4 و PK4.V.C.1–4؛ Kindergarten TEKS K.6(A–F)؛ Common Core Kindergarten K.G.1–6.",
     cardTitle:"بلدة بناء الأشكال — بطاقات التحدي",
-    unitSides:"أضلاع", noStraightSidesText:"لا أضلاع مستقيمة", refHouse:"بيت"
+    unitSides:"أضلاع", noStraightSidesText:"لا أضلاع مستقيمة", refHouse:"بيت",
+    readAloud:"اقرأ بصوت عالٍ", needShapes:"فعّل أشكالاً أكثر في إعدادات المعلم.", needPos:"فعّل كلمات المواقع في إعدادات المعلم.", rotL:"أدِر لليسار", rotR:"أدِر لليمين", doneBtn:"انتهيت!", doneEmpty:"ضع بعض الأشكال على اللوحة أولاً.", goodCorners:"نعم! {shape} له {n} زوايا.", hintCorners:"عُدّ الزوايا. هذا {shape} له {has}. نحتاج شكلاً له {n} زوايا.", unitCorners:"زوايا", noCornersText:"صفر زوايا"
   },
   hi:{
     appTitle:"आकृति नगर", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक",
@@ -549,12 +554,13 @@ const T = {
     goodSolid:"हाँ! {obj} {solid} के आकार का है।",
     hintSolid:"यह {solid} नहीं है। {solid} दिखाए गए आकार जैसा दिखता है। फिर से कोशिश करें।",
     buildDir:"चित्र बनाने के लिए आकृतियाँ खींचो। घुमाने या आकार बदलने के लिए आकृति छुओ।",
-    picClear:"साफ़ हो गया। बनाना शुरू करो!", doneBuild:"बढ़िया रचना! तुमने {n} आकृतियाँ उपयोग कीं।",
+    picClear:"साफ़ हो गया। बनाना शुरू करो!", doneBuildOne:"बढ़िया रचना! तुमने 1 आकृति उपयोग की।", doneBuild:"बढ़िया रचना! तुमने {n} आकृतियाँ उपयोग कीं।",
     picHouse:"घर", picRobot:"रोबोट", picTree:"पेड़", picBoat:"नाव", picCat:"बिल्ली", picFree:"स्वतंत्र निर्माण",
     composeDir:"जोड़ो: दो त्रिभुजों को मिलाकर एक आयत बनाओ।",
     stds:"संरेखित मानक: Texas PreK PK3.V.C.1–4 और PK4.V.C.1–4; Kindergarten TEKS K.6(A–F); Common Core Kindergarten K.G.1–6.",
     cardTitle:"आकृति नगर — चुनौती कार्ड",
-    unitSides:"भुजाएँ", noStraightSidesText:"कोई सीधी भुजा नहीं", refHouse:"घर"
+    unitSides:"भुजाएँ", noStraightSidesText:"कोई सीधी भुजा नहीं", refHouse:"घर",
+    readAloud:"ज़ोर से पढ़ें", needShapes:"शिक्षक सेटिंग में और आकृतियाँ चालू करें।", needPos:"शिक्षक सेटिंग में स्थिति वाले शब्द चालू करें।", rotL:"बाएँ घुमाएँ", rotR:"दाएँ घुमाएँ", doneBtn:"मेरा हो गया!", doneEmpty:"पहले बोर्ड पर कुछ आकृतियाँ रखो।", goodCorners:"हाँ! {shape} में {n} कोने होते हैं।", hintCorners:"कोने गिनो। उस {shape} में {has} हैं। हमें {n} कोनों वाली आकृति चाहिए।", unitCorners:"कोने", noCornersText:"शून्य कोने"
   },
   ur:{
     appTitle:"شکل سازی کا شہر", home:"ہوم", privacy:"رازداری", teacher:"استاد",
@@ -605,12 +611,13 @@ const T = {
     goodSolid:"ہاں! {obj} {solid} کی شکل کا ہے۔",
     hintSolid:"یہ {solid} نہیں ہے۔ {solid} دکھائی گئی شکل جیسا ہوتا ہے۔ دوبارہ کوشش کریں۔",
     buildDir:"تصویر بنانے کے لیے اشکال گھسیٹو۔ گھمانے یا سائز بدلنے کے لیے شکل چھوؤ۔",
-    picClear:"صاف ہو گیا۔ بنانا شروع کرو!", doneBuild:"اچھی تعمیر! تم نے {n} اشکال استعمال کیں۔",
+    picClear:"صاف ہو گیا۔ بنانا شروع کرو!", doneBuildOne:"اچھی تعمیر! تم نے 1 شکل استعمال کی۔", doneBuild:"اچھی تعمیر! تم نے {n} اشکال استعمال کیں۔",
     picHouse:"گھر", picRobot:"روبوٹ", picTree:"درخت", picBoat:"کشتی", picCat:"بلی", picFree:"آزاد تعمیر",
     composeDir:"جوڑو: دو مثلثوں کو ملا کر مستطیل بناؤ۔",
     stds:"منسلک معیارات: Texas PreK PK3.V.C.1–4 اور PK4.V.C.1–4؛ Kindergarten TEKS K.6(A–F)؛ Common Core Kindergarten K.G.1–6۔",
     cardTitle:"شکل سازی کا شہر — چیلنج کارڈ",
-    unitSides:"اطراف", noStraightSidesText:"کوئی سیدھی سمت نہیں", refHouse:"گھر"
+    unitSides:"اطراف", noStraightSidesText:"کوئی سیدھی سمت نہیں", refHouse:"گھر",
+    readAloud:"بلند آواز سے پڑھیں", needShapes:"استاد کی ترتیبات میں مزید اشکال چالو کریں۔", needPos:"استاد کی ترتیبات میں مقام کے الفاظ چالو کریں۔", rotL:"بائیں گھمائیں", rotR:"دائیں گھمائیں", doneBtn:"میں نے مکمل کر لیا!", doneEmpty:"پہلے بورڈ پر کچھ اشکال رکھو۔", goodCorners:"ہاں! {shape} کے {n} کونے ہوتے ہیں۔", hintCorners:"کونے گنو۔ اس {shape} کے {has} ہیں۔ ہمیں {n} کونوں والی شکل چاہیے۔", unitCorners:"کونے", noCornersText:"صفر کونے"
   },
   zh:{
     appTitle:"形状建造小镇", home:"主页", privacy:"隐私", teacher:"教师",
@@ -661,12 +668,13 @@ const T = {
     goodSolid:"对了！{obj}的形状像{solid}。",
     hintSolid:"那不是{solid}。{solid}长得像所展示的形状。再试一次。",
     buildDir:"拖动形状来搭出图画。点一个形状可以旋转或调整大小。",
-    picClear:"已清除。开始搭建吧！", doneBuild:"搭得真好！你用了 {n} 个形状。",
+    picClear:"已清除。开始搭建吧！", doneBuildOne:"搭得真好！你用了 1 个形状。", doneBuild:"搭得真好！你用了 {n} 个形状。",
     picHouse:"房子", picRobot:"机器人", picTree:"树", picBoat:"船", picCat:"猫", picFree:"自由搭建",
     composeDir:"拼一拼：把两个三角形拼成一个长方形。",
     stds:"对应标准：Texas PreK PK3.V.C.1–4 和 PK4.V.C.1–4；Kindergarten TEKS K.6(A–F)；Common Core Kindergarten K.G.1–6。",
     cardTitle:"形状建造小镇 — 挑战卡",
-    unitSides:"条边", noStraightSidesText:"没有直边", refHouse:"房子"
+    unitSides:"条边", noStraightSidesText:"没有直边", refHouse:"房子",
+    readAloud:"朗读", needShapes:"请在教师设置中打开更多形状。", needPos:"请在教师设置中打开位置词。", rotL:"向左转", rotR:"向右转", doneBtn:"我做好了！", doneEmpty:"先在板上放一些形状吧。", goodCorners:"对了！{shape}有 {n} 个角。", hintCorners:"数一数角。那个{shape}有{has}。我们要找有 {n} 个角的形状。", unitCorners:"个角", noCornersText:"0 个角"
   }
 };
 
@@ -782,33 +790,85 @@ function pickWarmVoice(code){
   }
   return best;
 }
-function speak(text){
-  if(!speechOK || !text) return;
-  try{
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = bcpFor(lang);
-    const v = pickWarmVoice(u.lang);
-    if(v) u.voice=v;
-    u.rate=0.9; u.pitch=1.15;
-    speechSynthesis.speak(u);
-  }catch(e){}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  const parts=String(text).match(/[^.!?。！？؟।۔]+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.9; u.pitch=1.15;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={find:0,det:0,where:0,solid:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
 }
 if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
 if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
 
 const currentSpeech = {find:"",build:"",det:"",where:"",solid:""};
+const SPEECH_MODE = {find:"find",build:"build",det:"detective",where:"where",solid:"solids"};
 function setSpeech(mode,text){ currentSpeech[mode]=text; }
-function maybeAuto(mode){ if(settings.autoRead) speak(currentSpeech[mode]); }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===SPEECH_MODE[mode]) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,.placed,#buildStage")) return;
+  const key=Object.keys(SPEECH_MODE).find(k=>SPEECH_MODE[k]===currentMode());
+  if(key) speak(currentSpeech[key]);
+},true);
 
 /* =========================================================================
    FIND IT
    ========================================================================= */
 let findTarget=null;
 function newFind(){
+  roundIds.find++;
   const grid=$("#findGrid"); grid.innerHTML="";
   const pool=enabledShapes();
-  if(pool.length<2){ grid.innerHTML="<p>Enable more shapes in Teacher settings.</p>"; return; }
+  if(pool.length<2){ grid.innerHTML="<p>"+t("needShapes")+"</p>"; return; }
   const n=Math.min(numChoices(),6);
   findTarget=rand(pool);
   let kinds=[findTarget];
@@ -835,9 +895,9 @@ function checkFind(btn,kind){
   const fb=$("#findFb");
   if(kind===findTarget){
     btn.classList.add("correctpick");
-    const m=t("goodFind",{shape:shapeName(kind)}); showFb(fb,"good",m); speak(m);
+    const m=t("goodFind",{shape:shapeName(kind)}); showFb(fb,"good",m);
     $$("#findGrid .choice").forEach(c=>c.disabled=true);
-    setTimeout(newFind,1600);
+    afterPraise(m,"find",newFind,1600);
   }else{
     btn.classList.add("wrongpick");
     const m=t("fbFindHint",{shape:shapeName(kind),target:shapeName(findTarget),clue:t("clue_"+findTarget)});
@@ -851,11 +911,12 @@ function checkFind(btn,kind){
    ========================================================================= */
 let detState=null;
 function newDetective(){
+  roundIds.det++;
   const grid=$("#detGrid"); grid.innerHTML="";
   const pool=enabledShapes();
-  if(pool.length<2){ grid.innerHTML="<p>Enable more shapes in Teacher settings.</p>"; return; }
+  if(pool.length<2){ grid.innerHTML="<p>"+t("needShapes")+"</p>"; return; }
   const n=Math.min(numChoices(),6);
-  const types=["sides"];
+  const types=["sides","corners"];
   if(pool.includes("circle")) types.push("nocorner");
   types.push("alike","different");
   const type=rand(types);
@@ -870,6 +931,15 @@ function newDetective(){
     let i=0; while(kinds.length<n && others.length){ kinds.push(others[i%others.length]); i++; if(i>20)break; }
     while(kinds.length<n) kinds.push(rand(pool));
     kinds=shuffle(kinds); dir=t("detSides",{n:nSides});
+  }else if(type==="corners"){
+    const target=shuffle(pool.filter(k=>sidesOf(k)>0))[0];
+    const nC=sidesOf(target);
+    detState.answerKinds=pool.filter(k=>sidesOf(k)===nC); detState.nSides=nC;
+    kinds=[target];
+    const others=shuffle(pool.filter(k=>sidesOf(k)!==nC));
+    let i=0; while(kinds.length<n && others.length){ kinds.push(others[i%others.length]); i++; if(i>20)break; }
+    while(kinds.length<n) kinds.push(rand(pool));
+    kinds=shuffle(kinds); dir=t("detCorners",{n:nC});
   }else if(type==="nocorner"){
     detState.answerKinds=["circle","oval"]; kinds=["circle"];
     const others=shuffle(pool.filter(k=>k!=="circle"));
@@ -901,12 +971,24 @@ function newDetective(){
 function hasSidesText(kind){
   return sidesOf(kind)===0 ? t("noStraightSidesText") : (sidesOf(kind)+" "+t("unitSides"));
 }
+function hasCornersText(kind){
+  return sidesOf(kind)===0 ? t("noCornersText") : (sidesOf(kind)+" "+t("unitCorners"));
+}
 function checkDet(btn,kind){
   const fb=$("#detFb"); const s=detState; if(s.done) return;
-  if(s.type==="sides"){
+  if(s.type==="corners"){
     if(s.answerKinds.includes(kind)){
       btn.classList.add("correctpick"); s.done=true;
-      const m=t("goodSides",{shape:shapeName(kind),n:s.nSides}); showFb(fb,"good",m); speak(m); lockDet(); setTimeout(newDetective,1700);
+      const m=t("goodCorners",{shape:shapeName(kind),n:s.nSides}); showFb(fb,"good",m); lockDet(); afterPraise(m,"det",newDetective,1700);
+    }else{
+      btn.classList.add("wrongpick");
+      const m=t("hintCorners",{shape:shapeName(kind),has:hasCornersText(kind),n:s.nSides}); showFb(fb,"hint",m); speak(m);
+      setTimeout(()=>btn.classList.remove("wrongpick"),1400);
+    }
+  }else if(s.type==="sides"){
+    if(s.answerKinds.includes(kind)){
+      btn.classList.add("correctpick"); s.done=true;
+      const m=t("goodSides",{shape:shapeName(kind),n:s.nSides}); showFb(fb,"good",m); lockDet(); afterPraise(m,"det",newDetective,1700);
     }else{
       btn.classList.add("wrongpick");
       const m=t("hintSides",{shape:shapeName(kind),has:hasSidesText(kind),n:s.nSides}); showFb(fb,"hint",m); speak(m);
@@ -915,7 +997,7 @@ function checkDet(btn,kind){
   }else if(s.type==="nocorner"){
     if(s.answerKinds.includes(kind)){
       btn.classList.add("correctpick"); s.done=true;
-      const m=t("goodNoCorner",{shape:shapeName(kind)}); showFb(fb,"good",m); speak(m); lockDet(); setTimeout(newDetective,1700);
+      const m=t("goodNoCorner",{shape:shapeName(kind)}); showFb(fb,"good",m); lockDet(); afterPraise(m,"det",newDetective,1700);
     }else{
       btn.classList.add("wrongpick");
       const m=t("hintNoCorner",{shape:shapeName(kind)}); showFb(fb,"hint",m); speak(m);
@@ -925,7 +1007,7 @@ function checkDet(btn,kind){
     if(kind===s.matchKind){
       if(!s.picked.includes(btn)){ s.picked.push(btn); btn.classList.add("correctpick"); }
       if(s.picked.length>=s.needCount){ s.done=true;
-        const m=t("goodAlike",{shape:shapeName(s.matchKind)}); showFb(fb,"good",m); speak(m); lockDet(); setTimeout(newDetective,1800);
+        const m=t("goodAlike",{shape:shapeName(s.matchKind)}); showFb(fb,"good",m); lockDet(); afterPraise(m,"det",newDetective,1800);
       }else{ showFb(fb,"hint",t("detNeedTwo")); speak(t("detNeedTwo")); }
     }else{
       btn.classList.add("wrongpick"); showFb(fb,"hint",t("hintAlike")); speak(t("hintAlike"));
@@ -934,7 +1016,7 @@ function checkDet(btn,kind){
   }else if(s.type==="different"){
     if(kind===s.oddKind){
       btn.classList.add("correctpick"); s.done=true;
-      const m=t("goodDiff",{group:shapeName(s.groupKind),shape:shapeName(s.oddKind)}); showFb(fb,"good",m); speak(m); lockDet(); setTimeout(newDetective,1900);
+      const m=t("goodDiff",{group:shapeName(s.groupKind),shape:shapeName(s.oddKind)}); showFb(fb,"good",m); lockDet(); afterPraise(m,"det",newDetective,1900);
     }else{
       btn.classList.add("wrongpick"); showFb(fb,"hint",t("hintDiff")); speak(t("hintDiff"));
       setTimeout(()=>btn.classList.remove("wrongpick"),1400);
@@ -955,9 +1037,10 @@ function houseSVG(){
     <rect x="44" y="64" width="16" height="26" fill="#8b5e34" stroke="#12303f" stroke-width="3"/></svg>`;
 }
 function newWhere(){
+  roundIds.where++;
   const scene=$("#whereScene"); scene.innerHTML="";
   const posList=enabledPos();
-  if(!posList.length){ scene.innerHTML="<p style='padding:1rem'>Enable position words in Teacher settings.</p>"; return; }
+  if(!posList.length){ scene.innerHTML="<p style='padding:1rem'>"+t("needPos")+"</p>"; return; }
   const pos=rand(posList);
   const pool=enabledShapes().length? enabledShapes():["circle","square","triangle"];
   const refKind="square", refX=50, refY=50;
@@ -1009,8 +1092,8 @@ function checkWhere(btn,role){
   if(role==="target"){
     btn.classList.add("correctpick");
     const m=t("goodWhere",{shape:shapeName(s.targetKind),pos:t("pos"+cap(s.pos)),ref:t("refHouse")});
-    showFb(fb,"good",m); speak(m);
-    $$("#whereScene .spot").forEach(b=>b.disabled=true); setTimeout(newWhere,1900);
+    showFb(fb,"good",m);
+    $$("#whereScene .spot").forEach(b=>b.disabled=true); afterPraise(m,"where",newWhere,1900);
   }else{
     btn.classList.add("wrongpick");
     const meanKey={above:"mean_above",below:"mean_below",beside:"mean_beside",between:"mean_between",front:"mean_front",behind:"mean_behind",near:"mean_near",far:"mean_far"}[s.pos];
@@ -1024,6 +1107,7 @@ function checkWhere(btn,role){
    ========================================================================= */
 let solidState=null, solidRot=0;
 function newSolid(){
+  roundIds.solid++;
   const bigWrap=$("#solidBig"), grid=$("#solidGrid"); bigWrap.innerHTML=""; grid.innerHTML="";
   const solids=["cube","sphere","cylinder","cone"]; const target=rand(solids); solidRot=0; solidState={target};
   bigWrap.innerHTML=`<div id="solidGfx" style="width:150px">${solidSVG(target,0)}</div><strong style="font-size:1.1rem">${t(target)}</strong>`;
@@ -1048,8 +1132,8 @@ function checkSolid(btn,objSolid,obj){
   const fb=$("#solidFb"); const s=solidState;
   if(objSolid===s.target){
     btn.classList.add("correctpick");
-    const m=t("goodSolid",{obj:t("obj_"+obj),solid:t(s.target)}); showFb(fb,"good",m); speak(m);
-    $$("#solidGrid .choice").forEach(c=>c.disabled=true); setTimeout(newSolid,1900);
+    const m=t("goodSolid",{obj:t("obj_"+obj),solid:t(s.target)}); showFb(fb,"good",m);
+    $$("#solidGrid .choice").forEach(c=>c.disabled=true); afterPraise(m,"solid",newSolid,1900);
   }else{
     btn.classList.add("wrongpick");
     const m=t("hintSolid",{solid:t(s.target)}); showFb(fb,"hint",m); speak(m);
@@ -1214,6 +1298,9 @@ function initBuildTools(){
   $("#bSmaller").addEventListener("click",()=>{ if(selected&&settings.resize){ selected.scale=Math.max(0.4,selected.scale-0.2); clampPlaced(selected); drawPlaced(selected);} });
   $("#bDelete").addEventListener("click",()=>{ if(selected) deletePlaced(selected); });
   $("#bClear").addEventListener("click",clearStage);
+  $("#bDone").addEventListener("click",()=>{ const fb=$("#buildFb");
+    const m=!placed.length?t("doneEmpty"):placed.length===1?t("doneBuildOne"):t("doneBuild",{n:placed.length});
+    showFb(fb,placed.length?"good":"hint",m); speak(m); });
   $("#buildStage").addEventListener("pointerdown",e=>{ if(e.target.id==="buildStage"&&selected){ selected.el.classList.remove("selected"); selected=null; } });
   $("#buildPick").addEventListener("change",()=>{ renderModel(); updateBuildManipVisibility(); });
 }
@@ -1230,6 +1317,9 @@ function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
 /* ---------- Mode switching ---------- */
 function currentMode(){ const b=$$(".tabs button").filter(x=>x.getAttribute("aria-selected")==="true")[0]; return b?b.dataset.mode:"find"; }
 function showMode(mode){
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
   $$(".modepanel").forEach(p=>p.classList.add("hidden"));
   $("#mode-"+mode).classList.remove("hidden");
   $$(".tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.mode===mode?"true":"false"));
@@ -1239,6 +1329,8 @@ function showMode(mode){
   if(mode==="solids" && !$("#solidGrid").children.length) newSolid();
   if(mode==="build"){ buildTray(); if(!$("#buildPick").children.length) fillBuildPicker(); renderModel(); updateBuildManipVisibility();
     setSpeech("build",t("buildDir")); $("#buildPrompt").textContent=t("buildDir"); }
+  // Returning to a tab: read its current directions (unless a new round just did).
+  if(switching && speechGen===g0){ const key=Object.keys(SPEECH_MODE).find(k=>SPEECH_MODE[k]===mode); if(key) maybeAuto(key); }
 }
 
 /* ---------- Settings drawer ---------- */
@@ -1313,6 +1405,7 @@ function applyLang(){
   document.documentElement.dir=meta.dir;
   const sel=$("#langSelect"); if(sel) sel.value=lang;
   $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
   $("#stdsNote").textContent=t("stds");
   if($("#buildPick").children.length) fillBuildPicker();
   // refresh dynamic content in current mode
