@@ -1,0 +1,1723 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Area &amp; Volume Builders — a Grade 3–5 measurement app: tile rectangles to find area, walk the sides for perimeter, pack boxes with unit cubes for volume, convert units with tables, and solve measurement stories. Works offline. No data collected.">
+<title>Area &amp; Volume Builders</title>
+<style>
+  :root{
+    --bg:#edf7f4;--panel:#ffffff;--ink:#1c2733;--muted:#3f5a54;--line:#bfe0d7;
+    --accent:#16a085;--accentD:#0e6e5c;--accent-ink:#ffffff;--good:#166534;--good-bg:#dcfce7;
+    --hint:#7a4a00;--hint-bg:#fff4d6;--focus:#0a58ca;--tile:#7fd6c2;--partA:#9fd3f5;--partB:#ffd08a;
+    --tap:52px;font-size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4;-webkit-text-size-adjust:100%}
+  h1,h2,h3{line-height:1.15;margin:0 0 .3em}
+  button,input{font-family:inherit;font-size:1rem}
+  button{cursor:pointer}
+  button:disabled{cursor:default}
+
+  .topbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--accentD);color:var(--accent-ink);padding:.55rem .8rem}
+  .topbar .brand{font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:.4rem;margin-inline-end:auto}
+  .topbar a.homebtn,.topbar button.tb{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.4rem .7rem;min-height:var(--tap);min-width:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;font-weight:700;font-size:.95rem}
+  .globe{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.2rem .5rem;min-height:var(--tap)}
+  .globe span{font-size:1.2rem}
+  .globe select{border:0;background:#fff;color:var(--ink);border-radius:8px;min-height:44px;font-weight:700;font-size:1rem;padding:.2rem .4rem}
+
+  main{max-width:1100px;margin:0 auto;padding:.7rem}
+  .tabsrow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:.4rem 0 .7rem}
+  .tabs{display:flex;gap:.4rem;flex-wrap:wrap;flex:1 1 auto}
+  .tabs button{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:.45rem .75rem;min-height:var(--tap);font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .tabs button[aria-selected="true"]{background:var(--accentD);color:#fff;border-color:var(--accentD)}
+  .tabs button .ic{font-size:1.15rem}
+  .stars{background:#fff;border:2px solid var(--line);border-radius:14px;padding:.4rem .8rem;font-weight:800;font-size:1.15rem;min-height:48px;display:inline-flex;align-items:center;gap:.3rem}
+  .stars.pop{animation:pop .5s ease}
+  @keyframes pop{0%{transform:scale(.5)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  .panel{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:.9rem;margin-bottom:.8rem}
+  .panelhead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+  .panelhead h2{margin:0;font-size:1.25rem;margin-inline-end:auto}
+  .prompt{display:flex;align-items:center;gap:.6rem;background:#e9f7f2;border:2px solid #a9dccd;border-radius:14px;padding:.6rem .8rem;margin-bottom:.7rem;font-size:1.1rem;font-weight:600}
+  .speaker{background:var(--accentD);color:#fff;border:0;border-radius:50%;width:var(--tap);height:var(--tap);min-width:var(--tap);font-size:1.35rem;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+
+  .btn{background:var(--accentD);color:#fff;border:2px solid var(--accentD);border-radius:12px;padding:.5rem .85rem;min-height:var(--tap);font-weight:700}
+  .btn.ghost{background:var(--panel);color:var(--accentD)}
+  .btn:disabled{opacity:.45}
+  .feedback{margin-top:.6rem;border-radius:12px;padding:.6rem .8rem;font-weight:600;display:none}
+  .feedback.show{display:block}
+  .feedback.good{background:var(--good-bg);color:var(--good);border:2px solid #86efac}
+  .feedback.hint{background:var(--hint-bg);color:var(--hint);border:2px solid #f6d271}
+  .math{unicode-bidi:isolate;direction:ltr;display:inline-block;font-weight:800;white-space:nowrap}
+
+  .figwrap{background:#fafffd;border:2px solid var(--line);border-radius:14px;padding:.4rem;touch-action:manipulation}
+  .fig{width:100%;max-width:600px;max-height:400px;height:auto;display:block;margin:0 auto;overflow:visible}
+  .fig text{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-weight:800;fill:#123b33}
+  .fig.paint{touch-action:none}
+  .cell{fill:#fff;stroke:#8cc9b9;stroke-width:1.5;stroke-dasharray:4 3;cursor:pointer}
+  .cell.on{fill:var(--tile);stroke:#0e6e5c;stroke-dasharray:none}
+  .cut{cursor:pointer}
+  .cut .vis{stroke:#7a3fb5;stroke-width:4;stroke-dasharray:10 8}
+  .cut:hover .vis,.cut:focus .vis{stroke:#0a58ca;stroke-width:6}
+  .cut.chosen .vis{stroke:#7a3fb5;stroke-dasharray:none;stroke-width:5}
+  .side{cursor:pointer}
+  .side .vis{stroke:#0e5e50;stroke-width:5;stroke-linecap:round}
+  .side.walked .vis{stroke:#e67e22;stroke-width:9}
+  .side:focus{outline:none}
+  .side:focus .vis{stroke:#0a58ca;stroke-width:9}
+  .tools{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin-top:.5rem}
+  .tools .btn{min-height:48px;padding:.4rem .7rem}
+  .work{font-weight:700;color:var(--muted);min-height:1.4em;margin:.4rem 0 0}
+  .work .sw{display:inline-block;width:.9em;height:.9em;border-radius:3px;vertical-align:-.1em;margin-inline-end:.25em;border:1px solid #555}
+
+  .ansrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-top:.7rem}
+  .anslab{font-weight:800}
+  .ans{width:7.5em;min-height:var(--tap);font-size:1.4rem;font-weight:800;text-align:center;border:3px solid var(--accent);border-radius:12px;padding:.2rem .4rem;background:#fff;color:var(--ink)}
+  .ans:disabled{background:var(--good-bg);border-color:var(--good);opacity:1}
+  .unit{font-weight:700;color:var(--muted)}
+
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem;margin-top:.7rem}
+  .choice{background:var(--panel);border:3px solid var(--line);border-radius:16px;padding:.5rem;min-height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem;position:relative;font-size:1.3rem;font-weight:800;color:var(--ink)}
+  .choice svg{width:100%;height:120px;pointer-events:none}
+  .choice .lbl{font-size:1rem;unicode-bidi:isolate;direction:ltr}
+  .choice.correctpick{border-color:var(--good);background:var(--good-bg)}
+  .choice.wrongpick{border-color:var(--hint);background:var(--hint-bg)}
+  .choice:disabled{opacity:.7}
+  .choice.correctpick:disabled{opacity:1}
+
+  .ctable{border-collapse:collapse;margin:.6rem auto;font-size:1.2rem;min-width:240px}
+  .ctable th,.ctable td{border:2px solid var(--line);padding:.35rem .8rem;text-align:center}
+  .ctable th{background:#e9f7f2}
+  .ctable td{font-weight:800;font-variant-numeric:tabular-nums}
+  .ctable tr.target td{background:#fff8e6}
+  .ctable .ans{width:5.5em;min-height:46px;font-size:1.2rem}
+  .fact{text-align:center;font-weight:700;color:var(--muted)}
+  .story{font-size:1.1rem;background:#fbfffd;border:2px dashed var(--line);border-radius:14px;padding:.6rem .8rem;margin-bottom:.5rem}
+
+  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
+  .drawer.open{display:flex}
+  .drawer .card{background:var(--panel);border-radius:16px;max-width:620px;width:100%;padding:1rem;max-height:90vh;overflow:auto}
+  .setrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+  .setrow .lab{font-weight:700;min-width:150px}
+  .toggle{display:inline-flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:10px;padding:.35rem .55rem;background:#fff;min-height:48px}
+  .toggle input{width:22px;height:22px;flex:0 0 auto}
+  select.diff{font-size:1rem;padding:.4rem;border-radius:10px;border:2px solid var(--line);min-height:48px;max-width:100%}
+
+  footer{max-width:1100px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+  footer a{color:var(--accentD);font-weight:700}
+  .stds{font-size:.82rem;color:var(--muted);background:#f3faf8;border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  @media(max-width:480px){
+    main{padding:.4rem}
+    .panel{padding:.6rem}
+    .prompt{font-size:1rem;padding:.5rem}
+    .tabs button{padding:.4rem .55rem;font-size:.92rem}
+    .ctable{font-size:1.05rem;min-width:0}
+    .ctable th,.ctable td{padding:.3rem .45rem}
+  }
+  .hidden{display:none !important}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+  .printonly{display:none}
+  @media print{
+    .topbar,.tabsrow,footer,.modepanel,#stdsNote,.no-print,#mtMuteBtn{display:none !important}
+    body{background:#fff}
+    .printonly{display:block}
+    .card-print{border:2px solid #000;border-radius:12px;padding:1rem;margin:0 0 1rem;page-break-inside:avoid}
+    .card-print h2{margin:.2rem 0}
+    .card-print svg{max-height:260px;width:auto;max-width:100%}
+    .card-print .fig{max-height:260px}
+    main{max-width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">📐 <span data-t="appTitle">Area &amp; Volume Builders</span></span>
+  <a class="homebtn" href="../../index.html">🏠 <span data-t="home">Home</span></a>
+  <label class="globe"><span aria-hidden="true">🌐</span>
+    <select id="langSelect" data-ta="language" aria-label="Language"></select>
+  </label>
+  <button class="tb settingsbtn" id="openSettings">⚙️ <span data-t="teacher">Teacher</span></button>
+</header>
+
+<main>
+  <div class="tabsrow">
+    <div class="tabs" role="tablist" data-ta="modesLbl" aria-label="Modes">
+      <button role="tab" aria-selected="true" data-mode="tile"><span class="ic" aria-hidden="true">🟩</span><span data-t="mTile">Tile It</span></button>
+      <button role="tab" aria-selected="false" data-mode="perim"><span class="ic" aria-hidden="true">🚶</span><span data-t="mPerim">Perimeter Patrol</span></button>
+      <button role="tab" aria-selected="false" data-mode="box"><span class="ic" aria-hidden="true">📦</span><span data-t="mBox">Build a Box</span></button>
+      <button role="tab" aria-selected="false" data-mode="conv"><span class="ic" aria-hidden="true">🔁</span><span data-t="mConv">Convert It</span></button>
+      <button role="tab" aria-selected="false" data-mode="story"><span class="ic" aria-hidden="true">📖</span><span data-t="mStory">Measurement Stories</span></button>
+    </div>
+    <span class="stars" id="stars"><span aria-hidden="true">⭐</span><span class="sr" data-t="stars">Stars earned</span> <b id="starCount">0</b></span>
+  </div>
+
+  <section id="mode-tile" class="panel modepanel" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mTile">Tile It</h2><button class="btn ghost no-print" data-new="tile" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="tile" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="tilePrompt">…</span></div>
+    <div class="figwrap" id="tileFig"></div>
+    <div class="tools no-print" id="tileTools"></div>
+    <div class="work" id="tileWork" aria-live="polite"></div>
+    <div id="tileAns"></div>
+    <div class="feedback" id="tileFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-perim" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mPerim">Perimeter Patrol</h2><button class="btn ghost no-print" data-new="perim" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="perim" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="perimPrompt">…</span></div>
+    <div id="perimFig"></div>
+    <div class="work" id="perimWork" aria-live="polite"></div>
+    <div id="perimAns"></div>
+    <div class="feedback" id="perimFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-box" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mBox">Build a Box</h2><button class="btn ghost no-print" data-new="box" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="box" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="boxPrompt">…</span></div>
+    <div class="figwrap" id="boxFig"></div>
+    <div class="tools no-print" id="boxTools"></div>
+    <div class="work" id="boxWork" aria-live="polite"></div>
+    <div id="boxAns"></div>
+    <div class="feedback" id="boxFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-conv" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mConv">Convert It</h2><button class="btn ghost no-print" data-new="conv" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="conv" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="convPrompt">…</span></div>
+    <div id="convFig"></div>
+    <div id="convAns"></div>
+    <div class="feedback" id="convFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-story" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mStory">Measurement Stories</h2><button class="btn ghost no-print" data-new="story" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="story" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="storyPrompt">…</span></div>
+    <div id="storyFig"></div>
+    <div id="storyAns"></div>
+    <div class="feedback" id="storyFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <div class="stds" id="stdsNote"></div>
+  <div class="printonly" id="printArea"></div>
+</main>
+
+<footer>
+  <p data-t="footNote">No accounts · No data collected · Works offline</p>
+  <p><a href="../../index.html" data-t="home">Home</a> · <a href="../../policy.html" data-t="privacy">Privacy</a></p>
+</footer>
+
+<div class="drawer" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <div class="panelhead"><h2 id="setTitle" data-t="teacherTitle">Teacher settings</h2>
+      <button class="btn ghost" id="closeSettings" data-t="close">Close</button></div>
+    <div class="setrow"><label class="lab" for="setGrade" data-t="setGrade">Grade level</label>
+      <select class="diff" id="setGrade">
+        <option value="3" data-t="g3">Grade 3</option><option value="4" data-t="g4">Grade 4</option><option value="5" data-t="g5">Grade 5</option></select>
+      <span class="stds" style="margin:0" data-t="gradeNote">Choosing a grade resets the options below.</span></div>
+    <div class="setrow"><label class="lab" for="setMax" data-t="setMax">Largest side length</label>
+      <select class="diff" id="setMax"><option>5</option><option>6</option><option>8</option><option>10</option><option>12</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setUnits">Unit systems</span>
+      <label class="toggle"><input type="checkbox" id="setCust"> <span data-t="customary">Customary (feet, pounds)</span></label>
+      <label class="toggle"><input type="checkbox" id="setMetric"> <span data-t="metric">Metric (meters, kilograms)</span></label></div>
+    <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
+      <div id="modeToggles" style="display:flex;flex-wrap:wrap;gap:.4rem"></div></div>
+    <div class="setrow"><span class="lab" data-t="setSpeech">Speech</span>
+      <label class="toggle"><input type="checkbox" id="setAuto"> <span data-t="autoRead">Auto-read directions</span></label></div>
+    <div class="setrow" style="border:0"><button class="btn" id="printCards">🖨 <span data-t="printCards">Print challenge cards</span></button></div>
+    <p class="stds" data-t="setStored">Settings are saved only on this device. No student information is ever stored.</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   Area & Volume Builders — single-file Grade 3–5 measurement app. 7 languages.
+   No frameworks, no network, no data collection.
+   ========================================================================= */
+
+/* ---------- Language metadata ---------- */
+const LANGS = [
+  {code:"en", name:"English",     dir:"ltr", bcp:"en-US"},
+  {code:"es", name:"Español",     dir:"ltr", bcp:"es-ES"},
+  {code:"vi", name:"Tiếng Việt",  dir:"ltr", bcp:"vi-VN"},
+  {code:"ar", name:"العربية",     dir:"rtl", bcp:"ar-SA"},
+  {code:"hi", name:"हिन्दी",       dir:"ltr", bcp:"hi-IN"},
+  {code:"ur", name:"اردو",        dir:"rtl", bcp:"ur-PK"},
+  {code:"zh", name:"中文",         dir:"ltr", bcp:"zh-CN"}
+];
+const LANG_KEY = "tcea.mathtools.lang";
+
+/* ---------- Translations ---------- */
+const T = {
+  en:{
+    appTitle:"Area & Volume Builders", home:"Home", privacy:"Privacy", teacher:"Teacher", language:"Language", readAloud:"Read aloud",
+    modesLbl:"Modes", stars:"Stars earned", newRound:"New round", footNote:"No accounts · No data collected · Works offline",
+    mTile:"Tile It", mPerim:"Perimeter Patrol", mBox:"Build a Box", mConv:"Convert It", mStory:"Measurement Stories",
+    teacherTitle:"Teacher settings", close:"Close", setGrade:"Grade level", g3:"Grade 3", g4:"Grade 4", g5:"Grade 5",
+    gradeNote:"Choosing a grade resets the options below.", setMax:"Largest side length", setUnits:"Unit systems",
+    customary:"Customary (feet, pounds)", metric:"Metric (meters, kilograms)", setModes:"Modes", setSpeech:"Speech",
+    autoRead:"Auto-read directions", printCards:"Print challenge cards",
+    setStored:"Settings are saved only on this device. No student information is ever stored.",
+    answerLbl:"Answer", check:"Check", needNum:"Type a number in the answer box first.",
+    sqUnits:"square units", cuUnits:"cubic units", units:"units", cubesW:"cubes", figLbl:"Picture of the problem",
+    sqU:"square {u}",
+    tileDir:"Tap or drag across the squares to tile the rectangle. How many square units is its area?",
+    tileMul:"Find the area of this rectangle. Multiply the two side lengths.",
+    tileComp:"Find the area of this shape. Tap a dashed line to split it into two rectangles.",
+    tileMiss:"This rectangle has an area of {A} square units. How long is the side marked ?",
+    fillRow:"Fill a row", clearTiles:"Clear", tilesN:"Tiles: {n}", showGrid:"Show the squares", hideGrid:"Hide the squares",
+    cutV:"Split with an up-and-down line", cutH:"Split with a side-to-side line",
+    goodArea:"Yes! {r} rows of {c} squares: {eq}. The area is {A} square units.",
+    hintArea:"Not quite. The rectangle has {r} rows with {c} squares in each row. Multiply rows × squares in each row.",
+    hintAreaPerim:"That number is the perimeter, the distance around. Area counts the square units inside the shape.",
+    goodComp:"Yes! Two rectangles: {e1} and {e2}. Add them: {sum} square units.",
+    hintComp:"Split the shape into two rectangles with a dashed line. Find the area of each rectangle, then add the two areas.",
+    goodMiss:"Yes! {eq}, so the missing side is {b} units.",
+    hintMiss:"Think: {a} × ? = {A}. What number times {a} makes {A}? You can divide: {A} ÷ {a}.",
+    perWalk:"Walk around the shape: tap each side to add its length. What is the perimeter?",
+    walked:"Distance walked: {eq}", walkedNone:"Distance walked: 0", sideLbl:"Side: {n} units",
+    goodPer:"Yes! {eq}. The perimeter is {P} units.",
+    hintPer:"Not yet. Perimeter is the distance all the way around. Add every side length — tap each side so you don't miss one.",
+    hintPerArea:"That is the area, the space inside. Perimeter is the distance around the outside: add all the side lengths.",
+    perMiss:"The perimeter of this shape is {P} units. How long is the side marked ?",
+    goodPerMiss:"Yes! The other sides add up to {s}, and {eq}.",
+    hintPerMiss:"Add the side lengths you know: {s}. The missing side is the part of the perimeter that is left: {P} − {s}.",
+    perRect:"The perimeter of this rectangle is {P} units. How long is the side marked ?",
+    goodPerRect:"Yes! The missing side is {b} units: {eq}.",
+    hintPerRect:"Opposite sides of a rectangle are equal. The two top and bottom sides make {a2}. {P} − {a2} = {rem}, and that is shared by two equal sides.",
+    sameA:"These rectangles all have the same area. Tap the one with the greatest perimeter.",
+    sameAless:"These rectangles all have the same area. Tap the one with the smallest perimeter.",
+    sameP:"These rectangles all have the same perimeter. Tap the one with the greatest area.",
+    goodSameA:"Yes! Every rectangle has an area of {A} square units, but this one has a perimeter of {P} units. Same area does not mean same perimeter!",
+    hintSameA:"Same area, different perimeters. This one has a perimeter of {P} units. Add the sides of each rectangle and compare.",
+    goodSameP:"Yes! Every rectangle has a perimeter of {P} units, and this one has the greatest area: {A} square units. Rectangles close to a square hold the most.",
+    hintSameP:"This one has an area of {A} square units. Multiply the sides of each rectangle and compare the areas.",
+    rectLbl:"Rectangle {a} by {b}",
+    boxPack:"Fill the box with unit cubes. Add rows and layers, then find the volume.",
+    boxFormula:"Find the volume of this box. Use V = l × w × h.",
+    boxBase:"The base of this box has an area of B = {B} square units. The height is {h} units. Find the volume. Use V = B × h.",
+    boxCube:"Each edge of this cube is {s} units long. Find its volume.",
+    boxComp:"This shape is made of two boxes. Both boxes are {w} units deep. Find the total volume.",
+    addRow:"+ Row", addLayer:"+ Layer", undo:"Undo", cubesN:"Cubes: {n}", layersEq:"{k} layers × {b} cubes in each layer = {n}",
+    showCubes:"Show the cubes", hideCubes:"Hide the cubes",
+    goodVol:"Yes! {eq}. The volume is {V} cubic units.",
+    hintVol:"Not quite. Find the cubes in one layer (the base: {l} × {w}), then multiply by the number of layers ({h}).",
+    hintVolAdd:"It looks like you added the edges. Volume counts cubes, so multiply: length × width × height.",
+    hintVolLayer:"That is only one layer, the base. How many layers stack up to fill the box?",
+    hintBase:"The base tells how many cubes are in one layer. Multiply the base by the number of layers: {B} × {h}.",
+    goodVComp:"Yes! Box 1: {e1}. Box 2: {e2}. Total: {sum} cubic units.",
+    hintVComp:"Find the volume of each box by itself, then add the two volumes together.",
+    convQ:"How many {u2} are in {q}?",
+    goodConv:"Yes! {fact}, so {eq}.",
+    hintDown:"Each {big} is {k} {smalls}. Going from a bigger unit to a smaller unit gives more units, so multiply by {k}.",
+    hintUp:"Every {k} {smalls} make 1 {big}. Going from a smaller unit to a bigger unit gives fewer units, so divide by {k}.",
+    hintMixed:"First change {a} {bigs} to {smalls}: {a} × {k}. Then add the extra {b} {smalls}.",
+    sArea:"{name} is covering a floor with square tiles. The floor is {a} {u} long and {b} {u} wide. How many {sq} of tile are needed?",
+    sPerim:"{name} is putting a fence around a garden that is {a} {u} long and {b} {u} wide. How many {u} of fence are needed?",
+    sMissA:"A rug has an area of {A} {sq}. It is {a} {u} long. How many {u} wide is it?",
+    sVol:"{name} is packing a box that is {l} cubes long, {w} cubes wide, and {h} cubes tall. How many cubes fill the box?",
+    sElapsed:"{name} started reading at {t1} and stopped at {t2}. How many minutes did {name} read?",
+    sEnd:"Soccer practice starts at {t1} and lasts {d} minutes. What time does it end?",
+    sLiquid:"A pitcher holds {a} liters of juice. {name} pours {b} milliliters into cups. How many milliliters are left?",
+    sClay:"{name} has {a} pounds of clay and uses {b} ounces for a project. How many ounces are left?",
+    goodStory:"Yes! {eq}. The answer is {ans}.",
+    hArea:"Area covers the whole floor. Multiply the length × the width: {a} × {b}.",
+    hPerim:"A fence goes around the outside, so add all four sides: {a} + {b} + {a} + {b}.",
+    hMissA:"Area = length × width. Divide the area by the length you know: {A} ÷ {a}.",
+    hVol:"Volume = length × width × height. Find the cubes in one layer, then multiply by the number of layers.",
+    hElapsed:"Count on from {t1} to {t2}. Try jumping to the next hour first, then add the minutes that are left.",
+    hEnd:"Add {d} minutes to {t1}. Remember: 60 minutes make 1 hour.",
+    hLiquid:"First change {a} liters to milliliters (1 liter = 1000 milliliters). Then subtract {b}.",
+    hClay:"First change {a} pounds to ounces (1 pound = 16 ounces). Then subtract {b}.",
+    goodEnd:"Yes! {t1} + {d} minutes = {t2}.",
+    hintEnd:"That is not quite it. Start at {t1} and count on {d} minutes. Remember: 60 minutes make 1 hour.",
+    tlLbl:"Timeline",
+    cardTitle:"Area & Volume Builders — Challenge Cards", cardComp:"Find the area of this shape. Split it into two rectangles first.",
+    stds:"Aligned standards: Texas TEKS 3.6(C), 3.6(D), 3.7(B), 3.7(C); 4.5(D), 4.8(A), 4.8(B), 4.8(C); 5.4(G), 5.4(H), 5.6(A), 5.6(B), 5.7(A). Common Core 3.MD.1, 3.MD.5, 3.MD.6, 3.MD.7, 3.MD.8; 4.MD.1, 4.MD.2, 4.MD.3; 5.MD.1, 5.MD.3, 5.MD.4, 5.MD.5."
+  },
+  es:{
+    appTitle:"Constructores de Área y Volumen", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", language:"Idioma", readAloud:"Leer en voz alta",
+    modesLbl:"Modos", stars:"Estrellas ganadas", newRound:"Nueva ronda", footNote:"Sin cuentas · Sin datos · Funciona sin conexión",
+    mTile:"Cúbrelo", mPerim:"Patrulla del Perímetro", mBox:"Arma una Caja", mConv:"Conviértelo", mStory:"Problemas de Medición",
+    teacherTitle:"Ajustes del maestro", close:"Cerrar", setGrade:"Grado", g3:"3.er grado", g4:"4.º grado", g5:"5.º grado",
+    gradeNote:"Al elegir un grado se reinician las opciones de abajo.", setMax:"Lado más largo", setUnits:"Sistemas de unidades",
+    customary:"Usual (pies, libras)", metric:"Métrico (metros, kilogramos)", setModes:"Modos", setSpeech:"Voz",
+    autoRead:"Leer instrucciones automáticamente", printCards:"Imprimir tarjetas de reto",
+    setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información del estudiante.",
+    answerLbl:"Respuesta", check:"Revisar", needNum:"Primero escribe un número en la casilla de respuesta.",
+    sqUnits:"unidades cuadradas", cuUnits:"unidades cúbicas", units:"unidades", cubesW:"cubos", figLbl:"Dibujo del problema",
+    sqU:"{u} cuadrados",
+    tileDir:"Toca o arrastra sobre los cuadrados para cubrir el rectángulo. ¿Cuántas unidades cuadradas mide su área?",
+    tileMul:"Encuentra el área de este rectángulo. Multiplica las longitudes de los dos lados.",
+    tileComp:"Encuentra el área de esta figura. Toca una línea punteada para dividirla en dos rectángulos.",
+    tileMiss:"Este rectángulo tiene un área de {A} unidades cuadradas. ¿Cuánto mide el lado marcado con ?",
+    fillRow:"Llenar una fila", clearTiles:"Borrar", tilesN:"Cuadrados: {n}", showGrid:"Mostrar los cuadrados", hideGrid:"Ocultar los cuadrados",
+    cutV:"Dividir con una línea vertical", cutH:"Dividir con una línea horizontal",
+    goodArea:"¡Sí! {r} filas de {c} cuadrados: {eq}. El área es {A} unidades cuadradas.",
+    hintArea:"Casi. El rectángulo tiene {r} filas con {c} cuadrados en cada fila. Multiplica filas × cuadrados en cada fila.",
+    hintAreaPerim:"Ese número es el perímetro, la distancia alrededor. El área cuenta las unidades cuadradas que hay dentro de la figura.",
+    goodComp:"¡Sí! Dos rectángulos: {e1} y {e2}. Súmalos: {sum} unidades cuadradas.",
+    hintComp:"Divide la figura en dos rectángulos con una línea punteada. Encuentra el área de cada rectángulo y luego suma las dos áreas.",
+    goodMiss:"¡Sí! {eq}, así que el lado que falta mide {b} unidades.",
+    hintMiss:"Piensa: {a} × ? = {A}. ¿Qué número multiplicado por {a} da {A}? Puedes dividir: {A} ÷ {a}.",
+    perWalk:"Camina alrededor de la figura: toca cada lado para sumar su longitud. ¿Cuál es el perímetro?",
+    walked:"Distancia recorrida: {eq}", walkedNone:"Distancia recorrida: 0", sideLbl:"Lado: {n} unidades",
+    goodPer:"¡Sí! {eq}. El perímetro es {P} unidades.",
+    hintPer:"Todavía no. El perímetro es la distancia de toda la vuelta. Suma la longitud de cada lado; toca cada lado para no saltarte ninguno.",
+    hintPerArea:"Esa es el área, el espacio de adentro. El perímetro es la distancia alrededor por fuera: suma las longitudes de todos los lados.",
+    perMiss:"El perímetro de esta figura es {P} unidades. ¿Cuánto mide el lado marcado con ?",
+    goodPerMiss:"¡Sí! Los otros lados suman {s}, y {eq}.",
+    hintPerMiss:"Suma las longitudes que conoces: {s}. El lado que falta es lo que queda del perímetro: {P} − {s}.",
+    perRect:"El perímetro de este rectángulo es {P} unidades. ¿Cuánto mide el lado marcado con ?",
+    goodPerRect:"¡Sí! El lado que falta mide {b} unidades: {eq}.",
+    hintPerRect:"Los lados opuestos de un rectángulo son iguales. Los lados de arriba y de abajo suman {a2}. {P} − {a2} = {rem}, y eso se reparte entre dos lados iguales.",
+    sameA:"Todos estos rectángulos tienen la misma área. Toca el que tiene el perímetro mayor.",
+    sameAless:"Todos estos rectángulos tienen la misma área. Toca el que tiene el perímetro menor.",
+    sameP:"Todos estos rectángulos tienen el mismo perímetro. Toca el que tiene el área mayor.",
+    goodSameA:"¡Sí! Todos los rectángulos tienen un área de {A} unidades cuadradas, pero este tiene un perímetro de {P} unidades. ¡La misma área no significa el mismo perímetro!",
+    hintSameA:"Misma área, perímetros diferentes. Este tiene un perímetro de {P} unidades. Suma los lados de cada rectángulo y compara.",
+    goodSameP:"¡Sí! Todos los rectángulos tienen un perímetro de {P} unidades, y este tiene el área mayor: {A} unidades cuadradas. Los rectángulos parecidos a un cuadrado tienen más área.",
+    hintSameP:"Este tiene un área de {A} unidades cuadradas. Multiplica los lados de cada rectángulo y compara las áreas.",
+    rectLbl:"Rectángulo de {a} por {b}",
+    boxPack:"Llena la caja con cubos de una unidad. Agrega filas y capas, y luego encuentra el volumen.",
+    boxFormula:"Encuentra el volumen de esta caja. Usa V = largo × ancho × altura.",
+    boxBase:"La base de esta caja tiene un área de B = {B} unidades cuadradas. La altura es {h} unidades. Encuentra el volumen. Usa V = B × h.",
+    boxCube:"Cada arista de este cubo mide {s} unidades. Encuentra su volumen.",
+    boxComp:"Esta figura está formada por dos cajas. Las dos cajas tienen {w} unidades de fondo. Encuentra el volumen total.",
+    addRow:"+ Fila", addLayer:"+ Capa", undo:"Deshacer", cubesN:"Cubos: {n}", layersEq:"{k} capas × {b} cubos en cada capa = {n}",
+    showCubes:"Mostrar los cubos", hideCubes:"Ocultar los cubos",
+    goodVol:"¡Sí! {eq}. El volumen es {V} unidades cúbicas.",
+    hintVol:"Casi. Encuentra los cubos de una capa (la base: {l} × {w}) y luego multiplica por el número de capas ({h}).",
+    hintVolAdd:"Parece que sumaste las aristas. El volumen cuenta cubos, así que multiplica: largo × ancho × altura.",
+    hintVolLayer:"Esa es solo una capa, la base. ¿Cuántas capas se apilan para llenar la caja?",
+    hintBase:"La base dice cuántos cubos hay en una capa. Multiplica la base por el número de capas: {B} × {h}.",
+    goodVComp:"¡Sí! Caja 1: {e1}. Caja 2: {e2}. Total: {sum} unidades cúbicas.",
+    hintVComp:"Encuentra el volumen de cada caja por separado y luego suma los dos volúmenes.",
+    convQ:"Convierte {q} a {u2}.",
+    goodConv:"¡Sí! {fact}, así que {eq}.",
+    hintDown:"Cada {big} equivale a {k} {smalls}. Al pasar de una unidad mayor a una menor obtienes más unidades, así que multiplica por {k}.",
+    hintUp:"Cada {k} {smalls} forman 1 {big}. Al pasar de una unidad menor a una mayor obtienes menos unidades, así que divide entre {k}.",
+    hintMixed:"Primero cambia {a} {bigs} a {smalls}: {a} × {k}. Luego suma {b} {smalls} más.",
+    sArea:"{name} está cubriendo un piso con losetas cuadradas. El piso mide {a} {u} de largo y {b} {u} de ancho. ¿Cuántos {sq} de losetas se necesitan?",
+    sPerim:"{name} está poniendo una cerca alrededor de un jardín que mide {a} {u} de largo y {b} {u} de ancho. ¿Cuántos {u} de cerca se necesitan?",
+    sMissA:"Una alfombra tiene un área de {A} {sq}. Mide {a} {u} de largo. ¿Cuántos {u} mide de ancho?",
+    sVol:"{name} está llenando una caja que mide {l} cubos de largo, {w} cubos de ancho y {h} cubos de alto. ¿Cuántos cubos llenan la caja?",
+    sElapsed:"{name} empezó a leer a las {t1} y terminó a las {t2}. ¿Cuántos minutos leyó {name}?",
+    sEnd:"La práctica de fútbol empieza a las {t1} y dura {d} minutos. ¿A qué hora termina?",
+    sLiquid:"Una jarra tiene {a} litros de jugo. {name} sirve {b} mililitros en vasos. ¿Cuántos mililitros quedan?",
+    sClay:"{name} tiene {a} libras de plastilina y usa {b} onzas para un proyecto. ¿Cuántas onzas quedan?",
+    goodStory:"¡Sí! {eq}. La respuesta es {ans}.",
+    hArea:"El área cubre todo el piso. Multiplica el largo × el ancho: {a} × {b}.",
+    hPerim:"Una cerca va alrededor por fuera, así que suma los cuatro lados: {a} + {b} + {a} + {b}.",
+    hMissA:"Área = largo × ancho. Divide el área entre el largo que conoces: {A} ÷ {a}.",
+    hVol:"Volumen = largo × ancho × altura. Encuentra los cubos de una capa y luego multiplica por el número de capas.",
+    hElapsed:"Cuenta hacia adelante desde las {t1} hasta las {t2}. Primero salta a la siguiente hora en punto y luego suma los minutos que faltan.",
+    hEnd:"Suma {d} minutos a las {t1}. Recuerda: 60 minutos forman 1 hora.",
+    hLiquid:"Primero cambia {a} litros a mililitros (1 litro = 1000 mililitros). Luego resta {b}.",
+    hClay:"Primero cambia {a} libras a onzas (1 libra = 16 onzas). Luego resta {b}.",
+    goodEnd:"¡Sí! {t1} + {d} minutos = {t2}.",
+    hintEnd:"Todavía no. Empieza en las {t1} y cuenta {d} minutos hacia adelante. Recuerda: 60 minutos forman 1 hora.",
+    tlLbl:"Línea de tiempo",
+    cardTitle:"Constructores de Área y Volumen — Tarjetas de Reto", cardComp:"Encuentra el área de esta figura. Primero divídela en dos rectángulos.",
+    stds:"Estándares alineados: Texas TEKS 3.6(C), 3.6(D), 3.7(B), 3.7(C); 4.5(D), 4.8(A), 4.8(B), 4.8(C); 5.4(G), 5.4(H), 5.6(A), 5.6(B), 5.7(A). Common Core 3.MD.1, 3.MD.5, 3.MD.6, 3.MD.7, 3.MD.8; 4.MD.1, 4.MD.2, 4.MD.3; 5.MD.1, 5.MD.3, 5.MD.4, 5.MD.5."
+  },
+  vi:{
+    appTitle:"Xây Diện Tích & Thể Tích", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", language:"Ngôn ngữ", readAloud:"Đọc to",
+    modesLbl:"Chế độ", stars:"Số sao đạt được", newRound:"Vòng mới", footNote:"Không tài khoản · Không thu thập dữ liệu · Hoạt động ngoại tuyến",
+    mTile:"Lát Ô Vuông", mPerim:"Tuần Tra Chu Vi", mBox:"Xếp Hộp", mConv:"Đổi Đơn Vị", mStory:"Bài Toán Đo Lường",
+    teacherTitle:"Cài đặt giáo viên", close:"Đóng", setGrade:"Lớp", g3:"Lớp 3", g4:"Lớp 4", g5:"Lớp 5",
+    gradeNote:"Chọn lớp sẽ đặt lại các tùy chọn bên dưới.", setMax:"Cạnh dài nhất", setUnits:"Hệ đơn vị",
+    customary:"Hệ đo lường Mỹ (bộ, pound)", metric:"Hệ mét (mét, ki-lô-gam)", setModes:"Chế độ", setSpeech:"Giọng nói",
+    autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
+    setStored:"Cài đặt chỉ lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
+    answerLbl:"Đáp án", check:"Kiểm tra", needNum:"Hãy gõ một số vào ô đáp án trước.",
+    sqUnits:"đơn vị vuông", cuUnits:"đơn vị khối", units:"đơn vị", cubesW:"khối lập phương", figLbl:"Hình minh họa bài toán",
+    sqU:"{u} vuông",
+    tileDir:"Chạm hoặc kéo qua các ô để lát kín hình chữ nhật. Diện tích của nó là bao nhiêu đơn vị vuông?",
+    tileMul:"Tìm diện tích hình chữ nhật này. Nhân độ dài hai cạnh.",
+    tileComp:"Tìm diện tích hình này. Chạm vào một đường nét đứt để chia nó thành hai hình chữ nhật.",
+    tileMiss:"Hình chữ nhật này có diện tích {A} đơn vị vuông. Cạnh có dấu ? dài bao nhiêu?",
+    fillRow:"Lát một hàng", clearTiles:"Xóa", tilesN:"Số ô: {n}", showGrid:"Hiện các ô vuông", hideGrid:"Ẩn các ô vuông",
+    cutV:"Chia bằng đường thẳng đứng", cutH:"Chia bằng đường nằm ngang",
+    goodArea:"Đúng rồi! {r} hàng, mỗi hàng {c} ô: {eq}. Diện tích là {A} đơn vị vuông.",
+    hintArea:"Gần đúng rồi. Hình chữ nhật có {r} hàng, mỗi hàng {c} ô. Hãy nhân số hàng × số ô mỗi hàng.",
+    hintAreaPerim:"Số đó là chu vi, tức là độ dài đường bao quanh. Diện tích là số đơn vị vuông nằm bên trong hình.",
+    goodComp:"Đúng rồi! Hai hình chữ nhật: {e1} và {e2}. Cộng lại: {sum} đơn vị vuông.",
+    hintComp:"Chia hình thành hai hình chữ nhật bằng một đường nét đứt. Tìm diện tích từng hình chữ nhật, rồi cộng hai diện tích lại.",
+    goodMiss:"Đúng rồi! {eq}, nên cạnh còn thiếu dài {b} đơn vị.",
+    hintMiss:"Hãy nghĩ: {a} × ? = {A}. Số nào nhân với {a} được {A}? Em có thể chia: {A} ÷ {a}.",
+    perWalk:"Đi vòng quanh hình: chạm vào từng cạnh để cộng độ dài của nó. Chu vi là bao nhiêu?",
+    walked:"Quãng đường đã đi: {eq}", walkedNone:"Quãng đường đã đi: 0", sideLbl:"Cạnh: {n} đơn vị",
+    goodPer:"Đúng rồi! {eq}. Chu vi là {P} đơn vị.",
+    hintPer:"Chưa đúng. Chu vi là độ dài đi hết một vòng. Hãy cộng độ dài tất cả các cạnh — chạm vào từng cạnh để không bỏ sót.",
+    hintPerArea:"Đó là diện tích, phần bên trong. Chu vi là độ dài đường bao bên ngoài: cộng độ dài tất cả các cạnh.",
+    perMiss:"Chu vi của hình này là {P} đơn vị. Cạnh có dấu ? dài bao nhiêu?",
+    goodPerMiss:"Đúng rồi! Các cạnh còn lại cộng được {s}, và {eq}.",
+    hintPerMiss:"Cộng các cạnh em đã biết: {s}. Cạnh còn thiếu là phần còn lại của chu vi: {P} − {s}.",
+    perRect:"Chu vi của hình chữ nhật này là {P} đơn vị. Cạnh có dấu ? dài bao nhiêu?",
+    goodPerRect:"Đúng rồi! Cạnh còn thiếu dài {b} đơn vị: {eq}.",
+    hintPerRect:"Các cạnh đối diện của hình chữ nhật bằng nhau. Cạnh trên và cạnh dưới cộng được {a2}. {P} − {a2} = {rem}, và phần này chia đều cho hai cạnh bằng nhau.",
+    sameA:"Các hình chữ nhật này có cùng diện tích. Chạm vào hình có chu vi lớn nhất.",
+    sameAless:"Các hình chữ nhật này có cùng diện tích. Chạm vào hình có chu vi nhỏ nhất.",
+    sameP:"Các hình chữ nhật này có cùng chu vi. Chạm vào hình có diện tích lớn nhất.",
+    goodSameA:"Đúng rồi! Hình nào cũng có diện tích {A} đơn vị vuông, nhưng hình này có chu vi {P} đơn vị. Cùng diện tích chưa chắc cùng chu vi!",
+    hintSameA:"Cùng diện tích nhưng chu vi khác nhau. Hình này có chu vi {P} đơn vị. Hãy cộng các cạnh của từng hình rồi so sánh.",
+    goodSameP:"Đúng rồi! Hình nào cũng có chu vi {P} đơn vị, và hình này có diện tích lớn nhất: {A} đơn vị vuông. Hình chữ nhật càng gần hình vuông thì diện tích càng lớn.",
+    hintSameP:"Hình này có diện tích {A} đơn vị vuông. Hãy nhân các cạnh của từng hình rồi so sánh diện tích.",
+    rectLbl:"Hình chữ nhật {a} nhân {b}",
+    boxPack:"Xếp đầy hộp bằng các khối lập phương đơn vị. Thêm hàng và lớp, rồi tìm thể tích.",
+    boxFormula:"Tìm thể tích của hộp này. Dùng V = dài × rộng × cao.",
+    boxBase:"Đáy của hộp này có diện tích B = {B} đơn vị vuông. Chiều cao là {h} đơn vị. Tìm thể tích. Dùng V = B × h.",
+    boxCube:"Mỗi cạnh của khối lập phương này dài {s} đơn vị. Tìm thể tích của nó.",
+    boxComp:"Hình này gồm hai hộp. Cả hai hộp đều sâu {w} đơn vị. Tìm tổng thể tích.",
+    addRow:"+ Hàng", addLayer:"+ Lớp", undo:"Hoàn tác", cubesN:"Số khối: {n}", layersEq:"{k} lớp × {b} khối mỗi lớp = {n}",
+    showCubes:"Hiện các khối", hideCubes:"Ẩn các khối",
+    goodVol:"Đúng rồi! {eq}. Thể tích là {V} đơn vị khối.",
+    hintVol:"Gần đúng rồi. Tìm số khối trong một lớp (đáy: {l} × {w}), rồi nhân với số lớp ({h}).",
+    hintVolAdd:"Có vẻ em đã cộng các cạnh. Thể tích là đếm số khối, nên hãy nhân: dài × rộng × cao.",
+    hintVolLayer:"Đó chỉ là một lớp, tức là đáy. Cần chồng bao nhiêu lớp để đầy hộp?",
+    hintBase:"Đáy cho biết một lớp có bao nhiêu khối. Nhân đáy với số lớp: {B} × {h}.",
+    goodVComp:"Đúng rồi! Hộp 1: {e1}. Hộp 2: {e2}. Tổng: {sum} đơn vị khối.",
+    hintVComp:"Tìm thể tích từng hộp riêng, rồi cộng hai thể tích lại.",
+    convQ:"{q} bằng bao nhiêu {u2}?",
+    goodConv:"Đúng rồi! {fact}, nên {eq}.",
+    hintDown:"Mỗi {big} bằng {k} {smalls}. Đổi từ đơn vị lớn sang đơn vị nhỏ thì được nhiều đơn vị hơn, nên hãy nhân với {k}.",
+    hintUp:"Cứ {k} {smalls} thì được 1 {big}. Đổi từ đơn vị nhỏ sang đơn vị lớn thì được ít đơn vị hơn, nên hãy chia cho {k}.",
+    hintMixed:"Trước tiên đổi {a} {bigs} sang {smalls}: {a} × {k}. Sau đó cộng thêm {b} {smalls}.",
+    sArea:"{name} đang lát sàn nhà bằng gạch vuông. Sàn dài {a} {u} và rộng {b} {u}. Cần bao nhiêu {sq} gạch?",
+    sPerim:"{name} đang làm hàng rào quanh một khu vườn dài {a} {u} và rộng {b} {u}. Cần bao nhiêu {u} hàng rào?",
+    sMissA:"Một tấm thảm có diện tích {A} {sq}. Nó dài {a} {u}. Nó rộng bao nhiêu {u}?",
+    sVol:"{name} đang xếp đầy một chiếc hộp dài {l} khối, rộng {w} khối và cao {h} khối. Cần bao nhiêu khối để đầy hộp?",
+    sElapsed:"{name} bắt đầu đọc sách lúc {t1} và dừng lúc {t2}. {name} đã đọc bao nhiêu phút?",
+    sEnd:"Buổi tập bóng đá bắt đầu lúc {t1} và kéo dài {d} phút. Buổi tập kết thúc lúc mấy giờ?",
+    sLiquid:"Một bình chứa {a} lít nước trái cây. {name} rót {b} mi-li-lít vào các cốc. Còn lại bao nhiêu mi-li-lít?",
+    sClay:"{name} có {a} pound đất sét và dùng {b} ounce cho một dự án. Còn lại bao nhiêu ounce?",
+    goodStory:"Đúng rồi! {eq}. Đáp án là {ans}.",
+    hArea:"Diện tích phủ kín cả sàn. Nhân chiều dài × chiều rộng: {a} × {b}.",
+    hPerim:"Hàng rào bao quanh bên ngoài, nên cộng cả bốn cạnh: {a} + {b} + {a} + {b}.",
+    hMissA:"Diện tích = dài × rộng. Lấy diện tích chia cho chiều dài đã biết: {A} ÷ {a}.",
+    hVol:"Thể tích = dài × rộng × cao. Tìm số khối trong một lớp, rồi nhân với số lớp.",
+    hElapsed:"Đếm tiếp từ {t1} đến {t2}. Hãy nhảy đến giờ tròn tiếp theo trước, rồi cộng số phút còn lại.",
+    hEnd:"Cộng {d} phút vào {t1}. Nhớ nhé: 60 phút là 1 giờ.",
+    hLiquid:"Trước tiên đổi {a} lít sang mi-li-lít (1 lít = 1000 mi-li-lít). Sau đó trừ đi {b}.",
+    hClay:"Trước tiên đổi {a} pound sang ounce (1 pound = 16 ounce). Sau đó trừ đi {b}.",
+    goodEnd:"Đúng rồi! {t1} + {d} phút = {t2}.",
+    hintEnd:"Chưa đúng. Bắt đầu từ {t1} và đếm tiếp {d} phút. Nhớ nhé: 60 phút là 1 giờ.",
+    tlLbl:"Trục thời gian",
+    cardTitle:"Xây Diện Tích & Thể Tích — Thẻ Thử Thách", cardComp:"Tìm diện tích hình này. Trước tiên hãy chia nó thành hai hình chữ nhật.",
+    stds:"Tiêu chuẩn phù hợp: Texas TEKS 3.6(C), 3.6(D), 3.7(B), 3.7(C); 4.5(D), 4.8(A), 4.8(B), 4.8(C); 5.4(G), 5.4(H), 5.6(A), 5.6(B), 5.7(A). Common Core 3.MD.1, 3.MD.5, 3.MD.6, 3.MD.7, 3.MD.8; 4.MD.1, 4.MD.2, 4.MD.3; 5.MD.1, 5.MD.3, 5.MD.4, 5.MD.5."
+  },
+  ar:{
+    appTitle:"بُناة المساحة والحجم", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", language:"اللغة", readAloud:"اقرأ بصوت عالٍ",
+    modesLbl:"الأنماط", stars:"النجوم المكتسبة", newRound:"جولة جديدة", footNote:"بدون حسابات · لا جمع للبيانات · يعمل بدون إنترنت",
+    mTile:"بلّطها", mPerim:"دورية المحيط", mBox:"ابنِ صندوقًا", mConv:"حوِّلها", mStory:"قصص القياس",
+    teacherTitle:"إعدادات المعلم", close:"إغلاق", setGrade:"الصف", g3:"الصف الثالث", g4:"الصف الرابع", g5:"الصف الخامس",
+    gradeNote:"اختيار الصف يعيد ضبط الخيارات أدناه.", setMax:"أطول ضلع", setUnits:"أنظمة الوحدات",
+    customary:"الوحدات الأمريكية (قدم، رطل)", metric:"النظام المتري (متر، كيلوغرام)", setModes:"الأنماط", setSpeech:"النطق",
+    autoRead:"قراءة التعليمات تلقائيًا", printCards:"طباعة بطاقات التحدي",
+    setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُحفظ أي معلومات عن الطالب أبدًا.",
+    answerLbl:"الإجابة", check:"تحقّق", needNum:"اكتب عددًا في خانة الإجابة أولًا.",
+    sqUnits:"وحدة مربعة", cuUnits:"وحدة مكعبة", units:"وحدة", cubesW:"مكعبًا", figLbl:"صورة المسألة",
+    sqU:"{u} مربع",
+    tileDir:"المس المربعات أو اسحب فوقها لتبليط المستطيل. كم وحدة مربعة مساحته؟",
+    tileMul:"جِد مساحة هذا المستطيل. اضرب طولَي الضلعين.",
+    tileComp:"جِد مساحة هذا الشكل. المس خطًا متقطعًا لتقسيمه إلى مستطيلين.",
+    tileMiss:"مساحة هذا المستطيل {A} وحدة مربعة. كم طول الضلع المُعلَّم بعلامة ؟",
+    fillRow:"املأ صفًا", clearTiles:"مسح", tilesN:"البلاطات: {n}", showGrid:"أظهر المربعات", hideGrid:"أخفِ المربعات",
+    cutV:"قسّم بخط عمودي", cutH:"قسّم بخط أفقي",
+    goodArea:"نعم! {r} صفوف، في كل صف {c} مربعات: {eq}. المساحة {A} وحدة مربعة.",
+    hintArea:"ليس تمامًا. في المستطيل {r} صفوف، وفي كل صف {c} مربعات. اضرب عدد الصفوف × عدد المربعات في كل صف.",
+    hintAreaPerim:"هذا العدد هو المحيط، أي المسافة حول الشكل. المساحة تعدّ الوحدات المربعة داخل الشكل.",
+    goodComp:"نعم! مستطيلان: {e1} و {e2}. اجمعهما: {sum} وحدة مربعة.",
+    hintComp:"قسّم الشكل إلى مستطيلين بخط متقطع. جِد مساحة كل مستطيل، ثم اجمع المساحتين.",
+    goodMiss:"نعم! {eq}، إذن طول الضلع الناقص {b} وحدات.",
+    hintMiss:"فكّر: {a} × ? = {A}. أي عدد إذا ضربته في {a} يعطي {A}؟ يمكنك القسمة: {A} ÷ {a}.",
+    perWalk:"امشِ حول الشكل: المس كل ضلع لتضيف طوله. ما المحيط؟",
+    walked:"المسافة المقطوعة: {eq}", walkedNone:"المسافة المقطوعة: 0", sideLbl:"ضلع: {n} وحدات",
+    goodPer:"نعم! {eq}. المحيط {P} وحدة.",
+    hintPer:"ليس بعد. المحيط هو المسافة حول الشكل كله. اجمع أطوال جميع الأضلاع، والمس كل ضلع حتى لا تنسى أي ضلع.",
+    hintPerArea:"هذه هي المساحة، أي ما بداخل الشكل. المحيط هو المسافة حول الخارج: اجمع أطوال جميع الأضلاع.",
+    perMiss:"محيط هذا الشكل {P} وحدة. كم طول الضلع المُعلَّم بعلامة ؟",
+    goodPerMiss:"نعم! مجموع الأضلاع الأخرى {s}، و {eq}.",
+    hintPerMiss:"اجمع أطوال الأضلاع المعروفة: {s}. الضلع الناقص هو ما يتبقى من المحيط: {P} − {s}.",
+    perRect:"محيط هذا المستطيل {P} وحدة. كم طول الضلع المُعلَّم بعلامة ؟",
+    goodPerRect:"نعم! طول الضلع الناقص {b} وحدات: {eq}.",
+    hintPerRect:"الأضلاع المتقابلة في المستطيل متساوية. الضلعان العلوي والسفلي معًا {a2}. {P} − {a2} = {rem}، وهذا يُقسم على ضلعين متساويين.",
+    sameA:"لهذه المستطيلات المساحة نفسها. المس المستطيل الذي محيطه أكبر.",
+    sameAless:"لهذه المستطيلات المساحة نفسها. المس المستطيل الذي محيطه أصغر.",
+    sameP:"لهذه المستطيلات المحيط نفسه. المس المستطيل الذي مساحته أكبر.",
+    goodSameA:"نعم! مساحة كل مستطيل {A} وحدة مربعة، لكن محيط هذا المستطيل {P} وحدة. المساحة نفسها لا تعني المحيط نفسه!",
+    hintSameA:"المساحة نفسها، لكن المحيطات مختلفة. محيط هذا المستطيل {P} وحدة. اجمع أضلاع كل مستطيل وقارن.",
+    goodSameP:"نعم! محيط كل مستطيل {P} وحدة، وهذا المستطيل مساحته الأكبر: {A} وحدة مربعة. المستطيلات القريبة من المربع مساحتها أكبر.",
+    hintSameP:"مساحة هذا المستطيل {A} وحدة مربعة. اضرب ضلعَي كل مستطيل وقارن المساحات.",
+    rectLbl:"مستطيل {a} في {b}",
+    boxPack:"املأ الصندوق بمكعبات الوحدة. أضف صفوفًا وطبقات، ثم جِد الحجم.",
+    boxFormula:"جِد حجم هذا الصندوق. استخدم: الحجم = الطول × العرض × الارتفاع.",
+    boxBase:"مساحة قاعدة هذا الصندوق B = {B} وحدة مربعة، وارتفاعه {h} وحدات. جِد الحجم. استخدم V = B × h.",
+    boxCube:"طول كل حرف في هذا المكعب {s} وحدات. جِد حجمه.",
+    boxComp:"هذا الشكل مكوّن من صندوقين. عمق كل صندوق {w} وحدات. جِد الحجم الكلي.",
+    addRow:"+ صف", addLayer:"+ طبقة", undo:"تراجع", cubesN:"المكعبات: {n}", layersEq:"{k} طبقات × {b} مكعبات في كل طبقة = {n}",
+    showCubes:"أظهر المكعبات", hideCubes:"أخفِ المكعبات",
+    goodVol:"نعم! {eq}. الحجم {V} وحدة مكعبة.",
+    hintVol:"ليس تمامًا. جِد عدد المكعبات في طبقة واحدة (القاعدة: {l} × {w})، ثم اضربه في عدد الطبقات ({h}).",
+    hintVolAdd:"يبدو أنك جمعت الأحرف. الحجم يعدّ المكعبات، لذا اضرب: الطول × العرض × الارتفاع.",
+    hintVolLayer:"هذه طبقة واحدة فقط، هي القاعدة. كم طبقة تحتاج لملء الصندوق؟",
+    hintBase:"القاعدة تخبرك بعدد المكعبات في طبقة واحدة. اضرب القاعدة في عدد الطبقات: {B} × {h}.",
+    goodVComp:"نعم! الصندوق 1: {e1}. الصندوق 2: {e2}. المجموع: {sum} وحدة مكعبة.",
+    hintVComp:"جِد حجم كل صندوق وحده، ثم اجمع الحجمين.",
+    convQ:"كم {u2} في {q}؟",
+    goodConv:"نعم! {fact}، إذن {eq}.",
+    hintDown:"كل {big} يساوي {k} {smalls}. عند التحويل من وحدة كبيرة إلى وحدة صغيرة نحصل على وحدات أكثر، لذا اضرب في {k}.",
+    hintUp:"كل {k} {smalls} تساوي 1 {big}. عند التحويل من وحدة صغيرة إلى وحدة كبيرة نحصل على وحدات أقل، لذا اقسم على {k}.",
+    hintMixed:"أولًا حوّل {a} {bigs} إلى {smalls}: {a} × {k}. ثم أضف {b} {smalls} الزائدة.",
+    sArea:"أرضية غرفة {name} طولها {a} {u} وعرضها {b} {u}. كم {sq} من البلاط المربع نحتاج لتغطيتها؟",
+    sPerim:"حديقة {name} طولها {a} {u} وعرضها {b} {u}. كم {u} من السياج نحتاج لإحاطتها؟",
+    sMissA:"سجادة مساحتها {A} {sq}، وطولها {a} {u}. كم {u} عرضها؟",
+    sVol:"صندوق {name} طوله {l} مكعبات، وعرضه {w} مكعبات، وارتفاعه {h} مكعبات. كم مكعبًا يملأ الصندوق؟",
+    sElapsed:"بدأ وقت القراءة عند {name} الساعة {t1} وانتهى الساعة {t2}. كم دقيقة استمرت القراءة؟",
+    sEnd:"يبدأ تدريب كرة القدم الساعة {t1} ويستمر {d} دقيقة. متى ينتهي؟",
+    sLiquid:"في إبريق {a} لترات من العصير. صُبَّ منه {b} مليلتر في أكواب {name}. كم مليلترًا بقي؟",
+    sClay:"لدى {name} {a} أرطال من الصلصال، واستُخدمت منها {b} أونصة في مشروع. كم أونصة بقيت؟",
+    goodStory:"نعم! {eq}. الإجابة: {ans}.",
+    hArea:"المساحة تغطي الأرضية كلها. اضرب الطول × العرض: {a} × {b}.",
+    hPerim:"السياج يحيط بالخارج، لذا اجمع الأضلاع الأربعة: {a} + {b} + {a} + {b}.",
+    hMissA:"المساحة = الطول × العرض. اقسم المساحة على الطول المعروف: {A} ÷ {a}.",
+    hVol:"الحجم = الطول × العرض × الارتفاع. جِد المكعبات في طبقة واحدة، ثم اضرب في عدد الطبقات.",
+    hElapsed:"عُدّ من {t1} إلى {t2}. اقفز أولًا إلى الساعة الكاملة التالية، ثم أضف الدقائق المتبقية.",
+    hEnd:"أضف {d} دقيقة إلى {t1}. تذكّر: 60 دقيقة تساوي ساعة واحدة.",
+    hLiquid:"أولًا حوّل {a} لترات إلى مليلترات (1 لتر = 1000 مليلتر). ثم اطرح {b}.",
+    hClay:"أولًا حوّل {a} أرطال إلى أونصات (1 رطل = 16 أونصة). ثم اطرح {b}.",
+    goodEnd:"نعم! {t1} + {d} دقيقة = {t2}.",
+    hintEnd:"ليس تمامًا. ابدأ من {t1} وعُدّ {d} دقيقة إلى الأمام. تذكّر: 60 دقيقة تساوي ساعة واحدة.",
+    tlLbl:"خط زمني",
+    cardTitle:"بُناة المساحة والحجم — بطاقات التحدي", cardComp:"جِد مساحة هذا الشكل. قسّمه أولًا إلى مستطيلين.",
+    stds:"المعايير المتوافقة: Texas TEKS 3.6(C)، 3.6(D)، 3.7(B)، 3.7(C)؛ 4.5(D)، 4.8(A)، 4.8(B)، 4.8(C)؛ 5.4(G)، 5.4(H)، 5.6(A)، 5.6(B)، 5.7(A). Common Core 3.MD.1، 3.MD.5، 3.MD.6، 3.MD.7، 3.MD.8؛ 4.MD.1، 4.MD.2، 4.MD.3؛ 5.MD.1، 5.MD.3، 5.MD.4، 5.MD.5."
+  },
+  hi:{
+    appTitle:"क्षेत्रफल और आयतन बिल्डर", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", language:"भाषा", readAloud:"ज़ोर से पढ़ें",
+    modesLbl:"मोड", stars:"मिले हुए तारे", newRound:"नया दौर", footNote:"कोई खाता नहीं · कोई डेटा नहीं · ऑफ़लाइन काम करता है",
+    mTile:"टाइल लगाओ", mPerim:"परिमाप गश्त", mBox:"डिब्बा बनाओ", mConv:"इकाई बदलो", mStory:"माप की कहानियाँ",
+    teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setGrade:"कक्षा", g3:"कक्षा 3", g4:"कक्षा 4", g5:"कक्षा 5",
+    gradeNote:"कक्षा चुनने पर नीचे के विकल्प फिर से सेट हो जाते हैं।", setMax:"सबसे लंबी भुजा", setUnits:"इकाई प्रणालियाँ",
+    customary:"अमेरिकी इकाइयाँ (फ़ुट, पाउंड)", metric:"मीट्रिक (मीटर, किलोग्राम)", setModes:"मोड", setSpeech:"आवाज़",
+    autoRead:"निर्देश अपने आप पढ़ें", printCards:"चुनौती कार्ड छापें",
+    setStored:"सेटिंग्स केवल इस डिवाइस पर सहेजी जाती हैं। छात्र की जानकारी कभी नहीं सहेजी जाती।",
+    answerLbl:"उत्तर", check:"जाँचो", needNum:"पहले उत्तर वाले खाने में एक संख्या लिखो।",
+    sqUnits:"वर्ग इकाई", cuUnits:"घन इकाई", units:"इकाई", cubesW:"घन", figLbl:"सवाल का चित्र",
+    sqU:"वर्ग {u}",
+    tileDir:"आयत को टाइलों से ढकने के लिए वर्गों को छुओ या उन पर उँगली खींचो। इसका क्षेत्रफल कितनी वर्ग इकाई है?",
+    tileMul:"इस आयत का क्षेत्रफल ज्ञात करो। दोनों भुजाओं की लंबाई का गुणा करो।",
+    tileComp:"इस आकृति का क्षेत्रफल ज्ञात करो। इसे दो आयतों में बाँटने के लिए एक बिंदीदार रेखा को छुओ।",
+    tileMiss:"इस आयत का क्षेत्रफल {A} वर्ग इकाई है। ? वाली भुजा कितनी लंबी है?",
+    fillRow:"एक पंक्ति भरो", clearTiles:"हटाओ", tilesN:"टाइलें: {n}", showGrid:"वर्ग दिखाओ", hideGrid:"वर्ग छिपाओ",
+    cutV:"खड़ी रेखा से बाँटो", cutH:"आड़ी रेखा से बाँटो",
+    goodArea:"हाँ! {r} पंक्तियाँ, हर पंक्ति में {c} वर्ग: {eq}। क्षेत्रफल {A} वर्ग इकाई है।",
+    hintArea:"थोड़ा और। आयत में {r} पंक्तियाँ हैं और हर पंक्ति में {c} वर्ग हैं। पंक्तियों × हर पंक्ति के वर्गों का गुणा करो।",
+    hintAreaPerim:"यह संख्या परिमाप है, यानी चारों ओर की दूरी। क्षेत्रफल आकृति के अंदर की वर्ग इकाइयाँ गिनता है।",
+    goodComp:"हाँ! दो आयत: {e1} और {e2}। इन्हें जोड़ो: {sum} वर्ग इकाई।",
+    hintComp:"बिंदीदार रेखा से आकृति को दो आयतों में बाँटो। हर आयत का क्षेत्रफल निकालो, फिर दोनों क्षेत्रफल जोड़ो।",
+    goodMiss:"हाँ! {eq}, इसलिए छूटी हुई भुजा {b} इकाई है।",
+    hintMiss:"सोचो: {a} × ? = {A}। किस संख्या को {a} से गुणा करने पर {A} मिलता है? तुम भाग भी कर सकते हो: {A} ÷ {a}।",
+    perWalk:"आकृति के चारों ओर चलो: हर भुजा को छूकर उसकी लंबाई जोड़ो। परिमाप कितना है?",
+    walked:"चली गई दूरी: {eq}", walkedNone:"चली गई दूरी: 0", sideLbl:"भुजा: {n} इकाई",
+    goodPer:"हाँ! {eq}। परिमाप {P} इकाई है।",
+    hintPer:"अभी नहीं। परिमाप पूरे चक्कर की दूरी है। हर भुजा की लंबाई जोड़ो — हर भुजा को छुओ ताकि कोई छूट न जाए।",
+    hintPerArea:"यह क्षेत्रफल है, यानी अंदर की जगह। परिमाप बाहर चारों ओर की दूरी है: सभी भुजाओं की लंबाई जोड़ो।",
+    perMiss:"इस आकृति का परिमाप {P} इकाई है। ? वाली भुजा कितनी लंबी है?",
+    goodPerMiss:"हाँ! बाकी भुजाओं का योग {s} है, और {eq}।",
+    hintPerMiss:"जो भुजाएँ पता हैं उन्हें जोड़ो: {s}। छूटी हुई भुजा परिमाप का बचा हुआ हिस्सा है: {P} − {s}।",
+    perRect:"इस आयत का परिमाप {P} इकाई है। ? वाली भुजा कितनी लंबी है?",
+    goodPerRect:"हाँ! छूटी हुई भुजा {b} इकाई है: {eq}।",
+    hintPerRect:"आयत की आमने-सामने की भुजाएँ बराबर होती हैं। ऊपर और नीचे की भुजाएँ मिलकर {a2} हैं। {P} − {a2} = {rem}, और यह दो बराबर भुजाओं में बँटता है।",
+    sameA:"इन सभी आयतों का क्षेत्रफल बराबर है। सबसे बड़े परिमाप वाले आयत को छुओ।",
+    sameAless:"इन सभी आयतों का क्षेत्रफल बराबर है। सबसे छोटे परिमाप वाले आयत को छुओ।",
+    sameP:"इन सभी आयतों का परिमाप बराबर है। सबसे बड़े क्षेत्रफल वाले आयत को छुओ।",
+    goodSameA:"हाँ! हर आयत का क्षेत्रफल {A} वर्ग इकाई है, लेकिन इसका परिमाप {P} इकाई है। बराबर क्षेत्रफल का मतलब बराबर परिमाप नहीं होता!",
+    hintSameA:"क्षेत्रफल बराबर, परिमाप अलग। इसका परिमाप {P} इकाई है। हर आयत की भुजाएँ जोड़ो और तुलना करो।",
+    goodSameP:"हाँ! हर आयत का परिमाप {P} इकाई है, और इसका क्षेत्रफल सबसे बड़ा है: {A} वर्ग इकाई। वर्ग जैसे आयतों का क्षेत्रफल सबसे ज़्यादा होता है।",
+    hintSameP:"इसका क्षेत्रफल {A} वर्ग इकाई है। हर आयत की भुजाओं का गुणा करो और क्षेत्रफलों की तुलना करो।",
+    rectLbl:"{a} गुणा {b} का आयत",
+    boxPack:"डिब्बे को इकाई घनों से भरो। पंक्तियाँ और परतें जोड़ो, फिर आयतन ज्ञात करो।",
+    boxFormula:"इस डिब्बे का आयतन ज्ञात करो। आयतन = लंबाई × चौड़ाई × ऊँचाई का उपयोग करो।",
+    boxBase:"इस डिब्बे के आधार का क्षेत्रफल B = {B} वर्ग इकाई है। ऊँचाई {h} इकाई है। आयतन ज्ञात करो। V = B × h का उपयोग करो।",
+    boxCube:"इस घन का हर किनारा {s} इकाई लंबा है। इसका आयतन ज्ञात करो।",
+    boxComp:"यह आकृति दो डिब्बों से बनी है। दोनों डिब्बे {w} इकाई गहरे हैं। कुल आयतन ज्ञात करो।",
+    addRow:"+ पंक्ति", addLayer:"+ परत", undo:"वापस लो", cubesN:"घन: {n}", layersEq:"{k} परतें × हर परत में {b} घन = {n}",
+    showCubes:"घन दिखाओ", hideCubes:"घन छिपाओ",
+    goodVol:"हाँ! {eq}। आयतन {V} घन इकाई है।",
+    hintVol:"थोड़ा और। एक परत के घन निकालो (आधार: {l} × {w}), फिर परतों की संख्या ({h}) से गुणा करो।",
+    hintVolAdd:"लगता है तुमने किनारे जोड़ दिए। आयतन घनों को गिनता है, इसलिए गुणा करो: लंबाई × चौड़ाई × ऊँचाई।",
+    hintVolLayer:"यह सिर्फ़ एक परत है, यानी आधार। डिब्बा भरने के लिए कितनी परतें लगेंगी?",
+    hintBase:"आधार बताता है कि एक परत में कितने घन हैं। आधार को परतों की संख्या से गुणा करो: {B} × {h}।",
+    goodVComp:"हाँ! डिब्बा 1: {e1}। डिब्बा 2: {e2}। कुल: {sum} घन इकाई।",
+    hintVComp:"हर डिब्बे का आयतन अलग-अलग निकालो, फिर दोनों आयतन जोड़ो।",
+    convQ:"{q} में कितने {u2} होते हैं?",
+    goodConv:"हाँ! {fact}, इसलिए {eq}।",
+    hintDown:"हर {big} में {k} {smalls} होते हैं। बड़ी इकाई से छोटी इकाई में बदलने पर इकाइयाँ ज़्यादा मिलती हैं, इसलिए {k} से गुणा करो।",
+    hintUp:"हर {k} {smalls} से 1 {big} बनता है। छोटी इकाई से बड़ी इकाई में बदलने पर इकाइयाँ कम मिलती हैं, इसलिए {k} से भाग दो।",
+    hintMixed:"पहले {a} {bigs} को {smalls} में बदलो: {a} × {k}। फिर बचे हुए {b} {smalls} जोड़ो।",
+    sArea:"{name} के कमरे का फ़र्श {a} {u} लंबा और {b} {u} चौड़ा है। इसे वर्गाकार टाइलों से ढकने के लिए कितने {sq} टाइल चाहिए?",
+    sPerim:"{name} के बगीचे की लंबाई {a} {u} और चौड़ाई {b} {u} है। इसके चारों ओर बाड़ लगाने के लिए कितने {u} बाड़ चाहिए?",
+    sMissA:"एक दरी का क्षेत्रफल {A} {sq} है। इसकी लंबाई {a} {u} है। इसकी चौड़ाई कितने {u} है?",
+    sVol:"{name} का डिब्बा {l} घन लंबा, {w} घन चौड़ा और {h} घन ऊँचा है। डिब्बा भरने के लिए कितने घन चाहिए?",
+    sElapsed:"{name} ने {t1} बजे पढ़ना शुरू किया और {t2} बजे बंद किया। {name} ने कितने मिनट पढ़ा?",
+    sEnd:"फ़ुटबॉल का अभ्यास {t1} बजे शुरू होता है और {d} मिनट चलता है। यह कितने बजे खत्म होगा?",
+    sLiquid:"एक जग में {a} लीटर जूस है। {name} ने {b} मिलीलीटर जूस गिलासों में डाला। कितने मिलीलीटर बचे?",
+    sClay:"{name} के पास {a} पाउंड मिट्टी है। एक प्रोजेक्ट में {b} औंस मिट्टी लगी। कितने औंस बचे?",
+    goodStory:"हाँ! {eq}। उत्तर है {ans}।",
+    hArea:"क्षेत्रफल पूरे फ़र्श को ढकता है। लंबाई × चौड़ाई का गुणा करो: {a} × {b}।",
+    hPerim:"बाड़ बाहर चारों ओर लगती है, इसलिए चारों भुजाएँ जोड़ो: {a} + {b} + {a} + {b}।",
+    hMissA:"क्षेत्रफल = लंबाई × चौड़ाई। क्षेत्रफल को ज्ञात लंबाई से भाग दो: {A} ÷ {a}।",
+    hVol:"आयतन = लंबाई × चौड़ाई × ऊँचाई। एक परत के घन निकालो, फिर परतों की संख्या से गुणा करो।",
+    hElapsed:"{t1} से {t2} तक आगे गिनो। पहले अगले पूरे घंटे तक छलांग लगाओ, फिर बचे हुए मिनट जोड़ो।",
+    hEnd:"{t1} में {d} मिनट जोड़ो। याद रखो: 60 मिनट = 1 घंटा।",
+    hLiquid:"पहले {a} लीटर को मिलीलीटर में बदलो (1 लीटर = 1000 मिलीलीटर)। फिर {b} घटाओ।",
+    hClay:"पहले {a} पाउंड को औंस में बदलो (1 पाउंड = 16 औंस)। फिर {b} घटाओ।",
+    goodEnd:"हाँ! {t1} + {d} मिनट = {t2}।",
+    hintEnd:"अभी नहीं। {t1} से शुरू करो और {d} मिनट आगे गिनो। याद रखो: 60 मिनट = 1 घंटा।",
+    tlLbl:"समय रेखा",
+    cardTitle:"क्षेत्रफल और आयतन बिल्डर — चुनौती कार्ड", cardComp:"इस आकृति का क्षेत्रफल ज्ञात करो। पहले इसे दो आयतों में बाँटो।",
+    stds:"संरेखित मानक: Texas TEKS 3.6(C), 3.6(D), 3.7(B), 3.7(C); 4.5(D), 4.8(A), 4.8(B), 4.8(C); 5.4(G), 5.4(H), 5.6(A), 5.6(B), 5.7(A)। Common Core 3.MD.1, 3.MD.5, 3.MD.6, 3.MD.7, 3.MD.8; 4.MD.1, 4.MD.2, 4.MD.3; 5.MD.1, 5.MD.3, 5.MD.4, 5.MD.5।"
+  },
+  ur:{
+    appTitle:"رقبہ اور حجم بلڈرز", home:"ہوم", privacy:"رازداری", teacher:"استاد", language:"زبان", readAloud:"بلند آواز سے پڑھیں",
+    modesLbl:"موڈ", stars:"حاصل کیے گئے ستارے", newRound:"نیا دور", footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا نہیں · آف لائن کام کرتا ہے",
+    mTile:"ٹائل لگاؤ", mPerim:"احاطہ گشت", mBox:"ڈبہ بناؤ", mConv:"اکائی بدلو", mStory:"پیمائش کی کہانیاں",
+    teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setGrade:"جماعت", g3:"جماعت 3", g4:"جماعت 4", g5:"جماعت 5",
+    gradeNote:"جماعت چننے سے نیچے کے اختیارات دوبارہ سیٹ ہو جاتے ہیں۔", setMax:"سب سے لمبا ضلع", setUnits:"اکائیوں کے نظام",
+    customary:"امریکی اکائیاں (فٹ، پاؤنڈ)", metric:"میٹرک (میٹر، کلوگرام)", setModes:"موڈ", setSpeech:"آواز",
+    autoRead:"ہدایات خود بخود پڑھیں", printCards:"چیلنج کارڈ پرنٹ کریں",
+    setStored:"ترتیبات صرف اسی ڈیوائس پر محفوظ ہوتی ہیں۔ طالب علم کی معلومات کبھی محفوظ نہیں ہوتیں۔",
+    answerLbl:"جواب", check:"جانچو", needNum:"پہلے جواب کے خانے میں ایک عدد لکھو۔",
+    sqUnits:"مربع اکائیاں", cuUnits:"مکعب اکائیاں", units:"اکائیاں", cubesW:"مکعب", figLbl:"سوال کی تصویر",
+    sqU:"مربع {u}",
+    tileDir:"مستطیل کو ٹائلوں سے ڈھکنے کے لیے مربعوں کو چھوؤ یا ان پر انگلی پھیرو۔ اس کا رقبہ کتنی مربع اکائیاں ہے؟",
+    tileMul:"اس مستطیل کا رقبہ معلوم کرو۔ دونوں اضلاع کی لمبائیوں کو ضرب دو۔",
+    tileComp:"اس شکل کا رقبہ معلوم کرو۔ اسے دو مستطیلوں میں بانٹنے کے لیے ایک نقطے دار لکیر کو چھوؤ۔",
+    tileMiss:"اس مستطیل کا رقبہ {A} مربع اکائیاں ہے۔ ? والا ضلع کتنا لمبا ہے؟",
+    fillRow:"ایک قطار بھرو", clearTiles:"صاف کرو", tilesN:"ٹائلیں: {n}", showGrid:"مربعے دکھاؤ", hideGrid:"مربعے چھپاؤ",
+    cutV:"کھڑی لکیر سے بانٹو", cutH:"آڑی لکیر سے بانٹو",
+    goodArea:"ہاں! {r} قطاریں، ہر قطار میں {c} مربعے: {eq}۔ رقبہ {A} مربع اکائیاں ہے۔",
+    hintArea:"تھوڑا اور۔ مستطیل میں {r} قطاریں ہیں اور ہر قطار میں {c} مربعے ہیں۔ قطاروں × ہر قطار کے مربعوں کو ضرب دو۔",
+    hintAreaPerim:"یہ عدد احاطہ ہے، یعنی چاروں طرف کا فاصلہ۔ رقبہ شکل کے اندر کی مربع اکائیاں گنتا ہے۔",
+    goodComp:"ہاں! دو مستطیل: {e1} اور {e2}۔ انہیں جمع کرو: {sum} مربع اکائیاں۔",
+    hintComp:"نقطے دار لکیر سے شکل کو دو مستطیلوں میں بانٹو۔ ہر مستطیل کا رقبہ نکالو، پھر دونوں رقبے جمع کرو۔",
+    goodMiss:"ہاں! {eq}، اس لیے غائب ضلع {b} اکائیاں ہے۔",
+    hintMiss:"سوچو: {a} × ? = {A}۔ کون سا عدد {a} سے ضرب دینے پر {A} بنتا ہے؟ تم تقسیم بھی کر سکتے ہو: {A} ÷ {a}۔",
+    perWalk:"شکل کے گرد چلو: ہر ضلع کو چھو کر اس کی لمبائی جمع کرو۔ احاطہ کتنا ہے؟",
+    walked:"طے کیا گیا فاصلہ: {eq}", walkedNone:"طے کیا گیا فاصلہ: 0", sideLbl:"ضلع: {n} اکائیاں",
+    goodPer:"ہاں! {eq}۔ احاطہ {P} اکائیاں ہے۔",
+    hintPer:"ابھی نہیں۔ احاطہ پورے چکر کا فاصلہ ہے۔ ہر ضلع کی لمبائی جمع کرو — ہر ضلع کو چھوؤ تاکہ کوئی رہ نہ جائے۔",
+    hintPerArea:"یہ رقبہ ہے، یعنی اندر کی جگہ۔ احاطہ باہر چاروں طرف کا فاصلہ ہے: تمام اضلاع کی لمبائیاں جمع کرو۔",
+    perMiss:"اس شکل کا احاطہ {P} اکائیاں ہے۔ ? والا ضلع کتنا لمبا ہے؟",
+    goodPerMiss:"ہاں! باقی اضلاع کا مجموعہ {s} ہے، اور {eq}۔",
+    hintPerMiss:"معلوم اضلاع کی لمبائیاں جمع کرو: {s}۔ غائب ضلع احاطے کا باقی حصہ ہے: {P} − {s}۔",
+    perRect:"اس مستطیل کا احاطہ {P} اکائیاں ہے۔ ? والا ضلع کتنا لمبا ہے؟",
+    goodPerRect:"ہاں! غائب ضلع {b} اکائیاں ہے: {eq}۔",
+    hintPerRect:"مستطیل کے آمنے سامنے کے اضلاع برابر ہوتے ہیں۔ اوپر اور نیچے کے اضلاع مل کر {a2} ہیں۔ {P} − {a2} = {rem}، اور یہ دو برابر اضلاع میں بٹتا ہے۔",
+    sameA:"ان سب مستطیلوں کا رقبہ برابر ہے۔ سب سے بڑے احاطے والے مستطیل کو چھوؤ۔",
+    sameAless:"ان سب مستطیلوں کا رقبہ برابر ہے۔ سب سے چھوٹے احاطے والے مستطیل کو چھوؤ۔",
+    sameP:"ان سب مستطیلوں کا احاطہ برابر ہے۔ سب سے بڑے رقبے والے مستطیل کو چھوؤ۔",
+    goodSameA:"ہاں! ہر مستطیل کا رقبہ {A} مربع اکائیاں ہے، لیکن اس کا احاطہ {P} اکائیاں ہے۔ برابر رقبے کا مطلب برابر احاطہ نہیں!",
+    hintSameA:"رقبہ برابر، احاطے مختلف۔ اس کا احاطہ {P} اکائیاں ہے۔ ہر مستطیل کے اضلاع جمع کرو اور موازنہ کرو۔",
+    goodSameP:"ہاں! ہر مستطیل کا احاطہ {P} اکائیاں ہے، اور اس کا رقبہ سب سے بڑا ہے: {A} مربع اکائیاں۔ مربع جیسے مستطیلوں کا رقبہ سب سے زیادہ ہوتا ہے۔",
+    hintSameP:"اس کا رقبہ {A} مربع اکائیاں ہے۔ ہر مستطیل کے اضلاع کو ضرب دو اور رقبوں کا موازنہ کرو۔",
+    rectLbl:"{a} ضرب {b} کا مستطیل",
+    boxPack:"ڈبے کو اکائی مکعبوں سے بھرو۔ قطاریں اور تہیں شامل کرو، پھر حجم معلوم کرو۔",
+    boxFormula:"اس ڈبے کا حجم معلوم کرو۔ حجم = لمبائی × چوڑائی × اونچائی استعمال کرو۔",
+    boxBase:"اس ڈبے کے قاعدے کا رقبہ B = {B} مربع اکائیاں ہے۔ اونچائی {h} اکائیاں ہے۔ حجم معلوم کرو۔ V = B × h استعمال کرو۔",
+    boxCube:"اس مکعب کا ہر کنارہ {s} اکائیاں لمبا ہے۔ اس کا حجم معلوم کرو۔",
+    boxComp:"یہ شکل دو ڈبوں سے بنی ہے۔ دونوں ڈبے {w} اکائیاں گہرے ہیں۔ کل حجم معلوم کرو۔",
+    addRow:"+ قطار", addLayer:"+ تہہ", undo:"واپس", cubesN:"مکعب: {n}", layersEq:"{k} تہیں × ہر تہہ میں {b} مکعب = {n}",
+    showCubes:"مکعب دکھاؤ", hideCubes:"مکعب چھپاؤ",
+    goodVol:"ہاں! {eq}۔ حجم {V} مکعب اکائیاں ہے۔",
+    hintVol:"تھوڑا اور۔ ایک تہہ کے مکعب نکالو (قاعدہ: {l} × {w})، پھر تہوں کی تعداد ({h}) سے ضرب دو۔",
+    hintVolAdd:"لگتا ہے تم نے کنارے جمع کر دیے۔ حجم مکعب گنتا ہے، اس لیے ضرب دو: لمبائی × چوڑائی × اونچائی۔",
+    hintVolLayer:"یہ صرف ایک تہہ ہے، یعنی قاعدہ۔ ڈبہ بھرنے کے لیے کتنی تہیں لگیں گی؟",
+    hintBase:"قاعدہ بتاتا ہے کہ ایک تہہ میں کتنے مکعب ہیں۔ قاعدے کو تہوں کی تعداد سے ضرب دو: {B} × {h}۔",
+    goodVComp:"ہاں! ڈبہ 1: {e1}۔ ڈبہ 2: {e2}۔ کل: {sum} مکعب اکائیاں۔",
+    hintVComp:"ہر ڈبے کا حجم الگ الگ نکالو، پھر دونوں حجم جمع کرو۔",
+    convQ:"{q} میں کتنے {u2} ہوتے ہیں؟",
+    goodConv:"ہاں! {fact}، اس لیے {eq}۔",
+    hintDown:"ہر {big} میں {k} {smalls} ہوتے ہیں۔ بڑی اکائی سے چھوٹی اکائی میں بدلنے پر اکائیاں زیادہ ملتی ہیں، اس لیے {k} سے ضرب دو۔",
+    hintUp:"ہر {k} {smalls} سے 1 {big} بنتا ہے۔ چھوٹی اکائی سے بڑی اکائی میں بدلنے پر اکائیاں کم ملتی ہیں، اس لیے {k} سے تقسیم کرو۔",
+    hintMixed:"پہلے {a} {bigs} کو {smalls} میں بدلو: {a} × {k}۔ پھر اضافی {b} {smalls} جمع کرو۔",
+    sArea:"{name} کے کمرے کا فرش {a} {u} لمبا اور {b} {u} چوڑا ہے۔ اسے مربع ٹائلوں سے ڈھکنے کے لیے کتنے {sq} ٹائلیں چاہییں؟",
+    sPerim:"{name} کے باغ کی لمبائی {a} {u} اور چوڑائی {b} {u} ہے۔ اس کے گرد باڑ لگانے کے لیے کتنے {u} باڑ چاہیے؟",
+    sMissA:"ایک قالین کا رقبہ {A} {sq} ہے۔ اس کی لمبائی {a} {u} ہے۔ اس کی چوڑائی کتنے {u} ہے؟",
+    sVol:"{name} کا ڈبہ {l} مکعب لمبا، {w} مکعب چوڑا اور {h} مکعب اونچا ہے۔ ڈبہ بھرنے کے لیے کتنے مکعب چاہییں؟",
+    sElapsed:"{name} نے {t1} بجے پڑھنا شروع کیا اور {t2} بجے بند کیا۔ {name} نے کتنے منٹ پڑھا؟",
+    sEnd:"فٹ بال کی مشق {t1} بجے شروع ہوتی ہے اور {d} منٹ چلتی ہے۔ یہ کتنے بجے ختم ہو گی؟",
+    sLiquid:"ایک جگ میں {a} لیٹر جوس ہے۔ {name} نے {b} ملی لیٹر جوس گلاسوں میں ڈالا۔ کتنے ملی لیٹر بچے؟",
+    sClay:"{name} کے پاس {a} پاؤنڈ مٹی ہے۔ ایک منصوبے میں {b} اونس مٹی لگی۔ کتنے اونس بچے؟",
+    goodStory:"ہاں! {eq}۔ جواب ہے {ans}۔",
+    hArea:"رقبہ پورے فرش کو ڈھکتا ہے۔ لمبائی × چوڑائی کو ضرب دو: {a} × {b}۔",
+    hPerim:"باڑ باہر چاروں طرف لگتی ہے، اس لیے چاروں اضلاع جمع کرو: {a} + {b} + {a} + {b}۔",
+    hMissA:"رقبہ = لمبائی × چوڑائی۔ رقبے کو معلوم لمبائی سے تقسیم کرو: {A} ÷ {a}۔",
+    hVol:"حجم = لمبائی × چوڑائی × اونچائی۔ ایک تہہ کے مکعب نکالو، پھر تہوں کی تعداد سے ضرب دو۔",
+    hElapsed:"{t1} سے {t2} تک آگے گنو۔ پہلے اگلے پورے گھنٹے تک چھلانگ لگاؤ، پھر باقی منٹ جمع کرو۔",
+    hEnd:"{t1} میں {d} منٹ جمع کرو۔ یاد رکھو: 60 منٹ = 1 گھنٹہ۔",
+    hLiquid:"پہلے {a} لیٹر کو ملی لیٹر میں بدلو (1 لیٹر = 1000 ملی لیٹر)۔ پھر {b} تفریق کرو۔",
+    hClay:"پہلے {a} پاؤنڈ کو اونس میں بدلو (1 پاؤنڈ = 16 اونس)۔ پھر {b} تفریق کرو۔",
+    goodEnd:"ہاں! {t1} + {d} منٹ = {t2}۔",
+    hintEnd:"ابھی نہیں۔ {t1} سے شروع کرو اور {d} منٹ آگے گنو۔ یاد رکھو: 60 منٹ = 1 گھنٹہ۔",
+    tlLbl:"وقت کی لکیر",
+    cardTitle:"رقبہ اور حجم بلڈرز — چیلنج کارڈ", cardComp:"اس شکل کا رقبہ معلوم کرو۔ پہلے اسے دو مستطیلوں میں بانٹو۔",
+    stds:"منسلک معیارات: Texas TEKS 3.6(C)، 3.6(D)، 3.7(B)، 3.7(C)؛ 4.5(D)، 4.8(A)، 4.8(B)، 4.8(C)؛ 5.4(G)، 5.4(H)، 5.6(A)، 5.6(B)، 5.7(A)۔ Common Core 3.MD.1، 3.MD.5، 3.MD.6، 3.MD.7، 3.MD.8؛ 4.MD.1، 4.MD.2، 4.MD.3؛ 5.MD.1، 5.MD.3، 5.MD.4، 5.MD.5۔"
+  },
+  zh:{
+    appTitle:"面积与体积建造师", home:"主页", privacy:"隐私", teacher:"教师", language:"语言", readAloud:"朗读",
+    modesLbl:"模式", stars:"获得的星星", newRound:"新一轮", footNote:"无账号 · 不收集数据 · 离线可用",
+    mTile:"铺一铺", mPerim:"周长巡逻", mBox:"搭箱子", mConv:"换一换", mStory:"测量故事",
+    teacherTitle:"教师设置", close:"关闭", setGrade:"年级", g3:"三年级", g4:"四年级", g5:"五年级",
+    gradeNote:"选择年级会重置下面的选项。", setMax:"最长边长", setUnits:"单位制",
+    customary:"英制（英尺、磅）", metric:"公制（米、千克）", setModes:"模式", setSpeech:"语音",
+    autoRead:"自动朗读说明", printCards:"打印挑战卡",
+    setStored:"设置只保存在这台设备上。从不保存任何学生信息。",
+    answerLbl:"答案", check:"检查", needNum:"请先在答案框里输入一个数。",
+    sqUnits:"平方单位", cuUnits:"立方单位", units:"个单位", cubesW:"个小正方体", figLbl:"题目图示",
+    sqU:"平方{u}",
+    tileDir:"点一点或拖过小方格，把长方形铺满。它的面积是多少平方单位？",
+    tileMul:"求这个长方形的面积。把两条边的长度相乘。",
+    tileComp:"求这个图形的面积。点一条虚线，把它分成两个长方形。",
+    tileMiss:"这个长方形的面积是{A}平方单位。标着 ? 的边有多长？",
+    fillRow:"铺满一行", clearTiles:"清除", tilesN:"方格：{n}", showGrid:"显示方格", hideGrid:"隐藏方格",
+    cutV:"用竖线分开", cutH:"用横线分开",
+    goodArea:"对了！{r}行，每行{c}个方格：{eq}。面积是{A}平方单位。",
+    hintArea:"差一点。这个长方形有{r}行，每行有{c}个方格。用行数 × 每行的方格数。",
+    hintAreaPerim:"这个数是周长，也就是一圈的长度。面积是数图形里面有多少个平方单位。",
+    goodComp:"对了！两个长方形：{e1}和{e2}。加起来：{sum}平方单位。",
+    hintComp:"用一条虚线把图形分成两个长方形。分别求出每个长方形的面积，再把两个面积加起来。",
+    goodMiss:"对了！{eq}，所以缺少的边长是{b}个单位。",
+    hintMiss:"想一想：{a} × ? = {A}。什么数乘{a}等于{A}？你可以用除法：{A} ÷ {a}。",
+    perWalk:"沿着图形走一圈：点每条边，把它的长度加上去。周长是多少？",
+    walked:"已走的路程：{eq}", walkedNone:"已走的路程：0", sideLbl:"边：{n}个单位",
+    goodPer:"对了！{eq}。周长是{P}个单位。",
+    hintPer:"还不对。周长是绕一整圈的长度。把每条边的长度都加起来——点每条边，这样就不会漏掉。",
+    hintPerArea:"那是面积，也就是里面的大小。周长是外面一圈的长度：把所有边的长度加起来。",
+    perMiss:"这个图形的周长是{P}个单位。标着 ? 的边有多长？",
+    goodPerMiss:"对了！其他边加起来是{s}，而{eq}。",
+    hintPerMiss:"先把已知的边长加起来：{s}。缺少的边就是周长剩下的部分：{P} − {s}。",
+    perRect:"这个长方形的周长是{P}个单位。标着 ? 的边有多长？",
+    goodPerRect:"对了！缺少的边长是{b}个单位：{eq}。",
+    hintPerRect:"长方形的对边相等。上下两条边加起来是{a2}。{P} − {a2} = {rem}，这部分平均分给两条相等的边。",
+    sameA:"这些长方形的面积都一样。点周长最大的那个。",
+    sameAless:"这些长方形的面积都一样。点周长最小的那个。",
+    sameP:"这些长方形的周长都一样。点面积最大的那个。",
+    goodSameA:"对了！每个长方形的面积都是{A}平方单位，但这个的周长是{P}个单位。面积相同，周长不一定相同！",
+    hintSameA:"面积相同，周长不同。这个的周长是{P}个单位。把每个长方形的边加起来比一比。",
+    goodSameP:"对了！每个长方形的周长都是{P}个单位，这个的面积最大：{A}平方单位。越接近正方形的长方形，面积越大。",
+    hintSameP:"这个的面积是{A}平方单位。把每个长方形的边相乘，比一比面积。",
+    rectLbl:"{a}乘{b}的长方形",
+    boxPack:"用单位小正方体把箱子装满。添加行和层，然后求体积。",
+    boxFormula:"求这个箱子的体积。用 V = 长 × 宽 × 高。",
+    boxBase:"这个箱子的底面积是 B = {B} 平方单位，高是{h}个单位。求体积。用 V = B × h。",
+    boxCube:"这个正方体的每条棱长{s}个单位。求它的体积。",
+    boxComp:"这个图形由两个箱子组成。两个箱子都是{w}个单位深。求总体积。",
+    addRow:"+ 一行", addLayer:"+ 一层", undo:"撤销", cubesN:"小正方体：{n}", layersEq:"{k}层 × 每层{b}个 = {n}",
+    showCubes:"显示小正方体", hideCubes:"隐藏小正方体",
+    goodVol:"对了！{eq}。体积是{V}立方单位。",
+    hintVol:"差一点。先求一层有多少个小正方体（底面：{l} × {w}），再乘层数（{h}）。",
+    hintVolAdd:"看起来你把棱长加起来了。体积是数小正方体，所以要相乘：长 × 宽 × 高。",
+    hintVolLayer:"那只是一层，也就是底面。要叠几层才能装满箱子？",
+    hintBase:"底面积告诉你一层有多少个小正方体。用底面积乘层数：{B} × {h}。",
+    goodVComp:"对了！箱子1：{e1}。箱子2：{e2}。总共：{sum}立方单位。",
+    hintVComp:"分别求出每个箱子的体积，再把两个体积加起来。",
+    convQ:"{q}是多少{u2}？",
+    goodConv:"对了！{fact}，所以{eq}。",
+    hintDown:"每1{big}是{k}{smalls}。从大单位换成小单位，数量会变多，所以要乘{k}。",
+    hintUp:"每{k}{smalls}是1{big}。从小单位换成大单位，数量会变少，所以要除以{k}。",
+    hintMixed:"先把{a}{bigs}换成{smalls}：{a} × {k}。再加上多出来的{b}{smalls}。",
+    sArea:"{name}要用方砖铺地板。地板长{a}{u}，宽{b}{u}。需要多少{sq}的方砖？",
+    sPerim:"{name}要给一个长{a}{u}、宽{b}{u}的花园围上篱笆。需要多少{u}长的篱笆？",
+    sMissA:"一块地毯的面积是{A}{sq}，长{a}{u}。它宽多少{u}？",
+    sVol:"{name}要装满一个箱子：箱子长{l}个小正方体，宽{w}个，高{h}个。一共能装多少个小正方体？",
+    sElapsed:"{name}在{t1}开始看书，在{t2}停下来。{name}看了多少分钟？",
+    sEnd:"足球训练在{t1}开始，持续{d}分钟。几点结束？",
+    sLiquid:"一个水壶装着{a}升果汁。{name}倒了{b}毫升到杯子里。还剩多少毫升？",
+    sClay:"{name}有{a}磅黏土，做手工用了{b}盎司。还剩多少盎司？",
+    goodStory:"对了！{eq}。答案是{ans}。",
+    hArea:"面积覆盖整个地板。用长 × 宽：{a} × {b}。",
+    hPerim:"篱笆围在外面一圈，所以把四条边都加起来：{a} + {b} + {a} + {b}。",
+    hMissA:"面积 = 长 × 宽。用面积除以已知的长：{A} ÷ {a}。",
+    hVol:"体积 = 长 × 宽 × 高。先求一层有多少个小正方体，再乘层数。",
+    hElapsed:"从{t1}往后数到{t2}。先跳到下一个整点，再加上剩下的分钟。",
+    hEnd:"在{t1}上加{d}分钟。记住：60分钟是1小时。",
+    hLiquid:"先把{a}升换成毫升（1升 = 1000毫升），再减去{b}。",
+    hClay:"先把{a}磅换成盎司（1磅 = 16盎司），再减去{b}。",
+    goodEnd:"对了！{t1} + {d}分钟 = {t2}。",
+    hintEnd:"还不对。从{t1}开始，往后数{d}分钟。记住：60分钟是1小时。",
+    tlLbl:"时间轴",
+    cardTitle:"面积与体积建造师 — 挑战卡", cardComp:"求这个图形的面积。先把它分成两个长方形。",
+    stds:"对应标准：Texas TEKS 3.6(C)、3.6(D)、3.7(B)、3.7(C)；4.5(D)、4.8(A)、4.8(B)、4.8(C)；5.4(G)、5.4(H)、5.6(A)、5.6(B)、5.7(A)。Common Core 3.MD.1、3.MD.5、3.MD.6、3.MD.7、3.MD.8；4.MD.1、4.MD.2、4.MD.3；5.MD.1、5.MD.3、5.MD.4、5.MD.5。"
+  }
+};
+/* Unit names: [singular, plural] */
+const UN = {
+  en:{ft:["foot","feet"],in:["inch","inches"],yd:["yard","yards"],lb:["pound","pounds"],oz:["ounce","ounces"],gal:["gallon","gallons"],qt:["quart","quarts"],h:["hour","hours"],min:["minute","minutes"],m:["meter","meters"],cm:["centimeter","centimeters"],km:["kilometer","kilometers"],kg:["kilogram","kilograms"],g:["gram","grams"],L:["liter","liters"],mL:["milliliter","milliliters"]},
+  es:{ft:["pie","pies"],in:["pulgada","pulgadas"],yd:["yarda","yardas"],lb:["libra","libras"],oz:["onza","onzas"],gal:["galón","galones"],qt:["cuarto de galón","cuartos de galón"],h:["hora","horas"],min:["minuto","minutos"],m:["metro","metros"],cm:["centímetro","centímetros"],km:["kilómetro","kilómetros"],kg:["kilogramo","kilogramos"],g:["gramo","gramos"],L:["litro","litros"],mL:["mililitro","mililitros"]},
+  vi:{ft:["bộ","bộ"],in:["inch","inch"],yd:["yard","yard"],lb:["pound","pound"],oz:["ounce","ounce"],gal:["gallon","gallon"],qt:["quart","quart"],h:["giờ","giờ"],min:["phút","phút"],m:["mét","mét"],cm:["xăng-ti-mét","xăng-ti-mét"],km:["ki-lô-mét","ki-lô-mét"],kg:["ki-lô-gam","ki-lô-gam"],g:["gam","gam"],L:["lít","lít"],mL:["mi-li-lít","mi-li-lít"]},
+  ar:{ft:["قدم","قدم"],in:["بوصة","بوصة"],yd:["ياردة","ياردة"],lb:["رطل","رطل"],oz:["أونصة","أونصة"],gal:["غالون","غالون"],qt:["كوارت","كوارت"],h:["ساعة","ساعة"],min:["دقيقة","دقيقة"],m:["متر","متر"],cm:["سنتيمتر","سنتيمتر"],km:["كيلومتر","كيلومتر"],kg:["كيلوغرام","كيلوغرام"],g:["غرام","غرام"],L:["لتر","لتر"],mL:["مليلتر","مليلتر"]},
+  hi:{ft:["फ़ुट","फ़ुट"],in:["इंच","इंच"],yd:["गज़","गज़"],lb:["पाउंड","पाउंड"],oz:["औंस","औंस"],gal:["गैलन","गैलन"],qt:["क्वार्ट","क्वार्ट"],h:["घंटा","घंटे"],min:["मिनट","मिनट"],m:["मीटर","मीटर"],cm:["सेंटीमीटर","सेंटीमीटर"],km:["किलोमीटर","किलोमीटर"],kg:["किलोग्राम","किलोग्राम"],g:["ग्राम","ग्राम"],L:["लीटर","लीटर"],mL:["मिलीलीटर","मिलीलीटर"]},
+  ur:{ft:["فٹ","فٹ"],in:["انچ","انچ"],yd:["گز","گز"],lb:["پاؤنڈ","پاؤنڈ"],oz:["اونس","اونس"],gal:["گیلن","گیلن"],qt:["کوارٹ","کوارٹ"],h:["گھنٹہ","گھنٹے"],min:["منٹ","منٹ"],m:["میٹر","میٹر"],cm:["سینٹی میٹر","سینٹی میٹر"],km:["کلومیٹر","کلومیٹر"],kg:["کلوگرام","کلوگرام"],g:["گرام","گرام"],L:["لیٹر","لیٹر"],mL:["ملی لیٹر","ملی لیٹر"]},
+  zh:{ft:["英尺","英尺"],in:["英寸","英寸"],yd:["码","码"],lb:["磅","磅"],oz:["盎司","盎司"],gal:["加仑","加仑"],qt:["夸脱","夸脱"],h:["小时","小时"],min:["分钟","分钟"],m:["米","米"],cm:["厘米","厘米"],km:["千米","千米"],kg:["千克","千克"],g:["克","克"],L:["升","升"],mL:["毫升","毫升"]}
+};
+
+let lang = "en";
+function t(key, vars){
+  let s = (T[lang] && T[lang][key]!==undefined) ? T[lang][key] : (T.en[key]!==undefined? T.en[key] : key);
+  if(vars) for(const k in vars) s = s.replaceAll("{"+k+"}", vars[k]);
+  return s;
+}
+function un(u,n){ const e=(UN[lang]&&UN[lang][u])||UN.en[u]; return n===1?e[0]:e[1]; }
+
+/* ---------- Settings ---------- */
+const MODES = ["tile","perim","box","conv","story"];
+const MODE_KEY = {tile:"mTile",perim:"mPerim",box:"mBox",conv:"mConv",story:"mStory"};
+const GRADE_DEF = {
+  3:{max:8, modes:{tile:true,perim:true,box:false,conv:false,story:true}},
+  4:{max:10,modes:{tile:true,perim:true,box:true,conv:true,story:true}},
+  5:{max:12,modes:{tile:false,perim:true,box:true,conv:true,story:true}}
+};
+const MAXES=[5,6,8,10,12];
+const clone = o=>JSON.parse(JSON.stringify(o));
+const DEFAULTS = {grade:4, max:10, cust:true, metric:true, modes:clone(GRADE_DEF[4].modes), autoRead:false};
+let settings = loadSettings();
+function loadSettings(){
+  try{
+    const raw = localStorage.getItem("avb_settings");
+    if(raw){ const o=JSON.parse(raw), s=Object.assign(clone(DEFAULTS), o, {modes:Object.assign({},DEFAULTS.modes,o.modes)});
+      if(!GRADE_DEF[s.grade]) s.grade=3;
+      if(!MAXES.includes(+s.max)) s.max=GRADE_DEF[s.grade].max;
+      if(!s.cust && !s.metric) s.metric=true;
+      if(!MODES.some(m=>s.modes[m])) s.modes=clone(GRADE_DEF[s.grade].modes);
+      return s; }
+  }catch(e){}
+  return clone(DEFAULTS);
+}
+function saveSettings(){ try{ localStorage.setItem("avb_settings", JSON.stringify(settings)); }catch(e){} }
+
+/* ---------- Utils ---------- */
+const $ = s=>document.querySelector(s);
+const $$ = s=>Array.from(document.querySelectorAll(s));
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const ri = (a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const M = s=>`<bdi class="math" dir="ltr">${s}</bdi>`;
+const plain = h=>String(h).replace(/<[^>]+>/g,"").replace(/\s+/g," ").trim();
+const G = ()=>+settings.grade, MX = ()=>+settings.max;
+const sq = u=>t("sqU",{u:un(u,2)});
+const NAMES=["Ana","Mateo","Linh","Omar","Priya","Ayesha","Wei","Jamal","Sofia","Diego","Mei","Zara"];
+function lenU(){ const o=[]; if(settings.cust) o.push("ft"); if(settings.metric) o.push("m"); return rand(o.length?o:["m"]); }
+function fmtTime(m){ m=((m%720)+720)%720; const h=Math.floor(m/60)||12, mm=m%60; return h+":"+(mm<10?"0":"")+mm; }
+let stars=0;
+function addStar(){ stars++; $("#starCount").textContent=stars; const w=$("#stars"); w.classList.remove("pop"); void w.offsetWidth; w.classList.add("pop"); }
+
+/* ---------- Speech ---------- */
+const speechOK = ("speechSynthesis" in window);
+function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
+// Prefer warm, natural voices; avoid harsh robotic engines.
+function pickWarmVoice(code){
+  const vs = speechSynthesis.getVoices()||[];
+  const want=code.toLowerCase(), two=want.slice(0,2);
+  let best=null, bs=-1;
+  for(const v of vs){
+    const lc=(v.lang||'').toLowerCase().replace('_','-');
+    if(lc!==want && lc.slice(0,2)!==two) continue;
+    let s=(lc===want?100:60); const n=(v.name||'').toLowerCase();
+    if(/google|natural|neural|online|premium|enhanced|siri/.test(n)) s+=40;
+    if(/female|woman|samantha|karen|tessa|moira|fiona|serena|victoria|allison|ava|susan|zoe|amelie|amélie|paulina|monica|mónica|zira|hazel|catherine|linda|kanya|lekha|ting-ting|mei-jia|sin-ji|yu-shu|huihui|xiaoxiao/.test(n)) s+=18;
+    if(/espeak|compact|festival|pico|robot|eloquence/.test(n)) s-=60;
+    if(v.localService===false) s+=8;
+    if(v.default) s+=2;
+    if(s>bs){ bs=s; best=v; }
+  }
+  return best;
+}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  const parts=String(text).match(/[^.!?。！？؟।۔]+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.9; u.pitch=1.1;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={tile:0,perim:0,box:0,conv:0,story:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
+}
+if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
+if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
+
+const currentSpeech = {tile:"",perim:"",box:"",conv:"",story:""};
+function setSpeech(mode,text){ currentSpeech[mode]=plain(text); }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===mode) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,.fig,[role=button]")) return;
+  speak(currentSpeech[currentMode()]);
+},true);
+
+/* ---------- Feedback & answers ---------- */
+function showFb(el,type,msg){ el.className="feedback show "+type; el.innerHTML=(type==="good"?"✅ ":"💡 ")+msg; }
+function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
+const made={}, S={}, CHECK={};
+let viaKey=false;
+function setPrompt(m,html){ $("#"+m+"Prompt").innerHTML=html; setSpeech(m,html); hideFb($("#"+m+"Fb")); }
+function ansRow(m,unit){
+  return `<div class="ansrow"><label class="anslab" for="${m}In">${t("answerLbl")}</label>`+
+    `<input id="${m}In" class="ans" type="text" inputmode="numeric" dir="ltr" autocomplete="off" maxlength="7">`+
+    `<span class="unit">${unit||""}</span><button type="button" class="btn chk" data-chk="${m}">✔ ${t("check")}</button></div>`;
+}
+function chkBtn(m){ return `<div class="ansrow"><button type="button" class="btn chk" data-chk="${m}">✔ ${t("check")}</button></div>`; }
+function readNum(m){
+  const el=$("#"+m+"In"); if(!el) return null;
+  const v=el.value.replace(/[٠-٩]/g,d=>d.charCodeAt(0)-1632).replace(/[۰-۹]/g,d=>d.charCodeAt(0)-1776).replace(/[,\s]/g,"");
+  return /^\d+$/.test(v)?+v:null;
+}
+function submit(m){
+  const s=S[m]; if(!s||s.done) return;
+  const v=readNum(m);
+  if(v===null){ showFb($("#"+m+"Fb"),"hint",t("needNum")); speak(t("needNum")); const el=$("#"+m+"In"); if(el) el.focus(); return; }
+  CHECK[m](v);
+}
+function win(m,msg){
+  S[m].done=true; showFb($("#"+m+"Fb"),"good",msg); addStar();
+  $$("#mode-"+m+" .ans, #mode-"+m+" .chk, #mode-"+m+" .tool, #mode-"+m+" .choice").forEach(e=>e.disabled=true);
+  afterPraise(plain(msg),m,()=>NEWFN[m](),2000);
+}
+function miss(m,msg){
+  showFb($("#"+m+"Fb"),"hint",msg); speak(plain(msg));
+  const el=$("#"+m+"In"); if(el && document.activeElement===el) el.select();
+}
+function focusAns(m){ if(!viaKey) return; viaKey=false; const el=$("#mode-"+m+" .ans")||$("#mode-"+m+" .choice"); if(el) el.focus(); }
+
+/* ---------- SVG helpers ---------- */
+const CS=40;   // grid cell size (svg units)
+const GRID_PAD=46;
+function svgOpen(vw,vh,role,extra){ return `<svg viewBox="0 0 ${vw} ${vh}" class="fig ${extra||""}" dir="ltr" role="${role||"img"}" aria-label="${t("figLbl")}" focusable="false">`; }
+function ptsStr(poly,P,cs){ return poly.map(p=>(P+p[0]*cs)+","+(P+p[1]*cs)).join(" "); }
+function rectPoly(w,h){ return [[0,0],[w,0],[w,h],[0,h]]; }
+function lPoly(W,H,cw,ch){ return [[0,0],[W-cw,0],[W-cw,ch],[W,ch],[W,H],[0,H]]; }
+function sideLens(poly){ return poly.map((p,i)=>{ const q=poly[(i+1)%poly.length]; return Math.abs(q[0]-p[0])+Math.abs(q[1]-p[1]); }); }
+function inPoly(poly,x,y){ let c=false; for(let i=0,j=poly.length-1;i<poly.length;j=i++){ const a=poly[i],b=poly[j]; if(((a[1]>y)!==(b[1]>y)) && (x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])) c=!c; } return c; }
+// Edge label positions just outside each side (polygons listed clockwise on screen).
+function edgeLabel(p,q,P,cs,txt,fs){
+  const dx=Math.sign(q[0]-p[0]), dy=Math.sign(q[1]-p[1]), ox=dy, oy=-dx;
+  const x=P+(p[0]+q[0])/2*cs+ox*fs*.95, y=P+(p[1]+q[1])/2*cs+oy*fs*.95+fs*.35;
+  return `<text x="${x}" y="${y}" font-size="${fs}" text-anchor="middle">${txt}</text>`;
+}
+function gridLines(poly,W,H,P,cs,col){
+  let o="";
+  for(let i=0;i<H;i++) for(let j=0;j<W;j++) if(inPoly(poly,j+.5,i+.5)) o+=`<rect x="${P+j*cs}" y="${P+i*cs}" width="${cs}" height="${cs}" fill="none" stroke="${col||"#9ccfc2"}" stroke-width="1.5"/>`;
+  return o;
+}
+function shapeSVG(o){
+  // o: {poly,W,H,labels[],grid,cs,cells,on,cuts,cut,parts,center,sides,walked}
+  const cs=o.cs||CS, P=GRID_PAD, vw=o.W*cs+P*2, vh=o.H*cs+P*2, fs=Math.max(22,Math.round(vw/20));
+  const pts=ptsStr(o.poly,P,cs);
+  let s=svgOpen(vw,vh,o.role,o.cls);
+  s+=`<polygon points="${pts}" fill="#effaf6"/>`;
+  if(o.parts) o.parts.forEach(r=>{ s+=`<rect x="${P+r.x*cs}" y="${P+r.y*cs}" width="${r.w*cs}" height="${r.h*cs}" fill="${r.col}" opacity=".85"/>`; });
+  if(o.cells){ for(let i=0;i<o.H;i++) for(let j=0;j<o.W;j++){ const k=i*o.W+j; s+=`<rect class="cell${o.on.has(k)?" on":""}" data-c="${k}" x="${P+j*cs}" y="${P+i*cs}" width="${cs}" height="${cs}"/>`; } }
+  else if(o.grid) s+=gridLines(o.poly,o.W,o.H,P,cs);
+  else if(o.ticks){ // unit ticks on the edges so lengths still read as units
+    o.poly.forEach((p,i)=>{ const q=o.poly[(i+1)%o.poly.length], L=Math.abs(q[0]-p[0])+Math.abs(q[1]-p[1]), dx=Math.sign(q[0]-p[0]), dy=Math.sign(q[1]-p[1]);
+      for(let k=1;k<L;k++){ const x=P+(p[0]+dx*k)*cs, y=P+(p[1]+dy*k)*cs; s+=`<line x1="${x-dy*7}" y1="${y+dx*7}" x2="${x+dy*7}" y2="${y-dx*7}" stroke="#0e5e50" stroke-width="2"/>`; } });
+  }
+  if(o.parts) o.parts.forEach(r=>{ if(r.lbl) s+=`<text x="${P+(r.x+r.w/2)*cs}" y="${P+(r.y+r.h/2)*cs+fs*.35}" font-size="${Math.min(fs,r.w*cs/4.2)}" text-anchor="middle">${r.lbl}</text>`; });
+  if(o.sides){
+    o.poly.forEach((p,i)=>{ const q=o.poly[(i+1)%o.poly.length], L=Math.abs(q[0]-p[0])+Math.abs(q[1]-p[1]);
+      const c=`x1="${P+p[0]*cs}" y1="${P+p[1]*cs}" x2="${P+q[0]*cs}" y2="${P+q[1]*cs}"`;
+      s+=`<g class="side${o.walked&&o.walked.includes(i)?" walked":""}" data-side="${i}" tabindex="0" role="button" aria-pressed="${o.walked&&o.walked.includes(i)?"true":"false"}" aria-label="${t("sideLbl",{n:o.labels[i]==="?"?"?":L})}"><line ${c} stroke="transparent" stroke-width="30"/><line class="vis" ${c}/></g>`; });
+  } else s+=`<polygon points="${pts}" fill="none" stroke="#0e5e50" stroke-width="5" stroke-linejoin="round"/>`;
+  if(o.labels) o.poly.forEach((p,i)=>{ const q=o.poly[(i+1)%o.poly.length]; if(o.labels[i]!=null) s+=edgeLabel(p,q,P,cs,o.labels[i],fs); });
+  if(o.cuts) o.cuts.forEach(c=>{ const a=`x1="${P+c.a[0]*cs}" y1="${P+c.a[1]*cs}" x2="${P+c.b[0]*cs}" y2="${P+c.b[1]*cs}"`;
+    s+=`<g class="cut${o.cut===c.id?" chosen":""}" data-cut="${c.id}" tabindex="0" role="button" aria-label="${c.lbl}"><line ${a} stroke="transparent" stroke-width="30"/><line class="vis" ${a}/></g>`; });
+  if(o.center) s+=`<text x="${vw/2}" y="${vh/2+fs*.35}" font-size="${fs}" text-anchor="middle">${o.center}</text>`;
+  return s+`</svg>`;
+}
+
+/* ---------- Isometric cubes ---------- */
+const K=30, C30=0.866;
+const P3=(x,y,z)=>[(x-y)*K*C30,(x+y)*K*.5-z*K];
+function poly3(pts,fill,extra){ return `<polygon points="${pts.map(p=>P3(p[0],p[1],p[2]).map(v=>v.toFixed(1)).join(",")).join(" ")}" fill="${fill}" ${extra||""}/>`; }
+function faces(x0,y0,z0,l,w,h,col,st){
+  const x1=x0+l,y1=y0+w,z1=z0+h;
+  return poly3([[x0,y1,z0],[x1,y1,z0],[x1,y1,z1],[x0,y1,z1]],col[1],st)+
+         poly3([[x1,y0,z0],[x1,y1,z0],[x1,y1,z1],[x1,y0,z1]],col[2],st)+
+         poly3([[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1]],col[0],st);
+}
+const CUBE=["#c9f0e6","#7fd6c2","#3fae95"], CUBE2=["#fde3b6","#f9c06b","#d99331"], SOLID=["#d7f3ec","#a7e3d4","#6cc4ae"];
+function lab3(x,y,z,dx,dy,txt,fs,anchor){ const p=P3(x,y,z); return `<text x="${(p[0]+dx).toFixed(1)}" y="${(p[1]+dy).toFixed(1)}" font-size="${fs}" text-anchor="${anchor||"middle"}">${txt}</text>`; }
+// boxes: [{x,l,w,h,col,cubes,n,labels:{l,w,h,hLeft}}]; opts: {frame:{l,w,h}, n}
+function isoSVG(boxes,opts){
+  opts=opts||{};
+  let mnx=1e9,mny=1e9,mxx=-1e9,mxy=-1e9;
+  boxes.forEach(b=>{ for(const x of [b.x,b.x+b.l]) for(const y of [0,b.w]) for(const z of [0,b.h]){ const p=P3(x,y,z); mnx=Math.min(mnx,p[0]);mxx=Math.max(mxx,p[0]);mny=Math.min(mny,p[1]);mxy=Math.max(mxy,p[1]); } });
+  const fs=Math.max(20,Math.round((mxx-mnx)/14)), pad=fs*2.2;
+  const vx=mnx-pad, vy=mny-pad*.7, vw=mxx-mnx+pad*2, vh=mxy-mny+pad*1.6;
+  let s=`<svg viewBox="${vx.toFixed(1)} ${vy.toFixed(1)} ${vw.toFixed(1)} ${vh.toFixed(1)}" class="fig" dir="ltr" role="img" aria-label="${t("figLbl")}" focusable="false">`;
+  const st=`stroke="#1d4d43" stroke-width="1.6" stroke-linejoin="round"`;
+  boxes.forEach(b=>{
+    const {l,w,h}=b, x0=b.x;
+    if(b.frame){ // empty container: floor and back walls, then cubes, then dashed front edges
+      s+=poly3([[x0,0,0],[x0+l,0,0],[x0+l,w,0],[x0,w,0]],"#eef7f4",st)+poly3([[x0,0,0],[x0,w,0],[x0,w,h],[x0,0,h]],"#f5fbf9",st)+poly3([[x0,0,0],[x0+l,0,0],[x0+l,0,h],[x0,0,h]],"#f5fbf9",st);
+      if(b.n<l*w*h){ // faint unit grid on the floor
+        for(let i=1;i<l;i++) s+=`<line x1="${P3(x0+i,0,0)[0]}" y1="${P3(x0+i,0,0)[1]}" x2="${P3(x0+i,w,0)[0]}" y2="${P3(x0+i,w,0)[1]}" stroke="#b9ddd3" stroke-width="1.2"/>`;
+        for(let j=1;j<w;j++) s+=`<line x1="${P3(x0,j,0)[0]}" y1="${P3(x0,j,0)[1]}" x2="${P3(x0+l,j,0)[0]}" y2="${P3(x0+l,j,0)[1]}" stroke="#b9ddd3" stroke-width="1.2"/>`;
+      }
+    }
+    if(b.cubes){
+      const list=[], n=b.n==null?l*w*h:b.n;
+      for(let i=0;i<n;i++) list.push([x0+i%l,Math.floor(i/l)%w,Math.floor(i/(l*w))]);
+      list.sort((a,c)=>(a[0]+a[1]+a[2])-(c[0]+c[1]+c[2]));
+      list.forEach(c=>{ s+=faces(c[0],c[1],c[2],1,1,1,b.col||CUBE,`stroke="#1d4d43" stroke-width="1.2" stroke-linejoin="round"`); });
+    } else if(!b.frame) s+=faces(x0,0,0,l,w,h,b.col||SOLID,st);
+    if(b.frame){
+      const e=[[[x0,w,0],[x0+l,w,0]],[[x0+l,w,0],[x0+l,0,0]],[[x0,w,0],[x0,w,h]],[[x0+l,w,0],[x0+l,w,h]],[[x0+l,0,0],[x0+l,0,h]],[[x0,w,h],[x0+l,w,h]],[[x0+l,w,h],[x0+l,0,h]],[[x0,0,h],[x0+l,0,h]],[[x0,0,h],[x0,w,h]]];
+      e.forEach(([a,c])=>{ const p=P3(...a), q=P3(...c); s+=`<line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" stroke="#0e5e50" stroke-width="2.5" stroke-dasharray="7 5"/>`; });
+    }
+    if(b.topLbl){ const c=P3(x0+l/2,w/2,h); s+=`<text x="${c[0]}" y="${c[1]+fs*.35}" font-size="${fs}" text-anchor="middle">${b.topLbl}</text>`; }
+  });
+  boxes.forEach(b=>{ const L=b.labels||{}, {l,w,h}=b, x0=b.x;
+    if(L.l!=null) s+=lab3(x0+l/2,w,0,-fs*.7,fs*1.15,L.l,fs);
+    if(L.w!=null) s+=lab3(x0+l,w/2,0,fs*.8,fs*1.15,L.w,fs);
+    if(L.h!=null) s+=L.hLeft?lab3(x0,w,h/2,-fs*.5,fs*.35,L.h,fs,"end"):lab3(x0+l,0,h/2,fs*.5,fs*.35,L.h,fs,"start");
+  });
+  return s+`</svg>`;
+}
+
+/* =========================================================================
+   TILE IT — area by tiling, multiplying, decomposing; missing side
+   ========================================================================= */
+function newTile(){
+  roundIds.tile++; made.tile=true;
+  const g=G(), mx=MX();
+  const type=rand(g===3?["tile","tile","mul","comp"]:["mul","comp","comp","miss"]);
+  const s={type,done:false,grid:type==="tile",cut:null,on:new Set()};
+  if(type==="comp"){
+    s.W=ri(4,Math.max(5,mx)); s.H=ri(4,Math.max(5,Math.min(mx,9)));
+    s.cw=ri(1,s.W-2); s.ch=ri(1,s.H-2); s.A=s.W*s.H-s.cw*s.ch; s.full=g===3;
+  }else{
+    s.r=ri(2,Math.min(mx,type==="tile"?7:9)); s.c=ri(2,Math.min(mx,type==="tile"?9:mx));
+    if(s.r===s.c && Math.random()<.6) s.c=Math.min(mx,s.c+1)===s.c?s.c-1:s.c+1;
+    s.A=s.r*s.c;
+  }
+  S.tile=s; renderTile();
+  const p={tile:t("tileDir"),mul:t("tileMul"),comp:t("tileComp"),miss:t("tileMiss",{A:M(s.A)})}[type];
+  setPrompt("tile",p);
+  $("#tileAns").innerHTML=ansRow("tile",type==="miss"?t("units"):t("sqUnits"));
+  maybeAuto("tile"); focusAns("tile");
+}
+function tileParts(s){
+  const L=s.W-s.cw, colA="var(--partA)", colB="var(--partB)";
+  if(s.cut==="v") return [{x:0,y:0,w:L,h:s.H,col:colA},{x:L,y:s.ch,w:s.cw,h:s.H-s.ch,col:colB}];
+  if(s.cut==="h") return [{x:0,y:0,w:L,h:s.ch,col:colA},{x:0,y:s.ch,w:s.W,h:s.H-s.ch,col:colB}];
+  return null;
+}
+function renderTile(){
+  const s=S.tile; let o;
+  if(s.type==="comp"){
+    const L=s.W-s.cw, poly=lPoly(s.W,s.H,s.cw,s.ch);
+    const labels=s.full?[L,s.ch,s.cw,s.H-s.ch,s.W,s.H]:[L,null,null,s.H-s.ch,s.W,s.H];
+    const parts=tileParts(s);
+    if(parts) parts.forEach(r=>r.lbl=r.w+"×"+r.h);
+    o={poly,W:s.W,H:s.H,labels,grid:s.grid,ticks:!s.grid,parts,cut:s.cut,
+      cuts:[{id:"v",a:[L,s.ch],b:[L,s.H],lbl:t("cutV")},{id:"h",a:[0,s.ch],b:[L,s.ch],lbl:t("cutH")}],role:"group"};
+  }else{
+    const poly=rectPoly(s.c,s.r);
+    const labels=s.type==="tile"?null:[s.c,null,null,s.type==="miss"?"?":s.r];
+    o={poly,W:s.c,H:s.r,labels,grid:s.grid&&s.type!=="tile",ticks:!s.grid,
+      cells:s.type==="tile",on:s.on,role:s.type==="tile"?"group":"img",cls:s.type==="tile"?"paint":"",
+      center:s.type==="miss"?"A = "+s.A:null};
+  }
+  $("#tileFig").innerHTML=shapeSVG(o);
+  // tools + work line
+  let tools="", work="";
+  if(s.type==="tile"){
+    tools=`<button type="button" class="btn tool" data-act="row">${t("fillRow")}</button><button type="button" class="btn ghost tool" data-act="clr">${t("clearTiles")}</button>`;
+    work=t("tilesN",{n:M(s.on.size)});
+  }else tools=`<button type="button" class="btn ghost tool" data-act="grid" aria-pressed="${s.grid}">${s.grid?t("hideGrid"):t("showGrid")}</button>`;
+  if(s.type==="comp"){ const p=tileParts(s); if(p) work=p.map(r=>`<span class="sw" style="background:${r.col}"></span>`+M(`${r.w} × ${r.h} = ${r.w*r.h}`)).join(" &nbsp; "); }
+  $("#tileTools").innerHTML=tools; $("#tileWork").innerHTML=work;
+  if(s.done) $$("#tileTools .tool").forEach(b=>b.disabled=true);
+}
+function tileAct(act){
+  const s=S.tile; if(!s||s.done) return;
+  if(act==="row"){ const W=s.c; for(let i=0;i<s.r;i++){ let full=true; for(let j=0;j<W;j++) if(!s.on.has(i*W+j)) full=false;
+      if(!full){ for(let j=0;j<W;j++) s.on.add(i*W+j); break; } } }
+  else if(act==="clr") s.on.clear();
+  else if(act==="grid") s.grid=!s.grid;
+  renderTile();
+}
+let painting=null;
+function paintCell(el){ const s=S.tile; if(!el||!s||s.done||s.type!=="tile") return; const k=+el.dataset.c;
+  if(painting===null) painting=!s.on.has(k);
+  if(painting) s.on.add(k); else s.on.delete(k);
+  el.classList.toggle("on",painting); $("#tileWork").innerHTML=t("tilesN",{n:M(s.on.size)}); }
+function compSplit(s){ const p=tileParts(s.cut?s:Object.assign({},s,{cut:"v"})); return p.map(r=>({e:`${r.w} × ${r.h} = ${r.w*r.h}`,a:r.w*r.h})); }
+CHECK.tile=v=>{
+  const s=S.tile;
+  if(s.type==="miss"){
+    if(v===s.r) return win("tile",t("goodMiss",{eq:M(`${s.c} × ${s.r} = ${s.A}`),b:M(s.r)}));
+    s.grid=true; renderTile();
+    return miss("tile",t("hintMiss",{a:M(s.c),A:M(s.A)}));
+  }
+  if(s.type==="comp"){
+    const p=compSplit(s);
+    if(v===s.A){ if(!s.cut){ s.cut="v"; renderTile(); }
+      return win("tile",t("goodComp",{e1:M(p[0].e),e2:M(p[1].e),sum:M(`${p[0].a} + ${p[1].a} = ${s.A}`)})); }
+    if(v===sideLens(lPoly(s.W,s.H,s.cw,s.ch)).reduce((a,b)=>a+b,0)) return miss("tile",t("hintAreaPerim")+" "+t("hintComp"));
+    if(!s.cut){ s.cut="v"; } s.grid=true; renderTile();
+    return miss("tile",t("hintComp"));
+  }
+  if(v===s.A){ if(s.type==="tile") s.on=new Set([...Array(s.A).keys()]); renderTile();
+    return win("tile",t("goodArea",{r:M(s.r),c:M(s.c),eq:M(`${s.r} × ${s.c} = ${s.A}`),A:M(s.A)})); }
+  s.grid=true; renderTile();
+  if(v===2*(s.r+s.c)) return miss("tile",t("hintAreaPerim")+" "+t("hintArea",{r:M(s.r),c:M(s.c)}));
+  miss("tile",t("hintArea",{r:M(s.r),c:M(s.c)}));
+};
+
+/* =========================================================================
+   PERIMETER PATROL — walk the sides, missing sides, same area / same perimeter
+   ========================================================================= */
+function factorPairs(A,mx){ const o=[]; for(let a=1;a*a<=A;a++) if(A%a===0 && A/a<=mx) o.push([a,A/a]); return o; }
+function newPerim(){
+  roundIds.perim++; made.perim=true;
+  const g=G(), mx=MX();
+  const type=rand(g===3?["walk","walk","miss","sameA","sameP"]:["walk","miss","rect","sameA","sameP"]);
+  const s={type,done:false,walked:[]};
+  if(type==="walk"||type==="miss"){
+    if(type==="miss"||Math.random()<.5){ const W=ri(4,Math.max(5,mx)), H=ri(3,Math.max(4,Math.min(mx,9))), cw=ri(1,W-2), ch=ri(1,H-2); s.poly=lPoly(W,H,cw,ch); s.W=W; s.H=H; }
+    else { const W=ri(2,mx), H=ri(2,Math.min(mx,9)); s.poly=rectPoly(W,H); s.W=W; s.H=H; }
+    s.lens=sideLens(s.poly); s.P=s.lens.reduce((a,b)=>a+b,0);
+    s.area=s.poly.length===4?s.W*s.H:s.W*s.H-(s.W-s.poly[1][0])*s.poly[2][1];
+    s.labels=s.lens.slice();
+    if(type==="miss"){ s.mi=ri(0,s.lens.length-1); s.labels[s.mi]="?"; s.x=s.lens[s.mi]; }
+  }else if(type==="rect"){
+    s.a=ri(2,mx); s.b=ri(2,Math.min(mx,9)); if(s.a===s.b) s.a=s.a>2?s.a-1:3; s.P=2*(s.a+s.b);
+    s.poly=rectPoly(s.a,s.b); s.W=s.a; s.H=s.b; s.labels=[s.a,null,null,"?"];
+  }else if(type==="sameA"){
+    const cands=[]; for(let A=6;A<=48;A++){ const fp=factorPairs(A,mx).filter(p=>p[0]>=1); if(fp.length>=2) cands.push([A,fp]); }
+    const [A,fp]=rand(cands); s.A=A; s.opts=shuffle(shuffle(fp).slice(0,3)).map(p=>Math.random()<.5?p:[p[1],p[0]]);
+    s.less=Math.random()<.35;
+    const per=s.opts.map(p=>2*(p[0]+p[1])); s.ans=per.indexOf(s.less?Math.min(...per):Math.max(...per));
+  }else{
+    const k=ri(5,Math.min(mx+2,12)); const ps=[]; for(let a=1;a<=k-a;a++) if(k-a<=mx) ps.push([a,k-a]);
+    s.P=2*k; s.opts=shuffle(shuffle(ps).slice(0,3)).map(p=>Math.random()<.5?p:[p[1],p[0]]);
+    const ar=s.opts.map(p=>p[0]*p[1]); s.ans=ar.indexOf(Math.max(...ar));
+    if(s.opts.length<2) return newPerim();
+  }
+  S.perim=s; renderPerim();
+  const p={walk:t("perWalk"),miss:t("perMiss",{P:M(s.P)}),rect:t("perRect",{P:M(s.P)}),sameA:t(s.less?"sameAless":"sameA"),sameP:t("sameP")}[type];
+  setPrompt("perim",p);
+  $("#perimAns").innerHTML=(type==="sameA"||type==="sameP")?"":ansRow("perim",t("units"));
+  maybeAuto("perim"); focusAns("perim");
+}
+function miniRect(a,b,mx){
+  const cs=Math.floor(150/Math.max(mx,6)), P=30, vw=a*cs+P*2, vh=b*cs+P*2, fs=20;
+  let s=`<svg viewBox="0 0 ${Math.max(vw,120)} ${vh}" dir="ltr" aria-hidden="true" focusable="false"><g transform="translate(${Math.max(0,(120-vw)/2)},0)">`;
+  s+=`<rect x="${P}" y="${P}" width="${a*cs}" height="${b*cs}" fill="#d7f3ec" stroke="#0e5e50" stroke-width="3"/>`;
+  for(let i=1;i<a;i++) s+=`<line x1="${P+i*cs}" y1="${P}" x2="${P+i*cs}" y2="${P+b*cs}" stroke="#9ccfc2"/>`;
+  for(let j=1;j<b;j++) s+=`<line x1="${P}" y1="${P+j*cs}" x2="${P+a*cs}" y2="${P+j*cs}" stroke="#9ccfc2"/>`;
+  s+=`<text x="${P+a*cs/2}" y="${P-8}" font-size="${fs}" font-weight="800" text-anchor="middle" fill="#123b33">${a}</text><text x="${P-8}" y="${P+b*cs/2+7}" font-size="${fs}" font-weight="800" text-anchor="end" fill="#123b33">${b}</text>`;
+  return s+`</g></svg>`;
+}
+function renderPerim(){
+  const s=S.perim;
+  if(s.type==="sameA"||s.type==="sameP"){
+    const mx=Math.max(...s.opts.map(p=>Math.max(p[0],p[1])));
+    $("#perimFig").innerHTML=`<div class="choices" role="group" aria-label="${t("figLbl")}">`+s.opts.map((p,i)=>
+      `<button type="button" class="choice" data-pick="${i}" aria-label="${t("rectLbl",{a:p[0],b:p[1]})}">${miniRect(p[0],p[1],mx)}<span class="lbl">${s.done||s.reveal?(s.type==="sameA"?"P = "+2*(p[0]+p[1]):"A = "+p[0]*p[1]):"&nbsp;"}</span></button>`).join("")+`</div>`;
+    $("#perimWork").innerHTML=""; return;
+  }
+  const walkable=s.type!=="rect";
+  const o={poly:s.poly,W:s.W,H:s.H,labels:s.labels,grid:G()===3,ticks:G()>3,sides:walkable,walked:s.walked,role:walkable?"group":"img"};
+  $("#perimFig").innerHTML=`<div class="figwrap">${shapeSVG(o)}</div>`;
+  if(walkable){ const w=s.walked.map(i=>s.labels[i]);
+    $("#perimWork").innerHTML=w.length?t("walked",{eq:M(w.join(" + ")+(w.includes("?")?"":" = "+w.reduce((a,b)=>a+b,0)))}):t("walkedNone"); }
+  else $("#perimWork").innerHTML="";
+}
+function walkSide(i){ const s=S.perim; if(!s||s.done) return; const k=s.walked.indexOf(i); if(k>=0) s.walked.splice(k,1); else s.walked.push(i); renderPerim(); const el=$(`#perimFig .side[data-side="${i}"]`); if(el && viaKey) el.focus(); }
+CHECK.perim=v=>{
+  const s=S.perim;
+  if(s.type==="walk"){
+    if(v===s.P){ s.walked=s.lens.map((_,i)=>i); renderPerim(); return win("perim",t("goodPer",{eq:M(s.lens.join(" + ")+" = "+s.P),P:M(s.P)})); }
+    return miss("perim",t(v===s.area?"hintPerArea":"hintPer"));
+  }
+  if(s.type==="miss"){
+    const known=s.lens.filter((_,i)=>i!==s.mi), sum=known.reduce((a,b)=>a+b,0);
+    if(v===s.x){ s.labels[s.mi]=s.x; renderPerim(); return win("perim",t("goodPerMiss",{s:M(known.join(" + ")+" = "+sum),eq:M(`${s.P} − ${sum} = ${s.x}`)})); }
+    return miss("perim",t("hintPerMiss",{s:M(known.join(" + ")+" = "+sum),P:M(s.P)}));
+  }
+  if(s.type==="rect"){
+    if(v===s.b){ s.labels=[s.a,s.b,s.a,s.b]; renderPerim(); return win("perim",t("goodPerRect",{b:M(s.b),eq:M(`${s.a} + ${s.b} + ${s.a} + ${s.b} = ${s.P}`)})); }
+    return miss("perim",t("hintPerRect",{a2:M(`${s.a} + ${s.a} = ${2*s.a}`),P:M(s.P),rem:M(s.P-2*s.a)}));
+  }
+};
+function pickPerim(i,btn){
+  const s=S.perim; if(!s||s.done) return; const p=s.opts[i];
+  if(i===s.ans){ btn.classList.add("correctpick");
+    const msg=s.type==="sameA"?t("goodSameA",{A:M(s.A),P:M(2*(p[0]+p[1]))}):t("goodSameP",{P:M(s.P),A:M(p[0]*p[1])});
+    s.done=true; renderPerim(); $(`#perimFig .choice[data-pick="${i}"]`).classList.add("correctpick"); return win("perim",msg); }
+  btn.classList.add("wrongpick"); btn.querySelector(".lbl").textContent=s.type==="sameA"?"P = "+2*(p[0]+p[1]):"A = "+p[0]*p[1];
+  miss("perim",s.type==="sameA"?t("hintSameA",{P:M(2*(p[0]+p[1]))}):t("hintSameP",{A:M(p[0]*p[1])}));
+}
+
+/* =========================================================================
+   BUILD A BOX — volume by packing layers, V = l×w×h, V = B×h, composite
+   ========================================================================= */
+function newBox(){
+  roundIds.box++; made.box=true;
+  const mx=MX(), type=rand(G()===5?["pack","pack","formula","base","cube","comp"]:["pack","pack","formula"]);
+  const s={type,done:false,n:0,hist:[],cubes:type==="pack"};
+  if(type==="pack"){ const c=Math.min(5,mx); s.l=ri(2,c); s.w=ri(2,Math.min(4,c)); s.h=ri(2,Math.min(4,c)); }
+  else if(type==="cube"){ s.l=s.w=s.h=ri(2,Math.min(mx,8)); }
+  else if(type==="comp"){ s.l=ri(2,5); s.l2=ri(2,4); s.w=ri(2,4); s.h=ri(2,6); do{ s.h2=ri(2,6); }while(s.h2===s.h); s.V1=s.l*s.w*s.h; s.V2=s.l2*s.w*s.h2; }
+  else { s.l=ri(2,Math.min(mx,10)); s.w=ri(2,Math.min(mx,8)); s.h=ri(2,Math.min(mx,8)); }
+  s.B=s.l*s.w; s.V=type==="comp"?s.V1+s.V2:s.B*s.h;
+  S.box=s; renderBox();
+  const p={pack:t("boxPack"),formula:t("boxFormula"),base:t("boxBase",{B:M(s.B),h:M(s.h)}),cube:t("boxCube",{s:M(s.l)}),comp:t("boxComp",{w:M(s.w)})}[type];
+  setPrompt("box",p);
+  $("#boxAns").innerHTML=ansRow("box",t("cuUnits"));
+  maybeAuto("box"); focusAns("box");
+}
+function renderBox(){
+  const s=S.box, many=s.l*s.w*s.h<=600;
+  let boxes;
+  if(s.type==="pack") boxes=[{x:0,l:s.l,w:s.w,h:s.h,frame:true,cubes:true,n:s.done?s.V:s.n,labels:{l:s.l,w:s.w,h:s.h}}];
+  else if(s.type==="comp") boxes=[{x:0,l:s.l,w:s.w,h:s.h,cubes:s.cubes,col:s.cubes?CUBE:SOLID,labels:{l:s.l,h:s.h,hLeft:true}},
+    {x:s.l,l:s.l2,w:s.w,h:s.h2,cubes:s.cubes,col:CUBE2.map((c,i)=>s.cubes?c:["#fdeccc","#f9d496","#e5ad55"][i]),labels:{l:s.l2,w:s.w,h:s.h2}}];
+  else boxes=[{x:0,l:s.l,w:s.w,h:s.h,cubes:s.cubes&&many,labels:s.type==="base"?{h:s.h}:{l:s.l,w:s.w,h:s.h},topLbl:s.type==="base"&&!s.cubes?"B = "+s.B:null}];
+  $("#boxFig").innerHTML=isoSVG(boxes);
+  let tools="", work="";
+  if(s.type==="pack"){
+    tools=`<button type="button" class="btn tool" data-act="row">${t("addRow")}</button><button type="button" class="btn tool" data-act="layer">${t("addLayer")}</button><button type="button" class="btn ghost tool" data-act="undo">${t("undo")}</button>`;
+    const n=s.done?s.V:s.n, b=s.l*s.w;
+    work=t("cubesN",{n:M(n)})+(n&&n%b===0?" &nbsp;·&nbsp; "+t("layersEq",{k:M(n/b),b:M(b),n:M(n)}):"");
+  }else if(many) tools=`<button type="button" class="btn ghost tool" data-act="cubes" aria-pressed="${s.cubes}">${s.cubes?t("hideCubes"):t("showCubes")}</button>`;
+  $("#boxTools").innerHTML=tools; $("#boxWork").innerHTML=work;
+  if(s.done) $$("#boxTools .tool").forEach(b=>b.disabled=true);
+}
+function boxAct(act){
+  const s=S.box; if(!s||s.done) return; const b=s.l*s.w;
+  if(act==="row"&&s.n<s.V){ s.hist.push(s.n); s.n=Math.min(s.V,(Math.floor(s.n/s.l)+1)*s.l); }
+  else if(act==="layer"&&s.n<s.V){ s.hist.push(s.n); s.n=Math.min(s.V,(Math.floor(s.n/b)+1)*b); }
+  else if(act==="undo"&&s.hist.length) s.n=s.hist.pop();
+  else if(act==="cubes") s.cubes=!s.cubes;
+  renderBox();
+}
+CHECK.box=v=>{
+  const s=S.box;
+  if(v===s.V){
+    let eq={pack:`${s.l} × ${s.w} × ${s.h} = ${s.V}`,formula:`${s.l} × ${s.w} × ${s.h} = ${s.V}`,base:`${s.B} × ${s.h} = ${s.V}`,cube:`${s.l} × ${s.l} × ${s.l} = ${s.V}`}[s.type];
+    if(s.type==="pack") eq=`${s.h} × ${s.B} = ${s.V}`;
+    if(s.type==="comp") return win("box",t("goodVComp",{e1:M(`${s.l} × ${s.w} × ${s.h} = ${s.V1}`),e2:M(`${s.l2} × ${s.w} × ${s.h2} = ${s.V2}`),sum:M(`${s.V1} + ${s.V2} = ${s.V}`)}));
+    renderBox(); return win("box",t("goodVol",{eq:M(eq),V:M(s.V)}));
+  }
+  if(s.type==="comp"){ if(!s.cubes){ s.cubes=true; renderBox(); } return miss("box",t("hintVComp")); }
+  if(v===s.l+s.w+s.h) return miss("box",t("hintVolAdd"));
+  if(s.type==="base") return miss("box",t("hintBase",{B:M(s.B),h:M(s.h)}));
+  if(v===s.B && s.type!=="cube") return miss("box",t("hintVolLayer"));
+  if(s.type!=="pack" && !s.cubes && s.l*s.w*s.h<=600){ s.cubes=true; renderBox(); }
+  miss("box",t("hintVol",{l:M(s.l),w:M(s.w),h:M(s.h)}));
+};
+
+/* =========================================================================
+   CONVERT IT — within one system, using a two-column table
+   ========================================================================= */
+const PAIRS=[["ft","in",12,"c",4],["yd","ft",3,"c",4],["lb","oz",16,"c",4],["gal","qt",4,"c",4],["h","min",60,"t",3],["m","cm",100,"m",4],["km","m",1000,"m",4],["kg","g",1000,"m",4],["L","mL",1000,"m",4],["yd","in",36,"c",5]];
+function sysOK(sys){ return sys==="t"||(sys==="c"?settings.cust:settings.metric); }
+function newConv(){
+  roundIds.conv++; made.conv=true;
+  const g=G(), pool=PAIRS.filter(p=>sysOK(p[3]) && g>=Math.min(p[4],4));
+  const [big,small,k]=rand(pool);
+  const type=rand(g>=5?["down","up","up","mixed"]:["down","down","up","mixed"]);
+  const a=ri(2,k>=1000?9:(g>=5?12:10));
+  const s={type,done:false,big,small,k,a};
+  if(type==="mixed"){ s.b=k>=1000?ri(1,19)*50:ri(1,k-1); s.ans=a*k+s.b; }
+  else s.ans=type==="down"?a*k:a;
+  S.conv=s;
+  const q=type==="down"?M(a)+" "+un(big,a):type==="up"?M(a*k)+" "+un(small,a*k):M(a)+" "+un(big,a)+" "+M(s.b)+" "+un(small,s.b);
+  setPrompt("conv",t("convQ",{u2:un(type==="up"?big:small,2),q}));
+  renderConv();
+  $("#convAns").innerHTML=type==="mixed"?ansRow("conv",un(small,2)):chkBtn("conv");
+  maybeAuto("conv"); focusAns("conv");
+}
+function convTable(s,inputOK){
+  const {big,small,k,a,type}=s, inp=`<input id="convIn" class="ans" type="text" inputmode="numeric" dir="ltr" autocomplete="off" maxlength="7" aria-label="${t("answerLbl")}">`;
+  let rows="";
+  for(let i=1;i<=3;i++) if(i<a) rows+=`<tr><td>${i}</td><td>${i*k}</td></tr>`;
+  if(a>4) rows+=`<tr><td>⋮</td><td>⋮</td></tr>`;
+  const ok=s.done;
+  if(type==="up") rows+=`<tr class="target"><td>${ok?a:(inputOK?inp:"?")}</td><td>${a*k}</td></tr>`;
+  else rows+=`<tr class="target"><td>${a}</td><td>${type==="down"&&inputOK&&!ok?inp:(type==="down"&&ok?a*k:"?")}</td></tr>`;
+  return `<table class="ctable" dir="ltr"><thead><tr><th>${un(big,2)}</th><th>${un(small,2)}</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function renderConv(){ const s=S.conv;
+  $("#convFig").innerHTML=`<p class="fact">1 ${un(s.big,1)} = ${s.k} ${un(s.small,s.k)}</p>`+convTable(s,s.type!=="mixed"); }
+CHECK.conv=v=>{
+  const s=S.conv, {big,small,k,a}=s, fact=`1 ${un(big,1)} = ${k} ${un(small,k)}`;
+  if(v===s.ans){
+    const eq=s.type==="down"?`${a} × ${k} = ${s.ans}`:s.type==="up"?`${a*k} ÷ ${k} = ${a}`:`${a} × ${k} + ${s.b} = ${s.ans}`;
+    if(s.type!=="mixed"){ s.done=true; renderConv(); }
+    return win("conv",t("goodConv",{fact,eq:M(eq)}));
+  }
+  const v1={big:un(big,1),bigs:un(big,2),smalls:un(small,2),k:M(k)};
+  if(s.type==="down") return miss("conv",t("hintDown",v1));
+  if(s.type==="up") return miss("conv",t("hintUp",v1));
+  miss("conv",t("hintMixed",Object.assign(v1,{a:M(a),b:M(s.b)})));
+};
+
+/* =========================================================================
+   MEASUREMENT STORIES — area, perimeter, volume, elapsed time, liquid/mass
+   ========================================================================= */
+function newStory(){
+  roundIds.story++; made.story=true;
+  const g=G(), mx=MX();
+  let types=g===3?["area","perim","elapsed","end"]:g===4?["area","perim","missA","elapsed","end","liquid"]:["area","perim","missA","vol","vol","liquid","end"];
+  const type=rand(types), name=rand(NAMES), s={type,done:false,name};
+  let txt="", unit="";
+  if(type==="area"||type==="perim"||type==="missA"){
+    s.u=lenU(); s.a=ri(3,Math.max(6,mx)); s.b=ri(2,Math.max(5,mx)); if(s.a===s.b) s.a++; s.A=s.a*s.b;
+    const v={name,a:M(s.a),b:M(s.b),u:un(s.u,2),sq:sq(s.u),A:M(s.A)};
+    if(type==="area"){ txt=t("sArea",v); s.ans=s.A; unit=sq(s.u); }
+    else if(type==="perim"){ txt=t("sPerim",v); s.ans=2*(s.a+s.b); unit=un(s.u,2); }
+    else { txt=t("sMissA",v); s.ans=s.b; unit=un(s.u,2); }
+  }else if(type==="vol"){
+    s.l=ri(2,Math.min(mx,8)); s.w=ri(2,Math.min(mx,6)); s.h=ri(2,Math.min(mx,6)); s.ans=s.l*s.w*s.h;
+    txt=t("sVol",{name,l:M(s.l),w:M(s.w),h:M(s.h)}); unit=t("cubesW");
+  }else if(type==="elapsed"||type==="end"){
+    s.t1=ri(24,125)*5; s.d=g===3?ri(2,11)*5:ri(3,23)*5; if(type==="end"&&g===3&&Math.random()<.5) s.d=ri(1,3)*15;
+    s.t2=s.t1+s.d;
+    if(type==="elapsed"){ txt=t("sElapsed",{name,t1:M(fmtTime(s.t1)),t2:M(fmtTime(s.t2))}); s.ans=s.d; unit=un("min",2); }
+    else { txt=t("sEnd",{t1:M(fmtTime(s.t1)),d:M(s.d)});
+      const c=new Set([s.t2]); [s.t2-60,s.t2+60,s.t2-10,s.t2+10,s.t1+s.d%60+(s.d>=60?0:60)].forEach(x=>{ if(c.size<4 && x>s.t1) c.add(x); });
+      s.opts=shuffle([...c]); }
+  }else{
+    const metric=settings.metric&&(!settings.cust||Math.random()<.5);
+    if(metric){ s.k=1000; s.a=ri(2,5); s.b=ri(2,s.a*20-2)*50; txt=t("sLiquid",{name,a:M(s.a),b:M(s.b)}); unit=un("mL",2); s.liq=true; }
+    else { s.k=16; s.a=ri(2,6); s.b=ri(3,s.a*16-3); txt=t("sClay",{name,a:M(s.a),b:M(s.b)}); unit=un("oz",2); }
+    s.ans=s.a*s.k-s.b;
+  }
+  s.unit=unit; S.story=s;
+  setPrompt("story",txt);
+  renderStory();
+  $("#storyAns").innerHTML=type==="end"?"":ansRow("story",unit);
+  maybeAuto("story"); focusAns("story");
+}
+function timeline(s,jumps){
+  const span=s.t2-s.t1, W=600, x0=100, x1=500, Y=130, X=m=>x0+(m-s.t1)/span*(x1-x0), end=s.type==="end"&&!s.done?"?":fmtTime(s.t2);
+  let o=`<svg viewBox="0 0 ${W} 190" class="fig" dir="ltr" role="img" aria-label="${t("tlLbl")}: ${fmtTime(s.t1)} – ${end}" focusable="false">`;
+  o+=`<line x1="${x0}" y1="${Y}" x2="${x1}" y2="${Y}" stroke="#0e5e50" stroke-width="4"/>`;
+  const hrs=[]; for(let m=Math.ceil(s.t1/60)*60; m<s.t2; m+=60) if(m>s.t1) hrs.push(m);
+  for(let m=Math.ceil(s.t1/5)*5; m<=s.t2; m+=5){ const x=X(m); o+=`<line x1="${x}" y1="${m%15===0?Y-14:Y-8}" x2="${x}" y2="${Y+8}" stroke="#0e5e50" stroke-width="${m%60===0?4:2}"/>`; }
+  hrs.forEach(m=>{ o+=`<text x="${X(m)}" y="${Y+42}" font-size="26" text-anchor="middle">${fmtTime(m)}</text>`; });
+  o+=`<circle cx="${x0}" cy="${Y}" r="10" fill="#16a085"/><circle cx="${x1}" cy="${Y}" r="10" fill="#e67e22"/>`;
+  o+=`<text x="${x0-16}" y="${Y+10}" font-size="30" text-anchor="end">${fmtTime(s.t1)}</text><text x="${x1+16}" y="${Y+10}" font-size="30" text-anchor="start">${end}</text>`;
+  if(jumps){ const pts=[s.t1,...hrs,s.t2];
+    for(let i=0;i<pts.length-1;i++){ const a=X(pts[i]), b=X(pts[i+1]), mid=(a+b)/2;
+      o+=`<path d="M${a} ${Y-6} Q${mid} ${Y-90} ${b} ${Y-6}" fill="none" stroke="#7a3fb5" stroke-width="3"/><text x="${mid}" y="${Y-56}" font-size="26" text-anchor="middle" fill="#7a3fb5">+${pts[i+1]-pts[i]}</text>`; } }
+  return o+`</svg>`;
+}
+function renderStory(){
+  const s=S.story; let fig="";
+  if(s.type==="area"||s.type==="perim"||s.type==="missA"){
+    const cs=Math.round(Math.min(40,360/Math.max(s.a,6)));
+    fig=`<div class="figwrap">`+shapeSVG({poly:rectPoly(s.a,s.b),W:s.a,H:s.b,cs,labels:[s.a,null,null,s.type==="missA"&&!s.done?"?":s.b],grid:s.showGrid&&s.type!=="perim",ticks:true,center:s.type==="missA"?"A = "+s.A:null})+`</div>`;
+  }else if(s.type==="vol") fig=`<div class="figwrap">`+isoSVG([{x:0,l:s.l,w:s.w,h:s.h,cubes:!!s.showGrid,labels:{l:s.l,w:s.w,h:s.h}}])+`</div>`;
+  else if(s.type==="elapsed"||s.type==="end"){
+    fig=`<div class="figwrap">`+timeline(s,s.showGrid||s.done)+`</div>`;
+    if(s.type==="end") fig+=`<div class="choices" role="group" aria-label="${t("answerLbl")}">`+s.opts.map(m=>`<button type="button" class="choice${s.done&&m===s.t2?" correctpick":""}" data-time="${m}"${s.done?" disabled":""}><span class="lbl">${fmtTime(m)}</span></button>`).join("")+`</div>`;
+  }
+  $("#storyFig").innerHTML=fig;
+}
+CHECK.story=v=>{
+  const s=S.story;
+  const eq={area:`${s.a} × ${s.b} = ${s.A}`,perim:`${s.a} + ${s.b} + ${s.a} + ${s.b} = ${2*(s.a+s.b)}`,missA:`${s.A} ÷ ${s.a} = ${s.b}`,
+    vol:`${s.l} × ${s.w} × ${s.h} = ${s.ans}`,liquid:`${s.a} × ${s.k} − ${s.b} = ${s.ans}`}[s.type];
+  if(v===s.ans){
+    let e=eq;
+    if(s.type==="elapsed"){ const hrs=[]; for(let m=Math.ceil(s.t1/60)*60;m<s.t2;m+=60) if(m>s.t1) hrs.push(m); const pts=[s.t1,...hrs,s.t2]; const j=[]; for(let i=0;i<pts.length-1;i++) j.push(pts[i+1]-pts[i]); e=j.length>1?j.join(" + ")+" = "+s.d:String(s.d); }
+    s.done=true; renderStory();
+    return win("story",t("goodStory",{eq:M(e),ans:M(s.ans)+" "+s.unit}));
+  }
+  s.showGrid=true; renderStory();
+  let h;
+  if(s.type==="area") h=(v===2*(s.a+s.b)?t("hintAreaPerim")+" ":"")+t("hArea",{a:M(s.a),b:M(s.b)});
+  else if(s.type==="perim") h=v===s.A?t("hintPerArea"):t("hPerim",{a:M(s.a),b:M(s.b)});
+  else if(s.type==="missA") h=t("hMissA",{A:M(s.A),a:M(s.a)});
+  else if(s.type==="vol") h=t("hVol");
+  else if(s.type==="elapsed") h=t("hElapsed",{t1:M(fmtTime(s.t1)),t2:M(fmtTime(s.t2))});
+  else h=t(s.liq?"hLiquid":"hClay",{a:M(s.a),b:M(s.b)});
+  miss("story",h);
+};
+function pickTime(m,btn){
+  const s=S.story; if(!s||s.done) return;
+  if(m===s.t2){ s.done=true; renderStory(); return win("story",t("goodEnd",{t1:M(fmtTime(s.t1)),d:M(s.d),t2:M(fmtTime(s.t2))})); }
+  btn.classList.add("wrongpick"); btn.disabled=true; s.showGrid=true;
+  miss("story",t("hintEnd",{t1:M(fmtTime(s.t1)),d:M(s.d)}));
+}
+
+/* ---------- Mode switching ---------- */
+const NEWFN={tile:newTile,perim:newPerim,box:newBox,conv:newConv,story:newStory};
+function currentMode(){ const b=$$(".tabs button").filter(x=>x.getAttribute("aria-selected")==="true")[0]; return b?b.dataset.mode:"tile"; }
+function firstMode(){ return MODES.find(m=>settings.modes[m])||"tile"; }
+function showMode(mode){
+  if(!settings.modes[mode]) mode=firstMode();
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
+  $$(".modepanel").forEach(p=>p.classList.add("hidden"));
+  $("#mode-"+mode).classList.remove("hidden");
+  $$(".tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.mode===mode?"true":"false"));
+  if(!made[mode]) NEWFN[mode]();
+  if(switching && speechGen===g0) maybeAuto(mode);
+}
+function syncTabs(){
+  $$(".tabs button").forEach(b=>b.classList.toggle("hidden",!settings.modes[b.dataset.mode]));
+  if(!settings.modes[currentMode()]) showMode(firstMode());
+}
+function resetRounds(){ MODES.forEach(m=>made[m]=false); stopSpeech(); NEWFN[currentMode()](); }
+
+/* ---------- Settings drawer ---------- */
+function buildModeToggles(){
+  const wrap=$("#modeToggles"); wrap.innerHTML="";
+  MODES.forEach(m=>{
+    const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.modes[m]?"checked":""}> <span>${t(MODE_KEY[m])}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{ settings.modes[m]=e.target.checked;
+      if(!MODES.some(k=>settings.modes[k])){ e.target.checked=true; settings.modes[m]=true; }
+      saveSettings(); syncTabs(); });
+    wrap.appendChild(l);
+  });
+}
+function syncSettingsUI(){
+  $("#setGrade").value=settings.grade; $("#setMax").value=settings.max; $("#setCust").checked=settings.cust; $("#setMetric").checked=settings.metric;
+  $("#setAuto").checked=settings.autoRead; buildModeToggles();
+}
+function closeSettings(){ $("#settingsDrawer").classList.remove("open"); $("#openSettings").focus(); }
+function initSettings(){
+  $("#openSettings").addEventListener("click",()=>{ syncSettingsUI(); $("#settingsDrawer").classList.add("open"); $("#closeSettings").focus(); });
+  $("#closeSettings").addEventListener("click",closeSettings);
+  $("#settingsDrawer").addEventListener("click",e=>{ if(e.target.id==="settingsDrawer") closeSettings(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape" && $("#settingsDrawer").classList.contains("open")) closeSettings(); });
+  $("#setGrade").addEventListener("change",e=>{ const g=+e.target.value; settings.grade=g; settings.max=GRADE_DEF[g].max; settings.modes=clone(GRADE_DEF[g].modes);
+    saveSettings(); syncSettingsUI(); syncTabs(); resetRounds(); });
+  $("#setMax").addEventListener("change",e=>{ settings.max=+e.target.value; saveSettings(); resetRounds(); });
+  const units=e=>{ settings.cust=$("#setCust").checked; settings.metric=$("#setMetric").checked;
+    if(!settings.cust&&!settings.metric){ e.target.checked=true; settings[e.target.id==="setCust"?"cust":"metric"]=true; } saveSettings(); resetRounds(); };
+  $("#setCust").addEventListener("change",units); $("#setMetric").addEventListener("change",units);
+  $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
+  $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
+}
+
+/* ---------- Print cards ---------- */
+function buildPrintCards(){
+  const blank=`<p style="font-size:1.1rem">${t("answerLbl")}: ______________</p>`;
+  const L=lPoly(7,6,3,2), Lp=lPoly(8,5,3,2), Ll=sideLens(Lp), Lmi=Ll.slice(); Lmi[3]="?";
+  const cv={type:"down",big:"ft",small:"in",k:12,a:5,done:false};
+  const cards=[
+    {title:t("mTile"), body:t("tileMul"), fig:shapeSVG({poly:rectPoly(6,4),W:6,H:4,labels:[6,null,null,4],ticks:true})},
+    {title:t("mTile"), body:t("cardComp"), fig:shapeSVG({poly:L,W:7,H:6,labels:[4,2,3,4,7,6],ticks:true})},
+    {title:t("mPerim"), body:t("perMiss",{P:M(Ll.reduce((a,b)=>a+b,0))}), fig:shapeSVG({poly:Lp,W:8,H:5,labels:Lmi,ticks:true})},
+    {title:t("mPerim"), body:t("sameP"), fig:`<div style="display:flex;gap:1rem">${[[1,7],[3,5],[4,4]].map(p=>`<div style="width:160px">${miniRect(p[0],p[1],7)}</div>`).join("")}</div>`},
+    {title:t("mBox"), body:t("boxFormula"), fig:isoSVG([{x:0,l:5,w:3,h:4,labels:{l:5,w:3,h:4}}])},
+    {title:t("mConv"), body:t("convQ",{u2:un("in",2),q:M(5)+" "+un("ft",5)}), fig:`<p class="fact">1 ${un("ft",1)} = 12 ${un("in",12)}</p>`+convTable(cv,false)},
+    {title:t("mStory"), body:t("sElapsed",{name:"Ana",t1:M("2:40"),t2:M("3:25")}), fig:""}
+  ];
+  $("#printArea").innerHTML=`<h1>${t("cardTitle")}</h1>`+cards.map(c=>`<div class="card-print"><h2>${c.title}</h2><p style="font-size:1.15rem">${c.body}</p>${c.fig}${blank}</div>`).join("")+`<p style="font-size:.85rem">${stdsHTML()}</p>`;
+}
+
+/* ---------- Language engine ---------- */
+// Keep the standards codes in one LTR run so RTL layouts don't scramble "3.6(C)".
+function stdsHTML(){ const s=t("stds"), i=s.search(/[:：]/), esc=x=>x.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+  return i<0?esc(s):esc(s.slice(0,i+1))+` <bdi dir="ltr">${esc(s.slice(i+1).trim()).replace(/،/g,",").replace(/؛/g,";").replace(/[۔।]/g,".")}</bdi>`; }
+function resolveLang(){
+  try{ const q=new URLSearchParams(location.search).get("lang"); if(q && T[q]) return q; }catch(e){}
+  try{ const s=localStorage.getItem(LANG_KEY); if(s && T[s]) return s; }catch(e){}
+  const n=(navigator.language||"en").slice(0,2).toLowerCase();
+  return T[n]?n:"en";
+}
+function applyLang(){
+  const meta=LANGS.find(x=>x.code===lang)||LANGS[0];
+  document.documentElement.lang=lang; document.documentElement.dir=meta.dir;
+  const sel=$("#langSelect"); if(sel) sel.value=lang;
+  $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
+  document.title=t("appTitle");
+  $("#stdsNote").innerHTML=stdsHTML();
+  buildModeToggles();
+  MODES.forEach(m=>made[m]=false);
+  stopSpeech(); NEWFN[currentMode()]();
+}
+function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} applyLang(); }
+function buildLangSelect(){
+  const sel=$("#langSelect"); sel.innerHTML="";
+  LANGS.forEach(m=>{ const o=document.createElement("option"); o.value=m.code; o.textContent=m.name; sel.appendChild(o); });
+  sel.value=lang; sel.addEventListener("change",()=>setLang(sel.value));
+}
+
+/* ---------- Init ---------- */
+function init(){
+  lang=resolveLang();
+  buildLangSelect();
+  $$(".tabs button").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.mode)));
+  $$(".speaker").forEach(b=>b.addEventListener("click",()=>speak(currentSpeech[b.dataset.speak])));
+  $$("[data-new]").forEach(b=>b.addEventListener("click",()=>{ stopSpeech(); NEWFN[b.dataset.new](); }));
+  document.addEventListener("click",e=>{
+    const c=e.target.closest("[data-chk]"); if(c) return submit(c.dataset.chk);
+    const a=e.target.closest("#tileTools [data-act]"); if(a) return tileAct(a.dataset.act);
+    const b=e.target.closest("#boxTools [data-act]"); if(b) return boxAct(b.dataset.act);
+    const cut=e.target.closest("#tileFig .cut"); if(cut){ const s=S.tile; if(s&&!s.done){ s.cut=cut.dataset.cut; renderTile(); } return; }
+    const sd=e.target.closest("#perimFig .side"); if(sd) return walkSide(+sd.dataset.side);
+    const pk=e.target.closest("#perimFig .choice"); if(pk) return pickPerim(+pk.dataset.pick,pk);
+    const tm=e.target.closest("#storyFig .choice"); if(tm) return pickTime(+tm.dataset.time,tm);
+  });
+  document.addEventListener("keydown",e=>{
+    if(e.key==="Enter" && e.target.classList && e.target.classList.contains("ans")){ e.preventDefault(); viaKey=true; submit(e.target.id.replace(/In$/,"")); return; }
+    if((e.key==="Enter"||e.key===" ") && e.target.closest && e.target.closest("[role=button]") && e.target.tagName!=="BUTTON"){ e.preventDefault(); viaKey=true;
+      const el=e.target.closest("[role=button]");
+      if(el.classList.contains("cut")){ const s=S.tile; if(s&&!s.done){ s.cut=el.dataset.cut; renderTile(); const f=$(`#tileFig .cut[data-cut="${el.dataset.cut}"]`); if(f) f.focus(); } }
+      else if(el.classList.contains("side")) walkSide(+el.dataset.side);
+      viaKey=false; }
+    if(e.key==="Enter" && e.target.classList && e.target.classList.contains("chk")) viaKey=true;
+  });
+  // Paint tiles by dragging across the grid.
+  const fig=$("#tileFig");
+  fig.addEventListener("pointerdown",e=>{ const c=e.target.closest(".cell"); if(!c) return; e.preventDefault(); painting=null; paintCell(c); });
+  fig.addEventListener("pointermove",e=>{ if(painting===null||!(e.buttons&1)) return; const el=document.elementFromPoint(e.clientX,e.clientY); const c=el&&el.closest&&el.closest(".cell"); if(c) paintCell(c); });
+  window.addEventListener("pointerup",()=>{ painting=null; });
+  initSettings();
+  applyLang();
+  syncTabs();
+  showMode(firstMode());
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+</script>
+<script>
+/* Student mute toggle — shared across the Digital Math Tools. Self-contained,
+   offline, stores no student data. Gates ALL speech by intercepting
+   speechSynthesis.speak, so muting works regardless of each tool's internals.
+   Reads the shared language preference only to localize its own label. */
+(function(){
+  "use strict";
+  var LKEY='tcea.mathtools.lang', MKEY='tcea.mathtools.muted';
+  var CODES=['en','es','vi','ar','hi','ur','zh'];
+  var LAB={
+    mute:{en:"Mute sound",es:"Silenciar sonido",vi:"Tắt âm thanh",ar:"كتم الصوت",hi:"आवाज़ बंद करें",ur:"آواز بند کریں",zh:"静音"},
+    unmute:{en:"Turn sound on",es:"Activar sonido",vi:"Bật âm thanh",ar:"تشغيل الصوت",hi:"आवाज़ चालू करें",ur:"آواز چالو کریں",zh:"打开声音"}
+  };
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  window.__MT_MUTED = (get(MKEY)==='1');
+  // Intercept every speech request; suppress while muted.
+  try{
+    if(window.speechSynthesis && typeof window.speechSynthesis.speak==='function'){
+      var ss=window.speechSynthesis, orig=ss.speak.bind(ss);
+      ss.speak=function(u){ if(!window.__MT_MUTED){ try{orig(u);}catch(e){} } };
+    }
+  }catch(e){}
+  function curLang(){ var l=get(LKEY)||'en'; return LAB.mute[l]?l:'en'; }
+  function label(el){
+    var on=!window.__MT_MUTED, l=curLang(), txt=on?LAB.mute[l]:LAB.unmute[l];
+    el.textContent=on?'🔊':'🔇';
+    el.setAttribute('aria-label',txt); el.setAttribute('title',txt);
+    el.setAttribute('aria-pressed', on?'false':'true');
+  }
+  function findLangSelect(){
+    var sels=document.querySelectorAll('select');
+    for(var i=0;i<sels.length;i++){ var o=sels[i].options, c=0;
+      for(var j=0;j<o.length;j++){ if(CODES.indexOf((o[j].value||'').toLowerCase())>=0) c++; }
+      if(c>=3) return sels[i];
+    }
+    return null;
+  }
+  function build(){
+    if(document.getElementById('mtMuteBtn')) return;
+    if(!(('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window))) return;
+    var btn=document.createElement('button');
+    btn.id='mtMuteBtn'; btn.type='button';
+    btn.style.cssText='font:inherit;font-size:1.15rem;line-height:1;cursor:pointer;'+
+      'min-width:44px;min-height:44px;padding:8px 12px;border:2px solid #e2dcf1;'+
+      'border-radius:10px;background:#fff;color:#5b3fa5;font-weight:700;margin:0 4px;';
+    btn.addEventListener('click',function(){
+      window.__MT_MUTED=!window.__MT_MUTED;
+      set(MKEY, window.__MT_MUTED?'1':'0');
+      if(window.__MT_MUTED){ try{window.speechSynthesis.cancel();}catch(e){} }
+      label(btn);
+    });
+    btn.addEventListener('focus',function(){btn.style.outline='3px solid #5b3fa5';btn.style.outlineOffset='2px';});
+    btn.addEventListener('blur',function(){btn.style.outline='';});
+    var sel=findLangSelect();
+    if(sel && sel.parentNode){
+      sel.parentNode.insertBefore(btn, sel);
+      sel.addEventListener('change',function(){ setTimeout(function(){label(btn);},0); });
+    }else{
+      btn.style.position='fixed'; btn.style.top='10px'; btn.style.zIndex='9999';
+      btn.style[(document.documentElement.dir==='rtl')?'left':'right']='10px';
+      (document.body||document.documentElement).appendChild(btn);
+    }
+    label(btn);
+  }
+  if(document.readyState==='complete'){ build(); }
+  else{ window.addEventListener('load', build); }
+  window.addEventListener('storage',function(e){ if(e.key===LKEY){ var b=document.getElementById('mtMuteBtn'); if(b) label(b); } });
+})();
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+
+</html>

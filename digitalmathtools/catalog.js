@@ -51,6 +51,20 @@ window.MATHTOOLS = (function () {
         zh: "为低年级设计的五个触控友好的数学工具——位值、加减法、图形与分数、时间与钱币、测量与图表。"
       }
     }
+,
+    {
+      id: "g35", bandId: "3-5", icon: "🧮", accent: "#2c6fbb", href: "g35/index.html",
+      name: { en: "Grades 3–5", es: "Grados 3–5", vi: "Lớp 3–5", ar: "الصفوف 3–5", hi: "कक्षा 3–5", ur: "جماعت 3–5", zh: "三至五年级" },
+      desc: {
+        en: "Interactive math tools for upper elementary — fractions, multiplication and division, decimals and place value, area and volume, angles and the coordinate plane.",
+        es: "Herramientas matemáticas interactivas para primaria alta: fracciones, multiplicación y división, decimales y valor posicional, área y volumen, ángulos y el plano de coordenadas.",
+        vi: "Công cụ toán tương tác cho cuối tiểu học — phân số, nhân và chia, số thập phân và giá trị theo hàng, diện tích và thể tích, góc và mặt phẳng tọa độ.",
+        ar: "أدوات رياضيات تفاعلية للمرحلة الابتدائية العليا — الكسور، والضرب والقسمة، والكسور العشرية والقيمة المكانية، والمساحة والحجم، والزوايا والمستوى الإحداثي.",
+        hi: "उच्च प्राथमिक कक्षाओं के लिए इंटरैक्टिव गणित उपकरण — भिन्न, गुणा और भाग, दशमलव और स्थानीय मान, क्षेत्रफल और आयतन, कोण और निर्देशांक तल।",
+        ur: "اعلیٰ پرائمری کے لیے انٹرایکٹو ریاضی اوزار — کسور، ضرب اور تقسیم، اعشاریہ اور مقامی قدر، رقبہ اور حجم، زاویے اور محددی سطح۔",
+        zh: "为小学高年级设计的互动数学工具——分数、乘除法、小数与位值、面积与体积、角与坐标平面。"
+      }
+    }
   ];
 
   // ---- Shared tag vocabulary (English key -> per-language label) ------------
@@ -80,7 +94,11 @@ window.MATHTOOLS = (function () {
     "Line plot":{en:"Line plot",es:"Diagrama de puntos",vi:"Biểu đồ chấm",ar:"تمثيل بالنقاط",hi:"लाइन प्लॉट",ur:"لائن پلاٹ",zh:"点图"},
     "Place value":{en:"Place value",es:"Valor posicional",vi:"Giá trị theo hàng",ar:"القيمة المكانية",hi:"स्थानीय मान",ur:"مقامی قدر",zh:"位值"},
     "Fractions":{en:"Fractions",es:"Fracciones",vi:"Phân số",ar:"الكسور",hi:"भिन्न",ur:"کسور",zh:"分数"},
-    "Fact families":{en:"Fact families",es:"Familias de operaciones",vi:"Gia đình phép tính",ar:"عائلات الحقائق",hi:"तथ्य परिवार",ur:"حقائق کے خاندان",zh:"算式家族"}
+    "Fact families":{en:"Fact families",es:"Familias de operaciones",vi:"Gia đình phép tính",ar:"عائلات الحقائق",hi:"तथ्य परिवार",ur:"حقائق کے خاندان",zh:"算式家族"},
+    "Area":{en:"Area",es:"Área",vi:"Diện tích",ar:"المساحة",hi:"क्षेत्रफल",ur:"رقبہ",zh:"面积"},
+    "Perimeter":{en:"Perimeter",es:"Perímetro",vi:"Chu vi",ar:"المحيط",hi:"परिमाप",ur:"احاطہ",zh:"周长"},
+    "Volume":{en:"Volume",es:"Volumen",vi:"Thể tích",ar:"الحجم",hi:"आयतन",ur:"حجم",zh:"体积"},
+    "Conversions":{en:"Conversions",es:"Conversiones",vi:"Đổi đơn vị",ar:"تحويل الوحدات",hi:"इकाई रूपांतरण",ur:"اکائیوں کی تبدیلی",zh:"单位换算"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -204,7 +222,19 @@ window.MATHTOOLS = (function () {
         ar:"نمِّ الطلاقة في الجمع والطرح ضمن 20 و100 بالإطارات العشرية والقفز على خط الأعداد والأعداد المفقودة والمعادلات الصحيحة والخاطئة وعائلات الحقائق والمسائل القصصية بنماذج الأشرطة.",
         hi:"दस-फ्रेम, संख्या रेखा पर छलांग, छूटी हुई संख्या, सही-गलत समीकरण, तथ्य परिवार और पट्टी मॉडल वाले कहानी सवालों से 20 और 100 तक जोड़-घटाव में प्रवाह बनाएँ।",
         ur:"دس خانوں کے فریم، عددی لکیر پر چھلانگوں، گمشدہ اعداد، درست اور غلط مساواتوں، حقائق کے خاندانوں اور پٹی ماڈل والے کہانی کے سوالوں سے 20 اور 100 تک جمع و تفریق میں روانی بڑھائیں۔",
-        zh:"用十格框、数轴跳跃、找缺少的数、判断等式对错、算式家族和线段图故事题，练习20以内和100以内的加减法。"} }
+        zh:"用十格框、数轴跳跃、找缺少的数、判断等式对错、算式家族和线段图故事题，练习20以内和100以内的加减法。"} },
+    { id:"area-volume-builders", collection:"g35", bandId:"3-5", icon:"📐", accent:"#16a085",
+      title:"Area & Volume Builders", href:"g35/area-volume-builders/index.html",
+      tags:["Area","Perimeter","Volume","Conversions","Story problems","Time"],
+      kw:"area perimeter volume unit square tiling rows columns multiply composite rectilinear decompose missing side same area different perimeter unit cube layers base rectangular prism V=lwh V=Bh convert conversion measurement feet inches yards pounds ounces meters centimeters kilograms grams liters milliliters elapsed time minutes área perímetro volumen 面积 周长 体积",
+      desc:{
+        en:"Tile rectangles to find area, walk the sides for perimeter, pack boxes with unit cubes for volume, convert units with tables, and solve measurement stories.",
+        es:"Cubre rectángulos para hallar el área, recorre los lados para el perímetro, llena cajas con cubos para el volumen, convierte unidades con tablas y resuelve problemas de medición.",
+        vi:"Lát ô vuông để tìm diện tích, đi quanh các cạnh để tìm chu vi, xếp khối lập phương vào hộp để tìm thể tích, đổi đơn vị bằng bảng và giải bài toán đo lường.",
+        ar:"بلّط المستطيلات لإيجاد المساحة، وامشِ حول الأضلاع لإيجاد المحيط، واملأ الصناديق بمكعبات الوحدة لإيجاد الحجم، وحوّل الوحدات بالجداول، وحلّ مسائل القياس.",
+        hi:"क्षेत्रफल के लिए आयतों पर टाइल लगाएँ, परिमाप के लिए भुजाओं पर चलें, आयतन के लिए डिब्बों में इकाई घन भरें, तालिकाओं से इकाइयाँ बदलें और माप की कहानियाँ हल करें।",
+        ur:"رقبہ معلوم کرنے کے لیے مستطیلوں پر ٹائلیں لگائیں، احاطے کے لیے اضلاع پر چلیں، حجم کے لیے ڈبوں میں اکائی مکعب بھریں، جدولوں سے اکائیاں بدلیں اور پیمائش کے سوال حل کریں۔",
+        zh:"铺方格求面积，沿边走一圈求周长，用单位小正方体装箱求体积，用表格换算单位，并解决测量问题。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
