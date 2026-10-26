@@ -73,6 +73,16 @@
   .ctr.x{background:#f3d4d0;position:relative;box-shadow:none}
   .ctr.x::after{content:"✕";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#8a2a20;font-weight:900;font-size:1.3rem}
   .tfcount{font-weight:800;font-size:1.3rem;min-height:1.6rem}
+  .cell.mv{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
+  .ctr.g{background:none;border:3px dashed #e3c6c1;box-shadow:none}
+  .tf.over{box-shadow:0 0 0 5px var(--focus)}
+  .tray{flex:1 1 170px;max-width:360px;min-height:calc(var(--cell)*2 + 12px);border:3px dashed #b9a19c;border-radius:12px;background:#fbf3f1;padding:.4rem .5rem;display:flex;flex-direction:column;gap:.3rem}
+  .tray.over{border-color:var(--focus);background:#e8f0ff}
+  .traylab{font-weight:800;display:flex;justify-content:space-between;gap:.4rem}
+  .trayc{display:flex;flex-wrap:wrap;gap:4px}
+  .traydrop{color:var(--muted);font-weight:600}
+  .tctr{width:calc(var(--cell)*.8);height:calc(var(--cell)*.8);border:0;background:none;padding:0;display:flex;align-items:center;justify-content:center;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
+  .tctr .ctr{width:90%;height:90%;opacity:.65}
 
   /* number line */
   .nl{width:100%;max-width:820px;height:auto;display:block;touch-action:manipulation;background:#fffdf8;border:2px solid var(--line);border-radius:14px;cursor:pointer}
@@ -96,6 +106,7 @@
   .famrow.ok{border-color:#86efac;background:var(--good-bg)}
   .famrow .op{font-size:1.7rem;font-weight:800;width:1.2em;text-align:center}
   .slot{width:62px;height:58px;border:3px dashed #b9a19c;background:#fff;border-radius:12px;font-size:1.6rem;font-weight:800;color:var(--ink)}
+  .slot.over{border-color:var(--focus);background:#e8f0ff}
   .slot.filled{border-style:solid;border-color:#a3341f;background:#fff8f6}
 
   .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
@@ -275,12 +286,13 @@ const T = {
     starsAria:"Stars: {n}", wPlus:"plus", wMinus:"minus", wEquals:"equals", wBlank:"what number",
     tooBig:"{x} is too big.", tooSmall:"{x} is too small.", yes:"Yes!", lookAgain:"Let's look again.",
     frame1:"First ten frame", frame2:"Second ten frame", cRed:"Red counter", cBlue:"Blue counter", cGone:"Taken away", cEmpty:"Empty box",
-    fP_makeTen:"What is {eq}? Tap a blue counter to move it. Fill the first frame to make 10.",
+    trayLab:"Take away", trayDrop:"Drag counters here.", trayAria:"Take-away tray: {n}", cBack:"Taken away. Tap to put it back.", fT_none:"You have not taken any counters away yet. Drag {b} counters to the take-away tray to show {eq}.", fT_less:"You took away {x}. Take away {n} more to show {eq}.", fT_more:"You took away {x}. That is too many. Put {n} back to show {eq}.", fT_ok:"You took away {b}. Now count the red counters that are left.", fT_ten:"The first frame has {x}. Move {n} more blue counters to fill it and make 10.", fT_full:"The first frame is full, so that is 10. Now add the blue counters in the second frame: 10 + {r}.",
+    fP_makeTen:"What is {eq}? Drag or tap a blue counter to move it. Fill the first frame to make 10.",
     fP_double:"What is {eq}? It is a double!",
     fP_near:"What is {eq}? Think of a double you know.",
     fP_countOn:"What is {eq}? Start at {a} and count on.",
     fP_partner:"{eq}. How many more make 10? Tap the empty boxes to fill the frame.",
-    fP_sub:"What is {eq}? Tap {b} counters to take them away.",
+    fP_sub:"What is {eq}? Drag {b} counters to the take-away tray, or tap them.",
     fP_subDouble:"What is {eq}? Think of a double.",
     fG_makeTen:"Yes! {a} needs {k} more to make 10. Then 10 + {r} = {c}. So {a} + {b} = {c}.",
     fG_double:"Yes! {a} + {a} = {c}. Doubles are fast facts to remember.",
@@ -290,12 +302,12 @@ const T = {
     fG_sub:"Yes! {c} take away {b} leaves {r}. {c} − {b} = {r}.",
     fG_subTen:"Yes! Take away {k} to get to 10. Then take away {m} more: 10 − {m} = {r}. So {c} − {b} = {r}.",
     fG_subDouble:"Yes! {r} + {r} = {c}, so {c} − {r} = {r}.",
-    fH_makeTen:"{a} needs {k} more to make 10. Move blue counters to fill the first frame. Then add the rest to 10.",
+    fH_makeTen:"{a} needs {k} more to make 10. Drag or tap blue counters to fill the first frame. Then add the rest to 10.",
     fH_double:"There are {a} red and {a} blue counters. Count them all, or think: {a} and {a} more.",
     fH_near:"{a} and {b} are next-door numbers. Use the double {d} + {d} = {e}, then add one more.",
     fH_countOn:"Say {a} in your head. Then count on one number for each blue counter.",
     fH_partner:"A full ten frame has 10 boxes. Count the empty boxes. That is how many more you need.",
-    fH_sub:"Tap {b} counters to take them away. Then count the counters that are left.",
+    fH_sub:"Drag or tap {b} counters to take them away. Then count the counters that are left.",
     fH_subTen:"First take away {k} to get to 10. {b} is {k} and {m}. Then take away {m} more from 10.",
     fH_subDouble:"Think of a double. What number plus the same number makes {c}?",
     lnDirAdd:"Start at {a}. Hop forward {b}. Where do you land? Tap the number line, then tap Check.",
@@ -366,12 +378,13 @@ const T = {
     starsAria:"Estrellas: {n}", wPlus:"más", wMinus:"menos", wEquals:"es igual a", wBlank:"qué número",
     tooBig:"{x} es demasiado grande.", tooSmall:"{x} es demasiado pequeño.", yes:"¡Sí!", lookAgain:"Miremos otra vez.",
     frame1:"Primer marco de diez", frame2:"Segundo marco de diez", cRed:"Ficha roja", cBlue:"Ficha azul", cGone:"Quitada", cEmpty:"Casilla vacía",
-    fP_makeTen:"¿Cuánto es {eq}? Toca una ficha azul para moverla. Llena el primer marco para formar 10.",
+    trayLab:"Quitar", trayDrop:"Arrastra fichas aquí.", trayAria:"Bandeja de quitar: {n}", cBack:"Quitada. Tócala para devolverla.", fT_none:"Todavía no has quitado fichas. Arrastra {b} fichas a la bandeja para mostrar {eq}.", fT_less:"Quitaste {x}. Quita {n} más para mostrar {eq}.", fT_more:"Quitaste {x}. Son demasiadas. Devuelve {n} para mostrar {eq}.", fT_ok:"Quitaste {b}. Ahora cuenta las fichas rojas que quedan.", fT_ten:"El primer marco tiene {x}. Mueve {n} fichas azules más para llenarlo y formar 10.", fT_full:"El primer marco está lleno: son 10. Ahora suma las fichas azules del segundo marco: 10 + {r}.",
+    fP_makeTen:"¿Cuánto es {eq}? Arrastra o toca una ficha azul para moverla. Llena el primer marco para formar 10.",
     fP_double:"¿Cuánto es {eq}? ¡Es un doble!",
     fP_near:"¿Cuánto es {eq}? Piensa en un doble que ya sabes.",
     fP_countOn:"¿Cuánto es {eq}? Empieza en {a} y sigue contando.",
     fP_partner:"{eq}. ¿Cuántos más forman 10? Toca las casillas vacías para llenar el marco.",
-    fP_sub:"¿Cuánto es {eq}? Toca {b} fichas para quitarlas.",
+    fP_sub:"¿Cuánto es {eq}? Arrastra {b} fichas a la bandeja de quitar, o tócalas.",
     fP_subDouble:"¿Cuánto es {eq}? Piensa en un doble.",
     fG_makeTen:"¡Sí! {a} necesita {k} para formar 10. Luego 10 + {r} = {c}. Entonces {a} + {b} = {c}.",
     fG_double:"¡Sí! {a} + {a} = {c}. Los dobles son fáciles de recordar.",
@@ -381,12 +394,12 @@ const T = {
     fG_sub:"¡Sí! A {c} le quitas {b} y quedan {r}. {c} − {b} = {r}.",
     fG_subTen:"¡Sí! Quita {k} para llegar a 10. Luego quita {m} más: 10 − {m} = {r}. Entonces {c} − {b} = {r}.",
     fG_subDouble:"¡Sí! {r} + {r} = {c}, así que {c} − {r} = {r}.",
-    fH_makeTen:"{a} necesita {k} para formar 10. Mueve fichas azules para llenar el primer marco. Luego suma el resto a 10.",
+    fH_makeTen:"{a} necesita {k} para formar 10. Arrastra o toca fichas azules para llenar el primer marco. Luego suma el resto a 10.",
     fH_double:"Hay {a} fichas rojas y {a} fichas azules. Cuéntalas todas, o piensa: {a} y {a} más.",
     fH_near:"{a} y {b} son números vecinos. Usa el doble {d} + {d} = {e} y luego suma uno más.",
     fH_countOn:"Di {a} en tu cabeza. Luego cuenta un número más por cada ficha azul.",
     fH_partner:"Un marco de diez lleno tiene 10 casillas. Cuenta las casillas vacías. Esos son los que te faltan.",
-    fH_sub:"Toca {b} fichas para quitarlas. Luego cuenta las fichas que quedan.",
+    fH_sub:"Arrastra o toca {b} fichas para quitarlas. Luego cuenta las fichas que quedan.",
     fH_subTen:"Primero quita {k} para llegar a 10. {b} es {k} y {m}. Luego quita {m} más de 10.",
     fH_subDouble:"Piensa en un doble. ¿Qué número más el mismo número da {c}?",
     lnDirAdd:"Empieza en {a}. Salta {b} hacia adelante. ¿Dónde caes? Toca la recta numérica y luego toca Revisar.",
@@ -457,12 +470,13 @@ const T = {
     starsAria:"Ngôi sao: {n}", wPlus:"cộng", wMinus:"trừ", wEquals:"bằng", wBlank:"mấy",
     tooBig:"{x} lớn quá.", tooSmall:"{x} nhỏ quá.", yes:"Đúng rồi!", lookAgain:"Cùng xem lại nhé.",
     frame1:"Khung mười thứ nhất", frame2:"Khung mười thứ hai", cRed:"Hạt đỏ", cBlue:"Hạt xanh", cGone:"Đã bỏ ra", cEmpty:"Ô trống",
-    fP_makeTen:"{eq} bằng mấy? Chạm vào hạt xanh để di chuyển. Lấp đầy khung thứ nhất để được 10.",
+    trayLab:"Bỏ ra", trayDrop:"Kéo hạt vào đây.", trayAria:"Khay bỏ ra: {n}", cBack:"Đã bỏ ra. Chạm để đặt lại.", fT_none:"Em chưa bỏ hạt nào ra. Kéo {b} hạt vào khay để thể hiện {eq}.", fT_less:"Em đã bỏ ra {x}. Bỏ thêm {n} nữa để thể hiện {eq}.", fT_more:"Em đã bỏ ra {x}. Như vậy là nhiều quá. Đặt lại {n} để thể hiện {eq}.", fT_ok:"Em đã bỏ ra {b}. Bây giờ đếm số hạt đỏ còn lại.", fT_ten:"Khung thứ nhất có {x}. Di chuyển thêm {n} hạt xanh để lấp đầy và được 10.", fT_full:"Khung thứ nhất đã đầy, là 10. Bây giờ cộng các hạt xanh ở khung thứ hai: 10 + {r}.",
+    fP_makeTen:"{eq} bằng mấy? Kéo hoặc chạm vào hạt xanh để di chuyển. Lấp đầy khung thứ nhất để được 10.",
     fP_double:"{eq} bằng mấy? Đây là phép cộng hai số giống nhau!",
     fP_near:"{eq} bằng mấy? Hãy nghĩ đến phép cộng hai số giống nhau mà em đã biết.",
     fP_countOn:"{eq} bằng mấy? Bắt đầu từ {a} rồi đếm tiếp.",
     fP_partner:"{eq}. Cần thêm mấy để được 10? Chạm vào các ô trống để lấp đầy khung.",
-    fP_sub:"{eq} bằng mấy? Chạm vào {b} hạt để bỏ chúng ra.",
+    fP_sub:"{eq} bằng mấy? Kéo {b} hạt vào khay bỏ ra, hoặc chạm vào chúng.",
     fP_subDouble:"{eq} bằng mấy? Hãy nghĩ đến phép cộng hai số giống nhau.",
     fG_makeTen:"Đúng rồi! {a} cần thêm {k} để được 10. Rồi 10 + {r} = {c}. Vậy {a} + {b} = {c}.",
     fG_double:"Đúng rồi! {a} + {a} = {c}. Cộng hai số giống nhau rất dễ nhớ.",
@@ -472,12 +486,12 @@ const T = {
     fG_sub:"Đúng rồi! {c} bớt {b} còn {r}. {c} − {b} = {r}.",
     fG_subTen:"Đúng rồi! Bớt {k} để còn 10. Rồi bớt thêm {m}: 10 − {m} = {r}. Vậy {c} − {b} = {r}.",
     fG_subDouble:"Đúng rồi! {r} + {r} = {c}, nên {c} − {r} = {r}.",
-    fH_makeTen:"{a} cần thêm {k} để được 10. Di chuyển hạt xanh để lấp đầy khung thứ nhất. Rồi cộng phần còn lại vào 10.",
+    fH_makeTen:"{a} cần thêm {k} để được 10. Kéo hoặc chạm vào hạt xanh để lấp đầy khung thứ nhất. Rồi cộng phần còn lại vào 10.",
     fH_double:"Có {a} hạt đỏ và {a} hạt xanh. Đếm tất cả, hoặc nghĩ: {a} và thêm {a}.",
     fH_near:"{a} và {b} là hai số liền nhau. Dùng {d} + {d} = {e}, rồi thêm một.",
     fH_countOn:"Nhẩm {a} trong đầu. Rồi đếm tiếp một số cho mỗi hạt xanh.",
     fH_partner:"Khung mười đầy có 10 ô. Đếm các ô trống. Đó là số em cần thêm.",
-    fH_sub:"Chạm vào {b} hạt để bỏ ra. Rồi đếm số hạt còn lại.",
+    fH_sub:"Kéo hoặc chạm vào {b} hạt để bỏ ra. Rồi đếm số hạt còn lại.",
     fH_subTen:"Trước tiên bớt {k} để còn 10. {b} gồm {k} và {m}. Rồi bớt thêm {m} từ 10.",
     fH_subDouble:"Hãy nghĩ đến hai số giống nhau. Số nào cộng với chính nó được {c}?",
     lnDirAdd:"Bắt đầu ở {a}. Nhảy tới {b}. Em đáp ở đâu? Chạm vào tia số, rồi chạm Kiểm tra.",
@@ -548,12 +562,13 @@ const T = {
     starsAria:"النجوم: {n}", wPlus:"زائد", wMinus:"ناقص", wEquals:"يساوي", wBlank:"كم",
     tooBig:"{x} أكبر من اللازم.", tooSmall:"{x} أصغر من اللازم.", yes:"نعم!", lookAgain:"لننظر مرة أخرى.",
     frame1:"الإطار العشري الأول", frame2:"الإطار العشري الثاني", cRed:"قرص أحمر", cBlue:"قرص أزرق", cGone:"أُزيل", cEmpty:"مربع فارغ",
-    fP_makeTen:"كم يساوي {eq}؟ المس قرصاً أزرق لتنقله. املأ الإطار الأول لتكوّن 10.",
+    trayLab:"إزالة", trayDrop:"اسحب الأقراص إلى هنا.", trayAria:"صندوق الإزالة: {n}", cBack:"أُزيل. المسه لتعيده.", fT_none:"لم تُزِل أي قرص بعد. اسحب {b} من الأقراص إلى الصندوق لتُظهر {eq}.", fT_less:"أزلت {x}. أزِل {n} أكثر لتُظهر {eq}.", fT_more:"أزلت {x}. هذا كثير. أعِد {n} لتُظهر {eq}.", fT_ok:"أزلت {b}. الآن عُدّ الأقراص الحمراء الباقية.", fT_ten:"في الإطار الأول {x}. انقل {n} من الأقراص الزرقاء أيضاً لتملأه وتكوّن 10.", fT_full:"الإطار الأول ممتلئ، أي 10. الآن أضف الأقراص الزرقاء في الإطار الثاني: 10 + {r}.",
+    fP_makeTen:"كم يساوي {eq}؟ اسحب قرصاً أزرق أو المسه لتنقله. املأ الإطار الأول لتكوّن 10.",
     fP_double:"كم يساوي {eq}؟ إنه جمع العدد مع نفسه!",
     fP_near:"كم يساوي {eq}؟ فكّر في عدد مع نفسه تعرفه.",
     fP_countOn:"كم يساوي {eq}؟ ابدأ من {a} وتابع العدّ.",
     fP_partner:"{eq}. كم نحتاج أيضاً لنكوّن 10؟ المس المربعات الفارغة لتملأ الإطار.",
-    fP_sub:"كم يساوي {eq}؟ المس {b} من الأقراص لتزيلها.",
+    fP_sub:"كم يساوي {eq}؟ اسحب {b} من الأقراص إلى صندوق الإزالة، أو المسها.",
     fP_subDouble:"كم يساوي {eq}؟ فكّر في عدد مع نفسه.",
     fG_makeTen:"نعم! {a} يحتاج إلى {k} ليصبح 10. ثم 10 + {r} = {c}. إذن {a} + {b} = {c}.",
     fG_double:"نعم! {a} + {a} = {c}. جمع العدد مع نفسه سهل التذكّر.",
@@ -563,12 +578,12 @@ const T = {
     fG_sub:"نعم! إذا أخذنا {b} من {c} يبقى {r}. {c} − {b} = {r}.",
     fG_subTen:"نعم! أزل {k} لتصل إلى 10. ثم أزل {m} أخرى: 10 − {m} = {r}. إذن {c} − {b} = {r}.",
     fG_subDouble:"نعم! {r} + {r} = {c}، إذن {c} − {r} = {r}.",
-    fH_makeTen:"{a} يحتاج إلى {k} ليصبح 10. انقل أقراصاً زرقاء لتملأ الإطار الأول. ثم أضف الباقي إلى 10.",
+    fH_makeTen:"{a} يحتاج إلى {k} ليصبح 10. اسحب الأقراص الزرقاء أو المسها لتملأ الإطار الأول. ثم أضف الباقي إلى 10.",
     fH_double:"هناك {a} من الأقراص الحمراء و{a} من الأقراص الزرقاء. عُدّها كلها، أو فكّر: {a} و{a} أخرى.",
     fH_near:"{a} و{b} عددان متجاوران. استخدم {d} + {d} = {e}، ثم أضف واحداً.",
     fH_countOn:"قل {a} في رأسك. ثم عُدّ عدداً واحداً لكل قرص أزرق.",
     fH_partner:"الإطار العشري الممتلئ فيه 10 مربعات. عُدّ المربعات الفارغة. هذا ما تحتاجه.",
-    fH_sub:"المس {b} من الأقراص لتزيلها. ثم عُدّ الأقراص الباقية.",
+    fH_sub:"اسحب {b} من الأقراص أو المسها لتزيلها. ثم عُدّ الأقراص الباقية.",
     fH_subTen:"أولاً أزل {k} لتصل إلى 10. العدد {b} هو {k} و{m}. ثم أزل {m} أخرى من 10.",
     fH_subDouble:"فكّر في عدد مع نفسه. أي عدد إذا جمعته مع نفسه يعطي {c}؟",
     lnDirAdd:"ابدأ من {a}. اقفز {b} إلى الأمام. أين تهبط؟ المس خط الأعداد، ثم المس تحقّق.",
@@ -639,12 +654,13 @@ const T = {
     starsAria:"तारे: {n}", wPlus:"जमा", wMinus:"घटा", wEquals:"बराबर", wBlank:"कितना",
     tooBig:"{x} बहुत बड़ा है।", tooSmall:"{x} बहुत छोटा है।", yes:"हाँ!", lookAgain:"चलो फिर से देखें।",
     frame1:"पहला दस-फ्रेम", frame2:"दूसरा दस-फ्रेम", cRed:"लाल गोटी", cBlue:"नीली गोटी", cGone:"हटाई गई", cEmpty:"खाली खाना",
-    fP_makeTen:"{eq} कितना होता है? नीली गोटी को छूकर खिसकाओ। 10 बनाने के लिए पहला फ्रेम भरो।",
+    trayLab:"हटाओ", trayDrop:"गोटियाँ यहाँ खींचो।", trayAria:"हटाने वाली ट्रे: {n}", cBack:"हटाई गई। वापस रखने के लिए छुओ।", fT_none:"तुमने अभी तक कोई गोटी नहीं हटाई। {eq} दिखाने के लिए {b} गोटियाँ ट्रे में खींचो।", fT_less:"तुमने {x} हटाईं। {eq} दिखाने के लिए {n} और हटाओ।", fT_more:"तुमने {x} हटाईं। यह बहुत ज़्यादा है। {eq} दिखाने के लिए {n} वापस रखो।", fT_ok:"तुमने {b} हटाईं। अब बची हुई लाल गोटियाँ गिनो।", fT_ten:"पहले फ्रेम में {x} हैं। उसे भरकर 10 बनाने के लिए {n} और नीली गोटियाँ खिसकाओ।", fT_full:"पहला फ्रेम भरा है, यानी 10। अब दूसरे फ्रेम की नीली गोटियाँ जोड़ो: 10 + {r}।",
+    fP_makeTen:"{eq} कितना होता है? नीली गोटी को खींचो या छूकर खिसकाओ। 10 बनाने के लिए पहला फ्रेम भरो।",
     fP_double:"{eq} कितना होता है? यह दुगुना है!",
     fP_near:"{eq} कितना होता है? कोई दुगुना सोचो जो तुम्हें पता है।",
     fP_countOn:"{eq} कितना होता है? {a} से शुरू करो और आगे गिनो।",
     fP_partner:"{eq}। 10 बनाने के लिए और कितने चाहिए? फ्रेम भरने के लिए खाली खाने छुओ।",
-    fP_sub:"{eq} कितना होता है? {b} गोटियाँ छूकर हटाओ।",
+    fP_sub:"{eq} कितना होता है? {b} गोटियाँ खींचकर हटाने वाली ट्रे में डालो, या उन्हें छुओ।",
     fP_subDouble:"{eq} कितना होता है? किसी दुगुने के बारे में सोचो।",
     fG_makeTen:"हाँ! {a} को 10 बनने के लिए {k} और चाहिए। फिर 10 + {r} = {c}। तो {a} + {b} = {c}।",
     fG_double:"हाँ! {a} + {a} = {c}। दुगुने याद रखना आसान है।",
@@ -654,12 +670,12 @@ const T = {
     fG_sub:"हाँ! {c} में से {b} हटाने पर {r} बचते हैं। {c} − {b} = {r}।",
     fG_subTen:"हाँ! 10 तक पहुँचने के लिए {k} हटाओ। फिर {m} और हटाओ: 10 − {m} = {r}। तो {c} − {b} = {r}।",
     fG_subDouble:"हाँ! {r} + {r} = {c}, इसलिए {c} − {r} = {r}।",
-    fH_makeTen:"{a} को 10 बनने के लिए {k} और चाहिए। पहला फ्रेम भरने के लिए नीली गोटियाँ खिसकाओ। फिर बाकी को 10 में जोड़ो।",
+    fH_makeTen:"{a} को 10 बनने के लिए {k} और चाहिए। पहला फ्रेम भरने के लिए नीली गोटियाँ खींचो या छुओ। फिर बाकी को 10 में जोड़ो।",
     fH_double:"{a} लाल और {a} नीली गोटियाँ हैं। सब गिनो, या सोचो: {a} और {a} और।",
     fH_near:"{a} और {b} पड़ोसी संख्याएँ हैं। दुगुना {d} + {d} = {e} लो, फिर एक और जोड़ो।",
     fH_countOn:"मन में {a} बोलो। फिर हर नीली गोटी के लिए एक संख्या आगे गिनो।",
     fH_partner:"भरे हुए दस-फ्रेम में 10 खाने होते हैं। खाली खाने गिनो। उतने ही और चाहिए।",
-    fH_sub:"{b} गोटियाँ छूकर हटाओ। फिर बची हुई गोटियाँ गिनो।",
+    fH_sub:"{b} गोटियाँ खींचकर या छूकर हटाओ। फिर बची हुई गोटियाँ गिनो।",
     fH_subTen:"पहले 10 तक पहुँचने के लिए {k} हटाओ। {b} में {k} और {m} हैं। फिर 10 में से {m} और हटाओ।",
     fH_subDouble:"किसी दुगुने के बारे में सोचो। कौन सी संख्या खुद में जुड़कर {c} बनाती है?",
     lnDirAdd:"{a} से शुरू करो। {b} आगे कूदो। तुम कहाँ पहुँचे? संख्या रेखा छुओ, फिर जाँचें छुओ।",
@@ -730,12 +746,13 @@ const T = {
     starsAria:"ستارے: {n}", wPlus:"جمع", wMinus:"منفی", wEquals:"برابر", wBlank:"کتنے",
     tooBig:"{x} بہت بڑا ہے۔", tooSmall:"{x} بہت چھوٹا ہے۔", yes:"ہاں!", lookAgain:"آؤ دوبارہ دیکھیں۔",
     frame1:"پہلا دس خانوں والا فریم", frame2:"دوسرا دس خانوں والا فریم", cRed:"سرخ گوٹی", cBlue:"نیلی گوٹی", cGone:"ہٹا دی گئی", cEmpty:"خالی خانہ",
-    fP_makeTen:"{eq} کتنے ہوتے ہیں؟ نیلی گوٹی کو چھو کر منتقل کرو۔ 10 بنانے کے لیے پہلا فریم بھرو۔",
+    trayLab:"ہٹاؤ", trayDrop:"گوٹیاں یہاں کھینچو۔", trayAria:"ہٹانے والی ٹرے: {n}", cBack:"ہٹا دی گئی۔ واپس رکھنے کے لیے چھوؤ۔", fT_none:"تم نے ابھی تک کوئی گوٹی نہیں ہٹائی۔ {eq} دکھانے کے لیے {b} گوٹیاں ٹرے میں کھینچو۔", fT_less:"تم نے {x} ہٹائیں۔ {eq} دکھانے کے لیے {n} اور ہٹاؤ۔", fT_more:"تم نے {x} ہٹائیں۔ یہ بہت زیادہ ہیں۔ {eq} دکھانے کے لیے {n} واپس رکھو۔", fT_ok:"تم نے {b} ہٹائیں۔ اب باقی سرخ گوٹیاں گنو۔", fT_ten:"پہلے فریم میں {x} ہیں۔ اسے بھر کر 10 بنانے کے لیے {n} اور نیلی گوٹیاں منتقل کرو۔", fT_full:"پہلا فریم بھر گیا ہے، یعنی 10۔ اب دوسرے فریم کی نیلی گوٹیاں جمع کرو: 10 + {r}۔",
+    fP_makeTen:"{eq} کتنے ہوتے ہیں؟ نیلی گوٹی کو کھینچو یا چھو کر منتقل کرو۔ 10 بنانے کے لیے پہلا فریم بھرو۔",
     fP_double:"{eq} کتنے ہوتے ہیں؟ یہ دُگنا ہے!",
     fP_near:"{eq} کتنے ہوتے ہیں؟ کوئی دُگنا سوچو جو تمہیں آتا ہے۔",
     fP_countOn:"{eq} کتنے ہوتے ہیں؟ {a} سے شروع کرو اور آگے گنو۔",
     fP_partner:"{eq}۔ 10 بنانے کے لیے اور کتنے چاہییں؟ فریم بھرنے کے لیے خالی خانے چھوؤ۔",
-    fP_sub:"{eq} کتنے ہوتے ہیں؟ {b} گوٹیاں چھو کر ہٹاؤ۔",
+    fP_sub:"{eq} کتنے ہوتے ہیں؟ {b} گوٹیاں کھینچ کر ہٹانے والی ٹرے میں ڈالو، یا انہیں چھوؤ۔",
     fP_subDouble:"{eq} کتنے ہوتے ہیں؟ کسی دُگنے کے بارے میں سوچو۔",
     fG_makeTen:"ہاں! {a} کو 10 بننے کے لیے {k} اور چاہییں۔ پھر 10 + {r} = {c}۔ تو {a} + {b} = {c}۔",
     fG_double:"ہاں! {a} + {a} = {c}۔ دُگنے یاد رکھنا آسان ہے۔",
@@ -745,12 +762,12 @@ const T = {
     fG_sub:"ہاں! {c} میں سے {b} ہٹانے پر {r} بچتے ہیں۔ {c} − {b} = {r}۔",
     fG_subTen:"ہاں! 10 تک پہنچنے کے لیے {k} ہٹاؤ۔ پھر {m} اور ہٹاؤ: 10 − {m} = {r}۔ تو {c} − {b} = {r}۔",
     fG_subDouble:"ہاں! {r} + {r} = {c}، اس لیے {c} − {r} = {r}۔",
-    fH_makeTen:"{a} کو 10 بننے کے لیے {k} اور چاہییں۔ پہلا فریم بھرنے کے لیے نیلی گوٹیاں منتقل کرو۔ پھر باقی کو 10 میں جمع کرو۔",
+    fH_makeTen:"{a} کو 10 بننے کے لیے {k} اور چاہییں۔ پہلا فریم بھرنے کے لیے نیلی گوٹیاں کھینچو یا چھوؤ۔ پھر باقی کو 10 میں جمع کرو۔",
     fH_double:"{a} سرخ اور {a} نیلی گوٹیاں ہیں۔ سب گنو، یا سوچو: {a} اور {a} مزید۔",
     fH_near:"{a} اور {b} پڑوسی اعداد ہیں۔ دُگنا {d} + {d} = {e} لو، پھر ایک اور جمع کرو۔",
     fH_countOn:"دل میں {a} کہو۔ پھر ہر نیلی گوٹی کے لیے ایک عدد آگے گنو۔",
     fH_partner:"بھرے ہوئے دس خانوں والے فریم میں 10 خانے ہوتے ہیں۔ خالی خانے گنو۔ اتنے ہی اور چاہییں۔",
-    fH_sub:"{b} گوٹیاں چھو کر ہٹاؤ۔ پھر باقی گوٹیاں گنو۔",
+    fH_sub:"{b} گوٹیاں کھینچ کر یا چھو کر ہٹاؤ۔ پھر باقی گوٹیاں گنو۔",
     fH_subTen:"پہلے 10 تک پہنچنے کے لیے {k} ہٹاؤ۔ {b} میں {k} اور {m} ہیں۔ پھر 10 میں سے {m} اور ہٹاؤ۔",
     fH_subDouble:"کسی دُگنے کے بارے میں سوچو۔ کون سا عدد اپنے آپ میں جمع ہو کر {c} بنتا ہے؟",
     lnDirAdd:"{a} سے شروع کرو۔ {b} آگے چھلانگ لگاؤ۔ تم کہاں پہنچے؟ عددی لکیر کو چھوؤ، پھر جانچیں چھوؤ۔",
@@ -821,12 +838,13 @@ const T = {
     starsAria:"星星：{n}", wPlus:"加", wMinus:"减", wEquals:"等于", wBlank:"几",
     tooBig:"{x}太大了。", tooSmall:"{x}太小了。", yes:"对了！", lookAgain:"我们再看一看。",
     frame1:"第一个十格框", frame2:"第二个十格框", cRed:"红色圆片", cBlue:"蓝色圆片", cGone:"已拿走", cEmpty:"空格",
-    fP_makeTen:"{eq}等于几？点一点蓝色圆片把它移过去。把第一个框填满，凑成10。",
+    trayLab:"拿走", trayDrop:"把圆片拖到这里。", trayAria:"拿走盘：{n}个", cBack:"已拿走。点一点可以放回去。", fT_none:"你还没有拿走圆片。把{b}个圆片拖到盘里，表示{eq}。", fT_less:"你拿走了{x}个。再拿走{n}个，表示{eq}。", fT_more:"你拿走了{x}个，太多了。放回{n}个，表示{eq}。", fT_ok:"你拿走了{b}个。现在数一数剩下的红色圆片。", fT_ten:"第一个框里有{x}个。再移{n}个蓝色圆片把它填满，凑成10。", fT_full:"第一个框满了，就是10。现在加上第二个框里的蓝色圆片：10 + {r}。",
+    fP_makeTen:"{eq}等于几？拖动或点一点蓝色圆片把它移过去。把第一个框填满，凑成10。",
     fP_double:"{eq}等于几？这是两个相同的数相加！",
     fP_near:"{eq}等于几？想一想你知道的相同数相加。",
     fP_countOn:"{eq}等于几？从{a}开始接着数。",
     fP_partner:"{eq}。还要几个才能凑成10？点一点空格，把框填满。",
-    fP_sub:"{eq}等于几？点{b}个圆片把它们拿走。",
+    fP_sub:"{eq}等于几？把{b}个圆片拖到“拿走”盘里，或者点一点它们。",
     fP_subDouble:"{eq}等于几？想一想相同数相加。",
     fG_makeTen:"对了！{a}再加{k}就是10。然后10 + {r} = {c}。所以{a} + {b} = {c}。",
     fG_double:"对了！{a} + {a} = {c}。相同数相加很好记。",
@@ -836,12 +854,12 @@ const T = {
     fG_sub:"对了！{c}拿走{b}还剩{r}。{c} − {b} = {r}。",
     fG_subTen:"对了！先拿走{k}得到10。再拿走{m}：10 − {m} = {r}。所以{c} − {b} = {r}。",
     fG_subDouble:"对了！{r} + {r} = {c}，所以{c} − {r} = {r}。",
-    fH_makeTen:"{a}再加{k}就是10。移动蓝色圆片，把第一个框填满。然后把剩下的加到10上。",
+    fH_makeTen:"{a}再加{k}就是10。拖动或点一点蓝色圆片，把第一个框填满。然后把剩下的加到10上。",
     fH_double:"有{a}个红色圆片和{a}个蓝色圆片。全部数一数，或者想：{a}再加{a}。",
     fH_near:"{a}和{b}是相邻的数。用{d} + {d} = {e}，再加1。",
     fH_countOn:"心里先说{a}。然后每个蓝色圆片接着数一个数。",
     fH_partner:"填满的十格框有10个格子。数一数空格。这就是还需要的数量。",
-    fH_sub:"点{b}个圆片把它们拿走。然后数一数剩下的圆片。",
+    fH_sub:"拖动或点一点{b}个圆片，把它们拿走。然后数一数剩下的圆片。",
     fH_subTen:"先拿走{k}得到10。{b}可以分成{k}和{m}。然后从10里再拿走{m}。",
     fH_subDouble:"想一想相同数相加。哪个数加上它自己等于{c}？",
     lnDirAdd:"从{a}开始。向前跳{b}。你会落在哪里？点一点数轴，再点“检查”。",
@@ -1148,16 +1166,27 @@ function drawFrames(focusIdx){
   const w=$("#tfWrap"); w.innerHTML="";
   for(let f=0;f<(F.single?1:2);f++){
     const box=document.createElement("div"); box.className="tfbox";
-    const g=document.createElement("div"); g.className="tf"; g.setAttribute("role","group"); g.setAttribute("aria-label",t(f?"frame2":"frame1"));
+    const g=document.createElement("div"); g.className="tf"; g.dataset.f=f; g.setAttribute("role","group"); g.setAttribute("aria-label",t(f?"frame2":"frame1"));
     for(let i=0;i<10;i++){ const idx=f*10+i, v=F.cells[idx];
       const b=document.createElement("button"); b.type="button"; b.className="cell"; b.dataset.i=idx;
-      b.innerHTML=v?`<span class="ctr ${v}"></span>`:"";
+      b.innerHTML=v?`<span class="ctr ${v==="x"?"g":v}"></span>`:"";
       b.setAttribute("aria-label",t(v==="r"?"cRed":v==="b"?"cBlue":v==="x"?"cGone":"cEmpty"));
-      b.addEventListener("click",()=>tapCell(idx)); g.appendChild(b); }
+      if(F.op<0?v==="r":(!F.single&&F.kind!=="partner"&&v==="b")){ b.classList.add("mv"); b.addEventListener("pointerdown",e=>ctrDrag(e,idx,b.firstChild)); }
+      b.addEventListener("click",()=>{ if(!F.suppress) tapCell(idx); }); g.appendChild(b); }
     const n=document.createElement("div"); n.className="tfcount";
     n.textContent=F.cells.slice(f*10,f*10+10).filter(v=>v==="r"||v==="b").length;
     box.appendChild(g); box.appendChild(n); w.appendChild(box);
   }
+  // Subtraction: a take-away tray. Counters dragged (or tapped) out of the frames show here crossed out.
+  if(F.op<0){ const xs=[]; F.cells.forEach((v,i)=>{ if(v==="x") xs.push(i); });
+    const tr=document.createElement("div"); tr.className="tray"; tr.setAttribute("role","group"); tr.setAttribute("aria-label",t("trayAria",{n:xs.length}));
+    tr.innerHTML=`<div class="traylab"><span><span aria-hidden="true">🧺</span> ${esc(t("trayLab"))}</span><span>${xs.length}</span></div>`;
+    const tc=document.createElement("div"); tc.className="trayc";
+    if(!xs.length) tc.innerHTML=`<span class="traydrop">${esc(t("trayDrop"))}</span>`;
+    xs.forEach(i=>{ const b=document.createElement("button"); b.type="button"; b.className="tctr"; b.innerHTML='<span class="ctr x"></span>'; b.setAttribute("aria-label",t("cBack"));
+      b.addEventListener("pointerdown",e=>ctrDrag(e,i,b.firstChild,true));
+      b.addEventListener("click",()=>{ if(F.suppress||F.done) return; F.cells[i]="r"; drawFrames(i); }); tc.appendChild(b); });
+    tr.appendChild(tc); w.appendChild(tr); }
   if(focusIdx!=null){ const b=w.querySelector(`.cell[data-i="${focusIdx}"]`); if(b) b.focus(); }
 }
 function compactFrames(){
@@ -1176,17 +1205,39 @@ function tapCell(i){
   }
   drawFrames(i);
 }
+// Drag a counter: blue between frames (to the first empty box), red into the tray, tray back to a frame. Elsewhere snaps back.
+function ctrDrag(e,i,el,fromTray){
+  if(F.done||!el) return; const r=F;
+  pDrag(e,el,F,r.op<0?(fromTray?".tf":".tray"):`.tf:not([data-f="${i<10?0:1}"])`,tg=>{
+    if(F!==r||r.done) return; const c=r.cells, fr=tg&&tg.closest(".tf"), f=fr?+fr.dataset.f:-1;
+    if(r.op<0){
+      if(!fromTray && tg && tg.closest(".tray")) c[i]="x";
+      else if(fromTray && f>-1){ const s=f*10, j=c.slice(s,s+10).indexOf("x"); c[j>-1?s+j:i]="r"; }
+    }else if(f>-1 && f!==(i<10?0:1)){ const s=f*10, j=c.slice(s,s+10).indexOf(""); if(j>-1){ c[s+j]="b"; c[i]=""; compactFrames(); } }
+    drawFrames();
+  },true);
+}
 function framesVars(){ const r=F; return {a:r.a,b:r.b,c:r.op>0?r.ans:r.a,r:r.op>0?r.r:r.ans,k:r.k,m:r.m,d:r.d,e:2*(r.d||0),
   seq:Array.from({length:r.b},(_,i)=>r.a+i+1).join(", ")}; }
 function framesRight(){
   F.done=true; const r=F, v=framesVars();
   if(r.kind==="partner"){ for(let i=0;i<10;i++) if(!r.cells[i]) r.cells[i]="b"; }
   if(r.kind==="makeTen"){ let need=10-r.a; for(let i=10;i<20&&need>0;i++) if(r.cells[i]==="b"){ const e=r.cells.indexOf(""); if(e>-1&&e<10){ r.cells[e]="b"; r.cells[i]=""; need--; } } compactFrames(); }
-  if(r.op<0){ let left=r.b-r.cells.filter(x=>x==="x").length; for(let i=19;i>=0&&left>0;i--) if(r.cells[i]==="r"){ r.cells[i]="x"; left--; } }
+  if(r.op<0){ let n=r.cells.filter(x=>x==="x").length;
+    for(let i=0;i<20&&n>r.b;i++) if(r.cells[i]==="x"){ r.cells[i]="r"; n--; }
+    for(let i=19;i>=0&&n<r.b;i--) if(r.cells[i]==="r"){ r.cells[i]="x"; n++; } }
   drawFrames();
   praise("frames",t("fG_"+r.kind,v),newFrames);
 }
-function framesWrong(x){ hint("frames",J(sizeHint(x,F.ans),t("fH_"+F.kind,framesVars()))); }
+// Hints look at what the child built: how many were taken away, or how full the first frame is.
+function framesWrong(x){
+  const r=F, c=r.cells, v=framesVars(), eq=E(r.a,r.op>0?"+":"-",r.b); let m;
+  if(r.op<0){ const n=c.filter(z=>z==="x").length;
+    m=n===r.b?[t("fT_ok",v),r.kind==="sub"?"":t("fH_"+r.kind,v)]:[t(n?(n<r.b?"fT_less":"fT_more"):"fT_none",{x:n,n:Math.abs(r.b-n),b:r.b,eq})]; }
+  else if(r.kind==="makeTen"){ const n=c.slice(0,10).filter(Boolean).length; m=[n<10?t("fT_ten",{x:n,n:10-n}):t("fT_full",v)]; }
+  else m=[t("fH_"+r.kind,v)];
+  hint("frames",J(sizeHint(x,r.ans),...m.filter(Boolean)));
+}
 
 /* =========================================================================
    NUMBER LINE HOPS
@@ -1408,17 +1459,24 @@ function tapSlot(i){
 }
 function tileDrag(e,v,el){
   if(FAM.done) return;
-  const sx=e.clientX, sy=e.clientY; let ghost=null;
+  pDrag(e,el,FAM,".slot",tg=>{ const s=tg&&tg.closest(".slot"); if(s) fillSlot(+s.dataset.i,v); });
+}
+// Shared pointer drag (mouse + touch): a ghost follows the pointer, drop zones matching sel light up,
+// drop(target) runs on release. o.suppress swallows the click that follows a drag.
+function pDrag(e,el,o,sel,drop,hide){
+  if(e.button>0) return;
+  const sx=e.clientX, sy=e.clientY; let ghost=null, over=null;
+  const hov=x=>{ if(over) over.classList.remove("over"); over=x; if(x) x.classList.add("over"); };
   const mv=ev=>{
-    if(!ghost && Math.hypot(ev.clientX-sx,ev.clientY-sy)>8){ ghost=el.cloneNode(true); ghost.classList.add("dragghost"); ghost.removeAttribute("id"); document.body.appendChild(ghost); }
-    if(ghost){ ghost.style.left=ev.clientX+"px"; ghost.style.top=ev.clientY+"px"; }
+    if(!ghost && Math.hypot(ev.clientX-sx,ev.clientY-sy)>8){ const r=el.getBoundingClientRect(); ghost=el.cloneNode(true); ghost.classList.add("dragghost"); ghost.removeAttribute("id");
+      ghost.style.width=r.width+"px"; ghost.style.height=r.height+"px"; document.body.appendChild(ghost); if(hide) el.style.visibility="hidden"; }
+    if(ghost){ ghost.style.left=ev.clientX+"px"; ghost.style.top=ev.clientY+"px"; const tg=document.elementFromPoint(ev.clientX,ev.clientY); hov(tg&&tg.closest(sel)); }
   };
   const up=ev=>{
     window.removeEventListener("pointermove",mv); window.removeEventListener("pointerup",up); window.removeEventListener("pointercancel",up);
     if(!ghost) return;
-    ghost.remove(); FAM.suppress=true; setTimeout(()=>{ if(FAM) FAM.suppress=false; },60);
-    const tg=document.elementFromPoint(ev.clientX,ev.clientY), s=tg&&tg.closest(".slot");
-    if(s) fillSlot(+s.dataset.i,v);
+    ghost.remove(); hov(null); el.style.visibility=""; o.suppress=true; setTimeout(()=>{ o.suppress=false; },60);
+    drop(ev.type==="pointercancel"?null:document.elementFromPoint(ev.clientX,ev.clientY));
   };
   window.addEventListener("pointermove",mv); window.addEventListener("pointerup",up); window.addEventListener("pointercancel",up);
 }
