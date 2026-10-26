@@ -1,0 +1,2081 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Equation Balance Lab — a Grades 6–8 algebra app: algebra tiles, a balance scale for solving equations, inequalities on a number line, writing and evaluating expressions, and the number of solutions. Works offline. No data collected.">
+<title>Equation Balance Lab</title>
+<style>
+  :root{
+    --bg:#f4eff8;--panel:#ffffff;--ink:#22172b;--muted:#54465f;--line:#d7c8e3;
+    --accent:#8e44ad;--accentD:#6c3483;--accent-ink:#ffffff;--good:#166534;--good-bg:#dcfce7;
+    --hint:#7a4a00;--hint-bg:#fff4d6;--focus:#0a58ca;
+    --xpos:#4caf65;--xneg:#e5736f;--upos:#f5cf4a;--uneg:#ef9a9a;
+    --tap:52px;font-size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4;-webkit-text-size-adjust:100%}
+  h1,h2,h3{line-height:1.15;margin:0 0 .3em}
+  button{font-family:inherit;font-size:1rem;cursor:pointer}
+  button:disabled{cursor:default}
+
+  .topbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--accent);color:var(--accent-ink);padding:.55rem .8rem}
+  .topbar .brand{font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:.4rem;margin-inline-end:auto}
+  .topbar a.homebtn,.topbar button.tb{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.4rem .7rem;min-height:var(--tap);min-width:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;font-weight:700;font-size:.95rem}
+  .globe{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.2rem .5rem;min-height:var(--tap)}
+  .globe span{font-size:1.2rem}
+  .globe select{border:0;background:#fff;color:var(--ink);border-radius:8px;min-height:44px;font-weight:700;font-size:1rem;padding:.2rem .4rem}
+
+  main{max-width:1200px;margin:0 auto;padding:.7rem}
+  .tabsrow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:.4rem 0 .7rem}
+  .tabs{display:flex;gap:.4rem;flex-wrap:wrap;flex:1 1 auto}
+  .tabs button{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:.45rem .75rem;min-height:var(--tap);font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .tabs button[aria-selected="true"]{background:var(--accentD);color:#fff;border-color:var(--accentD)}
+  .tabs button .ic{font-size:1.15rem}
+  .stars{background:#fff;border:2px solid var(--line);border-radius:14px;padding:.4rem .8rem;font-weight:800;font-size:1.15rem;min-height:48px;display:inline-flex;align-items:center;gap:.3rem}
+  .stars.pop{animation:pop .5s ease}
+  @keyframes pop{50%{transform:scale(1.18)}}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  .panel{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:.9rem;margin-bottom:.8rem}
+  .panelhead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+  .panelhead h2{margin:0;font-size:1.25rem;margin-inline-end:auto}
+
+  .prompt{display:flex;align-items:center;gap:.6rem;background:#f6eefb;border:2px solid #dcc3ea;border-radius:14px;padding:.6rem .8rem;margin-bottom:.7rem;font-size:1.12rem;font-weight:600;line-height:1.7}
+  .speaker{background:var(--accentD);color:#fff;border:0;border-radius:50%;width:var(--tap);height:var(--tap);min-width:var(--tap);font-size:1.4rem;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+
+  .btn{background:var(--accentD);color:#fff;border:2px solid var(--accentD);border-radius:12px;padding:.5rem .85rem;min-height:var(--tap);font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:.3rem}
+  .btn.ghost{background:var(--panel);color:var(--accentD)}
+  .btn.sq{min-width:var(--tap);font-size:1.4rem;padding:.2rem .6rem}
+  .btn[aria-pressed="true"]{background:var(--accentD);color:#fff}
+  .btn:disabled{opacity:.45}
+
+  .feedback{margin-top:.6rem;border-radius:12px;padding:.6rem .8rem;font-weight:600;display:none;line-height:1.8}
+  .feedback.show{display:block}
+  .feedback.good{background:var(--good-bg);color:var(--good);border:2px solid #86efac}
+  .feedback.hint{background:var(--hint-bg);color:var(--hint);border:2px solid #f6d271}
+
+  /* Math: always left-to-right, even inside Arabic/Urdu sentences */
+  .math{unicode-bidi:isolate;direction:ltr;display:inline;font-weight:800;white-space:nowrap}
+  .math i{font-family:Georgia,'Times New Roman',serif;font-weight:700;padding:0 .04em}
+  .fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.05;font-weight:800;margin:0 .08em;white-space:nowrap;font-size:.92em}
+  .fr>span{padding:0 .16em}
+  .fr>span:first-child{border-bottom:.12em solid currentColor}
+  .big{font-size:1.7rem;text-align:center;margin:.3rem 0 .6rem;line-height:2;overflow-wrap:anywhere}
+  .big .math,.feedback .math,.prompt .math,.chain .math,.steps .math{white-space:normal}
+
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6rem;margin-top:.7rem}
+  .choices:empty{display:none}
+  .choice{background:var(--panel);border:3px solid var(--line);border-radius:16px;padding:.5rem;min-height:64px;display:flex;align-items:center;justify-content:center;position:relative;font-size:1.3rem;font-weight:800;color:var(--ink)}
+  .choice .lbl{unicode-bidi:isolate}
+  .choice .math{white-space:normal}
+  .choice.wide{font-size:1.05rem;font-weight:700}
+  .choice.correctpick{border-color:var(--good);background:var(--good-bg)}
+  .choice.wrongpick{border-color:#e3b341;background:var(--hint-bg);opacity:.75}
+  .choice .badge{position:absolute;top:4px;inset-inline-end:6px;font-size:1.1rem;display:none}
+  .choice.correctpick .badge{display:block}
+
+  .work:empty{display:none}
+  .acts{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:center;margin:.5rem 0}
+  .acts:empty{display:none}
+  .note{text-align:center;font-weight:600;color:var(--muted);min-height:1.4em;margin:.3rem 0;line-height:1.8}
+  .legend{display:flex;flex-wrap:wrap;gap:.4rem .9rem;justify-content:center;font-size:.85rem;color:var(--muted);margin:.2rem 0 .4rem}
+  .legend span{display:inline-flex;align-items:center;gap:.3rem}
+  .sw{display:inline-block;width:14px;height:14px;border-radius:3px;border:1px solid rgba(0,0,0,.35)}
+
+  /* Algebra tiles */
+  .mat{display:flex;flex-wrap:wrap;gap:6px;align-items:flex-end;justify-content:center;min-height:110px;padding:.6rem;border:2px dashed #b79acb;border-radius:14px;background:#fbf8fd}
+  .matempty{color:var(--muted);align-self:center}
+  .tile{border:2px solid rgba(0,0,0,.4);border-radius:6px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;padding:0;color:#1a1a1a;font-family:Georgia,serif;font-size:1rem;transition:transform .15s}
+  .tile.tx{width:44px;height:100px}
+  .tile.t1{width:44px;height:44px}
+  .tile.tx.pos{background:var(--xpos)} .tile.tx.neg{background:var(--xneg)}
+  .tile.t1.pos{background:var(--upos)} .tile.t1.neg{background:var(--uneg)}
+  .tile.sel{outline:4px solid var(--focus);outline-offset:2px;transform:translateY(-6px)}
+  .tile.gone{animation:vanish .3s forwards}
+  @keyframes vanish{to{transform:scale(.2);opacity:0}}
+  .tile.mini{width:22px;height:22px;font-size:.7rem;pointer-events:none}
+  .tile.mini.tx{height:40px}
+  .palette{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin:.6rem 0}
+  .palbtn{background:#fff;border:2px solid var(--line);border-radius:12px;min-height:var(--tap);min-width:76px;padding:.3rem .6rem;display:inline-flex;align-items:center;gap:.4rem;font-weight:800;color:var(--accentD)}
+  .area{width:min(100%,400px);display:block;margin:.3rem auto;height:auto}
+  .area .cl{fill:#efe3f6;stroke:#3b1f4a;stroke-width:2}
+  .area .cl.u{fill:#fdf3cf}
+  .area .cell{cursor:pointer}
+  .area .cell:focus{outline:none}
+  .area .cell:focus rect{stroke:var(--focus);stroke-width:5}
+  .area text{font-family:Georgia,serif;font-weight:700;font-size:26px;text-anchor:middle;fill:#22172b}
+  .area .vi{font-style:italic}
+
+  /* Balance */
+  .bal{width:min(100%,640px);display:block;margin:0 auto;height:auto}
+  .bal .bm{fill:#6c3483}
+  .bal .fulc{fill:#b79acb;stroke:#3b1f4a;stroke-width:2}
+  .bal .str{stroke:#5a4a66;stroke-width:2}
+  .bal .pan{fill:#3b1f4a}
+  .bal .bx{fill:var(--xpos);stroke:#1d4d2a;stroke-width:2}
+  .bal .bx.neg{fill:var(--xneg);stroke:#7b241c}
+  .bal .bu{fill:var(--upos);stroke:#7a5a00;stroke-width:1.5}
+  .bal .bu.neg{fill:var(--uneg);stroke:#7b241c}
+  .bal text{font-family:Georgia,serif;font-weight:700;text-anchor:middle;fill:#1a1a1a}
+  .beam{transform-box:view-box;transform-origin:320px 76px}
+  .beam.wob{animation:wob .7s ease}
+  @keyframes wob{25%{transform:rotate(-3deg)}60%{transform:rotate(2deg)}100%{transform:rotate(0)}}
+  .steps{list-style:none;padding:0;margin:.4rem auto;max-width:560px;display:flex;flex-direction:column;align-items:center;gap:.15rem;font-size:1.3rem}
+  .steps li{display:flex;flex-direction:column;align-items:center}
+  .steps li:last-child .eqs{background:#f6eefb;border-radius:10px;padding:0 .6rem}
+  .opcap{font-size:.8rem;color:var(--muted);font-weight:600}
+  .pad{display:flex;flex-direction:column;gap:.5rem;align-items:center;margin:.6rem 0 .2rem}
+  .padrow{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;align-items:center}
+  .opbtn{min-width:var(--tap);min-height:var(--tap);border-radius:12px;border:2px solid var(--line);background:#fff;font-size:1.5rem;font-weight:800;color:var(--accentD)}
+  .opbtn[aria-pressed="true"]{background:var(--accentD);color:#fff;border-color:var(--accentD)}
+  .numin{width:5.2rem;min-height:var(--tap);font-size:1.3rem;font-weight:800;text-align:center;border:2px solid var(--line);border-radius:12px;font-family:inherit}
+
+  /* Number line */
+  .nl{width:100%;max-width:720px;display:block;margin:0 auto;touch-action:none;height:auto}
+  .nlax{stroke:#3b1f4a;stroke-width:4;stroke-linecap:round}
+  .nlah{fill:#3b1f4a}
+  .tk{stroke:#3b1f4a;stroke-width:3}
+  .nlt{font-size:26px;font-weight:800;text-anchor:middle;fill:#22172b;font-family:system-ui,sans-serif}
+  .ray{stroke:var(--accent);stroke-width:9;stroke-linecap:round}
+  .rayh{fill:var(--accent)}
+  .pt{stroke:var(--accentD);stroke-width:5}
+  .pt.open{fill:#fff} .pt.closed{fill:var(--accentD)} .pt.unset{fill:#fff;stroke:#9a8aa6;stroke-dasharray:5 4}
+  .hdl[tabindex]{cursor:grab}
+  .hdl:focus{outline:none}
+  .hdl:focus .pt{stroke:var(--focus);stroke-width:7}
+
+  /* Write It */
+  .tbl{border-collapse:collapse;margin:.4rem auto;font-size:1.25rem;font-weight:700}
+  .tbl th,.tbl td{border:2px solid #b79acb;padding:.3rem .8rem;text-align:center;min-width:3rem}
+  .tbl th{background:#f6eefb;font-family:Georgia,serif;font-style:italic}
+  .expr{font-size:1.8rem;font-weight:800;text-align:center;margin:.6rem 0;line-height:2.2;direction:ltr;unicode-bidi:isolate}
+  .opk{min-width:46px;min-height:46px;border-radius:12px;border:2px solid var(--accentD);background:#f6eefb;color:var(--accentD);font-size:1.5rem;font-weight:800;margin:0 .1em;vertical-align:middle;padding:0 .3rem}
+  .opk.sup{min-width:44px;min-height:44px;font-size:1rem;vertical-align:super}
+  .opk.bad{background:var(--hint-bg);border-color:#e3b341}
+  .chain{font-size:1.15rem;text-align:center;line-height:2}
+
+  /* Number of solutions */
+  .tryx{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.5rem;margin:.5rem 0;font-weight:700}
+  .tryout{flex:1 1 100%;text-align:center;font-size:1.15rem;line-height:1.9}
+
+  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
+  .drawer.open{display:flex}
+  .drawer .card{background:var(--panel);border-radius:16px;max-width:600px;width:100%;padding:1rem;max-height:90vh;overflow:auto}
+  .setrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+  .setrow .lab{font-weight:700;min-width:150px}
+  .toggle{display:inline-flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:10px;padding:.35rem .55rem;background:#fff;min-height:44px}
+  .toggle input{width:22px;height:22px}
+  select.diff{font-size:1rem;padding:.4rem;border-radius:10px;border:2px solid var(--line);min-height:48px;max-width:100%}
+  .wrapflex{display:flex;flex-wrap:wrap;gap:.4rem}
+
+  footer{max-width:1200px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+  footer a{color:var(--accentD);font-weight:700}
+  .stds{font-size:.82rem;color:var(--muted);background:#faf6fd;border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  .hidden{display:none !important}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  @media (max-width:480px){ :root{font-size:17px} .big{font-size:1.4rem} .expr{font-size:1.45rem} .steps{font-size:1.1rem} .tabs button{padding:.4rem .55rem;font-size:.92rem} .panel{padding:.6rem} .tile.tx{height:88px;width:40px} .tile.t1{width:40px;height:40px} }
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+  .printonly{display:none}
+  @media print{
+    .topbar,.tabsrow,footer,.modepanel,#stdsNote,.no-print,#mtMuteBtn{display:none !important}
+    body{background:#fff}
+    .printonly{display:block}
+    .card-print{border:2px solid #000;border-radius:12px;padding:1rem;margin:0 0 1rem;page-break-inside:avoid}
+    .card-print h2{margin:.2rem 0}
+    .card-print svg{max-height:150px;max-width:100%}
+    main{max-width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">🧩 <span data-t="appTitle">Equation Balance Lab</span></span>
+  <a class="homebtn" href="../../index.html">🏠 <span data-t="home">Home</span></a>
+  <label class="globe"><span aria-hidden="true">🌐</span>
+    <select id="langSelect" aria-label="Language / Idioma"></select>
+  </label>
+  <button class="tb settingsbtn" id="openSettings" type="button">⚙️ <span data-t="teacher">Teacher</span></button>
+</header>
+
+<main>
+  <div class="tabsrow">
+    <div class="tabs" id="tabs" role="tablist" data-ta="modesLbl" aria-label="Modes"></div>
+    <span class="stars" id="stars"><span aria-hidden="true">⭐</span><span class="sr" data-t="stars">Problems solved</span> <b id="starCount">0</b></span>
+  </div>
+  <div id="panels"></div>
+  <div class="stds" id="stdsNote"></div>
+  <div class="printonly" id="printArea"></div>
+</main>
+
+<footer>
+  <p data-t="footNote">No accounts · No data collected · Works offline</p>
+  <p><a href="../../index.html" data-t="home">Home</a> · <a href="../../policy.html" data-t="privacy">Privacy</a></p>
+</footer>
+
+<!-- SETTINGS -->
+<div class="drawer" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <div class="panelhead"><h2 id="setTitle" data-t="teacherTitle">Teacher settings</h2>
+      <button class="btn ghost" id="closeSettings" type="button" data-t="close">Close</button></div>
+    <div class="setrow"><label class="lab" for="setGrade" data-t="setGrade">Grade level</label>
+      <select class="diff" id="setGrade">
+        <option value="6" data-t="g6">Grade 6</option>
+        <option value="7" data-t="g7">Grade 7</option>
+        <option value="8" data-t="g8">Grade 8</option></select>
+      <p class="stds" style="margin:0;flex:1 1 100%" data-t="gradeNote"></p></div>
+    <div class="setrow"><span class="lab" data-t="setNeg">Negative numbers</span>
+      <label class="toggle"><input type="checkbox" id="setNeg"> <span data-t="negOn">Use negative numbers and integers</span></label></div>
+    <div class="setrow"><label class="lab" for="setMax" data-t="setMax">Number size</label>
+      <select class="diff" id="setMax"></select></div>
+    <div class="setrow"><label class="lab" for="setEq" data-t="setEq">Balance equations</label>
+      <select class="diff" id="setEq">
+        <option value="one" data-t="eqOne">One-step</option>
+        <option value="two" data-t="eqTwo">Two-step</option>
+        <option value="both" data-t="eqBoth">Variables on both sides</option>
+        <option value="mix" data-t="eqMix">Mixed</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
+      <div id="modeToggles" class="wrapflex"></div></div>
+    <div class="setrow"><span class="lab" data-t="setSpeech">Speech</span>
+      <label class="toggle"><input type="checkbox" id="setAuto"> <span data-t="autoRead">Auto-read directions</span></label></div>
+    <div class="setrow" style="border:0"><button class="btn" id="printCards" type="button">🖨 <span data-t="printCards">Print challenge cards</span></button></div>
+    <p class="stds" data-t="setStored">Settings are saved only on this device. No student information is ever stored.</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   Equation Balance Lab — single-file Grades 6–8 expressions, equations and
+   inequalities app. 7 languages. No frameworks, no network, no data collection.
+   ========================================================================= */
+
+/* ---------- Language metadata ---------- */
+const LANGS = [
+  {code:"en", name:"English",     dir:"ltr", bcp:"en-US"},
+  {code:"es", name:"Español",     dir:"ltr", bcp:"es-ES"},
+  {code:"vi", name:"Tiếng Việt",  dir:"ltr", bcp:"vi-VN"},
+  {code:"ar", name:"العربية",     dir:"rtl", bcp:"ar-SA"},
+  {code:"hi", name:"हिन्दी",       dir:"ltr", bcp:"hi-IN"},
+  {code:"ur", name:"اردو",        dir:"rtl", bcp:"ur-PK"},
+  {code:"zh", name:"中文",         dir:"ltr", bcp:"zh-CN"}
+];
+const LANG_KEY = "tcea.mathtools.lang";
+
+/* ---------- Translations ---------- */
+const T = {
+  en:{
+    appTitle:"Equation Balance Lab", home:"Home", privacy:"Privacy", teacher:"Teacher", modesLbl:"Modes", stars:"Problems solved",
+    newRound:"New problem", readAloud:"Read aloud", check:"Check", clear:"Clear", choicesLbl:"Answer choices",
+    footNote:"No accounts · No data collected · Works offline",
+    mTiles:"Algebra Tiles", mBal:"Balance Scale", mIneq:"Inequalities", mWrite:"Write It", mSols:"How Many Solutions?",
+    teacherTitle:"Teacher settings", close:"Close", setGrade:"Grade level", g6:"Grade 6", g7:"Grade 7", g8:"Grade 8",
+    gradeNote:"Choosing a grade resets the options below to that grade's defaults.",
+    setNeg:"Negative numbers", negOn:"Use negative numbers and integers", setMax:"Number size", upTo:"Numbers up to {n}",
+    setEq:"Balance equations", eqOne:"One-step", eqTwo:"Two-step", eqBoth:"Variables on both sides", eqMix:"Mixed",
+    setModes:"Modes", setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
+    setStored:"Settings are saved only on this device. No student information is ever stored.",
+    wPlus:"plus", wMinus:"minus", wTimes:"times", wDiv:"divided by", wEq:"equals", wPow:"to the power of", neg:"negative",
+    frSay:"{n} over {d}", sDiv:"{v} divided by {d}", sGroup:"{k} times the quantity {e}", sSq:"{b} squared", sCube:"{b} cubed", sPow:"{b} to the power {e}",
+    sEq:"{a} equals {b}", sLt:"{a} is less than {b}", sGt:"{a} is greater than {b}", sLe:"{a} is less than or equal to {b}", sGe:"{a} is greater than or equal to {b}", sNe:"{a} is not equal to {b}",
+    youPicked:"You picked {x}.",
+    tileX:"x-tile (positive x)", tileNX:"negative x-tile", tileOne:"unit tile (positive 1)", tileNOne:"negative unit tile",
+    addTile:"Add a {tile}", matLbl:"Tile mat", matEmpty:"The mat is empty.",
+    lgX:"x", lgNX:"−x", lgU:"1", lgNU:"−1", lgNote:"Green and yellow are positive; red is negative.",
+    buildDir:"Build {e} on the mat with algebra tiles, then press Check. Tap a tile on the mat to remove it.",
+    goodBuild:"Yes! Your tiles are worth {e}.",
+    goodBuildZ:"Yes! Your tiles are worth {e}. The {z} zero pair(s) on your mat add 0, so they do not change the value.",
+    hintBuild:"Your mat is worth {cur}, but the target is {e}. Your {what} add up to {have}; they need to add up to {need}.",
+    xTiles:"x-tiles", unitTiles:"unit tiles",
+    simpDir:"Simplify {e}. Tap a tile, then tap its opposite to remove a zero pair. Then choose the simplified expression.",
+    simpDirPos:"Simplify {e} by combining like terms. Use Sort to group like tiles, then choose the simplified expression.",
+    sort:"Sort like terms", zeroPair:"Zero pair removed: {p}.", tapOpp:"Now tap an opposite tile of the same shape to make a zero pair.",
+    notOpp:"A zero pair needs one positive and one negative tile of the same shape.",
+    goodSimp:"Yes! x-terms: {xs}. Constants: {us}. So the simplified expression is {r}.",
+    hSigns:"Watch the signs. A negative tile cancels a positive tile of the same shape, so remove zero pairs first and count what is left.",
+    hUnlike:"x-terms and constants are not like terms, so they cannot be combined into one term. Keep x-tiles and unit tiles separate.",
+    hCount:"Count again: the x-tiles give the x-term and the unit tiles give the constant. Remove zero pairs, then count what is left.",
+    distDir:"Use the area model to expand {e}. Tap each part to find its area, then choose the equivalent expression.",
+    cellLbl:"Part {i} of the area model", areaLbl:"Area model",
+    goodDist:"Yes! Multiply {a} by each part: {p1} and {p2}. So {e} = {r}.",
+    hBothT:"Multiply {a} by both terms inside the parentheses. The area model has two parts: {p1} and {p2}.",
+    hSignD:"Check the signs. {p1} and {p2}. A negative times a positive is negative; a negative times a negative is positive.",
+    factDir:"Factor {e}. The area model shows the two parts. Which expression is equivalent?",
+    goodFact:"Yes! The greatest common factor of {A} and {B} is {a}. {a} times {in} gives back {e}.",
+    hFact:"Multiply it back out to check: {o} = {exp}, not {e}.",
+    opLbl:"Operation", numLbl:"Number", lessN:"Smaller number", moreN:"Larger number", xTerm:"Use an x-term",
+    doAdd:"Add {n} to both sides", doSub:"Subtract {n} from both sides", doMul:"Multiply both sides by {n}", doDiv:"Divide both sides by {n}",
+    undo:"Undo", hint:"Hint", restart:"Start over", balLbl:"Balance scale showing {e}",
+    balDir:"Solve {e}. Choose an operation and a number, then do it to both sides to keep the scale balanced. Get x alone.",
+    goodBal:"Solved: {sol}. Check: {chk}. Both sides are equal, so the scale balances.",
+    stillBal:"That keeps the scale balanced, but it moves x further from being alone.",
+    hBothSub:"Get the x-terms on one side: subtract {t} from both sides.", hBothAdd:"Get the x-terms on one side: add {t} to both sides.",
+    hSub:"Undo the + {n}: subtract {n} from both sides.", hAdd:"Undo the − {n}: add {n} to both sides.",
+    hMul:"x is divided by {n}. Undo it: multiply both sides by {n}.", hDivB:"x is multiplied by {n}. Undo it: divide both sides by {n}.",
+    errZero:"Adding or subtracting 0 does not change anything. Pick another number.",
+    errMul0:"Multiplying both sides by 0 turns everything into 0 and loses the equation. Pick another number.",
+    errDiv0:"You cannot divide by 0. Pick another number.",
+    errXmul:"Here, only add or subtract x-terms. Multiplying or dividing by x is not needed.",
+    errMessy:"That would make messy fractions. Try undoing the addition or subtraction first.",
+    graphDir:"Graph the solutions of {i}. Tap the number line to place the circle, then choose the circle and the direction.",
+    graphNow:"Now graph {i} on the number line.",
+    openC:"Open circle", closedC:"Closed circle", shadeL:"Shade left", shadeR:"Shade right", nlLbl:"Number line", ptLbl:"Boundary point",
+    hPt:"The boundary number is {k}. Put the circle on {k}.", hNeedC:"Choose an open circle or a closed circle.", hNeedDir:"Choose a direction to shade.",
+    hClosed:"{sym} includes {k} itself (“or equal to”), so use a closed circle.", hOpen:"{sym} does not include {k}, so use an open circle.",
+    hDirL:"{i} means numbers less than {k}, so shade to the left.", hDirR:"{i} means numbers greater than {k}, so shade to the right.",
+    gClosed:"Closed circle: {k} is a solution.", gOpen:"Open circle: {k} is not a solution.",
+    gLeft:"Shaded left: the numbers less than {k} are solutions.", gRight:"Shaded right: the numbers greater than {k} are solutions.",
+    readDir:"Which inequality matches the graph?",
+    rOpen:"The circle is open, so {k} is not included. Use < or >.", rClosed:"The circle is closed, so {k} is included. Use ≤ or ≥.",
+    rLeft:"The shading goes left, toward smaller numbers, so x is less than {k}.", rRight:"The shading goes right, toward greater numbers, so x is greater than {k}.",
+    solveDir:"Solve {i}. Which inequality shows the solutions?",
+    goodSolve:"Yes! {chain}",
+    hFlip:"You divided by {a}, a negative number. Multiplying or dividing both sides by a negative reverses the order, so the inequality sign flips.",
+    hNoFlip:"Only flip the sign when you multiply or divide by a negative number. Here you work with {a}, which is positive.",
+    hIncl:"Keep the same kind of sign. {sym} includes the boundary only if it has the “or equal to” bar.",
+    hSteps:"Undo the steps in reverse order: {chain}",
+    testDir:"Which value of x makes {i} true?",
+    goodTest:"Yes! When x = {v}: {lhs} = {lv}, and {stmt} is true.", hTest:"When x = {v}: {lhs} = {lv}, and {stmt} is false.",
+    wordsDir:"Which inequality represents the situation?",
+    wA:"To ride the roller coaster, you must be at least {k} inches tall. Let h be a rider's height.",
+    wB:"An elevator can carry at most {k} kilograms. Let w be the weight it carries.",
+    wC:"More than {k} people came to the game. Let p be the number of people.",
+    wD:"The temperature stayed below {k} °F all night. Let t be the temperature.",
+    wE:"You can spend no more than ${k} on a gift. Let c be the cost of the gift.",
+    wF:"{name} has ${b} and saves ${a} each week. {name} wants to have at least ${c}. Let w be the number of weeks.",
+    wG:"A taxi charges ${b} plus ${a} per mile. {name} can spend at most ${c}. Let m be the number of miles.",
+    hwA:"“At least {k}” means {k} or more, so {k} is included: use ≥.", hwB:"“At most {k}” means {k} or less, so {k} is included: use ≤.",
+    hwC:"“More than {k}” does not include {k}: use >.", hwD:"“Below {k}” means less than {k}, and {k} itself is not included: use <.",
+    hwE:"“No more than {k}” means {k} or less: use ≤.",
+    hwF:"Start with ${b} and add ${a} for each week: {e}. “At least” means ≥.", hwG:"${a} for each mile is {am}, plus the ${b} fee: {e}. “At most” means ≤.",
+    goodWords:"Yes! {i}",
+    phDir:"Which expression means “{p}”?",
+    ph1:"{k} more than a number n", ph2:"{k} less than a number n", ph3:"the product of {k} and a number n", ph4:"a number n divided by {k}",
+    ph5:"{k} less than {m} times a number n", ph6:"{m} times the sum of a number n and {k}", ph7:"the quotient of a number n and {k}, increased by {m}",
+    hph1:"“More than” means add: start with n and add {k}.", hph2:"“{k} less than n” starts with n and takes away {k}. The order matters!",
+    hph3:"“Product” means multiply.", hph4:"“Divided by {k}” means n is split into {k} equal parts.",
+    hph5:"Start with {m} times n, then take away {k}.", hph6:"“The sum” comes first, so put n + {k} in parentheses, then multiply by {m}.",
+    hph7:"Divide n by {k} first, then add {m}.",
+    goodPh:"Yes! “{p}” is {e}.",
+    sitDir:"Which equation represents the situation?",
+    sA:"{name} had some trading cards, c. A friend gave {name} {k} more, and now {name} has {tot} cards.",
+    sB:"Tickets cost ${k} each. {name} spent ${tot} on n tickets.",
+    sC:"A gym charges ${f} to join plus ${k} per month. {name} paid ${tot} in all for m months.",
+    sD:"{name} had ${s} and spent ${k} on lunch each day. After d days, {name} has ${tot} left.",
+    sE:"Plan A costs ${a} plus ${p} per month. Plan B costs ${b} plus ${q} per month. After m months, the plans cost the same.",
+    hsA:"Start with c, then add the {k} cards. That equals the {tot} cards now.", hsB:"Each ticket costs ${k}, so n tickets cost {e}.",
+    hsC:"The ${k} per month repeats m times: {e}. The ${f} to join is paid once, so add it.",
+    hsD:"Start with ${s}. Each day takes away ${k}, so after d days subtract {e}.",
+    hsE:"Write each plan's cost: Plan A is {ea} and Plan B is {eb}. “Cost the same” means set them equal.",
+    goodSit:"Yes! {e}",
+    tblDir:"Which rule fits every row of the table?",
+    hTbl:"Test that rule on every row. When x = {x}, {rule} gives y = {v}, but the table says {y}.",
+    goodTbl:"Yes! {rule} works for every row. For example, when x = {x}: y = {v}.",
+    evalDir:"Tap the operation to do first.", evalVar:"Evaluate {e} when x = {v}. Tap the operation to do first.",
+    evalNum:"Evaluate {e}. Tap the operation to do first.", nextOp:"Good. Tap the next operation.",
+    hParen:"Work inside the parentheses first.", hExp:"Exponents come next, before multiplying, dividing, adding, or subtracting.",
+    hMulFirst:"Multiply and divide before you add and subtract.", hLR:"These operations have the same rank, so go from left to right.",
+    goodEval:"Yes! {chain}",
+    solDir:"How many solutions does {e} have?",
+    oneSol:"One solution", noSol:"No solution", infSol:"Infinitely many solutions",
+    simplify:"Simplify both sides", simpShown:"Simplified: {e}", tryX:"Try x =", leftSide:"Left side", rightSide:"Right side",
+    tryEq:"Equal", tryNe:"Not equal",
+    goodOne:"Yes, one solution. The x-terms are different ({ax} and {cx}), so exactly one value works: x = {k}.",
+    goodNone:"Yes, no solution. Both sides have {ax}, but the constants are different: {stmt}. The sides are never equal.",
+    goodInf:"Yes, infinitely many solutions. Both sides simplify to {e}, so every value of x works.",
+    hOne:"Simplify: {eq}. The x-terms are different, so the two sides are equal for exactly one value of x.",
+    hNone:"Simplify: {eq}. The x-terms match, so subtracting them leaves {stmt}, which is false. No value of x works.",
+    hInf:"Simplify: {eq}. The two sides are exactly the same, so they are equal for every value of x.",
+    names:"Ana,Leo,Maya,Sam,Lina,Omar,Priya,Minh",
+    stds:"Aligned standards — Texas TEKS: Grade 6 6.6(C), 6.7(A, C, D), 6.9(A, B), 6.10(A, B); Grade 7 7.10(A, B), 7.11(A, B); Grade 8 8.8(A, C). Common Core: 6.EE.1, 6.EE.2, 6.EE.3, 6.EE.4, 6.EE.5, 6.EE.6, 6.EE.7, 6.EE.8, 6.EE.9; 7.EE.1, 7.EE.4a, 7.EE.4b; 8.EE.7a, 8.EE.7b.",
+    cardTitle:"Equation Balance Lab — Challenge Cards", cardName:"Name:",
+    cardSimp:"Simplify. Draw algebra tiles if it helps.", cardDist:"Expand with an area model.",
+    cardBal:"Solve. Show each step on both sides.", cardIneq:"Solve, then graph the solutions.",
+    cardPh:"Write an expression.", cardEval:"Evaluate. Show the order of operations.", cardSols:"One solution, no solution, or infinitely many? Explain."
+  },
+  es:{
+    appTitle:"Laboratorio de la Balanza", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", modesLbl:"Modos", stars:"Problemas resueltos",
+    newRound:"Nuevo problema", readAloud:"Leer en voz alta", check:"Revisar", clear:"Borrar", choicesLbl:"Opciones de respuesta",
+    footNote:"Sin cuentas · No se recopilan datos · Funciona sin conexión",
+    mTiles:"Fichas algebraicas", mBal:"Balanza", mIneq:"Desigualdades", mWrite:"Escríbelo", mSols:"¿Cuántas soluciones?",
+    teacherTitle:"Ajustes del maestro", close:"Cerrar", setGrade:"Grado", g6:"6.º grado", g7:"7.º grado", g8:"8.º grado",
+    gradeNote:"Al elegir un grado, las opciones de abajo vuelven a los valores de ese grado.",
+    setNeg:"Números negativos", negOn:"Usar números negativos y enteros", setMax:"Tamaño de los números", upTo:"Números hasta {n}",
+    setEq:"Ecuaciones en la balanza", eqOne:"De un paso", eqTwo:"De dos pasos", eqBoth:"Variables en ambos lados", eqMix:"Mezcladas",
+    setModes:"Modos", setSpeech:"Voz", autoRead:"Leer las instrucciones automáticamente", printCards:"Imprimir tarjetas de reto",
+    setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información de los estudiantes.",
+    wPlus:"más", wMinus:"menos", wTimes:"por", wDiv:"entre", wEq:"es igual a", wPow:"elevado a", neg:"menos",
+    frSay:"{n} sobre {d}", sDiv:"{v} entre {d}", sGroup:"{k} por la cantidad {e}", sSq:"{b} al cuadrado", sCube:"{b} al cubo", sPow:"{b} elevado a {e}",
+    sEq:"{a} es igual a {b}", sLt:"{a} es menor que {b}", sGt:"{a} es mayor que {b}", sLe:"{a} es menor o igual que {b}", sGe:"{a} es mayor o igual que {b}", sNe:"{a} no es igual a {b}",
+    youPicked:"Elegiste {x}.",
+    tileX:"ficha x (x positiva)", tileNX:"ficha x negativa", tileOne:"ficha unidad (1 positivo)", tileNOne:"ficha unidad negativa",
+    addTile:"Agregar una {tile}", matLbl:"Tapete de fichas", matEmpty:"El tapete está vacío.",
+    lgX:"x", lgNX:"−x", lgU:"1", lgNU:"−1", lgNote:"Verde y amarillo son positivos; rojo es negativo.",
+    buildDir:"Forma {e} en el tapete con fichas algebraicas y luego presiona Revisar. Toca una ficha del tapete para quitarla.",
+    goodBuild:"¡Sí! Tus fichas valen {e}.",
+    goodBuildZ:"¡Sí! Tus fichas valen {e}. Los {z} pares cero de tu tapete suman 0, así que no cambian el valor.",
+    hintBuild:"Tu tapete vale {cur}, pero la meta es {e}. Tus {what} suman {have}; deben sumar {need}.",
+    xTiles:"fichas x", unitTiles:"fichas unidad",
+    simpDir:"Simplifica {e}. Toca una ficha y luego su opuesta para quitar un par cero. Después elige la expresión simplificada.",
+    simpDirPos:"Simplifica {e} combinando términos semejantes. Usa Ordenar para agrupar las fichas semejantes y luego elige la expresión simplificada.",
+    sort:"Ordenar términos semejantes", zeroPair:"Par cero quitado: {p}.", tapOpp:"Ahora toca una ficha opuesta de la misma forma para hacer un par cero.",
+    notOpp:"Un par cero necesita una ficha positiva y una negativa de la misma forma.",
+    goodSimp:"¡Sí! Términos con x: {xs}. Constantes: {us}. La expresión simplificada es {r}.",
+    hSigns:"Cuidado con los signos. Una ficha negativa cancela una positiva de la misma forma: quita primero los pares cero y cuenta lo que queda.",
+    hUnlike:"Los términos con x y las constantes no son términos semejantes, así que no se pueden combinar en un solo término. Mantén separadas las fichas x y las fichas unidad.",
+    hCount:"Cuenta otra vez: las fichas x dan el término con x y las fichas unidad dan la constante. Quita los pares cero y cuenta lo que queda.",
+    distDir:"Usa el modelo de área para desarrollar {e}. Toca cada parte para hallar su área y luego elige la expresión equivalente.",
+    cellLbl:"Parte {i} del modelo de área", areaLbl:"Modelo de área",
+    goodDist:"¡Sí! Multiplica {a} por cada parte: {p1} y {p2}. Entonces {e} = {r}.",
+    hBothT:"Multiplica {a} por los dos términos dentro del paréntesis. El modelo de área tiene dos partes: {p1} y {p2}.",
+    hSignD:"Revisa los signos. {p1} y {p2}. Negativo por positivo es negativo; negativo por negativo es positivo.",
+    factDir:"Factoriza {e}. El modelo de área muestra las dos partes. ¿Qué expresión es equivalente?",
+    goodFact:"¡Sí! El máximo común divisor de {A} y {B} es {a}. {a} por {in} vuelve a dar {e}.",
+    hFact:"Multiplica para comprobar: {o} = {exp}, no {e}.",
+    opLbl:"Operación", numLbl:"Número", lessN:"Número menor", moreN:"Número mayor", xTerm:"Usar un término con x",
+    doAdd:"Suma {n} a ambos lados", doSub:"Resta {n} de ambos lados", doMul:"Multiplica ambos lados por {n}", doDiv:"Divide ambos lados entre {n}",
+    undo:"Deshacer", hint:"Pista", restart:"Empezar de nuevo", balLbl:"Balanza que muestra {e}",
+    balDir:"Resuelve {e}. Elige una operación y un número, y aplícalos a ambos lados para mantener la balanza equilibrada. Deja la x sola.",
+    goodBal:"Resuelto: {sol}. Comprobación: {chk}. Ambos lados son iguales, así que la balanza está equilibrada.",
+    stillBal:"Eso mantiene la balanza equilibrada, pero aleja a la x de quedar sola.",
+    hBothSub:"Pon los términos con x en un solo lado: resta {t} de ambos lados.", hBothAdd:"Pon los términos con x en un solo lado: suma {t} a ambos lados.",
+    hSub:"Deshaz el + {n}: resta {n} de ambos lados.", hAdd:"Deshaz el − {n}: suma {n} a ambos lados.",
+    hMul:"La x está dividida entre {n}. Deshazlo: multiplica ambos lados por {n}.", hDivB:"La x está multiplicada por {n}. Deshazlo: divide ambos lados entre {n}.",
+    errZero:"Sumar o restar 0 no cambia nada. Elige otro número.",
+    errMul0:"Multiplicar ambos lados por 0 convierte todo en 0 y se pierde la ecuación. Elige otro número.",
+    errDiv0:"No se puede dividir entre 0. Elige otro número.",
+    errXmul:"Aquí solo suma o resta términos con x. No hace falta multiplicar ni dividir entre x.",
+    errMessy:"Eso daría fracciones complicadas. Primero intenta deshacer la suma o la resta.",
+    graphDir:"Grafica las soluciones de {i}. Toca la recta numérica para poner el círculo y luego elige el círculo y la dirección.",
+    graphNow:"Ahora grafica {i} en la recta numérica.",
+    openC:"Círculo abierto", closedC:"Círculo cerrado", shadeL:"Sombrear a la izquierda", shadeR:"Sombrear a la derecha", nlLbl:"Recta numérica", ptLbl:"Punto frontera",
+    hPt:"El número frontera es {k}. Pon el círculo en {k}.", hNeedC:"Elige un círculo abierto o cerrado.", hNeedDir:"Elige hacia dónde sombrear.",
+    hClosed:"{sym} incluye al propio {k} (“o igual a”), así que usa un círculo cerrado.", hOpen:"{sym} no incluye a {k}, así que usa un círculo abierto.",
+    hDirL:"{i} significa números menores que {k}, así que sombrea a la izquierda.", hDirR:"{i} significa números mayores que {k}, así que sombrea a la derecha.",
+    gClosed:"Círculo cerrado: {k} es una solución.", gOpen:"Círculo abierto: {k} no es una solución.",
+    gLeft:"Sombreado a la izquierda: los números menores que {k} son soluciones.", gRight:"Sombreado a la derecha: los números mayores que {k} son soluciones.",
+    readDir:"¿Qué desigualdad corresponde a la gráfica?",
+    rOpen:"El círculo está abierto, así que {k} no está incluido. Usa < o >.", rClosed:"El círculo está cerrado, así que {k} está incluido. Usa ≤ o ≥.",
+    rLeft:"El sombreado va a la izquierda, hacia los números menores, así que x es menor que {k}.", rRight:"El sombreado va a la derecha, hacia los números mayores, así que x es mayor que {k}.",
+    solveDir:"Resuelve {i}. ¿Qué desigualdad muestra las soluciones?",
+    goodSolve:"¡Sí! {chain}",
+    hFlip:"Dividiste entre {a}, un número negativo. Al multiplicar o dividir ambos lados por un negativo se invierte el orden, así que el signo de desigualdad se voltea.",
+    hNoFlip:"Solo se voltea el signo al multiplicar o dividir por un número negativo. Aquí trabajas con {a}, que es positivo.",
+    hIncl:"Conserva el mismo tipo de signo. {sym} incluye la frontera solo si tiene la rayita de “o igual a”.",
+    hSteps:"Deshaz los pasos en orden inverso: {chain}",
+    testDir:"¿Qué valor de x hace verdadera {i}?",
+    goodTest:"¡Sí! Cuando x = {v}: {lhs} = {lv}, y {stmt} es verdadero.", hTest:"Cuando x = {v}: {lhs} = {lv}, y {stmt} es falso.",
+    wordsDir:"¿Qué desigualdad representa la situación?",
+    wA:"Para subir a la montaña rusa, debes medir al menos {k} pulgadas. Sea h la estatura de una persona.",
+    wB:"Un elevador puede cargar como máximo {k} kilogramos. Sea w el peso que carga.",
+    wC:"Más de {k} personas vinieron al partido. Sea p el número de personas.",
+    wD:"La temperatura se mantuvo por debajo de {k} °F toda la noche. Sea t la temperatura.",
+    wE:"Puedes gastar no más de ${k} en un regalo. Sea c el costo del regalo.",
+    wF:"{name} tiene ${b} y ahorra ${a} cada semana. {name} quiere tener al menos ${c}. Sea w el número de semanas.",
+    wG:"Un taxi cobra ${b} más ${a} por milla. {name} puede gastar como máximo ${c}. Sea m el número de millas.",
+    hwA:"“Al menos {k}” significa {k} o más, así que {k} está incluido: usa ≥.", hwB:"“Como máximo {k}” significa {k} o menos, así que {k} está incluido: usa ≤.",
+    hwC:"“Más de {k}” no incluye a {k}: usa >.", hwD:"“Por debajo de {k}” significa menor que {k}, y {k} no está incluido: usa <.",
+    hwE:"“No más de {k}” significa {k} o menos: usa ≤.",
+    hwF:"Empieza con ${b} y suma ${a} por cada semana: {e}. “Al menos” significa ≥.", hwG:"${a} por cada milla es {am}, más la tarifa de ${b}: {e}. “Como máximo” significa ≤.",
+    goodWords:"¡Sí! {i}",
+    phDir:"¿Qué expresión significa “{p}”?",
+    ph1:"{k} más que un número n", ph2:"{k} menos que un número n", ph3:"el producto de {k} y un número n", ph4:"un número n dividido entre {k}",
+    ph5:"{k} menos que {m} veces un número n", ph6:"{m} veces la suma de un número n y {k}", ph7:"el cociente de un número n y {k}, aumentado en {m}",
+    hph1:"“Más que” significa sumar: empieza con n y suma {k}.", hph2:"“{k} menos que n” empieza con n y le quita {k}. ¡El orden importa!",
+    hph3:"“Producto” significa multiplicar.", hph4:"“Dividido entre {k}” significa que n se reparte en {k} partes iguales.",
+    hph5:"Empieza con {m} veces n y luego quita {k}.", hph6:"“La suma” va primero, así que pon n + {k} entre paréntesis y luego multiplica por {m}.",
+    hph7:"Primero divide n entre {k} y luego suma {m}.",
+    goodPh:"¡Sí! “{p}” es {e}.",
+    sitDir:"¿Qué ecuación representa la situación?",
+    sA:"{name} tenía algunas tarjetas coleccionables, c. Un amigo le dio {k} más y ahora tiene {tot} tarjetas.",
+    sB:"Los boletos cuestan ${k} cada uno. {name} gastó ${tot} en n boletos.",
+    sC:"Un gimnasio cobra ${f} de inscripción más ${k} al mes. {name} pagó ${tot} en total por m meses.",
+    sD:"{name} tenía ${s} y gastó ${k} en el almuerzo cada día. Después de d días, le quedan ${tot}.",
+    sE:"El plan A cuesta ${a} más ${p} al mes. El plan B cuesta ${b} más ${q} al mes. Después de m meses, los planes cuestan lo mismo.",
+    hsA:"Empieza con c y suma las {k} tarjetas. Eso es igual a las {tot} tarjetas de ahora.", hsB:"Cada boleto cuesta ${k}, así que n boletos cuestan {e}.",
+    hsC:"Los ${k} al mes se repiten m veces: {e}. Los ${f} de inscripción se pagan una vez, así que súmalos.",
+    hsD:"Empieza con ${s}. Cada día se restan ${k}, así que después de d días resta {e}.",
+    hsE:"Escribe el costo de cada plan: el plan A es {ea} y el plan B es {eb}. “Cuestan lo mismo” significa igualarlos.",
+    goodSit:"¡Sí! {e}",
+    tblDir:"¿Qué regla funciona para cada fila de la tabla?",
+    hTbl:"Prueba esa regla en cada fila. Cuando x = {x}, {rule} da y = {v}, pero la tabla dice {y}.",
+    goodTbl:"¡Sí! {rule} funciona para cada fila. Por ejemplo, cuando x = {x}: y = {v}.",
+    evalDir:"Toca la operación que se hace primero.", evalVar:"Evalúa {e} cuando x = {v}. Toca la operación que se hace primero.",
+    evalNum:"Evalúa {e}. Toca la operación que se hace primero.", nextOp:"Bien. Toca la siguiente operación.",
+    hParen:"Primero resuelve lo que está dentro de los paréntesis.", hExp:"Después siguen los exponentes, antes de multiplicar, dividir, sumar o restar.",
+    hMulFirst:"Multiplica y divide antes de sumar y restar.", hLR:"Estas operaciones tienen el mismo nivel, así que ve de izquierda a derecha.",
+    goodEval:"¡Sí! {chain}",
+    solDir:"¿Cuántas soluciones tiene {e}?",
+    oneSol:"Una solución", noSol:"Ninguna solución", infSol:"Infinitas soluciones",
+    simplify:"Simplificar ambos lados", simpShown:"Simplificada: {e}", tryX:"Prueba x =", leftSide:"Lado izquierdo", rightSide:"Lado derecho",
+    tryEq:"Iguales", tryNe:"No son iguales",
+    goodOne:"Sí, una solución. Los términos con x son diferentes ({ax} y {cx}), así que exactamente un valor funciona: x = {k}.",
+    goodNone:"Sí, ninguna solución. Ambos lados tienen {ax}, pero las constantes son diferentes: {stmt}. Los lados nunca son iguales.",
+    goodInf:"Sí, infinitas soluciones. Ambos lados se simplifican a {e}, así que cualquier valor de x funciona.",
+    hOne:"Simplifica: {eq}. Los términos con x son diferentes, así que los dos lados son iguales para exactamente un valor de x.",
+    hNone:"Simplifica: {eq}. Los términos con x coinciden, así que al restarlos queda {stmt}, que es falso. Ningún valor de x funciona.",
+    hInf:"Simplifica: {eq}. Los dos lados son exactamente iguales, así que son iguales para cualquier valor de x.",
+    names:"Ana,Leo,Maya,Sam,Lina,Omar,Priya,Minh",
+    stds:"Estándares alineados — TEKS de Texas: 6.º grado 6.6(C), 6.7(A, C, D), 6.9(A, B), 6.10(A, B); 7.º grado 7.10(A, B), 7.11(A, B); 8.º grado 8.8(A, C). Common Core: 6.EE.1, 6.EE.2, 6.EE.3, 6.EE.4, 6.EE.5, 6.EE.6, 6.EE.7, 6.EE.8, 6.EE.9; 7.EE.1, 7.EE.4a, 7.EE.4b; 8.EE.7a, 8.EE.7b.",
+    cardTitle:"Laboratorio de la Balanza — Tarjetas de reto", cardName:"Nombre:",
+    cardSimp:"Simplifica. Dibuja fichas algebraicas si te ayuda.", cardDist:"Desarrolla con un modelo de área.",
+    cardBal:"Resuelve. Muestra cada paso en ambos lados.", cardIneq:"Resuelve y luego grafica las soluciones.",
+    cardPh:"Escribe una expresión.", cardEval:"Evalúa. Muestra el orden de las operaciones.", cardSols:"¿Una solución, ninguna o infinitas? Explica."
+  },
+  vi:{
+    appTitle:"Phòng thí nghiệm Cân bằng Phương trình", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", modesLbl:"Chế độ", stars:"Số bài đã giải",
+    newRound:"Bài mới", readAloud:"Đọc to", check:"Kiểm tra", clear:"Xóa", choicesLbl:"Các lựa chọn",
+    footNote:"Không cần tài khoản · Không thu thập dữ liệu · Dùng được khi không có mạng",
+    mTiles:"Thẻ đại số", mBal:"Cân thăng bằng", mIneq:"Bất phương trình", mWrite:"Viết biểu thức", mSols:"Có bao nhiêu nghiệm?",
+    teacherTitle:"Cài đặt của giáo viên", close:"Đóng", setGrade:"Lớp", g6:"Lớp 6", g7:"Lớp 7", g8:"Lớp 8",
+    gradeNote:"Khi chọn lớp, các tùy chọn bên dưới sẽ trở về mặc định của lớp đó.",
+    setNeg:"Số âm", negOn:"Dùng số âm và số nguyên", setMax:"Độ lớn của số", upTo:"Các số đến {n}",
+    setEq:"Phương trình trên cân", eqOne:"Một bước", eqTwo:"Hai bước", eqBoth:"Ẩn ở cả hai vế", eqMix:"Trộn lẫn",
+    setModes:"Chế độ", setSpeech:"Giọng đọc", autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
+    setStored:"Cài đặt chỉ được lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
+    wPlus:"cộng", wMinus:"trừ", wTimes:"nhân", wDiv:"chia cho", wEq:"bằng", wPow:"mũ", neg:"âm",
+    frSay:"{n} phần {d}", sDiv:"{v} chia cho {d}", sGroup:"{k} nhân với tổng {e}", sSq:"{b} bình phương", sCube:"{b} lập phương", sPow:"{b} mũ {e}",
+    sEq:"{a} bằng {b}", sLt:"{a} nhỏ hơn {b}", sGt:"{a} lớn hơn {b}", sLe:"{a} nhỏ hơn hoặc bằng {b}", sGe:"{a} lớn hơn hoặc bằng {b}", sNe:"{a} không bằng {b}",
+    youPicked:"Em đã chọn {x}.",
+    tileX:"thẻ x (x dương)", tileNX:"thẻ x âm", tileOne:"thẻ đơn vị (1 dương)", tileNOne:"thẻ đơn vị âm",
+    addTile:"Thêm một {tile}", matLbl:"Tấm thảm thẻ", matEmpty:"Tấm thảm đang trống.",
+    lgX:"x", lgNX:"−x", lgU:"1", lgNU:"−1", lgNote:"Xanh lá và vàng là dương; đỏ là âm.",
+    buildDir:"Dùng thẻ đại số xếp {e} lên thảm, rồi bấm Kiểm tra. Chạm vào một thẻ trên thảm để bỏ nó đi.",
+    goodBuild:"Đúng rồi! Các thẻ của em có giá trị {e}.",
+    goodBuildZ:"Đúng rồi! Các thẻ của em có giá trị {e}. {z} cặp số không trên thảm có tổng bằng 0 nên không làm thay đổi giá trị.",
+    hintBuild:"Thảm của em có giá trị {cur}, nhưng mục tiêu là {e}. Các {what} của em có tổng {have}; cần có tổng {need}.",
+    xTiles:"thẻ x", unitTiles:"thẻ đơn vị",
+    simpDir:"Rút gọn {e}. Chạm một thẻ, rồi chạm thẻ đối của nó để bỏ một cặp số không. Sau đó chọn biểu thức đã rút gọn.",
+    simpDirPos:"Rút gọn {e} bằng cách gộp các hạng tử đồng dạng. Dùng nút Sắp xếp để gom các thẻ cùng loại, rồi chọn biểu thức đã rút gọn.",
+    sort:"Sắp xếp hạng tử đồng dạng", zeroPair:"Đã bỏ cặp số không: {p}.", tapOpp:"Bây giờ chạm một thẻ đối có cùng hình dạng để tạo cặp số không.",
+    notOpp:"Một cặp số không cần một thẻ dương và một thẻ âm có cùng hình dạng.",
+    goodSimp:"Đúng rồi! Hạng tử chứa x: {xs}. Hằng số: {us}. Vậy biểu thức rút gọn là {r}.",
+    hSigns:"Chú ý dấu. Một thẻ âm triệt tiêu một thẻ dương cùng hình dạng, nên hãy bỏ các cặp số không trước rồi đếm phần còn lại.",
+    hUnlike:"Hạng tử chứa x và hằng số không phải là hạng tử đồng dạng, nên không thể gộp thành một hạng tử. Hãy để riêng thẻ x và thẻ đơn vị.",
+    hCount:"Đếm lại: thẻ x cho hạng tử chứa x, thẻ đơn vị cho hằng số. Bỏ các cặp số không rồi đếm phần còn lại.",
+    distDir:"Dùng mô hình diện tích để khai triển {e}. Chạm vào từng phần để tìm diện tích, rồi chọn biểu thức tương đương.",
+    cellLbl:"Phần {i} của mô hình diện tích", areaLbl:"Mô hình diện tích",
+    goodDist:"Đúng rồi! Nhân {a} với từng phần: {p1} và {p2}. Vậy {e} = {r}.",
+    hBothT:"Nhân {a} với cả hai hạng tử trong ngoặc. Mô hình diện tích có hai phần: {p1} và {p2}.",
+    hSignD:"Kiểm tra dấu. {p1} và {p2}. Âm nhân dương ra âm; âm nhân âm ra dương.",
+    factDir:"Phân tích {e} thành nhân tử. Mô hình diện tích cho thấy hai phần. Biểu thức nào tương đương?",
+    goodFact:"Đúng rồi! Ước chung lớn nhất của {A} và {B} là {a}. {a} nhân {in} lại được {e}.",
+    hFact:"Nhân ra để kiểm tra: {o} = {exp}, không phải {e}.",
+    opLbl:"Phép tính", numLbl:"Số", lessN:"Số nhỏ hơn", moreN:"Số lớn hơn", xTerm:"Dùng hạng tử chứa x",
+    doAdd:"Cộng {n} vào hai vế", doSub:"Trừ {n} ở hai vế", doMul:"Nhân hai vế với {n}", doDiv:"Chia hai vế cho {n}",
+    undo:"Hoàn tác", hint:"Gợi ý", restart:"Làm lại từ đầu", balLbl:"Cân thăng bằng thể hiện {e}",
+    balDir:"Giải {e}. Chọn một phép tính và một số, rồi làm ở cả hai vế để cân luôn thăng bằng. Hãy để x đứng một mình.",
+    goodBal:"Đã giải xong: {sol}. Thử lại: {chk}. Hai vế bằng nhau nên cân thăng bằng.",
+    stillBal:"Cân vẫn thăng bằng, nhưng bước này làm x khó đứng một mình hơn.",
+    hBothSub:"Đưa các hạng tử chứa x về một vế: trừ {t} ở hai vế.", hBothAdd:"Đưa các hạng tử chứa x về một vế: cộng {t} vào hai vế.",
+    hSub:"Bỏ phần + {n}: trừ {n} ở hai vế.", hAdd:"Bỏ phần − {n}: cộng {n} vào hai vế.",
+    hMul:"x đang bị chia cho {n}. Làm ngược lại: nhân hai vế với {n}.", hDivB:"x đang được nhân với {n}. Làm ngược lại: chia hai vế cho {n}.",
+    errZero:"Cộng hoặc trừ 0 không làm thay đổi gì. Hãy chọn số khác.",
+    errMul0:"Nhân hai vế với 0 sẽ biến mọi thứ thành 0 và mất phương trình. Hãy chọn số khác.",
+    errDiv0:"Không thể chia cho 0. Hãy chọn số khác.",
+    errXmul:"Ở đây chỉ cộng hoặc trừ hạng tử chứa x. Không cần nhân hay chia cho x.",
+    errMessy:"Như vậy sẽ ra phân số rắc rối. Hãy thử bỏ phép cộng hoặc trừ trước.",
+    graphDir:"Biểu diễn tập nghiệm của {i}. Chạm vào trục số để đặt hình tròn, rồi chọn loại hình tròn và hướng.",
+    graphNow:"Bây giờ hãy biểu diễn {i} trên trục số.",
+    openC:"Hình tròn rỗng", closedC:"Hình tròn đặc", shadeL:"Tô sang trái", shadeR:"Tô sang phải", nlLbl:"Trục số", ptLbl:"Điểm biên",
+    hPt:"Số biên là {k}. Hãy đặt hình tròn tại {k}.", hNeedC:"Hãy chọn hình tròn rỗng hoặc hình tròn đặc.", hNeedDir:"Hãy chọn hướng để tô.",
+    hClosed:"{sym} bao gồm cả {k} (“hoặc bằng”), nên dùng hình tròn đặc.", hOpen:"{sym} không bao gồm {k}, nên dùng hình tròn rỗng.",
+    hDirL:"{i} nghĩa là các số nhỏ hơn {k}, nên tô sang trái.", hDirR:"{i} nghĩa là các số lớn hơn {k}, nên tô sang phải.",
+    gClosed:"Hình tròn đặc: {k} là một nghiệm.", gOpen:"Hình tròn rỗng: {k} không phải là nghiệm.",
+    gLeft:"Tô sang trái: các số nhỏ hơn {k} là nghiệm.", gRight:"Tô sang phải: các số lớn hơn {k} là nghiệm.",
+    readDir:"Bất phương trình nào khớp với hình vẽ?",
+    rOpen:"Hình tròn rỗng nên {k} không được tính. Dùng < hoặc >.", rClosed:"Hình tròn đặc nên {k} được tính. Dùng ≤ hoặc ≥.",
+    rLeft:"Phần tô đi sang trái, về phía số nhỏ hơn, nên x nhỏ hơn {k}.", rRight:"Phần tô đi sang phải, về phía số lớn hơn, nên x lớn hơn {k}.",
+    solveDir:"Giải {i}. Bất phương trình nào cho biết tập nghiệm?",
+    goodSolve:"Đúng rồi! {chain}",
+    hFlip:"Em đã chia cho {a}, một số âm. Khi nhân hoặc chia hai vế cho một số âm, thứ tự bị đảo ngược nên phải đổi chiều dấu bất phương trình.",
+    hNoFlip:"Chỉ đổi chiều dấu khi nhân hoặc chia cho số âm. Ở đây em làm với {a}, là số dương.",
+    hIncl:"Giữ nguyên loại dấu. {sym} chỉ bao gồm số biên khi có gạch “hoặc bằng”.",
+    hSteps:"Làm ngược lại các bước theo thứ tự từ sau ra trước: {chain}",
+    testDir:"Giá trị nào của x làm cho {i} đúng?",
+    goodTest:"Đúng rồi! Khi x = {v}: {lhs} = {lv}, và {stmt} là đúng.", hTest:"Khi x = {v}: {lhs} = {lv}, và {stmt} là sai.",
+    wordsDir:"Bất phương trình nào biểu diễn tình huống này?",
+    wA:"Để đi tàu lượn siêu tốc, em phải cao ít nhất {k} inch. Gọi h là chiều cao của người chơi.",
+    wB:"Một thang máy chở được tối đa {k} kilôgam. Gọi w là khối lượng nó chở.",
+    wC:"Có hơn {k} người đến xem trận đấu. Gọi p là số người.",
+    wD:"Nhiệt độ ở dưới {k} °F suốt đêm. Gọi t là nhiệt độ.",
+    wE:"Em được tiêu không quá ${k} cho một món quà. Gọi c là giá món quà.",
+    wF:"{name} có ${b} và mỗi tuần tiết kiệm thêm ${a}. {name} muốn có ít nhất ${c}. Gọi w là số tuần.",
+    wG:"Một chiếc taxi tính ${b} cộng ${a} cho mỗi dặm. {name} được tiêu tối đa ${c}. Gọi m là số dặm.",
+    hwA:"“Ít nhất {k}” nghĩa là {k} hoặc nhiều hơn, nên tính cả {k}: dùng ≥.", hwB:"“Tối đa {k}” nghĩa là {k} hoặc ít hơn, nên tính cả {k}: dùng ≤.",
+    hwC:"“Hơn {k}” không tính {k}: dùng >.", hwD:"“Dưới {k}” nghĩa là nhỏ hơn {k}, và không tính {k}: dùng <.",
+    hwE:"“Không quá {k}” nghĩa là {k} hoặc ít hơn: dùng ≤.",
+    hwF:"Bắt đầu với ${b} và cộng ${a} cho mỗi tuần: {e}. “Ít nhất” nghĩa là ≥.", hwG:"${a} cho mỗi dặm là {am}, cộng phí ${b}: {e}. “Tối đa” nghĩa là ≤.",
+    goodWords:"Đúng rồi! {i}",
+    phDir:"Biểu thức nào có nghĩa là “{p}”?",
+    ph1:"{k} nhiều hơn một số n", ph2:"{k} ít hơn một số n", ph3:"tích của {k} và một số n", ph4:"một số n chia cho {k}",
+    ph5:"{k} ít hơn {m} lần một số n", ph6:"{m} lần tổng của một số n và {k}", ph7:"thương của một số n và {k}, cộng thêm {m}",
+    hph1:"“Nhiều hơn” nghĩa là cộng: bắt đầu với n rồi cộng {k}.", hph2:"“{k} ít hơn n” bắt đầu với n rồi bớt đi {k}. Thứ tự rất quan trọng!",
+    hph3:"“Tích” nghĩa là nhân.", hph4:"“Chia cho {k}” nghĩa là chia n thành {k} phần bằng nhau.",
+    hph5:"Bắt đầu với {m} lần n, rồi bớt đi {k}.", hph6:"“Tổng” làm trước, nên đặt n + {k} trong ngoặc, rồi nhân với {m}.",
+    hph7:"Chia n cho {k} trước, rồi cộng {m}.",
+    goodPh:"Đúng rồi! “{p}” là {e}.",
+    sitDir:"Phương trình nào biểu diễn tình huống này?",
+    sA:"{name} có một số thẻ sưu tập, c. Một người bạn cho {name} thêm {k} thẻ, và bây giờ {name} có {tot} thẻ.",
+    sB:"Mỗi vé giá ${k}. {name} đã tiêu ${tot} cho n vé.",
+    sC:"Một phòng tập thu ${f} phí đăng ký cộng ${k} mỗi tháng. {name} đã trả tổng cộng ${tot} cho m tháng.",
+    sD:"{name} có ${s} và mỗi ngày tiêu ${k} cho bữa trưa. Sau d ngày, {name} còn lại ${tot}.",
+    sE:"Gói A giá ${a} cộng ${p} mỗi tháng. Gói B giá ${b} cộng ${q} mỗi tháng. Sau m tháng, hai gói có giá bằng nhau.",
+    hsA:"Bắt đầu với c, rồi cộng {k} thẻ. Kết quả bằng {tot} thẻ hiện có.", hsB:"Mỗi vé giá ${k}, nên n vé giá {e}.",
+    hsC:"${k} mỗi tháng lặp lại m lần: {e}. Phí đăng ký ${f} chỉ trả một lần, nên cộng thêm vào.",
+    hsD:"Bắt đầu với ${s}. Mỗi ngày bớt ${k}, nên sau d ngày trừ đi {e}.",
+    hsE:"Viết giá của mỗi gói: gói A là {ea} và gói B là {eb}. “Giá bằng nhau” nghĩa là cho chúng bằng nhau.",
+    goodSit:"Đúng rồi! {e}",
+    tblDir:"Quy tắc nào đúng với mọi hàng của bảng?",
+    hTbl:"Thử quy tắc đó với mọi hàng. Khi x = {x}, {rule} cho y = {v}, nhưng bảng ghi {y}.",
+    goodTbl:"Đúng rồi! {rule} đúng với mọi hàng. Ví dụ, khi x = {x}: y = {v}.",
+    evalDir:"Chạm vào phép tính làm trước.", evalVar:"Tính giá trị của {e} khi x = {v}. Chạm vào phép tính làm trước.",
+    evalNum:"Tính giá trị của {e}. Chạm vào phép tính làm trước.", nextOp:"Tốt. Chạm vào phép tính tiếp theo.",
+    hParen:"Làm trong ngoặc trước.", hExp:"Tiếp theo là lũy thừa, trước khi nhân, chia, cộng hoặc trừ.",
+    hMulFirst:"Nhân và chia trước khi cộng và trừ.", hLR:"Các phép tính này cùng cấp, nên làm từ trái sang phải.",
+    goodEval:"Đúng rồi! {chain}",
+    solDir:"{e} có bao nhiêu nghiệm?",
+    oneSol:"Một nghiệm", noSol:"Vô nghiệm", infSol:"Vô số nghiệm",
+    simplify:"Rút gọn hai vế", simpShown:"Đã rút gọn: {e}", tryX:"Thử x =", leftSide:"Vế trái", rightSide:"Vế phải",
+    tryEq:"Bằng nhau", tryNe:"Không bằng nhau",
+    goodOne:"Đúng, một nghiệm. Các hạng tử chứa x khác nhau ({ax} và {cx}), nên đúng một giá trị thỏa mãn: x = {k}.",
+    goodNone:"Đúng, vô nghiệm. Hai vế đều có {ax}, nhưng hằng số khác nhau: {stmt}. Hai vế không bao giờ bằng nhau.",
+    goodInf:"Đúng, vô số nghiệm. Hai vế đều rút gọn thành {e}, nên mọi giá trị của x đều thỏa mãn.",
+    hOne:"Rút gọn: {eq}. Các hạng tử chứa x khác nhau, nên hai vế bằng nhau tại đúng một giá trị của x.",
+    hNone:"Rút gọn: {eq}. Các hạng tử chứa x giống nhau, nên trừ đi sẽ còn {stmt}, điều này sai. Không có giá trị nào của x thỏa mãn.",
+    hInf:"Rút gọn: {eq}. Hai vế giống hệt nhau, nên chúng bằng nhau với mọi giá trị của x.",
+    names:"An,Lan,Minh,Hoa,Nam,Mai,Bảo,Linh",
+    stds:"Chuẩn liên quan — TEKS của Texas: Lớp 6 6.6(C), 6.7(A, C, D), 6.9(A, B), 6.10(A, B); Lớp 7 7.10(A, B), 7.11(A, B); Lớp 8 8.8(A, C). Common Core: 6.EE.1, 6.EE.2, 6.EE.3, 6.EE.4, 6.EE.5, 6.EE.6, 6.EE.7, 6.EE.8, 6.EE.9; 7.EE.1, 7.EE.4a, 7.EE.4b; 8.EE.7a, 8.EE.7b.",
+    cardTitle:"Phòng thí nghiệm Cân bằng Phương trình — Thẻ thử thách", cardName:"Họ tên:",
+    cardSimp:"Rút gọn. Vẽ thẻ đại số nếu cần.", cardDist:"Khai triển bằng mô hình diện tích.",
+    cardBal:"Giải. Ghi từng bước ở cả hai vế.", cardIneq:"Giải, rồi biểu diễn tập nghiệm.",
+    cardPh:"Viết một biểu thức.", cardEval:"Tính giá trị. Ghi rõ thứ tự thực hiện phép tính.", cardSols:"Một nghiệm, vô nghiệm hay vô số nghiệm? Giải thích."
+  },
+  ar:{
+    appTitle:"مختبر ميزان المعادلات", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", modesLbl:"الأنماط", stars:"المسائل المحلولة",
+    newRound:"مسألة جديدة", readAloud:"اقرأ بصوت عالٍ", check:"تحقّق", clear:"امسح", choicesLbl:"خيارات الإجابة",
+    footNote:"بلا حسابات · لا تُجمع أي بيانات · يعمل دون اتصال",
+    mTiles:"البلاطات الجبرية", mBal:"الميزان", mIneq:"المتباينات", mWrite:"اكتبها", mSols:"كم حلًّا؟",
+    teacherTitle:"إعدادات المعلم", close:"إغلاق", setGrade:"الصف", g6:"الصف السادس", g7:"الصف السابع", g8:"الصف الثامن",
+    gradeNote:"اختيار الصف يعيد الخيارات أدناه إلى الإعدادات الافتراضية لذلك الصف.",
+    setNeg:"الأعداد السالبة", negOn:"استخدم الأعداد السالبة والأعداد الصحيحة", setMax:"حجم الأعداد", upTo:"أعداد حتى {n}",
+    setEq:"معادلات الميزان", eqOne:"خطوة واحدة", eqTwo:"خطوتان", eqBoth:"متغيرات في الطرفين", eqMix:"منوّعة",
+    setModes:"الأنماط", setSpeech:"الصوت", autoRead:"قراءة التعليمات تلقائيًا", printCards:"اطبع بطاقات التحدي",
+    setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُخزَّن أي معلومات عن الطلاب أبدًا.",
+    wPlus:"زائد", wMinus:"ناقص", wTimes:"ضرب", wDiv:"مقسومًا على", wEq:"يساوي", wPow:"أُس", neg:"سالب",
+    frSay:"{n} على {d}", sDiv:"{v} مقسومًا على {d}", sGroup:"{k} ضرب المقدار {e}", sSq:"{b} تربيع", sCube:"{b} تكعيب", sPow:"{b} أُس {e}",
+    sEq:"{a} يساوي {b}", sLt:"{a} أصغر من {b}", sGt:"{a} أكبر من {b}", sLe:"{a} أصغر من أو يساوي {b}", sGe:"{a} أكبر من أو يساوي {b}", sNe:"{a} لا يساوي {b}",
+    youPicked:"اخترتَ {x}.",
+    tileX:"بلاطة x (موجبة)", tileNX:"بلاطة x سالبة", tileOne:"بلاطة وحدة (1 موجب)", tileNOne:"بلاطة وحدة سالبة",
+    addTile:"أضف {tile}", matLbl:"لوحة البلاطات", matEmpty:"اللوحة فارغة.",
+    lgX:"x", lgNX:"−x", lgU:"1", lgNU:"−1", lgNote:"الأخضر والأصفر موجبان؛ الأحمر سالب.",
+    buildDir:"كوّن {e} على اللوحة بالبلاطات الجبرية، ثم اضغط تحقّق. المس بلاطة على اللوحة لإزالتها.",
+    goodBuild:"نعم! قيمة بلاطاتك {e}.",
+    goodBuildZ:"نعم! قيمة بلاطاتك {e}. أزواج الصفر على لوحتك ({z}) مجموعها 0، فلا تغيّر القيمة.",
+    hintBuild:"قيمة لوحتك {cur}، لكن الهدف {e}. مجموع {what} عندك {have}؛ ويجب أن يكون {need}.",
+    xTiles:"بلاطات x", unitTiles:"بلاطات الوحدة",
+    simpDir:"بسّط {e}. المس بلاطة ثم المس معاكستها لإزالة زوج صفري. ثم اختر العبارة المبسّطة.",
+    simpDirPos:"بسّط {e} بجمع الحدود المتشابهة. استخدم زر الترتيب لتجميع البلاطات المتشابهة، ثم اختر العبارة المبسّطة.",
+    sort:"رتّب الحدود المتشابهة", zeroPair:"أُزيل زوج صفري: {p}.", tapOpp:"الآن المس بلاطة معاكسة لها الشكل نفسه لتكوين زوج صفري.",
+    notOpp:"الزوج الصفري يحتاج بلاطة موجبة وبلاطة سالبة لهما الشكل نفسه.",
+    goodSimp:"نعم! حدود x: {xs}. الثوابت: {us}. إذن العبارة المبسّطة هي {r}.",
+    hSigns:"انتبه للإشارات. البلاطة السالبة تلغي بلاطة موجبة لها الشكل نفسه، فأزل أزواج الصفر أولًا ثم عُدّ ما تبقّى.",
+    hUnlike:"حدود x والثوابت ليست حدودًا متشابهة، فلا يمكن جمعها في حدّ واحد. أبقِ بلاطات x وبلاطات الوحدة منفصلة.",
+    hCount:"عُدّ مرة أخرى: بلاطات x تعطي حدّ x، وبلاطات الوحدة تعطي الثابت. أزل أزواج الصفر ثم عُدّ ما تبقّى.",
+    distDir:"استخدم نموذج المساحة لفكّ {e}. المس كل جزء لإيجاد مساحته، ثم اختر العبارة المكافئة.",
+    cellLbl:"الجزء {i} من نموذج المساحة", areaLbl:"نموذج المساحة",
+    goodDist:"نعم! اضرب {a} في كل جزء: {p1} و{p2}. إذن {e} = {r}.",
+    hBothT:"اضرب {a} في كلا الحدّين داخل القوسين. نموذج المساحة فيه جزآن: {p1} و{p2}.",
+    hSignD:"راجع الإشارات. {p1} و{p2}. السالب في الموجب سالب، والسالب في السالب موجب.",
+    factDir:"حلّل {e} إلى عوامل. يُظهر نموذج المساحة الجزأين. أي عبارة مكافئة؟",
+    goodFact:"نعم! القاسم المشترك الأكبر لـ {A} و{B} هو {a}. {a} ضرب {in} يعطي {e} من جديد.",
+    hFact:"اضرب لتتحقّق: {o} = {exp}، وليس {e}.",
+    opLbl:"العملية", numLbl:"العدد", lessN:"عدد أصغر", moreN:"عدد أكبر", xTerm:"استخدم حدًّا فيه x",
+    doAdd:"أضف {n} إلى الطرفين", doSub:"اطرح {n} من الطرفين", doMul:"اضرب الطرفين في {n}", doDiv:"اقسم الطرفين على {n}",
+    undo:"تراجع", hint:"تلميح", restart:"ابدأ من جديد", balLbl:"ميزان يُظهر {e}",
+    balDir:"حُلّ {e}. اختر عملية وعددًا، ثم طبّقهما على الطرفين ليبقى الميزان متوازنًا. اجعل x وحدها.",
+    goodBal:"تم الحل: {sol}. التحقق: {chk}. الطرفان متساويان، لذا الميزان متوازن.",
+    stillBal:"هذا يُبقي الميزان متوازنًا، لكنه يُبعد x عن أن تكون وحدها.",
+    hBothSub:"اجمع حدود x في طرف واحد: اطرح {t} من الطرفين.", hBothAdd:"اجمع حدود x في طرف واحد: أضف {t} إلى الطرفين.",
+    hSub:"تخلّص من + {n}: اطرح {n} من الطرفين.", hAdd:"تخلّص من − {n}: أضف {n} إلى الطرفين.",
+    hMul:"x مقسومة على {n}. اعكس ذلك: اضرب الطرفين في {n}.", hDivB:"x مضروبة في {n}. اعكس ذلك: اقسم الطرفين على {n}.",
+    errZero:"إضافة 0 أو طرحه لا يغيّر شيئًا. اختر عددًا آخر.",
+    errMul0:"ضرب الطرفين في 0 يحوّل كل شيء إلى 0 فتضيع المعادلة. اختر عددًا آخر.",
+    errDiv0:"لا يمكن القسمة على 0. اختر عددًا آخر.",
+    errXmul:"هنا أضف حدود x أو اطرحها فقط. لا حاجة إلى الضرب أو القسمة على x.",
+    errMessy:"سينتج عن ذلك كسور معقّدة. جرّب أولًا التخلّص من الجمع أو الطرح.",
+    graphDir:"مثّل حلول {i} بيانيًا. المس خط الأعداد لوضع الدائرة، ثم اختر نوع الدائرة والاتجاه.",
+    graphNow:"الآن مثّل {i} على خط الأعداد.",
+    openC:"دائرة مفتوحة", closedC:"دائرة مغلقة", shadeL:"ظلّل لليسار", shadeR:"ظلّل لليمين", nlLbl:"خط الأعداد", ptLbl:"نقطة الحدّ",
+    hPt:"عدد الحدّ هو {k}. ضع الدائرة عند {k}.", hNeedC:"اختر دائرة مفتوحة أو مغلقة.", hNeedDir:"اختر اتجاه التظليل.",
+    hClosed:"{sym} تشمل {k} نفسه («أو يساوي»)، فاستخدم دائرة مغلقة.", hOpen:"{sym} لا تشمل {k}، فاستخدم دائرة مفتوحة.",
+    hDirL:"{i} تعني الأعداد الأصغر من {k}، فظلّل لليسار.", hDirR:"{i} تعني الأعداد الأكبر من {k}، فظلّل لليمين.",
+    gClosed:"دائرة مغلقة: {k} حلّ.", gOpen:"دائرة مفتوحة: {k} ليس حلًّا.",
+    gLeft:"التظليل لليسار: الأعداد الأصغر من {k} حلول.", gRight:"التظليل لليمين: الأعداد الأكبر من {k} حلول.",
+    readDir:"أي متباينة تطابق التمثيل البياني؟",
+    rOpen:"الدائرة مفتوحة، إذن {k} غير مشمول. استخدم < أو >.", rClosed:"الدائرة مغلقة، إذن {k} مشمول. استخدم ≤ أو ≥.",
+    rLeft:"التظليل يتجه لليسار نحو الأعداد الأصغر، إذن x أصغر من {k}.", rRight:"التظليل يتجه لليمين نحو الأعداد الأكبر، إذن x أكبر من {k}.",
+    solveDir:"حُلّ {i}. أي متباينة تُظهر الحلول؟",
+    goodSolve:"نعم! {chain}",
+    hFlip:"قسمتَ على {a}، وهو عدد سالب. الضرب أو القسمة على عدد سالب يعكس الترتيب، لذا تنقلب إشارة المتباينة.",
+    hNoFlip:"لا تقلب الإشارة إلا عند الضرب أو القسمة على عدد سالب. هنا تعمل مع {a}، وهو موجب.",
+    hIncl:"حافظ على نوع الإشارة نفسه. {sym} تشمل الحدّ فقط إذا كان فيها خط «أو يساوي».",
+    hSteps:"اعكس الخطوات بترتيب معكوس: {chain}",
+    testDir:"أي قيمة لـ x تجعل {i} صحيحة؟",
+    goodTest:"نعم! عندما x = {v}: {lhs} = {lv}، و{stmt} صحيحة.", hTest:"عندما x = {v}: {lhs} = {lv}، و{stmt} خاطئة.",
+    wordsDir:"أي متباينة تمثّل الموقف؟",
+    wA:"لركوب الأفعوانية يجب أن يكون طولك {k} بوصة على الأقل. ليكن h طول الراكب.",
+    wB:"يحمل المصعد {k} كيلوغرامًا على الأكثر. ليكن w الوزن الذي يحمله.",
+    wC:"حضر المباراة أكثر من {k} شخصًا. ليكن p عدد الأشخاص.",
+    wD:"بقيت درجة الحرارة أقل من {k} °F طوال الليل. لتكن t درجة الحرارة.",
+    wE:"يمكنك أن تنفق ما لا يزيد على ${k} لشراء هدية. ليكن c ثمن الهدية.",
+    wF:"مع {name} مبلغ ${b} ويدّخر ${a} كل أسبوع. يريد {name} أن يكون معه ${c} على الأقل. ليكن w عدد الأسابيع.",
+    wG:"تتقاضى سيارة الأجرة ${b} زائد ${a} لكل ميل. يمكن لـ {name} أن ينفق ${c} على الأكثر. ليكن m عدد الأميال.",
+    hwA:"«{k} على الأقل» تعني {k} أو أكثر، إذن {k} مشمول: استخدم ≥.", hwB:"«{k} على الأكثر» تعني {k} أو أقل، إذن {k} مشمول: استخدم ≤.",
+    hwC:"«أكثر من {k}» لا تشمل {k}: استخدم >.", hwD:"«أقل من {k}» لا تشمل {k} نفسه: استخدم <.",
+    hwE:"«لا يزيد على {k}» تعني {k} أو أقل: استخدم ≤.",
+    hwF:"ابدأ بـ ${b} وأضف ${a} لكل أسبوع: {e}. «على الأقل» تعني ≥.", hwG:"${a} لكل ميل تساوي {am}، زائد رسم ${b}: {e}. «على الأكثر» تعني ≤.",
+    goodWords:"نعم! {i}",
+    phDir:"أي عبارة تعني «{p}»؟",
+    ph1:"{k} أكثر من عدد n", ph2:"{k} أقل من عدد n", ph3:"حاصل ضرب {k} في عدد n", ph4:"عدد n مقسومًا على {k}",
+    ph5:"{k} أقل من {m} أمثال عدد n", ph6:"{m} أمثال مجموع عدد n و{k}", ph7:"ناتج قسمة عدد n على {k}، مضافًا إليه {m}",
+    hph1:"«أكثر من» تعني الجمع: ابدأ بـ n وأضف {k}.", hph2:"«{k} أقل من n» تبدأ بـ n وتطرح منه {k}. الترتيب مهم!",
+    hph3:"«حاصل الضرب» يعني الضرب.", hph4:"«مقسومًا على {k}» تعني تقسيم n إلى {k} أجزاء متساوية.",
+    hph5:"ابدأ بـ {m} أمثال n، ثم اطرح {k}.", hph6:"«المجموع» أولًا، فضع n + {k} بين قوسين، ثم اضرب في {m}.",
+    hph7:"اقسم n على {k} أولًا، ثم أضف {m}.",
+    goodPh:"نعم! «{p}» هي {e}.",
+    sitDir:"أي معادلة تمثّل الموقف؟",
+    sA:"كان مع {name} بعض بطاقات التبادل، c. أعطاه صديق {k} بطاقات أخرى، والآن معه {tot} بطاقة.",
+    sB:"ثمن التذكرة ${k}. أنفق {name} ${tot} على n تذكرة.",
+    sC:"يتقاضى نادٍ رياضي ${f} رسم اشتراك زائد ${k} شهريًا. دفع {name} ${tot} في المجموع مقابل m شهرًا.",
+    sD:"كان مع {name} ${s} وأنفق ${k} على الغداء كل يوم. بعد d يومًا بقي معه ${tot}.",
+    sE:"تكلفة الخطة A هي ${a} زائد ${p} شهريًا. تكلفة الخطة B هي ${b} زائد ${q} شهريًا. بعد m شهرًا تتساوى تكلفة الخطتين.",
+    hsA:"ابدأ بـ c ثم أضف البطاقات {k}. الناتج يساوي البطاقات {tot} الآن.", hsB:"ثمن كل تذكرة ${k}، إذن ثمن n تذكرة هو {e}.",
+    hsC:"مبلغ ${k} الشهري يتكرر m مرة: {e}. رسم الاشتراك ${f} يُدفع مرة واحدة، فأضفه.",
+    hsD:"ابدأ بـ ${s}. كل يوم يُطرح ${k}، إذن بعد d يومًا اطرح {e}.",
+    hsE:"اكتب تكلفة كل خطة: الخطة A هي {ea} والخطة B هي {eb}. «تتساوى التكلفة» تعني أن نجعلهما متساويتين.",
+    goodSit:"نعم! {e}",
+    tblDir:"أي قاعدة تناسب كل صف في الجدول؟",
+    hTbl:"جرّب القاعدة على كل صف. عندما x = {x}، تعطي {rule} القيمة y = {v}، لكن الجدول يقول {y}.",
+    goodTbl:"نعم! {rule} تصلح لكل صف. مثلًا، عندما x = {x}: y = {v}.",
+    evalDir:"المس العملية التي تُجرى أولًا.", evalVar:"احسب قيمة {e} عندما x = {v}. المس العملية التي تُجرى أولًا.",
+    evalNum:"احسب قيمة {e}. المس العملية التي تُجرى أولًا.", nextOp:"جيد. المس العملية التالية.",
+    hParen:"ابدأ بما داخل الأقواس.", hExp:"الأُسس تأتي بعد ذلك، قبل الضرب والقسمة والجمع والطرح.",
+    hMulFirst:"اضرب واقسم قبل أن تجمع وتطرح.", hLR:"هذه العمليات في المرتبة نفسها، فاعمل من اليسار إلى اليمين.",
+    goodEval:"نعم! {chain}",
+    solDir:"كم حلًّا للمعادلة {e}؟",
+    oneSol:"حلّ واحد", noSol:"لا يوجد حل", infSol:"عدد لا نهائي من الحلول",
+    simplify:"بسّط الطرفين", simpShown:"بعد التبسيط: {e}", tryX:"جرّب x =", leftSide:"الطرف الأيسر", rightSide:"الطرف الأيمن",
+    tryEq:"متساويان", tryNe:"غير متساويين",
+    goodOne:"نعم، حلّ واحد. حدود x مختلفة ({ax} و{cx})، لذا قيمة واحدة فقط تصلح: x = {k}.",
+    goodNone:"نعم، لا يوجد حل. في الطرفين {ax}، لكن الثوابت مختلفة: {stmt}. لا يتساوى الطرفان أبدًا.",
+    goodInf:"نعم، عدد لا نهائي من الحلول. يتبسّط الطرفان إلى {e}، لذا تصلح كل قيمة لـ x.",
+    hOne:"بسّط: {eq}. حدود x مختلفة، لذا يتساوى الطرفان عند قيمة واحدة فقط لـ x.",
+    hNone:"بسّط: {eq}. حدود x متطابقة، وبطرحها يبقى {stmt}، وهذا خطأ. لا توجد قيمة لـ x تصلح.",
+    hInf:"بسّط: {eq}. الطرفان متطابقان تمامًا، لذا يتساويان لكل قيمة لـ x.",
+    names:"عمر,ليلى,يوسف,سارة,آدم,مريم,علي,نور",
+    stds:"المعايير المرتبطة — معايير TEKS في تكساس: الصف السادس 6.6(C)، 6.7(A, C, D)، 6.9(A, B)، 6.10(A, B)؛ الصف السابع 7.10(A, B)، 7.11(A, B)؛ الصف الثامن 8.8(A, C). Common Core: 6.EE.1، 6.EE.2، 6.EE.3، 6.EE.4، 6.EE.5، 6.EE.6، 6.EE.7، 6.EE.8، 6.EE.9؛ 7.EE.1، 7.EE.4a، 7.EE.4b؛ 8.EE.7a، 8.EE.7b.",
+    cardTitle:"مختبر ميزان المعادلات — بطاقات التحدي", cardName:"الاسم:",
+    cardSimp:"بسّط. ارسم بلاطات جبرية إن ساعدك ذلك.", cardDist:"فُكّ باستخدام نموذج المساحة.",
+    cardBal:"حُلّ. اكتب كل خطوة على الطرفين.", cardIneq:"حُلّ، ثم مثّل الحلول بيانيًا.",
+    cardPh:"اكتب عبارة.", cardEval:"احسب القيمة. بيّن ترتيب العمليات.", cardSols:"حلّ واحد، أم لا حلّ، أم عدد لا نهائي؟ اشرح."
+  },
+  hi:{
+    appTitle:"समीकरण संतुलन प्रयोगशाला", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", modesLbl:"मोड", stars:"हल किए गए सवाल",
+    newRound:"नया सवाल", readAloud:"ज़ोर से पढ़ें", check:"जाँचें", clear:"मिटाएँ", choicesLbl:"उत्तर के विकल्प",
+    footNote:"कोई खाता नहीं · कोई डेटा इकट्ठा नहीं · ऑफ़लाइन चलता है",
+    mTiles:"बीजीय टाइलें", mBal:"तराज़ू", mIneq:"असमिकाएँ", mWrite:"लिखकर देखें", mSols:"कितने हल?",
+    teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setGrade:"कक्षा", g6:"कक्षा 6", g7:"कक्षा 7", g8:"कक्षा 8",
+    gradeNote:"कक्षा चुनने पर नीचे के विकल्प उस कक्षा की डिफ़ॉल्ट सेटिंग पर लौट आते हैं।",
+    setNeg:"ऋणात्मक संख्याएँ", negOn:"ऋणात्मक संख्याओं और पूर्णांकों का उपयोग करें", setMax:"संख्याओं का आकार", upTo:"{n} तक की संख्याएँ",
+    setEq:"तराज़ू के समीकरण", eqOne:"एक चरण", eqTwo:"दो चरण", eqBoth:"दोनों ओर चर", eqMix:"मिले-जुले",
+    setModes:"मोड", setSpeech:"आवाज़", autoRead:"निर्देश अपने-आप पढ़ें", printCards:"चुनौती कार्ड प्रिंट करें",
+    setStored:"सेटिंग्स केवल इसी डिवाइस पर सहेजी जाती हैं। छात्रों की कोई जानकारी कभी संग्रहीत नहीं होती।",
+    wPlus:"धन", wMinus:"ऋण", wTimes:"गुणा", wDiv:"भाग", wEq:"बराबर", wPow:"की घात", neg:"ऋण",
+    frSay:"{n} बटा {d}", sDiv:"{v} भाग {d}", sGroup:"{k} गुणा कोष्ठक में {e}", sSq:"{b} का वर्ग", sCube:"{b} का घन", sPow:"{b} की घात {e}",
+    sEq:"{a} बराबर {b}", sLt:"{a}, {b} से छोटा है", sGt:"{a}, {b} से बड़ा है", sLe:"{a}, {b} से छोटा या उसके बराबर है", sGe:"{a}, {b} से बड़ा या उसके बराबर है", sNe:"{a}, {b} के बराबर नहीं है",
+    youPicked:"आपने {x} चुना।",
+    tileX:"x-टाइल (धनात्मक x)", tileNX:"ऋणात्मक x-टाइल", tileOne:"इकाई टाइल (धनात्मक 1)", tileNOne:"ऋणात्मक इकाई टाइल",
+    addTile:"एक {tile} जोड़ें", matLbl:"टाइल मैट", matEmpty:"मैट खाली है।",
+    lgX:"x", lgNX:"−x", lgU:"1", lgNU:"−1", lgNote:"हरा और पीला धनात्मक हैं; लाल ऋणात्मक है।",
+    buildDir:"बीजीय टाइलों से मैट पर {e} बनाएँ, फिर जाँचें दबाएँ। मैट की किसी टाइल को हटाने के लिए उस पर टैप करें।",
+    goodBuild:"हाँ! आपकी टाइलों का मान {e} है।",
+    goodBuildZ:"हाँ! आपकी टाइलों का मान {e} है। मैट पर {z} शून्य-जोड़ों का योग 0 है, इसलिए वे मान नहीं बदलते।",
+    hintBuild:"आपकी मैट का मान {cur} है, पर लक्ष्य {e} है। आपकी {what} का योग {have} है; इसे {need} होना चाहिए।",
+    xTiles:"x-टाइलों", unitTiles:"इकाई टाइलों",
+    simpDir:"{e} को सरल करें। एक टाइल पर टैप करें, फिर उसकी विपरीत टाइल पर टैप करके शून्य-जोड़ा हटाएँ। फिर सरल व्यंजक चुनें।",
+    simpDirPos:"समान पदों को मिलाकर {e} को सरल करें। समान टाइलों को एक साथ लाने के लिए क्रम से लगाएँ बटन दबाएँ, फिर सरल व्यंजक चुनें।",
+    sort:"समान पद क्रम से लगाएँ", zeroPair:"शून्य-जोड़ा हटाया: {p}।", tapOpp:"अब उसी आकार की विपरीत टाइल पर टैप करके शून्य-जोड़ा बनाएँ।",
+    notOpp:"शून्य-जोड़े के लिए एक ही आकार की एक धनात्मक और एक ऋणात्मक टाइल चाहिए।",
+    goodSimp:"हाँ! x वाले पद: {xs}। अचर: {us}। इसलिए सरल व्यंजक {r} है।",
+    hSigns:"चिह्नों पर ध्यान दें। ऋणात्मक टाइल उसी आकार की धनात्मक टाइल को काट देती है, इसलिए पहले शून्य-जोड़े हटाएँ और फिर बची टाइलें गिनें।",
+    hUnlike:"x वाले पद और अचर समान पद नहीं हैं, इसलिए उन्हें एक पद में नहीं मिलाया जा सकता। x-टाइलों और इकाई टाइलों को अलग रखें।",
+    hCount:"फिर से गिनें: x-टाइलें x वाला पद देती हैं और इकाई टाइलें अचर देती हैं। शून्य-जोड़े हटाएँ, फिर बची टाइलें गिनें।",
+    distDir:"{e} का विस्तार करने के लिए क्षेत्रफल मॉडल का उपयोग करें। हर भाग का क्षेत्रफल जानने के लिए उस पर टैप करें, फिर समतुल्य व्यंजक चुनें।",
+    cellLbl:"क्षेत्रफल मॉडल का भाग {i}", areaLbl:"क्षेत्रफल मॉडल",
+    goodDist:"हाँ! {a} को हर भाग से गुणा करें: {p1} और {p2}। इसलिए {e} = {r}।",
+    hBothT:"{a} को कोष्ठक के अंदर के दोनों पदों से गुणा करें। क्षेत्रफल मॉडल के दो भाग हैं: {p1} और {p2}।",
+    hSignD:"चिह्न जाँचें। {p1} और {p2}। ऋणात्मक गुणा धनात्मक ऋणात्मक होता है; ऋणात्मक गुणा ऋणात्मक धनात्मक होता है।",
+    factDir:"{e} के गुणनखंड करें। क्षेत्रफल मॉडल दोनों भाग दिखाता है। कौन-सा व्यंजक समतुल्य है?",
+    goodFact:"हाँ! {A} और {B} का महत्तम समापवर्तक {a} है। {a} गुणा {in} से फिर {e} मिलता है।",
+    hFact:"जाँचने के लिए गुणा करके देखें: {o} = {exp}, {e} नहीं।",
+    opLbl:"संक्रिया", numLbl:"संख्या", lessN:"छोटी संख्या", moreN:"बड़ी संख्या", xTerm:"x वाला पद उपयोग करें",
+    doAdd:"दोनों ओर {n} जोड़ें", doSub:"दोनों ओर से {n} घटाएँ", doMul:"दोनों ओर {n} से गुणा करें", doDiv:"दोनों ओर {n} से भाग दें",
+    undo:"पूर्ववत करें", hint:"संकेत", restart:"फिर से शुरू करें", balLbl:"तराज़ू जो {e} दिखाता है",
+    balDir:"{e} हल करें। एक संक्रिया और एक संख्या चुनें, फिर तराज़ू को संतुलित रखने के लिए दोनों ओर वही करें। x को अकेला करें।",
+    goodBal:"हल हो गया: {sol}। जाँच: {chk}। दोनों ओर बराबर हैं, इसलिए तराज़ू संतुलित है।",
+    stillBal:"तराज़ू संतुलित रहता है, पर इससे x अकेला होने से और दूर हो जाता है।",
+    hBothSub:"x वाले पद एक ओर लाएँ: दोनों ओर से {t} घटाएँ।", hBothAdd:"x वाले पद एक ओर लाएँ: दोनों ओर {t} जोड़ें।",
+    hSub:"+ {n} को हटाएँ: दोनों ओर से {n} घटाएँ।", hAdd:"− {n} को हटाएँ: दोनों ओर {n} जोड़ें।",
+    hMul:"x को {n} से भाग दिया गया है। उल्टा करें: दोनों ओर {n} से गुणा करें।", hDivB:"x को {n} से गुणा किया गया है। उल्टा करें: दोनों ओर {n} से भाग दें।",
+    errZero:"0 जोड़ने या घटाने से कुछ नहीं बदलता। कोई और संख्या चुनें।",
+    errMul0:"दोनों ओर 0 से गुणा करने पर सब कुछ 0 हो जाता है और समीकरण खो जाता है। कोई और संख्या चुनें।",
+    errDiv0:"0 से भाग नहीं दिया जा सकता। कोई और संख्या चुनें।",
+    errXmul:"यहाँ केवल x वाले पद जोड़ें या घटाएँ। x से गुणा या भाग की ज़रूरत नहीं है।",
+    errMessy:"इससे उलझी हुई भिन्नें बनेंगी। पहले जोड़ या घटाव को हटाने की कोशिश करें।",
+    graphDir:"{i} के हलों का आलेख बनाएँ। वृत्त रखने के लिए संख्या रेखा पर टैप करें, फिर वृत्त और दिशा चुनें।",
+    graphNow:"अब संख्या रेखा पर {i} का आलेख बनाएँ।",
+    openC:"खुला वृत्त", closedC:"भरा वृत्त", shadeL:"बाईं ओर छायांकित करें", shadeR:"दाईं ओर छायांकित करें", nlLbl:"संख्या रेखा", ptLbl:"सीमा बिंदु",
+    hPt:"सीमा संख्या {k} है। वृत्त {k} पर रखें।", hNeedC:"खुला या भरा वृत्त चुनें।", hNeedDir:"छायांकन की दिशा चुनें।",
+    hClosed:"{sym} में {k} स्वयं शामिल है (“या बराबर”), इसलिए भरा वृत्त लगाएँ।", hOpen:"{sym} में {k} शामिल नहीं है, इसलिए खुला वृत्त लगाएँ।",
+    hDirL:"{i} का अर्थ है {k} से छोटी संख्याएँ, इसलिए बाईं ओर छायांकित करें।", hDirR:"{i} का अर्थ है {k} से बड़ी संख्याएँ, इसलिए दाईं ओर छायांकित करें।",
+    gClosed:"भरा वृत्त: {k} एक हल है।", gOpen:"खुला वृत्त: {k} हल नहीं है।",
+    gLeft:"बाईं ओर छायांकन: {k} से छोटी संख्याएँ हल हैं।", gRight:"दाईं ओर छायांकन: {k} से बड़ी संख्याएँ हल हैं।",
+    readDir:"कौन-सी असमिका आलेख से मेल खाती है?",
+    rOpen:"वृत्त खुला है, इसलिए {k} शामिल नहीं है। < या > का उपयोग करें।", rClosed:"वृत्त भरा है, इसलिए {k} शामिल है। ≤ या ≥ का उपयोग करें।",
+    rLeft:"छायांकन बाईं ओर, छोटी संख्याओं की ओर जाता है, इसलिए x, {k} से छोटा है।", rRight:"छायांकन दाईं ओर, बड़ी संख्याओं की ओर जाता है, इसलिए x, {k} से बड़ा है।",
+    solveDir:"{i} हल करें। कौन-सी असमिका हल दिखाती है?",
+    goodSolve:"हाँ! {chain}",
+    hFlip:"आपने {a} से भाग दिया, जो एक ऋणात्मक संख्या है। दोनों ओर ऋणात्मक संख्या से गुणा या भाग करने पर क्रम उलट जाता है, इसलिए असमिका का चिह्न पलट जाता है।",
+    hNoFlip:"चिह्न केवल ऋणात्मक संख्या से गुणा या भाग करने पर पलटता है। यहाँ आप {a} के साथ काम कर रहे हैं, जो धनात्मक है।",
+    hIncl:"चिह्न का प्रकार वही रखें। {sym} सीमा को तभी शामिल करता है जब उसमें “या बराबर” वाली रेखा हो।",
+    hSteps:"चरणों को उल्टे क्रम में पलटें: {chain}",
+    testDir:"x का कौन-सा मान {i} को सत्य बनाता है?",
+    goodTest:"हाँ! जब x = {v}: {lhs} = {lv}, और {stmt} सत्य है।", hTest:"जब x = {v}: {lhs} = {lv}, और {stmt} असत्य है।",
+    wordsDir:"कौन-सी असमिका इस स्थिति को दर्शाती है?",
+    wA:"रोलर कोस्टर पर बैठने के लिए आपकी लंबाई कम से कम {k} इंच होनी चाहिए। मान लें h सवार की लंबाई है।",
+    wB:"एक लिफ़्ट अधिक से अधिक {k} किलोग्राम ले जा सकती है। मान लें w वह भार है जो वह ले जाती है।",
+    wC:"मैच देखने {k} से अधिक लोग आए। मान लें p लोगों की संख्या है।",
+    wD:"पूरी रात तापमान {k} °F से नीचे रहा। मान लें t तापमान है।",
+    wE:"आप एक उपहार पर ${k} से ज़्यादा ख़र्च नहीं कर सकते। मान लें c उपहार की क़ीमत है।",
+    wF:"{name} के पास ${b} हैं और वह हर सप्ताह ${a} बचाता है। {name} कम से कम ${c} चाहता है। मान लें w सप्ताहों की संख्या है।",
+    wG:"एक टैक्सी ${b} और हर मील के ${a} लेती है। {name} अधिक से अधिक ${c} ख़र्च कर सकता है। मान लें m मीलों की संख्या है।",
+    hwA:"“कम से कम {k}” का अर्थ है {k} या अधिक, इसलिए {k} शामिल है: ≥ का उपयोग करें।", hwB:"“अधिक से अधिक {k}” का अर्थ है {k} या कम, इसलिए {k} शामिल है: ≤ का उपयोग करें।",
+    hwC:"“{k} से अधिक” में {k} शामिल नहीं है: > का उपयोग करें।", hwD:"“{k} से नीचे” का अर्थ है {k} से कम, और {k} स्वयं शामिल नहीं है: < का उपयोग करें।",
+    hwE:"“{k} से ज़्यादा नहीं” का अर्थ है {k} या कम: ≤ का उपयोग करें।",
+    hwF:"${b} से शुरू करें और हर सप्ताह के ${a} जोड़ें: {e}। “कम से कम” का अर्थ है ≥।", hwG:"हर मील के ${a} का मतलब {am}, साथ में ${b} शुल्क: {e}। “अधिक से अधिक” का अर्थ है ≤।",
+    goodWords:"हाँ! {i}",
+    phDir:"कौन-सा व्यंजक “{p}” को दर्शाता है?",
+    ph1:"किसी संख्या n से {k} अधिक", ph2:"किसी संख्या n से {k} कम", ph3:"{k} और किसी संख्या n का गुणनफल", ph4:"किसी संख्या n को {k} से भाग",
+    ph5:"किसी संख्या n के {m} गुने से {k} कम", ph6:"किसी संख्या n और {k} के योग का {m} गुना", ph7:"किसी संख्या n और {k} का भागफल, {m} बढ़ाकर",
+    hph1:"“अधिक” का अर्थ है जोड़ना: n से शुरू करें और {k} जोड़ें।", hph2:"“n से {k} कम” में n से शुरू करके {k} घटाते हैं। क्रम मायने रखता है!",
+    hph3:"“गुणनफल” का अर्थ है गुणा करना।", hph4:"“{k} से भाग” का अर्थ है n को {k} बराबर भागों में बाँटना।",
+    hph5:"n के {m} गुने से शुरू करें, फिर {k} घटाएँ।", hph6:"“योग” पहले आता है, इसलिए n + {k} को कोष्ठक में रखें, फिर {m} से गुणा करें।",
+    hph7:"पहले n को {k} से भाग दें, फिर {m} जोड़ें।",
+    goodPh:"हाँ! “{p}” है {e}।",
+    sitDir:"कौन-सा समीकरण इस स्थिति को दर्शाता है?",
+    sA:"{name} के पास कुछ कार्ड थे, c। एक दोस्त ने {name} को {k} और कार्ड दिए, और अब {name} के पास {tot} कार्ड हैं।",
+    sB:"हर टिकट ${k} का है। {name} ने n टिकटों पर ${tot} ख़र्च किए।",
+    sC:"एक जिम ${f} सदस्यता शुल्क और हर महीने ${k} लेता है। {name} ने m महीनों के कुल ${tot} दिए।",
+    sD:"{name} के पास ${s} थे और उसने हर दिन दोपहर के खाने पर ${k} ख़र्च किए। d दिनों के बाद {name} के पास ${tot} बचे।",
+    sE:"प्लान A की क़ीमत ${a} और हर महीने ${p} है। प्लान B की क़ीमत ${b} और हर महीने ${q} है। m महीनों के बाद दोनों प्लानों की क़ीमत बराबर है।",
+    hsA:"c से शुरू करें, फिर {k} कार्ड जोड़ें। यह अब के {tot} कार्डों के बराबर है।", hsB:"हर टिकट ${k} का है, इसलिए n टिकटों की क़ीमत {e} है।",
+    hsC:"हर महीने के ${k} m बार दोहराए जाते हैं: {e}। ${f} सदस्यता शुल्क एक बार दिया जाता है, इसलिए उसे जोड़ें।",
+    hsD:"${s} से शुरू करें। हर दिन ${k} घटते हैं, इसलिए d दिनों बाद {e} घटाएँ।",
+    hsE:"हर प्लान की क़ीमत लिखें: प्लान A है {ea} और प्लान B है {eb}। “क़ीमत बराबर” का अर्थ है दोनों को बराबर रखना।",
+    goodSit:"हाँ! {e}",
+    tblDir:"कौन-सा नियम तालिका की हर पंक्ति पर लागू होता है?",
+    hTbl:"उस नियम को हर पंक्ति पर जाँचें। जब x = {x}, तो {rule} से y = {v} मिलता है, पर तालिका में {y} है।",
+    goodTbl:"हाँ! {rule} हर पंक्ति पर लागू होता है। उदाहरण के लिए, जब x = {x}: y = {v}।",
+    evalDir:"पहले की जाने वाली संक्रिया पर टैप करें।", evalVar:"x = {v} होने पर {e} का मान निकालें। पहले की जाने वाली संक्रिया पर टैप करें।",
+    evalNum:"{e} का मान निकालें। पहले की जाने वाली संक्रिया पर टैप करें।", nextOp:"बढ़िया। अगली संक्रिया पर टैप करें।",
+    hParen:"पहले कोष्ठक के अंदर का काम करें।", hExp:"इसके बाद घातांक आते हैं, गुणा, भाग, जोड़ या घटाव से पहले।",
+    hMulFirst:"जोड़ने और घटाने से पहले गुणा और भाग करें।", hLR:"इन संक्रियाओं का स्तर एक जैसा है, इसलिए बाएँ से दाएँ चलें।",
+    goodEval:"हाँ! {chain}",
+    solDir:"{e} के कितने हल हैं?",
+    oneSol:"एक हल", noSol:"कोई हल नहीं", infSol:"अनंत हल",
+    simplify:"दोनों पक्ष सरल करें", simpShown:"सरल रूप: {e}", tryX:"x = आज़माएँ", leftSide:"बायाँ पक्ष", rightSide:"दायाँ पक्ष",
+    tryEq:"बराबर", tryNe:"बराबर नहीं",
+    goodOne:"हाँ, एक हल। x वाले पद अलग-अलग हैं ({ax} और {cx}), इसलिए ठीक एक मान काम करता है: x = {k}।",
+    goodNone:"हाँ, कोई हल नहीं। दोनों पक्षों में {ax} है, पर अचर अलग हैं: {stmt}। दोनों पक्ष कभी बराबर नहीं होते।",
+    goodInf:"हाँ, अनंत हल। दोनों पक्ष सरल होकर {e} बनते हैं, इसलिए x का हर मान काम करता है।",
+    hOne:"सरल करें: {eq}। x वाले पद अलग हैं, इसलिए दोनों पक्ष x के ठीक एक मान पर बराबर होते हैं।",
+    hNone:"सरल करें: {eq}। x वाले पद एक जैसे हैं, इसलिए उन्हें घटाने पर {stmt} बचता है, जो असत्य है। x का कोई मान काम नहीं करता।",
+    hInf:"सरल करें: {eq}। दोनों पक्ष बिल्कुल एक जैसे हैं, इसलिए वे x के हर मान पर बराबर हैं।",
+    names:"आरव,प्रिया,राहुल,अनन्या,कबीर,मीरा,अर्जुन,सिया",
+    stds:"संबद्ध मानक — टेक्सस TEKS: कक्षा 6 6.6(C), 6.7(A, C, D), 6.9(A, B), 6.10(A, B); कक्षा 7 7.10(A, B), 7.11(A, B); कक्षा 8 8.8(A, C)। Common Core: 6.EE.1, 6.EE.2, 6.EE.3, 6.EE.4, 6.EE.5, 6.EE.6, 6.EE.7, 6.EE.8, 6.EE.9; 7.EE.1, 7.EE.4a, 7.EE.4b; 8.EE.7a, 8.EE.7b।",
+    cardTitle:"समीकरण संतुलन प्रयोगशाला — चुनौती कार्ड", cardName:"नाम:",
+    cardSimp:"सरल करें। चाहें तो बीजीय टाइलें बनाएँ।", cardDist:"क्षेत्रफल मॉडल से विस्तार करें।",
+    cardBal:"हल करें। हर चरण दोनों ओर दिखाएँ।", cardIneq:"हल करें, फिर हलों का आलेख बनाएँ।",
+    cardPh:"एक व्यंजक लिखें।", cardEval:"मान निकालें। संक्रियाओं का क्रम दिखाएँ।", cardSols:"एक हल, कोई हल नहीं, या अनंत हल? समझाएँ।"
+  },
+  ur:{
+    appTitle:"مساوات توازن تجربہ گاہ", home:"ہوم", privacy:"رازداری", teacher:"استاد", modesLbl:"موڈ", stars:"حل کیے گئے سوال",
+    newRound:"نیا سوال", readAloud:"بلند آواز سے پڑھیں", check:"جانچیں", clear:"مٹائیں", choicesLbl:"جواب کے انتخاب",
+    footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا جمع نہیں · آف لائن کام کرتا ہے",
+    mTiles:"الجبری ٹائلیں", mBal:"ترازو", mIneq:"عدم مساوات", mWrite:"لکھ کر دیکھیں", mSols:"کتنے حل؟",
+    teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setGrade:"جماعت", g6:"جماعت 6", g7:"جماعت 7", g8:"جماعت 8",
+    gradeNote:"جماعت منتخب کرنے سے نیچے کے اختیارات اُس جماعت کی بنیادی ترتیب پر واپس آ جاتے ہیں۔",
+    setNeg:"منفی اعداد", negOn:"منفی اعداد اور صحیح اعداد استعمال کریں", setMax:"اعداد کا سائز", upTo:"{n} تک کے اعداد",
+    setEq:"ترازو کی مساواتیں", eqOne:"ایک قدم", eqTwo:"دو قدم", eqBoth:"دونوں طرف متغیر", eqMix:"ملی جلی",
+    setModes:"موڈ", setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں", printCards:"چیلنج کارڈ پرنٹ کریں",
+    setStored:"ترتیبات صرف اسی آلے پر محفوظ ہوتی ہیں۔ طلبہ کی کوئی معلومات کبھی محفوظ نہیں کی جاتی۔",
+    wPlus:"جمع", wMinus:"منفی", wTimes:"ضرب", wDiv:"تقسیم", wEq:"برابر", wPow:"کی طاقت", neg:"منفی",
+    frSay:"{n} بٹا {d}", sDiv:"{v} تقسیم {d}", sGroup:"{k} ضرب قوسین میں {e}", sSq:"{b} کا مربع", sCube:"{b} کا مکعب", sPow:"{b} کی طاقت {e}",
+    sEq:"{a} برابر {b}", sLt:"{a}، {b} سے چھوٹا ہے", sGt:"{a}، {b} سے بڑا ہے", sLe:"{a}، {b} سے چھوٹا یا اس کے برابر ہے", sGe:"{a}، {b} سے بڑا یا اس کے برابر ہے", sNe:"{a}، {b} کے برابر نہیں ہے",
+    youPicked:"آپ نے {x} چنا۔",
+    tileX:"x ٹائل (مثبت x)", tileNX:"منفی x ٹائل", tileOne:"اکائی ٹائل (مثبت 1)", tileNOne:"منفی اکائی ٹائل",
+    addTile:"ایک {tile} شامل کریں", matLbl:"ٹائلوں کی چٹائی", matEmpty:"چٹائی خالی ہے۔",
+    lgX:"x", lgNX:"−x", lgU:"1", lgNU:"−1", lgNote:"سبز اور پیلا مثبت ہیں؛ سرخ منفی ہے۔",
+    buildDir:"الجبری ٹائلوں سے چٹائی پر {e} بنائیں، پھر جانچیں دبائیں۔ چٹائی سے ٹائل ہٹانے کے لیے اس پر ٹیپ کریں۔",
+    goodBuild:"جی ہاں! آپ کی ٹائلوں کی قیمت {e} ہے۔",
+    goodBuildZ:"جی ہاں! آپ کی ٹائلوں کی قیمت {e} ہے۔ چٹائی پر {z} صفر جوڑوں کا مجموعہ 0 ہے، اس لیے وہ قیمت نہیں بدلتے۔",
+    hintBuild:"آپ کی چٹائی کی قیمت {cur} ہے، لیکن ہدف {e} ہے۔ آپ کی {what} کا مجموعہ {have} ہے؛ اسے {need} ہونا چاہیے۔",
+    xTiles:"x ٹائلوں", unitTiles:"اکائی ٹائلوں",
+    simpDir:"{e} کو سادہ کریں۔ ایک ٹائل پر ٹیپ کریں، پھر اس کی مخالف ٹائل پر ٹیپ کر کے صفر جوڑا ہٹائیں۔ پھر سادہ عبارت چنیں۔",
+    simpDirPos:"یکساں رقموں کو ملا کر {e} کو سادہ کریں۔ یکساں ٹائلیں اکٹھی کرنے کے لیے ترتیب دیں کا بٹن دبائیں، پھر سادہ عبارت چنیں۔",
+    sort:"یکساں رقمیں ترتیب دیں", zeroPair:"صفر جوڑا ہٹا دیا: {p}۔", tapOpp:"اب اسی شکل کی مخالف ٹائل پر ٹیپ کر کے صفر جوڑا بنائیں۔",
+    notOpp:"صفر جوڑے کے لیے ایک ہی شکل کی ایک مثبت اور ایک منفی ٹائل چاہیے۔",
+    goodSimp:"جی ہاں! x والی رقمیں: {xs}۔ مستقل: {us}۔ لہٰذا سادہ عبارت {r} ہے۔",
+    hSigns:"علامتوں پر دھیان دیں۔ منفی ٹائل اسی شکل کی مثبت ٹائل کو ختم کر دیتی ہے، اس لیے پہلے صفر جوڑے ہٹائیں اور پھر باقی گنیں۔",
+    hUnlike:"x والی رقمیں اور مستقل یکساں رقمیں نہیں ہیں، اس لیے انہیں ایک رقم میں نہیں ملایا جا سکتا۔ x ٹائلوں اور اکائی ٹائلوں کو الگ رکھیں۔",
+    hCount:"دوبارہ گنیں: x ٹائلیں x والی رقم دیتی ہیں اور اکائی ٹائلیں مستقل دیتی ہیں۔ صفر جوڑے ہٹائیں، پھر باقی گنیں۔",
+    distDir:"{e} کو پھیلانے کے لیے رقبے کا ماڈل استعمال کریں۔ ہر حصے کا رقبہ جاننے کے لیے اس پر ٹیپ کریں، پھر مساوی عبارت چنیں۔",
+    cellLbl:"رقبے کے ماڈل کا حصہ {i}", areaLbl:"رقبے کا ماڈل",
+    goodDist:"جی ہاں! {a} کو ہر حصے سے ضرب دیں: {p1} اور {p2}۔ لہٰذا {e} = {r}۔",
+    hBothT:"{a} کو قوسین کے اندر دونوں رقموں سے ضرب دیں۔ رقبے کے ماڈل کے دو حصے ہیں: {p1} اور {p2}۔",
+    hSignD:"علامتیں جانچیں۔ {p1} اور {p2}۔ منفی ضرب مثبت منفی ہوتا ہے؛ منفی ضرب منفی مثبت ہوتا ہے۔",
+    factDir:"{e} کے اجزائے ضربی بنائیں۔ رقبے کا ماڈل دونوں حصے دکھاتا ہے۔ کون سی عبارت مساوی ہے؟",
+    goodFact:"جی ہاں! {A} اور {B} کا عادِ اعظم {a} ہے۔ {a} ضرب {in} سے دوبارہ {e} ملتا ہے۔",
+    hFact:"جانچنے کے لیے ضرب دے کر دیکھیں: {o} = {exp}، {e} نہیں۔",
+    opLbl:"عمل", numLbl:"عدد", lessN:"چھوٹا عدد", moreN:"بڑا عدد", xTerm:"x والی رقم استعمال کریں",
+    doAdd:"دونوں طرف {n} جمع کریں", doSub:"دونوں طرف سے {n} تفریق کریں", doMul:"دونوں طرف کو {n} سے ضرب دیں", doDiv:"دونوں طرف کو {n} سے تقسیم کریں",
+    undo:"واپس لیں", hint:"اشارہ", restart:"دوبارہ شروع کریں", balLbl:"ترازو جو {e} دکھاتا ہے",
+    balDir:"{e} حل کریں۔ ایک عمل اور ایک عدد چنیں، پھر ترازو متوازن رکھنے کے لیے دونوں طرف وہی کریں۔ x کو اکیلا کریں۔",
+    goodBal:"حل ہو گیا: {sol}۔ جانچ: {chk}۔ دونوں طرف برابر ہیں، اس لیے ترازو متوازن ہے۔",
+    stillBal:"اس سے ترازو متوازن رہتا ہے، لیکن x اکیلا ہونے سے مزید دور ہو جاتا ہے۔",
+    hBothSub:"x والی رقمیں ایک طرف لائیں: دونوں طرف سے {t} تفریق کریں۔", hBothAdd:"x والی رقمیں ایک طرف لائیں: دونوں طرف {t} جمع کریں۔",
+    hSub:"+ {n} کو ختم کریں: دونوں طرف سے {n} تفریق کریں۔", hAdd:"− {n} کو ختم کریں: دونوں طرف {n} جمع کریں۔",
+    hMul:"x کو {n} سے تقسیم کیا گیا ہے۔ الٹ کریں: دونوں طرف کو {n} سے ضرب دیں۔", hDivB:"x کو {n} سے ضرب دی گئی ہے۔ الٹ کریں: دونوں طرف کو {n} سے تقسیم کریں۔",
+    errZero:"0 جمع یا تفریق کرنے سے کچھ نہیں بدلتا۔ کوئی اور عدد چنیں۔",
+    errMul0:"دونوں طرف کو 0 سے ضرب دینے سے سب کچھ 0 ہو جاتا ہے اور مساوات ختم ہو جاتی ہے۔ کوئی اور عدد چنیں۔",
+    errDiv0:"0 سے تقسیم نہیں کیا جا سکتا۔ کوئی اور عدد چنیں۔",
+    errXmul:"یہاں صرف x والی رقمیں جمع یا تفریق کریں۔ x سے ضرب یا تقسیم کی ضرورت نہیں۔",
+    errMessy:"اس سے الجھے ہوئے کسر بنیں گے۔ پہلے جمع یا تفریق کو ختم کرنے کی کوشش کریں۔",
+    graphDir:"{i} کے حل گراف کریں۔ دائرہ رکھنے کے لیے عددی خط پر ٹیپ کریں، پھر دائرہ اور سمت چنیں۔",
+    graphNow:"اب عددی خط پر {i} کا گراف بنائیں۔",
+    openC:"کھلا دائرہ", closedC:"بھرا دائرہ", shadeL:"بائیں طرف رنگیں", shadeR:"دائیں طرف رنگیں", nlLbl:"عددی خط", ptLbl:"حد کا نقطہ",
+    hPt:"حد کا عدد {k} ہے۔ دائرہ {k} پر رکھیں۔", hNeedC:"کھلا یا بھرا دائرہ چنیں۔", hNeedDir:"رنگنے کی سمت چنیں۔",
+    hClosed:"{sym} میں خود {k} شامل ہے (”یا برابر“)، اس لیے بھرا دائرہ لگائیں۔", hOpen:"{sym} میں {k} شامل نہیں، اس لیے کھلا دائرہ لگائیں۔",
+    hDirL:"{i} کا مطلب ہے {k} سے چھوٹے اعداد، اس لیے بائیں طرف رنگیں۔", hDirR:"{i} کا مطلب ہے {k} سے بڑے اعداد، اس لیے دائیں طرف رنگیں۔",
+    gClosed:"بھرا دائرہ: {k} ایک حل ہے۔", gOpen:"کھلا دائرہ: {k} حل نہیں ہے۔",
+    gLeft:"بائیں طرف رنگا: {k} سے چھوٹے اعداد حل ہیں۔", gRight:"دائیں طرف رنگا: {k} سے بڑے اعداد حل ہیں۔",
+    readDir:"کون سی عدم مساوات گراف سے میل کھاتی ہے؟",
+    rOpen:"دائرہ کھلا ہے، اس لیے {k} شامل نہیں۔ < یا > استعمال کریں۔", rClosed:"دائرہ بھرا ہے، اس لیے {k} شامل ہے۔ ≤ یا ≥ استعمال کریں۔",
+    rLeft:"رنگ بائیں طرف، چھوٹے اعداد کی طرف جاتا ہے، اس لیے x، {k} سے چھوٹا ہے۔", rRight:"رنگ دائیں طرف، بڑے اعداد کی طرف جاتا ہے، اس لیے x، {k} سے بڑا ہے۔",
+    solveDir:"{i} حل کریں۔ کون سی عدم مساوات حل دکھاتی ہے؟",
+    goodSolve:"جی ہاں! {chain}",
+    hFlip:"آپ نے {a} سے تقسیم کیا، جو منفی عدد ہے۔ دونوں طرف کو منفی عدد سے ضرب یا تقسیم کرنے سے ترتیب الٹ جاتی ہے، اس لیے عدم مساوات کی علامت پلٹ جاتی ہے۔",
+    hNoFlip:"علامت صرف منفی عدد سے ضرب یا تقسیم کرنے پر پلٹتی ہے۔ یہاں آپ {a} کے ساتھ کام کر رہے ہیں، جو مثبت ہے۔",
+    hIncl:"علامت کی قسم وہی رکھیں۔ {sym} حد کو تب ہی شامل کرتی ہے جب اس میں ”یا برابر“ والی لکیر ہو۔",
+    hSteps:"قدموں کو الٹی ترتیب میں واپس کریں: {chain}",
+    testDir:"x کی کون سی قیمت {i} کو درست بناتی ہے؟",
+    goodTest:"جی ہاں! جب x = {v}: {lhs} = {lv}، اور {stmt} درست ہے۔", hTest:"جب x = {v}: {lhs} = {lv}، اور {stmt} غلط ہے۔",
+    wordsDir:"کون سی عدم مساوات اس صورتحال کو ظاہر کرتی ہے؟",
+    wA:"رولر کوسٹر پر بیٹھنے کے لیے آپ کا قد کم از کم {k} انچ ہونا چاہیے۔ فرض کریں h سوار کا قد ہے۔",
+    wB:"ایک لفٹ زیادہ سے زیادہ {k} کلوگرام اٹھا سکتی ہے۔ فرض کریں w وہ وزن ہے جو وہ اٹھاتی ہے۔",
+    wC:"میچ دیکھنے {k} سے زیادہ لوگ آئے۔ فرض کریں p لوگوں کی تعداد ہے۔",
+    wD:"ساری رات درجہ حرارت {k} °F سے نیچے رہا۔ فرض کریں t درجہ حرارت ہے۔",
+    wE:"آپ ایک تحفے پر ${k} سے زیادہ خرچ نہیں کر سکتے۔ فرض کریں c تحفے کی قیمت ہے۔",
+    wF:"{name} کے پاس ${b} ہیں اور وہ ہر ہفتے ${a} بچاتا ہے۔ {name} کم از کم ${c} چاہتا ہے۔ فرض کریں w ہفتوں کی تعداد ہے۔",
+    wG:"ایک ٹیکسی ${b} اور ہر میل کے ${a} لیتی ہے۔ {name} زیادہ سے زیادہ ${c} خرچ کر سکتا ہے۔ فرض کریں m میلوں کی تعداد ہے۔",
+    hwA:"”کم از کم {k}“ کا مطلب ہے {k} یا زیادہ، اس لیے {k} شامل ہے: ≥ استعمال کریں۔", hwB:"”زیادہ سے زیادہ {k}“ کا مطلب ہے {k} یا کم، اس لیے {k} شامل ہے: ≤ استعمال کریں۔",
+    hwC:"”{k} سے زیادہ“ میں {k} شامل نہیں: > استعمال کریں۔", hwD:"”{k} سے نیچے“ کا مطلب ہے {k} سے کم، اور خود {k} شامل نہیں: < استعمال کریں۔",
+    hwE:"”{k} سے زیادہ نہیں“ کا مطلب ہے {k} یا کم: ≤ استعمال کریں۔",
+    hwF:"${b} سے شروع کریں اور ہر ہفتے کے ${a} جمع کریں: {e}۔ ”کم از کم“ کا مطلب ہے ≥۔", hwG:"ہر میل کے ${a} یعنی {am}، ساتھ ${b} فیس: {e}۔ ”زیادہ سے زیادہ“ کا مطلب ہے ≤۔",
+    goodWords:"جی ہاں! {i}",
+    phDir:"کون سی عبارت ”{p}“ کو ظاہر کرتی ہے؟",
+    ph1:"کسی عدد n سے {k} زیادہ", ph2:"کسی عدد n سے {k} کم", ph3:"{k} اور کسی عدد n کا حاصل ضرب", ph4:"کسی عدد n کو {k} سے تقسیم",
+    ph5:"کسی عدد n کے {m} گنا سے {k} کم", ph6:"کسی عدد n اور {k} کے مجموعے کا {m} گنا", ph7:"کسی عدد n اور {k} کا حاصل تقسیم، {m} بڑھا کر",
+    hph1:"”زیادہ“ کا مطلب ہے جمع کرنا: n سے شروع کریں اور {k} جمع کریں۔", hph2:"”n سے {k} کم“ میں n سے شروع کر کے {k} تفریق کرتے ہیں۔ ترتیب اہم ہے!",
+    hph3:"”حاصل ضرب“ کا مطلب ہے ضرب دینا۔", hph4:"”{k} سے تقسیم“ کا مطلب ہے n کو {k} برابر حصوں میں بانٹنا۔",
+    hph5:"n کے {m} گنا سے شروع کریں، پھر {k} تفریق کریں۔", hph6:"”مجموعہ“ پہلے آتا ہے، اس لیے n + {k} کو قوسین میں رکھیں، پھر {m} سے ضرب دیں۔",
+    hph7:"پہلے n کو {k} سے تقسیم کریں، پھر {m} جمع کریں۔",
+    goodPh:"جی ہاں! ”{p}“ ہے {e}۔",
+    sitDir:"کون سی مساوات اس صورتحال کو ظاہر کرتی ہے؟",
+    sA:"{name} کے پاس کچھ کارڈ تھے، c۔ ایک دوست نے {name} کو {k} اور کارڈ دیے، اور اب {name} کے پاس {tot} کارڈ ہیں۔",
+    sB:"ہر ٹکٹ ${k} کا ہے۔ {name} نے n ٹکٹوں پر ${tot} خرچ کیے۔",
+    sC:"ایک جم ${f} رکنیت فیس اور ہر مہینے ${k} لیتا ہے۔ {name} نے m مہینوں کے کل ${tot} دیے۔",
+    sD:"{name} کے پاس ${s} تھے اور اس نے ہر دن دوپہر کے کھانے پر ${k} خرچ کیے۔ d دنوں کے بعد {name} کے پاس ${tot} بچے۔",
+    sE:"پلان A کی قیمت ${a} اور ہر مہینے ${p} ہے۔ پلان B کی قیمت ${b} اور ہر مہینے ${q} ہے۔ m مہینوں کے بعد دونوں پلانوں کی قیمت برابر ہے۔",
+    hsA:"c سے شروع کریں، پھر {k} کارڈ جمع کریں۔ یہ اب کے {tot} کارڈوں کے برابر ہے۔", hsB:"ہر ٹکٹ ${k} کا ہے، اس لیے n ٹکٹوں کی قیمت {e} ہے۔",
+    hsC:"ہر مہینے کے ${k} m بار دہرائے جاتے ہیں: {e}۔ ${f} رکنیت فیس ایک بار دی جاتی ہے، اس لیے اسے جمع کریں۔",
+    hsD:"${s} سے شروع کریں۔ ہر دن ${k} کم ہوتے ہیں، اس لیے d دنوں بعد {e} تفریق کریں۔",
+    hsE:"ہر پلان کی قیمت لکھیں: پلان A ہے {ea} اور پلان B ہے {eb}۔ ”قیمت برابر“ کا مطلب ہے دونوں کو برابر رکھنا۔",
+    goodSit:"جی ہاں! {e}",
+    tblDir:"کون سا قاعدہ جدول کی ہر قطار پر پورا اترتا ہے؟",
+    hTbl:"اس قاعدے کو ہر قطار پر جانچیں۔ جب x = {x}، تو {rule} سے y = {v} ملتا ہے، لیکن جدول میں {y} ہے۔",
+    goodTbl:"جی ہاں! {rule} ہر قطار پر پورا اترتا ہے۔ مثلاً، جب x = {x}: y = {v}۔",
+    evalDir:"پہلے کیے جانے والے عمل پر ٹیپ کریں۔", evalVar:"x = {v} ہونے پر {e} کی قیمت معلوم کریں۔ پہلے کیے جانے والے عمل پر ٹیپ کریں۔",
+    evalNum:"{e} کی قیمت معلوم کریں۔ پہلے کیے جانے والے عمل پر ٹیپ کریں۔", nextOp:"بہت خوب۔ اگلے عمل پر ٹیپ کریں۔",
+    hParen:"پہلے قوسین کے اندر کا کام کریں۔", hExp:"اس کے بعد قوت نما آتے ہیں، ضرب، تقسیم، جمع یا تفریق سے پہلے۔",
+    hMulFirst:"جمع اور تفریق سے پہلے ضرب اور تقسیم کریں۔", hLR:"ان اعمال کا درجہ ایک جیسا ہے، اس لیے بائیں سے دائیں چلیں۔",
+    goodEval:"جی ہاں! {chain}",
+    solDir:"{e} کے کتنے حل ہیں؟",
+    oneSol:"ایک حل", noSol:"کوئی حل نہیں", infSol:"لامحدود حل",
+    simplify:"دونوں طرف سادہ کریں", simpShown:"سادہ صورت: {e}", tryX:"x = آزمائیں", leftSide:"بایاں طرف", rightSide:"دایاں طرف",
+    tryEq:"برابر", tryNe:"برابر نہیں",
+    goodOne:"جی ہاں، ایک حل۔ x والی رقمیں مختلف ہیں ({ax} اور {cx})، اس لیے ٹھیک ایک قیمت کام کرتی ہے: x = {k}۔",
+    goodNone:"جی ہاں، کوئی حل نہیں۔ دونوں طرف {ax} ہے، لیکن مستقل مختلف ہیں: {stmt}۔ دونوں طرف کبھی برابر نہیں ہوتے۔",
+    goodInf:"جی ہاں، لامحدود حل۔ دونوں طرف سادہ ہو کر {e} بنتے ہیں، اس لیے x کی ہر قیمت کام کرتی ہے۔",
+    hOne:"سادہ کریں: {eq}۔ x والی رقمیں مختلف ہیں، اس لیے دونوں طرف x کی ٹھیک ایک قیمت پر برابر ہوتے ہیں۔",
+    hNone:"سادہ کریں: {eq}۔ x والی رقمیں ایک جیسی ہیں، اس لیے انہیں تفریق کرنے پر {stmt} بچتا ہے، جو غلط ہے۔ x کی کوئی قیمت کام نہیں کرتی۔",
+    hInf:"سادہ کریں: {eq}۔ دونوں طرف بالکل ایک جیسے ہیں، اس لیے وہ x کی ہر قیمت پر برابر ہیں۔",
+    names:"احمد,عائشہ,علی,فاطمہ,عمر,زینب,حسن,مریم",
+    stds:"متعلقہ معیارات — ٹیکساس TEKS: جماعت 6 6.6(C)، 6.7(A, C, D)، 6.9(A, B)، 6.10(A, B)؛ جماعت 7 7.10(A, B)، 7.11(A, B)؛ جماعت 8 8.8(A, C)۔ Common Core: 6.EE.1، 6.EE.2، 6.EE.3، 6.EE.4، 6.EE.5، 6.EE.6، 6.EE.7، 6.EE.8، 6.EE.9؛ 7.EE.1، 7.EE.4a، 7.EE.4b؛ 8.EE.7a، 8.EE.7b۔",
+    cardTitle:"مساوات توازن تجربہ گاہ — چیلنج کارڈ", cardName:"نام:",
+    cardSimp:"سادہ کریں۔ چاہیں تو الجبری ٹائلیں بنائیں۔", cardDist:"رقبے کے ماڈل سے پھیلائیں۔",
+    cardBal:"حل کریں۔ ہر قدم دونوں طرف دکھائیں۔", cardIneq:"حل کریں، پھر حلوں کا گراف بنائیں۔",
+    cardPh:"ایک عبارت لکھیں۔", cardEval:"قیمت معلوم کریں۔ اعمال کی ترتیب دکھائیں۔", cardSols:"ایک حل، کوئی حل نہیں، یا لامحدود حل؟ وضاحت کریں۔"
+  },
+  zh:{
+    appTitle:"方程天平实验室", home:"首页", privacy:"隐私", teacher:"教师", modesLbl:"模式", stars:"已解决的题目",
+    newRound:"新题目", readAloud:"朗读", check:"检查", clear:"清除", choicesLbl:"答案选项",
+    footNote:"无需账号 · 不收集数据 · 可离线使用",
+    mTiles:"代数砖", mBal:"天平", mIneq:"不等式", mWrite:"写一写", mSols:"有几个解？",
+    teacherTitle:"教师设置", close:"关闭", setGrade:"年级", g6:"六年级", g7:"七年级", g8:"八年级",
+    gradeNote:"选择年级后，下面的选项会恢复为该年级的默认设置。",
+    setNeg:"负数", negOn:"使用负数和整数", setMax:"数的大小", upTo:"不超过 {n} 的数",
+    setEq:"天平方程", eqOne:"一步", eqTwo:"两步", eqBoth:"两边都有未知数", eqMix:"混合",
+    setModes:"模式", setSpeech:"语音", autoRead:"自动朗读说明", printCards:"打印挑战卡",
+    setStored:"设置只保存在这台设备上，从不保存任何学生信息。",
+    wPlus:"加", wMinus:"减", wTimes:"乘", wDiv:"除以", wEq:"等于", wPow:"的次方", neg:"负",
+    frSay:"{d}分之{n}", sDiv:"{v}除以{d}", sGroup:"{k}乘括号里的{e}", sSq:"{b}的平方", sCube:"{b}的立方", sPow:"{b}的{e}次方",
+    sEq:"{a}等于{b}", sLt:"{a}小于{b}", sGt:"{a}大于{b}", sLe:"{a}小于或等于{b}", sGe:"{a}大于或等于{b}", sNe:"{a}不等于{b}",
+    youPicked:"你选了 {x}。",
+    tileX:"x 砖（正 x）", tileNX:"负 x 砖", tileOne:"单位砖（正 1）", tileNOne:"负单位砖",
+    addTile:"添加一块{tile}", matLbl:"代数砖垫", matEmpty:"垫子上是空的。",
+    lgX:"x", lgNX:"−x", lgU:"1", lgNU:"−1", lgNote:"绿色和黄色表示正，红色表示负。",
+    buildDir:"用代数砖在垫子上摆出 {e}，然后按“检查”。点垫子上的砖可以把它拿走。",
+    goodBuild:"对了！你的砖表示 {e}。",
+    goodBuildZ:"对了！你的砖表示 {e}。垫子上的 {z} 个零对和为 0，所以不改变数值。",
+    hintBuild:"你的垫子表示 {cur}，但目标是 {e}。你的{what}合起来是 {have}，应该是 {need}。",
+    xTiles:"x 砖", unitTiles:"单位砖",
+    simpDir:"化简 {e}。先点一块砖，再点和它相反的砖，去掉一个零对。然后选出化简后的式子。",
+    simpDirPos:"合并同类项来化简 {e}。用“整理”把同类砖放在一起，然后选出化简后的式子。",
+    sort:"整理同类项", zeroPair:"去掉一个零对：{p}。", tapOpp:"现在点一块形状相同、符号相反的砖，组成零对。",
+    notOpp:"零对需要形状相同的一块正砖和一块负砖。",
+    goodSimp:"对了！含 x 的项：{xs}。常数项：{us}。所以化简结果是 {r}。",
+    hSigns:"注意符号。负砖会抵消形状相同的正砖，所以先去掉零对，再数剩下的。",
+    hUnlike:"含 x 的项和常数项不是同类项，不能合并成一项。要把 x 砖和单位砖分开。",
+    hCount:"再数一遍：x 砖给出含 x 的项，单位砖给出常数项。去掉零对后再数剩下的。",
+    distDir:"用面积模型展开 {e}。点每一部分求出它的面积，然后选出等价的式子。",
+    cellLbl:"面积模型的第 {i} 部分", areaLbl:"面积模型",
+    goodDist:"对了！用 {a} 乘每一部分：{p1}，{p2}。所以 {e} = {r}。",
+    hBothT:"要用 {a} 乘括号里的两项。面积模型有两部分：{p1}，{p2}。",
+    hSignD:"检查符号。{p1}，{p2}。负数乘正数得负数；负数乘负数得正数。",
+    factDir:"把 {e} 因式分解。面积模型显示了两部分。哪个式子与它等价？",
+    goodFact:"对了！{A} 和 {B} 的最大公因数是 {a}。{a} 乘 {in} 又得到 {e}。",
+    hFact:"乘开来检查：{o} = {exp}，不是 {e}。",
+    opLbl:"运算", numLbl:"数", lessN:"小一点的数", moreN:"大一点的数", xTerm:"使用含 x 的项",
+    doAdd:"两边都加 {n}", doSub:"两边都减 {n}", doMul:"两边都乘 {n}", doDiv:"两边都除以 {n}",
+    undo:"撤销", hint:"提示", restart:"重新开始", balLbl:"显示 {e} 的天平",
+    balDir:"解 {e}。选一个运算和一个数，对两边做同样的事，让天平保持平衡。让 x 单独留下。",
+    goodBal:"解出来了：{sol}。检验：{chk}。两边相等，所以天平平衡。",
+    stillBal:"天平仍然平衡，但这一步让 x 离单独留下更远了。",
+    hBothSub:"把含 x 的项移到一边：两边都减 {t}。", hBothAdd:"把含 x 的项移到一边：两边都加 {t}。",
+    hSub:"去掉 + {n}：两边都减 {n}。", hAdd:"去掉 − {n}：两边都加 {n}。",
+    hMul:"x 被 {n} 除。反过来做：两边都乘 {n}。", hDivB:"x 被乘了 {n}。反过来做：两边都除以 {n}。",
+    errZero:"加上或减去 0 不会改变任何东西。换一个数。",
+    errMul0:"两边都乘 0 会让一切变成 0，方程就没了。换一个数。",
+    errDiv0:"不能除以 0。换一个数。",
+    errXmul:"这里只需要加上或减去含 x 的项，不需要乘或除以 x。",
+    errMessy:"这样会出现很麻烦的分数。先试着去掉加法或减法。",
+    graphDir:"在数轴上表示 {i} 的解。点数轴放置圆圈，然后选择圆圈类型和方向。",
+    graphNow:"现在在数轴上表示 {i}。",
+    openC:"空心圆", closedC:"实心圆", shadeL:"向左涂色", shadeR:"向右涂色", nlLbl:"数轴", ptLbl:"边界点",
+    hPt:"边界数是 {k}。把圆圈放在 {k} 上。", hNeedC:"选择空心圆或实心圆。", hNeedDir:"选择涂色的方向。",
+    hClosed:"{sym} 包括 {k} 本身（“或等于”），所以用实心圆。", hOpen:"{sym} 不包括 {k}，所以用空心圆。",
+    hDirL:"{i} 表示小于 {k} 的数，所以向左涂色。", hDirR:"{i} 表示大于 {k} 的数，所以向右涂色。",
+    gClosed:"实心圆：{k} 是一个解。", gOpen:"空心圆：{k} 不是解。",
+    gLeft:"向左涂色：小于 {k} 的数都是解。", gRight:"向右涂色：大于 {k} 的数都是解。",
+    readDir:"哪个不等式和图相符？",
+    rOpen:"圆圈是空心的，所以不包括 {k}。用 < 或 >。", rClosed:"圆圈是实心的，所以包括 {k}。用 ≤ 或 ≥。",
+    rLeft:"涂色向左，朝着更小的数，所以 x 小于 {k}。", rRight:"涂色向右，朝着更大的数，所以 x 大于 {k}。",
+    solveDir:"解 {i}。哪个不等式表示它的解？",
+    goodSolve:"对了！{chain}",
+    hFlip:"你除以了 {a}，这是一个负数。两边同时乘或除以负数会让大小顺序反过来，所以不等号要改变方向。",
+    hNoFlip:"只有乘或除以负数时才改变不等号的方向。这里用的是 {a}，它是正数。",
+    hIncl:"保持同一种符号。{sym} 只有带“或等于”的横线时才包括边界。",
+    hSteps:"按相反的顺序撤回每一步：{chain}",
+    testDir:"x 取哪个值时 {i} 成立？",
+    goodTest:"对了！当 x = {v} 时：{lhs} = {lv}，{stmt} 成立。", hTest:"当 x = {v} 时：{lhs} = {lv}，{stmt} 不成立。",
+    wordsDir:"哪个不等式表示这个情境？",
+    wA:"乘坐过山车，身高至少要 {k} 英寸。设 h 为乘客的身高。",
+    wB:"一部电梯最多能载 {k} 千克。设 w 为它载的重量。",
+    wC:"超过 {k} 人来看了比赛。设 p 为人数。",
+    wD:"整晚气温都低于 {k} °F。设 t 为气温。",
+    wE:"买礼物最多只能花 ${k}。设 c 为礼物的价格。",
+    wF:"{name}有 ${b}，每周存 ${a}。{name}想至少有 ${c}。设 w 为周数。",
+    wG:"出租车起步价 ${b}，每英里再收 ${a}。{name}最多能花 ${c}。设 m 为英里数。",
+    hwA:"“至少 {k}”表示 {k} 或更多，所以包括 {k}：用 ≥。", hwB:"“最多 {k}”表示 {k} 或更少，所以包括 {k}：用 ≤。",
+    hwC:"“超过 {k}”不包括 {k}：用 >。", hwD:"“低于 {k}”表示小于 {k}，不包括 {k} 本身：用 <。",
+    hwE:"“最多只能 {k}”表示 {k} 或更少：用 ≤。",
+    hwF:"从 ${b} 开始，每周加 ${a}：{e}。“至少”表示 ≥。", hwG:"每英里 ${a} 是 {am}，再加 ${b} 起步价：{e}。“最多”表示 ≤。",
+    goodWords:"对了！{i}",
+    phDir:"哪个式子表示“{p}”？",
+    ph1:"比数 n 多 {k}", ph2:"比数 n 少 {k}", ph3:"{k} 与数 n 的积", ph4:"数 n 除以 {k}",
+    ph5:"比数 n 的 {m} 倍少 {k}", ph6:"数 n 与 {k} 的和的 {m} 倍", ph7:"数 n 除以 {k} 的商，再加上 {m}",
+    hph1:"“多”表示加：从 n 开始，加上 {k}。", hph2:"“比 n 少 {k}”是从 n 开始，减去 {k}。顺序很重要！",
+    hph3:"“积”表示相乘。", hph4:"“除以 {k}”表示把 n 平均分成 {k} 份。",
+    hph5:"先算 n 的 {m} 倍，再减去 {k}。", hph6:"先算“和”，所以把 n + {k} 放在括号里，再乘 {m}。",
+    hph7:"先用 n 除以 {k}，再加上 {m}。",
+    goodPh:"对了！“{p}”就是 {e}。",
+    sitDir:"哪个方程表示这个情境？",
+    sA:"{name}有一些收藏卡，记为 c。朋友又给了{name} {k} 张，现在{name}有 {tot} 张卡。",
+    sB:"每张票 ${k}。{name}买 n 张票花了 ${tot}。",
+    sC:"健身房入会费 ${f}，每月再收 ${k}。{name}办了 m 个月，一共付了 ${tot}。",
+    sD:"{name}原来有 ${s}，每天午饭花 ${k}。d 天后，{name}还剩 ${tot}。",
+    sE:"A 套餐 ${a}，每月再加 ${p}。B 套餐 ${b}，每月再加 ${q}。m 个月后，两个套餐的费用相同。",
+    hsA:"从 c 开始，加上 {k} 张卡，等于现在的 {tot} 张。", hsB:"每张票 ${k}，所以 n 张票是 {e}。",
+    hsC:"每月 ${k} 重复 m 次：{e}。入会费 ${f} 只付一次，所以再加上它。",
+    hsD:"从 ${s} 开始。每天减少 ${k}，所以 d 天后要减去 {e}。",
+    hsE:"写出每个套餐的费用：A 套餐是 {ea}，B 套餐是 {eb}。“费用相同”就是让它们相等。",
+    goodSit:"对了！{e}",
+    tblDir:"哪条规则适合表格的每一行？",
+    hTbl:"把这条规则放到每一行检验。当 x = {x} 时，{rule} 得到 y = {v}，但表格里是 {y}。",
+    goodTbl:"对了！{rule} 适合每一行。例如，当 x = {x} 时：y = {v}。",
+    evalDir:"点先要做的运算。", evalVar:"当 x = {v} 时，求 {e} 的值。点先要做的运算。",
+    evalNum:"求 {e} 的值。点先要做的运算。", nextOp:"很好。点下一个运算。",
+    hParen:"先算括号里面的。", hExp:"接下来算乘方，要在乘、除、加、减之前。",
+    hMulFirst:"先乘除，后加减。", hLR:"这些运算是同一级的，所以从左往右算。",
+    goodEval:"对了！{chain}",
+    solDir:"{e} 有几个解？",
+    oneSol:"一个解", noSol:"无解", infSol:"无数个解",
+    simplify:"化简两边", simpShown:"化简后：{e}", tryX:"试 x =", leftSide:"左边", rightSide:"右边",
+    tryEq:"相等", tryNe:"不相等",
+    goodOne:"对，一个解。含 x 的项不同（{ax} 和 {cx}），所以只有一个值成立：x = {k}。",
+    goodNone:"对，无解。两边都有 {ax}，但常数项不同：{stmt}。两边永远不相等。",
+    goodInf:"对，无数个解。两边都化简为 {e}，所以 x 取任何值都成立。",
+    hOne:"化简：{eq}。含 x 的项不同，所以只有一个 x 的值能让两边相等。",
+    hNone:"化简：{eq}。含 x 的项相同，减去后剩下 {stmt}，这是错的。没有任何 x 的值成立。",
+    hInf:"化简：{eq}。两边完全一样，所以 x 取任何值两边都相等。",
+    names:"小明,小红,小华,小丽,小杰,小芳,小龙,小雨",
+    stds:"对应标准 — 德州 TEKS：六年级 6.6(C)、6.7(A, C, D)、6.9(A, B)、6.10(A, B)；七年级 7.10(A, B)、7.11(A, B)；八年级 8.8(A, C)。Common Core：6.EE.1、6.EE.2、6.EE.3、6.EE.4、6.EE.5、6.EE.6、6.EE.7、6.EE.8、6.EE.9；7.EE.1、7.EE.4a、7.EE.4b；8.EE.7a、8.EE.7b。",
+    cardTitle:"方程天平实验室 — 挑战卡", cardName:"姓名：",
+    cardSimp:"化简。需要的话可以画代数砖。", cardDist:"用面积模型展开。",
+    cardBal:"解方程。把每一步在两边都写出来。", cardIneq:"解不等式，然后在数轴上表示解。",
+    cardPh:"写出一个式子。", cardEval:"求值。写出运算顺序。", cardSols:"一个解、无解，还是无数个解？说明理由。"
+  },
+};
+
+let lang = "en";
+function t(key, vars){
+  let s = (T[lang] && T[lang][key]!==undefined) ? T[lang][key] : (T.en[key]!==undefined? T.en[key] : key);
+  if(vars) for(const k in vars) s = s.split("{"+k+"}").join(vars[k]);
+  return s;
+}
+
+/* ---------- Settings ---------- */
+const MODES = ["tiles","balance","ineq","write","sols"];
+const MODE_KEY = {tiles:"mTiles",balance:"mBal",ineq:"mIneq",write:"mWrite",sols:"mSols"};
+const MODE_IC = {tiles:"🟩",balance:"⚖️",ineq:"↔️",write:"✏️",sols:"🔍"};
+const MAXES = [10,15,20,50];
+const GRADES = {6:{neg:false,max:10,eq:"one"}, 7:{neg:true,max:15,eq:"two"}, 8:{neg:true,max:20,eq:"both"}};
+const clone = o=>JSON.parse(JSON.stringify(o));
+const DEFAULTS = {grade:7, neg:true, max:15, eq:"two",
+  modes:{tiles:true,balance:true,ineq:true,write:true,sols:true}, autoRead:false};
+let settings = loadSettings();
+function loadSettings(){
+  try{
+    const raw = localStorage.getItem("ebl_settings");
+    if(raw){ const o=JSON.parse(raw), s=Object.assign(clone(DEFAULTS), o, {modes:Object.assign({},DEFAULTS.modes,o.modes)});
+      if(!GRADES[s.grade]) s.grade=DEFAULTS.grade;
+      s.max=+s.max; if(!MAXES.includes(s.max)) s.max=GRADES[s.grade].max;
+      if(!["one","two","both","mix"].includes(s.eq)) s.eq=GRADES[s.grade].eq;
+      s.neg=!!s.neg;
+      if(!MODES.some(m=>s.modes[m])) s.modes=clone(DEFAULTS.modes);
+      return s; }
+  }catch(e){}
+  return clone(DEFAULTS);
+}
+function saveSettings(){ try{ localStorage.setItem("ebl_settings", JSON.stringify(settings)); }catch(e){} }
+
+/* ---------- Utils ---------- */
+const $ = s=>document.querySelector(s);
+const $$ = s=>Array.from(document.querySelectorAll(s));
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const ri = (a,b)=>a+Math.floor(Math.random()*(b-a+1));
+function R1(a,b,ex){ let v, n=0; do{ v=ri(a,b); }while(ex&&ex.includes(v)&&++n<200); return v; }
+const gcd = (a,b)=>{ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a; };
+const G = ()=>+settings.grade;
+const MX = ()=>+settings.max;
+const M = s=>`<bdi class="math" dir="ltr">${s}</bdi>`;
+const frH = (n,d)=>`<span class="fr"><span>${n}</span><span>${d}</span></span>`;
+const esc = s=>String(s).replace(/</g,"&lt;").replace(/>/g,"&gt;");
+let stars=0;
+function addStar(){ stars++; $("#starCount").textContent=stars; const w=$("#stars"); w.classList.remove("pop"); void w.offsetWidth; w.classList.add("pop"); }
+
+/* ---------- Rational numbers [n,d] ---------- */
+function Q(n,d){ if(Array.isArray(n)) return n; d=d||1; if(d<0){ n=-n; d=-d; } const g=gcd(n,d)||1; return [n/g,d/g]; }
+const qa=(x,y)=>Q(x[0]*y[1]+y[0]*x[1],x[1]*y[1]), qs=(x,y)=>Q(x[0]*y[1]-y[0]*x[1],x[1]*y[1]);
+const qm=(x,y)=>Q(x[0]*y[0],x[1]*y[1]), qd=(x,y)=>Q(x[0]*y[1],x[1]*y[0]);
+const qv=x=>x[0]/x[1], qz=x=>x[0]===0, qeq=(x,y)=>x[0]===y[0]&&x[1]===y[1];
+function qH(x){ x=Q(x); const n=Math.abs(x[0]); return (x[0]<0?"−":"")+(x[1]===1?n:frH(n,x[1])); }
+function qS(x){ x=Q(x); const n=Math.abs(x[0]); return (x[0]<0?t("neg")+" ":"")+(x[1]===1?n:t("frSay",{n,d:x[1]})); }
+function qP(x){ x=Q(x); const n=Math.abs(x[0]); return (x[0]<0?"−":"")+n+(x[1]===1?"":"/"+x[1]); } // plain text (SVG)
+const N = k=>({h:qH(k),s:qS(k)});
+const NP = k=>({h:qv(Q(k))<0?"("+qH(k)+")":qH(k), s:qS(k)}); // number, parenthesized if negative
+
+/* ---------- Expressions: every message is a pair {h: HTML, s: speech} ----------
+   term = [coef, v, d]: v null = constant, "x" = variable, array = coef × (group); d = shown as v/d */
+function ex(terms){ const H=[],S=[];
+  terms.forEach((tr,i)=>{ const c=Q(tr[0]), v=tr[1], d=tr[2], ng=c[0]<0, ab=[Math.abs(c[0]),c[1]], one=ab[0]===1&&ab[1]===1;
+    let h,s;
+    if(v==null){ h=qH(ab); s=qS(ab); }
+    else if(Array.isArray(v)){ const g=ex(v); h=(one?"":qH(ab))+"("+g.h+")"; s=one?g.s:t("sGroup",{k:qS(ab),e:g.s}); }
+    else if(d){ h=frH((one?"":qH(ab))+`<i>${v}</i>`,d); s=t("sDiv",{v:(one?"":qS(ab)+" ")+v,d}); }
+    else { h=(one?"":qH(ab))+`<i>${v}</i>`; s=(one?"":qS(ab)+" ")+v; }
+    if(i===0){ H.push((ng?"−":"")+h); S.push((ng?t("neg")+" ":"")+s); }
+    else { H.push((ng?"− ":"+ ")+h); S.push(t(ng?"wMinus":"wPlus")+" "+s); } });
+  return {h:H.join(" "),s:S.join(" ")};
+}
+function lin(a,b,v){ a=Q(a); b=Q(b===undefined?0:b); const tr=[]; if(!qz(a)) tr.push([a,v||"x"]); if(!qz(b)||qz(a)) tr.push([b,null]); return ex(tr); }
+function collect(terms){ let A=Q(0),B=Q(0);
+  terms.forEach(tr=>{ const c=Q(tr[0]), v=tr[1];
+    if(v==null) B=qa(B,c);
+    else if(Array.isArray(v)){ const [a,b]=collect(v); A=qa(A,qm(c,a)); B=qa(B,qm(c,b)); }
+    else A=qa(A,tr[2]?qd(c,Q(tr[2])):c); });
+  return [A,B];
+}
+const REL = {"=":["=","sEq"],"<":["&lt;","sLt"],">":["&gt;","sGt"],"≤":["≤","sLe"],"≥":["≥","sGe"],"≠":["≠","sNe"]};
+const FLIP = {"<":">",">":"<","≤":"≥","≥":"≤"}, INCL = {"<":"≤","≤":"<",">":"≥","≥":">"};
+const holds = (l,r,c)=>r==="<"?l<c:r===">"?l>c:r==="≤"?l<=c:r==="≥"?l>=c:Math.abs(l-c)<1e-9;
+function rel(L,r,R){ return {h:M(L.h+" "+REL[r][0]+" "+R.h), s:t(REL[r][1],{a:L.s,b:R.s})}; }
+const OPW = {"+":"wPlus","−":"wMinus","×":"wTimes","÷":"wDiv","^":"wPow"};
+function tm(key,vars){ const h={},s={}; vars=vars||{};
+  for(const k in vars){ const v=vars[k]; if(v&&typeof v==="object"){ h[k]=v.h.indexOf("<bdi")===0?v.h:M(v.h); s[k]=v.s; } else { h[k]=v; s[k]=v; } }
+  return {h:t(key,h), s:t(key,s)};
+}
+const cat = (...m)=>({h:m.map(x=>x.h).join(" "), s:m.map(x=>x.s).join(" ")});
+const P = key=>({h:t(key),s:t(key)});
+const eqx = (a,b)=>({h:a.h+" = "+b.h, s:a.s+" "+t("wEq")+" "+b.s});
+const vx = v=>({h:`<i>${v}</i>`,s:v});
+const nm = ()=>rand(t("names").split(","));
+// Substitute x = k into a·x + b. Returns the expression {h,s} and its value.
+function subst(a,b,k){ a=Q(a); b=Q(b); k=Q(k); const kk=NP(k); let h,s;
+  if(qz(a)){ h=qH(b); s=qS(b); }
+  else { const one=qeq(a,Q(1)), mone=qeq(a,Q(-1));
+    h=(one?"":mone?"−":qH(a))+(one?kk.h:"("+qH(k)+")"); s=(one?"":qS(a)+" "+t("wTimes")+" ")+qS(k);
+    if(!qz(b)){ h+=(qv(b)<0?" − ":" + ")+qH([Math.abs(b[0]),b[1]]); s+=" "+t(qv(b)<0?"wMinus":"wPlus")+" "+qS([Math.abs(b[0]),b[1]]); } }
+  return {e:{h,s}, v:qa(qm(a,k),b)};
+}
+
+/* ---------- Speech ---------- */
+const speechOK = ("speechSynthesis" in window);
+function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
+// Prefer warm, natural voices; avoid harsh robotic engines.
+function pickWarmVoice(code){
+  const vs = speechSynthesis.getVoices()||[];
+  const want=code.toLowerCase(), two=want.slice(0,2);
+  let best=null, bs=-1;
+  for(const v of vs){
+    const lc=(v.lang||'').toLowerCase().replace('_','-');
+    if(lc!==want && lc.slice(0,2)!==two) continue;
+    let s=(lc===want?100:60); const n=(v.name||'').toLowerCase();
+    if(/google|natural|neural|online|premium|enhanced|siri/.test(n)) s+=40;
+    if(/female|woman|samantha|karen|tessa|moira|fiona|serena|victoria|allison|ava|susan|zoe|amelie|amélie|paulina|monica|mónica|zira|hazel|catherine|linda|kanya|lekha|ting-ting|mei-jia|sin-ji|yu-shu|huihui|xiaoxiao/.test(n)) s+=18;
+    if(/espeak|compact|festival|pico|robot|eloquence/.test(n)) s-=60;
+    if(v.localService===false) s+=8;
+    if(v.default) s+=2;
+    if(s>bs){ bs=s; best=v; }
+  }
+  return best;
+}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  const parts=String(text).match(/[^.!?。！？؟।۔]+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.95; u.pitch=1.05;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={tiles:0,balance:0,ineq:0,write:0,sols:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
+}
+if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
+if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
+
+const currentSpeech = {tiles:"",balance:"",ineq:"",write:"",sols:""};
+function setSpeech(mode,text){ currentSpeech[mode]=text; }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===mode) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,.cell,.nl")) return;
+  speak(currentSpeech[currentMode()]);
+},true);
+
+/* ---------- Feedback & round helpers ---------- */
+function showFb(el,type,msg){ el.className="feedback show "+type; el.innerHTML=(type==="good"?"✅ ":"💡 ")+msg; }
+function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
+const made={}, st={};
+function startRound(m){ roundIds[m]++; made[m]=true; st[m]={done:false};
+  ["w","a","c"].forEach(p=>{ $("#"+p+"-"+m).innerHTML=""; }); hideFb($("#f-"+m)); }
+function setPrompt(m,msg){ $("#p-"+m).innerHTML=msg.h; setSpeech(m,msg.s); }
+function win(m,msg){ st[m].done=true;
+  $$(`#c-${m} button,#a-${m} button,#w-${m} button,#w-${m} input`).forEach(b=>b.disabled=true);
+  $$(`#w-${m} [tabindex]`).forEach(p=>p.removeAttribute("tabindex"));
+  addStar(); showFb($("#f-"+m),"good",msg.h); afterPraise(msg.s,m,NEWFN[m],2200); }
+function nope(m,msg){ showFb($("#f-"+m),"hint",msg.h); speak(msg.s); }
+function actBtn(m,html,fn,cls,aria){ const b=document.createElement("button"); b.type="button"; b.className="btn"+(cls?" "+cls:""); b.innerHTML=html;
+  if(aria){ b.setAttribute("aria-label",aria); b.title=aria; } b.addEventListener("click",fn); $("#a-"+m).appendChild(b); return b; }
+function checkBtn(m,fn){ return actBtn(m,"✔ "+t("check"),fn); }
+// Choice buttons. pick(item) is called for every tap; wrong picks are greyed out.
+function choices(m,items,pick,cls){
+  const g=$("#c-"+m); g.innerHTML="";
+  items.forEach(it=>{ const b=document.createElement("button"); b.type="button"; b.className="choice"+(it.wide||cls?" wide":"");
+    b.innerHTML=`<span class="badge" aria-hidden="true">✅</span><span class="lbl">${it.wide||cls||it.h.indexOf("<bdi")===0?it.h:M(it.h)}</span>`; b.setAttribute("aria-label",it.s);
+    b.addEventListener("click",()=>{ if(st[m].done||b.disabled) return; if(it.ok) b.classList.add("correctpick"); else { b.classList.add("wrongpick"); b.disabled=true; } pick(it,b); });
+    g.appendChild(b); });
+}
+// Build up to 4 distinct options. cands: [{key, ...item}] — key identifies equivalence; first must be correct.
+function opts(cands,n){ const out=[], seen=new Set();
+  for(const c of cands){ if(out.length>=(n||4)) break; if(!c||seen.has(c.key)) continue; seen.add(c.key); out.push(c); }
+  return shuffle(out);
+}
+function wire(el,fn){ el.addEventListener("click",fn); el.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); fn(e); } }); }
+
+/* =========================================================================
+   1. ALGEBRA TILES — build, simplify (zero pairs), distribute, factor
+   ========================================================================= */
+const TL = {"x+":["tx pos","x","tileX"], "x-":["tx neg","−x","tileNX"], "1+":["t1 pos","1","tileOne"], "1-":["t1 neg","−1","tileNOne"]};
+const TORD = ["x+","x-","1+","1-"];
+function tileBtn(k,i){ const d=TL[k]; return `<button type="button" class="tile ${d[0]}" data-i="${i}" aria-label="${t(d[2])}"><span aria-hidden="true">${d[1]}</span></button>`; }
+function termTiles(c,isX){ return Array(Math.abs(c)).fill((isX?"x":"1")+(c<0?"-":"+")); }
+function matVal(arr){ let a=0,b=0; arr.forEach(k=>{ if(!k) return; const v=k[1]==="+"?1:-1; if(k[0]==="x") a+=v; else b+=v; }); return [a,b]; }
+function zeroPairs(arr){ const c=k=>arr.filter(x=>x===k).length; return Math.min(c("x+"),c("x-"))+Math.min(c("1+"),c("1-")); }
+function legendHTML(neg){ const sw=(c,l)=>`<span><i class="sw" style="background:var(${c})"></i>${M(l)}</span>`;
+  return `<div class="legend">${sw("--xpos",t("lgX"))}${neg?sw("--xneg",t("lgNX")):""}${sw("--upos",t("lgU"))}${neg?sw("--uneg",t("lgNU")):""}${neg?`<span>${t("lgNote")}</span>`:""}</div>`; }
+function drawMat(){ const s=st.tiles; $("#mat").innerHTML=s.tiles.map((k,i)=>k?tileBtn(k,i):"").join("")||`<span class="matempty">${t("matEmpty")}</span>`;
+  if(s.sel!=null){ const b=$(`#mat .tile[data-i="${s.sel}"]`); if(b) b.classList.add("sel"); } }
+const pl = (a,v)=>{ const n=Math.abs(a); return (a<0?"−":"")+(v&&n===1?"":n)+(v?`<tspan class="vi">${v}</tspan>`:""); };
+function areaSVG(side,tl,tr,c1,c2,tap){
+  const cell=(i,x,w,txt,u)=>`<g class="cell" data-c="${i}"${tap?` tabindex="0" role="button" aria-label="${t("cellLbl",{i:i+1})}"`:""}><rect class="cl${u?" u":""}" x="${x}" y="44" width="${w}" height="120"/><text x="${x+w/2}" y="114">${txt}</text></g>`;
+  return `<svg viewBox="0 0 380 172" class="area" dir="ltr" role="${tap?"group":"img"}" aria-label="${t("areaLbl")}">
+    <text x="24" y="114">${side}</text><text x="145" y="32">${tl}</text><text x="305" y="32">${tr}</text>
+    ${cell(0,50,190,c1,false)}${cell(1,240,130,c2,true)}</svg>`;
+}
+function genSimp(){ let a1,a2,b1,b2;
+  if(settings.neg){ do{ a1=ri(1,4); a2=R1(-3,3,[0]); b1=R1(-5,5,[0]); b2=R1(-5,5,[0]); }while(!(a2<0||b1*b2<0)||a1+a2===0); }
+  else { a1=ri(1,4); a2=ri(1,3); b1=ri(1,5); b2=ri(1,4); }
+  const terms=shuffle([[a1,"x"],[b1,null],[a2,"x"],[b2,null]]);
+  return {a1,a2,b1,b2,terms,A:a1+a2,B:b1+b2};
+}
+function genDist(){ const neg=settings.neg;
+  const a=neg?R1(-5,5,[0,1,-1]):ri(2,5), b=rand([1,1,2,3]), c=neg?R1(-6,6,[0]):ri(1,6);
+  return {a,b,c,A:a*b,B:a*c,terms:[[a,[[b,"x"],[c,null]]]]};
+}
+function newTiles(){
+  const m="tiles"; startRound(m); const s=st[m], g=G(), neg=settings.neg, w=$("#w-"+m);
+  const type=rand(g===6?["build","simp","simp","dist","dist"]:["build","simp","simp","dist","fact"]);
+  s.type=type; s.sel=null;
+  if(type==="build"||type==="simp"){
+    w.innerHTML=legendHTML(neg)+`<div class="mat" id="mat" role="group" aria-label="${t("matLbl")}"></div><div class="palette" id="pal"></div><p class="note" id="tnote" aria-live="polite"></p>`;
+    $("#mat").addEventListener("click",e=>{ const b=e.target.closest(".tile"); if(b&&!s.done) TAP[type](+b.dataset.i,b); });
+  }
+  if(type==="build"){
+    const A=neg?R1(-4,4,[0]):ri(1,4), B=neg?R1(-6,6,[0]):ri(1,6), e=lin(A,B);
+    s.A=A; s.B=B; s.tiles=[]; drawMat();
+    $("#pal").innerHTML=(neg?TORD:["x+","1+"]).map(k=>`<button type="button" class="palbtn" data-k="${k}" aria-label="${t("addTile",{tile:t(TL[k][2])})}">＋ <span class="tile mini ${TL[k][0]}"></span><span aria-hidden="true">${M(TL[k][1])}</span></button>`).join("");
+    $("#pal").addEventListener("click",e=>{ const b=e.target.closest(".palbtn"); if(!b||s.done||s.tiles.filter(Boolean).length>=30) return;
+      s.tiles.push(b.dataset.k); drawMat(); hideFb($("#f-"+m)); });
+    checkBtn(m,()=>{ const [a,b]=matVal(s.tiles), z=zeroPairs(s.tiles.filter(Boolean));
+      if(a===A&&b===B) return win(m,tm(z?"goodBuildZ":"goodBuild",{e,z}));
+      const xw=a!==A; nope(m,tm("hintBuild",{cur:lin(a,b),e,what:t(xw?"xTiles":"unitTiles"),have:xw?lin(a,0):N(b),need:xw?lin(A,0):N(B)})); });
+    actBtn(m,t("clear"),()=>{ s.tiles=[]; drawMat(); hideFb($("#f-"+m)); },"ghost");
+    setPrompt(m,tm("buildDir",{e}));
+  }else if(type==="simp"){
+    const S=genSimp(), e=ex(S.terms), r=lin(S.A,S.B);
+    s.tiles=[].concat(...S.terms.map(([c,v])=>termTiles(c,!!v))); drawMat();
+    actBtn(m,"↕ "+t("sort"),()=>{ s.tiles=s.tiles.filter(Boolean).sort((p,q)=>TORD.indexOf(p)-TORD.indexOf(q)); s.sel=null; drawMat(); },"ghost");
+    const ab=[Math.abs(S.a1)+Math.abs(S.a2),Math.abs(S.b1)+Math.abs(S.b2)];
+    const C=[{key:S.A+","+S.B,ok:true},{key:ab.join(","),hk:"hSigns",v:ab},{key:(S.A+S.B)+",0",hk:"hUnlike",v:[S.A+S.B,0]},
+      {key:S.A+","+(-S.B),hk:"hSigns",v:[S.A,-S.B]},{key:S.B+","+S.A,hk:"hCount",v:[S.B,S.A]},{key:(S.A+1)+","+S.B,hk:"hCount",v:[S.A+1,S.B]},
+      {key:S.A+","+(S.B-1),hk:"hCount",v:[S.A,S.B-1]},{key:(S.A-1)+","+(S.B+1),hk:"hCount",v:[S.A-1,S.B+1]}]
+      .filter(c=>c.ok||(c.v[0]||c.v[1])).map(c=>Object.assign(c,c.ok?r:lin(c.v[0],c.v[1])));
+    choices(m,opts(C),it=>{ if(it.ok) return win(m,tm("goodSimp",{xs:eqx(ex([[S.a1,"x"],[S.a2,"x"]]),lin(S.A,0)),us:eqx(ex([[S.b1,null],[S.b2,null]]),N(S.B)),r}));
+      nope(m,cat(tm("youPicked",{x:it}),P(it.hk))); });
+    setPrompt(m,tm(neg?"simpDir":"simpDirPos",{e}));
+  }else if(type==="dist"){
+    const D=genDist(), {a,b,c,A,B}=D, e=ex(D.terms), r=lin(A,B), bx=lin(b,0);
+    const p1=eqx({h:NP(a).h+" × "+bx.h,s:qS(a)+" "+t("wTimes")+" "+bx.s},lin(A,0)), p2=eqx({h:NP(a).h+" × "+NP(c).h,s:qS(a)+" "+t("wTimes")+" "+qS(c)},N(B));
+    w.innerHTML=areaSVG(pl(a),pl(b,"x"),pl(c),"?","?",true);
+    s.rev=[false,false];
+    $$("#w-tiles .cell").forEach(el=>wire(el,()=>{ if(s.done) return; const i=+el.dataset.c; s.rev[i]=true; el.querySelector("text").innerHTML=i?pl(B):pl(A,"x"); }));
+    const C=[{key:A+","+B,ok:true},{key:A+","+c,hk:"hBothT",v:[A,c]},{key:b+","+B,hk:"hBothT",v:[b,B]},{key:A+","+(-B),hk:"hSignD",v:[A,-B]},
+      {key:(-A)+","+B,hk:"hSignD",v:[-A,B]},{key:A+","+(a+c),hk:"hBothT",v:[A,a+c]},{key:(A+B)+",0",hk:"hBothT",v:[A+B,0]}]
+      .filter(c=>c.ok||(c.v[0]&&c.v[1]!==undefined)).map(c=>Object.assign(c,c.ok?r:lin(c.v[0],c.v[1])));
+    choices(m,opts(C),it=>{ if(it.ok){ $$("#w-tiles .cell text").forEach((x,i)=>x.innerHTML=i?pl(B):pl(A,"x")); return win(m,tm("goodDist",{a:N(a),p1,p2,e,r})); }
+      nope(m,cat(tm("youPicked",{x:it}),tm(it.hk,{a:N(a),p1,p2}))); });
+    setPrompt(m,tm("distDir",{e}));
+  }else{
+    let a,b,c; do{ a=ri(2,6); b=ri(1,5); c=ri(1,9); }while(gcd(b,c)!==1||b===c);
+    const A=a*b, B=a*c, e=lin(A,B), inn=ex([[b,"x"],[c,null]]), r=ex([[a,[[b,"x"],[c,null]]]]);
+    w.innerHTML=areaSVG("?","?","?",pl(A,"x"),pl(B),false);
+    const mk=(tr,ok)=>{ const [X,Y]=collect(tr); return Object.assign({key:qP(X)+","+qP(Y)+(ok?"":"|"+JSON.stringify(tr)),ok,tr,exp:lin(X,Y)},ex(tr)); };
+    const C=[mk([[a,[[b,"x"],[c,null]]]],true),mk([[a,[[b,"x"],[B,null]]]]),mk([[A,[[1,"x"],[B,null]]]]),mk([[a,[[A,"x"],[c,null]]]]),mk([[b,[[a,"x"],[B,null]]]])]
+      .filter(o=>o.ok||o.key.split("|")[0]!==qP(Q(A))+","+qP(Q(B)));
+    choices(m,opts(C),it=>{ if(it.ok) return win(m,tm("goodFact",{A,B,a,in:inn,e}));
+      nope(m,cat(tm("youPicked",{x:it}),tm("hFact",{o:it,exp:it.exp,e}))); });
+    setPrompt(m,tm("factDir",{e}));
+  }
+  maybeAuto(m);
+}
+const TAP = {
+  build:i=>{ const s=st.tiles; s.tiles[i]=null; drawMat(); hideFb($("#f-tiles")); },
+  simp:(i,b)=>{ const s=st.tiles, k=s.tiles[i], note=$("#tnote");
+    if(s.sel==null||s.sel===i){ s.sel=s.sel===i?null:i; drawMat(); note.innerHTML=s.sel==null?"":t("tapOpp"); return; }
+    const k0=s.tiles[s.sel];
+    if(k0&&k0[0]===k[0]&&k0[1]!==k[1]){ const j=s.sel; s.sel=null;
+      const p=k[0]==="x"?{h:M("<i>x</i> + (−<i>x</i>) = 0"),s:`x ${t("wPlus")} ${t("neg")} x ${t("wEq")} 0`}:{h:M("1 + (−1) = 0"),s:`1 ${t("wPlus")} ${t("neg")} 1 ${t("wEq")} 0`};
+      [i,j].forEach(x=>{ const el=$(`#mat .tile[data-i="${x}"]`); if(el) el.classList.add("gone"); });
+      s.tiles[i]=s.tiles[j]=null; note.innerHTML=tm("zeroPair",{p}).h;
+      setTimeout(()=>{ if(st.tiles===s) drawMat(); },300); return; }
+    note.innerHTML=t("notOpp"); s.sel=i; drawMat(); }
+};
+
+/* =========================================================================
+   2. BALANCE SCALE — do the same thing to both sides
+   ========================================================================= */
+function genEq(kind){
+  const mx=MX(), neg=settings.neg; let L,R,k;
+  if(kind==="one"){ const ty=rand(["add","sub","mul","div"]);
+    if(ty==="add"){ const b=ri(1,mx); k=neg?R1(-9,mx,[0]):ri(1,mx); L=[1,b]; R=[0,k+b]; }
+    else if(ty==="sub"){ const b=ri(1,mx); k=neg?R1(-9,mx,[0]):b+ri(1,mx); L=[1,-b]; R=[0,k-b]; if(!neg&&k-b<=0){ k=b+1; R=[0,1]; } }
+    else if(ty==="mul"){ const a=neg?R1(-9,9,[0,1,-1]):ri(2,9); k=neg?R1(-10,10,[0]):ri(1,10); L=[a,0]; R=[0,a*k]; }
+    else { const a=ri(2,6), c=neg?R1(-9,9,[0]):ri(1,10); k=a*c; L=[Q(1,a),0]; R=[0,c]; }
+  }else if(kind==="two"){
+    let n=0; do{ k=neg?R1(-9,9,[0]):ri(1,10);
+      if(Math.random()<.25){ const a=ri(2,5), j=neg?R1(-6,6,[0]):ri(1,6), b=neg?R1(-mx,mx,[0]):ri(1,mx); k=a*j; L=[Q(1,a),b]; R=[0,j+b]; }
+      else { const a=neg?R1(-6,6,[0,1,-1]):ri(2,6), b=R1(-mx,mx,[0]); L=[a,b]; R=[0,a*k+b]; }
+    }while(!neg&&qv(Q(R[1]))<=0&&++n<50);
+  }else{
+    let n=0; do{ const a=neg?R1(-5,7,[0]):ri(1,7); let c=neg?R1(-5,7,[0,a]):R1(1,7,[a]); k=neg?R1(-8,8,[0]):ri(1,10);
+      const b=neg?R1(-mx,mx,[0]):ri(1,mx); L=[a,b]; R=[c,a*k+b-c*k];
+    }while((!neg&&R[1]<=0||R[1]===0)&&++n<80);
+  }
+  L=[Q(L[0]),Q(L[1])]; R=[Q(R[0]),Q(R[1])];
+  if(Math.random()<.25) [L,R]=[R,L];
+  return {L,R,k};
+}
+const sideH = sd=>lin(sd[0],sd[1]);
+const eqH = (L,R)=>rel(sideH(L),"=",sideH(R));
+function panItems(a,b){ const it=[];
+  if(!qz(a)){ if(a[1]===1&&Math.abs(a[0])<=6) for(let i=0;i<Math.abs(a[0]);i++) it.push({w:34,h:46,c:"bx"+(a[0]<0?" neg":""),l:a[0]<0?"−x":"x",f:18});
+    else { const n=Math.abs(a[0]); it.push({w:84,h:46,c:"bx"+(a[0]<0?" neg":""),l:(a[0]<0?"−":"")+(n===1?"":n)+"x"+(a[1]===1?"":"/"+a[1]),f:18}); } }
+  if(!qz(b)){ if(b[1]===1&&Math.abs(b[0])<=12) for(let i=0;i<Math.abs(b[0]);i++) it.push({w:24,h:24,c:"bu"+(b[0]<0?" neg":""),l:b[0]<0?"−1":"1",f:11});
+    else it.push({w:70,h:34,c:"bu"+(b[0]<0?" neg":""),l:qP(b),f:18}); }
+  if(!it.length) it.push({w:40,h:24,c:"",l:"0",f:18,z:1});
+  return it;
+}
+function panSVG(cx,a,b){ const it=panItems(a,b), W=206, rows=[[]]; let x=0;
+  it.forEach(o=>{ if(x+o.w>W&&rows[rows.length-1].length){ rows.push([]); x=0; } rows[rows.length-1].push(o); x+=o.w+4; });
+  let y=200, s="";
+  rows.forEach(r=>{ const rw=r.reduce((p,o)=>p+o.w+4,-4), rh=Math.max(...r.map(o=>o.h)); let xx=cx-rw/2;
+    r.forEach(o=>{ s+=o.z?`<text x="${xx+o.w/2}" y="${y-6}" font-size="20">0</text>`:`<rect class="${o.c}" x="${xx}" y="${y-o.h}" width="${o.w}" height="${o.h}" rx="4"/><text x="${xx+o.w/2}" y="${y-o.h/2+o.f*.35}" font-size="${o.f}">${o.l}</text>`; xx+=o.w+4; });
+    y-=rh+3; });
+  return s;
+}
+function balSVG(L,R,anim){
+  const e=eqH(L,R);
+  return `<svg viewBox="0 0 640 256" class="bal" role="img" aria-label="${esc(t("balLbl",{e:e.s}))}">
+  <polygon class="fulc" points="320,80 284,250 356,250"/><rect x="250" y="248" width="140" height="8" rx="4" class="bm"/>
+  <g class="beam${anim?" wob":""}">
+   <rect class="bm" x="40" y="70" width="560" height="12" rx="6"/>
+   <line class="str" x1="150" y1="80" x2="50" y2="202"/><line class="str" x1="150" y1="80" x2="250" y2="202"/>
+   <line class="str" x1="490" y1="80" x2="390" y2="202"/><line class="str" x1="490" y1="80" x2="590" y2="202"/>
+   <rect class="pan" x="40" y="200" width="220" height="9" rx="4"/><rect class="pan" x="380" y="200" width="220" height="9" rx="4"/>
+   ${panSVG(150,L[0],L[1])}${panSVG(490,R[0],R[1])}
+  </g><circle cx="320" cy="76" r="8" fill="#f5cf4a" stroke="#3b1f4a" stroke-width="2"/></svg>`;
+}
+function opMsg(op,n,isX){ const v=isX?lin(n,0):NP(n); return tm({"+":"doAdd","−":"doSub","×":"doMul","÷":"doDiv"}[op],{n:v}); }
+function isSolved(L,R){ const one=Q(1); return (qeq(L[0],one)&&qz(L[1])&&qz(R[0]))||(qeq(R[0],one)&&qz(R[1])&&qz(L[0])); }
+function eqScore(L,R){ const both=!qz(L[0])&&!qz(R[0]), xs=qz(L[0])?R:L; if(qz(xs[0])) return 0;
+  return (both?1000:0)+Math.abs(qv(xs[1])/qv(xs[0]))+(qeq(xs[0],Q(1))?0:.5); }
+function balHint(L,R){
+  if(!qz(L[0])&&!qz(R[0])){ const c=R[0]; return tm(qv(c)>0?"hBothSub":"hBothAdd",{t:lin([Math.abs(c[0]),c[1]],0)}); }
+  const xs=qz(L[0])?R:L, a=xs[0], b=xs[1];
+  if(!qz(b)) return tm(qv(b)>0?"hSub":"hAdd",{n:N([Math.abs(b[0]),b[1]])});
+  if(a[1]!==1) return tm("hMul",{n:N(a[1])});
+  return tm("hDivB",{n:NP(a[0])});
+}
+function newBalance(){
+  const m="balance"; startRound(m); const s=st[m];
+  const kind=settings.eq==="mix"?rand(["one","two","both"]):settings.eq, E=genEq(kind);
+  Object.assign(s,{k:E.k,hist:[{L:E.L,R:E.R}],op:"−",isX:false,kind});
+  const w=$("#w-"+m);
+  w.innerHTML=`<div id="bal"></div><ol class="steps" id="steps" aria-live="polite"></ol>
+    <div class="pad no-print">
+      <div class="padrow" role="group" aria-label="${t("opLbl")}">${["+","−","×","÷"].map(o=>`<button type="button" class="opbtn" data-op="${o}" aria-label="${t(OPW[o])}" title="${t(OPW[o])}">${o}</button>`).join("")}</div>
+      <div class="padrow"><button type="button" class="opbtn" id="nDn" aria-label="${t("lessN")}" title="${t("lessN")}">−1</button>
+        <input class="numin" id="nIn" type="number" inputmode="numeric" min="-99" max="99" step="1" value="1" aria-label="${t("numLbl")}">
+        <button type="button" class="opbtn" id="nUp" aria-label="${t("moreN")}" title="${t("moreN")}">+1</button>
+        ${kind==="both"?`<button type="button" class="opbtn" id="xTog" aria-pressed="false" aria-label="${t("xTerm")}" title="${t("xTerm")}">${M("<i>x</i>")}</button>`:""}</div>
+    </div>`;
+  const nIn=$("#nIn"), num=()=>{ const v=parseInt(nIn.value,10); return Number.isFinite(v)?v:NaN; };
+  const ap=actBtn(m,"",balApply);
+  s.sync=()=>{ $$("#w-balance .opbtn[data-op]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.op===s.op)));
+    const x=$("#xTog"); if(x) x.setAttribute("aria-pressed",String(s.isX));
+    const n=num(); ap.innerHTML="⚖️ "+(Number.isFinite(n)?opMsg(s.op,n,s.isX).h:t("numLbl")); };
+  $$("#w-balance .opbtn[data-op]").forEach(b=>b.addEventListener("click",()=>{ s.op=b.dataset.op; if(s.op==="×"||s.op==="÷") s.isX=false; s.sync(); }));
+  $("#nDn").addEventListener("click",()=>{ nIn.value=Math.max(-99,(num()||0)-1); s.sync(); });
+  $("#nUp").addEventListener("click",()=>{ nIn.value=Math.min(99,(num()||0)+1); s.sync(); });
+  nIn.addEventListener("input",s.sync);
+  nIn.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); balApply(); } });
+  if($("#xTog")) $("#xTog").addEventListener("click",()=>{ s.isX=!s.isX; if(s.isX&&(s.op==="×"||s.op==="÷")) s.op="−"; s.sync(); });
+  actBtn(m,"↩ "+t("undo"),()=>{ if(s.done||s.hist.length<2) return; s.hist.pop(); drawBal(false); hideFb($("#f-"+m)); },"ghost");
+  actBtn(m,"💡 "+t("hint"),()=>{ if(s.done) return; const c=s.hist[s.hist.length-1]; nope(m,balHint(c.L,c.R)); },"ghost");
+  actBtn(m,"⟲ "+t("restart"),()=>{ if(s.done) return; s.hist=[s.hist[0]]; drawBal(false); hideFb($("#f-"+m)); },"ghost");
+  s.sync(); drawBal(false);
+  setPrompt(m,tm("balDir",{e:eqH(E.L,E.R)}));
+  maybeAuto(m);
+}
+function drawBal(anim){ const s=st.balance, c=s.hist[s.hist.length-1];
+  $("#bal").innerHTML=balSVG(c.L,c.R,anim);
+  $("#steps").innerHTML=s.hist.map((h,i)=>`<li>${i?`<span class="opcap">↓ ${h.cap}</span>`:""}<span class="eqs">${eqH(h.L,h.R).h}</span></li>`).join("");
+}
+function balApply(){
+  const m="balance", s=st[m]; if(s.done) return;
+  const op=s.op, n=parseInt($("#nIn").value,10);
+  if(!Number.isFinite(n)) return nope(m,P("numLbl"));
+  if(n===0) return nope(m,P(op==="÷"?"errDiv0":op==="×"?"errMul0":"errZero"));
+  if(s.isX&&(op==="×"||op==="÷")) return nope(m,P("errXmul"));
+  const cur=s.hist[s.hist.length-1], nq=Q(n);
+  const f=([a,b])=>op==="+"?(s.isX?[qa(a,nq),b]:[a,qa(b,nq)]):op==="−"?(s.isX?[qs(a,nq),b]:[a,qs(b,nq)]):op==="×"?[qm(a,nq),qm(b,nq)]:[qd(a,nq),qd(b,nq)];
+  const L=f(cur.L), R=f(cur.R);
+  if([L[0],L[1],R[0],R[1]].some(q=>q[1]>12||Math.abs(q[0])>999)) return nope(m,P("errMessy"));
+  const before=eqScore(cur.L,cur.R), om=opMsg(op,n,s.isX);
+  s.hist.push({L,R,cap:om.h}); drawBal(true);
+  if(isSolved(L,R)){ const E=s.hist[0], side=!qz(E.L[0])?E.L:E.R, sb=subst(side[0],side[1],s.k);
+    return win(m,tm("goodBal",{sol:rel(vx("x"),"=",N(s.k)),chk:eqx(sb.e,N(sb.v))})); }
+  if(eqScore(L,R)>before+1e-9) nope(m,cat(P("stillBal"),balHint(L,R))); else hideFb($("#f-"+m));
+}
+
+/* =========================================================================
+   3. INEQUALITIES — graph, read, words, solve (+ flip), test values
+   ========================================================================= */
+const NX0=44, NX1=596;
+function nlI(lo,hi,o){ o=o||{}; const x=v=>(NX0+(NX1-NX0)*(v-lo)/(hi-lo)).toFixed(1);
+  let s=`<line class="nlax" x1="16" y1="60" x2="624" y2="60"/><polygon class="nlah" points="4,60 20,51 20,69"/><polygon class="nlah" points="636,60 620,51 620,69"/>`;
+  const wide=Math.max(String(lo).length,String(hi).length)>=3; // 3-character labels: show every other one (and the point's)
+  for(let v=lo;v<=hi;v++) s+=`<line class="tk" x1="${x(v)}" y1="48" x2="${x(v)}" y2="72"/>`+(!wide||(v-(o.pt!=null?o.pt:lo))%2===0?`<text class="nlt" x="${x(v)}" y="104">${v<0?"−"+(-v):v}</text>`:"");
+  if(o.pt!=null&&o.dir){ const end=o.dir===">"?612:28; s+=`<line class="ray" x1="${x(o.pt)}" y1="60" x2="${end}" y2="60"/><polygon class="rayh" points="${o.dir===">"?"634,60 612,47 612,73":"6,60 28,47 28,73"}"/>`; }
+  if(o.pt!=null) s+=`<g class="hdl"${o.drag?` tabindex="0" role="slider" aria-label="${t("ptLbl")}" aria-valuemin="${lo}" aria-valuemax="${hi}" aria-valuenow="${o.pt}"`:""}><circle class="pt ${o.closed==null?"unset":o.closed?"closed":"open"}" cx="${x(o.pt)}" cy="60" r="12"/></g>`;
+  return `<svg class="nl" viewBox="0 0 640 116" dir="ltr" role="${o.drag?"group":"img"}" aria-label="${t("nlLbl")}">${s}</svg>`;
+}
+function genIneq(){
+  const g=G(), neg=settings.neg, mx=MX(), r=rand(["<",">","≤","≥"]); let a,b,c,k;
+  if(g===6){ const ty=rand(["add","sub","mul","div"]); k=neg?R1(-8,10,[0]):ri(1,12);
+    if(ty==="add"){ a=Q(1); b=ri(1,mx); c=k+b; }
+    else if(ty==="sub"){ a=Q(1); b=-ri(1,neg?mx:Math.max(1,k)); c=k+b; }
+    else if(ty==="mul"){ a=Q(ri(2,9)); b=0; c=a[0]*k; }
+    else { const d=ri(2,5), j=neg?R1(-6,6,[0]):ri(1,8); a=Q(1,d); b=0; c=j; k=d*j; }
+  }else{ k=neg?R1(-8,8,[0]):ri(1,10); a=Q(neg?R1(-6,6,[0,1]):ri(2,6)); b=Math.random()<.2?0:(neg?R1(-mx,mx,[0]):ri(1,mx)); c=qv(a)*k+b; }
+  return {a:Q(a),b:Q(b),c,r,k,rs:qv(Q(a))<0?FLIP[r]:r};
+}
+function ineqChain(I){ const out=[rel(lin(I.a,I.b),I.r,N(I.c))]; let c=Q(I.c), r=I.r;
+  if(!qz(I.b)){ c=qs(c,I.b); out.push(rel(lin(I.a,0),r,N(c))); }
+  if(!qeq(I.a,Q(1))){ c=qd(c,I.a); if(qv(I.a)<0) r=FLIP[r]; out.push(rel(vx("x"),r,N(c))); }
+  return {h:M(out.map(x=>x.h).join(" &nbsp;⟹&nbsp; ")), s:out.map(x=>x.s).join(". ")+"."};
+}
+const xr = (r,k,v)=>rel(vx(v||"x"),r,N(k));
+function newIneq(){
+  const m="ineq"; startRound(m); const s=st[m], g=G();
+  const type=rand(g===6?["graph","read","words","solve","test"]:["graph","read","words","solve","solve","test"]);
+  s.type=type; const w=$("#w-"+m);
+  if(type==="graph"){ const I=genIneq(), k=I.k, r=I.r, shown=g>6&&Math.random()<.3?rel(N(k),FLIP[r],vx("x")):xr(r,k);
+    graphPhase(m,r,k); setPrompt(m,tm("graphDir",{i:shown})); }
+  else if(type==="read"){ const I=genIneq(), k=I.k, r=I.r, lo=k-ri(3,9);
+    w.innerHTML=nlI(lo,lo+12,{pt:k,closed:r==="≤"||r==="≥",dir:r==="<"||r==="≤"?"<":">"});
+    const C=["<",">","≤","≥"].map(q=>Object.assign({key:q,ok:q===r,q},xr(q,k)));
+    choices(m,shuffle(C),it=>{ if(it.ok) return win(m,cat(xr(r,k),tm(r==="≤"||r==="≥"?"gClosed":"gOpen",{k:N(k)}),tm(r==="<"||r==="≤"?"gLeft":"gRight",{k:N(k)})));
+      const inc=it.q==="≤"||it.q==="≥", need=r==="≤"||r==="≥";
+      nope(m,cat(tm("youPicked",{x:it}),inc!==need?tm(need?"rClosed":"rOpen",{k:N(k)}):tm(r==="<"||r==="≤"?"rLeft":"rRight",{k:N(k)}))); });
+    setPrompt(m,P("readDir")); }
+  else if(type==="words"){ const W=wordsGen(g);
+    choices(m,shuffle(W.C),it=>{ if(it.ok) return win(m,tm("goodWords",{i:it})); nope(m,cat(tm("youPicked",{x:it}),W.hint)); });
+    setPrompt(m,cat(W.q,P("wordsDir"))); }
+  else if(type==="solve"){ const I=genIneq(), k=I.k, rs=I.rs, ch=ineqChain(I), ie=rel(lin(I.a,I.b),I.r,N(I.c));
+    let k2=qv(qd(Q(I.c+qv(I.b)),I.a)); if(!Number.isInteger(k2)||k2===k) k2=k+(qv(I.b)>0?2:-2)||k+1;
+    const neg=qv(I.a)<0, av=N(I.a[1]===1?I.a:Q(I.a[1]));
+    const C=[Object.assign({key:"ok",ok:true},xr(rs,k)),Object.assign({key:"f",hk:neg?"hFlip":"hNoFlip"},xr(FLIP[rs],k)),
+      Object.assign({key:"i",hk:"hIncl"},xr(INCL[rs],k)),Object.assign({key:"a",hk:"hSteps"},xr(rs,k2))];
+    w.innerHTML=`<p class="big">${ie.h}</p>`;
+    choices(m,shuffle(C),it=>{
+      if(it.ok){ $$("#c-ineq button").forEach(b=>b.disabled=true); showFb($("#f-"+m),"good",tm("goodSolve",{chain:ch}).h);
+        const pr=tm("graphNow",{i:xr(rs,k)}); graphPhase(m,rs,k,true); setPrompt(m,pr); speak(tm("goodSolve",{chain:ch}).s+" "+pr.s); return; }
+      nope(m,cat(tm("youPicked",{x:it}),tm(it.hk,{a:av,sym:{h:REL[rs][0],s:REL[rs][0]},chain:ch}))); });
+    setPrompt(m,tm("solveDir",{i:ie})); }
+  else { const I=genIneq(), k=I.k, ie=rel(lin(I.a,I.b),I.r,N(I.c));
+    const ok=v=>holds(qv(I.a)*v+qv(I.b),I.r,I.c), vals=shuffle([k,k-1,k+1,k-2,k+2,k-3,k+3,k-5,k+5]);
+    const yes=vals.filter(ok), no=vals.filter(v=>!ok(v)), pick=[yes[0]].concat(no.slice(0,3));
+    const C=pick.map(v=>Object.assign({key:v,ok:ok(v),v},rel(vx("x"),"=",N(v))));
+    const ex_=v=>{ const sb=subst(I.a,I.b,v); return {v,lhs:sb.e,lv:N(sb.v),stmt:rel(N(sb.v),I.r,N(I.c))}; };
+    w.innerHTML=`<p class="big">${ie.h}</p>`;
+    choices(m,shuffle(C),it=>{ if(it.ok) return win(m,tm("goodTest",ex_(it.v))); nope(m,tm("hTest",ex_(it.v))); });
+    setPrompt(m,tm("testDir",{i:ie})); }
+  maybeAuto(m);
+}
+function graphPhase(m,r,k,append){
+  const s=st[m], lo=k-ri(3,9), hi=lo+12, w=$("#w-"+m);
+  s.g={pt:lo+6,closed:null,dir:null,lo,hi}; s.gk=k; s.gr=r;
+  const box=document.createElement("div"); box.id="nlbox"; if(append) w.appendChild(box); else { w.innerHTML=""; w.appendChild(box); }
+  const draw=foc=>{ box.innerHTML=nlI(lo,hi,{pt:s.g.pt,closed:s.g.closed,dir:s.g.dir,drag:!s.done}); wireNL(); if(foc){ const h=box.querySelector(".hdl"); if(h) h.focus(); }
+    bc.forEach(([b,f])=>b.setAttribute("aria-pressed",String(f()))); };
+  const set=(v,foc)=>{ if(s.done) return; s.g.pt=Math.max(lo,Math.min(hi,v)); hideFb($("#f-"+m)); draw(foc); };
+  function wireNL(){ const svg=box.querySelector("svg"), h=box.querySelector(".hdl");
+    const at=e=>{ const rc=svg.getBoundingClientRect(), px=(e.clientX-rc.left)/rc.width*640; return lo+Math.round((px-NX0)/(NX1-NX0)*(hi-lo)); };
+    svg.addEventListener("pointerdown",e=>{ if(s.done) return; set(at(e)); e.preventDefault(); });
+    if(h) h.addEventListener("keydown",e=>{ const K={ArrowRight:1,ArrowUp:1,ArrowLeft:-1,ArrowDown:-1}; if(K[e.key]){ set(s.g.pt+K[e.key],true); e.preventDefault(); } }); }
+  const bc=[];
+  const tb=(html,f,fn)=>{ const b=actBtn(m,html,()=>{ if(s.done) return; fn(); hideFb($("#f-"+m)); draw(); },"ghost"); bc.push([b,f]); };
+  tb("○ "+t("openC"),()=>s.g.closed===false,()=>s.g.closed=false);
+  tb("● "+t("closedC"),()=>s.g.closed===true,()=>s.g.closed=true);
+  tb("⟵ "+t("shadeL"),()=>s.g.dir==="<",()=>s.g.dir="<");
+  tb(t("shadeR")+" ⟶",()=>s.g.dir===">",()=>s.g.dir=">");
+  checkBtn(m,()=>{ const G_=s.g, nc=r==="≤"||r==="≥", nd=r==="<"||r==="≤"?"<":">", sym={h:REL[r][0],s:REL[r][0]}, kk=N(k);
+    if(G_.pt!==k) return nope(m,tm("hPt",{k:kk}));
+    if(G_.closed==null) return nope(m,P("hNeedC"));
+    if(G_.closed!==nc) return nope(m,tm(nc?"hClosed":"hOpen",{sym,k:kk}));
+    if(!G_.dir) return nope(m,P("hNeedDir"));
+    if(G_.dir!==nd) return nope(m,tm(nd==="<"?"hDirL":"hDirR",{i:xr(r,k),k:kk}));
+    s.done=true; draw(); s.done=false;
+    win(m,cat(xr(r,k),tm(nc?"gClosed":"gOpen",{k:kk}),tm(nd==="<"?"gLeft":"gRight",{k:kk}))); });
+  draw();
+}
+function wordsGen(g){ const ty=rand(g===6?["wA","wB","wC","wD","wE"]:["wA","wB","wC","wD","wE","wF","wG","wF","wG"]), name=nm();
+  if(ty==="wF"||ty==="wG"){ const a=ri(2,9), b=ri(3,20), c=b+a*ri(3,12), v=ty==="wF"?"w":"m", r=ty==="wF"?"≥":"≤";
+    const L=ex([[b,null],[a,v]]), am=lin(a,0,v), mk=(tr,q,ok)=>Object.assign({key:JSON.stringify(tr)+q,ok},rel(ex(tr),q,N(c)));
+    return {q:tm(ty,{a,b,c,name}), hint:tm("h"+ty,{a,b,am,e:L}),
+      C:[mk([[b,null],[a,v]],r,true),mk([[a,null],[b,v]],r),mk([[b,null],[a,v]],FLIP[r]),mk([[b,null],[a,v]],INCL[r])]}; }
+  const k=ty==="wD"&&settings.neg?R1(-10,40,[0]):ty==="wA"?ri(40,54):ri(5,MX()*10>100?100:60), v={wA:"h",wB:"w",wC:"p",wD:"t",wE:"c"}[ty], r={wA:"≥",wB:"≤",wC:">",wD:"<",wE:"≤"}[ty];
+  return {q:tm(ty,{k}), hint:tm("h"+ty,{k}), C:["<",">","≤","≥"].map(q=>Object.assign({key:q,ok:q===r},xr(q,k,v)))};
+}
+
+/* =========================================================================
+   4. WRITE IT — phrases, situations, tables, order of operations
+   ========================================================================= */
+function phraseGen(){ const k=ri(2,9), m_=R1(2,9,[k]), ty=rand(["ph1","ph2","ph3","ph4","ph5","ph6","ph7"]);
+  const n="n", D={
+    ph1:[[[1,n],[k,null]],[[k,n]],[[1,n],[-k,null]],[[k,null],[-1,n]]],
+    ph2:[[[1,n],[-k,null]],[[k,null],[-1,n]],[[1,n],[k,null]],[[k,n]]],
+    ph3:[[[k,n]],[[1,n],[k,null]],[[1,n,k]],[[1,n],[-k,null]]],
+    ph4:[[[1,n,k]],[[k,n]],[[1,n],[-k,null]],[[1,n],[k,null]]],
+    ph5:[[[m_,n],[-k,null]],[[k,null],[-m_,n]],[[m_,[[1,n],[-k,null]]]],[[m_,n],[k,null]]],
+    ph6:[[[m_,[[1,n],[k,null]]]],[[m_,n],[k,null]],[[1,n],[m_*k,null]],[[m_,null],[1,n],[k,null]]],
+    ph7:[[[1,n,k],[m_,null]],[[k,n],[m_,null]],[[1,n,m_],[k,null]],[[1,n,k],[-m_,null]]]}[ty];
+  const p=tm(ty,{k,m:m_});
+  return {p, hint:tm("h"+ty,{k,m:m_}), C:D.map((tr,i)=>Object.assign({key:JSON.stringify(tr),ok:!i},ex(tr))), e:ex(D[0])};
+}
+function sitGen(g){ const ty=rand(g===6?["sA","sB"]:g===7?["sA","sB","sC","sC","sD","sD"]:["sB","sC","sD","sE","sE"]), name=nm();
+  const E=(L,R,ok)=>Object.assign({key:JSON.stringify([L,R]),ok},rel(ex(L),"=",ex(R)));
+  if(ty==="sA"){ const k=ri(3,20), tot=k+ri(5,40);
+    return {q:tm(ty,{name,k,tot}), hint:tm("hsA",{k,tot}), C:[E([[1,"c"],[k,null]],[[tot,null]],1),E([[1,"c"],[-k,null]],[[tot,null]]),E([[k,"c"]],[[tot,null]]),E([[1,"c"]],[[k,null],[tot,null]])]}; }
+  if(ty==="sB"){ const k=ri(3,12), tot=k*ri(2,9);
+    return {q:tm(ty,{name,k,tot}), hint:tm("hsB",{k,e:lin(k,0,"n")}), C:[E([[k,"n"]],[[tot,null]],1),E([[1,"n"],[k,null]],[[tot,null]]),E([[1,"n",k]],[[tot,null]]),E([[tot,"n"]],[[k,null]])]}; }
+  if(ty==="sC"){ const f=ri(10,60), k=ri(8,40), tot=f+k*ri(2,12);
+    return {q:tm(ty,{name,f,k,tot}), hint:tm("hsC",{k,f,e:lin(k,0,"m")}), C:[E([[k,"m"],[f,null]],[[tot,null]],1),E([[f,"m"],[k,null]],[[tot,null]]),E([[k,[[1,"m"],[f,null]]]],[[tot,null]]),E([[k,"m"]],[[tot,null],[f,null]])]}; }
+  if(ty==="sD"){ const k=ri(4,9), d=ri(2,8), tot=ri(5,30), s=tot+k*d;
+    return {q:tm(ty,{name,s,k,tot}), hint:tm("hsD",{s,k,e:lin(k,0,"d")}), C:[E([[s,null],[-k,"d"]],[[tot,null]],1),E([[k,"d"],[-s,null]],[[tot,null]]),E([[s,null],[k,"d"]],[[tot,null]]),E([[k,"d"]],[[tot,null],[-s,null]])]}; }
+  const p=ri(10,30), q=R1(10,30,[p]), mm=ri(2,10), a=ri(0,40)+(q>p?(q-p)*mm:0), b=a+(p-q)*mm;
+  return {q:tm(ty,{a,b,p,q}), hint:tm("hsE",{ea:ex([[a,null],[p,"m"]]),eb:ex([[b,null],[q,"m"]])}),
+    C:[E([[a,null],[p,"m"]],[[b,null],[q,"m"]],1),E([[a,null],[q,"m"]],[[b,null],[p,"m"]]),E([[p,"m"],[q,"m"]],[[a,null],[b,null]]),E([[a,"m"],[p,null]],[[b,"m"],[q,null]])]};
+}
+function tblGen(g){ const neg=settings.neg; let k,b;
+  if(g===6){ if(Math.random()<.5){ k=ri(2,9); b=0; } else { k=1; b=ri(2,12); } }
+  else { k=neg?R1(-5,6,[0,1]):ri(2,6); b=neg?R1(-9,9,[0]):ri(1,9); }
+  const x0=neg&&g>6?ri(-2,1):ri(0,3), st_=rand([1,1,2]), xs=[0,1,2,3].map(i=>x0+i*st_), ys=xs.map(x=>k*x+b);
+  const fits=(K,B)=>xs.every((x,i)=>K*x+B===ys[i]);
+  const cands=[[k,b],[1,ys[1]-xs[1]],[1,ys[0]-xs[0]],[k*st_===0?2:ys[1]-ys[0],0],[k+b,0],[k,b+1],[k,-b],[k+1,b],[b,k],[1,k*st_]];
+  const C=[]; const seen=new Set();
+  cands.forEach(([K,B],i)=>{ const key=K+","+B; if(seen.has(key)||(i&&fits(K,B))||K===0) return; seen.add(key);
+    const rule=rel(vx("y"),"=",lin(K,B)); C.push(Object.assign({key,ok:!i,K,B,rule},rule)); });
+  return {xs,ys,k,b,C:C.slice(0,4),fits};
+}
+/* Order of operations: an expression tree. Leaf {n}; node {o,l,r,p(parens)} */
+const L_=n=>({n}), O_=(o,l,r,p)=>({o,l,r,p:!!p});
+const isLeaf = x=>x.n!==undefined;
+function tval(x){ if(isLeaf(x)) return x.n; const a=tval(x.l), b=tval(x.r);
+  return x.o==="+"?a+b:x.o==="−"?a-b:x.o==="×"?a*b:x.o==="÷"?a/b:Math.pow(a,b); }
+function evalGen(g){ const neg=settings.neg&&g>6, ty=rand(["e1","e2","e3","e4","e5","e6","e7","v1","v2","v1","v2"]);
+  const a=ri(2,9), b=ri(2,6), c=ri(2,9);
+  let tree, pr=null;
+  if(ty==="e1") tree=O_("+",L_(a),O_("×",L_(b),L_(c)));
+  else if(ty==="e2") tree=O_("×",O_("+",L_(a),L_(b),1),L_(c));
+  else if(ty==="e3"){ const e=b<=3&&Math.random()<.5?3:2; tree=O_("×",L_(a),O_("^",L_(b),L_(e))); }
+  else if(ty==="e4"){ const s=ri(1,4), u=ri(1,4); tree=O_("−",O_("^",O_("+",L_(s),L_(u),1),L_(2)),L_(ri(1,(s+u)*(s+u)))); }
+  else if(ty==="e5"){ const x=ri(12,30), y=ri(2,x-2); tree=O_("+",O_("−",L_(x),L_(y)),L_(c)); }
+  else if(ty==="e6"){ const q=ri(2,6); tree=O_("×",O_("÷",L_(b*q),L_(b)),L_(c)); }
+  else if(ty==="e7"){ const bb=rand([2,4,6]), dv=rand(bb===2?[2,4]:bb===4?[2,4,8]:[2,3,4,6,9]); tree=O_("+",L_(a),O_("÷",O_("^",L_(bb),L_(2)),L_(dv))); }
+  else if(ty==="v1"){ const k=ri(2,5), m_=ri(1,9), v=neg?R1(-4,4,[0,1]):ri(2,5);
+    tree=O_("+",O_("×",L_(k),O_("^",L_(v),L_(2))),L_(m_));
+    pr={e:{h:`${k}<i>x</i><sup>2</sup> + ${m_}`,s:`${k} ${t("sSq",{b:"x"})} ${t("wPlus")} ${m_}`},v}; }
+  else { const k=ri(2,6), m_=ri(1,6), n2=ri(1,9), v=neg?R1(-5,6,[m_]):m_+ri(1,6);
+    tree=O_("+",O_("×",L_(k),O_("−",L_(v),L_(m_),1)),L_(n2));
+    pr={e:ex([[k,[[1,"x"],[-m_,null]]],[n2,null]]),v}; }
+  return {tree,pr};
+}
+function tH(x,btn,ids){ if(isLeaf(x)) return x.n<0?"("+qH(x.n)+")":qH(x.n);
+  let h;
+  if(x.o==="^"){ const sup=btn?`<button type="button" class="opk sup" data-id="${ids.push(x)-1}" aria-label="${esc(t("sPow",{b:"",e:x.r.n}).trim())}">${x.r.n}</button>`:x.r.n;
+    h=tH(x.l,btn,ids)+`<sup>${sup}</sup>`; }
+  else { const op=btn?`<button type="button" class="opk" data-id="${ids.push(x)-1}" aria-label="${t(OPW[x.o])}">${x.o}</button>`:x.o;
+    h=tH(x.l,btn,ids)+" "+op+" "+tH(x.r,btn,ids); }
+  return x.p?"("+h+")":h;
+}
+function tS(x){ if(isLeaf(x)) return qS(x.n);
+  if(x.o==="^") return t(x.r.n===2?"sSq":x.r.n===3?"sCube":"sPow",{b:tS(x.l),e:x.r.n});
+  return tS(x.l)+" "+t(OPW[x.o])+" "+tS(x.r); }
+function eligible(x,out){ out=out||[]; if(isLeaf(x)) return out; if(isLeaf(x.l)&&isLeaf(x.r)) out.push(x); else { eligible(x.l,out); eligible(x.r,out); } return out; }
+function inParens(root,node){ let res=false; (function walk(x,p){ if(isLeaf(x)) return; const pp=p||x.p; if(x===node) res=pp; walk(x.l,pp); walk(x.r,pp); })(root,false); return res; }
+function collapse(x,node){ if(x===node) return L_(tval(x)); if(isLeaf(x)) return x; return O_(x.o,collapse(x.l,node),collapse(x.r,node),x.p); }
+function newWrite(){
+  const m="write"; startRound(m); const s=st[m], g=G(), w=$("#w-"+m);
+  const type=rand(g===6?["phrase","phrase","sit","table","eval","eval"]:["phrase","sit","sit","table","eval"]);
+  s.type=type;
+  if(type==="phrase"){ const P_=phraseGen();
+    choices(m,shuffle(P_.C),it=>{ if(it.ok) return win(m,{h:t("goodPh",{p:P_.p.h,e:M(it.h)}),s:t("goodPh",{p:P_.p.s,e:it.s})}); nope(m,cat(tm("youPicked",{x:it}),P_.hint)); });
+    setPrompt(m,{h:t("phDir",{p:P_.p.h}),s:t("phDir",{p:P_.p.s})});
+  }else if(type==="sit"){ const S=sitGen(g);
+    choices(m,shuffle(S.C),it=>{ if(it.ok) return win(m,tm("goodSit",{e:it})); nope(m,cat(tm("youPicked",{x:it}),S.hint)); });
+    setPrompt(m,cat(S.q,P("sitDir")));
+  }else if(type==="table"){ const TB=tblGen(g);
+    w.innerHTML=`<table class="tbl" dir="ltr"><tr><th scope="row">x</th>${TB.xs.map(v=>`<td>${qH(v)}</td>`).join("")}</tr><tr><th scope="row">y</th>${TB.ys.map(v=>`<td>${qH(v)}</td>`).join("")}</tr></table>`;
+    choices(m,shuffle(TB.C),it=>{ if(it.ok) return win(m,tm("goodTbl",{rule:it.rule,x:N(TB.xs[2]),v:N(TB.ys[2])}));
+      const i=TB.xs.findIndex((x,j)=>it.K*x+it.B!==TB.ys[j]);
+      nope(m,tm("hTbl",{x:N(TB.xs[i]),rule:it.rule,v:N(it.K*TB.xs[i]+it.B),y:N(TB.ys[i])})); });
+    setPrompt(m,P("tblDir"));
+  }else{ const EV=evalGen(g); s.tree=EV.tree; s.chain=[];
+    const draw=()=>{ const ids=[]; s.ids=ids; $("#evx").innerHTML=isLeaf(s.tree)?qH(s.tree.n):tH(s.tree,true,ids); };
+    w.innerHTML=(EV.pr?`<p class="big">${M(EV.pr.e.h)}, &nbsp;${M("<i>x</i> = "+qH(EV.pr.v))}</p>`:"")+`<div class="expr" id="evx"></div><p class="chain" id="evc"></p>`;
+    s.chain.push(tH(s.tree,false));
+    $("#evx").addEventListener("click",e=>{ const b=e.target.closest(".opk"); if(!b||s.done) return; const node=s.ids[+b.dataset.id], el=eligible(s.tree);
+      if(el.includes(node)){ s.tree=collapse(s.tree,node); s.chain.push(isLeaf(s.tree)?qH(s.tree.n):tH(s.tree,false)); draw(); hideFb($("#f-"+m));
+        $("#evc").innerHTML=M(s.chain.join(" = "));
+        if(isLeaf(s.tree)) return win(m,{h:t("goodEval",{chain:M(s.chain.join(" = "))}),s:t("goodEval",{chain:qS(s.tree.n)})});
+        const nb=$("#evx .opk"); if(nb) nb.focus(); return; }
+      b.classList.add("bad"); setTimeout(()=>b.classList.remove("bad"),600);
+      const inP=el.some(x=>inParens(s.tree,x))&&!inParens(s.tree,node), hasE=el.some(x=>x.o==="^");
+      const md=x=>x.o==="×"||x.o==="÷";
+      nope(m,P(inP?"hParen":hasE?"hExp":(!md(node)&&node.o!=="^"&&el.some(md))?"hMulFirst":node.o==="^"?"hParen":"hLR")); });
+    draw();
+    const sp=EV.pr?tm("evalVar",{e:EV.pr.e,v:N(EV.pr.v)}):tm("evalNum",{e:{h:tH(EV.tree,false),s:tS(EV.tree)}});
+    setPrompt(m,sp);
+  }
+  maybeAuto(m);
+}
+
+/* =========================================================================
+   5. HOW MANY SOLUTIONS? — one, none, infinitely many
+   ========================================================================= */
+function sideForm(A,B,g){ const neg=settings.neg, f=[()=>lin2(A,B)];
+  const ok=[1,2,3,4,5].filter(a1=>a1!==A&&A-a1!==0&&(neg||A-a1>0));
+  if(ok.length) f.push(()=>{ const a1=rand(ok); return B?[[a1,"x"],[B,null],[A-a1,"x"]]:[[a1,"x"],[A-a1,"x"]]; });
+  if(B&&Math.abs(B)>2) f.push(()=>{ const b1=R1(1,Math.abs(B)+3,[B]); return A?[[A,"x"],[b1,null],[B-b1,null]]:[[b1,null],[B-b1,null]]; });
+  if(g>=8&&A){ const ps=[2,3,4,-2].filter(p=>A%p===0&&(neg||p>0)); if(ps.length) f.push(()=>{ const p=rand(ps), q=R1(neg?-4:1,5,[0]), r=B-p*q; return r?[[p,[[A/p,"x"],[q,null]]],[r,null]]:[[p,[[A/p,"x"],[q,null]]]]; }); }
+  return rand(f)();
+}
+function lin2(A,B){ const tr=[]; if(A) tr.push([A,"x"]); if(B||!A) tr.push([B,null]); return tr; }
+function genSols(){ const g=G(), neg=settings.neg, kind=rand(["one","none","inf"]);
+  let A=neg?R1(-4,6,[0]):ri(1,6), C=kind==="one"?(neg?R1(-4,6,[A]):R1(1,6,[A])):A, B, D, k=null;
+  B=neg?R1(-9,9):ri(1,9);
+  if(kind==="one"){ k=neg?R1(-6,6):ri(1,6); D=(A-C)*k+B; if(!neg&&D<0){ [A,C]=[C,A]; D=(A-C)*k+B; } }
+  else if(kind==="none") D=B+(neg?R1(-6,6,[0]):R1(1,8,[0]));
+  else D=B;
+  if(!neg&&D<0) D=B+ri(1,5);
+  let Lt=sideForm(A,B,g), Rt=sideForm(C,D,g);
+  if(JSON.stringify(Lt)===JSON.stringify(Rt)) Lt=sideForm(A,B,g);
+  return {kind,A,B,C,D,k,Lt,Rt};
+}
+function newSols(){
+  const m="sols"; startRound(m); const s=st[m], S=genSols(), w=$("#w-"+m);
+  const e=rel(ex(S.Lt),"=",ex(S.Rt)), se=rel(lin(S.A,S.B),"=",lin(S.C,S.D));
+  s.x=0;
+  w.innerHTML=`<p class="big">${e.h}</p><p class="big hidden" id="simpd"></p>
+    <div class="tryx no-print"><span>${t("tryX")}</span><button type="button" class="opbtn" id="txDn" aria-label="${t("lessN")}">−</button>
+    <b class="math" id="txV" style="min-width:2.5rem;text-align:center;font-size:1.3rem">0</b><button type="button" class="opbtn" id="txUp" aria-label="${t("moreN")}">+</button>
+    <div class="tryout" id="txOut" aria-live="polite"></div></div>`;
+  const tryDraw=()=>{ const x=s.x, lv=qv(collect(S.Lt)[0])*x+qv(collect(S.Lt)[1]), rv=qv(collect(S.Rt)[0])*x+qv(collect(S.Rt)[1]);
+    $("#txV").textContent=x<0?"−"+(-x):x;
+    $("#txOut").innerHTML=`${t("leftSide")}: ${M(qH(lv))} &nbsp; ${t("rightSide")}: ${M(qH(rv))} &nbsp; ${lv===rv?"✅ "+t("tryEq"):"≠ "+t("tryNe")}`; };
+  $("#txDn").addEventListener("click",()=>{ if(s.done) return; s.x=Math.max(-20,s.x-1); tryDraw(); });
+  $("#txUp").addEventListener("click",()=>{ if(s.done) return; s.x=Math.min(20,s.x+1); tryDraw(); });
+  tryDraw();
+  const showS=()=>{ const el=$("#simpd"); el.innerHTML=tm("simpShown",{e:se}).h; el.classList.remove("hidden"); };
+  actBtn(m,"🧹 "+t("simplify"),showS,"ghost");
+  const ax=lin(S.A,0), cx=lin(S.C,0), stmt=rel(N(S.B),"≠",N(S.D)), stF=rel(N(S.B),"=",N(S.D));
+  const C=[{key:"one",ok:S.kind==="one",h:t("oneSol"),s:t("oneSol")},{key:"none",ok:S.kind==="none",h:t("noSol"),s:t("noSol")},{key:"inf",ok:S.kind==="inf",h:t("infSol"),s:t("infSol")}];
+  const g_=$("#c-"+m); choices(m,C,it=>{
+    if(it.ok){ showS(); return win(m,S.kind==="one"?tm("goodOne",{ax,cx,k:N(S.k)}):S.kind==="none"?tm("goodNone",{ax,stmt}):tm("goodInf",{e:lin(S.A,S.B)})); }
+    nope(m,S.kind==="one"?tm("hOne",{eq:se}):S.kind==="none"?tm("hNone",{eq:se,stmt:stF}):tm("hInf",{eq:se})); },"wide");
+  g_.style.gridTemplateColumns="repeat(auto-fit,minmax(170px,1fr))";
+  setPrompt(m,tm("solDir",{e}));
+  maybeAuto(m);
+}
+
+/* ---------- Mode switching ---------- */
+const NEWFN={tiles:newTiles,balance:newBalance,ineq:newIneq,write:newWrite,sols:newSols};
+function firstMode(){ return MODES.find(m=>settings.modes[m])||"tiles"; }
+function currentMode(){ const b=$$(".tabs button").find(x=>x.getAttribute("aria-selected")==="true"); return b?b.dataset.mode:firstMode(); }
+function showMode(mode){
+  if(!settings.modes[mode]) mode=firstMode();
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
+  $$(".modepanel").forEach(p=>p.classList.add("hidden"));
+  $("#mode-"+mode).classList.remove("hidden");
+  $$(".tabs button").forEach(b=>{ const on=b.dataset.mode===mode; b.setAttribute("aria-selected",on?"true":"false"); b.tabIndex=on?0:-1; });
+  if(!made[mode]) NEWFN[mode]();
+  if(switching && speechGen===g0) maybeAuto(mode);
+}
+function syncTabs(){
+  $$(".tabs button").forEach(b=>b.classList.toggle("hidden",!settings.modes[b.dataset.mode]));
+  if(!settings.modes[currentMode()]) showMode(firstMode());
+}
+// Rebuild only the visible mode; the others refresh when opened (their ids would collide otherwise).
+function resetRounds(){ MODES.forEach(m=>{ made[m]=false; $("#w-"+m).innerHTML=""; $("#a-"+m).innerHTML=""; $("#c-"+m).innerHTML=""; }); stopSpeech(); NEWFN[currentMode()](); }
+
+/* ---------- Settings drawer ---------- */
+function buildModeToggles(){
+  const wrap=$("#modeToggles"); wrap.innerHTML="";
+  MODES.forEach(m=>{ const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.modes[m]?"checked":""}> <span>${t(MODE_KEY[m])}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{ settings.modes[m]=e.target.checked;
+      if(!MODES.some(k=>settings.modes[k])){ e.target.checked=true; settings.modes[m]=true; }
+      saveSettings(); syncTabs(); });
+    wrap.appendChild(l); });
+}
+function buildMax(){ $("#setMax").innerHTML=MAXES.map(n=>`<option value="${n}">${t("upTo",{n})}</option>`).join(""); $("#setMax").value=String(settings.max); }
+function syncSettingsUI(){
+  $("#setGrade").value=String(settings.grade); $("#setNeg").checked=settings.neg; buildMax(); $("#setEq").value=settings.eq;
+  $("#setAuto").checked=settings.autoRead; buildModeToggles();
+}
+function closeSettings(){ $("#settingsDrawer").classList.remove("open"); $("#openSettings").focus(); }
+function initSettings(){
+  $("#openSettings").addEventListener("click",()=>{ syncSettingsUI(); $("#settingsDrawer").classList.add("open"); $("#closeSettings").focus(); });
+  $("#closeSettings").addEventListener("click",closeSettings);
+  $("#settingsDrawer").addEventListener("click",e=>{ if(e.target.id==="settingsDrawer") closeSettings(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape" && $("#settingsDrawer").classList.contains("open")) closeSettings(); });
+  $("#setGrade").addEventListener("change",e=>{ const g=+e.target.value; settings.grade=g; Object.assign(settings,clone(GRADES[g])); saveSettings(); syncSettingsUI(); resetRounds(); });
+  $("#setNeg").addEventListener("change",e=>{ settings.neg=e.target.checked; saveSettings(); resetRounds(); });
+  $("#setMax").addEventListener("change",e=>{ settings.max=+e.target.value; saveSettings(); resetRounds(); });
+  $("#setEq").addEventListener("change",e=>{ settings.eq=e.target.value; saveSettings(); resetRounds(); });
+  $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
+  $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
+}
+
+/* ---------- Print cards ---------- */
+function buildPrintCards(){
+  const g=G(), S=genSimp(), D=genDist(), E=genEq(settings.eq==="mix"?rand(["one","two","both"]):settings.eq), I=genIneq(), Ph=phraseGen(), EV=evalGen(g), So=genSols();
+  const big=h=>`<p style="font-size:1.6rem">${h}</p>`, blank=`<span style="display:inline-block;min-width:8rem;border-bottom:2px solid #000">&nbsp;</span>`;
+  const evh=EV.pr?M(EV.pr.e.h)+", "+M("<i>x</i> = "+qH(EV.pr.v)):M(tH(EV.tree,false)), lo=I.k-ri(3,9);
+  const cards=[
+    {title:t("mTiles"), body:t("cardSimp"), html:big(M(ex(S.terms).h))},
+    {title:t("mTiles"), body:t("cardDist"), html:big(M(ex(D.terms).h))},
+    {title:t("mBal"), body:t("cardBal"), html:big(eqH(E.L,E.R).h)},
+    {title:t("mIneq"), body:t("cardIneq"), html:big(rel(lin(I.a,I.b),I.r,N(I.c)).h)+nlI(lo,lo+12,{})},
+    {title:t("mWrite"), body:t("cardPh"), html:`<p style="font-size:1.3rem">“${Ph.p.h}” ${blank}</p>`},
+    {title:t("mWrite"), body:t("cardEval"), html:big(evh)},
+    {title:t("mSols"), body:t("cardSols"), html:big(rel(ex(So.Lt),"=",ex(So.Rt)).h)}
+  ];
+  $("#printArea").innerHTML=`<h1>${t("cardTitle")}</h1><p>${t("cardName")} ____________________</p>`+
+    cards.map(c=>`<div class="card-print"><h2>${c.title}</h2><p style="font-size:1.2rem;line-height:1.8">${c.body}</p>${c.html}</div>`).join("")+
+    `<p style="font-size:.85rem">${stdsHTML()}</p>`;
+}
+
+// Standards codes stay left-to-right inside Arabic/Urdu text.
+function stdsHTML(){ return t("stds").replace(/(TEKS|Common Core|\d\.(?:EE\.)?\d+[a-z]?(?:\([^)]*\))?)/g,'<bdi dir="ltr">$1</bdi>'); }
+
+/* ---------- Language engine ---------- */
+function resolveLang(){
+  try{ const q=new URLSearchParams(location.search).get("lang"); if(q && T[q]) return q; }catch(e){}
+  try{ const s=localStorage.getItem(LANG_KEY); if(s && T[s]) return s; }catch(e){}
+  const n=(navigator.language||"en").slice(0,2).toLowerCase();
+  if(T[n]) return n;
+  return "en";
+}
+function applyLang(){
+  const meta=LANGS.find(x=>x.code===lang)||LANGS[0];
+  document.documentElement.lang=lang;
+  document.documentElement.dir=meta.dir;
+  document.title=t("appTitle");
+  const sel=$("#langSelect"); if(sel) sel.value=lang;
+  $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
+  $("#stdsNote").innerHTML=stdsHTML();
+  buildModeToggles(); buildMax();
+  resetRounds();
+}
+function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} applyLang(); }
+function buildLangSelect(){
+  const sel=$("#langSelect"); sel.innerHTML="";
+  LANGS.forEach(m=>{ const o=document.createElement("option"); o.value=m.code; o.textContent=m.name; sel.appendChild(o); });
+  sel.value=lang;
+  sel.addEventListener("change",()=>setLang(sel.value));
+}
+
+/* ---------- Init ---------- */
+function buildUI(){
+  $("#tabs").innerHTML=MODES.map(m=>`<button type="button" role="tab" id="tab-${m}" aria-controls="mode-${m}" aria-selected="false" data-mode="${m}"><span class="ic" aria-hidden="true">${MODE_IC[m]}</span><span data-t="${MODE_KEY[m]}"></span></button>`).join("");
+  $("#panels").innerHTML=MODES.map(m=>`<section id="mode-${m}" class="panel modepanel hidden" role="tabpanel" aria-labelledby="tab-${m}">
+    <div class="panelhead"><h2 data-t="${MODE_KEY[m]}"></h2><button type="button" class="btn ghost no-print" data-new="${m}" data-t="newRound"></button></div>
+    <div class="prompt"><button type="button" class="speaker" data-speak="${m}" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="p-${m}">…</span></div>
+    <div class="work" id="w-${m}"></div>
+    <div class="acts no-print" id="a-${m}"></div>
+    <div class="choices" id="c-${m}" role="group" data-ta="choicesLbl" aria-label="Answer choices"></div>
+    <div class="feedback" id="f-${m}" role="status" aria-live="polite"></div></section>`).join("");
+  // Arrow keys move between tabs (WAI-ARIA tabs pattern).
+  $("#tabs").addEventListener("keydown",e=>{ const vis=$$(".tabs button").filter(b=>!b.classList.contains("hidden")), i=vis.indexOf(document.activeElement); if(i<0) return;
+    const rtl=document.documentElement.dir==="rtl", step={ArrowRight:rtl?-1:1,ArrowLeft:rtl?1:-1}[e.key]; if(!step) return;
+    const nb=vis[(i+step+vis.length)%vis.length]; nb.focus(); showMode(nb.dataset.mode); e.preventDefault(); });
+}
+function init(){
+  lang=resolveLang();
+  buildUI();
+  buildLangSelect();
+  $$(".tabs button").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.mode)));
+  $$(".speaker").forEach(b=>b.addEventListener("click",()=>speak(currentSpeech[b.dataset.speak])));
+  $$("[data-new]").forEach(b=>b.addEventListener("click",()=>{ stopSpeech(); NEWFN[b.dataset.new](); }));
+  initSettings();
+  const f=firstMode();
+  $$(".tabs button").forEach(b=>{ const on=b.dataset.mode===f; b.setAttribute("aria-selected",on?"true":"false"); b.tabIndex=on?0:-1; b.classList.toggle("hidden",!settings.modes[b.dataset.mode]); });
+  $$(".modepanel").forEach(p=>p.classList.toggle("hidden",p.id!=="mode-"+f));
+  applyLang();
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+</script>
+<script>
+/* Student mute toggle — shared across the Digital Math Tools. Self-contained,
+   offline, stores no student data. Gates ALL speech by intercepting
+   speechSynthesis.speak, so muting works regardless of each tool's internals.
+   Reads the shared language preference only to localize its own label. */
+(function(){
+  "use strict";
+  var LKEY='tcea.mathtools.lang', MKEY='tcea.mathtools.muted';
+  var CODES=['en','es','vi','ar','hi','ur','zh'];
+  var LAB={
+    mute:{en:"Mute sound",es:"Silenciar sonido",vi:"Tắt âm thanh",ar:"كتم الصوت",hi:"आवाज़ बंद करें",ur:"آواز بند کریں",zh:"静音"},
+    unmute:{en:"Turn sound on",es:"Activar sonido",vi:"Bật âm thanh",ar:"تشغيل الصوت",hi:"आवाज़ चालू करें",ur:"آواز چالو کریں",zh:"打开声音"}
+  };
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  window.__MT_MUTED = (get(MKEY)==='1');
+  // Intercept every speech request; suppress while muted.
+  try{
+    if(window.speechSynthesis && typeof window.speechSynthesis.speak==='function'){
+      var ss=window.speechSynthesis, orig=ss.speak.bind(ss);
+      ss.speak=function(u){ if(!window.__MT_MUTED){ try{orig(u);}catch(e){} } };
+    }
+  }catch(e){}
+  function curLang(){ var l=get(LKEY)||'en'; return LAB.mute[l]?l:'en'; }
+  function label(el){
+    var on=!window.__MT_MUTED, l=curLang(), txt=on?LAB.mute[l]:LAB.unmute[l];
+    el.textContent=on?'🔊':'🔇';
+    el.setAttribute('aria-label',txt); el.setAttribute('title',txt);
+    el.setAttribute('aria-pressed', on?'false':'true');
+  }
+  function findLangSelect(){
+    var sels=document.querySelectorAll('select');
+    for(var i=0;i<sels.length;i++){ var o=sels[i].options, c=0;
+      for(var j=0;j<o.length;j++){ if(CODES.indexOf((o[j].value||'').toLowerCase())>=0) c++; }
+      if(c>=3) return sels[i];
+    }
+    return null;
+  }
+  function build(){
+    if(document.getElementById('mtMuteBtn')) return;
+    if(!(('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window))) return;
+    var btn=document.createElement('button');
+    btn.id='mtMuteBtn'; btn.type='button';
+    btn.style.cssText='font:inherit;font-size:1.15rem;line-height:1;cursor:pointer;'+
+      'min-width:44px;min-height:44px;padding:8px 12px;border:2px solid #e2dcf1;'+
+      'border-radius:10px;background:#fff;color:#5b3fa5;font-weight:700;margin:0 4px;';
+    btn.addEventListener('click',function(){
+      window.__MT_MUTED=!window.__MT_MUTED;
+      set(MKEY, window.__MT_MUTED?'1':'0');
+      if(window.__MT_MUTED){ try{window.speechSynthesis.cancel();}catch(e){} }
+      label(btn);
+    });
+    btn.addEventListener('focus',function(){btn.style.outline='3px solid #5b3fa5';btn.style.outlineOffset='2px';});
+    btn.addEventListener('blur',function(){btn.style.outline='';});
+    var sel=findLangSelect();
+    if(sel && sel.parentNode){
+      sel.parentNode.insertBefore(btn, sel);
+      sel.addEventListener('change',function(){ setTimeout(function(){label(btn);},0); });
+    }else{
+      btn.style.position='fixed'; btn.style.top='10px'; btn.style.zIndex='9999';
+      btn.style[(document.documentElement.dir==='rtl')?'left':'right']='10px';
+      (document.body||document.documentElement).appendChild(btn);
+    }
+    label(btn);
+  }
+  if(document.readyState==='complete'){ build(); }
+  else{ window.addEventListener('load', build); }
+  window.addEventListener('storage',function(e){ if(e.key===LKEY){ var b=document.getElementById('mtMuteBtn'); if(b) label(b); } });
+})();
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+
+</html>

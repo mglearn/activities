@@ -124,7 +124,11 @@ window.MATHTOOLS = (function () {
     "Rates":{en:"Rates",es:"Tasas",vi:"Tỉ suất",ar:"المعدلات",hi:"दरें",ur:"شرحیں",zh:"比率"},
     "Proportional reasoning":{en:"Proportional reasoning",es:"Razonamiento proporcional",vi:"Suy luận tỉ lệ",ar:"الاستدلال التناسبي",hi:"समानुपाती तर्क",ur:"متناسب استدلال",zh:"比例推理"},
     "Percent":{en:"Percent",es:"Porcentaje",vi:"Phần trăm",ar:"النسبة المئوية",hi:"प्रतिशत",ur:"فیصد",zh:"百分数"},
-    "Scale drawings":{en:"Scale drawings",es:"Dibujos a escala",vi:"Bản vẽ tỉ lệ",ar:"الرسم بمقياس",hi:"पैमाना चित्र",ur:"پیمانہ ڈرائنگ",zh:"比例尺图"}
+    "Scale drawings":{en:"Scale drawings",es:"Dibujos a escala",vi:"Bản vẽ tỉ lệ",ar:"الرسم بمقياس",hi:"पैमाना चित्र",ur:"پیمانہ ڈرائنگ",zh:"比例尺图"},
+    "Expressions":{en:"Expressions",es:"Expresiones",vi:"Biểu thức",ar:"العبارات الجبرية",hi:"व्यंजक",ur:"عبارتیں",zh:"代数式"},
+    "Equations":{en:"Equations",es:"Ecuaciones",vi:"Phương trình",ar:"المعادلات",hi:"समीकरण",ur:"مساواتیں",zh:"方程"},
+    "Inequalities":{en:"Inequalities",es:"Desigualdades",vi:"Bất phương trình",ar:"المتباينات",hi:"असमिकाएँ",ur:"عدم مساوات",zh:"不等式"},
+    "Order of operations":{en:"Order of operations",es:"Orden de las operaciones",vi:"Thứ tự phép tính",ar:"ترتيب العمليات",hi:"संक्रियाओं का क्रम",ur:"اعمال کی ترتیب",zh:"运算顺序"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -320,7 +324,19 @@ window.MATHTOOLS = (function () {
         ar:"أنشئ جداول النسب والمخططات الشريطية، وأوجد معدل الوحدة على خطوط الأعداد المزدوجة، وحدّد ما إذا كانت العلاقة تناسبية وأوجد k، وحلّ مسائل النسبة المئوية، واعمل مع الرسوم بمقياس رسم وتحويل الوحدات.",
         hi:"अनुपात सारणी और पट्टी आरेख बनाएँ, दोहरी संख्या रेखा पर इकाई दर ज्ञात करें, संबंध समानुपाती है या नहीं तय करें और k ज्ञात करें, प्रतिशत के प्रश्न हल करें, तथा पैमाना चित्र और इकाई रूपांतरण पर काम करें।",
         ur:"تناسب کے جدول اور پٹی خاکے بنائیں، دوہری عددی لکیر پر اکائی شرح معلوم کریں، فیصلہ کریں کہ تعلق متناسب ہے یا نہیں اور k معلوم کریں، فیصد کے سوال حل کریں، اور پیمانہ ڈرائنگ اور اکائیوں کی تبدیلی پر کام کریں۔",
-        zh:"建立比例表和条形图，在双数轴上求单位比率，判断关系是否成正比并求出k，解决百分数问题，并练习比例尺图和单位换算。"} }
+        zh:"建立比例表和条形图，在双数轴上求单位比率，判断关系是否成正比并求出k，解决百分数问题，并练习比例尺图和单位换算。"} },
+    { id:"equation-balance-lab", collection:"g68", bandId:"6-8", icon:"🧩", accent:"#8e44ad",
+      title:"Equation Balance Lab", href:"g68/equation-balance-lab/index.html",
+      tags:["Expressions","Equations","Inequalities","Order of operations","Story problems"],
+      kw:"algebra tiles zero pair combine like terms distributive property area model factor equivalent expressions balance scale one-step two-step equations variables on both sides inverse operations inequalities number line open closed circle flip sign negative order of operations exponents evaluate write expressions tables one solution no solution infinitely many ecuaciones desigualdades expresiones 方程 不等式",
+      desc:{
+        en:"Build and simplify expressions with algebra tiles, solve equations on an animated balance scale, graph and solve inequalities, translate words and tables into algebra, use the order of operations, and decide how many solutions an equation has.",
+        es:"Forma y simplifica expresiones con fichas algebraicas, resuelve ecuaciones en una balanza animada, grafica y resuelve desigualdades, traduce palabras y tablas al álgebra, usa el orden de las operaciones y decide cuántas soluciones tiene una ecuación.",
+        vi:"Tạo và rút gọn biểu thức bằng thẻ đại số, giải phương trình trên cân thăng bằng động, giải và biểu diễn bất phương trình, chuyển lời văn và bảng thành biểu thức đại số, dùng thứ tự thực hiện phép tính và xác định số nghiệm của phương trình.",
+        ar:"كوّن العبارات وبسّطها بالبلاطات الجبرية، وحُلّ المعادلات على ميزان متحرك، ومثّل المتباينات وحُلّها، وحوّل الكلمات والجداول إلى جبر، واستخدم ترتيب العمليات، وحدّد عدد حلول المعادلة.",
+        hi:"बीजीय टाइलों से व्यंजक बनाएँ और सरल करें, चलते तराज़ू पर समीकरण हल करें, असमिकाएँ हल करें और उनका आलेख बनाएँ, शब्दों और तालिकाओं को बीजगणित में बदलें, संक्रियाओं के क्रम का उपयोग करें और तय करें कि समीकरण के कितने हल हैं।",
+        ur:"الجبری ٹائلوں سے عبارتیں بنائیں اور سادہ کریں، متحرک ترازو پر مساواتیں حل کریں، عدم مساوات حل کریں اور ان کا گراف بنائیں، الفاظ اور جدولوں کو الجبرا میں بدلیں، اعمال کی ترتیب استعمال کریں اور طے کریں کہ مساوات کے کتنے حل ہیں۔",
+        zh:"用代数砖摆出并化简式子，在会动的天平上解方程，解不等式并在数轴上表示，把文字和表格写成代数式，运用运算顺序，并判断方程有几个解。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
