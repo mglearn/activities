@@ -155,7 +155,8 @@ window.MATHTOOLS = (function () {
     "Quadratics":{en:"Quadratics",es:"Funciones cuadráticas",vi:"Hàm bậc hai",ar:"الدوال التربيعية",hi:"द्विघात",ur:"دو درجی",zh:"二次函数"},
     "Factoring":{en:"Factoring",es:"Factorización",vi:"Phân tích nhân tử",ar:"التحليل إلى عوامل",hi:"गुणनखंडन",ur:"تجزی",zh:"因式分解"},
     "Exponential functions":{en:"Exponential functions",es:"Funciones exponenciales",vi:"Hàm số mũ",ar:"الدوال الأسية",hi:"घातीय फलन",ur:"قوت نمائی فنکشنز",zh:"指数函数"},
-    "Logarithms":{en:"Logarithms",es:"Logaritmos",vi:"Lôgarit",ar:"اللوغاريتمات",hi:"लघुगणक",ur:"لوگارتھم",zh:"对数"}
+    "Logarithms":{en:"Logarithms",es:"Logaritmos",vi:"Lôgarit",ar:"اللوغاريتمات",hi:"लघुगणक",ur:"لوگارتھم",zh:"对数"},
+    "Systems":{en:"Systems",es:"Sistemas",vi:"Hệ phương trình",ar:"أنظمة المعادلات",hi:"समीकरण निकाय",ur:"مساوات کے نظام",zh:"方程组"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -423,7 +424,19 @@ window.MATHTOOLS = (function () {
         ar:"استكشف الدوال الأم التسع وخصائصها الرئيسية، وحوّل التمثيلات البيانية بمنزلقات a وh وk، ونمذج النمو والاضمحلال الأسي، واعكس لإيجاد الدوال العكسية، وتعامل مع اللوغاريتمات، وركّب الدوال ومثّل المجالات على خط الأعداد.",
         hi:"नौ मूल फलनों और उनकी मुख्य विशेषताओं को जानें, a, h, k स्लाइडरों से ग्राफ़ रूपांतरित करें, घातीय वृद्धि और क्षय का मॉडल बनाएँ, प्रतिलोम खोजने के लिए परावर्तन करें, लघुगणक के साथ काम करें, और फलनों का संयोजन कर संख्या रेखा पर प्रांत बनाएँ।",
         ur:"نو بنیادی فنکشنز اور ان کی اہم خصوصیات دریافت کریں، a، h، k سلائیڈرز سے گراف بدلیں، قوت نمائی اضافہ اور کمی کا ماڈل بنائیں، معکوس معلوم کرنے کے لیے عکس لیں، لوگارتھم کے ساتھ کام کریں، اور فنکشنز کو مرکب کر کے عددی خط پر ڈومین بنائیں۔",
-        zh:"探索九种基本初等函数及其关键特征，用 a、h、k 滑块实时变换图像，建立指数增长与衰减模型，通过关于 y = x 的对称求反函数，学习对数，并进行函数复合、在数轴上表示定义域。"} }
+        zh:"探索九种基本初等函数及其关键特征，用 a、h、k 滑块实时变换图像，建立指数增长与衰减模型，通过关于 y = x 的对称求反函数，学习对数，并进行函数复合、在数轴上表示定义域。"} },
+    { id:"linear-systems-lab", collection:"g912", bandId:"9-12", icon:"📉", accent:"#2980b9",
+      title:"Linear Systems Lab", href:"g912/linear-systems-lab/index.html",
+      tags:["Equations","Systems","Inequalities","Slope","Coordinate plane","Story problems"],
+      kw:"linear equation slope-intercept point-slope standard form Ax+By=C parallel perpendicular system of equations graphing intersection substitution elimination one solution no solution infinitely many linear inequality half-plane boundary solid dashed test point feasible region systems of inequalities word problem mixture tickets break-even modeling sistema de ecuaciones desigualdad 方程组 不等式",
+      desc:{
+        en:"Convert between slope-intercept, point-slope and standard form, graph systems and find the intersection, solve step by step by substitution and elimination, graph linear inequalities with test points, and model word problems with systems.",
+        es:"Convierte entre las formas pendiente-intersección, punto-pendiente y estándar, grafica sistemas y halla la intersección, resuelve paso a paso por sustitución y eliminación, grafica desigualdades lineales con puntos de prueba y modela problemas verbales con sistemas.",
+        vi:"Chuyển đổi giữa dạng hệ số góc–tung độ gốc, điểm–hệ số góc và dạng chuẩn, vẽ đồ thị hệ phương trình và tìm giao điểm, giải từng bước bằng phương pháp thế và cộng đại số, vẽ bất phương trình bậc nhất bằng điểm thử, và mô hình hóa bài toán lời văn bằng hệ phương trình.",
+        ar:"حوّل بين صيغة الميل والمقطع وصيغة النقطة والميل والصيغة القياسية، ومثّل أنظمة المعادلات بيانيًا وجِد نقطة التقاطع، وحُلّ خطوة بخطوة بالتعويض والحذف، ومثّل المتباينات الخطية باستخدام نقاط الاختبار، ونمذج المسائل اللفظية بأنظمة المعادلات.",
+        hi:"ढलान-अंतःखंड, बिंदु-ढलान और मानक रूप के बीच बदलें, समीकरण निकायों का आलेख बनाकर प्रतिच्छेद बिंदु खोजें, प्रतिस्थापन और विलोपन से चरण-दर-चरण हल करें, परीक्षण बिंदुओं से रैखिक असमिकाओं का आलेख बनाएँ, और शब्द-समस्याओं को समीकरण निकायों से मॉडल करें।",
+        ur:"ڈھلان-مقطع، نقطہ-ڈھلان اور معیاری شکل کے درمیان تبدیل کریں، مساوات کے نظاموں کا گراف بنا کر نقطۂ تقاطع تلاش کریں، تعویض اور اخراج سے مرحلہ وار حل کریں، آزمائشی نقاط سے خطی عدم مساوات کا گراف بنائیں، اور لفظی سوالات کو نظاموں سے ماڈل کریں۔",
+        zh:"在斜截式、点斜式和一般式之间转换，用图像法解方程组并找出交点，用代入消元法和加减消元法逐步求解，借助测试点画出线性不等式的图像，并用方程组为应用题建模。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
