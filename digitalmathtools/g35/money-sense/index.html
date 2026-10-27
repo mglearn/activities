@@ -1,0 +1,2268 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Money Sense — a Grade 3–5 personal financial literacy app: earn income with labor and skills, run a lemonade stand, see how scarcity changes prices, sort needs and wants, plan savings and an allowance, classify fixed and variable expenses, find profit, borrow with interest, keep a bank ledger, compare ways to pay, learn about taxes and gross vs. net pay, and balance a family budget. Works offline. No data collected.">
+<title>Money Sense</title>
+<style>
+  :root{
+    --bg:#fbf7e8;--panel:#ffffff;--ink:#1f2328;--muted:#5b4f2e;--line:#e6d9a6;
+    --gold:#b7950b;--accent:#8a6d00;--accentD:#715900;--accent-ink:#ffffff;--good:#166534;--good-bg:#dcfce7;
+    --hint:#7a4a00;--hint-bg:#fff4d6;--focus:#0a58ca;--soft:#fdf9ea;--bad:#b42318;
+    --tap:52px;font-size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4;-webkit-text-size-adjust:100%}
+  h1,h2,h3{line-height:1.15;margin:0 0 .3em}
+  button{font-family:inherit;font-size:1rem;cursor:pointer}
+  button:disabled{cursor:default}
+
+  .topbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--accent);color:var(--accent-ink);padding:.55rem .8rem;border-bottom:4px solid var(--gold)}
+  .topbar .brand{font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:.4rem;margin-inline-end:auto}
+  .topbar a.homebtn,.topbar button.tb{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.4rem .7rem;min-height:var(--tap);min-width:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;font-weight:700;font-size:.95rem}
+  .globe{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.2rem .5rem;min-height:var(--tap)}
+  .globe span{font-size:1.2rem}
+  .globe select{border:0;background:#fff;color:var(--ink);border-radius:8px;min-height:44px;font-weight:700;font-size:1rem;padding:.2rem .4rem}
+
+  main{max-width:1200px;margin:0 auto;padding:.7rem}
+  .tabsrow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:.4rem 0 .7rem}
+  .tabs{display:flex;gap:.4rem;flex-wrap:wrap;flex:1 1 auto}
+  .tabs button{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:.45rem .75rem;min-height:var(--tap);font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .tabs button[aria-selected="true"]{background:var(--accentD);color:#fff;border-color:var(--accentD)}
+  .tabs button .ic{font-size:1.15rem}
+  .stars{background:#fff;border:2px solid var(--line);border-radius:14px;padding:.4rem .8rem;font-weight:800;font-size:1.15rem;min-height:48px;display:inline-flex;align-items:center;gap:.3rem}
+  .stars.pop{animation:pop .5s ease}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  .panel{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:.9rem;margin-bottom:.8rem;min-width:0}
+  .panelhead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+  .panelhead h2{margin:0;font-size:1.25rem;margin-inline-end:auto}
+
+  .prompt{display:flex;align-items:center;gap:.6rem;background:#fbf3d3;border:2px solid #e8d48a;border-radius:14px;padding:.6rem .8rem;margin-bottom:.7rem;font-size:1.1rem;font-weight:600}
+  .prompt>span{min-width:0;overflow-wrap:anywhere}
+  .speaker{background:var(--accentD);color:#fff;border:0;border-radius:50%;width:var(--tap);height:var(--tap);min-width:var(--tap);font-size:1.4rem;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+
+  .btn{background:var(--accentD);color:#fff;border:2px solid var(--accentD);border-radius:12px;padding:.5rem .9rem;min-height:var(--tap);font-weight:700}
+  .btn.ghost{background:var(--panel);color:var(--accentD)}
+  .btn:disabled{opacity:.45}
+  .acts{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem;align-items:center}
+
+  .feedback{margin-top:.6rem;border-radius:12px;padding:.6rem .8rem;font-weight:600;display:none;overflow-wrap:anywhere}
+  .feedback.show{display:block}
+  .feedback.good{background:var(--good-bg);color:var(--good);border:2px solid #86efac}
+  .feedback.hint{background:var(--hint-bg);color:var(--hint);border:2px solid #f6d271}
+  .math{unicode-bidi:isolate;direction:ltr;display:inline-block;font-weight:800;white-space:nowrap}
+
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem;margin-top:.7rem}
+  .choices.wide{grid-template-columns:1fr}
+  @media(min-width:700px){.choices.wide{grid-template-columns:1fr 1fr}}
+  .choice{background:var(--panel);border:3px solid var(--line);border-radius:16px;padding:.5rem .6rem;min-height:60px;display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:1.3rem;font-weight:800;color:var(--ink);min-width:0;overflow-wrap:anywhere;text-align:center}
+  .choices.wide .choice{font-size:1.02rem;font-weight:700;line-height:1.3}
+  .choice.correctpick{border-color:var(--good);background:var(--good-bg)}
+  .choice.wrongpick{border-color:var(--hint);background:var(--hint-bg)}
+  .choice:disabled{opacity:.6}
+  .choice.correctpick:disabled{opacity:1}
+
+  /* Scenes */
+  .scene{background:var(--soft);border:2px solid var(--line);border-radius:14px;padding:.6rem;margin-bottom:.6rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:center}
+  .bigem{font-size:3rem;line-height:1}
+  .unit{display:inline-flex;flex-direction:column;align-items:center;background:#fff;border:2px solid var(--line);border-radius:12px;padding:.2rem .4rem;min-width:58px}
+  .unit .em{font-size:1.6rem;line-height:1.1}
+  .tag{display:inline-block;background:#fff3c4;border:2px solid var(--gold);border-radius:8px;padding:0 .35rem;font-weight:800;font-size:.95rem;unicode-bidi:isolate;direction:ltr}
+  .itm{display:flex;flex-direction:column;align-items:center;gap:.15rem;background:#fff;border:2px solid var(--line);border-radius:14px;padding:.4rem .6rem;min-width:118px;text-align:center}
+  .itm .em{font-size:2rem}
+  .badge{font-size:.8rem;font-weight:800;border-radius:999px;padding:.05rem .5rem;background:#e8f0fe;color:#1d4ed8}
+  .badge.no{background:#fde8e8;color:#9b1c1c}
+  .wallet{font-size:1.15rem;font-weight:700;background:#fff;border:2px solid var(--line);border-radius:12px;padding:.3rem .7rem}
+  table.rcpt{border-collapse:collapse;background:#fff;border:2px solid var(--line);border-radius:12px;min-width:min(330px,100%);font-size:1.02rem}
+  .rcpt td,.rcpt th{padding:.35rem .55rem;border-bottom:1px solid var(--line);text-align:start}
+  .rcpt td.amt,.rcpt th.amt{text-align:end;white-space:nowrap}
+  .rcpt tr.tot td{border-top:3px solid var(--ink);font-weight:800}
+  .rcpt caption{font-weight:800;padding:.2rem;caption-side:top}
+  .formula{font-weight:700;color:var(--accentD);text-align:center;width:100%;margin:.2rem 0 0}
+
+  /* Money bank and tray */
+  .mlab{font-weight:700;color:var(--muted);font-size:.92rem;margin:.2rem 0}
+  .bank{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;justify-content:center;background:#fff;border:2px solid var(--line);border-radius:14px;padding:.45rem}
+  .mbtn{background:transparent;border:2px solid transparent;border-radius:10px;padding:3px;min-height:46px;min-width:46px;display:inline-flex;align-items:center;justify-content:center;line-height:0}
+  .mbtn:hover{border-color:var(--line)}
+  .mbtn svg{display:block;direction:ltr}
+  .tray{margin-top:.5rem;min-height:96px;border:3px dashed var(--gold);border-radius:14px;background:var(--soft);padding:.45rem;display:flex;flex-wrap:wrap;gap:.3rem;align-items:center;justify-content:center}
+  .tray.over,.zone.over{background:#fff1b8;border-color:var(--accentD)}
+  .trayhint{color:var(--muted);font-weight:600;font-size:.95rem}
+  .traytot{text-align:center;font-weight:700;margin:.35rem 0 0;font-size:1.1rem}
+  .drag{touch-action:none;-webkit-user-select:none;user-select:none}
+  .dghost{position:fixed;pointer-events:none;z-index:100;opacity:.9;margin:0;left:0;top:0}
+
+  /* Sorting zones and jars */
+  .zones{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.5rem}
+  .zones.jars{grid-template-columns:repeat(3,minmax(0,1fr));gap:.35rem}
+  .zone{border:3px dashed var(--line);border-radius:14px;background:var(--soft);padding:.35rem;min-height:110px;min-width:0;display:flex;flex-direction:column;gap:.3rem}
+  .zone.pile{grid-column:1/-1;background:#fff;border-style:solid;min-height:70px}
+  .zhead{background:var(--accentD);color:#fff;border:0;border-radius:10px;min-height:46px;font-weight:800;padding:.3rem .4rem;display:flex;align-items:center;justify-content:center;gap:.3rem;flex-wrap:wrap;overflow-wrap:anywhere}
+  .zone.pile .zhead{background:#fff;color:var(--accentD);border:2px solid var(--line)}
+  .zhead .zt{background:#fff;color:var(--ink);border-radius:8px;padding:0 .3rem;unicode-bidi:isolate;direction:ltr}
+  .zitems{display:flex;flex-wrap:wrap;gap:.3rem;align-content:flex-start;justify-content:center;flex:1}
+  .tok{background:#fff;border:2px solid var(--line);border-radius:12px;min-height:46px;padding:.3rem .55rem;font-weight:700;color:var(--ink);font-size:.98rem;max-width:100%;overflow-wrap:anywhere}
+  .tok.sel{border-color:var(--focus);box-shadow:0 0 0 3px #bcd3ff;background:#eef4ff}
+  .tok.placed{background:var(--good-bg);border-color:var(--good);opacity:1;color:var(--good)}
+  .tok.placed::before{content:"✓ "}
+  .tok.money{padding:2px;line-height:0}
+  .tok.money svg{display:block;direction:ltr}
+  .jarsvg{display:block;margin:0 auto}
+
+  /* Goal */
+  .goalwrap{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;justify-content:center}
+  .weeks{display:flex;flex-wrap:wrap;gap:.3rem;justify-content:center;margin:.3rem 0;min-height:36px}
+  .wk{background:#fff;border:2px solid var(--line);border-radius:999px;padding:.1rem .55rem;font-size:.9rem;font-weight:700}
+  .wk.enough{border-color:var(--good);background:var(--good-bg)}
+
+  /* Forms */
+  .cur{display:inline-flex;align-items:center;gap:2px;direction:ltr;unicode-bidi:isolate;font-weight:800}
+  .numin{width:6.6em;min-height:46px;font-size:1.1rem;font-weight:800;border:2px solid var(--line);border-radius:10px;padding:.2rem .4rem;text-align:right;font-family:inherit;color:var(--ink);background:#fff}
+  .numin.ok{border-color:var(--good);background:var(--good-bg)}
+  .numin.bad{border-color:var(--bad);background:#fff1f0}
+  .tblwrap{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+  table.ledger{border-collapse:collapse;background:#fff;width:100%;font-size:.98rem}
+  .ledger th{background:#f6eecb;font-size:.85rem;padding:.35rem .3rem;text-align:start;border-bottom:2px solid var(--gold)}
+  .ledger td{padding:.3rem .3rem;border-bottom:1px solid var(--line)}
+  .ledger td.amt{text-align:end;white-space:nowrap}
+  .ledger th.amt{text-align:end}
+  .ledger .dep{color:var(--good);font-weight:800}
+  .ledger .wd{color:var(--bad);font-weight:800}
+  .stp{display:inline-flex;gap:.3rem;align-items:center}
+  .stp button{width:46px;min-height:46px;border-radius:10px;border:2px solid var(--line);background:#fff;font-size:1.3rem;font-weight:900;color:var(--accentD);padding:0}
+  .was{display:block;font-size:.78rem;color:var(--muted);font-weight:600}
+  .lock{font-size:.8rem;color:var(--muted);font-weight:700}
+
+  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
+  .drawer.open{display:flex}
+  .drawer .card{background:var(--panel);border-radius:16px;max-width:620px;width:100%;padding:1rem;max-height:90vh;overflow:auto}
+  .setrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+  .setrow .lab{font-weight:700;min-width:150px}
+  .toggle{display:inline-flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:10px;padding:.35rem .55rem;background:#fff;min-height:48px}
+  .toggle input{width:22px;height:22px;flex:0 0 auto}
+  select.diff{font-size:1rem;padding:.4rem;border-radius:10px;border:2px solid var(--line);min-height:48px;max-width:100%}
+  .setnote{font-size:.85rem;color:var(--muted);flex-basis:100%;margin:0}
+
+  footer{max-width:1200px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+  footer a{color:var(--accentD);font-weight:700}
+  .stds{font-size:.82rem;color:var(--muted);background:var(--soft);border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  @media(max-width:480px){
+    main{padding:.4rem}
+    .panel{padding:.55rem}
+    .prompt{font-size:1rem;padding:.5rem}
+    .tabs{gap:.3rem}
+    .tabs button{padding:.3rem .55rem;font-size:.9rem;min-height:46px}
+    .zones{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .zones.jars{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .zhead{font-size:.88rem}
+    .numin{width:5.4em}
+    .ledger{font-size:.88rem}
+    .ledger th{font-size:.74rem}
+    .itm{min-width:100px}
+  }
+
+  .hidden{display:none !important}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  @keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+  .printonly{display:none}
+  @media print{
+    .topbar,.tabsrow,footer,.modepanel,#stdsNote,.no-print,#mtMuteBtn{display:none !important}
+    body{background:#fff}
+    .printonly{display:block}
+    .card-print{border:2px solid #000;border-radius:12px;padding:1rem;margin:0 0 1rem;page-break-inside:avoid}
+    .card-print h2{margin:.2rem 0}
+    .pbox{height:90px;border:2px dashed #888;border-radius:10px}
+    main{max-width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">💰 <span data-t="appTitle">Money Sense</span></span>
+  <a class="homebtn" href="../../index.html">🏠 <span data-t="home">Home</span></a>
+  <label class="globe"><span aria-hidden="true">🌐</span>
+    <select id="langSelect" data-ta="language" aria-label="Language"></select>
+  </label>
+  <button class="tb settingsbtn" id="openSettings">⚙️ <span data-t="teacher">Teacher</span></button>
+</header>
+
+<main>
+  <div class="tabsrow">
+    <div class="tabs" role="tablist" data-ta="modesLbl" aria-label="Modes">
+      <button role="tab" aria-selected="true" data-mode="earn"><span class="ic" aria-hidden="true">💵</span><span data-t="mEarn">Earn &amp; Spend</span></button>
+      <button role="tab" aria-selected="false" data-mode="save"><span class="ic" aria-hidden="true">🐷</span><span data-t="mSave">Save &amp; Plan</span></button>
+      <button role="tab" aria-selected="false" data-mode="profit"><span class="ic" aria-hidden="true">📊</span><span data-t="mProfit">Expenses &amp; Profit</span></button>
+      <button role="tab" aria-selected="false" data-mode="bank"><span class="ic" aria-hidden="true">🏦</span><span data-t="mBank">Credit &amp; Banking</span></button>
+      <button role="tab" aria-selected="false" data-mode="tax"><span class="ic" aria-hidden="true">🧾</span><span data-t="mTax">Taxes &amp; Budgets</span></button>
+    </div>
+    <span class="stars" id="stars"><span aria-hidden="true">⭐</span><span class="sr" data-t="stars">Stars earned</span> <b id="starCount">0</b></span>
+  </div>
+
+  <section id="mode-earn" class="panel modepanel" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mEarn">Earn &amp; Spend</h2>
+      <button class="btn ghost no-print" id="earnNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="earn" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="earnPrompt">…</span></div>
+    <div id="earnArea"></div>
+    <div class="feedback" id="earnFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-save" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mSave">Save &amp; Plan</h2>
+      <button class="btn ghost no-print" id="saveNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="save" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="savePrompt">…</span></div>
+    <div id="saveArea"></div>
+    <div class="feedback" id="saveFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-profit" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mProfit">Expenses &amp; Profit</h2>
+      <button class="btn ghost no-print" id="profitNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="profit" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="profitPrompt">…</span></div>
+    <div id="profitArea"></div>
+    <div class="feedback" id="profitFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-bank" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mBank">Credit &amp; Banking</h2>
+      <button class="btn ghost no-print" id="bankNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="bank" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="bankPrompt">…</span></div>
+    <div id="bankArea"></div>
+    <div class="feedback" id="bankFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-tax" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mTax">Taxes &amp; Budgets</h2>
+      <button class="btn ghost no-print" id="taxNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="tax" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="taxPrompt">…</span></div>
+    <div id="taxArea"></div>
+    <div class="feedback" id="taxFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <div class="stds" id="stdsNote"></div>
+  <div class="printonly" id="printArea"></div>
+</main>
+
+<footer>
+  <p data-t="footNote">No accounts · No data collected · Works offline</p>
+  <p><a href="../../index.html" data-t="home">Home</a> · <a href="../../policy.html" data-t="privacy">Privacy</a></p>
+</footer>
+
+<div class="drawer" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <div class="panelhead"><h2 id="setTitle" data-t="teacherTitle">Teacher settings</h2>
+      <button class="btn ghost" id="closeSettings" data-t="close">Close</button></div>
+    <div class="setrow"><label class="lab" for="setGrade" data-t="setGrade">Grade level</label>
+      <select class="diff" id="setGrade">
+        <option value="3" data-t="g3">Grade 3</option><option value="4" data-t="g4">Grade 4</option><option value="5" data-t="g5">Grade 5</option></select>
+      <p class="setnote" data-t="gradeNote">Choosing a grade sets the options below. You can still change them.</p></div>
+    <div class="setrow"><label class="lab" for="setLvl" data-t="setLvl">Money amounts</label>
+      <select class="diff" id="setLvl">
+        <option value="1" data-t="lv1">Small (up to about $20)</option><option value="2" data-t="lv2">Medium (up to about $100)</option><option value="3" data-t="lv3">Large (up to about $1,000)</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setCents">Cents</span>
+      <label class="toggle"><input type="checkbox" id="setCents"> <span data-t="centsOn">Use dollars and cents, not just whole dollars</span></label></div>
+    <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
+      <div id="modeToggles" style="display:flex;flex-wrap:wrap;gap:.4rem"></div>
+      <p class="setnote" data-t="modeNote">Each mode mixes several kinds of rounds. The grade level picks which kinds appear.</p></div>
+    <div class="setrow"><span class="lab" data-t="setSpeech">Speech</span>
+      <label class="toggle"><input type="checkbox" id="setAuto"> <span data-t="autoRead">Auto-read directions</span></label></div>
+    <div class="setrow" style="border:0"><button class="btn" id="printCards">🖨 <span data-t="printCards">Print challenge cards</span></button></div>
+    <p class="stds" data-t="numNote">Money is in U.S. dollars and cents in every language (Texas standards): a period separates dollars from cents and commas group thousands, as in $1,234.56.</p>
+    <p class="stds" data-t="setStored">Settings are saved only on this device. No student information is ever stored.</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   Money Sense — single-file Grade 3–5 personal financial literacy app. 7 languages.
+   No frameworks, no network, no data collection.
+   Money is stored as whole cents to avoid floating-point errors.
+   ========================================================================= */
+
+/* ---------- Language metadata ---------- */
+const LANGS = [
+  {code:"en", name:"English",     dir:"ltr", bcp:"en-US"},
+  {code:"es", name:"Español",     dir:"ltr", bcp:"es-US"},
+  {code:"vi", name:"Tiếng Việt",  dir:"ltr", bcp:"vi-VN"},
+  {code:"ar", name:"العربية",     dir:"rtl", bcp:"ar-SA"},
+  {code:"hi", name:"हिन्दी",       dir:"ltr", bcp:"hi-IN"},
+  {code:"ur", name:"اردو",        dir:"rtl", bcp:"ur-PK"},
+  {code:"zh", name:"中文",         dir:"ltr", bcp:"zh-CN"}
+];
+const LANG_KEY = "tcea.mathtools.lang";
+
+/* ---------- Translations ---------- */
+const T = {
+  en:{
+    appTitle:"Money Sense", home:"Home", privacy:"Privacy", teacher:"Teacher", language:"Language", readAloud:"Read aloud",
+    modesLbl:"Modes", stars:"Stars earned", newRound:"New round", footNote:"No accounts · No data collected · Works offline",
+    mEarn:"Earn & Spend", mSave:"Save & Plan", mProfit:"Expenses & Profit", mBank:"Credit & Banking", mTax:"Taxes & Budgets",
+    check:"Check", clear:"Clear", yes:"Yes!", close:"Close", choicesLbl:"Answer choices", startOver:"Start over",
+    dol1:"1 dollar", dolN:"{n} dollars", ct1:"1 cent", ctN:"{n} cents", dc:"{d} and {c}",
+    addX:"Add {x}", rmvX:"Take out {x}", bankLbl:"Money to use: tap or drag", trayLbl:"Your tray", trayEmpty:"Drag or tap money to put it here.",
+    inTray:"In the tray:", trayNone:"Your tray is empty. Tap or drag bills and coins into it.",
+    trayMore:"Your tray has {x}. That is too much, so take some money out.", trayLess:"Your tray has {x}. That is not enough yet.",
+    fillIn:"Type an amount in every box, like 12.50.", pickFirst:"First tap a card or some money, then tap the box where it goes.",
+    putIn:"Put it in {b}", cardsLbl:"Cards to sort", notThere:"Not {b}.",
+    youHave:"You have", planned:"Planned", notPlanned:"Not planned", weeksN:"{n} weeks", week1:"1 week",
+    jDog:"You walk dogs for your neighbors. Each walk pays {p}. This week you do {k} walks.",
+    jLeaf:"You rake leaves for your neighbors. Each yard pays {p}. You rake {k} yards.",
+    jCar:"You help wash cars. Each car pays {p}. You wash {k} cars.",
+    jPlant:"You water plants while your neighbors are away. Each day pays {p}. You do it for {k} days.",
+    jobQ:"How much money do you earn? Put that amount in the tray.",
+    jobH:"You earn {p} for each job, and you do {k} jobs: {k} × {p}.",
+    jobG:"{k} × {p} = {x}. You earned that income with your work, called labor.",
+    skillQ:"You earn {a} an hour helping with chores. Then you learn a new skill, fixing bikes, and earn {b} an hour. If you work {k} hours, how much more do you earn with the new skill?",
+    skillH:"Find how much more you earn each hour, {b} − {a}. Then multiply by the {k} hours.",
+    skillG:"Each hour pays {d} more, and {k} × {d} = {x}. Learning new skills can raise the income you earn.",
+    lemQ1:"You open a lemonade stand. First you buy supplies. What is the total cost? Put that amount in the tray to pay.",
+    lemH1:"Add the cost of the lemons, the sugar, and the cups.",
+    lemG1:"{a} + {b} + {c} = {x}. That is the cost of making your lemonade.",
+    lemQ2:"You sell {k} cups for {p} each. How much money do you take in?",
+    lemH2:"Each cup brings in {p}, and you sold {k} cups: {k} × {p}.",
+    lemG2:"{k} × {p} = {x}. That is the money your stand took in.",
+    lemQ3:"Profit is the money left after you pay your costs. What is your profit?",
+    lemH3:"Start with the money you took in, {r}, and subtract the cost of supplies, {c}.",
+    lemG3:"{r} − {c} = {x}. Your profit is {x}.",
+    lemL:"Lemons", lemS:"Sugar", lemC:"Cups", lemCost:"Cost of supplies", lemSold:"Cups sold", lemPer:"{p} a cup", lemIn:"Money taken in",
+    sc1:"A cold winter froze many orange trees, so there are far fewer oranges this year. What will most likely happen to the price of oranges?",
+    sc2:"Farmers grew so many watermelons this summer that stores have more than people want. What will most likely happen to the price of watermelons?",
+    sc3:"Only a few tickets are left for a popular show, and many people want them. What will most likely happen to the price of the tickets?",
+    sc4:"A toy was very popular last year. Now stores have shelves full of it, and few people are buying it. What will most likely happen to its price?",
+    sc5:"Storms kept many fishing boats at home, so there are fewer fish at the market. What will most likely happen to the price of fish?",
+    pUp:"The price goes up", pDown:"The price goes down", pSame:"The price stays the same",
+    scUp:"When something is scarce, there is not enough for everyone who wants it, so sellers can charge more. The price usually goes up.",
+    scDown:"When there is plenty of something, more than people want, sellers lower the price so people will buy it.",
+    scH:"Ask yourself: is there less of it than people want, or more? Scarce things usually cost more. Things there are plenty of usually cost less.",
+    planQ:"You have {m}. You planned to buy {a} for {p}. At the store you also see {b} for {q}, which you did not plan to buy. To buy both, how much more money would you need?",
+    planH:"Add the two prices. Then compare the sum with the {m} you have.",
+    planG:"{p} + {q} = {s}, and you have {m}, so you are short {x}. An unplanned buy can cost you the thing you planned for. A plan helps you spend on what matters most.",
+    iBook:"a book", iBall:"a soccer ball", iKite:"a kite", iArt:"an art set", iPuzzle:"a puzzle",
+    iSnack:"a bag of popcorn", iSticker:"a pack of stickers", iCar:"a toy car", iSlime:"a jar of slime", iComic:"a comic book",
+    iHelmet:"a bike helmet", iScooter:"a scooter", iSkate:"a skateboard",
+    decQ:"Is it income, spending, saving, giving, or credit? Sort each card into the right box.",
+    bInc:"Income", bSpend:"Spending", bSave:"Saving", bGive:"Giving", bCred:"Credit",
+    d_i1:"Get paid for walking a dog", d_i2:"Sell crafts you made", d_i3:"Earn money for raking leaves",
+    d_s1:"Buy a snack after school", d_s2:"Pay for a movie ticket", d_s3:"Buy a new pencil box",
+    d_v1:"Put part of your allowance in a savings account", d_v2:"Keep money in a piggy bank for a bike", d_v3:"Keep half of a birthday gift for later",
+    d_g1:"Give money to the food bank", d_g2:"Give money to an animal shelter", d_g3:"Give money to help families after a flood",
+    d_c1:"Borrow money to buy a bike and pay it back later", d_c2:"Use a credit card and pay the bill next month",
+    wInc:"{x}: you get money for work or for selling something, so it is income.",
+    wSpend:"{x}: you use money to buy something now, so it is spending.",
+    wSave:"{x}: you keep money to use later, so it is saving.",
+    wGive:"{x}: you share money to help others, so it is giving.",
+    wCred:"{x}: you use someone else's money now and pay it back later, so it is credit.",
+    decDone:"All sorted! Every money decision is earning, spending, saving, giving, or using credit.",
+    needsQ:"Is it a need or a want? Sort each card into the right box.", bNeed:"Needs", bWant:"Wants",
+    n1:"Clean water", n2:"Healthy food", n3:"A warm coat for winter", n4:"Medicine when you are sick", n5:"A safe place to live", n6:"Shoes that fit",
+    w1:"A new video game", w2:"Candy", w3:"A toy robot", w4:"A movie ticket", w5:"A sparkly phone case", w6:"Soda", w7:"Light-up skates",
+    whyNeed:"{x} is a need: people need it to live, stay healthy, or stay safe.",
+    whyWant:"{x} is a want: it is nice to have, but people can live without it.",
+    needsDone:"All sorted! A smart plan pays for needs first, then saves for wants.",
+    goalQ:"You want {a} that costs {g}. You save {w} each week. How many weeks will it take to save enough? Tap Save 1 week to try it.",
+    saveWeek:"Save 1 week", weekN:"Week {n}:", goalLbl:"Goal",
+    goalLess:"After {n} weeks you would have {y}. That is less than {g}.",
+    goalMore:"After {j} weeks you would already have {y}, which is enough. Look for the first week you reach {g}.",
+    goalG:"After {k} weeks you have {x}. That is enough for {g}!", goalNE:"After {j} weeks you had only {y}, not quite enough.",
+    goalWhy:"A savings plan helps you reach a goal. People also save for college and for emergencies.",
+    jarQ:"You get {a} allowance this week. Your plan: save {s}, share {h}, and spend the rest. Drag the money into the three jars.",
+    jarQh:"You get {a} allowance this week. Your plan: save half, share {h}, and spend the rest. Drag the money into the three jars.",
+    jPile:"Allowance", jSave:"Save", jShare:"Share", jSpend:"Spend",
+    jarLeft:"Put all of the allowance into the jars first.", jarWrong:"The {j} jar has {x}, but your plan needs {y} there.",
+    jarHalf:"Half of {a} is {s}.", jarRest:"Spending gets the rest: {a} − {s} − {h} = {y}.",
+    jarG:"Save {s} + share {h} + spend {p} = {a}. Every dollar has a job!",
+    fixQ:"Fixed or variable? Sort each monthly expense into the right box.", bFixed:"Fixed: same each month", bVar:"Variable: can change",
+    f1:"Rent for an apartment", f2:"Phone plan", f3:"Internet service", f4:"Monthly bus pass", f5:"Music lessons", f6:"Car payment",
+    v1:"Groceries", v2:"Gas for the car", v3:"Eating at restaurants", v4:"Gifts", v5:"Electricity bill", v6:"New clothes",
+    whyFix:"{x} costs the same amount every month, so it is a fixed expense.",
+    whyVar:"{x} can cost more one month and less the next, so it is a variable expense.",
+    fixDone:"All sorted! Fixed expenses stay the same. Variable expenses change.",
+    bzBrace:"You make bracelets to sell. You sell {k} bracelets for {p} each.",
+    bzWash:"You and your friends hold a car wash. You wash {k} cars for {p} each.",
+    bzBake:"Your class holds a bake sale. You sell {k} muffins for {p} each.",
+    bzPlant:"You grow plants to sell. You sell {k} plants for {p} each.",
+    prQ:"Fill in the table to find your profit.",
+    exBeads:"Beads and string", exTable:"Table rental", exSoap:"Soap and sponges", exSign:"Signs", exIng:"Ingredients", exBox:"Boxes and napkins", exPots:"Pots", exSoil:"Soil and seeds",
+    rRev:"Revenue (money taken in)", rExp:"Expenses", rTotE:"Total expenses", rProf:"Profit", prFormula:"Profit = revenue − expenses",
+    prRevH:"Revenue = number sold × price: {k} × {p}.", prExpH:"Add up all of the expenses in the table.", prProfH:"Profit = revenue − total expenses.",
+    prG:"{r} − {e} = {x}. Your profit is {x}.",
+    crQ:"You want {a} that costs {c}, but you only have {h}. You borrow {b} from a bank. A borrower must pay back what they borrow, plus interest. The interest is {i}. How much will you pay back in all?",
+    crH:"Interest is extra money paid to the lender for using their money. Add it to the amount you borrowed.",
+    crG:"{b} + {i} = {t}. Credit lets you buy now, but the borrower must pay the lender back, and interest makes it cost more.",
+    cr2Q:"You borrow {b} from a bank to buy {a}. You pay the bank back {t} in all. How much did the interest cost you?",
+    cr2H:"Interest is the extra you pay back on top of what you borrowed. Subtract what you borrowed from what you paid back.",
+    cr2G:"{t} − {b} = {i}. That interest is the cost of borrowing money.",
+    bq1Q:"What is one main job of a bank or credit union?", bq1A:"Keep people's money safe", bq1W1:"Decide how much allowance you get", bq1W2:"Set the prices in stores",
+    bq1E:"Banks and credit unions keep money safe, lend money to borrowers, and pay interest on savings.",
+    bq2Q:"Where can your savings earn interest?", bq2A:"In a savings account at a bank", bq2W1:"In a piggy bank", bq2W2:"In a drawer at home",
+    bq2E:"A bank pays you interest for keeping your savings there, so your money grows.",
+    bq3Q:"What is one advantage of a piggy bank?", bq3A:"You can get your money right away at home", bq3W1:"It pays you interest", bq3W2:"It makes your money grow",
+    bq3E:"A piggy bank is easy to reach, but it pays no interest and is not as safe as a bank.",
+    bq4Q:"How does a bank get money to lend to borrowers?", bq4A:"It lends out some of the money people save there", bq4W1:"It prints its own money", bq4W2:"It takes money from stores",
+    bq4E:"Banks lend some of their savers' money. Borrowers pay it back with interest.",
+    bq5Q:"What is one disadvantage of a savings account?", bq5A:"You must go to the bank or use an app to take money out", bq5W1:"It pays interest", bq5W2:"It keeps your money safe",
+    bq5E:"A savings account keeps money safe and pays interest, but it takes a little more effort to get your money.",
+    pmQ:"Which way to pay is this?",
+    pm1:"You hand over bills and coins. It is simple, but if you lose it, it is gone.",
+    pm2:"You write the amount on a paper form and sign it. Your bank pays the store from your account, but it can take a few days.",
+    pm3:"You use a card, and the money comes out of your bank account right away. You can only spend what you have.",
+    pm4:"You use a card to borrow money. If you do not pay the whole bill each month, you pay interest.",
+    pm5:"You pay with an app or a website from your bank account. It is fast, but you must keep your password safe.",
+    pmCash:"Cash", pmCheck:"Check", pmDebit:"Debit card", pmCredit:"Credit card", pmE:"Electronic payment",
+    ps1:"Cash is bills and coins you hand over.", ps2:"A check is a paper form you write and sign.", ps3:"A debit card takes money from your bank account right away.",
+    ps4:"A credit card borrows money that you pay back later.", ps5:"An electronic payment uses an app or a website.",
+    pmG:"Yes, that is {x}.",
+    lgQ:"Keep a money record. Fill in the balance after each deposit or withdrawal.",
+    lgDesc:"What happened", lgDep:"Deposit (+)", lgWd:"Withdrawal (−)", lgAmt:"Deposit (+) or withdrawal (−)", lgBal:"Balance", lgStart:"Starting balance", lgRow:"Balance after: {d}",
+    lgAllow:"Allowance", lgGift:"Birthday gift", lgSell:"Sold crafts", lgPet:"Pay for pet sitting",
+    lgBook:"Bought a book", lgPres:"Bought a gift for a friend", lgMovie:"Movie and snack", lgDon:"Gave to the food bank",
+    lgHdep:"On this line you start with {b}. A deposit adds {x}, so the balance goes up.",
+    lgHwd:"On this line you start with {b}. A withdrawal takes away {x}, so the balance goes down.",
+    lgG:"Your balance is {x}. A record shows where your money goes, so you always know how much you have.",
+    tdQ:"Which tax is this?",
+    td1:"Extra money added to the price when you buy things at a store.", td2:"Money paid each year by people who own land or a house.",
+    td3:"Money paid to the government from the money people earn during the year.", td4:"Money taken out of each paycheck to pay for programs like Social Security and Medicare.",
+    tSales:"Sales tax", tProp:"Property tax", tInc:"Income tax", tPay:"Payroll tax",
+    ts1:"Sales tax is added when you buy something.", ts2:"Property tax is paid by people who own land and houses.", ts3:"Income tax is paid on the money people earn.", ts4:"Payroll tax is taken out of a paycheck by the employer.",
+    tdG:"Yes, that is {x}. Taxes pay for things we share, like schools, roads, and parks.",
+    stQ:"You buy {a} for {p}. Here, sales tax is {r} for every dollar. Fill in the receipt.",
+    stTaxH:"Sales tax is {r} for each of the {d} dollars: {d} × {r}.", stTotH:"Total = price + sales tax.",
+    stG:"{p} + {x} = {tt}. The store collects the sales tax and sends it to the government.",
+    rcTax:"Sales tax", rcTot:"Total", rcTitle:"Receipt",
+    grQ:"You worked at a job this week. Your pay stub shows your gross pay and the taxes taken out. Fill in the total taxes and your net pay.",
+    grStub:"Pay stub", grGross:"Gross pay", grPayT:"Payroll tax", grIncT:"Income tax", grTot:"Total taxes", grNet:"Net pay",
+    grTaxH:"Add the two taxes: payroll tax + income tax.", grNetH:"Net pay = gross pay − total taxes.",
+    grG:"{g} − {x} = {n}. Gross income is all the money you earn. Net income is the take-home pay after taxes.",
+    bgQ:"Your family earns {i} a month, but this budget plans to spend {o} more than that. Use − and + on the expenses that can change so the budget balances: expenses must equal income.",
+    bgRent:"Rent", bgUtil:"Electricity and water", bgFood:"Food", bgTrans:"Bus and gas", bgFun:"Fun and eating out", bgSave:"Savings",
+    bgInc:"Monthly income", bgExp:"Expenses", bgWas:"was {x}", bgLess:"Less for {x}", bgMore:"More for {x}", bgFixed:"Fixed: cannot change",
+    bgOver:"Your expenses add up to {e}. That is still {x} more than the income of {i}. Cut a want, like fun and eating out.",
+    bgUnder:"Your expenses add up to {e}. That is {x} less than {i}. Put the extra {x} into savings so every dollar has a job.",
+    bgG:"Expenses of {e} = income of {i}. The budget is balanced! You spent less instead of borrowing.",
+    actQ:"This family's expenses are more than its income. Which action could help balance the budget?",
+    aCook:"Cook at home instead of eating out", aPhone:"Switch to a cheaper phone plan", aSell:"Sell things they no longer use", aWork:"Earn extra income by working more hours",
+    aTV:"Buy a bigger TV", aCard:"Pay for everything with a credit card", aEat:"Eat at restaurants more often", aTrip:"Take an expensive trip",
+    actG:"Yes! To balance a budget, spend less or earn more. This action does that.",
+    actH:"That would make expenses bigger or add debt. To balance a budget, spend less or earn more.",
+    teacherTitle:"Teacher settings", setGrade:"Grade level", g3:"Grade 3", g4:"Grade 4", g5:"Grade 5",
+    gradeNote:"Choosing a grade sets the options below. You can still change them.",
+    setLvl:"Money amounts", lv1:"Small (up to about $20)", lv2:"Medium (up to about $100)", lv3:"Large (up to about $1,000)",
+    setCents:"Cents", centsOn:"Use dollars and cents, not just whole dollars",
+    setModes:"Modes", modeNote:"Each mode mixes several kinds of rounds. The grade level picks which kinds appear.",
+    setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
+    numNote:"Money is in U.S. dollars and cents in every language (Texas standards): a period separates dollars from cents and commas group thousands, as in $1,234.56.",
+    setStored:"Settings are saved only on this device. No student information is ever stored.",
+    stds:"Aligned standards — Texas TEKS: Grade 3: 3.4(A, C), 3.9(A, B, C, D, E, F); Grade 4: 4.4(A), 4.10(A, B, C, D, E); Grade 5: 5.3(E, K), 5.10(A, B, C, D, E, F). Common Core has no financial literacy strand; the money problem solving here practices 3.OA.3, 3.OA.8, 3.NBT.2; 4.MD.2; 5.NBT.7.",
+    cardTitle:"Money Sense — Challenge Cards", cardName:"Name:", cardWork:"Show your work.",
+    cardNW:"Write N for a need or W for a want.", cardFV:"Write F for a fixed expense or V for a variable expense.",
+    cardEarn:"How much money do you earn?",
+    cardLg:"Fill in the balance column.", cardProf:"Find the profit."
+  },
+  es:{
+    appTitle:"Sentido del Dinero", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", language:"Idioma", readAloud:"Leer en voz alta",
+    modesLbl:"Modos", stars:"Estrellas ganadas", newRound:"Nueva ronda", footNote:"Sin cuentas · Sin datos · Funciona sin conexión",
+    mEarn:"Ganar y gastar", mSave:"Ahorrar y planear", mProfit:"Gastos y ganancia", mBank:"Crédito y bancos", mTax:"Impuestos y presupuestos",
+    check:"Revisar", clear:"Borrar", yes:"¡Sí!", close:"Cerrar", choicesLbl:"Opciones de respuesta", startOver:"Empezar de nuevo",
+    dol1:"1 dólar", dolN:"{n} dólares", ct1:"1 centavo", ctN:"{n} centavos", dc:"{d} con {c}",
+    addX:"Agregar {x}", rmvX:"Quitar {x}", bankLbl:"Dinero para usar: toca o arrastra", trayLbl:"Tu bandeja", trayEmpty:"Arrastra o toca el dinero para ponerlo aquí.",
+    inTray:"En la bandeja:", trayNone:"Tu bandeja está vacía. Toca o arrastra billetes y monedas hasta ella.",
+    trayMore:"Tu bandeja tiene {x}. Es demasiado, así que quita algo de dinero.", trayLess:"Tu bandeja tiene {x}. Todavía no es suficiente.",
+    fillIn:"Escribe una cantidad en cada casilla, por ejemplo 12.50.", pickFirst:"Primero toca una tarjeta o algo de dinero, y luego toca la caja donde va.",
+    putIn:"Ponerlo en {b}", cardsLbl:"Tarjetas para clasificar", notThere:"No va en {b}.",
+    youHave:"Tienes", planned:"Planeado", notPlanned:"No planeado", weeksN:"{n} semanas", week1:"1 semana",
+    jDog:"Paseas perros para tus vecinos. Cada paseo paga {p}. Esta semana das {k} paseos.",
+    jLeaf:"Rastrillas hojas para tus vecinos. Cada jardín paga {p}. Rastrillas {k} jardines.",
+    jCar:"Ayudas a lavar carros. Cada carro paga {p}. Lavas {k} carros.",
+    jPlant:"Riegas las plantas de tus vecinos mientras están de viaje. Cada día paga {p}. Lo haces durante {k} días.",
+    jobQ:"¿Cuánto dinero ganas? Pon esa cantidad en la bandeja.",
+    jobH:"Ganas {p} por cada trabajo y haces {k} trabajos: {k} × {p}.",
+    jobG:"{k} × {p} = {x}. Ganaste ese ingreso con tu trabajo.",
+    skillQ:"Ganas {a} por hora ayudando con quehaceres. Luego aprendes una nueva destreza, arreglar bicicletas, y ganas {b} por hora. Si trabajas {k} horas, ¿cuánto más ganas con la nueva destreza?",
+    skillH:"Halla cuánto más ganas cada hora, {b} − {a}. Luego multiplica por las {k} horas.",
+    skillG:"Cada hora paga {d} más, y {k} × {d} = {x}. Aprender nuevas destrezas puede aumentar tus ingresos.",
+    lemQ1:"Abres un puesto de limonada. Primero compras los materiales. ¿Cuál es el costo total? Pon esa cantidad en la bandeja para pagar.",
+    lemH1:"Suma el costo de los limones, el azúcar y los vasos.",
+    lemG1:"{a} + {b} + {c} = {x}. Ese es el costo de hacer tu limonada.",
+    lemQ2:"Vendes {k} vasos a {p} cada uno. ¿Cuánto dinero recibes?",
+    lemH2:"Cada vaso trae {p}, y vendiste {k} vasos: {k} × {p}.",
+    lemG2:"{k} × {p} = {x}. Ese es el dinero que recibió tu puesto.",
+    lemQ3:"La ganancia es el dinero que queda después de pagar los costos. ¿Cuál es tu ganancia?",
+    lemH3:"Empieza con el dinero que recibiste, {r}, y resta el costo de los materiales, {c}.",
+    lemG3:"{r} − {c} = {x}. Tu ganancia es {x}.",
+    lemL:"Limones", lemS:"Azúcar", lemC:"Vasos", lemCost:"Costo de los materiales", lemSold:"Vasos vendidos", lemPer:"{p} el vaso", lemIn:"Dinero recibido",
+    sc1:"Un invierno muy frío congeló muchos naranjos, así que este año hay muchas menos naranjas. ¿Qué es lo más probable que pase con el precio de las naranjas?",
+    sc2:"Este verano los agricultores cosecharon tantas sandías que las tiendas tienen más de las que la gente quiere. ¿Qué es lo más probable que pase con el precio de las sandías?",
+    sc3:"Quedan solo unos pocos boletos para un espectáculo popular, y mucha gente los quiere. ¿Qué es lo más probable que pase con el precio de los boletos?",
+    sc4:"Un juguete fue muy popular el año pasado. Ahora las tiendas tienen los estantes llenos y poca gente lo compra. ¿Qué es lo más probable que pase con su precio?",
+    sc5:"Las tormentas no dejaron salir a muchos barcos pesqueros, así que hay menos pescado en el mercado. ¿Qué es lo más probable que pase con el precio del pescado?",
+    pUp:"El precio sube", pDown:"El precio baja", pSame:"El precio sigue igual",
+    scUp:"Cuando algo es escaso, no alcanza para todos los que lo quieren, así que los vendedores pueden cobrar más. Por lo general, el precio sube.",
+    scDown:"Cuando hay mucho de algo, más de lo que la gente quiere, los vendedores bajan el precio para que la gente lo compre.",
+    scH:"Pregúntate: ¿hay menos de lo que la gente quiere, o más? Las cosas escasas suelen costar más. Las cosas que abundan suelen costar menos.",
+    planQ:"Tienes {m}. Planeaste comprar {a} por {p}. En la tienda también ves {b} por {q}, que no planeabas comprar. Para comprar las dos cosas, ¿cuánto dinero más necesitarías?",
+    planH:"Suma los dos precios. Luego compara la suma con los {m} que tienes.",
+    planG:"{p} + {q} = {s}, y tienes {m}, así que te faltan {x}. Una compra no planeada te puede costar lo que sí habías planeado. Un plan te ayuda a gastar en lo que más importa.",
+    iBook:"un libro", iBall:"un balón de fútbol", iKite:"un papalote", iArt:"un juego de arte", iPuzzle:"un rompecabezas",
+    iSnack:"una bolsa de palomitas", iSticker:"un paquete de calcomanías", iCar:"un carrito de juguete", iSlime:"un frasco de slime", iComic:"una historieta",
+    iHelmet:"un casco para bicicleta", iScooter:"un scooter", iSkate:"una patineta",
+    decQ:"¿Es ingreso, gasto, ahorro, donación o crédito? Clasifica cada tarjeta en la caja correcta.",
+    bInc:"Ingreso", bSpend:"Gasto", bSave:"Ahorro", bGive:"Donación", bCred:"Crédito",
+    d_i1:"Te pagan por pasear un perro", d_i2:"Vendes manualidades que hiciste", d_i3:"Ganas dinero por rastrillar hojas",
+    d_s1:"Compras una merienda después de la escuela", d_s2:"Pagas un boleto de cine", d_s3:"Compras un estuche nuevo para lápices",
+    d_v1:"Pones parte de tu mesada en una cuenta de ahorros", d_v2:"Guardas dinero en una alcancía para una bicicleta", d_v3:"Guardas la mitad de un regalo de cumpleaños para después",
+    d_g1:"Das dinero al banco de alimentos", d_g2:"Das dinero a un refugio de animales", d_g3:"Das dinero para ayudar a familias después de una inundación",
+    d_c1:"Pides dinero prestado para comprar una bicicleta y lo pagas después", d_c2:"Usas una tarjeta de crédito y pagas la cuenta el mes siguiente",
+    wInc:"{x}: recibes dinero por trabajar o por vender algo, así que es un ingreso.",
+    wSpend:"{x}: usas dinero para comprar algo ahora, así que es un gasto.",
+    wSave:"{x}: guardas dinero para usarlo después, así que es ahorro.",
+    wGive:"{x}: compartes dinero para ayudar a otros, así que es una donación.",
+    wCred:"{x}: usas dinero de otra persona ahora y lo devuelves después, así que es crédito.",
+    decDone:"¡Todo clasificado! Toda decisión de dinero es ganar, gastar, ahorrar, donar o usar crédito.",
+    needsQ:"¿Es una necesidad o un deseo? Clasifica cada tarjeta en la caja correcta.", bNeed:"Necesidades", bWant:"Deseos",
+    n1:"Agua limpia", n2:"Comida saludable", n3:"Un abrigo para el invierno", n4:"Medicina cuando estás enfermo", n5:"Un lugar seguro para vivir", n6:"Zapatos de tu talla",
+    w1:"Un videojuego nuevo", w2:"Dulces", w3:"Un robot de juguete", w4:"Un boleto de cine", w5:"Una funda brillante para teléfono", w6:"Refresco", w7:"Patines con luces",
+    whyNeed:"{x} es una necesidad: la gente la necesita para vivir, estar sana o estar segura.",
+    whyWant:"{x} es un deseo: es bonito tenerlo, pero se puede vivir sin él.",
+    needsDone:"¡Todo clasificado! Un buen plan paga primero las necesidades y luego ahorra para los deseos.",
+    goalQ:"Quieres {a} que cuesta {g}. Ahorras {w} cada semana. ¿Cuántas semanas necesitas para ahorrar lo suficiente? Toca Ahorrar 1 semana para probar.",
+    saveWeek:"Ahorrar 1 semana", weekN:"Semana {n}:", goalLbl:"Meta",
+    goalLess:"Después de {n} semanas tendrías {y}. Eso es menos que {g}.",
+    goalMore:"Después de {j} semanas ya tendrías {y}, que es suficiente. Busca la primera semana en que llegas a {g}.",
+    goalG:"Después de {k} semanas tienes {x}. ¡Eso alcanza para {g}!", goalNE:"Después de {j} semanas tenías solo {y}, todavía no alcanzaba.",
+    goalWhy:"Un plan de ahorro te ayuda a lograr una meta. La gente también ahorra para la universidad y para emergencias.",
+    jarQ:"Esta semana recibes {a} de mesada. Tu plan: ahorrar {s}, compartir {h} y gastar el resto. Arrastra el dinero a los tres frascos.",
+    jarQh:"Esta semana recibes {a} de mesada. Tu plan: ahorrar la mitad, compartir {h} y gastar el resto. Arrastra el dinero a los tres frascos.",
+    jPile:"Mesada", jSave:"Ahorrar", jShare:"Compartir", jSpend:"Gastar",
+    jarLeft:"Primero pon toda la mesada en los frascos.", jarWrong:"El frasco de {j} tiene {x}, pero tu plan necesita {y} ahí.",
+    jarHalf:"La mitad de {a} es {s}.", jarRest:"Para gastar queda el resto: {a} − {s} − {h} = {y}.",
+    jarG:"Ahorrar {s} + compartir {h} + gastar {p} = {a}. ¡Cada dólar tiene un trabajo!",
+    fixQ:"¿Fijo o variable? Clasifica cada gasto mensual en la caja correcta.", bFixed:"Fijo: igual cada mes", bVar:"Variable: puede cambiar",
+    f1:"Renta de un apartamento", f2:"Plan de teléfono", f3:"Servicio de internet", f4:"Pase mensual de autobús", f5:"Clases de música", f6:"Pago del carro",
+    v1:"Comestibles", v2:"Gasolina para el carro", v3:"Comer en restaurantes", v4:"Regalos", v5:"Factura de electricidad", v6:"Ropa nueva",
+    whyFix:"{x} cuesta lo mismo cada mes, así que es un gasto fijo.",
+    whyVar:"{x} puede costar más un mes y menos el siguiente, así que es un gasto variable.",
+    fixDone:"¡Todo clasificado! Los gastos fijos se mantienen iguales. Los gastos variables cambian.",
+    bzBrace:"Haces pulseras para vender. Vendes {k} pulseras a {p} cada una.",
+    bzWash:"Tú y tus amigos organizan un lavado de carros. Lavan {k} carros a {p} cada uno.",
+    bzBake:"Tu clase hace una venta de pasteles. Venden {k} panquecitos a {p} cada uno.",
+    bzPlant:"Cultivas plantas para vender. Vendes {k} plantas a {p} cada una.",
+    prQ:"Completa la tabla para hallar tu ganancia.",
+    exBeads:"Cuentas e hilo", exTable:"Renta de la mesa", exSoap:"Jabón y esponjas", exSign:"Letreros", exIng:"Ingredientes", exBox:"Cajas y servilletas", exPots:"Macetas", exSoil:"Tierra y semillas",
+    rRev:"Ingresos (dinero recibido)", rExp:"Gasto", rTotE:"Gastos totales", rProf:"Ganancia", prFormula:"Ganancia = ingresos − gastos",
+    prRevH:"Ingresos = cantidad vendida × precio: {k} × {p}.", prExpH:"Suma todos los gastos de la tabla.", prProfH:"Ganancia = ingresos − gastos totales.",
+    prG:"{r} − {e} = {x}. Tu ganancia es {x}.",
+    crQ:"Quieres {a} que cuesta {c}, pero solo tienes {h}. Pides prestados {b} a un banco. Quien pide prestado debe devolver lo que pidió, más intereses. Los intereses son {i}. ¿Cuánto vas a pagar en total?",
+    crH:"Los intereses son dinero extra que se le paga al prestamista por usar su dinero. Súmalos a la cantidad que pediste prestada.",
+    crG:"{b} + {i} = {t}. El crédito te deja comprar ahora, pero quien pide prestado debe pagarle al prestamista, y los intereses hacen que cueste más.",
+    cr2Q:"Pides prestados {b} a un banco para comprar {a}. Le devuelves al banco {t} en total. ¿Cuánto te costaron los intereses?",
+    cr2H:"Los intereses son lo que pagas de más, además de lo que pediste prestado. Resta lo que pediste de lo que devolviste.",
+    cr2G:"{t} − {b} = {i}. Esos intereses son el costo de pedir dinero prestado.",
+    bq1Q:"¿Cuál es un trabajo principal de un banco o una cooperativa de crédito?", bq1A:"Guardar seguro el dinero de la gente", bq1W1:"Decidir cuánta mesada recibes", bq1W2:"Poner los precios en las tiendas",
+    bq1E:"Los bancos y las cooperativas de crédito guardan el dinero seguro, prestan dinero y pagan intereses por los ahorros.",
+    bq2Q:"¿Dónde pueden ganar intereses tus ahorros?", bq2A:"En una cuenta de ahorros en un banco", bq2W1:"En una alcancía", bq2W2:"En un cajón de tu casa",
+    bq2E:"Un banco te paga intereses por guardar ahí tus ahorros, así que tu dinero crece.",
+    bq3Q:"¿Cuál es una ventaja de una alcancía?", bq3A:"Puedes sacar tu dinero enseguida en casa", bq3W1:"Te paga intereses", bq3W2:"Hace crecer tu dinero",
+    bq3E:"Una alcancía es fácil de usar, pero no paga intereses y no es tan segura como un banco.",
+    bq4Q:"¿De dónde saca un banco el dinero que presta?", bq4A:"Presta parte del dinero que la gente ahorra ahí", bq4W1:"Imprime su propio dinero", bq4W2:"Toma dinero de las tiendas",
+    bq4E:"Los bancos prestan parte del dinero de sus ahorradores. Quienes piden prestado lo devuelven con intereses.",
+    bq5Q:"¿Cuál es una desventaja de una cuenta de ahorros?", bq5A:"Tienes que ir al banco o usar una aplicación para sacar dinero", bq5W1:"Paga intereses", bq5W2:"Guarda tu dinero seguro",
+    bq5E:"Una cuenta de ahorros guarda el dinero seguro y paga intereses, pero cuesta un poco más de esfuerzo sacar tu dinero.",
+    pmQ:"¿Qué forma de pago es esta?",
+    pm1:"Entregas billetes y monedas. Es sencillo, pero si lo pierdes, se pierde.",
+    pm2:"Escribes la cantidad en un formulario de papel y lo firmas. Tu banco le paga a la tienda desde tu cuenta, pero puede tardar unos días.",
+    pm3:"Usas una tarjeta, y el dinero sale de tu cuenta bancaria enseguida. Solo puedes gastar lo que tienes.",
+    pm4:"Usas una tarjeta para pedir dinero prestado. Si no pagas toda la cuenta cada mes, pagas intereses.",
+    pm5:"Pagas con una aplicación o un sitio web desde tu cuenta bancaria. Es rápido, pero debes proteger tu contraseña.",
+    pmCash:"Efectivo", pmCheck:"Cheque", pmDebit:"Tarjeta de débito", pmCredit:"Tarjeta de crédito", pmE:"Pago electrónico",
+    ps1:"El efectivo son billetes y monedas que entregas.", ps2:"Un cheque es un formulario de papel que escribes y firmas.", ps3:"Una tarjeta de débito saca el dinero de tu cuenta bancaria enseguida.",
+    ps4:"Una tarjeta de crédito pide prestado dinero que pagas después.", ps5:"Un pago electrónico usa una aplicación o un sitio web.",
+    pmG:"Sí, es {x}.",
+    lgQ:"Lleva un registro de tu dinero. Escribe el saldo después de cada depósito o retiro.",
+    lgDesc:"Qué pasó", lgDep:"Depósito (+)", lgWd:"Retiro (−)", lgAmt:"Depósito (+) o retiro (−)", lgBal:"Saldo", lgStart:"Saldo inicial", lgRow:"Saldo después de: {d}",
+    lgAllow:"Mesada", lgGift:"Regalo de cumpleaños", lgSell:"Venta de manualidades", lgPet:"Pago por cuidar mascotas",
+    lgBook:"Compra de un libro", lgPres:"Regalo para un amigo", lgMovie:"Cine y merienda", lgDon:"Donación al banco de alimentos",
+    lgHdep:"En esta línea empiezas con {b}. Un depósito suma {x}, así que el saldo sube.",
+    lgHwd:"En esta línea empiezas con {b}. Un retiro quita {x}, así que el saldo baja.",
+    lgG:"Tu saldo es {x}. Un registro muestra adónde va tu dinero, así siempre sabes cuánto tienes.",
+    tdQ:"¿Qué impuesto es este?",
+    td1:"Dinero extra que se suma al precio cuando compras cosas en una tienda.", td2:"Dinero que pagan cada año las personas que son dueñas de un terreno o una casa.",
+    td3:"Dinero que se paga al gobierno del dinero que la gente gana durante el año.", td4:"Dinero que se descuenta de cada cheque de pago para programas como el Seguro Social y Medicare.",
+    tSales:"Impuesto sobre las ventas", tProp:"Impuesto sobre la propiedad", tInc:"Impuesto sobre la renta", tPay:"Impuesto sobre la nómina",
+    ts1:"El impuesto sobre las ventas se suma cuando compras algo.", ts2:"El impuesto sobre la propiedad lo pagan los dueños de terrenos y casas.", ts3:"El impuesto sobre la renta se paga sobre el dinero que la gente gana.", ts4:"El impuesto sobre la nómina lo descuenta el empleador del cheque de pago.",
+    tdG:"¡Correcto! Es: {x}. Los impuestos pagan cosas que compartimos, como escuelas, calles y parques.",
+    stQ:"Compras {a} por {p}. Aquí el impuesto sobre las ventas es de {r} por cada dólar. Completa el recibo.",
+    stTaxH:"El impuesto es {r} por cada uno de los {d} dólares: {d} × {r}.", stTotH:"Total = precio + impuesto sobre las ventas.",
+    stG:"{p} + {x} = {tt}. La tienda cobra el impuesto sobre las ventas y se lo envía al gobierno.",
+    rcTax:"Impuesto sobre las ventas", rcTot:"Total", rcTitle:"Recibo",
+    grQ:"Esta semana trabajaste en un empleo. Tu talón de pago muestra tu pago bruto y los impuestos descontados. Escribe el total de impuestos y tu pago neto.",
+    grStub:"Talón de pago", grGross:"Pago bruto", grPayT:"Impuesto sobre la nómina", grIncT:"Impuesto sobre la renta", grTot:"Total de impuestos", grNet:"Pago neto",
+    grTaxH:"Suma los dos impuestos: impuesto sobre la nómina + impuesto sobre la renta.", grNetH:"Pago neto = pago bruto − total de impuestos.",
+    grG:"{g} − {x} = {n}. El ingreso bruto es todo el dinero que ganas. El ingreso neto es lo que te llevas a casa después de impuestos.",
+    bgQ:"Tu familia gana {i} al mes, pero este presupuesto planea gastar {o} más que eso. Usa − y + en los gastos que pueden cambiar para equilibrar el presupuesto: los gastos deben ser iguales a los ingresos.",
+    bgRent:"Renta", bgUtil:"Luz y agua", bgFood:"Comida", bgTrans:"Autobús y gasolina", bgFun:"Diversión y comer fuera", bgSave:"Ahorros",
+    bgInc:"Ingreso mensual", bgExp:"Gastos", bgWas:"antes {x}", bgLess:"Menos para {x}", bgMore:"Más para {x}", bgFixed:"Fijo: no cambia",
+    bgOver:"Tus gastos suman {e}. Todavía es {x} más que el ingreso de {i}. Recorta un deseo, como la diversión y comer fuera.",
+    bgUnder:"Tus gastos suman {e}. Es {x} menos que {i}. Pon los {x} extra en ahorros para que cada dólar tenga un trabajo.",
+    bgG:"Gastos de {e} = ingreso de {i}. ¡El presupuesto está equilibrado! Gastaste menos en lugar de pedir prestado.",
+    actQ:"Los gastos de esta familia son mayores que sus ingresos. ¿Qué acción podría ayudar a equilibrar el presupuesto?",
+    aCook:"Cocinar en casa en lugar de comer fuera", aPhone:"Cambiar a un plan de teléfono más barato", aSell:"Vender cosas que ya no usan", aWork:"Ganar un ingreso extra trabajando más horas",
+    aTV:"Comprar un televisor más grande", aCard:"Pagar todo con tarjeta de crédito", aEat:"Comer en restaurantes más seguido", aTrip:"Hacer un viaje caro",
+    actG:"¡Sí! Para equilibrar un presupuesto, gasta menos o gana más. Esta acción hace eso.",
+    actH:"Eso haría los gastos más grandes o sumaría deudas. Para equilibrar un presupuesto, gasta menos o gana más.",
+    teacherTitle:"Ajustes del maestro", setGrade:"Grado", g3:"3.er grado", g4:"4.º grado", g5:"5.º grado",
+    gradeNote:"Al elegir un grado se fijan las opciones de abajo. Todavía puedes cambiarlas.",
+    setLvl:"Cantidades de dinero", lv1:"Pequeñas (hasta unos $20)", lv2:"Medianas (hasta unos $100)", lv3:"Grandes (hasta unos $1,000)",
+    setCents:"Centavos", centsOn:"Usar dólares y centavos, no solo dólares enteros",
+    setModes:"Modos", modeNote:"Cada modo mezcla varios tipos de rondas. El grado elige qué tipos aparecen.",
+    setSpeech:"Voz", autoRead:"Leer las instrucciones automáticamente", printCards:"Imprimir tarjetas de reto",
+    numNote:"El dinero está en dólares y centavos de EE. UU. en todos los idiomas (estándares de Texas): un punto separa los dólares de los centavos y las comas agrupan los miles, como en $1,234.56.",
+    setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información de los estudiantes.",
+    stds:"Estándares alineados — TEKS de Texas: 3.er grado: 3.4(A, C), 3.9(A, B, C, D, E, F); 4.º grado: 4.4(A), 4.10(A, B, C, D, E); 5.º grado: 5.3(E, K), 5.10(A, B, C, D, E, F). Common Core no tiene una sección de educación financiera; la resolución de problemas con dinero aquí practica 3.OA.3, 3.OA.8, 3.NBT.2; 4.MD.2; 5.NBT.7.",
+    cardTitle:"Sentido del Dinero — Tarjetas de reto", cardName:"Nombre:", cardWork:"Muestra tu trabajo.",
+    cardNW:"Escribe N si es una necesidad o D si es un deseo.", cardFV:"Escribe F si es un gasto fijo o V si es un gasto variable.",
+    cardEarn:"¿Cuánto dinero ganas?",
+    cardLg:"Completa la columna del saldo.", cardProf:"Halla la ganancia."
+  },
+  vi:{
+    appTitle:"Hiểu Biết Về Tiền", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", language:"Ngôn ngữ", readAloud:"Đọc to",
+    modesLbl:"Chế độ", stars:"Số sao đạt được", newRound:"Vòng mới", footNote:"Không cần tài khoản · Không thu thập dữ liệu · Dùng được khi không có mạng",
+    mEarn:"Kiếm và tiêu", mSave:"Tiết kiệm và lập kế hoạch", mProfit:"Chi phí và lợi nhuận", mBank:"Tín dụng và ngân hàng", mTax:"Thuế và ngân sách",
+    check:"Kiểm tra", clear:"Xóa", yes:"Đúng rồi!", close:"Đóng", choicesLbl:"Các lựa chọn", startOver:"Làm lại",
+    dol1:"1 đô la", dolN:"{n} đô la", ct1:"1 xu", ctN:"{n} xu", dc:"{d} {c}",
+    addX:"Thêm {x}", rmvX:"Lấy ra {x}", bankLbl:"Tiền để dùng: chạm hoặc kéo", trayLbl:"Khay của em", trayEmpty:"Kéo hoặc chạm vào tiền để đặt vào đây.",
+    inTray:"Trong khay:", trayNone:"Khay của em đang trống. Hãy chạm hoặc kéo tiền giấy và tiền xu vào khay.",
+    trayMore:"Khay của em có {x}. Như vậy là quá nhiều, hãy lấy bớt tiền ra.", trayLess:"Khay của em có {x}. Như vậy chưa đủ.",
+    fillIn:"Hãy viết một số tiền vào mỗi ô, ví dụ 12.50.", pickFirst:"Trước tiên hãy chạm vào một thẻ hoặc một ít tiền, rồi chạm vào ô nơi nó thuộc về.",
+    putIn:"Đặt vào {b}", cardsLbl:"Các thẻ cần phân loại", notThere:"Không phải {b}.",
+    youHave:"Em có", planned:"Có kế hoạch", notPlanned:"Không có kế hoạch", weeksN:"{n} tuần", week1:"1 tuần",
+    jDog:"Em dắt chó đi dạo cho hàng xóm. Mỗi lần dắt được trả {p}. Tuần này em dắt {k} lần.",
+    jLeaf:"Em cào lá cho hàng xóm. Mỗi sân được trả {p}. Em cào {k} sân.",
+    jCar:"Em giúp rửa xe. Mỗi xe được trả {p}. Em rửa {k} xe.",
+    jPlant:"Em tưới cây khi hàng xóm đi vắng. Mỗi ngày được trả {p}. Em làm việc đó trong {k} ngày.",
+    jobQ:"Em kiếm được bao nhiêu tiền? Hãy đặt số tiền đó vào khay.",
+    jobH:"Em được {p} cho mỗi việc, và em làm {k} việc: {k} × {p}.",
+    jobG:"{k} × {p} = {x}. Em đã kiếm được thu nhập đó bằng sức lao động của mình.",
+    skillQ:"Em được {a} mỗi giờ khi giúp làm việc nhà. Sau đó em học một kỹ năng mới là sửa xe đạp và được {b} mỗi giờ. Nếu em làm {k} giờ, em kiếm được nhiều hơn bao nhiêu nhờ kỹ năng mới?",
+    skillH:"Tìm xem mỗi giờ em được nhiều hơn bao nhiêu: {b} − {a}. Rồi nhân với {k} giờ.",
+    skillG:"Mỗi giờ được trả nhiều hơn {d}, và {k} × {d} = {x}. Học kỹ năng mới có thể giúp tăng thu nhập.",
+    lemQ1:"Em mở một quầy bán nước chanh. Trước tiên em mua nguyên liệu. Tổng chi phí là bao nhiêu? Hãy đặt số tiền đó vào khay để trả.",
+    lemH1:"Cộng tiền chanh, tiền đường và tiền cốc.",
+    lemG1:"{a} + {b} + {c} = {x}. Đó là chi phí để làm nước chanh.",
+    lemQ2:"Em bán {k} cốc, mỗi cốc {p}. Em thu được bao nhiêu tiền?",
+    lemH2:"Mỗi cốc mang về {p}, và em bán {k} cốc: {k} × {p}.",
+    lemG2:"{k} × {p} = {x}. Đó là số tiền quầy của em thu được.",
+    lemQ3:"Lợi nhuận là số tiền còn lại sau khi trả các chi phí. Lợi nhuận của em là bao nhiêu?",
+    lemH3:"Bắt đầu với số tiền thu được, {r}, rồi trừ chi phí nguyên liệu, {c}.",
+    lemG3:"{r} − {c} = {x}. Lợi nhuận của em là {x}.",
+    lemL:"Chanh", lemS:"Đường", lemC:"Cốc", lemCost:"Chi phí nguyên liệu", lemSold:"Số cốc đã bán", lemPer:"{p} một cốc", lemIn:"Tiền thu được",
+    sc1:"Một mùa đông giá rét làm nhiều cây cam bị đóng băng, nên năm nay có ít cam hơn hẳn. Giá cam nhiều khả năng sẽ thế nào?",
+    sc2:"Mùa hè này nông dân trồng được rất nhiều dưa hấu, nhiều hơn số người muốn mua. Giá dưa hấu nhiều khả năng sẽ thế nào?",
+    sc3:"Chỉ còn vài vé cho một buổi biểu diễn được yêu thích, và rất nhiều người muốn mua. Giá vé nhiều khả năng sẽ thế nào?",
+    sc4:"Năm ngoái một món đồ chơi rất được ưa chuộng. Bây giờ các cửa hàng có đầy kệ món đó nhưng ít người mua. Giá của nó nhiều khả năng sẽ thế nào?",
+    sc5:"Bão làm nhiều thuyền đánh cá không thể ra khơi, nên ở chợ có ít cá hơn. Giá cá nhiều khả năng sẽ thế nào?",
+    pUp:"Giá tăng lên", pDown:"Giá giảm xuống", pSame:"Giá giữ nguyên",
+    scUp:"Khi một thứ khan hiếm, không đủ cho tất cả những người muốn có nó, người bán có thể đòi giá cao hơn. Giá thường tăng lên.",
+    scDown:"Khi có rất nhiều một thứ, nhiều hơn số người muốn mua, người bán giảm giá để mọi người mua.",
+    scH:"Hãy tự hỏi: thứ đó ít hơn hay nhiều hơn số người muốn có? Thứ khan hiếm thường đắt hơn. Thứ có nhiều thường rẻ hơn.",
+    planQ:"Em có {m}. Em đã định mua {a} giá {p}. Ở cửa hàng em còn thấy {b} giá {q}, thứ mà em không định mua. Để mua cả hai, em cần thêm bao nhiêu tiền?",
+    planH:"Cộng hai giá tiền lại. Rồi so sánh tổng với {m} em đang có.",
+    planG:"{p} + {q} = {s}, mà em có {m}, nên em còn thiếu {x}. Một lần mua không có kế hoạch có thể khiến em mất thứ mình đã định mua. Kế hoạch giúp em chi tiêu cho điều quan trọng nhất.",
+    iBook:"một quyển sách", iBall:"một quả bóng đá", iKite:"một cái diều", iArt:"một bộ dụng cụ vẽ", iPuzzle:"một bộ xếp hình",
+    iSnack:"một túi bỏng ngô", iSticker:"một gói hình dán", iCar:"một chiếc ô tô đồ chơi", iSlime:"một hộp slime", iComic:"một quyển truyện tranh",
+    iHelmet:"một mũ bảo hiểm xe đạp", iScooter:"một chiếc xe trượt scooter", iSkate:"một ván trượt",
+    decQ:"Đây là thu nhập, chi tiêu, tiết kiệm, cho đi hay tín dụng? Hãy xếp mỗi thẻ vào đúng ô.",
+    bInc:"Thu nhập", bSpend:"Chi tiêu", bSave:"Tiết kiệm", bGive:"Cho đi", bCred:"Tín dụng",
+    d_i1:"Được trả tiền vì dắt chó đi dạo", d_i2:"Bán đồ thủ công em tự làm", d_i3:"Kiếm tiền nhờ cào lá",
+    d_s1:"Mua đồ ăn vặt sau giờ học", d_s2:"Trả tiền vé xem phim", d_s3:"Mua hộp bút mới",
+    d_v1:"Gửi một phần tiền tiêu vặt vào tài khoản tiết kiệm", d_v2:"Để tiền trong heo đất để mua xe đạp", d_v3:"Giữ một nửa tiền mừng sinh nhật để dùng sau",
+    d_g1:"Góp tiền cho ngân hàng thực phẩm", d_g2:"Góp tiền cho trại cứu hộ động vật", d_g3:"Góp tiền giúp các gia đình sau trận lũ",
+    d_c1:"Vay tiền để mua xe đạp rồi trả lại sau", d_c2:"Dùng thẻ tín dụng và trả hóa đơn vào tháng sau",
+    wInc:"{x}: em nhận tiền nhờ làm việc hoặc bán một thứ gì đó, nên đó là thu nhập.",
+    wSpend:"{x}: em dùng tiền để mua một thứ ngay bây giờ, nên đó là chi tiêu.",
+    wSave:"{x}: em giữ tiền để dùng sau, nên đó là tiết kiệm.",
+    wGive:"{x}: em chia sẻ tiền để giúp người khác, nên đó là cho đi.",
+    wCred:"{x}: em dùng tiền của người khác bây giờ và trả lại sau, nên đó là tín dụng.",
+    decDone:"Đã xếp xong! Mọi quyết định về tiền đều là kiếm, tiêu, tiết kiệm, cho đi hoặc dùng tín dụng.",
+    needsQ:"Đây là nhu cầu hay mong muốn? Hãy xếp mỗi thẻ vào đúng ô.", bNeed:"Nhu cầu", bWant:"Mong muốn",
+    n1:"Nước sạch", n2:"Thức ăn lành mạnh", n3:"Áo ấm cho mùa đông", n4:"Thuốc khi bị ốm", n5:"Một nơi ở an toàn", n6:"Giày vừa chân",
+    w1:"Một trò chơi điện tử mới", w2:"Kẹo", w3:"Một rô-bốt đồ chơi", w4:"Một vé xem phim", w5:"Một ốp điện thoại lấp lánh", w6:"Nước ngọt có ga", w7:"Giày trượt có đèn",
+    whyNeed:"{x} là nhu cầu: con người cần nó để sống, khỏe mạnh hoặc an toàn.",
+    whyWant:"{x} là mong muốn: có thì vui, nhưng không có vẫn sống được.",
+    needsDone:"Đã xếp xong! Một kế hoạch thông minh trả cho nhu cầu trước, rồi tiết kiệm cho mong muốn.",
+    goalQ:"Em muốn {a} giá {g}. Mỗi tuần em tiết kiệm {w}. Cần bao nhiêu tuần để tiết kiệm đủ? Chạm vào Tiết kiệm 1 tuần để thử.",
+    saveWeek:"Tiết kiệm 1 tuần", weekN:"Tuần {n}:", goalLbl:"Mục tiêu",
+    goalLess:"Sau {n} tuần em sẽ có {y}. Số đó ít hơn {g}.",
+    goalMore:"Sau {j} tuần em đã có {y}, như vậy là đủ. Hãy tìm tuần đầu tiên em đạt {g}.",
+    goalG:"Sau {k} tuần em có {x}. Đủ để mua món giá {g}!", goalNE:"Sau {j} tuần em chỉ có {y}, vẫn chưa đủ.",
+    goalWhy:"Kế hoạch tiết kiệm giúp em đạt mục tiêu. Mọi người cũng tiết kiệm để học đại học và phòng khi khẩn cấp.",
+    jarQ:"Tuần này em nhận {a} tiền tiêu vặt. Kế hoạch của em: tiết kiệm {s}, chia sẻ {h}, và tiêu phần còn lại. Hãy kéo tiền vào ba cái lọ.",
+    jarQh:"Tuần này em nhận {a} tiền tiêu vặt. Kế hoạch của em: tiết kiệm một nửa, chia sẻ {h}, và tiêu phần còn lại. Hãy kéo tiền vào ba cái lọ.",
+    jPile:"Tiền tiêu vặt", jSave:"Tiết kiệm", jShare:"Chia sẻ", jSpend:"Tiêu",
+    jarLeft:"Trước tiên hãy bỏ hết tiền tiêu vặt vào các lọ.", jarWrong:"Lọ {j} có {x}, nhưng kế hoạch của em cần {y} ở đó.",
+    jarHalf:"Một nửa của {a} là {s}.", jarRest:"Lọ tiêu nhận phần còn lại: {a} − {s} − {h} = {y}.",
+    jarG:"Tiết kiệm {s} + chia sẻ {h} + tiêu {p} = {a}. Mỗi đô la đều có một nhiệm vụ!",
+    fixQ:"Cố định hay thay đổi? Hãy xếp mỗi khoản chi hằng tháng vào đúng ô.", bFixed:"Cố định: tháng nào cũng như nhau", bVar:"Thay đổi: có thể khác nhau",
+    f1:"Tiền thuê căn hộ", f2:"Gói cước điện thoại", f3:"Dịch vụ internet", f4:"Vé xe buýt tháng", f5:"Học nhạc", f6:"Tiền trả góp xe hơi",
+    v1:"Thực phẩm", v2:"Xăng cho xe hơi", v3:"Ăn nhà hàng", v4:"Quà tặng", v5:"Hóa đơn tiền điện", v6:"Quần áo mới",
+    whyFix:"{x} tháng nào cũng tốn số tiền như nhau, nên đó là chi phí cố định.",
+    whyVar:"{x} có thể tốn nhiều hơn tháng này và ít hơn tháng sau, nên đó là chi phí thay đổi.",
+    fixDone:"Đã xếp xong! Chi phí cố định giữ nguyên. Chi phí thay đổi thì thay đổi.",
+    bzBrace:"Em làm vòng tay để bán. Em bán {k} vòng tay, mỗi chiếc {p}.",
+    bzWash:"Em và các bạn tổ chức rửa xe. Các em rửa {k} xe, mỗi xe {p}.",
+    bzBake:"Lớp em tổ chức bán bánh. Lớp bán {k} cái bánh nướng, mỗi cái {p}.",
+    bzPlant:"Em trồng cây để bán. Em bán {k} cây, mỗi cây {p}.",
+    prQ:"Hãy điền vào bảng để tìm lợi nhuận của em.",
+    exBeads:"Hạt và dây", exTable:"Thuê bàn", exSoap:"Xà phòng và miếng bọt biển", exSign:"Biển hiệu", exIng:"Nguyên liệu", exBox:"Hộp và khăn giấy", exPots:"Chậu cây", exSoil:"Đất và hạt giống",
+    rRev:"Doanh thu (tiền thu được)", rExp:"Chi phí", rTotE:"Tổng chi phí", rProf:"Lợi nhuận", prFormula:"Lợi nhuận = doanh thu − chi phí",
+    prRevH:"Doanh thu = số lượng bán × giá: {k} × {p}.", prExpH:"Cộng tất cả các chi phí trong bảng.", prProfH:"Lợi nhuận = doanh thu − tổng chi phí.",
+    prG:"{r} − {e} = {x}. Lợi nhuận của em là {x}.",
+    crQ:"Em muốn {a} giá {c}, nhưng em chỉ có {h}. Em vay {b} từ ngân hàng. Người vay phải trả lại số tiền đã vay, cộng thêm tiền lãi. Tiền lãi là {i}. Tổng cộng em sẽ trả lại bao nhiêu?",
+    crH:"Tiền lãi là tiền trả thêm cho người cho vay vì đã dùng tiền của họ. Hãy cộng nó vào số tiền em đã vay.",
+    crG:"{b} + {i} = {t}. Tín dụng giúp em mua ngay, nhưng người vay phải trả lại cho người cho vay, và tiền lãi làm nó tốn hơn.",
+    cr2Q:"Em vay {b} từ ngân hàng để mua {a}. Tổng cộng em trả lại ngân hàng {t}. Tiền lãi làm em tốn bao nhiêu?",
+    cr2H:"Tiền lãi là phần em trả thêm ngoài số tiền đã vay. Lấy số tiền đã trả trừ đi số tiền đã vay.",
+    cr2G:"{t} − {b} = {i}. Tiền lãi đó là cái giá của việc vay tiền.",
+    bq1Q:"Một nhiệm vụ chính của ngân hàng hoặc hợp tác xã tín dụng là gì?", bq1A:"Giữ tiền của mọi người an toàn", bq1W1:"Quyết định em được bao nhiêu tiền tiêu vặt", bq1W2:"Đặt giá trong các cửa hàng",
+    bq1E:"Ngân hàng và hợp tác xã tín dụng giữ tiền an toàn, cho người vay mượn tiền, và trả lãi cho tiền tiết kiệm.",
+    bq2Q:"Tiền tiết kiệm của em có thể sinh lãi ở đâu?", bq2A:"Trong tài khoản tiết kiệm ở ngân hàng", bq2W1:"Trong heo đất", bq2W2:"Trong ngăn kéo ở nhà",
+    bq2E:"Ngân hàng trả lãi cho em vì em gửi tiền tiết kiệm ở đó, nên tiền của em tăng lên.",
+    bq3Q:"Một ưu điểm của heo đất là gì?", bq3A:"Em có thể lấy tiền ngay ở nhà", bq3W1:"Nó trả lãi cho em", bq3W2:"Nó làm tiền của em tăng lên",
+    bq3E:"Heo đất dễ lấy tiền, nhưng không có lãi và không an toàn bằng ngân hàng.",
+    bq4Q:"Ngân hàng lấy tiền ở đâu để cho người khác vay?", bq4A:"Ngân hàng cho vay một phần tiền mọi người gửi tiết kiệm ở đó", bq4W1:"Ngân hàng tự in tiền", bq4W2:"Ngân hàng lấy tiền từ các cửa hàng",
+    bq4E:"Ngân hàng cho vay một phần tiền của người gửi tiết kiệm. Người vay trả lại kèm tiền lãi.",
+    bq5Q:"Một nhược điểm của tài khoản tiết kiệm là gì?", bq5A:"Em phải đến ngân hàng hoặc dùng ứng dụng để rút tiền", bq5W1:"Nó trả lãi", bq5W2:"Nó giữ tiền của em an toàn",
+    bq5E:"Tài khoản tiết kiệm giữ tiền an toàn và trả lãi, nhưng lấy tiền ra thì tốn công hơn một chút.",
+    pmQ:"Đây là cách trả tiền nào?",
+    pm1:"Em đưa tiền giấy và tiền xu. Cách này đơn giản, nhưng nếu làm mất thì mất luôn.",
+    pm2:"Em viết số tiền lên một tờ giấy và ký tên. Ngân hàng của em trả cho cửa hàng từ tài khoản của em, nhưng có thể mất vài ngày.",
+    pm3:"Em dùng một tấm thẻ, và tiền được trừ ngay khỏi tài khoản ngân hàng của em. Em chỉ tiêu được số tiền mình có.",
+    pm4:"Em dùng một tấm thẻ để vay tiền. Nếu không trả hết hóa đơn mỗi tháng, em phải trả lãi.",
+    pm5:"Em trả tiền bằng ứng dụng hoặc trang web từ tài khoản ngân hàng. Cách này nhanh, nhưng em phải giữ mật khẩu an toàn.",
+    pmCash:"Tiền mặt", pmCheck:"Séc", pmDebit:"Thẻ ghi nợ", pmCredit:"Thẻ tín dụng", pmE:"Thanh toán điện tử",
+    ps1:"Tiền mặt là tiền giấy và tiền xu em đưa trực tiếp.", ps2:"Séc là một tờ giấy em viết và ký tên.", ps3:"Thẻ ghi nợ trừ tiền ngay khỏi tài khoản ngân hàng của em.",
+    ps4:"Thẻ tín dụng là vay tiền rồi trả lại sau.", ps5:"Thanh toán điện tử dùng ứng dụng hoặc trang web.",
+    pmG:"Đúng rồi, đó là {x}.",
+    lgQ:"Hãy ghi sổ tiền. Điền số dư sau mỗi lần gửi tiền hoặc rút tiền.",
+    lgDesc:"Việc đã xảy ra", lgDep:"Gửi vào (+)", lgWd:"Rút ra (−)", lgAmt:"Gửi vào (+) hoặc rút ra (−)", lgBal:"Số dư", lgStart:"Số dư ban đầu", lgRow:"Số dư sau: {d}",
+    lgAllow:"Tiền tiêu vặt", lgGift:"Quà sinh nhật", lgSell:"Bán đồ thủ công", lgPet:"Tiền trông thú cưng",
+    lgBook:"Mua một quyển sách", lgPres:"Mua quà cho bạn", lgMovie:"Xem phim và ăn vặt", lgDon:"Góp cho ngân hàng thực phẩm",
+    lgHdep:"Ở dòng này em bắt đầu với {b}. Gửi vào thêm {x}, nên số dư tăng lên.",
+    lgHwd:"Ở dòng này em bắt đầu với {b}. Rút ra bớt {x}, nên số dư giảm xuống.",
+    lgG:"Số dư của em là {x}. Sổ ghi chép cho thấy tiền của em đi đâu, nên em luôn biết mình có bao nhiêu.",
+    tdQ:"Đây là loại thuế nào?",
+    td1:"Tiền cộng thêm vào giá khi em mua đồ ở cửa hàng.", td2:"Tiền mà người sở hữu đất hoặc nhà phải trả mỗi năm.",
+    td3:"Tiền nộp cho chính phủ từ số tiền mọi người kiếm được trong năm.", td4:"Tiền bị khấu trừ từ mỗi phiếu lương để chi cho các chương trình như An sinh Xã hội và Medicare.",
+    tSales:"Thuế bán hàng", tProp:"Thuế tài sản", tInc:"Thuế thu nhập", tPay:"Thuế tiền lương",
+    ts1:"Thuế bán hàng được cộng thêm khi em mua thứ gì đó.", ts2:"Thuế tài sản do người sở hữu đất và nhà trả.", ts3:"Thuế thu nhập được tính trên số tiền mọi người kiếm được.", ts4:"Thuế tiền lương do chủ lao động khấu trừ từ phiếu lương.",
+    tdG:"Đúng rồi, đó là {x}. Thuế chi trả cho những thứ chúng ta dùng chung, như trường học, đường sá và công viên.",
+    stQ:"Em mua {a} giá {p}. Ở đây, thuế bán hàng là {r} cho mỗi đô la. Hãy điền vào hóa đơn.",
+    stTaxH:"Thuế bán hàng là {r} cho mỗi đô la trong {d} đô la: {d} × {r}.", stTotH:"Tổng = giá + thuế bán hàng.",
+    stG:"{p} + {x} = {tt}. Cửa hàng thu thuế bán hàng và gửi cho chính phủ.",
+    rcTax:"Thuế bán hàng", rcTot:"Tổng cộng", rcTitle:"Hóa đơn",
+    grQ:"Tuần này em đi làm. Phiếu lương cho thấy lương gộp và các khoản thuế bị khấu trừ. Hãy điền tổng tiền thuế và lương thực nhận.",
+    grStub:"Phiếu lương", grGross:"Lương gộp", grPayT:"Thuế tiền lương", grIncT:"Thuế thu nhập", grTot:"Tổng tiền thuế", grNet:"Lương thực nhận",
+    grTaxH:"Cộng hai khoản thuế: thuế tiền lương + thuế thu nhập.", grNetH:"Lương thực nhận = lương gộp − tổng tiền thuế.",
+    grG:"{g} − {x} = {n}. Thu nhập gộp là tất cả số tiền em kiếm được. Thu nhập ròng là số tiền mang về nhà sau thuế.",
+    bgQ:"Gia đình em kiếm được {i} mỗi tháng, nhưng ngân sách này định chi nhiều hơn {o}. Hãy dùng − và + ở các khoản chi có thể thay đổi để cân bằng ngân sách: chi phí phải bằng thu nhập.",
+    bgRent:"Tiền thuê nhà", bgUtil:"Điện và nước", bgFood:"Thức ăn", bgTrans:"Xe buýt và xăng", bgFun:"Vui chơi và ăn ngoài", bgSave:"Tiết kiệm",
+    bgInc:"Thu nhập hằng tháng", bgExp:"Chi phí", bgWas:"trước là {x}", bgLess:"Bớt tiền cho {x}", bgMore:"Thêm tiền cho {x}", bgFixed:"Cố định: không đổi được",
+    bgOver:"Chi phí của em cộng lại là {e}. Vẫn nhiều hơn thu nhập {i} là {x}. Hãy cắt bớt một mong muốn, như vui chơi và ăn ngoài.",
+    bgUnder:"Chi phí của em cộng lại là {e}. Ít hơn {i} là {x}. Hãy bỏ {x} còn dư vào tiết kiệm để mỗi đô la đều có nhiệm vụ.",
+    bgG:"Chi phí {e} = thu nhập {i}. Ngân sách đã cân bằng! Em đã chi ít hơn thay vì đi vay.",
+    actQ:"Chi phí của gia đình này nhiều hơn thu nhập. Việc làm nào có thể giúp cân bằng ngân sách?",
+    aCook:"Nấu ăn ở nhà thay vì ăn ngoài", aPhone:"Đổi sang gói cước điện thoại rẻ hơn", aSell:"Bán những thứ không còn dùng", aWork:"Kiếm thêm thu nhập bằng cách làm thêm giờ",
+    aTV:"Mua một chiếc TV to hơn", aCard:"Trả mọi thứ bằng thẻ tín dụng", aEat:"Đi ăn nhà hàng thường xuyên hơn", aTrip:"Đi một chuyến du lịch đắt tiền",
+    actG:"Đúng rồi! Để cân bằng ngân sách, hãy chi ít hơn hoặc kiếm nhiều hơn. Việc này làm được điều đó.",
+    actH:"Việc đó sẽ làm chi phí tăng hoặc thêm nợ. Để cân bằng ngân sách, hãy chi ít hơn hoặc kiếm nhiều hơn.",
+    teacherTitle:"Cài đặt của giáo viên", setGrade:"Lớp", g3:"Lớp 3", g4:"Lớp 4", g5:"Lớp 5",
+    gradeNote:"Chọn lớp sẽ đặt sẵn các tùy chọn bên dưới. Thầy cô vẫn có thể thay đổi.",
+    setLvl:"Số tiền", lv1:"Nhỏ (đến khoảng $20)", lv2:"Vừa (đến khoảng $100)", lv3:"Lớn (đến khoảng $1,000)",
+    setCents:"Xu", centsOn:"Dùng đô la và xu, không chỉ đô la chẵn",
+    setModes:"Chế độ", modeNote:"Mỗi chế độ trộn nhiều loại vòng chơi. Lớp được chọn quyết định loại nào xuất hiện.",
+    setSpeech:"Giọng đọc", autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
+    numNote:"Tiền được ghi bằng đô la và xu của Mỹ trong mọi ngôn ngữ (theo chuẩn Texas): dấu chấm ngăn đô la với xu, dấu phẩy nhóm hàng nghìn, như $1,234.56.",
+    setStored:"Cài đặt chỉ được lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
+    stds:"Chuẩn kiến thức — TEKS của Texas: Lớp 3: 3.4(A, C), 3.9(A, B, C, D, E, F); Lớp 4: 4.4(A), 4.10(A, B, C, D, E); Lớp 5: 5.3(E, K), 5.10(A, B, C, D, E, F). Common Core không có mảng giáo dục tài chính; phần giải toán về tiền ở đây luyện tập 3.OA.3, 3.OA.8, 3.NBT.2; 4.MD.2; 5.NBT.7.",
+    cardTitle:"Hiểu Biết Về Tiền — Thẻ thử thách", cardName:"Họ tên:", cardWork:"Trình bày cách làm.",
+    cardNW:"Viết N nếu là nhu cầu hoặc M nếu là mong muốn.", cardFV:"Viết C nếu là chi phí cố định hoặc T nếu là chi phí thay đổi.",
+    cardEarn:"Em kiếm được bao nhiêu tiền?",
+    cardLg:"Điền vào cột số dư.", cardProf:"Tìm lợi nhuận."
+  },
+  ar:{
+    appTitle:"فهم المال", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلّم", language:"اللغة", readAloud:"اقرأ بصوت عالٍ",
+    modesLbl:"الأنماط", stars:"النجوم المكتسبة", newRound:"جولة جديدة", footNote:"بلا حسابات · لا نجمع أي بيانات · يعمل دون إنترنت",
+    mEarn:"الكسب والإنفاق", mSave:"الادخار والتخطيط", mProfit:"المصروفات والربح", mBank:"الائتمان والبنوك", mTax:"الضرائب والميزانيات",
+    check:"تحقّق", clear:"امسح", yes:"أحسنت!", close:"إغلاق", choicesLbl:"خيارات الإجابة", startOver:"ابدأ من جديد",
+    dol1:"دولار واحد", dolN:"{n} دولار", ct1:"سنت واحد", ctN:"{n} سنت", dc:"{d} و{c}",
+    addX:"أضف {x}", rmvX:"أخرج {x}", bankLbl:"نقود للاستخدام: انقر أو اسحب", trayLbl:"صينيتك", trayEmpty:"اسحب النقود أو انقر عليها لتضعها هنا.",
+    inTray:"في الصينية:", trayNone:"صينيتك فارغة. انقر على الأوراق النقدية والقطع المعدنية أو اسحبها إليها.",
+    trayMore:"في صينيتك {x}. هذا أكثر من اللازم، فأخرج بعض النقود.", trayLess:"في صينيتك {x}. هذا لا يكفي بعد.",
+    fillIn:"اكتب مبلغًا في كل خانة، مثل 12.50.", pickFirst:"انقر أولًا على بطاقة أو على بعض النقود، ثم انقر على الصندوق المناسب.",
+    putIn:"ضعه في {b}", cardsLbl:"بطاقات للتصنيف", notThere:"ليس {b}.",
+    youHave:"معك", planned:"مخطَّط له", notPlanned:"غير مخطَّط له", weeksN:"{n} أسابيع", week1:"أسبوع واحد",
+    jDog:"تُنزّه كلاب جيرانك. كل نزهة تُكسبك {p}. هذا الأسبوع تقوم بـ {k} نزهات.",
+    jLeaf:"تجمع أوراق الشجر المتساقطة لجيرانك. كل حديقة تُكسبك {p}. تنظّف {k} حدائق.",
+    jCar:"تساعد في غسل السيارات. كل سيارة تُكسبك {p}. تغسل {k} سيارات.",
+    jPlant:"تسقي نباتات جيرانك وهم مسافرون. كل يوم يُكسبك {p}. تفعل ذلك لمدة {k} أيام.",
+    jobQ:"كم من المال تكسب؟ ضع هذا المبلغ في الصينية.",
+    jobH:"تكسب {p} عن كل عمل، وتقوم بـ {k} أعمال: {k} × {p}.",
+    jobG:"{k} × {p} = {x}. كسبت هذا الدخل بعملك وجهدك.",
+    skillQ:"تكسب {a} في الساعة عندما تساعد في الأعمال المنزلية. ثم تتعلّم مهارة جديدة هي إصلاح الدراجات، فتكسب {b} في الساعة. إذا عملت {k} ساعات، فكم تكسب زيادةً بفضل المهارة الجديدة؟",
+    skillH:"جِد كم تكسب زيادةً في كل ساعة: {b} − {a}. ثم اضرب في عدد الساعات {k}.",
+    skillG:"كل ساعة تُكسبك {d} زيادة، و{k} × {d} = {x}. تعلّم مهارات جديدة يمكن أن يزيد دخلك.",
+    lemQ1:"تفتح كشكًا لبيع عصير الليمون. أولًا تشتري المستلزمات. ما التكلفة الكلية؟ ضع هذا المبلغ في الصينية لتدفع.",
+    lemH1:"اجمع ثمن الليمون والسكر والأكواب.",
+    lemG1:"{a} + {b} + {c} = {x}. هذه تكلفة صنع عصير الليمون.",
+    lemQ2:"تبيع {k} أكواب بسعر {p} للكوب. كم من المال تحصل عليه؟",
+    lemH2:"كل كوب يجلب {p}، وقد بعت {k} أكواب: {k} × {p}.",
+    lemG2:"{k} × {p} = {x}. هذا هو المال الذي حصل عليه كشكك.",
+    lemQ3:"الربح هو المال الذي يبقى بعد دفع التكاليف. كم ربحك؟",
+    lemH3:"ابدأ بالمال الذي حصلت عليه، {r}، واطرح منه تكلفة المستلزمات، {c}.",
+    lemG3:"{r} − {c} = {x}. ربحك {x}.",
+    lemL:"الليمون", lemS:"السكر", lemC:"الأكواب", lemCost:"تكلفة المستلزمات", lemSold:"الأكواب المبيعة", lemPer:"{p} للكوب", lemIn:"المال الذي حصلت عليه",
+    sc1:"جمّد شتاءٌ قارس كثيرًا من أشجار البرتقال، فصار البرتقال هذا العام أقل بكثير. ماذا سيحدث على الأرجح لسعر البرتقال؟",
+    sc2:"زرع المزارعون هذا الصيف بطيخًا كثيرًا جدًا، حتى صار في المتاجر أكثر مما يريده الناس. ماذا سيحدث على الأرجح لسعر البطيخ؟",
+    sc3:"لم يبقَ إلا تذاكر قليلة لعرض مشهور، وكثير من الناس يريدونها. ماذا سيحدث على الأرجح لسعر التذاكر؟",
+    sc4:"كانت لعبة مشهورة جدًا في العام الماضي. الآن رفوف المتاجر مليئة بها، وقليل من الناس يشترونها. ماذا سيحدث على الأرجح لسعرها؟",
+    sc5:"منعت العواصف كثيرًا من قوارب الصيد من الخروج إلى البحر، فصار السمك في السوق أقل. ماذا سيحدث على الأرجح لسعر السمك؟",
+    pUp:"يرتفع السعر", pDown:"ينخفض السعر", pSame:"يبقى السعر كما هو",
+    scUp:"عندما يكون الشيء نادرًا، لا يكفي كل من يريده، فيستطيع البائعون أن يطلبوا ثمنًا أعلى. عادةً يرتفع السعر.",
+    scDown:"عندما يكون الشيء كثيرًا، أكثر مما يريده الناس، يخفّض البائعون السعر ليشتريه الناس.",
+    scH:"اسأل نفسك: هل الكمية أقل مما يريده الناس أم أكثر؟ الأشياء النادرة تكلّف أكثر عادةً، والأشياء الكثيرة تكلّف أقل عادةً.",
+    planQ:"معك {m}. خطّطت لشراء {a} بسعر {p}. في المتجر رأيت أيضًا {b} بسعر {q}، ولم تخطّط لشرائه. لكي تشتري الاثنين، كم تحتاج من المال زيادةً؟",
+    planH:"اجمع السعرين. ثم قارن المجموع بالمبلغ الذي معك، {m}.",
+    planG:"{p} + {q} = {s}، ومعك {m}، فينقصك {x}. الشراء غير المخطَّط له قد يُضيّع عليك ما خطّطت له. التخطيط يساعدك على إنفاق المال على الأهم.",
+    iBook:"كتابًا", iBall:"كرة قدم", iKite:"طائرة ورقية", iArt:"علبة أدوات رسم", iPuzzle:"لعبة تركيب صور",
+    iSnack:"كيس فشار", iSticker:"علبة ملصقات", iCar:"سيارة لعبة", iSlime:"علبة سلايم", iComic:"كتاب قصص مصوّرة",
+    iHelmet:"خوذة دراجة", iScooter:"سكوتر", iSkate:"لوح تزلج",
+    decQ:"هل هو دخل أم إنفاق أم ادخار أم عطاء أم ائتمان؟ صنّف كل بطاقة في الصندوق الصحيح.",
+    bInc:"دخل", bSpend:"إنفاق", bSave:"ادخار", bGive:"عطاء", bCred:"ائتمان",
+    d_i1:"تحصل على أجر مقابل تنزيه كلب", d_i2:"تبيع أشغالًا يدوية صنعتها", d_i3:"تكسب مالًا مقابل جمع أوراق الشجر",
+    d_s1:"تشتري وجبة خفيفة بعد المدرسة", d_s2:"تدفع ثمن تذكرة سينما", d_s3:"تشتري مقلمة جديدة",
+    d_v1:"تضع جزءًا من مصروفك في حساب توفير", d_v2:"تحتفظ بالمال في حصّالة لشراء دراجة", d_v3:"تحتفظ بنصف هدية عيد ميلادك لوقت لاحق",
+    d_g1:"تتبرع بالمال لبنك الطعام", d_g2:"تتبرع بالمال لملجأ حيوانات", d_g3:"تتبرع بالمال لمساعدة الأسر بعد فيضان",
+    d_c1:"تقترض مالًا لشراء دراجة وتردّه لاحقًا", d_c2:"تستخدم بطاقة ائتمان وتدفع الفاتورة في الشهر القادم",
+    wInc:"{x}: تحصل على المال مقابل العمل أو بيع شيء، فهذا دخل.",
+    wSpend:"{x}: تستخدم المال لتشتري شيئًا الآن، فهذا إنفاق.",
+    wSave:"{x}: تحتفظ بالمال لتستخدمه لاحقًا، فهذا ادخار.",
+    wGive:"{x}: تشارك المال لتساعد الآخرين، فهذا عطاء.",
+    wCred:"{x}: تستخدم مال شخص آخر الآن وتردّه لاحقًا، فهذا ائتمان.",
+    decDone:"أحسنت، صنّفت كل البطاقات! كل قرار مالي هو كسب أو إنفاق أو ادخار أو عطاء أو استخدام للائتمان.",
+    needsQ:"هل هو حاجة أم رغبة؟ صنّف كل بطاقة في الصندوق الصحيح.", bNeed:"حاجات", bWant:"رغبات",
+    n1:"ماء نظيف", n2:"طعام صحي", n3:"معطف دافئ للشتاء", n4:"دواء عند المرض", n5:"مكان آمن للسكن", n6:"حذاء بمقاس مناسب",
+    w1:"لعبة فيديو جديدة", w2:"حلوى", w3:"روبوت لعبة", w4:"تذكرة سينما", w5:"غطاء هاتف لامع", w6:"مشروب غازي", w7:"أحذية تزلج مضيئة",
+    whyNeed:"{x} حاجة: يحتاجها الناس ليعيشوا أو ليبقوا أصحاء أو آمنين.",
+    whyWant:"{x} رغبة: من الجميل امتلاكها، لكن يمكن العيش من دونها.",
+    needsDone:"أحسنت، صنّفت كل البطاقات! الخطة الذكية تدفع للحاجات أولًا، ثم تدّخر للرغبات.",
+    goalQ:"تريد {a} سعره {g}. تدّخر {w} كل أسبوع. كم أسبوعًا تحتاج لتدّخر ما يكفي؟ انقر على ادّخر أسبوعًا لتجرّب.",
+    saveWeek:"ادّخر أسبوعًا", weekN:"الأسبوع {n}:", goalLbl:"الهدف",
+    goalLess:"بعد {n} أسابيع سيكون معك {y}. وهذا أقل من {g}.",
+    goalMore:"بعد {j} أسابيع سيكون معك {y}، وهذا يكفي. ابحث عن أول أسبوع تصل فيه إلى {g}.",
+    goalG:"بعد {k} أسابيع معك {x}. هذا يكفي لشراء ما سعره {g}!", goalNE:"بعد {j} أسابيع كان معك {y} فقط، ولم يكن ذلك كافيًا.",
+    goalWhy:"خطة الادخار تساعدك على تحقيق هدف. والناس يدّخرون أيضًا للدراسة الجامعية وللطوارئ.",
+    jarQ:"تحصل هذا الأسبوع على مصروف قدره {a}. خطتك: ادّخر {s}، وشارك {h}، وأنفق الباقي. اسحب النقود إلى البرطمانات الثلاثة.",
+    jarQh:"تحصل هذا الأسبوع على مصروف قدره {a}. خطتك: ادّخر النصف، وشارك {h}، وأنفق الباقي. اسحب النقود إلى البرطمانات الثلاثة.",
+    jPile:"المصروف", jSave:"ادّخار", jShare:"مشاركة", jSpend:"إنفاق",
+    jarLeft:"ضع كل المصروف في البرطمانات أولًا.", jarWrong:"في برطمان {j} مبلغ {x}، لكن خطتك تحتاج إلى {y} فيه.",
+    jarHalf:"نصف {a} هو {s}.", jarRest:"للإنفاق يبقى الباقي: {a} − {s} − {h} = {y}.",
+    jarG:"ادّخار {s} + مشاركة {h} + إنفاق {p} = {a}. لكل دولار مهمة!",
+    fixQ:"ثابت أم متغيّر؟ صنّف كل مصروف شهري في الصندوق الصحيح.", bFixed:"ثابت: نفسه كل شهر", bVar:"متغيّر: يمكن أن يتغيّر",
+    f1:"إيجار شقة", f2:"باقة الهاتف", f3:"خدمة الإنترنت", f4:"اشتراك الحافلة الشهري", f5:"دروس الموسيقى", f6:"قسط السيارة",
+    v1:"البقالة", v2:"وقود السيارة", v3:"الأكل في المطاعم", v4:"الهدايا", v5:"فاتورة الكهرباء", v6:"ملابس جديدة",
+    whyFix:"{x} يكلّف المبلغ نفسه كل شهر، فهو مصروف ثابت.",
+    whyVar:"{x} قد يكلّف أكثر في شهر وأقل في الشهر التالي، فهو مصروف متغيّر.",
+    fixDone:"أحسنت، صنّفت كل البطاقات! المصروفات الثابتة تبقى كما هي، والمصروفات المتغيّرة تتغيّر.",
+    bzBrace:"تصنع أساور لتبيعها. تبيع {k} أساور بسعر {p} للسوار.",
+    bzWash:"تنظّم مع أصدقائك يومًا لغسل السيارات. تغسلون {k} سيارات بسعر {p} للسيارة.",
+    bzBake:"ينظّم صفّك سوقًا للمخبوزات. تبيعون {k} كعكات صغيرة بسعر {p} للكعكة.",
+    bzPlant:"تزرع نباتات لتبيعها. تبيع {k} نباتات بسعر {p} للنبتة.",
+    prQ:"املأ الجدول لتجد ربحك.",
+    exBeads:"خرز وخيط", exTable:"استئجار طاولة", exSoap:"صابون وإسفنج", exSign:"لافتات", exIng:"المكوّنات", exBox:"علب ومناديل", exPots:"أصص", exSoil:"تربة وبذور",
+    rRev:"الإيرادات (المال الذي حصلت عليه)", rExp:"مصروف", rTotE:"مجموع المصروفات", rProf:"الربح", prFormula:"الربح = الإيرادات − المصروفات",
+    prRevH:"الإيرادات = عدد المبيعات × السعر: {k} × {p}.", prExpH:"اجمع كل المصروفات في الجدول.", prProfH:"الربح = الإيرادات − مجموع المصروفات.",
+    prG:"{r} − {e} = {x}. ربحك {x}.",
+    crQ:"تريد {a} سعره {c}، لكن معك {h} فقط. تقترض {b} من بنك. على المقترض أن يردّ ما اقترضه مع الفائدة. الفائدة {i}. كم ستدفع للبنك في المجموع؟",
+    crH:"الفائدة مال إضافي يُدفع للمُقرض مقابل استخدام ماله. أضفها إلى المبلغ الذي اقترضته.",
+    crG:"{b} + {i} = {t}. الائتمان يسمح لك بالشراء الآن، لكن على المقترض أن يردّ المال للمُقرض، والفائدة تجعل الشيء أغلى.",
+    cr2Q:"تقترض {b} من بنك لتشتري {a}. تردّ للبنك {t} في المجموع. كم كلّفتك الفائدة؟",
+    cr2H:"الفائدة هي ما تدفعه زيادةً على المبلغ الذي اقترضته. اطرح ما اقترضته مما رددته.",
+    cr2G:"{t} − {b} = {i}. هذه الفائدة هي تكلفة اقتراض المال.",
+    bq1Q:"ما إحدى المهام الرئيسية للبنك أو الجمعية الائتمانية؟", bq1A:"حفظ أموال الناس بأمان", bq1W1:"تحديد مقدار مصروفك", bq1W2:"تحديد الأسعار في المتاجر",
+    bq1E:"البنوك والجمعيات الائتمانية تحفظ المال بأمان، وتُقرض المقترضين، وتدفع فائدة على المدّخرات.",
+    bq2Q:"أين يمكن أن تكسب مدّخراتك فائدة؟", bq2A:"في حساب توفير في بنك", bq2W1:"في حصّالة", bq2W2:"في درج في البيت",
+    bq2E:"يدفع لك البنك فائدة مقابل حفظ مدّخراتك عنده، فينمو مالك.",
+    bq3Q:"ما إحدى مزايا الحصّالة؟", bq3A:"تستطيع أخذ مالك فورًا في البيت", bq3W1:"تدفع لك فائدة", bq3W2:"تجعل مالك ينمو",
+    bq3E:"الحصّالة سهلة الاستعمال، لكنها لا تدفع فائدة وليست آمنة مثل البنك.",
+    bq4Q:"من أين يأتي البنك بالمال الذي يُقرضه؟", bq4A:"يُقرض جزءًا من المال الذي يدّخره الناس فيه", bq4W1:"يطبع نقوده بنفسه", bq4W2:"يأخذ المال من المتاجر",
+    bq4E:"تُقرض البنوك جزءًا من أموال المدّخرين، ويردّها المقترضون مع الفائدة.",
+    bq5Q:"ما أحد عيوب حساب التوفير؟", bq5A:"عليك أن تذهب إلى البنك أو تستخدم تطبيقًا لتسحب المال", bq5W1:"يدفع فائدة", bq5W2:"يحفظ مالك بأمان",
+    bq5E:"حساب التوفير يحفظ المال بأمان ويدفع فائدة، لكن أخذ مالك منه يحتاج إلى جهد أكبر قليلًا.",
+    pmQ:"ما طريقة الدفع هذه؟",
+    pm1:"تُعطي أوراقًا نقدية وقطعًا معدنية. إنها طريقة بسيطة، لكن إن أضعتها ضاعت.",
+    pm2:"تكتب المبلغ على ورقة وتوقّعها. يدفع بنكك للمتجر من حسابك، لكن قد يستغرق ذلك بضعة أيام.",
+    pm3:"تستخدم بطاقة فيُخصم المال من حسابك البنكي فورًا. لا تستطيع أن تنفق إلا ما لديك.",
+    pm4:"تستخدم بطاقة لتقترض المال. إذا لم تدفع الفاتورة كاملة كل شهر، تدفع فائدة.",
+    pm5:"تدفع بتطبيق أو موقع إلكتروني من حسابك البنكي. إنها سريعة، لكن عليك أن تحفظ كلمة المرور بأمان.",
+    pmCash:"نقدًا", pmCheck:"شيك", pmDebit:"بطاقة خصم", pmCredit:"بطاقة ائتمان", pmE:"دفع إلكتروني",
+    ps1:"الدفع نقدًا يعني أن تعطي أوراقًا نقدية وقطعًا معدنية.", ps2:"الشيك ورقة تكتبها وتوقّعها.", ps3:"بطاقة الخصم تأخذ المال من حسابك البنكي فورًا.",
+    ps4:"بطاقة الائتمان تقترض مالًا تردّه لاحقًا.", ps5:"الدفع الإلكتروني يستخدم تطبيقًا أو موقعًا إلكترونيًا.",
+    pmG:"نعم، هذا {x}.",
+    lgQ:"احتفظ بسجل لمالك. اكتب الرصيد بعد كل إيداع أو سحب.",
+    lgDesc:"ماذا حدث", lgDep:"إيداع (+)", lgWd:"سحب (−)", lgAmt:"إيداع (+) أو سحب (−)", lgBal:"الرصيد", lgStart:"الرصيد في البداية", lgRow:"الرصيد بعد: {d}",
+    lgAllow:"المصروف", lgGift:"هدية عيد ميلاد", lgSell:"بيع أشغال يدوية", lgPet:"أجر رعاية حيوان أليف",
+    lgBook:"شراء كتاب", lgPres:"شراء هدية لصديق", lgMovie:"سينما ووجبة خفيفة", lgDon:"تبرع لبنك الطعام",
+    lgHdep:"في هذا السطر تبدأ بـ {b}. الإيداع يضيف {x}، فيزيد الرصيد.",
+    lgHwd:"في هذا السطر تبدأ بـ {b}. السحب يأخذ {x}، فينقص الرصيد.",
+    lgG:"رصيدك {x}. السجل يبيّن أين يذهب مالك، فتعرف دائمًا كم لديك.",
+    tdQ:"ما هذه الضريبة؟",
+    td1:"مال إضافي يُضاف إلى السعر عندما تشتري أشياء من متجر.", td2:"مال يدفعه كل عام من يملكون أرضًا أو بيتًا.",
+    td3:"مال يُدفع للحكومة من المال الذي يكسبه الناس خلال العام.", td4:"مال يُقتطع من كل راتب لتمويل برامج مثل الضمان الاجتماعي والرعاية الصحية لكبار السن.",
+    tSales:"ضريبة المبيعات", tProp:"ضريبة الأملاك", tInc:"ضريبة الدخل", tPay:"ضريبة الرواتب",
+    ts1:"ضريبة المبيعات تُضاف عندما تشتري شيئًا.", ts2:"ضريبة الأملاك يدفعها من يملكون الأراضي والبيوت.", ts3:"ضريبة الدخل تُدفع على المال الذي يكسبه الناس.", ts4:"ضريبة الرواتب يقتطعها صاحب العمل من الراتب.",
+    tdG:"نعم، هذه {x}. الضرائب تدفع ثمن أشياء نتشاركها، مثل المدارس والطرق والحدائق.",
+    stQ:"تشتري {a} بسعر {p}. ضريبة المبيعات هنا {r} عن كل دولار. املأ الإيصال.",
+    stTaxH:"ضريبة المبيعات {r} عن كل دولار من الـ {d} دولارات: {d} × {r}.", stTotH:"المجموع = السعر + ضريبة المبيعات.",
+    stG:"{p} + {x} = {tt}. يجمع المتجر ضريبة المبيعات ويرسلها إلى الحكومة.",
+    rcTax:"ضريبة المبيعات", rcTot:"المجموع", rcTitle:"إيصال",
+    grQ:"عملت في وظيفة هذا الأسبوع. قسيمة راتبك تبيّن راتبك الإجمالي والضرائب المقتطعة. اكتب مجموع الضرائب وصافي راتبك.",
+    grStub:"قسيمة الراتب", grGross:"الراتب الإجمالي", grPayT:"ضريبة الرواتب", grIncT:"ضريبة الدخل", grTot:"مجموع الضرائب", grNet:"صافي الراتب",
+    grTaxH:"اجمع الضريبتين: ضريبة الرواتب + ضريبة الدخل.", grNetH:"صافي الراتب = الراتب الإجمالي − مجموع الضرائب.",
+    grG:"{g} − {x} = {n}. الدخل الإجمالي هو كل المال الذي تكسبه. الدخل الصافي هو ما تأخذه إلى البيت بعد الضرائب.",
+    bgQ:"تكسب أسرتك {i} في الشهر، لكن هذه الميزانية تخطّط لإنفاق {o} أكثر من ذلك. استخدم − و+ على المصروفات التي يمكن تغييرها لتتوازن الميزانية: يجب أن تساوي المصروفات الدخل.",
+    bgRent:"الإيجار", bgUtil:"الكهرباء والماء", bgFood:"الطعام", bgTrans:"الحافلة والوقود", bgFun:"الترفيه والأكل خارج البيت", bgSave:"الادخار",
+    bgInc:"الدخل الشهري", bgExp:"المصروفات", bgWas:"كان {x}", bgLess:"أقل لـ {x}", bgMore:"أكثر لـ {x}", bgFixed:"ثابت: لا يتغيّر",
+    bgOver:"مجموع مصروفاتك {e}. ما زال أكثر من الدخل {i} بمقدار {x}. قلّل رغبة، مثل الترفيه والأكل خارج البيت.",
+    bgUnder:"مجموع مصروفاتك {e}. وهذا أقل من {i} بمقدار {x}. ضع الـ {x} الزائدة في الادخار حتى يكون لكل دولار مهمة.",
+    bgG:"المصروفات {e} = الدخل {i}. الميزانية متوازنة! أنفقت أقل بدل أن تقترض.",
+    actQ:"مصروفات هذه الأسرة أكثر من دخلها. أي تصرّف يمكن أن يساعد على موازنة الميزانية؟",
+    aCook:"الطبخ في البيت بدل الأكل في الخارج", aPhone:"الانتقال إلى باقة هاتف أرخص", aSell:"بيع أشياء لم يعودوا يستخدمونها", aWork:"كسب دخل إضافي بالعمل ساعات أكثر",
+    aTV:"شراء تلفاز أكبر", aCard:"دفع كل شيء ببطاقة الائتمان", aEat:"الأكل في المطاعم أكثر", aTrip:"القيام برحلة غالية",
+    actG:"نعم! لموازنة الميزانية، أنفق أقل أو اكسب أكثر. وهذا التصرّف يفعل ذلك.",
+    actH:"هذا سيزيد المصروفات أو يضيف دَينًا. لموازنة الميزانية، أنفق أقل أو اكسب أكثر.",
+    teacherTitle:"إعدادات المعلّم", setGrade:"الصف", g3:"الصف الثالث", g4:"الصف الرابع", g5:"الصف الخامس",
+    gradeNote:"اختيار الصف يضبط الخيارات أدناه، ويمكنك تغييرها بعد ذلك.",
+    setLvl:"مبالغ المال", lv1:"صغيرة (حتى $20 تقريبًا)", lv2:"متوسطة (حتى $100 تقريبًا)", lv3:"كبيرة (حتى $1,000 تقريبًا)",
+    setCents:"السنتات", centsOn:"استخدم الدولارات والسنتات، لا الدولارات الكاملة فقط",
+    setModes:"الأنماط", modeNote:"كل نمط يمزج عدة أنواع من الجولات، والصف المختار يحدّد الأنواع التي تظهر.",
+    setSpeech:"الصوت", autoRead:"قراءة التعليمات تلقائيًا", printCards:"اطبع بطاقات التحدي",
+    numNote:"المال بالدولار والسنت الأمريكي في كل اللغات (وفق معايير تكساس): النقطة تفصل الدولارات عن السنتات، والفواصل تجمع الآلاف، مثل $1,234.56.",
+    setStored:"تُحفظ الإعدادات على هذا الجهاز فقط، ولا تُحفظ أي معلومات عن الطلاب أبدًا.",
+    stds:"المعايير المرتبطة — معايير تكساس TEKS: الصف الثالث: 3.4(A, C)، 3.9(A, B, C, D, E, F)؛ الصف الرابع: 4.4(A)، 4.10(A, B, C, D, E)؛ الصف الخامس: 5.3(E, K)، 5.10(A, B, C, D, E, F). لا تتضمن المعايير الأساسية المشتركة (Common Core) مجالًا للثقافة المالية؛ وحلّ مسائل المال هنا يتدرّب على 3.OA.3، 3.OA.8، 3.NBT.2؛ 4.MD.2؛ 5.NBT.7.",
+    cardTitle:"فهم المال — بطاقات التحدي", cardName:"الاسم:", cardWork:"اكتب خطوات حلّك.",
+    cardNW:"اكتب ح إذا كانت حاجة أو ر إذا كانت رغبة.", cardFV:"اكتب ث إذا كان مصروفًا ثابتًا أو م إذا كان مصروفًا متغيّرًا.",
+    cardEarn:"كم من المال تكسب؟",
+    cardLg:"املأ عمود الرصيد.", cardProf:"جِد الربح."
+  },
+  hi:{
+    appTitle:"पैसों की समझ", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", language:"भाषा", readAloud:"ज़ोर से पढ़ें",
+    modesLbl:"मोड", stars:"मिले हुए तारे", newRound:"नया राउंड", footNote:"कोई खाता नहीं · कोई डेटा संग्रह नहीं · बिना इंटरनेट चलता है",
+    mEarn:"कमाना और खर्च करना", mSave:"बचत और योजना", mProfit:"खर्च और मुनाफ़ा", mBank:"उधार और बैंक", mTax:"कर और बजट",
+    check:"जाँचें", clear:"मिटाएँ", yes:"बिल्कुल सही!", close:"बंद करें", choicesLbl:"उत्तर के विकल्प", startOver:"फिर से शुरू करें",
+    dol1:"1 डॉलर", dolN:"{n} डॉलर", ct1:"1 सेंट", ctN:"{n} सेंट", dc:"{d} {c}",
+    addX:"{x} जोड़ें", rmvX:"{x} निकालें", bankLbl:"इस्तेमाल के लिए पैसे: टैप करें या खींचें", trayLbl:"आपकी ट्रे", trayEmpty:"पैसे यहाँ रखने के लिए खींचें या टैप करें।",
+    inTray:"ट्रे में:", trayNone:"आपकी ट्रे खाली है। नोट और सिक्के टैप करें या खींचकर उसमें डालें।",
+    trayMore:"आपकी ट्रे में {x} हैं। यह बहुत ज़्यादा है, इसलिए कुछ पैसे निकालें।", trayLess:"आपकी ट्रे में {x} हैं। यह अभी काफ़ी नहीं है।",
+    fillIn:"हर खाने में एक राशि लिखें, जैसे 12.50।", pickFirst:"पहले किसी कार्ड या पैसे पर टैप करें, फिर उस डिब्बे पर टैप करें जहाँ वह जाता है।",
+    putIn:"{b} में रखें", cardsLbl:"छाँटने के लिए कार्ड", notThere:"{b} नहीं।",
+    youHave:"आपके पास हैं", planned:"योजना में", notPlanned:"योजना में नहीं", weeksN:"{n} हफ़्ते", week1:"1 हफ़्ता",
+    jDog:"आप पड़ोसियों के कुत्तों को टहलाते हैं। हर सैर के {p} मिलते हैं। इस हफ़्ते आप {k} बार टहलाते हैं।",
+    jLeaf:"आप पड़ोसियों के आँगन से पत्ते बटोरते हैं। हर आँगन के {p} मिलते हैं। आप {k} आँगन साफ़ करते हैं।",
+    jCar:"आप गाड़ियाँ धोने में मदद करते हैं। हर गाड़ी के {p} मिलते हैं। आप {k} गाड़ियाँ धोते हैं।",
+    jPlant:"पड़ोसी बाहर गए हैं, तो आप उनके पौधों को पानी देते हैं। हर दिन के {p} मिलते हैं। आप यह {k} दिन करते हैं।",
+    jobQ:"आप कितने पैसे कमाते हैं? वह राशि ट्रे में रखें।",
+    jobH:"हर काम के आपको {p} मिलते हैं, और आप {k} काम करते हैं: {k} × {p}।",
+    jobG:"{k} × {p} = {x}। यह आमदनी आपने अपनी मेहनत, यानी श्रम से कमाई।",
+    skillQ:"घर के कामों में मदद करके आप हर घंटे {a} कमाते हैं। फिर आप साइकिल ठीक करने का नया हुनर सीखते हैं और हर घंटे {b} कमाते हैं। अगर आप {k} घंटे काम करें, तो नए हुनर से आप कितना ज़्यादा कमाते हैं?",
+    skillH:"पता करें कि हर घंटे कितना ज़्यादा मिलता है: {b} − {a}। फिर उसे {k} घंटों से गुणा करें।",
+    skillG:"हर घंटे {d} ज़्यादा मिलते हैं, और {k} × {d} = {x}। नए हुनर सीखने से आमदनी बढ़ सकती है।",
+    lemQ1:"आप नींबू पानी का स्टॉल खोलते हैं। पहले आप सामान खरीदते हैं। कुल लागत कितनी है? भुगतान के लिए वह राशि ट्रे में रखें।",
+    lemH1:"नींबू, चीनी और कपों की लागत जोड़ें।",
+    lemG1:"{a} + {b} + {c} = {x}। नींबू पानी बनाने की लागत इतनी है।",
+    lemQ2:"आप {k} कप बेचते हैं, हर कप {p} का। आपको कितने पैसे मिलते हैं?",
+    lemH2:"हर कप से {p} आते हैं, और आपने {k} कप बेचे: {k} × {p}।",
+    lemG2:"{k} × {p} = {x}। आपके स्टॉल को इतने पैसे मिले।",
+    lemQ3:"मुनाफ़ा वह पैसा है जो लागत चुकाने के बाद बचता है। आपका मुनाफ़ा कितना है?",
+    lemH3:"मिले हुए पैसों, {r}, से शुरू करें और उसमें से सामान की लागत, {c}, घटाएँ।",
+    lemG3:"{r} − {c} = {x}। आपका मुनाफ़ा {x} है।",
+    lemL:"नींबू", lemS:"चीनी", lemC:"कप", lemCost:"सामान की लागत", lemSold:"बिके हुए कप", lemPer:"{p} प्रति कप", lemIn:"मिले हुए पैसे",
+    sc1:"कड़ी सर्दी से संतरे के बहुत से पेड़ जम गए, इसलिए इस साल संतरे बहुत कम हैं। संतरों की कीमत का सबसे ज़्यादा क्या होने की संभावना है?",
+    sc2:"इस गर्मी किसानों ने इतने तरबूज़ उगाए कि दुकानों में लोगों की ज़रूरत से ज़्यादा हैं। तरबूज़ों की कीमत का सबसे ज़्यादा क्या होने की संभावना है?",
+    sc3:"एक लोकप्रिय शो के बस कुछ ही टिकट बचे हैं, और बहुत से लोग उन्हें चाहते हैं। टिकटों की कीमत का सबसे ज़्यादा क्या होने की संभावना है?",
+    sc4:"पिछले साल एक खिलौना बहुत लोकप्रिय था। अब दुकानों की अलमारियाँ उससे भरी हैं और बहुत कम लोग उसे खरीद रहे हैं। उसकी कीमत का सबसे ज़्यादा क्या होने की संभावना है?",
+    sc5:"तूफ़ानों के कारण मछली पकड़ने वाली बहुत सी नावें समुद्र में नहीं जा सकीं, इसलिए बाज़ार में मछलियाँ कम हैं। मछली की कीमत का सबसे ज़्यादा क्या होने की संभावना है?",
+    pUp:"कीमत बढ़ती है", pDown:"कीमत घटती है", pSame:"कीमत वैसी ही रहती है",
+    scUp:"जब कोई चीज़ दुर्लभ होती है, यानी चाहने वाले सभी लोगों के लिए काफ़ी नहीं होती, तो बेचने वाले ज़्यादा दाम ले सकते हैं। आमतौर पर कीमत बढ़ती है।",
+    scDown:"जब कोई चीज़ बहुत ज़्यादा होती है, लोगों की चाह से भी ज़्यादा, तो बेचने वाले कीमत घटाते हैं ताकि लोग उसे खरीदें।",
+    scH:"खुद से पूछें: क्या वह चीज़ लोगों की चाह से कम है या ज़्यादा? दुर्लभ चीज़ें आमतौर पर महँगी होती हैं। जो चीज़ें बहुत हैं, वे आमतौर पर सस्ती होती हैं।",
+    planQ:"आपके पास {m} हैं। आपकी योजना {p} में {a} खरीदने की थी। दुकान में आपको {q} में {b} भी दिखता है, जिसे खरीदने की योजना नहीं थी। दोनों खरीदने के लिए आपको कितने और पैसे चाहिए?",
+    planH:"दोनों कीमतें जोड़ें। फिर योग की तुलना अपने पास के {m} से करें।",
+    planG:"{p} + {q} = {s}, और आपके पास {m} हैं, इसलिए {x} कम पड़ते हैं। बिना योजना की खरीदारी से वह चीज़ छूट सकती है जिसकी योजना बनाई थी। योजना से आप सबसे ज़रूरी चीज़ पर खर्च कर पाते हैं।",
+    iBook:"एक किताब", iBall:"एक फ़ुटबॉल", iKite:"एक पतंग", iArt:"एक ड्रॉइंग सेट", iPuzzle:"एक पहेली",
+    iSnack:"पॉपकॉर्न का एक पैकेट", iSticker:"स्टिकरों का एक पैकेट", iCar:"एक खिलौना कार", iSlime:"स्लाइम का एक डिब्बा", iComic:"एक कॉमिक किताब",
+    iHelmet:"साइकिल का हेलमेट", iScooter:"एक स्कूटर", iSkate:"एक स्केटबोर्ड",
+    decQ:"यह आमदनी है, खर्च है, बचत है, दान है या उधार? हर कार्ड को सही डिब्बे में रखें।",
+    bInc:"आमदनी", bSpend:"खर्च", bSave:"बचत", bGive:"दान", bCred:"उधार",
+    d_i1:"कुत्ता टहलाने के पैसे मिलना", d_i2:"खुद बनाई हस्तकला की चीज़ें बेचना", d_i3:"पत्ते बटोरकर पैसे कमाना",
+    d_s1:"स्कूल के बाद नाश्ता खरीदना", d_s2:"फ़िल्म के टिकट के पैसे देना", d_s3:"नया पेंसिल बॉक्स खरीदना",
+    d_v1:"जेबखर्च का कुछ हिस्सा बचत खाते में डालना", d_v2:"साइकिल के लिए गुल्लक में पैसे रखना", d_v3:"जन्मदिन के तोहफ़े के आधे पैसे बाद के लिए रखना",
+    d_g1:"फ़ूड बैंक को पैसे देना", d_g2:"पशु आश्रय को पैसे देना", d_g3:"बाढ़ के बाद परिवारों की मदद के लिए पैसे देना",
+    d_c1:"साइकिल खरीदने के लिए पैसे उधार लेना और बाद में लौटाना", d_c2:"क्रेडिट कार्ड इस्तेमाल करना और अगले महीने बिल चुकाना",
+    wInc:"{x}: काम करने या कुछ बेचने पर पैसे मिलते हैं, इसलिए यह आमदनी है।",
+    wSpend:"{x}: अभी कुछ खरीदने के लिए पैसे इस्तेमाल होते हैं, इसलिए यह खर्च है।",
+    wSave:"{x}: पैसे बाद में इस्तेमाल के लिए रखे जाते हैं, इसलिए यह बचत है।",
+    wGive:"{x}: दूसरों की मदद के लिए पैसे बाँटे जाते हैं, इसलिए यह दान है।",
+    wCred:"{x}: अभी किसी और के पैसे इस्तेमाल होते हैं और बाद में लौटाए जाते हैं, इसलिए यह उधार है।",
+    decDone:"सब छँट गए! पैसे का हर फ़ैसला कमाना, खर्च करना, बचाना, दान देना या उधार लेना होता है।",
+    needsQ:"यह ज़रूरत है या इच्छा? हर कार्ड को सही डिब्बे में रखें।", bNeed:"ज़रूरतें", bWant:"इच्छाएँ",
+    n1:"साफ़ पानी", n2:"सेहतमंद खाना", n3:"सर्दी के लिए गर्म कोट", n4:"बीमार होने पर दवा", n5:"रहने के लिए सुरक्षित जगह", n6:"सही नाप के जूते",
+    w1:"नया वीडियो गेम", w2:"टॉफ़ियाँ", w3:"खिलौना रोबोट", w4:"फ़िल्म का टिकट", w5:"चमकीला फ़ोन कवर", w6:"सोडा", w7:"रोशनी वाले स्केट्स",
+    whyNeed:"{x} एक ज़रूरत है: लोगों को जीने, स्वस्थ रहने या सुरक्षित रहने के लिए इसकी ज़रूरत होती है।",
+    whyWant:"{x} एक इच्छा है: होना अच्छा है, पर इसके बिना भी जिया जा सकता है।",
+    needsDone:"सब छँट गए! समझदार योजना पहले ज़रूरतों पर खर्च करती है, फिर इच्छाओं के लिए बचत करती है।",
+    goalQ:"आपको {a} चाहिए जिसकी कीमत {g} है। आप हर हफ़्ते {w} बचाते हैं। काफ़ी पैसे बचाने में कितने हफ़्ते लगेंगे? आज़माने के लिए 1 हफ़्ता बचाएँ पर टैप करें।",
+    saveWeek:"1 हफ़्ता बचाएँ", weekN:"हफ़्ता {n}:", goalLbl:"लक्ष्य",
+    goalLess:"{n} हफ़्तों बाद आपके पास {y} होंगे। यह {g} से कम है।",
+    goalMore:"{j} हफ़्तों बाद ही आपके पास {y} होंगे, जो काफ़ी है। वह पहला हफ़्ता खोजें जब आप {g} तक पहुँचते हैं।",
+    goalG:"{k} हफ़्तों बाद आपके पास {x} हैं। यह {g} के लिए काफ़ी है!", goalNE:"{j} हफ़्तों बाद आपके पास सिर्फ़ {y} थे, जो अभी काफ़ी नहीं थे।",
+    goalWhy:"बचत की योजना से लक्ष्य तक पहुँचने में मदद मिलती है। लोग कॉलेज और आपातकाल के लिए भी बचत करते हैं।",
+    jarQ:"इस हफ़्ते आपको {a} जेबखर्च मिलता है। आपकी योजना: {s} बचाएँ, {h} बाँटें, और बाकी खर्च करें। पैसों को तीनों डिब्बों में खींचें।",
+    jarQh:"इस हफ़्ते आपको {a} जेबखर्च मिलता है। आपकी योजना: आधा बचाएँ, {h} बाँटें, और बाकी खर्च करें। पैसों को तीनों डिब्बों में खींचें।",
+    jPile:"जेबखर्च", jSave:"बचत", jShare:"बाँटना", jSpend:"खर्च",
+    jarLeft:"पहले पूरा जेबखर्च डिब्बों में रखें।", jarWrong:"{j} वाले डिब्बे में {x} हैं, पर आपकी योजना में वहाँ {y} चाहिए।",
+    jarHalf:"{a} का आधा {s} है।", jarRest:"खर्च वाले डिब्बे को बाकी मिलता है: {a} − {s} − {h} = {y}।",
+    jarG:"बचत {s} + बाँटना {h} + खर्च {p} = {a}। हर डॉलर का एक काम है!",
+    fixQ:"निश्चित या बदलने वाला? हर महीने के खर्च को सही डिब्बे में रखें।", bFixed:"निश्चित: हर महीने एक जैसा", bVar:"परिवर्ती: बदल सकता है",
+    f1:"फ़्लैट का किराया", f2:"फ़ोन प्लान", f3:"इंटरनेट सेवा", f4:"मासिक बस पास", f5:"संगीत की कक्षाएँ", f6:"कार की किस्त",
+    v1:"किराने का सामान", v2:"कार का पेट्रोल", v3:"रेस्तराँ में खाना", v4:"तोहफ़े", v5:"बिजली का बिल", v6:"नए कपड़े",
+    whyFix:"{x} पर हर महीने एक जैसी राशि लगती है, इसलिए यह निश्चित खर्च है।",
+    whyVar:"{x} पर एक महीने ज़्यादा और अगले महीने कम खर्च हो सकता है, इसलिए यह परिवर्ती खर्च है।",
+    fixDone:"सब छँट गए! निश्चित खर्च एक जैसे रहते हैं। परिवर्ती खर्च बदलते रहते हैं।",
+    bzBrace:"आप बेचने के लिए कंगन बनाते हैं। आप {k} कंगन बेचते हैं, हर एक {p} का।",
+    bzWash:"आप और आपके दोस्त गाड़ियाँ धोने का आयोजन करते हैं। आप {k} गाड़ियाँ धोते हैं, हर एक {p} में।",
+    bzBake:"आपकी कक्षा बेक सेल लगाती है। आप {k} मफ़िन बेचते हैं, हर एक {p} का।",
+    bzPlant:"आप बेचने के लिए पौधे उगाते हैं। आप {k} पौधे बेचते हैं, हर एक {p} का।",
+    prQ:"अपना मुनाफ़ा पता करने के लिए तालिका भरें।",
+    exBeads:"मोती और धागा", exTable:"मेज़ का किराया", exSoap:"साबुन और स्पंज", exSign:"बोर्ड", exIng:"सामग्री", exBox:"डिब्बे और नैपकिन", exPots:"गमले", exSoil:"मिट्टी और बीज",
+    rRev:"आय (मिले हुए पैसे)", rExp:"खर्च", rTotE:"कुल खर्च", rProf:"मुनाफ़ा", prFormula:"मुनाफ़ा = आय − खर्च",
+    prRevH:"आय = बिकी हुई संख्या × कीमत: {k} × {p}।", prExpH:"तालिका के सारे खर्च जोड़ें।", prProfH:"मुनाफ़ा = आय − कुल खर्च।",
+    prG:"{r} − {e} = {x}। आपका मुनाफ़ा {x} है।",
+    crQ:"आपको {a} चाहिए जिसकी कीमत {c} है, पर आपके पास सिर्फ़ {h} हैं। आप बैंक से {b} उधार लेते हैं। उधार लेने वाले को उधार की रकम ब्याज के साथ लौटानी होती है। ब्याज {i} है। आप कुल कितना लौटाएँगे?",
+    crH:"ब्याज वह अतिरिक्त पैसा है जो उधार देने वाले को उसके पैसे इस्तेमाल करने के बदले दिया जाता है। इसे उधार की रकम में जोड़ें।",
+    crG:"{b} + {i} = {t}। उधार से आप अभी खरीद सकते हैं, पर उधार लेने वाले को पैसे लौटाने पड़ते हैं, और ब्याज से चीज़ महँगी पड़ती है।",
+    cr2Q:"{a} खरीदने के लिए आप बैंक से {b} उधार लेते हैं। आप बैंक को कुल {t} लौटाते हैं। ब्याज में आपके कितने पैसे लगे?",
+    cr2H:"ब्याज वह रकम है जो आप उधार से ज़्यादा लौटाते हैं। लौटाई गई रकम में से उधार ली गई रकम घटाएँ।",
+    cr2G:"{t} − {b} = {i}। यह ब्याज पैसे उधार लेने की कीमत है।",
+    bq1Q:"बैंक या क्रेडिट यूनियन का एक मुख्य काम क्या है?", bq1A:"लोगों के पैसे सुरक्षित रखना", bq1W1:"यह तय करना कि आपको कितना जेबखर्च मिले", bq1W2:"दुकानों में कीमतें तय करना",
+    bq1E:"बैंक और क्रेडिट यूनियन पैसे सुरक्षित रखते हैं, उधार लेने वालों को पैसे देते हैं, और बचत पर ब्याज देते हैं।",
+    bq2Q:"आपकी बचत पर ब्याज कहाँ मिल सकता है?", bq2A:"बैंक के बचत खाते में", bq2W1:"गुल्लक में", bq2W2:"घर की दराज़ में",
+    bq2E:"बैंक आपकी बचत अपने पास रखने के बदले ब्याज देता है, इसलिए आपके पैसे बढ़ते हैं।",
+    bq3Q:"गुल्लक का एक फ़ायदा क्या है?", bq3A:"आप घर पर तुरंत अपने पैसे निकाल सकते हैं", bq3W1:"यह आपको ब्याज देती है", bq3W2:"यह आपके पैसे बढ़ाती है",
+    bq3E:"गुल्लक से पैसे निकालना आसान है, पर इसमें ब्याज नहीं मिलता और यह बैंक जितनी सुरक्षित नहीं है।",
+    bq4Q:"बैंक उधार देने के लिए पैसे कहाँ से लाता है?", bq4A:"लोग जो पैसे बचाकर रखते हैं, उनमें से कुछ उधार देता है", bq4W1:"अपने पैसे खुद छापता है", bq4W2:"दुकानों से पैसे ले लेता है",
+    bq4E:"बैंक बचत करने वालों के कुछ पैसे उधार देते हैं। उधार लेने वाले उन्हें ब्याज के साथ लौटाते हैं।",
+    bq5Q:"बचत खाते का एक नुकसान क्या है?", bq5A:"पैसे निकालने के लिए बैंक जाना या ऐप इस्तेमाल करना पड़ता है", bq5W1:"यह ब्याज देता है", bq5W2:"यह आपके पैसे सुरक्षित रखता है",
+    bq5E:"बचत खाता पैसे सुरक्षित रखता है और ब्याज देता है, पर पैसे निकालने में थोड़ी ज़्यादा मेहनत लगती है।",
+    pmQ:"यह भुगतान का कौन सा तरीका है?",
+    pm1:"आप नोट और सिक्के देते हैं। यह आसान है, पर अगर खो जाएँ तो चले जाते हैं।",
+    pm2:"आप एक कागज़ पर रकम लिखकर उस पर दस्तख़त करते हैं। आपका बैंक आपके खाते से दुकान को पैसे देता है, पर इसमें कुछ दिन लग सकते हैं।",
+    pm3:"आप एक कार्ड इस्तेमाल करते हैं, और पैसे तुरंत आपके बैंक खाते से कट जाते हैं। आप उतना ही खर्च कर सकते हैं जितना आपके पास है।",
+    pm4:"आप पैसे उधार लेने के लिए एक कार्ड इस्तेमाल करते हैं। अगर हर महीने पूरा बिल नहीं चुकाते, तो ब्याज देना पड़ता है।",
+    pm5:"आप अपने बैंक खाते से किसी ऐप या वेबसाइट द्वारा भुगतान करते हैं। यह तेज़ है, पर अपना पासवर्ड सुरक्षित रखना होता है।",
+    pmCash:"नकद", pmCheck:"चेक", pmDebit:"डेबिट कार्ड", pmCredit:"क्रेडिट कार्ड", pmE:"इलेक्ट्रॉनिक भुगतान",
+    ps1:"नकद यानी नोट और सिक्के जो आप हाथ से देते हैं।", ps2:"चेक एक कागज़ है जिसे आप भरकर दस्तख़त करते हैं।", ps3:"डेबिट कार्ड आपके बैंक खाते से तुरंत पैसे लेता है।",
+    ps4:"क्रेडिट कार्ड से पैसे उधार लिए जाते हैं जो बाद में चुकाने होते हैं।", ps5:"इलेक्ट्रॉनिक भुगतान में ऐप या वेबसाइट का इस्तेमाल होता है।",
+    pmG:"हाँ, यह {x} है।",
+    lgQ:"पैसों का हिसाब रखें। हर जमा या निकासी के बाद शेष राशि लिखें।",
+    lgDesc:"क्या हुआ", lgDep:"जमा (+)", lgWd:"निकासी (−)", lgAmt:"जमा (+) या निकासी (−)", lgBal:"शेष राशि", lgStart:"शुरुआती शेष राशि", lgRow:"इसके बाद शेष राशि: {d}",
+    lgAllow:"जेबखर्च", lgGift:"जन्मदिन का तोहफ़ा", lgSell:"हस्तकला बेची", lgPet:"पालतू की देखभाल के पैसे",
+    lgBook:"किताब खरीदी", lgPres:"दोस्त के लिए तोहफ़ा खरीदा", lgMovie:"फ़िल्म और नाश्ता", lgDon:"फ़ूड बैंक को दान",
+    lgHdep:"इस पंक्ति में आप {b} से शुरू करते हैं। जमा से {x} जुड़ते हैं, इसलिए शेष राशि बढ़ती है।",
+    lgHwd:"इस पंक्ति में आप {b} से शुरू करते हैं। निकासी से {x} घटते हैं, इसलिए शेष राशि कम होती है।",
+    lgG:"आपकी शेष राशि {x} है। हिसाब रखने से पता चलता है कि पैसे कहाँ जाते हैं, इसलिए आपको हमेशा पता रहता है कि आपके पास कितने हैं।",
+    tdQ:"यह कौन सा कर है?",
+    td1:"दुकान से चीज़ें खरीदते समय कीमत में जोड़ा जाने वाला अतिरिक्त पैसा।", td2:"ज़मीन या घर के मालिकों द्वारा हर साल दिया जाने वाला पैसा।",
+    td3:"लोग साल भर में जो पैसा कमाते हैं, उसमें से सरकार को दिया जाने वाला पैसा।", td4:"सोशल सिक्योरिटी और मेडिकेयर जैसे कार्यक्रमों के लिए हर तनख़्वाह से काटा जाने वाला पैसा।",
+    tSales:"बिक्री कर", tProp:"संपत्ति कर", tInc:"आयकर", tPay:"वेतन कर",
+    ts1:"बिक्री कर कुछ खरीदने पर जोड़ा जाता है।", ts2:"संपत्ति कर ज़मीन और घरों के मालिक देते हैं।", ts3:"आयकर लोगों की कमाई पर दिया जाता है।", ts4:"वेतन कर नियोक्ता तनख़्वाह से काटता है।",
+    tdG:"हाँ, यह {x} है। कर से वे चीज़ें चलती हैं जो हम सब मिलकर इस्तेमाल करते हैं, जैसे स्कूल, सड़कें और पार्क।",
+    stQ:"आप {p} में {a} खरीदते हैं। यहाँ बिक्री कर हर डॉलर पर {r} है। रसीद भरें।",
+    stTaxH:"{d} डॉलर में से हर डॉलर पर बिक्री कर {r} है: {d} × {r}।", stTotH:"कुल = कीमत + बिक्री कर।",
+    stG:"{p} + {x} = {tt}। दुकान बिक्री कर इकट्ठा करके सरकार को भेजती है।",
+    rcTax:"बिक्री कर", rcTot:"कुल", rcTitle:"रसीद",
+    grQ:"इस हफ़्ते आपने एक नौकरी की। आपकी वेतन पर्ची में सकल वेतन और काटे गए कर दिखाए गए हैं। कुल कर और अपना शुद्ध वेतन लिखें।",
+    grStub:"वेतन पर्ची", grGross:"सकल वेतन", grPayT:"वेतन कर", grIncT:"आयकर", grTot:"कुल कर", grNet:"शुद्ध वेतन",
+    grTaxH:"दोनों कर जोड़ें: वेतन कर + आयकर।", grNetH:"शुद्ध वेतन = सकल वेतन − कुल कर।",
+    grG:"{g} − {x} = {n}। सकल आय वह सारा पैसा है जो आप कमाते हैं। शुद्ध आय वह है जो कर कटने के बाद घर आती है।",
+    bgQ:"आपका परिवार हर महीने {i} कमाता है, पर इस बजट में उससे {o} ज़्यादा खर्च की योजना है। बदल सकने वाले खर्चों पर − और + का इस्तेमाल करके बजट संतुलित करें: खर्च आय के बराबर होना चाहिए।",
+    bgRent:"किराया", bgUtil:"बिजली और पानी", bgFood:"खाना", bgTrans:"बस और पेट्रोल", bgFun:"मनोरंजन और बाहर खाना", bgSave:"बचत",
+    bgInc:"मासिक आय", bgExp:"खर्च", bgWas:"पहले {x}", bgLess:"{x} के लिए कम", bgMore:"{x} के लिए ज़्यादा", bgFixed:"निश्चित: बदल नहीं सकता",
+    bgOver:"आपके खर्चों का जोड़ {e} है। यह अब भी {i} की आय से {x} ज़्यादा है। कोई इच्छा कम करें, जैसे मनोरंजन और बाहर खाना।",
+    bgUnder:"आपके खर्चों का जोड़ {e} है। यह {i} से {x} कम है। बचे हुए {x} बचत में डालें ताकि हर डॉलर का एक काम हो।",
+    bgG:"खर्च {e} = आय {i}। बजट संतुलित है! आपने उधार लेने के बजाय कम खर्च किया।",
+    actQ:"इस परिवार के खर्च उसकी आय से ज़्यादा हैं। कौन सा कदम बजट संतुलित करने में मदद कर सकता है?",
+    aCook:"बाहर खाने के बजाय घर पर खाना बनाना", aPhone:"सस्ते फ़ोन प्लान पर जाना", aSell:"जो चीज़ें अब काम नहीं आतीं, उन्हें बेचना", aWork:"ज़्यादा घंटे काम करके अतिरिक्त आय कमाना",
+    aTV:"बड़ा टीवी खरीदना", aCard:"हर चीज़ का भुगतान क्रेडिट कार्ड से करना", aEat:"रेस्तराँ में और ज़्यादा खाना", aTrip:"महँगी यात्रा पर जाना",
+    actG:"हाँ! बजट संतुलित करने के लिए कम खर्च करें या ज़्यादा कमाएँ। यह कदम यही करता है।",
+    actH:"इससे खर्च बढ़ेगा या कर्ज़ जुड़ेगा। बजट संतुलित करने के लिए कम खर्च करें या ज़्यादा कमाएँ।",
+    teacherTitle:"शिक्षक सेटिंग्स", setGrade:"कक्षा", g3:"कक्षा 3", g4:"कक्षा 4", g5:"कक्षा 5",
+    gradeNote:"कक्षा चुनने से नीचे के विकल्प तय हो जाते हैं। आप उन्हें फिर भी बदल सकते हैं।",
+    setLvl:"पैसों की राशि", lv1:"छोटी (लगभग $20 तक)", lv2:"मध्यम (लगभग $100 तक)", lv3:"बड़ी (लगभग $1,000 तक)",
+    setCents:"सेंट", centsOn:"सिर्फ़ पूरे डॉलर नहीं, डॉलर और सेंट दोनों इस्तेमाल करें",
+    setModes:"मोड", modeNote:"हर मोड में कई तरह के राउंड मिले होते हैं। चुनी गई कक्षा तय करती है कि कौन से आएँगे।",
+    setSpeech:"आवाज़", autoRead:"निर्देश अपने आप पढ़ें", printCards:"चुनौती कार्ड प्रिंट करें",
+    numNote:"हर भाषा में पैसे अमेरिकी डॉलर और सेंट में हैं (टेक्सास मानक): बिंदु डॉलर को सेंट से अलग करता है और अल्पविराम हज़ारों को समूहित करते हैं, जैसे $1,234.56।",
+    setStored:"सेटिंग्स सिर्फ़ इसी डिवाइस पर सहेजी जाती हैं। छात्रों की कोई जानकारी कभी सहेजी नहीं जाती।",
+    stds:"संबंधित मानक — टेक्सास TEKS: कक्षा 3: 3.4(A, C), 3.9(A, B, C, D, E, F); कक्षा 4: 4.4(A), 4.10(A, B, C, D, E); कक्षा 5: 5.3(E, K), 5.10(A, B, C, D, E, F)। कॉमन कोर में वित्तीय साक्षरता का कोई भाग नहीं है; यहाँ पैसों से जुड़े सवाल हल करने में 3.OA.3, 3.OA.8, 3.NBT.2; 4.MD.2; 5.NBT.7 का अभ्यास होता है।",
+    cardTitle:"पैसों की समझ — चुनौती कार्ड", cardName:"नाम:", cardWork:"अपना हल दिखाएँ।",
+    cardNW:"ज़रूरत के लिए ज़ और इच्छा के लिए इ लिखें।", cardFV:"निश्चित खर्च के लिए नि और परिवर्ती खर्च के लिए प लिखें।",
+    cardEarn:"आप कितने पैसे कमाते हैं?",
+    cardLg:"शेष राशि का कॉलम भरें।", cardProf:"मुनाफ़ा पता करें।"
+  },
+  ur:{
+    appTitle:"پیسوں کی سمجھ", home:"ہوم", privacy:"رازداری", teacher:"استاد", language:"زبان", readAloud:"بلند آواز سے پڑھیں",
+    modesLbl:"موڈ", stars:"حاصل کیے گئے ستارے", newRound:"نیا راؤنڈ", footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا جمع نہیں ہوتا · انٹرنیٹ کے بغیر چلتا ہے",
+    mEarn:"کمانا اور خرچ کرنا", mSave:"بچت اور منصوبہ", mProfit:"اخراجات اور منافع", mBank:"ادھار اور بینک", mTax:"ٹیکس اور بجٹ",
+    check:"جانچیں", clear:"مٹائیں", yes:"بالکل ٹھیک!", close:"بند کریں", choicesLbl:"جواب کے انتخاب", startOver:"دوبارہ شروع کریں",
+    dol1:"1 ڈالر", dolN:"{n} ڈالر", ct1:"1 سینٹ", ctN:"{n} سینٹ", dc:"{d} {c}",
+    addX:"{x} شامل کریں", rmvX:"{x} نکالیں", bankLbl:"استعمال کے لیے پیسے: ٹیپ کریں یا گھسیٹیں", trayLbl:"آپ کی ٹرے", trayEmpty:"پیسے یہاں رکھنے کے لیے گھسیٹیں یا ٹیپ کریں۔",
+    inTray:"ٹرے میں:", trayNone:"آپ کی ٹرے خالی ہے۔ نوٹ اور سکے ٹیپ کریں یا گھسیٹ کر اس میں ڈالیں۔",
+    trayMore:"آپ کی ٹرے میں {x} ہیں۔ یہ بہت زیادہ ہیں، اس لیے کچھ پیسے نکالیں۔", trayLess:"آپ کی ٹرے میں {x} ہیں۔ یہ ابھی کافی نہیں۔",
+    fillIn:"ہر خانے میں ایک رقم لکھیں، جیسے 12.50۔", pickFirst:"پہلے کسی کارڈ یا پیسوں پر ٹیپ کریں، پھر اس ڈبے پر ٹیپ کریں جہاں وہ جاتا ہے۔",
+    putIn:"{b} میں رکھیں", cardsLbl:"چھانٹنے کے لیے کارڈ", notThere:"{b} نہیں۔",
+    youHave:"آپ کے پاس ہیں", planned:"منصوبے میں", notPlanned:"منصوبے میں نہیں", weeksN:"{n} ہفتے", week1:"1 ہفتہ",
+    jDog:"آپ پڑوسیوں کے کتوں کو سیر کراتے ہیں۔ ہر سیر کے {p} ملتے ہیں۔ اس ہفتے آپ {k} بار سیر کراتے ہیں۔",
+    jLeaf:"آپ پڑوسیوں کے صحن سے پتے سمیٹتے ہیں۔ ہر صحن کے {p} ملتے ہیں۔ آپ {k} صحن صاف کرتے ہیں۔",
+    jCar:"آپ گاڑیاں دھونے میں مدد کرتے ہیں۔ ہر گاڑی کے {p} ملتے ہیں۔ آپ {k} گاڑیاں دھوتے ہیں۔",
+    jPlant:"پڑوسی سفر پر گئے ہیں، تو آپ ان کے پودوں کو پانی دیتے ہیں۔ ہر دن کے {p} ملتے ہیں۔ آپ یہ {k} دن کرتے ہیں۔",
+    jobQ:"آپ کتنے پیسے کماتے ہیں؟ وہ رقم ٹرے میں رکھیں۔",
+    jobH:"ہر کام کے آپ کو {p} ملتے ہیں، اور آپ {k} کام کرتے ہیں: {k} × {p}۔",
+    jobG:"{k} × {p} = {x}۔ یہ آمدنی آپ نے اپنی محنت، یعنی مزدوری سے کمائی۔",
+    skillQ:"گھر کے کاموں میں مدد کر کے آپ ہر گھنٹے {a} کماتے ہیں۔ پھر آپ سائیکل ٹھیک کرنے کا نیا ہنر سیکھتے ہیں اور ہر گھنٹے {b} کماتے ہیں۔ اگر آپ {k} گھنٹے کام کریں تو نئے ہنر سے آپ کتنا زیادہ کماتے ہیں؟",
+    skillH:"معلوم کریں کہ ہر گھنٹے کتنا زیادہ ملتا ہے: {b} − {a}۔ پھر اسے {k} گھنٹوں سے ضرب دیں۔",
+    skillG:"ہر گھنٹے {d} زیادہ ملتے ہیں، اور {k} × {d} = {x}۔ نئے ہنر سیکھنے سے آمدنی بڑھ سکتی ہے۔",
+    lemQ1:"آپ لیموں پانی کا اسٹال کھولتے ہیں۔ پہلے آپ سامان خریدتے ہیں۔ کل لاگت کتنی ہے؟ ادائیگی کے لیے وہ رقم ٹرے میں رکھیں۔",
+    lemH1:"لیموں، چینی اور کپوں کی لاگت جمع کریں۔",
+    lemG1:"{a} + {b} + {c} = {x}۔ لیموں پانی بنانے کی لاگت اتنی ہے۔",
+    lemQ2:"آپ {k} کپ بیچتے ہیں، ہر کپ {p} کا۔ آپ کو کتنے پیسے ملتے ہیں؟",
+    lemH2:"ہر کپ سے {p} آتے ہیں، اور آپ نے {k} کپ بیچے: {k} × {p}۔",
+    lemG2:"{k} × {p} = {x}۔ آپ کے اسٹال کو اتنے پیسے ملے۔",
+    lemQ3:"منافع وہ پیسہ ہے جو لاگت ادا کرنے کے بعد بچتا ہے۔ آپ کا منافع کتنا ہے؟",
+    lemH3:"ملنے والے پیسوں، {r}، سے شروع کریں اور ان میں سے سامان کی لاگت، {c}، تفریق کریں۔",
+    lemG3:"{r} − {c} = {x}۔ آپ کا منافع {x} ہے۔",
+    lemL:"لیموں", lemS:"چینی", lemC:"کپ", lemCost:"سامان کی لاگت", lemSold:"بکنے والے کپ", lemPer:"{p} فی کپ", lemIn:"ملنے والے پیسے",
+    sc1:"سخت سردی سے مالٹے کے بہت سے درخت جم گئے، اس لیے اس سال مالٹے بہت کم ہیں۔ مالٹوں کی قیمت کے ساتھ سب سے زیادہ کیا ہونے کا امکان ہے؟",
+    sc2:"اس گرمی کسانوں نے اتنے تربوز اگائے کہ دکانوں میں لوگوں کی ضرورت سے زیادہ ہیں۔ تربوزوں کی قیمت کے ساتھ سب سے زیادہ کیا ہونے کا امکان ہے؟",
+    sc3:"ایک مقبول شو کے بس چند ٹکٹ بچے ہیں، اور بہت سے لوگ انہیں چاہتے ہیں۔ ٹکٹوں کی قیمت کے ساتھ سب سے زیادہ کیا ہونے کا امکان ہے؟",
+    sc4:"پچھلے سال ایک کھلونا بہت مقبول تھا۔ اب دکانوں کی الماریاں اس سے بھری ہیں اور بہت کم لوگ اسے خرید رہے ہیں۔ اس کی قیمت کے ساتھ سب سے زیادہ کیا ہونے کا امکان ہے؟",
+    sc5:"طوفانوں کی وجہ سے مچھلی پکڑنے والی بہت سی کشتیاں سمندر میں نہیں جا سکیں، اس لیے بازار میں مچھلی کم ہے۔ مچھلی کی قیمت کے ساتھ سب سے زیادہ کیا ہونے کا امکان ہے؟",
+    pUp:"قیمت بڑھتی ہے", pDown:"قیمت کم ہوتی ہے", pSame:"قیمت ویسی ہی رہتی ہے",
+    scUp:"جب کوئی چیز نایاب ہو، یعنی چاہنے والے سب لوگوں کے لیے کافی نہ ہو، تو بیچنے والے زیادہ دام لے سکتے ہیں۔ عام طور پر قیمت بڑھتی ہے۔",
+    scDown:"جب کوئی چیز بہت زیادہ ہو، لوگوں کی چاہت سے بھی زیادہ، تو بیچنے والے قیمت کم کرتے ہیں تاکہ لوگ اسے خریدیں۔",
+    scH:"خود سے پوچھیں: کیا وہ چیز لوگوں کی چاہت سے کم ہے یا زیادہ؟ نایاب چیزیں عام طور پر مہنگی ہوتی ہیں۔ جو چیزیں زیادہ ہوں وہ عام طور پر سستی ہوتی ہیں۔",
+    planQ:"آپ کے پاس {m} ہیں۔ آپ کا منصوبہ {p} میں {a} خریدنے کا تھا۔ دکان میں آپ کو {q} میں {b} بھی نظر آتا ہے، جسے خریدنے کا منصوبہ نہیں تھا۔ دونوں خریدنے کے لیے آپ کو کتنے مزید پیسے چاہییں؟",
+    planH:"دونوں قیمتیں جمع کریں۔ پھر مجموعے کا موازنہ اپنے پاس موجود {m} سے کریں۔",
+    planG:"{p} + {q} = {s}، اور آپ کے پاس {m} ہیں، اس لیے {x} کم پڑتے ہیں۔ بغیر منصوبے کی خریداری سے وہ چیز رہ سکتی ہے جس کا منصوبہ بنایا تھا۔ منصوبہ آپ کو سب سے ضروری چیز پر خرچ کرنے میں مدد دیتا ہے۔",
+    iBook:"ایک کتاب", iBall:"ایک فٹ بال", iKite:"ایک پتنگ", iArt:"ایک ڈرائنگ سیٹ", iPuzzle:"ایک پزل",
+    iSnack:"پاپ کارن کا ایک پیکٹ", iSticker:"اسٹیکرز کا ایک پیکٹ", iCar:"ایک کھلونا گاڑی", iSlime:"سلائم کا ایک ڈبہ", iComic:"ایک کامک کتاب",
+    iHelmet:"سائیکل کا ہیلمٹ", iScooter:"ایک اسکوٹر", iSkate:"ایک اسکیٹ بورڈ",
+    decQ:"یہ آمدنی ہے، خرچ ہے، بچت ہے، عطیہ ہے یا ادھار؟ ہر کارڈ کو صحیح ڈبے میں رکھیں۔",
+    bInc:"آمدنی", bSpend:"خرچ", bSave:"بچت", bGive:"عطیہ", bCred:"ادھار",
+    d_i1:"کتا گھمانے کے پیسے ملنا", d_i2:"خود بنائی ہوئی دستکاری بیچنا", d_i3:"پتے سمیٹ کر پیسے کمانا",
+    d_s1:"اسکول کے بعد ناشتہ خریدنا", d_s2:"فلم کے ٹکٹ کے پیسے دینا", d_s3:"نیا پنسل باکس خریدنا",
+    d_v1:"جیب خرچ کا کچھ حصہ بچت کھاتے میں ڈالنا", d_v2:"سائیکل کے لیے گلک میں پیسے رکھنا", d_v3:"سالگرہ کے تحفے کے آدھے پیسے بعد کے لیے رکھنا",
+    d_g1:"فوڈ بینک کو پیسے دینا", d_g2:"جانوروں کی پناہ گاہ کو پیسے دینا", d_g3:"سیلاب کے بعد خاندانوں کی مدد کے لیے پیسے دینا",
+    d_c1:"سائیکل خریدنے کے لیے پیسے ادھار لینا اور بعد میں لوٹانا", d_c2:"کریڈٹ کارڈ استعمال کرنا اور اگلے مہینے بل ادا کرنا",
+    wInc:"{x}: کام کرنے یا کچھ بیچنے پر پیسے ملتے ہیں، اس لیے یہ آمدنی ہے۔",
+    wSpend:"{x}: ابھی کچھ خریدنے کے لیے پیسے استعمال ہوتے ہیں، اس لیے یہ خرچ ہے۔",
+    wSave:"{x}: پیسے بعد میں استعمال کے لیے رکھے جاتے ہیں، اس لیے یہ بچت ہے۔",
+    wGive:"{x}: دوسروں کی مدد کے لیے پیسے بانٹے جاتے ہیں، اس لیے یہ عطیہ ہے۔",
+    wCred:"{x}: ابھی کسی اور کے پیسے استعمال ہوتے ہیں اور بعد میں لوٹائے جاتے ہیں، اس لیے یہ ادھار ہے۔",
+    decDone:"سب چھنٹ گئے! پیسوں کا ہر فیصلہ کمانا، خرچ کرنا، بچانا، عطیہ دینا یا ادھار لینا ہوتا ہے۔",
+    needsQ:"یہ ضرورت ہے یا خواہش؟ ہر کارڈ کو صحیح ڈبے میں رکھیں۔", bNeed:"ضرورتیں", bWant:"خواہشیں",
+    n1:"صاف پانی", n2:"صحت مند کھانا", n3:"سردی کے لیے گرم کوٹ", n4:"بیمار ہونے پر دوا", n5:"رہنے کے لیے محفوظ جگہ", n6:"صحیح ناپ کے جوتے",
+    w1:"نیا ویڈیو گیم", w2:"ٹافیاں", w3:"کھلونا روبوٹ", w4:"فلم کا ٹکٹ", w5:"چمکیلا فون کور", w6:"سوڈا", w7:"روشنی والے اسکیٹس",
+    whyNeed:"{x} ایک ضرورت ہے: لوگوں کو جینے، صحت مند رہنے یا محفوظ رہنے کے لیے اس کی ضرورت ہوتی ہے۔",
+    whyWant:"{x} ایک خواہش ہے: ہو تو اچھا ہے، مگر اس کے بغیر بھی جیا جا سکتا ہے۔",
+    needsDone:"سب چھنٹ گئے! سمجھدار منصوبہ پہلے ضرورتوں پر خرچ کرتا ہے، پھر خواہشوں کے لیے بچت کرتا ہے۔",
+    goalQ:"آپ کو {a} چاہیے جس کی قیمت {g} ہے۔ آپ ہر ہفتے {w} بچاتے ہیں۔ کافی پیسے بچانے میں کتنے ہفتے لگیں گے؟ آزمانے کے لیے 1 ہفتہ بچائیں پر ٹیپ کریں۔",
+    saveWeek:"1 ہفتہ بچائیں", weekN:"ہفتہ {n}:", goalLbl:"ہدف",
+    goalLess:"{n} ہفتوں بعد آپ کے پاس {y} ہوں گے۔ یہ {g} سے کم ہے۔",
+    goalMore:"{j} ہفتوں بعد ہی آپ کے پاس {y} ہوں گے، جو کافی ہیں۔ وہ پہلا ہفتہ تلاش کریں جب آپ {g} تک پہنچتے ہیں۔",
+    goalG:"{k} ہفتوں بعد آپ کے پاس {x} ہیں۔ یہ {g} کے لیے کافی ہے!", goalNE:"{j} ہفتوں بعد آپ کے پاس صرف {y} تھے، جو ابھی کافی نہیں تھے۔",
+    goalWhy:"بچت کا منصوبہ ہدف تک پہنچنے میں مدد دیتا ہے۔ لوگ کالج اور ہنگامی حالات کے لیے بھی بچت کرتے ہیں۔",
+    jarQ:"اس ہفتے آپ کو {a} جیب خرچ ملتا ہے۔ آپ کا منصوبہ: {s} بچائیں، {h} بانٹیں، اور باقی خرچ کریں۔ پیسوں کو تینوں مرتبانوں میں گھسیٹیں۔",
+    jarQh:"اس ہفتے آپ کو {a} جیب خرچ ملتا ہے۔ آپ کا منصوبہ: آدھا بچائیں، {h} بانٹیں، اور باقی خرچ کریں۔ پیسوں کو تینوں مرتبانوں میں گھسیٹیں۔",
+    jPile:"جیب خرچ", jSave:"بچت", jShare:"بانٹنا", jSpend:"خرچ",
+    jarLeft:"پہلے پورا جیب خرچ مرتبانوں میں رکھیں۔", jarWrong:"{j} والے مرتبان میں {x} ہیں، مگر آپ کے منصوبے میں وہاں {y} چاہییں۔",
+    jarHalf:"{a} کا آدھا {s} ہے۔", jarRest:"خرچ والے مرتبان کو باقی ملتا ہے: {a} − {s} − {h} = {y}۔",
+    jarG:"بچت {s} + بانٹنا {h} + خرچ {p} = {a}۔ ہر ڈالر کا ایک کام ہے!",
+    fixQ:"مقررہ یا بدلنے والا؟ ہر مہینے کے خرچ کو صحیح ڈبے میں رکھیں۔", bFixed:"مقررہ: ہر مہینے ایک جیسا", bVar:"متغیر: بدل سکتا ہے",
+    f1:"فلیٹ کا کرایہ", f2:"فون پیکج", f3:"انٹرنیٹ سروس", f4:"ماہانہ بس پاس", f5:"موسیقی کی کلاسیں", f6:"گاڑی کی قسط",
+    v1:"سودا سلف", v2:"گاڑی کا پیٹرول", v3:"ریستوران میں کھانا", v4:"تحفے", v5:"بجلی کا بل", v6:"نئے کپڑے",
+    whyFix:"{x} پر ہر مہینے ایک جیسی رقم لگتی ہے، اس لیے یہ مقررہ خرچ ہے۔",
+    whyVar:"{x} پر ایک مہینے زیادہ اور اگلے مہینے کم خرچ ہو سکتا ہے، اس لیے یہ متغیر خرچ ہے۔",
+    fixDone:"سب چھنٹ گئے! مقررہ اخراجات ایک جیسے رہتے ہیں۔ متغیر اخراجات بدلتے رہتے ہیں۔",
+    bzBrace:"آپ بیچنے کے لیے کنگن بناتے ہیں۔ آپ {k} کنگن بیچتے ہیں، ہر ایک {p} کا۔",
+    bzWash:"آپ اور آپ کے دوست گاڑیاں دھونے کا انتظام کرتے ہیں۔ آپ {k} گاڑیاں دھوتے ہیں، ہر ایک {p} میں۔",
+    bzBake:"آپ کی جماعت بیک سیل لگاتی ہے۔ آپ {k} مفن بیچتے ہیں، ہر ایک {p} کا۔",
+    bzPlant:"آپ بیچنے کے لیے پودے اگاتے ہیں۔ آپ {k} پودے بیچتے ہیں، ہر ایک {p} کا۔",
+    prQ:"اپنا منافع معلوم کرنے کے لیے جدول بھریں۔",
+    exBeads:"موتی اور دھاگا", exTable:"میز کا کرایہ", exSoap:"صابن اور اسفنج", exSign:"بورڈ", exIng:"اجزا", exBox:"ڈبے اور نیپکن", exPots:"گملے", exSoil:"مٹی اور بیج",
+    rRev:"آمدن (ملنے والے پیسے)", rExp:"خرچ", rTotE:"کل اخراجات", rProf:"منافع", prFormula:"منافع = آمدن − اخراجات",
+    prRevH:"آمدن = بکنے والی تعداد × قیمت: {k} × {p}۔", prExpH:"جدول کے تمام اخراجات جمع کریں۔", prProfH:"منافع = آمدن − کل اخراجات۔",
+    prG:"{r} − {e} = {x}۔ آپ کا منافع {x} ہے۔",
+    crQ:"آپ کو {a} چاہیے جس کی قیمت {c} ہے، مگر آپ کے پاس صرف {h} ہیں۔ آپ بینک سے {b} ادھار لیتے ہیں۔ ادھار لینے والے کو ادھار کی رقم سود کے ساتھ لوٹانی ہوتی ہے۔ سود {i} ہے۔ آپ کل کتنا لوٹائیں گے؟",
+    crH:"سود وہ اضافی پیسہ ہے جو قرض دینے والے کو اس کے پیسے استعمال کرنے کے بدلے دیا جاتا ہے۔ اسے ادھار کی رقم میں جمع کریں۔",
+    crG:"{b} + {i} = {t}۔ ادھار سے آپ ابھی خرید سکتے ہیں، مگر ادھار لینے والے کو پیسے لوٹانے پڑتے ہیں، اور سود سے چیز مہنگی پڑتی ہے۔",
+    cr2Q:"{a} خریدنے کے لیے آپ بینک سے {b} ادھار لیتے ہیں۔ آپ بینک کو کل {t} لوٹاتے ہیں۔ سود میں آپ کے کتنے پیسے لگے؟",
+    cr2H:"سود وہ رقم ہے جو آپ ادھار سے زیادہ لوٹاتے ہیں۔ لوٹائی گئی رقم میں سے ادھار لی گئی رقم تفریق کریں۔",
+    cr2G:"{t} − {b} = {i}۔ یہ سود پیسے ادھار لینے کی قیمت ہے۔",
+    bq1Q:"بینک یا کریڈٹ یونین کا ایک بنیادی کام کیا ہے؟", bq1A:"لوگوں کے پیسے محفوظ رکھنا", bq1W1:"یہ طے کرنا کہ آپ کو کتنا جیب خرچ ملے", bq1W2:"دکانوں میں قیمتیں طے کرنا",
+    bq1E:"بینک اور کریڈٹ یونین پیسے محفوظ رکھتے ہیں، ادھار لینے والوں کو قرض دیتے ہیں، اور بچت پر سود دیتے ہیں۔",
+    bq2Q:"آپ کی بچت پر سود کہاں مل سکتا ہے؟", bq2A:"بینک کے بچت کھاتے میں", bq2W1:"گلک میں", bq2W2:"گھر کی دراز میں",
+    bq2E:"بینک آپ کی بچت اپنے پاس رکھنے کے بدلے سود دیتا ہے، اس لیے آپ کے پیسے بڑھتے ہیں۔",
+    bq3Q:"گلک کا ایک فائدہ کیا ہے؟", bq3A:"آپ گھر پر فوراً اپنے پیسے نکال سکتے ہیں", bq3W1:"یہ آپ کو سود دیتی ہے", bq3W2:"یہ آپ کے پیسے بڑھاتی ہے",
+    bq3E:"گلک سے پیسے نکالنا آسان ہے، مگر اس میں سود نہیں ملتا اور یہ بینک جتنی محفوظ نہیں۔",
+    bq4Q:"بینک قرض دینے کے لیے پیسے کہاں سے لاتا ہے؟", bq4A:"لوگ جو پیسے بچا کر رکھتے ہیں، ان میں سے کچھ قرض دیتا ہے", bq4W1:"اپنے پیسے خود چھاپتا ہے", bq4W2:"دکانوں سے پیسے لے لیتا ہے",
+    bq4E:"بینک بچت کرنے والوں کے کچھ پیسے قرض دیتے ہیں۔ ادھار لینے والے انہیں سود کے ساتھ لوٹاتے ہیں۔",
+    bq5Q:"بچت کھاتے کا ایک نقصان کیا ہے؟", bq5A:"پیسے نکالنے کے لیے بینک جانا یا ایپ استعمال کرنی پڑتی ہے", bq5W1:"یہ سود دیتا ہے", bq5W2:"یہ آپ کے پیسے محفوظ رکھتا ہے",
+    bq5E:"بچت کھاتہ پیسے محفوظ رکھتا ہے اور سود دیتا ہے، مگر پیسے نکالنے میں تھوڑی زیادہ محنت لگتی ہے۔",
+    pmQ:"یہ ادائیگی کا کون سا طریقہ ہے؟",
+    pm1:"آپ نوٹ اور سکے دیتے ہیں۔ یہ آسان ہے، مگر اگر کھو جائیں تو چلے جاتے ہیں۔",
+    pm2:"آپ ایک کاغذ پر رقم لکھ کر دستخط کرتے ہیں۔ آپ کا بینک آپ کے کھاتے سے دکان کو پیسے دیتا ہے، مگر اس میں کچھ دن لگ سکتے ہیں۔",
+    pm3:"آپ ایک کارڈ استعمال کرتے ہیں، اور پیسے فوراً آپ کے بینک کھاتے سے کٹ جاتے ہیں۔ آپ اتنا ہی خرچ کر سکتے ہیں جتنا آپ کے پاس ہے۔",
+    pm4:"آپ پیسے ادھار لینے کے لیے ایک کارڈ استعمال کرتے ہیں۔ اگر ہر مہینے پورا بل ادا نہ کریں تو سود دینا پڑتا ہے۔",
+    pm5:"آپ اپنے بینک کھاتے سے کسی ایپ یا ویب سائٹ کے ذریعے ادائیگی کرتے ہیں۔ یہ تیز ہے، مگر اپنا پاس ورڈ محفوظ رکھنا ہوتا ہے۔",
+    pmCash:"نقد", pmCheck:"چیک", pmDebit:"ڈیبٹ کارڈ", pmCredit:"کریڈٹ کارڈ", pmE:"الیکٹرانک ادائیگی",
+    ps1:"نقد یعنی نوٹ اور سکے جو آپ ہاتھ سے دیتے ہیں۔", ps2:"چیک ایک کاغذ ہے جسے آپ بھر کر دستخط کرتے ہیں۔", ps3:"ڈیبٹ کارڈ آپ کے بینک کھاتے سے فوراً پیسے لیتا ہے۔",
+    ps4:"کریڈٹ کارڈ سے پیسے ادھار لیے جاتے ہیں جو بعد میں ادا کرنے ہوتے ہیں۔", ps5:"الیکٹرانک ادائیگی میں ایپ یا ویب سائٹ استعمال ہوتی ہے۔",
+    pmG:"جی ہاں، یہ {x} ہے۔",
+    lgQ:"پیسوں کا حساب رکھیں۔ ہر جمع یا نکاسی کے بعد بقایا رقم لکھیں۔",
+    lgDesc:"کیا ہوا", lgDep:"جمع (+)", lgWd:"نکاسی (−)", lgAmt:"جمع (+) یا نکاسی (−)", lgBal:"بقایا", lgStart:"شروع کا بقایا", lgRow:"اس کے بعد بقایا: {d}",
+    lgAllow:"جیب خرچ", lgGift:"سالگرہ کا تحفہ", lgSell:"دستکاری بیچی", lgPet:"پالتو جانور کی دیکھ بھال کے پیسے",
+    lgBook:"کتاب خریدی", lgPres:"دوست کے لیے تحفہ خریدا", lgMovie:"فلم اور ناشتہ", lgDon:"فوڈ بینک کو عطیہ",
+    lgHdep:"اس سطر میں آپ {b} سے شروع کرتے ہیں۔ جمع سے {x} بڑھتے ہیں، اس لیے بقایا بڑھتا ہے۔",
+    lgHwd:"اس سطر میں آپ {b} سے شروع کرتے ہیں۔ نکاسی سے {x} کم ہوتے ہیں، اس لیے بقایا گھٹتا ہے۔",
+    lgG:"آپ کا بقایا {x} ہے۔ حساب رکھنے سے پتا چلتا ہے کہ پیسے کہاں جاتے ہیں، اس لیے آپ کو ہمیشہ معلوم رہتا ہے کہ آپ کے پاس کتنے ہیں۔",
+    tdQ:"یہ کون سا ٹیکس ہے؟",
+    td1:"دکان سے چیزیں خریدتے وقت قیمت میں شامل کیا جانے والا اضافی پیسہ۔", td2:"زمین یا گھر کے مالکان کی طرف سے ہر سال دیا جانے والا پیسہ۔",
+    td3:"لوگ سال بھر میں جو پیسہ کماتے ہیں، اس میں سے حکومت کو دیا جانے والا پیسہ۔", td4:"سوشل سکیورٹی اور میڈی کیئر جیسے پروگراموں کے لیے ہر تنخواہ سے کاٹا جانے والا پیسہ۔",
+    tSales:"سیلز ٹیکس", tProp:"پراپرٹی ٹیکس", tInc:"انکم ٹیکس", tPay:"پے رول ٹیکس",
+    ts1:"سیلز ٹیکس کچھ خریدنے پر شامل کیا جاتا ہے۔", ts2:"پراپرٹی ٹیکس زمین اور گھروں کے مالکان دیتے ہیں۔", ts3:"انکم ٹیکس لوگوں کی کمائی پر دیا جاتا ہے۔", ts4:"پے رول ٹیکس آجر تنخواہ سے کاٹتا ہے۔",
+    tdG:"جی ہاں، یہ {x} ہے۔ ٹیکس سے وہ چیزیں چلتی ہیں جو ہم سب مل کر استعمال کرتے ہیں، جیسے اسکول، سڑکیں اور پارک۔",
+    stQ:"آپ {p} میں {a} خریدتے ہیں۔ یہاں سیلز ٹیکس ہر ڈالر پر {r} ہے۔ رسید بھریں۔",
+    stTaxH:"{d} ڈالر میں سے ہر ڈالر پر سیلز ٹیکس {r} ہے: {d} × {r}۔", stTotH:"کل = قیمت + سیلز ٹیکس۔",
+    stG:"{p} + {x} = {tt}۔ دکان سیلز ٹیکس جمع کر کے حکومت کو بھیجتی ہے۔",
+    rcTax:"سیلز ٹیکس", rcTot:"کل", rcTitle:"رسید",
+    grQ:"اس ہفتے آپ نے ایک نوکری کی۔ آپ کی تنخواہ کی پرچی میں مجموعی تنخواہ اور کاٹے گئے ٹیکس دکھائے گئے ہیں۔ کل ٹیکس اور اپنی خالص تنخواہ لکھیں۔",
+    grStub:"تنخواہ کی پرچی", grGross:"مجموعی تنخواہ", grPayT:"پے رول ٹیکس", grIncT:"انکم ٹیکس", grTot:"کل ٹیکس", grNet:"خالص تنخواہ",
+    grTaxH:"دونوں ٹیکس جمع کریں: پے رول ٹیکس + انکم ٹیکس۔", grNetH:"خالص تنخواہ = مجموعی تنخواہ − کل ٹیکس۔",
+    grG:"{g} − {x} = {n}۔ مجموعی آمدنی وہ سارا پیسہ ہے جو آپ کماتے ہیں۔ خالص آمدنی وہ ہے جو ٹیکس کٹنے کے بعد گھر آتی ہے۔",
+    bgQ:"آپ کا خاندان ہر مہینے {i} کماتا ہے، مگر اس بجٹ میں اس سے {o} زیادہ خرچ کا منصوبہ ہے۔ بدل سکنے والے اخراجات پر − اور + استعمال کر کے بجٹ متوازن کریں: اخراجات آمدنی کے برابر ہونے چاہییں۔",
+    bgRent:"کرایہ", bgUtil:"بجلی اور پانی", bgFood:"کھانا", bgTrans:"بس اور پیٹرول", bgFun:"تفریح اور باہر کھانا", bgSave:"بچت",
+    bgInc:"ماہانہ آمدنی", bgExp:"اخراجات", bgWas:"پہلے {x}", bgLess:"{x} کے لیے کم", bgMore:"{x} کے لیے زیادہ", bgFixed:"مقررہ: بدل نہیں سکتا",
+    bgOver:"آپ کے اخراجات کا مجموعہ {e} ہے۔ یہ اب بھی {i} کی آمدنی سے {x} زیادہ ہے۔ کوئی خواہش کم کریں، جیسے تفریح اور باہر کھانا۔",
+    bgUnder:"آپ کے اخراجات کا مجموعہ {e} ہے۔ یہ {i} سے {x} کم ہے۔ بچے ہوئے {x} بچت میں ڈالیں تاکہ ہر ڈالر کا ایک کام ہو۔",
+    bgG:"اخراجات {e} = آمدنی {i}۔ بجٹ متوازن ہے! آپ نے ادھار لینے کے بجائے کم خرچ کیا۔",
+    actQ:"اس خاندان کے اخراجات اس کی آمدنی سے زیادہ ہیں۔ کون سا قدم بجٹ متوازن کرنے میں مدد دے سکتا ہے؟",
+    aCook:"باہر کھانے کے بجائے گھر پر کھانا پکانا", aPhone:"سستے فون پیکج پر جانا", aSell:"جو چیزیں اب استعمال نہیں ہوتیں انہیں بیچنا", aWork:"زیادہ گھنٹے کام کر کے اضافی آمدنی کمانا",
+    aTV:"بڑا ٹی وی خریدنا", aCard:"ہر چیز کی ادائیگی کریڈٹ کارڈ سے کرنا", aEat:"ریستوران میں اور زیادہ کھانا", aTrip:"مہنگے سفر پر جانا",
+    actG:"جی ہاں! بجٹ متوازن کرنے کے لیے کم خرچ کریں یا زیادہ کمائیں۔ یہ قدم یہی کرتا ہے۔",
+    actH:"اس سے اخراجات بڑھیں گے یا قرض بڑھے گا۔ بجٹ متوازن کرنے کے لیے کم خرچ کریں یا زیادہ کمائیں۔",
+    teacherTitle:"استاد کی ترتیبات", setGrade:"جماعت", g3:"جماعت 3", g4:"جماعت 4", g5:"جماعت 5",
+    gradeNote:"جماعت چننے سے نیچے کے انتخاب طے ہو جاتے ہیں۔ آپ انہیں پھر بھی بدل سکتے ہیں۔",
+    setLvl:"رقم کی مقدار", lv1:"چھوٹی (تقریباً $20 تک)", lv2:"درمیانی (تقریباً $100 تک)", lv3:"بڑی (تقریباً $1,000 تک)",
+    setCents:"سینٹ", centsOn:"صرف پورے ڈالر نہیں، ڈالر اور سینٹ دونوں استعمال کریں",
+    setModes:"موڈ", modeNote:"ہر موڈ میں کئی طرح کے راؤنڈ ملے ہوتے ہیں۔ چنی گئی جماعت طے کرتی ہے کہ کون سے آئیں گے۔",
+    setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں", printCards:"چیلنج کارڈ پرنٹ کریں",
+    numNote:"ہر زبان میں رقم امریکی ڈالر اور سینٹ میں ہے (ٹیکساس کے معیار): نقطہ ڈالر کو سینٹ سے الگ کرتا ہے اور کاما ہزاروں کو گروپ کرتے ہیں، جیسے $1,234.56۔",
+    setStored:"ترتیبات صرف اسی ڈیوائس پر محفوظ ہوتی ہیں۔ طلبہ کی کوئی معلومات کبھی محفوظ نہیں کی جاتی۔",
+    stds:"متعلقہ معیار — ٹیکساس TEKS: جماعت 3: 3.4(A, C)، 3.9(A, B, C, D, E, F)؛ جماعت 4: 4.4(A)، 4.10(A, B, C, D, E)؛ جماعت 5: 5.3(E, K)، 5.10(A, B, C, D, E, F)۔ کامن کور میں مالی خواندگی کا کوئی حصہ نہیں؛ یہاں پیسوں کے سوال حل کرنے میں 3.OA.3، 3.OA.8، 3.NBT.2؛ 4.MD.2؛ 5.NBT.7 کی مشق ہوتی ہے۔",
+    cardTitle:"پیسوں کی سمجھ — چیلنج کارڈ", cardName:"نام:", cardWork:"اپنا حل دکھائیں۔",
+    cardNW:"ضرورت کے لیے ض اور خواہش کے لیے خ لکھیں۔", cardFV:"مقررہ خرچ کے لیے م اور متغیر خرچ کے لیے ت لکھیں۔",
+    cardEarn:"آپ کتنے پیسے کماتے ہیں؟",
+    cardLg:"بقایا کا کالم بھریں۔", cardProf:"منافع معلوم کریں۔"
+  },
+  zh:{
+    appTitle:"金钱智慧", home:"首页", privacy:"隐私", teacher:"教师", language:"语言", readAloud:"朗读",
+    modesLbl:"模式", stars:"获得的星星", newRound:"新一轮", footNote:"无需账号 · 不收集数据 · 可离线使用",
+    mEarn:"挣钱与花钱", mSave:"储蓄与计划", mProfit:"开支与利润", mBank:"信贷与银行", mTax:"税与预算",
+    check:"检查", clear:"清空", yes:"答对了！", close:"关闭", choicesLbl:"答案选项", startOver:"重新开始",
+    dol1:"1美元", dolN:"{n}美元", ct1:"1美分", ctN:"{n}美分", dc:"{d}{c}",
+    addX:"放入{x}", rmvX:"拿出{x}", bankLbl:"可以用的钱：点一点或拖一拖", trayLbl:"你的托盘", trayEmpty:"把钱拖到这里，或点一下钱放进来。",
+    inTray:"托盘里有：", trayNone:"你的托盘是空的。点一点或拖动纸币和硬币放进去。",
+    trayMore:"你的托盘里有{x}。太多了，拿出一些钱。", trayLess:"你的托盘里有{x}。还不够。",
+    fillIn:"在每个格子里写一个金额，例如12.50。", pickFirst:"先点一张卡片或一些钱，再点它应该去的方框。",
+    putIn:"放进{b}", cardsLbl:"要分类的卡片", notThere:"不是{b}。",
+    youHave:"你有", planned:"计划中", notPlanned:"不在计划中", weeksN:"{n}周", week1:"1周",
+    jDog:"你帮邻居遛狗。每遛一次挣{p}。这周你遛了{k}次。",
+    jLeaf:"你帮邻居耙落叶。每个院子挣{p}。你耙了{k}个院子。",
+    jCar:"你帮忙洗车。每辆车挣{p}。你洗了{k}辆车。",
+    jPlant:"邻居外出时，你帮他们浇花。每天挣{p}。你浇了{k}天。",
+    jobQ:"你挣了多少钱？把这个金额放进托盘。",
+    jobH:"每做一次工作你挣{p}，你做了{k}次：{k} × {p}。",
+    jobG:"{k} × {p} = {x}。这份收入是你用劳动挣来的。",
+    skillQ:"你帮忙做家务，每小时挣{a}。后来你学会了修自行车这项新技能，每小时挣{b}。如果你工作{k}小时，有了新技能能多挣多少钱？",
+    skillH:"先算出每小时多挣多少：{b} − {a}。再乘{k}小时。",
+    skillG:"每小时多挣{d}，{k} × {d} = {x}。学习新技能可以提高收入。",
+    lemQ1:"你开了一个柠檬水小摊。先要买材料。总共花多少钱？把这个金额放进托盘来付钱。",
+    lemH1:"把柠檬、糖和杯子的钱加起来。",
+    lemG1:"{a} + {b} + {c} = {x}。这就是做柠檬水的成本。",
+    lemQ2:"你卖了{k}杯，每杯{p}。你收到多少钱？",
+    lemH2:"每杯带来{p}，你卖了{k}杯：{k} × {p}。",
+    lemG2:"{k} × {p} = {x}。这是你的小摊收到的钱。",
+    lemQ3:"利润是付完成本后剩下的钱。你的利润是多少？",
+    lemH3:"从收到的钱{r}开始，减去材料成本{c}。",
+    lemG3:"{r} − {c} = {x}。你的利润是{x}。",
+    lemL:"柠檬", lemS:"糖", lemC:"杯子", lemCost:"材料成本", lemSold:"卖出的杯数", lemPer:"每杯{p}", lemIn:"收到的钱",
+    sc1:"一个寒冷的冬天冻坏了很多橙子树，所以今年橙子少了很多。橙子的价格最可能会怎样？",
+    sc2:"今年夏天农民种了太多西瓜，商店里的西瓜比人们想买的还多。西瓜的价格最可能会怎样？",
+    sc3:"一场很受欢迎的演出只剩下几张票了，而很多人都想买。票价最可能会怎样？",
+    sc4:"去年有一款玩具非常受欢迎。现在商店的货架上摆满了它，却很少有人买。它的价格最可能会怎样？",
+    sc5:"暴风雨让很多渔船没法出海，所以市场上的鱼变少了。鱼的价格最可能会怎样？",
+    pUp:"价格上涨", pDown:"价格下降", pSame:"价格不变",
+    scUp:"当一样东西稀缺、不够所有想要它的人分时，卖家可以要更高的价钱。价格通常会上涨。",
+    scDown:"当一样东西很多、比人们想要的还多时，卖家会降价，让人们来买。",
+    scH:"问问自己：这样东西比人们想要的少，还是多？稀缺的东西通常更贵，多的东西通常更便宜。",
+    planQ:"你有{m}。你本来计划花{p}买{a}。在商店里你还看到了{b}，价格是{q}，这是你没计划买的。要两样都买，你还需要多少钱？",
+    planH:"把两个价格加起来。再和你有的{m}比一比。",
+    planG:"{p} + {q} = {s}，而你有{m}，所以还差{x}。计划外的购买可能让你买不成计划中的东西。做计划能帮你把钱花在最重要的地方。",
+    iBook:"一本书", iBall:"一个足球", iKite:"一只风筝", iArt:"一套画画工具", iPuzzle:"一盒拼图",
+    iSnack:"一袋爆米花", iSticker:"一包贴纸", iCar:"一辆玩具车", iSlime:"一盒史莱姆", iComic:"一本漫画书",
+    iHelmet:"一顶自行车头盔", iScooter:"一辆滑板车", iSkate:"一块滑板",
+    decQ:"这是收入、花费、储蓄、捐赠还是信贷？把每张卡片放进正确的方框。",
+    bInc:"收入", bSpend:"花费", bSave:"储蓄", bGive:"捐赠", bCred:"信贷",
+    d_i1:"遛狗得到报酬", d_i2:"卖自己做的手工", d_i3:"耙落叶挣钱",
+    d_s1:"放学后买零食", d_s2:"付电影票钱", d_s3:"买一个新铅笔盒",
+    d_v1:"把一部分零花钱存进储蓄账户", d_v2:"把钱放进存钱罐，准备买自行车", d_v3:"把生日红包的一半留着以后用",
+    d_g1:"捐钱给食物银行", d_g2:"捐钱给动物收容所", d_g3:"捐钱帮助洪水后的家庭",
+    d_c1:"借钱买自行车，以后再还", d_c2:"用信用卡消费，下个月再付账单",
+    wInc:"{x}：你因为工作或卖东西得到钱，所以这是收入。",
+    wSpend:"{x}：你现在用钱买东西，所以这是花费。",
+    wSave:"{x}：你把钱留着以后用，所以这是储蓄。",
+    wGive:"{x}：你拿出钱来帮助别人，所以这是捐赠。",
+    wCred:"{x}：你现在用别人的钱，以后再还，所以这是信贷。",
+    decDone:"全部分好了！每个用钱的决定都是挣钱、花钱、存钱、捐钱或使用信贷。",
+    needsQ:"这是需要还是想要？把每张卡片放进正确的方框。", bNeed:"需要", bWant:"想要",
+    n1:"干净的水", n2:"健康的食物", n3:"过冬的保暖外套", n4:"生病时的药", n5:"安全的住处", n6:"合脚的鞋",
+    w1:"一个新电子游戏", w2:"糖果", w3:"一个玩具机器人", w4:"一张电影票", w5:"一个闪亮的手机壳", w6:"汽水", w7:"会发光的轮滑鞋",
+    whyNeed:"{x}是需要：人们要靠它生活、保持健康或保持安全。",
+    whyWant:"{x}是想要：有了很好，但没有也能生活。",
+    needsDone:"全部分好了！聪明的计划先满足需要，再为想要的东西存钱。",
+    goalQ:"你想要{a}，价格是{g}。你每周存{w}。要存几周才够？点“存1周”试一试。",
+    saveWeek:"存1周", weekN:"第{n}周：", goalLbl:"目标",
+    goalLess:"{n}周后你会有{y}。这比{g}少。",
+    goalMore:"{j}周后你就已经有{y}了，已经够了。找找第一次达到{g}的是哪一周。",
+    goalG:"{k}周后你有{x}。够买价格{g}的东西了！", goalNE:"{j}周后你只有{y}，还差一点。",
+    goalWhy:"储蓄计划能帮你实现目标。人们也会为上大学和应急存钱。",
+    jarQ:"这周你得到{a}零花钱。你的计划：存{s}，分享{h}，剩下的花掉。把钱拖进三个罐子里。",
+    jarQh:"这周你得到{a}零花钱。你的计划：存一半，分享{h}，剩下的花掉。把钱拖进三个罐子里。",
+    jPile:"零花钱", jSave:"存", jShare:"分享", jSpend:"花",
+    jarLeft:"先把所有零花钱都放进罐子里。", jarWrong:"“{j}”罐里有{x}，但你的计划需要{y}。",
+    jarHalf:"{a}的一半是{s}。", jarRest:"“花”罐得到剩下的：{a} − {s} − {h} = {y}。",
+    jarG:"存{s} + 分享{h} + 花{p} = {a}。每一美元都有自己的任务！",
+    fixQ:"固定还是可变？把每月的每项开支放进正确的方框。", bFixed:"固定：每月一样", bVar:"可变：会变化",
+    f1:"公寓房租", f2:"手机套餐", f3:"网络服务", f4:"公交月票", f5:"音乐课", f6:"车贷月供",
+    v1:"日常食品", v2:"汽车油费", v3:"在餐馆吃饭", v4:"礼物", v5:"电费账单", v6:"新衣服",
+    whyFix:"{x}每个月花的钱都一样，所以是固定开支。",
+    whyVar:"{x}可能这个月多、下个月少，所以是可变开支。",
+    fixDone:"全部分好了！固定开支保持不变，可变开支会变化。",
+    bzBrace:"你做手链来卖。你卖了{k}条手链，每条{p}。",
+    bzWash:"你和朋友们办了一次洗车活动。你们洗了{k}辆车，每辆{p}。",
+    bzBake:"你们班办了一次烘焙义卖。你们卖了{k}个松饼，每个{p}。",
+    bzPlant:"你种植物来卖。你卖了{k}盆植物，每盆{p}。",
+    prQ:"填好表格，算出你的利润。",
+    exBeads:"珠子和绳子", exTable:"租桌子", exSoap:"肥皂和海绵", exSign:"招牌", exIng:"原料", exBox:"盒子和餐巾纸", exPots:"花盆", exSoil:"泥土和种子",
+    rRev:"收入（收到的钱）", rExp:"开支", rTotE:"总开支", rProf:"利润", prFormula:"利润 = 收入 − 开支",
+    prRevH:"收入 = 卖出数量 × 价格：{k} × {p}。", prExpH:"把表格里所有的开支加起来。", prProfH:"利润 = 收入 − 总开支。",
+    prG:"{r} − {e} = {x}。你的利润是{x}。",
+    crQ:"你想要{a}，价格是{c}，但你只有{h}。你向银行借了{b}。借款人必须还清借的钱，还要加上利息。利息是{i}。你一共要还多少钱？",
+    crH:"利息是因为用了出借人的钱而额外付给他们的钱。把利息加到借的钱上。",
+    crG:"{b} + {i} = {t}。信贷让你现在就能买，但借款人必须还钱给出借人，而利息会让东西更贵。",
+    cr2Q:"你向银行借了{b}来买{a}。你一共还给银行{t}。利息让你多花了多少钱？",
+    cr2H:"利息是你在借的钱之外多还的部分。用还的钱减去借的钱。",
+    cr2G:"{t} − {b} = {i}。这些利息就是借钱的成本。",
+    bq1Q:"银行或信用合作社的一项主要工作是什么？", bq1A:"保管好人们的钱", bq1W1:"决定你得到多少零花钱", bq1W2:"给商店定价格",
+    bq1E:"银行和信用合作社保管钱的安全，把钱借给借款人，还为存款支付利息。",
+    bq2Q:"你的存款在哪里可以赚利息？", bq2A:"银行的储蓄账户里", bq2W1:"存钱罐里", bq2W2:"家里的抽屉里",
+    bq2E:"你把存款放在银行，银行会付给你利息，所以你的钱会变多。",
+    bq3Q:"存钱罐有什么好处？", bq3A:"在家就能马上拿到钱", bq3W1:"它会付给你利息", bq3W2:"它会让你的钱变多",
+    bq3E:"存钱罐取钱方便，但没有利息，也不如银行安全。",
+    bq4Q:"银行借给别人的钱是从哪里来的？", bq4A:"把人们存在银行的一部分钱借出去", bq4W1:"自己印钱", bq4W2:"从商店拿钱",
+    bq4E:"银行把储户的一部分钱借出去。借款人连本带息还给银行。",
+    bq5Q:"储蓄账户有什么缺点？", bq5A:"取钱要去银行或使用手机应用", bq5W1:"它会付利息", bq5W2:"它能保证你的钱安全",
+    bq5E:"储蓄账户能保证钱的安全还能付利息，但取钱要多费一点功夫。",
+    pmQ:"这是哪一种付款方式？",
+    pm1:"你直接交出纸币和硬币。很简单，但如果弄丢了，钱就没了。",
+    pm2:"你在一张纸上写下金额并签名。你的银行从你的账户付钱给商店，但可能要等几天。",
+    pm3:"你刷一张卡，钱马上从你的银行账户里扣掉。你只能花你有的钱。",
+    pm4:"你用一张卡借钱消费。如果每个月没有还清全部账单，就要付利息。",
+    pm5:"你用手机应用或网站从银行账户付钱。很快，但你要保管好密码。",
+    pmCash:"现金", pmCheck:"支票", pmDebit:"借记卡", pmCredit:"信用卡", pmE:"电子支付",
+    ps1:"现金就是你直接交出的纸币和硬币。", ps2:"支票是一张你填写并签名的纸。", ps3:"借记卡会马上从你的银行账户里扣钱。",
+    ps4:"信用卡是先借钱，以后再还。", ps5:"电子支付使用手机应用或网站。",
+    pmG:"对，这是{x}。",
+    lgQ:"记一份金钱账。每次存入或取出后，写下余额。",
+    lgDesc:"发生了什么", lgDep:"存入（+）", lgWd:"取出（−）", lgAmt:"存入（+）或取出（−）", lgBal:"余额", lgStart:"开始的余额", lgRow:"之后的余额：{d}",
+    lgAllow:"零花钱", lgGift:"生日礼金", lgSell:"卖手工", lgPet:"照顾宠物的报酬",
+    lgBook:"买了一本书", lgPres:"给朋友买礼物", lgMovie:"看电影和吃零食", lgDon:"捐给食物银行",
+    lgHdep:"这一行开始时有{b}。存入增加{x}，所以余额变多。",
+    lgHwd:"这一行开始时有{b}。取出拿走{x}，所以余额变少。",
+    lgG:"你的余额是{x}。记账能看清钱花到了哪里，所以你总知道自己有多少钱。",
+    tdQ:"这是哪一种税？",
+    td1:"在商店买东西时加到价格上的额外的钱。", td2:"拥有土地或房子的人每年要交的钱。",
+    td3:"人们从一年挣的钱里交给政府的钱。", td4:"从每份工资里扣除、用于社会保障和联邦医疗保险等项目的钱。",
+    tSales:"销售税", tProp:"房产税", tInc:"所得税", tPay:"工资税",
+    ts1:"销售税是在你买东西时加上去的。", ts2:"房产税由拥有土地和房子的人交。", ts3:"所得税是按人们挣的钱交的。", ts4:"工资税由雇主从工资里扣除。",
+    tdG:"对，这是{x}。税收用来支付大家共用的东西，比如学校、道路和公园。",
+    stQ:"你花{p}买{a}。这里每1美元要交{r}销售税。把收据填好。",
+    stTaxH:"{d}美元中每1美元交{r}销售税：{d} × {r}。", stTotH:"总计 = 价格 + 销售税。",
+    stG:"{p} + {x} = {tt}。商店收取销售税，再交给政府。",
+    rcTax:"销售税", rcTot:"总计", rcTitle:"收据",
+    grQ:"这周你做了一份工作。你的工资单显示了税前工资和扣掉的税。填写税款总额和你的实发工资。",
+    grStub:"工资单", grGross:"税前工资", grPayT:"工资税", grIncT:"所得税", grTot:"税款总额", grNet:"实发工资",
+    grTaxH:"把两种税加起来：工资税 + 所得税。", grNetH:"实发工资 = 税前工资 − 税款总额。",
+    grG:"{g} − {x} = {n}。总收入是你挣的所有钱。净收入是扣税后拿回家的钱。",
+    bgQ:"你家每月收入{i}，但这份预算计划比收入多花{o}。在可以改变的开支上用 − 和 +，让预算平衡：开支必须等于收入。",
+    bgRent:"房租", bgUtil:"水电费", bgFood:"伙食", bgTrans:"公交和油费", bgFun:"娱乐和外出吃饭", bgSave:"储蓄",
+    bgInc:"每月收入", bgExp:"开支", bgWas:"原来是{x}", bgLess:"减少{x}", bgMore:"增加{x}", bgFixed:"固定：不能改",
+    bgOver:"你的开支加起来是{e}，仍然比收入{i}多{x}。减少一项想要的开支，比如娱乐和外出吃饭。",
+    bgUnder:"你的开支加起来是{e}，比{i}少{x}。把多出来的{x}放进储蓄，让每一美元都有任务。",
+    bgG:"开支{e} = 收入{i}。预算平衡了！你选择少花钱，而不是借钱。",
+    actQ:"这个家庭的开支比收入多。哪种做法能帮助平衡预算？",
+    aCook:"在家做饭，不去外面吃", aPhone:"换一个更便宜的手机套餐", aSell:"卖掉不再用的东西", aWork:"多工作几个小时挣额外收入",
+    aTV:"买一台更大的电视", aCard:"什么都用信用卡付", aEat:"更常去餐馆吃饭", aTrip:"去一次很贵的旅行",
+    actG:"对！要平衡预算，就要少花钱或多挣钱。这个做法正是这样。",
+    actH:"这样会让开支变多或增加欠债。要平衡预算，就要少花钱或多挣钱。",
+    teacherTitle:"教师设置", setGrade:"年级", g3:"三年级", g4:"四年级", g5:"五年级",
+    gradeNote:"选择年级会自动设定下面的选项，之后仍可修改。",
+    setLvl:"金额大小", lv1:"小（约$20以内）", lv2:"中（约$100以内）", lv3:"大（约$1,000以内）",
+    setCents:"美分", centsOn:"使用美元和美分，而不只是整美元",
+    setModes:"模式", modeNote:"每个模式混合几种题型，所选年级决定出现哪些题型。",
+    setSpeech:"语音", autoRead:"自动朗读说明", printCards:"打印挑战卡",
+    numNote:"所有语言都使用美元和美分（得克萨斯州标准）：用圆点分开美元和美分，用逗号每三位分隔一次，例如$1,234.56。",
+    setStored:"设置只保存在这台设备上，从不保存任何学生信息。",
+    stds:"对应标准——得克萨斯州 TEKS：三年级 3.4(A, C)、3.9(A, B, C, D, E, F)；四年级 4.4(A)、4.10(A, B, C, D, E)；五年级 5.3(E, K)、5.10(A, B, C, D, E, F)。共同核心标准没有金融素养部分；这里的金钱问题解决练习了 3.OA.3、3.OA.8、3.NBT.2；4.MD.2；5.NBT.7。",
+    cardTitle:"金钱智慧——挑战卡", cardName:"姓名：", cardWork:"写出你的解题过程。",
+    cardNW:"需要写“需”，想要写“想”。", cardFV:"固定开支写“固”，可变开支写“变”。",
+    cardEarn:"你挣了多少钱？",
+    cardLg:"填写余额一栏。", cardProf:"算出利润。"
+  },
+};
+
+let lang = "en";
+function t(key, vars){
+  let s = (T[lang] && T[lang][key]!==undefined) ? T[lang][key] : (T.en[key]!==undefined? T.en[key] : key);
+  if(vars) for(const k in vars) s = s.replaceAll("{"+k+"}", vars[k]);
+  return s;
+}
+
+/* ---------- Settings ---------- */
+const MODES = ["earn","save","profit","bank","tax"];
+const MODE_KEY = {earn:"mEarn",save:"mSave",profit:"mProfit",bank:"mBank",tax:"mTax"};
+const GRADE_DEF = {
+  3:{lvl:1,cents:false,modes:{earn:true,save:true,profit:false,bank:true,tax:false}},
+  4:{lvl:2,cents:true, modes:{earn:true,save:true,profit:true,bank:true,tax:false}},
+  5:{lvl:3,cents:true, modes:{earn:true,save:true,profit:true,bank:true,tax:true}}
+};
+const clone = o=>JSON.parse(JSON.stringify(o));
+const fromGrade = g=>Object.assign({grade:g,autoRead:false}, clone(GRADE_DEF[g]));
+let settings = loadSettings();
+function loadSettings(){
+  try{
+    const raw = localStorage.getItem("msense_settings");
+    if(raw){ const o=JSON.parse(raw), g=GRADE_DEF[o.grade]?o.grade:4, d=fromGrade(g);
+      const s=Object.assign(d, o, {grade:g, modes:Object.assign({},d.modes,o.modes)});
+      if(![1,2,3].includes(+s.lvl)) s.lvl=d.lvl; s.lvl=+s.lvl; s.cents=!!s.cents;
+      if(!MODES.some(m=>s.modes[m])) s.modes=clone(d.modes);
+      return s; }
+  }catch(e){}
+  return fromGrade(4);
+}
+function saveSettings(){ try{ localStorage.setItem("msense_settings", JSON.stringify(settings)); }catch(e){} }
+const modeOn = m=>!!settings.modes[m];
+
+/* ---------- Utils ---------- */
+const $ = s=>document.querySelector(s);
+const $$ = s=>Array.from(document.querySelectorAll(s));
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const ri = (a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const M = s=>`<bdi class="math" dir="ltr">${s}</bdi>`;
+const plain = h=>String(h).replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();
+const sum = a=>a.reduce((x,y)=>x+y,0);
+let stars=0;
+function addStar(){ stars++; $("#starCount").textContent=stars; const w=$("#stars"); w.classList.remove("pop"); void w.offsetWidth; w.classList.add("pop"); }
+
+/* ---------- Money: values are whole cents ---------- */
+const commas = n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,",");
+// w = whole-dollar style (no ".00" even when cents are on), used for family budgets
+function fmtC(c,w){ const d=Math.floor(c/100), r=c%100; return "$"+commas(d)+(r||(settings.cents&&!w)?"."+String(r).padStart(2,"0"):""); }
+function sayC(c){ const d=Math.floor(c/100), r=c%100;
+  const ds=t(d===1?"dol1":"dolN",{n:commas(d)}), cs=t(r===1?"ct1":"ctN",{n:String(r)});
+  return d&&r? t("dc",{d:ds,c:cs}) : r? cs : ds; }
+// Random extra cents (multiples of step) when cents are turned on
+function addC(c,step){ step=step||25; if(settings.cents && Math.random()<.7) c+=step*ri(1,Math.floor(99/step)); return c; }
+const dol = (a,b)=>ri(a,b)*100;
+const lv = ()=>settings.lvl;
+// Parse a typed amount: "$1,234.5" -> 123450 cents; also accepts Arabic-Indic and Persian digits
+function parseC(s){
+  s=String(s).replace(/[٠-٩]/g,d=>String(d.charCodeAt(0)-1632)).replace(/[۰-۹]/g,d=>String(d.charCodeAt(0)-1776))
+    .replace(/[٫،]/g,m=>m==="٫"?".":",").replace(/[$\s,]/g,"");
+  if(!/^\d*\.?\d{0,2}$/.test(s) || !/\d/.test(s)) return null;
+  return Math.round(parseFloat(s)*100);
+}
+
+/* ---------- Message tokens: each value knows how to show itself and how to be spoken ---------- */
+const isTok = v=>v && typeof v==="object";
+const HV = v=>isTok(v)? v.h : String(v);
+const SV = v=>isTok(v)? v.s : plain(v);
+function L(key,vars){ const h={}, s={}; for(const k in (vars||{})){ h[k]=HV(vars[k]); s[k]=SV(vars[k]); } return {h:t(key,h), s:t(key,s)}; }
+function J(...xs){ xs=xs.filter(Boolean); return {h:xs.map(x=>x.h!==undefined?x.h:x).join(" "), s:xs.map(x=>x.s!==undefined?x.s:plain(x)).join(" ")}; }
+const raw = (h,s)=>({h, s:s===undefined?plain(h):s});
+const mt = (c,w)=>({h:M(fmtC(c,w)), s:sayC(c)});
+const ctTok = n=>({h:M(n+"¢"), s:t(n===1?"ct1":"ctN",{n:String(n)})});
+const nT = n=>({h:M(commas(n)), s:String(n)});
+const tk = k=>raw(t(k));
+
+/* ---------- Speech ---------- */
+const speechOK = ("speechSynthesis" in window);
+function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
+// Prefer warm, natural voices for young learners; avoid harsh robotic engines.
+function pickWarmVoice(code){
+  const vs = speechSynthesis.getVoices()||[];
+  const want=code.toLowerCase(), two=want.slice(0,2);
+  let best=null, bs=-1;
+  for(const v of vs){
+    const lc=(v.lang||'').toLowerCase().replace('_','-');
+    if(lc!==want && lc.slice(0,2)!==two) continue;
+    let s=(lc===want?100:60); const n=(v.name||'').toLowerCase();
+    if(/google|natural|neural|online|premium|enhanced|siri/.test(n)) s+=40;
+    if(/female|woman|samantha|karen|tessa|moira|fiona|serena|victoria|allison|ava|susan|zoe|amelie|amélie|paulina|monica|mónica|zira|hazel|catherine|linda|kanya|lekha|ting-ting|mei-jia|sin-ji|yu-shu|huihui|xiaoxiao/.test(n)) s+=18;
+    if(/espeak|compact|festival|pico|robot|eloquence/.test(n)) s-=60;
+    if(v.localService===false) s+=8;
+    if(v.default) s+=2;
+    if(s>bs){ bs=s; best=v; }
+  }
+  return best;
+}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  // Split on sentence ends, but never inside a number like 3.45
+  const parts=String(text).match(/(?:[^.!?。！？؟।۔]|\.(?=\d))+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.9; u.pitch=1.1;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={earn:0,save:0,profit:0,bank:0,tax:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
+}
+if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
+if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
+
+const currentSpeech = {earn:"",save:"",profit:"",bank:"",tax:""};
+function setSpeech(mode,text){ currentSpeech[mode]=text; }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===mode) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,svg")) return;
+  speak(currentSpeech[currentMode()]);
+},true);
+// Set a mode's direction: shown text (HTML) + spoken text.
+function setPrompt(mode,m){ $("#"+mode+"Prompt").innerHTML=m.h; setSpeech(mode,m.s); }
+
+/* ---------- Feedback ---------- */
+const fbEl = m=>$("#"+m+"Fb");
+const area = m=>$("#"+m+"Area");
+function showFb(el,type,m){ el.className="feedback show "+type; el.innerHTML=(type==="good"?"✅ ":"💡 ")+m.h; }
+function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
+function good(mode,m,next,minMs){ showFb(fbEl(mode),"good",m); addStar(); afterPraise(m.s,mode,next,minMs||2200); }
+function hint(mode,m){ showFb(fbEl(mode),"hint",m); speak(m.s); }
+const made={};
+// Multiple-choice buttons. opts: [{h, s?, ok}]; onPick(btn,opt)
+function choiceButtons(el,opts,onPick,wide){
+  el.className="choices"+(wide?" wide":""); el.setAttribute("role","group"); el.setAttribute("aria-label",t("choicesLbl")); el.innerHTML="";
+  opts.forEach(o=>{ const b=document.createElement("button"); b.type="button"; b.className="choice"; b.innerHTML=o.h;
+    if(o.s) b.setAttribute("aria-label",o.s);
+    b._ok=!!o.ok; b.addEventListener("click",()=>onPick(b,o)); el.appendChild(b); });
+}
+function lockChoices(el,b){ b.classList.add("correctpick"); el.querySelectorAll("button").forEach(x=>x.disabled=true); }
+function wrongChoice(b){ b.classList.add("wrongpick"); b.disabled=true; }
+function mc(el,opts,onRight,onWrong,wide){ choiceButtons(el,shuffle(opts),(b,o)=>{ if(o.ok){ lockChoices(el,b); onRight(o); } else { wrongChoice(b); onWrong(o); } },wide); }
+function uniqVals(ans,cands,n,ok){ const seen=new Set([ans]), out=[];
+  for(const c of cands){ if(out.length>=n) break; if(c==null||seen.has(c)||(ok&&!ok(c))) continue; seen.add(c); out.push(c); }
+  return out; }
+// Four money choices: the answer plus three distinct positive distractors
+function moneyOpts(ans,cands){
+  const step=ans>=2000?500:100;
+  const vs=[ans].concat(uniqVals(ans,cands.concat([ans+step,ans-step,ans+2*step,ans+3*step,ans+4*step]),3,v=>v>0));
+  return vs.map(v=>({h:M(fmtC(v)), s:sayC(v), ok:v===ans}));
+}
+const txtOpt = (k,ok,ic)=>({h:(ic?`<span aria-hidden="true">${ic}</span> `:"")+t(k), s:t(k), ok:!!ok, k});
+
+/* ---------- Drag and drop (pointer events; tap and keyboard work too) ---------- */
+let drag=null;
+function dragify(el,find,onDrop){
+  el.classList.add("drag");
+  el.addEventListener("pointerdown",e=>{ if(e.button>0||el.disabled) return; drag={el,find,onDrop,x:e.clientX,y:e.clientY,on:false,g:null,last:null}; });
+}
+function endDrag(e,cancel){
+  const d=drag; drag=null; if(!d||!d.on) return;
+  if(d.g) d.g.remove(); if(d.last) d.last.classList.remove("over");
+  d.el._noClick=true; setTimeout(()=>{ d.el._noClick=false; },80);
+  if(!cancel) d.onDrop(d.find(e));
+}
+document.addEventListener("pointermove",e=>{
+  const d=drag; if(!d) return;
+  if(!d.on){ if(Math.hypot(e.clientX-d.x,e.clientY-d.y)<8) return;
+    d.on=true; const g=d.el.cloneNode(true); g.classList.add("dghost"); g.removeAttribute("id"); g.setAttribute("aria-hidden","true"); document.body.appendChild(g); d.g=g; }
+  d.g.style.left=(e.clientX-d.g.offsetWidth/2)+"px"; d.g.style.top=(e.clientY-d.g.offsetHeight/2)+"px";
+  const z=d.find(e); if(z!==d.last){ if(d.last) d.last.classList.remove("over"); if(z) z.classList.add("over"); d.last=z; }
+  e.preventDefault();
+},{passive:false});
+document.addEventListener("pointerup",e=>endDrag(e,false));
+document.addEventListener("pointercancel",e=>endDrag(e,true));
+function under(e,sel,root){ const el=document.elementFromPoint(e.clientX,e.clientY), z=el&&el.closest(sel); return z&&(!root||root.contains(z))?z:null; }
+
+/* ---------- Bills and coins ---------- */
+function moneySVG(v){
+  if(v>=100){ const d=v/100, fs=d>=100?12:15;
+    return `<svg viewBox="0 0 84 40" width="76" height="36" aria-hidden="true" style="direction:ltr"><rect x="1.5" y="1.5" width="81" height="37" rx="5" fill="#d9eed2" stroke="#2e7d32" stroke-width="2.5"/><rect x="6" y="6" width="72" height="28" rx="3" fill="none" stroke="#7cb872" stroke-width="1.2"/><ellipse cx="42" cy="20" rx="13" ry="12" fill="#c2e2b6" stroke="#2e7d32" stroke-width="1.2"/><text x="42" y="25.5" text-anchor="middle" font-size="${fs}" font-weight="800" fill="#174d1a" font-family="system-ui,sans-serif">$${d}</text><text x="10" y="15" font-size="8" font-weight="700" fill="#2e7d32" font-family="system-ui,sans-serif">${d}</text><text x="74" y="33" text-anchor="end" font-size="8" font-weight="700" fill="#2e7d32" font-family="system-ui,sans-serif">${d}</text></svg>`; }
+  const r={1:14,5:16,10:13,25:18}[v], cu=v===1, w=r*2+4, c=w/2;
+  return `<svg viewBox="0 0 ${w} ${w}" width="${w}" height="${w}" aria-hidden="true" style="direction:ltr"><circle cx="${c}" cy="${c}" r="${r}" fill="${cu?"#e0a46e":"#dfe3e8"}" stroke="${cu?"#9a5a26":"#6b7785"}" stroke-width="2"/><circle cx="${c}" cy="${c}" r="${r-3.5}" fill="none" stroke="${cu?"#b8743d":"#a3adb8"}" stroke-width="1"/><text x="${c}" y="${c+4}" text-anchor="middle" font-size="${r>15?11:10}" font-weight="800" fill="${cu?"#4a2508":"#1f2933"}" font-family="system-ui,sans-serif">${v}¢</text></svg>`;
+}
+function denoms(){ const d=[[2000,1000,500,100],[5000,2000,1000,500,100],[10000,5000,2000,1000,500,100]][lv()-1].slice(); if(settings.cents) d.push(25,10,5,1); return d; }
+// Greedy change using the given denominations
+function change(c,den){ const out=[]; for(const v of den){ while(c>=v){ out.push(v); c-=v; } } return out; }
+
+/* Money tray: tap or drag bills and coins from the bank into the tray, then Check. */
+function trayUI(m,el,target,onOk,why){
+  el.innerHTML=`<div class="mlab">${t("bankLbl")}</div><div class="bank" role="group" aria-label="${t("bankLbl")}"></div>
+    <div class="tray" role="group" aria-label="${t("trayLbl")}"><span class="trayhint">${t("trayEmpty")}</span></div>
+    <p class="traytot" aria-live="polite">${t("inTray")} <span class="tv"></span></p>
+    <div class="acts"><button type="button" class="btn chk">${t("check")}</button><button type="button" class="btn ghost clr">${t("clear")}</button></div>`;
+  const bank=el.querySelector(".bank"), trayEl=el.querySelector(".tray"); let tray=[], done=false; S[m].tray=target;
+  const inTray=e=>under(e,".tray",el);
+  const add=v=>{ if(done||tray.length>=40) return; tray.push(v); render(); };
+  function mb(v,act){ const b=document.createElement("button"); b.type="button"; b.className="mbtn"; b.innerHTML=moneySVG(v);
+    const lab=t(act,{x:sayC(v)}); b.setAttribute("aria-label",lab); b.title=lab; return b; }
+  function render(){
+    trayEl.innerHTML=tray.length?"":`<span class="trayhint">${t("trayEmpty")}</span>`;
+    tray.sort((a,b)=>b-a).forEach((v,i)=>{ const b=mb(v,"rmvX");
+      b.addEventListener("click",()=>{ if(b._noClick||done) return; tray.splice(i,1); render(); });
+      dragify(b,inTray,z=>{ if(!z&&!done){ tray.splice(i,1); render(); } });
+      trayEl.appendChild(b); });
+    el.querySelector(".tv").innerHTML=M(fmtC(sum(tray)));
+  }
+  denoms().forEach(v=>{ const b=mb(v,"addX");
+    b.addEventListener("click",()=>{ if(!b._noClick) add(v); });
+    dragify(b,inTray,z=>{ if(z) add(v); });
+    bank.appendChild(b); });
+  el.querySelector(".clr").addEventListener("click",()=>{ if(done) return; tray=[]; render(); });
+  el.querySelector(".chk").addEventListener("click",()=>{
+    if(done) return; const s=sum(tray);
+    if(!tray.length) return hint(m,L("trayNone"));
+    if(s===target){ done=true; el.querySelectorAll("button").forEach(b=>b.disabled=true); onOk(); return; }
+    hint(m,J(L(s>target?"trayMore":"trayLess",{x:mt(s)}),why()));
+  });
+  render();
+}
+
+/* Zones: tokens start in the first zone (a pile); tap a token then a zone heading, or drag a token onto a zone. */
+function zonesUI(m,el,zones,toks,onPlace,after,cls){
+  el.className="zones"+(cls?" "+cls:"");
+  el.innerHTML=zones.map(z=>`<div class="zone${z.pile?" pile":""}" data-zone="${z.id}"><button type="button" class="zhead" aria-label="${t("putIn",{b:plain(z.h)})}">${z.h}</button><div class="zitems"></div></div>`).join("");
+  let sel=null;
+  const box=id=>el.querySelector(`[data-zone="${id}"] .zitems`);
+  const select=x=>{ if(sel){ sel.el.classList.remove("sel"); sel.el.setAttribute("aria-pressed","false"); } sel=x; if(x){ x.el.classList.add("sel"); x.el.setAttribute("aria-pressed","true"); } };
+  const place=(x,zid)=>{ select(null); if(!zid||x.zone===zid) return;
+    if(onPlace(x,zid)){ x.zone=zid; box(zid).appendChild(x.el);
+      const nx=toks.find(o=>o.zone===zones[0].id&&!o.done); if(nx&&document.activeElement===document.body) nx.el.focus(); }
+    if(after) after(); };
+  toks.forEach(x=>{ const b=document.createElement("button"); b.type="button"; b.className="tok"+(x.cls?" "+x.cls:""); b.innerHTML=x.h;
+    if(x.s) b.setAttribute("aria-label",x.s); b.setAttribute("aria-pressed","false");
+    x.el=b; b._x=x; x.zone=zones[0].id; box(x.zone).appendChild(b);
+    b.addEventListener("click",()=>{ if(b._noClick||x.done) return; select(sel===x?null:x); });
+    dragify(b,e=>under(e,".zone",el),z=>{ if(!x.done) place(x,z&&z.dataset.zone); }); });
+  el.querySelectorAll(".zhead").forEach(h=>h.addEventListener("click",()=>{
+    if(!sel) return hint(m,L("pickFirst")); place(sel,h.parentNode.dataset.zone); }));
+  if(after) after();
+  return {box};
+}
+/* Sorting cards into bins. Each correct card stays (✓); a wrong card returns with a reason. */
+function sortRound(m,el,bins,cards,why,doneKey){
+  const zones=[{id:"pool",h:t("cardsLbl"),pile:true}].concat(bins.map(b=>({id:b.id,h:`<span aria-hidden="true">${b.ic}</span> ${t(b.key)}`})));
+  const toks=shuffle(cards).map(c=>({h:t(c.key), c})); let left=toks.length;
+  zonesUI(m,el,zones,toks,(x,zid)=>{
+    if(zid==="pool") return false;
+    const w=why(x.c);
+    if(zid===x.c.bin){ x.done=true; x.el.classList.add("placed"); x.el.disabled=true; left--;
+      if(!left) good(m,J(w,L(doneKey)),()=>newRound(m),2600); else { showFb(fbEl(m),"good",w); speak(w.s); }
+      return true; }
+    hint(m,J(L("notThere",{b:tk(bins.find(b=>b.id===zid).key)}),w));
+    return false;
+  });
+}
+
+/* ---------- Round control ---------- */
+const lastKind={};
+const KINDS={
+  earn:()=>["job","skill","lemon","scarce","plan","decide"],
+  save:()=>["needs","goal","jars"],
+  profit:()=>["fixvar","profit"],
+  bank:()=>settings.grade===3?["credit","bankq"]:settings.grade===4?["credit","bankq","ledger"]:["credit","bankq","pay","ledger"],
+  tax:()=>["taxdef","sales","gross","budget","actions"]
+};
+let S={}, prev={};  // per-mode round state; last scenario picked per kind
+function newRound(m){
+  roundIds[m]++; made[m]=true; hideFb(fbEl(m));
+  const ks=KINDS[m](); let k=rand(ks); if(ks.length>1) while(k===lastKind[m]) k=rand(ks);
+  lastKind[m]=k; S[m]={kind:k}; area(m).innerHTML=""; GEN[k](m); maybeAuto(m);
+}
+
+/* ===================== Mode 1: Earn & Spend (Grade 3) ===================== */
+const JOBS={jDog:"🐕",jLeaf:"🍂",jCar:"🚗",jPlant:"🪴"};
+function unitsRow(ic,k,p){ return `<div class="scene">`+Array.from({length:k},()=>`<span class="unit"><span class="em" aria-hidden="true">${ic}</span><span class="tag">${fmtC(p)}</span></span>`).join("")+`</div>`; }
+function genJob(m){
+  const R={1:[1,4,2,5],2:[3,9,3,8],3:[8,25,5,12]}[lv()], p=addC(dol(R[0],R[1])), k=ri(R[2],R[3]), x=p*k, j=rand(Object.keys(JOBS));
+  setPrompt(m,J(L(j,{p:mt(p),k:nT(k)}),L("jobQ")));
+  area(m).innerHTML=unitsRow(JOBS[j],k,p)+`<div id="${m}Tray"></div>`;
+  trayUI(m,$("#"+m+"Tray"),x,()=>good(m,L("jobG",{k:nT(k),p:mt(p),x:mt(x)}),()=>newRound(m)),()=>L("jobH",{k:nT(k),p:mt(p)}));
+}
+function genSkill(m){
+  const R={1:[2,4,2,4,2,5],2:[4,8,2,6,3,8],3:[8,15,4,12,5,20]}[lv()];
+  const a=addC(dol(R[0],R[1])), d=addC(dol(R[2],R[3])), b=a+d, k=ri(R[4],R[5]), x=k*d;
+  setPrompt(m,L("skillQ",{a:mt(a),b:mt(b),k:nT(k)}));
+  area(m).innerHTML=`<div class="scene"><span class="itm"><span class="em" aria-hidden="true">🧹</span><span class="tag">${fmtC(a)}</span></span><span class="bigem" aria-hidden="true">➜</span><span class="itm"><span class="em" aria-hidden="true">🔧🚲</span><span class="tag">${fmtC(b)}</span></span></div><div id="${m}Ch"></div>`;
+  mc($("#"+m+"Ch"),moneyOpts(x,[k*b,k*a,d,x+k*100,x-k*100]),
+    ()=>good(m,L("skillG",{d:mt(d),k:nT(k),x:mt(x)}),()=>newRound(m)),
+    ()=>hint(m,L("skillH",{a:mt(a),b:mt(b),k:nT(k)})));
+}
+function genLemon(m){
+  const R={1:[1,3,6,12],2:[2,8,12,25],3:[8,30,30,60]}[lv()];
+  let c1,c2,c3,p,k,cost,rev;
+  do{ c1=addC(dol(R[0],R[1])); c2=addC(dol(R[0],R[1])); c3=addC(dol(R[0],R[1]));
+    p=lv()===1?(settings.cents?rand([50,75,100,125]):100):addC(dol(1,lv()===2?2:3),25); k=ri(R[2],R[3]); cost=c1+c2+c3; rev=p*k;
+  }while(rev<=cost+100);
+  S[m].L={c1,c2,c3,p,k,cost,rev};
+  lemonStep(m,1);
+}
+function lemonScene(m,step){
+  const {c1,c2,c3,p,k,cost,rev}=S[m].L;
+  const row=(ic,key,v)=>`<tr><td><span aria-hidden="true">${ic}</span> ${t(key)}</td><td class="amt">${M(fmtC(v))}</td></tr>`;
+  let h=`<div class="scene"><span class="bigem" aria-hidden="true">🍋🥤</span><table class="rcpt"><caption>${t("lemCost")}</caption>`+row("🍋","lemL",c1)+row("🥄","lemS",c2)+row("🥤","lemC",c3);
+  if(step>1) h+=`<tr class="tot"><td>${t("lemCost")}</td><td class="amt">${M(fmtC(cost))}</td></tr>`;
+  h+=`</table>`;
+  if(step>1) h+=`<div class="wallet"><span aria-hidden="true">🪧</span> ${L("lemPer",{p:mt(p)}).h} · ${t("lemSold")}: ${M(String(k))}</div>`;
+  if(step>2) h+=`<div class="wallet"><span aria-hidden="true">💰</span> ${t("lemIn")}: ${M(fmtC(rev))}</div>`;
+  return h+`</div><div id="${m}Step"></div>`;
+}
+function lemonStep(m,step){
+  const {c1,c2,c3,p,k,cost,rev}=S[m].L, next=n=>()=>{ hideFb(fbEl(m)); lemonStep(m,n); };
+  area(m).innerHTML=lemonScene(m,step); const el=$("#"+m+"Step");
+  if(step===1){ setPrompt(m,L("lemQ1"));
+    trayUI(m,el,cost,()=>good(m,L("lemG1",{a:mt(c1),b:mt(c2),c:mt(c3),x:mt(cost)}),next(2)),()=>L("lemH1")); }
+  else if(step===2){ setPrompt(m,L("lemQ2",{k:nT(k),p:mt(p)}));
+    mc(el,moneyOpts(rev,[rev+p,rev-p,cost,k*100,rev+cost]),
+      ()=>good(m,L("lemG2",{k:nT(k),p:mt(p),x:mt(rev)}),next(3)),()=>hint(m,L("lemH2",{k:nT(k),p:mt(p)}))); }
+  else { const x=rev-cost; setPrompt(m,L("lemQ3"));
+    mc(el,moneyOpts(x,[rev+cost,rev,cost,x+p]),
+      ()=>good(m,L("lemG3",{r:mt(rev),c:mt(cost),x:mt(x)}),()=>newRound(m)),()=>hint(m,L("lemH3",{r:mt(rev),c:mt(cost)}))); }
+  if(step>1) maybeAuto(m);
+}
+const SCARCE=[["sc1","🍊❄️",1],["sc2","🍉🍉🍉",0],["sc3","🎟️",1],["sc4","🧸🧸🧸",0],["sc5","🐟⛈️",1]];
+function genScarce(m){
+  let s=rand(SCARCE); while(s[0]===prev.sc) s=rand(SCARCE); prev.sc=s[0];
+  setPrompt(m,L(s[0]));
+  area(m).innerHTML=`<div class="scene"><span class="bigem" aria-hidden="true">${s[1]}</span></div><div id="${m}Ch"></div>`;
+  mc($("#"+m+"Ch"),[txtOpt("pUp",s[2],"⬆️"),txtOpt("pDown",!s[2],"⬇️"),txtOpt("pSame",0,"➡️")],
+    ()=>good(m,L(s[2]?"scUp":"scDown"),()=>newRound(m),2600),()=>hint(m,L("scH")),true);
+}
+const PLANI={iBook:"📚",iBall:"⚽",iKite:"🪁",iArt:"🎨",iPuzzle:"🧩"}, UNPL={iSnack:"🍿",iSticker:"🌟",iCar:"🚗",iSlime:"🟢",iComic:"📖"};
+const GOALI=Object.assign({iHelmet:"⛑️",iScooter:"🛴",iSkate:"🛹"},PLANI);
+// Items whose prices fit the chosen money amounts (big amounts use bigger items)
+const bigItems = ()=>lv()===3?["iHelmet","iScooter","iSkate","iArt","iBall"]:Object.keys(GOALI);
+function genPlan(m){
+  const R={1:[6,12,2,5],2:[15,40,3,9],3:[40,120,8,20]}[lv()];
+  const a=rand(lv()===3?["iArt","iBall"]:Object.keys(PLANI)), b=rand(Object.keys(UNPL)), p=addC(dol(R[0],R[1])), q=addC(dol(R[2],R[3]));
+  const mm=p+ri(0,Math.max(0,Math.floor((q-1)/100)-1))*100, s=p+q, x=s-mm;
+  setPrompt(m,L("planQ",{m:mt(mm),a:tk(a),p:mt(p),b:tk(b),q:mt(q)}));
+  const card=(k,ic,v,pl)=>`<div class="itm"><span class="em" aria-hidden="true">${ic}</span><span>${t(k)}</span><span class="tag">${fmtC(v)}</span><span class="badge${pl?"":" no"}">${pl?"✓ "+t("planned"):t("notPlanned")}</span></div>`;
+  area(m).innerHTML=`<div class="scene"><div class="wallet"><span aria-hidden="true">👛</span> ${t("youHave")} ${M(fmtC(mm))}</div>${card(a,PLANI[a],p,1)}${card(b,UNPL[b],q,0)}</div><div id="${m}Ch"></div>`;
+  mc($("#"+m+"Ch"),moneyOpts(x,[s,q,mm-p,x+100,s-q]),
+    ()=>good(m,L("planG",{p:mt(p),q:mt(q),s:mt(s),m:mt(mm),x:mt(x)}),()=>newRound(m),2600),()=>hint(m,L("planH",{m:mt(mm)})));
+}
+const DEC={inc:["d_i1","d_i2","d_i3"],spend:["d_s1","d_s2","d_s3"],save:["d_v1","d_v2","d_v3"],give:["d_g1","d_g2","d_g3"],cred:["d_c1","d_c2"]};
+const DECB=[{id:"inc",key:"bInc",ic:"💵",w:"wInc"},{id:"spend",key:"bSpend",ic:"🛍️",w:"wSpend"},{id:"save",key:"bSave",ic:"🐷",w:"wSave"},{id:"give",key:"bGive",ic:"💝",w:"wGive"},{id:"cred",key:"bCred",ic:"💳",w:"wCred"}];
+function genDecide(m){
+  const cards=DECB.map(b=>({key:rand(DEC[b.id]),bin:b.id})), xb=rand(DECB.slice(0,4)), extra=DEC[xb.id].find(k=>!cards.some(c=>c.key===k));
+  cards.push({key:extra,bin:xb.id});
+  setPrompt(m,L("decQ")); area(m).innerHTML=`<div id="${m}Z"></div>`;
+  sortRound(m,$("#"+m+"Z"),DECB,cards,c=>L(DECB.find(b=>b.id===c.bin).w,{x:tk(c.key)}),"decDone");
+}
+
+/* ===================== Mode 2: Save & Plan ===================== */
+const NEEDS=["n1","n2","n3","n4","n5","n6"], WANTS=["w1","w2","w3","w4","w5","w6","w7"];
+function genNeeds(m){
+  const cards=shuffle(NEEDS).slice(0,3).map(k=>({key:k,bin:"need"})).concat(shuffle(WANTS).slice(0,3).map(k=>({key:k,bin:"want"})));
+  setPrompt(m,L("needsQ")); area(m).innerHTML=`<div id="${m}Z"></div>`;
+  sortRound(m,$("#"+m+"Z"),[{id:"need",key:"bNeed",ic:"🏠"},{id:"want",key:"bWant",ic:"🎁"}],cards,c=>L(c.bin==="need"?"whyNeed":"whyWant",{x:tk(c.key)}),"needsDone");
+}
+function jarSVG(f){
+  const h=Math.round(86*Math.min(1,f));
+  return `<svg class="jarsvg" viewBox="0 0 100 120" width="110" height="132" aria-hidden="true"><rect x="30" y="4" width="40" height="12" rx="3" fill="#b7950b"/><path d="M22 18 h56 q8 0 8 10 v78 q0 10 -10 10 h-52 q-10 0 -10 -10 v-78 q0 -10 8 -10z" fill="#f3f8ff" stroke="#6b7785" stroke-width="3"/><clipPath id="jc"><path d="M22 18 h56 q8 0 8 10 v78 q0 10 -10 10 h-52 q-10 0 -10 -10 v-78 q0 -10 8 -10z"/></clipPath><rect x="10" y="${116-h}" width="80" height="${h}" fill="#7cc576" clip-path="url(#jc)"/>${f>=1?`<text x="50" y="70" text-anchor="middle" font-size="30">⭐</text>`:""}</svg>`;
+}
+function genGoal(m){
+  const R={1:[2,5,3,8],2:[5,15,4,10],3:[10,30,5,12]}[lv()];
+  const a=rand(bigItems()), w=addC(dol(R[0],R[1])), wk0=ri(R[2],R[3]);
+  const g=Math.max(w+100,Math.round((w*wk0-(Math.random()<.5?0:ri(1,Math.max(1,Math.floor(w/100)-1))*100))/100)*100), wk=Math.ceil(g/w);
+  const st=S[m].G={a,w,g,wk,n:0};
+  setPrompt(m,L("goalQ",{a:tk(a),g:mt(g),w:mt(w)}));
+  area(m).innerHTML=`<div class="scene goalwrap"><div class="itm"><span class="em" aria-hidden="true">${GOALI[a]}</span><span>${t(a)}</span><span class="badge">${t("goalLbl")}</span><span class="tag">${fmtC(g)}</span></div><div id="${m}Jar"></div></div>
+    <div class="weeks" id="${m}Wk" aria-live="polite"></div>
+    <div class="acts" style="justify-content:center"><button type="button" class="btn" id="${m}Add">🐷 ${t("saveWeek")}</button><button type="button" class="btn ghost" id="${m}Rst">${t("startOver")}</button></div>
+    <div id="${m}Ch"></div>`;
+  const draw=()=>{ $("#"+m+"Jar").innerHTML=jarSVG(st.n*w/g)+`<div class="traytot">${M(fmtC(st.n*w))}</div>`;
+    $("#"+m+"Wk").innerHTML=Array.from({length:st.n},(_,i)=>`<span class="wk${(i+1)*w>=g?" enough":""}">${t("weekN",{n:i+1})} ${M(fmtC((i+1)*w))}</span>`).join(""); };
+  $("#"+m+"Add").addEventListener("click",()=>{ if(st.n<20){ st.n++; draw(); } });
+  $("#"+m+"Rst").addEventListener("click",()=>{ st.n=0; draw(); });
+  draw();
+  const wkOpt=n=>({h:t(n===1?"week1":"weeksN",{n}), s:t(n===1?"week1":"weeksN",{n}), ok:n===wk, n});
+  const ns=[wk].concat(uniqVals(wk,[wk-1,wk+1,Math.floor(g/w),wk+2,wk-2],3,v=>v>0));
+  mc($("#"+m+"Ch"),ns.map(wkOpt),()=>{
+      const msg=[L("goalG",{k:nT(wk),x:mt(wk*w),g:mt(g)})]; if(wk*w>g && wk>1) msg.push(L("goalNE",{j:nT(wk-1),y:mt((wk-1)*w)}));
+      msg.push(L("goalWhy")); st.n=wk; draw(); good(m,J(...msg),()=>newRound(m),2800); },
+    o=>hint(m,o.n<wk?L("goalLess",{n:nT(o.n),y:mt(o.n*w),g:mt(g)}):L("goalMore",{j:nT(o.n-1),y:mt((o.n-1)*w),g:mt(g)})));
+}
+function genJars(m){
+  const R={1:[5,10,1,2],2:[10,20,1,4],3:[20,50,2,8]}[lv()];
+  let a=dol(R[0],R[1]); const half=settings.grade>=4&&Math.random()<.4;
+  if(half&&a%200) a+=100;
+  const h=dol(R[2],R[3]); let s=half?a/2:dol(1,Math.max(1,Math.floor((a-h)/100)-1));
+  if(settings.cents&&!half&&Math.random()<.5) a+=rand([25,50,75]);
+  const p=a-s-h, den=[2000,1000,500,100,25];
+  const toks=shuffle(change(s,den).concat(change(h,den),change(p,den))).map(v=>({h:moneySVG(v),s:sayC(v),v,cls:"money"}));
+  const JARS=[{id:"save",key:"jSave",ic:"🐷",want:s},{id:"share",key:"jShare",ic:"💝",want:h},{id:"spend",key:"jSpend",ic:"🛍️",want:p}];
+  setPrompt(m,half?L("jarQh",{a:mt(a),h:mt(h)}):L("jarQ",{a:mt(a),s:mt(s),h:mt(h)}));
+  area(m).innerHTML=`<div id="${m}Z"></div><div class="acts" style="justify-content:center"><button type="button" class="btn" id="${m}Chk">${t("check")}</button></div>`;
+  const zones=[{id:"pile",pile:true,h:`<span aria-hidden="true">👛</span> ${t("jPile")}`}].concat(JARS.map(j=>({id:j.id,h:`<span aria-hidden="true">${j.ic}</span> ${t(j.key)}`})));
+  const tot=id=>sum(toks.filter(x=>x.zone===id).map(x=>x.v));
+  let done=false; S[m].jars={save:s,share:h,spend:p};
+  const z=$("#"+m+"Z");
+  zonesUI(m,z,zones,toks,()=>!done,()=>{ zones.forEach(zz=>{ const hd=z.querySelector(`[data-zone="${zz.id}"] .zhead`); let b=hd.querySelector(".zt");
+    if(!b){ b=document.createElement("b"); b.className="zt"; hd.appendChild(b); } b.textContent=fmtC(tot(zz.id)); }); },"jars");
+  $("#"+m+"Chk").addEventListener("click",()=>{
+    if(done) return;
+    if(tot("pile")>0) return hint(m,L("jarLeft"));
+    const bad=JARS.find(j=>tot(j.id)!==j.want);
+    if(bad){ const extra=bad.id==="spend"?L("jarRest",{a:mt(a),s:mt(s),h:mt(h),y:mt(p)}):bad.id==="save"&&half?L("jarHalf",{a:mt(a),s:mt(s)}):null;
+      return hint(m,J(L("jarWrong",{j:tk(bad.key),x:mt(tot(bad.id)),y:mt(bad.want)}),extra)); }
+    done=true; $("#"+m+"Chk").disabled=true; z.querySelectorAll("button").forEach(b=>b.disabled=true);
+    good(m,L("jarG",{s:mt(s),h:mt(h),p:mt(p),a:mt(a)}),()=>newRound(m),2600);
+  });
+}
+
+/* ===================== Mode 3: Expenses & Profit (Grade 4) ===================== */
+const FIXED=["f1","f2","f3","f4","f5","f6"], VARI=["v1","v2","v3","v4","v5","v6"];
+function genFixvar(m){
+  const cards=shuffle(FIXED).slice(0,3).map(k=>({key:k,bin:"fix"})).concat(shuffle(VARI).slice(0,3).map(k=>({key:k,bin:"var"})));
+  setPrompt(m,L("fixQ")); area(m).innerHTML=`<div id="${m}Z"></div>`;
+  sortRound(m,$("#"+m+"Z"),[{id:"fix",key:"bFixed",ic:"📌"},{id:"var",key:"bVar",ic:"🔀"}],cards,c=>L(c.bin==="fix"?"whyFix":"whyVar",{x:tk(c.key)}),"fixDone");
+}
+function numIn(id,lab){ return `<span class="cur">$<input class="numin" id="${id}" inputmode="decimal" autocomplete="off" aria-label="${lab}"></span>`; }
+// fields: [{id, ans, h:(v)=>msg}] — checks in order, hints at the first wrong box
+function formCheck(m,fields,onOk){
+  for(const f of fields){ const inp=$("#"+f.id), v=parseC(inp.value); inp.classList.remove("bad","ok");
+    if(v===null){ inp.focus(); return hint(m,L("fillIn")); }
+    if(v!==f.ans){ inp.classList.add("bad"); inp.focus(); return hint(m,f.h(v)); }
+    inp.classList.add("ok"); }
+  fields.forEach(f=>$("#"+f.id).disabled=true); onOk();
+}
+function bindForm(m,fields,onOk){ S[m].form=fields.map(f=>[f.id,f.ans]); const go=()=>formCheck(m,fields,onOk);
+  $("#"+m+"Chk").addEventListener("click",go); fields.forEach(f=>$("#"+f.id).addEventListener("keydown",e=>{ if(e.key==="Enter") go(); })); }
+const BIZ=[{k:"bzBrace",ic:"📿",ex:["exBeads","exTable"]},{k:"bzWash",ic:"🚗🫧",ex:["exSoap","exSign"]},{k:"bzBake",ic:"🧁",ex:["exIng","exBox"]},{k:"bzPlant",ic:"🌱",ex:["exPots","exSoil"]}];
+function genProfit(m){
+  const R={1:[1,3,4,10,1,5],2:[2,6,10,25,5,20],3:[5,15,20,60,20,120]}[lv()], b=rand(BIZ);
+  let p,k,ex,e,r;
+  do{ p=addC(dol(R[0],R[1])); k=ri(R[2],R[3]); ex=b.ex.map(()=>addC(dol(R[4],R[5]),5)); e=sum(ex); r=p*k; }while(r<=e);
+  const x=r-e;
+  setPrompt(m,J(L(b.k,{k:nT(k),p:mt(p)}),L("prQ")));
+  area(m).innerHTML=`<div class="scene"><span class="bigem" aria-hidden="true">${b.ic}</span>
+    <table class="rcpt"><tr><td>${t("rRev")}<br><small>${M(k+" × "+fmtC(p))}</small></td><td class="amt">${numIn(m+"R",t("rRev"))}</td></tr>
+    ${b.ex.map((key,i)=>`<tr><td>${t("rExp")}: ${t(key)}</td><td class="amt">${M(fmtC(ex[i]))}</td></tr>`).join("")}
+    <tr><td>${t("rTotE")}</td><td class="amt">${numIn(m+"E",t("rTotE"))}</td></tr>
+    <tr class="tot"><td>${t("rProf")}</td><td class="amt">${numIn(m+"P",t("rProf"))}</td></tr></table>
+    <p class="formula">${t("prFormula")}</p></div>
+    <div class="acts" style="justify-content:center"><button type="button" class="btn" id="${m}Chk">${t("check")}</button></div>`;
+  bindForm(m,[
+    {id:m+"R",ans:r,h:()=>L("prRevH",{k:nT(k),p:mt(p)})},{id:m+"E",ans:e,h:()=>L("prExpH")},{id:m+"P",ans:x,h:()=>L("prProfH")}],
+    ()=>{ $("#"+m+"Chk").disabled=true; good(m,L("prG",{r:mt(r),e:mt(e),x:mt(x)}),()=>newRound(m)); });
+}
+
+/* ===================== Mode 4: Credit & Banking (Grades 3–5) ===================== */
+function genCredit(m){
+  const R={1:[10,20,3,8,1,3],2:[30,90,10,25,2,10],3:[100,300,30,90,10,40]}[lv()];
+  const a=rand(bigItems()), c=addC(dol(R[0],R[1])), h=dol(1,Math.max(1,Math.min(R[3],Math.floor(c/100)-R[2]))), b=c-h, i=addC(dol(R[4],R[5])), tt=b+i;
+  const v2=settings.grade>=4&&Math.random()<.4;
+  area(m).innerHTML=`<div class="scene"><div class="itm"><span class="em" aria-hidden="true">${GOALI[a]}</span><span>${t(a)}</span><span class="tag">${fmtC(c)}</span></div><span class="bigem" aria-hidden="true">🏦➜💵</span></div><div id="${m}Ch"></div>`;
+  if(!v2){ setPrompt(m,L("crQ",{a:tk(a),c:mt(c),h:mt(h),b:mt(b),i:mt(i)}));
+    mc($("#"+m+"Ch"),moneyOpts(tt,[b,c+i,b-i,c,i]),()=>good(m,L("crG",{b:mt(b),i:mt(i),t:mt(tt)}),()=>newRound(m),2600),()=>hint(m,L("crH"))); }
+  else { setPrompt(m,L("cr2Q",{a:tk(a),b:mt(b),t:mt(tt)}));
+    mc($("#"+m+"Ch"),moneyOpts(i,[tt,b,tt+b,i+100]),()=>good(m,L("cr2G",{b:mt(b),i:mt(i),t:mt(tt)}),()=>newRound(m),2600),()=>hint(m,L("cr2H"))); }
+}
+function genBankq(m){
+  let n=ri(1,5); while(n===prev.bq) n=ri(1,5); prev.bq=n;
+  const q="bq"+n; setPrompt(m,L(q+"Q"));
+  area(m).innerHTML=`<div class="scene"><span class="bigem" aria-hidden="true">${n===3?"🐷":n===2?"🏦📈":"🏦"}</span></div><div id="${m}Ch"></div>`;
+  mc($("#"+m+"Ch"),[txtOpt(q+"A",1),txtOpt(q+"W1",0),txtOpt(q+"W2",0)],()=>good(m,J(L("yes"),L(q+"E")),()=>newRound(m),2600),()=>hint(m,L(q+"E")),true);
+}
+const PM=[["pmCash","💵"],["pmCheck","📝"],["pmDebit","💳"],["pmCredit","💳"],["pmE","📱"]];
+function genPay(m){
+  const n=ri(1,5), ans=PM[n-1][0];
+  const others=shuffle(PM.filter(p=>p[0]!==ans)).slice(0,3);
+  setPrompt(m,J(L("pmQ"),L("pm"+n)));
+  area(m).innerHTML=`<div id="${m}Ch"></div>`;
+  mc($("#"+m+"Ch"),[PM[n-1]].concat(others).map(p=>txtOpt(p[0],p[0]===ans,p[1])),
+    ()=>good(m,J(L("pmG",{x:tk(ans)}),L("pm"+n)),()=>newRound(m),2800),
+    o=>hint(m,L("ps"+(PM.findIndex(p=>p[0]===o.k)+1))),true);
+}
+const LG_DEP=["lgAllow","lgGift","lgSell","lgPet"], LG_WD=["lgBook","lgPres","lgMovie","lgDon"];
+function genLedger(m){
+  const R={1:[10,30,2,10],2:[40,120,5,40],3:[200,600,20,150]}[lv()];
+  const start=addC(dol(R[0],R[1]),5), deps=shuffle(LG_DEP), wds=shuffle(LG_WD); let bal=start; const rows=[];
+  const types=shuffle([1,0,1,0]);
+  types.forEach(dp=>{ let x=addC(dol(R[2],R[3]),5); if(!dp&&x>bal) x=Math.max(100,Math.floor(bal/200)*100); if(!dp&&x>bal) dp=1;
+    const prev=bal; bal+=dp?x:-x; rows.push({dp,x,prev,bal,d:dp?deps.pop():wds.pop()}); });
+  setPrompt(m,L("lgQ"));
+  area(m).innerHTML=`<div class="tblwrap"><table class="ledger"><thead><tr><th>${t("lgDesc")}</th><th class="amt">${t("lgAmt")}</th><th class="amt">${t("lgBal")}</th></tr></thead><tbody>
+    <tr><td>${t("lgStart")}</td><td></td><td class="amt">${M(fmtC(start))}</td></tr>
+    ${rows.map((r,i)=>`<tr><td>${t(r.d)}</td><td class="amt ${r.dp?"dep":"wd"}">${M((r.dp?"+":"−")+fmtC(r.x))}</td><td class="amt">${numIn(m+"L"+i,t("lgRow",{d:t(r.d)}))}</td></tr>`).join("")}
+    </tbody></table></div><div class="acts" style="justify-content:center"><button type="button" class="btn" id="${m}Chk">${t("check")}</button></div>`;
+  bindForm(m,rows.map((r,i)=>({id:m+"L"+i,ans:r.bal,h:()=>L(r.dp?"lgHdep":"lgHwd",{b:mt(r.prev),x:mt(r.x)})})),
+    ()=>{ $("#"+m+"Chk").disabled=true; good(m,L("lgG",{x:mt(bal)}),()=>newRound(m),2600); });
+}
+
+/* ===================== Mode 5: Taxes & Budgets (Grade 5) ===================== */
+const TAXES=["tSales","tProp","tInc","tPay"];
+function genTaxdef(m){
+  let n=ri(1,4); while(n===prev.td) n=ri(1,4); prev.td=n;
+  setPrompt(m,J(L("tdQ"),L("td"+n)));
+  area(m).innerHTML=`<div class="scene"><span class="bigem" aria-hidden="true">${["🛒","🏠","💼","🧾"][n-1]}</span></div><div id="${m}Ch"></div>`;
+  mc($("#"+m+"Ch"),TAXES.map((k,i)=>txtOpt(k,i===n-1)),()=>good(m,L("tdG",{x:tk(TAXES[n-1])}),()=>newRound(m),2600),
+    o=>hint(m,L("ts"+(TAXES.indexOf(o.k)+1))));
+}
+function genSales(m){
+  const R={1:[2,10],2:[10,40],3:[40,150]}[lv()], a=rand(bigItems()), d=ri(R[0],R[1]), p=d*100, r=ri(5,9), x=d*r, tt=p+x;
+  setPrompt(m,L("stQ",{a:tk(a),p:mt(p),r:ctTok(r)}));
+  area(m).innerHTML=`<div class="scene"><span class="bigem" aria-hidden="true">${GOALI[a]}</span><table class="rcpt"><caption>🧾 ${t("rcTitle")}</caption>
+    <tr><td>${t(a)}</td><td class="amt">${M(fmtC(p))}</td></tr><tr><td>${t("rcTax")} <small>${M(r+"¢ × "+d)}</small></td><td class="amt">${numIn(m+"X",t("rcTax"))}</td></tr>
+    <tr class="tot"><td>${t("rcTot")}</td><td class="amt">${numIn(m+"T",t("rcTot"))}</td></tr></table></div>
+    <div class="acts" style="justify-content:center"><button type="button" class="btn" id="${m}Chk">${t("check")}</button></div>`;
+  bindForm(m,[{id:m+"X",ans:x,h:()=>L("stTaxH",{r:ctTok(r),d:nT(d)})},{id:m+"T",ans:tt,h:()=>L("stTotH")}],
+    ()=>{ $("#"+m+"Chk").disabled=true; good(m,L("stG",{p:mt(p),x:mt(x),tt:mt(tt)}),()=>newRound(m),2600); });
+}
+function genGross(m){
+  const R={1:[100,200],2:[200,500],3:[500,1200]}[lv()], g=addC(dol(R[0],R[1]),5);
+  const pr=settings.cents?Math.round(g*.0765):Math.round(g*.0765/100)*100, it=Math.round(g*ri(5,12)/10000)*100, x=pr+it, n=g-x;
+  setPrompt(m,L("grQ"));
+  area(m).innerHTML=`<div class="scene"><span class="bigem" aria-hidden="true">💼</span><table class="rcpt"><caption>📄 ${t("grStub")}</caption>
+    <tr><td>${t("grGross")}</td><td class="amt">${M(fmtC(g))}</td></tr><tr><td>${t("grPayT")}</td><td class="amt">${M("−"+fmtC(pr))}</td></tr>
+    <tr><td>${t("grIncT")}</td><td class="amt">${M("−"+fmtC(it))}</td></tr><tr><td>${t("grTot")}</td><td class="amt">${numIn(m+"X",t("grTot"))}</td></tr>
+    <tr class="tot"><td>${t("grNet")}</td><td class="amt">${numIn(m+"N",t("grNet"))}</td></tr></table></div>
+    <div class="acts" style="justify-content:center"><button type="button" class="btn" id="${m}Chk">${t("check")}</button></div>`;
+  bindForm(m,[{id:m+"X",ans:x,h:()=>L("grTaxH")},{id:m+"N",ans:n,h:()=>L("grNetH")}],
+    ()=>{ $("#"+m+"Chk").disabled=true; good(m,L("grG",{g:mt(g),x:mt(x),n:mt(n)}),()=>newRound(m),2800); });
+}
+function genBudget(m){
+  const I=ri(28,48)*100, r10=v=>Math.round(v/10)*10;
+  const rent=Math.round(I*.3/50)*50, util=r10(I*.07), food=r10(I*.2), trans=r10(I*.1), save=r10(I*.06), over=ri(4,25)*10;
+  const fun=I-(rent+util+food+trans+save)+over;
+  const lines=[{k:"bgRent",ic:"🏠",v:rent,lock:1},{k:"bgUtil",ic:"💡",v:util,lock:1},{k:"bgFood",ic:"🛒",v:food,min:food-150},
+    {k:"bgTrans",ic:"🚌",v:trans,min:trans-100},{k:"bgFun",ic:"🎳",v:fun,min:0},{k:"bgSave",ic:"🐷",v:save,min:0}];
+  lines.forEach(l=>{ l.v0=l.v; });
+  let done=false; const C=v=>v*100, mtW=c=>mt(c,1); S[m].bud={I,lines};
+  setPrompt(m,L("bgQ",{i:mtW(C(I)),o:mtW(C(over))}));
+  area(m).innerHTML=`<div class="tblwrap"><table class="ledger"><thead><tr><th>${t("bgExp")}</th><th class="amt"></th><th></th></tr></thead><tbody id="${m}B"></tbody>
+    <tfoot><tr><td><b>💵 ${t("bgInc")}</b></td><td class="amt"><b>${M(fmtC(C(I),1))}</b></td><td></td></tr></tfoot></table></div>
+    <div class="acts" style="justify-content:center"><button type="button" class="btn" id="${m}Chk">${t("check")}</button></div>`;
+  const tb=$("#"+m+"B");
+  const draw=()=>{ tb.innerHTML=lines.map((l,i)=>`<tr><td><span aria-hidden="true">${l.ic}</span> ${t(l.k)}${l.v!==l.v0?`<span class="was">${t("bgWas",{x:M(fmtC(C(l.v0),1))})}</span>`:""}</td>
+      <td class="amt"><b>${M(fmtC(C(l.v),1))}</b></td><td>${l.lock?`<span class="lock">🔒 ${t("bgFixed")}</span>`:`<span class="stp"><button type="button" data-i="${i}" data-d="-10" aria-label="${t("bgLess",{x:t(l.k)})}" ${l.v<=l.min||done?"disabled":""}>−</button><button type="button" data-i="${i}" data-d="10" aria-label="${t("bgMore",{x:t(l.k)})}" ${l.v>=l.v0+500||done?"disabled":""}>+</button></span>`}</td></tr>`).join(""); };
+  tb.addEventListener("click",e=>{ const b=e.target.closest("button[data-i]"); if(!b||done) return; const i=+b.dataset.i, l=lines[i];
+    l.v=Math.max(l.min,l.v+(+b.dataset.d)); draw(); const nb=tb.querySelector(`button[data-i="${i}"][data-d="${b.dataset.d}"]`); if(nb&&!nb.disabled) nb.focus(); });
+  draw();
+  $("#"+m+"Chk").addEventListener("click",()=>{
+    if(done) return; const E=sum(lines.map(l=>l.v));
+    if(E>I) return hint(m,L("bgOver",{e:mtW(C(E)),x:mtW(C(E-I)),i:mtW(C(I))}));
+    if(E<I) return hint(m,L("bgUnder",{e:mtW(C(E)),x:mtW(C(I-E)),i:mtW(C(I))}));
+    done=true; draw(); $("#"+m+"Chk").disabled=true; good(m,L("bgG",{e:mtW(C(E)),i:mtW(C(I))}),()=>newRound(m),2600);
+  });
+}
+const ACT_OK=["aCook","aPhone","aSell","aWork"], ACT_NO=["aTV","aCard","aEat","aTrip"];
+function genActions(m){
+  setPrompt(m,L("actQ"));
+  area(m).innerHTML=`<div class="scene"><span class="bigem" aria-hidden="true">⚖️</span></div><div id="${m}Ch"></div>`;
+  mc($("#"+m+"Ch"),[txtOpt(rand(ACT_OK),1)].concat(shuffle(ACT_NO).slice(0,2).map(k=>txtOpt(k,0))),
+    ()=>good(m,L("actG"),()=>newRound(m),2400),()=>hint(m,L("actH")),true);
+}
+
+const GEN={job:genJob,skill:genSkill,lemon:genLemon,scarce:genScarce,plan:genPlan,decide:genDecide,
+  needs:genNeeds,goal:genGoal,jars:genJars,fixvar:genFixvar,profit:genProfit,
+  credit:genCredit,bankq:genBankq,pay:genPay,ledger:genLedger,
+  taxdef:genTaxdef,sales:genSales,gross:genGross,budget:genBudget,actions:genActions};
+
+/* ---------- Mode switching ---------- */
+const NEWFN={earn:()=>newRound("earn"),save:()=>newRound("save"),profit:()=>newRound("profit"),bank:()=>newRound("bank"),tax:()=>newRound("tax")};
+function firstMode(){ return MODES.find(m=>modeOn(m))||"earn"; }
+function currentMode(){ const b=$$(".tabs button").find(x=>x.getAttribute("aria-selected")==="true"); return b?b.dataset.mode:firstMode(); }
+function showMode(mode){
+  if(!modeOn(mode)) mode=firstMode();
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
+  $$(".modepanel").forEach(p=>p.classList.add("hidden"));
+  $("#mode-"+mode).classList.remove("hidden");
+  $$(".tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.mode===mode?"true":"false"));
+  if(!made[mode]) NEWFN[mode]();
+  // Returning to a tab: read its current directions (unless a new round just did).
+  if(switching && speechGen===g0) maybeAuto(mode);
+}
+function syncTabs(){
+  $$(".tabs button").forEach(b=>b.classList.toggle("hidden",!modeOn(b.dataset.mode)));
+  if(!modeOn(currentMode())) showMode(firstMode());
+}
+function resetRounds(){ MODES.forEach(m=>made[m]=false); const c=currentMode(); if(modeOn(c)) NEWFN[c](); else showMode(firstMode()); }
+
+/* ---------- Settings drawer ---------- */
+function buildModeToggles(){
+  const wrap=$("#modeToggles"); wrap.innerHTML="";
+  MODES.forEach(m=>{
+    const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.modes[m]?"checked":""}> <span>${t(MODE_KEY[m])}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{ settings.modes[m]=e.target.checked;
+      if(!MODES.some(k=>modeOn(k))){ e.target.checked=true; settings.modes[m]=true; }
+      saveSettings(); syncTabs(); });
+    wrap.appendChild(l);
+  });
+}
+function syncSettingsUI(){
+  $("#setGrade").value=String(settings.grade); $("#setLvl").value=String(settings.lvl);
+  $("#setCents").checked=!!settings.cents; $("#setAuto").checked=!!settings.autoRead; buildModeToggles();
+}
+function closeSettings(){ $("#settingsDrawer").classList.remove("open"); $("#openSettings").focus(); }
+function settingsChanged(){ saveSettings(); syncSettingsUI(); syncTabs(); resetRounds(); }
+function initSettings(){
+  $("#openSettings").addEventListener("click",()=>{ syncSettingsUI(); $("#settingsDrawer").classList.add("open"); $("#closeSettings").focus(); });
+  $("#closeSettings").addEventListener("click",closeSettings);
+  $("#settingsDrawer").addEventListener("click",e=>{ if(e.target.id==="settingsDrawer") closeSettings(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape" && $("#settingsDrawer").classList.contains("open")) closeSettings(); });
+  $("#setGrade").addEventListener("change",e=>{ const ar=settings.autoRead; settings=fromGrade(+e.target.value); settings.autoRead=ar; settingsChanged(); });
+  $("#setLvl").addEventListener("change",e=>{ settings.lvl=+e.target.value; settingsChanged(); });
+  $("#setCents").addEventListener("change",e=>{ settings.cents=e.target.checked; settingsChanged(); });
+  $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
+  $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
+}
+
+/* ---------- Print cards ---------- */
+function buildPrintCards(){
+  const blank=`<span style="font-size:1.3rem">__________</span>`, P=s=>`<p style="font-size:1.15rem">${s}</p>`, list=a=>`<ol style="font-size:1.15rem">${a.map(k=>`<li>${t(k)} ______</li>`).join("")}</ol>`;
+  const R=[[1,4,2,5],[3,9,3,8],[8,25,5,12]][lv()-1], j=rand(Object.keys(JOBS)), jp=addC(dol(R[0],R[1])), jk=ri(R[2],R[3]);
+  const cards=[{title:t("mEarn"), html:P(L(j,{p:mt(jp),k:nT(jk)}).h+" "+t("cardEarn"))+P(blank)}];
+  cards.push({title:t("mSave"), body:t("cardNW"), html:list(shuffle(shuffle(NEEDS).slice(0,3).concat(shuffle(WANTS).slice(0,3))))});
+  if(modeOn("profit")){
+    cards.push({title:t("mProfit"), body:t("cardFV"), html:list(shuffle(shuffle(FIXED).slice(0,3).concat(shuffle(VARI).slice(0,3))))});
+    const b=rand(BIZ), PR=[[1,3,4,10,1,5],[2,6,10,25,5,20],[5,15,20,60,20,120]][lv()-1]; let p,k,ex;
+    do{ p=dol(PR[0],PR[1]); k=ri(PR[2],PR[3]); ex=b.ex.map(()=>dol(PR[4],PR[5])); }while(p*k<=sum(ex));
+    cards.push({title:t("mProfit"), body:t("cardProf"), html:P(L(b.k,{k:nT(k),p:mt(p)}).h)+P(b.ex.map((key,i)=>t(key)+": "+M(fmtC(ex[i]))).join(" · "))+`<div class="pbox"></div>`});
+  }
+  if(settings.grade>=4&&modeOn("bank")){
+    const LR=[[10,30,2,10],[40,120,5,40],[200,600,20,150]][lv()-1]; let bal=dol(LR[0],LR[1]); const s0=bal, rows=[];
+    [["lgAllow",1],["lgBook",0],["lgGift",1],["lgMovie",0]].forEach(([d,dp])=>{ let x=dol(LR[2],LR[3]); if(!dp&&x>bal) x=100; bal+=dp?x:-x; rows.push([d,dp,x]); });
+    cards.push({title:t("mBank"), body:t("cardLg"), html:`<table class="ledger" style="font-size:1.05rem"><tr><th>${t("lgDesc")}</th><th>${t("lgDep")}</th><th>${t("lgWd")}</th><th>${t("lgBal")}</th></tr><tr><td>${t("lgStart")}</td><td></td><td></td><td>${M(fmtC(s0))}</td></tr>`+
+      rows.map(([d,dp,x])=>`<tr><td>${t(d)}</td><td>${dp?M(fmtC(x)):""}</td><td>${dp?"":M(fmtC(x))}</td><td style="min-width:110px"></td></tr>`).join("")+`</table>`});
+  }
+  if(modeOn("tax")){
+    const GR=[[100,200],[200,500],[500,1200]][lv()-1], g=dol(GR[0],GR[1]), pr=Math.round(g*.0765/100)*100, it=Math.round(g*.08/100)*100;
+    cards.push({title:t("mTax"), body:t("grQ"), html:P(`${t("grGross")}: ${M(fmtC(g))} · ${t("grPayT")}: ${M(fmtC(pr))} · ${t("grIncT")}: ${M(fmtC(it))}`)+P(t("grTot")+": "+blank)+P(t("grNet")+": "+blank)});
+  }
+  $("#printArea").innerHTML=`<h1>${t("cardTitle")}</h1><p>${t("cardName")} ____________________</p>`+
+    cards.map(c=>`<div class="card-print"><h2>${c.title}</h2>${c.body?`<p style="font-size:1.1rem"><b>${c.body}</b></p>`:""}${c.html}<p style="font-size:.9rem">${t("cardWork")}</p></div>`).join("")+
+    `<p style="font-size:.85rem">${t("numNote")}</p><p style="font-size:.85rem">${stdsHTML()}</p>`;
+}
+
+// Keep standard codes like 4.10(A, B) left-to-right inside RTL text
+const stdsHTML = ()=>t("stds").replace(/[0-9][0-9A-Za-z.]*(?:\([A-Z, ]+\))?/g,m=>`<bdi dir="ltr">${m}</bdi>`);
+
+/* ---------- Language engine ---------- */
+function resolveLang(){
+  try{ const q=new URLSearchParams(location.search).get("lang"); if(q && T[q]) return q; }catch(e){}
+  try{ const s=localStorage.getItem(LANG_KEY); if(s && T[s]) return s; }catch(e){}
+  const n=(navigator.language||"en").slice(0,2).toLowerCase();
+  if(T[n]) return n;
+  return "en";
+}
+function applyLang(){
+  const meta=LANGS.find(x=>x.code===lang)||LANGS[0];
+  document.documentElement.lang=lang;
+  document.documentElement.dir=meta.dir;
+  document.title=t("appTitle");
+  const sel=$("#langSelect"); if(sel) sel.value=lang;
+  $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
+  $("#stdsNote").innerHTML=stdsHTML();
+  buildModeToggles();
+  // refresh dynamic content: current mode now, the others when they are next opened
+  resetRounds();
+}
+function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} stopSpeech(); applyLang(); }
+function buildLangSelect(){
+  const sel=$("#langSelect"); sel.innerHTML="";
+  LANGS.forEach(m=>{ const o=document.createElement("option"); o.value=m.code; o.textContent=m.name; sel.appendChild(o); });
+  sel.value=lang;
+  sel.addEventListener("change",()=>setLang(sel.value));
+}
+
+/* ---------- Init ---------- */
+function init(){
+  lang=resolveLang();
+  buildLangSelect();
+  $$(".tabs button").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.mode)));
+  $$(".speaker").forEach(b=>b.addEventListener("click",()=>speak(currentSpeech[b.dataset.speak])));
+  MODES.forEach(m=>$("#"+m+"New").addEventListener("click",()=>{ stopSpeech(); NEWFN[m](); }));
+  initSettings();
+  const f=firstMode();
+  $$(".tabs button").forEach(b=>{ b.setAttribute("aria-selected",b.dataset.mode===f?"true":"false"); b.classList.toggle("hidden",!modeOn(b.dataset.mode)); });
+  $$(".modepanel").forEach(p=>p.classList.toggle("hidden",p.id!=="mode-"+f));
+  applyLang();
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+</script>
+<script>
+/* Student mute toggle — shared across the Digital Math Tools. Self-contained,
+   offline, stores no student data. Gates ALL speech by intercepting
+   speechSynthesis.speak, so muting works regardless of each tool's internals.
+   Reads the shared language preference only to localize its own label. */
+(function(){
+  "use strict";
+  var LKEY='tcea.mathtools.lang', MKEY='tcea.mathtools.muted';
+  var CODES=['en','es','vi','ar','hi','ur','zh'];
+  var LAB={
+    mute:{en:"Mute sound",es:"Silenciar sonido",vi:"Tắt âm thanh",ar:"كتم الصوت",hi:"आवाज़ बंद करें",ur:"آواز بند کریں",zh:"静音"},
+    unmute:{en:"Turn sound on",es:"Activar sonido",vi:"Bật âm thanh",ar:"تشغيل الصوت",hi:"आवाज़ चालू करें",ur:"آواز چالو کریں",zh:"打开声音"}
+  };
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  window.__MT_MUTED = (get(MKEY)==='1');
+  // Intercept every speech request; suppress while muted.
+  try{
+    if(window.speechSynthesis && typeof window.speechSynthesis.speak==='function'){
+      var ss=window.speechSynthesis, orig=ss.speak.bind(ss);
+      ss.speak=function(u){ if(!window.__MT_MUTED){ try{orig(u);}catch(e){} } };
+    }
+  }catch(e){}
+  function curLang(){ var l=get(LKEY)||'en'; return LAB.mute[l]?l:'en'; }
+  function label(el){
+    var on=!window.__MT_MUTED, l=curLang(), txt=on?LAB.mute[l]:LAB.unmute[l];
+    el.textContent=on?'🔊':'🔇';
+    el.setAttribute('aria-label',txt); el.setAttribute('title',txt);
+    el.setAttribute('aria-pressed', on?'false':'true');
+  }
+  function findLangSelect(){
+    var sels=document.querySelectorAll('select');
+    for(var i=0;i<sels.length;i++){ var o=sels[i].options, c=0;
+      for(var j=0;j<o.length;j++){ if(CODES.indexOf((o[j].value||'').toLowerCase())>=0) c++; }
+      if(c>=3) return sels[i];
+    }
+    return null;
+  }
+  function build(){
+    if(document.getElementById('mtMuteBtn')) return;
+    if(!(('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window))) return;
+    var btn=document.createElement('button');
+    btn.id='mtMuteBtn'; btn.type='button';
+    btn.style.cssText='font:inherit;font-size:1.15rem;line-height:1;cursor:pointer;'+
+      'min-width:44px;min-height:44px;padding:8px 12px;border:2px solid #e2dcf1;'+
+      'border-radius:10px;background:#fff;color:#5b3fa5;font-weight:700;margin:0 4px;';
+    btn.addEventListener('click',function(){
+      window.__MT_MUTED=!window.__MT_MUTED;
+      set(MKEY, window.__MT_MUTED?'1':'0');
+      if(window.__MT_MUTED){ try{window.speechSynthesis.cancel();}catch(e){} }
+      label(btn);
+    });
+    btn.addEventListener('focus',function(){btn.style.outline='3px solid #5b3fa5';btn.style.outlineOffset='2px';});
+    btn.addEventListener('blur',function(){btn.style.outline='';});
+    var sel=findLangSelect();
+    if(sel && sel.parentNode){
+      sel.parentNode.insertBefore(btn, sel);
+      sel.addEventListener('change',function(){ setTimeout(function(){label(btn);},0); });
+    }else{
+      btn.style.position='fixed'; btn.style.top='10px'; btn.style.zIndex='9999';
+      btn.style[(document.documentElement.dir==='rtl')?'left':'right']='10px';
+      (document.body||document.documentElement).appendChild(btn);
+    }
+    label(btn);
+  }
+  if(document.readyState==='complete'){ build(); }
+  else{ window.addEventListener('load', build); }
+  window.addEventListener('storage',function(e){ if(e.key===LKEY){ var b=document.getElementById('mtMuteBtn'); if(b) label(b); } });
+})();
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+
+</html>

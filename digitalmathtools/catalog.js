@@ -165,7 +165,10 @@ window.MATHTOOLS = (function () {
     "Trigonometry":{en:"Trigonometry",es:"Trigonometría",vi:"Lượng giác",ar:"حساب المثلثات",hi:"त्रिकोणमिति",ur:"مثلثیات",zh:"三角函数"},
     "Frequency table":{en:"Frequency table",es:"Tabla de frecuencia",vi:"Bảng tần số",ar:"جدول التكرار",hi:"बारंबारता सारणी",ur:"تعدد کی جدول",zh:"频数表"},
     "Stem-and-leaf":{en:"Stem-and-leaf",es:"Tallo y hojas",vi:"Thân và lá",ar:"الساق والورقة",hi:"तना और पत्ती",ur:"تنا اور پتا",zh:"茎叶图"},
-    "Scatterplot":{en:"Scatterplot",es:"Diagrama de dispersión",vi:"Biểu đồ phân tán",ar:"شكل الانتشار",hi:"प्रकीर्ण आरेख",ur:"بکھراؤ کا خاکہ",zh:"散点图"}
+    "Scatterplot":{en:"Scatterplot",es:"Diagrama de dispersión",vi:"Biểu đồ phân tán",ar:"شكل الانتشار",hi:"प्रकीर्ण आरेख",ur:"بکھراؤ کا خاکہ",zh:"散点图"},
+    "Financial literacy":{en:"Financial literacy",es:"Educación financiera",vi:"Hiểu biết tài chính",ar:"الثقافة المالية",hi:"वित्तीय साक्षरता",ur:"مالی خواندگی",zh:"金融素养"},
+    "Budget":{en:"Budget",es:"Presupuesto",vi:"Ngân sách",ar:"الميزانية",hi:"बजट",ur:"بجٹ",zh:"预算"},
+    "Saving":{en:"Saving",es:"Ahorro",vi:"Tiết kiệm",ar:"الادخار",hi:"बचत",ur:"بچت",zh:"储蓄"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -481,7 +484,19 @@ window.MATHTOOLS = (function () {
         ar:"اجمع إجابات الاستطلاع في جداول تكرار، واصنع تمثيلات بالأعمدة وبالصور بمقياس 2 أو 5 أو 10، ومثّل قياسات كسرية بالنقاط باستخدام المسطرة، وكوّن تمثيل الساق والورقة بأعداد كلية أو عشرية، ومثّل أشكال الانتشار — ثم حلّ مسائل من خطوة وخطوتين من تمثيلك أنت.",
         hi:"सर्वे के उत्तरों के मिलान चिह्न बनाकर बारंबारता सारणी भरें, 2, 5 या 10 के पैमाने वाले बार ग्राफ़ और चित्र ग्राफ़ बनाएँ, रूलर से भिन्न वाले लाइन प्लॉट बनाएँ, पूर्ण संख्याओं या दशमलव से तना और पत्ती आरेख बनाएँ, और प्रकीर्ण आरेख पर बिंदु अंकित करें — फिर अपने ही आरेख से एक और दो चरण वाले सवाल हल करें।",
         ur:"سروے کے جوابات کے ٹیلی نشان بنا کر تعدد کی جدول بھریں، 2، 5 یا 10 کے پیمانے والے بار گراف اور تصویری گراف بنائیں، رولر سے کسری پیمائشوں کا لائن پلاٹ بنائیں، مکمل اعداد یا اعشاریوں سے تنا اور پتا خاکہ بنائیں، اور بکھراؤ کا خاکہ بنائیں — پھر اپنے ہی خاکے سے ایک اور دو قدم والے سوال حل کریں۔",
-        zh:"把调查答案划记成频数表，画刻度为2、5或10的条形统计图和象形统计图，用尺子测量并画出含分数的点图，用整数或小数制作茎叶图，再画散点图——然后根据自己画的图解决一步和两步问题。"} }
+        zh:"把调查答案划记成频数表，画刻度为2、5或10的条形统计图和象形统计图，用尺子测量并画出含分数的点图，用整数或小数制作茎叶图，再画散点图——然后根据自己画的图解决一步和两步问题。"} },
+    { id:"money-sense", collection:"g35", bandId:"3-5", icon:"💰", accent:"#8a6d00",
+      title:"Money Sense", href:"g35/money-sense/index.html",
+      tags:["Financial literacy","Money","Budget","Saving","Story problems","Sort"],
+      kw:"personal financial literacy money income labor earn job human capital skills scarcity price lemonade stand cost profit revenue needs wants budget savings plan goal allowance spend save share jars fixed variable expenses credit borrow interest lender bank credit union piggy bank savings account check debit credit card electronic payment ledger deposit withdrawal balance financial records sales tax property tax income tax payroll tax gross net pay stub balance a budget dollars cents educación financiera dinero presupuesto ahorro 理财 钱",
+      desc:{
+        en:"Earn income from work, run a lemonade stand and find the profit, see how scarcity changes prices, sort needs and wants, plan savings and an allowance, classify fixed and variable expenses, borrow with interest, keep a bank ledger, compare ways to pay, learn about taxes and gross vs. net pay, and balance a family budget.",
+        es:"Gana ingresos con tu trabajo, administra un puesto de limonada y calcula la ganancia, observa cómo la escasez cambia los precios, clasifica necesidades y deseos, planea tus ahorros y tu mesada, distingue gastos fijos y variables, pide prestado con intereses, lleva un registro bancario, compara formas de pago, aprende sobre impuestos y pago bruto y neto, y equilibra un presupuesto familiar.",
+        vi:"Kiếm thu nhập bằng sức lao động, mở quầy nước chanh và tính lợi nhuận, xem sự khan hiếm làm giá thay đổi thế nào, phân loại nhu cầu và mong muốn, lập kế hoạch tiết kiệm và chia tiền tiêu vặt, phân biệt chi phí cố định và thay đổi, vay có lãi, ghi sổ ngân hàng, so sánh các cách trả tiền, tìm hiểu về thuế và lương gộp, lương thực nhận, và cân bằng ngân sách gia đình.",
+        ar:"اكسب دخلًا من العمل، وأدِر كشكًا لعصير الليمون واحسب الربح، ولاحظ كيف تغيّر الندرة الأسعار، وصنّف الحاجات والرغبات، وخطّط للادخار وللمصروف، وميّز المصروفات الثابتة والمتغيّرة، واقترض مع الفائدة، واحتفظ بسجل بنكي، وقارن طرق الدفع، وتعرّف على الضرائب والراتب الإجمالي والصافي، ووازن ميزانية أسرة.",
+        hi:"काम से आमदनी कमाएँ, नींबू पानी का स्टॉल चलाकर मुनाफ़ा निकालें, देखें कि दुर्लभता कीमतें कैसे बदलती है, ज़रूरतें और इच्छाएँ छाँटें, बचत और जेबखर्च की योजना बनाएँ, निश्चित और परिवर्ती खर्च पहचानें, ब्याज पर उधार लें, बैंक का हिसाब रखें, भुगतान के तरीकों की तुलना करें, कर और सकल व शुद्ध वेतन समझें, और परिवार का बजट संतुलित करें।",
+        ur:"کام سے آمدنی کمائیں، لیموں پانی کا اسٹال چلا کر منافع نکالیں، دیکھیں کہ نایابی قیمتیں کیسے بدلتی ہے، ضرورتیں اور خواہشیں چھانٹیں، بچت اور جیب خرچ کا منصوبہ بنائیں، مقررہ اور متغیر اخراجات پہچانیں، سود پر ادھار لیں، بینک کا حساب رکھیں، ادائیگی کے طریقوں کا موازنہ کریں، ٹیکس اور مجموعی و خالص تنخواہ سمجھیں، اور خاندانی بجٹ متوازن کریں۔",
+        zh:"用劳动挣收入，经营柠檬水小摊并算出利润，看看稀缺如何改变价格，区分需要和想要，规划储蓄和零花钱，分清固定开支和可变开支，借钱并支付利息，记银行账，比较各种付款方式，了解各种税以及税前和实发工资，并平衡一份家庭预算。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
