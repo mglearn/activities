@@ -171,7 +171,10 @@ window.MATHTOOLS = (function () {
     "Saving":{en:"Saving",es:"Ahorro",vi:"Tiết kiệm",ar:"الادخار",hi:"बचत",ur:"بچت",zh:"储蓄"},
     "Exponents":{en:"Exponents",es:"Exponentes",vi:"Số mũ",ar:"الأسس",hi:"घातांक",ur:"قوت نما",zh:"指数"},
     "Scientific notation":{en:"Scientific notation",es:"Notación científica",vi:"Ký hiệu khoa học",ar:"الصيغة العلمية",hi:"वैज्ञानिक संकेतन",ur:"سائنسی ترقیم",zh:"科学记数法"},
-    "Square roots":{en:"Square roots",es:"Raíces cuadradas",vi:"Căn bậc hai",ar:"الجذور التربيعية",hi:"वर्गमूल",ur:"جذرِ مربع",zh:"平方根"}
+    "Square roots":{en:"Square roots",es:"Raíces cuadradas",vi:"Căn bậc hai",ar:"الجذور التربيعية",hi:"वर्गमूल",ur:"جذرِ مربع",zh:"平方根"},
+    "Interest":{en:"Interest",es:"Interés",vi:"Lãi suất",ar:"الفائدة",hi:"ब्याज",ur:"سود",zh:"利息"},
+    "Taxes":{en:"Taxes",es:"Impuestos",vi:"Thuế",ar:"الضرائب",hi:"कर",ur:"ٹیکس",zh:"税"},
+    "Credit":{en:"Credit",es:"Crédito",vi:"Tín dụng",ar:"الائتمان",hi:"क्रेडिट",ur:"قرض",zh:"信用"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -511,7 +514,19 @@ window.MATHTOOLS = (function () {
         ar:"افكّ القوى وابنِ أشجار العوامل، واضغط لحذف العوامل واكتشف قوانين الأسس (ومنها الأس صفر والأسس السالبة)، وحُلّ x² = p و x³ = p وقدّر الجذور التربيعية على خط الأعداد، وحرّك الفاصلة العشرية لكتابة الأعداد بالصيغة العلمية، واضرب واقسم واجمع وقارن أعدادًا كبيرة جدًا وصغيرة جدًا.",
         hi:"घातों को खोलकर लिखें और गुणनखंड वृक्ष बनाएँ, गुणनखंड काटने के लिए टैप करें और घातांक के नियम खोजें (शून्य और ऋणात्मक घातांक सहित), x² = p और x³ = p हल करें और संख्या रेखा पर वर्गमूल का अनुमान लगाएँ, दशमलव बिंदु खिसकाकर संख्याओं को वैज्ञानिक संकेतन में लिखें, और बहुत बड़ी व बहुत छोटी संख्याओं को गुणा, भाग, जोड़ और तुलना करें।",
         ur:"قوتوں کو پھیلا کر لکھیں اور اجزائے ضربی کا درخت بنائیں، اجزا کاٹنے کے لیے ٹیپ کریں اور قوت نما کے قوانین دریافت کریں (صفر اور منفی قوت نما سمیت)، x² = p اور x³ = p حل کریں اور عددی خط پر جذرِ مربع کا اندازہ لگائیں، اعشاریہ کھسکا کر اعداد کو سائنسی ترقیم میں لکھیں، اور بہت بڑے اور بہت چھوٹے اعداد کو ضرب، تقسیم، جمع اور موازنہ کریں۔",
-        zh:"展开乘方并画因数树，点击约去因数，发现指数运算法则（包括零指数和负指数），解 x² = p 和 x³ = p 并在数轴上估计平方根，滑动小数点用科学记数法写数，并对非常大和非常小的数进行乘、除、加和比较。"} }
+        zh:"展开乘方并画因数树，点击约去因数，发现指数运算法则（包括零指数和负指数），解 x² = p 和 x³ = p 并在数轴上估计平方根，滑动小数点用科学记数法写数，并对非常大和非常小的数进行乘、除、加和比较。"} },
+    { id:"money-moves", collection:"g68", bandId:"6-8", icon:"💳", accent:"#1e8449",
+      title:"Money Moves: Personal Finance Lab", href:"g68/money-moves/index.html",
+      tags:["Financial literacy","Money","Budget","Saving","Percent","Interest","Taxes","Credit","Story problems","Sort"],
+      kw:"personal financial literacy checking account debit card credit card check register balance credit report credit history college grants scholarships work-study student loans lifetime income careers salary gross net pay stub social security medicare income tax sales tax property tax rebate coupon discount budget fixed variable savings net worth assets liabilities family budget estimator hourly wage simple interest compound interest loan calculator APR cost of credit payday loan savings plan payment methods financial responsibility educación financiera interés presupuesto 理财 利息",
+      desc:{
+        en:"Balance a check register, compare debit and credit cards and bank fees, read a credit report, and sort ways to pay for college. Fill in pay stubs and tax receipts, compare lifetime incomes and deals, build a budget with sliders, and find net worth. Then compare simple and compound interest, the cost of loans and credit cards, savings plans, ways to pay, and college costs.",
+        es:"Equilibra un registro de cheques, compara tarjetas de débito y crédito y las comisiones de los bancos, lee un informe de crédito y clasifica formas de pagar la universidad. Completa talones de pago y recibos con impuestos, compara ingresos de toda la vida y ofertas, arma un presupuesto con controles deslizantes y calcula el valor neto. Luego compara el interés simple y el compuesto, el costo de préstamos y tarjetas de crédito, planes de ahorro, formas de pago y costos universitarios.",
+        vi:"Cân đối sổ ghi séc, so sánh thẻ ghi nợ, thẻ tín dụng và phí ngân hàng, đọc báo cáo tín dụng, và phân loại các cách trả tiền học đại học. Điền phiếu lương và hóa đơn có thuế, so sánh thu nhập cả đời và các ưu đãi, lập ngân sách bằng thanh trượt, và tính giá trị tài sản ròng. Sau đó so sánh lãi đơn và lãi kép, chi phí vay và thẻ tín dụng, kế hoạch tiết kiệm, cách thanh toán và chi phí đại học.",
+        ar:"وازن سجل الشيكات، وقارن بطاقات الخصم والائتمان ورسوم البنوك، واقرأ تقرير الائتمان، وصنّف طرق دفع تكاليف الجامعة. املأ كشوف الرواتب وإيصالات الضرائب، وقارن دخل العمر والعروض، وأعدّ ميزانية بأشرطة التمرير، واحسب صافي الثروة. ثم قارن الفائدة البسيطة والمركبة، وتكلفة القروض وبطاقات الائتمان، وخطط الادخار، وطرق الدفع، وتكاليف الجامعة.",
+        hi:"चेक रजिस्टर का हिसाब मिलाएँ, डेबिट और क्रेडिट कार्ड व बैंक शुल्क की तुलना करें, क्रेडिट रिपोर्ट पढ़ें, और कॉलेज की फ़ीस चुकाने के तरीके छाँटें। वेतन पर्ची और कर वाली रसीदें भरें, जीवन भर की आय और ऑफ़रों की तुलना करें, स्लाइडर से बजट बनाएँ, और कुल संपत्ति (नेट वर्थ) निकालें। फिर साधारण और चक्रवृद्धि ब्याज, ऋण और क्रेडिट कार्ड की लागत, बचत योजनाओं, भुगतान के तरीकों और कॉलेज की लागत की तुलना करें।",
+        ur:"چیک رجسٹر کا حساب برابر کریں، ڈیبٹ اور کریڈٹ کارڈ اور بینک فیسوں کا موازنہ کریں، کریڈٹ رپورٹ پڑھیں، اور کالج کی ادائیگی کے طریقے چھانٹیں۔ تنخواہ کی پرچیاں اور ٹیکس والی رسیدیں بھریں، عمر بھر کی آمدنی اور پیشکشوں کا موازنہ کریں، سلائیڈرز سے بجٹ بنائیں، اور خالص مالیت معلوم کریں۔ پھر سادہ اور مرکب سود، قرضوں اور کریڈٹ کارڈ کی لاگت، بچت کے منصوبوں، ادائیگی کے طریقوں اور کالج کے اخراجات کا موازنہ کریں۔",
+        zh:"平衡支票登记簿，比较借记卡、信用卡和银行费用，阅读信用报告，给支付大学费用的方式分类。填写工资单和含税收据，比较一生收入和优惠，用滑块编制预算，计算净资产。再比较单利和复利、贷款和信用卡的成本、储蓄计划、付款方式和大学费用。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
