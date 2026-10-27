@@ -111,7 +111,7 @@ curl -s localhost:8080/healthz    # -> ok
 | `PORT` | `8080` | must match `upstream` in nginx conf |
 | `PAID_DIR` | `../grade68` | protected tree; set to `/srv/digcit-paid` in prod |
 | `ACCOUNTS_FILE` | `./accounts.json` | JSON array of `{id, name, hash, ipAllow?}` |
-| `SESSION_SECRET` | dev placeholder | **set a long random value in prod** |
+| `SESSION_SECRET` | random per process (sessions lost on restart) | **set a long random value in prod** |
 | `COOKIE_SECURE` | off | `1` behind HTTPS |
 
 ## Accounts

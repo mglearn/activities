@@ -28,7 +28,9 @@ const bcrypt = require('bcryptjs');
 const PORT = process.env.PORT || 8080;
 const PAID_DIR = path.resolve(process.env.PAID_DIR || path.join(__dirname, '..', 'grade68'));
 const ACCOUNTS_FILE = path.resolve(process.env.ACCOUNTS_FILE || path.join(__dirname, 'accounts.json'));
-const SESSION_SECRET = process.env.SESSION_SECRET || 'dev-only-insecure-secret-change-me';
+// No hardcoded fallback (this repo is public): if unset, use a random per-process
+// secret, so sessions simply don't survive a restart until SESSION_SECRET is set.
+const SESSION_SECRET = process.env.SESSION_SECRET || require('crypto').randomBytes(32).toString('hex');
 
 function loadAccounts() {
   try { return JSON.parse(fs.readFileSync(ACCOUNTS_FILE, 'utf8')); }
@@ -121,7 +123,7 @@ app.listen(PORT, () => {
   console.log(`digcit paid-tier auth app on :${PORT}`);
   console.log(`  serving protected ${PAID_DIR} at /grade68 (auth required)`);
   console.log(`  accounts: ${ACCOUNTS_FILE}`);
-  if (SESSION_SECRET.startsWith('dev-only')) console.warn('  WARNING: set SESSION_SECRET in production.');
+  if (!process.env.SESSION_SECRET) console.warn('  WARNING: set SESSION_SECRET in production.');
 });
 
 module.exports = app;
