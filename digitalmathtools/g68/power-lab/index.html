@@ -1,0 +1,1920 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Power Lab: Exponents &amp; Scientific Notation — a Grades 6–8 app for whole-number powers and prime factorization, exponent laws with tap-to-cancel factors, square and cube roots, sliding the decimal point into scientific notation, and computing and comparing in scientific notation. Works offline. No data collected.">
+<title>Power Lab: Exponents &amp; Scientific Notation</title>
+<style>
+  :root{
+    --bg:#eef1f4;--panel:#ffffff;--ink:#1b2631;--muted:#4a5866;--line:#cfd8e0;
+    --accent:#2c3e50;--accentD:#22313f;--accent-ink:#ffffff;--good:#166534;--good-bg:#dcfce7;
+    --hint:#7a4a00;--hint-bg:#fff4d6;--focus:#0a58ca;--hot:#d97706;--cool:#2563eb;
+    --tap:52px;font-size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4;-webkit-text-size-adjust:100%}
+  h1,h2,h3{line-height:1.15;margin:0 0 .3em}
+  button{font-family:inherit;font-size:1rem;cursor:pointer}
+
+  .topbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--accentD);color:var(--accent-ink);padding:.55rem .8rem}
+  .topbar .brand{font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:.4rem;margin-inline-end:auto}
+  .topbar a.homebtn,.topbar button.tb{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.55);border-radius:12px;padding:.4rem .7rem;min-height:var(--tap);min-width:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;font-weight:700;font-size:.95rem}
+  .globe{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.55);border-radius:12px;padding:.2rem .5rem;min-height:var(--tap)}
+  .globe span{font-size:1.2rem}
+  .globe select{border:0;background:#fff;color:var(--ink);border-radius:8px;min-height:44px;font-weight:700;font-size:1rem;padding:.2rem .4rem}
+
+  main{max-width:1200px;margin:0 auto;padding:.7rem}
+  .tabsrow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:.4rem 0 .7rem}
+  .tabs{display:flex;gap:.4rem;flex-wrap:wrap;flex:1 1 auto}
+  .tabs button{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:.45rem .75rem;min-height:var(--tap);font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .tabs button[aria-selected="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .tabs button .ic{font-size:1.15rem}
+  .stars{background:#fff;border:2px solid var(--line);border-radius:14px;padding:.4rem .8rem;font-weight:800;font-size:1.15rem;min-height:48px;display:inline-flex;align-items:center;gap:.3rem}
+  .stars.pop{animation:pop .5s ease}
+  @keyframes pop{50%{transform:scale(1.15)}}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  .panel{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:.9rem;margin-bottom:.8rem}
+  .panelhead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+  .panelhead h2{margin:0;font-size:1.25rem;margin-inline-end:auto}
+
+  .prompt{display:flex;align-items:center;gap:.6rem;background:#e9eef3;border:2px solid #c3cfda;border-radius:14px;padding:.6rem .8rem;margin-bottom:.7rem;font-size:1.12rem;font-weight:600;line-height:1.7}
+  .speaker{background:var(--accent);color:#fff;border:0;border-radius:50%;width:var(--tap);height:var(--tap);min-width:var(--tap);font-size:1.4rem;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+  .ctx{background:#fffbea;border:2px dashed #e5c76b;border-radius:12px;padding:.45rem .7rem;margin:0 0 .6rem;font-weight:600;line-height:1.7}
+
+  .btn{background:var(--accent);color:#fff;border:2px solid var(--accent);border-radius:12px;padding:.5rem .85rem;min-height:var(--tap);font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:.3rem}
+  .btn.ghost{background:var(--panel);color:var(--accent)}
+  .btn:disabled{opacity:.45}
+
+  .feedback{margin-top:.6rem;border-radius:12px;padding:.6rem .8rem;font-weight:600;display:none;line-height:1.9}
+  .feedback.show{display:block}
+  .feedback.good{background:var(--good-bg);color:var(--good);border:2px solid #86efac}
+  .feedback.hint{background:var(--hint-bg);color:var(--hint);border:2px solid #f6d271}
+
+  /* Math: always left-to-right, even inside Arabic/Urdu sentences */
+  .math{unicode-bidi:isolate;direction:ltr;display:inline;font-weight:800;white-space:nowrap}
+  sup{font-size:.68em;line-height:0;vertical-align:.62em;margin-inline-start:.04em}
+  .fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.05;font-weight:800;margin:0 .08em;white-space:nowrap;font-size:.92em}
+  .fr>span{padding:0 .16em}
+  .fr>span:first-child{border-bottom:.12em solid currentColor}
+  .feedback .math,.prompt .math,.ctx .math,.choice .math,.big .math{white-space:normal}
+  .rad{border-top:.1em solid currentColor;padding:0 .1em}
+  .big{font-size:1.9rem;text-align:center;margin:.2rem 0 .6rem}
+
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem;margin-top:.7rem}
+  .choices:empty{display:none}
+  .choice{background:var(--panel);border:3px solid var(--line);border-radius:16px;padding:.5rem;min-height:72px;display:flex;align-items:center;justify-content:center;position:relative;font-size:1.35rem;font-weight:800;color:var(--ink)}
+  .choice .lbl{unicode-bidi:isolate;direction:ltr}
+  .choice.wide{font-size:1.1rem}
+  .choice.correctpick{border-color:var(--good);background:var(--good-bg)}
+  .choice.wrongpick{border-color:#e3b341;background:var(--hint-bg);opacity:.75}
+  .choice .badge{position:absolute;top:4px;inset-inline-end:6px;font-size:1.1rem;display:none}
+  .choice.correctpick .badge{display:block}
+  .choice sup{font-size:.68em;line-height:0;vertical-align:.62em}
+
+  .work:empty{display:none}
+  .acts{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:center;margin:.5rem 0}
+  .acts:empty{display:none}
+  .note{text-align:center;font-weight:700;margin:.4rem 0;color:var(--muted)}
+
+  /* repeated-multiplication tiles */
+  .facs{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;align-items:center;direction:ltr;margin:.3rem 0}
+  .fac{min-width:52px;min-height:52px;border:3px solid #7f8c9a;border-radius:12px;background:#f4f7fa;font-size:1.35rem;font-weight:800;color:var(--ink);display:inline-flex;flex-direction:column;align-items:center;justify-content:center;padding:.15rem .35rem;line-height:1.05;transition:opacity .25s,background .25s}
+  .fac small{font-size:.7rem;color:var(--muted);font-weight:700}
+  .fac.on{background:#dbeafe;border-color:var(--cool)}
+  .fac.gone{opacity:.35;text-decoration:line-through;text-decoration-thickness:3px;text-decoration-color:#b91c1c}
+  .opx{font-size:1.3rem;font-weight:800;color:var(--muted)}
+  .grpbox{display:inline-flex;flex-wrap:wrap;gap:.3rem;border:2px dashed #94a3b8;border-radius:12px;padding:.3rem;align-items:center;justify-content:center}
+  .grpbox.a{border-color:var(--cool);background:#eff6ff}.grpbox.b{border-color:var(--hot);background:#fff7ed}
+  .frac{display:flex;flex-direction:column;align-items:center;gap:.3rem;direction:ltr}
+  .frac .bar{height:4px;background:var(--ink);width:min(100%,460px);border-radius:2px}
+  .runprod{text-align:center;font-size:1.25rem;font-weight:800;margin:.3rem 0;min-height:1.8em}
+  table.pat{border-collapse:collapse;margin:.2rem auto;font-size:1.3rem;font-weight:800;direction:ltr}
+  table.pat td{padding:.2rem .6rem;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
+  table.pat td.ar{color:var(--hot);font-size:1rem}
+  table.pat tr.q td{background:var(--hint-bg)}
+  table.pat tr.blank td{color:#9aa5b1}
+
+  /* factor tree */
+  .tree{display:flex;justify-content:center;direction:ltr;overflow-x:auto;padding:.3rem 0}
+  .ft{display:flex;flex-direction:column;align-items:center}
+  .fn{min-width:52px;min-height:52px;border:3px solid #7f8c9a;border-radius:12px;background:#fff;font-size:1.3rem;font-weight:800;color:var(--ink);padding:.1rem .4rem}
+  .fn.prime{border-radius:50%;border-color:var(--good);background:var(--good-bg);color:var(--good)}
+  .fn.sel{outline:4px solid var(--focus);outline-offset:2px}
+  .kids{display:flex;gap:.4rem;margin-top:.15rem;position:relative;padding-top:14px}
+  .kids::before{content:"";position:absolute;top:0;left:25%;right:25%;height:12px;border:3px solid #7f8c9a;border-bottom:0;border-radius:8px 8px 0 0}
+  .splits{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center}
+
+  /* decimal-point slider */
+  .stripwrap{display:flex;justify-content:center;margin:.4rem 0}
+  .strip{display:flex;align-items:flex-end;direction:ltr;touch-action:none;user-select:none;-webkit-user-select:none;font-size:clamp(1.15rem,5.6vw,2.1rem);font-weight:800;padding:.2rem .2rem 1.5rem;position:relative;cursor:ew-resize}
+  .cell{width:1.02em;text-align:center;border-bottom:3px solid var(--line);font-variant-numeric:tabular-nums}
+  .cell.ph{color:#64748b}
+  .cell.bl{border-color:transparent;color:transparent}
+  .pt{width:.5em;align-self:stretch;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;outline:none}
+  .pt::before{content:"";width:.36em;height:.36em;border-radius:50%;background:#dc2626;margin-bottom:.05em}
+  .pt::after{content:"";position:absolute;bottom:-1.25em;border:.42em solid transparent;border-bottom:.6em solid #dc2626}
+  .pt:focus-visible{outline:4px solid var(--focus);outline-offset:2px;border-radius:6px}
+  .readout{text-align:center;font-size:1.35rem;font-weight:800;margin:.2rem 0}
+  .moved{text-align:center;font-weight:700;color:var(--muted)}
+  #a-sci{direction:ltr}
+
+  /* number line */
+  .nlwrap{display:flex;justify-content:center}
+  .nl{width:100%;max-width:760px;display:block;margin:0 auto;touch-action:none;height:auto}
+  .nlax{stroke:#1b2631;stroke-width:4;stroke-linecap:round}
+  .tk{stroke:#1b2631;stroke-width:3}.tk.mn{stroke-width:1.5;stroke:#64748b}
+  .nlt{font-size:26px;font-weight:800;text-anchor:middle;fill:#1b2631;font-family:system-ui,sans-serif}
+  .nlm{font-size:22px;font-weight:800;text-anchor:middle;font-family:system-ui,sans-serif}
+  .pin line{stroke:#1d4ed8;stroke-width:5;stroke-linecap:round}
+  .pin circle{fill:#3b82f6;stroke:#1e3a8a;stroke-width:3}
+  .pin[tabindex]{cursor:grab}.pin:focus{outline:none}.pin:focus circle{stroke:var(--focus);stroke-width:6}
+  .pic{display:block;margin:0 auto;max-width:100%;height:auto}
+
+  .chips{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin:.4rem 0}
+  .chip{min-width:84px;min-height:64px;border:3px solid var(--line);border-radius:14px;background:#fff;font-size:1.25rem;font-weight:800;padding:.3rem .6rem;display:inline-flex;align-items:center;justify-content:center;color:var(--ink)}
+  .chip.used{opacity:.25;pointer-events:none}
+  .chip sup{font-size:.68em;line-height:0;vertical-align:.62em}
+  .ordrow{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;align-items:center;min-height:64px;border:2px dashed var(--line);border-radius:14px;padding:.4rem;margin:.4rem 0}
+  .ordrow .lab{font-weight:700;color:var(--muted)}
+  .ordrow .chip{border-color:var(--good);background:var(--good-bg);pointer-events:none}
+  .calc{display:inline-block;background:#1f2937;color:#a7f3d0;font-family:ui-monospace,Consolas,monospace;font-size:1.8rem;padding:.4rem 1rem;border-radius:10px;border:4px solid #4b5563;direction:ltr;letter-spacing:.05em}
+
+  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
+  .drawer.open{display:flex}
+  .drawer .card{background:var(--panel);border-radius:16px;max-width:600px;width:100%;padding:1rem;max-height:90vh;overflow:auto}
+  .setrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+  .setrow .lab{font-weight:700;min-width:150px}
+  .toggle{display:inline-flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:10px;padding:.35rem .55rem;background:#fff;min-height:44px}
+  .toggle input{width:22px;height:22px}
+  select.diff{font-size:1rem;padding:.4rem;border-radius:10px;border:2px solid var(--line);min-height:48px}
+  .wrapflex{display:flex;flex-wrap:wrap;gap:.4rem}
+
+  footer{max-width:1200px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+  footer a{color:var(--accent);font-weight:700}
+  .stds{font-size:.82rem;color:var(--muted);background:#f6f8fa;border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  .hidden{display:none !important}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  @media (max-width:480px){ :root{font-size:17px} .big{font-size:1.55rem} .tabs button{padding:.4rem .55rem;font-size:.92rem} .choice{font-size:1.2rem} .fac{min-width:46px;min-height:48px;font-size:1.2rem} }
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+  .printonly{display:none}
+  @media print{
+    .topbar,.tabsrow,footer,.modepanel,#stdsNote,.no-print,#mtMuteBtn{display:none !important}
+    body{background:#fff}
+    .printonly{display:block}
+    .card-print{border:2px solid #000;border-radius:12px;padding:1rem;margin:0 0 1rem;page-break-inside:avoid}
+    .card-print h2{margin:.2rem 0}
+    main{max-width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">⚡ <span data-t="appTitle">Power Lab: Exponents &amp; Scientific Notation</span></span>
+  <a class="homebtn" href="../../index.html">🏠 <span data-t="home">Home</span></a>
+  <label class="globe"><span aria-hidden="true">🌐</span>
+    <select id="langSelect" aria-label="Language / Idioma"></select>
+  </label>
+  <button class="tb settingsbtn" id="openSettings" type="button">⚙️ <span data-t="teacher">Teacher</span></button>
+</header>
+
+<main>
+  <div class="tabsrow">
+    <div class="tabs" id="tabs" role="tablist" data-ta="modesLbl" aria-label="Modes"></div>
+    <span class="stars" id="stars"><span aria-hidden="true">✔</span><span class="sr" data-t="solved">Problems solved</span> <b id="starCount">0</b></span>
+  </div>
+  <div id="panels"></div>
+  <div class="stds" id="stdsNote"></div>
+  <div class="printonly" id="printArea"></div>
+</main>
+
+<footer>
+  <p data-t="footNote">No accounts · No data collected · Works offline</p>
+  <p><a href="../../index.html" data-t="home">Home</a> · <a href="../../policy.html" data-t="privacy">Privacy</a></p>
+</footer>
+
+<!-- SETTINGS -->
+<div class="drawer" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <div class="panelhead"><h2 id="setTitle" data-t="teacherTitle">Teacher settings</h2>
+      <button class="btn ghost" id="closeSettings" type="button" data-t="close">Close</button></div>
+    <div class="setrow"><label class="lab" for="setGrade" data-t="setGrade">Grade level</label>
+      <select class="diff" id="setGrade">
+        <option value="6" data-t="g6">Grade 6</option>
+        <option value="7" data-t="g7">Grade 7</option>
+        <option value="8" data-t="g8">Grade 8</option></select>
+      <p class="stds" style="margin:0;flex:1 1 100%" data-t="gradeNote"></p></div>
+    <div class="setrow"><label class="lab" for="setExp" data-t="setExp">Largest power of 10</label>
+      <select class="diff" id="setExp">
+        <option value="6">10⁶</option>
+        <option value="9">10⁹</option>
+        <option value="12">10¹²</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setNeg">Negative exponents</span>
+      <label class="toggle"><input type="checkbox" id="setNegIn"> <span data-t="negOn">Include zero and negative exponents</span></label></div>
+    <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
+      <div id="modeToggles" class="wrapflex"></div></div>
+    <div class="setrow"><span class="lab" data-t="setSpeech">Speech</span>
+      <label class="toggle"><input type="checkbox" id="setAuto"> <span data-t="autoRead">Auto-read directions</span></label></div>
+    <div class="setrow" style="border:0"><button class="btn" id="printCards" type="button">🖨 <span data-t="printCards">Print challenge cards</span></button></div>
+    <p class="stds" data-t="setStored">Settings are saved only on this device. No student information is ever stored.</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   Power Lab: Exponents & Scientific Notation — single-file Grades 6–8 app.
+   7 languages. No frameworks, no network, no data collection.
+   ========================================================================= */
+
+/* ---------- Language metadata ---------- */
+const LANGS = [
+  {code:"en", name:"English",     dir:"ltr", bcp:"en-US"},
+  {code:"es", name:"Español",     dir:"ltr", bcp:"es-ES"},
+  {code:"vi", name:"Tiếng Việt",  dir:"ltr", bcp:"vi-VN"},
+  {code:"ar", name:"العربية",     dir:"rtl", bcp:"ar-SA"},
+  {code:"hi", name:"हिन्दी",       dir:"ltr", bcp:"hi-IN"},
+  {code:"ur", name:"اردو",        dir:"rtl", bcp:"ur-PK"},
+  {code:"zh", name:"中文",         dir:"ltr", bcp:"zh-CN"}
+];
+const LANG_KEY = "tcea.mathtools.lang";
+
+/* ---------- Translations ---------- */
+const T = {
+  en:{
+    appTitle:"Power Lab: Exponents & Scientific Notation", home:"Home", privacy:"Privacy", teacher:"Teacher",
+    mPow:"Powers & Prime Factors", mLaws:"Exponent Laws", mRoot:"Square & Cube Roots", mSci:"Scientific Notation", mOps:"Compute & Compare",
+    newRound:"New problem", readAloud:"Read aloud", choicesLbl:"Answer choices", modesLbl:"Modes", solved:"Problems solved",
+    footNote:"No accounts · No data collected · Works offline",
+    teacherTitle:"Teacher settings", close:"Close", setGrade:"Grade level", g6:"Grade 6", g7:"Grade 7", g8:"Grade 8",
+    gradeNote:"Choosing a grade resets the options below. Grade 6: whole-number exponents, prime factorization, and large numbers only. Grade 7: adds zero and negative exponents and small numbers. Grade 8: the full range, including fractions under a root and powers of 10 up to 10¹².",
+    setExp:"Largest power of 10", setNeg:"Negative exponents", negOn:"Include zero and negative exponents", setModes:"Modes",
+    setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
+    setStored:"Settings are saved only on this device. No student information is ever stored.",
+    check:"Check", startOver:"Start over", youPicked:"You chose {x}.",
+    wPlus:"plus", wMinus:"minus", wTimes:"times", wDiv:"divided by", wEq:"equals", ltW:"is less than", gtW:"is greater than",
+    negSay:"negative {x}", frSay:"{n} over {d}", powSay:"{b} to the power of {e}", sqW:"{b} squared", cubeW:"{b} cubed",
+    sciSay:"{c} times 10 to the power of {e}", sqrtSay:"the square root of {n}", cbrtSay:"the cube root of {n}", pmSay:"plus or minus {x}",
+    xEq:"x equals {v}", orW:"or", andW:"and", placesL:"Moved {k} places left", placesR:"Moved {k} places right", placesZ:"Not moved yet",
+    ptLbl:"Decimal point. Use the arrow keys to move it.", ptLeft:"Move the point left", ptRight:"Move the point right",
+    pinLbl:"Number line pin", lineLbl:"Number line from {a} to {b}",
+    expDir:"Which expression means {p}?", expDirR:"Write {x} using an exponent.",
+    expGood:"Yes! {p} means {b} used as a factor {e} times: {x}. The base is {b} and the exponent is {e}.",
+    expHint:"An exponent counts factors. {p} means multiply {b} by itself, with {e} factors of {b} in all. It is not {b} × {e}.",
+    evalDir:"Find the value of {p}. Tap each factor to multiply step by step.",
+    evalGood:"Yes! {p} = {x} = {v}.", runLbl:"Running product: {v}",
+    evalHint:"Multiply one factor at a time: tap the factors in order and watch the running product. {p} is not {b} × {e}.",
+    areaDir:"Each small square is 1 unit². What is the area of this square? Pick the power and its value.",
+    volDir:"Each small cube is 1 unit³. How many cubes build this cube? Pick the power and its value.",
+    areaGood:"Yes! The square is {b} by {b}, so its area is {p} = {v} square units. That is why {p} is read \"{b} squared\".",
+    volGood:"Yes! The cube is {b} by {b} by {b}, so it holds {p} = {v} cubes. That is why {p} is read \"{b} cubed\".",
+    areaHint:"Count the side: {b} units. Area = side × side, so multiply {b} × {b}.",
+    volHint:"Count one edge: {b} cubes. Volume = edge × edge × edge, so multiply {b} × {b} × {b}.",
+    treeDir:"Build a factor tree for {n}. Tap a number that is not prime, then pick a way to split it.",
+    treeSplit:"Split {n} into:", treeNotYet:"Some branches are not finished. Every leaf must be a prime number (circled in green).",
+    treePrime:"{n} is prime: its only factors are 1 and {n}. It stays a leaf.",
+    treeDone:"Every leaf is prime! Now write {n} as a product of primes using exponents.",
+    treeGood:"Yes! {n} = {x} = {f}. Repeated prime factors are grouped with exponents.",
+    treeHint:"Count how many times each prime appears as a leaf. That count is its exponent. The leaves are: {x}.",
+    ooDir:"Find the value. Remember: exponents come before multiplying, dividing, adding and subtracting.",
+    ooGood:"Yes! First the power: {p}. Then {rest}.",
+    ooHint:"Use the order of operations: parentheses first, then exponents, then multiply and divide, then add and subtract. Here: {p}.",
+    prodDir:"Simplify {e}. Each tile is one factor. Write the answer as a single power.",
+    prodGood:"Yes! There are {m} + {n} = {k} factors of {b} in all, so {e} = {r}. Rule: {rule} — add the exponents.",
+    prodHint:"Count all the tiles: {m} in the first group and {n} in the second. Multiplying powers with the same base does not multiply the exponents or the bases.",
+    quoDir:"Simplify {e}. Tap a tile to cancel a factor on top with one on the bottom ({b} ÷ {b} = 1). Then write the answer as a single power.",
+    quoCancel:"Pairs cancelled: {k}. Each pair is {b} ÷ {b} = 1.",
+    quoGood:"Yes! Each pair cancels to 1, leaving {left}. So {e} = {r}. Rule: {rule} — subtract the exponents.",
+    quoGood0:"Yes! Every factor cancels, leaving 1. So {e} = {r} = 1. This is why any nonzero number to the power 0 equals 1.",
+    quoGoodN:"Yes! Each pair cancels to 1, leaving {left}. Subtracting the exponents gives {m} − {n} = {d}, so {e} = {r}. A negative exponent means a reciprocal: {r} = {left}.",
+    quoHint:"Cancel the pairs first. The answer's exponent is (factors on top) − (factors on the bottom): {m} − {n}.",
+    ppDir:"Simplify {e}. There are {n} groups, and each group is {p}. Write the answer as a single power.",
+    ppGood:"Yes! {n} groups of {m} factors make {n} × {m} = {k} factors, so {e} = {r}. Rule: {rule} — multiply the exponents.",
+    ppHint:"Count the tiles: {n} groups with {m} factors each. That is {n} × {m} factors, not {n} + {m}.",
+    patDir:"Follow the pattern down the table. What is {p}?",
+    patGood0:"Yes! Each step down divides by {b}. {q}, so {p} = 1. That is why {rule} for any nonzero a.",
+    patGoodN:"Yes! Keep dividing by {b}: {p} = {v}. So {rule}, the reciprocal of {an}. A negative exponent never makes the number negative.",
+    patHint:"Moving down one row, the exponent goes down by 1 and the value is divided by {b}. Take the row above ({v}) and divide it by {b}.",
+    mixDir:"Find the value. Write your answer as a number.",
+    mixGood:"Yes! {e} = {r} = {v}.",
+    mixHint:"First combine the exponents into a single power of {b}: {r}. A negative exponent means the reciprocal; an exponent of 0 gives 1.",
+    sqDir:"Solve {eq}. Each side of the square is x, and its area is {p}.",
+    sqGood:"Yes! {y} and {z}, so x = {r}. A square-root equation has two solutions: x = ±√{p}.",
+    sqGoodI:"Yes! {p} is not a perfect square, so we write the exact answer with a root symbol: x = {r}. Both the positive and negative roots work.",
+    sqHint:"Think: what number times itself equals {p}? Don't forget the negative: a negative times a negative is positive.",
+    cbDir:"Solve {eq}. Each edge of the cube is x, and its volume is {p}.",
+    cbGood:"Yes! {y}, so x = {r}. A cube-root equation has only one real solution, because a negative number cubed stays negative.",
+    cbHint:"Think: what number used as a factor three times equals {p}? Note that (−a) × (−a) × (−a) is negative, so there is no ± here.",
+    evDir:"Find the value of {x}.",
+    evGoodS:"Yes! {x} = {r}, because {chk}. The √ symbol means the positive (principal) square root.",
+    evGoodC:"Yes! {x} = {r}, because {chk}.",
+    evHint:"Look for a number that, used as a factor {k}, gives {n}. Try small whole numbers.", twiceW:"twice", threeW:"three times",
+    btwDir:"{x} is between which two consecutive whole numbers?", btwPair:"{a} and {b}",
+    btwGood:"Yes! {a2} < {n} < {b2}, so {x} is between {a} and {b}.",
+    btwHint:"Find the perfect squares just below and just above {n}.",
+    estDir:"Drag the pin to estimate {x} to the nearest tenth, then press Check.",
+    estGood:"Yes! {x} ≈ {v}. Check: {v} × {v} = {sq}, which is close to {n}.",
+    estHint:"{x} is between {a} and {b} because {a2} < {n} < {b2}. Is {n} closer to {a2} or to {b2}?",
+    estFar:"Your pin is at {p}. {x} is {dir}.", estMore:"greater", estLess:"less",
+    irrDir:"Is {x} rational or irrational?", ratW:"Rational", irrW:"Irrational",
+    irrGoodR:"Yes! {n} is a perfect square, so {x} = {r}, a whole number. It is rational.",
+    irrGoodI:"Yes! {n} is not a perfect square, so {x} is irrational: its decimal ({v}…) never ends and never repeats.",
+    irrHint:"Ask: is {n} a perfect square? Perfect squares near it are {a2} and {b2}.",
+    tsDir:"Slide the red decimal point until the first factor is at least 1 and less than 10. Then press Check.",
+    tsGood:"Yes! {n} = {s}. The point moved {k} places {dir}, so the exponent is {e}.",
+    tsBig:"The first factor {c} is 10 or more. Slide the point left; each place left multiplies by another 10.",
+    tsSmall:"The first factor {c} is less than 1. Slide the point right; each place right divides by another 10.",
+    stDir:"Write {s} in standard form: slide the decimal point until the power of 10 is {one}. Then press Check.",
+    stGood:"Yes! {s} = {n}. Multiplying by {p} moves the point {k} places {dir}.",
+    stHint:"The exponent is {e}. A positive exponent makes the number larger (move right); a negative exponent makes it smaller (move left). Keep sliding until the power of 10 is {one} = 1.",
+    dirL:"left", dirR:"right",
+    eqDir:"Which is the best estimate, written as a single digit times a power of 10?",
+    eqGood:"Yes! {n} ≈ {s}. Round the first digits to {c}, then count the places the point moves: {k}.",
+    eqHint:"Round to one nonzero digit first. Then count how many places the decimal point moves to sit right after that digit.",
+    mulDir:"Multiply. Write the answer in scientific notation.", divDir:"Divide. Write the answer in scientific notation.",
+    mulGood:"Yes! Multiply the first factors: {cc}. Add the exponents: {ee}. {fix}",
+    divGood:"Yes! Divide the first factors: {cc}. Subtract the exponents: {ee}. {fix}",
+    fixNote:"Then renormalize: {a} = {b}.", fixOk:"The first factor is already between 1 and 10.",
+    mulHint:"Group the parts: (first factors) × (powers of 10). Multiply {c1} × {c2}, and add the exponents {e1} + {e2}. Then make sure the first factor is between 1 and 10.",
+    divHint:"Group the parts: (first factors) ÷ (powers of 10). Divide {c1} ÷ {c2}, and subtract the exponents {e1} − {e2}. Then make sure the first factor is between 1 and 10.",
+    addDir:"Add. Write the answer in scientific notation.",
+    addGood:"Yes! {how} So the sum is {r}.", addSame:"The powers of 10 match, so add the first factors: {cc}.",
+    addConv:"First rewrite with the same power of 10: {b} = {b2}. Then add the first factors: {cc}.",
+    addHint:"You can only add the first factors when the powers of 10 match (like adding apples to apples). Don't add the exponents.",
+    timesDir:"How many times as large as {b} is {a}?",
+    timesGood:"Yes! {a} = ({cc}) × ({pp}) = {r}.",
+    timesHint:"Divide the larger number by the smaller: divide the first factors, and subtract the exponents ({e1} − {e2}).",
+    sunDir:"Light travels about {a} km each second. The Sun is about {b} km from Earth. About how many seconds does sunlight take to reach Earth?",
+    ordDir:"Tap the numbers in order from least to greatest.", ordRow:"Least → greatest:",
+    ordGood:"Yes! In order: {list}.",
+    ordHint:"Not yet: {y} is less than {x}. Compare the powers of 10 first; if they match, compare the first factors.",
+    calcDir:"A calculator shows this answer. What number is it?",
+    calcGood:"Yes! On a calculator, E{e} means {p}. So {c} = {s} = {n}.",
+    calcHint:"The E stands for “times 10 to the power”. {c} means {s}, so slide the decimal point {k} places {dir}.",
+    cMoon:"The average distance from Earth to the Moon is about {x} km.", cSun:"Earth is about {x} km from the Sun.",
+    cLight:"Light travels about {x} meters every second.", cWorld:"About {x} people live on Earth.",
+    cUS:"About {x} people live in the United States.", cTexas:"About {x} people live in Texas.",
+    cAge:"Earth is about {x} years old.", cYear:"A 365-day year has {x} seconds.",
+    cBlood:"A red blood cell is about {x} m across.", cHair:"A human hair is about {x} m thick.",
+    cAtom:"A hydrogen atom is about {x} m across.", cVirus:"A flu virus is about {x} m across.",
+    cPaper:"A sheet of paper is about {x} m thick.", cAnt:"An ant has a mass of about {x} kg.",
+    cBact:"An E. coli bacterium is about {x} m long.",
+    stds:"Aligned standards — Texas TEKS: Grade 6: 6.7(A); Grade 8: 8.2(B), 8.2(C), 8.2(D). Common Core: 6.EE.1; 8.EE.1, 8.EE.2, 8.EE.3, 8.EE.4; 8.NS.2.",
+    cardTitle:"Power Lab — Challenge Cards", cardName:"Name:",
+    cardPow:"Find each value. Then write the prime factorization of the last number with exponents.",
+    cardLaws:"Simplify. Write each answer as a single power, then find its value.",
+    cardRoot:"Solve each equation. Then place the square root on the number line.",
+    cardSci:"Write the first two numbers in scientific notation and the last two in standard form.",
+    cardOps:"Compute. Write each answer in scientific notation."
+  },
+  es:{
+    appTitle:"Laboratorio de Potencias: Exponentes y Notación Científica", home:"Inicio", privacy:"Privacidad", teacher:"Maestro",
+    mPow:"Potencias y factores primos", mLaws:"Leyes de los exponentes", mRoot:"Raíces cuadradas y cúbicas", mSci:"Notación científica", mOps:"Calcular y comparar",
+    newRound:"Nuevo problema", readAloud:"Leer en voz alta", choicesLbl:"Opciones de respuesta", modesLbl:"Modos", solved:"Problemas resueltos",
+    footNote:"Sin cuentas · Sin datos · Funciona sin conexión",
+    teacherTitle:"Ajustes del maestro", close:"Cerrar", setGrade:"Grado", g6:"6.º grado", g7:"7.º grado", g8:"8.º grado",
+    gradeNote:"Al elegir un grado, las opciones de abajo vuelven a sus valores. 6.º: exponentes enteros no negativos, factorización prima y solo números grandes. 7.º: agrega exponentes cero y negativos y números pequeños. 8.º: todo el rango, con fracciones dentro de la raíz y potencias de 10 hasta 10¹².",
+    setExp:"Mayor potencia de 10", setNeg:"Exponentes negativos", negOn:"Incluir exponentes cero y negativos", setModes:"Modos",
+    setSpeech:"Voz", autoRead:"Leer instrucciones automáticamente", printCards:"Imprimir tarjetas de reto",
+    setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información del estudiante.",
+    check:"Revisar", startOver:"Empezar de nuevo", youPicked:"Elegiste {x}.",
+    wPlus:"más", wMinus:"menos", wTimes:"por", wDiv:"entre", wEq:"es igual a", ltW:"es menor que", gtW:"es mayor que",
+    negSay:"{x} negativo", frSay:"{n} sobre {d}", powSay:"{b} elevado a la {e}", sqW:"{b} al cuadrado", cubeW:"{b} al cubo",
+    sciSay:"{c} por 10 elevado a la {e}", sqrtSay:"la raíz cuadrada de {n}", cbrtSay:"la raíz cúbica de {n}", pmSay:"más o menos {x}",
+    xEq:"x es igual a {v}", orW:"o", andW:"y", placesL:"Se movió {k} lugares a la izquierda", placesR:"Se movió {k} lugares a la derecha", placesZ:"Todavía no se ha movido",
+    ptLbl:"Punto decimal. Usa las flechas para moverlo.", ptLeft:"Mover el punto a la izquierda", ptRight:"Mover el punto a la derecha",
+    pinLbl:"Marcador de la recta numérica", lineLbl:"Recta numérica de {a} a {b}",
+    expDir:"¿Qué expresión significa {p}?", expDirR:"Escribe {x} usando un exponente.",
+    expGood:"¡Sí! {p} significa usar {b} como factor {e} veces: {x}. La base es {b} y el exponente es {e}.",
+    expHint:"Un exponente cuenta factores. {p} significa multiplicar {b} por sí mismo, con {e} factores de {b} en total. No es {b} × {e}.",
+    evalDir:"Calcula el valor de {p}. Toca cada factor para multiplicar paso a paso.",
+    evalGood:"¡Sí! {p} = {x} = {v}.", runLbl:"Producto acumulado: {v}",
+    evalHint:"Multiplica un factor a la vez: toca los factores en orden y observa el producto acumulado. {p} no es {b} × {e}.",
+    areaDir:"Cada cuadradito mide 1 unidad². ¿Cuál es el área de este cuadrado? Elige la potencia y su valor.",
+    volDir:"Cada cubito mide 1 unidad³. ¿Cuántos cubitos forman este cubo? Elige la potencia y su valor.",
+    areaGood:"¡Sí! El cuadrado mide {b} por {b}, así que su área es {p} = {v} unidades cuadradas. Por eso {p} se lee \"{b} al cuadrado\".",
+    volGood:"¡Sí! El cubo mide {b} por {b} por {b}, así que tiene {p} = {v} cubitos. Por eso {p} se lee \"{b} al cubo\".",
+    areaHint:"Cuenta el lado: {b} unidades. Área = lado × lado, así que multiplica {b} × {b}.",
+    volHint:"Cuenta una arista: {b} cubitos. Volumen = arista × arista × arista, así que multiplica {b} × {b} × {b}.",
+    treeDir:"Construye un árbol de factores para {n}. Toca un número que no sea primo y elige cómo separarlo.",
+    treeSplit:"Separa {n} en:", treeNotYet:"Hay ramas sin terminar. Cada hoja debe ser un número primo (encerrado en verde).",
+    treePrime:"{n} es primo: sus únicos factores son 1 y {n}. Se queda como hoja.",
+    treeDone:"¡Todas las hojas son primas! Ahora escribe {n} como producto de primos usando exponentes.",
+    treeGood:"¡Sí! {n} = {x} = {f}. Los factores primos repetidos se agrupan con exponentes.",
+    treeHint:"Cuenta cuántas veces aparece cada primo como hoja. Ese número es su exponente. Las hojas son: {x}.",
+    ooDir:"Calcula el valor. Recuerda: los exponentes van antes de multiplicar, dividir, sumar y restar.",
+    ooGood:"¡Sí! Primero la potencia: {p}. Luego {rest}.",
+    ooHint:"Usa el orden de las operaciones: primero paréntesis, luego exponentes, luego multiplicar y dividir, y al final sumar y restar. Aquí: {p}.",
+    prodDir:"Simplifica {e}. Cada ficha es un factor. Escribe la respuesta como una sola potencia.",
+    prodGood:"¡Sí! Hay {m} + {n} = {k} factores de {b} en total, así que {e} = {r}. Regla: {rule}: se suman los exponentes.",
+    prodHint:"Cuenta todas las fichas: {m} en el primer grupo y {n} en el segundo. Al multiplicar potencias de la misma base no se multiplican los exponentes ni las bases.",
+    quoDir:"Simplifica {e}. Toca una ficha para cancelar un factor de arriba con uno de abajo ({b} ÷ {b} = 1). Luego escribe la respuesta como una sola potencia.",
+    quoCancel:"Pares cancelados: {k}. Cada par es {b} ÷ {b} = 1.",
+    quoGood:"¡Sí! Cada par se cancela y da 1, y queda {left}. Entonces {e} = {r}. Regla: {rule}: se restan los exponentes.",
+    quoGood0:"¡Sí! Todos los factores se cancelan y queda 1. Entonces {e} = {r} = 1. Por eso cualquier número distinto de cero elevado a la 0 es igual a 1.",
+    quoGoodN:"¡Sí! Cada par se cancela y da 1, y queda {left}. Al restar los exponentes: {m} − {n} = {d}, así que {e} = {r}. Un exponente negativo indica un recíproco: {r} = {left}.",
+    quoHint:"Primero cancela los pares. El exponente de la respuesta es (factores arriba) − (factores abajo): {m} − {n}.",
+    ppDir:"Simplifica {e}. Hay {n} grupos y cada grupo es {p}. Escribe la respuesta como una sola potencia.",
+    ppGood:"¡Sí! {n} grupos de {m} factores forman {n} × {m} = {k} factores, así que {e} = {r}. Regla: {rule}: se multiplican los exponentes.",
+    ppHint:"Cuenta las fichas: {n} grupos con {m} factores cada uno. Son {n} × {m} factores, no {n} + {m}.",
+    patDir:"Sigue el patrón de la tabla hacia abajo. ¿Cuánto es {p}?",
+    patGood0:"¡Sí! Cada paso hacia abajo divide entre {b}. {q}, así que {p} = 1. Por eso {rule} para cualquier a distinto de cero.",
+    patGoodN:"¡Sí! Sigue dividiendo entre {b}: {p} = {v}. Así que {rule}, el recíproco de {an}. Un exponente negativo nunca hace negativo al número.",
+    patHint:"Al bajar una fila, el exponente baja 1 y el valor se divide entre {b}. Toma la fila de arriba ({v}) y divídela entre {b}.",
+    mixDir:"Calcula el valor. Escribe tu respuesta como un número.",
+    mixGood:"¡Sí! {e} = {r} = {v}.",
+    mixHint:"Primero combina los exponentes en una sola potencia de {b}: {r}. Un exponente negativo indica el recíproco; un exponente 0 da 1.",
+    sqDir:"Resuelve {eq}. Cada lado del cuadrado mide x y su área es {p}.",
+    sqGood:"¡Sí! {y} y {z}, así que x = {r}. Una ecuación con cuadrado tiene dos soluciones: x = ±√{p}.",
+    sqGoodI:"¡Sí! {p} no es un cuadrado perfecto, así que escribimos la respuesta exacta con el símbolo de raíz: x = {r}. Sirven la raíz positiva y la negativa.",
+    sqHint:"Piensa: ¿qué número multiplicado por sí mismo da {p}? No olvides el negativo: negativo por negativo es positivo.",
+    cbDir:"Resuelve {eq}. Cada arista del cubo mide x y su volumen es {p}.",
+    cbGood:"¡Sí! {y}, así que x = {r}. Una ecuación con cubo tiene una sola solución real, porque un número negativo al cubo sigue siendo negativo.",
+    cbHint:"Piensa: ¿qué número usado como factor tres veces da {p}? Fíjate que (−a) × (−a) × (−a) es negativo, así que aquí no hay ±.",
+    evDir:"Calcula el valor de {x}.",
+    evGoodS:"¡Sí! {x} = {r}, porque {chk}. El símbolo √ indica la raíz cuadrada positiva (principal).",
+    evGoodC:"¡Sí! {x} = {r}, porque {chk}.",
+    evHint:"Busca un número que, usado como factor {k}, dé {n}. Prueba con números enteros pequeños.", twiceW:"dos veces", threeW:"tres veces",
+    btwDir:"¿Entre qué dos números enteros consecutivos está {x}?", btwPair:"{a} y {b}",
+    btwGood:"¡Sí! {a2} < {n} < {b2}, así que {x} está entre {a} y {b}.",
+    btwHint:"Busca los cuadrados perfectos justo abajo y justo arriba de {n}.",
+    estDir:"Arrastra el marcador para estimar {x} a la décima más cercana y oprime Revisar.",
+    estGood:"¡Sí! {x} ≈ {v}. Comprueba: {v} × {v} = {sq}, que está cerca de {n}.",
+    estHint:"{x} está entre {a} y {b} porque {a2} < {n} < {b2}. ¿{n} está más cerca de {a2} o de {b2}?",
+    estFar:"Tu marcador está en {p}. {x} es {dir}.", estMore:"mayor", estLess:"menor",
+    irrDir:"¿{x} es racional o irracional?", ratW:"Racional", irrW:"Irracional",
+    irrGoodR:"¡Sí! {n} es un cuadrado perfecto, así que {x} = {r}, un número entero. Es racional.",
+    irrGoodI:"¡Sí! {n} no es un cuadrado perfecto, así que {x} es irracional: su decimal ({v}…) nunca termina ni se repite.",
+    irrHint:"Pregúntate: ¿{n} es un cuadrado perfecto? Los cuadrados perfectos cercanos son {a2} y {b2}.",
+    tsDir:"Desliza el punto decimal rojo hasta que el primer factor sea al menos 1 y menor que 10. Luego oprime Revisar.",
+    tsGood:"¡Sí! {n} = {s}. El punto se movió {k} lugares a la {dir}, así que el exponente es {e}.",
+    tsBig:"El primer factor {c} es 10 o más. Desliza el punto a la izquierda; cada lugar a la izquierda multiplica por otro 10.",
+    tsSmall:"El primer factor {c} es menor que 1. Desliza el punto a la derecha; cada lugar a la derecha divide entre otro 10.",
+    stDir:"Escribe {s} en forma estándar: desliza el punto decimal hasta que la potencia de 10 sea {one}. Luego oprime Revisar.",
+    stGood:"¡Sí! {s} = {n}. Multiplicar por {p} mueve el punto {k} lugares a la {dir}.",
+    stHint:"El exponente es {e}. Un exponente positivo hace el número más grande (mueve a la derecha); uno negativo lo hace más pequeño (mueve a la izquierda). Sigue deslizando hasta que la potencia de 10 sea {one} = 1.",
+    dirL:"izquierda", dirR:"derecha",
+    eqDir:"¿Cuál es la mejor estimación, escrita como un solo dígito por una potencia de 10?",
+    eqGood:"¡Sí! {n} ≈ {s}. Redondea las primeras cifras a {c} y cuenta los lugares que se mueve el punto: {k}.",
+    eqHint:"Primero redondea a un solo dígito distinto de cero. Luego cuenta cuántos lugares se mueve el punto decimal para quedar justo después de ese dígito.",
+    mulDir:"Multiplica. Escribe la respuesta en notación científica.", divDir:"Divide. Escribe la respuesta en notación científica.",
+    mulGood:"¡Sí! Multiplica los primeros factores: {cc}. Suma los exponentes: {ee}. {fix}",
+    divGood:"¡Sí! Divide los primeros factores: {cc}. Resta los exponentes: {ee}. {fix}",
+    fixNote:"Luego ajusta a notación científica: {a} = {b}.", fixOk:"El primer factor ya está entre 1 y 10.",
+    mulHint:"Agrupa las partes: (primeros factores) × (potencias de 10). Multiplica {c1} × {c2} y suma los exponentes {e1} + {e2}. Luego asegúrate de que el primer factor esté entre 1 y 10.",
+    divHint:"Agrupa las partes: (primeros factores) ÷ (potencias de 10). Divide {c1} ÷ {c2} y resta los exponentes {e1} − {e2}. Luego asegúrate de que el primer factor esté entre 1 y 10.",
+    addDir:"Suma. Escribe la respuesta en notación científica.",
+    addGood:"¡Sí! {how} Entonces la suma es {r}.", addSame:"Las potencias de 10 son iguales, así que suma los primeros factores: {cc}.",
+    addConv:"Primero escribe con la misma potencia de 10: {b} = {b2}. Luego suma los primeros factores: {cc}.",
+    addHint:"Solo puedes sumar los primeros factores cuando las potencias de 10 son iguales (como sumar manzanas con manzanas). No sumes los exponentes.",
+    timesDir:"¿Cuántas veces más grande que {b} es {a}?",
+    timesGood:"¡Sí! {a} = ({cc}) × ({pp}) = {r}.",
+    timesHint:"Divide el número mayor entre el menor: divide los primeros factores y resta los exponentes ({e1} − {e2}).",
+    sunDir:"La luz viaja unos {a} km cada segundo. El Sol está a unos {b} km de la Tierra. ¿Aproximadamente cuántos segundos tarda la luz del Sol en llegar a la Tierra?",
+    ordDir:"Toca los números en orden de menor a mayor.", ordRow:"Menor → mayor:",
+    ordGood:"¡Sí! En orden: {list}.",
+    ordHint:"Todavía no: {y} es menor que {x}. Compara primero las potencias de 10; si son iguales, compara los primeros factores.",
+    calcDir:"Una calculadora muestra esta respuesta. ¿Qué número es?",
+    calcGood:"¡Sí! En una calculadora, E{e} significa {p}. Entonces {c} = {s} = {n}.",
+    calcHint:"La E significa “por 10 elevado a”. {c} significa {s}, así que desliza el punto decimal {k} lugares a la {dir}.",
+    cMoon:"La distancia promedio de la Tierra a la Luna es de unos {x} km.", cSun:"La Tierra está a unos {x} km del Sol.",
+    cLight:"La luz viaja unos {x} metros cada segundo.", cWorld:"En la Tierra viven unos {x} habitantes.",
+    cUS:"En Estados Unidos viven unos {x} habitantes.", cTexas:"En Texas viven unos {x} habitantes.",
+    cAge:"La Tierra tiene unos {x} años.", cYear:"Un año de 365 días tiene {x} segundos.",
+    cBlood:"Un glóbulo rojo mide unos {x} m de ancho.", cHair:"Un cabello humano mide unos {x} m de grosor.",
+    cAtom:"Un átomo de hidrógeno mide unos {x} m de ancho.", cVirus:"Un virus de la gripe mide unos {x} m de ancho.",
+    cPaper:"Una hoja de papel mide unos {x} m de grosor.", cAnt:"Una hormiga tiene una masa de unos {x} kg.",
+    cBact:"Una bacteria E. coli mide unos {x} m de largo.",
+    stds:"Estándares alineados — TEKS de Texas: 6.º grado: 6.7(A); 8.º grado: 8.2(B), 8.2(C), 8.2(D). Common Core: 6.EE.1; 8.EE.1, 8.EE.2, 8.EE.3, 8.EE.4; 8.NS.2.",
+    cardTitle:"Laboratorio de Potencias — Tarjetas de reto", cardName:"Nombre:",
+    cardPow:"Calcula cada valor. Luego escribe la factorización prima del último número con exponentes.",
+    cardLaws:"Simplifica. Escribe cada respuesta como una sola potencia y luego calcula su valor.",
+    cardRoot:"Resuelve cada ecuación. Luego ubica la raíz cuadrada en la recta numérica.",
+    cardSci:"Escribe los dos primeros números en notación científica y los dos últimos en forma estándar.",
+    cardOps:"Calcula. Escribe cada respuesta en notación científica."
+  },
+  vi:{
+    appTitle:"Phòng thí nghiệm Lũy thừa: Số mũ và Ký hiệu khoa học", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên",
+    mPow:"Lũy thừa và thừa số nguyên tố", mLaws:"Quy tắc số mũ", mRoot:"Căn bậc hai và căn bậc ba", mSci:"Ký hiệu khoa học", mOps:"Tính toán và so sánh",
+    newRound:"Bài mới", readAloud:"Đọc to", choicesLbl:"Các lựa chọn", modesLbl:"Chế độ", solved:"Số bài đã giải",
+    footNote:"Không cần tài khoản · Không thu thập dữ liệu · Dùng được khi không có mạng",
+    teacherTitle:"Cài đặt cho giáo viên", close:"Đóng", setGrade:"Lớp", g6:"Lớp 6", g7:"Lớp 7", g8:"Lớp 8",
+    gradeNote:"Chọn lớp sẽ đặt lại các tùy chọn bên dưới. Lớp 6: số mũ tự nhiên, phân tích ra thừa số nguyên tố, và chỉ số lớn. Lớp 7: thêm số mũ 0, số mũ âm và số nhỏ. Lớp 8: toàn bộ, gồm phân số dưới dấu căn và lũy thừa của 10 đến 10¹².",
+    setExp:"Lũy thừa lớn nhất của 10", setNeg:"Số mũ âm", negOn:"Gồm số mũ 0 và số mũ âm", setModes:"Chế độ",
+    setSpeech:"Giọng đọc", autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
+    setStored:"Cài đặt chỉ được lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
+    check:"Kiểm tra", startOver:"Làm lại", youPicked:"Em đã chọn {x}.",
+    wPlus:"cộng", wMinus:"trừ", wTimes:"nhân", wDiv:"chia cho", wEq:"bằng", ltW:"nhỏ hơn", gtW:"lớn hơn",
+    negSay:"âm {x}", frSay:"{n} phần {d}", powSay:"{b} mũ {e}", sqW:"{b} bình phương", cubeW:"{b} lập phương",
+    sciSay:"{c} nhân 10 mũ {e}", sqrtSay:"căn bậc hai của {n}", cbrtSay:"căn bậc ba của {n}", pmSay:"cộng trừ {x}",
+    xEq:"x bằng {v}", orW:"hoặc", andW:"và", placesL:"Đã dời {k} chữ số sang trái", placesR:"Đã dời {k} chữ số sang phải", placesZ:"Chưa dời",
+    ptLbl:"Dấu thập phân. Dùng phím mũi tên để di chuyển.", ptLeft:"Dời dấu sang trái", ptRight:"Dời dấu sang phải",
+    pinLbl:"Ghim trên trục số", lineLbl:"Trục số từ {a} đến {b}",
+    expDir:"Biểu thức nào có nghĩa là {p}?", expDirR:"Viết {x} bằng số mũ.",
+    expGood:"Đúng rồi! {p} nghĩa là dùng {b} làm thừa số {e} lần: {x}. Cơ số là {b} và số mũ là {e}.",
+    expHint:"Số mũ đếm số thừa số. {p} nghĩa là nhân {b} với chính nó, có tất cả {e} thừa số {b}. Không phải {b} × {e}.",
+    evalDir:"Tìm giá trị của {p}. Chạm vào từng thừa số để nhân từng bước.",
+    evalGood:"Đúng rồi! {p} = {x} = {v}.", runLbl:"Tích tạm thời: {v}",
+    evalHint:"Nhân từng thừa số một: chạm các thừa số theo thứ tự và xem tích tạm thời. {p} không phải {b} × {e}.",
+    areaDir:"Mỗi ô vuông nhỏ là 1 đơn vị². Diện tích hình vuông này là bao nhiêu? Chọn lũy thừa và giá trị của nó.",
+    volDir:"Mỗi khối nhỏ là 1 đơn vị³. Cần bao nhiêu khối để xếp thành khối lập phương này? Chọn lũy thừa và giá trị của nó.",
+    areaGood:"Đúng rồi! Hình vuông có cạnh {b} và {b}, nên diện tích là {p} = {v} đơn vị vuông. Vì vậy {p} được đọc là \"{b} bình phương\".",
+    volGood:"Đúng rồi! Khối lập phương có kích thước {b} × {b} × {b}, nên gồm {p} = {v} khối. Vì vậy {p} được đọc là \"{b} lập phương\".",
+    areaHint:"Đếm một cạnh: {b} đơn vị. Diện tích = cạnh × cạnh, nên nhân {b} × {b}.",
+    volHint:"Đếm một cạnh: {b} khối. Thể tích = cạnh × cạnh × cạnh, nên nhân {b} × {b} × {b}.",
+    treeDir:"Vẽ cây thừa số cho {n}. Chạm vào một số không phải số nguyên tố, rồi chọn cách tách nó.",
+    treeSplit:"Tách {n} thành:", treeNotYet:"Vẫn còn nhánh chưa xong. Mỗi lá phải là số nguyên tố (khoanh màu xanh lá).",
+    treePrime:"{n} là số nguyên tố: chỉ có hai ước là 1 và {n}. Nó vẫn là lá.",
+    treeDone:"Mọi lá đều là số nguyên tố! Bây giờ viết {n} thành tích các thừa số nguyên tố bằng số mũ.",
+    treeGood:"Đúng rồi! {n} = {x} = {f}. Các thừa số nguyên tố lặp lại được gộp bằng số mũ.",
+    treeHint:"Đếm xem mỗi số nguyên tố xuất hiện bao nhiêu lần ở các lá. Số lần đó là số mũ. Các lá là: {x}.",
+    ooDir:"Tìm giá trị. Nhớ rằng: tính lũy thừa trước khi nhân, chia, cộng và trừ.",
+    ooGood:"Đúng rồi! Trước hết tính lũy thừa: {p}. Sau đó {rest}.",
+    ooHint:"Dùng thứ tự thực hiện phép tính: ngoặc trước, rồi lũy thừa, rồi nhân chia, cuối cùng cộng trừ. Ở đây: {p}.",
+    prodDir:"Rút gọn {e}. Mỗi ô là một thừa số. Viết đáp án thành một lũy thừa.",
+    prodGood:"Đúng rồi! Có tất cả {m} + {n} = {k} thừa số {b}, nên {e} = {r}. Quy tắc: {rule}: cộng các số mũ.",
+    prodHint:"Đếm tất cả các ô: {m} ở nhóm đầu và {n} ở nhóm sau. Khi nhân hai lũy thừa cùng cơ số, không nhân các số mũ và không nhân các cơ số.",
+    quoDir:"Rút gọn {e}. Chạm vào một ô để gạch một thừa số ở trên với một thừa số ở dưới ({b} ÷ {b} = 1). Sau đó viết đáp án thành một lũy thừa.",
+    quoCancel:"Số cặp đã gạch: {k}. Mỗi cặp là {b} ÷ {b} = 1.",
+    quoGood:"Đúng rồi! Mỗi cặp gạch đi bằng 1, còn lại {left}. Vậy {e} = {r}. Quy tắc: {rule}: trừ các số mũ.",
+    quoGood0:"Đúng rồi! Mọi thừa số đều bị gạch, còn lại 1. Vậy {e} = {r} = 1. Đó là lý do mọi số khác 0 mũ 0 đều bằng 1.",
+    quoGoodN:"Đúng rồi! Mỗi cặp gạch đi bằng 1, còn lại {left}. Trừ các số mũ: {m} − {n} = {d}, nên {e} = {r}. Số mũ âm nghĩa là nghịch đảo: {r} = {left}.",
+    quoHint:"Gạch các cặp trước. Số mũ của đáp án là (số thừa số ở trên) − (số thừa số ở dưới): {m} − {n}.",
+    ppDir:"Rút gọn {e}. Có {n} nhóm, mỗi nhóm là {p}. Viết đáp án thành một lũy thừa.",
+    ppGood:"Đúng rồi! {n} nhóm, mỗi nhóm {m} thừa số, tạo thành {n} × {m} = {k} thừa số, nên {e} = {r}. Quy tắc: {rule}: nhân các số mũ.",
+    ppHint:"Đếm các ô: {n} nhóm, mỗi nhóm {m} thừa số. Đó là {n} × {m} thừa số, không phải {n} + {m}.",
+    patDir:"Theo quy luật đi xuống trong bảng. {p} bằng bao nhiêu?",
+    patGood0:"Đúng rồi! Mỗi bước đi xuống là chia cho {b}. {q}, nên {p} = 1. Đó là lý do {rule} với mọi a khác 0.",
+    patGoodN:"Đúng rồi! Tiếp tục chia cho {b}: {p} = {v}. Vậy {rule}, là nghịch đảo của {an}. Số mũ âm không bao giờ làm số đó thành số âm.",
+    patHint:"Đi xuống một hàng, số mũ giảm 1 và giá trị được chia cho {b}. Lấy hàng phía trên ({v}) rồi chia cho {b}.",
+    mixDir:"Tìm giá trị. Viết đáp án dưới dạng một số.",
+    mixGood:"Đúng rồi! {e} = {r} = {v}.",
+    mixHint:"Trước hết gộp các số mũ thành một lũy thừa của {b}: {r}. Số mũ âm nghĩa là nghịch đảo; số mũ 0 cho kết quả 1.",
+    sqDir:"Giải {eq}. Mỗi cạnh hình vuông là x và diện tích là {p}.",
+    sqGood:"Đúng rồi! {y} và {z}, nên x = {r}. Phương trình bình phương có hai nghiệm: x = ±√{p}.",
+    sqGoodI:"Đúng rồi! {p} không phải số chính phương, nên ta viết đáp án chính xác bằng dấu căn: x = {r}. Cả căn dương và căn âm đều đúng.",
+    sqHint:"Hãy nghĩ: số nào nhân với chính nó bằng {p}? Đừng quên số âm: âm nhân âm ra dương.",
+    cbDir:"Giải {eq}. Mỗi cạnh khối lập phương là x và thể tích là {p}.",
+    cbGood:"Đúng rồi! {y}, nên x = {r}. Phương trình lập phương chỉ có một nghiệm thực, vì lập phương của số âm vẫn là số âm.",
+    cbHint:"Hãy nghĩ: số nào dùng làm thừa số ba lần bằng {p}? Lưu ý (−a) × (−a) × (−a) là số âm, nên ở đây không có ±.",
+    evDir:"Tìm giá trị của {x}.",
+    evGoodS:"Đúng rồi! {x} = {r}, vì {chk}. Ký hiệu √ chỉ căn bậc hai dương (căn chính).",
+    evGoodC:"Đúng rồi! {x} = {r}, vì {chk}.",
+    evHint:"Tìm một số mà khi dùng làm thừa số {k} thì được {n}. Thử các số tự nhiên nhỏ.", twiceW:"hai lần", threeW:"ba lần",
+    btwDir:"{x} nằm giữa hai số tự nhiên liên tiếp nào?", btwPair:"{a} và {b}",
+    btwGood:"Đúng rồi! {a2} < {n} < {b2}, nên {x} nằm giữa {a} và {b}.",
+    btwHint:"Tìm các số chính phương ngay dưới và ngay trên {n}.",
+    estDir:"Kéo ghim để ước lượng {x} đến hàng phần mười, rồi nhấn Kiểm tra.",
+    estGood:"Đúng rồi! {x} ≈ {v}. Kiểm tra: {v} × {v} = {sq}, gần với {n}.",
+    estHint:"{x} nằm giữa {a} và {b} vì {a2} < {n} < {b2}. {n} gần {a2} hơn hay gần {b2} hơn?",
+    estFar:"Ghim của em ở {p}. {x} {dir}.", estMore:"lớn hơn", estLess:"nhỏ hơn",
+    irrDir:"{x} là số hữu tỉ hay số vô tỉ?", ratW:"Số hữu tỉ", irrW:"Số vô tỉ",
+    irrGoodR:"Đúng rồi! {n} là số chính phương, nên {x} = {r}, một số tự nhiên. Nó là số hữu tỉ.",
+    irrGoodI:"Đúng rồi! {n} không phải số chính phương, nên {x} là số vô tỉ: phần thập phân ({v}…) không bao giờ kết thúc và không lặp lại.",
+    irrHint:"Hãy hỏi: {n} có phải số chính phương không? Các số chính phương gần đó là {a2} và {b2}.",
+    tsDir:"Trượt dấu thập phân màu đỏ cho đến khi thừa số đầu tiên lớn hơn hoặc bằng 1 và nhỏ hơn 10. Sau đó nhấn Kiểm tra.",
+    tsGood:"Đúng rồi! {n} = {s}. Dấu thập phân đã dời {k} chữ số sang {dir}, nên số mũ là {e}.",
+    tsBig:"Thừa số đầu tiên {c} lớn hơn hoặc bằng 10. Trượt dấu sang trái; mỗi chữ số sang trái là nhân thêm một lần 10.",
+    tsSmall:"Thừa số đầu tiên {c} nhỏ hơn 1. Trượt dấu sang phải; mỗi chữ số sang phải là chia thêm một lần 10.",
+    stDir:"Viết {s} ở dạng thông thường: trượt dấu thập phân cho đến khi lũy thừa của 10 là {one}. Sau đó nhấn Kiểm tra.",
+    stGood:"Đúng rồi! {s} = {n}. Nhân với {p} làm dấu thập phân dời {k} chữ số sang {dir}.",
+    stHint:"Số mũ là {e}. Số mũ dương làm số lớn hơn (dời sang phải); số mũ âm làm số nhỏ hơn (dời sang trái). Tiếp tục trượt cho đến khi lũy thừa của 10 là {one} = 1.",
+    dirL:"trái", dirR:"phải",
+    eqDir:"Ước lượng nào tốt nhất, viết dưới dạng một chữ số nhân với một lũy thừa của 10?",
+    eqGood:"Đúng rồi! {n} ≈ {s}. Làm tròn các chữ số đầu thành {c}, rồi đếm số chữ số dấu thập phân dời đi: {k}.",
+    eqHint:"Trước hết làm tròn còn một chữ số khác 0. Sau đó đếm dấu thập phân phải dời bao nhiêu chữ số để đứng ngay sau chữ số đó.",
+    mulDir:"Nhân. Viết đáp án bằng ký hiệu khoa học.", divDir:"Chia. Viết đáp án bằng ký hiệu khoa học.",
+    mulGood:"Đúng rồi! Nhân các thừa số đầu: {cc}. Cộng các số mũ: {ee}. {fix}",
+    divGood:"Đúng rồi! Chia các thừa số đầu: {cc}. Trừ các số mũ: {ee}. {fix}",
+    fixNote:"Sau đó chuẩn hóa: {a} = {b}.", fixOk:"Thừa số đầu đã nằm giữa 1 và 10.",
+    mulHint:"Nhóm các phần: (các thừa số đầu) × (các lũy thừa của 10). Nhân {c1} × {c2} và cộng các số mũ {e1} + {e2}. Sau đó kiểm tra thừa số đầu nằm giữa 1 và 10.",
+    divHint:"Nhóm các phần: (các thừa số đầu) ÷ (các lũy thừa của 10). Chia {c1} ÷ {c2} và trừ các số mũ {e1} − {e2}. Sau đó kiểm tra thừa số đầu nằm giữa 1 và 10.",
+    addDir:"Cộng. Viết đáp án bằng ký hiệu khoa học.",
+    addGood:"Đúng rồi! {how} Vậy tổng là {r}.", addSame:"Các lũy thừa của 10 giống nhau, nên cộng các thừa số đầu: {cc}.",
+    addConv:"Trước hết viết lại với cùng lũy thừa của 10: {b} = {b2}. Sau đó cộng các thừa số đầu: {cc}.",
+    addHint:"Chỉ được cộng các thừa số đầu khi lũy thừa của 10 giống nhau (như cộng táo với táo). Đừng cộng các số mũ.",
+    timesDir:"{a} lớn gấp bao nhiêu lần {b}?",
+    timesGood:"Đúng rồi! {a} = ({cc}) × ({pp}) = {r}.",
+    timesHint:"Chia số lớn cho số nhỏ: chia các thừa số đầu và trừ các số mũ ({e1} − {e2}).",
+    sunDir:"Ánh sáng đi khoảng {a} km mỗi giây. Mặt Trời cách Trái Đất khoảng {b} km. Ánh sáng Mặt Trời mất khoảng bao nhiêu giây để đến Trái Đất?",
+    ordDir:"Chạm các số theo thứ tự từ nhỏ đến lớn.", ordRow:"Nhỏ nhất → lớn nhất:",
+    ordGood:"Đúng rồi! Theo thứ tự: {list}.",
+    ordHint:"Chưa đúng: {y} nhỏ hơn {x}. So sánh lũy thừa của 10 trước; nếu bằng nhau thì so sánh thừa số đầu.",
+    calcDir:"Máy tính hiện đáp án này. Đó là số nào?",
+    calcGood:"Đúng rồi! Trên máy tính, E{e} nghĩa là {p}. Vậy {c} = {s} = {n}.",
+    calcHint:"Chữ E nghĩa là “nhân 10 mũ”. {c} nghĩa là {s}, nên trượt dấu thập phân {k} chữ số sang {dir}.",
+    cMoon:"Khoảng cách trung bình từ Trái Đất đến Mặt Trăng là khoảng {x} km.", cSun:"Trái Đất cách Mặt Trời khoảng {x} km.",
+    cLight:"Ánh sáng đi khoảng {x} mét mỗi giây.", cWorld:"Khoảng {x} người sống trên Trái Đất.",
+    cUS:"Khoảng {x} người sống ở Hoa Kỳ.", cTexas:"Khoảng {x} người sống ở Texas.",
+    cAge:"Trái Đất khoảng {x} năm tuổi.", cYear:"Một năm 365 ngày có {x} giây.",
+    cBlood:"Một tế bào hồng cầu rộng khoảng {x} m.", cHair:"Một sợi tóc người dày khoảng {x} m.",
+    cAtom:"Một nguyên tử hiđrô rộng khoảng {x} m.", cVirus:"Một virus cúm rộng khoảng {x} m.",
+    cPaper:"Một tờ giấy dày khoảng {x} m.", cAnt:"Một con kiến có khối lượng khoảng {x} kg.",
+    cBact:"Một vi khuẩn E. coli dài khoảng {x} m.",
+    stds:"Chuẩn liên quan — TEKS Texas: Lớp 6: 6.7(A); Lớp 8: 8.2(B), 8.2(C), 8.2(D). Common Core: 6.EE.1; 8.EE.1, 8.EE.2, 8.EE.3, 8.EE.4; 8.NS.2.",
+    cardTitle:"Phòng thí nghiệm Lũy thừa — Thẻ thử thách", cardName:"Họ tên:",
+    cardPow:"Tìm từng giá trị. Sau đó phân tích số cuối cùng ra thừa số nguyên tố bằng số mũ.",
+    cardLaws:"Rút gọn. Viết mỗi đáp án thành một lũy thừa, rồi tìm giá trị.",
+    cardRoot:"Giải mỗi phương trình. Sau đó đặt căn bậc hai lên trục số.",
+    cardSci:"Viết hai số đầu bằng ký hiệu khoa học và hai số cuối ở dạng thông thường.",
+    cardOps:"Tính. Viết mỗi đáp án bằng ký hiệu khoa học."
+  },
+  ar:{
+    appTitle:"مختبر القوى: الأسس والصيغة العلمية", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلّم",
+    mPow:"القوى والعوامل الأولية", mLaws:"قوانين الأسس", mRoot:"الجذور التربيعية والتكعيبية", mSci:"الصيغة العلمية", mOps:"احسب وقارن",
+    newRound:"مسألة جديدة", readAloud:"اقرأ بصوت عالٍ", choicesLbl:"خيارات الإجابة", modesLbl:"الأنماط", solved:"المسائل المحلولة",
+    footNote:"بلا حسابات · لا نجمع بيانات · يعمل دون اتصال",
+    teacherTitle:"إعدادات المعلّم", close:"إغلاق", setGrade:"الصف", g6:"الصف السادس", g7:"الصف السابع", g8:"الصف الثامن",
+    gradeNote:"اختيار الصف يعيد الخيارات أدناه إلى قيمها. الصف السادس: أسس صحيحة غير سالبة، والتحليل إلى العوامل الأولية، والأعداد الكبيرة فقط. الصف السابع: يضيف الأس صفر والأسس السالبة والأعداد الصغيرة. الصف الثامن: المدى الكامل، مع كسور تحت الجذر وقوى 10 حتى 10¹².",
+    setExp:"أكبر قوة للعدد 10", setNeg:"الأسس السالبة", negOn:"تضمين الأس صفر والأسس السالبة", setModes:"الأنماط",
+    setSpeech:"الصوت", autoRead:"قراءة التعليمات تلقائيًا", printCards:"طباعة بطاقات التحدي",
+    setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُخزَّن أي معلومات عن الطلاب.",
+    check:"تحقّق", startOver:"ابدأ من جديد", youPicked:"اخترت {x}.",
+    wPlus:"زائد", wMinus:"ناقص", wTimes:"ضرب", wDiv:"قسمة", wEq:"يساوي", ltW:"أصغر من", gtW:"أكبر من",
+    negSay:"سالب {x}", frSay:"{n} على {d}", powSay:"{b} أُس {e}", sqW:"{b} تربيع", cubeW:"{b} تكعيب",
+    sciSay:"{c} ضرب 10 أُس {e}", sqrtSay:"الجذر التربيعي للعدد {n}", cbrtSay:"الجذر التكعيبي للعدد {n}", pmSay:"موجب أو سالب {x}",
+    xEq:"x يساوي {v}", orW:"أو", andW:"و", placesL:"تحركت {k} منازل إلى اليسار", placesR:"تحركت {k} منازل إلى اليمين", placesZ:"لم تتحرك بعد",
+    ptLbl:"الفاصلة العشرية. استخدم مفاتيح الأسهم لتحريكها.", ptLeft:"حرّك الفاصلة إلى اليسار", ptRight:"حرّك الفاصلة إلى اليمين",
+    pinLbl:"مؤشر خط الأعداد", lineLbl:"خط الأعداد من {a} إلى {b}",
+    expDir:"أي تعبير يعني {p}؟", expDirR:"اكتب {x} باستخدام أُس.",
+    expGood:"نعم! {p} يعني استخدام {b} عاملًا {e} مرات: {x}. الأساس {b} والأُس {e}.",
+    expHint:"الأُس يعدّ العوامل. {p} يعني ضرب {b} في نفسه، بعدد {e} عوامل من {b}. وليس {b} × {e}.",
+    evalDir:"أوجد قيمة {p}. اضغط كل عامل لتضرب خطوة بخطوة.",
+    evalGood:"نعم! {p} = {x} = {v}.", runLbl:"حاصل الضرب حتى الآن: {v}",
+    evalHint:"اضرب عاملًا واحدًا في كل مرة: اضغط العوامل بالترتيب وراقب حاصل الضرب. {p} ليس {b} × {e}.",
+    areaDir:"كل مربع صغير مساحته 1 وحدة². ما مساحة هذا المربع؟ اختر القوة وقيمتها.",
+    volDir:"كل مكعب صغير حجمه 1 وحدة³. كم مكعبًا يبني هذا المكعب؟ اختر القوة وقيمتها.",
+    areaGood:"نعم! المربع {b} في {b}، إذن مساحته {p} = {v} وحدة مربعة. لهذا تُقرأ {p} \"{b} تربيع\".",
+    volGood:"نعم! المكعب {b} في {b} في {b}، إذن فيه {p} = {v} مكعبًا. لهذا تُقرأ {p} \"{b} تكعيب\".",
+    areaHint:"عُدّ الضلع: {b} وحدات. المساحة = الضلع × الضلع، إذن اضرب {b} × {b}.",
+    volHint:"عُدّ حرفًا واحدًا: {b} مكعبات. الحجم = الحرف × الحرف × الحرف، إذن اضرب {b} × {b} × {b}.",
+    treeDir:"ابنِ شجرة العوامل للعدد {n}. اضغط عددًا غير أولي، ثم اختر طريقة لتجزئته.",
+    treeSplit:"جزّئ {n} إلى:", treeNotYet:"بعض الفروع لم تكتمل. يجب أن تكون كل ورقة عددًا أوليًا (محاطًا بالأخضر).",
+    treePrime:"{n} عدد أولي: عاملاه الوحيدان 1 و {n}. يبقى ورقة.",
+    treeDone:"كل الأوراق أعداد أولية! الآن اكتب {n} على صورة حاصل ضرب أعداد أولية باستخدام الأسس.",
+    treeGood:"نعم! {n} = {x} = {f}. العوامل الأولية المكررة تُجمع باستخدام الأسس.",
+    treeHint:"عُدّ كم مرة يظهر كل عدد أولي ورقةً. هذا العدد هو أُسه. الأوراق هي: {x}.",
+    ooDir:"أوجد القيمة. تذكّر: الأسس قبل الضرب والقسمة والجمع والطرح.",
+    ooGood:"نعم! أولًا القوة: {p}. ثم {rest}.",
+    ooHint:"اتبع ترتيب العمليات: الأقواس أولًا، ثم الأسس، ثم الضرب والقسمة، ثم الجمع والطرح. هنا: {p}.",
+    prodDir:"بسّط {e}. كل بطاقة عامل واحد. اكتب الإجابة على صورة قوة واحدة.",
+    prodGood:"نعم! يوجد {m} + {n} = {k} عوامل من {b} في المجموع، إذن {e} = {r}. القاعدة: {rule}: نجمع الأسس.",
+    prodHint:"عُدّ كل البطاقات: {m} في المجموعة الأولى و {n} في الثانية. عند ضرب قوى لها الأساس نفسه لا نضرب الأسس ولا الأساسات.",
+    quoDir:"بسّط {e}. اضغط بطاقة لتحذف عاملًا في الأعلى مع عامل في الأسفل ({b} ÷ {b} = 1). ثم اكتب الإجابة على صورة قوة واحدة.",
+    quoCancel:"الأزواج المحذوفة: {k}. كل زوج هو {b} ÷ {b} = 1.",
+    quoGood:"نعم! كل زوج يُختصر إلى 1، فيبقى {left}. إذن {e} = {r}. القاعدة: {rule}: نطرح الأسس.",
+    quoGood0:"نعم! كل العوامل تُختصر فيبقى 1. إذن {e} = {r} = 1. لهذا فإن أي عدد غير الصفر مرفوعًا للأس 0 يساوي 1.",
+    quoGoodN:"نعم! كل زوج يُختصر إلى 1، فيبقى {left}. بطرح الأسس: {m} − {n} = {d}، إذن {e} = {r}. الأس السالب يعني المقلوب: {r} = {left}.",
+    quoHint:"احذف الأزواج أولًا. أس الإجابة هو (العوامل في الأعلى) − (العوامل في الأسفل): {m} − {n}.",
+    ppDir:"بسّط {e}. توجد {n} مجموعات، وكل مجموعة هي {p}. اكتب الإجابة على صورة قوة واحدة.",
+    ppGood:"نعم! {n} مجموعات في كل منها {m} عوامل تعطي {n} × {m} = {k} عاملًا، إذن {e} = {r}. القاعدة: {rule}: نضرب الأسس.",
+    ppHint:"عُدّ البطاقات: {n} مجموعات في كل منها {m} عوامل. هذا {n} × {m} عاملًا، وليس {n} + {m}.",
+    patDir:"اتبع النمط نزولًا في الجدول. ما قيمة {p}؟",
+    patGood0:"نعم! كل خطوة إلى الأسفل قسمة على {b}. {q}، إذن {p} = 1. لهذا {rule} لأي a غير الصفر.",
+    patGoodN:"نعم! استمر في القسمة على {b}: {p} = {v}. إذن {rule}، أي مقلوب {an}. الأس السالب لا يجعل العدد سالبًا أبدًا.",
+    patHint:"عند النزول صفًّا واحدًا، ينقص الأس 1 وتُقسم القيمة على {b}. خذ قيمة الصف الأعلى ({v}) واقسمها على {b}.",
+    mixDir:"أوجد القيمة. اكتب إجابتك عددًا.",
+    mixGood:"نعم! {e} = {r} = {v}.",
+    mixHint:"اجمع الأسس أولًا في قوة واحدة للعدد {b}: {r}. الأس السالب يعني المقلوب، والأس 0 يعطي 1.",
+    sqDir:"حُلّ {eq}. كل ضلع في المربع طوله x، ومساحته {p}.",
+    sqGood:"نعم! {y} و {z}، إذن x = {r}. معادلة التربيع لها حلّان: x = ±√{p}.",
+    sqGoodI:"نعم! {p} ليس مربعًا كاملًا، لذلك نكتب الإجابة الدقيقة برمز الجذر: x = {r}. الجذر الموجب والسالب كلاهما يحقق المعادلة.",
+    sqHint:"فكّر: أي عدد مضروب في نفسه يساوي {p}؟ لا تنسَ السالب: سالب × سالب = موجب.",
+    cbDir:"حُلّ {eq}. كل حرف في المكعب طوله x، وحجمه {p}.",
+    cbGood:"نعم! {y}، إذن x = {r}. معادلة التكعيب لها حل حقيقي واحد فقط، لأن مكعب العدد السالب يبقى سالبًا.",
+    cbHint:"فكّر: أي عدد يُستخدم عاملًا ثلاث مرات يساوي {p}؟ لاحظ أن (−a) × (−a) × (−a) سالب، فلا يوجد ± هنا.",
+    evDir:"أوجد قيمة {x}.",
+    evGoodS:"نعم! {x} = {r}، لأن {chk}. الرمز √ يعني الجذر التربيعي الموجب (الرئيسي).",
+    evGoodC:"نعم! {x} = {r}، لأن {chk}.",
+    evHint:"ابحث عن عدد إذا استُخدم عاملًا {k} يعطي {n}. جرّب أعدادًا صحيحة صغيرة.", twiceW:"مرتين", threeW:"ثلاث مرات",
+    btwDir:"بين أي عددين صحيحين متتاليين يقع {x}؟", btwPair:"{a} و {b}",
+    btwGood:"نعم! {a2} < {n} < {b2}، إذن {x} يقع بين {a} و {b}.",
+    btwHint:"أوجد المربعين الكاملين الأقرب تحت {n} وفوقه.",
+    estDir:"اسحب المؤشر لتقدّر {x} لأقرب جزء من عشرة، ثم اضغط تحقّق.",
+    estGood:"نعم! {x} ≈ {v}. تحقّق: {v} × {v} = {sq}، وهو قريب من {n}.",
+    estHint:"{x} يقع بين {a} و {b} لأن {a2} < {n} < {b2}. هل {n} أقرب إلى {a2} أم إلى {b2}؟",
+    estFar:"مؤشرك عند {p}. {x} {dir}.", estMore:"أكبر", estLess:"أصغر",
+    irrDir:"هل {x} عدد نسبي أم غير نسبي؟", ratW:"نسبي", irrW:"غير نسبي",
+    irrGoodR:"نعم! {n} مربع كامل، إذن {x} = {r}، وهو عدد صحيح. إنه عدد نسبي.",
+    irrGoodI:"نعم! {n} ليس مربعًا كاملًا، إذن {x} عدد غير نسبي: كسره العشري ({v}…) لا ينتهي ولا يتكرر.",
+    irrHint:"اسأل: هل {n} مربع كامل؟ المربعات الكاملة القريبة منه هي {a2} و {b2}.",
+    tsDir:"حرّك الفاصلة العشرية الحمراء حتى يصبح العامل الأول 1 أو أكثر وأقل من 10. ثم اضغط تحقّق.",
+    tsGood:"نعم! {n} = {s}. تحركت الفاصلة {k} منازل إلى {dir}، إذن الأس هو {e}.",
+    tsBig:"العامل الأول {c} يساوي 10 أو أكثر. حرّك الفاصلة إلى اليسار؛ كل منزلة إلى اليسار تعني الضرب في 10 مرة أخرى.",
+    tsSmall:"العامل الأول {c} أقل من 1. حرّك الفاصلة إلى اليمين؛ كل منزلة إلى اليمين تعني القسمة على 10 مرة أخرى.",
+    stDir:"اكتب {s} بالصيغة القياسية: حرّك الفاصلة العشرية حتى تصبح قوة 10 هي {one}. ثم اضغط تحقّق.",
+    stGood:"نعم! {s} = {n}. الضرب في {p} يحرّك الفاصلة {k} منازل إلى {dir}.",
+    stHint:"الأس هو {e}. الأس الموجب يكبّر العدد (حرّك إلى اليمين)، والأس السالب يصغّره (حرّك إلى اليسار). استمر حتى تصبح قوة 10 هي {one} = 1.",
+    dirL:"اليسار", dirR:"اليمين",
+    eqDir:"ما أفضل تقدير مكتوب على صورة رقم واحد مضروب في قوة للعدد 10؟",
+    eqGood:"نعم! {n} ≈ {s}. قرّب الأرقام الأولى إلى {c}، ثم عُدّ المنازل التي تتحركها الفاصلة: {k}.",
+    eqHint:"قرّب أولًا إلى رقم واحد غير صفري. ثم عُدّ كم منزلة تتحرك الفاصلة العشرية لتقف بعد هذا الرقم مباشرة.",
+    mulDir:"اضرب. اكتب الإجابة بالصيغة العلمية.", divDir:"اقسم. اكتب الإجابة بالصيغة العلمية.",
+    mulGood:"نعم! اضرب العاملين الأولين: {cc}. اجمع الأسس: {ee}. {fix}",
+    divGood:"نعم! اقسم العاملين الأولين: {cc}. اطرح الأسس: {ee}. {fix}",
+    fixNote:"ثم أعد الكتابة بالصيغة العلمية: {a} = {b}.", fixOk:"العامل الأول بين 1 و 10 بالفعل.",
+    mulHint:"جمّع الأجزاء: (العوامل الأولى) × (قوى 10). اضرب {c1} × {c2}، واجمع الأسس {e1} + {e2}. ثم تأكّد أن العامل الأول بين 1 و 10.",
+    divHint:"جمّع الأجزاء: (العوامل الأولى) ÷ (قوى 10). اقسم {c1} ÷ {c2}، واطرح الأسس {e1} − {e2}. ثم تأكّد أن العامل الأول بين 1 و 10.",
+    addDir:"اجمع. اكتب الإجابة بالصيغة العلمية.",
+    addGood:"نعم! {how} إذن المجموع {r}.", addSame:"قوى 10 متساوية، إذن اجمع العاملين الأولين: {cc}.",
+    addConv:"أعد الكتابة أولًا بقوة 10 نفسها: {b} = {b2}. ثم اجمع العاملين الأولين: {cc}.",
+    addHint:"لا يمكنك جمع العوامل الأولى إلا عندما تتساوى قوى 10 (مثل جمع تفاح مع تفاح). لا تجمع الأسس.",
+    timesDir:"كم مرة يساوي {a} العدد {b}؟",
+    timesGood:"نعم! {a} = ({cc}) × ({pp}) = {r}.",
+    timesHint:"اقسم العدد الأكبر على الأصغر: اقسم العاملين الأولين واطرح الأسس ({e1} − {e2}).",
+    sunDir:"يقطع الضوء نحو {a} كم في كل ثانية. تبعد الشمس نحو {b} كم عن الأرض. كم ثانية تقريبًا يستغرق ضوء الشمس ليصل إلى الأرض؟",
+    ordDir:"اضغط الأعداد بالترتيب من الأصغر إلى الأكبر.", ordRow:"الأصغر ← الأكبر:",
+    ordGood:"نعم! بالترتيب: {list}.",
+    ordHint:"ليس بعد: {y} أصغر من {x}. قارن قوى 10 أولًا؛ وإذا تساوت فقارن العوامل الأولى.",
+    calcDir:"تعرض آلة حاسبة هذه الإجابة. ما هذا العدد؟",
+    calcGood:"نعم! في الآلة الحاسبة، E{e} تعني {p}. إذن {c} = {s} = {n}.",
+    calcHint:"الحرف E يعني «ضرب 10 أُس». {c} تعني {s}، إذن حرّك الفاصلة العشرية {k} منازل إلى {dir}.",
+    cMoon:"متوسط المسافة من الأرض إلى القمر نحو {x} كم.", cSun:"تبعد الأرض عن الشمس نحو {x} كم.",
+    cLight:"يقطع الضوء نحو {x} متر في كل ثانية.", cWorld:"يعيش على الأرض نحو {x} شخص.",
+    cUS:"يعيش في الولايات المتحدة نحو {x} شخص.", cTexas:"يعيش في تكساس نحو {x} شخص.",
+    cAge:"عمر الأرض نحو {x} سنة.", cYear:"في السنة ذات 365 يومًا {x} ثانية.",
+    cBlood:"عرض خلية الدم الحمراء نحو {x} م.", cHair:"سُمك شعرة الإنسان نحو {x} م.",
+    cAtom:"عرض ذرة الهيدروجين نحو {x} م.", cVirus:"عرض فيروس الإنفلونزا نحو {x} م.",
+    cPaper:"سُمك ورقة نحو {x} م.", cAnt:"كتلة النملة نحو {x} كغ.",
+    cBact:"طول بكتيريا الإشريكية القولونية نحو {x} م.",
+    stds:"المعايير المرتبطة — معايير تكساس TEKS: الصف السادس: 6.7(A)؛ الصف الثامن: 8.2(B)، 8.2(C)، 8.2(D). Common Core: ‏6.EE.1؛ 8.EE.1، 8.EE.2، 8.EE.3، 8.EE.4؛ 8.NS.2.",
+    cardTitle:"مختبر القوى — بطاقات التحدي", cardName:"الاسم:",
+    cardPow:"أوجد كل قيمة. ثم اكتب التحليل إلى العوامل الأولية للعدد الأخير باستخدام الأسس.",
+    cardLaws:"بسّط. اكتب كل إجابة على صورة قوة واحدة، ثم أوجد قيمتها.",
+    cardRoot:"حُلّ كل معادلة. ثم ضع الجذر التربيعي على خط الأعداد.",
+    cardSci:"اكتب العددين الأولين بالصيغة العلمية والعددين الأخيرين بالصيغة القياسية.",
+    cardOps:"احسب. اكتب كل إجابة بالصيغة العلمية."
+  },
+  hi:{
+    appTitle:"घात प्रयोगशाला: घातांक और वैज्ञानिक संकेतन", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक",
+    mPow:"घात और अभाज्य गुणनखंड", mLaws:"घातांक के नियम", mRoot:"वर्गमूल और घनमूल", mSci:"वैज्ञानिक संकेतन", mOps:"गणना और तुलना",
+    newRound:"नया सवाल", readAloud:"ज़ोर से पढ़ें", choicesLbl:"उत्तर के विकल्प", modesLbl:"मोड", solved:"हल किए गए सवाल",
+    footNote:"कोई खाता नहीं · कोई डेटा नहीं लिया जाता · ऑफ़लाइन चलता है",
+    teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setGrade:"कक्षा", g6:"कक्षा 6", g7:"कक्षा 7", g8:"कक्षा 8",
+    gradeNote:"कक्षा चुनने पर नीचे के विकल्प उस कक्षा के अनुसार हो जाते हैं। कक्षा 6: पूर्ण संख्या घातांक, अभाज्य गुणनखंडन, और केवल बड़ी संख्याएँ। कक्षा 7: शून्य और ऋणात्मक घातांक तथा छोटी संख्याएँ जुड़ती हैं। कक्षा 8: पूरी रेंज, मूल के अंदर भिन्न और 10¹² तक 10 की घातें।",
+    setExp:"10 की सबसे बड़ी घात", setNeg:"ऋणात्मक घातांक", negOn:"शून्य और ऋणात्मक घातांक शामिल करें", setModes:"मोड",
+    setSpeech:"आवाज़", autoRead:"निर्देश अपने-आप पढ़ें", printCards:"चुनौती कार्ड प्रिंट करें",
+    setStored:"सेटिंग्स केवल इसी डिवाइस पर सहेजी जाती हैं। छात्रों की कोई जानकारी कभी संग्रहीत नहीं होती।",
+    check:"जाँचें", startOver:"फिर से शुरू करें", youPicked:"आपने {x} चुना।",
+    wPlus:"जोड़", wMinus:"घटा", wTimes:"गुणा", wDiv:"भाग", wEq:"बराबर", ltW:"से छोटा है", gtW:"से बड़ा है",
+    negSay:"ऋण {x}", frSay:"{n} बटा {d}", powSay:"{b} की घात {e}", sqW:"{b} का वर्ग", cubeW:"{b} का घन",
+    sciSay:"{c} गुणा 10 की घात {e}", sqrtSay:"{n} का वर्गमूल", cbrtSay:"{n} का घनमूल", pmSay:"धन या ऋण {x}",
+    xEq:"x बराबर {v}", orW:"या", andW:"और", placesL:"{k} स्थान बाएँ खिसका", placesR:"{k} स्थान दाएँ खिसका", placesZ:"अभी नहीं खिसका",
+    ptLbl:"दशमलव बिंदु। इसे खिसकाने के लिए तीर कुंजियों का उपयोग करें।", ptLeft:"बिंदु को बाएँ खिसकाएँ", ptRight:"बिंदु को दाएँ खिसकाएँ",
+    pinLbl:"संख्या रेखा की पिन", lineLbl:"{a} से {b} तक संख्या रेखा",
+    expDir:"कौन-सा व्यंजक {p} का अर्थ है?", expDirR:"{x} को घातांक का उपयोग करके लिखें।",
+    expGood:"हाँ! {p} का अर्थ है {b} को {e} बार गुणनखंड के रूप में लेना: {x}। आधार {b} है और घातांक {e} है।",
+    expHint:"घातांक गुणनखंडों को गिनता है। {p} का अर्थ है {b} को स्वयं से गुणा करना, कुल {e} गुणनखंड {b} के। यह {b} × {e} नहीं है।",
+    evalDir:"{p} का मान ज्ञात करें। हर गुणनखंड को टैप करके कदम-दर-कदम गुणा करें।",
+    evalGood:"हाँ! {p} = {x} = {v}।", runLbl:"अब तक का गुणनफल: {v}",
+    evalHint:"एक बार में एक गुणनखंड से गुणा करें: गुणनखंडों को क्रम से टैप करें और गुणनफल देखें। {p} का मान {b} × {e} नहीं है।",
+    areaDir:"हर छोटा वर्ग 1 इकाई² है। इस वर्ग का क्षेत्रफल कितना है? घात और उसका मान चुनें।",
+    volDir:"हर छोटा घन 1 इकाई³ है। इस घन को बनाने में कितने घन लगे? घात और उसका मान चुनें।",
+    areaGood:"हाँ! वर्ग {b} गुणा {b} है, इसलिए उसका क्षेत्रफल {p} = {v} वर्ग इकाई है। इसीलिए {p} को \"{b} का वर्ग\" पढ़ते हैं।",
+    volGood:"हाँ! घन {b} गुणा {b} गुणा {b} है, इसलिए उसमें {p} = {v} घन हैं। इसीलिए {p} को \"{b} का घन\" पढ़ते हैं।",
+    areaHint:"भुजा गिनें: {b} इकाई। क्षेत्रफल = भुजा × भुजा, इसलिए {b} × {b} करें।",
+    volHint:"एक किनारा गिनें: {b} घन। आयतन = किनारा × किनारा × किनारा, इसलिए {b} × {b} × {b} करें।",
+    treeDir:"{n} के लिए गुणनखंड वृक्ष बनाएँ। ऐसी संख्या टैप करें जो अभाज्य न हो, फिर उसे बाँटने का तरीका चुनें।",
+    treeSplit:"{n} को बाँटें:", treeNotYet:"कुछ शाखाएँ अधूरी हैं। हर पत्ती एक अभाज्य संख्या होनी चाहिए (हरे घेरे में)।",
+    treePrime:"{n} अभाज्य है: इसके केवल गुणनखंड 1 और {n} हैं। यह पत्ती ही रहेगी।",
+    treeDone:"हर पत्ती अभाज्य है! अब {n} को घातांकों का उपयोग करके अभाज्य संख्याओं के गुणनफल के रूप में लिखें।",
+    treeGood:"हाँ! {n} = {x} = {f}। दोहराए गए अभाज्य गुणनखंडों को घातांक से समूहित किया जाता है।",
+    treeHint:"गिनें कि हर अभाज्य संख्या पत्ती के रूप में कितनी बार आती है। वही उसका घातांक है। पत्तियाँ हैं: {x}।",
+    ooDir:"मान ज्ञात करें। याद रखें: गुणा, भाग, जोड़ और घटाव से पहले घातांक।",
+    ooGood:"हाँ! पहले घात: {p}। फिर {rest}।",
+    ooHint:"संक्रियाओं का क्रम अपनाएँ: पहले कोष्ठक, फिर घातांक, फिर गुणा और भाग, फिर जोड़ और घटाव। यहाँ: {p}।",
+    prodDir:"{e} को सरल करें। हर टाइल एक गुणनखंड है। उत्तर को एक ही घात के रूप में लिखें।",
+    prodGood:"हाँ! कुल {m} + {n} = {k} गुणनखंड {b} के हैं, इसलिए {e} = {r}। नियम: {rule}: घातांक जोड़ें।",
+    prodHint:"सभी टाइलें गिनें: पहले समूह में {m} और दूसरे में {n}। समान आधार वाली घातों को गुणा करते समय घातांकों या आधारों को गुणा नहीं करते।",
+    quoDir:"{e} को सरल करें। ऊपर के एक गुणनखंड को नीचे के एक गुणनखंड से काटने के लिए टाइल टैप करें ({b} ÷ {b} = 1)। फिर उत्तर को एक ही घात के रूप में लिखें।",
+    quoCancel:"कटे हुए जोड़े: {k}। हर जोड़ा {b} ÷ {b} = 1 है।",
+    quoGood:"हाँ! हर जोड़ा कटकर 1 बनता है, बचता है {left}। इसलिए {e} = {r}। नियम: {rule}: घातांक घटाएँ।",
+    quoGood0:"हाँ! सभी गुणनखंड कट जाते हैं, बचता है 1। इसलिए {e} = {r} = 1। इसीलिए किसी भी शून्येतर संख्या की घात 0 बराबर 1 होती है।",
+    quoGoodN:"हाँ! हर जोड़ा कटकर 1 बनता है, बचता है {left}। घातांक घटाने पर {m} − {n} = {d}, इसलिए {e} = {r}। ऋणात्मक घातांक का अर्थ है व्युत्क्रम: {r} = {left}।",
+    quoHint:"पहले जोड़े काटें। उत्तर का घातांक है (ऊपर के गुणनखंड) − (नीचे के गुणनखंड): {m} − {n}।",
+    ppDir:"{e} को सरल करें। {n} समूह हैं, और हर समूह {p} है। उत्तर को एक ही घात के रूप में लिखें।",
+    ppGood:"हाँ! {m} गुणनखंडों वाले {n} समूह मिलकर {n} × {m} = {k} गुणनखंड बनाते हैं, इसलिए {e} = {r}। नियम: {rule}: घातांक गुणा करें।",
+    ppHint:"टाइलें गिनें: {n} समूह, हर एक में {m} गुणनखंड। यह {n} × {m} गुणनखंड हैं, {n} + {m} नहीं।",
+    patDir:"तालिका में नीचे की ओर पैटर्न देखें। {p} कितना है?",
+    patGood0:"हाँ! नीचे हर कदम पर {b} से भाग होता है। {q}, इसलिए {p} = 1। इसीलिए किसी भी शून्येतर a के लिए {rule}।",
+    patGoodN:"हाँ! {b} से भाग देते रहें: {p} = {v}। इसलिए {rule}, यानी {an} का व्युत्क्रम। ऋणात्मक घातांक संख्या को कभी ऋणात्मक नहीं बनाता।",
+    patHint:"एक पंक्ति नीचे जाने पर घातांक 1 घटता है और मान {b} से भाग होता है। ऊपर की पंक्ति ({v}) लें और उसे {b} से भाग दें।",
+    mixDir:"मान ज्ञात करें। अपना उत्तर एक संख्या के रूप में लिखें।",
+    mixGood:"हाँ! {e} = {r} = {v}।",
+    mixHint:"पहले घातांकों को मिलाकर {b} की एक घात बनाएँ: {r}। ऋणात्मक घातांक का अर्थ व्युत्क्रम है; घातांक 0 से 1 मिलता है।",
+    sqDir:"{eq} हल करें। वर्ग की हर भुजा x है, और उसका क्षेत्रफल {p} है।",
+    sqGood:"हाँ! {y} और {z}, इसलिए x = {r}। वर्ग वाले समीकरण के दो हल होते हैं: x = ±√{p}।",
+    sqGoodI:"हाँ! {p} पूर्ण वर्ग नहीं है, इसलिए सटीक उत्तर मूल चिह्न से लिखते हैं: x = {r}। धनात्मक और ऋणात्मक दोनों मूल सही हैं।",
+    sqHint:"सोचें: कौन-सी संख्या स्वयं से गुणा होकर {p} बनती है? ऋणात्मक को न भूलें: ऋण × ऋण = धन।",
+    cbDir:"{eq} हल करें। घन का हर किनारा x है, और उसका आयतन {p} है।",
+    cbGood:"हाँ! {y}, इसलिए x = {r}। घन वाले समीकरण का केवल एक वास्तविक हल होता है, क्योंकि ऋणात्मक संख्या का घन ऋणात्मक ही रहता है।",
+    cbHint:"सोचें: कौन-सी संख्या तीन बार गुणनखंड बनकर {p} देती है? ध्यान दें (−a) × (−a) × (−a) ऋणात्मक है, इसलिए यहाँ ± नहीं है।",
+    evDir:"{x} का मान ज्ञात करें।",
+    evGoodS:"हाँ! {x} = {r}, क्योंकि {chk}। √ चिह्न धनात्मक (मुख्य) वर्गमूल दर्शाता है।",
+    evGoodC:"हाँ! {x} = {r}, क्योंकि {chk}।",
+    evHint:"ऐसी संख्या खोजें जो {k} गुणनखंड बनकर {n} दे। छोटी पूर्ण संख्याएँ आज़माएँ।", twiceW:"दो बार", threeW:"तीन बार",
+    btwDir:"{x} किन दो क्रमागत पूर्ण संख्याओं के बीच है?", btwPair:"{a} और {b}",
+    btwGood:"हाँ! {a2} < {n} < {b2}, इसलिए {x} {a} और {b} के बीच है।",
+    btwHint:"{n} के ठीक नीचे और ठीक ऊपर के पूर्ण वर्ग खोजें।",
+    estDir:"{x} का निकटतम दसवें तक अनुमान लगाने के लिए पिन खींचें, फिर जाँचें दबाएँ।",
+    estGood:"हाँ! {x} ≈ {v}। जाँच: {v} × {v} = {sq}, जो {n} के पास है।",
+    estHint:"{x} {a} और {b} के बीच है क्योंकि {a2} < {n} < {b2}। क्या {n}, {a2} के ज़्यादा पास है या {b2} के?",
+    estFar:"आपकी पिन {p} पर है। {x} {dir} है।", estMore:"इससे बड़ा", estLess:"इससे छोटा",
+    irrDir:"क्या {x} परिमेय है या अपरिमेय?", ratW:"परिमेय", irrW:"अपरिमेय",
+    irrGoodR:"हाँ! {n} पूर्ण वर्ग है, इसलिए {x} = {r}, एक पूर्ण संख्या। यह परिमेय है।",
+    irrGoodI:"हाँ! {n} पूर्ण वर्ग नहीं है, इसलिए {x} अपरिमेय है: इसका दशमलव ({v}…) न कभी खत्म होता है, न दोहराता है।",
+    irrHint:"पूछें: क्या {n} पूर्ण वर्ग है? इसके पास के पूर्ण वर्ग {a2} और {b2} हैं।",
+    tsDir:"लाल दशमलव बिंदु को तब तक खिसकाएँ जब तक पहला गुणनखंड कम से कम 1 और 10 से कम न हो जाए। फिर जाँचें दबाएँ।",
+    tsGood:"हाँ! {n} = {s}। बिंदु {k} स्थान {dir} खिसका, इसलिए घातांक {e} है।",
+    tsBig:"पहला गुणनखंड {c} 10 या उससे अधिक है। बिंदु को बाएँ खिसकाएँ; हर स्थान बाएँ जाने पर एक और 10 से गुणा होता है।",
+    tsSmall:"पहला गुणनखंड {c} 1 से कम है। बिंदु को दाएँ खिसकाएँ; हर स्थान दाएँ जाने पर एक और 10 से भाग होता है।",
+    stDir:"{s} को मानक रूप में लिखें: दशमलव बिंदु को तब तक खिसकाएँ जब तक 10 की घात {one} न हो जाए। फिर जाँचें दबाएँ।",
+    stGood:"हाँ! {s} = {n}। {p} से गुणा करने पर बिंदु {k} स्थान {dir} खिसकता है।",
+    stHint:"घातांक {e} है। धनात्मक घातांक संख्या को बड़ा करता है (दाएँ खिसकाएँ); ऋणात्मक घातांक छोटा करता है (बाएँ खिसकाएँ)। तब तक खिसकाएँ जब तक 10 की घात {one} = 1 न हो जाए।",
+    dirL:"बाएँ", dirR:"दाएँ",
+    eqDir:"एक अंक गुणा 10 की घात के रूप में लिखा सबसे अच्छा अनुमान कौन-सा है?",
+    eqGood:"हाँ! {n} ≈ {s}। पहले अंकों को {c} तक पूर्णांकित करें, फिर गिनें कि बिंदु कितने स्थान खिसकता है: {k}।",
+    eqHint:"पहले एक शून्येतर अंक तक पूर्णांकित करें। फिर गिनें कि दशमलव बिंदु को उस अंक के ठीक बाद आने के लिए कितने स्थान खिसकना है।",
+    mulDir:"गुणा करें। उत्तर वैज्ञानिक संकेतन में लिखें।", divDir:"भाग दें। उत्तर वैज्ञानिक संकेतन में लिखें।",
+    mulGood:"हाँ! पहले गुणनखंडों को गुणा करें: {cc}। घातांक जोड़ें: {ee}। {fix}",
+    divGood:"हाँ! पहले गुणनखंडों को भाग दें: {cc}। घातांक घटाएँ: {ee}। {fix}",
+    fixNote:"फिर वैज्ञानिक संकेतन में ठीक करें: {a} = {b}।", fixOk:"पहला गुणनखंड पहले से 1 और 10 के बीच है।",
+    mulHint:"भागों को समूहित करें: (पहले गुणनखंड) × (10 की घातें)। {c1} × {c2} करें, और घातांक {e1} + {e2} जोड़ें। फिर देखें कि पहला गुणनखंड 1 और 10 के बीच हो।",
+    divHint:"भागों को समूहित करें: (पहले गुणनखंड) ÷ (10 की घातें)। {c1} ÷ {c2} करें, और घातांक {e1} − {e2} घटाएँ। फिर देखें कि पहला गुणनखंड 1 और 10 के बीच हो।",
+    addDir:"जोड़ें। उत्तर वैज्ञानिक संकेतन में लिखें।",
+    addGood:"हाँ! {how} इसलिए योग {r} है।", addSame:"10 की घातें समान हैं, इसलिए पहले गुणनखंड जोड़ें: {cc}।",
+    addConv:"पहले 10 की समान घात से दोबारा लिखें: {b} = {b2}। फिर पहले गुणनखंड जोड़ें: {cc}।",
+    addHint:"पहले गुणनखंड तभी जोड़ सकते हैं जब 10 की घातें समान हों (जैसे सेब में सेब जोड़ना)। घातांक न जोड़ें।",
+    timesDir:"{a}, {b} का कितने गुना है?",
+    timesGood:"हाँ! {a} = ({cc}) × ({pp}) = {r}।",
+    timesHint:"बड़ी संख्या को छोटी से भाग दें: पहले गुणनखंडों को भाग दें, और घातांक घटाएँ ({e1} − {e2})।",
+    sunDir:"प्रकाश हर सेकंड लगभग {a} किमी चलता है। सूर्य पृथ्वी से लगभग {b} किमी दूर है। सूर्य के प्रकाश को पृथ्वी तक पहुँचने में लगभग कितने सेकंड लगते हैं?",
+    ordDir:"संख्याओं को सबसे छोटी से सबसे बड़ी के क्रम में टैप करें।", ordRow:"सबसे छोटी → सबसे बड़ी:",
+    ordGood:"हाँ! क्रम में: {list}।",
+    ordHint:"अभी नहीं: {y}, {x} से छोटा है। पहले 10 की घातों की तुलना करें; अगर वे समान हों तो पहले गुणनखंडों की।",
+    calcDir:"कैलकुलेटर यह उत्तर दिखाता है। यह कौन-सी संख्या है?",
+    calcGood:"हाँ! कैलकुलेटर पर E{e} का अर्थ है {p}। इसलिए {c} = {s} = {n}।",
+    calcHint:"E का अर्थ है “गुणा 10 की घात”। {c} का अर्थ है {s}, इसलिए दशमलव बिंदु को {k} स्थान {dir} खिसकाएँ।",
+    cMoon:"पृथ्वी से चंद्रमा की औसत दूरी लगभग {x} किमी है।", cSun:"पृथ्वी सूर्य से लगभग {x} किमी दूर है।",
+    cLight:"प्रकाश हर सेकंड लगभग {x} मीटर चलता है।", cWorld:"पृथ्वी पर लगभग {x} लोग रहते हैं।",
+    cUS:"संयुक्त राज्य अमेरिका में लगभग {x} लोग रहते हैं।", cTexas:"टेक्सस में लगभग {x} लोग रहते हैं।",
+    cAge:"पृथ्वी लगभग {x} वर्ष पुरानी है।", cYear:"365 दिन के एक वर्ष में {x} सेकंड होते हैं।",
+    cBlood:"एक लाल रक्त कोशिका लगभग {x} मी चौड़ी होती है।", cHair:"मनुष्य का एक बाल लगभग {x} मी मोटा होता है।",
+    cAtom:"हाइड्रोजन का एक परमाणु लगभग {x} मी चौड़ा होता है।", cVirus:"फ़्लू का एक वायरस लगभग {x} मी चौड़ा होता है।",
+    cPaper:"कागज़ की एक शीट लगभग {x} मी मोटी होती है।", cAnt:"एक चींटी का द्रव्यमान लगभग {x} किग्रा होता है।",
+    cBact:"एक ई. कोलाई जीवाणु लगभग {x} मी लंबा होता है।",
+    stds:"संबंधित मानक — टेक्सस TEKS: कक्षा 6: 6.7(A); कक्षा 8: 8.2(B), 8.2(C), 8.2(D)। Common Core: 6.EE.1; 8.EE.1, 8.EE.2, 8.EE.3, 8.EE.4; 8.NS.2।",
+    cardTitle:"घात प्रयोगशाला — चुनौती कार्ड", cardName:"नाम:",
+    cardPow:"हर मान ज्ञात करें। फिर अंतिम संख्या का अभाज्य गुणनखंडन घातांकों के साथ लिखें।",
+    cardLaws:"सरल करें। हर उत्तर को एक ही घात के रूप में लिखें, फिर उसका मान ज्ञात करें।",
+    cardRoot:"हर समीकरण हल करें। फिर वर्गमूल को संख्या रेखा पर रखें।",
+    cardSci:"पहली दो संख्याओं को वैज्ञानिक संकेतन में और अंतिम दो को मानक रूप में लिखें।",
+    cardOps:"गणना करें। हर उत्तर वैज्ञानिक संकेतन में लिखें।"
+  },
+  ur:{
+    appTitle:"قوت لیب: قوت نما اور سائنسی ترقیم", home:"ہوم", privacy:"رازداری", teacher:"استاد",
+    mPow:"قوتیں اور مفرد اجزائے ضربی", mLaws:"قوت نما کے قوانین", mRoot:"جذرِ مربع اور جذرِ مکعب", mSci:"سائنسی ترقیم", mOps:"حساب اور موازنہ",
+    newRound:"نیا سوال", readAloud:"بلند آواز سے پڑھیں", choicesLbl:"جواب کے انتخاب", modesLbl:"موڈ", solved:"حل شدہ سوال",
+    footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا جمع نہیں ہوتا · آف لائن چلتا ہے",
+    teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setGrade:"جماعت", g6:"جماعت 6", g7:"جماعت 7", g8:"جماعت 8",
+    gradeNote:"جماعت منتخب کرنے سے نیچے کے اختیارات اس جماعت کے مطابق ہو جاتے ہیں۔ جماعت 6: مکمل عدد قوت نما، مفرد اجزائے ضربی، اور صرف بڑے اعداد۔ جماعت 7: صفر اور منفی قوت نما اور چھوٹے اعداد شامل۔ جماعت 8: پوری حد، جذر کے اندر کسور اور 10¹² تک 10 کی قوتیں۔",
+    setExp:"10 کی سب سے بڑی قوت", setNeg:"منفی قوت نما", negOn:"صفر اور منفی قوت نما شامل کریں", setModes:"موڈ",
+    setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں", printCards:"چیلنج کارڈ پرنٹ کریں",
+    setStored:"ترتیبات صرف اسی آلے پر محفوظ ہوتی ہیں۔ طلبہ کی کوئی معلومات کبھی محفوظ نہیں کی جاتی۔",
+    check:"جانچیں", startOver:"دوبارہ شروع کریں", youPicked:"آپ نے {x} چنا۔",
+    wPlus:"جمع", wMinus:"منفی", wTimes:"ضرب", wDiv:"تقسیم", wEq:"برابر", ltW:"سے چھوٹا ہے", gtW:"سے بڑا ہے",
+    negSay:"منفی {x}", frSay:"{n} بٹا {d}", powSay:"{b} کی قوت {e}", sqW:"{b} کا مربع", cubeW:"{b} کا مکعب",
+    sciSay:"{c} ضرب 10 کی قوت {e}", sqrtSay:"{n} کا جذرِ مربع", cbrtSay:"{n} کا جذرِ مکعب", pmSay:"مثبت یا منفی {x}",
+    xEq:"x برابر {v}", orW:"یا", andW:"اور", placesL:"{k} جگہ بائیں کھسکا", placesR:"{k} جگہ دائیں کھسکا", placesZ:"ابھی نہیں کھسکا",
+    ptLbl:"اعشاریہ۔ اسے کھسکانے کے لیے تیر والی کلیدیں استعمال کریں۔", ptLeft:"اعشاریہ بائیں کھسکائیں", ptRight:"اعشاریہ دائیں کھسکائیں",
+    pinLbl:"عددی خط کی پن", lineLbl:"{a} سے {b} تک عددی خط",
+    expDir:"کون سا اظہار {p} کا مطلب ہے؟", expDirR:"{x} کو قوت نما کے ساتھ لکھیں۔",
+    expGood:"جی ہاں! {p} کا مطلب ہے {b} کو {e} بار جزوِ ضربی کے طور پر لینا: {x}۔ اساس {b} ہے اور قوت نما {e} ہے۔",
+    expHint:"قوت نما اجزائے ضربی گنتا ہے۔ {p} کا مطلب ہے {b} کو خود سے ضرب دینا، کل {e} اجزا {b} کے۔ یہ {b} × {e} نہیں ہے۔",
+    evalDir:"{p} کی قیمت معلوم کریں۔ ہر جزوِ ضربی پر ٹیپ کر کے قدم بہ قدم ضرب دیں۔",
+    evalGood:"جی ہاں! {p} = {x} = {v}۔", runLbl:"اب تک کا حاصلِ ضرب: {v}",
+    evalHint:"ایک وقت میں ایک جزوِ ضربی سے ضرب دیں: اجزا کو ترتیب سے ٹیپ کریں اور حاصلِ ضرب دیکھیں۔ {p} کی قیمت {b} × {e} نہیں ہے۔",
+    areaDir:"ہر چھوٹا مربع 1 اکائی² ہے۔ اس مربع کا رقبہ کتنا ہے؟ قوت اور اس کی قیمت چنیں۔",
+    volDir:"ہر چھوٹا مکعب 1 اکائی³ ہے۔ یہ مکعب کتنے مکعبوں سے بنا ہے؟ قوت اور اس کی قیمت چنیں۔",
+    areaGood:"جی ہاں! مربع {b} ضرب {b} ہے، اس لیے اس کا رقبہ {p} = {v} مربع اکائیاں ہے۔ اسی لیے {p} کو \"{b} کا مربع\" پڑھتے ہیں۔",
+    volGood:"جی ہاں! مکعب {b} ضرب {b} ضرب {b} ہے، اس لیے اس میں {p} = {v} مکعب ہیں۔ اسی لیے {p} کو \"{b} کا مکعب\" پڑھتے ہیں۔",
+    areaHint:"ضلع گنیں: {b} اکائیاں۔ رقبہ = ضلع × ضلع، اس لیے {b} × {b} کریں۔",
+    volHint:"ایک کنارہ گنیں: {b} مکعب۔ حجم = کنارہ × کنارہ × کنارہ، اس لیے {b} × {b} × {b} کریں۔",
+    treeDir:"{n} کے لیے اجزائے ضربی کا درخت بنائیں۔ ایسے عدد پر ٹیپ کریں جو مفرد نہ ہو، پھر اسے تقسیم کرنے کا طریقہ چنیں۔",
+    treeSplit:"{n} کو تقسیم کریں:", treeNotYet:"کچھ شاخیں ادھوری ہیں۔ ہر پتا مفرد عدد ہونا چاہیے (سبز دائرے میں)۔",
+    treePrime:"{n} مفرد ہے: اس کے صرف اجزا 1 اور {n} ہیں۔ یہ پتا ہی رہے گا۔",
+    treeDone:"ہر پتا مفرد ہے! اب {n} کو قوت نما استعمال کر کے مفرد اعداد کے حاصلِ ضرب کے طور پر لکھیں۔",
+    treeGood:"جی ہاں! {n} = {x} = {f}۔ دہرائے گئے مفرد اجزا کو قوت نما سے اکٹھا کیا جاتا ہے۔",
+    treeHint:"گنیں کہ ہر مفرد عدد پتے کے طور پر کتنی بار آتا ہے۔ وہی اس کا قوت نما ہے۔ پتے یہ ہیں: {x}۔",
+    ooDir:"قیمت معلوم کریں۔ یاد رکھیں: ضرب، تقسیم، جمع اور تفریق سے پہلے قوت نما۔",
+    ooGood:"جی ہاں! پہلے قوت: {p}۔ پھر {rest}۔",
+    ooHint:"عملیات کی ترتیب اپنائیں: پہلے قوسین، پھر قوت نما، پھر ضرب اور تقسیم، پھر جمع اور تفریق۔ یہاں: {p}۔",
+    prodDir:"{e} کو سادہ کریں۔ ہر ٹائل ایک جزوِ ضربی ہے۔ جواب کو ایک ہی قوت کے طور پر لکھیں۔",
+    prodGood:"جی ہاں! کل {m} + {n} = {k} اجزا {b} کے ہیں، اس لیے {e} = {r}۔ قاعدہ: {rule}: قوت نما جمع کریں۔",
+    prodHint:"تمام ٹائلیں گنیں: پہلے گروہ میں {m} اور دوسرے میں {n}۔ ایک ہی اساس والی قوتوں کو ضرب دیتے وقت قوت نما یا اساسوں کو ضرب نہیں دیتے۔",
+    quoDir:"{e} کو سادہ کریں۔ اوپر کے ایک جزو کو نیچے کے ایک جزو سے کاٹنے کے لیے ٹائل پر ٹیپ کریں ({b} ÷ {b} = 1)۔ پھر جواب کو ایک ہی قوت کے طور پر لکھیں۔",
+    quoCancel:"کٹے ہوئے جوڑے: {k}۔ ہر جوڑا {b} ÷ {b} = 1 ہے۔",
+    quoGood:"جی ہاں! ہر جوڑا کٹ کر 1 بنتا ہے، باقی رہتا ہے {left}۔ اس لیے {e} = {r}۔ قاعدہ: {rule}: قوت نما تفریق کریں۔",
+    quoGood0:"جی ہاں! تمام اجزا کٹ جاتے ہیں، باقی 1 رہتا ہے۔ اس لیے {e} = {r} = 1۔ اسی لیے صفر کے علاوہ کسی بھی عدد کی قوت 0 برابر 1 ہوتی ہے۔",
+    quoGoodN:"جی ہاں! ہر جوڑا کٹ کر 1 بنتا ہے، باقی رہتا ہے {left}۔ قوت نما تفریق کرنے سے {m} − {n} = {d}، اس لیے {e} = {r}۔ منفی قوت نما کا مطلب معکوس ہے: {r} = {left}۔",
+    quoHint:"پہلے جوڑے کاٹیں۔ جواب کا قوت نما ہے (اوپر کے اجزا) − (نیچے کے اجزا): {m} − {n}۔",
+    ppDir:"{e} کو سادہ کریں۔ {n} گروہ ہیں، اور ہر گروہ {p} ہے۔ جواب کو ایک ہی قوت کے طور پر لکھیں۔",
+    ppGood:"جی ہاں! {m} اجزا والے {n} گروہ مل کر {n} × {m} = {k} اجزا بناتے ہیں، اس لیے {e} = {r}۔ قاعدہ: {rule}: قوت نما ضرب کریں۔",
+    ppHint:"ٹائلیں گنیں: {n} گروہ، ہر ایک میں {m} اجزا۔ یہ {n} × {m} اجزا ہیں، {n} + {m} نہیں۔",
+    patDir:"جدول میں نیچے کی طرف نمونہ دیکھیں۔ {p} کتنا ہے؟",
+    patGood0:"جی ہاں! نیچے ہر قدم پر {b} سے تقسیم ہوتی ہے۔ {q}، اس لیے {p} = 1۔ اسی لیے صفر کے علاوہ کسی بھی a کے لیے {rule}۔",
+    patGoodN:"جی ہاں! {b} سے تقسیم کرتے رہیں: {p} = {v}۔ اس لیے {rule}، یعنی {an} کا معکوس۔ منفی قوت نما عدد کو کبھی منفی نہیں بناتا۔",
+    patHint:"ایک قطار نیچے جانے پر قوت نما 1 کم ہوتا ہے اور قیمت {b} سے تقسیم ہوتی ہے۔ اوپر کی قطار ({v}) لیں اور اسے {b} سے تقسیم کریں۔",
+    mixDir:"قیمت معلوم کریں۔ اپنا جواب ایک عدد کے طور پر لکھیں۔",
+    mixGood:"جی ہاں! {e} = {r} = {v}۔",
+    mixHint:"پہلے قوت نما ملا کر {b} کی ایک قوت بنائیں: {r}۔ منفی قوت نما کا مطلب معکوس ہے؛ قوت نما 0 سے 1 ملتا ہے۔",
+    sqDir:"{eq} حل کریں۔ مربع کا ہر ضلع x ہے، اور اس کا رقبہ {p} ہے۔",
+    sqGood:"جی ہاں! {y} اور {z}، اس لیے x = {r}۔ مربع والی مساوات کے دو حل ہوتے ہیں: x = ±√{p}۔",
+    sqGoodI:"جی ہاں! {p} مکمل مربع نہیں ہے، اس لیے درست جواب جذر کی علامت سے لکھتے ہیں: x = {r}۔ مثبت اور منفی دونوں جذر درست ہیں۔",
+    sqHint:"سوچیں: کون سا عدد خود سے ضرب ہو کر {p} بنتا ہے؟ منفی کو نہ بھولیں: منفی × منفی = مثبت۔",
+    cbDir:"{eq} حل کریں۔ مکعب کا ہر کنارہ x ہے، اور اس کا حجم {p} ہے۔",
+    cbGood:"جی ہاں! {y}، اس لیے x = {r}۔ مکعب والی مساوات کا صرف ایک حقیقی حل ہوتا ہے، کیونکہ منفی عدد کا مکعب منفی ہی رہتا ہے۔",
+    cbHint:"سوچیں: کون سا عدد تین بار جزوِ ضربی بن کر {p} دیتا ہے؟ دھیان دیں کہ (−a) × (−a) × (−a) منفی ہے، اس لیے یہاں ± نہیں ہے۔",
+    evDir:"{x} کی قیمت معلوم کریں۔",
+    evGoodS:"جی ہاں! {x} = {r}، کیونکہ {chk}۔ علامت √ مثبت (بنیادی) جذرِ مربع ظاہر کرتی ہے۔",
+    evGoodC:"جی ہاں! {x} = {r}، کیونکہ {chk}۔",
+    evHint:"ایسا عدد تلاش کریں جو {k} جزوِ ضربی بن کر {n} دے۔ چھوٹے مکمل اعداد آزمائیں۔", twiceW:"دو بار", threeW:"تین بار",
+    btwDir:"{x} کن دو مسلسل مکمل اعداد کے درمیان ہے؟", btwPair:"{a} اور {b}",
+    btwGood:"جی ہاں! {a2} < {n} < {b2}، اس لیے {x}، {a} اور {b} کے درمیان ہے۔",
+    btwHint:"{n} کے بالکل نیچے اور بالکل اوپر کے مکمل مربع تلاش کریں۔",
+    estDir:"{x} کا قریب ترین دسویں حصے تک اندازہ لگانے کے لیے پن کھینچیں، پھر جانچیں دبائیں۔",
+    estGood:"جی ہاں! {x} ≈ {v}۔ جانچ: {v} × {v} = {sq}، جو {n} کے قریب ہے۔",
+    estHint:"{x}، {a} اور {b} کے درمیان ہے کیونکہ {a2} < {n} < {b2}۔ کیا {n}، {a2} کے زیادہ قریب ہے یا {b2} کے؟",
+    estFar:"آپ کی پن {p} پر ہے۔ {x} {dir} ہے۔", estMore:"اس سے بڑا", estLess:"اس سے چھوٹا",
+    irrDir:"کیا {x} ناطق ہے یا غیر ناطق؟", ratW:"ناطق", irrW:"غیر ناطق",
+    irrGoodR:"جی ہاں! {n} مکمل مربع ہے، اس لیے {x} = {r}، ایک مکمل عدد۔ یہ ناطق ہے۔",
+    irrGoodI:"جی ہاں! {n} مکمل مربع نہیں ہے، اس لیے {x} غیر ناطق ہے: اس کا اعشاریہ ({v}…) نہ کبھی ختم ہوتا ہے نہ دہراتا ہے۔",
+    irrHint:"سوچیں: کیا {n} مکمل مربع ہے؟ اس کے قریب کے مکمل مربع {a2} اور {b2} ہیں۔",
+    tsDir:"سرخ اعشاریہ کو اس وقت تک کھسکائیں جب تک پہلا جزو کم از کم 1 اور 10 سے کم نہ ہو جائے۔ پھر جانچیں دبائیں۔",
+    tsGood:"جی ہاں! {n} = {s}۔ اعشاریہ {k} جگہ {dir} کھسکا، اس لیے قوت نما {e} ہے۔",
+    tsBig:"پہلا جزو {c} 10 یا اس سے زیادہ ہے۔ اعشاریہ بائیں کھسکائیں؛ ہر جگہ بائیں جانے سے ایک اور 10 سے ضرب ہوتی ہے۔",
+    tsSmall:"پہلا جزو {c} 1 سے کم ہے۔ اعشاریہ دائیں کھسکائیں؛ ہر جگہ دائیں جانے سے ایک اور 10 سے تقسیم ہوتی ہے۔",
+    stDir:"{s} کو معیاری شکل میں لکھیں: اعشاریہ کو اس وقت تک کھسکائیں جب تک 10 کی قوت {one} نہ ہو جائے۔ پھر جانچیں دبائیں۔",
+    stGood:"جی ہاں! {s} = {n}۔ {p} سے ضرب دینے پر اعشاریہ {k} جگہ {dir} کھسکتا ہے۔",
+    stHint:"قوت نما {e} ہے۔ مثبت قوت نما عدد کو بڑا کرتا ہے (دائیں کھسکائیں)؛ منفی قوت نما چھوٹا کرتا ہے (بائیں کھسکائیں)۔ اس وقت تک کھسکائیں جب تک 10 کی قوت {one} = 1 نہ ہو جائے۔",
+    dirL:"بائیں", dirR:"دائیں",
+    eqDir:"ایک ہندسہ ضرب 10 کی قوت کی شکل میں لکھا بہترین اندازہ کون سا ہے؟",
+    eqGood:"جی ہاں! {n} ≈ {s}۔ پہلے ہندسوں کو {c} تک گول کریں، پھر گنیں کہ اعشاریہ کتنی جگہ کھسکتا ہے: {k}۔",
+    eqHint:"پہلے ایک غیر صفر ہندسے تک گول کریں۔ پھر گنیں کہ اعشاریہ کو اس ہندسے کے بالکل بعد آنے کے لیے کتنی جگہ کھسکنا ہے۔",
+    mulDir:"ضرب دیں۔ جواب سائنسی ترقیم میں لکھیں۔", divDir:"تقسیم کریں۔ جواب سائنسی ترقیم میں لکھیں۔",
+    mulGood:"جی ہاں! پہلے اجزا کو ضرب دیں: {cc}۔ قوت نما جمع کریں: {ee}۔ {fix}",
+    divGood:"جی ہاں! پہلے اجزا کو تقسیم کریں: {cc}۔ قوت نما تفریق کریں: {ee}۔ {fix}",
+    fixNote:"پھر سائنسی ترقیم میں درست کریں: {a} = {b}۔", fixOk:"پہلا جزو پہلے ہی 1 اور 10 کے درمیان ہے۔",
+    mulHint:"حصوں کو اکٹھا کریں: (پہلے اجزا) × (10 کی قوتیں)۔ {c1} × {c2} کریں، اور قوت نما {e1} + {e2} جمع کریں۔ پھر دیکھیں کہ پہلا جزو 1 اور 10 کے درمیان ہو۔",
+    divHint:"حصوں کو اکٹھا کریں: (پہلے اجزا) ÷ (10 کی قوتیں)۔ {c1} ÷ {c2} کریں، اور قوت نما {e1} − {e2} تفریق کریں۔ پھر دیکھیں کہ پہلا جزو 1 اور 10 کے درمیان ہو۔",
+    addDir:"جمع کریں۔ جواب سائنسی ترقیم میں لکھیں۔",
+    addGood:"جی ہاں! {how} اس لیے مجموعہ {r} ہے۔", addSame:"10 کی قوتیں ایک جیسی ہیں، اس لیے پہلے اجزا جمع کریں: {cc}۔",
+    addConv:"پہلے 10 کی ایک جیسی قوت سے دوبارہ لکھیں: {b} = {b2}۔ پھر پہلے اجزا جمع کریں: {cc}۔",
+    addHint:"پہلے اجزا تب ہی جمع ہو سکتے ہیں جب 10 کی قوتیں ایک جیسی ہوں (جیسے سیب میں سیب جمع کرنا)۔ قوت نما جمع نہ کریں۔",
+    timesDir:"{a}، {b} کا کتنے گنا ہے؟",
+    timesGood:"جی ہاں! {a} = ({cc}) × ({pp}) = {r}۔",
+    timesHint:"بڑے عدد کو چھوٹے سے تقسیم کریں: پہلے اجزا کو تقسیم کریں، اور قوت نما تفریق کریں ({e1} − {e2})۔",
+    sunDir:"روشنی ہر سیکنڈ میں تقریباً {a} کلومیٹر چلتی ہے۔ سورج زمین سے تقریباً {b} کلومیٹر دور ہے۔ سورج کی روشنی کو زمین تک پہنچنے میں تقریباً کتنے سیکنڈ لگتے ہیں؟",
+    ordDir:"اعداد کو سب سے چھوٹے سے سب سے بڑے کی ترتیب میں ٹیپ کریں۔", ordRow:"سب سے چھوٹا ← سب سے بڑا:",
+    ordGood:"جی ہاں! ترتیب میں: {list}۔",
+    ordHint:"ابھی نہیں: {y}، {x} سے چھوٹا ہے۔ پہلے 10 کی قوتوں کا موازنہ کریں؛ اگر وہ برابر ہوں تو پہلے اجزا کا۔",
+    calcDir:"کیلکولیٹر یہ جواب دکھاتا ہے۔ یہ کون سا عدد ہے؟",
+    calcGood:"جی ہاں! کیلکولیٹر پر E{e} کا مطلب ہے {p}۔ اس لیے {c} = {s} = {n}۔",
+    calcHint:"E کا مطلب ہے “ضرب 10 کی قوت”۔ {c} کا مطلب ہے {s}، اس لیے اعشاریہ {k} جگہ {dir} کھسکائیں۔",
+    cMoon:"زمین سے چاند کا اوسط فاصلہ تقریباً {x} کلومیٹر ہے۔", cSun:"زمین سورج سے تقریباً {x} کلومیٹر دور ہے۔",
+    cLight:"روشنی ہر سیکنڈ میں تقریباً {x} میٹر چلتی ہے۔", cWorld:"زمین پر تقریباً {x} لوگ رہتے ہیں۔",
+    cUS:"امریکہ میں تقریباً {x} لوگ رہتے ہیں۔", cTexas:"ٹیکساس میں تقریباً {x} لوگ رہتے ہیں۔",
+    cAge:"زمین تقریباً {x} سال پرانی ہے۔", cYear:"365 دن کے ایک سال میں {x} سیکنڈ ہوتے ہیں۔",
+    cBlood:"خون کا ایک سرخ خلیہ تقریباً {x} میٹر چوڑا ہوتا ہے۔", cHair:"انسان کا ایک بال تقریباً {x} میٹر موٹا ہوتا ہے۔",
+    cAtom:"ہائیڈروجن کا ایک ایٹم تقریباً {x} میٹر چوڑا ہوتا ہے۔", cVirus:"فلو کا ایک وائرس تقریباً {x} میٹر چوڑا ہوتا ہے۔",
+    cPaper:"کاغذ کی ایک شیٹ تقریباً {x} میٹر موٹی ہوتی ہے۔", cAnt:"ایک چیونٹی کی کمیت تقریباً {x} کلوگرام ہوتی ہے۔",
+    cBact:"ای کولائی کا ایک جراثیم تقریباً {x} میٹر لمبا ہوتا ہے۔",
+    stds:"متعلقہ معیارات — ٹیکساس TEKS: جماعت 6: 6.7(A)؛ جماعت 8: 8.2(B)، 8.2(C)، 8.2(D)۔ Common Core: ‏6.EE.1؛ 8.EE.1، 8.EE.2، 8.EE.3، 8.EE.4؛ 8.NS.2۔",
+    cardTitle:"قوت لیب — چیلنج کارڈ", cardName:"نام:",
+    cardPow:"ہر قیمت معلوم کریں۔ پھر آخری عدد کے مفرد اجزائے ضربی قوت نما کے ساتھ لکھیں۔",
+    cardLaws:"سادہ کریں۔ ہر جواب کو ایک ہی قوت کے طور پر لکھیں، پھر اس کی قیمت معلوم کریں۔",
+    cardRoot:"ہر مساوات حل کریں۔ پھر جذرِ مربع کو عددی خط پر رکھیں۔",
+    cardSci:"پہلے دو اعداد سائنسی ترقیم میں اور آخری دو معیاری شکل میں لکھیں۔",
+    cardOps:"حساب کریں۔ ہر جواب سائنسی ترقیم میں لکھیں۔"
+  },
+  zh:{
+    appTitle:"乘方实验室：指数与科学记数法", home:"首页", privacy:"隐私", teacher:"教师",
+    mPow:"乘方与质因数", mLaws:"指数运算法则", mRoot:"平方根与立方根", mSci:"科学记数法", mOps:"计算与比较",
+    newRound:"新题目", readAloud:"朗读", choicesLbl:"答案选项", modesLbl:"模式", solved:"已解决题数",
+    footNote:"无需账号 · 不收集数据 · 可离线使用",
+    teacherTitle:"教师设置", close:"关闭", setGrade:"年级", g6:"六年级", g7:"七年级", g8:"八年级",
+    gradeNote:"选择年级会把下面的选项重设为该年级的默认值。六年级：自然数指数、质因数分解，只有大数。七年级：增加零指数、负指数和很小的数。八年级：全部范围，包括根号下的分数和最高到 10¹² 的 10 的乘方。",
+    setExp:"10 的最高次幂", setNeg:"负指数", negOn:"包括零指数和负指数", setModes:"模式",
+    setSpeech:"语音", autoRead:"自动朗读说明", printCards:"打印挑战卡",
+    setStored:"设置只保存在这台设备上，从不保存任何学生信息。",
+    check:"检查", startOver:"重新开始", youPicked:"你选了 {x}。",
+    wPlus:"加", wMinus:"减", wTimes:"乘", wDiv:"除以", wEq:"等于", ltW:"小于", gtW:"大于",
+    negSay:"负 {x}", frSay:"{d} 分之 {n}", powSay:"{b} 的 {e} 次方", sqW:"{b} 的平方", cubeW:"{b} 的立方",
+    sciSay:"{c} 乘 10 的 {e} 次方", sqrtSay:"{n} 的平方根", cbrtSay:"{n} 的立方根", pmSay:"正负 {x}",
+    xEq:"x 等于 {v}", orW:"或", andW:"和", placesL:"向左移动了 {k} 位", placesR:"向右移动了 {k} 位", placesZ:"还没有移动",
+    ptLbl:"小数点。用方向键移动它。", ptLeft:"小数点向左移", ptRight:"小数点向右移",
+    pinLbl:"数轴上的标记", lineLbl:"从 {a} 到 {b} 的数轴",
+    expDir:"哪个式子表示 {p}？", expDirR:"用指数写出 {x}。",
+    expGood:"对！{p} 表示把 {b} 作为因数用 {e} 次：{x}。底数是 {b}，指数是 {e}。",
+    expHint:"指数表示因数的个数。{p} 表示 {b} 自己相乘，一共有 {e} 个 {b}。它不是 {b} × {e}。",
+    evalDir:"求 {p} 的值。依次点每个因数，一步一步地乘。",
+    evalGood:"对！{p} = {x} = {v}。", runLbl:"目前的乘积：{v}",
+    evalHint:"每次乘一个因数：按顺序点因数，观察乘积的变化。{p} 不是 {b} × {e}。",
+    areaDir:"每个小正方形是 1 平方单位。这个正方形的面积是多少？选出乘方和它的值。",
+    volDir:"每个小正方体是 1 立方单位。这个正方体由多少个小正方体组成？选出乘方和它的值。",
+    areaGood:"对！这个正方形是 {b} 乘 {b}，所以面积是 {p} = {v} 平方单位。所以 {p} 读作“{b} 的平方”。",
+    volGood:"对！这个正方体是 {b} 乘 {b} 乘 {b}，所以有 {p} = {v} 个小正方体。所以 {p} 读作“{b} 的立方”。",
+    areaHint:"数一条边：{b} 个单位。面积 = 边长 × 边长，所以算 {b} × {b}。",
+    volHint:"数一条棱：{b} 个小正方体。体积 = 棱长 × 棱长 × 棱长，所以算 {b} × {b} × {b}。",
+    treeDir:"为 {n} 画因数树。点一个不是质数的数，再选一种拆分方法。",
+    treeSplit:"把 {n} 拆成：", treeNotYet:"还有树枝没有完成。每片树叶都必须是质数（绿色圆圈）。",
+    treePrime:"{n} 是质数：它的因数只有 1 和 {n}。它就是树叶。",
+    treeDone:"所有树叶都是质数！现在用指数把 {n} 写成质数的乘积。",
+    treeGood:"对！{n} = {x} = {f}。重复的质因数用指数合在一起写。",
+    treeHint:"数一数每个质数作为树叶出现了几次，这个次数就是它的指数。树叶是：{x}。",
+    ooDir:"求值。记住：先算乘方，再算乘除和加减。",
+    ooGood:"对！先算乘方：{p}。然后 {rest}。",
+    ooHint:"按运算顺序：先算括号，再算乘方，然后乘除，最后加减。这里：{p}。",
+    prodDir:"化简 {e}。每块方块是一个因数。把答案写成一个乘方。",
+    prodGood:"对！一共有 {m} + {n} = {k} 个 {b}，所以 {e} = {r}。法则：{rule}：指数相加。",
+    prodHint:"数所有方块：第一组 {m} 个，第二组 {n} 个。同底数的乘方相乘时，既不把指数相乘，也不把底数相乘。",
+    quoDir:"化简 {e}。点一块方块，把上面的一个因数和下面的一个因数约掉（{b} ÷ {b} = 1）。然后把答案写成一个乘方。",
+    quoCancel:"已约掉的对数：{k}。每一对是 {b} ÷ {b} = 1。",
+    quoGood:"对！每一对约掉后是 1，剩下 {left}。所以 {e} = {r}。法则：{rule}：指数相减。",
+    quoGood0:"对！所有因数都约掉了，剩下 1。所以 {e} = {r} = 1。这就是为什么任何非零数的 0 次方都等于 1。",
+    quoGoodN:"对！每一对约掉后是 1，剩下 {left}。指数相减：{m} − {n} = {d}，所以 {e} = {r}。负指数表示倒数：{r} = {left}。",
+    quoHint:"先约掉成对的因数。答案的指数是（上面的因数个数）−（下面的因数个数）：{m} − {n}。",
+    ppDir:"化简 {e}。一共有 {n} 组，每组是 {p}。把答案写成一个乘方。",
+    ppGood:"对！{n} 组、每组 {m} 个因数，一共 {n} × {m} = {k} 个因数，所以 {e} = {r}。法则：{rule}：指数相乘。",
+    ppHint:"数方块：{n} 组，每组 {m} 个因数。一共是 {n} × {m} 个因数，不是 {n} + {m}。",
+    patDir:"顺着表格往下找规律。{p} 是多少？",
+    patGood0:"对！每往下一步都除以 {b}。{q}，所以 {p} = 1。这就是为什么对任何非零的 a，{rule}。",
+    patGoodN:"对！继续除以 {b}：{p} = {v}。所以 {rule}，也就是 {an} 的倒数。负指数永远不会让这个数变成负数。",
+    patHint:"往下一行，指数减 1，值除以 {b}。用上一行的值（{v}）除以 {b}。",
+    mixDir:"求值。把答案写成一个数。",
+    mixGood:"对！{e} = {r} = {v}。",
+    mixHint:"先把指数合并成 {b} 的一个乘方：{r}。负指数表示倒数；0 次方等于 1。",
+    sqDir:"解 {eq}。正方形的每条边是 x，面积是 {p}。",
+    sqGood:"对！{y}，并且 {z}，所以 x = {r}。平方方程有两个解：x = ±√{p}。",
+    sqGoodI:"对！{p} 不是完全平方数，所以用根号写出准确答案：x = {r}。正的根和负的根都成立。",
+    sqHint:"想一想：哪个数自己乘自己等于 {p}？别忘了负数：负数乘负数得正数。",
+    cbDir:"解 {eq}。正方体的每条棱是 x，体积是 {p}。",
+    cbGood:"对！{y}，所以 x = {r}。立方方程只有一个实数解，因为负数的立方仍然是负数。",
+    cbHint:"想一想：哪个数作为因数用三次等于 {p}？注意 (−a) × (−a) × (−a) 是负数，所以这里没有 ±。",
+    evDir:"求 {x} 的值。",
+    evGoodS:"对！{x} = {r}，因为 {chk}。√ 符号表示正的（主）平方根。",
+    evGoodC:"对！{x} = {r}，因为 {chk}。",
+    evHint:"找一个数，把它作为因数用{k}得到 {n}。试试小的整数。", twiceW:"两次", threeW:"三次",
+    btwDir:"{x} 在哪两个相邻的整数之间？", btwPair:"{a} 和 {b}",
+    btwGood:"对！{a2} < {n} < {b2}，所以 {x} 在 {a} 和 {b} 之间。",
+    btwHint:"找出刚好比 {n} 小和刚好比 {n} 大的完全平方数。",
+    estDir:"拖动标记，把 {x} 估计到十分位，然后按“检查”。",
+    estGood:"对！{x} ≈ {v}。验证：{v} × {v} = {sq}，接近 {n}。",
+    estHint:"{x} 在 {a} 和 {b} 之间，因为 {a2} < {n} < {b2}。{n} 更接近 {a2} 还是 {b2}？",
+    estFar:"你的标记在 {p}。{x} {dir}。", estMore:"更大", estLess:"更小",
+    irrDir:"{x} 是有理数还是无理数？", ratW:"有理数", irrW:"无理数",
+    irrGoodR:"对！{n} 是完全平方数，所以 {x} = {r}，是整数。它是有理数。",
+    irrGoodI:"对！{n} 不是完全平方数，所以 {x} 是无理数：它的小数（{v}…）既不终止也不循环。",
+    irrHint:"问问自己：{n} 是完全平方数吗？它附近的完全平方数是 {a2} 和 {b2}。",
+    tsDir:"滑动红色小数点，直到第一个因数大于或等于 1 且小于 10。然后按“检查”。",
+    tsGood:"对！{n} = {s}。小数点向{dir}移动了 {k} 位，所以指数是 {e}。",
+    tsBig:"第一个因数 {c} 大于或等于 10。把小数点向左移；每向左移一位，就要再乘一个 10。",
+    tsSmall:"第一个因数 {c} 小于 1。把小数点向右移；每向右移一位，就要再除以一个 10。",
+    stDir:"把 {s} 写成普通形式：滑动小数点，直到 10 的乘方变成 {one}。然后按“检查”。",
+    stGood:"对！{s} = {n}。乘 {p} 会让小数点向{dir}移动 {k} 位。",
+    stHint:"指数是 {e}。正指数让数变大（向右移）；负指数让数变小（向左移）。一直滑动，直到 10 的乘方是 {one} = 1。",
+    dirL:"左", dirR:"右",
+    eqDir:"哪个是最好的估计值（写成一位数字乘 10 的乘方）？",
+    eqGood:"对！{n} ≈ {s}。先把前面的数字四舍五入成 {c}，再数小数点移动的位数：{k}。",
+    eqHint:"先四舍五入到一个非零数字。再数小数点要移动几位，才能正好在这个数字后面。",
+    mulDir:"计算乘法。用科学记数法写出答案。", divDir:"计算除法。用科学记数法写出答案。",
+    mulGood:"对！先把前面的因数相乘：{cc}。指数相加：{ee}。{fix}",
+    divGood:"对！先把前面的因数相除：{cc}。指数相减：{ee}。{fix}",
+    fixNote:"再调整成科学记数法：{a} = {b}。", fixOk:"第一个因数已经在 1 和 10 之间。",
+    mulHint:"把各部分分组：（前面的因数）×（10 的乘方）。算 {c1} × {c2}，指数相加 {e1} + {e2}。再确认第一个因数在 1 和 10 之间。",
+    divHint:"把各部分分组：（前面的因数）÷（10 的乘方）。算 {c1} ÷ {c2}，指数相减 {e1} − {e2}。再确认第一个因数在 1 和 10 之间。",
+    addDir:"计算加法。用科学记数法写出答案。",
+    addGood:"对！{how} 所以和是 {r}。", addSame:"10 的乘方相同，所以把前面的因数相加：{cc}。",
+    addConv:"先改写成相同的 10 的乘方：{b} = {b2}。再把前面的因数相加：{cc}。",
+    addHint:"只有 10 的乘方相同时，才能把前面的因数相加（就像苹果加苹果）。不要把指数相加。",
+    timesDir:"{a} 是 {b} 的多少倍？",
+    timesGood:"对！{a} = ({cc}) × ({pp}) = {r}。",
+    timesHint:"用大数除以小数：前面的因数相除，指数相减（{e1} − {e2}）。",
+    sunDir:"光每秒大约传播 {a} 千米。太阳离地球大约 {b} 千米。阳光大约要多少秒才能到达地球？",
+    ordDir:"按从小到大的顺序点这些数。", ordRow:"从小 → 到大：",
+    ordGood:"对！顺序是：{list}。",
+    ordHint:"还不对：{y} 比 {x} 小。先比较 10 的乘方；如果相同，再比较前面的因数。",
+    calcDir:"计算器显示了这个答案。它是哪个数？",
+    calcGood:"对！在计算器上，E{e} 表示 {p}。所以 {c} = {s} = {n}。",
+    calcHint:"E 表示“乘 10 的……次方”。{c} 表示 {s}，所以把小数点向{dir}移动 {k} 位。",
+    cMoon:"地球到月球的平均距离大约是 {x} 千米。", cSun:"地球离太阳大约 {x} 千米。",
+    cLight:"光每秒大约传播 {x} 米。", cWorld:"地球上大约住着 {x} 人。",
+    cUS:"美国大约有 {x} 人。", cTexas:"得克萨斯州大约有 {x} 人。",
+    cAge:"地球大约有 {x} 岁。", cYear:"一年 365 天共有 {x} 秒。",
+    cBlood:"一个红细胞的直径大约是 {x} 米。", cHair:"一根头发的粗细大约是 {x} 米。",
+    cAtom:"一个氢原子的直径大约是 {x} 米。", cVirus:"一个流感病毒的直径大约是 {x} 米。",
+    cPaper:"一张纸的厚度大约是 {x} 米。", cAnt:"一只蚂蚁的质量大约是 {x} 千克。",
+    cBact:"一个大肠杆菌大约长 {x} 米。",
+    stds:"对应标准 — 得州 TEKS：六年级：6.7(A)；八年级：8.2(B)、8.2(C)、8.2(D)。Common Core：6.EE.1；8.EE.1、8.EE.2、8.EE.3、8.EE.4；8.NS.2。",
+    cardTitle:"乘方实验室 — 挑战卡", cardName:"姓名：",
+    cardPow:"求出每个值。再用指数写出最后一个数的质因数分解。",
+    cardLaws:"化简。把每个答案写成一个乘方，再求出它的值。",
+    cardRoot:"解每个方程。再把平方根标在数轴上。",
+    cardSci:"把前两个数写成科学记数法，把后两个数写成普通形式。",
+    cardOps:"计算。用科学记数法写出每个答案。"
+  }
+};
+
+let lang = "en";
+function t(key, vars){
+  let s = (T[lang] && T[lang][key]!==undefined) ? T[lang][key] : (T.en[key]!==undefined? T.en[key] : key);
+  if(vars) for(const k in vars) s = s.replaceAll("{"+k+"}", vars[k]);
+  return s;
+}
+
+/* ---------- Settings ---------- */
+const MODES = ["pow","laws","root","sci","ops"];
+const MODE_KEY = {pow:"mPow",laws:"mLaws",root:"mRoot",sci:"mSci",ops:"mOps"};
+const MODE_IC = {pow:"🧱",laws:"✂️",root:"√",sci:"🔭",ops:"🧮"};
+const GRADES = {6:{exp:6,neg:false},7:{exp:9,neg:true},8:{exp:12,neg:true}};
+const clone = o=>JSON.parse(JSON.stringify(o));
+const DEFAULTS = {grade:7, exp:9, neg:true, modes:{pow:true,laws:true,root:true,sci:true,ops:true}, autoRead:false};
+let settings = loadSettings();
+function loadSettings(){
+  try{
+    const raw = localStorage.getItem("pwl_settings");
+    if(raw){ const o=JSON.parse(raw), s=Object.assign(clone(DEFAULTS), o, {modes:Object.assign({},DEFAULTS.modes,o.modes)});
+      if(!GRADES[s.grade]) s.grade=DEFAULTS.grade; s.grade=+s.grade;
+      if(![6,9,12].includes(+s.exp)) s.exp=GRADES[s.grade].exp; s.exp=+s.exp; s.neg=!!s.neg;
+      if(!MODES.some(m=>s.modes[m])) s.modes=clone(DEFAULTS.modes);
+      return s; }
+  }catch(e){}
+  return clone(DEFAULTS);
+}
+function saveSettings(){ try{ localStorage.setItem("pwl_settings", JSON.stringify(settings)); }catch(e){} }
+
+/* ---------- Utils ---------- */
+const $ = s=>document.querySelector(s);
+const $$ = s=>Array.from(document.querySelectorAll(s));
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const ri = (a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const G = ()=>+settings.grade, EX = ()=>+settings.exp, NEG = ()=>!!settings.neg;
+const MINUS = "−";
+const sN = v=>(v<0?MINUS:"")+Math.abs(v);             // signed number text
+const M = s=>`<bdi class="math" dir="ltr">${s}</bdi>`;
+const frH = (n,d)=>`<span class="fr"><span>${n}</span><span>${d}</span></span>`;
+const near = (a,b)=>Math.abs(a-b)<1e-9*Math.max(1,Math.abs(a),Math.abs(b));
+const fmt = x=>{ let s=String(parseFloat((+x).toPrecision(10))); if(/e/.test(s)) s=(+x).toFixed(12).replace(/0+$/,"").replace(/\.$/,""); return s.replace("-",MINUS); };
+const grp = s=>{ const [i,d]=s.split("."); const g=i.length>3?i.replace(/\B(?=(\d{3})+(?!\d))/g,","):i; return d!=null?g+"."+d:g; };
+let stars=0;
+function addStar(){ stars++; $("#starCount").textContent=stars; const w=$("#stars"); w.classList.remove("pop"); void w.offsetWidth; w.classList.add("pop"); }
+
+/* ---------- Math objects {h:html, s:speech, v:value} ---------- */
+const N = v=>({h:sN(v), s:v<0?t("negSay",{x:Math.abs(v)}):String(v), v});
+const eS = e=>e<0?t("negSay",{x:-e}):String(e);
+// A power b^e. b may be a number or a letter; negative/fraction bases get parentheses.
+function P(b,e){ const bh=(typeof b==="number"&&b<0)?"("+sN(b)+")":String(b), bs=typeof b==="number"?N(b).s:b;
+  return {h:`${bh}<sup>${sN(e)}</sup>`, s:e===2?t("sqW",{b:bs}):e===3?t("cubeW",{b:bs}):t("powSay",{b:bs,e:eS(e)}), v:typeof b==="number"?Math.pow(b,e):NaN}; }
+const F = (n,d)=>({h:(n<0?MINUS:"")+frH(Math.abs(n),d), s:(n<0?t("negSay",{x:t("frSay",{n:-n,d})}):t("frSay",{n,d})), v:n/d});
+// 1/b^k as a stacked fraction with a power in the denominator
+const RP = (b,k)=>({h:frH(1,P(b,k).h), s:t("frSay",{n:1,d:P(b,k).s}), v:1/Math.pow(b,k)});
+// Value of an integer power as {h,s}: whole number or unit fraction
+function PV(b,e){ return e>=0?N(Math.pow(b,e)):F(1,Math.pow(b,-e)); }
+const SCI = (c,e)=>({h:`${fmt(c)} × 10<sup>${sN(e)}</sup>`, s:t("sciSay",{c:fmt(c),e:eS(e)}), v:c*Math.pow(10,e), c, e});
+const OPS = {"+":"wPlus","−":"wMinus","×":"wTimes","·":"wTimes","÷":"wDiv","=":"wEq","<":"ltW",">":"gtW"};
+function X(...p){ const h=[],s=[];
+  p.forEach(x=>{ if(typeof x==="string"&&OPS[x]){ h.push(x==="<"?"&lt;":x===">"?"&gt;":x); s.push(t(OPS[x])); }
+    else if(x&&typeof x==="object"){ h.push(x.h); s.push(x.s); } else { h.push(""+x); s.push(""+x); } });
+  return {h:M(h.join(" ")), s:s.join(" ")};
+}
+// General rules with letters (built in code so they stay LTR and are spoken well)
+const PS = (b,e)=>t("powSay",{b,e});
+function RULE(k){ const ex=(x,y,op)=>x+" "+t(op)+" "+y;
+  if(k==="prod") return {h:"a<sup>m</sup> · a<sup>n</sup> = a<sup>m+n</sup>", s:[PS("a","m"),t("wTimes"),PS("a","n"),t("wEq"),PS("a",ex("m","n","wPlus"))].join(" ")};
+  if(k==="quo") return {h:"a<sup>m</sup> ÷ a<sup>n</sup> = a<sup>m−n</sup>", s:[PS("a","m"),t("wDiv"),PS("a","n"),t("wEq"),PS("a",ex("m","n","wMinus"))].join(" ")};
+  if(k==="pp") return {h:"(a<sup>m</sup>)<sup>n</sup> = a<sup>mn</sup>", s:[PS(PS("a","m"),"n"),t("wEq"),PS("a",ex("m","n","wTimes"))].join(" ")};
+  if(k==="zero") return {h:"a<sup>0</sup> = 1", s:PS("a","0")+" "+t("wEq")+" 1"};
+  return {h:"a<sup>−n</sup> = "+frH(1,"a<sup>n</sup>"), s:PS("a",t("negSay",{x:"n"}))+" "+t("wEq")+" "+t("frSay",{n:1,d:PS("a","n")})}; }
+const ONE = ()=>({h:"10<sup>0</sup>", s:PS(10,0)});
+// product with × between items
+const XL = (items,sep)=>X(...items.flatMap((x,i)=>i?[sep||"×",x]:[x]));
+function tm(key,vars){ const h={},s={}; vars=vars||{};
+  for(const k in vars){ const v=vars[k]; if(v&&typeof v==="object"){ h[k]=String(v.h).indexOf("<bdi")===0?v.h:M(v.h); s[k]=v.s; } else { h[k]=v; s[k]=v; } }
+  return {h:t(key,h), s:t(key,s).replace(/<[^>]+>/g," ").replace(/\s+/g," ")};
+}
+const W = k=>tm(k);
+const cat = (...m)=>({h:m.map(x=>x.h).join(" "), s:m.map(x=>x.s).join(" ")});
+// Choices: first item correct; distinct by html; padded to 4 at most.
+function opts(right,wrongs){ const out=[{...right,ok:true}];
+  wrongs.forEach(w=>{ if(out.length<4 && w && !out.some(o=>o.h===w.h)) out.push({...w,ok:false}); }); return shuffle(out); }
+
+/* ---------- Speech ---------- */
+const speechOK = ("speechSynthesis" in window);
+function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
+// Prefer warm, natural voices for young learners; avoid harsh robotic engines.
+function pickWarmVoice(code){
+  const vs = speechSynthesis.getVoices()||[];
+  const want=code.toLowerCase(), two=want.slice(0,2);
+  let best=null, bs=-1;
+  for(const v of vs){
+    const lc=(v.lang||'').toLowerCase().replace('_','-');
+    if(lc!==want && lc.slice(0,2)!==two) continue;
+    let s=(lc===want?100:60); const n=(v.name||'').toLowerCase();
+    if(/google|natural|neural|online|premium|enhanced|siri/.test(n)) s+=40;
+    if(/female|woman|samantha|karen|tessa|moira|fiona|serena|victoria|allison|ava|susan|zoe|amelie|amélie|paulina|monica|mónica|zira|hazel|catherine|linda|kanya|lekha|ting-ting|mei-jia|sin-ji|yu-shu|huihui|xiaoxiao/.test(n)) s+=18;
+    if(/espeak|compact|festival|pico|robot|eloquence/.test(n)) s-=60;
+    if(v.localService===false) s+=8;
+    if(v.default) s+=2;
+    if(s>bs){ bs=s; best=v; }
+  }
+  return best;
+}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  const parts=String(text).match(/[^.!?。！？؟।۔]+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  // Decimal points inside numbers must not be read as sentence ends.
+  const parts=splitSpeech(String(text).replace(/(\d)\.(\d)/g,"$1․$2")).map(p=>p.replace(/․/g,".")), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.9; u.pitch=1.15;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={pow:0,laws:0,root:0,sci:0,ops:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
+}
+if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
+if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
+
+const currentSpeech = {pow:"",laws:"",root:"",sci:"",ops:""};
+function setSpeech(mode,text){ currentSpeech[mode]=text; }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===mode) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,.nl,.strip")) return;
+  speak(currentSpeech[currentMode()]);
+},true);
+
+/* ---------- Feedback & round helpers ---------- */
+function showFb(el,type,msg){ el.className="feedback show "+type; el.innerHTML=(type==="good"?"✅ ":"💡 ")+msg; }
+function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
+const made={}, st={}; window.__pwl=st; // round state (for automated tests; no student data)
+function startRound(m,type){ roundIds[m]++; made[m]=true; st[m]={done:false,type};
+  const ow=$("#w-"+m), nw=ow.cloneNode(false); ow.replaceWith(nw); // drop the previous round's listeners
+  ["w","a","c"].forEach(p=>{ $("#"+p+"-"+m).innerHTML=""; }); $("#x-"+m).innerHTML=""; $("#x-"+m).classList.add("hidden"); hideFb($("#f-"+m)); }
+function setPrompt(m,msg){ $("#p-"+m).innerHTML=msg.h; setSpeech(m,msg.s); }
+function setCtx(m,msg){ const c=$("#x-"+m); c.innerHTML=msg.h; c.classList.remove("hidden"); }
+function win(m,msg,vis){ st[m].done=true;
+  $$(`#c-${m} button,#a-${m} button,#w-${m} button`).forEach(b=>b.disabled=true);
+  $$(`#w-${m} [tabindex]`).forEach(p=>p.removeAttribute("tabindex"));
+  if(vis) $("#w-"+m).innerHTML=vis;
+  addStar(); showFb($("#f-"+m),"good",msg.h); afterPraise(msg.s,m,NEWFN[m],2200); }
+function nope(m,msg){ showFb($("#f-"+m),"hint",msg.h); speak(msg.s); }
+function actBtn(m,html,fn,cls,aria){ const b=document.createElement("button"); b.type="button"; b.className="btn"+(cls?" "+cls:""); b.innerHTML=html;
+  if(aria){ b.setAttribute("aria-label",aria); b.title=aria; } b.addEventListener("click",fn); $("#a-"+m).appendChild(b); return b; }
+function checkBtn(m,fn){ st[m].check=fn; return actBtn(m,"✔ "+t("check"),fn); }
+// Choice buttons. pick(item) is called for every tap; wrong picks are greyed out.
+function choices(m,items,pick){
+  const g=$("#c-"+m); g.innerHTML=""; st[m].items=items;
+  items.forEach(it=>{ const b=document.createElement("button"); b.type="button"; b.className="choice"+(it.wide?" wide":"");
+    b.innerHTML=`<span class="badge" aria-hidden="true">✅</span><span class="lbl">${it.h}</span>`; b.setAttribute("aria-label",it.s);
+    b.addEventListener("click",()=>{ if(st[m].done) return; if(it.ok) b.classList.add("correctpick"); else { b.classList.add("wrongpick"); b.disabled=true; } pick(it,b); });
+    g.appendChild(b); });
+}
+const youX = it=>tm("youPicked",{x:it});
+// Standard choice round: right answer wins with msg, wrong gives hint.
+function pickRound(m,items,good,hint,vis){ choices(m,items,it=>{ if(it.ok) return win(m,good(),vis&&vis()); nope(m,cat(youX(it),hint(it))); }); }
+const tiles = (n,lab,cls)=>Array.from({length:n},()=>`<span class="fac${cls?" "+cls:""}">${lab}</span>`).join("");
+const isPrime = n=>{ if(n<2) return false; for(let k=2;k*k<=n;k++) if(n%k===0) return false; return true; };
+
+/* =========================================================================
+   1. POWERS & PRIME FACTORS (Grade 6) — expand, evaluate, area/volume, factor tree, order of operations
+   ========================================================================= */
+function newPow(){
+  const g=G(), type=rand(["exp","eval","eval","pic","tree","tree","oo"]); const m="pow"; startRound(m,type); const s=st[m], w=$("#w-"+m);
+  if(type==="exp"){
+    const b=ri(2,g>=8?12:9), e=ri(2,g===6?5:6), p=P(b,e), rep=(x,k,op)=>XL(Array(k).fill(N(x)),op);
+    const right=rep(b,e), wr=[X(N(b),"×",N(e)), rep(e,b), rep(b,e,"+"), rep(b,e+1)];
+    if(Math.random()<.5){
+      w.innerHTML=`<div class="big">${M(p.h)}</div>`;
+      pickRound(m,opts({...right,wide:true},wr.map(x=>({...x,wide:true}))),()=>tm("expGood",{p,b,e,x:right}),()=>tm("expHint",{p,b,e}));
+      setPrompt(m,tm("expDir",{p}));
+    } else {
+      w.innerHTML=`<div class="big">${right.h}</div>`;
+      pickRound(m,opts({...p,h:M(p.h)},[P(e,b),X(N(b),"×",N(e)),P(b,e+1),{h:sN(b*e),s:String(b*e)}].map(x=>({...x,h:x.h.indexOf("<bdi")?M(x.h):x.h}))),()=>tm("expGood",{p,b,e,x:right}),()=>tm("expHint",{p,b,e}));
+      setPrompt(m,tm("expDirR",{x:right}));
+    }
+  }else if(type==="eval"){
+    let b,e; do{ b=ri(2,g===6?6:9); e=ri(2,g===6?4:5); }while(Math.pow(b,e)>(g===6?1500:20000));
+    const p=P(b,e), v=Math.pow(b,e); s.k=0;
+    w.innerHTML=`<div class="big">${M(p.h+" = ?")}</div><div class="facs">`+Array.from({length:e},(_,i)=>(i?`<span class="opx">×</span>`:"")+`<button type="button" class="fac" data-i="${i}" aria-label="${b}">${b}<small>&nbsp;</small></button>`).join("")+`</div><div class="runprod" aria-live="polite" id="runp"></div>`;
+    w.addEventListener("click",ev=>{ const f=ev.target.closest(".fac"); if(!f||s.done) return; const i=+f.dataset.i; if(i!==s.k) return;
+      s.k++; f.classList.add("on"); f.querySelector("small").textContent="= "+Math.pow(b,s.k); $("#runp").innerHTML=t("runLbl",{v:M(grp(String(Math.pow(b,s.k))))}); });
+    const right=N(v), wr=[N(b*e),N(Math.pow(e,b)>1e6?b+e:Math.pow(e,b)),N(Math.pow(b,e-1)),N(Math.pow(b,e+1))].map(x=>({...x,h:grp(x.h)}));
+    const x=XL(Array(e).fill(N(b)));
+    pickRound(m,opts({...right,h:grp(right.h)},wr),()=>tm("evalGood",{p,x,v:{...right,h:grp(right.h)}}),()=>tm("evalHint",{p,b,e}));
+    setPrompt(m,tm("evalDir",{p}));
+  }else if(type==="pic"){
+    const cube=Math.random()<.45, b=cube?ri(2,g===6?4:5):ri(2,g===6?8:12), e=cube?3:2, p=P(b,e), v=Math.pow(b,e);
+    w.innerHTML=cube?cubeSVG(b):squareSVG(b);
+    const right={h:M(p.h+" = "+v),s:p.s+" "+t("wEq")+" "+v};
+    const wr=[[P(b,e===2?3:2),Math.pow(b,e===2?3:2)],b!==e&&[P(e,b),Math.pow(e,b)],b*e!==v&&[{h:b+" × "+e,s:b+" "+t("wTimes")+" "+e},b*e],[P(b+1,e),Math.pow(b+1,e)]].filter(Boolean).map(([q,x])=>({h:M(q.h+" = "+x),s:q.s+" "+t("wEq")+" "+x}));
+    pickRound(m,opts({...right,wide:true},wr.map(x=>({...x,wide:true}))),()=>tm(cube?"volGood":"areaGood",{b,p,v}),()=>tm(cube?"volHint":"areaHint",{b}));
+    setPrompt(m,W(cube?"volDir":"areaDir"));
+  }else if(type==="tree"){
+    const pool=[]; const lim=g===6?100:g===7?200:400;
+    for(let n=12;n<=lim;n++){ if(isPrime(n)) continue; const f=pfac(n); if(Object.keys(f).length<=3 && Object.values(f).some(x=>x>=2) && Math.max(...Object.keys(f).map(Number))<=13) pool.push(n); }
+    const n=rand(pool); s.root={v:n,kids:null}; s.sel=null;
+    const draw=()=>{ w.innerHTML=`<div class="tree">${treeHTML(s.root)}</div><div class="note" id="splitLab"></div><div class="splits" id="splits"></div>`; };
+    s.draw=draw; draw();
+    const leaves=()=>{ const L=[]; (function walk(x){ if(x.kids) x.kids.forEach(walk); else L.push(x); })(s.root); return L; };
+    const showChoices=()=>{ const f=pfac(n), ps=Object.keys(f).map(Number).sort((a,b)=>a-b);
+      const form=fo=>{ const it=ps.map(p=>fo[p]>1?P(p,fo[p]):N(p)); return XL(it); };
+      const right=form(f), wr=[];
+      if(ps.length>1){ const sw={}; ps.forEach((p,i)=>sw[p]=f[ps[ps.length-1-i]]); wr.push(form(sw)); }
+      const up={...f}; up[ps[0]]=f[ps[0]]+1; wr.push(form(up)); const dn={...f}; const big=ps.find(p=>f[p]>1); dn[big]=f[big]-1; wr.push(form(dn));
+      wr.push(XL(ps.map(p=>N(p)))); wr.push(XL(ps.map(p=>f[p]>1?P(p,f[p]):N(p)),"+"));
+      const lv=leaves().map(x=>x.v).sort((a,b)=>a-b);
+      pickRound(m,opts({...right,wide:true},wr.map(x=>({...x,wide:true}))),()=>tm("treeGood",{n,x:XL(lv.map(N)),f:right}),()=>tm("treeHint",{x:XL(lv.map(N))}));
+      setPrompt(m,tm("treeDone",{n})); maybeAuto(m); };
+    s.leaves=leaves;
+    w.addEventListener("click",ev=>{ if(s.done) return; const b=ev.target.closest(".fn"); if(b){ const node=findNode(s.root,b.dataset.id);
+        if(!node||node.kids) return; if(isPrime(node.v)){ nope(m,tm("treePrime",{n:node.v})); return; }
+        s.sel=node; hideFb($("#f-"+m)); $$("#w-pow .fn").forEach(x=>x.classList.toggle("sel",x===b));
+        const pr=[]; for(let a=2;a*a<=node.v;a++) if(node.v%a===0) pr.push([a,node.v/a]);
+        $("#splitLab").innerHTML=t("treeSplit",{n:M(node.v)});
+        $("#splits").innerHTML=pr.map(([a,c])=>`<button type="button" class="btn ghost" data-a="${a}" data-c="${c}" aria-label="${a} ${t("wTimes")} ${c}">${M(a+" × "+c)}</button>`).join(""); return; }
+      const sp=ev.target.closest("[data-a]"); if(sp&&s.sel){ s.sel.kids=[{v:+sp.dataset.a,kids:null},{v:+sp.dataset.c,kids:null}]; s.sel=null; draw();
+        if(leaves().every(x=>isPrime(x.v))){ showChoices(); } } });
+    setPrompt(m,tm("treeDir",{n}));
+  }else{ // order of operations with exponents (6.7A)
+    const b=ri(2,g===6?5:7), e=b>4?2:ri(2,3), a=ri(2,9), c=ri(2,6), p=P(b,e), pv=Math.pow(b,e), k=rand(["add","mul","par","sub"]);
+    let expr, right, wr, rest;
+    if(k==="add"){ expr=X(N(a),"+",p); right=a+pv; wr=[Math.pow(a+b,e),a+b*e,a+b+e]; rest=X(N(a),"+",N(pv),"=",N(right)); }
+    else if(k==="mul"){ expr=X(N(c),"×",p); right=c*pv; wr=[Math.pow(c*b,e),c*b*e,c+pv]; rest=X(N(c),"×",N(pv),"=",N(right)); }
+    else if(k==="sub"){ expr=X(p,"−",N(Math.min(a,pv-1))); const a2=Math.min(a,pv-1); right=pv-a2; wr=[Math.pow(b,e-1),b*e-a2,pv+a2]; rest=X(N(pv),"−",N(a2),"=",N(right)); }
+    else { const pp={h:`(${a} + ${b})<sup>${e}</sup>`,s:t(e===2?"sqW":"cubeW",{b:a+" "+t("wPlus")+" "+b})}; expr=X(pp); right=Math.pow(a+b,e); wr=[a+pv,(a+b)*e,Math.pow(a,e)+b]; rest=X(P(a+b,e),"=",N(right));
+      w.innerHTML=`<div class="big">${expr.h}</div>`;
+      pickRound(m,opts(N(right),wr.map(N)),()=>tm("ooGood",{p:X({h:`${a} + ${b}`,s:a+" "+t("wPlus")+" "+b},"=",N(a+b)),rest}),()=>tm("ooHint",{p:X(N(a+b))}));
+      setPrompt(m,W("ooDir")); maybeAuto(m); return; }
+    w.innerHTML=`<div class="big">${expr.h}</div>`;
+    pickRound(m,opts(N(right),wr.map(N)),()=>tm("ooGood",{p:X(p,"=",N(pv)),rest}),()=>tm("ooHint",{p:X(p,"=",N(pv))}));
+    setPrompt(m,W("ooDir"));
+  }
+  maybeAuto(m);
+}
+function pfac(n){ const f={}; for(let p=2;p*p<=n;p++) while(n%p===0){ f[p]=(f[p]||0)+1; n/=p; } if(n>1) f[n]=(f[n]||0)+1; return f; }
+let nid=0;
+function treeHTML(x){ if(!x.id) x.id="n"+(++nid); const pr=isPrime(x.v);
+  return `<div class="ft"><button type="button" class="fn${pr?" prime":""}" data-id="${x.id}" aria-label="${x.v}">${x.v}</button>`+(x.kids?`<div class="kids">${x.kids.map(treeHTML).join("")}</div>`:"")+`</div>`; }
+function findNode(x,id){ if(x.id===id) return x; if(x.kids) for(const k of x.kids){ const r=findNode(k,id); if(r) return r; } return null; }
+function squareSVG(b){ const u=Math.min(48,250/b), S=u*b, o=34; let s="";
+  for(let i=0;i<=b;i++) s+=`<line x1="${o+i*u}" y1="${o}" x2="${o+i*u}" y2="${o+S}" stroke="#2563eb" stroke-width="${i%b?1.5:3.5}"/><line x1="${o}" y1="${o+i*u}" x2="${o+S}" y2="${o+i*u}" stroke="#2563eb" stroke-width="${i%b?1.5:3.5}"/>`;
+  return `<svg class="pic" viewBox="0 0 ${S+o+10} ${S+o+10}" width="${Math.min(320,S+o+10)}" role="img" aria-label="${b} × ${b}"><rect x="${o}" y="${o}" width="${S}" height="${S}" fill="#dbeafe"/>${s}<text x="${o+S/2}" y="24" text-anchor="middle" font-weight="800" font-size="20" fill="#1b2631">${b}</text><text x="18" y="${o+S/2+7}" text-anchor="middle" font-weight="800" font-size="20" fill="#1b2631">${b}</text></svg>`; }
+function cubeSVG(b){ const u=Math.min(40,170/b), dx=u*.55, dy=u*.4, S=u*b, X0=20, Y0=20+dy*b; let s="";
+  const L=(x1,y1,x2,y2,w)=>`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#9a3412" stroke-width="${w}"/>`;
+  s+=`<polygon points="${X0},${Y0} ${X0+S},${Y0} ${X0+S},${Y0+S} ${X0},${Y0+S}" fill="#fed7aa"/>`;
+  s+=`<polygon points="${X0},${Y0} ${X0+dx*b},${Y0-dy*b} ${X0+S+dx*b},${Y0-dy*b} ${X0+S},${Y0}" fill="#ffedd5"/>`;
+  s+=`<polygon points="${X0+S},${Y0} ${X0+S+dx*b},${Y0-dy*b} ${X0+S+dx*b},${Y0+S-dy*b} ${X0+S},${Y0+S}" fill="#fdba74"/>`;
+  for(let i=0;i<=b;i++){ const w=i%b?1.3:3;
+    s+=L(X0+i*u,Y0,X0+i*u,Y0+S,w)+L(X0,Y0+i*u,X0+S,Y0+i*u,w);
+    s+=L(X0+i*u,Y0,X0+i*u+dx*b,Y0-dy*b,w)+L(X0+i*dx,Y0-i*dy,X0+S+i*dx,Y0-i*dy,w);
+    s+=L(X0+S+i*dx,Y0-i*dy,X0+S+i*dx,Y0+S-i*dy,w)+L(X0+S,Y0+i*u,X0+S+dx*b,Y0+i*u-dy*b,w); }
+  const Wd=X0+S+dx*b+30, H=Y0+S+34;
+  return `<svg class="pic" viewBox="0 0 ${Wd} ${H}" width="${Math.min(300,Wd)}" role="img" aria-label="${b} × ${b} × ${b}">${s}<text x="${X0+S/2}" y="${Y0+S+26}" text-anchor="middle" font-weight="800" font-size="20" fill="#1b2631">${b}</text></svg>`; }
+
+/* =========================================================================
+   2. EXPONENT LAWS (8.EE.1) — product, quotient (tap to cancel), power of a power, zero & negative pattern
+   ========================================================================= */
+function newLaws(){
+  const neg=NEG(), g=G(), types=["prod","quo","quo","pp"]; if(neg) types.push("pat","pat","quo"); if(neg&&g>=7) types.push("mix");
+  const type=rand(types), m="laws"; startRound(m,type); const s=st[m], w=$("#w-"+m);
+  const b=rand(g===6?[2,3,5,10]:[2,3,5,7,10,"x","a"]), bh=String(b), bs=typeof b==="number"?String(b):b;
+  const single=(k)=>({...P(b,k),h:M(P(b,k).h)});
+  if(type==="prod"){
+    const mm=ri(2,5), n=ri(2,4), e=X(P(b,mm),"·",P(b,n)), r=P(b,mm+n);
+    w.innerHTML=`<div class="big">${e.h}</div><div class="facs"><span class="grpbox a">${tiles(mm,bh)}</span><span class="opx">·</span><span class="grpbox b">${tiles(n,bh)}</span></div>`;
+    const wr=[P(b,mm*n)]; if(typeof b==="number") wr.push(P(b*b,mm+n)); wr.push(P(b,mm+n+1),P(b,Math.abs(mm-n)||1));
+    pickRound(m,opts(single(mm+n),wr.map(x=>({...x,h:M(x.h)}))),()=>tm("prodGood",{m:mm,n,k:mm+n,b:bh,e,r,rule:RULE("prod")}),()=>tm("prodHint",{m:mm,n}));
+    setPrompt(m,tm("prodDir",{e}));
+  }else if(type==="quo"){
+    let mm,n; if(neg && Math.random()<.45){ n=ri(3,6); mm=Math.random()<.35?n:ri(1,n-1); } else { mm=ri(3,7); n=ri(1,mm-1); }
+    const e={h:frH(P(b,mm).h,P(b,n).h),s:P(b,mm).s+" "+t("wDiv")+" "+P(b,n).s}, d=mm-n, r=P(b,d); s.k=0; s.mm=mm; s.n=n;
+    w.innerHTML=`<div class="big">${M(e.h)}</div><div class="frac"><div class="facs" id="qt">${Array.from({length:mm},(_,i)=>`<button type="button" class="fac" data-r="t" data-i="${i}" aria-label="${bh}">${bh}</button>`).join("")}</div><div class="bar"></div><div class="facs" id="qb">${Array.from({length:n},(_,i)=>`<button type="button" class="fac" data-r="b" data-i="${i}" aria-label="${bh}">${bh}</button>`).join("")}</div></div><p class="note" id="qnote" aria-live="polite">${t("quoCancel",{k:0,b:M(bh)})}</p>`;
+    w.addEventListener("click",ev=>{ const f=ev.target.closest(".fac"); if(!f||s.done||f.classList.contains("gone")) return;
+      const other=$$(`#w-laws .fac[data-r="${f.dataset.r==="t"?"b":"t"}"]:not(.gone)`)[0]; if(!other) return;
+      f.classList.add("gone"); other.classList.add("gone"); f.disabled=other.disabled=true; s.k++; $("#qnote").innerHTML=t("quoCancel",{k:s.k,b:M(bh)}); });
+    const left=d>0?XL(Array(d).fill({h:bh,s:bs})):d===0?N(1):{h:frH(1,Array(-d).fill(bh).join(" × ")),s:t("frSay",{n:1,d:Array(-d).fill(bs).join(" "+t("wTimes")+" ")})};
+    const leftP=d<0?RP(b,-d):left;
+    const wr=[P(b,mm+n),P(b,-d||1),P(b,d+1)]; if(n&&mm%n===0&&mm/n!==d) wr.push(P(b,mm/n)); if(d===0) wr.unshift({h:"0",s:"0"});
+    const msg=()=>d>0?tm("quoGood",{k:n,left,e,r,rule:RULE("quo")}):d===0?tm("quoGood0",{e,r}):tm("quoGoodN",{k:mm,left:leftP,m:mm,n,d:sN(d),e,r});
+    pickRound(m,opts(single(d),wr.map(x=>({...x,h:M(x.h)}))),msg,()=>tm("quoHint",{m:mm,n}));
+    setPrompt(m,tm("quoDir",{e,b:bh}));
+  }else if(type==="pp"){
+    const mm=ri(2,4), n=ri(2,4), p=P(b,mm), e={h:`(${p.h})<sup>${n}</sup>`,s:t("powSay",{b:p.s,e:n})}, r=P(b,mm*n);
+    w.innerHTML=`<div class="big">${M(e.h)}</div><div class="facs">`+Array.from({length:n},(_,i)=>`<span class="grpbox ${i%2?"b":"a"}">${tiles(mm,bh)}</span>`).join(`<span class="opx">·</span>`)+`</div>`;
+    const wr=[P(b,mm+n),P(b,Math.pow(mm,n)),P(b,mm*n+1)]; if(typeof b==="number") wr.push(P(b*n,mm));
+    pickRound(m,opts(single(mm*n),wr.map(x=>({...x,h:M(x.h)}))),()=>tm("ppGood",{n,m:mm,k:mm*n,e,r,rule:RULE("pp")}),()=>tm("ppHint",{n,m:mm}));
+    setPrompt(m,tm("ppDir",{e,n,p}));
+  }else if(type==="pat"){
+    const bb=rand([2,3,4,5,10]), qe=rand([0,0,-1,-1,-2]), top=3, rows=[]; for(let k=top;k>=-2;k--) rows.push(k);
+    const val=k=>k>=0?String(Math.pow(bb,k)):frH(1,Math.pow(bb,-k));
+    w.innerHTML=`<table class="pat"><tbody>`+rows.map((k,i)=>{ const cls=k===qe?"q":k<qe?"blank":"";
+      return (i?`<tr><td></td><td class="ar">↓ ÷ ${bb}</td></tr>`:"")+`<tr class="${cls}"><td>${P(bb,k).h}</td><td>${k>qe?val(k):k===qe?"?":"…"}</td></tr>`; }).join("")+`</tbody></table>`;
+    const p=P(bb,qe), v=PV(bb,qe), above=PV(bb,qe+1);
+    const wr=qe===0?[N(0),N(bb),N(-1)]:[N(-Math.pow(bb,-qe)),N(bb*qe),F(-1,Math.pow(bb,-qe)),N(0)];
+    pickRound(m,opts({...v,h:M(v.h)},wr.map(x=>({...x,h:M(x.h)}))),()=>tm(qe===0?"patGood0":"patGoodN",{b:bb,p,v,q:X(P(bb,1),"÷",N(bb),"=",N(1)),rule:RULE(qe===0?"zero":"neg"),an:{h:"a<sup>n</sup>",s:PS("a","n")}}),()=>tm("patHint",{b:bb,v:above}));
+    setPrompt(m,tm("patDir",{p}));
+  }else{ // mix: numeric with integer exponents, 8.EE.1 e.g. 3² × 3⁻⁵
+    const bb=rand([2,3,5,10]); let e1,e2,k=rand(["prod","quo","pp"]),e,r;
+    if(k==="prod"){ do{ e1=ri(-4,4); e2=ri(-5,3); }while(!e2||!e1||Math.abs(e1+e2)>3||(bb===10&&Math.abs(e1+e2)>3)); r=e1+e2; e=X(P(bb,e1),"×",P(bb,e2)); }
+    else if(k==="quo"){ do{ e1=ri(-2,4); e2=ri(-3,5); }while(!e2||e1===e2||Math.abs(e1-e2)>3); r=e1-e2; e={h:M(frH(P(bb,e1).h,P(bb,e2).h)),s:P(bb,e1).s+" "+t("wDiv")+" "+P(bb,e2).s}; }
+    else { do{ e1=ri(-2,2); e2=ri(-2,2); }while(!e1||!e2||e2===1||Math.abs(e1*e2)>3||e1*e2>0&&Math.pow(bb,e1*e2)>1000); r=e1*e2; e={h:M(`(${P(bb,e1).h})<sup>${sN(e2)}</sup>`),s:t("powSay",{b:P(bb,e1).s,e:eS(e2)})}; }
+    if(bb>=5) while(Math.abs(r)>2){ return newLaws(); }
+    const v=PV(bb,r), rp=P(bb,r);
+    const wr=[N(-Math.pow(bb,Math.abs(r))),PV(bb,-r),N(bb*r),k==="prod"?PV(bb,e1*e2):PV(bb,e1+e2)];
+    w.innerHTML=`<div class="big">${e.h}</div>`;
+    pickRound(m,opts({...v,h:M(v.h)},wr.map(x=>({...x,h:M(x.h)}))),()=>tm("mixGood",{e,r:rp,v}),()=>tm("mixHint",{b:bb,r:rp}));
+    setPrompt(m,W("mixDir"));
+  }
+  maybeAuto(m);
+}
+
+/* =========================================================================
+   3. SQUARE & CUBE ROOTS (8.EE.2, 8.NS.2) — x² = p, x³ = p, evaluate, between integers, estimate on a number line
+   ========================================================================= */
+const sqH = n=>`√<span class="rad">${n}</span>`, cbH = n=>`∛<span class="rad">${n}</span>`;
+function newRoot(){
+  const g=G(), types=["sq","sq","cb","ev","btw","est","est","irr"]; const type=rand(types), m="root"; startRound(m,type); const s=st[m], w=$("#w-"+m);
+  if(type==="sq"){
+    const k=Math.random(); let p,r,wr,good;
+    if(g>=8 && k<.25){ const a=ri(1,5), d=rand([2,3,4,5,7]); if(a%d===0||a>=d*2) return newRoot(); const pp=F(a*a,d*d), rr=F(a,d);
+      p=pp; r={h:"±"+rr.h,s:t("pmSay",{x:rr.s})}; good=tm("sqGood",{y:X(rr,"×",rr,"=",pp),z:X({h:"("+MINUS+rr.h+")",s:t("negSay",{x:rr.s})},"×",{h:"("+MINUS+rr.h+")",s:t("negSay",{x:rr.s})},"=",pp),r,p:frH(a*a,d*d)});
+      wr=[{h:rr.h,s:rr.s},{h:"±"+F(a*a,2*d*d).h,s:"x"},{h:"±"+F(a,d*d).h,s:t("pmSay",{x:F(a,d*d).s})}]; }
+    else if(k<.45 && g>=7){ let n; do n=ri(2,g>=8?99:50); while(Number.isInteger(Math.sqrt(n))); p=N(n);
+      r={h:"±"+sqH(n),s:t("pmSay",{x:t("sqrtSay",{n})})}; good=tm("sqGoodI",{p:n,r});
+      wr=[{h:sqH(n),s:t("sqrtSay",{n})},{h:"±"+fmt(n/2),s:t("pmSay",{x:fmt(n/2)})},{h:"±"+n*n,s:t("pmSay",{x:n*n})}]; }
+    else { const a=ri(2,g===6?10:15), n=a*a; p=N(n); r={h:"±"+a,s:t("pmSay",{x:a})};
+      good=tm("sqGood",{y:X(N(a),"×",N(a),"=",N(n)),z:X({h:"("+MINUS+a+")",s:N(-a).s},"×",{h:"("+MINUS+a+")",s:N(-a).s},"=",N(n)),r,p:n});
+      wr=[{h:String(a),s:String(a)},{h:"±"+fmt(n/2),s:t("pmSay",{x:fmt(n/2)})},{h:"±"+n,s:t("pmSay",{x:n})},{h:MINUS+a,s:N(-a).s}]; }
+    const eq={h:`x<sup>2</sup> = ${p.h}`,s:t("sqW",{b:"x"})+" "+t("wEq")+" "+p.s};
+    w.innerHTML=`<div class="big">${M(eq.h)}</div>`+rootSq(p.h);
+    pickRound(m,opts({h:M("x = "+r.h),s:t("xEq",{v:r.s})},wr.map(x=>({h:M("x = "+x.h),s:t("xEq",{v:x.s})}))),()=>good,()=>tm("sqHint",{p}));
+    setPrompt(m,tm("sqDir",{eq,p}));
+  }else if(type==="cb"){
+    const a=ri(1,g===6?5:6)*((g>=7&&Math.random()<.3)?-1:1), n=a*a*a, eq={h:`x<sup>3</sup> = ${sN(n)}`,s:t("cubeW",{b:"x"})+" "+t("wEq")+" "+N(n).s};
+    const r=N(a), wr=[{h:"±"+Math.abs(a),s:t("pmSay",{x:Math.abs(a)})},N(-a),N(Math.round(n/3)),N(a*a)];
+    w.innerHTML=`<div class="big">${M(eq.h)}</div>`+(a>0?cubeSVG(a):"");
+    const y=X({h:"("+sN(a)+")",s:N(a).s},"×",{h:"("+sN(a)+")",s:N(a).s},"×",{h:"("+sN(a)+")",s:N(a).s},"=",N(n));
+    pickRound(m,opts({h:M("x = "+sN(a)),s:t("xEq",{v:r.s})},wr.map(x=>({h:M("x = "+x.h),s:t("xEq",{v:x.s})}))),()=>tm("cbGood",{y,r:{h:M(cbH(sN(n))+" = "+sN(a)),s:N(a).s}}),()=>tm("cbHint",{p:N(n)}));
+    setPrompt(m,tm("cbDir",{eq,p:N(n)}));
+  }else if(type==="ev"){
+    const cube=Math.random()<.4, a=cube?ri(2,g===6?5:10):ri(2,g===6?12:20), n=cube?a*a*a:a*a;
+    const x={h:cube?cbH(n):sqH(n),s:t(cube?"cbrtSay":"sqrtSay",{n})}, chk=cube?X(N(a),"×",N(a),"×",N(a),"=",N(n)):X(N(a),"×",N(a),"=",N(n));
+    w.innerHTML=`<div class="big">${M(x.h+" = ?")}</div>`;
+    const wr=[N(cube?Math.round(n/3):n/2),N(a+1),N(a-1),N(cube?a*a:2*a)];
+    pickRound(m,opts(N(a),wr),()=>tm(cube?"evGoodC":"evGoodS",{x,r:a,chk}),()=>tm("evHint",{k:t(cube?"threeW":"twiceW"),n}));
+    setPrompt(m,tm("evDir",{x}));
+  }else{
+    let n; do n=ri(3,g>=8?224:g===7?120:80); while(Number.isInteger(Math.sqrt(n)));
+    const a=Math.floor(Math.sqrt(n)), b=a+1, x={h:sqH(n),s:t("sqrtSay",{n})}, a2=a*a, b2=b*b;
+    if(type==="irr"){ let nn=n; if(Math.random()<.4){ nn=a*a; }
+      const isR=Number.isInteger(Math.sqrt(nn)), xx={h:sqH(nn),s:t("sqrtSay",{n:nn})}, rt=Math.sqrt(nn), lo=Math.floor(rt-1e-9)||1;
+      w.innerHTML=`<div class="big">${M(xx.h)}</div>`;
+      choices(m,[{h:t("ratW"),s:t("ratW"),ok:isR,wide:true},{h:t("irrW"),s:t("irrW"),ok:!isR,wide:true}],it=>{
+        if(it.ok) return win(m,isR?tm("irrGoodR",{n:nn,x:xx,r:rt}):tm("irrGoodI",{n:nn,x:xx,v:rt.toFixed(6)}));
+        nope(m,tm("irrHint",{n:nn,a2:lo*lo===nn?(lo-1)*(lo-1):lo*lo,b2:(lo+1)*(lo+1)})); });
+      setPrompt(m,tm("irrDir",{x:xx}));
+    }else if(type==="btw"){
+      const pr=(p,q)=>({h:t("btwPair",{a:p,b:q}),s:t("btwPair",{a:p,b:q}),ok:p===a,wide:true});
+      const cs=[[a,b],[a-1,a],[b,b+1]]; const h=Math.floor(n/2); cs.push(h>b+1?[h,h+1]:[b+1,b+2]);
+      w.innerHTML=`<div class="big">${M(x.h)}</div>`;
+      choices(m,shuffle(cs.map(([p,q])=>pr(p,q))),it=>{
+        if(it.ok) return win(m,tm("btwGood",{a2,b2,n,x,a,b}),NL({min:a-1,max:b+1,marks:[{v:Math.sqrt(n),t:"√"+n}]}).html);
+        nope(m,cat(youX(it),tm("btwHint",{n}))); });
+      setPrompt(m,tm("btwDir",{x}));
+    }else{ // est: drag a pin
+      const v=Math.round(Math.sqrt(n)*10), o={min:a-1,max:b+1,pin:a-1,drag:true}; s.target=v/10;
+      NL(o); w.innerHTML=`<div class="big">${M(x.h)}</div>`+o.html; bindPin(m,o);
+      checkBtn(m,()=>{ const p=Math.round(st[m].pin*10);
+        if(Math.abs(p-v)<=1){ const vv=fmt(p/10);
+          return win(m,tm("estGood",{x,v:vv,sq:(p*p/100).toFixed(2),n}),`<div class="big">${M(x.h+" ≈ "+vv)}</div>`+NL({min:a-1,max:b+1,marks:[{v:p/10,t:"√"+n}]}).html); }
+        nope(m,cat(tm("estFar",{p:fmt(p/10),x,dir:t(v>p?"estMore":"estLess")}),tm("estHint",{x,a,b,a2,b2,n}))); });
+      setPrompt(m,tm("estDir",{x}));
+    }
+  }
+  maybeAuto(m);
+}
+function rootSq(ph){ return `<svg class="pic" viewBox="0 0 200 170" width="200" role="img" aria-label="x × x"><rect x="45" y="20" width="120" height="120" fill="#dbeafe" stroke="#2563eb" stroke-width="4"/><text x="105" y="88" text-anchor="middle" font-size="22" font-weight="800" fill="#1b2631">A</text><text x="105" y="162" text-anchor="middle" font-size="22" font-style="italic" font-weight="800" fill="#1b2631">x</text><text x="28" y="88" text-anchor="middle" font-size="22" font-style="italic" font-weight="800" fill="#1b2631">x</text></svg>`; }
+/* Number line from integer min to max with tenths and a draggable pin. */
+function NL(o){ const span=o.max-o.min, A0=40, A1=600, Pp=v=>+(A0+(A1-A0)*(v-o.min)/span).toFixed(2); o.P=Pp; let s=`<line class="nlax" x1="24" y1="96" x2="616" y2="96"/>`;
+  for(let k=o.min*10;k<=o.max*10;k++){ const maj=k%10===0, L=maj?16:k%5===0?11:7; s+=`<line class="tk${maj?"":" mn"}" x1="${Pp(k/10)}" x2="${Pp(k/10)}" y1="${96-L}" y2="${96+L}"/>`;
+    if(maj) s+=`<text class="nlt" x="${Pp(k/10)}" y="140">${k/10}</text>`; }
+  (o.marks||[]).forEach(mk=>{ const p=Pp(mk.v); s+=`<circle cx="${p}" cy="96" r="9" fill="#dc2626" stroke="#fff" stroke-width="2"/><text class="nlm" x="${p}" y="62" fill="#b91c1c">${mk.t}</text>`; });
+  if(o.pin!=null) s+=`<g class="pin" transform="translate(${Pp(o.pin)} 0)"`+(o.drag?` tabindex="0" role="slider" aria-label="${t("pinLbl")}" aria-valuemin="${o.min}" aria-valuemax="${o.max}" aria-valuenow="${o.pin}"`:"")+`><line x1="0" y1="34" x2="0" y2="96"/><circle cx="0" cy="22" r="16"/></g>`;
+  o.html=`<div class="nlwrap" dir="ltr"><svg class="nl" viewBox="0 0 640 150" role="${o.drag?"group":"img"}" aria-label="${t("lineLbl",{a:o.min,b:o.max})}">${s}</svg></div>`; return o; }
+function bindPin(m,o){ const svg=$("#w-"+m+" svg.nl"), pin=svg&&svg.querySelector(".pin"); if(!pin) return;
+  const set=v=>{ v=Math.max(o.min,Math.min(o.max,Math.round(v*10)/10)); st[m].pin=v; pin.setAttribute("transform",`translate(${o.P(v)} 0)`); pin.setAttribute("aria-valuenow",v); pin.setAttribute("aria-valuetext",fmt(v)); };
+  const fromEv=e=>{ const pt=svg.createSVGPoint(); pt.x=e.clientX; pt.y=e.clientY; const c=pt.matrixTransform(svg.getScreenCTM().inverse()); return o.min+(c.x-40)/560*(o.max-o.min); };
+  let drag=false;
+  svg.addEventListener("pointerdown",e=>{ if(st[m].done) return; drag=true; try{ svg.setPointerCapture(e.pointerId); }catch(er){} set(fromEv(e)); pin.focus({preventScroll:true}); e.preventDefault(); });
+  svg.addEventListener("pointermove",e=>{ if(drag) set(fromEv(e)); });
+  ["pointerup","pointercancel"].forEach(n=>svg.addEventListener(n,()=>{ drag=false; }));
+  pin.addEventListener("keydown",e=>{ if(st[m].done) return; const d={ArrowRight:.1,ArrowUp:.1,ArrowLeft:-.1,ArrowDown:-.1,PageUp:1,PageDown:-1}[e.key];
+    if(d){ set((st[m].pin||0)+d); e.preventDefault(); } else if(e.key==="Enter"&&st[m].check){ st[m].check(); e.preventDefault(); } });
+  set(o.pin); }
+
+/* =========================================================================
+   4. SCIENTIFIC NOTATION (8.EE.3, 8.2(C)) — slide the decimal point both ways; estimate with one digit × 10ⁿ
+   Digits D stay fixed in their slots; the point sits at gap p (p digits of D to its left).
+   ========================================================================= */
+const CTX=[ // key, digits, point position p (value = 0.D × 10^p), estimate digits
+  ["cMoon","3844",6],["cSun","1496",9],["cLight","3",9],["cWorld","8",10],["cUS","34",9],["cTexas","31",8],["cAge","45",10],["cYear","31536",8],
+  ["cBlood","8",-5],["cHair","8",-4],["cAtom","1",-9],["cVirus","1",-6],["cPaper","1",-3],["cAnt","3",-5],["cBact","2",-5]];
+function numStr(D,p,g){ let s; if(p<=0) s="0."+"0".repeat(-p)+D; else if(p>=D.length) s=D+"0".repeat(p-D.length); else s=D.slice(0,p)+"."+D.slice(p); return g?grp(s):s; }
+const coefStr = D=>D.length>1?D[0]+"."+D.slice(1):D;
+const STD = (D,p)=>({h:numStr(D,p,true), s:numStr(D,p,true)});
+const SCID = (D,p)=>SCI(+coefStr(D),p-1);
+function rndD(){ const k=rand([1,2,2,3,3,4]); let D=String(ri(1,9)); for(let i=1;i<k;i++) D+=String(ri(0,9)); return D.replace(/0+$/,"")||"1"; }
+// Choose an exponent within the settings: big numbers always; small only with negatives on.
+function rndE(){ const big=!NEG()||Math.random()<.55; return big?ri(3,EX()):-ri(1,Math.min(EX(),G()===6?4:9)); }
+function strip(m,D,P0,start,goal,onCheck){
+  const s=st[m]; s.p=start; s.goal=goal; s.P0=P0;
+  const lo=Math.min(P0,1,start)-2, hi=Math.max(P0,1,start)+1;
+  const sLo=Math.min(0,lo-1), sHi=Math.max(D.length,hi);
+  const w=$("#w-"+m);
+  w.insertAdjacentHTML("beforeend",`<div class="stripwrap"><div class="strip" id="strip-${m}"></div></div><div class="readout" id="ro-${m}" aria-live="polite"></div><div class="moved" id="mv-${m}"></div>`);
+  const draw=()=>{ const p=s.p; let h="";
+    for(let k=sLo;k<sHi;k++){ if(k===p) h+=`<span class="pt" tabindex="0" role="slider" aria-label="${t("ptLbl")}" aria-valuemin="${lo}" aria-valuemax="${hi}" aria-valuenow="${p}" aria-valuetext="${numStr(D,p)}"></span>`;
+      let ch="", cls="bl"; if(k>=0&&k<D.length){ ch=D[k]; cls=""; } else if(k<0&&k>=p-1&&p<=0){ ch="0"; cls="ph"; } else if(k>=D.length&&k<p){ ch="0"; cls="ph"; }
+      h+=`<span class="cell ${cls}" data-k="${k}">${ch||"0"}</span>`; }
+    if(p===sHi) h+=`<span class="pt" tabindex="0" role="slider" aria-label="${t("ptLbl")}" aria-valuemin="${lo}" aria-valuemax="${hi}" aria-valuenow="${p}" aria-valuetext="${numStr(D,p)}"></span>`;
+    const el=$("#strip-"+m), had=document.activeElement&&document.activeElement.classList.contains("pt"); el.innerHTML=h; if(had) el.querySelector(".pt").focus();
+    const ex=P0-p, cur=numStr(D,p,true);
+    $("#ro-"+m).innerHTML=M("= "+cur+" × 10<sup>"+sN(ex)+"</sup>");
+    const mv=start-p; $("#mv-"+m).textContent=mv>0?t("placesL",{k:mv}):mv<0?t("placesR",{k:-mv}):t("placesZ"); };
+  s.drawStrip=draw; draw();
+  const set=p=>{ if(s.done) return; p=Math.max(lo,Math.min(hi,p)); if(p!==s.p){ s.p=p; draw(); hideFb($("#f-"+m)); } };
+  s.setP=set;
+  const el=$("#strip-"+m); let drag=false;
+  const fromX=x=>{ const cells=$$(`#strip-${m} .cell`); let best=s.p, bd=1e9;
+    cells.forEach(c=>{ const r=c.getBoundingClientRect(), k=+c.dataset.k; [[r.left,k],[r.right,k+1]].forEach(([gx,gk])=>{ const d=Math.abs(gx-x); if(d<bd){ bd=d; best=gk; } }); }); return best; };
+  el.addEventListener("pointerdown",e=>{ if(s.done) return; drag=true; try{ el.setPointerCapture(e.pointerId); }catch(er){} set(fromX(e.clientX)); e.preventDefault(); });
+  el.addEventListener("pointermove",e=>{ if(drag) set(fromX(e.clientX)); });
+  ["pointerup","pointercancel"].forEach(n=>el.addEventListener(n,()=>{ drag=false; const pt=el.querySelector(".pt"); if(pt) pt.focus({preventScroll:true}); }));
+  el.addEventListener("keydown",e=>{ const d={ArrowLeft:-1,ArrowRight:1}[e.key]; if(d){ set(s.p+d); e.preventDefault(); } else if(e.key==="Enter"&&s.check){ s.check(); e.preventDefault(); } });
+  actBtn(m,"◀ .",()=>set(s.p-1),"ghost",t("ptLeft")); actBtn(m,". ▶",()=>set(s.p+1),"ghost",t("ptRight"));
+  checkBtn(m,onCheck);
+}
+function newSci(){
+  const types=["toSci","toSci","toStd","toStd","est"]; const type=rand(types), m="sci"; startRound(m,type); const s=st[m], w=$("#w-"+m);
+  // pick a number: a real-world context (if it fits the settings) or a random one
+  const ctxOK=CTX.filter(c=>Math.abs(c[2]-1)<=EX() && (NEG()||c[2]>0) && (G()>6||c[2]-1<=6));
+  let D,p,ctx=null;
+  if(type!=="est" && ctxOK.length && Math.random()<.5){ ctx=rand(ctxOK); D=ctx[1]; p=ctx[2]; } else { D=rndD(); p=rndE()+1; }
+  if(type==="toSci"){
+    const n=STD(D,p), sc=SCID(D,p);
+    if(ctx) setCtx(m,tm(ctx[0],{x:n}));
+    w.innerHTML=`<div class="big">${M(n.h)}</div>`;
+    strip(m,D,p,p,1,()=>{ if(s.done) return; const c=numStr(D,s.p);
+      if(s.p===1){ const k=Math.abs(p-1); return win(m,tm("tsGood",{n,s:sc,k,dir:t(p>1?"dirL":"dirR"),e:sN(p-1)}),w.innerHTML.replace(/id="[^"]*"/g,"")); }
+      nope(m,tm(s.p>1?"tsBig":"tsSmall",{c:M(c)})); });
+    setPrompt(m,W("tsDir"));
+  }else if(type==="toStd"){
+    const n=STD(D,p), sc=SCID(D,p);
+    if(ctx) setCtx(m,tm(ctx[0],{x:sc}));
+    w.innerHTML=`<div class="big">${M(sc.h)}</div>`;
+    strip(m,D,p,1,p,()=>{ if(s.done) return;
+      if(s.p===p){ const k=Math.abs(p-1); return win(m,tm("stGood",{s:sc,n,p:P(10,p-1),k,dir:t(p>1?"dirR":"dirL")}),w.innerHTML.replace(/id="[^"]*"/g,"")); }
+      nope(m,tm("stHint",{e:sN(p-1),one:ONE()})); });
+    setPrompt(m,tm("stDir",{s:sc,one:ONE()}));
+  }else{ // estimate as a single digit times a power of 10
+    let c, e; const usable=ctxOK.filter(x=>x[1].length>1);
+    if(usable.length && Math.random()<.5){ ctx=rand(usable); D=ctx[1]; p=ctx[2]; } else { do{ D=String(ri(11,94))+(Math.random()<.5?String(ri(1,9)):""); }while(/^9[5-9]/.test(D)); p=rndE()+1; }
+    c=Math.round(+coefStr(D)); e=p-1; if(c>=10){ c=1; e++; }
+    const n=STD(D,p), r=SCI(c,e);
+    if(ctx) setCtx(m,tm(ctx[0],{x:n}));
+    w.innerHTML=`<div class="big">${M(n.h)}</div>`;
+    const wr=[SCI(c,e-1),SCI(c,e+1),SCI(c===9?8:c+1,e),SCI(+D[0]*10+ +(D[1]||0),e-1)];
+    pickRound(m,opts({...r,h:M(r.h)},wr.map(x=>({...x,h:M(x.h)}))),()=>tm("eqGood",{n,s:r,c,k:Math.abs(e)}),()=>W("eqHint"));
+    setPrompt(m,W("eqDir"));
+  }
+  maybeAuto(m);
+}
+
+/* =========================================================================
+   5. COMPUTE & COMPARE (8.EE.3, 8.EE.4, 8.2(D)) — multiply, divide, add, how many times, order, calculator E-notation
+   ========================================================================= */
+const norm = (c,e)=>{ c=+c.toPrecision(10); while(Math.abs(c)>=10){ c=+(c/10).toPrecision(10); e++; } while(Math.abs(c)<1&&c!==0){ c=+(c*10).toPrecision(10); e--; } return [c,e]; };
+const rc = ()=>rand([1.2,1.5,2,2.5,3,4,4.5,5,6,8,1.6,2.4,3.5,7]);
+const re = ()=>NEG()?ri(-Math.min(6,EX()),EX()-1):ri(2,EX()-1);
+const CX = (a,b,op)=>({h:`(${a.h})`+(op?` ${op} `:"")+`(${b.h})`, s:a.s+" "+t(OPS[op]||"wTimes")+" "+b.s});
+function newOps(){
+  const types=["mul","mul","div","add","times","ord","calc"]; const type=rand(types), m="ops"; startRound(m,type); const s=st[m], w=$("#w-"+m);
+  if(type==="mul"||type==="div"){
+    let c1,c2,e1,e2,cc,ee,sun=false;
+    if(type==="div"&&Math.random()<.25&&EX()>=8){ sun=true; c1=1.5; e1=8; c2=3; e2=5; }
+    else do{ c1=rc(); c2=rc(); e1=re(); e2=re(); cc=type==="mul"?c1*c2:c1/c2; }while(String(+cc.toPrecision(10)).replace(/^0\.0*|\./g,"").length>3||Math.abs(type==="mul"?e1+e2:e1-e2)>EX()+1||(!NEG()&&(type==="mul"?e1+e2:e1-e2)<1));
+    cc=+(type==="mul"?c1*c2:c1/c2).toPrecision(10); ee=type==="mul"?e1+e2:e1-e2; const [c,e]=norm(cc,ee);
+    const A=SCI(c1,e1), B=SCI(c2,e2), r=SCI(c,e), ex=CX(A,B,type==="mul"?"×":"÷");
+    const raw={h:`${fmt(cc)} × 10<sup>${sN(ee)}</sup>`,s:t("sciSay",{c:fmt(cc),e:eS(ee)})};
+    const wr=[SCI(c,e===ee?e+1:ee),SCI(c,type==="mul"?e1*e2:e1+e2),SCI(c,e-1),SCI(c,-e||e+2)];
+    w.innerHTML=`<div class="big">${M(ex.h)}</div>`;
+    if(sun) setCtx(m,tm("sunDir",{a:B,b:A}));
+    const fix=e===ee?W("fixOk"):tm("fixNote",{a:raw,b:r});
+    pickRound(m,opts({...r,h:M(r.h)},wr.map(x=>({...x,h:M(x.h)}))),
+      ()=>tm(type==="mul"?"mulGood":"divGood",{cc:X(N(c1),type==="mul"?"×":"÷",N(c2),"=",{h:fmt(cc),s:fmt(cc)}),ee:type==="mul"?X(N(e1),"+",{h:e2<0?"("+sN(e2)+")":sN(e2),s:N(e2).s},"=",N(ee)):X(N(e1),"−",{h:e2<0?"("+sN(e2)+")":sN(e2),s:N(e2).s},"=",N(ee)),fix}),
+      ()=>tm(type==="mul"?"mulHint":"divHint",{c1:fmt(c1),c2:fmt(c2),e1:sN(e1),e2:e2<0?"("+sN(e2)+")":sN(e2)}));
+    setPrompt(m,sun?W("divDir"):W(type==="mul"?"mulDir":"divDir"));
+  }else if(type==="add"){
+    const e=re(), same=G()<8||Math.random()<.5; let c1=ri(11,59)/10, c2=ri(11,39)/10, e2=same?e:e-1;
+    const A=SCI(c1,e), B=SCI(c2,e2), c2b=same?c2:c2/10, [c,er]=norm(+(c1+c2b).toFixed(4),e), r=SCI(c,er);
+    w.innerHTML=`<div class="big">${M(A.h+" + "+B.h)}</div>`;
+    const cc=X({h:fmt(c1),s:fmt(c1)},"+",{h:fmt(c2b),s:fmt(c2b)},"=",{h:fmt(c1+c2b),s:fmt(c1+c2b)});
+    const how=same?tm("addSame",{cc}):tm("addConv",{b:B,b2:{h:`${fmt(c2b)} × 10<sup>${sN(e)}</sup>`,s:t("sciSay",{c:fmt(c2b),e:eS(e)})},cc});
+    const wr=[SCI(+(c1+c2).toFixed(4)>=10?+((c1+c2)/10).toFixed(4):+(c1+c2).toFixed(4),e+e2),SCI(c,er+1),SCI(+(c1+c2).toFixed(4)>=10?+((c1+c2)/10).toFixed(4):+(c1+c2).toFixed(4),same?e*2:e),SCI(fmt(c1*c2)>=10?+(c1*c2/10).toFixed(3):+(c1*c2).toFixed(3),e+e2)];
+    pickRound(m,opts({...r,h:M(r.h)},wr.map(x=>({...x,h:M(x.h)}))),()=>tm("addGood",{how,r}),()=>W("addHint"));
+    setPrompt(m,W("addDir"));
+  }else if(type==="times"){
+    const cs=ri(1,4), es=re(), k=rand([1,2,3,4,5].filter(x=>x*cs<10)), d=ri(1,G()===6?3:4), B=SCI(cs,es), A=SCI(cs*k,es+d), rv=k*Math.pow(10,d);
+    const R=N(rv), r={...R,h:grp(String(rv))};
+    w.innerHTML=`<div class="big">${M(A.h)}<br>${M(B.h)}</div>`;
+    const wr=[N(k*Math.pow(10,d+1)),N(k*Math.pow(10,d-1)),N(Math.pow(10,d)*(k+1)),N((es+d)*k)].map(x=>({...x,h:grp(x.h)}));
+    pickRound(m,opts(r,wr),()=>tm("timesGood",{a:CX(A,B,"÷"),cc:{h:`${cs*k} ÷ ${cs}`,s:cs*k+" "+t("wDiv")+" "+cs},pp:{h:`10<sup>${sN(es+d)}</sup> ÷ 10<sup>${sN(es)}</sup>`,s:P(10,es+d).s+" "+t("wDiv")+" "+P(10,es).s},r:{h:grp(String(rv))+" = "+k+" × 10<sup>"+d+"</sup>",s:String(rv)}}),()=>tm("timesHint",{e1:sN(es+d),e2:es<0?"("+sN(es)+")":sN(es)}));
+    setPrompt(m,tm("timesDir",{a:A,b:B}));
+  }else if(type==="ord"){
+    const items=[]; let guard=0; const e0=re();
+    while(items.length<4&&guard++<80){ const e=Math.random()<.5?e0:e0+ri(-2,2); if(!NEG()&&e<1) continue; const c=rand([1.5,2,2.5,3,4,6,7.5,8,9,1.2]); const v=c*Math.pow(10,e);
+      if(items.some(x=>near(x.v,v))) continue; const it=SCI(c,e); if(G()>=8&&items.length===3&&Math.random()<.5&&e>=-4&&e<=6){ const sstr=grp(fmt(v).replace(MINUS,"")); items.push({h:sstr,s:sstr,v}); } else items.push(it); }
+    const sorted=items.slice().sort((a,b)=>a.v-b.v); s.k=0; s.sorted=sorted;
+    w.innerHTML=`<div class="ordrow" id="ordRow"><span class="lab">${t("ordRow")}</span></div><div class="chips" dir="ltr">`+items.map((it,i)=>`<button type="button" class="chip" data-i="${i}" aria-label="${it.s}">${M(it.h)}</button>`).join("")+`</div>`;
+    w.addEventListener("click",ev=>{ const c=ev.target.closest(".chip"); if(!c||s.done||c.classList.contains("used")) return; const it=items[+c.dataset.i];
+      if(near(it.v,sorted[s.k].v)){ c.classList.add("used"); c.disabled=true; $("#ordRow").insertAdjacentHTML("beforeend",`<span class="chip">${M(it.h)}</span>`); s.k++; hideFb($("#f-"+m));
+        if(s.k===4) return win(m,tm("ordGood",{list:{h:sorted.map(x=>M(x.h)).join(" &lt; "),s:sorted.map(x=>x.s).join(", ")}}),$("#ordRow").outerHTML); return; }
+      nope(m,tm("ordHint",{x:it,y:sorted[s.k]})); });
+    actBtn(m,"↺ "+t("startOver"),()=>{ if(s.done) return; s.k=0; $$("#w-ops .chip").forEach(c=>{ c.classList.remove("used"); c.disabled=false; }); $$("#ordRow .chip").forEach(c=>c.remove()); hideFb($("#f-"+m)); },"ghost");
+    setPrompt(m,W("ordDir"));
+  }else{ // calculator E-notation
+    let D=rndD(); if(D.length<2) D+=String(ri(1,9)); const e=NEG()&&Math.random()<.45?-ri(2,Math.min(7,EX())):ri(4,Math.min(9,EX())), p=e+1;
+    const cs=coefStr(D)+"E"+(e<0?"-":"")+Math.abs(e), sc=SCID(D,p), n=STD(D,p);
+    w.innerHTML=`<div class="big"><span class="calc" aria-label="${cs}">${cs}</span></div>`;
+    const wr=[STD(D,p+1),STD(D,p-1),{h:`${coefStr(D)}<sup>${sN(e)}</sup>`,s:P(coefStr(D),e).s},{h:`${coefStr(D)} × ${sN(e)}`,s:coefStr(D)+" "+t("wTimes")+" "+N(e).s}];
+    pickRound(m,opts({...n,h:M(n.h)},wr.map(x=>({...x,h:M(x.h)}))),()=>tm("calcGood",{c:cs,e:sN(e),s:sc,n,p:{h:"× 10<sup>"+sN(e)+"</sup>",s:t("wTimes")+" "+P(10,e).s}}),()=>tm("calcHint",{c:cs,s:sc,k:Math.abs(e),dir:t(e>0?"dirR":"dirL")}));
+    setPrompt(m,W("calcDir"));
+  }
+  maybeAuto(m);
+}
+
+/* ---------- Mode switching ---------- */
+const NEWFN={pow:newPow,laws:newLaws,root:newRoot,sci:newSci,ops:newOps};
+function firstMode(){ return MODES.find(m=>settings.modes[m])||"pow"; }
+function currentMode(){ const b=$$(".tabs button").find(x=>x.getAttribute("aria-selected")==="true"); return b?b.dataset.mode:firstMode(); }
+function showMode(mode){
+  if(!settings.modes[mode]) mode=firstMode();
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
+  $$(".modepanel").forEach(p=>p.classList.add("hidden"));
+  $("#mode-"+mode).classList.remove("hidden");
+  $$(".tabs button").forEach(b=>{ const on=b.dataset.mode===mode; b.setAttribute("aria-selected",on?"true":"false"); b.tabIndex=on?0:-1; });
+  if(!made[mode]) NEWFN[mode]();
+  if(switching && speechGen===g0) maybeAuto(mode);
+}
+function syncTabs(){
+  $$(".tabs button").forEach(b=>b.classList.toggle("hidden",!settings.modes[b.dataset.mode]));
+  if(!settings.modes[currentMode()]) showMode(firstMode());
+}
+function resetRounds(){ MODES.forEach(m=>made[m]=false); stopSpeech(); NEWFN[currentMode()](); }
+
+/* ---------- Settings drawer ---------- */
+function buildModeToggles(){
+  const wrap=$("#modeToggles"); wrap.innerHTML="";
+  MODES.forEach(m=>{ const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.modes[m]?"checked":""}> <span>${MODE_IC[m]} ${t(MODE_KEY[m])}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{ settings.modes[m]=e.target.checked;
+      if(!MODES.some(k=>settings.modes[k])){ e.target.checked=true; settings.modes[m]=true; }
+      saveSettings(); syncTabs(); });
+    wrap.appendChild(l); });
+}
+function syncSettingsUI(){
+  $("#setGrade").value=String(settings.grade); $("#setExp").value=String(settings.exp); $("#setNegIn").checked=settings.neg;
+  $("#setAuto").checked=settings.autoRead; buildModeToggles();
+}
+function closeSettings(){ $("#settingsDrawer").classList.remove("open"); $("#openSettings").focus(); }
+function initSettings(){
+  $("#openSettings").addEventListener("click",()=>{ syncSettingsUI(); $("#settingsDrawer").classList.add("open"); $("#closeSettings").focus(); });
+  $("#closeSettings").addEventListener("click",closeSettings);
+  $("#settingsDrawer").addEventListener("click",e=>{ if(e.target.id==="settingsDrawer") closeSettings(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape" && $("#settingsDrawer").classList.contains("open")) closeSettings(); });
+  $("#setGrade").addEventListener("change",e=>{ const g=+e.target.value; settings.grade=g;
+    Object.assign(settings,{exp:GRADES[g].exp,neg:GRADES[g].neg}); saveSettings(); syncSettingsUI(); resetRounds(); });
+  $("#setExp").addEventListener("change",e=>{ settings.exp=+e.target.value; saveSettings(); resetRounds(); });
+  $("#setNegIn").addEventListener("change",e=>{ settings.neg=e.target.checked; saveSettings(); resetRounds(); });
+  $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
+  $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
+}
+
+/* ---------- Print cards ---------- */
+function buildPrintCards(){
+  const bl=`<span style="display:inline-block;min-width:3.5rem;border-bottom:2px solid #000">&nbsp;</span>`, line=(...x)=>x.map(e=>e.h+" = "+bl).join("<br>");
+  const fn=rand([24,36,48,60,72,90,108]), b=rand([2,3,5]), sq=ri(4,12), cb=ri(2,5);
+  let n1; do n1=ri(10,90); while(Number.isInteger(Math.sqrt(n1)));
+  const D1=rndD(), D2=rndD(), D3=rndD(), D4=rndD(), e1=ri(4,Math.min(9,EX())), e2=NEG()?-ri(2,6):ri(3,6), e3=ri(3,Math.min(8,EX())), e4=NEG()?-ri(2,5):ri(2,5);
+  const cards=[
+    {title:t("mPow"), body:t("cardPow"), html:line(X(P(ri(2,6),3)),X(P(2,ri(4,6))),X(N(ri(2,9)),"+",P(ri(2,5),2)))+`<br>${M(fn)} = ${bl}`},
+    {title:t("mLaws"), body:t("cardLaws"), html:line(X(P(b,ri(2,4)),"·",P(b,ri(2,3))),{h:M(frH(P(b,5).h,P(b,2).h))},{h:M(`(${P(b,2).h})<sup>3</sup>`)})+(NEG()?"<br>"+line(X(P(b,0)),X(P(b,-2))):"")},
+    {title:t("mRoot"), body:t("cardRoot"), html:[sq*sq,cb*cb*cb].map((v,i)=>M(`x<sup>${i+2}</sup> = ${v}`)+" → "+M("x = ")+bl).join("<br>")+`<br>${M(sqH(n1))} ≈ ${bl}`+NL({min:Math.floor(Math.sqrt(n1))-1,max:Math.floor(Math.sqrt(n1))+2}).html},
+    {title:t("mSci"), body:t("cardSci"), html:[STD(D1,e1+1),STD(D2,e2+1),SCID(D3,e3+1),SCID(D4,e4+1)].map(x=>M(x.h)+" → "+bl).join("<br>")},
+    {title:t("mOps"), body:t("cardOps"), html:line(X(CX(SCI(3,4),SCI(2.5,3),"×")),X(CX(SCI(8,9),SCI(2,4),"÷")),X(SCI(4.2,5),"+",SCI(3.1,5)))}
+  ];
+  $("#printArea").innerHTML=`<h1>${t("cardTitle")}</h1><p>${t("cardName")} ____________________</p>`+
+    cards.map(c=>`<div class="card-print"><h2>${c.title}</h2><p style="font-size:1.1rem">${c.body}</p><p style="font-size:1.4rem;line-height:2.2">${c.html}</p></div>`).join("")+
+    `<p style="font-size:.85rem">${stdsHTML()}</p>`;
+}
+
+// Standards codes stay left-to-right inside Arabic/Urdu text.
+function stdsHTML(){ return t("stds").replace(/(TEKS|Common Core|\d\.(?:EE|NS)\.\d+|\d\.\d+\([A-Z]\))/g,'<bdi dir="ltr">$1</bdi>'); }
+
+/* ---------- Language engine ---------- */
+function resolveLang(){
+  try{ const q=new URLSearchParams(location.search).get("lang"); if(q && T[q]) return q; }catch(e){}
+  try{ const s=localStorage.getItem(LANG_KEY); if(s && T[s]) return s; }catch(e){}
+  const n=(navigator.language||"en").slice(0,2).toLowerCase();
+  if(T[n]) return n;
+  return "en";
+}
+function applyLang(){
+  const meta=LANGS.find(x=>x.code===lang)||LANGS[0];
+  document.documentElement.lang=lang;
+  document.documentElement.dir=meta.dir;
+  document.title=t("appTitle");
+  const sel=$("#langSelect"); if(sel) sel.value=lang;
+  $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
+  $("#stdsNote").innerHTML=stdsHTML();
+  buildModeToggles();
+  resetRounds();
+}
+function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} applyLang(); }
+function buildLangSelect(){
+  const sel=$("#langSelect"); sel.innerHTML="";
+  LANGS.forEach(m=>{ const o=document.createElement("option"); o.value=m.code; o.textContent=m.name; sel.appendChild(o); });
+  sel.value=lang;
+  sel.addEventListener("change",()=>setLang(sel.value));
+}
+
+/* ---------- Init ---------- */
+function buildUI(){
+  $("#tabs").innerHTML=MODES.map(m=>`<button type="button" role="tab" id="tab-${m}" aria-controls="mode-${m}" aria-selected="false" data-mode="${m}"><span class="ic" aria-hidden="true">${MODE_IC[m]}</span><span data-t="${MODE_KEY[m]}"></span></button>`).join("");
+  $("#panels").innerHTML=MODES.map(m=>`<section id="mode-${m}" class="panel modepanel hidden" role="tabpanel" aria-labelledby="tab-${m}">
+    <div class="panelhead"><h2 data-t="${MODE_KEY[m]}"></h2><button type="button" class="btn ghost no-print" data-new="${m}" data-t="newRound"></button></div>
+    <div class="prompt"><button type="button" class="speaker" data-speak="${m}" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="p-${m}">…</span></div>
+    <div class="ctx hidden" id="x-${m}"></div>
+    <div class="work" id="w-${m}"></div>
+    <div class="acts no-print" id="a-${m}"></div>
+    <div class="choices" id="c-${m}" role="group" data-ta="choicesLbl" aria-label="Answer choices"></div>
+    <div class="feedback" id="f-${m}" role="status" aria-live="polite"></div></section>`).join("");
+  // Arrow keys move between tabs (WAI-ARIA tabs pattern).
+  $("#tabs").addEventListener("keydown",e=>{ const vis=$$(".tabs button").filter(b=>!b.classList.contains("hidden")), i=vis.indexOf(document.activeElement); if(i<0) return;
+    const rtl=document.documentElement.dir==="rtl", step={ArrowRight:rtl?-1:1,ArrowLeft:rtl?1:-1}[e.key]; if(!step) return;
+    const nb=vis[(i+step+vis.length)%vis.length]; nb.focus(); showMode(nb.dataset.mode); e.preventDefault(); });
+}
+function init(){
+  lang=resolveLang();
+  buildUI();
+  buildLangSelect();
+  $$(".tabs button").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.mode)));
+  $$(".speaker").forEach(b=>b.addEventListener("click",()=>speak(currentSpeech[b.dataset.speak])));
+  $$("[data-new]").forEach(b=>b.addEventListener("click",()=>{ stopSpeech(); NEWFN[b.dataset.new](); }));
+  initSettings();
+  const f=firstMode();
+  $$(".tabs button").forEach(b=>{ const on=b.dataset.mode===f; b.setAttribute("aria-selected",on?"true":"false"); b.tabIndex=on?0:-1; b.classList.toggle("hidden",!settings.modes[b.dataset.mode]); });
+  $$(".modepanel").forEach(p=>p.classList.toggle("hidden",p.id!=="mode-"+f));
+  applyLang();
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+</script>
+<script>
+/* Student mute toggle — shared across the Digital Math Tools. Self-contained,
+   offline, stores no student data. Gates ALL speech by intercepting
+   speechSynthesis.speak, so muting works regardless of each tool's internals.
+   Reads the shared language preference only to localize its own label. */
+(function(){
+  "use strict";
+  var LKEY='tcea.mathtools.lang', MKEY='tcea.mathtools.muted';
+  var CODES=['en','es','vi','ar','hi','ur','zh'];
+  var LAB={
+    mute:{en:"Mute sound",es:"Silenciar sonido",vi:"Tắt âm thanh",ar:"كتم الصوت",hi:"आवाज़ बंद करें",ur:"آواز بند کریں",zh:"静音"},
+    unmute:{en:"Turn sound on",es:"Activar sonido",vi:"Bật âm thanh",ar:"تشغيل الصوت",hi:"आवाज़ चालू करें",ur:"آواز چالو کریں",zh:"打开声音"}
+  };
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  window.__MT_MUTED = (get(MKEY)==='1');
+  // Intercept every speech request; suppress while muted.
+  try{
+    if(window.speechSynthesis && typeof window.speechSynthesis.speak==='function'){
+      var ss=window.speechSynthesis, orig=ss.speak.bind(ss);
+      ss.speak=function(u){ if(!window.__MT_MUTED){ try{orig(u);}catch(e){} } };
+    }
+  }catch(e){}
+  function curLang(){ var l=get(LKEY)||'en'; return LAB.mute[l]?l:'en'; }
+  function label(el){
+    var on=!window.__MT_MUTED, l=curLang(), txt=on?LAB.mute[l]:LAB.unmute[l];
+    el.textContent=on?'🔊':'🔇';
+    el.setAttribute('aria-label',txt); el.setAttribute('title',txt);
+    el.setAttribute('aria-pressed', on?'false':'true');
+  }
+  function findLangSelect(){
+    var sels=document.querySelectorAll('select');
+    for(var i=0;i<sels.length;i++){ var o=sels[i].options, c=0;
+      for(var j=0;j<o.length;j++){ if(CODES.indexOf((o[j].value||'').toLowerCase())>=0) c++; }
+      if(c>=3) return sels[i];
+    }
+    return null;
+  }
+  function build(){
+    if(document.getElementById('mtMuteBtn')) return;
+    if(!(('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window))) return;
+    var btn=document.createElement('button');
+    btn.id='mtMuteBtn'; btn.type='button';
+    btn.style.cssText='font:inherit;font-size:1.15rem;line-height:1;cursor:pointer;'+
+      'min-width:44px;min-height:44px;padding:8px 12px;border:2px solid #e2dcf1;'+
+      'border-radius:10px;background:#fff;color:#5b3fa5;font-weight:700;margin:0 4px;';
+    btn.addEventListener('click',function(){
+      window.__MT_MUTED=!window.__MT_MUTED;
+      set(MKEY, window.__MT_MUTED?'1':'0');
+      if(window.__MT_MUTED){ try{window.speechSynthesis.cancel();}catch(e){} }
+      label(btn);
+    });
+    btn.addEventListener('focus',function(){btn.style.outline='3px solid #5b3fa5';btn.style.outlineOffset='2px';});
+    btn.addEventListener('blur',function(){btn.style.outline='';});
+    var sel=findLangSelect();
+    if(sel && sel.parentNode){
+      sel.parentNode.insertBefore(btn, sel);
+      sel.addEventListener('change',function(){ setTimeout(function(){label(btn);},0); });
+    }else{
+      btn.style.position='fixed'; btn.style.top='10px'; btn.style.zIndex='9999';
+      btn.style[(document.documentElement.dir==='rtl')?'left':'right']='10px';
+      (document.body||document.documentElement).appendChild(btn);
+    }
+    label(btn);
+  }
+  if(document.readyState==='complete'){ build(); }
+  else{ window.addEventListener('load', build); }
+  window.addEventListener('storage',function(e){ if(e.key===LKEY){ var b=document.getElementById('mtMuteBtn'); if(b) label(b); } });
+})();
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+
+</html>

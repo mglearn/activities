@@ -168,7 +168,10 @@ window.MATHTOOLS = (function () {
     "Scatterplot":{en:"Scatterplot",es:"Diagrama de dispersión",vi:"Biểu đồ phân tán",ar:"شكل الانتشار",hi:"प्रकीर्ण आरेख",ur:"بکھراؤ کا خاکہ",zh:"散点图"},
     "Financial literacy":{en:"Financial literacy",es:"Educación financiera",vi:"Hiểu biết tài chính",ar:"الثقافة المالية",hi:"वित्तीय साक्षरता",ur:"مالی خواندگی",zh:"金融素养"},
     "Budget":{en:"Budget",es:"Presupuesto",vi:"Ngân sách",ar:"الميزانية",hi:"बजट",ur:"بجٹ",zh:"预算"},
-    "Saving":{en:"Saving",es:"Ahorro",vi:"Tiết kiệm",ar:"الادخار",hi:"बचत",ur:"بچت",zh:"储蓄"}
+    "Saving":{en:"Saving",es:"Ahorro",vi:"Tiết kiệm",ar:"الادخار",hi:"बचत",ur:"بچت",zh:"储蓄"},
+    "Exponents":{en:"Exponents",es:"Exponentes",vi:"Số mũ",ar:"الأسس",hi:"घातांक",ur:"قوت نما",zh:"指数"},
+    "Scientific notation":{en:"Scientific notation",es:"Notación científica",vi:"Ký hiệu khoa học",ar:"الصيغة العلمية",hi:"वैज्ञानिक संकेतन",ur:"سائنسی ترقیم",zh:"科学记数法"},
+    "Square roots":{en:"Square roots",es:"Raíces cuadradas",vi:"Căn bậc hai",ar:"الجذور التربيعية",hi:"वर्गमूल",ur:"جذرِ مربع",zh:"平方根"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -496,7 +499,19 @@ window.MATHTOOLS = (function () {
         ar:"اكسب دخلًا من العمل، وأدِر كشكًا لعصير الليمون واحسب الربح، ولاحظ كيف تغيّر الندرة الأسعار، وصنّف الحاجات والرغبات، وخطّط للادخار وللمصروف، وميّز المصروفات الثابتة والمتغيّرة، واقترض مع الفائدة، واحتفظ بسجل بنكي، وقارن طرق الدفع، وتعرّف على الضرائب والراتب الإجمالي والصافي، ووازن ميزانية أسرة.",
         hi:"काम से आमदनी कमाएँ, नींबू पानी का स्टॉल चलाकर मुनाफ़ा निकालें, देखें कि दुर्लभता कीमतें कैसे बदलती है, ज़रूरतें और इच्छाएँ छाँटें, बचत और जेबखर्च की योजना बनाएँ, निश्चित और परिवर्ती खर्च पहचानें, ब्याज पर उधार लें, बैंक का हिसाब रखें, भुगतान के तरीकों की तुलना करें, कर और सकल व शुद्ध वेतन समझें, और परिवार का बजट संतुलित करें।",
         ur:"کام سے آمدنی کمائیں، لیموں پانی کا اسٹال چلا کر منافع نکالیں، دیکھیں کہ نایابی قیمتیں کیسے بدلتی ہے، ضرورتیں اور خواہشیں چھانٹیں، بچت اور جیب خرچ کا منصوبہ بنائیں، مقررہ اور متغیر اخراجات پہچانیں، سود پر ادھار لیں، بینک کا حساب رکھیں، ادائیگی کے طریقوں کا موازنہ کریں، ٹیکس اور مجموعی و خالص تنخواہ سمجھیں، اور خاندانی بجٹ متوازن کریں۔",
-        zh:"用劳动挣收入，经营柠檬水小摊并算出利润，看看稀缺如何改变价格，区分需要和想要，规划储蓄和零花钱，分清固定开支和可变开支，借钱并支付利息，记银行账，比较各种付款方式，了解各种税以及税前和实发工资，并平衡一份家庭预算。"} }
+        zh:"用劳动挣收入，经营柠檬水小摊并算出利润，看看稀缺如何改变价格，区分需要和想要，规划储蓄和零花钱，分清固定开支和可变开支，借钱并支付利息，记银行账，比较各种付款方式，了解各种税以及税前和实发工资，并平衡一份家庭预算。"} },
+    { id:"power-lab", collection:"g68", bandId:"6-8", icon:"⚡", accent:"#2c3e50",
+      title:"Power Lab: Exponents & Scientific Notation", href:"g68/power-lab/index.html",
+      tags:["Exponents","Scientific notation","Square roots","Order of operations","Number line","Compare","Real numbers"],
+      kw:"exponent exponents power powers base squared cubed repeated multiplication prime factorization factor tree order of operations product rule quotient rule power of a power zero exponent negative exponent reciprocal square root cube root perfect square perfect cube irrational estimate scientific notation standard form decimal point powers of ten large small numbers calculator E notation multiply divide compare order exponentes notación científica raíz cuadrada 指数 科学记数法 平方根",
+      desc:{
+        en:"Expand powers and build factor trees, tap to cancel factors and discover the exponent laws (including zero and negative exponents), solve x² = p and x³ = p and estimate square roots on a number line, slide the decimal point to write numbers in scientific notation, and multiply, divide, add, and compare very large and very small numbers.",
+        es:"Desarrolla potencias y construye árboles de factores, toca para cancelar factores y descubre las leyes de los exponentes (incluidos el cero y los negativos), resuelve x² = p y x³ = p y estima raíces cuadradas en la recta numérica, desliza el punto decimal para escribir números en notación científica, y multiplica, divide, suma y compara números muy grandes y muy pequeños.",
+        vi:"Khai triển lũy thừa và vẽ cây thừa số, chạm để gạch thừa số và khám phá quy tắc số mũ (gồm số mũ 0 và số mũ âm), giải x² = p và x³ = p và ước lượng căn bậc hai trên trục số, trượt dấu thập phân để viết số bằng ký hiệu khoa học, và nhân, chia, cộng, so sánh các số rất lớn và rất nhỏ.",
+        ar:"افكّ القوى وابنِ أشجار العوامل، واضغط لحذف العوامل واكتشف قوانين الأسس (ومنها الأس صفر والأسس السالبة)، وحُلّ x² = p و x³ = p وقدّر الجذور التربيعية على خط الأعداد، وحرّك الفاصلة العشرية لكتابة الأعداد بالصيغة العلمية، واضرب واقسم واجمع وقارن أعدادًا كبيرة جدًا وصغيرة جدًا.",
+        hi:"घातों को खोलकर लिखें और गुणनखंड वृक्ष बनाएँ, गुणनखंड काटने के लिए टैप करें और घातांक के नियम खोजें (शून्य और ऋणात्मक घातांक सहित), x² = p और x³ = p हल करें और संख्या रेखा पर वर्गमूल का अनुमान लगाएँ, दशमलव बिंदु खिसकाकर संख्याओं को वैज्ञानिक संकेतन में लिखें, और बहुत बड़ी व बहुत छोटी संख्याओं को गुणा, भाग, जोड़ और तुलना करें।",
+        ur:"قوتوں کو پھیلا کر لکھیں اور اجزائے ضربی کا درخت بنائیں، اجزا کاٹنے کے لیے ٹیپ کریں اور قوت نما کے قوانین دریافت کریں (صفر اور منفی قوت نما سمیت)، x² = p اور x³ = p حل کریں اور عددی خط پر جذرِ مربع کا اندازہ لگائیں، اعشاریہ کھسکا کر اعداد کو سائنسی ترقیم میں لکھیں، اور بہت بڑے اور بہت چھوٹے اعداد کو ضرب، تقسیم، جمع اور موازنہ کریں۔",
+        zh:"展开乘方并画因数树，点击约去因数，发现指数运算法则（包括零指数和负指数），解 x² = p 和 x³ = p 并在数轴上估计平方根，滑动小数点用科学记数法写数，并对非常大和非常小的数进行乘、除、加和比较。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
