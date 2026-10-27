@@ -162,7 +162,10 @@ window.MATHTOOLS = (function () {
     "Congruence":{en:"Congruence",es:"Congruencia",vi:"Bằng nhau",ar:"التطابق",hi:"सर्वांगसमता",ur:"تماثل",zh:"全等"},
     "Similarity":{en:"Similarity",es:"Semejanza",vi:"Đồng dạng",ar:"التشابه",hi:"समरूपता",ur:"تشابہ",zh:"相似"},
     "Proofs":{en:"Proofs",es:"Demostraciones",vi:"Chứng minh",ar:"البراهين",hi:"उपपत्तियाँ",ur:"ثبوت",zh:"证明"},
-    "Trigonometry":{en:"Trigonometry",es:"Trigonometría",vi:"Lượng giác",ar:"حساب المثلثات",hi:"त्रिकोणमिति",ur:"مثلثیات",zh:"三角函数"}
+    "Trigonometry":{en:"Trigonometry",es:"Trigonometría",vi:"Lượng giác",ar:"حساب المثلثات",hi:"त्रिकोणमिति",ur:"مثلثیات",zh:"三角函数"},
+    "Frequency table":{en:"Frequency table",es:"Tabla de frecuencia",vi:"Bảng tần số",ar:"جدول التكرار",hi:"बारंबारता सारणी",ur:"تعدد کی جدول",zh:"频数表"},
+    "Stem-and-leaf":{en:"Stem-and-leaf",es:"Tallo y hojas",vi:"Thân và lá",ar:"الساق والورقة",hi:"तना और पत्ती",ur:"تنا اور پتا",zh:"茎叶图"},
+    "Scatterplot":{en:"Scatterplot",es:"Diagrama de dispersión",vi:"Biểu đồ phân tán",ar:"شكل الانتشار",hi:"प्रकीर्ण आरेख",ur:"بکھراؤ کا خاکہ",zh:"散点图"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -466,7 +469,19 @@ window.MATHTOOLS = (function () {
         ar:"حدّد الحالة التي تثبت تطابق المثلثات أو تشابهها، وابنِ براهين من عمودين، وحُلّ المثلثات القائمة باستخدام SOH-CAH-TOA والمثلثات القائمة الخاصة، واستكشف زوايا الدائرة وأقواسها ومعادلاتها، واستخدم المسافة ونقطة المنتصف والميل في المستوى الإحداثي.",
         hi:"तय करें कि कौन-सी कसौटी त्रिभुजों को सर्वांगसम या समरूप सिद्ध करती है, दो-स्तंभ उपपत्तियाँ बनाएँ, SOH-CAH-TOA और विशेष समकोण त्रिभुजों से समकोण त्रिभुज हल करें, वृत्त के कोण, चाप और समीकरण खोजें, और निर्देशांक तल पर दूरी, मध्य-बिंदु और ढलान का उपयोग करें।",
         ur:"طے کریں کہ کون سا اصول مثلثوں کو متماثل یا متشابہ ثابت کرتا ہے، دو کالمی ثبوت بنائیں، SOH-CAH-TOA اور خاص قائمہ مثلثوں سے قائمہ مثلث حل کریں، دائرے کے زاویے، قوسیں اور مساواتیں دریافت کریں، اور محدداتی سطح پر فاصلہ، وسطی نقطہ اور ڈھلان استعمال کریں۔",
-        zh:"判断哪种判定方法能证明三角形全等或相似，构建两栏式证明，用 SOH-CAH-TOA 和特殊直角三角形解直角三角形，探究圆的角、弧与方程，并在坐标平面上运用距离、中点和斜率。"} }
+        zh:"判断哪种判定方法能证明三角形全等或相似，构建两栏式证明，用 SOH-CAH-TOA 和特殊直角三角形解直角三角形，探究圆的角、弧与方程，并在坐标平面上运用距离、中点和斜率。"} },
+    { id:"data-detectives", collection:"g35", bandId:"3-5", icon:"🔎", accent:"#27ae60",
+      title:"Data Detectives", href:"g35/data-detectives/index.html",
+      tags:["Data","Frequency table","Bar graph","Picture graph","Line plot","Stem-and-leaf","Scatterplot","Fractions"],
+      kw:"data analysis survey tally frequency table scaled bar graph picture graph pictograph key scale how many more how many fewer line plot dot plot fractions halves fourths eighths ruler measure stem-and-leaf stem leaf range decimals scatterplot paired data relationship trend datos tabla de frecuencia gráfica de barras diagrama de puntos tallo y hojas diagrama de dispersión 数据 频数表 条形统计图 点图 茎叶图 散点图",
+      desc:{
+        en:"Tally survey answers into frequency tables, build bar graphs and picture graphs with scales of 2, 5, or 10, make line plots with fractions from a ruler, build stem-and-leaf plots with whole numbers or decimals, and plot scatterplots — then solve one- and two-step problems from your own display.",
+        es:"Cuenta respuestas de encuestas en tablas de frecuencia, construye gráficas de barras y pictogramas con escalas de 2, 5 o 10, haz diagramas de puntos con fracciones usando una regla, arma diagramas de tallo y hojas con números enteros o decimales y marca diagramas de dispersión; luego resuelve problemas de uno y dos pasos con tu propia gráfica.",
+        vi:"Gạch đếm câu trả lời khảo sát vào bảng tần số, vẽ biểu đồ cột và biểu đồ tranh với thang chia 2, 5 hoặc 10, vẽ biểu đồ chấm với phân số đo bằng thước, lập biểu đồ thân và lá với số tự nhiên hoặc số thập phân, và vẽ biểu đồ phân tán — rồi giải bài toán một và hai bước từ chính biểu đồ của em.",
+        ar:"اجمع إجابات الاستطلاع في جداول تكرار، واصنع تمثيلات بالأعمدة وبالصور بمقياس 2 أو 5 أو 10، ومثّل قياسات كسرية بالنقاط باستخدام المسطرة، وكوّن تمثيل الساق والورقة بأعداد كلية أو عشرية، ومثّل أشكال الانتشار — ثم حلّ مسائل من خطوة وخطوتين من تمثيلك أنت.",
+        hi:"सर्वे के उत्तरों के मिलान चिह्न बनाकर बारंबारता सारणी भरें, 2, 5 या 10 के पैमाने वाले बार ग्राफ़ और चित्र ग्राफ़ बनाएँ, रूलर से भिन्न वाले लाइन प्लॉट बनाएँ, पूर्ण संख्याओं या दशमलव से तना और पत्ती आरेख बनाएँ, और प्रकीर्ण आरेख पर बिंदु अंकित करें — फिर अपने ही आरेख से एक और दो चरण वाले सवाल हल करें।",
+        ur:"سروے کے جوابات کے ٹیلی نشان بنا کر تعدد کی جدول بھریں، 2، 5 یا 10 کے پیمانے والے بار گراف اور تصویری گراف بنائیں، رولر سے کسری پیمائشوں کا لائن پلاٹ بنائیں، مکمل اعداد یا اعشاریوں سے تنا اور پتا خاکہ بنائیں، اور بکھراؤ کا خاکہ بنائیں — پھر اپنے ہی خاکے سے ایک اور دو قدم والے سوال حل کریں۔",
+        zh:"把调查答案划记成频数表，画刻度为2、5或10的条形统计图和象形统计图，用尺子测量并画出含分数的点图，用整数或小数制作茎叶图，再画散点图——然后根据自己画的图解决一步和两步问题。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };

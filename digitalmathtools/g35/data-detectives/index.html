@@ -1,0 +1,1870 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Data Detectives — a Grade 3–5 data analysis app: tally survey answers into frequency tables, build scaled bar graphs and picture graphs, make line plots with fractions, build stem-and-leaf plots, and plot scatterplots, then solve one- and two-step problems. Works offline. No data collected.">
+<title>Data Detectives</title>
+<style>
+  :root{
+    --bg:#eef8f1;--panel:#ffffff;--ink:#1c2733;--muted:#3f5a49;--line:#c6e3cf;
+    --accent:#27ae60;--accentD:#1d7a45;--accent-ink:#ffffff;--good:#166534;--good-bg:#dcfce7;
+    --hint:#7a4a00;--hint-bg:#fff4d6;--focus:#0a58ca;--soft:#f3faf5;--bar:#27ae60;--dot:#1d7a45;
+    --tap:52px;font-size:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.4;-webkit-text-size-adjust:100%}
+  h1,h2,h3{line-height:1.15;margin:0 0 .3em}
+  button{font-family:inherit;font-size:1rem;cursor:pointer}
+  button:disabled{cursor:default}
+
+  .topbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--accentD);color:var(--accent-ink);padding:.55rem .8rem}
+  .topbar .brand{font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:.4rem;margin-inline-end:auto}
+  .topbar a.homebtn,.topbar button.tb{background:rgba(255,255,255,.16);color:#fff;border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.4rem .7rem;min-height:var(--tap);min-width:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;font-weight:700;font-size:.95rem}
+  .globe{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.6);border-radius:12px;padding:.2rem .5rem;min-height:var(--tap)}
+  .globe span{font-size:1.2rem}
+  .globe select{border:0;background:#fff;color:var(--ink);border-radius:8px;min-height:44px;font-weight:700;font-size:1rem;padding:.2rem .4rem}
+
+  main{max-width:1200px;margin:0 auto;padding:.7rem}
+  .tabsrow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:.4rem 0 .7rem}
+  .tabs{display:flex;gap:.4rem;flex-wrap:wrap;flex:1 1 auto}
+  .tabs button{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:.45rem .75rem;min-height:var(--tap);font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:.4rem}
+  .tabs button[aria-selected="true"]{background:var(--accentD);color:#fff;border-color:var(--accentD)}
+  .tabs button .ic{font-size:1.15rem}
+  .stars{background:#fff;border:2px solid var(--line);border-radius:14px;padding:.4rem .8rem;font-weight:800;font-size:1.15rem;min-height:48px;display:inline-flex;align-items:center;gap:.3rem}
+  .stars.pop{animation:pop .5s ease}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  .panel{background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:.9rem;margin-bottom:.8rem;min-width:0}
+  .panelhead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+  .panelhead h2{margin:0;font-size:1.25rem;margin-inline-end:auto}
+
+  .prompt{display:flex;align-items:center;gap:.6rem;background:#e8f6ed;border:2px solid #a9dcbb;border-radius:14px;padding:.6rem .8rem;margin-bottom:.7rem;font-size:1.12rem;font-weight:600}
+  .prompt>span{min-width:0;overflow-wrap:anywhere}
+  .speaker{background:var(--accentD);color:#fff;border:0;border-radius:50%;width:var(--tap);height:var(--tap);min-width:var(--tap);font-size:1.4rem;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+
+  .btn{background:var(--accentD);color:#fff;border:2px solid var(--accentD);border-radius:12px;padding:.5rem .9rem;min-height:var(--tap);font-weight:700}
+  .btn.ghost{background:var(--panel);color:var(--accentD)}
+  .btn:disabled{opacity:.45}
+  .acts{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem;align-items:center}
+
+  .feedback{margin-top:.6rem;border-radius:12px;padding:.6rem .8rem;font-weight:600;display:none;overflow-wrap:anywhere}
+  .feedback.show{display:block}
+  .feedback.good{background:var(--good-bg);color:var(--good);border:2px solid #86efac}
+  .feedback.hint{background:var(--hint-bg);color:var(--hint);border:2px solid #f6d271}
+  .math{unicode-bidi:isolate;direction:ltr;display:inline-block;font-weight:800;white-space:nowrap}
+  .nw{white-space:nowrap}
+  .fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.05;font-weight:800;margin:0 .1em;direction:ltr;unicode-bidi:isolate;font-size:.85em}
+  .fr>span:first-child{border-bottom:2px solid currentColor;padding:0 .15em}
+
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem;margin-top:.5rem}
+  .choices.wide{grid-template-columns:1fr}
+  .choice{background:var(--panel);border:3px solid var(--line);border-radius:16px;padding:.5rem .6rem;min-height:60px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:800;color:var(--ink);min-width:0;overflow-wrap:anywhere;text-align:center}
+  .choices.wide .choice{font-size:1.02rem;font-weight:700;line-height:1.3}
+  .choice.correctpick{border-color:var(--good);background:var(--good-bg)}
+  .choice.wrongpick{border-color:var(--hint);background:var(--hint-bg)}
+  .choice:disabled{opacity:.6}
+  .choice.correctpick:disabled{opacity:1}
+  .qbox{margin-top:.8rem;border-top:3px dashed var(--line);padding-top:.6rem}
+  .qbox h3{font-size:1.1rem;display:flex;gap:.4rem;align-items:flex-start}
+  .ctitle{font-weight:800;margin:.1rem 0 .5rem;font-size:1.08rem}
+  .symhelp{text-align:center;color:var(--muted);font-size:.95rem;margin:.3rem 0}
+
+  /* Survey items + frequency table */
+  .itembox{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;background:var(--soft);border:2px solid var(--line);border-radius:14px;padding:.5rem}
+  .itm{width:48px;height:48px;border-radius:12px;border:2px solid var(--line);background:#fff;font-size:1.6rem;line-height:1;padding:0;position:relative}
+  .itm.used{opacity:.35;background:#e7efe9}
+  .itm.used::after{content:"✓";position:absolute;right:2px;bottom:0;font-size:.8rem;color:var(--good);font-weight:900}
+  .tblwrap{max-width:100%;overflow-x:auto;margin:.6rem 0}
+  table.ftab{border-collapse:collapse;margin:0 auto;min-width:min(100%,280px);background:#fff}
+  .ftab caption{font-weight:800;padding:.3rem;text-align:center}
+  .ftab th,.ftab td{border:2px solid var(--line);padding:.3rem .5rem;text-align:center;vertical-align:middle}
+  .ftab thead th{background:#e8f6ed;font-size:.9rem}
+  .ftab tbody th{text-align:start;font-weight:700;white-space:nowrap}
+  .ftab td.tl{min-width:110px;text-align:start}
+  .ftab td.num{font-size:1.2rem;font-weight:900}
+  .ftab tr.ok td,.ftab tr.ok th{background:var(--good-bg)}
+  .tally{display:inline-block;vertical-align:middle}
+  .stp2{display:inline-flex;align-items:center;gap:.3rem}
+  .stp2 button{width:44px;height:44px;border-radius:10px;border:2px solid var(--line);background:#fff;font-size:1.3rem;font-weight:900;color:var(--accentD);padding:0}
+  .stp2 output{min-width:2ch;font-size:1.35rem;font-weight:900;text-align:center}
+
+  /* Bar graph */
+  .barwrap{direction:ltr;background:var(--soft);border:2px solid var(--line);border-radius:14px;padding:.3rem;margin:.5rem 0}
+  .barwrap svg{display:block;width:100%;max-width:520px;margin:0 auto;height:auto;touch-action:none;user-select:none;-webkit-user-select:none}
+  svg .gl{stroke:#b9d7c3;stroke-width:1.5}
+  svg .axl{stroke:#1c2733;stroke-width:2.5}
+  svg .ax{font:700 14px system-ui,sans-serif;fill:#1c2733}
+  svg .axs{font:600 12px system-ui,sans-serif;fill:#3f5a49}
+  svg .em{font-size:24px}
+  svg .bar{fill:var(--bar);stroke:#1d7a45;stroke-width:2}
+  svg .bhit{fill:transparent;cursor:ns-resize}
+  svg .bhit:focus{outline:none}
+  svg .bhit:focus-visible{stroke:var(--focus);stroke-width:4;fill:rgba(10,88,202,.06)}
+  .barctl{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center}
+  .bc{display:inline-flex;align-items:center;gap:.2rem;border:2px solid var(--line);border-radius:12px;padding:.15rem .3rem;background:#fff}
+  .bc .e{font-size:1.3rem}
+  .bc button{width:44px;height:44px;border-radius:10px;border:2px solid var(--line);background:#fff;font-weight:900;color:var(--accentD);padding:0}
+  /* Picture graph */
+  .pkey{text-align:center;font-weight:800;margin:.4rem 0;background:#fffbe8;border:2px dashed #e6cf7a;border-radius:12px;padding:.3rem .5rem}
+  .pgrow{display:grid;grid-template-columns:8.2em 1fr;gap:.3rem .5rem;align-items:center;border-bottom:2px solid var(--line);padding:.35rem 0}
+  .pglab{font-weight:700;overflow-wrap:anywhere}
+  .pgpics{min-height:40px;display:flex;flex-wrap:wrap;align-items:center;gap:.1rem;font-size:1.65rem;line-height:1}
+  .pic{display:inline-block}
+  .pic.half{width:.55em;overflow:hidden;white-space:nowrap}
+  html[dir="rtl"] .pic.half{direction:ltr}
+  .pgbtn{grid-column:1/-1;display:flex;gap:.3rem;flex-wrap:wrap}
+  .pgbtn button{min-height:44px;min-width:52px;border-radius:10px;border:2px solid var(--line);background:#fff;font-weight:800;color:var(--accentD);padding:0 .5rem}
+
+  /* Data cards */
+  .cards{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;margin:.3rem 0 .5rem}
+  .dcard{min-width:62px;min-height:52px;border-radius:12px;border:3px solid var(--line);background:#fff;font-size:1.15rem;font-weight:800;color:var(--ink);padding:.2rem .45rem;display:inline-flex;align-items:center;gap:.25rem;justify-content:center}
+  .dcard.sel{border-color:var(--focus);background:#e7f0ff;box-shadow:0 0 0 2px var(--focus)}
+  .dcard.done{opacity:.4;border-style:dashed}
+  .linewrap{direction:ltr;background:var(--soft);border:2px solid var(--line);border-radius:14px;padding:.3rem;margin:.5rem 0}
+  .linewrap svg{width:100%;max-width:640px;margin:0 auto;height:auto;display:block;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+  .linewrap svg:focus{outline:none}
+  .linewrap svg:focus-visible{outline:4px solid var(--focus);outline-offset:2px;border-radius:8px}
+  svg .tick{stroke:#1c2733;stroke-width:2}
+  svg .tw{font:800 15px system-ui,sans-serif;fill:#1c2733}
+  svg .tf{font:700 12px system-ui,sans-serif;fill:#1c2733}
+  svg .dotc{fill:var(--dot)}
+  svg .curm{fill:var(--focus);opacity:0}
+  svg.kbd .curm{opacity:.9}
+  svg .hitl{fill:transparent;cursor:pointer}
+  svg .rul{fill:#fff4c2;stroke:#8a6d00;stroke-width:1.5}
+  svg .rt{stroke:#5a4500;stroke-width:1.4}
+  svg .obj{fill:#7fd3a0;stroke:#1d7a45;stroke-width:2}
+
+  /* Stem-and-leaf */
+  table.stab{border-collapse:collapse;margin:.5rem auto;direction:ltr;min-width:min(100%,300px)}
+  .stab th{font-size:.9rem;padding:.25rem .5rem;background:#e8f6ed;border:2px solid var(--line)}
+  .stab td{border:2px solid var(--line);padding:0}
+  .stab td.st{font-size:1.5rem;font-weight:900;text-align:center;width:64px;border-right:4px solid var(--ink)}
+  .srow{width:100%;min-height:52px;border:0;background:#fff;text-align:left;font-size:1.45rem;font-weight:800;letter-spacing:.35em;padding:.2rem .6rem;color:var(--ink);font-variant-numeric:tabular-nums}
+  .srow:hover{background:#f2fbf5}
+  .slkey{text-align:center;color:var(--muted);font-weight:700;margin:.2rem 0}
+
+  /* Scatterplot */
+  .scgrid{display:grid;grid-template-columns:1fr;gap:.5rem;align-items:start}
+  @media(min-width:760px){.scgrid{grid-template-columns:auto 1fr}}
+  .ptab td{font-size:1.15rem;font-weight:800;min-width:56px}
+  .ptab tr.ok td{background:var(--good-bg)}
+
+  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
+  .drawer.open{display:flex}
+  .drawer .card{background:var(--panel);border-radius:16px;max-width:620px;width:100%;padding:1rem;max-height:90vh;overflow:auto}
+  .setrow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+  .setrow .lab{font-weight:700;min-width:150px}
+  .toggle{display:inline-flex;align-items:center;gap:.35rem;border:2px solid var(--line);border-radius:10px;padding:.35rem .55rem;background:#fff;min-height:48px}
+  .toggle input{width:22px;height:22px;flex:0 0 auto}
+  select.diff{font-size:1rem;padding:.4rem;border-radius:10px;border:2px solid var(--line);min-height:48px;max-width:100%}
+  .setnote{font-size:.85rem;color:var(--muted);flex-basis:100%;margin:0}
+
+  footer{max-width:1200px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
+  footer a{color:var(--accentD);font-weight:700}
+  .stds{font-size:.82rem;color:var(--muted);background:var(--soft);border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  @media(max-width:480px){
+    main{padding:.4rem}
+    .panel{padding:.55rem}
+    .prompt{font-size:1.02rem;padding:.5rem}
+    .tabs{gap:.3rem}
+    .tabs button{padding:.3rem .55rem;font-size:.9rem;min-height:46px}
+    .ftab th,.ftab td{padding:.25rem .3rem}
+    .ftab td.tl{min-width:70px}
+    .choice{font-size:1.15rem}
+  }
+
+  .hidden{display:none !important}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+  @keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+  @keyframes drop{from{transform:translateY(-14px);opacity:0}to{transform:none;opacity:1}}
+  svg .dotc.new{animation:drop .35s ease both}
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+  .printonly{display:none}
+  @media print{
+    .topbar,.tabsrow,footer,.modepanel,#stdsNote,.no-print,#mtMuteBtn{display:none !important}
+    body{background:#fff}
+    .printonly{display:block}
+    .card-print{border:2px solid #000;border-radius:12px;padding:1rem;margin:0 0 1rem;page-break-inside:avoid}
+    .card-print h2{margin:.2rem 0}
+    .card-print svg{max-width:440px;width:100%;height:auto;display:block;margin:.3rem auto}
+    .pbox{height:110px;border:2px dashed #888;border-radius:10px}
+    .plist{font-size:1.3rem;font-weight:700;letter-spacing:.05em;direction:ltr;unicode-bidi:isolate}
+    main{max-width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">🔎 <span data-t="appTitle">Data Detectives</span></span>
+  <a class="homebtn" href="../../index.html">🏠 <span data-t="home">Home</span></a>
+  <label class="globe"><span aria-hidden="true">🌐</span>
+    <select id="langSelect" data-ta="language" aria-label="Language"></select>
+  </label>
+  <button class="tb settingsbtn" id="openSettings">⚙️ <span data-t="teacher">Teacher</span></button>
+</header>
+
+<main>
+  <div class="tabsrow">
+    <div class="tabs" role="tablist" data-ta="modesLbl" aria-label="Modes">
+      <button role="tab" aria-selected="true" data-mode="freq"><span class="ic" aria-hidden="true">📋</span><span data-t="mFreq">Frequency Tables</span></button>
+      <button role="tab" aria-selected="false" data-mode="bar"><span class="ic" aria-hidden="true">📊</span><span data-t="mBar">Scaled Graphs</span></button>
+      <button role="tab" aria-selected="false" data-mode="dot"><span class="ic" aria-hidden="true">⚫</span><span data-t="mDot">Line Plots</span></button>
+      <button role="tab" aria-selected="false" data-mode="stem"><span class="ic" aria-hidden="true">🌿</span><span data-t="mStem">Stem-and-Leaf</span></button>
+      <button role="tab" aria-selected="false" data-mode="scat"><span class="ic" aria-hidden="true">📈</span><span data-t="mScat">Scatterplots</span></button>
+    </div>
+    <span class="stars" id="stars"><span aria-hidden="true">⭐</span><span class="sr" data-t="stars">Stars earned</span> <b id="starCount">0</b></span>
+  </div>
+
+  <section id="mode-freq" class="panel modepanel" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mFreq">Frequency Tables</h2>
+      <button class="btn ghost no-print" id="freqNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="freq" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="freqPrompt">…</span></div>
+    <div id="freqArea"></div>
+    <div id="freqQ" class="qbox hidden"></div>
+    <div class="feedback" id="freqFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-bar" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mBar">Scaled Graphs</h2>
+      <button class="btn ghost no-print" id="barNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="bar" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="barPrompt">…</span></div>
+    <div id="barArea"></div>
+    <div id="barQ" class="qbox hidden"></div>
+    <div class="feedback" id="barFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-dot" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mDot">Line Plots</h2>
+      <button class="btn ghost no-print" id="dotNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="dot" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="dotPrompt">…</span></div>
+    <div id="dotArea"></div>
+    <div id="dotQ" class="qbox hidden"></div>
+    <div class="feedback" id="dotFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-stem" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mStem">Stem-and-Leaf</h2>
+      <button class="btn ghost no-print" id="stemNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="stem" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="stemPrompt">…</span></div>
+    <div id="stemArea"></div>
+    <div id="stemQ" class="qbox hidden"></div>
+    <div class="feedback" id="stemFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="mode-scat" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mScat">Scatterplots</h2>
+      <button class="btn ghost no-print" id="scatNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="scat" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="scatPrompt">…</span></div>
+    <div id="scatArea"></div>
+    <div id="scatQ" class="qbox hidden"></div>
+    <div class="feedback" id="scatFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <div class="stds" id="stdsNote"></div>
+  <div class="printonly" id="printArea"></div>
+</main>
+
+<footer>
+  <p data-t="footNote">No accounts · No data collected · Works offline</p>
+  <p><a href="../../index.html" data-t="home">Home</a> · <a href="../../policy.html" data-t="privacy">Privacy</a></p>
+</footer>
+
+<div class="drawer" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="card">
+    <div class="panelhead"><h2 id="setTitle" data-t="teacherTitle">Teacher settings</h2>
+      <button class="btn ghost" id="closeSettings" data-t="close">Close</button></div>
+    <div class="setrow"><label class="lab" for="setGrade" data-t="setGrade">Grade level</label>
+      <select class="diff" id="setGrade">
+        <option value="3" data-t="g3">Grade 3</option><option value="4" data-t="g4">Grade 4</option><option value="5" data-t="g5">Grade 5</option></select>
+      <p class="setnote" data-t="gradeNote">Choosing a grade sets the options below. You can still change them.</p></div>
+    <div class="setrow"><label class="lab" for="setScale" data-t="setScale">Graph scales</label>
+      <select class="diff" id="setScale">
+        <option value="2" data-t="sc2">Count by 2</option><option value="25" data-t="sc25">Count by 2 or 5</option><option value="2510" data-t="sc2510">Count by 2, 5, or 10</option></select></div>
+    <div class="setrow"><label class="lab" for="setDen" data-t="setDen">Line plot fractions</label>
+      <select class="diff" id="setDen">
+        <option value="2" data-t="den2">Halves</option><option value="4" data-t="den4">Halves and fourths</option><option value="8" data-t="den8">Halves, fourths, and eighths</option></select></div>
+    <div class="setrow"><label class="lab" for="setSize" data-t="setSize">Data set size</label>
+      <select class="diff" id="setSize">
+        <option value="s" data-t="sizeS">Smaller</option><option value="m" data-t="sizeM">Larger</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setDec">Stem-and-leaf data</span>
+      <label class="toggle"><input type="checkbox" id="setDecChk"> <span data-t="decOn">Use decimals (tenths)</span></label></div>
+    <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
+      <div id="modeToggles" style="display:flex;flex-wrap:wrap;gap:.4rem"></div></div>
+    <div class="setrow"><span class="lab" data-t="setSpeech">Speech</span>
+      <label class="toggle"><input type="checkbox" id="setAuto"> <span data-t="autoRead">Auto-read directions</span></label></div>
+    <div class="setrow" style="border:0"><button class="btn" id="printCards">🖨 <span data-t="printCards">Print challenge cards</span></button></div>
+    <p class="stds" data-t="setStored">Settings are saved only on this device. No student information is ever stored.</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   Data Detectives — single-file Grade 3–5 data analysis app. 7 languages.
+   No frameworks, no network, no data collection.
+   Fractions are stored as whole eighths (e8) to keep the math exact.
+   ========================================================================= */
+
+/* ---------- Language metadata ---------- */
+const LANGS = [
+  {code:"en", name:"English",     dir:"ltr", bcp:"en-US"},
+  {code:"es", name:"Español",     dir:"ltr", bcp:"es-US"},
+  {code:"vi", name:"Tiếng Việt",  dir:"ltr", bcp:"vi-VN"},
+  {code:"ar", name:"العربية",     dir:"rtl", bcp:"ar-SA"},
+  {code:"hi", name:"हिन्दी",       dir:"ltr", bcp:"hi-IN"},
+  {code:"ur", name:"اردو",        dir:"rtl", bcp:"ur-PK"},
+  {code:"zh", name:"中文",         dir:"ltr", bcp:"zh-CN"}
+];
+const LANG_KEY = "tcea.mathtools.lang";
+
+/* ---------- Translations ---------- */
+const T = {
+  en:{
+    appTitle:"Data Detectives", home:"Home", privacy:"Privacy", teacher:"Teacher", language:"Language", readAloud:"Read aloud",
+    modesLbl:"Modes", stars:"Stars earned", newRound:"New round", footNote:"No accounts · No data collected · Works offline",
+    mFreq:"Frequency Tables", mBar:"Scaled Graphs", mDot:"Line Plots", mStem:"Stem-and-Leaf", mScat:"Scatterplots",
+    check:"Check", close:"Close", yes:"Yes!", choicesLbl:"Answer choices", youPicked:"You picked {x}.", qHead:"Question:",
+    plusW:"plus", minusW:"minus", timesW:"times", divW:"divided by", eqW:"equals", comma:", ",
+    d2s:"half", d2p:"halves", d4s:"fourth", d4p:"fourths", d8s:"eighth", d8p:"eighths", fracSay:"{n} {u}", fracSay1:"one {u}", mixSay:"{w} and {f}",
+    svy:"Survey", tp_fruit:"Favorite fruit", tp_pet:"Favorite pet", tp_sport:"Favorite sport", tp_color:"Favorite color",
+    fruit0:"apple", fruit1:"banana", fruit2:"grapes", fruit3:"strawberry", fruit4:"orange",
+    pet0:"dog", pet1:"cat", pet2:"fish", pet3:"bird", pet4:"rabbit",
+    sport0:"soccer", sport1:"basketball", sport2:"baseball", sport3:"football", sport4:"tennis",
+    color0:"red", color1:"blue", color2:"green", color3:"yellow", color4:"purple",
+    answersLbl:"Survey answers", thAns:"Answer", thTally:"Tally", thFreq:"Frequency", thNum:"Votes",
+    fqQ:"Survey: {t}. Tap each answer to make a tally mark. Then fill in the Frequency column.",
+    fqLeftN:"Answers left to tally: {n}", fqAll:"Every answer is tallied.",
+    tallyLbl:"{n} tally marks", incL:"One more for {a}", decL:"One less for {a}",
+    fqLeft:"Tally every answer first. {n} answers still need a tally mark.",
+    fqRow:"Check the frequency for {a}. You wrote {x}. Count its tally marks again.",
+    fqBundle:"Each bundle of four marks with a line across them is 5. Count the bundles by 5s, then count on the single marks.",
+    fqDone:"Your frequency table is correct!",
+    qMore:"How many more votes did {a} get than {b}?", qFewer:"How many fewer votes did {b} get than {a}?",
+    qTotal:"How many votes are there in all?", qBoth:"How many votes did {a} and {b} get together?",
+    qTwo:"How many more votes did {a} and {b} get together than {c}?", qMost:"Which answer got the most votes?", qLeast:"Which answer got the fewest votes?",
+    hMore:"Find the number of votes for {a} and for {b}. Subtract to compare them.",
+    hTotal:"Add the votes for every answer.", hBoth:"Add the votes for {a} and the votes for {b}.",
+    hTwo:"Step 1: add the votes for {a} and {b}. Step 2: subtract the votes for {c}.",
+    hMost:"Compare the numbers of votes. Which number is the greatest?", hLeast:"Compare the numbers of votes. Which number is the least?",
+    hVals:"The votes are: {v}.", wHas:"{a} has {x} and {b} has {y}.", wMost:"{a} got the most votes: {x}.", wLeast:"{a} got the fewest votes: {x}.",
+    bgQ:"Make a bar graph of the table. Each line on the scale counts by {s}. Drag each bar to the right height, or use ▲ and ▼.",
+    pgQ:"Make a picture graph of the table. Each picture stands for {k} votes. Use the + and − buttons.",
+    bgLbl:"Bar graph", upL:"Make the {a} bar taller", dnL:"Make the {a} bar shorter",
+    pgKey:"Key: each picture = {k} votes", addPic:"Add a picture for {a}", addHalf:"Add half a picture for {a}", rmPic:"Take away a picture from {a}",
+    picsN:"{n} pictures", picsH:"{n} and a half pictures", picHalf:"half a picture",
+    bgOn:"The {a} bar should end at {x}. Count by {s}s up the scale to find {x}.",
+    bgHalf:"The {a} bar should end at {x}. There is no line for {x}, so the bar ends halfway between {lo} and {hi}.",
+    bgYours:"Your bar is at {y}.",
+    pgHintW:"{a} has {x} votes. Each picture is {k}, so {a} needs {n} pictures.",
+    pgHintH:"{a} has {x} votes. Each picture is {k}, so {a} needs {n} pictures and a half picture. Half a picture is {h}.",
+    bgDone:"Your bar graph matches the table! Now use your graph to answer.", pgDone:"Your picture graph matches the table! Now use your graph to answer.",
+    hScale:"Remember: each line on the scale counts by {s}.", hKey:"Remember: each picture stands for {k} votes.",
+    dt_pencil:"Pencil lengths", dt_worm:"Caterpillar lengths", dt_ribbon:"Ribbon lengths", dt_juice:"Juice in each bottle",
+    u_in:"inches", u_cup:"cups",
+    dpQ:"Make a line plot. Tap a measurement card, then tap its spot on the line to put a dot above it.",
+    dpMeasQ:"Measure each one with the ruler. Then tap its length on the line plot to put a dot above it.",
+    dpLbl:"Line plot. Use the arrow keys and Enter to place a dot.", rulerLbl:"Ruler", cardsLbl:"Measurements", itemN:"Item {n}",
+    dpPick:"Tap a measurement card first.", dpTapped:"You tapped {x}.",
+    dpHint:"Find {w} on the line, then count {k} marks to the right. Each mark is {f}.",
+    dpHintW:"Find the whole number {w} on the line.",
+    dpMeasH:"Look where it ends on the ruler. Find the last whole number it passes, then count the small marks after it. Each small mark is {f}.",
+    dpDone:"All the dots are on the line plot!",
+    qCountAt:"How many measurements are {v}?", qGreater:"How many measurements are greater than {v}?", qMode:"Which measurement happens most often?",
+    qDiff:"What is the difference between the greatest and the least measurement?", qSumTwo:"What is the sum of the greatest and the least measurement?",
+    qSumAt:"What is the total of all the measurements at {v}?",
+    qShareJ:"If all the juice were poured together and shared equally among the {n} bottles, how many cups would each bottle get?",
+    qShareR:"If all the ribbons were joined end to end and cut into {n} equal pieces, how many inches long would each piece be?",
+    hCountAt:"Find {v} on the line and count the dots above it.", hGreater:"Count only the dots to the right of {v}. Do not count the dots at {v}.",
+    hMode:"Look for the tallest stack of dots.", hDiff:"Find the dot farthest to the right (greatest) and the dot farthest to the left (least). Subtract.",
+    hSumTwo:"Find the dot farthest to the right and the dot farthest to the left. Add them: add the whole numbers, then the fractions.",
+    hSumAt:"Count the dots at {v}. Then add {v} that many times.", hShare:"First add all the measurements to find the total. Then divide the total into {n} equal parts.",
+    wCountAt:"There are {c} dots above {v}.", wGreater:"There are {c} dots to the right of {v}.", wMode:"{v} has the tallest stack: {c} dots.",
+    wGL:"Greatest: {a}. Least: {b}.", wSumAt:"There are {c} dots at {v}.", wTot:"The total is {t}.",
+    slQ:"Make a stem-and-leaf plot. Tap a data card, then tap the row for its stem. The stem is the tens digit and the leaf is the ones digit.",
+    slQd:"Make a stem-and-leaf plot. Tap a data card, then tap the row for its stem. The stem is the ones digit and the leaf is the tenths digit.",
+    st_pts:"Points scored in each game", st_jump:"Jumping jacks in one minute", st_rain:"Rainfall each month (inches)", st_pump:"Pumpkin weights (pounds)",
+    stemH:"Stem", leafH:"Leaf", slKey:"Key: {s} | {l} means {v}", rowL:"Stem {s}. Leaves: {l}", noLeaves:"none", dataLbl:"Data",
+    slPick:"Tap a data card first.",
+    slHint:"In {v}, the tens digit {s} is the stem and the ones digit {l} is the leaf. Tap the row for stem {s}.",
+    slHintD:"In {v}, the ones digit {s} is the stem and the tenths digit {l} is the leaf. Tap the row for stem {s}.",
+    slDone:"Your stem-and-leaf plot is complete! The leaves are in order from least to greatest.",
+    qStemCnt:"How many data values have the stem {s}?", qGreat:"What is the greatest value?", qLeastV:"What is the least value?",
+    qRange:"What is the difference between the greatest and the least value?", qGreaterV:"How many values are greater than {v}?",
+    qModeV:"Which value appears more than once?", qStemMore:"How many more values have the stem {a} than the stem {b}?",
+    hStemCnt:"Count the leaves in the row for stem {s}.", hGreat:"Look at the last leaf in the bottom row that has leaves.", hLeastV:"Look at the first leaf in the top row that has leaves.",
+    hRange:"Find the greatest value (last leaf, bottom row) and the least value (first leaf, top row). Subtract.",
+    hGreaterV:"Find {v} in the plot. Count every leaf that comes after it.", hModeV:"Look for the same leaf twice in one row.", hStemMore:"Count the leaves in each of the two rows, then subtract.",
+    wStemCnt:"Stem {s} has {c} leaves.", wVal:"The value is {v}.", wTwice:"{v} appears twice.", wGreaterV:"{c} values are greater than {v}.",
+    sc_sunX:"Hours of sun each day", sc_sunY:"Plant height (cm)", sc_sunx:"the amount of sun", sc_suny:"the plant height",
+    sc_pracX:"Hours of practice", sc_pracY:"Baskets made", sc_pracx:"the practice time", sc_pracy:"the number of baskets",
+    sc_lapsX:"Laps run", sc_lapsY:"Water left (cups)", sc_lapsx:"the number of laps", sc_lapsy:"the water left",
+    sc_shoeX:"Shoe size", sc_shoeY:"Spelling score", sc_shoex:"the shoe size", sc_shoey:"the spelling score",
+    spQ:"Plot each pair from the table on the scatterplot. Go across to the x-value, then up to the y-value, and tap.",
+    spLbl:"Scatterplot grid. Use the arrow keys and Enter to plot a point.", spYou:"You tapped {p}.",
+    spHint:"That point is not in the table. Start at 0, move right to the x-value, then move up to the y-value.",
+    spSwap:"Careful: the numbers are switched. The first number (x) tells how far across, and the second number (y) tells how far up.",
+    spDone:"Every point is plotted!",
+    qRel:"What does the scatterplot show about {x} and {y}?", relUp:"As {x} increases, {y} tends to increase.", relDown:"As {x} increases, {y} tends to decrease.", relNone:"There is no clear pattern between {x} and {y}.",
+    hRel:"Look at the dots from left to right. Do they mostly go up, mostly go down, or jump around with no pattern?",
+    wUp:"The dots go up from left to right.", wDown:"The dots go down from left to right.", wNone:"The dots are scattered with no clear up or down pattern.",
+    qMaxY:"For which value of x is {y} the greatest?", hMaxY:"Find the highest dot. Then read its x-value on the bottom axis.", wMaxY:"The highest dot is at {p}.",
+    qDiffY:"How much greater is {y} when x is {a} than when x is {b}?", hDiffY:"Find the dots for x = {a} and x = {b}. Read their y-values, then subtract.", wPts:"The points are {p} and {q}.",
+    teacherTitle:"Teacher settings", setGrade:"Grade level", g3:"Grade 3", g4:"Grade 4", g5:"Grade 5",
+    gradeNote:"Choosing a grade sets the options below. You can still change them.",
+    setScale:"Graph scales", sc2:"Count by 2", sc25:"Count by 2 or 5", sc2510:"Count by 2, 5, or 10",
+    setDen:"Line plot fractions", den2:"Halves", den4:"Halves and fourths", den8:"Halves, fourths, and eighths",
+    setSize:"Data set size", sizeS:"Smaller", sizeM:"Larger", setDec:"Stem-and-leaf data", decOn:"Use decimals (tenths)",
+    setModes:"Modes", setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
+    setStored:"Settings are saved only on this device. No student information is ever stored.",
+    stds:"Aligned standards — Texas TEKS: Grade 3: 3.8(A, B); Grade 4: 4.9(A, B); Grade 5: 5.9(A, B, C). Common Core: 3.MD.3, 3.MD.4; 4.MD.4; 5.MD.2.",
+    cardTitle:"Data Detectives — Challenge Cards", cardName:"Name:", cFreq:"Tally the survey answers. Then write the frequency of each answer.",
+    cBar:"Draw a bar for each answer. Each line counts by {s}.", cDot:"Put a dot above the line for each measurement.",
+    cStem:"Make a stem-and-leaf plot. Put the leaves in order.", cScat:"Plot each pair on the grid. What pattern do you see?"
+  },
+  es:{
+    appTitle:"Detectives de Datos", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", language:"Idioma", readAloud:"Leer en voz alta",
+    modesLbl:"Modos", stars:"Estrellas ganadas", newRound:"Nueva ronda", footNote:"Sin cuentas · No se recopilan datos · Funciona sin conexión",
+    mFreq:"Tablas de frecuencia", mBar:"Gráficas con escala", mDot:"Diagramas de puntos", mStem:"Tallo y hojas", mScat:"Diagramas de dispersión",
+    check:"Revisar", close:"Cerrar", yes:"¡Sí!", choicesLbl:"Opciones de respuesta", youPicked:"Elegiste {x}.", qHead:"Pregunta:",
+    plusW:"más", minusW:"menos", timesW:"por", divW:"entre", eqW:"es igual a", comma:", ",
+    d2s:"medio", d2p:"medios", d4s:"cuarto", d4p:"cuartos", d8s:"octavo", d8p:"octavos", fracSay:"{n} {u}", fracSay1:"un {u}", mixSay:"{w} y {f}",
+    svy:"Encuesta", tp_fruit:"Fruta favorita", tp_pet:"Mascota favorita", tp_sport:"Deporte favorito", tp_color:"Color favorito",
+    fruit0:"manzana", fruit1:"plátano", fruit2:"uvas", fruit3:"fresa", fruit4:"naranja",
+    pet0:"perro", pet1:"gato", pet2:"pez", pet3:"pájaro", pet4:"conejo",
+    sport0:"fútbol", sport1:"básquetbol", sport2:"béisbol", sport3:"fútbol americano", sport4:"tenis",
+    color0:"rojo", color1:"azul", color2:"verde", color3:"amarillo", color4:"morado",
+    answersLbl:"Respuestas de la encuesta", thAns:"Respuesta", thTally:"Conteo", thFreq:"Frecuencia", thNum:"Votos",
+    fqQ:"Encuesta: {t}. Toca cada respuesta para hacer una marca de conteo. Luego completa la columna de Frecuencia.",
+    fqLeftN:"Respuestas por contar: {n}", fqAll:"Todas las respuestas están contadas.",
+    tallyLbl:"{n} marcas de conteo", incL:"Uno más para {a}", decL:"Uno menos para {a}",
+    fqLeft:"Primero cuenta todas las respuestas. A {n} respuestas todavía les falta su marca.",
+    fqRow:"Revisa la frecuencia de {a}. Escribiste {x}. Vuelve a contar sus marcas.",
+    fqBundle:"Cada grupo de cuatro marcas con una línea que las cruza vale 5. Cuenta los grupos de 5 en 5 y luego sigue contando las marcas sueltas.",
+    fqDone:"¡Tu tabla de frecuencia está correcta!",
+    qMore:"¿Cuántos votos más recibió {a} que {b}?", qFewer:"¿Cuántos votos menos recibió {b} que {a}?",
+    qTotal:"¿Cuántos votos hay en total?", qBoth:"¿Cuántos votos recibieron {a} y {b} juntos?",
+    qTwo:"¿Cuántos votos más recibieron {a} y {b} juntos que {c}?", qMost:"¿Qué respuesta recibió más votos?", qLeast:"¿Qué respuesta recibió menos votos?",
+    hMore:"Busca el número de votos de {a} y de {b}. Resta para compararlos.",
+    hTotal:"Suma los votos de todas las respuestas.", hBoth:"Suma los votos de {a} y los votos de {b}.",
+    hTwo:"Paso 1: suma los votos de {a} y {b}. Paso 2: resta los votos de {c}.",
+    hMost:"Compara los números de votos. ¿Cuál es el mayor?", hLeast:"Compara los números de votos. ¿Cuál es el menor?",
+    hVals:"Los votos son: {v}.", wHas:"{a} tiene {x} y {b} tiene {y}.", wMost:"{a} recibió más votos: {x}.", wLeast:"{a} recibió menos votos: {x}.",
+    bgQ:"Haz una gráfica de barras de la tabla. Cada línea de la escala cuenta de {s} en {s}. Arrastra cada barra a la altura correcta o usa ▲ y ▼.",
+    pgQ:"Haz un pictograma de la tabla. Cada dibujo representa {k} votos. Usa los botones + y −.",
+    bgLbl:"Gráfica de barras", upL:"Hacer más alta la barra de {a}", dnL:"Hacer más baja la barra de {a}",
+    pgKey:"Clave: cada dibujo = {k} votos", addPic:"Agregar un dibujo a {a}", addHalf:"Agregar medio dibujo a {a}", rmPic:"Quitar un dibujo a {a}",
+    picsN:"{n} dibujos", picsH:"{n} dibujos y medio", picHalf:"medio dibujo",
+    bgOn:"La barra de {a} debe terminar en {x}. Cuenta de {s} en {s} por la escala para encontrar {x}.",
+    bgHalf:"La barra de {a} debe terminar en {x}. No hay línea para {x}, así que la barra termina a la mitad entre {lo} y {hi}.",
+    bgYours:"Tu barra está en {y}.",
+    pgHintW:"{a} tiene {x} votos. Cada dibujo vale {k}, así que {a} necesita {n} dibujos.",
+    pgHintH:"{a} tiene {x} votos. Cada dibujo vale {k}, así que {a} necesita {n} dibujos y medio dibujo. Medio dibujo vale {h}.",
+    bgDone:"¡Tu gráfica de barras coincide con la tabla! Ahora usa tu gráfica para responder.", pgDone:"¡Tu pictograma coincide con la tabla! Ahora usa tu gráfica para responder.",
+    hScale:"Recuerda: cada línea de la escala cuenta de {s} en {s}.", hKey:"Recuerda: cada dibujo representa {k} votos.",
+    dt_pencil:"Largo de los lápices", dt_worm:"Largo de las orugas", dt_ribbon:"Largo de los listones", dt_juice:"Jugo en cada botella",
+    u_in:"pulgadas", u_cup:"tazas",
+    dpQ:"Haz un diagrama de puntos. Toca una tarjeta de medida y luego toca su lugar en la recta para poner un punto encima.",
+    dpMeasQ:"Mide cada uno con la regla. Luego toca su largo en el diagrama de puntos para poner un punto encima.",
+    dpLbl:"Diagrama de puntos. Usa las flechas y Enter para poner un punto.", rulerLbl:"Regla", cardsLbl:"Medidas", itemN:"Objeto {n}",
+    dpPick:"Primero toca una tarjeta de medida.", dpTapped:"Tocaste {x}.",
+    dpHint:"Busca {w} en la recta y cuenta {k} marcas hacia la derecha. Cada marca vale {f}.",
+    dpHintW:"Busca el número entero {w} en la recta.",
+    dpMeasH:"Mira dónde termina en la regla. Busca el último número entero que pasa y cuenta las marcas pequeñas que siguen. Cada marca pequeña vale {f}.",
+    dpDone:"¡Todos los puntos están en el diagrama!",
+    qCountAt:"¿Cuántas medidas son {v}?", qGreater:"¿Cuántas medidas son mayores que {v}?", qMode:"¿Qué medida se repite más veces?",
+    qDiff:"¿Cuál es la diferencia entre la medida mayor y la menor?", qSumTwo:"¿Cuál es la suma de la medida mayor y la menor?",
+    qSumAt:"¿Cuál es el total de todas las medidas en {v}?",
+    qShareJ:"Si se junta todo el jugo y se reparte en partes iguales entre las {n} botellas, ¿cuántas tazas recibe cada botella?",
+    qShareR:"Si se unen todos los listones uno tras otro y se cortan en {n} partes iguales, ¿cuántas pulgadas mide cada parte?",
+    hCountAt:"Busca {v} en la recta y cuenta los puntos que hay encima.", hGreater:"Cuenta solo los puntos a la derecha de {v}. No cuentes los puntos que están en {v}.",
+    hMode:"Busca la columna de puntos más alta.", hDiff:"Busca el punto más a la derecha (el mayor) y el punto más a la izquierda (el menor). Resta.",
+    hSumTwo:"Busca el punto más a la derecha y el punto más a la izquierda. Súmalos: suma los enteros y luego las fracciones.",
+    hSumAt:"Cuenta los puntos en {v}. Luego suma {v} esa cantidad de veces.", hShare:"Primero suma todas las medidas para hallar el total. Luego divide el total en {n} partes iguales.",
+    wCountAt:"Hay {c} puntos encima de {v}.", wGreater:"Hay {c} puntos a la derecha de {v}.", wMode:"{v} tiene la columna más alta: {c} puntos.",
+    wGL:"Mayor: {a}. Menor: {b}.", wSumAt:"Hay {c} puntos en {v}.", wTot:"El total es {t}.",
+    slQ:"Haz un diagrama de tallo y hojas. Toca una tarjeta de datos y luego toca la fila de su tallo. El tallo es el dígito de las decenas y la hoja es el dígito de las unidades.",
+    slQd:"Haz un diagrama de tallo y hojas. Toca una tarjeta de datos y luego toca la fila de su tallo. El tallo es el dígito de las unidades y la hoja es el dígito de los décimos.",
+    st_pts:"Puntos anotados en cada partido", st_jump:"Saltos de tijera en un minuto", st_rain:"Lluvia de cada mes (pulgadas)", st_pump:"Peso de las calabazas (libras)",
+    stemH:"Tallo", leafH:"Hojas", slKey:"Clave: {s} | {l} significa {v}", rowL:"Tallo {s}. Hojas: {l}", noLeaves:"ninguna", dataLbl:"Datos",
+    slPick:"Primero toca una tarjeta de datos.",
+    slHint:"En {v}, el dígito de las decenas {s} es el tallo y el dígito de las unidades {l} es la hoja. Toca la fila del tallo {s}.",
+    slHintD:"En {v}, el dígito de las unidades {s} es el tallo y el dígito de los décimos {l} es la hoja. Toca la fila del tallo {s}.",
+    slDone:"¡Tu diagrama de tallo y hojas está completo! Las hojas están en orden de menor a mayor.",
+    qStemCnt:"¿Cuántos datos tienen el tallo {s}?", qGreat:"¿Cuál es el valor mayor?", qLeastV:"¿Cuál es el valor menor?",
+    qRange:"¿Cuál es la diferencia entre el valor mayor y el menor?", qGreaterV:"¿Cuántos valores son mayores que {v}?",
+    qModeV:"¿Qué valor aparece más de una vez?", qStemMore:"¿Cuántos valores más tienen el tallo {a} que el tallo {b}?",
+    hStemCnt:"Cuenta las hojas en la fila del tallo {s}.", hGreat:"Mira la última hoja de la fila de más abajo que tiene hojas.", hLeastV:"Mira la primera hoja de la fila de más arriba que tiene hojas.",
+    hRange:"Busca el valor mayor (última hoja, fila de abajo) y el valor menor (primera hoja, fila de arriba). Resta.",
+    hGreaterV:"Busca {v} en el diagrama. Cuenta todas las hojas que vienen después.", hModeV:"Busca la misma hoja dos veces en una fila.", hStemMore:"Cuenta las hojas de cada una de las dos filas y luego resta.",
+    wStemCnt:"El tallo {s} tiene {c} hojas.", wVal:"El valor es {v}.", wTwice:"{v} aparece dos veces.", wGreaterV:"Hay {c} valores mayores que {v}.",
+    sc_sunX:"Horas de sol al día", sc_sunY:"Altura de la planta (cm)", sc_sunx:"la cantidad de sol", sc_suny:"la altura de la planta",
+    sc_pracX:"Horas de práctica", sc_pracY:"Canastas anotadas", sc_pracx:"el tiempo de práctica", sc_pracy:"el número de canastas",
+    sc_lapsX:"Vueltas corridas", sc_lapsY:"Agua que queda (tazas)", sc_lapsx:"el número de vueltas", sc_lapsy:"el agua que queda",
+    sc_shoeX:"Talla de zapato", sc_shoeY:"Puntaje de ortografía", sc_shoex:"la talla de zapato", sc_shoey:"el puntaje de ortografía",
+    spQ:"Marca cada par de la tabla en el diagrama de dispersión. Avanza hasta el valor de x, luego sube hasta el valor de y, y toca.",
+    spLbl:"Cuadrícula del diagrama de dispersión. Usa las flechas y Enter para marcar un punto.", spYou:"Tocaste {p}.",
+    spHint:"Ese punto no está en la tabla. Empieza en 0, avanza a la derecha hasta el valor de x y luego sube hasta el valor de y.",
+    spSwap:"¡Cuidado! Los números están al revés. El primer número (x) dice cuánto avanzar y el segundo número (y) dice cuánto subir.",
+    spDone:"¡Todos los puntos están marcados!",
+    qRel:"¿Qué muestra el diagrama de dispersión sobre {x} y {y}?", relUp:"Cuando {x} aumenta, {y} tiende a aumentar.", relDown:"Cuando {x} aumenta, {y} tiende a disminuir.", relNone:"No hay un patrón claro entre {x} y {y}.",
+    hRel:"Mira los puntos de izquierda a derecha. ¿Casi todos suben, casi todos bajan o saltan sin ningún patrón?",
+    wUp:"Los puntos suben de izquierda a derecha.", wDown:"Los puntos bajan de izquierda a derecha.", wNone:"Los puntos están dispersos, sin un patrón claro de subida o bajada.",
+    qMaxY:"¿Para qué valor de x es mayor {y}?", hMaxY:"Busca el punto más alto. Luego lee su valor de x en el eje de abajo.", wMaxY:"El punto más alto está en {p}.",
+    qDiffY:"¿Cuánto mayor es {y} cuando x es {a} que cuando x es {b}?", hDiffY:"Busca los puntos de x = {a} y x = {b}. Lee sus valores de y y luego resta.", wPts:"Los puntos son {p} y {q}.",
+    teacherTitle:"Ajustes del maestro", setGrade:"Grado", g3:"3.er grado", g4:"4.º grado", g5:"5.º grado",
+    gradeNote:"Al elegir un grado se ajustan las opciones de abajo. Aún puedes cambiarlas.",
+    setScale:"Escalas de las gráficas", sc2:"Contar de 2 en 2", sc25:"Contar de 2 en 2 o de 5 en 5", sc2510:"Contar de 2 en 2, de 5 en 5 o de 10 en 10",
+    setDen:"Fracciones en los diagramas de puntos", den2:"Medios", den4:"Medios y cuartos", den8:"Medios, cuartos y octavos",
+    setSize:"Tamaño de los datos", sizeS:"Más pequeño", sizeM:"Más grande", setDec:"Datos de tallo y hojas", decOn:"Usar decimales (décimos)",
+    setModes:"Modos", setSpeech:"Voz", autoRead:"Leer instrucciones automáticamente", printCards:"Imprimir tarjetas de reto",
+    setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información de los estudiantes.",
+    stds:"Estándares alineados — TEKS de Texas: 3.er grado: 3.8(A, B); 4.º grado: 4.9(A, B); 5.º grado: 5.9(A, B, C). Common Core: 3.MD.3, 3.MD.4; 4.MD.4; 5.MD.2.",
+    cardTitle:"Detectives de Datos — Tarjetas de reto", cardName:"Nombre:", cFreq:"Haz el conteo de las respuestas de la encuesta. Luego escribe la frecuencia de cada respuesta.",
+    cBar:"Dibuja una barra para cada respuesta. Cada línea cuenta de {s} en {s}.", cDot:"Pon un punto sobre la recta para cada medida.",
+    cStem:"Haz un diagrama de tallo y hojas. Pon las hojas en orden.", cScat:"Marca cada par en la cuadrícula. ¿Qué patrón ves?"
+  },
+  vi:{
+    appTitle:"Thám Tử Dữ Liệu", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", language:"Ngôn ngữ", readAloud:"Đọc to",
+    modesLbl:"Chế độ", stars:"Số sao đạt được", newRound:"Lượt mới", footNote:"Không cần tài khoản · Không thu thập dữ liệu · Dùng được khi không có mạng",
+    mFreq:"Bảng tần số", mBar:"Biểu đồ có thang chia", mDot:"Biểu đồ chấm", mStem:"Thân và lá", mScat:"Biểu đồ phân tán",
+    check:"Kiểm tra", close:"Đóng", yes:"Đúng rồi!", choicesLbl:"Các lựa chọn", youPicked:"Em đã chọn {x}.", qHead:"Câu hỏi:",
+    plusW:"cộng", minusW:"trừ", timesW:"nhân", divW:"chia cho", eqW:"bằng", comma:", ",
+    d2s:"phần hai", d2p:"phần hai", d4s:"phần tư", d4p:"phần tư", d8s:"phần tám", d8p:"phần tám", fracSay:"{n} phần {d}", fracSay1:"{n} phần {d}", mixSay:"{w} và {f}",
+    svy:"Khảo sát", tp_fruit:"Loại quả yêu thích", tp_pet:"Thú cưng yêu thích", tp_sport:"Môn thể thao yêu thích", tp_color:"Màu yêu thích",
+    fruit0:"táo", fruit1:"chuối", fruit2:"nho", fruit3:"dâu tây", fruit4:"cam",
+    pet0:"chó", pet1:"mèo", pet2:"cá", pet3:"chim", pet4:"thỏ",
+    sport0:"bóng đá", sport1:"bóng rổ", sport2:"bóng chày", sport3:"bóng bầu dục", sport4:"quần vợt",
+    color0:"đỏ", color1:"xanh dương", color2:"xanh lá", color3:"vàng", color4:"tím",
+    answersLbl:"Câu trả lời khảo sát", thAns:"Câu trả lời", thTally:"Vạch đếm", thFreq:"Tần số", thNum:"Số phiếu",
+    fqQ:"Khảo sát: {t}. Chạm vào từng câu trả lời để gạch một vạch đếm. Sau đó điền cột Tần số.",
+    fqLeftN:"Số câu trả lời chưa đếm: {n}", fqAll:"Đã đếm hết mọi câu trả lời.",
+    tallyLbl:"{n} vạch đếm", incL:"Thêm một cho {a}", decL:"Bớt một cho {a}",
+    fqLeft:"Hãy gạch đếm hết các câu trả lời trước. Còn {n} câu trả lời chưa có vạch đếm.",
+    fqRow:"Kiểm tra lại tần số của {a}. Em đã viết {x}. Hãy đếm lại các vạch của nó.",
+    fqBundle:"Mỗi bó gồm bốn vạch và một vạch gạch chéo qua là 5. Đếm các bó theo 5, rồi đếm thêm các vạch lẻ.",
+    fqDone:"Bảng tần số của em đúng rồi!",
+    qMore:"{a} được nhiều hơn {b} bao nhiêu phiếu?", qFewer:"{b} được ít hơn {a} bao nhiêu phiếu?",
+    qTotal:"Có tất cả bao nhiêu phiếu?", qBoth:"{a} và {b} được tổng cộng bao nhiêu phiếu?",
+    qTwo:"{a} và {b} cộng lại được nhiều hơn {c} bao nhiêu phiếu?", qMost:"Câu trả lời nào được nhiều phiếu nhất?", qLeast:"Câu trả lời nào được ít phiếu nhất?",
+    hMore:"Tìm số phiếu của {a} và của {b}. Trừ để so sánh.",
+    hTotal:"Cộng số phiếu của tất cả các câu trả lời.", hBoth:"Cộng số phiếu của {a} với số phiếu của {b}.",
+    hTwo:"Bước 1: cộng số phiếu của {a} và {b}. Bước 2: trừ đi số phiếu của {c}.",
+    hMost:"So sánh các số phiếu. Số nào lớn nhất?", hLeast:"So sánh các số phiếu. Số nào nhỏ nhất?",
+    hVals:"Số phiếu là: {v}.", wHas:"{a} có {x} và {b} có {y}.", wMost:"{a} được nhiều phiếu nhất: {x}.", wLeast:"{a} được ít phiếu nhất: {x}.",
+    bgQ:"Vẽ biểu đồ cột cho bảng. Mỗi vạch trên thang chia đếm thêm {s}. Kéo mỗi cột đến độ cao đúng, hoặc dùng ▲ và ▼.",
+    pgQ:"Vẽ biểu đồ tranh cho bảng. Mỗi hình biểu thị {k} phiếu. Dùng các nút + và −.",
+    bgLbl:"Biểu đồ cột", upL:"Làm cột {a} cao hơn", dnL:"Làm cột {a} thấp hơn",
+    pgKey:"Chú giải: mỗi hình = {k} phiếu", addPic:"Thêm một hình cho {a}", addHalf:"Thêm nửa hình cho {a}", rmPic:"Bớt một hình của {a}",
+    picsN:"{n} hình", picsH:"{n} hình rưỡi", picHalf:"nửa hình",
+    bgOn:"Cột {a} phải dừng ở {x}. Đếm thêm {s} dọc theo thang chia để tìm {x}.",
+    bgHalf:"Cột {a} phải dừng ở {x}. Không có vạch cho {x}, nên cột dừng ở chính giữa {lo} và {hi}.",
+    bgYours:"Cột của em đang ở {y}.",
+    pgHintW:"{a} có {x} phiếu. Mỗi hình là {k}, nên {a} cần {n} hình.",
+    pgHintH:"{a} có {x} phiếu. Mỗi hình là {k}, nên {a} cần {n} hình và nửa hình. Nửa hình là {h}.",
+    bgDone:"Biểu đồ cột của em khớp với bảng! Bây giờ hãy dùng biểu đồ để trả lời.", pgDone:"Biểu đồ tranh của em khớp với bảng! Bây giờ hãy dùng biểu đồ để trả lời.",
+    hScale:"Nhớ nhé: mỗi vạch trên thang chia đếm thêm {s}.", hKey:"Nhớ nhé: mỗi hình biểu thị {k} phiếu.",
+    dt_pencil:"Chiều dài bút chì", dt_worm:"Chiều dài sâu bướm", dt_ribbon:"Chiều dài dải ruy băng", dt_juice:"Nước ép trong mỗi chai",
+    u_in:"inch", u_cup:"cốc",
+    dpQ:"Vẽ biểu đồ chấm. Chạm vào một thẻ số đo, rồi chạm vào vị trí của nó trên trục để đặt một chấm phía trên.",
+    dpMeasQ:"Đo từng vật bằng thước. Sau đó chạm vào độ dài của nó trên biểu đồ chấm để đặt một chấm phía trên.",
+    dpLbl:"Biểu đồ chấm. Dùng phím mũi tên và Enter để đặt chấm.", rulerLbl:"Thước", cardsLbl:"Các số đo", itemN:"Vật {n}",
+    dpPick:"Hãy chạm vào một thẻ số đo trước.", dpTapped:"Em đã chạm vào {x}.",
+    dpHint:"Tìm {w} trên trục, rồi đếm {k} vạch sang phải. Mỗi vạch là {f}.",
+    dpHintW:"Tìm số tự nhiên {w} trên trục.",
+    dpMeasH:"Nhìn xem vật kết thúc ở đâu trên thước. Tìm số nguyên cuối cùng nó vượt qua, rồi đếm các vạch nhỏ sau đó. Mỗi vạch nhỏ là {f}.",
+    dpDone:"Tất cả các chấm đã ở trên biểu đồ!",
+    qCountAt:"Có bao nhiêu số đo bằng {v}?", qGreater:"Có bao nhiêu số đo lớn hơn {v}?", qMode:"Số đo nào xuất hiện nhiều lần nhất?",
+    qDiff:"Hiệu của số đo lớn nhất và số đo nhỏ nhất là bao nhiêu?", qSumTwo:"Tổng của số đo lớn nhất và số đo nhỏ nhất là bao nhiêu?",
+    qSumAt:"Tổng tất cả các số đo tại {v} là bao nhiêu?",
+    qShareJ:"Nếu đổ hết nước ép vào với nhau rồi chia đều cho {n} chai, mỗi chai được bao nhiêu cốc?",
+    qShareR:"Nếu nối tất cả các dải ruy băng lại rồi cắt thành {n} đoạn bằng nhau, mỗi đoạn dài bao nhiêu inch?",
+    hCountAt:"Tìm {v} trên trục và đếm các chấm phía trên.", hGreater:"Chỉ đếm các chấm ở bên phải {v}. Không đếm các chấm tại {v}.",
+    hMode:"Tìm cột chấm cao nhất.", hDiff:"Tìm chấm xa nhất bên phải (lớn nhất) và chấm xa nhất bên trái (nhỏ nhất). Rồi trừ.",
+    hSumTwo:"Tìm chấm xa nhất bên phải và chấm xa nhất bên trái. Cộng chúng: cộng phần nguyên, rồi cộng phân số.",
+    hSumAt:"Đếm các chấm tại {v}. Rồi cộng {v} chừng ấy lần.", hShare:"Trước tiên cộng tất cả các số đo để tìm tổng. Sau đó chia tổng thành {n} phần bằng nhau.",
+    wCountAt:"Có {c} chấm phía trên {v}.", wGreater:"Có {c} chấm ở bên phải {v}.", wMode:"{v} có cột chấm cao nhất: {c} chấm.",
+    wGL:"Lớn nhất: {a}. Nhỏ nhất: {b}.", wSumAt:"Có {c} chấm tại {v}.", wTot:"Tổng là {t}.",
+    slQ:"Vẽ biểu đồ thân và lá. Chạm vào một thẻ dữ liệu, rồi chạm vào hàng có thân của nó. Thân là chữ số hàng chục và lá là chữ số hàng đơn vị.",
+    slQd:"Vẽ biểu đồ thân và lá. Chạm vào một thẻ dữ liệu, rồi chạm vào hàng có thân của nó. Thân là chữ số hàng đơn vị và lá là chữ số hàng phần mười.",
+    st_pts:"Số điểm ghi được mỗi trận", st_jump:"Số lần bật nhảy trong một phút", st_rain:"Lượng mưa mỗi tháng (inch)", st_pump:"Cân nặng của bí ngô (pound)",
+    stemH:"Thân", leafH:"Lá", slKey:"Chú giải: {s} | {l} nghĩa là {v}", rowL:"Thân {s}. Lá: {l}", noLeaves:"không có", dataLbl:"Dữ liệu",
+    slPick:"Hãy chạm vào một thẻ dữ liệu trước.",
+    slHint:"Trong số {v}, chữ số hàng chục {s} là thân và chữ số hàng đơn vị {l} là lá. Chạm vào hàng có thân {s}.",
+    slHintD:"Trong số {v}, chữ số hàng đơn vị {s} là thân và chữ số hàng phần mười {l} là lá. Chạm vào hàng có thân {s}.",
+    slDone:"Biểu đồ thân và lá của em đã hoàn thành! Các lá được xếp từ bé đến lớn.",
+    qStemCnt:"Có bao nhiêu giá trị có thân là {s}?", qGreat:"Giá trị lớn nhất là bao nhiêu?", qLeastV:"Giá trị nhỏ nhất là bao nhiêu?",
+    qRange:"Hiệu của giá trị lớn nhất và giá trị nhỏ nhất là bao nhiêu?", qGreaterV:"Có bao nhiêu giá trị lớn hơn {v}?",
+    qModeV:"Giá trị nào xuất hiện nhiều hơn một lần?", qStemMore:"Số giá trị có thân {a} nhiều hơn số giá trị có thân {b} là bao nhiêu?",
+    hStemCnt:"Đếm các lá trong hàng có thân {s}.", hGreat:"Nhìn lá cuối cùng ở hàng dưới cùng có lá.", hLeastV:"Nhìn lá đầu tiên ở hàng trên cùng có lá.",
+    hRange:"Tìm giá trị lớn nhất (lá cuối, hàng dưới) và giá trị nhỏ nhất (lá đầu, hàng trên). Rồi trừ.",
+    hGreaterV:"Tìm {v} trên biểu đồ. Đếm mọi lá đứng sau nó.", hModeV:"Tìm một lá xuất hiện hai lần trong cùng một hàng.", hStemMore:"Đếm lá ở mỗi hàng trong hai hàng, rồi trừ.",
+    wStemCnt:"Thân {s} có {c} lá.", wVal:"Giá trị là {v}.", wTwice:"{v} xuất hiện hai lần.", wGreaterV:"Có {c} giá trị lớn hơn {v}.",
+    sc_sunX:"Số giờ nắng mỗi ngày", sc_sunY:"Chiều cao cây (cm)", sc_sunx:"lượng nắng", sc_suny:"chiều cao của cây",
+    sc_pracX:"Số giờ luyện tập", sc_pracY:"Số quả ném vào rổ", sc_pracx:"thời gian luyện tập", sc_pracy:"số quả vào rổ",
+    sc_lapsX:"Số vòng chạy", sc_lapsY:"Nước còn lại (cốc)", sc_lapsx:"số vòng chạy", sc_lapsy:"lượng nước còn lại",
+    sc_shoeX:"Cỡ giày", sc_shoeY:"Điểm chính tả", sc_shoex:"cỡ giày", sc_shoey:"điểm chính tả",
+    spQ:"Biểu diễn từng cặp số trong bảng trên biểu đồ phân tán. Đi ngang đến giá trị x, rồi đi lên đến giá trị y, và chạm.",
+    spLbl:"Lưới biểu đồ phân tán. Dùng phím mũi tên và Enter để đặt một điểm.", spYou:"Em đã chạm vào {p}.",
+    spHint:"Điểm đó không có trong bảng. Bắt đầu ở 0, đi sang phải đến giá trị x, rồi đi lên đến giá trị y.",
+    spSwap:"Cẩn thận: hai số bị đổi chỗ. Số thứ nhất (x) cho biết đi ngang bao xa, số thứ hai (y) cho biết đi lên bao cao.",
+    spDone:"Đã biểu diễn hết các điểm!",
+    qRel:"Biểu đồ phân tán cho thấy điều gì về {x} và {y}?", relUp:"Khi {x} tăng, {y} có xu hướng tăng.", relDown:"Khi {x} tăng, {y} có xu hướng giảm.", relNone:"Không có quy luật rõ ràng giữa {x} và {y}.",
+    hRel:"Nhìn các chấm từ trái sang phải. Chúng phần lớn đi lên, phần lớn đi xuống, hay nằm lung tung không theo quy luật?",
+    wUp:"Các chấm đi lên từ trái sang phải.", wDown:"Các chấm đi xuống từ trái sang phải.", wNone:"Các chấm nằm rải rác, không có xu hướng lên hay xuống rõ ràng.",
+    qMaxY:"Với giá trị x nào thì {y} lớn nhất?", hMaxY:"Tìm chấm cao nhất. Rồi đọc giá trị x của nó trên trục dưới.", wMaxY:"Chấm cao nhất ở {p}.",
+    qDiffY:"Khi x là {a} thì {y} lớn hơn bao nhiêu so với khi x là {b}?", hDiffY:"Tìm các chấm tại x = {a} và x = {b}. Đọc giá trị y của chúng, rồi trừ.", wPts:"Các điểm là {p} và {q}.",
+    teacherTitle:"Cài đặt cho giáo viên", setGrade:"Lớp", g3:"Lớp 3", g4:"Lớp 4", g5:"Lớp 5",
+    gradeNote:"Chọn lớp sẽ đặt các tùy chọn bên dưới. Thầy cô vẫn có thể thay đổi.",
+    setScale:"Thang chia của biểu đồ", sc2:"Đếm thêm 2", sc25:"Đếm thêm 2 hoặc 5", sc2510:"Đếm thêm 2, 5 hoặc 10",
+    setDen:"Phân số trên biểu đồ chấm", den2:"Phần hai", den4:"Phần hai và phần tư", den8:"Phần hai, phần tư và phần tám",
+    setSize:"Cỡ tập dữ liệu", sizeS:"Nhỏ hơn", sizeM:"Lớn hơn", setDec:"Dữ liệu thân và lá", decOn:"Dùng số thập phân (phần mười)",
+    setModes:"Chế độ", setSpeech:"Giọng đọc", autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
+    setStored:"Cài đặt chỉ được lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
+    stds:"Chuẩn liên quan — TEKS Texas: Lớp 3: 3.8(A, B); Lớp 4: 4.9(A, B); Lớp 5: 5.9(A, B, C). Common Core: 3.MD.3, 3.MD.4; 4.MD.4; 5.MD.2.",
+    cardTitle:"Thám Tử Dữ Liệu — Thẻ thử thách", cardName:"Tên:", cFreq:"Gạch đếm các câu trả lời khảo sát. Sau đó viết tần số của mỗi câu trả lời.",
+    cBar:"Vẽ một cột cho mỗi câu trả lời. Mỗi vạch đếm thêm {s}.", cDot:"Đặt một chấm phía trên trục cho mỗi số đo.",
+    cStem:"Vẽ biểu đồ thân và lá. Xếp các lá theo thứ tự.", cScat:"Biểu diễn từng cặp số trên lưới. Em thấy quy luật gì?"
+  },
+  ar:{
+    appTitle:"محققو البيانات", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلّم", language:"اللغة", readAloud:"اقرأ بصوت عالٍ",
+    modesLbl:"الأنماط", stars:"النجوم المكتسبة", newRound:"جولة جديدة", footNote:"بلا حسابات · لا نجمع أي بيانات · يعمل دون اتصال",
+    mFreq:"جداول التكرار", mBar:"تمثيلات بمقياس", mDot:"التمثيل بالنقاط", mStem:"الساق والورقة", mScat:"شكل الانتشار",
+    check:"تحقّق", close:"إغلاق", yes:"أحسنت!", choicesLbl:"خيارات الإجابة", youPicked:"اخترتَ {x}.", qHead:"السؤال:",
+    plusW:"زائد", minusW:"ناقص", timesW:"ضرب", divW:"مقسومًا على", eqW:"يساوي", comma:"، ",
+    d2s:"نصف", d2p:"أنصاف", d4s:"ربع", d4p:"أرباع", d8s:"ثُمن", d8p:"أثمان", fracSay:"{n} {u}", fracSay1:"{u}", mixSay:"{w} و{f}",
+    svy:"استطلاع", tp_fruit:"الفاكهة المفضلة", tp_pet:"الحيوان الأليف المفضل", tp_sport:"الرياضة المفضلة", tp_color:"اللون المفضل",
+    fruit0:"تفاح", fruit1:"موز", fruit2:"عنب", fruit3:"فراولة", fruit4:"برتقال",
+    pet0:"كلب", pet1:"قطة", pet2:"سمكة", pet3:"طائر", pet4:"أرنب",
+    sport0:"كرة القدم", sport1:"كرة السلة", sport2:"البيسبول", sport3:"كرة القدم الأمريكية", sport4:"التنس",
+    color0:"أحمر", color1:"أزرق", color2:"أخضر", color3:"أصفر", color4:"بنفسجي",
+    answersLbl:"إجابات الاستطلاع", thAns:"الإجابة", thTally:"علامات العدّ", thFreq:"التكرار", thNum:"الأصوات",
+    fqQ:"استطلاع: {t}. اضغط على كل إجابة لترسم علامة عدّ. ثم املأ عمود التكرار.",
+    fqLeftN:"إجابات لم تُعَدّ بعد: {n}", fqAll:"عُدّت كل الإجابات.",
+    tallyLbl:"{n} علامات عدّ", incL:"زِد واحدًا إلى {a}", decL:"أنقِص واحدًا من {a}",
+    fqLeft:"عُدّ كل الإجابات أولًا. ما زالت {n} إجابات تحتاج إلى علامة عدّ.",
+    fqRow:"راجع تكرار {a}. كتبتَ {x}. عُدّ علاماته مرة أخرى.",
+    fqBundle:"كل حزمة من أربع علامات يقطعها خط تساوي 5. عُدّ الحزم بالخمسات، ثم أكمل العدّ بالعلامات المفردة.",
+    fqDone:"جدول التكرار الذي صنعته صحيح!",
+    qMore:"كم صوتًا زاد {a} على {b}؟", qFewer:"كم صوتًا نقص {b} عن {a}؟",
+    qTotal:"كم صوتًا يوجد في المجموع؟", qBoth:"كم صوتًا حصل عليه {a} و{b} معًا؟",
+    qTwo:"كم صوتًا زاد {a} و{b} معًا على {c}؟", qMost:"أي إجابة حصلت على أكثر الأصوات؟", qLeast:"أي إجابة حصلت على أقل الأصوات؟",
+    hMore:"جد عدد أصوات {a} وعدد أصوات {b}. اطرح لتقارن بينهما.",
+    hTotal:"اجمع أصوات كل الإجابات.", hBoth:"اجمع أصوات {a} وأصوات {b}.",
+    hTwo:"الخطوة 1: اجمع أصوات {a} و{b}. الخطوة 2: اطرح أصوات {c}.",
+    hMost:"قارن أعداد الأصوات. أي عدد هو الأكبر؟", hLeast:"قارن أعداد الأصوات. أي عدد هو الأصغر؟",
+    hVals:"الأصوات هي: {v}.", wHas:"{a}: {x}، و{b}: {y}.", wMost:"حصل {a} على أكثر الأصوات: {x}.", wLeast:"حصل {a} على أقل الأصوات: {x}.",
+    bgQ:"اصنع تمثيلًا بالأعمدة للجدول. كل خط على المقياس يزيد {s}. اسحب كل عمود إلى الارتفاع الصحيح، أو استخدم ▲ و▼.",
+    pgQ:"اصنع تمثيلًا بالصور للجدول. كل صورة تمثّل {k} أصوات. استخدم الزرين + و−.",
+    bgLbl:"تمثيل بالأعمدة", upL:"اجعل عمود {a} أطول", dnL:"اجعل عمود {a} أقصر",
+    pgKey:"المفتاح: كل صورة = {k} أصوات", addPic:"أضف صورة إلى {a}", addHalf:"أضف نصف صورة إلى {a}", rmPic:"احذف صورة من {a}",
+    picsN:"{n} صور", picsH:"{n} صور ونصف", picHalf:"نصف صورة",
+    bgOn:"يجب أن ينتهي عمود {a} عند {x}. عُدّ على المقياس بزيادة {s} لتجد {x}.",
+    bgHalf:"يجب أن ينتهي عمود {a} عند {x}. لا يوجد خط للعدد {x}، لذلك ينتهي العمود في منتصف المسافة بين {lo} و{hi}.",
+    bgYours:"عمودك عند {y}.",
+    pgHintW:"عدد أصوات {a} هو {x}. كل صورة تساوي {k}، لذلك يحتاج {a} إلى {n} صور.",
+    pgHintH:"عدد أصوات {a} هو {x}. كل صورة تساوي {k}، لذلك يحتاج {a} إلى {n} صور ونصف صورة. نصف الصورة يساوي {h}.",
+    bgDone:"تمثيلك بالأعمدة يطابق الجدول! استخدم الآن تمثيلك لتجيب.", pgDone:"تمثيلك بالصور يطابق الجدول! استخدم الآن تمثيلك لتجيب.",
+    hScale:"تذكّر: كل خط على المقياس يزيد {s}.", hKey:"تذكّر: كل صورة تمثّل {k} أصوات.",
+    dt_pencil:"أطوال أقلام الرصاص", dt_worm:"أطوال اليرقات", dt_ribbon:"أطوال الأشرطة", dt_juice:"العصير في كل زجاجة",
+    u_in:"بوصة", u_cup:"أكواب",
+    dpQ:"اصنع تمثيلًا بالنقاط. اضغط على بطاقة قياس، ثم اضغط على مكانها على الخط لتضع نقطة فوقه.",
+    dpMeasQ:"قِس كل واحد بالمسطرة. ثم اضغط على طوله في التمثيل بالنقاط لتضع نقطة فوقه.",
+    dpLbl:"تمثيل بالنقاط. استخدم مفاتيح الأسهم وEnter لتضع نقطة.", rulerLbl:"مسطرة", cardsLbl:"القياسات", itemN:"الشيء {n}",
+    dpPick:"اضغط على بطاقة قياس أولًا.", dpTapped:"ضغطتَ على {x}.",
+    dpHint:"جد {w} على الخط، ثم عُدّ {k} علامات إلى اليمين. كل علامة تساوي {f}.",
+    dpHintW:"جد العدد الكلي {w} على الخط.",
+    dpMeasH:"انظر أين ينتهي على المسطرة. جد آخر عدد كلي يتجاوزه، ثم عُدّ العلامات الصغيرة بعده. كل علامة صغيرة تساوي {f}.",
+    dpDone:"كل النقاط على التمثيل!",
+    qCountAt:"كم قياسًا يساوي {v}؟", qGreater:"كم قياسًا أكبر من {v}؟", qMode:"أي قياس يتكرر أكثر؟",
+    qDiff:"ما الفرق بين أكبر قياس وأصغر قياس؟", qSumTwo:"ما مجموع أكبر قياس وأصغر قياس؟",
+    qSumAt:"ما مجموع كل القياسات عند {v}؟",
+    qShareJ:"إذا جُمع العصير كله ثم وُزّع بالتساوي على الزجاجات الـ{n}، فكم كوبًا تأخذ كل زجاجة؟",
+    qShareR:"إذا وُصلت كل الأشرطة معًا ثم قُطعت إلى {n} قطع متساوية، فكم بوصة طول كل قطعة؟",
+    hCountAt:"جد {v} على الخط وعُدّ النقاط فوقه.", hGreater:"عُدّ النقاط التي على يمين {v} فقط. لا تعُدّ النقاط التي عند {v}.",
+    hMode:"ابحث عن أطول عمود من النقاط.", hDiff:"جد أبعد نقطة إلى اليمين (الأكبر) وأبعد نقطة إلى اليسار (الأصغر). ثم اطرح.",
+    hSumTwo:"جد أبعد نقطة إلى اليمين وأبعد نقطة إلى اليسار. اجمعهما: اجمع الأعداد الكلية، ثم الكسور.",
+    hSumAt:"عُدّ النقاط عند {v}. ثم اجمع {v} بعدد تلك المرات.", hShare:"اجمع أولًا كل القياسات لتجد المجموع. ثم اقسم المجموع إلى {n} أجزاء متساوية.",
+    wCountAt:"توجد {c} نقاط فوق {v}.", wGreater:"توجد {c} نقاط على يمين {v}.", wMode:"عند {v} أطول عمود: {c} نقاط.",
+    wGL:"الأكبر: {a}. الأصغر: {b}.", wSumAt:"توجد {c} نقاط عند {v}.", wTot:"المجموع {t}.",
+    slQ:"اصنع تمثيل الساق والورقة. اضغط على بطاقة بيانات، ثم اضغط على صف ساقها. الساق هي رقم العشرات والورقة هي رقم الآحاد.",
+    slQd:"اصنع تمثيل الساق والورقة. اضغط على بطاقة بيانات، ثم اضغط على صف ساقها. الساق هي رقم الآحاد والورقة هي رقم الأجزاء من عشرة.",
+    st_pts:"النقاط المسجلة في كل مباراة", st_jump:"قفزات الفتح والضم في دقيقة واحدة", st_rain:"كمية المطر كل شهر (بوصة)", st_pump:"أوزان القرع (رطل)",
+    stemH:"الساق", leafH:"الورقة", slKey:"المفتاح: {s} | {l} تعني {v}", rowL:"الساق {s}. الأوراق: {l}", noLeaves:"لا شيء", dataLbl:"البيانات",
+    slPick:"اضغط على بطاقة بيانات أولًا.",
+    slHint:"في العدد {v}، رقم العشرات {s} هو الساق ورقم الآحاد {l} هو الورقة. اضغط على صف الساق {s}.",
+    slHintD:"في العدد {v}، رقم الآحاد {s} هو الساق ورقم الأجزاء من عشرة {l} هو الورقة. اضغط على صف الساق {s}.",
+    slDone:"اكتمل تمثيل الساق والورقة! الأوراق مرتبة من الأصغر إلى الأكبر.",
+    qStemCnt:"كم قيمة ساقها {s}؟", qGreat:"ما أكبر قيمة؟", qLeastV:"ما أصغر قيمة؟",
+    qRange:"ما الفرق بين أكبر قيمة وأصغر قيمة؟", qGreaterV:"كم قيمة أكبر من {v}؟",
+    qModeV:"أي قيمة تظهر أكثر من مرة؟", qStemMore:"بكم يزيد عدد القيم ذات الساق {a} على عدد القيم ذات الساق {b}؟",
+    hStemCnt:"عُدّ الأوراق في صف الساق {s}.", hGreat:"انظر إلى آخر ورقة في آخر صف فيه أوراق.", hLeastV:"انظر إلى أول ورقة في أول صف فيه أوراق.",
+    hRange:"جد أكبر قيمة (آخر ورقة في الصف السفلي) وأصغر قيمة (أول ورقة في الصف العلوي). ثم اطرح.",
+    hGreaterV:"جد {v} في التمثيل. عُدّ كل ورقة تأتي بعدها.", hModeV:"ابحث عن الورقة نفسها مرتين في صف واحد.", hStemMore:"عُدّ الأوراق في كل صف من الصفين، ثم اطرح.",
+    wStemCnt:"في صف الساق {s} توجد {c} أوراق.", wVal:"القيمة هي {v}.", wTwice:"تظهر {v} مرتين.", wGreaterV:"توجد {c} قيم أكبر من {v}.",
+    sc_sunX:"ساعات الشمس كل يوم", sc_sunY:"طول النبتة (سم)", sc_sunx:"عدد ساعات الشمس", sc_suny:"طول النبتة",
+    sc_pracX:"ساعات التدريب", sc_pracY:"الرميات الناجحة", sc_pracx:"وقت التدريب", sc_pracy:"عدد الرميات الناجحة",
+    sc_lapsX:"اللفات المقطوعة جريًا", sc_lapsY:"الماء المتبقي (أكواب)", sc_lapsx:"عدد اللفات", sc_lapsy:"مقدار الماء المتبقي",
+    sc_shoeX:"مقاس الحذاء", sc_shoeY:"درجة الإملاء", sc_shoex:"مقاس الحذاء", sc_shoey:"مجموع درجات الإملاء",
+    spQ:"مثّل كل زوج من الجدول على شكل الانتشار. تحرّك أفقيًا إلى قيمة x، ثم إلى الأعلى حتى قيمة y، واضغط.",
+    spLbl:"شبكة شكل الانتشار. استخدم مفاتيح الأسهم وEnter لتمثيل نقطة.", spYou:"ضغطتَ على {p}.",
+    spHint:"هذه النقطة ليست في الجدول. ابدأ من 0، وتحرّك يمينًا حتى قيمة x، ثم إلى الأعلى حتى قيمة y.",
+    spSwap:"انتبه: العددان مقلوبان. العدد الأول (x) يخبرك كم تتحرك أفقيًا، والعدد الثاني (y) يخبرك كم تصعد.",
+    spDone:"مُثّلت كل النقاط!",
+    qRel:"ماذا يُظهر شكل الانتشار عن {x} و{y}؟", relUp:"كلما زاد {x}، يميل {y} إلى الزيادة.", relDown:"كلما زاد {x}، يميل {y} إلى النقصان.", relNone:"لا يوجد نمط واضح بين {x} و{y}.",
+    hRel:"انظر إلى النقاط من اليسار إلى اليمين. هل تصعد غالبًا، أم تنزل غالبًا، أم تتبعثر بلا نمط؟",
+    wUp:"النقاط تصعد من اليسار إلى اليمين.", wDown:"النقاط تنزل من اليسار إلى اليمين.", wNone:"النقاط متبعثرة بلا نمط واضح للصعود أو النزول.",
+    qMaxY:"عند أي قيمة لـ x يكون {y} أكبر ما يمكن؟", hMaxY:"جد أعلى نقطة. ثم اقرأ قيمة x لها على المحور السفلي.", wMaxY:"أعلى نقطة عند {p}.",
+    qDiffY:"بكم يزيد {y} عندما تكون x تساوي {a} عنه عندما تكون x تساوي {b}؟", hDiffY:"جد النقطتين عند x = {a} وx = {b}. اقرأ قيمتي y لهما، ثم اطرح.", wPts:"النقطتان هما {p} و{q}.",
+    teacherTitle:"إعدادات المعلّم", setGrade:"الصف الدراسي", g3:"الصف الثالث", g4:"الصف الرابع", g5:"الصف الخامس",
+    gradeNote:"اختيار الصف يضبط الخيارات أدناه. يمكنك تغييرها بعد ذلك.",
+    setScale:"مقاييس التمثيلات", sc2:"العدّ بالاثنينات", sc25:"العدّ بالاثنينات أو الخمسات", sc2510:"العدّ بالاثنينات أو الخمسات أو العشرات",
+    setDen:"الكسور في التمثيل بالنقاط", den2:"الأنصاف", den4:"الأنصاف والأرباع", den8:"الأنصاف والأرباع والأثمان",
+    setSize:"حجم مجموعة البيانات", sizeS:"أصغر", sizeM:"أكبر", setDec:"بيانات الساق والورقة", decOn:"استخدم الكسور العشرية (أجزاء من عشرة)",
+    setModes:"الأنماط", setSpeech:"الصوت", autoRead:"قراءة التعليمات تلقائيًا", printCards:"اطبع بطاقات التحدي",
+    setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُحفظ أي معلومات عن الطلاب أبدًا.",
+    stds:"المعايير المرتبطة — معايير تكساس TEKS: الصف الثالث: 3.8(A, B)؛ الصف الرابع: 4.9(A, B)؛ الصف الخامس: 5.9(A, B, C). المعايير المشتركة Common Core: 3.MD.3، 3.MD.4؛ 4.MD.4؛ 5.MD.2.",
+    cardTitle:"محققو البيانات — بطاقات التحدي", cardName:"الاسم:", cFreq:"ارسم علامات العدّ لإجابات الاستطلاع. ثم اكتب تكرار كل إجابة.",
+    cBar:"ارسم عمودًا لكل إجابة. كل خط يزيد {s}.", cDot:"ضع نقطة فوق الخط لكل قياس.",
+    cStem:"اصنع تمثيل الساق والورقة. رتّب الأوراق.", cScat:"مثّل كل زوج على الشبكة. ما النمط الذي تلاحظه؟"
+  },
+  hi:{
+    appTitle:"डेटा जासूस", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", language:"भाषा", readAloud:"ज़ोर से पढ़ें",
+    modesLbl:"मोड", stars:"मिले हुए सितारे", newRound:"नया राउंड", footNote:"कोई खाता नहीं · कोई डेटा इकट्ठा नहीं · बिना इंटरनेट चलता है",
+    mFreq:"बारंबारता सारणी", mBar:"पैमाने वाले ग्राफ़", mDot:"लाइन प्लॉट", mStem:"तना और पत्ती", mScat:"प्रकीर्ण आरेख",
+    check:"जाँचें", close:"बंद करें", yes:"शाबाश!", choicesLbl:"उत्तर के विकल्प", youPicked:"आपने {x} चुना।", qHead:"प्रश्न:",
+    plusW:"जोड़", minusW:"घटा", timesW:"गुणा", divW:"भाग", eqW:"बराबर", comma:", ",
+    d2s:"आधा", d2p:"आधे", d4s:"चौथाई", d4p:"चौथाई", d8s:"आठवाँ भाग", d8p:"आठवें भाग", fracSay:"{n} बटा {d}", fracSay1:"{n} बटा {d}", mixSay:"{w} पूर्ण {f}",
+    svy:"सर्वे", tp_fruit:"पसंदीदा फल", tp_pet:"पसंदीदा पालतू जानवर", tp_sport:"पसंदीदा खेल", tp_color:"पसंदीदा रंग",
+    fruit0:"सेब", fruit1:"केला", fruit2:"अंगूर", fruit3:"स्ट्रॉबेरी", fruit4:"संतरा",
+    pet0:"कुत्ता", pet1:"बिल्ली", pet2:"मछली", pet3:"चिड़िया", pet4:"खरगोश",
+    sport0:"फ़ुटबॉल", sport1:"बास्केटबॉल", sport2:"बेसबॉल", sport3:"अमेरिकी फ़ुटबॉल", sport4:"टेनिस",
+    color0:"लाल", color1:"नीला", color2:"हरा", color3:"पीला", color4:"बैंगनी",
+    answersLbl:"सर्वे के उत्तर", thAns:"उत्तर", thTally:"मिलान चिह्न", thFreq:"बारंबारता", thNum:"वोट",
+    fqQ:"सर्वे: {t}। हर उत्तर पर टैप करके मिलान चिह्न बनाएँ। फिर बारंबारता वाला कॉलम भरें।",
+    fqLeftN:"गिनने को बचे उत्तर: {n}", fqAll:"सारे उत्तर गिन लिए गए हैं।",
+    tallyLbl:"{n} मिलान चिह्न", incL:"{a} के लिए एक और", decL:"{a} के लिए एक कम",
+    fqLeft:"पहले हर उत्तर का मिलान चिह्न बनाएँ। अभी {n} उत्तरों का चिह्न बाकी है।",
+    fqRow:"{a} की बारंबारता जाँचें। आपने {x} लिखा। उसके मिलान चिह्न दोबारा गिनें।",
+    fqBundle:"चार रेखाओं पर एक तिरछी रेखा वाला हर गुच्छा 5 होता है। गुच्छों को 5-5 करके गिनें, फिर अकेली रेखाएँ आगे गिनें।",
+    fqDone:"आपकी बारंबारता सारणी सही है!",
+    qMore:"{a} को {b} से कितने वोट ज़्यादा मिले?", qFewer:"{b} को {a} से कितने वोट कम मिले?",
+    qTotal:"कुल कितने वोट हैं?", qBoth:"{a} और {b} को मिलाकर कितने वोट मिले?",
+    qTwo:"{a} और {b} को मिलाकर {c} से कितने वोट ज़्यादा मिले?", qMost:"किस उत्तर को सबसे ज़्यादा वोट मिले?", qLeast:"किस उत्तर को सबसे कम वोट मिले?",
+    hMore:"{a} और {b} के वोट ढूँढें। तुलना करने के लिए घटाएँ।",
+    hTotal:"सभी उत्तरों के वोट जोड़ें।", hBoth:"{a} के वोट और {b} के वोट जोड़ें।",
+    hTwo:"चरण 1: {a} और {b} के वोट जोड़ें। चरण 2: {c} के वोट घटाएँ।",
+    hMost:"वोटों की संख्याओं की तुलना करें। सबसे बड़ी संख्या कौन-सी है?", hLeast:"वोटों की संख्याओं की तुलना करें। सबसे छोटी संख्या कौन-सी है?",
+    hVals:"वोट हैं: {v}।", wHas:"{a} के {x} और {b} के {y} वोट हैं।", wMost:"{a} को सबसे ज़्यादा वोट मिले: {x}।", wLeast:"{a} को सबसे कम वोट मिले: {x}।",
+    bgQ:"सारणी का बार ग्राफ़ बनाएँ। पैमाने की हर रेखा {s} बढ़ती है। हर बार को सही ऊँचाई तक खींचें, या ▲ और ▼ का उपयोग करें।",
+    pgQ:"सारणी का चित्र ग्राफ़ बनाएँ। हर चित्र {k} वोट दिखाता है। + और − बटन का उपयोग करें।",
+    bgLbl:"बार ग्राफ़", upL:"{a} का बार ऊँचा करें", dnL:"{a} का बार नीचा करें",
+    pgKey:"कुंजी: हर चित्र = {k} वोट", addPic:"{a} में एक चित्र जोड़ें", addHalf:"{a} में आधा चित्र जोड़ें", rmPic:"{a} से एक चित्र हटाएँ",
+    picsN:"{n} चित्र", picsH:"{n} चित्र और आधा चित्र", picHalf:"आधा चित्र",
+    bgOn:"{a} का बार {x} पर रुकना चाहिए। {x} ढूँढने के लिए पैमाने पर {s}-{s} करके गिनें।",
+    bgHalf:"{a} का बार {x} पर रुकना चाहिए। {x} की कोई रेखा नहीं है, इसलिए बार {lo} और {hi} के ठीक बीच में रुकेगा।",
+    bgYours:"आपका बार {y} पर है।",
+    pgHintW:"{a} के {x} वोट हैं। हर चित्र {k} का है, इसलिए {a} को {n} चित्र चाहिए।",
+    pgHintH:"{a} के {x} वोट हैं। हर चित्र {k} का है, इसलिए {a} को {n} चित्र और एक आधा चित्र चाहिए। आधा चित्र {h} का होता है।",
+    bgDone:"आपका बार ग्राफ़ सारणी से मेल खाता है! अब अपने ग्राफ़ से उत्तर दें।", pgDone:"आपका चित्र ग्राफ़ सारणी से मेल खाता है! अब अपने ग्राफ़ से उत्तर दें।",
+    hScale:"याद रखें: पैमाने की हर रेखा {s} बढ़ती है।", hKey:"याद रखें: हर चित्र {k} वोट दिखाता है।",
+    dt_pencil:"पेंसिलों की लंबाई", dt_worm:"इल्लियों की लंबाई", dt_ribbon:"रिबनों की लंबाई", dt_juice:"हर बोतल में जूस",
+    u_in:"इंच", u_cup:"कप",
+    dpQ:"लाइन प्लॉट बनाएँ। किसी माप वाले कार्ड पर टैप करें, फिर रेखा पर उसकी जगह टैप करके उसके ऊपर एक बिंदु रखें।",
+    dpMeasQ:"हर चीज़ को रूलर से मापें। फिर लाइन प्लॉट पर उसकी लंबाई पर टैप करके ऊपर एक बिंदु रखें।",
+    dpLbl:"लाइन प्लॉट। बिंदु रखने के लिए तीर कुंजियों और Enter का उपयोग करें।", rulerLbl:"रूलर", cardsLbl:"माप", itemN:"चीज़ {n}",
+    dpPick:"पहले किसी माप वाले कार्ड पर टैप करें।", dpTapped:"आपने {x} पर टैप किया।",
+    dpHint:"रेखा पर {w} ढूँढें, फिर दाईं ओर {k} निशान गिनें। हर निशान {f} है।",
+    dpHintW:"रेखा पर पूर्ण संख्या {w} ढूँढें।",
+    dpMeasH:"देखें कि वह रूलर पर कहाँ खत्म होती है। आखिरी पूर्ण संख्या ढूँढें जिसे वह पार करती है, फिर उसके बाद के छोटे निशान गिनें। हर छोटा निशान {f} है।",
+    dpDone:"सारे बिंदु लाइन प्लॉट पर हैं!",
+    qCountAt:"कितने माप {v} हैं?", qGreater:"कितने माप {v} से ज़्यादा हैं?", qMode:"कौन-सा माप सबसे ज़्यादा बार आता है?",
+    qDiff:"सबसे बड़े और सबसे छोटे माप का अंतर क्या है?", qSumTwo:"सबसे बड़े और सबसे छोटे माप का योग क्या है?",
+    qSumAt:"{v} पर सभी मापों का कुल क्या है?",
+    qShareJ:"अगर सारा जूस एक साथ मिलाकर {n} बोतलों में बराबर बाँटा जाए, तो हर बोतल को कितने कप मिलेंगे?",
+    qShareR:"अगर सारे रिबन एक के बाद एक जोड़कर {n} बराबर टुकड़ों में काटे जाएँ, तो हर टुकड़ा कितने इंच लंबा होगा?",
+    hCountAt:"रेखा पर {v} ढूँढें और उसके ऊपर के बिंदु गिनें।", hGreater:"सिर्फ़ {v} के दाईं ओर के बिंदु गिनें। {v} पर के बिंदु न गिनें।",
+    hMode:"बिंदुओं का सबसे ऊँचा ढेर ढूँढें।", hDiff:"सबसे दाईं ओर का बिंदु (सबसे बड़ा) और सबसे बाईं ओर का बिंदु (सबसे छोटा) ढूँढें। फिर घटाएँ।",
+    hSumTwo:"सबसे दाईं ओर और सबसे बाईं ओर के बिंदु ढूँढें। उन्हें जोड़ें: पहले पूर्ण संख्याएँ, फिर भिन्न।",
+    hSumAt:"{v} पर बिंदु गिनें। फिर {v} को उतनी बार जोड़ें।", hShare:"पहले सभी माप जोड़कर कुल निकालें। फिर कुल को {n} बराबर भागों में बाँटें।",
+    wCountAt:"{v} के ऊपर {c} बिंदु हैं।", wGreater:"{v} के दाईं ओर {c} बिंदु हैं।", wMode:"{v} पर सबसे ऊँचा ढेर है: {c} बिंदु।",
+    wGL:"सबसे बड़ा: {a}। सबसे छोटा: {b}।", wSumAt:"{v} पर {c} बिंदु हैं।", wTot:"कुल {t} है।",
+    slQ:"तना और पत्ती आरेख बनाएँ। किसी डेटा कार्ड पर टैप करें, फिर उसके तने वाली पंक्ति पर टैप करें। तना दहाई का अंक है और पत्ती इकाई का अंक है।",
+    slQd:"तना और पत्ती आरेख बनाएँ। किसी डेटा कार्ड पर टैप करें, फिर उसके तने वाली पंक्ति पर टैप करें। तना इकाई का अंक है और पत्ती दशांश का अंक है।",
+    st_pts:"हर मैच में बने अंक", st_jump:"एक मिनट में जंपिंग जैक", st_rain:"हर महीने की बारिश (इंच)", st_pump:"कद्दुओं का वज़न (पाउंड)",
+    stemH:"तना", leafH:"पत्ती", slKey:"कुंजी: {s} | {l} का अर्थ है {v}", rowL:"तना {s}। पत्तियाँ: {l}", noLeaves:"कोई नहीं", dataLbl:"डेटा",
+    slPick:"पहले किसी डेटा कार्ड पर टैप करें।",
+    slHint:"{v} में दहाई का अंक {s} तना है और इकाई का अंक {l} पत्ती है। तना {s} वाली पंक्ति पर टैप करें।",
+    slHintD:"{v} में इकाई का अंक {s} तना है और दशांश का अंक {l} पत्ती है। तना {s} वाली पंक्ति पर टैप करें।",
+    slDone:"आपका तना और पत्ती आरेख पूरा हो गया! पत्तियाँ छोटे से बड़े क्रम में हैं।",
+    qStemCnt:"कितने मानों का तना {s} है?", qGreat:"सबसे बड़ा मान क्या है?", qLeastV:"सबसे छोटा मान क्या है?",
+    qRange:"सबसे बड़े और सबसे छोटे मान का अंतर क्या है?", qGreaterV:"कितने मान {v} से बड़े हैं?",
+    qModeV:"कौन-सा मान एक से ज़्यादा बार आता है?", qStemMore:"तना {a} वाले मान तना {b} वाले मानों से कितने ज़्यादा हैं?",
+    hStemCnt:"तना {s} वाली पंक्ति की पत्तियाँ गिनें।", hGreat:"पत्तियों वाली सबसे नीचे की पंक्ति की आखिरी पत्ती देखें।", hLeastV:"पत्तियों वाली सबसे ऊपर की पंक्ति की पहली पत्ती देखें।",
+    hRange:"सबसे बड़ा मान (नीचे की पंक्ति की आखिरी पत्ती) और सबसे छोटा मान (ऊपर की पंक्ति की पहली पत्ती) ढूँढें। फिर घटाएँ।",
+    hGreaterV:"आरेख में {v} ढूँढें। उसके बाद आने वाली हर पत्ती गिनें।", hModeV:"एक ही पंक्ति में एक ही पत्ती दो बार ढूँढें।", hStemMore:"दोनों पंक्तियों की पत्तियाँ गिनें, फिर घटाएँ।",
+    wStemCnt:"तना {s} की {c} पत्तियाँ हैं।", wVal:"मान {v} है।", wTwice:"{v} दो बार आता है।", wGreaterV:"{c} मान {v} से बड़े हैं।",
+    sc_sunX:"रोज़ धूप के घंटे", sc_sunY:"पौधे की ऊँचाई (सेमी)", sc_sunx:"धूप की मात्रा", sc_suny:"पौधे की ऊँचाई",
+    sc_pracX:"अभ्यास के घंटे", sc_pracY:"बास्केट में डाली गेंदें", sc_pracx:"अभ्यास का समय", sc_pracy:"बास्केट की संख्या",
+    sc_lapsX:"दौड़े गए चक्कर", sc_lapsY:"बचा हुआ पानी (कप)", sc_lapsx:"चक्करों की संख्या", sc_lapsy:"बचा हुआ पानी",
+    sc_shoeX:"जूते का साइज़", sc_shoeY:"वर्तनी के अंक", sc_shoex:"जूते का साइज़", sc_shoey:"वर्तनी के अंक",
+    spQ:"सारणी के हर जोड़े को प्रकीर्ण आरेख पर अंकित करें। x-मान तक दाईं ओर जाएँ, फिर y-मान तक ऊपर जाएँ, और टैप करें।",
+    spLbl:"प्रकीर्ण आरेख ग्रिड। बिंदु अंकित करने के लिए तीर कुंजियों और Enter का उपयोग करें।", spYou:"आपने {p} पर टैप किया।",
+    spHint:"वह बिंदु सारणी में नहीं है। 0 से शुरू करें, x-मान तक दाईं ओर जाएँ, फिर y-मान तक ऊपर जाएँ।",
+    spSwap:"ध्यान दें: संख्याएँ उलट गई हैं। पहली संख्या (x) बताती है कितना दाईं ओर जाना है, और दूसरी संख्या (y) बताती है कितना ऊपर जाना है।",
+    spDone:"सारे बिंदु अंकित हो गए!",
+    qRel:"प्रकीर्ण आरेख {x} और {y} के बारे में क्या दिखाता है?", relUp:"{x} बढ़ने के साथ आमतौर पर {y} में बढ़ोतरी होती है।", relDown:"{x} बढ़ने के साथ आमतौर पर {y} में कमी होती है।", relNone:"{x} और {y} के बीच कोई साफ़ पैटर्न नहीं है।",
+    hRel:"बिंदुओं को बाएँ से दाएँ देखें। क्या वे ज़्यादातर ऊपर जाते हैं, ज़्यादातर नीचे जाते हैं, या बिना किसी पैटर्न के बिखरे हैं?",
+    wUp:"बिंदु बाएँ से दाएँ ऊपर जाते हैं।", wDown:"बिंदु बाएँ से दाएँ नीचे जाते हैं।", wNone:"बिंदु बिखरे हुए हैं, ऊपर या नीचे का कोई साफ़ पैटर्न नहीं है।",
+    qMaxY:"x के किस मान पर {y} सबसे ज़्यादा है?", hMaxY:"सबसे ऊँचा बिंदु ढूँढें। फिर नीचे वाले अक्ष पर उसका x-मान पढ़ें।", wMaxY:"सबसे ऊँचा बिंदु {p} पर है।",
+    qDiffY:"x = {a} होने पर {y}, x = {b} होने की तुलना में कितना ज़्यादा है?", hDiffY:"x = {a} और x = {b} वाले बिंदु ढूँढें। उनके y-मान पढ़ें, फिर घटाएँ।", wPts:"बिंदु {p} और {q} हैं।",
+    teacherTitle:"शिक्षक सेटिंग्स", setGrade:"कक्षा", g3:"कक्षा 3", g4:"कक्षा 4", g5:"कक्षा 5",
+    gradeNote:"कक्षा चुनने से नीचे के विकल्प सेट हो जाते हैं। आप उन्हें फिर भी बदल सकते हैं।",
+    setScale:"ग्राफ़ के पैमाने", sc2:"2-2 करके गिनें", sc25:"2-2 या 5-5 करके गिनें", sc2510:"2-2, 5-5 या 10-10 करके गिनें",
+    setDen:"लाइन प्लॉट के भिन्न", den2:"आधे", den4:"आधे और चौथाई", den8:"आधे, चौथाई और आठवें भाग",
+    setSize:"डेटा का आकार", sizeS:"छोटा", sizeM:"बड़ा", setDec:"तना और पत्ती डेटा", decOn:"दशमलव (दशांश) का उपयोग करें",
+    setModes:"मोड", setSpeech:"आवाज़", autoRead:"निर्देश अपने आप पढ़ें", printCards:"चुनौती कार्ड प्रिंट करें",
+    setStored:"सेटिंग्स सिर्फ़ इसी डिवाइस पर सेव होती हैं। छात्रों की कोई जानकारी कभी सेव नहीं होती।",
+    stds:"संबंधित मानक — टेक्सास TEKS: कक्षा 3: 3.8(A, B); कक्षा 4: 4.9(A, B); कक्षा 5: 5.9(A, B, C)। Common Core: 3.MD.3, 3.MD.4; 4.MD.4; 5.MD.2।",
+    cardTitle:"डेटा जासूस — चुनौती कार्ड", cardName:"नाम:", cFreq:"सर्वे के उत्तरों के मिलान चिह्न बनाएँ। फिर हर उत्तर की बारंबारता लिखें।",
+    cBar:"हर उत्तर के लिए एक बार बनाएँ। हर रेखा {s} बढ़ती है।", cDot:"हर माप के लिए रेखा के ऊपर एक बिंदु रखें।",
+    cStem:"तना और पत्ती आरेख बनाएँ। पत्तियों को क्रम में रखें।", cScat:"हर जोड़े को ग्रिड पर अंकित करें। आपको कौन-सा पैटर्न दिखता है?"
+  },
+  ur:{
+    appTitle:"ڈیٹا جاسوس", home:"ہوم", privacy:"رازداری", teacher:"استاد", language:"زبان", readAloud:"بلند آواز سے پڑھیں",
+    modesLbl:"موڈ", stars:"حاصل کیے گئے ستارے", newRound:"نیا راؤنڈ", footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا جمع نہیں ہوتا · انٹرنیٹ کے بغیر چلتا ہے",
+    mFreq:"تعدد کی جدولیں", mBar:"پیمانے والے گراف", mDot:"لائن پلاٹ", mStem:"تنا اور پتا", mScat:"بکھراؤ کا خاکہ",
+    check:"جانچیں", close:"بند کریں", yes:"شاباش!", choicesLbl:"جواب کے انتخاب", youPicked:"آپ نے {x} چنا۔", qHead:"سوال:",
+    plusW:"جمع", minusW:"منفی", timesW:"ضرب", divW:"تقسیم", eqW:"برابر", comma:"، ",
+    d2s:"آدھا", d2p:"آدھے", d4s:"چوتھائی", d4p:"چوتھائی", d8s:"آٹھواں حصہ", d8p:"آٹھویں حصے", fracSay:"{n} بٹا {d}", fracSay1:"{n} بٹا {d}", mixSay:"{w} صحیح {f}",
+    svy:"سروے", tp_fruit:"پسندیدہ پھل", tp_pet:"پسندیدہ پالتو جانور", tp_sport:"پسندیدہ کھیل", tp_color:"پسندیدہ رنگ",
+    fruit0:"سیب", fruit1:"کیلا", fruit2:"انگور", fruit3:"اسٹرابیری", fruit4:"مالٹا",
+    pet0:"کتا", pet1:"بلی", pet2:"مچھلی", pet3:"چڑیا", pet4:"خرگوش",
+    sport0:"فٹ بال", sport1:"باسکٹ بال", sport2:"بیس بال", sport3:"امریکی فٹ بال", sport4:"ٹینس",
+    color0:"سرخ", color1:"نیلا", color2:"سبز", color3:"پیلا", color4:"جامنی",
+    answersLbl:"سروے کے جوابات", thAns:"جواب", thTally:"ٹیلی نشان", thFreq:"تعدد", thNum:"ووٹ",
+    fqQ:"سروے: {t}۔ ہر جواب پر ٹیپ کر کے ٹیلی کا نشان بنائیں۔ پھر تعدد والا کالم بھریں۔",
+    fqLeftN:"گننے کو باقی جوابات: {n}", fqAll:"سارے جوابات گن لیے گئے ہیں۔",
+    tallyLbl:"{n} ٹیلی نشان", incL:"{a} کے لیے ایک اور", decL:"{a} کے لیے ایک کم",
+    fqLeft:"پہلے ہر جواب کا ٹیلی نشان بنائیں۔ ابھی {n} جوابات کا نشان باقی ہے۔",
+    fqRow:"{a} کا تعدد جانچیں۔ آپ نے {x} لکھا۔ اس کے ٹیلی نشان دوبارہ گنیں۔",
+    fqBundle:"چار لکیروں پر ایک ترچھی لکیر والا ہر گچھا 5 ہوتا ہے۔ گچھوں کو پانچ پانچ کر کے گنیں، پھر اکیلی لکیریں آگے گنیں۔",
+    fqDone:"آپ کی تعدد کی جدول درست ہے!",
+    qMore:"{a} کو {b} سے کتنے ووٹ زیادہ ملے؟", qFewer:"{b} کو {a} سے کتنے ووٹ کم ملے؟",
+    qTotal:"کل کتنے ووٹ ہیں؟", qBoth:"{a} اور {b} کو ملا کر کتنے ووٹ ملے؟",
+    qTwo:"{a} اور {b} کو ملا کر {c} سے کتنے ووٹ زیادہ ملے؟", qMost:"کس جواب کو سب سے زیادہ ووٹ ملے؟", qLeast:"کس جواب کو سب سے کم ووٹ ملے؟",
+    hMore:"{a} اور {b} کے ووٹ تلاش کریں۔ موازنہ کرنے کے لیے تفریق کریں۔",
+    hTotal:"سب جوابات کے ووٹ جمع کریں۔", hBoth:"{a} کے ووٹ اور {b} کے ووٹ جمع کریں۔",
+    hTwo:"قدم 1: {a} اور {b} کے ووٹ جمع کریں۔ قدم 2: {c} کے ووٹ تفریق کریں۔",
+    hMost:"ووٹوں کی تعداد کا موازنہ کریں۔ سب سے بڑا عدد کون سا ہے؟", hLeast:"ووٹوں کی تعداد کا موازنہ کریں۔ سب سے چھوٹا عدد کون سا ہے؟",
+    hVals:"ووٹ یہ ہیں: {v}۔", wHas:"{a} کے {x} اور {b} کے {y} ووٹ ہیں۔", wMost:"{a} کو سب سے زیادہ ووٹ ملے: {x}۔", wLeast:"{a} کو سب سے کم ووٹ ملے: {x}۔",
+    bgQ:"جدول کا بار گراف بنائیں۔ پیمانے کی ہر لکیر {s} بڑھتی ہے۔ ہر بار کو صحیح اونچائی تک کھینچیں، یا ▲ اور ▼ استعمال کریں۔",
+    pgQ:"جدول کا تصویری گراف بنائیں۔ ہر تصویر {k} ووٹ دکھاتی ہے۔ + اور − کے بٹن استعمال کریں۔",
+    bgLbl:"بار گراف", upL:"{a} کا بار اونچا کریں", dnL:"{a} کا بار نیچا کریں",
+    pgKey:"کلید: ہر تصویر = {k} ووٹ", addPic:"{a} میں ایک تصویر شامل کریں", addHalf:"{a} میں آدھی تصویر شامل کریں", rmPic:"{a} سے ایک تصویر ہٹائیں",
+    picsN:"{n} تصویریں", picsH:"{n} تصویریں اور آدھی تصویر", picHalf:"آدھی تصویر",
+    bgOn:"{a} کا بار {x} پر ختم ہونا چاہیے۔ {x} تلاش کرنے کے لیے پیمانے پر {s} {s} کر کے گنیں۔",
+    bgHalf:"{a} کا بار {x} پر ختم ہونا چاہیے۔ {x} کی کوئی لکیر نہیں، اس لیے بار {lo} اور {hi} کے عین درمیان ختم ہوگا۔",
+    bgYours:"آپ کا بار {y} پر ہے۔",
+    pgHintW:"{a} کے {x} ووٹ ہیں۔ ہر تصویر {k} کی ہے، اس لیے {a} کو {n} تصویریں چاہییں۔",
+    pgHintH:"{a} کے {x} ووٹ ہیں۔ ہر تصویر {k} کی ہے، اس لیے {a} کو {n} تصویریں اور ایک آدھی تصویر چاہیے۔ آدھی تصویر {h} کی ہوتی ہے۔",
+    bgDone:"آپ کا بار گراف جدول سے ملتا ہے! اب اپنے گراف سے جواب دیں۔", pgDone:"آپ کا تصویری گراف جدول سے ملتا ہے! اب اپنے گراف سے جواب دیں۔",
+    hScale:"یاد رکھیں: پیمانے کی ہر لکیر {s} بڑھتی ہے۔", hKey:"یاد رکھیں: ہر تصویر {k} ووٹ دکھاتی ہے۔",
+    dt_pencil:"پنسلوں کی لمبائی", dt_worm:"سنڈیوں کی لمبائی", dt_ribbon:"ربنوں کی لمبائی", dt_juice:"ہر بوتل میں جوس",
+    u_in:"انچ", u_cup:"کپ",
+    dpQ:"لائن پلاٹ بنائیں۔ کسی پیمائش والے کارڈ پر ٹیپ کریں، پھر لکیر پر اس کی جگہ ٹیپ کر کے اس کے اوپر ایک نقطہ لگائیں۔",
+    dpMeasQ:"ہر چیز کو رولر سے ناپیں۔ پھر لائن پلاٹ پر اس کی لمبائی پر ٹیپ کر کے اوپر ایک نقطہ لگائیں۔",
+    dpLbl:"لائن پلاٹ۔ نقطہ لگانے کے لیے تیر والی کلیدیں اور Enter استعمال کریں۔", rulerLbl:"رولر", cardsLbl:"پیمائشیں", itemN:"چیز {n}",
+    dpPick:"پہلے کسی پیمائش والے کارڈ پر ٹیپ کریں۔", dpTapped:"آپ نے {x} پر ٹیپ کیا۔",
+    dpHint:"لکیر پر {w} تلاش کریں، پھر دائیں طرف {k} نشان گنیں۔ ہر نشان {f} ہے۔",
+    dpHintW:"لکیر پر مکمل عدد {w} تلاش کریں۔",
+    dpMeasH:"دیکھیں کہ وہ رولر پر کہاں ختم ہوتی ہے۔ آخری مکمل عدد تلاش کریں جس سے وہ آگے جاتی ہے، پھر اس کے بعد کے چھوٹے نشان گنیں۔ ہر چھوٹا نشان {f} ہے۔",
+    dpDone:"سارے نقطے لائن پلاٹ پر ہیں!",
+    qCountAt:"کتنی پیمائشیں {v} ہیں؟", qGreater:"کتنی پیمائشیں {v} سے زیادہ ہیں؟", qMode:"کون سی پیمائش سب سے زیادہ بار آتی ہے؟",
+    qDiff:"سب سے بڑی اور سب سے چھوٹی پیمائش کا فرق کیا ہے؟", qSumTwo:"سب سے بڑی اور سب سے چھوٹی پیمائش کا مجموعہ کیا ہے؟",
+    qSumAt:"{v} پر تمام پیمائشوں کا کل کیا ہے؟",
+    qShareJ:"اگر سارا جوس اکٹھا کر کے {n} بوتلوں میں برابر بانٹا جائے، تو ہر بوتل کو کتنے کپ ملیں گے؟",
+    qShareR:"اگر سارے ربن ایک کے بعد ایک جوڑ کر {n} برابر ٹکڑوں میں کاٹے جائیں، تو ہر ٹکڑا کتنے انچ لمبا ہوگا؟",
+    hCountAt:"لکیر پر {v} تلاش کریں اور اس کے اوپر کے نقطے گنیں۔", hGreater:"صرف {v} کے دائیں طرف کے نقطے گنیں۔ {v} پر کے نقطے نہ گنیں۔",
+    hMode:"نقطوں کا سب سے اونچا ڈھیر تلاش کریں۔", hDiff:"سب سے دائیں والا نقطہ (سب سے بڑا) اور سب سے بائیں والا نقطہ (سب سے چھوٹا) تلاش کریں۔ پھر تفریق کریں۔",
+    hSumTwo:"سب سے دائیں اور سب سے بائیں والے نقطے تلاش کریں۔ انہیں جمع کریں: پہلے مکمل اعداد، پھر کسور۔",
+    hSumAt:"{v} پر نقطے گنیں۔ پھر {v} کو اتنی بار جمع کریں۔", hShare:"پہلے تمام پیمائشیں جمع کر کے کل معلوم کریں۔ پھر کل کو {n} برابر حصوں میں تقسیم کریں۔",
+    wCountAt:"{v} کے اوپر {c} نقطے ہیں۔", wGreater:"{v} کے دائیں طرف {c} نقطے ہیں۔", wMode:"{v} پر سب سے اونچا ڈھیر ہے: {c} نقطے۔",
+    wGL:"سب سے بڑا: {a}۔ سب سے چھوٹا: {b}۔", wSumAt:"{v} پر {c} نقطے ہیں۔", wTot:"کل {t} ہے۔",
+    slQ:"تنا اور پتا خاکہ بنائیں۔ کسی ڈیٹا کارڈ پر ٹیپ کریں، پھر اس کے تنے والی قطار پر ٹیپ کریں۔ تنا دہائی کا ہندسہ ہے اور پتا اکائی کا ہندسہ ہے۔",
+    slQd:"تنا اور پتا خاکہ بنائیں۔ کسی ڈیٹا کارڈ پر ٹیپ کریں، پھر اس کے تنے والی قطار پر ٹیپ کریں۔ تنا اکائی کا ہندسہ ہے اور پتا دسویں حصے کا ہندسہ ہے۔",
+    st_pts:"ہر میچ میں بنے پوائنٹس", st_jump:"ایک منٹ میں جمپنگ جیکس", st_rain:"ہر مہینے کی بارش (انچ)", st_pump:"کدوؤں کا وزن (پاؤنڈ)",
+    stemH:"تنا", leafH:"پتا", slKey:"کلید: {s} | {l} کا مطلب ہے {v}", rowL:"تنا {s}۔ پتے: {l}", noLeaves:"کوئی نہیں", dataLbl:"ڈیٹا",
+    slPick:"پہلے کسی ڈیٹا کارڈ پر ٹیپ کریں۔",
+    slHint:"{v} میں دہائی کا ہندسہ {s} تنا ہے اور اکائی کا ہندسہ {l} پتا ہے۔ تنا {s} والی قطار پر ٹیپ کریں۔",
+    slHintD:"{v} میں اکائی کا ہندسہ {s} تنا ہے اور دسویں حصے کا ہندسہ {l} پتا ہے۔ تنا {s} والی قطار پر ٹیپ کریں۔",
+    slDone:"آپ کا تنا اور پتا خاکہ مکمل ہو گیا! پتے چھوٹے سے بڑے کی ترتیب میں ہیں۔",
+    qStemCnt:"کتنی قدروں کا تنا {s} ہے؟", qGreat:"سب سے بڑی قدر کیا ہے؟", qLeastV:"سب سے چھوٹی قدر کیا ہے؟",
+    qRange:"سب سے بڑی اور سب سے چھوٹی قدر کا فرق کیا ہے؟", qGreaterV:"کتنی قدریں {v} سے بڑی ہیں؟",
+    qModeV:"کون سی قدر ایک سے زیادہ بار آتی ہے؟", qStemMore:"تنا {a} والی قدریں تنا {b} والی قدروں سے کتنی زیادہ ہیں؟",
+    hStemCnt:"تنا {s} والی قطار کے پتے گنیں۔", hGreat:"پتوں والی سب سے نیچے کی قطار کا آخری پتا دیکھیں۔", hLeastV:"پتوں والی سب سے اوپر کی قطار کا پہلا پتا دیکھیں۔",
+    hRange:"سب سے بڑی قدر (نیچے کی قطار کا آخری پتا) اور سب سے چھوٹی قدر (اوپر کی قطار کا پہلا پتا) تلاش کریں۔ پھر تفریق کریں۔",
+    hGreaterV:"خاکے میں {v} تلاش کریں۔ اس کے بعد آنے والا ہر پتا گنیں۔", hModeV:"ایک ہی قطار میں ایک ہی پتا دو بار تلاش کریں۔", hStemMore:"دونوں قطاروں کے پتے گنیں، پھر تفریق کریں۔",
+    wStemCnt:"تنا {s} کے {c} پتے ہیں۔", wVal:"قدر {v} ہے۔", wTwice:"{v} دو بار آتا ہے۔", wGreaterV:"{c} قدریں {v} سے بڑی ہیں۔",
+    sc_sunX:"روزانہ دھوپ کے گھنٹے", sc_sunY:"پودے کی اونچائی (سینٹی میٹر)", sc_sunx:"دھوپ کی مقدار", sc_suny:"پودے کی اونچائی",
+    sc_pracX:"مشق کے گھنٹے", sc_pracY:"باسکٹ میں ڈالی گئی گیندیں", sc_pracx:"مشق کا وقت", sc_pracy:"باسکٹس کی تعداد",
+    sc_lapsX:"دوڑے گئے چکر", sc_lapsY:"بچا ہوا پانی (کپ)", sc_lapsx:"چکروں کی تعداد", sc_lapsy:"بچا ہوا پانی",
+    sc_shoeX:"جوتے کا سائز", sc_shoeY:"املا کے نمبر", sc_shoex:"جوتے کا سائز", sc_shoey:"املا کے نمبر",
+    spQ:"جدول کے ہر جوڑے کو بکھراؤ کے خاکے پر لگائیں۔ x کی قدر تک دائیں جائیں، پھر y کی قدر تک اوپر جائیں، اور ٹیپ کریں۔",
+    spLbl:"بکھراؤ کے خاکے کا گرڈ۔ نقطہ لگانے کے لیے تیر والی کلیدیں اور Enter استعمال کریں۔", spYou:"آپ نے {p} پر ٹیپ کیا۔",
+    spHint:"یہ نقطہ جدول میں نہیں ہے۔ 0 سے شروع کریں، x کی قدر تک دائیں جائیں، پھر y کی قدر تک اوپر جائیں۔",
+    spSwap:"دھیان دیں: اعداد الٹ گئے ہیں۔ پہلا عدد (x) بتاتا ہے کہ کتنا دائیں جانا ہے، اور دوسرا عدد (y) بتاتا ہے کہ کتنا اوپر جانا ہے۔",
+    spDone:"سارے نقطے لگ گئے!",
+    qRel:"بکھراؤ کا خاکہ {x} اور {y} کے بارے میں کیا دکھاتا ہے؟", relUp:"{x} بڑھنے کے ساتھ عام طور پر {y} میں اضافہ ہوتا ہے۔", relDown:"{x} بڑھنے کے ساتھ عام طور پر {y} میں کمی ہوتی ہے۔", relNone:"{x} اور {y} کے درمیان کوئی واضح پیٹرن نہیں ہے۔",
+    hRel:"نقطوں کو بائیں سے دائیں دیکھیں۔ کیا وہ زیادہ تر اوپر جاتے ہیں، زیادہ تر نیچے جاتے ہیں، یا بغیر کسی پیٹرن کے بکھرے ہوئے ہیں؟",
+    wUp:"نقطے بائیں سے دائیں اوپر جاتے ہیں۔", wDown:"نقطے بائیں سے دائیں نیچے جاتے ہیں۔", wNone:"نقطے بکھرے ہوئے ہیں، اوپر یا نیچے کا کوئی واضح پیٹرن نہیں۔",
+    qMaxY:"x کی کس قدر پر {y} سب سے زیادہ ہے؟", hMaxY:"سب سے اونچا نقطہ تلاش کریں۔ پھر نیچے والے محور پر اس کی x قدر پڑھیں۔", wMaxY:"سب سے اونچا نقطہ {p} پر ہے۔",
+    qDiffY:"x = {a} ہونے پر {y}، x = {b} ہونے کے مقابلے میں کتنا زیادہ ہے؟", hDiffY:"x = {a} اور x = {b} والے نقطے تلاش کریں۔ ان کی y قدریں پڑھیں، پھر تفریق کریں۔", wPts:"نقطے {p} اور {q} ہیں۔",
+    teacherTitle:"استاد کی ترتیبات", setGrade:"جماعت", g3:"جماعت 3", g4:"جماعت 4", g5:"جماعت 5",
+    gradeNote:"جماعت چننے سے نیچے کے اختیارات طے ہو جاتے ہیں۔ آپ پھر بھی انہیں بدل سکتے ہیں۔",
+    setScale:"گراف کے پیمانے", sc2:"دو دو کر کے گنیں", sc25:"دو دو یا پانچ پانچ کر کے گنیں", sc2510:"دو دو، پانچ پانچ یا دس دس کر کے گنیں",
+    setDen:"لائن پلاٹ کی کسور", den2:"آدھے", den4:"آدھے اور چوتھائی", den8:"آدھے، چوتھائی اور آٹھویں حصے",
+    setSize:"ڈیٹا کا سائز", sizeS:"چھوٹا", sizeM:"بڑا", setDec:"تنا اور پتا ڈیٹا", decOn:"اعشاریے (دسویں حصے) استعمال کریں",
+    setModes:"موڈ", setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں", printCards:"چیلنج کارڈ پرنٹ کریں",
+    setStored:"ترتیبات صرف اسی ڈیوائس پر محفوظ ہوتی ہیں۔ طلبہ کی کوئی معلومات کبھی محفوظ نہیں ہوتی۔",
+    stds:"متعلقہ معیارات — ٹیکساس TEKS: جماعت 3: 3.8(A, B)؛ جماعت 4: 4.9(A, B)؛ جماعت 5: 5.9(A, B, C)۔ Common Core: 3.MD.3، 3.MD.4؛ 4.MD.4؛ 5.MD.2۔",
+    cardTitle:"ڈیٹا جاسوس — چیلنج کارڈ", cardName:"نام:", cFreq:"سروے کے جوابات کے ٹیلی نشان بنائیں۔ پھر ہر جواب کا تعدد لکھیں۔",
+    cBar:"ہر جواب کے لیے ایک بار بنائیں۔ ہر لکیر {s} بڑھتی ہے۔", cDot:"ہر پیمائش کے لیے لکیر کے اوپر ایک نقطہ لگائیں۔",
+    cStem:"تنا اور پتا خاکہ بنائیں۔ پتوں کو ترتیب میں رکھیں۔", cScat:"ہر جوڑے کو گرڈ پر لگائیں۔ آپ کو کون سا پیٹرن نظر آتا ہے؟"
+  },
+  zh:{
+    appTitle:"数据侦探", home:"首页", privacy:"隐私", teacher:"教师", language:"语言", readAloud:"朗读",
+    modesLbl:"模式", stars:"获得的星星", newRound:"新一轮", footNote:"无需账号 · 不收集数据 · 可离线使用",
+    mFreq:"频数表", mBar:"带刻度的统计图", mDot:"点图", mStem:"茎叶图", mScat:"散点图",
+    check:"检查", close:"关闭", yes:"答对了！", choicesLbl:"答案选项", youPicked:"你选了{x}。", qHead:"问题：",
+    plusW:"加", minusW:"减", timesW:"乘", divW:"除以", eqW:"等于", comma:"，",
+    d2s:"二分之一", d2p:"二分之几", d4s:"四分之一", d4p:"四分之几", d8s:"八分之一", d8p:"八分之几", fracSay:"{d}分之{n}", fracSay1:"{d}分之{n}", mixSay:"{w}又{f}",
+    svy:"调查", tp_fruit:"最喜欢的水果", tp_pet:"最喜欢的宠物", tp_sport:"最喜欢的运动", tp_color:"最喜欢的颜色",
+    fruit0:"苹果", fruit1:"香蕉", fruit2:"葡萄", fruit3:"草莓", fruit4:"橙子",
+    pet0:"狗", pet1:"猫", pet2:"鱼", pet3:"鸟", pet4:"兔子",
+    sport0:"足球", sport1:"篮球", sport2:"棒球", sport3:"橄榄球", sport4:"网球",
+    color0:"红色", color1:"蓝色", color2:"绿色", color3:"黄色", color4:"紫色",
+    answersLbl:"调查答案", thAns:"答案", thTally:"划记", thFreq:"频数", thNum:"票数",
+    fqQ:"调查：{t}。点一下每个答案来画一道划记。然后填写频数一栏。",
+    fqLeftN:"还没划记的答案：{n}", fqAll:"所有答案都划记好了。",
+    tallyLbl:"{n}道划记", incL:"给{a}加一", decL:"给{a}减一",
+    fqLeft:"先把每个答案都划记。还有{n}个答案没有划记。",
+    fqRow:"检查{a}的频数。你写的是{x}。再数一数它的划记。",
+    fqBundle:"每一组四道竖线再加一道斜线表示5。先五个五个地数组数，再接着数单独的竖线。",
+    fqDone:"你的频数表正确！",
+    qMore:"{a}比{b}多几票？", qFewer:"{b}比{a}少几票？",
+    qTotal:"一共有多少票？", qBoth:"{a}和{b}一共有多少票？",
+    qTwo:"{a}和{b}合起来比{c}多几票？", qMost:"哪个答案的票数最多？", qLeast:"哪个答案的票数最少？",
+    hMore:"找出{a}的票数和{b}的票数，用减法比较。",
+    hTotal:"把每个答案的票数加起来。", hBoth:"把{a}的票数和{b}的票数加起来。",
+    hTwo:"第一步：把{a}和{b}的票数加起来。第二步：减去{c}的票数。",
+    hMost:"比较各个票数。哪个数最大？", hLeast:"比较各个票数。哪个数最小？",
+    hVals:"票数是：{v}。", wHas:"{a}有{x}票，{b}有{y}票。", wMost:"{a}的票数最多：{x}。", wLeast:"{a}的票数最少：{x}。",
+    bgQ:"根据表格画条形统计图。刻度上每一格表示{s}。把每个直条拖到正确的高度，或者用▲和▼。",
+    pgQ:"根据表格画象形统计图。每个图标表示{k}票。用+和−按钮。",
+    bgLbl:"条形统计图", upL:"把{a}的直条加高", dnL:"把{a}的直条降低",
+    pgKey:"图例：每个图标 = {k}票", addPic:"给{a}加一个图标", addHalf:"给{a}加半个图标", rmPic:"从{a}去掉一个图标",
+    picsN:"{n}个图标", picsH:"{n}个半图标", picHalf:"半个图标",
+    bgOn:"{a}的直条应该到{x}。沿着刻度{s}个{s}个地数，找到{x}。",
+    bgHalf:"{a}的直条应该到{x}。刻度上没有{x}这条线，所以直条停在{lo}和{hi}的正中间。",
+    bgYours:"你的直条在{y}。",
+    pgHintW:"{a}有{x}票。每个图标表示{k}，所以{a}需要{n}个图标。",
+    pgHintH:"{a}有{x}票。每个图标表示{k}，所以{a}需要{n}个图标再加半个图标。半个图标表示{h}。",
+    bgDone:"你的条形统计图和表格一致！现在用你的统计图来回答。", pgDone:"你的象形统计图和表格一致！现在用你的统计图来回答。",
+    hScale:"记住：刻度上每一格表示{s}。", hKey:"记住：每个图标表示{k}票。",
+    dt_pencil:"铅笔的长度", dt_worm:"毛毛虫的长度", dt_ribbon:"丝带的长度", dt_juice:"每瓶果汁的量",
+    u_in:"英寸", u_cup:"杯",
+    dpQ:"画一个点图。点一张测量卡，再点它在数线上的位置，在上面画一个点。",
+    dpMeasQ:"用尺子量一量每一个。然后在点图上点它的长度，在上面画一个点。",
+    dpLbl:"点图。用方向键和回车键放一个点。", rulerLbl:"尺子", cardsLbl:"测量数据", itemN:"第{n}个",
+    dpPick:"先点一张测量卡。", dpTapped:"你点的是{x}。",
+    dpHint:"在数线上找到{w}，再往右数{k}个刻度。每个刻度是{f}。",
+    dpHintW:"在数线上找到整数{w}。",
+    dpMeasH:"看看它在尺子上的哪里结束。找到它经过的最后一个整数，再数后面的小刻度。每个小刻度是{f}。",
+    dpDone:"所有的点都在点图上了！",
+    qCountAt:"有几个测量数据是{v}？", qGreater:"有几个测量数据大于{v}？", qMode:"哪个测量数据出现的次数最多？",
+    qDiff:"最大的测量数据和最小的测量数据相差多少？", qSumTwo:"最大的测量数据和最小的测量数据的和是多少？",
+    qSumAt:"在{v}处所有测量数据的总和是多少？",
+    qShareJ:"如果把所有果汁倒在一起，再平均分到{n}个瓶子里，每个瓶子能分到多少杯？",
+    qShareR:"如果把所有丝带首尾相接，再剪成同样长的{n}段，每段长多少英寸？",
+    hCountAt:"在数线上找到{v}，数一数上面的点。", hGreater:"只数{v}右边的点。不要数{v}上面的点。",
+    hMode:"找出最高的那一摞点。", hDiff:"找出最右边的点（最大）和最左边的点（最小），再相减。",
+    hSumTwo:"找出最右边和最左边的点，把它们相加：先加整数，再加分数。",
+    hSumAt:"数一数{v}上的点。然后把{v}加这么多次。", hShare:"先把所有测量数据加起来求总数。再把总数平均分成{n}份。",
+    wCountAt:"{v}上面有{c}个点。", wGreater:"{v}右边有{c}个点。", wMode:"{v}上的点最多：{c}个点。",
+    wGL:"最大：{a}。最小：{b}。", wSumAt:"{v}上有{c}个点。", wTot:"总数是{t}。",
+    slQ:"画一个茎叶图。点一张数据卡，再点它的茎所在的那一行。茎是十位上的数字，叶是个位上的数字。",
+    slQd:"画一个茎叶图。点一张数据卡，再点它的茎所在的那一行。茎是个位上的数字，叶是十分位上的数字。",
+    st_pts:"每场比赛的得分", st_jump:"一分钟开合跳的次数", st_rain:"每个月的降雨量（英寸）", st_pump:"南瓜的重量（磅）",
+    stemH:"茎", leafH:"叶", slKey:"说明：{s} | {l} 表示 {v}", rowL:"茎{s}。叶：{l}", noLeaves:"没有", dataLbl:"数据",
+    slPick:"先点一张数据卡。",
+    slHint:"在{v}中，十位上的{s}是茎，个位上的{l}是叶。点茎为{s}的那一行。",
+    slHintD:"在{v}中，个位上的{s}是茎，十分位上的{l}是叶。点茎为{s}的那一行。",
+    slDone:"你的茎叶图完成了！叶按从小到大的顺序排列。",
+    qStemCnt:"有几个数据的茎是{s}？", qGreat:"最大的数据是多少？", qLeastV:"最小的数据是多少？",
+    qRange:"最大的数据和最小的数据相差多少？", qGreaterV:"有几个数据大于{v}？",
+    qModeV:"哪个数据出现了不止一次？", qStemMore:"茎是{a}的数据比茎是{b}的数据多几个？",
+    hStemCnt:"数一数茎为{s}的那一行有几片叶。", hGreat:"看有叶的最下面一行的最后一片叶。", hLeastV:"看有叶的最上面一行的第一片叶。",
+    hRange:"找出最大的数据（最下面一行的最后一片叶）和最小的数据（最上面一行的第一片叶），再相减。",
+    hGreaterV:"在图中找到{v}。数一数它后面的每一片叶。", hModeV:"在同一行里找两片相同的叶。", hStemMore:"分别数出这两行的叶数，再相减。",
+    wStemCnt:"茎{s}有{c}片叶。", wVal:"这个数据是{v}。", wTwice:"{v}出现了两次。", wGreaterV:"有{c}个数据大于{v}。",
+    sc_sunX:"每天的日照小时数", sc_sunY:"植物高度（厘米）", sc_sunx:"日照时间", sc_suny:"植物高度",
+    sc_pracX:"练习小时数", sc_pracY:"投进的球数", sc_pracx:"练习时间", sc_pracy:"投进的球数",
+    sc_lapsX:"跑的圈数", sc_lapsY:"剩下的水（杯）", sc_lapsx:"跑的圈数", sc_lapsy:"剩下的水",
+    sc_shoeX:"鞋码", sc_shoeY:"拼写得分", sc_shoex:"鞋码", sc_shoey:"拼写得分",
+    spQ:"把表格中的每组数据画在散点图上。先横着走到x的值，再往上走到y的值，然后点一下。",
+    spLbl:"散点图网格。用方向键和回车键画一个点。", spYou:"你点的是{p}。",
+    spHint:"这个点不在表格里。从0开始，向右走到x的值，再向上走到y的值。",
+    spSwap:"小心：两个数反了。第一个数（x）表示向右走多远，第二个数（y）表示向上走多高。",
+    spDone:"所有的点都画好了！",
+    qRel:"关于{x}和{y}，散点图说明了什么？", relUp:"{x}增加时，{y}往往也增加。", relDown:"{x}增加时，{y}往往减少。", relNone:"{x}和{y}之间没有明显的规律。",
+    hRel:"从左往右看这些点。它们大多往上走、大多往下走，还是乱跳没有规律？",
+    wUp:"这些点从左往右往上走。", wDown:"这些点从左往右往下走。", wNone:"这些点很分散，没有明显的上升或下降趋势。",
+    qMaxY:"x是多少时，{y}最大？", hMaxY:"找到最高的点，再在下面的轴上读出它的x值。", wMaxY:"最高的点在{p}。",
+    qDiffY:"x是{a}时的{y}比x是{b}时多多少？", hDiffY:"找到x = {a}和x = {b}的点，读出它们的y值，再相减。", wPts:"这两个点是{p}和{q}。",
+    teacherTitle:"教师设置", setGrade:"年级", g3:"三年级", g4:"四年级", g5:"五年级",
+    gradeNote:"选择年级会设置下面的选项。你仍然可以修改。",
+    setScale:"统计图刻度", sc2:"每格2", sc25:"每格2或5", sc2510:"每格2、5或10",
+    setDen:"点图中的分数", den2:"二分之几", den4:"二分之几和四分之几", den8:"二分之几、四分之几和八分之几",
+    setSize:"数据量", sizeS:"较少", sizeM:"较多", setDec:"茎叶图数据", decOn:"使用小数（十分位）",
+    setModes:"模式", setSpeech:"语音", autoRead:"自动朗读说明", printCards:"打印挑战卡",
+    setStored:"设置只保存在这台设备上。从不保存任何学生信息。",
+    stds:"对应标准 — 德州 TEKS：三年级：3.8(A, B)；四年级：4.9(A, B)；五年级：5.9(A, B, C)。Common Core：3.MD.3、3.MD.4；4.MD.4；5.MD.2。",
+    cardTitle:"数据侦探 — 挑战卡", cardName:"姓名：", cFreq:"给调查答案划记。然后写出每个答案的频数。",
+    cBar:"给每个答案画一个直条。每一格表示{s}。", cDot:"为每个测量数据在数线上方画一个点。",
+    cStem:"画一个茎叶图。把叶按顺序排列。", cScat:"把每组数据画在网格上。你发现了什么规律？"
+  }
+};
+
+let lang = "en";
+function t(key, vars){
+  let s = (T[lang] && T[lang][key]!==undefined) ? T[lang][key] : (T.en[key]!==undefined? T.en[key] : key);
+  if(vars) for(const k in vars) s = s.replaceAll("{"+k+"}", vars[k]);
+  return s;
+}
+
+/* ---------- Settings ---------- */
+const MODES = ["freq","bar","dot","stem","scat"];
+const MODE_KEY = {freq:"mFreq",bar:"mBar",dot:"mDot",stem:"mStem",scat:"mScat"};
+const GRADE_DEF = {
+  3:{scales:"25",  den:4,size:"s",dec:false,modes:{freq:true,bar:true,dot:true,stem:false,scat:false}},
+  4:{scales:"2510",den:8,size:"m",dec:false,modes:{freq:true,bar:true,dot:true,stem:true,scat:false}},
+  5:{scales:"2510",den:8,size:"m",dec:true, modes:{freq:true,bar:true,dot:true,stem:true,scat:true}}
+};
+const clone = o=>JSON.parse(JSON.stringify(o));
+const fromGrade = g=>Object.assign({grade:g,autoRead:false}, clone(GRADE_DEF[g]));
+let settings = loadSettings();
+function loadSettings(){
+  try{
+    const raw = localStorage.getItem("ddet_settings");
+    if(raw){ const o=JSON.parse(raw), g=GRADE_DEF[o.grade]?o.grade:4, d=fromGrade(g);
+      const s=Object.assign(d, o, {grade:g, modes:Object.assign({},d.modes,o.modes)});
+      if(!["2","25","2510"].includes(s.scales)) s.scales=d.scales;
+      if(![2,4,8].includes(+s.den)) s.den=d.den; s.den=+s.den;
+      if(!["s","m"].includes(s.size)) s.size=d.size;
+      s.dec=!!s.dec;
+      if(!MODES.some(m=>s.modes[m])) s.modes=clone(d.modes);
+      return s; }
+  }catch(e){}
+  return fromGrade(4);
+}
+function saveSettings(){ try{ localStorage.setItem("ddet_settings", JSON.stringify(settings)); }catch(e){} }
+const modeOn = m=>!!settings.modes[m];
+const scaleList = ()=>settings.scales==="2"?[2]:settings.scales==="25"?[2,5]:[2,5,10];
+const small = ()=>settings.size==="s";
+
+/* ---------- Utils ---------- */
+const $ = s=>document.querySelector(s);
+const $$ = s=>Array.from(document.querySelectorAll(s));
+function rand(a){ return a[Math.floor(Math.random()*a.length)]; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const ri = (a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const range = (a,b,s)=>{ const r=[]; for(let v=a;v<=b;v+=(s||1)) r.push(v); return r; };
+const gcd = (a,b)=>b?gcd(b,a%b):a;
+const sum = a=>a.reduce((x,y)=>x+y,0);
+const M = s=>`<bdi class="math" dir="ltr">${s}</bdi>`;
+const plain = h=>String(h).replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();
+const reduced = ()=>!!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+const esc = s=>String(s).replace(/"/g,"&quot;");
+let stars=0;
+function addStar(){ stars++; $("#starCount").textContent=stars; const w=$("#stars"); w.classList.remove("pop"); void w.offsetWidth; w.classList.add("pop"); }
+function svgPt(svg,e){ const p=svg.createSVGPoint(); p.x=e.clientX; p.y=e.clientY; return p.matrixTransform(svg.getScreenCTM().inverse()); }
+
+/* ---------- Message tokens: each value knows how to show itself and how to be spoken ---------- */
+const isTok = v=>v && typeof v==="object";
+const HV = v=>isTok(v)? v.h : typeof v==="number"? M(String(v)) : String(v);
+const SV = v=>isTok(v)? v.s : plain(v);
+function L(key,vars){ const h={}, s={}; for(const k in (vars||{})){ h[k]=HV(vars[k]); s[k]=SV(vars[k]); } return {h:t(key,h), s:t(key,s)}; }
+function J(...xs){ xs=xs.filter(Boolean); return {h:xs.map(x=>x.h!==undefined?x.h:x).join(" "), s:xs.map(x=>x.s!==undefined?x.s:plain(x)).join(" ")}; }
+const raw = (h,s)=>({h, s:s===undefined?plain(h):s});
+const num = n=>raw(M(String(n)),String(n));
+const OPW = {"+":"plusW","−":"minusW","×":"timesW","÷":"divW"};
+// An equation like 5 + 7 = 12, shown left-to-right and spoken with words
+function eq(xs,op,r){ return {h:`<bdi class="math" dir="ltr">${xs.map(x=>isTok(x)?x.h:String(x)).join(` ${op} `)} = ${isTok(r)?r.h:r}</bdi>`,
+  s:xs.map(SV).join(" "+t(OPW[op])+" ")+" "+t("eqW")+" "+SV(r)+"."}; }
+// Fractions in eighths → stacked mixed number
+function FR(e8){
+  const w=Math.floor(e8/8), r=e8%8;
+  if(!r) return num(w);
+  const g=gcd(r,8), n=r/g, d=8/g;
+  const fh=`<span class="fr" role="img" aria-label="${n}/${d}"><span>${n}</span><span>${d}</span></span>`;
+  const fs=t(n===1?"fracSay1":"fracSay",{n,d,u:t("d"+d+(n===1?"s":"p"))});
+  return {h:`<bdi class="math" dir="ltr">${w?w:""}${fh}</bdi>`, s:w?t("mixSay",{w,f:fs}):fs};
+}
+const pair = (x,y)=>raw(M(`(${x}, ${y})`),`(${x}, ${y})`);
+
+/* ---------- Speech ---------- */
+const speechOK = ("speechSynthesis" in window);
+function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
+// Prefer warm, natural voices for young learners; avoid harsh robotic engines.
+function pickWarmVoice(code){
+  const vs = speechSynthesis.getVoices()||[];
+  const want=code.toLowerCase(), two=want.slice(0,2);
+  let best=null, bs=-1;
+  for(const v of vs){
+    const lc=(v.lang||'').toLowerCase().replace('_','-');
+    if(lc!==want && lc.slice(0,2)!==two) continue;
+    let s=(lc===want?100:60); const n=(v.name||'').toLowerCase();
+    if(/google|natural|neural|online|premium|enhanced|siri/.test(n)) s+=40;
+    if(/female|woman|samantha|karen|tessa|moira|fiona|serena|victoria|allison|ava|susan|zoe|amelie|amélie|paulina|monica|mónica|zira|hazel|catherine|linda|kanya|lekha|ting-ting|mei-jia|sin-ji|yu-shu|huihui|xiaoxiao/.test(n)) s+=18;
+    if(/espeak|compact|festival|pico|robot|eloquence/.test(n)) s-=60;
+    if(v.localService===false) s+=8;
+    if(v.default) s+=2;
+    if(s>bs){ bs=s; best=v; }
+  }
+  return best;
+}
+/* Speech queue. Fixes cut-off audio:
+   - a new round no longer calls cancel() over the praise; rounds advance on onend
+   - long text is split into sentences (Chrome stops utterances after ~15 s)
+   - utterances are kept referenced so Chrome can't garbage-collect them mid-speech
+   - after cancel(), the next speak() waits a beat (Chrome drops it otherwise) */
+let speechGen=0, speechKeep=[], speechPendingDone=null, speechStarted=false;
+function splitSpeech(text){
+  // Split on sentence ends, but never inside a number like 3.45
+  const parts=String(text).match(/(?:[^.!?。！？؟।۔]|\.(?=\d))+[.!?。！？؟।۔]*\s*/g)||[text];
+  return parts.map(x=>x.trim()).filter(Boolean);
+}
+function speechEstimateMs(text){ const per=/^(zh)$/.test(lang)?300:95; return 1200+String(text).length*per/0.9; }
+function stopSpeech(){
+  speechGen++; const d=speechPendingDone; speechPendingDone=null; speechKeep=[];
+  if(speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  if(d) setTimeout(d,0);
+}
+function speak(text,onDone){
+  const prevDone=speechPendingDone; speechPendingDone=null;
+  const gen=++speechGen; let fired=false;
+  const done=()=>{ if(fired) return; fired=true; if(speechPendingDone===done) speechPendingDone=null; if(onDone) onDone(); };
+  if(onDone) speechPendingDone=done;
+  if(prevDone) setTimeout(prevDone,0);  // a superseded speech still lets its round advance
+  if(!speechOK || !text || window.__MT_MUTED){ if(onDone) setTimeout(done,700); return; }
+  let busy=false;
+  try{ busy=speechSynthesis.speaking||speechSynthesis.pending; speechSynthesis.cancel(); }catch(e){}
+  const parts=splitSpeech(text), bcp=bcpFor(lang), voice=pickWarmVoice(bcp);
+  const start=()=>{
+    if(gen!==speechGen) return;
+    speechKeep=[];
+    try{
+      if(speechSynthesis.paused) speechSynthesis.resume();
+      parts.forEach((p,i)=>{
+        const u=new SpeechSynthesisUtterance(p);
+        u.lang=bcp; if(voice) u.voice=voice; u.rate=0.9; u.pitch=1.1;
+        u.onstart=()=>{ speechStarted=true; };
+        if(i===parts.length-1){ u.onend=done; u.onerror=done; }
+        speechKeep.push(u); speechSynthesis.speak(u);
+      });
+    }catch(e){ done(); }
+  };
+  if(busy) setTimeout(start,120); else start();
+  // Safety net: some engines never fire onend.
+  if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
+}
+/* Speak praise, then start the next round once it finishes (never sooner than minMs). */
+const roundIds={freq:0,bar:0,dot:0,stem:0,scat:0};
+function afterPraise(msg,key,next,minMs){
+  const id=roundIds[key], t0=Date.now();
+  speak(msg,()=>{
+    const wait=Math.max(450,(minMs||1200)-(Date.now()-t0));
+    setTimeout(()=>{ if(roundIds[key]===id) next(); },wait);
+  });
+}
+if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
+if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
+
+const currentSpeech = {freq:"",bar:"",dot:"",stem:"",scat:""};
+function setSpeech(mode,text){ currentSpeech[mode]=text; }
+// Only auto-read for the panel that is on screen (rounds can refresh in the background).
+function maybeAuto(mode){ if(settings.autoRead && currentMode()===mode) speak(currentSpeech[mode]); }
+// Browsers block speech until the first tap; read the directions then if nothing has played yet.
+document.addEventListener("pointerdown",function firstTap(e){
+  document.removeEventListener("pointerdown",firstTap,true);
+  if(speechStarted || !settings.autoRead) return;
+  if(e.target.closest("button,select,a,input,svg")) return;
+  speak(currentSpeech[currentMode()]);
+},true);
+// Set a mode's direction: shown text (HTML) + spoken text.
+function setPrompt(mode,m){ $("#"+mode+"Prompt").innerHTML=m.h; setSpeech(mode,m.s); }
+
+/* ---------- Feedback ---------- */
+function showFb(el,type,m){ el.className="feedback show "+type; el.innerHTML=(type==="good"?"✅ ":"💡 ")+m.h; }
+function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
+function good(mode,m,next,minMs){ showFb($("#"+mode+"Fb"),"good",m); addStar(); afterPraise(m.s,mode,next,minMs||2200); }
+function hint(mode,m){ showFb($("#"+mode+"Fb"),"hint",m); speak(m.s); }
+const made={};
+// Multiple-choice buttons. opts: [{h, s?, ok}]; onPick(btn,opt)
+function choiceButtons(el,opts,onPick,wide){
+  el.className="choices"+(wide?" wide":""); el.setAttribute("role","group"); el.setAttribute("aria-label",t("choicesLbl")); el.innerHTML="";
+  opts.forEach(o=>{ const b=document.createElement("button"); b.type="button"; b.className="choice"; b.innerHTML=o.h;
+    if(o.s) b.setAttribute("aria-label",o.s);
+    b.addEventListener("click",()=>onPick(b,o)); el.appendChild(b); });
+}
+function lockChoices(el,b){ b.classList.add("correctpick"); el.querySelectorAll("button").forEach(x=>x.disabled=true); }
+function wrongChoice(b){ b.classList.add("wrongpick"); b.disabled=true; }
+// Answer + up to 3 distinct distractors (by key), as choice options
+function numOpts(ans,cands,tok,ok){
+  const seen=new Set([ans]), out=[ans];
+  for(const c of cands){ if(out.length>=4) break; if(c==null||!Number.isFinite(c)||seen.has(c)||(ok&&!ok(c))) continue; seen.add(c); out.push(c); }
+  return out.map(v=>{ const k=tok(v); return {h:k.h,s:k.s,ok:v===ans}; });
+}
+
+/* ---------- Ask a question about the finished display ---------- */
+const QS={};
+function hideQ(mode){ const el=$("#"+mode+"Q"); el.classList.add("hidden"); el.innerHTML=""; QS[mode]=null; }
+function askQ(mode,praise,Q){
+  QS[mode]={Q,tries:0,done:false};
+  setPrompt(mode,Q.q);
+  const el=$("#"+mode+"Q"); el.classList.remove("hidden");
+  el.innerHTML=`<h3><span aria-hidden="true">❓</span><span>${t("qHead")} ${Q.q.h}</span></h3><div class="qch"></div>`;
+  choiceButtons(el.querySelector(".qch"),shuffle(Q.opts),(b,o)=>pickQ(mode,b,o),Q.wide);
+  showFb($("#"+mode+"Fb"),"good",praise); addStar();
+  speak(J(praise,Q.q).s);
+  try{ el.scrollIntoView({block:"nearest",behavior:reduced()?"auto":"smooth"}); }catch(e){}
+}
+function pickQ(mode,b,o){
+  const st=QS[mode]; if(!st||st.done) return;
+  const el=$("#"+mode+"Q .choices");
+  if(o.ok){ st.done=true; lockChoices(el,b); good(mode,J(t("yes"),st.Q.work),NEWFN[mode],2600); }
+  else{ wrongChoice(b); st.tries++; const x={h:o.h.replace(/[.。]$/,""),s:(o.s||plain(o.h)).replace(/[.。]$/,"")}; hint(mode,J(L("youPicked",{x}),st.tries>1&&st.Q.h2?st.Q.h2:st.Q.h1)); }
+}
+
+/* ---------- Categorical data (surveys) ---------- */
+const TOPICS={fruit:["🍎","🍌","🍇","🍓","🍊"],pet:["🐶","🐱","🐟","🐦","🐰"],sport:["⚽","🏀","⚾","🏈","🎾"],color:["🔴","🔵","🟢","🟡","🟣"]};
+const catName = (tp,c)=>t(tp+c);
+const catTok = (tp,c)=>raw(`<span class="nw">${TOPICS[tp][c]} ${catName(tp,c)}</span>`,catName(tp,c));
+function genCat(k,lo,hi,step){
+  const tp=rand(Object.keys(TOPICS)), cats=shuffle([0,1,2,3,4]).slice(0,k);
+  return {tp,cats,vals:shuffle(range(lo,hi,step)).slice(0,k)};
+}
+// One- and two-step questions about categorical data d={tp,cats,vals}; extra = scale reminder
+function catQ(d,extra,s){
+  const k=d.cats.length, V=d.vals, N=i=>catTok(d.tp,d.cats[i]), ord=shuffle(range(0,k-1));
+  const kinds=["more","more","fewer","total","both","most","least"]; if(k>=3) kinds.push("two","two");
+  const kind=rand(kinds); s=s||1;
+  let [a,b]=ord; if(V[a]<V[b]) [a,b]=[b,a];
+  const valsTok=ix=>L("hVals",{v:raw(ix.map(i=>N(i).h+": "+M(V[i])).join(t("comma")), ix.map(i=>N(i).s+": "+V[i]).join(t("comma")))});
+  const nOpt=(ans,c)=>numOpts(ans,c,num,x=>x>=0);
+  let Q;
+  if(kind==="more"||kind==="fewer"){ const ans=V[a]-V[b];
+    Q={q:L(kind==="more"?"qMore":"qFewer",{a:N(a),b:N(b)}), opts:nOpt(ans,[V[a]+V[b],ans+s,ans-s,ans+1,ans-1,V[a]]),
+      work:J(L("wHas",{a:N(a),x:V[a],b:N(b),y:V[b]}),eq([V[a],V[b]],"−",ans)), h1:L("hMore",{a:N(a),b:N(b)}), h2:J(L("hMore",{a:N(a),b:N(b)}),valsTok([a,b]))};
+  }else if(kind==="total"){ const ans=sum(V);
+    Q={q:L("qTotal"), opts:nOpt(ans,[ans+s,ans-s,ans+1,ans-1,ans+10,ans-10]), work:eq(V,"+",ans), h1:L("hTotal"), h2:J(L("hTotal"),valsTok(range(0,k-1)))};
+  }else if(kind==="both"){ const ans=V[a]+V[b];
+    Q={q:L("qBoth",{a:N(a),b:N(b)}), opts:nOpt(ans,[V[a]-V[b],ans+s,ans-s,ans+1,ans-1]), work:eq([V[a],V[b]],"+",ans), h1:L("hBoth",{a:N(a),b:N(b)}), h2:J(L("hBoth",{a:N(a),b:N(b)}),valsTok([a,b]))};
+  }else if(kind==="two"){
+    const c=ord.slice().sort((x,y)=>V[x]-V[y])[0], [p,q]=ord.filter(i=>i!==c), tot=V[p]+V[q], ans=tot-V[c];
+    Q={q:L("qTwo",{a:N(p),b:N(q),c:N(c)}), opts:nOpt(ans,[tot,tot+V[c],ans+s,ans-s,ans+1,ans-1]),
+      work:J(eq([V[p],V[q]],"+",tot),eq([tot,V[c]],"−",ans)), h1:L("hTwo",{a:N(p),b:N(q),c:N(c)}), h2:J(L("hTwo",{a:N(p),b:N(q),c:N(c)}),valsTok([p,q,c]))};
+  }else{
+    const best=range(0,k-1).sort((x,y)=>kind==="most"?V[y]-V[x]:V[x]-V[y])[0];
+    Q={q:L(kind==="most"?"qMost":"qLeast"), opts:range(0,k-1).map(i=>({h:N(i).h,s:N(i).s,ok:i===best})),
+      work:L(kind==="most"?"wMost":"wLeast",{a:N(best),x:V[best]}), h1:L(kind==="most"?"hMost":"hLeast"), h2:J(L(kind==="most"?"hMost":"hLeast"),valsTok(range(0,k-1)))};
+  }
+  if(extra){ Q.h1=J(Q.h1,extra); Q.h2=J(Q.h2,extra); }
+  return Q;
+}
+
+/* ---------- Mode 1: Frequency tables ---------- */
+function tallySVG(n){
+  const g=Math.floor(n/5), r=n%5, w=Math.max(8,g*36+r*7+4); let s="";
+  for(let i=0;i<g;i++){ const x=i*36+3; for(let j=0;j<4;j++) s+=`<line x1="${x+j*7}" y1="3" x2="${x+j*7}" y2="25"/>`; s+=`<line x1="${x-3}" y1="21" x2="${x+25}" y2="7"/>`; }
+  for(let j=0;j<r;j++){ const x=g*36+3+j*7; s+=`<line x1="${x}" y1="3" x2="${x}" y2="25"/>`; }
+  return `<svg class="tally" width="${w}" height="28" viewBox="0 0 ${w} 28" role="img" aria-label="${esc(t("tallyLbl",{n}))}"><g stroke="#1c2733" stroke-width="2.6" stroke-linecap="round">${s}</g></svg>`;
+}
+let fS=null;
+function newFreq(){
+  roundIds.freq++; made.freq=true; hideFb($("#freqFb")); hideQ("freq");
+  const sm=small(), k=sm?3:(settings.grade>=5?rand([4,5]):4);
+  const d=genCat(k,sm?1:2,sm?7:9,1), items=[];
+  d.vals.forEach((v,i)=>{ for(let j=0;j<v;j++) items.push(i); });
+  fS=Object.assign(d,{items:shuffle(items),fq:d.vals.map(()=>0),done:false}); fS.used=fS.items.map(()=>false);
+  const tp=t("tp_"+d.tp);
+  setPrompt("freq",L("fqQ",{t:raw(tp)}));
+  $("#freqArea").innerHTML=`<p class="ctitle">📋 ${t("svy")}: ${tp}</p>`+
+    `<div class="itembox" id="fItems" role="group" aria-label="${esc(t("answersLbl"))}">`+fS.items.map((c,i)=>`<button type="button" class="itm" data-i="${i}" aria-pressed="false" aria-label="${esc(catName(d.tp,d.cats[c]))}">${TOPICS[d.tp][d.cats[c]]}</button>`).join("")+`</div>`+
+    `<p class="symhelp" id="fLeft" aria-live="polite"></p>`+
+    `<div class="tblwrap"><table class="ftab"><thead><tr><th scope="col">${t("thAns")}</th><th scope="col">${t("thTally")}</th><th scope="col">${t("thFreq")}</th></tr></thead><tbody>`+
+    d.cats.map((c,r)=>{ const nm=esc(catName(d.tp,c)); return `<tr id="fR${r}"><th scope="row">${catTok(d.tp,c).h}</th><td class="tl" id="fT${r}"></td>`+
+      `<td><div class="stp2"><button type="button" data-r="${r}" data-d="-1" aria-label="${esc(t("decL",{a:nm}))}">−</button><output id="fQ${r}">0</output><button type="button" data-r="${r}" data-d="1" aria-label="${esc(t("incL",{a:nm}))}">+</button></div></td></tr>`; }).join("")+
+    `</tbody></table></div><div class="acts no-print"><button type="button" class="btn" id="fCheck">✔ ${t("check")}</button></div>`;
+  $$("#fItems .itm").forEach(b=>b.addEventListener("click",()=>{ if(fS.done) return; const i=+b.dataset.i; fS.used[i]=!fS.used[i]; drawFreq(); }));
+  $$("#freqArea .stp2 button").forEach(b=>b.addEventListener("click",()=>{ if(fS.done) return; const r=+b.dataset.r; fS.fq[r]=Math.max(0,Math.min(30,fS.fq[r]+ +b.dataset.d)); drawFreq(); }));
+  $("#fCheck").addEventListener("click",checkFreq);
+  drawFreq(); maybeAuto("freq");
+}
+function drawFreq(){
+  const cnt=fS.cats.map(()=>0);
+  fS.items.forEach((c,i)=>{ if(fS.used[i]) cnt[c]++; });
+  $$("#fItems .itm").forEach(b=>{ const u=fS.used[+b.dataset.i]; b.classList.toggle("used",u); b.setAttribute("aria-pressed",u?"true":"false"); });
+  fS.cats.forEach((c,r)=>{ $("#fT"+r).innerHTML=tallySVG(cnt[r]); $("#fQ"+r).textContent=fS.fq[r]; });
+  const left=fS.used.filter(x=>!x).length;
+  $("#fLeft").textContent=left?t("fqLeftN",{n:left}):t("fqAll");
+}
+function checkFreq(){
+  if(!fS||fS.done) return;
+  const left=fS.used.filter(x=>!x).length;
+  if(left) return hint("freq",L("fqLeft",{n:left}));
+  const bad=fS.cats.findIndex((c,r)=>fS.fq[r]!==fS.vals[r]);
+  if(bad>=0) return hint("freq",J(L("fqRow",{a:catTok(fS.tp,fS.cats[bad]),x:fS.fq[bad]}),L("fqBundle")));
+  fS.done=true; $$("#freqArea button").forEach(b=>b.disabled=true); $$("#freqArea tbody tr").forEach(r=>r.classList.add("ok"));
+  askQ("freq",L("fqDone"),catQ(fS));
+}
+
+/* ---------- Mode 2: Scaled bar graphs & picture graphs ---------- */
+let bS=null, bDrag=null;
+function genBar(kind){
+  const s=rand(scaleList()), k=!small()&&settings.grade>=4?rand([4,5]):rand([3,4]);
+  const step=kind==="bar"?(s===2?1:5):(s%2?s:s/2), hi=kind==="bar"?s*9:s*6;
+  const d=genCat(k,step,hi,step);
+  return Object.assign(d,{kind,s,step,ymax:s*(Math.floor(Math.max(...d.vals)/s)+1)});
+}
+const BG={X0:52,Y0:16,Y1:246,CW:76};
+function barSVG(d,id,cur){
+  const k=d.cats.length, W=BG.X0+20+k*BG.CW, H=290, sc=(BG.Y1-BG.Y0)/d.ymax;
+  let g=`<svg ${id?`id="${id}"`:""} viewBox="0 0 ${W} ${H}" role="group" aria-label="${esc(t("bgLbl"))}">`;
+  for(let v=0;v<=d.ymax;v+=d.s){ const y=BG.Y1-v*sc; g+=`<line class="gl" x1="${BG.X0}" x2="${W-8}" y1="${y}" y2="${y}"/><text class="ax" x="${BG.X0-7}" y="${y+5}" text-anchor="end">${v}</text>`; }
+  d.cats.forEach((c,i)=>{ const x=BG.X0+14+i*BG.CW, v=cur?cur[i]:0;
+    g+=`<rect class="bar" id="${id||"p"}B${i}" x="${x}" width="50" y="${BG.Y1-v*sc}" height="${v*sc}" rx="3"/>`;
+    if(id) g+=`<rect class="bhit" data-c="${i}" x="${x-11}" width="72" y="${BG.Y0-10}" height="${BG.Y1-BG.Y0+12}" tabindex="0" role="slider" aria-label="${esc(catName(d.tp,c))}" aria-valuemin="0" aria-valuemax="${d.ymax}" aria-valuenow="${v}"/>`;
+    g+=`<text class="em" x="${x+25}" y="${BG.Y1+32}" text-anchor="middle" aria-hidden="true">${TOPICS[d.tp][c]}</text>`; });
+  return g+`<line class="axl" x1="${BG.X0}" x2="${BG.X0}" y1="${BG.Y0-8}" y2="${BG.Y1}"/><line class="axl" x1="${BG.X0}" x2="${W-8}" y1="${BG.Y1}" y2="${BG.Y1}"/></svg>`;
+}
+const dataTable = d=>`<table class="ftab"><caption>📋 ${t("tp_"+d.tp)}</caption><thead><tr><th scope="col">${t("thAns")}</th><th scope="col">${t("thNum")}</th></tr></thead><tbody>`+
+  d.cats.map((c,i)=>`<tr><th scope="row">${catTok(d.tp,c).h}</th><td class="num">${M(d.vals[i])}</td></tr>`).join("")+`</tbody></table>`;
+function newBar(){
+  roundIds.bar++; made.bar=true; hideFb($("#barFb")); hideQ("bar");
+  const kind=rand(["bar","pic"]); bS=Object.assign(genBar(kind),{done:false}); bS.cur=bS.vals.map(()=>0);
+  const d=bS;
+  let h=`<div class="tblwrap" id="bTbl">${dataTable(d)}</div>`;
+  if(kind==="bar"){
+    setPrompt("bar",L("bgQ",{s:d.s}));
+    h+=`<div class="barwrap">${barSVG(d,"bSvg",d.cur)}</div><div class="barctl no-print">`+d.cats.map((c,i)=>{ const nm=esc(catName(d.tp,c));
+      return `<span class="bc"><span class="e" aria-hidden="true">${TOPICS[d.tp][c]}</span><button type="button" data-c="${i}" data-d="1" aria-label="${esc(t("upL",{a:nm}))}">▲</button><button type="button" data-c="${i}" data-d="-1" aria-label="${esc(t("dnL",{a:nm}))}">▼</button></span>`; }).join("")+`</div>`;
+  }else{
+    setPrompt("bar",L("pgQ",{k:d.s}));
+    h+=`<p class="pkey">🔑 ${t("pgKey",{k:M(d.s)})}</p>`+d.cats.map((c,i)=>{ const nm=esc(catName(d.tp,c));
+      return `<div class="pgrow"><div class="pglab">${catTok(d.tp,c).h}</div><div class="pgpics" id="bP${i}" role="img"></div><div class="pgbtn no-print">`+
+      `<button type="button" data-c="${i}" data-d="1" aria-label="${esc(t("addPic",{a:nm}))}">+ ${TOPICS[d.tp][c]}</button>`+
+      (d.s%2?"":`<button type="button" data-c="${i}" data-d="h" aria-label="${esc(t("addHalf",{a:nm}))}">+ ${M('<span class="fr"><span>1</span><span>2</span></span>')}</button>`)+
+      `<button type="button" data-c="${i}" data-d="-1" aria-label="${esc(t("rmPic",{a:nm}))}">−</button></div></div>`; }).join("");
+  }
+  h+=`<div class="acts no-print"><button type="button" class="btn" id="bCheck">✔ ${t("check")}</button></div>`;
+  $("#barArea").innerHTML=h;
+  if(kind==="bar"){
+    $$(".barctl button").forEach(b=>b.addEventListener("click",()=>setBar(+b.dataset.c,bS.cur[+b.dataset.c]+ +b.dataset.d*bS.step)));
+    const svg=$("#bSvg");
+    svg.addEventListener("pointerdown",e=>{ if(bS.done) return; e.preventDefault(); const p=svgPt(svg,e), c=Math.floor((p.x-BG.X0-3)/BG.CW);
+      if(c<0||c>=bS.cats.length) return; bDrag={c,id:e.pointerId}; try{ svg.setPointerCapture(e.pointerId); }catch(x){} barAt(c,p.y); });
+    svg.addEventListener("pointermove",e=>{ if(!bDrag||bDrag.id!==e.pointerId) return; barAt(bDrag.c,svgPt(svg,e).y); });
+    svg.addEventListener("pointerup",()=>{ bDrag=null; }); svg.addEventListener("pointercancel",()=>{ bDrag=null; });
+    $$("#bSvg .bhit").forEach(r=>r.addEventListener("keydown",e=>{ const c=+r.dataset.c, dl={ArrowUp:1,ArrowRight:1,ArrowDown:-1,ArrowLeft:-1}[e.key];
+      if(dl){ e.preventDefault(); setBar(c,bS.cur[c]+dl*bS.step); } else if(e.key==="Home"){ e.preventDefault(); setBar(c,0); } }));
+  }else{
+    $$(".pgbtn button").forEach(b=>b.addEventListener("click",()=>{ const c=+b.dataset.c, v=bS.cur[c], s=bS.s;
+      if(b.dataset.d==="h") setBar(c,v%s?v:v+s/2); else if(b.dataset.d==="1") setBar(c,v+s); else setBar(c,v%s?v-v%s:v-s); }));
+    bS.cur.forEach((v,i)=>setBar(i,0));
+  }
+  $("#bCheck").addEventListener("click",checkBar);
+  maybeAuto("bar");
+}
+function barAt(c,y){ setBar(c,(BG.Y1-y)/((BG.Y1-BG.Y0)/bS.ymax)); }
+function setBar(c,v){
+  if(bS.done) return;
+  const d=bS, max=d.kind==="bar"?d.ymax:d.s*8;
+  v=Math.max(0,Math.min(max,Math.round(v/d.step)*d.step)); d.cur[c]=v;
+  if(d.kind==="bar"){ const sc=(BG.Y1-BG.Y0)/d.ymax, r=$("#bSvgB"+c); r.setAttribute("y",BG.Y1-v*sc); r.setAttribute("height",v*sc);
+    $(`#bSvg .bhit[data-c="${c}"]`).setAttribute("aria-valuenow",v); }
+  else{ const e=TOPICS[d.tp][d.cats[c]], f=Math.floor(v/d.s), h=v%d.s?1:0, el=$("#bP"+c);
+    el.innerHTML=`<span class="pic">${e}</span>`.repeat(f)+(h?`<span class="pic half"><span>${e}</span></span>`:"");
+    el.setAttribute("aria-label",t(h?(f?"picsH":"picHalf"):"picsN",{n:f})); }
+}
+function checkBar(){
+  if(!bS||bS.done) return;
+  const d=bS, bad=d.cats.findIndex((c,i)=>d.cur[i]!==d.vals[i]);
+  if(bad>=0){ const a=catTok(d.tp,d.cats[bad]), x=d.vals[bad];
+    if(d.kind==="bar"){ const lo=x-x%d.s;
+      return hint("bar",J(x%d.s?L("bgHalf",{a,x,lo,hi:lo+d.s}):L("bgOn",{a,x,s:d.s}),L("bgYours",{y:d.cur[bad]}))); }
+    return hint("bar",L(x%d.s?"pgHintH":"pgHintW",{a,x,k:d.s,n:Math.floor(x/d.s),h:d.s/2})); }
+  d.done=true; $$("#barArea button").forEach(b=>b.disabled=true); $$("#bSvg .bhit").forEach(r=>r.setAttribute("tabindex","-1"));
+  $("#bTbl").classList.add("hidden");
+  askQ("bar",L(d.kind==="bar"?"bgDone":"pgDone"),catQ(d,L(d.kind==="bar"?"hScale":"hKey",{s:d.s,k:d.s}),d.s));
+}
+
+/* ---------- Mode 3: Line plots (dot plots) with fractions ---------- */
+const DCTX={pencil:{e:"✏️",u:"u_in",lo:[3,5]},worm:{e:"🐛",u:"u_in",lo:[1,2]},ribbon:{e:"🎀",u:"u_in",lo:[2,4]},juice:{e:"🧃",u:"u_cup",lo:[0,1]}};
+let dS=null;
+function genDot(){
+  const den=settings.den, step=8/den, span=den===2?3:den===4?2:1, ck=rand(Object.keys(DCTX)), c=DCTX[ck];
+  const measure=c.u==="u_in" && Math.random()<(settings.grade===3?.6:.35);
+  let lo=ri(c.lo[0],c.lo[1]); if(measure) lo=Math.min(lo,den===8?2:3);
+  const ticks=span*den, n=small()?ri(6,8):ri(8,11), first=lo===0?1:0;
+  const share=settings.grade>=5 && (ck==="juice"||ck==="ribbon") && Math.random()<.5;
+  let vals;
+  for(let tr=0;tr<400;tr++){
+    vals=[]; for(let i=0;i<n;i++) vals.push(lo*8+step*ri(first,ticks));
+    const cnt={}; vals.forEach(v=>cnt[v]=(cnt[v]||0)+1); const cs=Object.values(cnt).sort((a,b)=>b-a);
+    if(cs[0]<2 || Object.keys(cnt).length<3) continue;           // want a stack and some spread
+    if(share && sum(vals)%n) continue;
+    break;
+  }
+  return {ctx:ck,den,step,lo:lo*8,hi:(lo+span)*8,vals:shuffle(vals),measure,share:share&&sum(vals)%n===0};
+}
+const DG={W:360,PL:26,PR:26};
+const dX = (d,v)=>DG.PL+(v-d.lo)/(d.hi-d.lo)*(DG.W-DG.PL-DG.PR);
+// Mixed-number label inside SVG
+function svgLab(x,y,e8){
+  const w=Math.floor(e8/8), r=e8%8;
+  if(!r) return `<text class="tw" x="${x}" y="${y+15}" text-anchor="middle">${w}</text>`;
+  const g=gcd(r,8), n=r/g, dd=8/g, fx=w?x+5:x;
+  return (w?`<text class="tw" x="${x-2}" y="${y+18}" text-anchor="end" style="font-size:13px">${w}</text>`:"")+
+    `<text class="tf" x="${fx}" y="${y+10}" text-anchor="middle">${n}</text><line x1="${fx-5}" x2="${fx+5}" y1="${y+13}" y2="${y+13}" stroke="#1c2733" stroke-width="1.3"/><text class="tf" x="${fx}" y="${y+24}" text-anchor="middle">${dd}</text>`;
+}
+function dotSVG(d,id,placed,cur,fresh){
+  const cnt={}; let mx=2; (placed||[]).forEach(v=>{ cnt[v]=(cnt[v]||0)+1; mx=Math.max(mx,cnt[v]); });
+  if(!placed){ const all={}; d.vals.forEach(v=>{ all[v]=(all[v]||0)+1; mx=Math.max(mx,all[v]); }); }
+  const AY=20+mx*20+10, H=AY+42;
+  let g=`<svg ${id?`id="${id}" tabindex="0" role="application" aria-label="${esc(t("dpLbl"))}"`:`role="img"`} viewBox="0 0 ${DG.W} ${H}">`;
+  g+=`<line class="axl" x1="${DG.PL-14}" x2="${DG.W-DG.PR+14}" y1="${AY}" y2="${AY}"/>`;
+  for(let v=d.lo;v<=d.hi;v+=d.step){ const x=dX(d,v), whole=v%8===0;
+    g+=`<line class="tick" x1="${x}" x2="${x}" y1="${AY-(whole?9:6)}" y2="${AY+(whole?9:6)}"/>`+svgLab(x,AY+10,v);
+    if(id) g+=`<rect class="hitl" data-v="${v}" x="${x-(dX(d,d.step+d.lo)-DG.PL)/2}" width="${dX(d,d.step+d.lo)-DG.PL}" y="0" height="${H}"/>`; }
+  for(const v in cnt){ const x=dX(d,+v); for(let j=0;j<cnt[v];j++) g+=`<circle class="dotc${fresh===+v&&j===cnt[v]-1?" new":""}" cx="${x}" cy="${AY-14-j*20}" r="8.5"/>`; }
+  if(id&&cur!=null) g+=`<path class="curm" d="M${dX(d,cur)-8} ${AY-2} l8 -12 l8 12z" transform="translate(0,-2)"/>`;
+  return g+`</svg>`;
+}
+function rulerSVG(d,v){
+  const R=Math.ceil(d.hi/8), rd=Math.max(d.den,4), W=360, PL=16, PR=16, px=(W-PL-PR)/R;
+  let g=`<svg viewBox="0 0 ${W} 96" role="img" aria-label="${esc(t("rulerLbl"))}"><rect class="obj" x="${PL}" y="8" width="${v/8*px}" height="22" rx="10"/>`+
+    `<text x="${PL+6}" y="25" style="font-size:16px" aria-hidden="true">${DCTX[d.ctx].e}</text><rect class="rul" x="${PL-8}" y="36" width="${W-PL-PR+16}" height="52" rx="4"/>`;
+  for(let i=0;i<=R*rd;i++){ const x=PL+i/rd*px, L=i%rd===0?24:i%(rd/2)===0?17:(rd===8&&i%2===0)?12:8;
+    g+=`<line class="rt" x1="${x}" x2="${x}" y1="36" y2="${36+L}"/>`; if(i%rd===0) g+=`<text class="ax" x="${x}" y="80" text-anchor="middle">${i/rd}</text>`; }
+  return g+`</svg>`;
+}
+function newDot(){
+  roundIds.dot++; made.dot=true; hideFb($("#dotFb")); hideQ("dot");
+  dS=Object.assign(genDot(),{done:false,sel:0,cur:null}); dS.placed=dS.vals.map(()=>false); dS.cur=dS.lo;
+  const d=dS, c=DCTX[d.ctx];
+  setPrompt("dot",L(d.measure?"dpMeasQ":"dpQ"));
+  $("#dotArea").innerHTML=`<p class="ctitle">${c.e} ${t("dt_"+d.ctx)} (${t(c.u)})</p><div class="cards" id="dCards" role="group" aria-label="${esc(t("cardsLbl"))}"></div>`+
+    (d.measure?`<div class="linewrap" id="dRuler"></div>`:"")+`<div class="linewrap" id="dPlot"></div>`;
+  drawDot(); maybeAuto("dot");
+}
+function drawDot(fresh,keepFocus){
+  const d=dS, c=DCTX[d.ctx];
+  $("#dCards").innerHTML=d.vals.map((v,i)=>{ const f=FR(v), lab=d.measure?raw(`${c.e} ${M(i+1)}`,t("itemN",{n:i+1})):raw(`${c.e} ${f.h}`,f.s);
+    return `<button type="button" class="dcard${d.placed[i]?" done":""}${i===d.sel&&!d.done?" sel":""}" data-i="${i}" aria-pressed="${i===d.sel}" aria-label="${esc(lab.s)}"${d.placed[i]||d.done?" disabled":""}>${lab.h}</button>`; }).join("");
+  $$("#dCards .dcard").forEach(b=>b.addEventListener("click",()=>{ dS.sel=+b.dataset.i; drawDot(); }));
+  if(d.measure) $("#dRuler").innerHTML=d.sel!=null&&!d.done?rulerSVG(d,d.vals[d.sel]):"";
+  const kbd=$("#dSvg")&&$("#dSvg").classList.contains("kbd");
+  $("#dPlot").innerHTML=dotSVG(d,"dSvg",d.vals.filter((v,i)=>d.placed[i]),d.cur,fresh);
+  const svg=$("#dSvg"); if(kbd) svg.classList.add("kbd");
+  svg.addEventListener("pointerdown",e=>{ svg.classList.remove("kbd"); const p=svgPt(svg,e);
+    const v=Math.max(d.lo,Math.min(d.hi,d.lo+Math.round((p.x-DG.PL)/(dX(d,d.lo+d.step)-DG.PL))*d.step)); d.cur=v; placeDot(v); });
+  svg.addEventListener("keydown",e=>{ const dl={ArrowRight:1,ArrowUp:1,ArrowLeft:-1,ArrowDown:-1}[e.key];
+    if(dl){ e.preventDefault(); d.cur=Math.max(d.lo,Math.min(d.hi,d.cur+dl*d.step)); svg.classList.add("kbd"); const m=svg.querySelector(".curm"); if(m) m.setAttribute("d",`M${dX(d,d.cur)-8} ${m.getAttribute("d").split(" ")[1]} l8 -12 l8 12z`); }
+    else if(e.key==="Enter"||e.key===" "){ e.preventDefault(); svg.classList.add("kbd"); placeDot(d.cur,true); } });
+  if(keepFocus) svg.focus();
+}
+function placeDot(v,kb){
+  const d=dS; if(!d||d.done) return;
+  if(d.sel==null||d.placed[d.sel]) return hint("dot",L("dpPick"));
+  const want=d.vals[d.sel];
+  if(v===want){
+    d.placed[d.sel]=true; const nx=d.vals.findIndex((x,i)=>!d.placed[i]); d.sel=nx<0?null:nx; hideFb($("#dotFb"));
+    if(nx<0){ d.done=true; drawDot(v); $$("#dCards .dcard").forEach(b=>b.disabled=true); askQ("dot",L("dpDone"),dotQ(d)); }
+    else drawDot(v,kb);
+    return;
+  }
+  const w=Math.floor(want/8), k=(want%8)/d.step, f=FR(d.step);
+  const m=d.measure?L("dpMeasH",{f}):want%8?L("dpHint",{w,k,f}):L("dpHintW",{w});
+  hint("dot",J(L("dpTapped",{x:FR(v)}),m));
+}
+function dotQ(d){
+  const g=settings.grade, V=d.vals, n=V.length, cnt={}; V.forEach(v=>cnt[v]=(cnt[v]||0)+1);
+  const keys=Object.keys(cnt).map(Number).sort((a,b)=>a-b), mx=Math.max(...V), mn=Math.min(...V);
+  const top=Math.max(...Object.values(cnt)), modes=keys.filter(v=>cnt[v]===top);
+  let kinds=["countAt","greater"]; if(modes.length===1) kinds.push("mode");
+  if(g>=4) kinds.push("diff","diff","sumTwo","sumAt");
+  if(d.share) kinds=["share"];
+  const kind=rand(kinds), fo=(ans,c)=>numOpts(ans,c,FR,x=>x>0);
+  const co=(ans,c)=>numOpts(ans,c,num,x=>x>=0);
+  if(kind==="countAt"){ const v=rand(keys), c=cnt[v];
+    return {q:L("qCountAt",{v:FR(v)}), opts:co(c,[c+1,c-1,c+2,n-c]), work:L("wCountAt",{c,v:FR(v)}), h1:L("hCountAt",{v:FR(v)})}; }
+  if(kind==="greater"){ const v=rand(keys.slice(0,-1)), c=V.filter(x=>x>v).length, ce=V.filter(x=>x>=v).length;
+    return {q:L("qGreater",{v:FR(v)}), opts:co(c,[ce,c+1,c-1,n-c]), work:L("wGreater",{c,v:FR(v)}), h1:L("hGreater",{v:FR(v)})}; }
+  if(kind==="mode"){ const v=modes[0];
+    return {q:L("qMode"), opts:numOpts(v,shuffle(keys),FR), work:L("wMode",{v:FR(v),c:top}), h1:L("hMode")}; }
+  if(kind==="diff"){ const ans=mx-mn;
+    return {q:L("qDiff"), opts:fo(ans,[mx+mn,ans+d.step,ans-d.step,ans+8,ans-8]), work:J(L("wGL",{a:FR(mx),b:FR(mn)}),eq([FR(mx),FR(mn)],"−",FR(ans))), h1:L("hDiff"), h2:J(L("hDiff"),L("wGL",{a:FR(mx),b:FR(mn)}))}; }
+  if(kind==="sumTwo"){ const ans=mx+mn;
+    return {q:L("qSumTwo"), opts:fo(ans,[mx-mn,ans+d.step,ans-d.step,ans+8,ans-8]), work:J(L("wGL",{a:FR(mx),b:FR(mn)}),eq([FR(mx),FR(mn)],"+",FR(ans))), h1:L("hSumTwo"), h2:J(L("hSumTwo"),L("wGL",{a:FR(mx),b:FR(mn)}))}; }
+  if(kind==="sumAt"){ const many=keys.filter(v=>cnt[v]>=2), pick=many.filter(v=>v%8), v=rand(pick.length?pick:many), c=cnt[v], ans=v*c;
+    return {q:L("qSumAt",{v:FR(v)}), opts:fo(ans,[v*(c+1),v*(c-1),ans+d.step,ans-d.step,v+c*8]), work:J(L("wSumAt",{c,v:FR(v)}),eq(Array(c).fill(FR(v)),"+",FR(ans))), h1:L("hSumAt",{v:FR(v)})}; }
+  const tot=sum(V), ans=tot/n;
+  return {q:L(d.ctx==="juice"?"qShareJ":"qShareR",{n}), opts:fo(ans,[tot,ans+d.step,ans-d.step,ans+8,mx]),
+    work:J(L("wTot",{t:FR(tot)}),eq([FR(tot),n],"÷",FR(ans))), h1:L("hShare",{n}), h2:J(L("hShare",{n}),L("wTot",{t:FR(tot)}))};
+}
+
+/* ---------- Mode 4: Stem-and-leaf plots ---------- */
+const SCTXS={whole:["pts","jump"],dec:["rain","pump"]};
+let sS=null;
+const fmtS = (d,v)=>d.dec?(v/10).toFixed(1):String(v);
+const sTok = (d,v)=>num(fmtS(d,v));
+function genStem(){
+  const dec=!!settings.dec, ns=small()?3:ri(3,4), s0=ri(1,10-ns), n=small()?ri(8,10):ri(10,13);
+  const pool=shuffle(range(s0*10,(s0+ns)*10-1)), vals=pool.slice(0,n-1);
+  [s0,s0+ns-1].forEach(s=>{ if(!vals.some(v=>Math.floor(v/10)===s)) vals[ri(0,vals.length-1)]=s*10+ri(0,9); });
+  const uniq=[...new Set(vals)]; uniq.push(rand(uniq));              // exactly one repeated value
+  const st=uniq.map(v=>Math.floor(v/10));
+  return {dec,ctx:rand(SCTXS[dec?"dec":"whole"]),vals:shuffle(uniq),stems:range(Math.min(...st),Math.max(...st))};
+}
+function stemTable(d,leaves,live){
+  return `<table class="stab"><thead><tr><th scope="col">${t("stemH")}</th><th scope="col">${t("leafH")}</th></tr></thead><tbody>`+
+    d.stems.map(s=>{ const lv=(leaves&&leaves[s])||[];
+      return `<tr><td class="st">${s}</td><td>`+(live?`<button type="button" class="srow" data-s="${s}" aria-label="${esc(t("rowL",{s,l:lv.length?lv.join(" "):t("noLeaves")}))}">${lv.join(" ")||"&nbsp;"}</button>`:`<div class="srow" style="min-height:40px">${lv.join(" ")||"&nbsp;"}</div>`)+`</td></tr>`; }).join("")+`</tbody></table>`;
+}
+function newStem(){
+  roundIds.stem++; made.stem=true; hideFb($("#stemFb")); hideQ("stem");
+  sS=Object.assign(genStem(),{done:false,sel:0,leaves:{}}); sS.placed=sS.vals.map(()=>false);
+  const d=sS, ex=d.vals[0];
+  setPrompt("stem",L(d.dec?"slQd":"slQ"));
+  $("#stemArea").innerHTML=`<p class="ctitle">🌿 ${t("st_"+d.ctx)}</p><div class="cards" id="sCards" role="group" aria-label="${esc(t("dataLbl"))}"></div>`+
+    `<div id="sTab"></div><p class="slkey">${t("slKey",{s:M(Math.floor(ex/10)),l:M(ex%10),v:M(fmtS(d,ex))})}</p>`;
+  drawStem(); maybeAuto("stem");
+}
+function drawStem(focusS){
+  const d=sS;
+  $("#sCards").innerHTML=d.vals.map((v,i)=>`<button type="button" class="dcard${d.placed[i]?" done":""}${i===d.sel&&!d.done?" sel":""}" data-i="${i}" aria-pressed="${i===d.sel}"${d.placed[i]||d.done?" disabled":""}>${M(fmtS(d,v))}</button>`).join("");
+  $$("#sCards .dcard").forEach(b=>b.addEventListener("click",()=>{ sS.sel=+b.dataset.i; drawStem(); }));
+  $("#sTab").innerHTML=stemTable(d,d.leaves,!d.done);
+  $$("#sTab .srow").forEach(b=>b.addEventListener("click",()=>placeLeaf(+b.dataset.s)));
+  if(focusS!=null){ const b=$(`#sTab .srow[data-s="${focusS}"]`); if(b) b.focus(); }
+}
+function placeLeaf(s){
+  const d=sS; if(!d||d.done) return;
+  if(d.sel==null||d.placed[d.sel]) return hint("stem",L("slPick"));
+  const v=d.vals[d.sel], st=Math.floor(v/10), lf=v%10;
+  if(s!==st) return hint("stem",L(d.dec?"slHintD":"slHint",{v:sTok(d,v),s:st,l:lf}));
+  (d.leaves[s]=d.leaves[s]||[]).push(lf); d.leaves[s].sort((a,b)=>a-b);
+  d.placed[d.sel]=true; const nx=d.vals.findIndex((x,i)=>!d.placed[i]); d.sel=nx<0?null:nx; hideFb($("#stemFb"));
+  if(nx<0){ d.done=true; drawStem(); askQ("stem",L("slDone"),stemQ(d)); } else drawStem(s);
+}
+function stemQ(d){
+  const V=d.vals, n=V.length, mx=Math.max(...V), mn=Math.min(...V), cnt={}; V.forEach(v=>cnt[v]=(cnt[v]||0)+1);
+  const rowN=s=>V.filter(v=>Math.floor(v/10)===s).length, T=v=>sTok(d,v), dup=+Object.keys(cnt).find(k=>cnt[k]>1);
+  const kind=rand(["cnt","great","least","range","range","greater","mode","more"]);
+  const co=(ans,c)=>numOpts(ans,c,num,x=>x>=0), vo=(ans,c)=>numOpts(ans,c,T,x=>x>=0);
+  if(kind==="cnt"){ const s=rand(d.stems), c=rowN(s);
+    return {q:L("qStemCnt",{s}), opts:co(c,[c+1,c-1,c+2,s]), work:L("wStemCnt",{s,c}), h1:L("hStemCnt",{s})}; }
+  if(kind==="great"||kind==="least"){ const ans=kind==="great"?mx:mn, sorted=[...new Set(V)].sort((a,b)=>a-b);
+    return {q:L(kind==="great"?"qGreat":"qLeastV"), opts:vo(ans,kind==="great"?[sorted[sorted.length-2],Math.floor(mx/10)*10+9,mn]:[sorted[1],Math.floor(mn/10)*10,mx]),
+      work:L("wVal",{v:T(ans)}), h1:L(kind==="great"?"hGreat":"hLeastV")}; }
+  if(kind==="range"){ const ans=mx-mn;
+    return {q:L("qRange"), opts:vo(ans,[ans+1,ans-1,ans+10,mx+mn,ans-10]), work:J(L("wGL",{a:T(mx),b:T(mn)}),eq([T(mx),T(mn)],"−",T(ans))), h1:L("hRange"), h2:J(L("hRange"),L("wGL",{a:T(mx),b:T(mn)}))}; }
+  if(kind==="greater"){ const s=[...new Set(V)].sort((a,b)=>a-b), v=s[ri(1,s.length-3)], c=V.filter(x=>x>v).length;
+    return {q:L("qGreaterV",{v:T(v)}), opts:co(c,[c+1,c-1,V.filter(x=>x>=v).length,n-c]), work:L("wGreaterV",{c,v:T(v)}), h1:L("hGreaterV",{v:T(v)})}; }
+  if(kind==="mode") return {q:L("qModeV"), opts:vo(dup,shuffle(V)), work:L("wTwice",{v:T(dup)}), h1:L("hModeV")};
+  const rs=d.stems.slice().sort((a,b)=>rowN(b)-rowN(a)), a=rs[0], b=rs[rs.length-1], ans=rowN(a)-rowN(b);
+  if(!ans) return stemQ(d);
+  return {q:L("qStemMore",{a,b}), opts:co(ans,[rowN(a)+rowN(b),ans+1,ans-1,rowN(a)]), work:J(L("wStemCnt",{s:a,c:rowN(a)}),L("wStemCnt",{s:b,c:rowN(b)}),eq([rowN(a),rowN(b)],"−",ans)), h1:L("hStemMore")};
+}
+
+/* ---------- Mode 5: Scatterplots ---------- */
+const SCAT={sun:{e:"🌱",dir:1,ym:10},prac:{e:"🏀",dir:1,ym:20},laps:{e:"🏃",dir:-1,ym:10},shoe:{e:"👟",dir:0,ym:10}};
+let cS=null;
+function corr(P){ const n=P.length, mx=sum(P.map(p=>p[0]))/n, my=sum(P.map(p=>p[1]))/n;
+  let a=0,b=0,c=0; P.forEach(([x,y])=>{ a+=(x-mx)*(y-my); b+=(x-mx)**2; c+=(y-my)**2; }); return b&&c?a/Math.sqrt(b*c):0; }
+function genScat(){
+  const key=rand(Object.keys(SCAT)), c=SCAT[key], n=small()?ri(5,6):ri(6,8), ys=c.ym/10;
+  let P;
+  for(let tr=0;tr<500;tr++){
+    const xs=shuffle(range(1,10)).slice(0,n).sort((a,b)=>a-b), nz=()=>Math.random()*2.6-1.3;
+    P=xs.map(x=>{ const y=c.dir>0?1+.8*x+nz():c.dir<0?9.6-.8*x+nz():ri(1,9); return [x,Math.max(0,Math.min(10,Math.round(y)))*ys]; });
+    const r=corr(P), ymax=Math.max(...P.map(p=>p[1]));
+    if(P.filter(p=>p[1]===ymax).length>1) continue;
+    if(c.dir>0&&r<.75 || c.dir<0&&r>-.75 || !c.dir&&Math.abs(r)>.25) continue;
+    break;
+  }
+  return {key,dir:c.dir,ym:c.ym,ys,pts:P};
+}
+const SG={W:360,H:330,X0:44,X1:348,Y0:12,Y1:286};
+const sX=x=>SG.X0+x*(SG.X1-SG.X0)/10, sY=(d,y)=>SG.Y1-y*(SG.Y1-SG.Y0)/d.ym;
+function scatSVG(d,id,plotted,cur){
+  let g=`<svg ${id?`id="${id}" tabindex="0" role="application" aria-label="${esc(t("spLbl"))}"`:`role="img"`} viewBox="0 0 ${SG.W} ${SG.H}">`;
+  for(let i=0;i<=10;i++){ const x=sX(i), y=sY(d,i*d.ys);
+    g+=`<line class="gl" x1="${x}" x2="${x}" y1="${SG.Y0}" y2="${SG.Y1}"/><line class="gl" x1="${SG.X0}" x2="${SG.X1}" y1="${y}" y2="${y}"/>`+
+      `<text class="axs" x="${x}" y="${SG.Y1+16}" text-anchor="middle">${i}</text><text class="axs" x="${SG.X0-6}" y="${y+4}" text-anchor="end">${i*d.ys}</text>`; }
+  g+=`<line class="axl" x1="${SG.X0}" x2="${SG.X0}" y1="${SG.Y0}" y2="${SG.Y1}"/><line class="axl" x1="${SG.X0}" x2="${SG.X1}" y1="${SG.Y1}" y2="${SG.Y1}"/>`;
+  g+=`<text class="axs" x="${(SG.X0+SG.X1)/2}" y="${SG.H-6}" text-anchor="middle" style="font-weight:800">x: ${esc(t("sc_"+d.key+"X"))}</text>`;
+  g+=`<text class="axs" transform="translate(12 ${(SG.Y0+SG.Y1)/2}) rotate(-90)" text-anchor="middle" style="font-weight:800">y: ${esc(t("sc_"+d.key+"Y"))}</text>`;
+  (plotted||d.pts).forEach(([x,y])=>{ g+=`<circle class="dotc" cx="${sX(x)}" cy="${sY(d,y)}" r="7.5"/>`; });
+  if(id&&cur) g+=`<circle class="curm" id="cCur" cx="${sX(cur[0])}" cy="${sY(d,cur[1])}" r="11" style="fill:none;stroke:var(--focus);stroke-width:3"/>`;
+  return g+`</svg>`;
+}
+function newScat(){
+  roundIds.scat++; made.scat=true; hideFb($("#scatFb")); hideQ("scat");
+  cS=Object.assign(genScat(),{done:false,cur:[0,0]}); cS.plotted=cS.pts.map(()=>false);
+  const d=cS;
+  setPrompt("scat",L("spQ"));
+  $("#scatArea").innerHTML=`<div class="scgrid"><div class="tblwrap" style="margin:0"><table class="ftab ptab"><thead><tr><th scope="col">x: ${t("sc_"+d.key+"X")}</th><th scope="col">y: ${t("sc_"+d.key+"Y")}</th></tr></thead><tbody>`+
+    d.pts.map((p,i)=>`<tr id="cR${i}"><td>${M(p[0])}</td><td>${M(p[1])}</td></tr>`).join("")+`</tbody></table></div><div class="linewrap" id="cPlot" style="margin:0"></div></div>`;
+  drawScat(); maybeAuto("scat");
+}
+function drawScat(keepFocus){
+  const d=cS, kbd=$("#cSvg")&&$("#cSvg").classList.contains("kbd");
+  $("#cPlot").innerHTML=scatSVG(d,"cSvg",d.pts.filter((p,i)=>d.plotted[i]),d.cur);
+  d.pts.forEach((p,i)=>$("#cR"+i).classList.toggle("ok",d.plotted[i]));
+  const svg=$("#cSvg"); if(kbd) svg.classList.add("kbd");
+  svg.addEventListener("pointerdown",e=>{ svg.classList.remove("kbd"); const p=svgPt(svg,e);
+    const x=Math.round((p.x-SG.X0)/((SG.X1-SG.X0)/10)), y=Math.round((SG.Y1-p.y)/((SG.Y1-SG.Y0)/10))*d.ys;
+    if(x<0||x>10||y<0||y>d.ym) return; d.cur=[x,y]; plotPt(x,y); });
+  svg.addEventListener("keydown",e=>{ const m={ArrowRight:[1,0],ArrowLeft:[-1,0],ArrowUp:[0,1],ArrowDown:[0,-1]}[e.key];
+    if(m){ e.preventDefault(); d.cur=[Math.max(0,Math.min(10,d.cur[0]+m[0])),Math.max(0,Math.min(d.ym,d.cur[1]+m[1]*d.ys))]; svg.classList.add("kbd");
+      const c=$("#cCur"); c.setAttribute("cx",sX(d.cur[0])); c.setAttribute("cy",sY(d,d.cur[1])); svg.setAttribute("aria-label",t("spLbl")+" "+`(${d.cur[0]}, ${d.cur[1]})`); }
+    else if(e.key==="Enter"||e.key===" "){ e.preventDefault(); svg.classList.add("kbd"); plotPt(d.cur[0],d.cur[1],true); } });
+  if(keepFocus) svg.focus();
+}
+function plotPt(x,y,kb){
+  const d=cS; if(!d||d.done) return;
+  const i=d.pts.findIndex(p=>p[0]===x&&p[1]===y);
+  if(i>=0){ if(d.plotted[i]) return; d.plotted[i]=true; hideFb($("#scatFb"));
+    if(d.plotted.every(Boolean)){ d.done=true; drawScat(); askQ("scat",L("spDone"),scatQ(d)); } else drawScat(kb);
+    return; }
+  const sw=d.pts.some((p,j)=>!d.plotted[j]&&p[0]===y&&p[1]===x);
+  hint("scat",J(L("spYou",{p:pair(x,y)}),L(sw?"spSwap":"spHint")));
+}
+function scatQ(d){
+  const X=raw(t("sc_"+d.key+"x")), Y=raw(t("sc_"+d.key+"y")), P=d.pts;
+  const kind=rand(["rel","rel","max","diff"]);
+  if(kind==="rel"){ const R=[["relUp",1],["relDown",-1],["relNone",0]];
+    return {q:L("qRel",{x:X,y:Y}), wide:true, opts:R.map(([k,dir])=>{ const m=L(k,{x:X,y:Y}); return {h:m.h,s:m.s,ok:dir===d.dir}; }),
+      work:L(d.dir>0?"wUp":d.dir<0?"wDown":"wNone"), h1:L("hRel")}; }
+  if(kind==="max"){ const b=P.slice().sort((a,c)=>c[1]-a[1])[0];
+    return {q:L("qMaxY",{y:Y}), opts:numOpts(b[0],shuffle(P.map(p=>p[0])),num), work:L("wMaxY",{p:pair(b[0],b[1])}), h1:L("hMaxY")}; }
+  let a,b; do{ [a,b]=shuffle(P).slice(0,2); }while(a[1]===b[1]);
+  if(a[1]<b[1]) [a,b]=[b,a];
+  const ans=a[1]-b[1];
+  return {q:L("qDiffY",{y:Y,a:a[0],b:b[0]}), opts:numOpts(ans,[a[1]+b[1],ans+d.ys,ans-d.ys,a[0]-b[0],a[1]],num,x=>x>0),
+    work:J(L("wPts",{p:pair(a[0],a[1]),q:pair(b[0],b[1])}),eq([a[1],b[1]],"−",ans)), h1:L("hDiffY",{a:a[0],b:b[0]})};
+}
+
+/* ---------- Mode switching ---------- */
+const NEWFN={freq:newFreq,bar:newBar,dot:newDot,stem:newStem,scat:newScat};
+function firstMode(){ return MODES.find(m=>modeOn(m))||"freq"; }
+function currentMode(){ const b=$$(".tabs button").find(x=>x.getAttribute("aria-selected")==="true"); return b?b.dataset.mode:firstMode(); }
+function showMode(mode){
+  if(!modeOn(mode)) mode=firstMode();
+  const switching=currentMode()!==mode;
+  if(switching) stopSpeech();
+  const g0=speechGen;
+  $$(".modepanel").forEach(p=>p.classList.add("hidden"));
+  $("#mode-"+mode).classList.remove("hidden");
+  $$(".tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.mode===mode?"true":"false"));
+  if(!made[mode]) NEWFN[mode]();
+  // Returning to a tab: read its current directions (unless a new round just did).
+  if(switching && speechGen===g0) maybeAuto(mode);
+}
+function syncTabs(){
+  $$(".tabs button").forEach(b=>b.classList.toggle("hidden",!modeOn(b.dataset.mode)));
+  if(!modeOn(currentMode())) showMode(firstMode());
+}
+function resetRounds(){ MODES.forEach(m=>made[m]=false); const c=currentMode(); if(modeOn(c)) NEWFN[c](); else showMode(firstMode()); }
+
+/* ---------- Settings drawer ---------- */
+function buildModeToggles(){
+  const wrap=$("#modeToggles"); wrap.innerHTML="";
+  MODES.forEach(m=>{
+    const l=document.createElement("label"); l.className="toggle";
+    l.innerHTML=`<input type="checkbox" ${settings.modes[m]?"checked":""}> <span>${t(MODE_KEY[m])}</span>`;
+    l.querySelector("input").addEventListener("change",e=>{ settings.modes[m]=e.target.checked;
+      if(!MODES.some(k=>modeOn(k))){ e.target.checked=true; settings.modes[m]=true; }
+      saveSettings(); syncTabs(); });
+    wrap.appendChild(l);
+  });
+}
+function syncSettingsUI(){
+  $("#setGrade").value=String(settings.grade); $("#setScale").value=settings.scales; $("#setDen").value=String(settings.den);
+  $("#setSize").value=settings.size; $("#setDecChk").checked=!!settings.dec; $("#setAuto").checked=!!settings.autoRead; buildModeToggles();
+}
+function closeSettings(){ $("#settingsDrawer").classList.remove("open"); $("#openSettings").focus(); }
+function settingsChanged(){ saveSettings(); syncSettingsUI(); syncTabs(); resetRounds(); }
+function initSettings(){
+  $("#openSettings").addEventListener("click",()=>{ syncSettingsUI(); $("#settingsDrawer").classList.add("open"); $("#closeSettings").focus(); });
+  $("#closeSettings").addEventListener("click",closeSettings);
+  $("#settingsDrawer").addEventListener("click",e=>{ if(e.target.id==="settingsDrawer") closeSettings(); });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape" && $("#settingsDrawer").classList.contains("open")) closeSettings(); });
+  $("#setGrade").addEventListener("change",e=>{ const ar=settings.autoRead; settings=fromGrade(+e.target.value); settings.autoRead=ar; settingsChanged(); });
+  $("#setScale").addEventListener("change",e=>{ settings.scales=e.target.value; settingsChanged(); });
+  $("#setDen").addEventListener("change",e=>{ settings.den=+e.target.value; settingsChanged(); });
+  $("#setSize").addEventListener("change",e=>{ settings.size=e.target.value; settingsChanged(); });
+  $("#setDecChk").addEventListener("change",e=>{ settings.dec=e.target.checked; settingsChanged(); });
+  $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
+  $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
+}
+
+/* ---------- Print cards ---------- */
+function buildPrintCards(){
+  const cards=[], list=a=>`<p class="plist">${a.join(", ")}</p>`;
+  if(modeOn("freq")){ const d=genCat(small()?3:4,2,8,1), it=[]; d.vals.forEach((v,i)=>{ for(let j=0;j<v;j++) it.push(TOPICS[d.tp][d.cats[i]]); });
+    cards.push({title:t("mFreq"), body:t("cFreq"), html:`<p class="ctitle">📋 ${t("svy")}: ${t("tp_"+d.tp)}</p><p style="font-size:1.6rem;letter-spacing:.15em">${shuffle(it).join(" ")}</p>`+
+      `<table class="ftab"><thead><tr><th>${t("thAns")}</th><th style="min-width:160px">${t("thTally")}</th><th>${t("thFreq")}</th></tr></thead><tbody>${d.cats.map(c=>`<tr><th>${catTok(d.tp,c).h}</th><td></td><td></td></tr>`).join("")}</tbody></table>`}); }
+  if(modeOn("bar")){ const d=genBar("bar");
+    cards.push({title:t("mBar"), body:t("cBar",{s:d.s}), html:`<div class="tblwrap">${dataTable(d)}</div>${barSVG(d,null,null)}`}); }
+  if(modeOn("dot")){ const d=genDot();
+    cards.push({title:t("mDot"), body:t("cDot"), html:`<p class="ctitle">${DCTX[d.ctx].e} ${t("dt_"+d.ctx)} (${t(DCTX[d.ctx].u)})</p><p style="font-size:1.4rem">${d.vals.map(v=>FR(v).h).join(" , ")}</p>${dotSVG(d,null,[])}`}); }
+  if(modeOn("stem")){ const d=genStem();
+    cards.push({title:t("mStem"), body:t("cStem"), html:`<p class="ctitle">🌿 ${t("st_"+d.ctx)}</p>${list(d.vals.map(v=>fmtS(d,v)))}${stemTable(d,null,false)}`}); }
+  if(modeOn("scat")){ const d=genScat();
+    cards.push({title:t("mScat"), body:t("cScat"), html:`<table class="ftab"><tbody><tr><th>x</th>${d.pts.map(p=>`<td>${p[0]}</td>`).join("")}</tr><tr><th>y</th>${d.pts.map(p=>`<td>${p[1]}</td>`).join("")}</tr></tbody></table>${scatSVG(d,null,[])}<div class="pbox"></div>`}); }
+  $("#printArea").innerHTML=`<h1>${t("cardTitle")}</h1><p>${t("cardName")} ____________________</p>`+
+    cards.map(c=>`<div class="card-print"><h2>${c.title}</h2><p style="font-size:1.15rem">${c.body}</p>${c.html}</div>`).join("")+
+    `<p style="font-size:.85rem">${stdsHTML()}</p>`;
+}
+
+// Keep standard codes like 4.9(A, B) left-to-right inside RTL text
+const stdsHTML = ()=>t("stds").replace(/[0-9][0-9A-Za-z.]*(?:\([A-Z, ]+\))?/g,m=>`<bdi dir="ltr">${m}</bdi>`);
+
+/* ---------- Language engine ---------- */
+function resolveLang(){
+  try{ const q=new URLSearchParams(location.search).get("lang"); if(q && T[q]) return q; }catch(e){}
+  try{ const s=localStorage.getItem(LANG_KEY); if(s && T[s]) return s; }catch(e){}
+  const n=(navigator.language||"en").slice(0,2).toLowerCase();
+  if(T[n]) return n;
+  return "en";
+}
+function applyLang(){
+  const meta=LANGS.find(x=>x.code===lang)||LANGS[0];
+  document.documentElement.lang=lang;
+  document.documentElement.dir=meta.dir;
+  document.title=t("appTitle");
+  const sel=$("#langSelect"); if(sel) sel.value=lang;
+  $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
+  $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
+  $("#stdsNote").innerHTML=stdsHTML();
+  buildModeToggles();
+  // refresh dynamic content: current mode now, the others when they are next opened
+  resetRounds();
+}
+function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} stopSpeech(); applyLang(); }
+function buildLangSelect(){
+  const sel=$("#langSelect"); sel.innerHTML="";
+  LANGS.forEach(m=>{ const o=document.createElement("option"); o.value=m.code; o.textContent=m.name; sel.appendChild(o); });
+  sel.value=lang;
+  sel.addEventListener("change",()=>setLang(sel.value));
+}
+
+/* ---------- Init ---------- */
+function init(){
+  lang=resolveLang();
+  buildLangSelect();
+  $$(".tabs button").forEach(b=>b.addEventListener("click",()=>showMode(b.dataset.mode)));
+  $$(".speaker").forEach(b=>b.addEventListener("click",()=>speak(currentSpeech[b.dataset.speak])));
+  MODES.forEach(m=>$("#"+m+"New").addEventListener("click",()=>{ stopSpeech(); NEWFN[m](); }));
+  initSettings();
+  const f=firstMode();
+  $$(".tabs button").forEach(b=>{ b.setAttribute("aria-selected",b.dataset.mode===f?"true":"false"); b.classList.toggle("hidden",!modeOn(b.dataset.mode)); });
+  $$(".modepanel").forEach(p=>p.classList.toggle("hidden",p.id!=="mode-"+f));
+  applyLang();
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
+</script>
+<script>
+/* Student mute toggle — shared across the Digital Math Tools. Self-contained,
+   offline, stores no student data. Gates ALL speech by intercepting
+   speechSynthesis.speak, so muting works regardless of each tool's internals.
+   Reads the shared language preference only to localize its own label. */
+(function(){
+  "use strict";
+  var LKEY='tcea.mathtools.lang', MKEY='tcea.mathtools.muted';
+  var CODES=['en','es','vi','ar','hi','ur','zh'];
+  var LAB={
+    mute:{en:"Mute sound",es:"Silenciar sonido",vi:"Tắt âm thanh",ar:"كتم الصوت",hi:"आवाज़ बंद करें",ur:"آواز بند کریں",zh:"静音"},
+    unmute:{en:"Turn sound on",es:"Activar sonido",vi:"Bật âm thanh",ar:"تشغيل الصوت",hi:"आवाज़ चालू करें",ur:"آواز چالو کریں",zh:"打开声音"}
+  };
+  function get(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function set(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  window.__MT_MUTED = (get(MKEY)==='1');
+  // Intercept every speech request; suppress while muted.
+  try{
+    if(window.speechSynthesis && typeof window.speechSynthesis.speak==='function'){
+      var ss=window.speechSynthesis, orig=ss.speak.bind(ss);
+      ss.speak=function(u){ if(!window.__MT_MUTED){ try{orig(u);}catch(e){} } };
+    }
+  }catch(e){}
+  function curLang(){ var l=get(LKEY)||'en'; return LAB.mute[l]?l:'en'; }
+  function label(el){
+    var on=!window.__MT_MUTED, l=curLang(), txt=on?LAB.mute[l]:LAB.unmute[l];
+    el.textContent=on?'🔊':'🔇';
+    el.setAttribute('aria-label',txt); el.setAttribute('title',txt);
+    el.setAttribute('aria-pressed', on?'false':'true');
+  }
+  function findLangSelect(){
+    var sels=document.querySelectorAll('select');
+    for(var i=0;i<sels.length;i++){ var o=sels[i].options, c=0;
+      for(var j=0;j<o.length;j++){ if(CODES.indexOf((o[j].value||'').toLowerCase())>=0) c++; }
+      if(c>=3) return sels[i];
+    }
+    return null;
+  }
+  function build(){
+    if(document.getElementById('mtMuteBtn')) return;
+    if(!(('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window))) return;
+    var btn=document.createElement('button');
+    btn.id='mtMuteBtn'; btn.type='button';
+    btn.style.cssText='font:inherit;font-size:1.15rem;line-height:1;cursor:pointer;'+
+      'min-width:44px;min-height:44px;padding:8px 12px;border:2px solid #e2dcf1;'+
+      'border-radius:10px;background:#fff;color:#5b3fa5;font-weight:700;margin:0 4px;';
+    btn.addEventListener('click',function(){
+      window.__MT_MUTED=!window.__MT_MUTED;
+      set(MKEY, window.__MT_MUTED?'1':'0');
+      if(window.__MT_MUTED){ try{window.speechSynthesis.cancel();}catch(e){} }
+      label(btn);
+    });
+    btn.addEventListener('focus',function(){btn.style.outline='3px solid #5b3fa5';btn.style.outlineOffset='2px';});
+    btn.addEventListener('blur',function(){btn.style.outline='';});
+    var sel=findLangSelect();
+    if(sel && sel.parentNode){
+      sel.parentNode.insertBefore(btn, sel);
+      sel.addEventListener('change',function(){ setTimeout(function(){label(btn);},0); });
+    }else{
+      btn.style.position='fixed'; btn.style.top='10px'; btn.style.zIndex='9999';
+      btn.style[(document.documentElement.dir==='rtl')?'left':'right']='10px';
+      (document.body||document.documentElement).appendChild(btn);
+    }
+    label(btn);
+  }
+  if(document.readyState==='complete'){ build(); }
+  else{ window.addEventListener('load', build); }
+  window.addEventListener('storage',function(e){ if(e.key===LKEY){ var b=document.getElementById('mtMuteBtn'); if(b) label(b); } });
+})();
+</script>
+<script src="/activities/licensing-footer.js" defer></script>
+</body>
+
+</html>
