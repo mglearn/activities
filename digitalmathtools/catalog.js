@@ -174,7 +174,10 @@ window.MATHTOOLS = (function () {
     "Square roots":{en:"Square roots",es:"Raíces cuadradas",vi:"Căn bậc hai",ar:"الجذور التربيعية",hi:"वर्गमूल",ur:"جذرِ مربع",zh:"平方根"},
     "Interest":{en:"Interest",es:"Interés",vi:"Lãi suất",ar:"الفائدة",hi:"ब्याज",ur:"سود",zh:"利息"},
     "Taxes":{en:"Taxes",es:"Impuestos",vi:"Thuế",ar:"الضرائب",hi:"कर",ur:"ٹیکس",zh:"税"},
-    "Credit":{en:"Credit",es:"Crédito",vi:"Tín dụng",ar:"الائتمان",hi:"क्रेडिट",ur:"قرض",zh:"信用"}
+    "Credit":{en:"Credit",es:"Crédito",vi:"Tín dụng",ar:"الائتمان",hi:"क्रेडिट",ur:"قرض",zh:"信用"},
+    "Box plot":{en:"Box plot",es:"Diagrama de caja",vi:"Biểu đồ hộp",ar:"مخطط الصندوق",hi:"बॉक्स प्लॉट",ur:"باکس پلاٹ",zh:"箱线图"},
+    "Histogram":{en:"Histogram",es:"Histograma",vi:"Biểu đồ tần số",ar:"المدرج التكراري",hi:"आयतचित्र",ur:"ہسٹوگرام",zh:"直方图"},
+    "Sampling":{en:"Sampling",es:"Muestreo",vi:"Chọn mẫu",ar:"المعاينة",hi:"प्रतिचयन",ur:"نمونہ بندی",zh:"抽样"}
   };
 
   // ---- Tools (href relative to the digitalmathtools root) ------------------
@@ -526,7 +529,19 @@ window.MATHTOOLS = (function () {
         ar:"وازن سجل الشيكات، وقارن بطاقات الخصم والائتمان ورسوم البنوك، واقرأ تقرير الائتمان، وصنّف طرق دفع تكاليف الجامعة. املأ كشوف الرواتب وإيصالات الضرائب، وقارن دخل العمر والعروض، وأعدّ ميزانية بأشرطة التمرير، واحسب صافي الثروة. ثم قارن الفائدة البسيطة والمركبة، وتكلفة القروض وبطاقات الائتمان، وخطط الادخار، وطرق الدفع، وتكاليف الجامعة.",
         hi:"चेक रजिस्टर का हिसाब मिलाएँ, डेबिट और क्रेडिट कार्ड व बैंक शुल्क की तुलना करें, क्रेडिट रिपोर्ट पढ़ें, और कॉलेज की फ़ीस चुकाने के तरीके छाँटें। वेतन पर्ची और कर वाली रसीदें भरें, जीवन भर की आय और ऑफ़रों की तुलना करें, स्लाइडर से बजट बनाएँ, और कुल संपत्ति (नेट वर्थ) निकालें। फिर साधारण और चक्रवृद्धि ब्याज, ऋण और क्रेडिट कार्ड की लागत, बचत योजनाओं, भुगतान के तरीकों और कॉलेज की लागत की तुलना करें।",
         ur:"چیک رجسٹر کا حساب برابر کریں، ڈیبٹ اور کریڈٹ کارڈ اور بینک فیسوں کا موازنہ کریں، کریڈٹ رپورٹ پڑھیں، اور کالج کی ادائیگی کے طریقے چھانٹیں۔ تنخواہ کی پرچیاں اور ٹیکس والی رسیدیں بھریں، عمر بھر کی آمدنی اور پیشکشوں کا موازنہ کریں، سلائیڈرز سے بجٹ بنائیں، اور خالص مالیت معلوم کریں۔ پھر سادہ اور مرکب سود، قرضوں اور کریڈٹ کارڈ کی لاگت، بچت کے منصوبوں، ادائیگی کے طریقوں اور کالج کے اخراجات کا موازنہ کریں۔",
-        zh:"平衡支票登记簿，比较借记卡、信用卡和银行费用，阅读信用报告，给支付大学费用的方式分类。填写工资单和含税收据，比较一生收入和优惠，用滑块编制预算，计算净资产。再比较单利和复利、贷款和信用卡的成本、储蓄计划、付款方式和大学费用。"} }
+        zh:"平衡支票登记簿，比较借记卡、信用卡和银行费用，阅读信用报告，给支付大学费用的方式分类。填写工资单和含税收据，比较一生收入和优惠，用滑块编制预算，计算净资产。再比较单利和复利、贷款和信用卡的成本、储蓄计划、付款方式和大学费用。"} },
+    { id:"stats-studio", collection:"g68", bandId:"6-8", icon:"📊", accent:"#1a5276",
+      title:"Stats Studio: Data Distributions", href:"g68/stats-studio/index.html",
+      tags:["Statistics","Data","Line plot","Box plot","Histogram","Sampling","Scatterplot"],
+      kw:"statistics statistical question variability mean median mode fair share balance point dot plot box plot five-number summary quartile range IQR interquartile histogram outlier skewed symmetric shape mean absolute deviation MAD random sample biased sample representative inference prediction population compare groups scatterplot association linear nonlinear trend line residual slope intercept two-way table relative frequency estadística media mediana moda muestra diagrama de caja 统计 平均数 中位数 箱线图 样本",
+      desc:{
+        en:"Decide which questions are statistical; find mean, median and mode by leveling stacks and dragging dots to the balance point; build box plots and histograms; see how outliers pull the mean; draw random samples from a hidden population to make inferences; compare groups with MAD; and fit trend lines and read two-way tables.",
+        es:"Decide qué preguntas son estadísticas; halla la media, la mediana y la moda nivelando torres y arrastrando puntos hasta el punto de equilibrio; construye diagramas de caja e histogramas; observa cómo los valores atípicos jalan la media; toma muestras aleatorias de una población oculta para hacer inferencias; compara grupos con la desviación media absoluta; y ajusta líneas de tendencia y lee tablas de doble entrada.",
+        vi:"Xác định câu hỏi nào là câu hỏi thống kê; tìm số trung bình, trung vị và mốt bằng cách san đều các cột và kéo chấm đến điểm cân bằng; dựng biểu đồ hộp và biểu đồ tần số; xem giá trị ngoại lai kéo số trung bình ra sao; rút mẫu ngẫu nhiên từ một tổng thể ẩn để suy luận; so sánh các nhóm bằng MAD; và vẽ đường xu hướng, đọc bảng hai chiều.",
+        ar:"حدّد الأسئلة الإحصائية؛ وأوجد الوسط الحسابي والوسيط والمنوال بتسوية الأعمدة وسحب النقاط إلى نقطة الاتزان؛ وأنشئ مخططات الصندوق والمدرجات التكرارية؛ ولاحظ كيف تسحب القيم المتطرفة الوسط الحسابي؛ واسحب عينات عشوائية من مجتمع مخفي لتستنتج؛ وقارن المجموعات بمتوسط الانحراف المطلق؛ وارسم خطوط الاتجاه واقرأ الجداول ذات الاتجاهين.",
+        hi:"तय करें कि कौन-से प्रश्न सांख्यिकीय हैं; ढेरों को बराबर करके और बिंदुओं को संतुलन बिंदु तक खींचकर माध्य, माध्यक और बहुलक ज्ञात करें; बॉक्स प्लॉट और आयतचित्र बनाएँ; देखें कि बाहरी मान माध्य को कैसे खींचते हैं; छिपी जनसंख्या से यादृच्छिक प्रतिदर्श लेकर निष्कर्ष निकालें; MAD से समूहों की तुलना करें; और प्रवृत्ति रेखाएँ खींचें तथा द्वि-मार्गी तालिकाएँ पढ़ें।",
+        ur:"طے کریں کہ کون سے سوال شماریاتی ہیں؛ ڈھیروں کو برابر کر کے اور نقطوں کو توازن کے نقطے تک کھینچ کر اوسط، وسطانیہ اور عادہ معلوم کریں؛ باکس پلاٹ اور ہسٹوگرام بنائیں؛ دیکھیں کہ آؤٹ لائر اوسط کو کیسے کھینچتے ہیں؛ چھپی آبادی سے بے ترتیب نمونے لے کر نتائج اخذ کریں؛ MAD سے گروہوں کا موازنہ کریں؛ اور رجحان کی لکیریں بنائیں اور دو طرفہ جدول پڑھیں۔",
+        zh:"判断哪些问题是统计问题；通过把方块堆拉平、把点拖到平衡点来求平均数、中位数和众数；绘制箱线图和直方图；观察离群值如何拉动平均数；从隐藏的总体中抽取随机样本进行推断；用平均绝对偏差比较两组数据；拟合趋势线并阅读双向表。"} }
   ];
 
   return { bands: bands, collections: collections, tools: tools, TAG: TAG };
