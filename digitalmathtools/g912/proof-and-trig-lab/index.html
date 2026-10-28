@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<meta name="description" content="Proof &amp; Trig Lab — a high school Geometry app: triangle congruence and similarity, two-column proofs, right triangle trigonometry, circles, and coordinate geometry. Works offline. No data collected.">
+<meta name="description" content="Proof &amp; Trig Lab — a high school Geometry app: triangle congruence and similarity, two-column proofs, right triangle trigonometry, the Laws of Sines and Cosines, the unit circle, circles, coordinate geometry, and compass-and-straightedge constructions. Works offline. No data collected.">
 <title>Proof &amp; Trig Lab</title>
 <style>
   :root{
@@ -57,6 +57,7 @@
 
   /* Math: always left-to-right, even inside Arabic/Urdu sentences */
   .math{unicode-bidi:isolate;direction:ltr;display:inline;font-weight:800;white-space:nowrap}
+  .math.mw{white-space:normal}
   .math i{font-family:Georgia,'Times New Roman',serif;font-weight:700}
   .fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.05;font-weight:800;margin:0 .08em;white-space:nowrap;font-size:.9em}
   .fr>span{padding:0 .16em}
@@ -79,6 +80,7 @@
   .work:empty{display:none}
   .fig{width:100%;max-width:520px;height:auto;display:block;margin:0 auto;background:#fff;border:2px solid var(--line);border-radius:12px}
   .fig.sm{max-width:360px}
+  .fig{direction:ltr} /* keep labels like 74° in order in Arabic/Urdu */
   .fig text{font:700 17px system-ui,sans-serif;fill:#14231f}
   .fig .vl{font:800 18px system-ui,sans-serif;fill:#14231f;paint-order:stroke;stroke:#fff;stroke-width:4}
   .fig .ml{font:800 16px system-ui,sans-serif;fill:#0b6b58;paint-order:stroke;stroke:#fff;stroke-width:4}
@@ -166,6 +168,20 @@
   footer{max-width:1200px;margin:.5rem auto 2rem;padding:.8rem;color:var(--muted);font-size:.9rem;text-align:center}
   footer a{color:var(--accentD);font-weight:700}
   .stds{font-size:.82rem;color:var(--muted);background:#f4faf8;border:1px dashed var(--line);border-radius:12px;padding:.5rem .7rem;margin-top:.4rem}
+
+  .ucp{cursor:pointer}
+  .ucp .hit{fill:transparent}
+  .ucp .vis{fill:#fff;stroke:#14231f;stroke-width:3}
+  .ucp[tabindex]:hover .vis,.ucp:focus .vis{stroke:var(--focus);fill:#dbeafe}
+  .ucp:focus{outline:none}
+  .ucp:focus-visible .hit{fill:rgba(10,88,202,.22)}
+  .ucp.ok .vis{fill:#16a34a;stroke:#166534}
+  .ucp.bad .vis{fill:#e3a008}
+  .carc{fill:none;stroke:#8e44ad;stroke-width:2.5;stroke-linecap:round}
+  .csteps{margin:.3rem 0 .5rem;padding-inline-start:1.6rem;line-height:1.6}
+  .csteps li{margin:.15rem 0}
+  #c-cons{grid-template-columns:minmax(0,1fr)}
+  #c-cons .choice{justify-content:flex-start;text-align:start;min-height:56px;padding:.5rem .8rem}
 
   .hidden{display:none !important}
   :focus-visible{outline:4px solid var(--focus);outline-offset:2px}
@@ -263,9 +279,9 @@ const T = {
     appTitle:"Proof & Trig Lab", home:"Home", privacy:"Privacy", teacher:"Teacher", modesLbl:"Modes", stars:"Correct answers",
     newRound:"New round", readAloud:"Read aloud", check:"Check", choicesLbl:"Answer choices",
     footNote:"No accounts · No data collected · Works offline",
-    mCong:"Congruence & Similarity", mProof:"Proof Builder", mTrig:"Right Triangle Trig", mCirc:"Circles", mCoord:"Coordinate Geometry",
+    mCong:"Congruence & Similarity", mProof:"Proof Builder", mTrig:"Trigonometry", mCirc:"Circles", mCoord:"Coordinate Geometry",
     teacherTitle:"Teacher settings", close:"Close", setLevel:"Course level", lvF:"Foundations", lvG:"Geometry", lvH:"Honors",
-    levelNote:"Foundations: SSS, SAS, ASA and AAS; short algebraic and triangle proofs; labeling sides and trig ratios; special right triangles; central and inscribed angles; distance and midpoint. Geometry: adds HL, SSA, similarity, longer proofs, solving right triangles (elevation and depression), tangents, chords, arc length, sector area, circle equations, partitions and classifying quadrilaterals. Honors: CPCTC proofs, rationalized radicals, radians, completing the square and missing vertices. Choosing a level resets the options below.",
+    levelNote:"Foundations: SSS, SAS, ASA and AAS; short algebraic and triangle proofs; labeling sides and trig ratios; special right triangles; the unit circle in Quadrant I and on the axes; central and inscribed angles; distance and midpoint; copying a segment, perpendicular bisectors and angle bisectors. Geometry: adds HL, SSA, similarity, the Triangle Proportionality Theorem, geometric means in right triangles, longer proofs, solving right triangles (elevation and depression), the Laws of Sines and Cosines, the whole unit circle, tangents, chords, arc length, sector area, composite areas, circle equations, partitions, classifying quadrilaterals and all seven constructions. Honors: CPCTC proofs, rationalized radicals, radians (also on the unit circle), tangent values, using the Law of Sines to find an angle, completing the square and missing vertices. Choosing a level resets the options below.",
     setRange:"Grid size", setDp:"Round trig answers to", dp0:"the nearest whole number", dp1:"the nearest tenth",
     setModes:"Modes", setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
     setStored:"Settings are saved only on this device. No student information is ever stored.",
@@ -442,7 +458,7 @@ const T = {
     e_trap:"Exactly one pair of opposite sides is parallel: a trapezoid.",
     hMoreSpec:"That name is true, but there is a more specific one. Check for right angles (slopes that are negative reciprocals) and for four equal sides.",
     hCls:"Use the table: parallel sides have equal slopes, perpendicular sides have slopes that are negative reciprocals, and the lengths show which sides are equal.",
-    stds:"Aligned standards — Texas TEKS (Geometry): G.2(A, B), G.6(A, B, C), G.7(A, B), G.9(A, B), G.12(A, B, C, D, E). Common Core: HSG-CO.B.7, HSG-CO.B.8, HSG-CO.C.9, HSG-CO.C.10, HSG-SRT.A.2, HSG-SRT.A.3, HSG-SRT.B.5, HSG-SRT.C.6, HSG-SRT.C.8, HSG-C.A.2, HSG-C.B.5, HSG-GPE.A.1, HSG-GPE.B.4, HSG-GPE.B.5, HSG-GPE.B.6.",
+    stds:"Aligned standards — Texas TEKS (Geometry): G.2(A, B), G.5(B), G.6(A, B, C), G.7(A, B), G.8(A, B), G.9(A, B), G.11(B), G.12(A, B, C, D, E). Common Core: HSG-CO.B.7, HSG-CO.B.8, HSG-CO.C.9, HSG-CO.C.10, HSG-CO.D.12, HSG-SRT.A.2, HSG-SRT.A.3, HSG-SRT.B.5, HSG-SRT.C.6, HSG-SRT.C.8, HSG-SRT.D.11, HSG-C.A.2, HSG-C.B.5, HSG-GPE.A.1, HSG-GPE.B.4, HSG-GPE.B.5, HSG-GPE.B.6, HSF-TF.A.2, HSF-TF.A.3.",
     cardTitle:"Proof & Trig Lab — Challenge Cards", cardName:"Name:",
     cardCong:"Which shortcut proves {st}? Write SSS, SAS, ASA, AAS, HL, or “not enough information,” and explain.",
     cardSim:"{st}. Find the scale factor and x.",
@@ -450,15 +466,128 @@ const T = {
     cardTrig:"Find x to the nearest tenth. Show the trig ratio you used.",
     cardSpecial:"Find x. Give an exact answer in simplest radical form.",
     cardCirc:"Write the equation of the circle.",
-    cardCoord:"Find the distance and the midpoint between A{a} and B{b}."
+    cardCoord:"Find the distance and the midpoint between A{a} and B{b}.",
+    mUnit:"Unit Circle",
+    mCons:"Constructions",
+    figUnit:"Unit circle diagram",
+    figCons:"Construction diagram",
+    wTimes:"times",
+    goodC:"Correct! {c}.",
+    ucTapDir:"Tap the point on the unit circle for {a}.",
+    ucPtLbl:"Point {p}",
+    hUcTap0:"An angle of 0 is the starting point, on the positive x-axis.",
+    hUcTapQ:"{a} is {f} of the way from the {p1} to the {p2}, so its point is in {q}.",
+    hUcTapA:"{a} is {n} counterclockwise from the positive x-axis, so it lands on the {p}.",
+    hUcTapX:"You tapped the point for {x}.",
+    fr13:"one-third",
+    fr12:"half",
+    fr23:"two-thirds",
+    ax0:"positive x-axis",
+    ax90:"positive y-axis",
+    ax180:"negative x-axis",
+    ax270:"negative y-axis",
+    turn1:"a quarter turn",
+    turn2:"a half turn",
+    turn3:"a three-quarter turn",
+    eUcTap:"Correct! The point for {a} is {p}. Its x-coordinate is cos θ and its y-coordinate is sin θ.",
+    ucValDir:"{a}. Find {f}.",
+    ucCoordDir:"{a}. Which point is on the unit circle at this angle?",
+    hUcRef:"The reference angle (the angle between the terminal side and the x-axis) is {r}, so the value has the same size as {e}.",
+    hUcSign:"In {q}, {f} is {sg}.",
+    hUcAxis:"This angle lands on an axis, at the point {p}. cos θ is the x-coordinate and sin θ is the y-coordinate.",
+    hUcAxis2:"This angle lands on an axis, so one coordinate is 0 and the other is 1 or −1. Turn counterclockwise from the positive x-axis.",
+    hUcTan:"Remember: {e}.",
+    hUcTanU:"Here {e}. You can't divide by 0, so {f} is undefined.",
+    hUcPt:"The point is {p}. The reference angle is {r}, and in {q} the signs are {sg}.",
+    eUcVal:"Correct! {e}.",
+    eUcValU:"Correct! {e} is undefined.",
+    eUcPt:"On the unit circle, the point for θ is {p}.",
+    q1:"Quadrant I",
+    q2:"Quadrant II",
+    q3:"Quadrant III",
+    q4:"Quadrant IV",
+    wPos:"positive",
+    wNeg:"negative",
+    lawS:"Law of Sines",
+    lawC:"Law of Cosines",
+    goodLaw:"Correct! By the {l}: {eq}.",
+    hLosS:"You know two angles and the side across from one of them, so use the Law of Sines: {f}. Each side goes with the angle across from it.",
+    hLosA:"You know two sides and the angle across from one of them, so use the Law of Sines: {f}. Then use inverse sine to find θ.",
+    hLocS:"You know two sides and the angle between them (SAS), so use the Law of Cosines: {f}.",
+    hLocA:"You know all three sides (SSS), so use the Law of Cosines solved for the angle: {f}.",
+    lawNote:"Side a is across from angle A, side b is across from angle B, and side c is across from angle C.",
+    eProp:"Correct! A line parallel to one side of a triangle divides the other two sides proportionally: {c}.",
+    hProp:"Because {st}, the Triangle Proportionality Theorem says {r}. Set up that proportion and cross-multiply.",
+    gmDir:"{t} has a right angle at C, and {s} is the altitude to the hypotenuse. Find x.",
+    hGm:"The altitude to the hypotenuse splits the right triangle into two smaller triangles that are similar to it, so their sides are proportional.",
+    rGmAlt:"That makes CD the geometric mean of AD and DB: {r}.",
+    rGmLeg:"That makes AC the geometric mean of AD and AB: {r}.",
+    compDir:"Find the area of the shaded figure. Leave your answer in terms of π.",
+    hCompRS:"Split the figure into a rectangle and a semicircle. The semicircle's diameter is the top of the rectangle, so its radius is half of that: {f}.",
+    hCompSq:"The shaded part is the square minus a quarter circle, and the quarter circle's radius is a side of the square: {f}.",
+    hCompTr:"Split the figure into a rectangle and two semicircles. Together the two semicircles make one whole circle with diameter {d}: {f}.",
+    consDir:"Task: {c}. Use only a compass and a straightedge. Tap the step that comes next.",
+    consNext:"Correct. What comes next?",
+    consDone:"Construction complete!",
+    stepsSoFar:"Steps so far",
+    hOrder:"Not yet: that step uses a point or an arc that is not drawn yet. Look at the figure and choose a step you can do now.",
+    nameDir:"Which construction is shown?",
+    hName:"Look at where the compass point was placed for each arc and at what the last line or ray does. Does it copy, bisect, make a right angle, or make a parallel line? Is the starting point on the line or off it?",
+    cn_seg:"Copy a segment",
+    cn_pb:"Construct the perpendicular bisector of a segment",
+    cn_ab:"Bisect an angle",
+    cn_ang:"Copy an angle",
+    cn_pp:"Construct a perpendicular through a point on a line",
+    cn_po:"Construct a perpendicular from a point not on a line",
+    cn_par:"Construct a parallel line through a point not on a line",
+    cs_seg1:"Put the compass point on A and open the compass until the pencil is on B.",
+    cs_seg2:"Without changing the opening, put the compass point on P and draw an arc that crosses the ray. Label the crossing Q.",
+    cs_pb1:"Open the compass to more than half of AB. Put the point on A and draw an arc above and below the segment.",
+    cs_pb2:"Without changing the opening, put the point on B and draw an arc that crosses the first arc above and below. Label the crossings P and Q.",
+    cs_pb3:"Use the straightedge to draw line PQ.",
+    cs_ab1:"Put the compass point on vertex B and draw an arc that crosses both sides of the angle. Label the crossings D and E.",
+    cs_ab2:"Put the compass point on D and draw an arc inside the angle.",
+    cs_ab3:"Without changing the opening, put the point on E and draw an arc that crosses the last arc. Label the crossing F.",
+    cs_ab4:"Use the straightedge to draw ray BF.",
+    cs_ang1:"Put the compass point on A and draw an arc that crosses both sides of angle A. Label the crossings B and C.",
+    cs_ang2:"Without changing the opening, put the point on P and draw a long arc that crosses the ray. Label the crossing Q.",
+    cs_ang3:"Open the compass to the distance from B to C.",
+    cs_ang4:"Put the compass point on Q and draw an arc that crosses the long arc. Label the crossing R.",
+    cs_ang5:"Use the straightedge to draw ray PR.",
+    cs_pp1:"Put the compass point on P and draw an arc that crosses the line on both sides of P. Label the crossings A and B.",
+    cs_pp2:"Open the compass wider. Put the point on A and draw an arc above P.",
+    cs_pp3:"Without changing the opening, put the point on B and draw an arc that crosses the last arc. Label the crossing Q.",
+    cs_pp4:"Use the straightedge to draw line PQ.",
+    cs_po1:"Put the compass point on P and draw an arc that crosses the line twice. Label the crossings A and B.",
+    cs_po2:"Put the compass point on A and draw an arc on the other side of the line from P.",
+    cs_po3:"Without changing the opening, put the point on B and draw an arc that crosses the last arc. Label the crossing Q.",
+    cs_po4:"Use the straightedge to draw line PQ.",
+    cs_par1:"Draw a line through P that crosses line ℓ. Label the crossing Q.",
+    cs_par2:"Put the compass point on Q and draw an arc that crosses both lines. Label the crossings A (on ℓ) and B (on the new line).",
+    cs_par3:"Without changing the opening, put the point on P and draw the same kind of arc. Label the point where it crosses the new line C.",
+    cs_par4:"Open the compass to the distance from B to A. Put the point on C and draw an arc that crosses the last arc. Label the crossing D.",
+    cs_par5:"Use the straightedge to draw line PD.",
+    dRuler:"Measure with a ruler and mark the point halfway.",
+    dProt:"Measure the angle with a protractor.",
+    dOpen:"Change the compass opening before drawing the next arc.",
+    hdRuler:"A compass-and-straightedge construction doesn't use measurements. The compass copies lengths, and the straightedge only draws lines.",
+    hdProt:"A compass-and-straightedge construction doesn't use a protractor. The compass copies distances, and equal distances make congruent angles.",
+    hdOpen:"Keep the same compass opening. Equal arcs from A and from B make each crossing point the same distance from both endpoints — that is why the construction works.",
+    cw_seg:"{s}: the compass kept the length of AB and moved it onto the ray.",
+    cw_pb:"Line PQ is the perpendicular bisector of AB. P and Q are each the same distance from A and from B, and every point that is the same distance from both endpoints lies on the perpendicular bisector.",
+    cw_ab:"Ray BF bisects angle B. The arcs make BD = BE and DF = EF, so {s} by SSS, and the two angles at B are congruent.",
+    cw_ang:"{s}. The arcs make two triangles that are congruent by SSS, so their angles at A and at P are congruent.",
+    cw_pp:"Line PQ is perpendicular to the line. P is the same distance from A and B, and so is Q, so line PQ is the perpendicular bisector of AB.",
+    cw_po:"Line PQ is perpendicular to the line. P and Q are each the same distance from A and from B, so line PQ is the perpendicular bisector of AB.",
+    cw_par:"Line PD is parallel to ℓ. The construction copied the angle at Q to point P, and when corresponding angles are congruent, the lines are parallel."
   },
   es:{
     appTitle:"Laboratorio de demostraciones y trigonometría", home:"Inicio", privacy:"Privacidad", teacher:"Docente", modesLbl:"Modos", stars:"Respuestas correctas",
     newRound:"Nueva ronda", readAloud:"Leer en voz alta", check:"Comprobar", choicesLbl:"Opciones de respuesta",
     footNote:"Sin cuentas · No se recopilan datos · Funciona sin conexión",
-    mCong:"Congruencia y semejanza", mProof:"Constructor de demostraciones", mTrig:"Trigonometría del triángulo rectángulo", mCirc:"Círculos", mCoord:"Geometría de coordenadas",
+    mCong:"Congruencia y semejanza", mProof:"Constructor de demostraciones", mTrig:"Trigonometría", mCirc:"Círculos", mCoord:"Geometría de coordenadas",
     teacherTitle:"Configuración del docente", close:"Cerrar", setLevel:"Nivel del curso", lvF:"Fundamentos", lvG:"Geometría", lvH:"Honores",
-    levelNote:"Fundamentos: SSS, SAS, ASA y AAS; demostraciones algebraicas y de triángulos cortas; identificación de lados y razones trigonométricas; triángulos rectángulos especiales; ángulos centrales e inscritos; distancia y punto medio. Geometría: añade HL, SSA, semejanza, demostraciones más largas, resolución de triángulos rectángulos (elevación y depresión), tangentes, cuerdas, longitud de arco, área de sector, ecuaciones de círculos, particiones y clasificación de cuadriláteros. Honores: demostraciones con CPCTC (partes correspondientes de triángulos congruentes son congruentes), radicales racionalizados, radianes, completar el cuadrado y vértices faltantes. Al elegir un nivel se restablecen las opciones de abajo.",
+    levelNote:"Fundamentos: SSS, SAS, ASA y AAS; demostraciones algebraicas y de triángulos cortas; identificación de lados y razones trigonométricas; triángulos rectángulos especiales; el círculo unitario en el cuadrante I y sobre los ejes; ángulos centrales e inscritos; distancia y punto medio; copiar un segmento, mediatrices y bisectrices. Geometría: añade HL, SSA, semejanza, el teorema de proporcionalidad de triángulos, medias geométricas en triángulos rectángulos, demostraciones más largas, resolución de triángulos rectángulos (elevación y depresión), la ley de los senos y la ley de los cosenos, el círculo unitario completo, tangentes, cuerdas, longitud de arco, área de sector, áreas compuestas, ecuaciones de círculos, particiones, clasificación de cuadriláteros y las siete construcciones. Honores: demostraciones con CPCTC (partes correspondientes de triángulos congruentes son congruentes), radicales racionalizados, radianes (también en el círculo unitario), valores de la tangente, usar la ley de los senos para hallar un ángulo, completar el cuadrado y vértices faltantes. Al elegir un nivel se restablecen las opciones de abajo.",
     setRange:"Tamaño de la cuadrícula", setDp:"Redondear respuestas trigonométricas a", dp0:"el número entero más cercano", dp1:"la décima más cercana",
     setModes:"Modos", setSpeech:"Voz", autoRead:"Leer instrucciones automáticamente", printCards:"Imprimir tarjetas de desafío",
     setStored:"La configuración se guarda solo en este dispositivo. Nunca se almacena información de los estudiantes.",
@@ -635,7 +764,7 @@ const T = {
     e_trap:"Exactamente un par de lados opuestos es paralelo: un trapecio.",
     hMoreSpec:"Ese nombre es correcto, pero hay uno más específico. Busca ángulos rectos (pendientes que son recíprocas opuestas) y cuatro lados iguales.",
     hCls:"Usa la tabla: los lados paralelos tienen pendientes iguales, los lados perpendiculares tienen pendientes que son recíprocas opuestas y las longitudes muestran qué lados son iguales.",
-    stds:"Estándares alineados — TEKS de Texas (Geometría): G.2(A, B), G.6(A, B, C), G.7(A, B), G.9(A, B), G.12(A, B, C, D, E). Common Core: HSG-CO.B.7, HSG-CO.B.8, HSG-CO.C.9, HSG-CO.C.10, HSG-SRT.A.2, HSG-SRT.A.3, HSG-SRT.B.5, HSG-SRT.C.6, HSG-SRT.C.8, HSG-C.A.2, HSG-C.B.5, HSG-GPE.A.1, HSG-GPE.B.4, HSG-GPE.B.5, HSG-GPE.B.6.",
+    stds:"Estándares alineados — TEKS de Texas (Geometría): G.2(A, B), G.5(B), G.6(A, B, C), G.7(A, B), G.8(A, B), G.9(A, B), G.11(B), G.12(A, B, C, D, E). Common Core: HSG-CO.B.7, HSG-CO.B.8, HSG-CO.C.9, HSG-CO.C.10, HSG-CO.D.12, HSG-SRT.A.2, HSG-SRT.A.3, HSG-SRT.B.5, HSG-SRT.C.6, HSG-SRT.C.8, HSG-SRT.D.11, HSG-C.A.2, HSG-C.B.5, HSG-GPE.A.1, HSG-GPE.B.4, HSG-GPE.B.5, HSG-GPE.B.6, HSF-TF.A.2, HSF-TF.A.3.",
     cardTitle:"Laboratorio de demostraciones y trigonometría — Tarjetas de desafío", cardName:"Nombre:",
     cardCong:"¿Qué criterio demuestra {st}? Escribe SSS, SAS, ASA, AAS, HL o “no hay suficiente información”, y explica.",
     cardSim:"{st}. Halla el factor de escala y x.",
@@ -643,15 +772,128 @@ const T = {
     cardTrig:"Halla x a la décima más cercana. Muestra la razón trigonométrica que usaste.",
     cardSpecial:"Halla x. Da una respuesta exacta en su forma radical más simple.",
     cardCirc:"Escribe la ecuación del círculo.",
-    cardCoord:"Halla la distancia y el punto medio entre A{a} y B{b}."
+    cardCoord:"Halla la distancia y el punto medio entre A{a} y B{b}.",
+    mUnit:"Círculo unitario",
+    mCons:"Construcciones",
+    figUnit:"Diagrama del círculo unitario",
+    figCons:"Diagrama de la construcción",
+    wTimes:"por",
+    goodC:"¡Correcto! {c}.",
+    ucTapDir:"Toca el punto del círculo unitario que corresponde a {a}.",
+    ucPtLbl:"Punto {p}",
+    hUcTap0:"Un ángulo de 0 es el punto de partida, sobre el eje x positivo.",
+    hUcTapQ:"{a} está a {f} del camino desde el {p1} hasta el {p2}, así que su punto está en el {q}.",
+    hUcTapA:"{a} es {n} en sentido contrario a las agujas del reloj desde el eje x positivo, así que cae sobre el {p}.",
+    hUcTapX:"Tocaste el punto de {x}.",
+    fr13:"un tercio",
+    fr12:"la mitad",
+    fr23:"dos tercios",
+    ax0:"eje x positivo",
+    ax90:"eje y positivo",
+    ax180:"eje x negativo",
+    ax270:"eje y negativo",
+    turn1:"un cuarto de vuelta",
+    turn2:"media vuelta",
+    turn3:"tres cuartos de vuelta",
+    eUcTap:"¡Correcto! El punto de {a} es {p}. Su coordenada x es cos θ y su coordenada y es sen θ.",
+    ucValDir:"{a}. Halla {f}.",
+    ucCoordDir:"{a}. ¿Qué punto está en el círculo unitario con este ángulo?",
+    hUcRef:"El ángulo de referencia (el ángulo entre el lado terminal y el eje x) es {r}, así que el valor tiene el mismo tamaño que {e}.",
+    hUcSign:"En el {q}, {f} es {sg}.",
+    hUcAxis:"Este ángulo cae sobre un eje, en el punto {p}. cos θ es la coordenada x y sen θ es la coordenada y.",
+    hUcAxis2:"Este ángulo cae sobre un eje, así que una coordenada es 0 y la otra es 1 o −1. Gira en sentido contrario a las agujas del reloj desde el eje x positivo.",
+    hUcTan:"Recuerda: {e}.",
+    hUcTanU:"Aquí {e}. No se puede dividir entre 0, así que {f} no está definida.",
+    hUcPt:"El punto es {p}. El ángulo de referencia es {r}, y en el {q} los signos son {sg}.",
+    eUcVal:"¡Correcto! {e}.",
+    eUcValU:"¡Correcto! {e} no está definida.",
+    eUcPt:"En el círculo unitario, el punto de θ es {p}.",
+    q1:"cuadrante I",
+    q2:"cuadrante II",
+    q3:"cuadrante III",
+    q4:"cuadrante IV",
+    wPos:"positivo",
+    wNeg:"negativo",
+    lawS:"ley de los senos",
+    lawC:"ley de los cosenos",
+    goodLaw:"¡Correcto! Por la {l}: {eq}.",
+    hLosS:"Conoces dos ángulos y el lado opuesto a uno de ellos, así que usa la ley de los senos: {f}. Cada lado va con el ángulo opuesto a él.",
+    hLosA:"Conoces dos lados y el ángulo opuesto a uno de ellos, así que usa la ley de los senos: {f}. Luego usa el seno inverso para hallar θ.",
+    hLocS:"Conoces dos lados y el ángulo entre ellos (SAS), así que usa la ley de los cosenos: {f}.",
+    hLocA:"Conoces los tres lados (SSS), así que usa la ley de los cosenos despejada para el ángulo: {f}.",
+    lawNote:"El lado a es opuesto al ángulo A, el lado b es opuesto al ángulo B y el lado c es opuesto al ángulo C.",
+    eProp:"¡Correcto! Una recta paralela a un lado de un triángulo divide los otros dos lados en partes proporcionales: {c}.",
+    hProp:"Como {st}, el teorema de proporcionalidad de triángulos dice que {r}. Plantea esa proporción y multiplica en cruz.",
+    gmDir:"{t} tiene un ángulo recto en C, y {s} es la altura sobre la hipotenusa. Halla x.",
+    hGm:"La altura sobre la hipotenusa divide el triángulo rectángulo en dos triángulos más pequeños semejantes a él, así que sus lados son proporcionales.",
+    rGmAlt:"Por eso CD es la media geométrica de AD y DB: {r}.",
+    rGmLeg:"Por eso AC es la media geométrica de AD y AB: {r}.",
+    compDir:"Halla el área de la figura sombreada. Deja tu respuesta en términos de π.",
+    hCompRS:"Divide la figura en un rectángulo y un semicírculo. El diámetro del semicírculo es el lado de arriba del rectángulo, así que su radio es la mitad: {f}.",
+    hCompSq:"La parte sombreada es el cuadrado menos un cuarto de círculo, y el radio del cuarto de círculo es un lado del cuadrado: {f}.",
+    hCompTr:"Divide la figura en un rectángulo y dos semicírculos. Juntos, los dos semicírculos forman un círculo completo de diámetro {d}: {f}.",
+    consDir:"Tarea: {c}. Usa solo un compás y una regla sin marcas. Toca el paso que sigue.",
+    consNext:"Correcto. ¿Qué sigue?",
+    consDone:"¡Construcción terminada!",
+    stepsSoFar:"Pasos hasta ahora",
+    hOrder:"Todavía no: ese paso usa un punto o un arco que aún no está dibujado. Mira la figura y elige un paso que puedas hacer ahora.",
+    nameDir:"¿Qué construcción se muestra?",
+    hName:"Fíjate dónde se colocó la punta del compás para cada arco y qué hace la última recta o semirrecta. ¿Copia, biseca, forma un ángulo recto o forma una paralela? ¿El punto de partida está sobre la recta o fuera de ella?",
+    cn_seg:"Copiar un segmento",
+    cn_pb:"Construir la mediatriz de un segmento",
+    cn_ab:"Bisecar un ángulo",
+    cn_ang:"Copiar un ángulo",
+    cn_pp:"Construir una perpendicular por un punto de una recta",
+    cn_po:"Construir una perpendicular desde un punto fuera de una recta",
+    cn_par:"Construir una paralela por un punto fuera de una recta",
+    cs_seg1:"Coloca la punta del compás en A y ábrelo hasta que el lápiz quede en B.",
+    cs_seg2:"Sin cambiar la abertura, coloca la punta del compás en P y traza un arco que corte la semirrecta. Llama Q al punto de corte.",
+    cs_pb1:"Abre el compás a más de la mitad de AB. Coloca la punta en A y traza un arco por encima y por debajo del segmento.",
+    cs_pb2:"Sin cambiar la abertura, coloca la punta en B y traza un arco que corte el primero arriba y abajo. Llama P y Q a los puntos de corte.",
+    cs_pb3:"Con la regla, traza la recta PQ.",
+    cs_ab1:"Coloca la punta del compás en el vértice B y traza un arco que corte los dos lados del ángulo. Llama D y E a los puntos de corte.",
+    cs_ab2:"Coloca la punta del compás en D y traza un arco dentro del ángulo.",
+    cs_ab3:"Sin cambiar la abertura, coloca la punta en E y traza un arco que corte el arco anterior. Llama F al punto de corte.",
+    cs_ab4:"Con la regla, traza la semirrecta BF.",
+    cs_ang1:"Coloca la punta del compás en A y traza un arco que corte los dos lados del ángulo A. Llama B y C a los puntos de corte.",
+    cs_ang2:"Sin cambiar la abertura, coloca la punta en P y traza un arco largo que corte la semirrecta. Llama Q al punto de corte.",
+    cs_ang3:"Abre el compás a la distancia de B a C.",
+    cs_ang4:"Coloca la punta del compás en Q y traza un arco que corte el arco largo. Llama R al punto de corte.",
+    cs_ang5:"Con la regla, traza la semirrecta PR.",
+    cs_pp1:"Coloca la punta del compás en P y traza un arco que corte la recta a ambos lados de P. Llama A y B a los puntos de corte.",
+    cs_pp2:"Abre más el compás. Coloca la punta en A y traza un arco por encima de P.",
+    cs_pp3:"Sin cambiar la abertura, coloca la punta en B y traza un arco que corte el arco anterior. Llama Q al punto de corte.",
+    cs_pp4:"Con la regla, traza la recta PQ.",
+    cs_po1:"Coloca la punta del compás en P y traza un arco que corte la recta dos veces. Llama A y B a los puntos de corte.",
+    cs_po2:"Coloca la punta del compás en A y traza un arco al otro lado de la recta, lejos de P.",
+    cs_po3:"Sin cambiar la abertura, coloca la punta en B y traza un arco que corte el arco anterior. Llama Q al punto de corte.",
+    cs_po4:"Con la regla, traza la recta PQ.",
+    cs_par1:"Traza una recta por P que corte la recta ℓ. Llama Q al punto de corte.",
+    cs_par2:"Coloca la punta del compás en Q y traza un arco que corte las dos rectas. Llama A (en ℓ) y B (en la recta nueva) a los puntos de corte.",
+    cs_par3:"Sin cambiar la abertura, coloca la punta en P y traza el mismo tipo de arco. Llama C al punto donde corta la recta nueva.",
+    cs_par4:"Abre el compás a la distancia de B a A. Coloca la punta en C y traza un arco que corte el arco anterior. Llama D al punto de corte.",
+    cs_par5:"Con la regla, traza la recta PD.",
+    dRuler:"Mide con una regla y marca el punto de la mitad.",
+    dProt:"Mide el ángulo con un transportador.",
+    dOpen:"Cambia la abertura del compás antes de trazar el siguiente arco.",
+    hdRuler:"Una construcción con compás y regla no usa medidas. El compás copia longitudes y la regla solo traza rectas.",
+    hdProt:"Una construcción con compás y regla no usa transportador. El compás copia distancias, y las distancias iguales forman ángulos congruentes.",
+    hdOpen:"Mantén la misma abertura del compás. Arcos iguales desde A y desde B hacen que cada punto de corte esté a la misma distancia de los dos extremos; por eso funciona la construcción.",
+    cw_seg:"{s}: el compás conservó la longitud de AB y la trasladó a la semirrecta.",
+    cw_pb:"La recta PQ es la mediatriz de AB. P y Q están cada uno a la misma distancia de A y de B, y todo punto que está a la misma distancia de los dos extremos está en la mediatriz.",
+    cw_ab:"La semirrecta BF biseca el ángulo B. Los arcos hacen que BD = BE y DF = EF, así que {s} por SSS, y los dos ángulos en B son congruentes.",
+    cw_ang:"{s}. Los arcos forman dos triángulos congruentes por SSS, así que sus ángulos en A y en P son congruentes.",
+    cw_pp:"La recta PQ es perpendicular a la recta. P está a la misma distancia de A y de B, y Q también, así que la recta PQ es la mediatriz de AB.",
+    cw_po:"La recta PQ es perpendicular a la recta. P y Q están cada uno a la misma distancia de A y de B, así que la recta PQ es la mediatriz de AB.",
+    cw_par:"La recta PD es paralela a ℓ. La construcción copió el ángulo de Q en el punto P, y cuando los ángulos correspondientes son congruentes, las rectas son paralelas."
   },
   vi:{
     appTitle:"Phòng thí nghiệm Chứng minh & Lượng giác", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", modesLbl:"Chế độ", stars:"Số câu đúng",
     newRound:"Lượt mới", readAloud:"Đọc to", check:"Kiểm tra", choicesLbl:"Các lựa chọn",
     footNote:"Không cần tài khoản · Không thu thập dữ liệu · Dùng được khi ngoại tuyến",
-    mCong:"Bằng nhau & Đồng dạng", mProof:"Xây dựng chứng minh", mTrig:"Lượng giác tam giác vuông", mCirc:"Đường tròn", mCoord:"Hình học tọa độ",
+    mCong:"Bằng nhau & Đồng dạng", mProof:"Xây dựng chứng minh", mTrig:"Lượng giác", mCirc:"Đường tròn", mCoord:"Hình học tọa độ",
     teacherTitle:"Cài đặt cho giáo viên", close:"Đóng", setLevel:"Cấp độ khóa học", lvF:"Cơ bản", lvG:"Hình học", lvH:"Nâng cao",
-    levelNote:"Cơ bản: SSS, SAS, ASA và AAS; chứng minh đại số và chứng minh tam giác ngắn; gọi tên cạnh và tỉ số lượng giác; tam giác vuông đặc biệt; góc ở tâm và góc nội tiếp; khoảng cách và trung điểm. Hình học: thêm HL, SSA, đồng dạng, chứng minh dài hơn, giải tam giác vuông (góc nâng và góc hạ), tiếp tuyến, dây cung, độ dài cung, diện tích hình quạt, phương trình đường tròn, chia đoạn thẳng theo tỉ số và phân loại tứ giác. Nâng cao: chứng minh dùng CPCTC, trục căn thức ở mẫu, radian, phương pháp bổ sung thành bình phương và tìm đỉnh còn thiếu. Khi chọn cấp độ, các tùy chọn bên dưới sẽ được đặt lại.",
+    levelNote:"Cơ bản: SSS, SAS, ASA và AAS; chứng minh đại số và chứng minh tam giác ngắn; gọi tên cạnh và tỉ số lượng giác; tam giác vuông đặc biệt; đường tròn đơn vị ở góc phần tư thứ I và trên các trục; góc ở tâm và góc nội tiếp; khoảng cách và trung điểm; dựng đoạn thẳng bằng đoạn cho trước, đường trung trực và tia phân giác. Hình học: thêm HL, SSA, đồng dạng, định lý Ta-lét trong tam giác, trung bình nhân trong tam giác vuông, chứng minh dài hơn, giải tam giác vuông (góc nâng và góc hạ), định lý sin và định lý côsin, toàn bộ đường tròn đơn vị, tiếp tuyến, dây cung, độ dài cung, diện tích hình quạt, diện tích hình ghép, phương trình đường tròn, chia đoạn thẳng theo tỉ số, phân loại tứ giác và cả bảy phép dựng hình. Nâng cao: chứng minh dùng CPCTC, trục căn thức ở mẫu, radian (cả trên đường tròn đơn vị), giá trị tang, dùng định lý sin để tìm góc, phương pháp bổ sung thành bình phương và tìm đỉnh còn thiếu. Khi chọn cấp độ, các tùy chọn bên dưới sẽ được đặt lại.",
     setRange:"Kích thước lưới", setDp:"Làm tròn đáp số lượng giác đến", dp0:"số nguyên gần nhất", dp1:"hàng phần mười",
     setModes:"Chế độ", setSpeech:"Giọng đọc", autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
     setStored:"Cài đặt chỉ được lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
@@ -828,7 +1070,7 @@ const T = {
     e_trap:"Có đúng một cặp cạnh đối song song: hình thang.",
     hMoreSpec:"Tên đó đúng, nhưng còn có tên cụ thể hơn. Hãy kiểm tra góc vuông (hệ số góc có tích bằng −1, tức là nghịch đảo đối của nhau) và bốn cạnh bằng nhau.",
     hCls:"Dùng bảng: các cạnh song song có hệ số góc bằng nhau, các cạnh vuông góc có hệ số góc là nghịch đảo đối của nhau, và độ dài cho biết những cạnh nào bằng nhau.",
-    stds:"Chuẩn được liên kết — Texas TEKS (Hình học): G.2(A, B), G.6(A, B, C), G.7(A, B), G.9(A, B), G.12(A, B, C, D, E). Common Core: HSG-CO.B.7, HSG-CO.B.8, HSG-CO.C.9, HSG-CO.C.10, HSG-SRT.A.2, HSG-SRT.A.3, HSG-SRT.B.5, HSG-SRT.C.6, HSG-SRT.C.8, HSG-C.A.2, HSG-C.B.5, HSG-GPE.A.1, HSG-GPE.B.4, HSG-GPE.B.5, HSG-GPE.B.6.",
+    stds:"Chuẩn được liên kết — Texas TEKS (Hình học): G.2(A, B), G.5(B), G.6(A, B, C), G.7(A, B), G.8(A, B), G.9(A, B), G.11(B), G.12(A, B, C, D, E). Common Core: HSG-CO.B.7, HSG-CO.B.8, HSG-CO.C.9, HSG-CO.C.10, HSG-CO.D.12, HSG-SRT.A.2, HSG-SRT.A.3, HSG-SRT.B.5, HSG-SRT.C.6, HSG-SRT.C.8, HSG-SRT.D.11, HSG-C.A.2, HSG-C.B.5, HSG-GPE.A.1, HSG-GPE.B.4, HSG-GPE.B.5, HSG-GPE.B.6, HSF-TF.A.2, HSF-TF.A.3.",
     cardTitle:"Phòng thí nghiệm Chứng minh & Lượng giác — Thẻ thử thách", cardName:"Họ tên:",
     cardCong:"Trường hợp nào chứng minh được {st}? Viết SSS, SAS, ASA, AAS, HL, hoặc “không đủ thông tin”, và giải thích.",
     cardSim:"{st}. Tìm tỉ số đồng dạng và x.",
@@ -836,15 +1078,128 @@ const T = {
     cardTrig:"Tìm x, làm tròn đến hàng phần mười. Ghi rõ tỉ số lượng giác bạn đã dùng.",
     cardSpecial:"Tìm x. Viết đáp số chính xác ở dạng căn thức tối giản.",
     cardCirc:"Viết phương trình của đường tròn.",
-    cardCoord:"Tìm khoảng cách và trung điểm giữa A{a} và B{b}."
+    cardCoord:"Tìm khoảng cách và trung điểm giữa A{a} và B{b}.",
+    mUnit:"Đường tròn đơn vị",
+    mCons:"Dựng hình",
+    figUnit:"Hình vẽ đường tròn đơn vị",
+    figCons:"Hình vẽ dựng hình",
+    wTimes:"nhân",
+    goodC:"Chính xác! {c}.",
+    ucTapDir:"Chạm vào điểm trên đường tròn đơn vị ứng với {a}.",
+    ucPtLbl:"Điểm {p}",
+    hUcTap0:"Góc 0 là điểm xuất phát, nằm trên trục x dương.",
+    hUcTapQ:"{a} là {f} chặng quay từ {p1} đến {p2}, nên điểm của nó nằm ở {q}.",
+    hUcTapA:"{a} là {n} ngược chiều kim đồng hồ tính từ trục x dương, nên điểm rơi trên {p}.",
+    hUcTapX:"Em đã chạm vào điểm ứng với {x}.",
+    fr13:"một phần ba",
+    fr12:"một nửa",
+    fr23:"hai phần ba",
+    ax0:"trục x dương",
+    ax90:"trục y dương",
+    ax180:"trục x âm",
+    ax270:"trục y âm",
+    turn1:"một phần tư vòng",
+    turn2:"nửa vòng",
+    turn3:"ba phần tư vòng",
+    eUcTap:"Chính xác! Điểm ứng với {a} là {p}. Hoành độ của nó là cos θ và tung độ của nó là sin θ.",
+    ucValDir:"{a}. Tìm {f}.",
+    ucCoordDir:"{a}. Điểm nào trên đường tròn đơn vị ứng với góc này?",
+    hUcRef:"Góc tham chiếu (góc giữa cạnh cuối và trục x) là {r}, nên giá trị có cùng độ lớn với {e}.",
+    hUcSign:"Ở {q}, {f} mang dấu {sg}.",
+    hUcAxis:"Góc này rơi đúng trên một trục, tại điểm {p}. cos θ là hoành độ và sin θ là tung độ.",
+    hUcAxis2:"Góc này rơi đúng trên một trục, nên một tọa độ bằng 0 và tọa độ kia bằng 1 hoặc −1. Hãy quay ngược chiều kim đồng hồ từ trục x dương.",
+    hUcTan:"Hãy nhớ: {e}.",
+    hUcTanU:"Ở đây {e}. Không thể chia cho 0, nên {f} không xác định.",
+    hUcPt:"Điểm đó là {p}. Góc tham chiếu là {r}, và ở {q} các dấu là {sg}.",
+    eUcVal:"Chính xác! {e}.",
+    eUcValU:"Chính xác! {e} không xác định.",
+    eUcPt:"Trên đường tròn đơn vị, điểm ứng với θ là {p}.",
+    q1:"góc phần tư thứ I",
+    q2:"góc phần tư thứ II",
+    q3:"góc phần tư thứ III",
+    q4:"góc phần tư thứ IV",
+    wPos:"dương",
+    wNeg:"âm",
+    lawS:"định lý sin",
+    lawC:"định lý côsin",
+    goodLaw:"Chính xác! Theo {l}: {eq}.",
+    hLosS:"Em biết hai góc và cạnh đối diện với một trong hai góc đó, nên hãy dùng định lý sin: {f}. Mỗi cạnh đi cùng với góc đối diện nó.",
+    hLosA:"Em biết hai cạnh và góc đối diện với một trong hai cạnh đó, nên hãy dùng định lý sin: {f}. Sau đó dùng hàm sin ngược để tìm θ.",
+    hLocS:"Em biết hai cạnh và góc xen giữa chúng (SAS), nên hãy dùng định lý côsin: {f}.",
+    hLocA:"Em biết cả ba cạnh (SSS), nên hãy dùng định lý côsin viết lại để tính góc: {f}.",
+    lawNote:"Cạnh a đối diện góc A, cạnh b đối diện góc B và cạnh c đối diện góc C.",
+    eProp:"Chính xác! Một đường thẳng song song với một cạnh của tam giác chia hai cạnh còn lại thành những đoạn tỉ lệ: {c}.",
+    hProp:"Vì {st}, định lý Ta-lét trong tam giác cho biết {r}. Hãy lập tỉ lệ thức đó rồi nhân chéo.",
+    gmDir:"{t} vuông tại C, và {s} là đường cao ứng với cạnh huyền. Tìm x.",
+    hGm:"Đường cao ứng với cạnh huyền chia tam giác vuông thành hai tam giác nhỏ hơn đồng dạng với nó, nên các cạnh của chúng tỉ lệ với nhau.",
+    rGmAlt:"Vì vậy CD là trung bình nhân của AD và DB: {r}.",
+    rGmLeg:"Vì vậy AC là trung bình nhân của AD và AB: {r}.",
+    compDir:"Tìm diện tích phần được tô màu. Để đáp án dưới dạng có π.",
+    hCompRS:"Chia hình thành một hình chữ nhật và một nửa hình tròn. Đường kính của nửa hình tròn là cạnh trên của hình chữ nhật, nên bán kính bằng một nửa cạnh đó: {f}.",
+    hCompSq:"Phần tô màu là hình vuông trừ đi một phần tư hình tròn, và bán kính của phần tư hình tròn bằng cạnh hình vuông: {f}.",
+    hCompTr:"Chia hình thành một hình chữ nhật và hai nửa hình tròn. Hai nửa hình tròn ghép lại thành một hình tròn đầy đủ có đường kính {d}: {f}.",
+    consDir:"Nhiệm vụ: {c}. Chỉ dùng com-pa và thước thẳng không chia vạch. Chạm vào bước tiếp theo.",
+    consNext:"Chính xác. Bước tiếp theo là gì?",
+    consDone:"Đã dựng xong!",
+    stepsSoFar:"Các bước đã làm",
+    hOrder:"Chưa được: bước đó dùng một điểm hoặc một cung chưa được vẽ. Hãy nhìn hình và chọn một bước em có thể làm ngay bây giờ.",
+    nameDir:"Hình vẽ là phép dựng nào?",
+    hName:"Hãy xem mũi nhọn com-pa được đặt ở đâu khi vẽ mỗi cung, và đường thẳng hoặc tia cuối cùng làm gì. Nó sao chép, chia đôi, tạo góc vuông hay tạo đường song song? Điểm ban đầu nằm trên đường thẳng hay nằm ngoài?",
+    cn_seg:"Dựng đoạn thẳng bằng đoạn cho trước",
+    cn_pb:"Dựng đường trung trực của một đoạn thẳng",
+    cn_ab:"Dựng tia phân giác của một góc",
+    cn_ang:"Dựng góc bằng góc cho trước",
+    cn_pp:"Dựng đường vuông góc đi qua một điểm trên đường thẳng",
+    cn_po:"Dựng đường vuông góc từ một điểm nằm ngoài đường thẳng",
+    cn_par:"Dựng đường song song đi qua một điểm nằm ngoài đường thẳng",
+    cs_seg1:"Đặt mũi nhọn com-pa tại A và mở com-pa cho đến khi đầu bút chì chạm B.",
+    cs_seg2:"Giữ nguyên độ mở, đặt mũi nhọn tại P và vẽ một cung cắt tia. Đặt tên giao điểm là Q.",
+    cs_pb1:"Mở com-pa lớn hơn một nửa AB. Đặt mũi nhọn tại A và vẽ một cung ở phía trên và phía dưới đoạn thẳng.",
+    cs_pb2:"Giữ nguyên độ mở, đặt mũi nhọn tại B và vẽ một cung cắt cung thứ nhất ở phía trên và phía dưới. Đặt tên các giao điểm là P và Q.",
+    cs_pb3:"Dùng thước thẳng vẽ đường thẳng PQ.",
+    cs_ab1:"Đặt mũi nhọn com-pa tại đỉnh B và vẽ một cung cắt cả hai cạnh của góc. Đặt tên các giao điểm là D và E.",
+    cs_ab2:"Đặt mũi nhọn com-pa tại D và vẽ một cung ở bên trong góc.",
+    cs_ab3:"Giữ nguyên độ mở, đặt mũi nhọn tại E và vẽ một cung cắt cung vừa vẽ. Đặt tên giao điểm là F.",
+    cs_ab4:"Dùng thước thẳng vẽ tia BF.",
+    cs_ang1:"Đặt mũi nhọn com-pa tại A và vẽ một cung cắt cả hai cạnh của góc A. Đặt tên các giao điểm là B và C.",
+    cs_ang2:"Giữ nguyên độ mở, đặt mũi nhọn tại P và vẽ một cung dài cắt tia. Đặt tên giao điểm là Q.",
+    cs_ang3:"Mở com-pa bằng khoảng cách từ B đến C.",
+    cs_ang4:"Đặt mũi nhọn com-pa tại Q và vẽ một cung cắt cung dài. Đặt tên giao điểm là R.",
+    cs_ang5:"Dùng thước thẳng vẽ tia PR.",
+    cs_pp1:"Đặt mũi nhọn com-pa tại P và vẽ một cung cắt đường thẳng ở hai phía của P. Đặt tên các giao điểm là A và B.",
+    cs_pp2:"Mở com-pa rộng hơn. Đặt mũi nhọn tại A và vẽ một cung ở phía trên P.",
+    cs_pp3:"Giữ nguyên độ mở, đặt mũi nhọn tại B và vẽ một cung cắt cung vừa vẽ. Đặt tên giao điểm là Q.",
+    cs_pp4:"Dùng thước thẳng vẽ đường thẳng PQ.",
+    cs_po1:"Đặt mũi nhọn com-pa tại P và vẽ một cung cắt đường thẳng tại hai điểm. Đặt tên các giao điểm là A và B.",
+    cs_po2:"Đặt mũi nhọn com-pa tại A và vẽ một cung ở phía bên kia đường thẳng so với P.",
+    cs_po3:"Giữ nguyên độ mở, đặt mũi nhọn tại B và vẽ một cung cắt cung vừa vẽ. Đặt tên giao điểm là Q.",
+    cs_po4:"Dùng thước thẳng vẽ đường thẳng PQ.",
+    cs_par1:"Vẽ một đường thẳng đi qua P và cắt đường thẳng ℓ. Đặt tên giao điểm là Q.",
+    cs_par2:"Đặt mũi nhọn com-pa tại Q và vẽ một cung cắt cả hai đường thẳng. Đặt tên các giao điểm là A (trên ℓ) và B (trên đường thẳng mới).",
+    cs_par3:"Giữ nguyên độ mở, đặt mũi nhọn tại P và vẽ một cung tương tự. Đặt tên điểm cung cắt đường thẳng mới là C.",
+    cs_par4:"Mở com-pa bằng khoảng cách từ B đến A. Đặt mũi nhọn tại C và vẽ một cung cắt cung vừa vẽ. Đặt tên giao điểm là D.",
+    cs_par5:"Dùng thước thẳng vẽ đường thẳng PD.",
+    dRuler:"Đo bằng thước có vạch và đánh dấu điểm ở chính giữa.",
+    dProt:"Đo góc bằng thước đo góc.",
+    dOpen:"Thay đổi độ mở com-pa trước khi vẽ cung tiếp theo.",
+    hdRuler:"Phép dựng bằng com-pa và thước thẳng không dùng số đo. Com-pa sao chép độ dài, còn thước thẳng chỉ dùng để vẽ đường thẳng.",
+    hdProt:"Phép dựng bằng com-pa và thước thẳng không dùng thước đo góc. Com-pa sao chép khoảng cách, và các khoảng cách bằng nhau tạo ra các góc bằng nhau.",
+    hdOpen:"Hãy giữ nguyên độ mở com-pa. Các cung bằng nhau vẽ từ A và từ B làm cho mỗi giao điểm cách đều hai đầu mút — đó là lý do phép dựng đúng.",
+    cw_seg:"{s}: com-pa giữ nguyên độ dài AB và chuyển nó sang tia.",
+    cw_pb:"Đường thẳng PQ là đường trung trực của AB. P và Q đều cách đều A và B, và mọi điểm cách đều hai đầu mút đều nằm trên đường trung trực.",
+    cw_ab:"Tia BF là tia phân giác của góc B. Các cung tạo ra BD = BE và DF = EF, nên {s} theo SSS, và hai góc tại B bằng nhau.",
+    cw_ang:"{s}. Các cung tạo thành hai tam giác bằng nhau theo SSS, nên các góc của chúng tại A và tại P bằng nhau.",
+    cw_pp:"Đường thẳng PQ vuông góc với đường thẳng đã cho. P cách đều A và B, Q cũng vậy, nên PQ là đường trung trực của AB.",
+    cw_po:"Đường thẳng PQ vuông góc với đường thẳng đã cho. P và Q đều cách đều A và B, nên PQ là đường trung trực của AB.",
+    cw_par:"Đường thẳng PD song song với ℓ. Phép dựng đã sao chép góc tại Q sang điểm P, và khi hai góc đồng vị bằng nhau thì hai đường thẳng song song."
   },
   ar:{
     appTitle:"مختبر البرهان وحساب المثلثات", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", modesLbl:"الأنماط", stars:"الإجابات الصحيحة",
     newRound:"جولة جديدة", readAloud:"قراءة بصوت عالٍ", check:"تحقّق", choicesLbl:"خيارات الإجابة",
     footNote:"بلا حسابات · لا تُجمع أي بيانات · يعمل دون اتصال",
-    mCong:"التطابق والتشابه", mProof:"بناء البرهان", mTrig:"حساب المثلثات القائمة", mCirc:"الدوائر", mCoord:"الهندسة الإحداثية",
+    mCong:"التطابق والتشابه", mProof:"بناء البرهان", mTrig:"حساب المثلثات", mCirc:"الدوائر", mCoord:"الهندسة الإحداثية",
     teacherTitle:"إعدادات المعلم", close:"إغلاق", setLevel:"مستوى المقرر", lvF:"الأساسيات", lvG:"الهندسة", lvH:"المتقدم",
-    levelNote:"الأساسيات: SSS وSAS وASA وAAS؛ براهين جبرية وبراهين مثلثات قصيرة؛ تسمية الأضلاع والنسب المثلثية؛ المثلثات القائمة الخاصة؛ الزوايا المركزية والمحيطية؛ المسافة ونقطة المنتصف. الهندسة: تضيف HL وSSA والتشابه وبراهين أطول وحل المثلثات القائمة (الارتفاع والانخفاض) والمماسات وأوتار الدائرة وطول القوس ومساحة القطاع ومعادلات الدائرة وتقسيم القطع وتصنيف الأشكال الرباعية. المتقدم: براهين CPCTC والجذور المنطَّقة والراديان وإكمال المربع والرؤوس المفقودة. اختيار مستوى يعيد ضبط الخيارات أدناه.",
+    levelNote:"الأساسيات: SSS وSAS وASA وAAS؛ براهين جبرية وبراهين مثلثات قصيرة؛ تسمية الأضلاع والنسب المثلثية؛ المثلثات القائمة الخاصة؛ دائرة الوحدة في الربع الأول وعلى المحورين؛ الزوايا المركزية والمحيطية؛ المسافة ونقطة المنتصف؛ نسخ قطعة مستقيمة والعمود المنصف ومنصف الزاوية. الهندسة: تضيف HL وSSA والتشابه ونظرية التناسب في المثلث والوسط الهندسي في المثلث القائم وبراهين أطول وحل المثلثات القائمة (الارتفاع والانخفاض) وقانون الجيوب وقانون جيوب التمام ودائرة الوحدة كاملة والمماسات وأوتار الدائرة وطول القوس ومساحة القطاع ومساحات الأشكال المركبة ومعادلات الدائرة وتقسيم القطع وتصنيف الأشكال الرباعية والإنشاءات السبعة كلها. المتقدم: براهين CPCTC والجذور المنطَّقة والراديان (وعلى دائرة الوحدة أيضًا) وقيم الظل واستخدام قانون الجيوب لإيجاد زاوية وإكمال المربع والرؤوس المفقودة. اختيار مستوى يعيد ضبط الخيارات أدناه.",
     setRange:"حجم الشبكة", setDp:"تقريب إجابات حساب المثلثات إلى", dp0:"أقرب عدد صحيح", dp1:"أقرب جزء من عشرة",
     setModes:"الأنماط", setSpeech:"النطق", autoRead:"قراءة التعليمات تلقائيًا", printCards:"طباعة بطاقات التحدي",
     setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُخزَّن أي معلومات عن الطلاب إطلاقًا.",
@@ -1021,7 +1376,7 @@ const T = {
     e_trap:"زوج واحد فقط من الأضلاع المتقابلة متوازٍ: شبه منحرف.",
     hMoreSpec:"هذا الاسم صحيح، لكن يوجد اسم أدق. تحقّق من وجود زوايا قائمة (ميلان كلٌّ منهما معكوس الآخر وبإشارة مخالفة) ومن تساوي الأضلاع الأربعة.",
     hCls:"استخدم الجدول: الأضلاع المتوازية متساوية الميل، والأضلاع المتعامدة ميل كلٍّ منها معكوس الآخر وبإشارة مخالفة، والأطوال تبيّن الأضلاع المتساوية.",
-    stds:"المعايير المرتبطة — معايير تكساس TEKS (الهندسة): G.2(A, B), G.6(A, B, C), G.7(A, B), G.9(A, B), G.12(A, B, C, D, E). المعايير الأساسية المشتركة Common Core: HSG-CO.B.7, HSG-CO.B.8, HSG-CO.C.9, HSG-CO.C.10, HSG-SRT.A.2, HSG-SRT.A.3, HSG-SRT.B.5, HSG-SRT.C.6, HSG-SRT.C.8, HSG-C.A.2, HSG-C.B.5, HSG-GPE.A.1, HSG-GPE.B.4, HSG-GPE.B.5, HSG-GPE.B.6.",
+    stds:"المعايير المرتبطة — معايير تكساس TEKS (الهندسة): G.2(A, B), G.5(B), G.6(A, B, C), G.7(A, B), G.8(A, B), G.9(A, B), G.11(B), G.12(A, B, C, D, E). المعايير الأساسية المشتركة Common Core: HSG-CO.B.7, HSG-CO.B.8, HSG-CO.C.9, HSG-CO.C.10, HSG-CO.D.12, HSG-SRT.A.2, HSG-SRT.A.3, HSG-SRT.B.5, HSG-SRT.C.6, HSG-SRT.C.8, HSG-SRT.D.11, HSG-C.A.2, HSG-C.B.5, HSG-GPE.A.1, HSG-GPE.B.4, HSG-GPE.B.5, HSG-GPE.B.6, HSF-TF.A.2, HSF-TF.A.3.",
     cardTitle:"مختبر البرهان وحساب المثلثات — بطاقات التحدي", cardName:"الاسم:",
     cardCong:"أي اختصار يثبت أن {st}؟ اكتب SSS أو SAS أو ASA أو AAS أو HL أو «المعلومات غير كافية»، ثم فسّر.",
     cardSim:"{st}. أوجد معامل التشابه وx.",
@@ -1029,15 +1384,128 @@ const T = {
     cardTrig:"أوجد x مقرّبًا إلى أقرب جزء من عشرة. بيّن النسبة المثلثية التي استخدمتها.",
     cardSpecial:"أوجد x. اكتب إجابة دقيقة في أبسط صورة جذرية.",
     cardCirc:"اكتب معادلة الدائرة.",
-    cardCoord:"أوجد المسافة ونقطة المنتصف بين A{a} وB{b}."
+    cardCoord:"أوجد المسافة ونقطة المنتصف بين A{a} وB{b}.",
+    mUnit:"دائرة الوحدة",
+    mCons:"الإنشاءات الهندسية",
+    figUnit:"شكل دائرة الوحدة",
+    figCons:"شكل الإنشاء",
+    wTimes:"ضرب",
+    goodC:"إجابة صحيحة! {c}.",
+    ucTapDir:"المس النقطة على دائرة الوحدة التي تمثل {a}.",
+    ucPtLbl:"النقطة {p}",
+    hUcTap0:"الزاوية 0 هي نقطة البداية، على الاتجاه الموجب لمحور x.",
+    hUcTapQ:"{a} تقع على {f} المسافة من {p1} إلى {p2}، لذا تقع نقطتها في {q}.",
+    hUcTapA:"{a} تساوي {n} عكس اتجاه عقارب الساعة بدءًا من الاتجاه الموجب لمحور x، لذا تقع على {p}.",
+    hUcTapX:"لقد لمست النقطة التي تمثل {x}.",
+    fr13:"ثلث",
+    fr12:"نصف",
+    fr23:"ثلثي",
+    ax0:"الاتجاه الموجب لمحور x",
+    ax90:"الاتجاه الموجب لمحور y",
+    ax180:"الاتجاه السالب لمحور x",
+    ax270:"الاتجاه السالب لمحور y",
+    turn1:"ربع دورة",
+    turn2:"نصف دورة",
+    turn3:"ثلاثة أرباع دورة",
+    eUcTap:"إجابة صحيحة! النقطة التي تمثل {a} هي {p}. إحداثيها x هو cos θ وإحداثيها y هو sin θ.",
+    ucValDir:"{a}. أوجد {f}.",
+    ucCoordDir:"{a}. أي نقطة على دائرة الوحدة تقابل هذه الزاوية؟",
+    hUcRef:"الزاوية المرجعية (الزاوية بين الضلع النهائي ومحور x) هي {r}، لذا فالقيمة لها مقدار {e} نفسه.",
+    hUcSign:"في {q}، إشارة {f} {sg}.",
+    hUcAxis:"تقع هذه الزاوية على أحد المحورين، عند النقطة {p}. cos θ هو الإحداثي x وsin θ هو الإحداثي y.",
+    hUcAxis2:"تقع هذه الزاوية على أحد المحورين، لذا أحد الإحداثيين 0 والآخر 1 أو −1. دُر عكس اتجاه عقارب الساعة بدءًا من الاتجاه الموجب لمحور x.",
+    hUcTan:"تذكّر: {e}.",
+    hUcTanU:"هنا {e}. لا يمكن القسمة على 0، لذا {f} غير معرَّف.",
+    hUcPt:"النقطة هي {p}. الزاوية المرجعية هي {r}، وفي {q} تكون الإشارتان {sg}.",
+    eUcVal:"إجابة صحيحة! {e}.",
+    eUcValU:"إجابة صحيحة! {e} غير معرَّف.",
+    eUcPt:"على دائرة الوحدة، النقطة التي تمثل θ هي {p}.",
+    q1:"الربع الأول",
+    q2:"الربع الثاني",
+    q3:"الربع الثالث",
+    q4:"الربع الرابع",
+    wPos:"موجبة",
+    wNeg:"سالبة",
+    lawS:"قانون الجيوب",
+    lawC:"قانون جيوب التمام",
+    goodLaw:"إجابة صحيحة! باستخدام {l}: {eq}.",
+    hLosS:"تعرف زاويتين والضلع المقابل لإحداهما، لذا استخدم قانون الجيوب: {f}. كل ضلع يُقرن بالزاوية المقابلة له.",
+    hLosA:"تعرف ضلعين والزاوية المقابلة لأحدهما، لذا استخدم قانون الجيوب: {f}. ثم استخدم معكوس الجيب لإيجاد θ.",
+    hLocS:"تعرف ضلعين والزاوية المحصورة بينهما (SAS)، لذا استخدم قانون جيوب التمام: {f}.",
+    hLocA:"تعرف الأضلاع الثلاثة (SSS)، لذا استخدم قانون جيوب التمام محلولًا لإيجاد الزاوية: {f}.",
+    lawNote:"الضلع a يقابل الزاوية A، والضلع b يقابل الزاوية B، والضلع c يقابل الزاوية C.",
+    eProp:"إجابة صحيحة! المستقيم الموازي لأحد أضلاع المثلث يقسم الضلعين الآخرين إلى أجزاء متناسبة: {c}.",
+    hProp:"بما أن {st}، فإن نظرية التناسب في المثلث تنص على أن {r}. اكتب هذا التناسب ثم اضرب ضربًا تبادليًا.",
+    gmDir:"{t} قائم الزاوية في C، و{s} هو الارتفاع على الوتر. أوجد x.",
+    hGm:"الارتفاع على الوتر يقسم المثلث القائم إلى مثلثين أصغر مشابهين له، لذا تكون أضلاعها متناسبة.",
+    rGmAlt:"لذلك CD هو الوسط الهندسي لـ AD وDB: {r}.",
+    rGmLeg:"لذلك AC هو الوسط الهندسي لـ AD وAB: {r}.",
+    compDir:"أوجد مساحة الشكل المظلَّل. اترك إجابتك بدلالة π.",
+    hCompRS:"قسّم الشكل إلى مستطيل ونصف دائرة. قطر نصف الدائرة هو الضلع العلوي للمستطيل، لذا نصف قطرها يساوي نصفه: {f}.",
+    hCompSq:"الجزء المظلَّل هو المربع مطروحًا منه ربع دائرة، ونصف قطر ربع الدائرة يساوي ضلع المربع: {f}.",
+    hCompTr:"قسّم الشكل إلى مستطيل ونصفي دائرة. نصفا الدائرة معًا يكوّنان دائرة كاملة قطرها {d}: {f}.",
+    consDir:"المهمة: {c}. استخدم الفرجار والمسطرة غير المدرَّجة فقط. المس الخطوة التالية.",
+    consNext:"صحيح. ما الخطوة التالية؟",
+    consDone:"اكتمل الإنشاء!",
+    stepsSoFar:"الخطوات حتى الآن",
+    hOrder:"ليس بعد: هذه الخطوة تستخدم نقطة أو قوسًا لم يُرسم بعد. انظر إلى الشكل واختر خطوة يمكنك تنفيذها الآن.",
+    nameDir:"أي إنشاء هندسي يظهر في الشكل؟",
+    hName:"لاحظ أين وُضع سن الفرجار عند رسم كل قوس، وماذا يفعل آخر مستقيم أو شعاع. هل ينسخ، أم ينصّف، أم يصنع زاوية قائمة، أم يرسم مستقيمًا موازيًا؟ وهل نقطة البداية على المستقيم أم خارجه؟",
+    cn_seg:"نسخ قطعة مستقيمة",
+    cn_pb:"إنشاء العمود المنصف لقطعة مستقيمة",
+    cn_ab:"تنصيف زاوية",
+    cn_ang:"نسخ زاوية",
+    cn_pp:"إنشاء عمود من نقطة على مستقيم",
+    cn_po:"إنشاء عمود من نقطة خارج مستقيم",
+    cn_par:"إنشاء مستقيم موازٍ من نقطة خارج مستقيم",
+    cs_seg1:"ضع سن الفرجار على A وافتحه حتى يصل القلم إلى B.",
+    cs_seg2:"دون تغيير الفتحة، ضع سن الفرجار على P وارسم قوسًا يقطع الشعاع. سمِّ نقطة التقاطع Q.",
+    cs_pb1:"افتح الفرجار أكثر من نصف AB. ضع السن على A وارسم قوسًا فوق القطعة وتحتها.",
+    cs_pb2:"دون تغيير الفتحة، ضع السن على B وارسم قوسًا يقطع القوس الأول من الأعلى ومن الأسفل. سمِّ نقطتي التقاطع P وQ.",
+    cs_pb3:"استخدم المسطرة لرسم المستقيم PQ.",
+    cs_ab1:"ضع سن الفرجار على الرأس B وارسم قوسًا يقطع ضلعي الزاوية. سمِّ نقطتي التقاطع D وE.",
+    cs_ab2:"ضع سن الفرجار على D وارسم قوسًا داخل الزاوية.",
+    cs_ab3:"دون تغيير الفتحة، ضع السن على E وارسم قوسًا يقطع القوس السابق. سمِّ نقطة التقاطع F.",
+    cs_ab4:"استخدم المسطرة لرسم الشعاع BF.",
+    cs_ang1:"ضع سن الفرجار على A وارسم قوسًا يقطع ضلعي الزاوية A. سمِّ نقطتي التقاطع B وC.",
+    cs_ang2:"دون تغيير الفتحة، ضع السن على P وارسم قوسًا طويلًا يقطع الشعاع. سمِّ نقطة التقاطع Q.",
+    cs_ang3:"افتح الفرجار بمقدار المسافة من B إلى C.",
+    cs_ang4:"ضع سن الفرجار على Q وارسم قوسًا يقطع القوس الطويل. سمِّ نقطة التقاطع R.",
+    cs_ang5:"استخدم المسطرة لرسم الشعاع PR.",
+    cs_pp1:"ضع سن الفرجار على P وارسم قوسًا يقطع المستقيم على جانبي P. سمِّ نقطتي التقاطع A وB.",
+    cs_pp2:"افتح الفرجار أكثر. ضع السن على A وارسم قوسًا فوق P.",
+    cs_pp3:"دون تغيير الفتحة، ضع السن على B وارسم قوسًا يقطع القوس السابق. سمِّ نقطة التقاطع Q.",
+    cs_pp4:"استخدم المسطرة لرسم المستقيم PQ.",
+    cs_po1:"ضع سن الفرجار على P وارسم قوسًا يقطع المستقيم مرتين. سمِّ نقطتي التقاطع A وB.",
+    cs_po2:"ضع سن الفرجار على A وارسم قوسًا في الجهة الأخرى من المستقيم بعيدًا عن P.",
+    cs_po3:"دون تغيير الفتحة، ضع السن على B وارسم قوسًا يقطع القوس السابق. سمِّ نقطة التقاطع Q.",
+    cs_po4:"استخدم المسطرة لرسم المستقيم PQ.",
+    cs_par1:"ارسم مستقيمًا يمر بالنقطة P ويقطع المستقيم ℓ. سمِّ نقطة التقاطع Q.",
+    cs_par2:"ضع سن الفرجار على Q وارسم قوسًا يقطع المستقيمين. سمِّ نقطتي التقاطع A (على ℓ) وB (على المستقيم الجديد).",
+    cs_par3:"دون تغيير الفتحة، ضع السن على P وارسم قوسًا مماثلًا. سمِّ النقطة التي يقطع فيها المستقيم الجديد C.",
+    cs_par4:"افتح الفرجار بمقدار المسافة من B إلى A. ضع السن على C وارسم قوسًا يقطع القوس السابق. سمِّ نقطة التقاطع D.",
+    cs_par5:"استخدم المسطرة لرسم المستقيم PD.",
+    dRuler:"قِس بالمسطرة المدرَّجة وضع علامة عند المنتصف.",
+    dProt:"قِس الزاوية بالمنقلة.",
+    dOpen:"غيّر فتحة الفرجار قبل رسم القوس التالي.",
+    hdRuler:"الإنشاء بالفرجار والمسطرة لا يستخدم القياسات. الفرجار ينسخ الأطوال، والمسطرة ترسم المستقيمات فقط.",
+    hdProt:"الإنشاء بالفرجار والمسطرة لا يستخدم المنقلة. الفرجار ينسخ المسافات، والمسافات المتساوية تصنع زوايا متطابقة.",
+    hdOpen:"حافظ على فتحة الفرجار نفسها. الأقواس المتساوية من A ومن B تجعل كل نقطة تقاطع على البعد نفسه من الطرفين، ولهذا ينجح الإنشاء.",
+    cw_seg:"{s}: حافظ الفرجار على طول AB ونقله إلى الشعاع.",
+    cw_pb:"المستقيم PQ هو العمود المنصف للقطعة AB. كل من P وQ على البعد نفسه من A ومن B، وكل نقطة على البعد نفسه من الطرفين تقع على العمود المنصف.",
+    cw_ab:"الشعاع BF ينصّف الزاوية B. الأقواس تجعل BD = BE وDF = EF، لذا {s} بحالة SSS، والزاويتان عند B متطابقتان.",
+    cw_ang:"{s}. الأقواس تكوّن مثلثين متطابقين بحالة SSS، لذا زاويتاهما عند A وعند P متطابقتان.",
+    cw_pp:"المستقيم PQ عمودي على المستقيم. النقطة P على البعد نفسه من A ومن B، وكذلك Q، لذا المستقيم PQ هو العمود المنصف للقطعة AB.",
+    cw_po:"المستقيم PQ عمودي على المستقيم. كل من P وQ على البعد نفسه من A ومن B، لذا المستقيم PQ هو العمود المنصف للقطعة AB.",
+    cw_par:"المستقيم PD يوازي ℓ. نسخ الإنشاء الزاوية عند Q إلى النقطة P، وعندما تتطابق الزوايا المتناظرة يكون المستقيمان متوازيين."
   },
   hi:{
     appTitle:"उपपत्ति और त्रिकोणमिति लैब", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", modesLbl:"मोड", stars:"सही उत्तर",
     newRound:"नया राउंड", readAloud:"पढ़कर सुनाएँ", check:"जाँचें", choicesLbl:"उत्तर विकल्प",
     footNote:"कोई खाता नहीं · कोई डेटा एकत्र नहीं · ऑफ़लाइन भी चलता है",
-    mCong:"सर्वांगसमता और समरूपता", mProof:"उपपत्ति निर्माता", mTrig:"समकोण त्रिभुज त्रिकोणमिति", mCirc:"वृत्त", mCoord:"निर्देशांक ज्यामिति",
+    mCong:"सर्वांगसमता और समरूपता", mProof:"उपपत्ति निर्माता", mTrig:"त्रिकोणमिति", mCirc:"वृत्त", mCoord:"निर्देशांक ज्यामिति",
     teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setLevel:"पाठ्यक्रम स्तर", lvF:"आधारभूत", lvG:"ज्यामिति", lvH:"ऑनर्स",
-    levelNote:"आधारभूत: SSS, SAS, ASA और AAS; छोटी बीजगणितीय और त्रिभुज उपपत्तियाँ; भुजाओं और त्रिकोणमितीय अनुपातों की पहचान; विशेष समकोण त्रिभुज; केंद्रीय और अंतर्लिखित कोण; दूरी और मध्य-बिंदु। ज्यामिति: इसमें HL, SSA, समरूपता, लंबी उपपत्तियाँ, समकोण त्रिभुज हल करना (उन्नयन और अवनमन कोण), स्पर्श रेखाएँ, जीवाएँ, चाप की लंबाई, त्रिज्यखंड का क्षेत्रफल, वृत्त के समीकरण, रेखाखंड का विभाजन और चतुर्भुजों का वर्गीकरण जुड़ते हैं। ऑनर्स: CPCTC उपपत्तियाँ, परिमेयीकृत करणी, रेडियन, पूर्ण वर्ग बनाना और लुप्त शीर्ष। स्तर चुनने पर नीचे के विकल्प रीसेट हो जाते हैं।",
+    levelNote:"आधारभूत: SSS, SAS, ASA और AAS; छोटी बीजगणितीय और त्रिभुज उपपत्तियाँ; भुजाओं और त्रिकोणमितीय अनुपातों की पहचान; विशेष समकोण त्रिभुज; पहले चतुर्थांश में और अक्षों पर इकाई वृत्त; केंद्रीय और अंतर्लिखित कोण; दूरी और मध्य-बिंदु; रेखाखंड की प्रतिलिपि, लंब समद्विभाजक और कोण समद्विभाजक। ज्यामिति: इसमें HL, SSA, समरूपता, त्रिभुज आनुपातिकता प्रमेय, समकोण त्रिभुज में गुणोत्तर माध्य, लंबी उपपत्तियाँ, समकोण त्रिभुज हल करना (उन्नयन और अवनमन कोण), ज्या नियम और कोज्या नियम, पूरा इकाई वृत्त, स्पर्श रेखाएँ, जीवाएँ, चाप की लंबाई, त्रिज्यखंड का क्षेत्रफल, संयुक्त आकृतियों का क्षेत्रफल, वृत्त के समीकरण, रेखाखंड का विभाजन, चतुर्भुजों का वर्गीकरण और सातों रचनाएँ जुड़ते हैं। ऑनर्स: CPCTC उपपत्तियाँ, परिमेयीकृत करणी, रेडियन (इकाई वृत्त पर भी), टैन के मान, ज्या नियम से कोण ज्ञात करना, पूर्ण वर्ग बनाना और लुप्त शीर्ष। स्तर चुनने पर नीचे के विकल्प रीसेट हो जाते हैं।",
     setRange:"ग्रिड का आकार", setDp:"त्रिकोणमिति उत्तरों को पूर्णांकित करें", dp0:"निकटतम पूर्ण संख्या तक", dp1:"निकटतम दशमांश तक",
     setModes:"मोड", setSpeech:"वाणी", autoRead:"निर्देश अपने-आप पढ़ें", printCards:"चुनौती कार्ड प्रिंट करें",
     setStored:"सेटिंग्स केवल इसी डिवाइस पर सहेजी जाती हैं। किसी भी छात्र की कोई जानकारी कभी संग्रहीत नहीं की जाती।",
@@ -1214,7 +1682,7 @@ const T = {
     e_trap:"सम्मुख भुजाओं का ठीक एक युग्म समांतर है: समलंब।",
     hMoreSpec:"यह नाम सही है, पर इससे अधिक सटीक नाम मौजूद है। समकोण (ऐसी ढालें जो एक-दूसरे की ऋणात्मक व्युत्क्रम हों) और चार बराबर भुजाएँ जाँचें।",
     hCls:"तालिका का उपयोग करें: समांतर भुजाओं की ढालें बराबर होती हैं, लंब भुजाओं की ढालें एक-दूसरे की ऋणात्मक व्युत्क्रम होती हैं, और लंबाइयाँ बताती हैं कि कौन-सी भुजाएँ बराबर हैं।",
-    stds:"संरेखित मानक — Texas TEKS (ज्यामिति): G.2(A, B), G.6(A, B, C), G.7(A, B), G.9(A, B), G.12(A, B, C, D, E)। Common Core: HSG-CO.B.7, HSG-CO.B.8, HSG-CO.C.9, HSG-CO.C.10, HSG-SRT.A.2, HSG-SRT.A.3, HSG-SRT.B.5, HSG-SRT.C.6, HSG-SRT.C.8, HSG-C.A.2, HSG-C.B.5, HSG-GPE.A.1, HSG-GPE.B.4, HSG-GPE.B.5, HSG-GPE.B.6।",
+    stds:"संरेखित मानक — Texas TEKS (ज्यामिति): G.2(A, B), G.5(B), G.6(A, B, C), G.7(A, B), G.8(A, B), G.9(A, B), G.11(B), G.12(A, B, C, D, E)। Common Core: HSG-CO.B.7, HSG-CO.B.8, HSG-CO.C.9, HSG-CO.C.10, HSG-CO.D.12, HSG-SRT.A.2, HSG-SRT.A.3, HSG-SRT.B.5, HSG-SRT.C.6, HSG-SRT.C.8, HSG-SRT.D.11, HSG-C.A.2, HSG-C.B.5, HSG-GPE.A.1, HSG-GPE.B.4, HSG-GPE.B.5, HSG-GPE.B.6, HSF-TF.A.2, HSF-TF.A.3।",
     cardTitle:"उपपत्ति और त्रिकोणमिति लैब — चुनौती कार्ड", cardName:"नाम:",
     cardCong:"कौन-सी कसौटी {st} सिद्ध करती है? SSS, SAS, ASA, AAS, HL, या “पर्याप्त जानकारी नहीं” लिखें, और कारण समझाएँ।",
     cardSim:"{st}। स्केल गुणक और x ज्ञात करें।",
@@ -1222,15 +1690,128 @@ const T = {
     cardTrig:"x को निकटतम दशमांश तक ज्ञात करें। उपयोग किया गया त्रिकोणमितीय अनुपात दिखाएँ।",
     cardSpecial:"x ज्ञात करें। सरलतम करणी रूप में सटीक उत्तर दें।",
     cardCirc:"वृत्त का समीकरण लिखें।",
-    cardCoord:"A{a} और B{b} के बीच की दूरी और मध्य-बिंदु ज्ञात करें।"
+    cardCoord:"A{a} और B{b} के बीच की दूरी और मध्य-बिंदु ज्ञात करें।",
+    mUnit:"इकाई वृत्त",
+    mCons:"रचनाएँ",
+    figUnit:"इकाई वृत्त आरेख",
+    figCons:"रचना आरेख",
+    wTimes:"गुणा",
+    goodC:"सही! {c}।",
+    ucTapDir:"इकाई वृत्त पर {a} वाले बिंदु पर टैप करें।",
+    ucPtLbl:"बिंदु {p}",
+    hUcTap0:"0 का कोण शुरुआती बिंदु है, जो धनात्मक x-अक्ष पर है।",
+    hUcTapQ:"{a}, {p1} से {p2} तक के रास्ते का {f} है, इसलिए इसका बिंदु {q} में है।",
+    hUcTapA:"{a}, धनात्मक x-अक्ष से वामावर्त {n} है, इसलिए यह {p} पर पड़ता है।",
+    hUcTapX:"आपने {x} वाले बिंदु पर टैप किया।",
+    fr13:"एक-तिहाई",
+    fr12:"आधा",
+    fr23:"दो-तिहाई",
+    ax0:"धनात्मक x-अक्ष",
+    ax90:"धनात्मक y-अक्ष",
+    ax180:"ऋणात्मक x-अक्ष",
+    ax270:"ऋणात्मक y-अक्ष",
+    turn1:"एक-चौथाई चक्कर",
+    turn2:"आधा चक्कर",
+    turn3:"तीन-चौथाई चक्कर",
+    eUcTap:"सही! {a} वाला बिंदु {p} है। इसका x-निर्देशांक cos θ और y-निर्देशांक sin θ है।",
+    ucValDir:"{a}। {f} ज्ञात करें।",
+    ucCoordDir:"{a}। इस कोण पर इकाई वृत्त का कौन-सा बिंदु है?",
+    hUcRef:"संदर्भ कोण (अंतिम भुजा और x-अक्ष के बीच का कोण) {r} है, इसलिए मान का आकार {e} के बराबर है।",
+    hUcSign:"{q} में {f} {sg} होता है।",
+    hUcAxis:"यह कोण एक अक्ष पर, बिंदु {p} पर पड़ता है। cos θ x-निर्देशांक है और sin θ y-निर्देशांक है।",
+    hUcAxis2:"यह कोण एक अक्ष पर पड़ता है, इसलिए एक निर्देशांक 0 है और दूसरा 1 या −1 है। धनात्मक x-अक्ष से वामावर्त घूमें।",
+    hUcTan:"याद रखें: {e}।",
+    hUcTanU:"यहाँ {e}। 0 से भाग नहीं दिया जा सकता, इसलिए {f} अपरिभाषित है।",
+    hUcPt:"बिंदु {p} है। संदर्भ कोण {r} है, और {q} में चिह्न {sg} होते हैं।",
+    eUcVal:"सही! {e}।",
+    eUcValU:"सही! {e} अपरिभाषित है।",
+    eUcPt:"इकाई वृत्त पर θ वाला बिंदु {p} है।",
+    q1:"पहले चतुर्थांश",
+    q2:"दूसरे चतुर्थांश",
+    q3:"तीसरे चतुर्थांश",
+    q4:"चौथे चतुर्थांश",
+    wPos:"धनात्मक",
+    wNeg:"ऋणात्मक",
+    lawS:"ज्या नियम (Law of Sines)",
+    lawC:"कोज्या नियम (Law of Cosines)",
+    goodLaw:"सही! {l} से: {eq}।",
+    hLosS:"आपको दो कोण और उनमें से एक के सामने की भुजा पता है, इसलिए ज्या नियम लगाएँ: {f}। हर भुजा अपने सामने वाले कोण के साथ जाती है।",
+    hLosA:"आपको दो भुजाएँ और उनमें से एक के सामने का कोण पता है, इसलिए ज्या नियम लगाएँ: {f}। फिर θ ज्ञात करने के लिए प्रतिलोम साइन का उपयोग करें।",
+    hLocS:"आपको दो भुजाएँ और उनके बीच का कोण (SAS) पता है, इसलिए कोज्या नियम लगाएँ: {f}।",
+    hLocA:"आपको तीनों भुजाएँ (SSS) पता हैं, इसलिए कोण के लिए हल किया गया कोज्या नियम लगाएँ: {f}।",
+    lawNote:"भुजा a कोण A के सामने है, भुजा b कोण B के सामने है, और भुजा c कोण C के सामने है।",
+    eProp:"सही! त्रिभुज की एक भुजा के समांतर रेखा बाकी दो भुजाओं को समानुपाती भागों में बाँटती है: {c}।",
+    hProp:"क्योंकि {st}, त्रिभुज आनुपातिकता प्रमेय कहता है {r}। यह अनुपात लिखें और तिर्यक गुणा करें।",
+    gmDir:"{t} में C पर समकोण है, और {s} कर्ण पर डाला गया शीर्षलंब है। x ज्ञात करें।",
+    hGm:"कर्ण पर डाला गया शीर्षलंब समकोण त्रिभुज को दो छोटे त्रिभुजों में बाँटता है जो उसके समरूप हैं, इसलिए उनकी भुजाएँ समानुपाती हैं।",
+    rGmAlt:"इसलिए CD, AD और DB का गुणोत्तर माध्य है: {r}।",
+    rGmLeg:"इसलिए AC, AD और AB का गुणोत्तर माध्य है: {r}।",
+    compDir:"छायांकित आकृति का क्षेत्रफल ज्ञात करें। अपना उत्तर π के रूप में रहने दें।",
+    hCompRS:"आकृति को एक आयत और एक अर्धवृत्त में बाँटें। अर्धवृत्त का व्यास आयत की ऊपरी भुजा है, इसलिए उसकी त्रिज्या उसका आधा है: {f}।",
+    hCompSq:"छायांकित भाग वर्ग में से एक चौथाई वृत्त घटाने पर बचता है, और चौथाई वृत्त की त्रिज्या वर्ग की भुजा के बराबर है: {f}।",
+    hCompTr:"आकृति को एक आयत और दो अर्धवृत्तों में बाँटें। दोनों अर्धवृत्त मिलकर {d} व्यास का एक पूरा वृत्त बनाते हैं: {f}।",
+    consDir:"कार्य: {c}। केवल परकार और बिना निशान वाली पटरी का उपयोग करें। अगले चरण पर टैप करें।",
+    consNext:"सही। अब आगे क्या?",
+    consDone:"रचना पूरी हुई!",
+    stepsSoFar:"अब तक के चरण",
+    hOrder:"अभी नहीं: यह चरण ऐसे बिंदु या चाप का उपयोग करता है जो अभी बना नहीं है। आकृति देखें और ऐसा चरण चुनें जो आप अभी कर सकते हैं।",
+    nameDir:"कौन-सी रचना दिखाई गई है?",
+    hName:"देखें कि हर चाप के लिए परकार की नोक कहाँ रखी गई थी, और आखिरी रेखा या किरण क्या करती है। क्या वह प्रतिलिपि बनाती है, समद्विभाजित करती है, समकोण बनाती है या समांतर रेखा बनाती है? क्या शुरुआती बिंदु रेखा पर है या रेखा से बाहर?",
+    cn_seg:"रेखाखंड की प्रतिलिपि बनाना",
+    cn_pb:"रेखाखंड का लंब समद्विभाजक बनाना",
+    cn_ab:"कोण को समद्विभाजित करना",
+    cn_ang:"कोण की प्रतिलिपि बनाना",
+    cn_pp:"रेखा पर स्थित बिंदु से लंब बनाना",
+    cn_po:"रेखा से बाहर के बिंदु से लंब बनाना",
+    cn_par:"रेखा से बाहर के बिंदु से समांतर रेखा बनाना",
+    cs_seg1:"परकार की नोक A पर रखें और परकार को तब तक खोलें जब तक पेंसिल B पर न पहुँच जाए।",
+    cs_seg2:"खुलाव बदले बिना, परकार की नोक P पर रखें और किरण को काटता हुआ चाप खींचें। कटान बिंदु का नाम Q रखें।",
+    cs_pb1:"परकार को AB के आधे से अधिक खोलें। नोक A पर रखें और रेखाखंड के ऊपर और नीचे चाप खींचें।",
+    cs_pb2:"खुलाव बदले बिना, नोक B पर रखें और ऐसा चाप खींचें जो पहले चाप को ऊपर और नीचे काटे। कटान बिंदुओं के नाम P और Q रखें।",
+    cs_pb3:"पटरी से रेखा PQ खींचें।",
+    cs_ab1:"परकार की नोक शीर्ष B पर रखें और कोण की दोनों भुजाओं को काटता हुआ चाप खींचें। कटान बिंदुओं के नाम D और E रखें।",
+    cs_ab2:"परकार की नोक D पर रखें और कोण के भीतर एक चाप खींचें।",
+    cs_ab3:"खुलाव बदले बिना, नोक E पर रखें और पिछले चाप को काटता हुआ चाप खींचें। कटान बिंदु का नाम F रखें।",
+    cs_ab4:"पटरी से किरण BF खींचें।",
+    cs_ang1:"परकार की नोक A पर रखें और कोण A की दोनों भुजाओं को काटता हुआ चाप खींचें। कटान बिंदुओं के नाम B और C रखें।",
+    cs_ang2:"खुलाव बदले बिना, नोक P पर रखें और किरण को काटता हुआ एक लंबा चाप खींचें। कटान बिंदु का नाम Q रखें।",
+    cs_ang3:"परकार को B से C तक की दूरी जितना खोलें।",
+    cs_ang4:"परकार की नोक Q पर रखें और लंबे चाप को काटता हुआ चाप खींचें। कटान बिंदु का नाम R रखें।",
+    cs_ang5:"पटरी से किरण PR खींचें।",
+    cs_pp1:"परकार की नोक P पर रखें और P के दोनों ओर रेखा को काटता हुआ चाप खींचें। कटान बिंदुओं के नाम A और B रखें।",
+    cs_pp2:"परकार को और खोलें। नोक A पर रखें और P के ऊपर एक चाप खींचें।",
+    cs_pp3:"खुलाव बदले बिना, नोक B पर रखें और पिछले चाप को काटता हुआ चाप खींचें। कटान बिंदु का नाम Q रखें।",
+    cs_pp4:"पटरी से रेखा PQ खींचें।",
+    cs_po1:"परकार की नोक P पर रखें और रेखा को दो बार काटता हुआ चाप खींचें। कटान बिंदुओं के नाम A और B रखें।",
+    cs_po2:"परकार की नोक A पर रखें और रेखा के उस ओर चाप खींचें जिधर P नहीं है।",
+    cs_po3:"खुलाव बदले बिना, नोक B पर रखें और पिछले चाप को काटता हुआ चाप खींचें। कटान बिंदु का नाम Q रखें।",
+    cs_po4:"पटरी से रेखा PQ खींचें।",
+    cs_par1:"P से होकर ऐसी रेखा खींचें जो रेखा ℓ को काटे। कटान बिंदु का नाम Q रखें।",
+    cs_par2:"परकार की नोक Q पर रखें और दोनों रेखाओं को काटता हुआ चाप खींचें। कटान बिंदुओं के नाम A (ℓ पर) और B (नई रेखा पर) रखें।",
+    cs_par3:"खुलाव बदले बिना, नोक P पर रखें और वैसा ही चाप खींचें। जहाँ यह नई रेखा को काटे, उस बिंदु का नाम C रखें।",
+    cs_par4:"परकार को B से A तक की दूरी जितना खोलें। नोक C पर रखें और पिछले चाप को काटता हुआ चाप खींचें। कटान बिंदु का नाम D रखें।",
+    cs_par5:"पटरी से रेखा PD खींचें।",
+    dRuler:"पैमाने से नापें और ठीक बीच वाले बिंदु पर निशान लगाएँ।",
+    dProt:"चाँदे से कोण नापें।",
+    dOpen:"अगला चाप खींचने से पहले परकार का खुलाव बदलें।",
+    hdRuler:"परकार और पटरी की रचना में माप का उपयोग नहीं होता। परकार लंबाई की प्रतिलिपि बनाता है, और पटरी केवल रेखाएँ खींचती है।",
+    hdProt:"परकार और पटरी की रचना में चाँदे का उपयोग नहीं होता। परकार दूरियों की प्रतिलिपि बनाता है, और बराबर दूरियाँ सर्वांगसम कोण बनाती हैं।",
+    hdOpen:"परकार का खुलाव वही रखें। A और B से बने बराबर चाप हर कटान बिंदु को दोनों अंत-बिंदुओं से बराबर दूरी पर रखते हैं — इसी कारण रचना सही होती है।",
+    cw_seg:"{s}: परकार ने AB की लंबाई सँभालकर उसे किरण पर रख दिया।",
+    cw_pb:"रेखा PQ, AB का लंब समद्विभाजक है। P और Q दोनों A और B से बराबर दूरी पर हैं, और दोनों अंत-बिंदुओं से बराबर दूरी वाला हर बिंदु लंब समद्विभाजक पर होता है।",
+    cw_ab:"किरण BF कोण B को समद्विभाजित करती है। चापों से BD = BE और DF = EF बनते हैं, इसलिए SSS से {s}, और B पर बने दोनों कोण सर्वांगसम हैं।",
+    cw_ang:"{s}। चापों से बने दो त्रिभुज SSS से सर्वांगसम हैं, इसलिए A और P पर उनके कोण सर्वांगसम हैं।",
+    cw_pp:"रेखा PQ दी गई रेखा पर लंब है। P, A और B से बराबर दूरी पर है, और Q भी, इसलिए रेखा PQ, AB का लंब समद्विभाजक है।",
+    cw_po:"रेखा PQ दी गई रेखा पर लंब है। P और Q दोनों A और B से बराबर दूरी पर हैं, इसलिए रेखा PQ, AB का लंब समद्विभाजक है।",
+    cw_par:"रेखा PD, ℓ के समांतर है। रचना ने Q पर बने कोण की प्रतिलिपि P पर बनाई, और जब संगत कोण सर्वांगसम होते हैं तो रेखाएँ समांतर होती हैं।"
   },
   ur:{
     appTitle:"ثبوت اور مثلثیات لیب", home:"ہوم", privacy:"رازداری", teacher:"استاد", modesLbl:"موڈز", stars:"درست جوابات",
     newRound:"نیا راؤنڈ", readAloud:"بلند آواز سے پڑھیں", check:"جانچیں", choicesLbl:"جواب کے انتخاب",
     footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا جمع نہیں ہوتا · آف لائن کام کرتا ہے",
-    mCong:"تماثل اور تشابہ", mProof:"ثبوت ساز", mTrig:"قائمہ مثلث کی مثلثیات", mCirc:"دائرے", mCoord:"محددی جیومیٹری",
+    mCong:"تماثل اور تشابہ", mProof:"ثبوت ساز", mTrig:"مثلثیات", mCirc:"دائرے", mCoord:"محددی جیومیٹری",
     teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setLevel:"کورس کی سطح", lvF:"بنیادی", lvG:"جیومیٹری", lvH:"آنرز",
-    levelNote:"بنیادی: SSS، SAS، ASA اور AAS؛ مختصر الجبری اور مثلث کے ثبوت؛ اضلاع اور مثلثیاتی نسبتوں کی نشاندہی؛ خاص قائمہ مثلث؛ مرکزی اور محیطی زاویے؛ فاصلہ اور وسطی نقطہ۔ جیومیٹری: اس میں HL، SSA، تشابہ، طویل ثبوت، قائمہ مثلث کا حل (زاویۂ ارتفاع اور زاویۂ انخفاض)، مماس، وتر، قوس کی لمبائی، قطاع کا رقبہ، دائرے کی مساوات، تقسیم اور چوکور کی درجہ بندی شامل ہیں۔ آنرز: CPCTC کے ثبوت، ناطق شدہ جذر، ریڈین، مربع مکمل کرنا اور گمشدہ راس۔ سطح منتخب کرنے سے نیچے کے اختیارات دوبارہ ترتیب ہو جاتے ہیں۔",
+    levelNote:"بنیادی: SSS، SAS، ASA اور AAS؛ مختصر الجبری اور مثلث کے ثبوت؛ اضلاع اور مثلثیاتی نسبتوں کی نشاندہی؛ خاص قائمہ مثلث؛ پہلے ربع میں اور محوروں پر اکائی دائرہ؛ مرکزی اور محیطی زاویے؛ فاصلہ اور وسطی نقطہ؛ قطعۂ خط کی نقل، عمودی ناصف اور زاویہ ناصف۔ جیومیٹری: اس میں HL، SSA، تشابہ، مثلث میں تناسب کا مسئلہ، قائمہ مثلث میں جیومیٹرک اوسط، طویل ثبوت، قائمہ مثلث کا حل (زاویۂ ارتفاع اور زاویۂ انخفاض)، قانونِ جیب اور قانونِ جیب التمام، پورا اکائی دائرہ، مماس، وتر، قوس کی لمبائی، قطاع کا رقبہ، مرکب اشکال کا رقبہ، دائرے کی مساوات، تقسیم، چوکور کی درجہ بندی اور ساتوں تعمیرات شامل ہیں۔ آنرز: CPCTC کے ثبوت، ناطق شدہ جذر، ریڈین (اکائی دائرے پر بھی)، ٹین کی قیمتیں، قانونِ جیب سے زاویہ معلوم کرنا، مربع مکمل کرنا اور گمشدہ راس۔ سطح منتخب کرنے سے نیچے کے اختیارات دوبارہ ترتیب ہو جاتے ہیں۔",
     setRange:"گرڈ کا سائز", setDp:"مثلثیاتی جوابات کو گول کریں", dp0:"قریب ترین مکمل عدد تک", dp1:"قریب ترین دسویں حصے تک",
     setModes:"موڈز", setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں", printCards:"چیلنج کارڈ پرنٹ کریں",
     setStored:"ترتیبات صرف اسی ڈیوائس پر محفوظ ہوتی ہیں۔ طالب علم کی کوئی معلومات کبھی محفوظ نہیں کی جاتی۔",
@@ -1407,7 +1988,7 @@ const T = {
     e_trap:"مخالف اضلاع کا صرف ایک جوڑا متوازی ہے: ذوزنقہ۔",
     hMoreSpec:"یہ نام درست ہے، مگر اس سے زیادہ مخصوص نام موجود ہے۔ قائمہ زاویے (ایسی ڈھلوانیں جو ایک دوسرے کی منفی معکوس ہوں) اور چار برابر اضلاع جانچیں۔",
     hCls:"جدول استعمال کریں: متوازی اضلاع کی ڈھلوانیں برابر ہوتی ہیں، عمودی اضلاع کی ڈھلوانیں ایک دوسرے کی منفی معکوس ہوتی ہیں، اور لمبائیاں بتاتی ہیں کہ کون سے اضلاع برابر ہیں۔",
-    stds:"ہم آہنگ معیارات — Texas TEKS (جیومیٹری): G.2(A, B), G.6(A, B, C), G.7(A, B), G.9(A, B), G.12(A, B, C, D, E)۔ Common Core: HSG-CO.B.7, HSG-CO.B.8, HSG-CO.C.9, HSG-CO.C.10, HSG-SRT.A.2, HSG-SRT.A.3, HSG-SRT.B.5, HSG-SRT.C.6, HSG-SRT.C.8, HSG-C.A.2, HSG-C.B.5, HSG-GPE.A.1, HSG-GPE.B.4, HSG-GPE.B.5, HSG-GPE.B.6۔",
+    stds:"ہم آہنگ معیارات — Texas TEKS (جیومیٹری): G.2(A, B), G.5(B), G.6(A, B, C), G.7(A, B), G.8(A, B), G.9(A, B), G.11(B), G.12(A, B, C, D, E)۔ Common Core: HSG-CO.B.7, HSG-CO.B.8, HSG-CO.C.9, HSG-CO.C.10, HSG-CO.D.12, HSG-SRT.A.2, HSG-SRT.A.3, HSG-SRT.B.5, HSG-SRT.C.6, HSG-SRT.C.8, HSG-SRT.D.11, HSG-C.A.2, HSG-C.B.5, HSG-GPE.A.1, HSG-GPE.B.4, HSG-GPE.B.5, HSG-GPE.B.6, HSF-TF.A.2, HSF-TF.A.3۔",
     cardTitle:"ثبوت اور مثلثیات لیب — چیلنج کارڈز", cardName:"نام:",
     cardCong:"کون سا شارٹ کٹ {st} ثابت کرتا ہے؟ SSS، SAS، ASA، AAS، HL یا «معلومات ناکافی ہیں» لکھیں، اور وضاحت کریں۔",
     cardSim:"{st}۔ پیمانے کا جزو ضربی اور x معلوم کریں۔",
@@ -1415,15 +1996,128 @@ const T = {
     cardTrig:"x کو قریب ترین دسویں حصے تک معلوم کریں۔ استعمال کی گئی مثلثیاتی نسبت دکھائیں۔",
     cardSpecial:"x معلوم کریں۔ سادہ ترین جذری شکل میں درست جواب دیں۔",
     cardCirc:"دائرے کی مساوات لکھیں۔",
-    cardCoord:"A{a} اور B{b} کے درمیان فاصلہ اور وسطی نقطہ معلوم کریں۔"
+    cardCoord:"A{a} اور B{b} کے درمیان فاصلہ اور وسطی نقطہ معلوم کریں۔",
+    mUnit:"اکائی دائرہ",
+    mCons:"ہندسی تعمیرات",
+    figUnit:"اکائی دائرے کی شکل",
+    figCons:"تعمیر کی شکل",
+    wTimes:"ضرب",
+    goodC:"درست! {c}۔",
+    ucTapDir:"اکائی دائرے پر {a} والے نقطے کو ٹیپ کریں۔",
+    ucPtLbl:"نقطہ {p}",
+    hUcTap0:"0 کا زاویہ شروع کا نقطہ ہے، جو مثبت x-محور پر ہے۔",
+    hUcTapQ:"{a}، {p1} سے {p2} تک کے راستے کا {f} ہے، اس لیے اس کا نقطہ {q} میں ہے۔",
+    hUcTapA:"{a}، مثبت x-محور سے گھڑی کی سوئیوں کے مخالف رخ {n} ہے، اس لیے یہ {p} پر آتا ہے۔",
+    hUcTapX:"آپ نے {x} والے نقطے کو ٹیپ کیا۔",
+    fr13:"ایک تہائی",
+    fr12:"آدھا",
+    fr23:"دو تہائی",
+    ax0:"مثبت x-محور",
+    ax90:"مثبت y-محور",
+    ax180:"منفی x-محور",
+    ax270:"منفی y-محور",
+    turn1:"چوتھائی چکر",
+    turn2:"آدھا چکر",
+    turn3:"تین چوتھائی چکر",
+    eUcTap:"درست! {a} والا نقطہ {p} ہے۔ اس کا x-محدد cos θ اور y-محدد sin θ ہے۔",
+    ucValDir:"{a}۔ {f} معلوم کریں۔",
+    ucCoordDir:"{a}۔ اس زاویے پر اکائی دائرے کا کون سا نقطہ ہے؟",
+    hUcRef:"حوالہ زاویہ (آخری ضلع اور x-محور کے درمیان زاویہ) {r} ہے، اس لیے قیمت کی مقدار {e} کے برابر ہے۔",
+    hUcSign:"{q} میں {f} {sg} ہوتا ہے۔",
+    hUcAxis:"یہ زاویہ ایک محور پر، نقطہ {p} پر آتا ہے۔ cos θ، x-محدد ہے اور sin θ، y-محدد ہے۔",
+    hUcAxis2:"یہ زاویہ ایک محور پر آتا ہے، اس لیے ایک محدد 0 ہے اور دوسرا 1 یا −1 ہے۔ مثبت x-محور سے گھڑی کی سوئیوں کے مخالف رخ گھومیں۔",
+    hUcTan:"یاد رکھیں: {e}۔",
+    hUcTanU:"یہاں {e}۔ 0 سے تقسیم نہیں ہو سکتی، اس لیے {f} غیر معین ہے۔",
+    hUcPt:"نقطہ {p} ہے۔ حوالہ زاویہ {r} ہے، اور {q} میں علامتیں {sg} ہیں۔",
+    eUcVal:"درست! {e}۔",
+    eUcValU:"درست! {e} غیر معین ہے۔",
+    eUcPt:"اکائی دائرے پر θ والا نقطہ {p} ہے۔",
+    q1:"پہلے ربع",
+    q2:"دوسرے ربع",
+    q3:"تیسرے ربع",
+    q4:"چوتھے ربع",
+    wPos:"مثبت",
+    wNeg:"منفی",
+    lawS:"قانونِ جیب (Law of Sines)",
+    lawC:"قانونِ جیب التمام (Law of Cosines)",
+    goodLaw:"درست! {l} سے: {eq}۔",
+    hLosS:"آپ کو دو زاویے اور ان میں سے ایک کے سامنے والا ضلع معلوم ہے، اس لیے قانونِ جیب استعمال کریں: {f}۔ ہر ضلع اپنے سامنے والے زاویے کے ساتھ جاتا ہے۔",
+    hLosA:"آپ کو دو اضلاع اور ان میں سے ایک کے سامنے والا زاویہ معلوم ہے، اس لیے قانونِ جیب استعمال کریں: {f}۔ پھر θ معلوم کرنے کے لیے معکوس سائن استعمال کریں۔",
+    hLocS:"آپ کو دو اضلاع اور ان کے درمیان کا زاویہ (SAS) معلوم ہے، اس لیے قانونِ جیب التمام استعمال کریں: {f}۔",
+    hLocA:"آپ کو تینوں اضلاع (SSS) معلوم ہیں، اس لیے زاویے کے لیے حل کیا گیا قانونِ جیب التمام استعمال کریں: {f}۔",
+    lawNote:"ضلع a زاویہ A کے سامنے ہے، ضلع b زاویہ B کے سامنے ہے، اور ضلع c زاویہ C کے سامنے ہے۔",
+    eProp:"درست! مثلث کے ایک ضلع کے متوازی خط باقی دو اضلاع کو متناسب حصوں میں تقسیم کرتا ہے: {c}۔",
+    hProp:"چونکہ {st}، مثلث میں تناسب کا مسئلہ کہتا ہے کہ {r}۔ یہ تناسب لکھیں اور کراس ضرب کریں۔",
+    gmDir:"{t} میں C پر قائمہ زاویہ ہے، اور {s} وتر پر عمود (ارتفاع) ہے۔ x معلوم کریں۔",
+    hGm:"وتر پر ڈالا گیا ارتفاع قائمہ مثلث کو دو چھوٹے مثلثوں میں بانٹتا ہے جو اس کے مشابہ ہیں، اس لیے ان کے اضلاع متناسب ہیں۔",
+    rGmAlt:"اس لیے CD، AD اور DB کا جیومیٹرک اوسط ہے: {r}۔",
+    rGmLeg:"اس لیے AC، AD اور AB کا جیومیٹرک اوسط ہے: {r}۔",
+    compDir:"سایہ دار شکل کا رقبہ معلوم کریں۔ اپنا جواب π کی صورت میں رہنے دیں۔",
+    hCompRS:"شکل کو ایک مستطیل اور ایک نیم دائرے میں تقسیم کریں۔ نیم دائرے کا قطر مستطیل کا اوپر والا ضلع ہے، اس لیے اس کا رداس اس کا آدھا ہے: {f}۔",
+    hCompSq:"سایہ دار حصہ مربع میں سے چوتھائی دائرہ نکالنے سے بنتا ہے، اور چوتھائی دائرے کا رداس مربع کے ضلع کے برابر ہے: {f}۔",
+    hCompTr:"شکل کو ایک مستطیل اور دو نیم دائروں میں تقسیم کریں۔ دونوں نیم دائرے مل کر {d} قطر والا ایک پورا دائرہ بناتے ہیں: {f}۔",
+    consDir:"کام: {c}۔ صرف پرکار اور بغیر نشان والا سیدھا رولر استعمال کریں۔ اگلے قدم کو ٹیپ کریں۔",
+    consNext:"درست۔ اب اگلا قدم کیا ہے؟",
+    consDone:"تعمیر مکمل ہو گئی!",
+    stepsSoFar:"اب تک کے قدم",
+    hOrder:"ابھی نہیں: یہ قدم ایسا نقطہ یا قوس استعمال کرتا ہے جو ابھی بنا ہی نہیں۔ شکل دیکھیں اور ایسا قدم چنیں جو آپ ابھی کر سکتے ہیں۔",
+    nameDir:"کون سی تعمیر دکھائی گئی ہے؟",
+    hName:"دیکھیں کہ ہر قوس کے لیے پرکار کی نوک کہاں رکھی گئی تھی، اور آخری خط یا شعاع کیا کرتی ہے۔ کیا وہ نقل کرتی ہے، دو برابر حصوں میں بانٹتی ہے، قائمہ زاویہ بناتی ہے یا متوازی خط بناتی ہے؟ کیا شروع کا نقطہ خط پر ہے یا خط سے باہر؟",
+    cn_seg:"قطعۂ خط کی نقل بنانا",
+    cn_pb:"قطعۂ خط کا عمودی ناصف بنانا",
+    cn_ab:"زاویے کی تنصیف کرنا",
+    cn_ang:"زاویے کی نقل بنانا",
+    cn_pp:"خط پر موجود نقطے سے عمود بنانا",
+    cn_po:"خط سے باہر کے نقطے سے عمود بنانا",
+    cn_par:"خط سے باہر کے نقطے سے متوازی خط بنانا",
+    cs_seg1:"پرکار کی نوک A پر رکھیں اور پرکار کو اتنا کھولیں کہ پنسل B پر پہنچ جائے۔",
+    cs_seg2:"کھلاؤ بدلے بغیر، پرکار کی نوک P پر رکھیں اور شعاع کو کاٹتی ہوئی قوس بنائیں۔ تقاطع کے نقطے کا نام Q رکھیں۔",
+    cs_pb1:"پرکار کو AB کے آدھے سے زیادہ کھولیں۔ نوک A پر رکھیں اور قطعے کے اوپر اور نیچے قوس بنائیں۔",
+    cs_pb2:"کھلاؤ بدلے بغیر، نوک B پر رکھیں اور ایسی قوس بنائیں جو پہلی قوس کو اوپر اور نیچے کاٹے۔ تقاطع کے نقطوں کے نام P اور Q رکھیں۔",
+    cs_pb3:"رولر سے خط PQ کھینچیں۔",
+    cs_ab1:"پرکار کی نوک راس B پر رکھیں اور زاویے کے دونوں اضلاع کو کاٹتی ہوئی قوس بنائیں۔ تقاطع کے نقطوں کے نام D اور E رکھیں۔",
+    cs_ab2:"پرکار کی نوک D پر رکھیں اور زاویے کے اندر ایک قوس بنائیں۔",
+    cs_ab3:"کھلاؤ بدلے بغیر، نوک E پر رکھیں اور پچھلی قوس کو کاٹتی ہوئی قوس بنائیں۔ تقاطع کے نقطے کا نام F رکھیں۔",
+    cs_ab4:"رولر سے شعاع BF کھینچیں۔",
+    cs_ang1:"پرکار کی نوک A پر رکھیں اور زاویہ A کے دونوں اضلاع کو کاٹتی ہوئی قوس بنائیں۔ تقاطع کے نقطوں کے نام B اور C رکھیں۔",
+    cs_ang2:"کھلاؤ بدلے بغیر، نوک P پر رکھیں اور شعاع کو کاٹتی ہوئی ایک لمبی قوس بنائیں۔ تقاطع کے نقطے کا نام Q رکھیں۔",
+    cs_ang3:"پرکار کو B سے C تک کے فاصلے جتنا کھولیں۔",
+    cs_ang4:"پرکار کی نوک Q پر رکھیں اور لمبی قوس کو کاٹتی ہوئی قوس بنائیں۔ تقاطع کے نقطے کا نام R رکھیں۔",
+    cs_ang5:"رولر سے شعاع PR کھینچیں۔",
+    cs_pp1:"پرکار کی نوک P پر رکھیں اور P کے دونوں طرف خط کو کاٹتی ہوئی قوس بنائیں۔ تقاطع کے نقطوں کے نام A اور B رکھیں۔",
+    cs_pp2:"پرکار کو مزید کھولیں۔ نوک A پر رکھیں اور P کے اوپر ایک قوس بنائیں۔",
+    cs_pp3:"کھلاؤ بدلے بغیر، نوک B پر رکھیں اور پچھلی قوس کو کاٹتی ہوئی قوس بنائیں۔ تقاطع کے نقطے کا نام Q رکھیں۔",
+    cs_pp4:"رولر سے خط PQ کھینچیں۔",
+    cs_po1:"پرکار کی نوک P پر رکھیں اور خط کو دو جگہ کاٹتی ہوئی قوس بنائیں۔ تقاطع کے نقطوں کے نام A اور B رکھیں۔",
+    cs_po2:"پرکار کی نوک A پر رکھیں اور خط کی اس طرف قوس بنائیں جدھر P نہیں ہے۔",
+    cs_po3:"کھلاؤ بدلے بغیر، نوک B پر رکھیں اور پچھلی قوس کو کاٹتی ہوئی قوس بنائیں۔ تقاطع کے نقطے کا نام Q رکھیں۔",
+    cs_po4:"رولر سے خط PQ کھینچیں۔",
+    cs_par1:"P سے گزرتا ہوا ایسا خط کھینچیں جو خط ℓ کو کاٹے۔ تقاطع کے نقطے کا نام Q رکھیں۔",
+    cs_par2:"پرکار کی نوک Q پر رکھیں اور دونوں خطوں کو کاٹتی ہوئی قوس بنائیں۔ تقاطع کے نقطوں کے نام A (ℓ پر) اور B (نئے خط پر) رکھیں۔",
+    cs_par3:"کھلاؤ بدلے بغیر، نوک P پر رکھیں اور ویسی ہی قوس بنائیں۔ جہاں یہ نئے خط کو کاٹے، اس نقطے کا نام C رکھیں۔",
+    cs_par4:"پرکار کو B سے A تک کے فاصلے جتنا کھولیں۔ نوک C پر رکھیں اور پچھلی قوس کو کاٹتی ہوئی قوس بنائیں۔ تقاطع کے نقطے کا نام D رکھیں۔",
+    cs_par5:"رولر سے خط PD کھینچیں۔",
+    dRuler:"پیمانے سے ناپیں اور بالکل درمیان والے نقطے پر نشان لگائیں۔",
+    dProt:"زاویہ پیما (پروٹریکٹر) سے زاویہ ناپیں۔",
+    dOpen:"اگلی قوس بنانے سے پہلے پرکار کا کھلاؤ بدل دیں۔",
+    hdRuler:"پرکار اور رولر کی تعمیر میں پیمائش استعمال نہیں ہوتی۔ پرکار لمبائیوں کی نقل کرتا ہے، اور رولر صرف خط کھینچتا ہے۔",
+    hdProt:"پرکار اور رولر کی تعمیر میں زاویہ پیما استعمال نہیں ہوتا۔ پرکار فاصلوں کی نقل کرتا ہے، اور برابر فاصلے متماثل زاویے بناتے ہیں۔",
+    hdOpen:"پرکار کا کھلاؤ وہی رکھیں۔ A اور B سے بنی برابر قوسیں ہر تقاطع کے نقطے کو دونوں سروں سے برابر فاصلے پر رکھتی ہیں — اسی وجہ سے تعمیر درست ہوتی ہے۔",
+    cw_seg:"{s}: پرکار نے AB کی لمبائی برقرار رکھی اور اسے شعاع پر منتقل کر دیا۔",
+    cw_pb:"خط PQ قطعہ AB کا عمودی ناصف ہے۔ P اور Q دونوں A اور B سے برابر فاصلے پر ہیں، اور دونوں سروں سے برابر فاصلے والا ہر نقطہ عمودی ناصف پر ہوتا ہے۔",
+    cw_ab:"شعاع BF زاویہ B کی تنصیف کرتی ہے۔ قوسوں سے BD = BE اور DF = EF بنتے ہیں، اس لیے SSS سے {s}، اور B پر دونوں زاویے متماثل ہیں۔",
+    cw_ang:"{s}۔ قوسوں سے بنے دو مثلث SSS سے متماثل ہیں، اس لیے A اور P پر ان کے زاویے متماثل ہیں۔",
+    cw_pp:"خط PQ دیے گئے خط پر عمود ہے۔ P، A اور B سے برابر فاصلے پر ہے، اور Q بھی، اس لیے خط PQ قطعہ AB کا عمودی ناصف ہے۔",
+    cw_po:"خط PQ دیے گئے خط پر عمود ہے۔ P اور Q دونوں A اور B سے برابر فاصلے پر ہیں، اس لیے خط PQ قطعہ AB کا عمودی ناصف ہے۔",
+    cw_par:"خط PD خط ℓ کے متوازی ہے۔ تعمیر نے Q پر بنے زاویے کی نقل نقطہ P پر بنائی، اور جب متناظر زاویے متماثل ہوں تو خطوط متوازی ہوتے ہیں۔"
   },
   zh:{
     appTitle:"证明与三角实验室", home:"首页", privacy:"隐私", teacher:"教师", modesLbl:"模式", stars:"答对题数",
     newRound:"新一轮", readAloud:"朗读", check:"检查", choicesLbl:"答案选项",
     footNote:"无需账号 · 不收集数据 · 可离线使用",
-    mCong:"全等与相似", mProof:"证明构建", mTrig:"直角三角形三角函数", mCirc:"圆", mCoord:"坐标几何",
+    mCong:"全等与相似", mProof:"证明构建", mTrig:"三角学", mCirc:"圆", mCoord:"坐标几何",
     teacherTitle:"教师设置", close:"关闭", setLevel:"课程级别", lvF:"基础", lvG:"几何", lvH:"荣誉",
-    levelNote:"基础：SSS、SAS、ASA 和 AAS；简短的代数证明与三角形证明；标注各边与三角比；特殊直角三角形；圆心角与圆周角；距离与中点。几何：增加 HL、SSA、相似、较长的证明、解直角三角形（仰角与俯角）、切线、弦、弧长、扇形面积、圆的方程、线段分点以及四边形分类。荣誉：CPCTC 证明、分母有理化、弧度、配方法以及求缺失的顶点。选择级别会重置下方的选项。",
+    levelNote:"基础：SSS、SAS、ASA 和 AAS；简短的代数证明与三角形证明；标注各边与三角比；特殊直角三角形；第一象限和坐标轴上的单位圆；圆心角与圆周角；距离与中点；作相等线段、垂直平分线和角平分线。几何：增加 HL、SSA、相似、三角形比例定理、直角三角形中的比例中项、较长的证明、解直角三角形（仰角与俯角）、正弦定理和余弦定理、完整的单位圆、切线、弦、弧长、扇形面积、组合图形面积、圆的方程、线段分点、四边形分类以及全部七种尺规作图。荣誉：CPCTC 证明、分母有理化、弧度（包括单位圆上的弧度）、正切值、用正弦定理求角、配方法以及求缺失的顶点。选择级别会重置下方的选项。",
     setRange:"网格大小", setDp:"三角函数答案精确到", dp0:"整数", dp1:"十分位",
     setModes:"模式", setSpeech:"语音", autoRead:"自动朗读题目说明", printCards:"打印挑战卡",
     setStored:"设置仅保存在本设备上。绝不存储任何学生信息。",
@@ -1600,7 +2294,7 @@ const T = {
     e_trap:"恰好有一组对边平行：梯形。",
     hMoreSpec:"这个名称没错，但还有更准确的名称。检查是否有直角（斜率互为负倒数）以及四条边是否相等。",
     hCls:"利用表格：平行的边斜率相等，垂直的边斜率互为负倒数，长度则显示哪些边相等。",
-    stds:"对应标准——德克萨斯州 TEKS（几何）：G.2(A, B), G.6(A, B, C), G.7(A, B), G.9(A, B), G.12(A, B, C, D, E)。共同核心标准（Common Core）：HSG-CO.B.7, HSG-CO.B.8, HSG-CO.C.9, HSG-CO.C.10, HSG-SRT.A.2, HSG-SRT.A.3, HSG-SRT.B.5, HSG-SRT.C.6, HSG-SRT.C.8, HSG-C.A.2, HSG-C.B.5, HSG-GPE.A.1, HSG-GPE.B.4, HSG-GPE.B.5, HSG-GPE.B.6。",
+    stds:"对应标准——德克萨斯州 TEKS（几何）：G.2(A, B), G.5(B), G.6(A, B, C), G.7(A, B), G.8(A, B), G.9(A, B), G.11(B), G.12(A, B, C, D, E)。共同核心标准（Common Core）：HSG-CO.B.7, HSG-CO.B.8, HSG-CO.C.9, HSG-CO.C.10, HSG-CO.D.12, HSG-SRT.A.2, HSG-SRT.A.3, HSG-SRT.B.5, HSG-SRT.C.6, HSG-SRT.C.8, HSG-SRT.D.11, HSG-C.A.2, HSG-C.B.5, HSG-GPE.A.1, HSG-GPE.B.4, HSG-GPE.B.5, HSG-GPE.B.6, HSF-TF.A.2, HSF-TF.A.3。",
     cardTitle:"证明与三角实验室——挑战卡", cardName:"姓名：",
     cardCong:"哪个判定方法可以证明 {st}？写出 SSS、SAS、ASA、AAS、HL 或“条件不足”，并说明理由。",
     cardSim:"{st}。求相似比和 x。",
@@ -1608,7 +2302,120 @@ const T = {
     cardTrig:"求 x，精确到十分位。写出你所用的三角比。",
     cardSpecial:"求 x。用最简根式给出精确答案。",
     cardCirc:"写出这个圆的方程。",
-    cardCoord:"求 A{a} 与 B{b} 之间的距离和中点。"
+    cardCoord:"求 A{a} 与 B{b} 之间的距离和中点。",
+    mUnit:"单位圆",
+    mCons:"尺规作图",
+    figUnit:"单位圆图示",
+    figCons:"作图图示",
+    wTimes:"乘",
+    goodC:"正确！{c}。",
+    ucTapDir:"在单位圆上点出 {a} 对应的点。",
+    ucPtLbl:"点 {p}",
+    hUcTap0:"0 角就是起点，在 x 轴正半轴上。",
+    hUcTapQ:"{a} 是从{p1}转到{p2}的{f}，所以它的点在{q}。",
+    hUcTapA:"{a} 是从 x 轴正半轴按逆时针方向转{n}，所以落在{p}上。",
+    hUcTapX:"你点的是 {x} 对应的点。",
+    fr13:"三分之一",
+    fr12:"一半",
+    fr23:"三分之二",
+    ax0:"x 轴正半轴",
+    ax90:"y 轴正半轴",
+    ax180:"x 轴负半轴",
+    ax270:"y 轴负半轴",
+    turn1:"四分之一圈",
+    turn2:"半圈",
+    turn3:"四分之三圈",
+    eUcTap:"正确！{a} 对应的点是 {p}。它的横坐标是 cos θ，纵坐标是 sin θ。",
+    ucValDir:"{a}。求 {f}。",
+    ucCoordDir:"{a}。单位圆上哪个点对应这个角？",
+    hUcRef:"参考角（终边与 x 轴之间的角）是 {r}，所以这个值的大小与 {e} 相同。",
+    hUcSign:"在{q}，{f} 是{sg}的。",
+    hUcAxis:"这个角的终边落在坐标轴上，对应点 {p}。cos θ 是横坐标，sin θ 是纵坐标。",
+    hUcAxis2:"这个角的终边落在坐标轴上，所以一个坐标是 0，另一个是 1 或 −1。从 x 轴正半轴开始按逆时针方向旋转。",
+    hUcTan:"记住：{e}。",
+    hUcTanU:"这里 {e}。0 不能作除数，所以 {f} 无意义。",
+    hUcPt:"这个点是 {p}。参考角是 {r}，在{q}，符号是 {sg}。",
+    eUcVal:"正确！{e}。",
+    eUcValU:"正确！{e} 无意义。",
+    eUcPt:"在单位圆上，θ 对应的点是 {p}。",
+    q1:"第一象限",
+    q2:"第二象限",
+    q3:"第三象限",
+    q4:"第四象限",
+    wPos:"正",
+    wNeg:"负",
+    lawS:"正弦定理",
+    lawC:"余弦定理",
+    goodLaw:"正确！由{l}：{eq}。",
+    hLosS:"已知两个角和其中一个角的对边，所以用正弦定理：{f}。每条边都和它所对的角配对。",
+    hLosA:"已知两条边和其中一条边的对角，所以用正弦定理：{f}。然后用反正弦求出 θ。",
+    hLocS:"已知两条边及其夹角（SAS），所以用余弦定理：{f}。",
+    hLocA:"已知三条边（SSS），所以用求角形式的余弦定理：{f}。",
+    lawNote:"边 a 是角 A 的对边，边 b 是角 B 的对边，边 c 是角 C 的对边。",
+    eProp:"正确！平行于三角形一边的直线截其他两边，所得线段成比例：{c}。",
+    hProp:"因为 {st}，三角形比例定理告诉我们 {r}。列出这个比例式，再交叉相乘。",
+    gmDir:"{t} 中 C 是直角，{s} 是斜边上的高。求 x。",
+    hGm:"斜边上的高把直角三角形分成两个较小的三角形，它们都与原三角形相似，所以对应边成比例。",
+    rGmAlt:"所以 CD 是 AD 和 DB 的比例中项：{r}。",
+    rGmLeg:"所以 AC 是 AD 和 AB 的比例中项：{r}。",
+    compDir:"求阴影图形的面积。结果保留 π。",
+    hCompRS:"把图形分成一个长方形和一个半圆。半圆的直径就是长方形的上边，所以半径是它的一半：{f}。",
+    hCompSq:"阴影部分是正方形减去一个四分之一圆，四分之一圆的半径等于正方形的边长：{f}。",
+    hCompTr:"把图形分成一个长方形和两个半圆。两个半圆合起来是一个直径为 {d} 的整圆：{f}。",
+    consDir:"任务：{c}。只用圆规和无刻度直尺。点出下一步。",
+    consNext:"正确。下一步是什么？",
+    consDone:"作图完成！",
+    stepsSoFar:"已完成的步骤",
+    hOrder:"还不行：这一步要用到还没画出来的点或弧。看看图，选一个现在就能做的步骤。",
+    nameDir:"图中是哪一种尺规作图？",
+    hName:"看看每条弧画的时候圆规尖放在哪里，再看最后一条直线或射线起什么作用：是复制、平分、作直角，还是作平行线？起始点在直线上还是在直线外？",
+    cn_seg:"作一条线段等于已知线段",
+    cn_pb:"作线段的垂直平分线",
+    cn_ab:"作角的平分线",
+    cn_ang:"作一个角等于已知角",
+    cn_pp:"过直线上一点作垂线",
+    cn_po:"过直线外一点作垂线",
+    cn_par:"过直线外一点作平行线",
+    cs_seg1:"把圆规尖放在 A 上，张开圆规，直到笔尖落在 B 上。",
+    cs_seg2:"保持圆规张开的大小不变，把圆规尖放在 P 上，画一条与射线相交的弧。把交点记为 Q。",
+    cs_pb1:"把圆规张开到大于 AB 的一半。把圆规尖放在 A 上，在线段上方和下方各画一段弧。",
+    cs_pb2:"保持张开的大小不变，把圆规尖放在 B 上，画弧与第一条弧在上方和下方相交。把交点记为 P 和 Q。",
+    cs_pb3:"用直尺画直线 PQ。",
+    cs_ab1:"把圆规尖放在顶点 B 上，画一条与角的两边都相交的弧。把交点记为 D 和 E。",
+    cs_ab2:"把圆规尖放在 D 上，在角的内部画一段弧。",
+    cs_ab3:"保持张开的大小不变，把圆规尖放在 E 上，画弧与上一条弧相交。把交点记为 F。",
+    cs_ab4:"用直尺画射线 BF。",
+    cs_ang1:"把圆规尖放在 A 上，画一条与角 A 的两边都相交的弧。把交点记为 B 和 C。",
+    cs_ang2:"保持张开的大小不变，把圆规尖放在 P 上，画一条与射线相交的长弧。把交点记为 Q。",
+    cs_ang3:"把圆规张开到 B 到 C 的距离。",
+    cs_ang4:"把圆规尖放在 Q 上，画弧与长弧相交。把交点记为 R。",
+    cs_ang5:"用直尺画射线 PR。",
+    cs_pp1:"把圆规尖放在 P 上，画弧与直线在 P 的两侧相交。把交点记为 A 和 B。",
+    cs_pp2:"把圆规张得更大一些。把圆规尖放在 A 上，在 P 的上方画一段弧。",
+    cs_pp3:"保持张开的大小不变，把圆规尖放在 B 上，画弧与上一条弧相交。把交点记为 Q。",
+    cs_pp4:"用直尺画直线 PQ。",
+    cs_po1:"把圆规尖放在 P 上，画一条与直线相交两次的弧。把交点记为 A 和 B。",
+    cs_po2:"把圆规尖放在 A 上，在直线的另一侧（P 的对侧）画一段弧。",
+    cs_po3:"保持张开的大小不变，把圆规尖放在 B 上，画弧与上一条弧相交。把交点记为 Q。",
+    cs_po4:"用直尺画直线 PQ。",
+    cs_par1:"过 P 画一条与直线 ℓ 相交的直线。把交点记为 Q。",
+    cs_par2:"把圆规尖放在 Q 上，画一条与两条直线都相交的弧。把交点记为 A（在 ℓ 上）和 B（在新直线上）。",
+    cs_par3:"保持张开的大小不变，把圆规尖放在 P 上，画一条同样的弧。把它与新直线的交点记为 C。",
+    cs_par4:"把圆规张开到 B 到 A 的距离。把圆规尖放在 C 上，画弧与上一条弧相交。把交点记为 D。",
+    cs_par5:"用直尺画直线 PD。",
+    dRuler:"用刻度尺量出长度，在正中间做记号。",
+    dProt:"用量角器量角。",
+    dOpen:"画下一条弧之前，改变圆规张开的大小。",
+    hdRuler:"尺规作图不使用测量。圆规用来复制长度，直尺只用来画直线。",
+    hdProt:"尺规作图不使用量角器。圆规复制距离，相等的距离可以得到相等的角。",
+    hdOpen:"保持圆规张开的大小不变。从 A 和 B 画出的等半径弧，使每个交点到两个端点的距离相等——这就是作图成立的原因。",
+    cw_seg:"{s}：圆规保持了 AB 的长度，并把它移到了射线上。",
+    cw_pb:"直线 PQ 是 AB 的垂直平分线。P 和 Q 到 A、B 的距离都相等，而到线段两端距离相等的点都在垂直平分线上。",
+    cw_ab:"射线 BF 平分角 B。这些弧使 BD = BE，DF = EF，所以由 SSS 得 {s}，B 处的两个角相等。",
+    cw_ang:"{s}。这些弧构成两个由 SSS 全等的三角形，所以它们在 A 和 P 处的角相等。",
+    cw_pp:"直线 PQ 垂直于已知直线。P 到 A、B 的距离相等，Q 也是，所以直线 PQ 是 AB 的垂直平分线。",
+    cw_po:"直线 PQ 垂直于已知直线。P 和 Q 到 A、B 的距离都相等，所以直线 PQ 是 AB 的垂直平分线。",
+    cw_par:"直线 PD 平行于 ℓ。作图把 Q 处的角复制到了点 P，同位角相等，两直线平行。"
   },
 };
 
@@ -1620,12 +2427,12 @@ function t(key, vars){
 }
 
 /* ---------- Settings ---------- */
-const MODES = ["cong","proof","trig","circ","coord"];
-const MODE_KEY = {cong:"mCong",proof:"mProof",trig:"mTrig",circ:"mCirc",coord:"mCoord"};
-const MODE_IC = {cong:"🔺",proof:"🧾",trig:"📐",circ:"⭕",coord:"🗺️"};
+const MODES = ["cong","proof","trig","unit","circ","coord","cons"];
+const MODE_KEY = {cong:"mCong",proof:"mProof",trig:"mTrig",unit:"mUnit",circ:"mCirc",coord:"mCoord",cons:"mCons"};
+const MODE_IC = {cong:"🔺",proof:"🧾",trig:"📐",unit:"🕒",circ:"⭕",coord:"🗺️",cons:"✏️"};
 const LEVELS = { f:{R:6,dp:1}, g:{R:8,dp:1}, h:{R:10,dp:1} };
 const clone = o=>JSON.parse(JSON.stringify(o));
-const DEFAULTS = {level:"g", R:8, dp:1, modes:{cong:true,proof:true,trig:true,circ:true,coord:true}, autoRead:false};
+const DEFAULTS = {level:"g", R:8, dp:1, modes:{cong:true,proof:true,trig:true,unit:true,circ:true,coord:true,cons:true}, autoRead:false};
 const SKEY = "ptl_settings";
 let settings = loadSettings();
 function loadSettings(){
@@ -1653,6 +2460,7 @@ const LV = ()=>settings.level;
 const RR = ()=>+settings.R;
 const DP = ()=>+settings.dp;
 const M = s=>`<bdi class="math" dir="ltr">${s}</bdi>`;
+const MW = s=>`<bdi class="math mw" dir="ltr">${s}</bdi>`; // long formulas may wrap (still left-to-right)
 const frH = (n,d)=>`<span class="fr"><span>${n}</span><span>${d}</span></span>`;
 const MINUS = "−";
 const spell = s=>String(s).split("").join(" ");
@@ -1881,7 +2689,7 @@ function speak(text,onDone){
   if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
 }
 /* Speak praise, then start the next round once it finishes (never sooner than minMs). */
-const roundIds={cong:0,proof:0,trig:0,circ:0,coord:0};
+const roundIds={cong:0,proof:0,trig:0,unit:0,circ:0,coord:0,cons:0};
 function afterPraise(msg,key,next,minMs){
   const id=roundIds[key], t0=Date.now();
   speak(msg,()=>{
@@ -1892,7 +2700,7 @@ function afterPraise(msg,key,next,minMs){
 if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
 if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
 
-const currentSpeech = {cong:"",proof:"",trig:"",circ:"",coord:""};
+const currentSpeech = {cong:"",proof:"",trig:"",unit:"",circ:"",coord:"",cons:""};
 function setSpeech(mode,text){ currentSpeech[mode]=text; }
 // Only auto-read for the panel that is on screen (rounds can refresh in the background).
 function maybeAuto(mode){ if(settings.autoRead && currentMode()===mode) speak(currentSpeech[mode]); }
@@ -1935,9 +2743,11 @@ function numOpts(ans,cands,show){ show=show||(v=>V(fmt(v))); const out=[{...show
    ========================================================================= */
 const CRIT = ["SSS","SAS","ASA","AAS","HL"];
 function newCong(){ const lv=LV(), r=Math.random();
-  if(lv==="f"||r<(lv==="g"?.5:.34)) return congRound();
-  if(r<(lv==="g"?.75:.67)) return simCritRound();
-  return simFindRound(); }
+  if(lv==="f"||r<(lv==="g"?.4:.26)) return congRound();
+  if(r<(lv==="g"?.6:.44)) return simCritRound();
+  if(r<(lv==="g"?.75:.6)) return simFindRound();
+  if(r<(lv==="g"?.9:.8)) return propRound();
+  return gmRound(); }
 function congRound(){
   const m="cong"; startRound(m); const lv=LV();
   const c=rand(lv==="f"?["SSS","SAS","ASA","AAS","SSS","SAS","ASA","AAS","AAA"]:["SSS","SAS","ASA","AAS","HL","HL","SSA","SSA","AAA"]);
@@ -2026,6 +2836,43 @@ function simFindRound(){
   choices(m,opts,it=>{ if(it.ok) return win(m,tm("goodFind",{k:kv,c:V(`x = ${qH(kq)} · ${Lo[j]} = ${ans}`,"x = "+ans)}));
     nope(m,tm("hintFind",{a:V(`${sideNm(no,j)} ↔ ${sideNm(nx,j)}`,spell(sideNm(no,j))+", "+spell(sideNm(nx,j))),b:V(`${sideNm(no,i)} ↔ ${sideNm(nx,i)}`,spell(sideNm(no,i))+", "+spell(sideNm(nx,i)))})); });
   setPrompt(m,tm("findDir",{st:stm})); maybeAuto(m);
+}
+
+/* ---------- Triangle Proportionality and geometric means (G.8) ---------- */
+const showN = v=>V(Number.isInteger(+fmt(v,1))?String(Math.round(v)):fmt(v,1));
+function propRound(){
+  const m="cong"; startRound(m); let p,q,s,u; do{ p=ri(2,5); q=ri(2,6); s=ri(1,3); u=ri(1,3); }while(s===u||p===q);
+  const LEN={AD:p*s,DB:q*s,AE:p*u,EC:q*u}, xk=rand(["AD","DB","AE","EC"]), ans=LEN[xk];
+  const A=[170,24],B=[34,214],C=[306,214], f=p/(p+q), D=[A[0]+f*(B[0]-A[0]),A[1]+f*(B[1]-A[1])], E=[A[0]+f*(C[0]-A[0]),A[1]+f*(C[1]-A[1])], c0=CEN([A,B,C]);
+  const L=k=>k===xk?"x":LEN[k], LH=k=>k===xk?"<i>x</i>":LEN[k];
+  let sv=`<path class="tr" d="M${F(A[0])} ${F(A[1])}L${F(B[0])} ${F(B[1])}L${F(C[0])} ${F(C[1])}Z"/>`+ln(D,E)+parM(D,E,1)+parM(B,C,1);
+  sv+=sideLab(A,D,C,L("AD"))+sideLab(D,B,C,L("DB"))+sideLab(A,E,B,L("AE"))+sideLab(E,C,B,L("EC"));
+  sv+=outLab(A,c0,"A",15)+outLab(B,c0,"B",15)+outLab(C,c0,"C",15)+tx(D[0]+16,D[1]+12,"D","vl")+tx(E[0]-16,E[1]+12,"E","vl");
+  $("#w-"+m).innerHTML=svgFig("0 0 340 240",sv,"",t("figTri"));
+  const kn=["AD","DB","AE","EC"].filter(k=>k!==xk).map(k=>LEN[k]), [k1,k2,k3]=kn, alt=[k1*k2/k3,k1*k3/k2,k2*k3/k1,k1+k3-k2,k2+k3-k1,ans+rand([1,2,-1])];
+  const pr=V(`${frH("AD","DB")} = ${frH("AE","EC")}`, t("frSay",{n:spell("AD"),d:spell("DB")})+" "+t("wEq")+" "+t("frSay",{n:spell("AE"),d:spell("EC")})), stm=ST("seg:DE || seg:BC");
+  choices(m,numOpts(ans,alt,showN),it=>{ if(it.ok) return win(m,tm("eProp",{c:V(`${frH(LH("AD"),LH("DB"))} = ${frH(LH("AE"),LH("EC"))} → <i>x</i> = ${ans}`,"x = "+ans)}));
+    nope(m,tm("hProp",{st:stm,r:pr})); });
+  setPrompt(m,tm("findDir",{st:stm})); maybeAuto(m);
+}
+// [AD, DB, kind]: alt = find CD, leg = find AC, seg = given CD find DB
+const GMS=[[1,4,"alt"],[4,9,"alt"],[2,8,"alt"],[1,9,"alt"],[9,16,"alt"],[4,16,"alt"],[3,12,"alt"],[2,18,"alt"],[4,25,"alt"],
+  [9,16,"leg"],[16,9,"leg"],[4,5,"leg"],[1,3,"leg"],[1,8,"leg"],[4,12,"leg"],[9,7,"leg"],[2,6,"leg"],[8,10,"leg"]];
+function gmRound(){
+  const m="cong"; startRound(m); let [p,q,ty]=rand(GMS); if(ty==="alt"&&Math.random()<.5) [p,q]=[q,p]; if(ty==="alt"&&Math.random()<.4) ty="seg";
+  const h=Math.sqrt(p*q), lg=Math.sqrt(p*(p+q)), [A,B,C,D]=fitTo([[0,0],[p+q,0],[p,h],[p,0]],[40,36,260,150]).Q, c0=CEN([A,B,C]);
+  let sv=`<path class="tr" d="M${F(A[0])} ${F(A[1])}L${F(B[0])} ${F(B[1])}L${F(C[0])} ${F(C[1])}Z"/>`+ln(C,D)+rtM(C,A,B,12)+rtM(D,B,C,10);
+  sv+=sideLab(A,D,C,p)+sideLab(D,B,C,ty==="seg"?"x":q);
+  if(ty!=="leg") sv+=sideLab(C,D,B,ty==="alt"?"x":h); else sv+=sideLab(A,C,B,"x");
+  sv+=outLab(A,c0,"A")+outLab(B,c0,"B")+outLab(C,c0,"C")+tx(D[0],D[1]+20,"D","vl");
+  $("#w-"+m).innerHTML=svgFig("0 0 340 240",sv,"",t("figTri"));
+  const ans=ty==="alt"?h:ty==="leg"?lg:q;
+  const alt=ty==="alt"?[(p+q)/2,p*q,Math.abs(q-p),Math.sqrt(p*p+q*q),p+q]:ty==="leg"?[Math.sqrt(p*q),Math.sqrt(q*(p+q)),p+q,Math.sqrt(p*p+p*q/2)]:[h*h,h*p,Math.abs(h-p),h*h/(p+1),h+p];
+  const calc=ty==="alt"?`<i>x</i>² = ${p} · ${q} = ${p*q} → <i>x</i> = ${h}`:ty==="leg"?`<i>x</i>² = ${p} · ${p+q} = ${p*(p+q)} → <i>x</i> = ${lg}`:`${h}² = ${p} · <i>x</i> → <i>x</i> = ${q}`;
+  const X=t("wTimes"), rule=ty==="leg"?tm("rGmLeg",{r:V("AC² = AD · AB",`${spell("AC")} ${t("sqSay")} ${t("wEq")} ${spell("AD")} ${X} ${spell("AB")}`)})
+    :tm("rGmAlt",{r:V("CD² = AD · DB",`${spell("CD")} ${t("sqSay")} ${t("wEq")} ${spell("AD")} ${X} ${spell("DB")}`)});
+  choices(m,numOpts(ans,alt,showN),it=>{ if(it.ok) return win(m,cat(tm("goodC",{c:V(calc,"x = "+ans)}),rule)); nope(m,cat(TX("hGm"),rule)); });
+  setPrompt(m,tm("gmDir",{t:ST("tri:ABC"),s:ST("seg:CD")})); maybeAuto(m);
 }
 
 /* =========================================================================
@@ -2161,8 +3008,8 @@ function rtFig(o){
   return svgFig("0 0 340 240",s,"",t("figTri"));
 }
 const TNAMES = [["A","B","C"],["P","Q","R"],["X","Y","Z"],["D","E","F"],["L","M","N"]];
-function newTrig(){ const lv=LV(), pool=lv==="f"?["label","ratio","ratio","special","special"]:lv==="g"?["label","ratio","side","side","angle","cx","cx","special"]:["side","angle","cx","cx","special","special"];
-  ({label:trigLabel,ratio:trigRatio,side:()=>trigSolve(null),angle:trigAngle,cx:trigCx,special:trigSpecial})[rand(pool)](); }
+function newTrig(){ const lv=LV(), pool=lv==="f"?["label","ratio","ratio","special","special"]:lv==="g"?["label","ratio","side","side","angle","cx","cx","special","law","law"]:["side","angle","cx","cx","special","special","law","law","law"];
+  ({label:trigLabel,ratio:trigRatio,side:()=>trigSolve(null),angle:trigAngle,cx:trigCx,special:trigSpecial,law:trigLaw})[rand(pool)](); }
 function trigLabel(){
   const m="trig"; startRound(m); const s=st[m], a=ri(3,7), b=a+rand([-2,-1.5,1.5,2,3]), o={a,b:Math.max(2,b),flip:Math.random()<.5,flipY:Math.random()<.25,nm:rand(TNAMES),th:"θ",btn:true,ok:{}};
   s.ask=shuffle(["opp","adj","hyp"]); s.i=0;
@@ -2250,6 +3097,41 @@ function trigSpecial(){
   setPrompt(m,TX("spDir")); maybeAuto(m);
 }
 
+/* ---------- Laws of Sines and Cosines (triangles without a right angle) ---------- */
+// Vertices A, B, C; side a is across from A, b from B, c from C. sl = [c, a, b], al = [A, B, C].
+function lawFig(Ang,sl,al){ let P=triS(lensA(Ang)); if(Math.random()<.5) P=P.map(p=>[-p[0],p[1]]);
+  return svgFig("0 0 340 240",triG(fitTo(P,[56,34,228,166]).Q,{nm:["A","B","C"],sl,al,ar:al.map(v=>v==null?0:1)}),"",t("figTri")); }
+function trigLaw(){
+  const m="trig"; startRound(m); const lv=LV(), dp=DP(), k=rand(lv==="h"?["losS","losS","losA","locS","locA"]:["losS","locS","locA"]);
+  const sl=[null,null,null], al=[null,null,null], S=t("fsin"), C0=t("fcos"); let Ang, ans, alt, eqH, law="lawC", hint, isAng=false;
+  if(k==="losS"){ let A,B,C; do{ A=ri(30,110); B=ri(30,100); C=180-A-B; }while(C<25||[A,B,C].some(v=>Math.abs(v-90)<4));
+    const a=ri(6,20), third=lv==="h"&&Math.random()<.5; Ang=[A,B,C]; ans=a*sinD(B)/sinD(A); sl[1]=a; sl[2]="x"; law="lawS";
+    if(third){ al[1]=B+"°"; al[2]=C+"°"; } else { al[0]=A+"°"; al[1]=B+"°"; }
+    eqH=(third?`A = 180° − ${B}° − ${C}° = ${A}°; `:"")+`<i>x</i> = ${frH(a+" · sin "+B+"°","sin "+A+"°")} ≈ ${fmt(ans,dp)}`;
+    alt=[a*sinD(A)/sinD(B),a*sinD(B),a/sinD(A),a*sinD(C)/sinD(A),a*B/A];
+    hint=cat(third?TX("findThird"):null,tm("hLosS",{f:V(`${frH("a","sin A")} = ${frH("b","sin B")}`,t("frSay",{n:"a",d:S+" A"})+" "+t("wEq")+" "+t("frSay",{n:"b",d:S+" B"}))})); }
+  else if(k==="losA"){ let A,a,b,B,C; do{ A=ri(35,115); a=ri(10,20); b=ri(5,a-2); B=Math.asin(b*sinD(A)/a)*180/Math.PI; C=180-A-B; }while(C<20||B<15||Math.abs(B-90)<5);
+    Ang=[A,B,C]; ans=B; isAng=true; sl[1]=a; sl[2]=b; al[0]=A+"°"; al[1]="θ"; law="lawS";
+    eqH=`sin θ = ${frH(b+" · sin "+A+"°",a)} → θ ≈ ${fmt(B,dp)}°`;
+    alt=[180-B,A*b/a,Math.acos(b*sinD(A)/a)*180/Math.PI,90-B/2,C];
+    hint=cat(tm("hLosA",{f:V(`${frH("sin B","b")} = ${frH("sin A","a")}`,t("frSay",{n:S+" B",d:"b"})+" "+t("wEq")+" "+t("frSay",{n:S+" A",d:"a"}))})); }
+  else if(k==="locS"){ let A,b,c,a,B; do{ A=ri(25,140); b=ri(5,15); c=ri(5,15); a=Math.sqrt(b*b+c*c-2*b*c*cosD(A)); B=Math.acos((a*a+c*c-b*b)/(2*a*c))*180/Math.PI; }while(Math.abs(A-90)<6||B<15||180-A-B<15);
+    Ang=[A,B,180-A-B]; ans=a; sl[0]=c; sl[2]=b; sl[1]="x"; al[0]=A+"°";
+    eqH=`<i>x</i>² = ${b}² + ${c}² − 2 · ${b} · ${c} · cos ${A}° → <i>x</i> ≈ ${fmt(a,dp)}`;
+    alt=[Math.sqrt(b*b+c*c),Math.sqrt(b*b+c*c+2*b*c*cosD(A)),a*a,Math.sqrt(Math.abs(b*b+c*c-b*c*cosD(A)))];
+    hint=tm("hLocS",{f:V("a² = b² + c² − 2bc · cos A",`a ${t("sqSay")} ${t("wEq")} b ${t("sqSay")} ${t("wPlus")} c ${t("sqSay")} ${t("wMinus")} 2 b c ${C0} A`)}); }
+  else { let a,b,c,C,A; do{ a=ri(5,15); b=ri(5,15); c=ri(Math.abs(a-b)+2,a+b-2); C=Math.acos((a*a+b*b-c*c)/(2*a*b))*180/Math.PI; A=Math.acos((b*b+c*c-a*a)/(2*b*c))*180/Math.PI; }while(Math.abs(C-90)<4||C<20||A<15||180-A-C<15);
+    Ang=[A,180-A-C,C]; ans=C; isAng=true; sl[0]=c; sl[1]=a; sl[2]=b; al[2]="θ";
+    eqH=`cos θ = ${frH(`${a}² + ${b}² − ${c}²`,`2 · ${a} · ${b}`)} → θ ≈ ${fmt(C,dp)}°`;
+    alt=[180-C,A,180-A-C,C/2+45];
+    hint=tm("hLocA",{f:V(`cos C = ${frH("a² + b² − c²","2ab")}`,`${C0} C ${t("wEq")} `+t("frSay",{n:`a ${t("sqSay")} ${t("wPlus")} b ${t("sqSay")} ${t("wMinus")} c ${t("sqSay")}`,d:"2 a b"}))}); }
+  $("#w-"+m).innerHTML=lawFig(Ang,sl,al);
+  const show=isAng?x=>V(fmt(x,dp)+"°",t("degSay",{n:fmt(x,dp)})):x=>V(fmt(x,dp));
+  const say=t("approxSay",{v:isAng?t("degSay",{n:fmt(ans,dp)}):fmt(ans,dp)});
+  choices(m,numOpts(ans,alt,show),it=>{ if(it.ok) return win(m,tm("goodLaw",{l:W(law),eq:{h:MW(eqH),s:say}})); nope(m,cat(hint,TX("lawNote"))); });
+  setPrompt(m,cat(TX(isAng?"angDir":"sideDir"),TX(dp?"rnd1":"rnd0"))); maybeAuto(m);
+}
+
 /* =========================================================================
    4. CIRCLES
    ========================================================================= */
@@ -2259,8 +3141,8 @@ function arcPath(a1,a2,r,o){ r=r||CR; const p=cpt(a1,r,o), q=cpt(a2,r,o), lg=((a
 const circ = (o,r)=>`<circle class="cc" cx="${F((o||CO)[0])}" cy="${F((o||CO)[1])}" r="${r||CR}"/>`;
 const dotL = (p,lab,c,d)=>`<circle class="dot" cx="${F(p[0])}" cy="${F(p[1])}" r="4"/>`+(lab?outLab(p,c||CO,lab,d||18):"");
 const CFIG = s=>svgFig("0 0 320 300",s,"sm",t("figCirc"));
-function newCirc(){ const lv=LV(), pool=lv==="f"?["central","central","inscribed","inscribed","eqBuild","arc"]:lv==="g"?["inscribed","semi","tanAng","tanLen","chord","arc","eqPick","eqBuild"]:["inscribed","tanLen","chord","arc","radian","eqPick","compSq"];
-  ({central:circCentral,inscribed:circInscribed,semi:circSemi,tanAng:circTanAng,tanLen:circTanLen,chord:circChord,arc:circArc,radian:circRadian,eqPick:circEqPick,eqBuild:circEqBuild,compSq:circCompSq})[rand(pool)](); }
+function newCirc(){ const lv=LV(), pool=lv==="f"?["central","central","inscribed","inscribed","eqBuild","arc"]:lv==="g"?["inscribed","semi","tanAng","tanLen","chord","arc","eqPick","eqBuild","comp"]:["inscribed","tanLen","chord","arc","radian","eqPick","compSq","comp"];
+  ({central:circCentral,inscribed:circInscribed,semi:circSemi,tanAng:circTanAng,tanLen:circTanLen,chord:circChord,arc:circArc,radian:circRadian,eqPick:circEqPick,eqBuild:circEqBuild,compSq:circCompSq,comp:circComp})[rand(pool)](); }
 function degChoices(m,ans,cands,good,hint){ const o=numOpts(ans,cands,x=>V(Math.round(x)+"°",t("degSay",{n:Math.round(x)})));
   choices(m,o,it=>{ if(it.ok) return win(m,good); nope(m,hint); }); }
 function circCentral(){
@@ -2390,6 +3272,35 @@ function circCompSq(){
   setPrompt(m,cat(TX("csDir"),V("",eqS))); maybeAuto(m);
 }
 
+// Composite figures with parts of circles: a ± bπ
+const piLin = o=>({h:`${o.a} ${o.sg>0?"+":MINUS} ${piH(o.b)}`, s:`${o.a} ${t(o.sg>0?"wPlus":"wMinus")} ${piS(o.b)}`});
+function circComp(){
+  const m="circ"; startRound(m); const k=rand(["rs","sq","tr"]), P2=(x,y)=>F(x)+" "+F(y);
+  const shade=d=>`<path d="${d}" style="fill:rgba(22,160,133,.22);stroke:#0b6b58;stroke-width:3;stroke-linejoin:round"/>`;
+  let s, ans, cands, calc, hint;
+  if(k==="rs"){ const r=rand([2,4,6]), w=2*r, h=ri(3,9), u=Math.min(220/w,190/(h+r)), x0=160-w*u/2, x1=160+w*u/2, yb=150+(h+r)*u/2, yt=yb-h*u, R=r*u;
+    s=shade(`M${P2(x0,yb)}L${P2(x1,yb)}L${P2(x1,yt)}A${F(R)} ${F(R)} 0 0 0 ${P2(x0,yt)}Z`)+ln([x0,yt],[x1,yt],"sg dash")+tx(160,yb+18,w,"ml")+tx(x1+18,(yt+yb)/2,h,"ml");
+    ans={a:w*h,b:Q(r*r,2),sg:1}; cands=[{a:w*h,b:Q(r*r,1),sg:1},{a:w*h,b:Q(2*r*r,1),sg:1},{a:w*h,b:Q(r,1),sg:1},{a:w*h,b:Q(r*r,2),sg:-1}];
+    calc=`${w} · ${h} + ${frH(1,2)} · π · ${r}² = `;
+    hint=tm("hCompRS",{f:V(`A = l · w + ${frH(1,2)}πr²`,`A ${t("wEq")} l w ${t("wPlus")} ${t("frSay",{n:1,d:2})} ${t("piSay")} r ${t("sqSay")}`)}); }
+  else if(k==="sq"){ const a=rand([4,6,8,10]), S=200, x0=160-S/2, yb=150+S/2;
+    s=shade(`M${P2(x0+S,yb)}L${P2(x0+S,yb-S)}L${P2(x0,yb-S)}A${F(S)} ${F(S)} 0 0 1 ${P2(x0+S,yb)}Z`)+`<rect x="${F(x0)}" y="${F(yb-S)}" width="${F(S)}" height="${F(S)}" style="fill:none;stroke:#0b6b58;stroke-width:3"/>`
+      +dotL([x0,yb],"")+tx(160,yb+18,a,"ml")+tx(x0-18,150,a,"ml");
+    ans={a:a*a,b:Q(a*a,4),sg:-1}; cands=[{a:a*a,b:Q(a*a,1),sg:-1},{a:a*a,b:Q(a*a,2),sg:-1},{a:a*a,b:Q(a,2),sg:-1},{a:a*a,b:Q(a*a,4),sg:1}];
+    calc=`${a}² − ${frH(1,4)} · π · ${a}² = `;
+    hint=tm("hCompSq",{f:V(`A = s² − ${frH(1,4)}πs²`,`A ${t("wEq")} s ${t("sqSay")} ${t("wMinus")} ${t("frSay",{n:1,d:4})} ${t("piSay")} s ${t("sqSay")}`)}); }
+  else { const r=ri(2,5), l=ri(4,10), u=Math.min(250/(l+2*r),150/(2*r)), x1=160-l*u/2, x2=160+l*u/2, yt=150-r*u, yb=150+r*u, R=r*u;
+    s=shade(`M${P2(x1,yt)}L${P2(x2,yt)}A${F(R)} ${F(R)} 0 0 1 ${P2(x2,yb)}L${P2(x1,yb)}A${F(R)} ${F(R)} 0 0 1 ${P2(x1,yt)}Z`)+ln([x1,yt],[x1,yb],"sg dash")+ln([x2,yt],[x2,yb],"sg dash")
+      +tx(160,yt-14,l,"ml")+tx(x2-16,150,2*r,"ml");
+    ans={a:2*r*l,b:Q(r*r,1),sg:1}; cands=[{a:2*r*l,b:Q(2*r*r,1),sg:1},{a:2*r*l,b:Q(r*r,2),sg:1},{a:2*r*l,b:Q(4*r*r,1),sg:1},{a:r*l,b:Q(r*r,1),sg:1}];
+    calc=`${l} · ${2*r} + π · ${r}² = `;
+    hint=tm("hCompTr",{d:N2(2*r),f:V("A = l · w + πr²",`A ${t("wEq")} l w ${t("wPlus")} ${t("piSay")} r ${t("sqSay")}`)}); }
+  $("#w-"+m).innerHTML=CFIG(s);
+  const out=[{...piLin(ans),ok:true}]; for(const c of cands){ const o=piLin(c); if(out.length<4&&!out.some(x=>x.h===o.h)) out.push({...o,ok:false}); }
+  choices(m,shuffle(out),it=>{ if(it.ok) return win(m,tm("goodC",{c:{h:MW(calc+piLin(ans).h),s:piLin(ans).s}})); nope(m,hint); });
+  setPrompt(m,TX("compDir")); maybeAuto(m);
+}
+
 /* =========================================================================
    5. COORDINATE GEOMETRY
    ========================================================================= */
@@ -2468,8 +3379,154 @@ function coordClassify(){
   setPrompt(m,TX("clsDir")); maybeAuto(m);
 }
 
+/* =========================================================================
+   6. UNIT CIRCLE — the point for θ is (cos θ, sin θ)
+   ========================================================================= */
+const UCA=[0,30,45,60,90,120,135,150,180,210,225,240,270,300,315,330], UCF=[0,30,45,60,90,180,270];
+const UO=[170,170], UR=120, ucp=a=>[UO[0]+UR*cosD(a), UO[1]-UR*sinD(a)];
+const ucRef = a=>a<=90?a:a<=180?180-a:a<=270?a-180:360-a;
+const ucQd = a=>a%90===0?0:Math.floor(a/90)+1;
+const sgn = v=>Math.abs(v)<1e-9?0:Math.sign(v);
+const CMAG={0:RV(1),30:RV(1,2,3),45:RV(1,2,2),60:RV(1,2),90:null}, TMAG={0:null,30:RV(1,3,3),45:RV(1),60:RV(1,1,3)};
+function SVv(sg,rv){ if(!sg||!rv) return V("0"); return V((sg<0?MINUS:"")+rvH(rv), sg<0?t("neg",{n:rvS(rv)}):rvS(rv)); }
+function ucVal(a,f){ const r=ucRef(a), c=sgn(cosD(a)), s=sgn(sinD(a));
+  if(f==="cos") return SVv(c,CMAG[r]); if(f==="sin") return SVv(s,CMAG[90-r]);
+  if(!c) return {...V(t("undef")),und:true}; return SVv(c*s,TMAG[r]); }
+const radT = a=>{ if(!a) return "0"; const q=Q(a,180); return (q.p===1?"":q.p)+"π"+(q.q===1?"":"/"+q.q); };
+const ANG = a=>LV()==="h"?(a===0?V("0"):PIV(Q(a,180))):DEG(a);
+// Honors shows radians; hints also give the degrees.
+const ANGD = a=>{ if(LV()!=="h"||!a) return ANG(a); const r=PIV(Q(a,180)); return V(r.h+" = "+a+"°", r.s+" "+t("wEq")+" "+t("degSay",{n:a})); };
+const angT = a=>LV()==="h"?radT(a):a+"°";
+const THV = a=>{ const v=ANG(a); return V("θ = "+v.h,"θ "+t("wEq")+" "+v.s); };
+const FTV = f=>V(f+" θ",t("f"+f)+" θ");
+function UPT(a){ const c=ucVal(a,"cos"), s=ucVal(a,"sin"); return V(`(${c.h}, ${s.h})`, t("ptSay",{x:c.s,y:s.s})); }
+function ucFig(o){ o=o||{}; let s=`<line class="ax" x1="22" y1="170" x2="318" y2="170"/><line class="ax" x1="170" y1="22" x2="170" y2="318"/>`+circ(UO,UR);
+  s+=tx(328,156,"x","vl")+tx(184,14,"y","vl")+tx(UO[0]+UR+10,UO[1]+15,"1","ml")+tx(UO[0]-UR-12,UO[1]+15,MINUS+"1","ml")+tx(UO[0]-12,UO[1]-UR-12,"1","ml")+tx(UO[0]-18,UO[1]+UR+14,MINUS+"1","ml");
+  if(o.ray!=null){ const a=o.ray, P=ucp(a);
+    if(a%90){ const Ft=[P[0],UO[1]]; s+=ln(P,Ft,"sg dash")+rtM(Ft,UO,P,9); }
+    if(a) s+=`<path class="mk" d="${arcPath(0,a,26,UO)}"/>`+tx(UO[0]+44*cosD(a/2),UO[1]-44*sinD(a/2),"θ","xl");
+    s+=ln(UO,P,"sg ac")+`<circle class="dot" cx="${F(P[0])}" cy="${F(P[1])}" r="6"/>`+dotL(UO,""); }
+  (o.pts||[]).forEach(a=>{ const P=ucp(a), cls=o.ok===a?" ok":(o.bad||[]).includes(a)?" bad":"";
+    const lab=t("ucPtLbl",{p:UPT(a).s});
+    s+=o.tap&&!cls.includes("ok")?`<g class="ucp${cls}" data-a="${a}" tabindex="0" role="button" aria-label="${lab}"><circle class="hit" cx="${F(P[0])}" cy="${F(P[1])}" r="15"/><circle class="vis" cx="${F(P[0])}" cy="${F(P[1])}" r="7"/></g>`
+      :`<g class="ucp${cls}"><circle class="vis" cx="${F(P[0])}" cy="${F(P[1])}" r="7"/></g>`;
+    if(cls) s+=tx(UO[0]+(UR+26)*cosD(a),UO[1]-(UR+24)*sinD(a),angT(a),cls.includes("ok")?"ml":"vl"); });
+  return svgFig("0 0 340 340",s,"sm",t("figUnit")); }
+function newUnit(){ const lv=LV(), pool=lv==="f"?["tap","tap","val","val","coord"]:["tap","val","val","val","coord"];
+  ({tap:ucTap,val:ucValR,coord:ucCoord})[rand(pool)](); }
+function ucTap(){
+  const m="unit"; startRound(m); const s=st[m], set=LV()==="f"?UCF:UCA, a=rand(set); s.bad=[];
+  const draw=ok=>{ $("#w-"+m).innerHTML=ucFig({pts:set,tap:!ok,ok:ok?a:null,bad:s.bad}); };
+  s.onPt=b=>{ if(s.done) return;
+    if(b===a){ draw(true); return win(m,tm("eUcTap",{a:THV(a),p:UPT(a)})); }
+    if(!s.bad.includes(b)) s.bad.push(b); draw(false);
+    const base=Math.floor(a/90)*90, k=(a-base)/15;   // 30° → 2, 45° → 3, 60° → 4 (sixths of a quarter turn)
+    const h=a===0?TX("hUcTap0"):a%90===0?tm("hUcTapA",{a:ANGD(a),n:W("turn"+a/90),p:W("ax"+a)})
+      :tm("hUcTapQ",{a:ANGD(a),f:W({2:"fr13",3:"fr12",4:"fr23"}[k]),p1:W("ax"+base),p2:W("ax"+(base+90)%360),q:W("q"+ucQd(a))});
+    nope(m,cat(h,tm("hUcTapX",{x:ANGD(b)})));
+    const g=$(`#w-unit .ucp[data-a="${b}"]`); if(g) g.focus({preventScroll:true}); };
+  draw(false); setPrompt(m,tm("ucTapDir",{a:THV(a)})); maybeAuto(m);
+}
+function ucHint(a,f){ const r=ucRef(a), q=ucQd(a), A=ANG(r);
+  if(!q){ const h=tm("hUcAxis",{p:UPT(a)}); if(f!=="tan") return h;
+    return cat(h,ucVal(a,"tan").und?tm("hUcTanU",{e:V("cos θ = 0",`${t("fcos")} θ ${t("wEq")} 0`),f:FTV("tan")}):tm("hUcTan",{e:V("tan θ = sin θ ÷ cos θ",`${t("ftan")} θ ${t("wEq")} `+t("frSay",{n:t("fsin")+" θ",d:t("fcos")+" θ"}))})); }
+  const mg=ucVal(r,f), v=f==="tan"?sinD(a)/cosD(a):f==="sin"?sinD(a):cosD(a);
+  return cat(tm("hUcRef",{r:A,e:V(`${f} ${A.h} = ${mg.h}`,`${t("f"+f)} ${A.s} ${t("wEq")} ${mg.s}`)}),tm("hUcSign",{q:W("q"+q),f:FTV(f),sg:W(v>0?"wPos":"wNeg")}));
+}
+function ucValR(){
+  const m="unit"; startRound(m); const lv=LV(), a=rand(lv==="f"?UCF:UCA), f=rand(lv==="h"?["sin","cos","tan"]:["sin","cos"]), ans=ucVal(a,f), A=ANG(a);
+  $("#w-"+m).innerHTML=ucFig({ray:a});
+  const all=[]; UCA.forEach(x=>{ const v=ucVal(x,f); if(!all.some(y=>y.h===v.h)) all.push(v); });
+  const neg=f==="sin"?ucVal((360-a)%360,f):ucVal((540-a)%360,f), oth=ucVal(a,f==="cos"?"sin":"cos");
+  const out=[{...ans,ok:true,txt:!!ans.und}]; for(const c of [neg,oth].concat(shuffle(all))){ if(out.length>=4) break; if(out.some(o=>o.h===c.h)) continue; out.push({...c,ok:false,txt:!!c.und}); }
+  const good=ans.und?tm("eUcValU",{e:V(`${f} ${A.h}`,`${t("f"+f)} ${A.s}`)}):tm("eUcVal",{e:V(`${f} ${A.h} = ${ans.h}`,`${t("f"+f)} ${A.s} ${t("wEq")} ${ans.s}`)});
+  choices(m,shuffle(out),it=>{ if(it.ok) return win(m,cat(good,tm("eUcPt",{p:V(`(cos θ, sin θ) = ${UPT(a).h}`,UPT(a).s)}))); nope(m,ucHint(a,f)); });
+  setPrompt(m,tm("ucValDir",{a:THV(a),f:FTV(f)})); maybeAuto(m);
+}
+function ucCoord(){
+  const m="unit"; startRound(m); const a=rand(LV()==="f"?UCF:UCA), q=ucQd(a);
+  $("#w-"+m).innerHTML=ucFig({ray:a});
+  const out=[{...UPT(a),ok:true}]; for(const b of [90-a,180-a,360-a,180+a].map(x=>(x%360+360)%360).concat(shuffle(UCA))){ if(out.length>=4) break; const o=UPT(b); if(out.some(x=>x.h===o.h)) continue; out.push({...o,ok:false}); }
+  const sg=v=>sgn(v)>0?"+":MINUS, hint=q?tm("hUcPt",{p:V("(cos θ, sin θ)",`${t("fcos")} θ, ${t("fsin")} θ`),r:ANG(ucRef(a)),q:W("q"+q),sg:V(`(${sg(cosD(a))}, ${sg(sinD(a))})`)}):TX("hUcAxis2");
+  choices(m,shuffle(out),it=>{ if(it.ok) return win(m,cat(TX("yes"),tm("eUcPt",{p:V(`(cos θ, sin θ) = ${UPT(a).h}`,UPT(a).s)}))); nope(m,hint); });
+  setPrompt(m,tm("ucCoordDir",{a:THV(a)})); maybeAuto(m);
+}
+
+/* =========================================================================
+   7. CONSTRUCTIONS — compass and straightedge, one step at a time
+   ========================================================================= */
+const cAng = (O,P)=>Math.atan2(O[1]-P[1],P[0]-O[0])*180/Math.PI;
+const cArc = (O,P,span,r)=>{ const a=cAng(O,P); r=r||Math.hypot(P[0]-O[0],P[1]-O[1]); return `<path class="carc" d="${arcPath(a-span,a+span,F(r),O)}"/>`; };
+const cArcR = (O,r,a1,a2)=>`<path class="carc" d="${arcPath(a1,a2,F(r),O)}"/>`;
+const extL = (P,Q,a,b,cls)=>{ const u=UNIT(SUB(Q,P)); return ln([P[0]-u[0]*a,P[1]-u[1]*a],[Q[0]+u[0]*b,Q[1]+u[1]*b],cls); };
+const pdot = p=>`<circle class="dot" cx="${F(p[0])}" cy="${F(p[1])}" r="4"/>`;
+const plab = (p,s,dx,dy)=>pdot(p)+tx(p[0]+dx,p[1]+dy,s,"vl");
+const dist = (P,Q)=>Math.hypot(P[0]-Q[0],P[1]-Q[1]);
+const CONS = {
+  seg:{lv:"fgh",dec:["dRuler"],steps:[["seg1",[]],["seg2",["seg1"]]],cw:()=>tm("cw_seg",{s:ST("seg:PQ =~ seg:AB")}),
+    fig(){ const A=[40,80],B=[160,44],P=[60,170],E=[320,170],Qp=[P[0]+dist(A,B),P[1]];
+      return {base:ln(A,B)+plab(A,"A",-14,-6)+plab(B,"B",12,-10)+ln(P,E)+plab(P,"P",-4,22),
+        seg1:cArc(A,B,14), seg2:cArc(P,Qp,18)+ln(P,Qp,"sg ac")+plab(Qp,"Q",4,22)+tickM(A,B,1)+tickM(P,Qp,1)}; }},
+  pb:{lv:"fgh",dec:["dRuler","dOpen"],steps:[["pb1",[]],["pb2",["pb1"]],["pb3",["pb2"]]],cw:()=>TX("cw_pb"),
+    fig(){ const A=[85,130],B=[255,130],P=[170,60.2],Qp=[170,199.8],M0=[170,130];
+      return {base:ln(A,B)+plab(A,"A",-14,4)+plab(B,"B",14,4),
+        pb1:cArc(A,P,16,110)+cArc(A,Qp,16,110), pb2:cArc(B,P,16,110)+cArc(B,Qp,16,110)+plab(P,"P",16,-6)+plab(Qp,"Q",16,8),
+        pb3:extL(P,Qp,30,25,"sg ac")+rtM(M0,B,P,11)+tickM(A,M0,1)+tickM(M0,B,1)}; }},
+  ab:{lv:"fgh",dec:["dProt"],steps:[["ab1",[]],["ab2",["ab1"]],["ab3",["ab2"]],["ab4",["ab3"]]],cw:()=>tm("cw_ab",{s:ST("tri:BDF =~ tri:BEF")}),
+    fig(){ const B=[50,215],R1=[50+220*cosD(8),215-220*sinD(8)],R2=[50+220*cosD(62),215-220*sinD(62)],D=[50+95*cosD(8),215-95*sinD(8)],E=[50+95*cosD(62),215-95*sinD(62)],
+        Fp=[50+178*cosD(35),215-178*sinD(35)];
+      const rr=dist(D,Fp);
+      return {base:ln(B,R1)+ln(B,R2)+plab(B,"B",-6,18),
+        ab1:cArcR(B,95,0,70)+plab(D,"D",4,20)+plab(E,"E",-16,-4), ab2:cArc(D,Fp,16,rr), ab3:cArc(E,Fp,16,rr)+plab(Fp,"F",10,-12),
+        ab4:extL(B,Fp,0,50,"sg ac")+arcM(B,R1,Fp,1,40)+arcM(B,Fp,R2,1,40)}; }},
+  ang:{lv:"gh",dec:["dProt"],steps:[["ang1",[]],["ang2",["ang1"]],["ang3",["ang2"]],["ang4",["ang3"]],["ang5",["ang4"]]],cw:()=>tm("cw_ang",{s:ST("ang:QPR =~ ang:BAC")}),
+    fig(){ const A=[30,205],A1=[150,205],A2=[30+120*cosD(48),205-120*sinD(48)],B=[85,205],C=[30+55*cosD(48),205-55*sinD(48)],P=[185,205],Qp=[240,205],R=[185+55*cosD(48),205-55*sinD(48)];
+      return {base:ln(A,A1)+ln(A,A2)+plab(A,"A",-4,20)+ln(P,[330,205])+plab(P,"P",-4,20),
+        ang1:cArcR(A,55,-8,60)+plab(B,"B",4,20)+plab(C,"C",-14,-4), ang2:cArcR(P,55,-8,80)+plab(Qp,"Q",4,20), ang3:ln(B,C,"sg dash"),
+        ang4:cArc(Qp,R,16,dist(B,C))+plab(R,"R",-14,-6), ang5:extL(P,R,0,75,"sg ac")+arcM(A,A1,A2,1,28)+arcM(P,Qp,R,1,28)}; }},
+  pp:{lv:"gh",dec:["dProt"],steps:[["pp1",[]],["pp2",["pp1"]],["pp3",["pp2"]],["pp4",["pp3"]]],cw:()=>TX("cw_pp"),
+    fig(){ const P=[170,170],A=[110,170],B=[230,170],Qp=[170,90];
+      return {base:ln([20,170],[320,170])+plab(P,"P",10,22),
+        pp1:cArc(P,A,14)+cArc(P,B,14)+plab(A,"A",-6,22)+plab(B,"B",6,22), pp2:cArc(A,Qp,16,100), pp3:cArc(B,Qp,16,100)+plab(Qp,"Q",16,-8),
+        pp4:extL(P,Qp,0,60,"sg ac")+rtM(P,B,Qp,12)}; }},
+  po:{lv:"gh",dec:["dProt"],steps:[["po1",[]],["po2",["po1"]],["po3",["po2"]],["po4",["po3"]]],cw:()=>TX("cw_po"),
+    fig(){ const P=[170,40],A=[80,150],B=[260,150],Qp=[170,150+Math.sqrt(115*115-90*90)],Ft=[170,150];
+      return {base:ln([15,150],[325,150])+plab(P,"P",16,-6),
+        po1:cArc(P,A,10)+cArc(P,B,10)+plab(A,"A",-8,20)+plab(B,"B",8,20), po2:cArc(A,Qp,14,115), po3:cArc(B,Qp,14,115)+plab(Qp,"Q",16,6),
+        po4:extL(P,Qp,15,10,"sg ac")+rtM(Ft,B,P,11)}; }},
+  par:{lv:"gh",dec:["dProt"],steps:[["par1",[]],["par2",["par1"]],["par3",["par2"]],["par4",["par3"]],["par5",["par4"]]],cw:()=>TX("cw_par"),
+    fig(){ const Qp=[120,195],P=[200,75],u=UNIT(SUB(P,Qp)),A=[170,195],B=[Qp[0]+50*u[0],Qp[1]+50*u[1]],C=[P[0]+50*u[0],P[1]+50*u[1]],D=[250,75];
+      return {base:ln([10,195],[330,195])+tx(322,180,"ℓ","ml")+plab(P,"P",-16,-2),
+        par1:extL(Qp,P,40,40,"sg")+plab(Qp,"Q",-14,18), par2:cArcR(Qp,50,-8,64)+plab(A,"A",4,20)+plab(B,"B",-16,0),
+        par3:cArcR(P,50,-8,64)+plab(C,"C",-16,0), par4:ln(B,A,"sg dash")+cArc(C,D,14,dist(A,B))+plab(D,"D",8,18),
+        par5:extL(P,D,180,70,"sg ac")+parM([40,195],[300,195],1)+parM([40,75],[300,75],1)}; }}
+};
+const CKEYS = Object.keys(CONS);
+function consFig(id,dn){ const g=CONS[id].fig(); return svgFig("0 0 340 240",g.base+dn.map(k=>g[k]).join(""),"",t("figCons")); }
+function newCons(){ const lv=LV(), pool=CKEYS.filter(k=>CONS[k].lv.includes(lv)); if(lv!=="f"&&Math.random()<.3) return consName(pool); consBuild(rand(pool)); }
+function consBuild(id){
+  const m="cons"; startRound(m); const s=st[m], C=CONS[id]; s.dn=[]; s.badDec=[];
+  const draw=()=>{ $("#w-"+m).innerHTML=consFig(id,s.dn)+(s.dn.length?`<p class="banklab">${t("stepsSoFar")}</p><ol class="csteps">${s.dn.map(k=>`<li>${rtlFix(t("cs_"+k))}</li>`).join("")}</ol>`:""); };
+  const ask=()=>{ const left=C.steps.filter(([k])=>!s.dn.includes(k));
+    const items=shuffle(left.map(([k,d])=>({...TX("cs_"+k),txt:true,ok:d.every(x=>s.dn.includes(x)),k})).concat(C.dec.filter(d=>!s.badDec.includes(d)).map(d=>({...TX(d),txt:true,ok:false,dec:d}))));
+    choices(m,items,it=>{
+      if(it.dec){ s.badDec.push(it.dec); return nope(m,TX("h"+it.dec)); }
+      if(!it.ok) return nope(m,TX("hOrder"));
+      s.dn.push(it.k); draw();
+      if(s.dn.length===C.steps.length){ $("#c-"+m).innerHTML=""; return win(m,cat(TX("consDone"),C.cw())); }
+      ask(); step(m,TX("consNext")); const f=$("#c-"+m+" button"); if(f) f.focus({preventScroll:true}); }); };
+  draw(); ask(); setPrompt(m,tm("consDir",{c:W("cn_"+id)})); maybeAuto(m);
+}
+function consName(pool){
+  const m="cons"; startRound(m); const id=rand(pool), C=CONS[id];
+  $("#w-"+m).innerHTML=consFig(id,C.steps.map(x=>x[0]));
+  const opts=shuffle([id].concat(shuffle(CKEYS.filter(k=>k!==id)).slice(0,3))).map(k=>({...TX("cn_"+k),txt:true,ok:k===id}));
+  choices(m,opts,it=>{ if(it.ok) return win(m,cat(TX("yes"),C.cw())); nope(m,TX("hName")); });
+  setPrompt(m,TX("nameDir")); maybeAuto(m);
+}
+
 /* ---------- Mode switching ---------- */
-const NEWFN={cong:newCong,proof:newProof,trig:newTrig,circ:newCirc,coord:newCoord};
+const NEWFN={cong:newCong,proof:newProof,trig:newTrig,unit:newUnit,circ:newCirc,coord:newCoord,cons:newCons};
 function firstMode(){ return MODES.find(m=>settings.modes[m])||"cong"; }
 function currentMode(){ const b=$$(".tabs button").find(x=>x.getAttribute("aria-selected")==="true"); return b?b.dataset.mode:firstMode(); }
 function showMode(mode){
@@ -2585,6 +3642,9 @@ function buildUI(){
   const tw=$("#w-trig");
   tw.addEventListener("click",e=>{ const g=e.target.closest(".side"); if(g&&st.trig&&st.trig.onSide&&!st.trig.done) st.trig.onSide(g.dataset.k); });
   tw.addEventListener("keydown",e=>{ const g=e.target.closest(".side"); if(g&&(e.key==="Enter"||e.key===" ")&&st.trig&&st.trig.onSide&&!st.trig.done){ e.preventDefault(); st.trig.onSide(g.dataset.k); } });
+  const uw=$("#w-unit");
+  uw.addEventListener("click",e=>{ const g=e.target.closest(".ucp[data-a]"); if(g&&st.unit&&st.unit.onPt&&!st.unit.done) st.unit.onPt(+g.dataset.a); });
+  uw.addEventListener("keydown",e=>{ const g=e.target.closest(".ucp[data-a]"); if(g&&(e.key==="Enter"||e.key===" ")&&st.unit&&st.unit.onPt&&!st.unit.done){ e.preventDefault(); st.unit.onPt(+g.dataset.a); } });
   $("#tabs").addEventListener("keydown",e=>{ const vis=$$(".tabs button").filter(b=>!b.classList.contains("hidden")), i=vis.indexOf(document.activeElement); if(i<0) return;
     const rtl=document.documentElement.dir==="rtl", stp={ArrowRight:rtl?-1:1,ArrowLeft:rtl?1:-1}[e.key]; if(!stp) return;
     const nb=vis[(i+stp+vis.length)%vis.length]; nb.focus(); showMode(nb.dataset.mode); e.preventDefault(); });
