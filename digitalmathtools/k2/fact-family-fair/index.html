@@ -92,6 +92,13 @@
   .vis{display:flex;justify-content:center;margin:.4rem 0}
   .vis svg{width:100%;max-width:300px;height:auto}
   .vis.wide svg{max-width:640px}
+  .tens svg{max-width:340px}
+  .picks{display:grid;gap:.6rem;width:100%;max-width:640px}
+  .pick{display:flex;gap:.6rem;align-items:flex-start;text-align:start;background:#fff;border:3px solid var(--line);border-radius:16px;padding:.6rem .8rem;font-size:1.05rem;font-weight:600;color:var(--ink);min-height:64px;line-height:1.4}
+  .pick b{flex:0 0 auto;background:var(--accent);color:#fff;border-radius:999px;padding:.05rem .6rem;font-size:.95rem}
+  .pick:hover{border-color:var(--accent)}
+  .pick.right{border-color:var(--good);background:var(--good-bg)}
+  .pick.wrong{border-color:var(--hint);background:var(--hint-bg);opacity:.75}
 
   /* fact families */
   .famtop{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
@@ -363,7 +370,11 @@ const T = {
     ex_compDiff:"Compare the two bars. The dashed piece is how many more. Count up from {a} to {c}.",
     ex_compBig:"Raj has the same as Kim, {a}, plus {b} more. Add to find the longer bar.",
     cardTitle:"Fact Family Fair — Challenge Cards",
-    stds:"Aligned standards: Texas TEKS Grade 1: 1.3(B)–(E), 1.5(D)–(G); Grade 2: 2.4(A)–(C), 2.7(C). Common Core: 1.OA.1, 1.OA.3–8; 2.OA.1–2; 2.NBT.5."
+    tnAria:"Base-ten picture: {t} tens and {o} ones", tnG:"Yes! {eq}. {t} tens and {o} ones make {n}.", tnH_sum:"{T} is {t} tens and {o} is {o} ones. Count the tens by 10s, then count on the ones.", tnH_partO:"{T} is {t} tens. The missing part is the ones. Look at the ones digit in {n}.", tnH_partT:"{o} is the ones. The missing part is the tens. {n} has {t} tens. How much are {t} tens worth?",
+    st_three1:"Mia has {x} red beads, {y} blue beads and {z} green beads. How many beads does Mia have in all?", st_three2:"At the park, {x} children are on the swings, {y} are on the slide and {z} are in the sandbox. How many children are at the park?", ex_threeTen:"Look for two numbers that make 10: {p}. Then add the last number: {q}.", ex_three:"Add two of the numbers first: {p}. Then add the third number: {q}.",
+    pkDir:"Which story matches {eq}? Tap the story.", pkStory:"Story {n}", pkMatch:"Yes! This story matches {eq}. Now solve it: what number goes in the box?", pkOpAdd:"In this story, more come, so it is an adding story. {eq} is a take-away sentence. Find a story where some go away.", pkOpSub:"In this story, some go away, so it is a take-away story. {eq} is an adding sentence. Find a story where more come.", pkNums:"This story uses {m} and {n}, but the number sentence uses {a} and {b}. The numbers must match too.",
+    ps_add1:"{a} frogs sit on a log. {b} more frogs hop on. How many frogs are on the log now?", ps_sub1:"{a} frogs sit on a log. {b} frogs hop away. How many frogs are still on the log?", ps_add2:"There are {a} cookies on a plate. Dad puts {b} more cookies on the plate. How many cookies are there now?", ps_sub2:"There are {a} cookies on a plate. Sam eats {b} cookies. How many cookies are left?",
+    stds:"Aligned standards: Texas TEKS Grade 1: 1.3(A)–(F), 1.5(D)–(G); Grade 2: 2.4(A)–(D), 2.7(C). Common Core: 1.OA.1–8; 2.OA.1–2; 2.NBT.5."
   },
   es:{
     appTitle:"Feria de Familias de Operaciones", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", modesAria:"Modos",
@@ -455,7 +466,11 @@ const T = {
     ex_compDiff:"Compara las dos barras. El pedazo punteado es cuántos más. Cuenta desde {a} hasta {c}.",
     ex_compBig:"Raj tiene lo mismo que Kim, {a}, y {b} más. Suma para encontrar la barra más larga.",
     cardTitle:"Feria de Familias de Operaciones — Tarjetas de Reto",
-    stds:"Estándares alineados: Texas TEKS 1.er grado: 1.3(B)–(E), 1.5(D)–(G); 2.º grado: 2.4(A)–(C), 2.7(C). Common Core: 1.OA.1, 1.OA.3–8; 2.OA.1–2; 2.NBT.5."
+    tnAria:"Dibujo de base diez: {t} decenas y {o} unidades", tnG:"¡Sí! {eq}. {t} decenas y {o} unidades forman {n}.", tnH_sum:"{T} son {t} decenas y {o} son {o} unidades. Cuenta las decenas de 10 en 10 y luego sigue contando las unidades.", tnH_partO:"{T} son {t} decenas. La parte que falta son las unidades. Mira el dígito de las unidades en {n}.", tnH_partT:"{o} son las unidades. La parte que falta son las decenas. {n} tiene {t} decenas. ¿Cuánto valen {t} decenas?",
+    st_three1:"Mía tiene {x} cuentas rojas, {y} cuentas azules y {z} cuentas verdes. ¿Cuántas cuentas tiene Mía en total?", st_three2:"En el parque hay {x} niños en los columpios, {y} en el tobogán y {z} en el arenero. ¿Cuántos niños hay en el parque?", ex_threeTen:"Busca dos números que formen 10: {p}. Luego suma el último número: {q}.", ex_three:"Primero suma dos de los números: {p}. Luego suma el tercer número: {q}.",
+    pkDir:"¿Qué problema corresponde a {eq}? Toca el problema.", pkStory:"Problema {n}", pkMatch:"¡Sí! Este problema corresponde a {eq}. Ahora resuélvelo: ¿qué número va en el cuadro?", pkOpAdd:"En este problema llegan más, así que es un problema de sumar. {eq} es un enunciado de restar. Busca un problema en el que algunos se van.", pkOpSub:"En este problema algunos se van, así que es un problema de restar. {eq} es un enunciado de sumar. Busca un problema en el que llegan más.", pkNums:"Este problema usa {m} y {n}, pero el enunciado numérico usa {a} y {b}. Los números también deben coincidir.",
+    ps_add1:"Hay {a} ranas en un tronco. Llegan saltando {b} ranas más. ¿Cuántas ranas hay en el tronco ahora?", ps_sub1:"Hay {a} ranas en un tronco. {b} ranas se van saltando. ¿Cuántas ranas quedan en el tronco?", ps_add2:"Hay {a} galletas en un plato. Papá pone {b} galletas más en el plato. ¿Cuántas galletas hay ahora?", ps_sub2:"Hay {a} galletas en un plato. Sam se come {b} galletas. ¿Cuántas galletas quedan?",
+    stds:"Estándares alineados: Texas TEKS 1.er grado: 1.3(A)–(F), 1.5(D)–(G); 2.º grado: 2.4(A)–(D), 2.7(C). Common Core: 1.OA.1–8; 2.OA.1–2; 2.NBT.5."
   },
   vi:{
     appTitle:"Hội Chợ Gia Đình Phép Tính", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", modesAria:"Chế độ",
@@ -547,7 +562,11 @@ const T = {
     ex_compDiff:"So sánh hai thanh. Phần nét đứt là số nhiều hơn. Đếm tiếp từ {a} đến {c}.",
     ex_compBig:"Raj có bằng Kim là {a}, và thêm {b} nữa. Cộng lại để tìm thanh dài hơn.",
     cardTitle:"Hội Chợ Gia Đình Phép Tính — Thẻ Thử Thách",
-    stds:"Tiêu chuẩn phù hợp: Texas TEKS Lớp 1: 1.3(B)–(E), 1.5(D)–(G); Lớp 2: 2.4(A)–(C), 2.7(C). Common Core: 1.OA.1, 1.OA.3–8; 2.OA.1–2; 2.NBT.5."
+    tnAria:"Hình chục và đơn vị: {t} chục và {o} đơn vị", tnG:"Đúng rồi! {eq}. {t} chục và {o} đơn vị là {n}.", tnH_sum:"{T} là {t} chục, {o} là {o} đơn vị. Đếm các chục theo 10, rồi đếm thêm các đơn vị.", tnH_partO:"{T} là {t} chục. Phần còn thiếu là các đơn vị. Hãy nhìn chữ số hàng đơn vị của {n}.", tnH_partT:"{o} là các đơn vị. Phần còn thiếu là các chục. {n} có {t} chục. {t} chục là bao nhiêu?",
+    st_three1:"Mia có {x} hạt cườm đỏ, {y} hạt cườm xanh dương và {z} hạt cườm xanh lá. Mia có tất cả bao nhiêu hạt cườm?", st_three2:"Ở công viên có {x} bạn đang chơi xích đu, {y} bạn chơi cầu trượt và {z} bạn chơi ở hố cát. Có tất cả bao nhiêu bạn ở công viên?", ex_threeTen:"Tìm hai số cộng lại bằng 10: {p}. Rồi cộng số còn lại: {q}.", ex_three:"Cộng hai số trước: {p}. Rồi cộng số thứ ba: {q}.",
+    pkDir:"Bài toán nào hợp với {eq}? Chạm vào bài toán đó.", pkStory:"Bài toán {n}", pkMatch:"Đúng rồi! Bài toán này hợp với {eq}. Bây giờ hãy giải: số nào điền vào ô trống?", pkOpAdd:"Trong bài toán này có thêm vào, nên đó là bài toán cộng. {eq} là phép trừ. Hãy tìm bài toán có một số bớt đi.", pkOpSub:"Trong bài toán này có một số bớt đi, nên đó là bài toán trừ. {eq} là phép cộng. Hãy tìm bài toán có thêm vào.", pkNums:"Bài toán này dùng {m} và {n}, nhưng phép tính dùng {a} và {b}. Các số cũng phải giống nhau.",
+    ps_add1:"Có {a} con ếch ngồi trên khúc gỗ. Có thêm {b} con ếch nhảy lên. Bây giờ trên khúc gỗ có bao nhiêu con ếch?", ps_sub1:"Có {a} con ếch ngồi trên khúc gỗ. {b} con ếch nhảy đi. Trên khúc gỗ còn lại bao nhiêu con ếch?", ps_add2:"Trên đĩa có {a} cái bánh quy. Bố đặt thêm {b} cái bánh quy vào đĩa. Bây giờ có bao nhiêu cái bánh quy?", ps_sub2:"Trên đĩa có {a} cái bánh quy. Sam ăn {b} cái. Còn lại bao nhiêu cái bánh quy?",
+    stds:"Tiêu chuẩn phù hợp: Texas TEKS Lớp 1: 1.3(A)–(F), 1.5(D)–(G); Lớp 2: 2.4(A)–(D), 2.7(C). Common Core: 1.OA.1–8; 2.OA.1–2; 2.NBT.5."
   },
   ar:{
     appTitle:"معرض عائلات الحقائق", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", modesAria:"الأنماط",
@@ -639,7 +658,11 @@ const T = {
     ex_compDiff:"قارن بين الشريطين. الجزء المنقّط هو الفرق. عُدّ من {a} حتى {c}.",
     ex_compBig:"لدى راج مثل كيم، أي {a}، و{b} أخرى. اجمع لتجد الشريط الأطول.",
     cardTitle:"معرض عائلات الحقائق — بطاقات التحدي",
-    stds:"المعايير المتوافقة: Texas TEKS الصف الأول: 1.3(B)–(E)، 1.5(D)–(G)؛ الصف الثاني: 2.4(A)–(C)، 2.7(C). Common Core: 1.OA.1، 1.OA.3–8؛ 2.OA.1–2؛ 2.NBT.5."
+    tnAria:"صورة العشرات والآحاد: {t} عشرات و{o} آحاد", tnG:"نعم! {eq}. {t} عشرات و{o} آحاد تساوي {n}.", tnH_sum:"{T} هي {t} عشرات، و{o} هي {o} آحاد. عُدّ العشرات عشرةً عشرةً، ثم تابع العدّ بالآحاد.", tnH_partO:"{T} هي {t} عشرات. الجزء المفقود هو الآحاد. انظر إلى رقم الآحاد في {n}.", tnH_partT:"{o} هي الآحاد. الجزء المفقود هو العشرات. في {n} يوجد {t} عشرات. كم تساوي {t} عشرات؟",
+    st_three1:"لدى ميا {x} من الخرزات الحمراء و{y} من الخرزات الزرقاء و{z} من الخرزات الخضراء. كم خرزة لدى ميا في المجموع؟", st_three2:"في الحديقة {x} من الأطفال على الأراجيح، و{y} على الزلّاقة، و{z} في صندوق الرمل. كم طفلًا في الحديقة؟", ex_threeTen:"ابحث عن عددين مجموعهما 10: {p}. ثم أضف العدد الأخير: {q}.", ex_three:"اجمع عددين أولًا: {p}. ثم أضف العدد الثالث: {q}.",
+    pkDir:"أيّ قصة تناسب {eq}؟ المس القصة.", pkStory:"القصة {n}", pkMatch:"أحسنت! هذه القصة تناسب {eq}. الآن حُلّها: ما العدد الذي يوضع في المربع؟", pkOpAdd:"في هذه القصة يأتي المزيد، فهي قصة جمع. أمّا {eq} فجملة طرح. ابحث عن قصة يذهب فيها بعضها.", pkOpSub:"في هذه القصة يذهب بعضها، فهي قصة طرح. أمّا {eq} فجملة جمع. ابحث عن قصة يأتي فيها المزيد.", pkNums:"في هذه القصة {m} و{n}، لكن في الجملة العددية {a} و{b}. يجب أن تتطابق الأعداد أيضًا.",
+    ps_add1:"على جذع شجرة {a} من الضفادع. قفز إليه {b} من الضفادع الأخرى. كم ضفدعًا على الجذع الآن؟", ps_sub1:"على جذع شجرة {a} من الضفادع. قفز {b} منها بعيدًا. كم ضفدعًا بقي على الجذع؟", ps_add2:"في الطبق {a} من الكعكات. وضع أبي {b} من الكعكات الأخرى في الطبق. كم كعكة في الطبق الآن؟", ps_sub2:"في الطبق {a} من الكعكات. أكل سامي {b} منها. كم كعكة بقيت؟",
+    stds:"المعايير المتوافقة: Texas TEKS الصف الأول: 1.3(A)–(F)، 1.5(D)–(G)؛ الصف الثاني: 2.4(A)–(D)، 2.7(C). Common Core: 1.OA.1–8؛ 2.OA.1–2؛ 2.NBT.5."
   },
   hi:{
     appTitle:"तथ्य परिवार मेला", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", modesAria:"मोड",
@@ -731,7 +754,11 @@ const T = {
     ex_compDiff:"दोनों पट्टियों की तुलना करो। बिंदुदार टुकड़ा बताता है कितने ज़्यादा। {a} से {c} तक आगे गिनो।",
     ex_compBig:"राज के पास किम जितनी, {a}, और {b} ज़्यादा हैं। लंबी पट्टी जानने के लिए जोड़ो।",
     cardTitle:"तथ्य परिवार मेला — चुनौती कार्ड",
-    stds:"संरेखित मानक: Texas TEKS कक्षा 1: 1.3(B)–(E), 1.5(D)–(G); कक्षा 2: 2.4(A)–(C), 2.7(C)। Common Core: 1.OA.1, 1.OA.3–8; 2.OA.1–2; 2.NBT.5।"
+    tnAria:"दहाई-इकाई चित्र: {t} दहाइयाँ और {o} इकाइयाँ", tnG:"हाँ! {eq}। {t} दहाइयाँ और {o} इकाइयाँ मिलकर {n} बनाती हैं।", tnH_sum:"{T} यानी {t} दहाइयाँ और {o} यानी {o} इकाइयाँ। दहाइयों को 10-10 करके गिनो, फिर इकाइयाँ आगे गिनो।", tnH_partO:"{T} यानी {t} दहाइयाँ। छूटा हुआ भाग इकाइयाँ हैं। {n} में इकाई का अंक देखो।", tnH_partT:"{o} इकाइयाँ हैं। छूटा हुआ भाग दहाइयाँ हैं। {n} में {t} दहाइयाँ हैं। {t} दहाइयाँ कितनी होती हैं?",
+    st_three1:"मिया के पास {x} लाल मोती, {y} नीले मोती और {z} हरे मोती हैं। मिया के पास कुल कितने मोती हैं?", st_three2:"पार्क में {x} बच्चे झूले पर, {y} बच्चे फिसलपट्टी पर और {z} बच्चे रेत में खेल रहे हैं। पार्क में कितने बच्चे हैं?", ex_threeTen:"ऐसी दो संख्याएँ ढूँढो जो मिलकर 10 बनाएँ: {p}। फिर आखिरी संख्या जोड़ो: {q}।", ex_three:"पहले दो संख्याएँ जोड़ो: {p}। फिर तीसरी संख्या जोड़ो: {q}।",
+    pkDir:"कौन सी कहानी {eq} से मेल खाती है? कहानी को छुओ।", pkStory:"कहानी {n}", pkMatch:"हाँ! यह कहानी {eq} से मेल खाती है। अब इसे हल करो: डिब्बे में कौन सी संख्या आएगी?", pkOpAdd:"इस कहानी में और आते हैं, इसलिए यह जोड़ की कहानी है। {eq} घटाने वाला वाक्य है। ऐसी कहानी ढूँढो जिसमें कुछ चले जाते हैं।", pkOpSub:"इस कहानी में कुछ चले जाते हैं, इसलिए यह घटाने की कहानी है। {eq} जोड़ वाला वाक्य है। ऐसी कहानी ढूँढो जिसमें और आते हैं।", pkNums:"इस कहानी में {m} और {n} हैं, लेकिन संख्या वाक्य में {a} और {b} हैं। संख्याएँ भी मेल खानी चाहिए।",
+    ps_add1:"एक लट्ठे पर {a} मेंढक बैठे हैं। {b} और मेंढक कूदकर आ जाते हैं। अब लट्ठे पर कितने मेंढक हैं?", ps_sub1:"एक लट्ठे पर {a} मेंढक बैठे हैं। {b} मेंढक कूदकर चले जाते हैं। लट्ठे पर कितने मेंढक बचे?", ps_add2:"एक प्लेट में {a} बिस्कुट हैं। पापा प्लेट में {b} बिस्कुट और रखते हैं। अब कितने बिस्कुट हैं?", ps_sub2:"एक प्लेट में {a} बिस्कुट हैं। सैम {b} बिस्कुट खा लेता है। कितने बिस्कुट बचे?",
+    stds:"संरेखित मानक: Texas TEKS कक्षा 1: 1.3(A)–(F), 1.5(D)–(G); कक्षा 2: 2.4(A)–(D), 2.7(C)। Common Core: 1.OA.1–8; 2.OA.1–2; 2.NBT.5।"
   },
   ur:{
     appTitle:"حقائق کے خاندان کا میلہ", home:"ہوم", privacy:"رازداری", teacher:"استاد", modesAria:"موڈ",
@@ -823,7 +850,11 @@ const T = {
     ex_compDiff:"دونوں پٹیوں کا موازنہ کرو۔ نقطے دار ٹکڑا بتاتا ہے کتنے زیادہ۔ {a} سے {c} تک آگے گنو۔",
     ex_compBig:"راج کے پاس زینب جتنی، {a}، اور {b} زیادہ ہیں۔ لمبی پٹی جاننے کے لیے جمع کرو۔",
     cardTitle:"حقائق کے خاندان کا میلہ — چیلنج کارڈ",
-    stds:"منسلک معیارات: Texas TEKS پہلی جماعت: 1.3(B)–(E)، 1.5(D)–(G)؛ دوسری جماعت: 2.4(A)–(C)، 2.7(C)۔ Common Core: 1.OA.1، 1.OA.3–8؛ 2.OA.1–2؛ 2.NBT.5۔"
+    tnAria:"دہائی اکائی کی تصویر: {t} دہائیاں اور {o} اکائیاں", tnG:"ہاں! {eq}۔ {t} دہائیاں اور {o} اکائیاں مل کر {n} بناتی ہیں۔", tnH_sum:"{T} یعنی {t} دہائیاں اور {o} یعنی {o} اکائیاں۔ دہائیوں کو 10-10 کر کے گنو، پھر اکائیاں آگے گنو۔", tnH_partO:"{T} یعنی {t} دہائیاں۔ گمشدہ حصہ اکائیاں ہیں۔ {n} میں اکائی کا ہندسہ دیکھو۔", tnH_partT:"{o} اکائیاں ہیں۔ گمشدہ حصہ دہائیاں ہیں۔ {n} میں {t} دہائیاں ہیں۔ {t} دہائیاں کتنی ہوتی ہیں؟",
+    st_three1:"میا کے پاس {x} سرخ موتی، {y} نیلے موتی اور {z} سبز موتی ہیں۔ میا کے پاس کل کتنے موتی ہیں؟", st_three2:"پارک میں {x} بچے جھولوں پر، {y} بچے پھسلن پر اور {z} بچے ریت میں کھیل رہے ہیں۔ پارک میں کتنے بچے ہیں؟", ex_threeTen:"ایسے دو عدد ڈھونڈو جو مل کر 10 بنائیں: {p}۔ پھر آخری عدد جمع کرو: {q}۔", ex_three:"پہلے دو عدد جمع کرو: {p}۔ پھر تیسرا عدد جمع کرو: {q}۔",
+    pkDir:"کون سی کہانی {eq} سے ملتی ہے؟ کہانی کو چھوؤ۔", pkStory:"کہانی {n}", pkMatch:"ہاں! یہ کہانی {eq} سے ملتی ہے۔ اب اسے حل کرو: ڈبے میں کون سا عدد آئے گا؟", pkOpAdd:"اس کہانی میں اور آتے ہیں، اس لیے یہ جمع کی کہانی ہے۔ {eq} تفریق کا جملہ ہے۔ ایسی کہانی ڈھونڈو جس میں کچھ چلے جاتے ہیں۔", pkOpSub:"اس کہانی میں کچھ چلے جاتے ہیں، اس لیے یہ تفریق کی کہانی ہے۔ {eq} جمع کا جملہ ہے۔ ایسی کہانی ڈھونڈو جس میں اور آتے ہیں۔", pkNums:"اس کہانی میں {m} اور {n} ہیں، لیکن عددی جملے میں {a} اور {b} ہیں۔ عدد بھی ملنے چاہییں۔",
+    ps_add1:"ایک لکڑی کے تنے پر {a} مینڈک بیٹھے ہیں۔ {b} اور مینڈک کود کر آ جاتے ہیں۔ اب تنے پر کتنے مینڈک ہیں؟", ps_sub1:"ایک لکڑی کے تنے پر {a} مینڈک بیٹھے ہیں۔ {b} مینڈک کود کر چلے جاتے ہیں۔ تنے پر کتنے مینڈک باقی ہیں؟", ps_add2:"ایک پلیٹ میں {a} بسکٹ ہیں۔ ابو پلیٹ میں {b} بسکٹ اور رکھتے ہیں۔ اب کتنے بسکٹ ہیں؟", ps_sub2:"ایک پلیٹ میں {a} بسکٹ ہیں۔ سام {b} بسکٹ کھا لیتا ہے۔ کتنے بسکٹ باقی ہیں؟",
+    stds:"منسلک معیارات: Texas TEKS پہلی جماعت: 1.3(A)–(F)، 1.5(D)–(G)؛ دوسری جماعت: 2.4(A)–(D)، 2.7(C)۔ Common Core: 1.OA.1–8؛ 2.OA.1–2؛ 2.NBT.5۔"
   },
   zh:{
     appTitle:"算式家族游园会", home:"主页", privacy:"隐私", teacher:"教师", modesAria:"模式",
@@ -915,7 +946,11 @@ const T = {
     ex_compDiff:"比较两条线段。虚线那段就是多出来的。从{a}接着数到{c}。",
     ex_compBig:"拉吉和小金一样多，是{a}，还要再多{b}。用加法求出较长的线段。",
     cardTitle:"算式家族游园会 — 挑战卡",
-    stds:"对应标准：Texas TEKS 一年级：1.3(B)–(E)、1.5(D)–(G)；二年级：2.4(A)–(C)、2.7(C)。Common Core：1.OA.1、1.OA.3–8；2.OA.1–2；2.NBT.5。"
+    tnAria:"计数图：{t}个十和{o}个一", tnG:"对了！{eq}。{t}个十和{o}个一合起来是{n}。", tnH_sum:"{T}是{t}个十，{o}是{o}个一。先十个十个地数，再一个一个地接着数。", tnH_partO:"{T}是{t}个十。缺少的部分是几个一。看看{n}个位上的数字。", tnH_partT:"{o}是几个一。缺少的部分是几个十。{n}里有{t}个十。{t}个十是多少？",
+    st_three1:"米娅有{x}颗红珠子、{y}颗蓝珠子和{z}颗绿珠子。米娅一共有多少颗珠子？", st_three2:"公园里，有{x}个小朋友在荡秋千，{y}个在滑滑梯，{z}个在玩沙子。公园里一共有多少个小朋友？", ex_threeTen:"先找两个能凑成10的数：{p}。再加上最后一个数：{q}。", ex_three:"先把两个数相加：{p}。再加上第三个数：{q}。",
+    pkDir:"哪个故事和{eq}相符？点一点这个故事。", pkStory:"故事{n}", pkMatch:"对了！这个故事和{eq}相符。现在来解答：方框里填几？", pkOpAdd:"这个故事里又来了一些，所以是加法故事。{eq}是减法算式。找一个有一些离开的故事。", pkOpSub:"这个故事里有一些离开了，所以是减法故事。{eq}是加法算式。找一个又来了一些的故事。", pkNums:"这个故事用的是{m}和{n}，可是算式用的是{a}和{b}。数也要一样。",
+    ps_add1:"木头上坐着{a}只青蛙。又跳上来{b}只青蛙。现在木头上有多少只青蛙？", ps_sub1:"木头上坐着{a}只青蛙。跳走了{b}只青蛙。木头上还剩多少只青蛙？", ps_add2:"盘子里有{a}块饼干。爸爸又往盘子里放了{b}块饼干。现在有多少块饼干？", ps_sub2:"盘子里有{a}块饼干。小山吃了{b}块。还剩多少块饼干？",
+    stds:"对应标准：Texas TEKS 一年级：1.3(A)–(F)、1.5(D)–(G)；二年级：2.4(A)–(D)、2.7(C)。Common Core：1.OA.1–8；2.OA.1–2；2.NBT.5。"
   }
 };
 
@@ -1342,6 +1377,7 @@ function newMissing(){
   roundIds.missing++;
   hideFb($("#missingFb"));
   if(Math.random()<.3) return newTF();
+  if(settings.max>=20 && Math.random()<.28) return newTens();
   const [a,b,c]=triple(1), sub=settings.sub && Math.random()<.5;
   let f;
   if(!sub) f=rand([{s:[a,"+",b,"=","X"],x:c,h:"msH_sum",u:0},{s:[a,"+","X","=",c],x:b,h:"msH_addend",u:2,k:a},{s:["X","+",b,"=",c],x:a,h:"msH_addend",u:1,k:b},
@@ -1360,9 +1396,33 @@ function newMissing(){
   },v=>{ const k=f.k!=null?f.k:a; hint("missing",J(sizeHint(v,f.x),t(f.h,{a:k,b,c,k}))); });
   maybeAuto("missing");
 }
+/* Tens and ones: a multiple of 10 plus a one-digit number, e.g. 40 + 7 (TEKS 1.3(A)), with a base-ten picture. */
+function tensSVG(tn,o){
+  const rods=Array.from({length:tn},(_,i)=>{ const x=6+i*18; let r=`<rect x="${x}" y="6" width="13" height="100" rx="2" fill="#8fd16a" stroke="${INK}" stroke-width="2"/>`;
+    for(let k=1;k<10;k++) r+=`<line x1="${x}" y1="${6+k*10}" x2="${x+13}" y2="${6+k*10}" stroke="${INK}" stroke-width="1"/>`; return r; }).join("");
+  const ox=6+tn*18+12, ones=Array.from({length:o},(_,i)=>`<rect x="${ox+(i>=5?14:0)}" y="${56+(i%5)*10}" width="10" height="10" rx="1.5" fill="#ffd35a" stroke="${INK}" stroke-width="1.5"/>`).join("");
+  return `<svg viewBox="0 0 ${ox+30} 112" direction="ltr" role="img" aria-label="${esc(t("tnAria",{t:tn,o}))}">${rods}${ones}</svg>`;
+}
+function newTens(){
+  const tn=ri(2,9), o=ri(2,9), T=tn*10, n=T+o;
+  const f=rand([{s:[T,"+",o,"=","X"],x:n,h:"tnH_sum"},{s:[o,"+",T,"=","X"],x:n,h:"tnH_sum"},{s:["X","=",T,"+",o],x:n,h:"tnH_sum"},
+    {s:[T,"+","X","=",n],x:o,h:"tnH_partO"},{s:["X","+",o,"=",n],x:T,h:"tnH_partT"}]);
+  const eqQ=E(...f.s.map(v=>v==="X"?"□":v)), eqA=E(...f.s.map(v=>v==="X"?f.x:v)), V={T,t:tn,o,n};
+  M={tf:false,tens:true,f,eqQ,eqA,ans:f.x,done:false};
+  $("#missingEq").innerHTML=fmtBig(eqQ);
+  $("#bondToggle").classList.add("hidden");
+  const v=$("#missingVis"); v.innerHTML=`<div class="tens">${tensSVG(tn,o)}</div>`;
+  const dir=t("msDir");
+  $("#missingPrompt").textContent=dir; setSpeech("missing",dir+" "+eqQ);
+  renderNums($("#missingNums"),f.x,0,99,()=>{
+    M.done=true; $("#missingEq").innerHTML=fmtBig(eqA);
+    praise("missing",t("tnG",Object.assign({eq:eqA},V)),newMissing);
+  },x=>hint("missing",J(sizeHint(x,f.x),t(f.h,V))));
+  maybeAuto("missing");
+}
 function drawBond(){
   const v=$("#missingVis");
-  if(!M||M.tf) return;
+  if(!M||M.tf||M.tens) return;
   $("#bondToggle").textContent=t(M.bond?"hideBond":"showBond");
   v.innerHTML=M.bond?bondSVG(M.c,M.a,M.b,M.done?-1:M.f.u):"";
 }
@@ -1505,8 +1565,70 @@ const STORY={
   pptTotal:{bar:"pw",unk:0,op:"+"}, pptPart:{bar:"pw",unk:2,op:"-"},
   compDiff:{bar:"cmp",unk:2,op:"-"}, compBig:{bar:"cmp",unk:0,op:"+"}
 };
+/* Three addends, sum within 20 (CCSS 1.OA.2). Bar model with three parts. */
+function bar3SVG(p,reveal){
+  const W=560, X=20, sum=p[0]+p[1]+p[2], cols=["#f8c9c3","#c9dcf8","#cdeccd"];
+  let x=X, s=`<rect x="${X}" y="8" width="${W}" height="72" rx="8" fill="#fff3c4" stroke-width="3" stroke-dasharray="8 6" stroke="#c08400"/><text x="${X+W/2}" y="57" text-anchor="middle" font-size="38" font-weight="800" fill="${INK}" font-family="system-ui">${reveal?sum:"?"}</text>`;
+  const ws=p.map(v=>Math.max(70,Math.round(W*v/sum))), k=W/ws.reduce((a,b)=>a+b,0);
+  p.forEach((v,i)=>{ const w=i<2?Math.round(ws[i]*k):X+W-x;
+    s+=`<rect x="${x}" y="92" width="${w}" height="72" rx="8" fill="${cols[i]}" stroke="${INK}" stroke-width="3"/><text x="${x+w/2}" y="141" text-anchor="middle" font-size="38" font-weight="800" fill="${INK}" font-family="system-ui">${v}</text>`; x+=w; });
+  return `<svg viewBox="0 0 600 172" direction="ltr" role="img" aria-label="${esc(t("barAria"))}">${s}</svg>`;
+}
+function newThree(){
+  const lim=Math.min(settings.max,20); let p;
+  if(lim>=13 && Math.random()<.6){ const u=ri(2,8); p=shuffle([u,10-u,ri(2,lim-10)]); }   // two of them make 10
+  else{ const x=ri(2,Math.min(9,lim-4)), y=ri(2,Math.min(9,lim-x-2)); p=[x,y,ri(2,Math.min(9,lim-x-y))]; }
+  const [x,y,z]=p, sum=x+y+z, eq=E(x,"+",y,"+",z,"=",sum);
+  let i=0,j=1; [[0,1],[1,2],[0,2]].forEach(([a,b])=>{ if(p[a]+p[b]===10){ i=a; j=b; } });
+  const ten=p[i]+p[j]===10, rest=p[3-i-j];
+  const ex=t(ten?"ex_threeTen":"ex_three",{p:E(p[i],"+",p[j],"=",p[i]+p[j]),q:E(p[i]+p[j],"+",rest,"=",sum)});
+  ST={k:"three",ans:sum,eq,done:false};
+  const text=t(rand(["st_three1","st_three2"]),{x,y,z});
+  $("#storyPrompt").innerHTML=fmt(text); setSpeech("story",text); hideFb($("#storyFb"));
+  $("#storyVis").innerHTML=bar3SVG(p,false);
+  renderNums($("#storyNums"),sum,0,Math.max(20,settings.max),()=>{
+    ST.done=true; $("#storyVis").innerHTML=bar3SVG(p,true);
+    praise("story",J(t("storyG",{eq,x:sum}),ex),newStory);
+  },v=>hint("story",J(sizeHint(v,sum),ex)));
+  maybeAuto("story");
+}
+/* Given a number sentence, choose the story it fits, then solve it (TEKS 1.3(F), 2.4(D)). */
+function newPick(){
+  let [a,b,c]=triple(2); if(a===b){ a++; c++; }
+  const sub=settings.sub && Math.random()<.5, th=rand(["1","2"]);
+  const x=sub?c:Math.max(a,b), y=sub?b:Math.min(a,b), ans=sub?c-b:a+b;   // sentence: x + y or x − y
+  const eqQ=E(x,sub?"-":"+",y,"=","□"), eqA=E(x,sub?"-":"+",y,"=",ans);
+  const y2=y+1;                                                            // wrong numbers, same operation (still < x: parts are ≥ 2)
+  const opts=shuffle([{op:sub?"sub":"add",m:x,n:y,ok:true},{op:sub?"add":"sub",m:x,n:y},{op:sub?"sub":"add",m:x,n:y2}]);
+  ST={k:"pick",x,y,ans,eqQ,eqA,opts,step:0,done:false};
+  const dir=t("pkDir",{eq:eqQ});
+  $("#storyPrompt").innerHTML=fmt(dir); hideFb($("#storyFb")); $("#storyNums").innerHTML="";
+  const box=document.createElement("div"); box.className="picks";
+  opts.forEach((o,i)=>{ const b=document.createElement("button"); b.type="button"; b.className="pick";
+    b.innerHTML=`<b>${esc(t("pkStory",{n:i+1}))}</b><span>${fmt(t("ps_"+o.op+th,{a:o.m,b:o.n}))}</span>`;
+    b.addEventListener("click",()=>pickStory(b,o)); box.appendChild(b); });
+  const v=$("#storyVis"); v.innerHTML=""; v.appendChild(box);
+  setSpeech("story",J(dir,...opts.map((o,i)=>t("pkStory",{n:i+1})+". "+t("ps_"+o.op+th,{a:o.m,b:o.n}))));
+  maybeAuto("story");
+}
+function pickStory(btn,o){
+  const r=ST; if(!r||r.k!=="pick"||r.step) return;
+  if(!o.ok){ btn.classList.add("wrong"); btn.disabled=true;
+    const sub=r.opts.find(z=>z.ok).op==="sub";
+    hint("story",o.op!==(sub?"sub":"add")?t(o.op==="add"?"pkOpAdd":"pkOpSub",{eq:r.eqQ}):t("pkNums",{m:o.m,n:o.n,a:r.x,b:r.y})); return; }
+  r.step=1; btn.classList.add("right"); $$("#storyVis .pick").forEach(b=>b.disabled=true);
+  const m=t("pkMatch",{eq:r.eqQ}); showFb($("#storyFb"),"good",m); speak(sayify(m));
+  $("#storyPrompt").innerHTML=fmtBig(r.eqQ);
+  renderNums($("#storyNums"),r.ans,0,settings.max,()=>{
+    r.done=true; $("#storyPrompt").innerHTML=fmtBig(r.eqA);
+    praise("story",t("storyG",{eq:r.eqA,x:r.ans}),newStory);
+  },v=>hint("story",J(sizeHint(v,r.ans),r.opts.find(z=>z.ok).op==="sub"?t("msH_diff",{c:r.x,b:r.y}):t("msH_sum",{a:r.x,b:r.y}))));
+}
 function newStory(){
   roundIds.story++;
+  const roll=Math.random();
+  if(roll<.18) return newThree();
+  if(roll<.36) return newPick();
   const pool=settings.sub?Object.keys(STORY):["joinRU","pptTotal","compBig"];
   let k=rand(pool); if(ST&&k===ST.k) k=rand(pool);
   const [a,b,c]=triple(2), S=STORY[k], ans=[c,a,b][S.unk];
@@ -1626,7 +1748,7 @@ function init(){
   $("#lineCheck").addEventListener("click",checkLine);
   $("#famCheck").addEventListener("click",checkFamily);
   $("#famClear").addEventListener("click",()=>{ if(FAM.done) return; FAM.rows.forEach(r=>{ r.v=[null,null,null]; r.st=""; }); FAM.sel=null; markTiles(); drawFamRows(); hideFb($("#familyFb")); });
-  $("#bondToggle").addEventListener("click",()=>{ if(M&&!M.tf){ M.bond=!M.bond; drawBond(); } });
+  $("#bondToggle").addEventListener("click",()=>{ if(M&&!M.tf&&!M.tens){ M.bond=!M.bond; drawBond(); } });
   initSettings();
   $$(".tabs button").forEach(b=>b.style.display=settings.modes[b.dataset.mode]?"":"none");
   const first=MODES.find(m=>settings.modes[m])||"frames";
