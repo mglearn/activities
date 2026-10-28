@@ -86,6 +86,7 @@
   .chart:focus{outline:none}
   .chart:focus-visible{outline:4px solid var(--focus);outline-offset:2px}
   .chart text{font-family:system-ui,sans-serif}
+  .chart .tl,.chart .nz{direction:ltr} /* numeric axis labels: keep text-anchor and minus signs correct in Arabic/Urdu */
   .ax{stroke:#3b2f25;stroke-width:2}
   .tk{stroke:#3b2f25;stroke-width:1.5}
   .gl{stroke:#f1e2d6;stroke-width:1}
@@ -110,6 +111,11 @@
   .bar.bad{fill:#fde68a;stroke:#d97706}
   .bar.th{fill:#bbf7d0;stroke:var(--g2)}
   .binsel{fill:none;stroke:var(--focus);stroke-width:3;stroke-dasharray:6 4}
+  .nsh{fill:#f5b78a;stroke:none}
+  .ncv{fill:none;stroke:var(--accentD);stroke-width:3;stroke-linejoin:round}
+  .nsd{stroke:#b9a090;stroke-width:1.5;stroke-dasharray:4 4}
+  .nmu{stroke:#3b2f25;stroke-width:2;stroke-dasharray:4 4}
+  .nz{font-size:13px;font-weight:700;font-style:italic;fill:#7a5a40}
   .pt{fill:var(--accent);stroke:#fff;stroke-width:2}
   .pt.p{fill:#b91c1c;stroke:#1f1a16;stroke-width:2.5}
   .uline{stroke:var(--b2);stroke-width:4;stroke-linecap:round}
@@ -271,7 +277,7 @@ const T = {
     mDist:"Distributions", mCmp:"Compare Groups", mScat:"Scatter & Regression", mProb:"Probability", mTwo:"Two-Way Tables",
     teacherTitle:"Teacher settings", close:"Close", setLevel:"Course level",
     lvMS:"Middle school review (Grades 6–8)", lvA1:"Algebra I statistics", lvST:"Statistics & Probability",
-    levelNote:"Middle school review: mean, median, MAD, box plots, trend lines, simple and compound probability. Algebra I: adds IQR outliers, correlation r, residuals, causation, conditional probability and the addition rule. Statistics & Probability: larger data sets, standard deviation, 1.5 × IQR fences and independence tests. Choosing a level resets the data set size.",
+    levelNote:"Middle school review: mean, median, MAD, box plots, trend lines, simple and compound probability. Algebra I: adds IQR outliers, correlation r, residuals, causation, conditional probability and the addition rule. Statistics & Probability: larger data sets, standard deviation, 1.5 × IQR fences and independence tests. Choosing a level resets the data set size. Algebra I and Statistics & Probability also include normal curves (the 68–95–99.7 rule).",
     setSize:"Data set size", sizeS:"Small (8–10 values)", sizeM:"Medium (11–15 values)", sizeL:"Large (16–22 values)",
     setSim:"Most trials per click", setSeed:"Class seed",
     seedNote:"Optional. Enter the same number on every device so the whole class gets the same sequence of data sets. Leave blank for new random data each time.",
@@ -473,7 +479,40 @@ const T = {
     cardTree:"{ex} Draw a tree diagram and list the sample space. Find P({ev}).",
     cardTwo:"Complete the two-way table. Then find the percent of “{r}” who are in “{c}”.",
     cardSim:"Roll two number cubes 30 times and record the sums. Compare your experimental P(sum of 7) with the theoretical probability.",
-    stds:"Standards: TEKS 6.12(A–C), 6.13(A), 7.6(A, B, D, E, H, I), 7.12(A), 8.5(C, D), 8.11(A, B), A1.4(A–C). Common Core 6.SP.B.4, 6.SP.B.5, 7.SP.B.4, 7.SP.C.5–8, 8.SP.A.1–4, HSS-ID.A.1–3, HSS-ID.B.5, HSS-ID.B.6, HSS-ID.C.7–9, HSS-CP.A.1–5, HSS-CP.B.6, HSS-CP.B.7."
+    /* normal distributions */
+    chartNorm:"Normal curve",
+    nHeight:"The heights of adult women in a city are approximately normal, with mean {m} cm and standard deviation {s} cm.",
+    nTest:"Scores on a state test are approximately normal, with mean {m} points and standard deviation {s} points.",
+    nBattery:"The battery life of a phone model is approximately normal, with mean {m} hours and standard deviation {s} hours.",
+    nCereal:"The weights of cereal boxes from a factory are approximately normal, with mean {m} g and standard deviation {s} g.",
+    nBirth:"Newborn baby weights at a hospital are approximately normal, with mean {m} g and standard deviation {s} g.",
+    npBetween:"About what percent of the values are between {a} and {b}?",
+    npAbove:"About what percent of the values are above {a}?",
+    npBelow:"About what percent of the values are below {b}?",
+    hZ:"For {x}: z = ({x} − {m}) ÷ {s} = {z}.",
+    hRule:"The 68–95–99.7 rule: about 68% of the values lie within 1 standard deviation of the mean, 95% within 2, and 99.7% within 3. The curve is symmetric, so split each part in half: 34% from the mean to 1 SD, 13.5% from 1 to 2 SD, 2.35% from 2 to 3 SD, and 0.15% beyond 3 SD on each side.",
+    eSum:"The area under the curve is the percent of the values. Add the shaded bands: {c}.",
+    wBetween:"About {p} of the values are between {a} and {b}.",
+    wAbove:"About {p} of the values are above {a}.",
+    wBelow:"About {p} of the values are below {b}.",
+    kbNorm:"Normal curve. Left and right arrow keys choose a band; Space shades or unshades it.",
+    shadeDir:"Tap the bands under the curve to shade them (tap again to unshade), then press Check.",
+    shMid:"Shade the middle {p} of the values.",
+    shTop:"Shade the top {p} of the values (the highest ones).",
+    shBot:"Shade the bottom {p} of the values (the lowest ones).",
+    roBand:"Selected band: {a} to {b}",
+    roBandLo:"Selected band: below {b}",
+    roBandHi:"Selected band: above {a}",
+    hShadeAmt:"Your shading covers about {p}, but you need {q}.",
+    hwMid:"“Middle” means centered on the mean, with the same bands shaded on both sides.",
+    hwTop:"“Top” means the highest values: shade from the right end of the curve inward.",
+    hwBot:"“Bottom” means the lowest values: shade from the left end of the curve inward.",
+    fitDir:"Would a normal curve, using this data's mean and standard deviation, be a reasonable model for this data?",
+    fitYes:"Yes — it is mound-shaped and roughly symmetric",
+    fitNo:"No — it is clearly skewed",
+    whyFitYes:"The histogram is mound-shaped and roughly symmetric, and the mean ({m}) is close to the median ({md}). A normal curve with mean {m} and standard deviation {s} is a reasonable model, so the 68–95–99.7 rule gives good estimates.",
+    whyFitNo:"The histogram is skewed: the long tail pulls the mean ({m}) away from the median ({md}). A normal curve is symmetric, so it would not fit, and the 68–95–99.7 rule would give wrong percentages.",
+    stds:"Standards: TEKS 6.12(A–C), 6.13(A), 7.6(A, B, D, E, H, I), 7.12(A), 8.5(C, D), 8.11(A, B), A1.4(A–C). Common Core 6.SP.B.4, 6.SP.B.5, 7.SP.B.4, 7.SP.C.5–8, 8.SP.A.1–4, HSS-ID.A.1–4, HSS-ID.B.5, HSS-ID.B.6, HSS-ID.C.7–9, HSS-CP.A.1–5, HSS-CP.B.6, HSS-CP.B.7."
   },
   es:{
     appTitle:"Laboratorio de Datos y Azar", home:"Inicio", privacy:"Privacidad", teacher:"Docente", modesLbl:"Modos", stars:"Respuestas correctas",
@@ -482,7 +521,7 @@ const T = {
     mDist:"Distribuciones", mCmp:"Comparar grupos", mScat:"Dispersión y regresión", mProb:"Probabilidad", mTwo:"Tablas de doble entrada",
     teacherTitle:"Configuración docente", close:"Cerrar", setLevel:"Nivel del curso",
     lvMS:"Repaso de secundaria (grados 6–8)", lvA1:"Estadística de Álgebra I", lvST:"Estadística y probabilidad",
-    levelNote:"Repaso de secundaria: media, mediana, DAM, diagramas de caja, rectas de tendencia, probabilidad simple y compuesta. Álgebra I: agrega valores atípicos con el RIC, correlación r, residuos, causalidad, probabilidad condicional y la regla de la suma. Estadística y probabilidad: conjuntos de datos más grandes, desviación estándar, límites de 1.5 × RIC y pruebas de independencia. Al elegir un nivel se restablece el tamaño del conjunto de datos.",
+    levelNote:"Repaso de secundaria: media, mediana, DAM, diagramas de caja, rectas de tendencia, probabilidad simple y compuesta. Álgebra I: agrega valores atípicos con el RIC, correlación r, residuos, causalidad, probabilidad condicional y la regla de la suma. Estadística y probabilidad: conjuntos de datos más grandes, desviación estándar, límites de 1.5 × RIC y pruebas de independencia. Al elegir un nivel se restablece el tamaño del conjunto de datos. Estadística de Álgebra I y Estadística y probabilidad también incluyen curvas normales (la regla 68–95–99.7).",
     setSize:"Tamaño del conjunto de datos", sizeS:"Pequeño (8–10 valores)", sizeM:"Mediano (11–15 valores)", sizeL:"Grande (16–22 valores)",
     setSim:"Máximo de ensayos por clic", setSeed:"Semilla de la clase",
     seedNote:"Opcional. Escribe el mismo número en cada dispositivo para que toda la clase reciba la misma secuencia de conjuntos de datos. Déjalo en blanco para obtener datos aleatorios nuevos cada vez.",
@@ -684,7 +723,40 @@ const T = {
     cardTree:"{ex} Dibuja un diagrama de árbol y haz una lista del espacio muestral. Halla P({ev}).",
     cardTwo:"Completa la tabla de doble entrada. Luego halla el porcentaje de “{r}” que está en “{c}”.",
     cardSim:"Lanza dos dados 30 veces y anota las sumas. Compara tu P(suma de 7) experimental con la probabilidad teórica.",
-    stds:"Estándares: TEKS 6.12(A–C), 6.13(A), 7.6(A, B, D, E, H, I), 7.12(A), 8.5(C, D), 8.11(A, B), A1.4(A–C). Common Core 6.SP.B.4, 6.SP.B.5, 7.SP.B.4, 7.SP.C.5–8, 8.SP.A.1–4, HSS-ID.A.1–3, HSS-ID.B.5, HSS-ID.B.6, HSS-ID.C.7–9, HSS-CP.A.1–5, HSS-CP.B.6, HSS-CP.B.7."
+    /* normal distributions */
+    chartNorm:"Curva normal",
+    nHeight:"Las estaturas de las mujeres adultas de una ciudad son aproximadamente normales, con media {m} cm y desviación estándar {s} cm.",
+    nTest:"Los puntajes de un examen estatal son aproximadamente normales, con media {m} puntos y desviación estándar {s} puntos.",
+    nBattery:"La duración de la batería de un modelo de teléfono es aproximadamente normal, con media {m} horas y desviación estándar {s} horas.",
+    nCereal:"Los pesos de las cajas de cereal de una fábrica son aproximadamente normales, con media {m} g y desviación estándar {s} g.",
+    nBirth:"Los pesos de los bebés recién nacidos en un hospital son aproximadamente normales, con media {m} g y desviación estándar {s} g.",
+    npBetween:"¿Aproximadamente qué porcentaje de los valores está entre {a} y {b}?",
+    npAbove:"¿Aproximadamente qué porcentaje de los valores está por encima de {a}?",
+    npBelow:"¿Aproximadamente qué porcentaje de los valores está por debajo de {b}?",
+    hZ:"Para {x}: z = ({x} − {m}) ÷ {s} = {z}.",
+    hRule:"La regla 68–95–99.7: alrededor del 68% de los valores está a no más de 1 desviación estándar de la media, el 95% a no más de 2 y el 99.7% a no más de 3. La curva es simétrica, así que divide cada parte a la mitad: 34% de la media a 1 DE, 13.5% de 1 a 2 DE, 2.35% de 2 a 3 DE y 0.15% más allá de 3 DE en cada lado.",
+    eSum:"El área bajo la curva es el porcentaje de los valores. Suma las franjas sombreadas: {c}.",
+    wBetween:"Alrededor del {p} de los valores está entre {a} y {b}.",
+    wAbove:"Alrededor del {p} de los valores está por encima de {a}.",
+    wBelow:"Alrededor del {p} de los valores está por debajo de {b}.",
+    kbNorm:"Curva normal. Las flechas izquierda y derecha eligen una franja; la barra espaciadora la sombrea o quita el sombreado.",
+    shadeDir:"Toca las franjas bajo la curva para sombrearlas (toca otra vez para quitar el sombreado) y luego presiona Comprobar.",
+    shMid:"Sombrea el {p} central de los valores.",
+    shTop:"Sombrea el {p} superior de los valores (los más altos).",
+    shBot:"Sombrea el {p} inferior de los valores (los más bajos).",
+    roBand:"Franja elegida: de {a} a {b}",
+    roBandLo:"Franja elegida: menos de {b}",
+    roBandHi:"Franja elegida: más de {a}",
+    hShadeAmt:"Tu sombreado cubre alrededor del {p}, pero necesitas el {q}.",
+    hwMid:"“Central” significa centrado en la media, con las mismas franjas sombreadas a ambos lados.",
+    hwTop:"“Superior” significa los valores más altos: sombrea desde el extremo derecho de la curva hacia adentro.",
+    hwBot:"“Inferior” significa los valores más bajos: sombrea desde el extremo izquierdo de la curva hacia adentro.",
+    fitDir:"¿Sería una curva normal, con la media y la desviación estándar de estos datos, un modelo razonable para ellos?",
+    fitYes:"Sí: tiene forma de montículo y es casi simétrica",
+    fitNo:"No: está claramente sesgada",
+    whyFitYes:"El histograma tiene forma de montículo y es casi simétrico, y la media ({m}) está cerca de la mediana ({md}). Una curva normal con media {m} y desviación estándar {s} es un modelo razonable, así que la regla 68–95–99.7 da buenas estimaciones.",
+    whyFitNo:"El histograma está sesgado: la cola larga aleja la media ({m}) de la mediana ({md}). Una curva normal es simétrica, así que no se ajustaría y la regla 68–95–99.7 daría porcentajes incorrectos.",
+    stds:"Estándares: TEKS 6.12(A–C), 6.13(A), 7.6(A, B, D, E, H, I), 7.12(A), 8.5(C, D), 8.11(A, B), A1.4(A–C). Common Core 6.SP.B.4, 6.SP.B.5, 7.SP.B.4, 7.SP.C.5–8, 8.SP.A.1–4, HSS-ID.A.1–4, HSS-ID.B.5, HSS-ID.B.6, HSS-ID.C.7–9, HSS-CP.A.1–5, HSS-CP.B.6, HSS-CP.B.7."
   },
   vi:{
     appTitle:"Phòng thí nghiệm Dữ liệu và Xác suất", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", modesLbl:"Chế độ", stars:"Số câu đúng",
@@ -693,7 +765,7 @@ const T = {
     mDist:"Phân phối", mCmp:"So sánh nhóm", mScat:"Phân tán và hồi quy", mProb:"Xác suất", mTwo:"Bảng hai chiều",
     teacherTitle:"Cài đặt của giáo viên", close:"Đóng", setLevel:"Cấp độ khóa học",
     lvMS:"Ôn tập trung học cơ sở (lớp 6–8)", lvA1:"Thống kê Đại số I", lvST:"Thống kê và Xác suất",
-    levelNote:"Ôn tập THCS: trung bình, trung vị, MAD, biểu đồ hộp, đường xu hướng, xác suất đơn và kép. Đại số I: thêm giá trị ngoại lai theo IQR, hệ số tương quan r, phần dư, quan hệ nhân quả, xác suất có điều kiện và quy tắc cộng. Thống kê và Xác suất: bộ dữ liệu lớn hơn, độ lệch chuẩn, ngưỡng 1.5 × IQR và kiểm tra tính độc lập. Chọn cấp độ sẽ đặt lại kích thước bộ dữ liệu.",
+    levelNote:"Ôn tập THCS: trung bình, trung vị, MAD, biểu đồ hộp, đường xu hướng, xác suất đơn và kép. Đại số I: thêm giá trị ngoại lai theo IQR, hệ số tương quan r, phần dư, quan hệ nhân quả, xác suất có điều kiện và quy tắc cộng. Thống kê và Xác suất: bộ dữ liệu lớn hơn, độ lệch chuẩn, ngưỡng 1.5 × IQR và kiểm tra tính độc lập. Chọn cấp độ sẽ đặt lại kích thước bộ dữ liệu. Cấp Thống kê Đại số I và Thống kê và Xác suất cũng có đường cong chuẩn (quy tắc 68–95–99.7).",
     setSize:"Kích thước bộ dữ liệu", sizeS:"Nhỏ (8–10 giá trị)", sizeM:"Vừa (11–15 giá trị)", sizeL:"Lớn (16–22 giá trị)",
     setSim:"Số phép thử tối đa mỗi lần nhấn", setSeed:"Mã hạt giống của lớp",
     seedNote:"Không bắt buộc. Nhập cùng một số trên mọi thiết bị để cả lớp nhận cùng một chuỗi bộ dữ liệu. Để trống để có dữ liệu ngẫu nhiên mới mỗi lần.",
@@ -895,7 +967,40 @@ const T = {
     cardTree:"{ex} Vẽ sơ đồ cây và liệt kê không gian mẫu. Tìm P({ev}).",
     cardTwo:"Hoàn thành bảng hai chiều. Rồi tìm tỉ lệ phần trăm của “{r}” thuộc “{c}”.",
     cardSim:"Gieo hai con xúc xắc 30 lần và ghi lại các tổng. So sánh P(tổng bằng 7) thực nghiệm của bạn với xác suất lý thuyết.",
-    stds:"Chuẩn: TEKS 6.12(A–C), 6.13(A), 7.6(A, B, D, E, H, I), 7.12(A), 8.5(C, D), 8.11(A, B), A1.4(A–C). Common Core 6.SP.B.4, 6.SP.B.5, 7.SP.B.4, 7.SP.C.5–8, 8.SP.A.1–4, HSS-ID.A.1–3, HSS-ID.B.5, HSS-ID.B.6, HSS-ID.C.7–9, HSS-CP.A.1–5, HSS-CP.B.6, HSS-CP.B.7."
+    /* normal distributions */
+    chartNorm:"Đường cong chuẩn",
+    nHeight:"Chiều cao của phụ nữ trưởng thành trong một thành phố có phân phối xấp xỉ chuẩn, với số trung bình {m} cm và độ lệch chuẩn {s} cm.",
+    nTest:"Điểm của một bài kiểm tra cấp bang có phân phối xấp xỉ chuẩn, với số trung bình {m} điểm và độ lệch chuẩn {s} điểm.",
+    nBattery:"Thời lượng pin của một mẫu điện thoại có phân phối xấp xỉ chuẩn, với số trung bình {m} giờ và độ lệch chuẩn {s} giờ.",
+    nCereal:"Khối lượng các hộp ngũ cốc của một nhà máy có phân phối xấp xỉ chuẩn, với số trung bình {m} g và độ lệch chuẩn {s} g.",
+    nBirth:"Cân nặng của trẻ sơ sinh tại một bệnh viện có phân phối xấp xỉ chuẩn, với số trung bình {m} g và độ lệch chuẩn {s} g.",
+    npBetween:"Khoảng bao nhiêu phần trăm giá trị nằm giữa {a} và {b}?",
+    npAbove:"Khoảng bao nhiêu phần trăm giá trị lớn hơn {a}?",
+    npBelow:"Khoảng bao nhiêu phần trăm giá trị nhỏ hơn {b}?",
+    hZ:"Với {x}: z = ({x} − {m}) ÷ {s} = {z}.",
+    hRule:"Quy tắc 68–95–99.7: khoảng 68% giá trị nằm trong phạm vi 1 độ lệch chuẩn quanh số trung bình, 95% trong phạm vi 2 và 99.7% trong phạm vi 3. Đường cong đối xứng, nên chia đôi mỗi phần: 34% từ số trung bình đến 1 độ lệch chuẩn, 13.5% từ 1 đến 2, 2.35% từ 2 đến 3, và 0.15% vượt quá 3 độ lệch chuẩn ở mỗi bên.",
+    eSum:"Diện tích dưới đường cong là phần trăm các giá trị. Cộng các dải được tô: {c}.",
+    wBetween:"Khoảng {p} giá trị nằm giữa {a} và {b}.",
+    wAbove:"Khoảng {p} giá trị lớn hơn {a}.",
+    wBelow:"Khoảng {p} giá trị nhỏ hơn {b}.",
+    kbNorm:"Đường cong chuẩn. Phím mũi tên trái và phải chọn một dải; phím cách tô hoặc bỏ tô dải đó.",
+    shadeDir:"Chạm vào các dải dưới đường cong để tô (chạm lần nữa để bỏ tô), rồi nhấn Kiểm tra.",
+    shMid:"Tô {p} giá trị ở giữa.",
+    shTop:"Tô {p} giá trị cao nhất.",
+    shBot:"Tô {p} giá trị thấp nhất.",
+    roBand:"Dải đang chọn: từ {a} đến {b}",
+    roBandLo:"Dải đang chọn: nhỏ hơn {b}",
+    roBandHi:"Dải đang chọn: lớn hơn {a}",
+    hShadeAmt:"Phần em tô chiếm khoảng {p}, nhưng cần {q}.",
+    hwMid:"“Ở giữa” nghĩa là cân đối quanh số trung bình, tô các dải giống nhau ở cả hai bên.",
+    hwTop:"“Cao nhất” là các giá trị lớn nhất: tô từ đầu bên phải của đường cong vào trong.",
+    hwBot:"“Thấp nhất” là các giá trị nhỏ nhất: tô từ đầu bên trái của đường cong vào trong.",
+    fitDir:"Một đường cong chuẩn, dùng số trung bình và độ lệch chuẩn của dữ liệu này, có phải là mô hình hợp lý cho dữ liệu không?",
+    fitYes:"Có — dạng hình chuông và gần đối xứng",
+    fitNo:"Không — dữ liệu lệch rõ rệt",
+    whyFitYes:"Biểu đồ tần suất có dạng hình chuông, gần đối xứng, và số trung bình ({m}) gần trung vị ({md}). Đường cong chuẩn với số trung bình {m} và độ lệch chuẩn {s} là mô hình hợp lý, nên quy tắc 68–95–99.7 cho ước lượng tốt.",
+    whyFitNo:"Biểu đồ tần suất bị lệch: đuôi dài kéo số trung bình ({m}) ra xa trung vị ({md}). Đường cong chuẩn thì đối xứng nên sẽ không khớp, và quy tắc 68–95–99.7 sẽ cho phần trăm sai.",
+    stds:"Chuẩn: TEKS 6.12(A–C), 6.13(A), 7.6(A, B, D, E, H, I), 7.12(A), 8.5(C, D), 8.11(A, B), A1.4(A–C). Common Core 6.SP.B.4, 6.SP.B.5, 7.SP.B.4, 7.SP.C.5–8, 8.SP.A.1–4, HSS-ID.A.1–4, HSS-ID.B.5, HSS-ID.B.6, HSS-ID.C.7–9, HSS-CP.A.1–5, HSS-CP.B.6, HSS-CP.B.7."
   },
   ar:{
     appTitle:"مختبر البيانات والاحتمال", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", modesLbl:"الأنماط", stars:"الإجابات الصحيحة",
@@ -904,7 +1009,7 @@ const T = {
     mDist:"التوزيعات", mCmp:"مقارنة المجموعات", mScat:"الانتشار والانحدار", mProb:"الاحتمال", mTwo:"الجداول ذات الاتجاهين",
     teacherTitle:"إعدادات المعلم", close:"إغلاق", setLevel:"مستوى المقرر",
     lvMS:"مراجعة المرحلة المتوسطة (الصفوف 6–8)", lvA1:"إحصاء الجبر 1", lvST:"الإحصاء والاحتمال",
-    levelNote:"مراجعة المرحلة المتوسطة: الوسط الحسابي، الوسيط، متوسط الانحراف المطلق، مخططات الصندوق، خطوط الاتجاه، الاحتمال البسيط والمركّب. الجبر 1: يضيف القيم المتطرفة بالمدى الربيعي، معامل الارتباط r، البواقي، السببية، الاحتمال المشروط وقاعدة الجمع. الإحصاء والاحتمال: مجموعات بيانات أكبر، الانحراف المعياري، حدود 1.5 × IQR واختبارات الاستقلال. اختيار المستوى يعيد ضبط حجم مجموعة البيانات.",
+    levelNote:"مراجعة المرحلة المتوسطة: الوسط الحسابي، الوسيط، متوسط الانحراف المطلق، مخططات الصندوق، خطوط الاتجاه، الاحتمال البسيط والمركّب. الجبر 1: يضيف القيم المتطرفة بالمدى الربيعي، معامل الارتباط r، البواقي، السببية، الاحتمال المشروط وقاعدة الجمع. الإحصاء والاحتمال: مجموعات بيانات أكبر، الانحراف المعياري، حدود 1.5 × IQR واختبارات الاستقلال. اختيار المستوى يعيد ضبط حجم مجموعة البيانات. يتضمن مستوى إحصاء الجبر 1 ومستوى الإحصاء والاحتمال أيضًا المنحنيات الطبيعية (قاعدة 68–95–99.7).",
     setSize:"حجم مجموعة البيانات", sizeS:"صغير (8–10 قيم)", sizeM:"متوسط (11–15 قيمة)", sizeL:"كبير (16–22 قيمة)",
     setSim:"أقصى عدد من المحاولات لكل نقرة", setSeed:"بذرة الصف",
     seedNote:"اختياري. أدخل الرقم نفسه على كل جهاز ليحصل الصف كله على التسلسل نفسه من مجموعات البيانات. اتركه فارغًا للحصول على بيانات عشوائية جديدة في كل مرة.",
@@ -1106,7 +1211,40 @@ const T = {
     cardTree:"{ex} ارسم شجرة بيانية واكتب فضاء العينة. أوجد P({ev}).",
     cardTwo:"أكمل الجدول ذا الاتجاهين. ثم أوجد النسبة المئوية من «{r}» الذين ينتمون إلى «{c}».",
     cardSim:"ارمِ مكعبي أرقام 30 مرة وسجّل المجاميع. قارن P(مجموع 7) التجريبي لديك مع الاحتمال النظري.",
-    stds:"المعايير: TEKS 6.12(A–C), 6.13(A), 7.6(A, B, D, E, H, I), 7.12(A), 8.5(C, D), 8.11(A, B), A1.4(A–C). Common Core 6.SP.B.4, 6.SP.B.5, 7.SP.B.4, 7.SP.C.5–8, 8.SP.A.1–4, HSS-ID.A.1–3, HSS-ID.B.5, HSS-ID.B.6, HSS-ID.C.7–9, HSS-CP.A.1–5, HSS-CP.B.6, HSS-CP.B.7."
+    /* normal distributions */
+    chartNorm:"المنحنى الطبيعي",
+    nHeight:"أطوال النساء البالغات في مدينة ما تتبع توزيعًا طبيعيًا تقريبًا، وسطه الحسابي {m} سم وانحرافه المعياري {s} سم.",
+    nTest:"درجات اختبار على مستوى الولاية تتبع توزيعًا طبيعيًا تقريبًا، وسطه الحسابي {m} درجة وانحرافه المعياري {s} درجات.",
+    nBattery:"عمر بطارية طراز من الهواتف يتبع توزيعًا طبيعيًا تقريبًا، وسطه الحسابي {m} ساعة وانحرافه المعياري {s} ساعة.",
+    nCereal:"أوزان علب الحبوب في مصنع تتبع توزيعًا طبيعيًا تقريبًا، وسطه الحسابي {m} غ وانحرافه المعياري {s} غ.",
+    nBirth:"أوزان المواليد الجدد في مستشفى تتبع توزيعًا طبيعيًا تقريبًا، وسطه الحسابي {m} غ وانحرافه المعياري {s} غ.",
+    npBetween:"ما النسبة المئوية التقريبية للقيم الواقعة بين {a} و{b}؟",
+    npAbove:"ما النسبة المئوية التقريبية للقيم الأكبر من {a}؟",
+    npBelow:"ما النسبة المئوية التقريبية للقيم الأصغر من {b}؟",
+    hZ:"للقيمة {x}: z = ({x} − {m}) ÷ {s} = {z}.",
+    hRule:"قاعدة 68–95–99.7: نحو 68% من القيم تقع ضمن انحراف معياري واحد من الوسط الحسابي، و95% ضمن انحرافين، و99.7% ضمن ثلاثة. المنحنى متماثل، لذا اقسم كل جزء نصفين: 34% من الوسط الحسابي إلى انحراف معياري واحد، و13.5% من 1 إلى 2، و2.35% من 2 إلى 3، و0.15% بعد 3 انحرافات في كل جانب.",
+    eSum:"المساحة تحت المنحنى هي النسبة المئوية للقيم. اجمع الأشرطة المظللة: {c}.",
+    wBetween:"نحو {p} من القيم تقع بين {a} و{b}.",
+    wAbove:"نحو {p} من القيم أكبر من {a}.",
+    wBelow:"نحو {p} من القيم أصغر من {b}.",
+    kbNorm:"المنحنى الطبيعي. مفتاحا السهمين الأيمن والأيسر يختاران شريطًا؛ ومفتاح المسافة يظلّله أو يزيل تظليله.",
+    shadeDir:"انقر على الأشرطة تحت المنحنى لتظليلها (انقر مرة أخرى لإزالة التظليل)، ثم اضغط تحقّق.",
+    shMid:"ظلّل الـ {p} الوسطى من القيم.",
+    shTop:"ظلّل أعلى {p} من القيم (أكبرها).",
+    shBot:"ظلّل أدنى {p} من القيم (أصغرها).",
+    roBand:"الشريط المختار: من {a} إلى {b}",
+    roBandLo:"الشريط المختار: أقل من {b}",
+    roBandHi:"الشريط المختار: أكبر من {a}",
+    hShadeAmt:"تظليلك يغطي نحو {p}، لكنك تحتاج إلى {q}.",
+    hwMid:"«الوسطى» تعني أنها متمركزة حول الوسط الحسابي، مع تظليل الأشرطة نفسها على الجانبين.",
+    hwTop:"«الأعلى» تعني أكبر القيم: ظلّل من الطرف الأيمن للمنحنى نحو الداخل.",
+    hwBot:"«الأدنى» تعني أصغر القيم: ظلّل من الطرف الأيسر للمنحنى نحو الداخل.",
+    fitDir:"هل يكون المنحنى الطبيعي، باستخدام الوسط الحسابي والانحراف المعياري لهذه البيانات، نموذجًا معقولًا لها؟",
+    fitYes:"نعم — شكلها جرسي ومتماثل تقريبًا",
+    fitNo:"لا — إنها ملتوية بوضوح",
+    whyFitYes:"المدرج التكراري جرسي الشكل ومتماثل تقريبًا، والوسط الحسابي ({m}) قريب من الوسيط ({md}). المنحنى الطبيعي ذو الوسط الحسابي {m} والانحراف المعياري {s} نموذج معقول، لذا تعطي قاعدة 68–95–99.7 تقديرات جيدة.",
+    whyFitNo:"المدرج التكراري ملتوٍ: الذيل الطويل يسحب الوسط الحسابي ({m}) بعيدًا عن الوسيط ({md}). المنحنى الطبيعي متماثل، فلن يطابق البيانات، وستعطي قاعدة 68–95–99.7 نسبًا مئوية خاطئة.",
+    stds:"المعايير: TEKS 6.12(A–C), 6.13(A), 7.6(A, B, D, E, H, I), 7.12(A), 8.5(C, D), 8.11(A, B), A1.4(A–C). Common Core 6.SP.B.4, 6.SP.B.5, 7.SP.B.4, 7.SP.C.5–8, 8.SP.A.1–4, HSS-ID.A.1–4, HSS-ID.B.5, HSS-ID.B.6, HSS-ID.C.7–9, HSS-CP.A.1–5, HSS-CP.B.6, HSS-CP.B.7."
   },
   hi:{
     appTitle:"डेटा और संभावना लैब", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", modesLbl:"मोड", stars:"सही उत्तर",
@@ -1115,7 +1253,7 @@ const T = {
     mDist:"बंटन", mCmp:"समूहों की तुलना", mScat:"प्रकीर्ण आरेख और समाश्रयण", mProb:"प्रायिकता", mTwo:"द्वि-मार्गी तालिकाएँ",
     teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setLevel:"पाठ्यक्रम स्तर",
     lvMS:"माध्यमिक कक्षा पुनरावृत्ति (कक्षा 6–8)", lvA1:"बीजगणित I सांख्यिकी", lvST:"सांख्यिकी और प्रायिकता",
-    levelNote:"माध्यमिक कक्षा पुनरावृत्ति: माध्य, माध्यिका, माध्य निरपेक्ष विचलन (MAD), बॉक्स प्लॉट, प्रवृत्ति रेखाएँ, सरल और संयुक्त प्रायिकता। बीजगणित I: इसके साथ IQR बाहरी मान, सहसंबंध r, अवशेष, कारणता, सप्रतिबंध प्रायिकता और योग नियम। सांख्यिकी और प्रायिकता: बड़े डेटा समुच्चय, मानक विचलन, 1.5 × IQR सीमाएँ और स्वतंत्रता परीक्षण। स्तर चुनने पर डेटा समुच्चय का आकार फिर से सेट हो जाता है।",
+    levelNote:"माध्यमिक कक्षा पुनरावृत्ति: माध्य, माध्यिका, माध्य निरपेक्ष विचलन (MAD), बॉक्स प्लॉट, प्रवृत्ति रेखाएँ, सरल और संयुक्त प्रायिकता। बीजगणित I: इसके साथ IQR बाहरी मान, सहसंबंध r, अवशेष, कारणता, सप्रतिबंध प्रायिकता और योग नियम। सांख्यिकी और प्रायिकता: बड़े डेटा समुच्चय, मानक विचलन, 1.5 × IQR सीमाएँ और स्वतंत्रता परीक्षण। स्तर चुनने पर डेटा समुच्चय का आकार फिर से सेट हो जाता है। बीजगणित I सांख्यिकी और सांख्यिकी और प्रायिकता में प्रसामान्य वक्र (68–95–99.7 नियम) भी शामिल हैं।",
     setSize:"डेटा समुच्चय का आकार", sizeS:"छोटा (8–10 मान)", sizeM:"मध्यम (11–15 मान)", sizeL:"बड़ा (16–22 मान)",
     setSim:"प्रति क्लिक अधिकतम प्रयोग", setSeed:"कक्षा बीज संख्या",
     seedNote:"वैकल्पिक। हर उपकरण पर एक ही संख्या डालें ताकि पूरी कक्षा को डेटा समुच्चयों का एक ही क्रम मिले। हर बार नए यादृच्छिक डेटा के लिए खाली छोड़ें।",
@@ -1317,7 +1455,40 @@ const T = {
     cardTree:"{ex} एक वृक्ष आरेख बनाएँ और प्रतिदर्श समष्टि की सूची लिखें। P({ev}) ज्ञात करें।",
     cardTwo:"द्वि-मार्गी तालिका पूरी करें। फिर ज्ञात करें कि “{r}” में से कितने प्रतिशत “{c}” में हैं।",
     cardSim:"दो पासे 30 बार फेंकें और योग लिखें। अपनी प्रायोगिक P(योग 7) की तुलना सैद्धांतिक प्रायिकता से करें।",
-    stds:"मानक: TEKS 6.12(A–C), 6.13(A), 7.6(A, B, D, E, H, I), 7.12(A), 8.5(C, D), 8.11(A, B), A1.4(A–C)। Common Core 6.SP.B.4, 6.SP.B.5, 7.SP.B.4, 7.SP.C.5–8, 8.SP.A.1–4, HSS-ID.A.1–3, HSS-ID.B.5, HSS-ID.B.6, HSS-ID.C.7–9, HSS-CP.A.1–5, HSS-CP.B.6, HSS-CP.B.7।"
+    /* normal distributions */
+    chartNorm:"प्रसामान्य वक्र",
+    nHeight:"एक शहर की वयस्क महिलाओं की लंबाइयाँ लगभग प्रसामान्य हैं, जिनका माध्य {m} सेमी और मानक विचलन {s} सेमी है।",
+    nTest:"एक राज्य परीक्षा के अंक लगभग प्रसामान्य हैं, जिनका माध्य {m} अंक और मानक विचलन {s} अंक है।",
+    nBattery:"एक फ़ोन मॉडल की बैटरी लाइफ़ लगभग प्रसामान्य है, जिसका माध्य {m} घंटे और मानक विचलन {s} घंटे है।",
+    nCereal:"एक फ़ैक्टरी के अनाज के डिब्बों के भार लगभग प्रसामान्य हैं, जिनका माध्य {m} ग्राम और मानक विचलन {s} ग्राम है।",
+    nBirth:"एक अस्पताल में नवजात शिशुओं के भार लगभग प्रसामान्य हैं, जिनका माध्य {m} ग्राम और मानक विचलन {s} ग्राम है।",
+    npBetween:"लगभग कितने प्रतिशत मान {a} और {b} के बीच हैं?",
+    npAbove:"लगभग कितने प्रतिशत मान {a} से अधिक हैं?",
+    npBelow:"लगभग कितने प्रतिशत मान {b} से कम हैं?",
+    hZ:"{x} के लिए: z = ({x} − {m}) ÷ {s} = {z}।",
+    hRule:"68–95–99.7 नियम: लगभग 68% मान माध्य से 1 मानक विचलन के भीतर होते हैं, 95% 2 के भीतर और 99.7% 3 के भीतर। वक्र सममित है, इसलिए हर भाग को आधा करें: माध्य से 1 मानक विचलन तक 34%, 1 से 2 तक 13.5%, 2 से 3 तक 2.35%, और हर तरफ़ 3 मानक विचलन से आगे 0.15%।",
+    eSum:"वक्र के नीचे का क्षेत्रफल मानों का प्रतिशत है। छायांकित पट्टियाँ जोड़ें: {c}।",
+    wBetween:"लगभग {p} मान {a} और {b} के बीच हैं।",
+    wAbove:"लगभग {p} मान {a} से अधिक हैं।",
+    wBelow:"लगभग {p} मान {b} से कम हैं।",
+    kbNorm:"प्रसामान्य वक्र। बाएँ और दाएँ तीर कुंजियाँ एक पट्टी चुनती हैं; स्पेस उसे छायांकित करता है या छाया हटाता है।",
+    shadeDir:"वक्र के नीचे की पट्टियों पर टैप करके उन्हें छायांकित करें (छाया हटाने के लिए फिर टैप करें), फिर जाँचें दबाएँ।",
+    shMid:"बीच के {p} मानों को छायांकित करें।",
+    shTop:"सबसे ऊपर के {p} मानों (सबसे बड़े मानों) को छायांकित करें।",
+    shBot:"सबसे नीचे के {p} मानों (सबसे छोटे मानों) को छायांकित करें।",
+    roBand:"चुनी गई पट्टी: {a} से {b} तक",
+    roBandLo:"चुनी गई पट्टी: {b} से कम",
+    roBandHi:"चुनी गई पट्टी: {a} से अधिक",
+    hShadeAmt:"आपकी छाया लगभग {p} को ढकती है, पर आपको {q} चाहिए।",
+    hwMid:"“बीच” का अर्थ है माध्य पर केंद्रित, दोनों तरफ़ समान पट्टियाँ छायांकित।",
+    hwTop:"“सबसे ऊपर” का अर्थ है सबसे बड़े मान: वक्र के दाएँ सिरे से अंदर की ओर छायांकित करें।",
+    hwBot:"“सबसे नीचे” का अर्थ है सबसे छोटे मान: वक्र के बाएँ सिरे से अंदर की ओर छायांकित करें।",
+    fitDir:"क्या इस डेटा के माध्य और मानक विचलन वाला प्रसामान्य वक्र इस डेटा के लिए उचित मॉडल होगा?",
+    fitYes:"हाँ — यह टीले के आकार का और लगभग सममित है",
+    fitNo:"नहीं — यह स्पष्ट रूप से विषम है",
+    whyFitYes:"आयतचित्र टीले के आकार का और लगभग सममित है, और माध्य ({m}) माध्यिका ({md}) के पास है। माध्य {m} और मानक विचलन {s} वाला प्रसामान्य वक्र उचित मॉडल है, इसलिए 68–95–99.7 नियम अच्छे अनुमान देता है।",
+    whyFitNo:"आयतचित्र विषम है: लंबी पूँछ माध्य ({m}) को माध्यिका ({md}) से दूर खींचती है। प्रसामान्य वक्र सममित होता है, इसलिए वह फ़िट नहीं होगा, और 68–95–99.7 नियम गलत प्रतिशत देगा।",
+    stds:"मानक: TEKS 6.12(A–C), 6.13(A), 7.6(A, B, D, E, H, I), 7.12(A), 8.5(C, D), 8.11(A, B), A1.4(A–C)। Common Core 6.SP.B.4, 6.SP.B.5, 7.SP.B.4, 7.SP.C.5–8, 8.SP.A.1–4, HSS-ID.A.1–4, HSS-ID.B.5, HSS-ID.B.6, HSS-ID.C.7–9, HSS-CP.A.1–5, HSS-CP.B.6, HSS-CP.B.7।"
   },
   ur:{
     appTitle:"ڈیٹا اور امکان لیب", home:"ہوم", privacy:"رازداری", teacher:"استاد", modesLbl:"موڈ", stars:"درست جوابات",
@@ -1326,7 +1497,7 @@ const T = {
     mDist:"تقسیمیں", mCmp:"گروہوں کا موازنہ", mScat:"اسکیٹر اور ریگریشن", mProb:"امکان", mTwo:"دو طرفہ جدول",
     teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setLevel:"کورس کی سطح",
     lvMS:"مڈل اسکول کا اعادہ (جماعت 6–8)", lvA1:"الجبرا I کے شماریات", lvST:"شماریات اور امکان",
-    levelNote:"مڈل اسکول کا اعادہ: اوسط، وسطانیہ، اوسط مطلق انحراف، باکس پلاٹ، رجحان کی لکیریں، سادہ اور مرکب امکان۔ الجبرا I: اس میں IQR سے غیر معمولی قدریں، تعلق r، باقیات، سببیت، مشروط امکان اور جمع کا اصول شامل ہیں۔ شماریات اور امکان: بڑے ڈیٹا سیٹ، معیاری انحراف، 1.5 × IQR کی حدیں اور آزادی کے ٹیسٹ۔ سطح منتخب کرنے سے ڈیٹا سیٹ کا سائز دوبارہ طے ہو جاتا ہے۔",
+    levelNote:"مڈل اسکول کا اعادہ: اوسط، وسطانیہ، اوسط مطلق انحراف، باکس پلاٹ، رجحان کی لکیریں، سادہ اور مرکب امکان۔ الجبرا I: اس میں IQR سے غیر معمولی قدریں، تعلق r، باقیات، سببیت، مشروط امکان اور جمع کا اصول شامل ہیں۔ شماریات اور امکان: بڑے ڈیٹا سیٹ، معیاری انحراف، 1.5 × IQR کی حدیں اور آزادی کے ٹیسٹ۔ سطح منتخب کرنے سے ڈیٹا سیٹ کا سائز دوبارہ طے ہو جاتا ہے۔ الجبرا I کے شماریات اور شماریات اور امکان میں نارمل خم (68–95–99.7 کا اصول) بھی شامل ہیں۔",
     setSize:"ڈیٹا سیٹ کا سائز", sizeS:"چھوٹا (8–10 قدریں)", sizeM:"درمیانہ (11–15 قدریں)", sizeL:"بڑا (16–22 قدریں)",
     setSim:"ایک کلک پر زیادہ سے زیادہ تجربات", setSeed:"کلاس سیڈ",
     seedNote:"اختیاری۔ ہر آلے پر ایک ہی نمبر درج کریں تاکہ پوری کلاس کو ڈیٹا سیٹس کی ایک ہی ترتیب ملے۔ ہر بار نیا بے ترتیب ڈیٹا چاہیے تو خالی چھوڑ دیں۔",
@@ -1528,7 +1699,40 @@ const T = {
     cardTree:"{ex} درختی خاکہ بنائیں اور نمونہ فضا لکھیں۔ P({ev}) معلوم کریں۔",
     cardTwo:"دو طرفہ جدول مکمل کریں۔ پھر معلوم کریں کہ «{r}» میں سے کتنے فیصد «{c}» میں ہیں۔",
     cardSim:"دو عددی مکعب 30 بار پھینکیں اور مجموعے درج کریں۔ اپنے تجرباتی P(مجموعہ 7) کا نظری امکان سے موازنہ کریں۔",
-    stds:"معیارات: TEKS 6.12(A–C), 6.13(A), 7.6(A, B, D, E, H, I), 7.12(A), 8.5(C, D), 8.11(A, B), A1.4(A–C). Common Core 6.SP.B.4, 6.SP.B.5, 7.SP.B.4, 7.SP.C.5–8, 8.SP.A.1–4, HSS-ID.A.1–3, HSS-ID.B.5, HSS-ID.B.6, HSS-ID.C.7–9, HSS-CP.A.1–5, HSS-CP.B.6, HSS-CP.B.7."
+    /* normal distributions */
+    chartNorm:"نارمل خم",
+    nHeight:"ایک شہر کی بالغ خواتین کے قد تقریباً نارمل ہیں، جن کا اوسط {m} سینٹی میٹر اور معیاری انحراف {s} سینٹی میٹر ہے۔",
+    nTest:"ایک ریاستی امتحان کے نمبر تقریباً نارمل ہیں، جن کا اوسط {m} نمبر اور معیاری انحراف {s} نمبر ہے۔",
+    nBattery:"ایک فون ماڈل کی بیٹری کی مدت تقریباً نارمل ہے، جس کا اوسط {m} گھنٹے اور معیاری انحراف {s} گھنٹے ہے۔",
+    nCereal:"ایک فیکٹری کے سیریل کے ڈبوں کے وزن تقریباً نارمل ہیں، جن کا اوسط {m} گرام اور معیاری انحراف {s} گرام ہے۔",
+    nBirth:"ایک ہسپتال میں نوزائیدہ بچوں کے وزن تقریباً نارمل ہیں، جن کا اوسط {m} گرام اور معیاری انحراف {s} گرام ہے۔",
+    npBetween:"تقریباً کتنے فیصد قدریں {a} اور {b} کے درمیان ہیں؟",
+    npAbove:"تقریباً کتنے فیصد قدریں {a} سے زیادہ ہیں؟",
+    npBelow:"تقریباً کتنے فیصد قدریں {b} سے کم ہیں؟",
+    hZ:"{x} کے لیے: z = ({x} − {m}) ÷ {s} = {z}۔",
+    hRule:"68–95–99.7 کا اصول: تقریباً 68% قدریں اوسط سے 1 معیاری انحراف کے اندر ہوتی ہیں، 95% دو کے اندر اور 99.7% تین کے اندر۔ خم متناظر ہے، اس لیے ہر حصے کو آدھا کریں: اوسط سے 1 معیاری انحراف تک 34%، 1 سے 2 تک 13.5%، 2 سے 3 تک 2.35%، اور ہر طرف 3 معیاری انحراف سے آگے 0.15%۔",
+    eSum:"خم کے نیچے کا رقبہ قدروں کا فیصد ہے۔ سایہ دار پٹیاں جمع کریں: {c}۔",
+    wBetween:"تقریباً {p} قدریں {a} اور {b} کے درمیان ہیں۔",
+    wAbove:"تقریباً {p} قدریں {a} سے زیادہ ہیں۔",
+    wBelow:"تقریباً {p} قدریں {b} سے کم ہیں۔",
+    kbNorm:"نارمل خم۔ بائیں اور دائیں تیر والی کلیدیں ایک پٹی چنتی ہیں؛ اسپیس اسے سایہ دار کرتی ہے یا سایہ ہٹاتی ہے۔",
+    shadeDir:"خم کے نیچے کی پٹیوں پر ٹیپ کر کے انہیں سایہ دار کریں (سایہ ہٹانے کے لیے دوبارہ ٹیپ کریں)، پھر جانچیں دبائیں۔",
+    shMid:"درمیان کی {p} قدروں کو سایہ دار کریں۔",
+    shTop:"سب سے اوپر کی {p} قدروں (سب سے بڑی قدروں) کو سایہ دار کریں۔",
+    shBot:"سب سے نیچے کی {p} قدروں (سب سے چھوٹی قدروں) کو سایہ دار کریں۔",
+    roBand:"چنی ہوئی پٹی: {a} سے {b} تک",
+    roBandLo:"چنی ہوئی پٹی: {b} سے کم",
+    roBandHi:"چنی ہوئی پٹی: {a} سے زیادہ",
+    hShadeAmt:"آپ کا سایہ تقریباً {p} کو ڈھانپتا ہے، لیکن آپ کو {q} چاہیے۔",
+    hwMid:"”درمیان“ کا مطلب ہے اوسط پر مرکوز، دونوں طرف ایک جیسی پٹیاں سایہ دار۔",
+    hwTop:"”سب سے اوپر“ کا مطلب ہے سب سے بڑی قدریں: خم کے دائیں سرے سے اندر کی طرف سایہ کریں۔",
+    hwBot:"”سب سے نیچے“ کا مطلب ہے سب سے چھوٹی قدریں: خم کے بائیں سرے سے اندر کی طرف سایہ کریں۔",
+    fitDir:"کیا اس ڈیٹا کے اوسط اور معیاری انحراف والا نارمل خم اس ڈیٹا کے لیے مناسب ماڈل ہوگا؟",
+    fitYes:"ہاں — یہ ٹیلے جیسی شکل کا اور تقریباً متناظر ہے",
+    fitNo:"نہیں — اس میں واضح جھکاؤ ہے",
+    whyFitYes:"ہسٹوگرام ٹیلے جیسی شکل کا اور تقریباً متناظر ہے، اور اوسط ({m}) وسطانیہ ({md}) کے قریب ہے۔ اوسط {m} اور معیاری انحراف {s} والا نارمل خم مناسب ماڈل ہے، اس لیے 68–95–99.7 کا اصول اچھے اندازے دیتا ہے۔",
+    whyFitNo:"ہسٹوگرام میں جھکاؤ ہے: لمبی دُم اوسط ({m}) کو وسطانیہ ({md}) سے دور کھینچتی ہے۔ نارمل خم متناظر ہوتا ہے، اس لیے یہ فٹ نہیں ہوگا، اور 68–95–99.7 کا اصول غلط فیصد دے گا۔",
+    stds:"معیارات: TEKS 6.12(A–C), 6.13(A), 7.6(A, B, D, E, H, I), 7.12(A), 8.5(C, D), 8.11(A, B), A1.4(A–C). Common Core 6.SP.B.4, 6.SP.B.5, 7.SP.B.4, 7.SP.C.5–8, 8.SP.A.1–4, HSS-ID.A.1–4, HSS-ID.B.5, HSS-ID.B.6, HSS-ID.C.7–9, HSS-CP.A.1–5, HSS-CP.B.6, HSS-CP.B.7."
   },
   zh:{
     appTitle:"数据与概率实验室", home:"首页", privacy:"隐私", teacher:"教师", modesLbl:"模式", stars:"答对次数",
@@ -1537,7 +1741,7 @@ const T = {
     mDist:"数据分布", mCmp:"比较两组", mScat:"散点图与回归", mProb:"概率", mTwo:"双向表",
     teacherTitle:"教师设置", close:"关闭", setLevel:"课程水平",
     lvMS:"初中复习（6–8 年级）", lvA1:"代数 I 统计", lvST:"统计与概率",
-    levelNote:"初中复习：平均数、中位数、平均绝对偏差（MAD）、箱线图、趋势线、简单与复合事件概率。代数 I：增加 IQR 离群值、相关系数 r、残差、因果关系、条件概率和加法公式。统计与概率：更大的数据集、标准差、1.5 × IQR 界限和独立性检验。选择水平会重置数据集大小。",
+    levelNote:"初中复习：平均数、中位数、平均绝对偏差（MAD）、箱线图、趋势线、简单与复合事件概率。代数 I：增加 IQR 离群值、相关系数 r、残差、因果关系、条件概率和加法公式。统计与概率：更大的数据集、标准差、1.5 × IQR 界限和独立性检验。选择水平会重置数据集大小。“代数 I 统计”和“统计与概率”级别还包括正态曲线（68–95–99.7 法则）。",
     setSize:"数据集大小", sizeS:"小（8–10 个值）", sizeM:"中（11–15 个值）", sizeL:"大（16–22 个值）",
     setSim:"每次点击最多试验次数", setSeed:"班级种子",
     seedNote:"可选。在每台设备上输入相同的数字，全班就会得到相同顺序的数据集。留空则每次生成新的随机数据。",
@@ -1739,7 +1943,40 @@ const T = {
     cardTree:"{ex} 画出树状图并列出样本空间。求 P({ev})。",
     cardTwo:"完成双向表。然后求“{r}”中属于“{c}”的百分比。",
     cardSim:"把两枚骰子掷 30 次并记录点数和。把你的试验 P(和为 7) 与理论概率进行比较。",
-    stds:"课程标准：TEKS 6.12(A–C), 6.13(A), 7.6(A, B, D, E, H, I), 7.12(A), 8.5(C, D), 8.11(A, B), A1.4(A–C)。Common Core 6.SP.B.4, 6.SP.B.5, 7.SP.B.4, 7.SP.C.5–8, 8.SP.A.1–4, HSS-ID.A.1–3, HSS-ID.B.5, HSS-ID.B.6, HSS-ID.C.7–9, HSS-CP.A.1–5, HSS-CP.B.6, HSS-CP.B.7。"
+    /* normal distributions */
+    chartNorm:"正态曲线",
+    nHeight:"某城市成年女性的身高近似服从正态分布，平均数为 {m} 厘米，标准差为 {s} 厘米。",
+    nTest:"某州统考的分数近似服从正态分布，平均数为 {m} 分，标准差为 {s} 分。",
+    nBattery:"某款手机的电池续航时间近似服从正态分布，平均数为 {m} 小时，标准差为 {s} 小时。",
+    nCereal:"某工厂麦片盒的重量近似服从正态分布，平均数为 {m} 克，标准差为 {s} 克。",
+    nBirth:"某医院新生儿的体重近似服从正态分布，平均数为 {m} 克，标准差为 {s} 克。",
+    npBetween:"大约百分之多少的数值在 {a} 和 {b} 之间？",
+    npAbove:"大约百分之多少的数值大于 {a}？",
+    npBelow:"大约百分之多少的数值小于 {b}？",
+    hZ:"对于 {x}：z = ({x} − {m}) ÷ {s} = {z}。",
+    hRule:"68–95–99.7 法则：大约 68% 的数值落在平均数左右 1 个标准差以内，95% 在 2 个以内，99.7% 在 3 个以内。曲线是对称的，所以每部分对半分：从平均数到 1 个标准差占 34%，1 到 2 个占 13.5%，2 到 3 个占 2.35%，每一侧超过 3 个标准差的占 0.15%。",
+    eSum:"曲线下的面积就是数值所占的百分比。把涂色的各段加起来：{c}。",
+    wBetween:"大约 {p} 的数值在 {a} 和 {b} 之间。",
+    wAbove:"大约 {p} 的数值大于 {a}。",
+    wBelow:"大约 {p} 的数值小于 {b}。",
+    kbNorm:"正态曲线。左右方向键选择一段；空格键给它涂色或取消涂色。",
+    shadeDir:"点按曲线下方的各段来涂色（再点一次取消涂色），然后按“检查”。",
+    shMid:"给中间 {p} 的数值涂色。",
+    shTop:"给最高的 {p} 的数值涂色（最大的那些）。",
+    shBot:"给最低的 {p} 的数值涂色（最小的那些）。",
+    roBand:"已选的段：{a} 到 {b}",
+    roBandLo:"已选的段：小于 {b}",
+    roBandHi:"已选的段：大于 {a}",
+    hShadeAmt:"你涂色的部分约占 {p}，但需要 {q}。",
+    hwMid:"“中间”是指以平均数为中心，两侧涂相同的段。",
+    hwTop:"“最高”是指最大的数值：从曲线的右端向内涂色。",
+    hwBot:"“最低”是指最小的数值：从曲线的左端向内涂色。",
+    fitDir:"用这组数据的平均数和标准差画出的正态曲线，是这组数据的合理模型吗？",
+    fitYes:"是——呈丘形，大致对称",
+    fitNo:"不是——明显偏斜",
+    whyFitYes:"直方图呈丘形且大致对称，平均数（{m}）接近中位数（{md}）。平均数为 {m}、标准差为 {s} 的正态曲线是合理的模型，所以 68–95–99.7 法则能给出好的估计。",
+    whyFitNo:"直方图是偏斜的：长尾把平均数（{m}）拉离中位数（{md}）。正态曲线是对称的，所以不吻合，用 68–95–99.7 法则会得到错误的百分比。",
+    stds:"课程标准：TEKS 6.12(A–C), 6.13(A), 7.6(A, B, D, E, H, I), 7.12(A), 8.5(C, D), 8.11(A, B), A1.4(A–C)。Common Core 6.SP.B.4, 6.SP.B.5, 7.SP.B.4, 7.SP.C.5–8, 8.SP.A.1–4, HSS-ID.A.1–4, HSS-ID.B.5, HSS-ID.B.6, HSS-ID.C.7–9, HSS-CP.A.1–5, HSS-CP.B.6, HSS-CP.B.7。"
   }
   /*@@LANGS@@*/
 };
@@ -2023,13 +2260,14 @@ function distView(a,c,opt){ // dot plot (+ optional box plot / markers)
 }
 function newDist(){
   const m="dist"; currentBuild=m; const s=startRound(m), w=$("#w-"+m), lv=LV();
-  const types=lv==="ms"?["center","center","box","hist","shape","out"]:["center","center","box","hist","shape","out","fence"];
+  const types=lv==="ms"?["center","center","box","hist","shape","out"]:["center","center","box","hist","shape","out","fence","norm","norm"];
   const type=rand(types); s.type=type;
   if(type==="center") return distCenter(s,w);
   if(type==="box") return distBox(s,w);
   if(type==="hist") return distHist(s,w);
   if(type==="shape") return distShape(s,w);
   if(type==="out") return distOut(s,w);
+  if(type==="norm"){ const r=rng(); return r<.45?normPct(s,w):r<.8?normShade(s,w):normFit(s,w); }
   return distFence(s,w);
 }
 function distCenter(s,w){
@@ -2153,6 +2391,75 @@ function distOut(s,w){
   const why=tm("whyOut",{m1:N2(m1,2),m0:N2(m0,2),d1:N2(d1,2),d0:N2(d0,2)}), ans=Math.abs(m1-m0)>Math.abs(d1-d0)+1e-9?"m":"d";
   choices(m,[TCH("oMean",ans==="m"),TCH("oMed",ans==="d"),TCH("oSame",false)],it=>{ if(it.ok) return win(m,cat(TX("yes"),why)); nope(m,why); });
   setPrompt(m,TX("outDir")); maybeAuto(m);
+}
+/* ---------- Normal distributions (HSS-ID.A.4) ---------- */
+// Bands between −3σ…3σ; band i runs from NZ[i] to NZ[i+1] (the outer two are the tails).
+const NB=[.15,2.35,13.5,34,34,13.5,2.35,.15], NZ=[-3.8,-3,-2,-1,0,1,2,3,3.8];
+const NCTX=[{k:"nHeight",m:[158,166],s:[5,7]},{k:"nTest",m:[64,72],s:[6,8]},{k:"nBattery",m:[16,24],s:[1,2]},{k:"nCereal",m:[500,512],s:[2,4]},{k:"nBirth"}];
+const nPick = c=>c.k==="nBirth"?{m:ri(32,35)*100,s:rand([400,450,500])}:{m:ri(...c.m),s:ri(...c.s)};
+const PCT2 = v=>({h:fmt(v,2)+"%", s:fmt(v,2)+"%"});
+// In Arabic/Urdu keep plain-text percents and "68–95–99.7" left-to-right.
+const pctFix = m=>({h:isRTL()?m.h.replace(/\d+(?:\.\d+)?(?:–\d+(?:\.\d+)?)+|\d+(?:\.\d+)?%/g,'<bdi dir="ltr" style="white-space:nowrap">$&</bdi>'):m.h, s:m.s});
+const bandSum = sh=>rnd(sum(NB.filter((_,i)=>sh[i])),2);
+function normG(mu,sg,sh,sel){
+  const H=250, B=H-62, Tp=24, X=z=>+(24+(z+3.8)/7.6*(VW-48)).toFixed(1), Y=z=>+(B-(B-Tp)*Math.exp(-z*z/2)).toFixed(1);
+  const pts=(a,b)=>{ const p=[]; for(let z=a;z<b-1e-9;z+=.05) p.push(X(z)+","+Y(z)); p.push(X(b)+","+Y(b)); return p.join(" "); };
+  let g="";
+  for(let i=0;i<8;i++) if(sh[i]) g+=`<polygon class="nsh" points="${X(NZ[i])},${B} ${pts(NZ[i],NZ[i+1])} ${X(NZ[i+1])},${B}"/>`;
+  if(sel!=null) g+=`<rect class="binsel" x="${X(NZ[sel])}" y="${Tp-12}" width="${(X(NZ[sel+1])-X(NZ[sel])).toFixed(1)}" height="${B-Tp+12}"/>`;
+  for(let k=-3;k<=3;k++) g+=`<line class="${k?"nsd":"nmu"}" x1="${X(k)}" y1="${B}" x2="${X(k)}" y2="${Y(k)}"/>`;
+  g+=`<polyline class="ncv" points="${pts(-3.8,3.8)}"/><line class="ax" x1="${X(-3.8)}" y1="${B}" x2="${X(3.8)}" y2="${B}"/>`;
+  for(let k=-3;k<=3;k++) g+=`<line class="tk" x1="${X(k)}" y1="${B}" x2="${X(k)}" y2="${B+7}"/><text class="tl" x="${X(k)}" y="${B+24}" text-anchor="middle">${fmt(mu+k*sg)}</text><text class="nz" x="${X(k)}" y="${B+44}" text-anchor="middle">${k?(k<0?MINUS:"+")+Math.abs(k)+"σ":"μ"}</text>`;
+  return g;
+}
+const normSVG = (mu,sg,sh)=>`<svg class="chart" viewBox="0 0 ${VW} 250" role="img" aria-label="${t("chartNorm")}">${normG(mu,sg,sh)}</svg>`;
+// Sentence for the region from boundary i to boundary j (0 = left tail end, 8 = right tail end).
+function normRange(i,j,val,p){ const v={p}; if(i>0) v.a=val(i); if(j<8) v.b=val(j);
+  return tm(i===0?"wBelow":j===8?"wAbove":"wBetween",v); }
+function normPct(s,w){
+  const m="dist", lv=LV(), c=rand(NCTX), q=nPick(c), mu=q.m, sg=q.s, val=b=>N2(mu+(b-4)*sg);
+  const BS=lv==="st"?[0,1,2,3,4,5,6,7,8]:[0,2,3,4,5,6,8]; let i,j;
+  do{ i=rand(BS); j=rand(BS); if(i>j) [i,j]=[j,i]; }while(i===j||(i===0&&j===8));
+  const sh=NB.map((_,k)=>k>=i&&k<j), ans=bandSum(sh);
+  w.innerHTML=metaHTML(t("chartNorm"))+normSVG(mu,sg,sh);
+  const cands=[100-ans, bandSum(NB.map((_,k)=>k>=Math.max(0,i-1)&&k<j)), bandSum(NB.map((_,k)=>k>=i&&k<Math.min(8,j+1))), ans/2, 68, 95, 50, 34, 16, 13.5];
+  // Distractors must be clearly different from the answer (and each other): at least 2 points apart and never the same whole percent.
+  const more=[]; for(let a=0;a<8;a++) for(let b=a+1;b<=8;b++) if(!(a===0&&b===8)) more.push(bandSum(NB.map((_,k)=>k>=a&&k<b)));
+  const out=[{...PCT2(ans),ok:true}], seen=[ans], far=v=>seen.every(x=>Math.abs(x-v)>=2&&Math.round(x)!==Math.round(v));
+  for(const c0 of cands.concat(shuffle(more))){ const v=rnd(c0,2); if(out.length>=4) break; if(v<=0||v>=100||!far(v)) continue; seen.push(v); out.push({...PCT2(v),ok:false}); }
+  const zs=[i,j].filter(b=>b>0&&b<8).map(b=>tm("hZ",{x:val(b),m:N2(mu),s:N2(sg),z:N2(b-4)}));
+  const parts=NB.slice(i,j), sumMsg=parts.length>1?tm("eSum",{c:CALC(`${parts.map(v=>fmt(v,2)).join(" + ")} = ${fmt(ans,2)}%`)}):null;
+  choices(m,shuffle(out),it=>{ if(it.ok) return win(m,cat(TX("yes"),normRange(i,j,val,PCT2(ans)),...(sumMsg?[sumMsg]:[])));
+    nope(m,cat(...zs,pctFix(TX("hRule")))); });
+  const qv={}; if(i>0) qv.a=val(i); if(j<8) qv.b=val(j);
+  setPrompt(m,cat(tm(c.k,{m:N2(mu),s:N2(sg)}),tm(i===0?"npBelow":j===8?"npAbove":"npBetween",qv))); maybeAuto(m);
+}
+const SHT=[{k:"shMid",b:[3,5]},{k:"shMid",b:[2,6]},{k:"shMid",b:[1,7],st:1},{k:"shTop",b:[5,8]},{k:"shBot",b:[0,3]},{k:"shTop",b:[6,8]},{k:"shBot",b:[0,2]},{k:"shTop",b:[4,8]},{k:"shBot",b:[0,5]},{k:"shTop",b:[3,8]},{k:"shTop",b:[7,8],st:1}];
+function normShade(s,w){
+  const m="dist", lv=LV(), c=rand(NCTX), q=nPick(c), mu=q.m, sg=q.s, val=b=>N2(mu+(b-4)*sg);
+  const tg=rand(SHT.filter(x=>!x.st||lv==="st")), [i,j]=tg.b, want=NB.map((_,k)=>k>=i&&k<j), p=bandSum(want);
+  Object.assign(s,{sh:NB.map(()=>false),sel:4,want});
+  w.innerHTML=metaHTML(t("chartNorm"))+`<svg class="chart" viewBox="0 0 ${VW} 250" tabindex="0" role="application" aria-label="${t("kbNorm")}"></svg><div class="readout" id="ro-dist" aria-live="polite"></div>`;
+  const svg=w.querySelector("svg.chart");
+  const draw=()=>{ svg.innerHTML=normG(mu,sg,s.sh,s.done?null:s.sel); const k=s.sel;
+    $("#ro-dist").innerHTML=tm(k===0?"roBandLo":k===7?"roBandHi":"roBand",k===0?{b:val(1)}:k===7?{a:val(7)}:{a:val(k),b:val(k+1)}).h; };
+  const tog=k=>{ s.sh[k]=!s.sh[k]; s.sel=k; hideFb($("#f-dist")); draw(); };
+  interactive(svg,{off:()=>s.done,
+    down:pp=>{ const z=(pp.x-24)/(VW-48)*7.6-3.8; let k=0; while(k<7&&z>=NZ[k+1]) k++; tog(k); return null; },
+    move:()=>{},
+    key:e=>{ const d=KEYDIR(e); if(d&&d[0]){ s.sel=Math.max(0,Math.min(7,s.sel+d[0])); draw(); return true; } if(e.key===" "||e.key==="Enter"){ tog(s.sel); return true; } return false; }});
+  draw();
+  checkBtn(m,()=>{ if(s.sh.every((v,k)=>v===want[k])){ s.done=true; draw(); return win(m,cat(TX("yes"),normRange(i,j,val,PCT2(p)))); }
+    nope(m,cat(tm("hShadeAmt",{p:PCT2(bandSum(s.sh)),q:PCT2(p)}),TX(tg.k==="shMid"?"hwMid":tg.k==="shTop"?"hwTop":"hwBot"),pctFix(TX("hRule")))); });
+  setPrompt(m,cat(tm(c.k,{m:N2(mu),s:N2(sg)}),tm(tg.k,{p:PCT2(p)}),TX("shadeDir"))); maybeAuto(m);
+}
+function normFit(s,w){
+  const m="dist", c=rand(CTX1.filter(x=>x.hi-x.lo>=18)), n=ri(30,40), shape=rand(["sym","sym","right","left"]);
+  const a=genData(n,c,shape), ok=shape==="sym";
+  w.innerHTML=metaHTML(t(c.k),n)+histStatic(a,c,c.st===5?10:3);
+  const why=pctFix(tm(ok?"whyFitYes":"whyFitNo",{m:N2(mean(a),1),md:N2(med(a),1),s:N2(sdS(a),1)}));
+  choices(m,[TCH("fitYes",ok),TCH("fitNo",!ok)],it=>{ if(it.ok) return win(m,cat(TX("yes"),why)); nope(m,why); });
+  setPrompt(m,TX("fitDir")); maybeAuto(m);
 }
 function distFence(s,w){
   const m="dist", c=rand(CTX1.filter(x=>x.hi-x.lo>=18)), n=ri(...nSize()), up=rng()<.6;
