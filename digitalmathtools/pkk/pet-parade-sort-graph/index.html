@@ -166,6 +166,19 @@
   .rowbtn:hover{background:#f0ebfb} .rowbtn.wrong{border-color:var(--warn);background:var(--warn-bg)}
   .choice .ordn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--ok);color:#fff;font-weight:900;margin-inline-end:8px}
   @media (prefers-reduced-motion: reduce){.marching{animation:none}}
+  .patrow{--ts:60px;display:flex;flex-wrap:nowrap;gap:4px;justify-content:center;background:var(--sky);border:2px dashed #a9c1ef;border-radius:16px;padding:12px 6px;margin:10px 0}
+  .patrow.copy{background:#fff}
+  .patcell{width:var(--ts);height:var(--ts);background:#fff;border:2px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;flex:none;padding:0;font:inherit;color:inherit}
+  .patcell svg{width:84%;height:84%}
+  button.patcell{cursor:pointer}
+  .patcell.q,.patcell.empty{border:3px dashed var(--grape);font-size:calc(var(--ts) * .5);font-weight:900;color:var(--grape);background:#f6f4fc}
+  .patcell.right{border-color:var(--ok);background:var(--ok-bg)} .patcell.wrong{border-color:var(--warn);background:var(--warn-bg)} .patcell.hot{outline:3px solid var(--grape)}
+  .choice.patopt{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 12px;min-width:92px}
+  .choice.patopt svg{width:64px;height:64px}
+  .pattray{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+  .pattile{width:76px;height:76px;background:#fff;border:3px solid var(--grape);border-radius:14px;cursor:grab;touch-action:none;display:flex;align-items:center;justify-content:center;padding:0}
+  .pattile svg{width:62px;height:62px;pointer-events:none}
+  .patghost{position:fixed;width:62px;height:62px;pointer-events:none;z-index:9999;opacity:.9}
   .field{margin-bottom:16px}
   .field>label.flabel{display:block;font-weight:800;margin-bottom:8px;color:var(--grape-d)}
   .segrow{display:flex;gap:8px;flex-wrap:wrap}
@@ -248,7 +261,7 @@ const I18N = {
   'mode.read.title':"Read the Graph",'mode.read.desc':"Look at a graph and answer: more, fewer, equal, how many?",
   'mode.class.title':"Class Question",'mode.class.desc':"Teacher enters group totals to make a class picture graph.",
   'std.summary':"Aligned standards",
-  'std.body':"<b>Texas Prekindergarten Guidelines:</b> PK3.V.E.1–2 &amp; PK4.V.E.1–2 (sort objects into groups and describe them; collect data and organize it in a graph); PK3.V.A.8 &amp; PK4.V.A.8 (compare groups using more, fewer, same).<br><b>Kindergarten TEKS:</b> K.8(A) collect, sort, and organize data into two or three categories; K.8(B) use data to create picture graphs; K.8(C) draw conclusions from graphs.<br><b>Common Core:</b> K.MD.3 — classify objects into categories, count them, and sort the categories by count.",
+  'std.body':"<b>Texas Prekindergarten Guidelines:</b> PK3.V.E.1–2 &amp; PK4.V.E.1–2 (sort objects into groups and describe them; collect data and organize it in a graph); PK3.V.A.8 &amp; PK4.V.A.8 (compare groups using more, fewer, same); PK3.V.E.3 (recognize and copy patterns) &amp; PK4.V.E.3 (recognize, copy, and extend patterns).<br><b>Kindergarten TEKS:</b> K.8(A) collect, sort, and organize data into two or three categories; K.8(B) use data to create picture graphs; K.8(C) draw conclusions from graphs.<br><b>Common Core:</b> K.MD.3 — classify objects into categories, count them, and sort the categories by count.",
   'footer.tag':"No accounts · No data collected · Works offline",'footer.home':"Home",'footer.privacy':"Privacy",
   'dir.sort':"Pick a rule. Then drag each pet into the group where it belongs.",
   'dir.guess':"The pets are already sorted into groups. Look closely. What rule was used?",
@@ -312,6 +325,7 @@ const I18N = {
   'set.privacyTitle':"Privacy:",'set.privacyBody':"These settings are stored only in this browser. No student names, no accounts, no tracking, and nothing leaves this device. Class Question mode uses anonymous totals only.",
   'set.reset':"Reset to defaults",'set.back':"Back to modes",'aria.read':"Read out loud",
   'build.how':"How will we make the graph?",'build.sortStyle':"Sort the pets",'build.paradeStyle':"Watch the parade",'parade.intro':"Pets march by one at a time. Tap the row where each pet belongs.",'parade.spoken':"Here comes the pet parade! Tap the row where each pet belongs.",'parade.next':"Here comes the next pet!",'parade.count':"Pet {i} of {n}",'parade.rowAria':"Add to the {group} row",'parade.done':"The parade is over! You collected the data. The graph shows how many pets are in each group.",'gq.order.q':"Put the groups in order, from most to fewest.",'gq.order.say':"Tap the group with the most pets first. Keep going until the group with the fewest.",'gq.order.hint':"Look for the longest row of pictures that is left. The longest row has the most.",'gq.order.done':"Yes! From most to fewest: {list}.",'list.sep':", ",
+  'mode.pattern.title':"Parade Patterns",'mode.pattern.desc':"What comes next in the parade? Copy, extend, and fix patterns.",'pat.next.dir':"What comes next in the parade? Tap it.",'pat.copy.dir':"Copy the parade! Put the same pets in the empty row.",'pat.longer.dir':"Make the parade longer! Fill the empty spots.",'pat.fix.dir':"One pet broke the pattern. Tap it!",'pat.hint.next':"Say it with me: {seq}… The part that repeats is {core}. What comes next?",'pat.hint.copy':"Match them one by one. Look at the pet above each spot.",'pat.hint.longer':"Say it with me: {seq}… The part that repeats is {core}. Keep it going!",'pat.hint.fix':"The part that repeats is {core}. Say it along the parade and find the pet that does not fit.",'pat.fillAll':"Fill every empty spot first.",'pat.ok.next':"Yes! {core} repeats, so {ans} comes next.",'pat.ok.copy':"Yes! You copied the pattern: {seq}.",'pat.ok.longer':"Yes! {core}, {core}… The pattern keeps going.",'pat.ok.fix':"Yes! That pet broke the pattern. Now it goes {seq}…",'pat.check':"Check",'pat.new':"New pattern",'pat.q':"What comes next?",'pat.empty':"Empty spot",'pat.add':"Add {item}",'set.patLevel':"Pattern level",'set.pat3':"PreK 3 · AB",'set.pat4':"PreK 4 · AB, AAB, ABB",'set.patK':"Kindergarten · adds ABC",
  },
  es:{
   brand:"Clasifica y Grafica el Desfile de Mascotas",
@@ -325,7 +339,7 @@ const I18N = {
   'mode.read.title':"Lee la gráfica",'mode.read.desc':"Mira una gráfica y responde: ¿más, menos, iguales, cuántas?",
   'mode.class.title':"Pregunta de la clase",'mode.class.desc':"El maestro escribe los totales para crear una gráfica de la clase.",
   'std.summary':"Estándares alineados",
-  'std.body':"<b>Guías de Prekínder de Texas:</b> PK3.V.E.1–2 y PK4.V.E.1–2 (clasificar objetos en grupos y describirlos; recopilar datos y organizarlos en una gráfica); PK3.V.A.8 y PK4.V.A.8 (comparar grupos con más, menos, igual).<br><b>TEKS de Kínder:</b> K.8(A) recopilar, ordenar y organizar datos en dos o tres categorías; K.8(B) usar datos para crear gráficas con dibujos; K.8(C) sacar conclusiones de las gráficas.<br><b>Common Core:</b> K.MD.3 — clasificar objetos en categorías, contarlos y ordenar las categorías por cantidad.",
+  'std.body':"<b>Guías de Prekínder de Texas:</b> PK3.V.E.1–2 y PK4.V.E.1–2 (clasificar objetos en grupos y describirlos; recopilar datos y organizarlos en una gráfica); PK3.V.A.8 y PK4.V.A.8 (comparar grupos con más, menos, igual); PK3.V.E.3 (reconocer y copiar patrones) y PK4.V.E.3 (reconocer, copiar y continuar patrones).<br><b>TEKS de Kínder:</b> K.8(A) recopilar, ordenar y organizar datos en dos o tres categorías; K.8(B) usar datos para crear gráficas con dibujos; K.8(C) sacar conclusiones de las gráficas.<br><b>Common Core:</b> K.MD.3 — clasificar objetos en categorías, contarlos y ordenar las categorías por cantidad.",
   'footer.tag':"Sin cuentas · No se recopilan datos · Funciona sin conexión",'footer.home':"Inicio",'footer.privacy':"Privacidad",
   'dir.sort':"Elige una regla. Luego arrastra cada mascota al grupo al que pertenece.",
   'dir.guess':"Las mascotas ya están agrupadas. Observa con atención. ¿Qué regla se usó?",
@@ -389,6 +403,7 @@ const I18N = {
   'set.privacyTitle':"Privacidad:",'set.privacyBody':"Estos ajustes se guardan solo en este navegador. Sin nombres de estudiantes, sin cuentas, sin rastreo, y nada sale de este dispositivo. El modo Pregunta de la clase usa solo totales anónimos.",
   'set.reset':"Restablecer valores",'set.back':"Volver a los modos",'aria.read':"Leer en voz alta",
   'build.how':"¿Cómo haremos la gráfica?",'build.sortStyle':"Clasificar las mascotas",'build.paradeStyle':"Ver el desfile",'parade.intro':"Las mascotas pasan una por una. Toca la fila donde va cada mascota.",'parade.spoken':"¡Aquí viene el desfile de mascotas! Toca la fila donde va cada mascota.",'parade.next':"¡Aquí viene la siguiente mascota!",'parade.count':"Mascota {i} de {n}",'parade.rowAria':"Agregar a la fila {group}",'parade.done':"¡Terminó el desfile! Recopilaste los datos. La gráfica muestra cuántas mascotas hay en cada grupo.",'gq.order.q':"Ordena los grupos, de más a menos.",'gq.order.say':"Toca primero el grupo con más mascotas. Sigue hasta llegar al grupo con menos.",'gq.order.hint':"Busca la fila de dibujos más larga que queda. La fila más larga tiene más.",'gq.order.done':"¡Sí! De más a menos: {list}.",'list.sep':", ",
+  'mode.pattern.title':"Patrones del desfile",'mode.pattern.desc':"¿Qué sigue en el desfile? Copia, alarga y corrige patrones.",'pat.next.dir':"¿Qué sigue en el desfile? Tócalo.",'pat.copy.dir':"¡Copia el desfile! Pon las mismas mascotas en la fila vacía.",'pat.longer.dir':"¡Alarga el desfile! Llena los lugares vacíos.",'pat.fix.dir':"Una mascota rompió el patrón. ¡Tócala!",'pat.hint.next':"Dilo conmigo: {seq}… La parte que se repite es {core}. ¿Qué sigue?",'pat.hint.copy':"Compáralas una por una. Mira la mascota que está arriba de cada lugar.",'pat.hint.longer':"Dilo conmigo: {seq}… La parte que se repite es {core}. ¡Sigue el patrón!",'pat.hint.fix':"La parte que se repite es {core}. Dilo a lo largo del desfile y busca la mascota que no encaja.",'pat.fillAll':"Primero llena todos los lugares vacíos.",'pat.ok.next':"¡Sí! Se repite {core}, así que sigue {ans}.",'pat.ok.copy':"¡Sí! Copiaste el patrón: {seq}.",'pat.ok.longer':"¡Sí! {core}, {core}… El patrón sigue y sigue.",'pat.ok.fix':"¡Sí! Esa mascota rompía el patrón. Ahora va así: {seq}…",'pat.check':"Revisar",'pat.new':"Nuevo patrón",'pat.q':"¿Qué sigue?",'pat.empty':"Lugar vacío",'pat.add':"Agregar {item}",'set.patLevel':"Nivel de patrones",'set.pat3':"PreK 3 · AB",'set.pat4':"PreK 4 · AB, AAB, ABB",'set.patK':"Kínder · añade ABC",
  },
  vi:{
   brand:"Phân loại & Vẽ biểu đồ Diễu hành Thú cưng",
@@ -402,7 +417,7 @@ const I18N = {
   'mode.read.title':"Đọc biểu đồ",'mode.read.desc':"Nhìn biểu đồ và trả lời: nhiều hơn, ít hơn, bằng nhau, bao nhiêu?",
   'mode.class.title':"Câu hỏi của lớp",'mode.class.desc':"Giáo viên nhập tổng số mỗi nhóm để tạo biểu đồ tranh của lớp.",
   'std.summary':"Tiêu chuẩn phù hợp",
-  'std.body':"<b>Hướng dẫn Mầm non Texas:</b> PK3.V.E.1–2 và PK4.V.E.1–2 (phân loại đồ vật thành nhóm và mô tả; thu thập dữ liệu và sắp xếp thành biểu đồ); PK3.V.A.8 và PK4.V.A.8 (so sánh các nhóm: nhiều hơn, ít hơn, bằng nhau).<br><b>TEKS Mẫu giáo:</b> K.8(A) thu thập, sắp xếp và tổ chức dữ liệu thành hai hoặc ba nhóm; K.8(B) dùng dữ liệu để tạo biểu đồ tranh; K.8(C) rút ra kết luận từ biểu đồ.<br><b>Common Core:</b> K.MD.3 — phân loại đồ vật vào các nhóm, đếm và xếp các nhóm theo số lượng.",
+  'std.body':"<b>Hướng dẫn Mầm non Texas:</b> PK3.V.E.1–2 và PK4.V.E.1–2 (phân loại đồ vật thành nhóm và mô tả; thu thập dữ liệu và sắp xếp thành biểu đồ); PK3.V.A.8 và PK4.V.A.8 (so sánh các nhóm: nhiều hơn, ít hơn, bằng nhau); PK3.V.E.3 (nhận biết và chép mẫu hình) và PK4.V.E.3 (nhận biết, chép và kéo dài mẫu hình).<br><b>TEKS Mẫu giáo:</b> K.8(A) thu thập, sắp xếp và tổ chức dữ liệu thành hai hoặc ba nhóm; K.8(B) dùng dữ liệu để tạo biểu đồ tranh; K.8(C) rút ra kết luận từ biểu đồ.<br><b>Common Core:</b> K.MD.3 — phân loại đồ vật vào các nhóm, đếm và xếp các nhóm theo số lượng.",
   'footer.tag':"Không tài khoản · Không thu thập dữ liệu · Hoạt động ngoại tuyến",'footer.home':"Trang chủ",'footer.privacy':"Quyền riêng tư",
   'dir.sort':"Chọn một quy tắc. Rồi kéo mỗi thú cưng vào nhóm phù hợp.",
   'dir.guess':"Thú cưng đã được xếp thành các nhóm. Hãy nhìn kỹ. Quy tắc nào đã được dùng?",
@@ -466,6 +481,7 @@ const I18N = {
   'set.privacyTitle':"Quyền riêng tư:",'set.privacyBody':"Các cài đặt này chỉ lưu trong trình duyệt này. Không tên học sinh, không tài khoản, không theo dõi, và không có gì rời khỏi thiết bị này. Chế độ Câu hỏi của lớp chỉ dùng tổng số ẩn danh.",
   'set.reset':"Đặt lại mặc định",'set.back':"Quay lại các chế độ",'aria.read':"Đọc to",
   'build.how':"Mình làm biểu đồ bằng cách nào?",'build.sortStyle':"Phân loại thú cưng",'build.paradeStyle':"Xem đoàn diễu hành",'parade.intro':"Các thú cưng đi qua từng con một. Hãy chạm vào hàng của mỗi con.",'parade.spoken':"Đoàn diễu hành thú cưng đến rồi! Hãy chạm vào hàng của mỗi con.",'parade.next':"Con tiếp theo đến rồi!",'parade.count':"Con thứ {i} trên {n}",'parade.rowAria':"Thêm vào hàng {group}",'parade.done':"Đoàn diễu hành đã đi hết! Bạn đã thu thập dữ liệu. Biểu đồ cho biết mỗi nhóm có bao nhiêu thú cưng.",'gq.order.q':"Xếp các nhóm theo thứ tự, từ nhiều nhất đến ít nhất.",'gq.order.say':"Hãy chạm vào nhóm có nhiều thú cưng nhất trước. Tiếp tục cho đến nhóm ít nhất.",'gq.order.hint':"Tìm hàng hình dài nhất còn lại. Hàng dài nhất có nhiều nhất.",'gq.order.done':"Đúng rồi! Từ nhiều đến ít: {list}.",'list.sep':", ",
+  'mode.pattern.title':"Mẫu hình đoàn diễu hành",'mode.pattern.desc':"Tiếp theo trong đoàn diễu hành là gì? Chép, kéo dài và sửa mẫu hình.",'pat.next.dir':"Con nào đi tiếp theo trong đoàn diễu hành? Hãy chạm vào nó.",'pat.copy.dir':"Chép lại đoàn diễu hành! Đặt các thú cưng giống hệt vào hàng trống.",'pat.longer.dir':"Làm đoàn diễu hành dài thêm! Điền vào các chỗ trống.",'pat.fix.dir':"Có một thú cưng làm sai mẫu hình. Hãy chạm vào nó!",'pat.hint.next':"Cùng nói nào: {seq}… Phần lặp lại là {core}. Tiếp theo là gì?",'pat.hint.copy':"So từng con một. Nhìn thú cưng ở phía trên mỗi chỗ.",'pat.hint.longer':"Cùng nói nào: {seq}… Phần lặp lại là {core}. Cứ tiếp tục nhé!",'pat.hint.fix':"Phần lặp lại là {core}. Hãy nói dọc theo đoàn diễu hành và tìm con không hợp.",'pat.fillAll':"Hãy điền hết các chỗ trống trước.",'pat.ok.next':"Đúng rồi! {core} lặp lại, nên tiếp theo là {ans}.",'pat.ok.copy':"Đúng rồi! Bạn đã chép mẫu hình: {seq}.",'pat.ok.longer':"Đúng rồi! {core}, {core}… Mẫu hình cứ tiếp tục.",'pat.ok.fix':"Đúng rồi! Con đó làm sai mẫu hình. Bây giờ là: {seq}…",'pat.check':"Kiểm tra",'pat.new':"Mẫu hình mới",'pat.q':"Tiếp theo là gì?",'pat.empty':"Chỗ trống",'pat.add':"Thêm {item}",'set.patLevel':"Mức mẫu hình",'set.pat3':"Mầm 3 · AB",'set.pat4':"Mầm 4 · AB, AAB, ABB",'set.patK':"Mẫu giáo · thêm ABC",
  },
  ar:{
   brand:"تصنيف ورسم موكب الحيوانات الأليفة",
@@ -479,7 +495,7 @@ const I18N = {
   'mode.read.title':"اقرأ الرسم البياني",'mode.read.desc':"انظر إلى الرسم وأجب: أكثر، أقل، متساوٍ، كم العدد؟",
   'mode.class.title':"سؤال الصف",'mode.class.desc':"يُدخل المعلّم مجاميع كل مجموعة لإنشاء رسم بالصور للصف.",
   'std.summary':"المعايير المتوافقة",
-  'std.body':"<b>إرشادات ما قبل الروضة في تكساس:</b> PK3.V.E.1–2 وPK4.V.E.1–2 (تصنيف الأشياء في مجموعات ووصفها؛ جمع البيانات وتنظيمها في رسم)؛ PK3.V.A.8 وPK4.V.A.8 (مقارنة المجموعات: أكثر، أقل، متساوٍ).<br><b>معايير الروضة TEKS:</b> K.8(A) جمع البيانات وترتيبها وتنظيمها في مجموعتين أو ثلاث؛ K.8(B) استخدام البيانات لإنشاء رسوم بالصور؛ K.8(C) استخلاص النتائج من الرسوم.<br><b>Common Core:</b> K.MD.3 — تصنيف الأشياء في فئات وعدّها وترتيب الفئات حسب العدد.",
+  'std.body':"<b>إرشادات ما قبل الروضة في تكساس:</b> PK3.V.E.1–2 وPK4.V.E.1–2 (تصنيف الأشياء في مجموعات ووصفها؛ جمع البيانات وتنظيمها في رسم)؛ PK3.V.A.8 وPK4.V.A.8 (مقارنة المجموعات: أكثر، أقل، متساوٍ)؛ PK3.V.E.3 (تمييز الأنماط ونسخها) وPK4.V.E.3 (تمييز الأنماط ونسخها وإكمالها).<br><b>معايير الروضة TEKS:</b> K.8(A) جمع البيانات وترتيبها وتنظيمها في مجموعتين أو ثلاث؛ K.8(B) استخدام البيانات لإنشاء رسوم بالصور؛ K.8(C) استخلاص النتائج من الرسوم.<br><b>Common Core:</b> K.MD.3 — تصنيف الأشياء في فئات وعدّها وترتيب الفئات حسب العدد.",
   'footer.tag':"بدون حسابات · لا يتم جمع بيانات · يعمل دون اتصال",'footer.home':"الرئيسية",'footer.privacy':"الخصوصية",
   'dir.sort':"اختر قاعدة. ثم اسحب كل حيوان إلى المجموعة التي ينتمي إليها.",
   'dir.guess':"الحيوانات مرتبة في مجموعات. انظر بعناية. ما القاعدة المستخدمة؟",
@@ -543,6 +559,7 @@ const I18N = {
   'set.privacyTitle':"الخصوصية:",'set.privacyBody':"تُحفظ هذه الإعدادات في هذا المتصفح فقط. لا أسماء طلاب، لا حسابات، لا تتبع، ولا شيء يغادر هذا الجهاز. يستخدم نمط سؤال الصف مجاميع مجهولة فقط.",
   'set.reset':"إعادة التعيين للافتراضي",'set.back':"العودة إلى الأنماط",'aria.read':"اقرأ بصوت عالٍ",
   'build.how':"كيف سنصنع الرسم؟",'build.sortStyle':"صنّف الحيوانات الأليفة",'build.paradeStyle':"شاهد الموكب",'parade.intro':"تمرّ الحيوانات الأليفة واحداً تلو الآخر. المس الصف الذي ينتمي إليه كل حيوان.",'parade.spoken':"ها هو موكب الحيوانات الأليفة! المس الصف الذي ينتمي إليه كل حيوان.",'parade.next':"ها هو الحيوان التالي!",'parade.count':"الحيوان {i} من {n}",'parade.rowAria':"أضف إلى صف {group}",'parade.done':"انتهى الموكب! لقد جمعت البيانات. يبيّن الرسم عدد الحيوانات في كل مجموعة.",'gq.order.q':"رتّب المجموعات من الأكثر إلى الأقل.",'gq.order.say':"المس أولاً المجموعة التي فيها أكثر الحيوانات. واصل حتى المجموعة التي فيها أقلها.",'gq.order.hint':"ابحث عن أطول صف صور باقٍ. أطول صف فيه العدد الأكبر.",'gq.order.done':"نعم! من الأكثر إلى الأقل: {list}.",'list.sep':"، ",
+  'mode.pattern.title':"أنماط الموكب",'mode.pattern.desc':"ماذا يأتي بعد ذلك في الموكب؟ انسخ الأنماط وأكملها وصحّحها.",'pat.next.dir':"ماذا يأتي بعد ذلك في الموكب؟ المسه.",'pat.copy.dir':"انسخ الموكب! ضع الحيوانات نفسها في الصف الفارغ.",'pat.longer.dir':"اجعل الموكب أطول! املأ الأماكن الفارغة.",'pat.fix.dir':"حيوان واحد كسر النمط. المسه!",'pat.hint.next':"قلها معي: {seq}… الجزء الذي يتكرر هو {core}. ماذا يأتي بعد ذلك؟",'pat.hint.copy':"طابقها واحداً واحداً. انظر إلى الحيوان الذي فوق كل مكان.",'pat.hint.longer':"قلها معي: {seq}… الجزء الذي يتكرر هو {core}. واصل النمط!",'pat.hint.fix':"الجزء الذي يتكرر هو {core}. قله على طول الموكب وابحث عن الحيوان الذي لا يناسب.",'pat.fillAll':"املأ كل الأماكن الفارغة أولاً.",'pat.ok.next':"نعم! {core} يتكرر، لذلك يأتي {ans} بعد ذلك.",'pat.ok.copy':"نعم! لقد نسخت النمط: {seq}.",'pat.ok.longer':"نعم! {core}، {core}… النمط يستمر.",'pat.ok.fix':"نعم! ذلك الحيوان كسر النمط. الآن يصبح: {seq}…",'pat.check':"تحقّق",'pat.new':"نمط جديد",'pat.q':"ماذا يأتي بعد ذلك؟",'pat.empty':"مكان فارغ",'pat.add':"أضف {item}",'set.patLevel':"مستوى الأنماط",'set.pat3':"تمهيدي ٣ · AB",'set.pat4':"تمهيدي ٤ · AB، AAB، ABB",'set.patK':"الروضة · يضيف ABC",
  },
  hi:{
   brand:"पेट परेड छँटाई और ग्राफ",
@@ -556,7 +573,7 @@ const I18N = {
   'mode.read.title':"ग्राफ पढ़ो",'mode.read.desc':"ग्राफ देखें और उत्तर दें: अधिक, कम, बराबर, कितने?",
   'mode.class.title':"कक्षा का प्रश्न",'mode.class.desc':"शिक्षक हर समूह का कुल भरते हैं ताकि कक्षा का चित्र ग्राफ बने।",
   'std.summary':"संरेखित मानक",
-  'std.body':"<b>टेक्सास प्री-किंडरगार्टन दिशानिर्देश:</b> PK3.V.E.1–2 और PK4.V.E.1–2 (वस्तुओं को समूहों में छाँटना और उनका वर्णन करना; डेटा इकट्ठा करके ग्राफ में व्यवस्थित करना); PK3.V.A.8 और PK4.V.A.8 (ज़्यादा, कम, बराबर से समूहों की तुलना)।<br><b>किंडरगार्टन TEKS:</b> K.8(A) डेटा को दो या तीन श्रेणियों में एकत्र, क्रमबद्ध और व्यवस्थित करना; K.8(B) डेटा से चित्र ग्राफ बनाना; K.8(C) ग्राफ से निष्कर्ष निकालना।<br><b>Common Core:</b> K.MD.3 — वस्तुओं को श्रेणियों में वर्गीकृत करना, गिनना और श्रेणियों को गिनती के क्रम में लगाना।",
+  'std.body':"<b>टेक्सास प्री-किंडरगार्टन दिशानिर्देश:</b> PK3.V.E.1–2 और PK4.V.E.1–2 (वस्तुओं को समूहों में छाँटना और उनका वर्णन करना; डेटा इकट्ठा करके ग्राफ में व्यवस्थित करना); PK3.V.A.8 और PK4.V.A.8 (ज़्यादा, कम, बराबर से समूहों की तुलना); PK3.V.E.3 (पैटर्न पहचानना और नकल करना) और PK4.V.E.3 (पैटर्न पहचानना, नकल करना और आगे बढ़ाना)।<br><b>किंडरगार्टन TEKS:</b> K.8(A) डेटा को दो या तीन श्रेणियों में एकत्र, क्रमबद्ध और व्यवस्थित करना; K.8(B) डेटा से चित्र ग्राफ बनाना; K.8(C) ग्राफ से निष्कर्ष निकालना।<br><b>Common Core:</b> K.MD.3 — वस्तुओं को श्रेणियों में वर्गीकृत करना, गिनना और श्रेणियों को गिनती के क्रम में लगाना।",
   'footer.tag':"कोई खाता नहीं · कोई डेटा एकत्र नहीं · ऑफ़लाइन काम करता है",'footer.home':"होम",'footer.privacy':"गोपनीयता",
   'dir.sort':"एक नियम चुनें। फिर हर पालतू को उसके सही समूह में खींचें।",
   'dir.guess':"पालतू समूहों में छँटे हैं। ध्यान से देखें। कौन सा नियम इस्तेमाल हुआ?",
@@ -620,6 +637,7 @@ const I18N = {
   'set.privacyTitle':"गोपनीयता:",'set.privacyBody':"ये सेटिंग्स केवल इसी ब्राउज़र में सहेजी जाती हैं। कोई छात्र नाम नहीं, कोई खाता नहीं, कोई ट्रैकिंग नहीं, और कुछ भी इस डिवाइस से बाहर नहीं जाता। कक्षा प्रश्न मोड केवल गुमनाम कुल का उपयोग करता है।",
   'set.reset':"डिफ़ॉल्ट पर रीसेट करें",'set.back':"मोड पर वापस जाएँ",'aria.read':"ज़ोर से पढ़ें",
   'build.how':"ग्राफ कैसे बनाएँ?",'build.sortStyle':"पालतू जानवर छाँटें",'build.paradeStyle':"परेड देखें",'parade.intro':"पालतू जानवर एक-एक करके आते हैं। हर जानवर की सही पंक्ति को छुएँ।",'parade.spoken':"पालतू जानवरों की परेड आ गई! हर जानवर की सही पंक्ति को छुएँ।",'parade.next':"अगला जानवर आ रहा है!",'parade.count':"जानवर {i} / {n}",'parade.rowAria':"{group} पंक्ति में जोड़ें",'parade.done':"परेड ख़त्म! आपने डेटा इकट्ठा किया। ग्राफ बताता है कि हर समूह में कितने जानवर हैं।",'gq.order.q':"समूहों को सबसे ज़्यादा से सबसे कम के क्रम में लगाएँ।",'gq.order.say':"पहले उस समूह को छुएँ जिसमें सबसे ज़्यादा जानवर हैं। फिर आगे बढ़ें, सबसे कम वाले समूह तक।",'gq.order.hint':"बची हुई पंक्तियों में सबसे लंबी पंक्ति ढूँढें। सबसे लंबी पंक्ति में सबसे ज़्यादा हैं।",'gq.order.done':"हाँ! सबसे ज़्यादा से सबसे कम: {list}।",'list.sep':", ",
+  'mode.pattern.title':"परेड के पैटर्न",'mode.pattern.desc':"परेड में आगे क्या आएगा? पैटर्न की नकल करें, उसे बढ़ाएँ और ठीक करें।",'pat.next.dir':"परेड में आगे क्या आएगा? उसे छुएँ।",'pat.copy.dir':"परेड की नकल करें! खाली पंक्ति में वही जानवर रखें।",'pat.longer.dir':"परेड को लंबा करें! खाली जगहें भरें।",'pat.fix.dir':"एक जानवर ने पैटर्न तोड़ दिया। उसे छुएँ!",'pat.hint.next':"मेरे साथ बोलें: {seq}… जो हिस्सा दोहराता है, वह है {core}। आगे क्या आएगा?",'pat.hint.copy':"एक-एक करके मिलाएँ। हर जगह के ऊपर वाले जानवर को देखें।",'pat.hint.longer':"मेरे साथ बोलें: {seq}… जो हिस्सा दोहराता है, वह है {core}। पैटर्न आगे बढ़ाएँ!",'pat.hint.fix':"जो हिस्सा दोहराता है, वह है {core}। परेड के साथ-साथ बोलें और वह जानवर ढूँढें जो मेल नहीं खाता।",'pat.fillAll':"पहले सारी खाली जगहें भरें।",'pat.ok.next':"हाँ! {core} दोहराता है, इसलिए आगे {ans} आता है।",'pat.ok.copy':"हाँ! आपने पैटर्न की नकल की: {seq}।",'pat.ok.longer':"हाँ! {core}, {core}… पैटर्न चलता रहता है।",'pat.ok.fix':"हाँ! उस जानवर ने पैटर्न तोड़ा था। अब यह ऐसे चलता है: {seq}…",'pat.check':"जाँचें",'pat.new':"नया पैटर्न",'pat.q':"आगे क्या आएगा?",'pat.empty':"खाली जगह",'pat.add':"{item} जोड़ें",'set.patLevel':"पैटर्न स्तर",'set.pat3':"प्री-के 3 · AB",'set.pat4':"प्री-के 4 · AB, AAB, ABB",'set.patK':"किंडरगार्टन · ABC भी",
  },
  ur:{
   brand:"پیٹ پریڈ چھانٹ اور گراف",
@@ -633,7 +651,7 @@ const I18N = {
   'mode.read.title':"گراف پڑھو",'mode.read.desc':"گراف دیکھیں اور جواب دیں: زیادہ، کم، برابر، کتنے؟",
   'mode.class.title':"کلاس کا سوال",'mode.class.desc':"استاد ہر گروہ کا کل لکھتے ہیں تاکہ کلاس کا تصویری گراف بنے۔",
   'std.summary':"ہم آہنگ معیارات",
-  'std.body':"<b>ٹیکساس پری کنڈرگارٹن ہدایات:</b> PK3.V.E.1–2 اور PK4.V.E.1–2 (اشیاء کو گروہوں میں چھانٹنا اور بیان کرنا؛ ڈیٹا جمع کر کے گراف میں منظم کرنا)؛ PK3.V.A.8 اور PK4.V.A.8 (زیادہ، کم، برابر سے گروہوں کا موازنہ)۔<br><b>کنڈرگارٹن TEKS:</b> K.8(A) ڈیٹا کو دو یا تین اقسام میں جمع، ترتیب اور منظم کرنا؛ K.8(B) ڈیٹا سے تصویری گراف بنانا؛ K.8(C) گراف سے نتائج اخذ کرنا۔<br><b>Common Core:</b> K.MD.3 — اشیاء کو اقسام میں تقسیم کرنا، گننا اور اقسام کو تعداد کے مطابق ترتیب دینا۔",
+  'std.body':"<b>ٹیکساس پری کنڈرگارٹن ہدایات:</b> PK3.V.E.1–2 اور PK4.V.E.1–2 (اشیاء کو گروہوں میں چھانٹنا اور بیان کرنا؛ ڈیٹا جمع کر کے گراف میں منظم کرنا)؛ PK3.V.A.8 اور PK4.V.A.8 (زیادہ، کم، برابر سے گروہوں کا موازنہ)؛ PK3.V.E.3 (پیٹرن پہچاننا اور نقل کرنا) اور PK4.V.E.3 (پیٹرن پہچاننا، نقل کرنا اور آگے بڑھانا)۔<br><b>کنڈرگارٹن TEKS:</b> K.8(A) ڈیٹا کو دو یا تین اقسام میں جمع، ترتیب اور منظم کرنا؛ K.8(B) ڈیٹا سے تصویری گراف بنانا؛ K.8(C) گراف سے نتائج اخذ کرنا۔<br><b>Common Core:</b> K.MD.3 — اشیاء کو اقسام میں تقسیم کرنا، گننا اور اقسام کو تعداد کے مطابق ترتیب دینا۔",
   'footer.tag':"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا جمع نہیں · آف لائن کام کرتا ہے",'footer.home':"ہوم",'footer.privacy':"رازداری",
   'dir.sort':"ایک اصول چنیں۔ پھر ہر پالتو کو اس کے صحیح گروہ میں کھینچیں۔",
   'dir.guess':"پالتو گروہوں میں ترتیب دیے گئے ہیں۔ غور سے دیکھیں۔ کون سا اصول استعمال ہوا؟",
@@ -697,6 +715,7 @@ const I18N = {
   'set.privacyTitle':"رازداری:",'set.privacyBody':"یہ ترتیبات صرف اسی براؤزر میں محفوظ ہوتی ہیں۔ کوئی طالب علم کا نام نہیں، کوئی اکاؤنٹ نہیں، کوئی ٹریکنگ نہیں، اور کچھ بھی اس ڈیوائس سے باہر نہیں جاتا۔ کلاس سوال موڈ صرف گمنام کل استعمال کرتا ہے۔",
   'set.reset':"طے شدہ پر ری سیٹ کریں",'set.back':"طریقوں پر واپس جائیں",'aria.read':"بلند آواز میں پڑھیں",
   'build.how':"گراف کیسے بنائیں؟",'build.sortStyle':"پالتو جانور چھانٹیں",'build.paradeStyle':"پریڈ دیکھیں",'parade.intro':"پالتو جانور ایک ایک کر کے گزرتے ہیں۔ ہر جانور کی صحیح قطار کو چھوئیں۔",'parade.spoken':"پالتو جانوروں کی پریڈ آ گئی! ہر جانور کی صحیح قطار کو چھوئیں۔",'parade.next':"اگلا جانور آ رہا ہے!",'parade.count':"جانور {i} از {n}",'parade.rowAria':"{group} قطار میں شامل کریں",'parade.done':"پریڈ ختم! آپ نے ڈیٹا جمع کیا۔ گراف بتاتا ہے کہ ہر گروہ میں کتنے جانور ہیں۔",'gq.order.q':"گروہوں کو سب سے زیادہ سے سب سے کم کی ترتیب میں لگائیں۔",'gq.order.say':"پہلے اس گروہ کو چھوئیں جس میں سب سے زیادہ جانور ہیں۔ پھر آگے بڑھیں، سب سے کم والے گروہ تک۔",'gq.order.hint':"باقی قطاروں میں سب سے لمبی قطار ڈھونڈیں۔ سب سے لمبی قطار میں سب سے زیادہ ہیں۔",'gq.order.done':"جی ہاں! سب سے زیادہ سے سب سے کم: {list}۔",'list.sep':"، ",
+  'mode.pattern.title':"پریڈ کے پیٹرن",'mode.pattern.desc':"پریڈ میں آگے کیا آئے گا؟ پیٹرن کی نقل کریں، اسے بڑھائیں اور درست کریں۔",'pat.next.dir':"پریڈ میں آگے کیا آئے گا؟ اسے چھوئیں۔",'pat.copy.dir':"پریڈ کی نقل کریں! خالی قطار میں وہی جانور رکھیں۔",'pat.longer.dir':"پریڈ کو لمبا کریں! خالی جگہیں بھریں۔",'pat.fix.dir':"ایک جانور نے پیٹرن توڑ دیا۔ اسے چھوئیں!",'pat.hint.next':"میرے ساتھ بولیں: {seq}… جو حصہ دہرایا جاتا ہے وہ ہے {core}۔ آگے کیا آئے گا؟",'pat.hint.copy':"ایک ایک کر کے ملائیں۔ ہر جگہ کے اوپر والے جانور کو دیکھیں۔",'pat.hint.longer':"میرے ساتھ بولیں: {seq}… جو حصہ دہرایا جاتا ہے وہ ہے {core}۔ پیٹرن جاری رکھیں!",'pat.hint.fix':"جو حصہ دہرایا جاتا ہے وہ ہے {core}۔ پریڈ کے ساتھ ساتھ بولیں اور وہ جانور ڈھونڈیں جو میل نہیں کھاتا۔",'pat.fillAll':"پہلے ساری خالی جگہیں بھریں۔",'pat.ok.next':"جی ہاں! {core} دہرایا جاتا ہے، اس لیے آگے {ans} آتا ہے۔",'pat.ok.copy':"جی ہاں! آپ نے پیٹرن کی نقل کی: {seq}۔",'pat.ok.longer':"جی ہاں! {core}، {core}… پیٹرن چلتا رہتا ہے۔",'pat.ok.fix':"جی ہاں! اس جانور نے پیٹرن توڑا تھا۔ اب یہ ایسے چلتا ہے: {seq}…",'pat.check':"جانچیں",'pat.new':"نیا پیٹرن",'pat.q':"آگے کیا آئے گا؟",'pat.empty':"خالی جگہ",'pat.add':"{item} شامل کریں",'set.patLevel':"پیٹرن کی سطح",'set.pat3':"پری کے 3 · AB",'set.pat4':"پری کے 4 · AB، AAB، ABB",'set.patK':"کنڈرگارٹن · ABC بھی",
  },
  zh:{
   brand:"宠物游行分类与统计图",
@@ -710,7 +729,7 @@ const I18N = {
   'mode.read.title':"看统计图",'mode.read.desc':"看统计图并回答：更多、更少、相等、有几个？",
   'mode.class.title':"全班问题",'mode.class.desc':"老师输入每组的总数，制作全班的图画统计图。",
   'std.summary':"对应标准",
-  'std.body':"<b>德州学前指南：</b>PK3.V.E.1–2 和 PK4.V.E.1–2（把物品分组并描述；收集数据并整理成统计图）；PK3.V.A.8 和 PK4.V.A.8（用更多、更少、一样多比较各组）。<br><b>幼儿园 TEKS：</b>K.8(A) 把数据收集、排序并整理成两到三类；K.8(B) 用数据制作图画统计图；K.8(C) 从统计图得出结论。<br><b>Common Core：</b>K.MD.3 —— 将物品分类、计数，并按数量给各类排序。",
+  'std.body':"<b>德州学前指南：</b>PK3.V.E.1–2 和 PK4.V.E.1–2（把物品分组并描述；收集数据并整理成统计图）；PK3.V.A.8 和 PK4.V.A.8（用更多、更少、一样多比较各组）；PK3.V.E.3（认识并照着排规律）和 PK4.V.E.3（认识、照着排并延续规律）。<br><b>幼儿园 TEKS：</b>K.8(A) 把数据收集、排序并整理成两到三类；K.8(B) 用数据制作图画统计图；K.8(C) 从统计图得出结论。<br><b>Common Core：</b>K.MD.3 —— 将物品分类、计数，并按数量给各类排序。",
   'footer.tag':"无需账号 · 不收集数据 · 离线可用",'footer.home':"主页",'footer.privacy':"隐私",
   'dir.sort':"选一个规则。然后把每只宠物拖到它所属的组。",
   'dir.guess':"宠物已经分成几组了。仔细看。用的是什么规则？",
@@ -774,6 +793,7 @@ const I18N = {
   'set.privacyTitle':"隐私：",'set.privacyBody':"这些设置只保存在本浏览器中。没有学生姓名、没有账号、没有跟踪，任何信息都不会离开本设备。全班问题模式只使用匿名总数。",
   'set.reset':"恢复默认",'set.back':"返回模式",'aria.read':"朗读",
   'build.how':"我们怎样做统计图？",'build.sortStyle':"给宠物分类",'build.paradeStyle':"看宠物游行",'parade.intro':"宠物一只一只走过来。点一点每只宠物该去的那一行。",'parade.spoken':"宠物游行来啦！点一点每只宠物该去的那一行。",'parade.next':"下一只宠物来了！",'parade.count':"第{i}只，共{n}只",'parade.rowAria':"加到{group}这一行",'parade.done':"游行结束了！你收集好了数据。统计图告诉我们每组有几只宠物。",'gq.order.q':"把各组排排队，从最多到最少。",'gq.order.say':"先点宠物最多的那一组，再接着点，直到最少的那一组。",'gq.order.hint':"找一找剩下的行里哪一行图画最长。最长的一行最多。",'gq.order.done':"对了！从多到少：{list}。",'list.sep':"、",
+  'mode.pattern.title':"游行规律",'mode.pattern.desc':"游行队伍里下一个是谁？照着排、接着排、找错误。",'pat.next.dir':"游行队伍里下一个是谁？点一点它。",'pat.copy.dir':"照着排游行队伍！把一样的宠物放进空的那一行。",'pat.longer.dir':"让游行队伍变长！把空位填满。",'pat.fix.dir':"有一只宠物排错了。点一点它！",'pat.hint.next':"跟我一起说：{seq}……重复的部分是{core}。下一个是什么？",'pat.hint.copy':"一个一个对照。看看每个空位上面的宠物。",'pat.hint.longer':"跟我一起说：{seq}……重复的部分是{core}。接着排下去！",'pat.hint.fix':"重复的部分是{core}。沿着队伍说一说，找出不合规律的那只宠物。",'pat.fillAll':"先把所有空位填满。",'pat.ok.next':"对了！{core}一直重复，所以下一个是{ans}。",'pat.ok.copy':"对了！你照着排出了规律：{seq}。",'pat.ok.longer':"对了！{core}，{core}……规律一直继续。",'pat.ok.fix':"对了！那只宠物排错了。现在是：{seq}……",'pat.check':"检查",'pat.new':"换一个规律",'pat.q':"下一个是什么？",'pat.empty':"空位",'pat.add':"加入{item}",'set.patLevel':"规律难度",'set.pat3':"学前3 · AB",'set.pat4':"学前4 · AB、AAB、ABB",'set.patK':"幼儿园 · 增加 ABC",
  },
 };
 
@@ -1001,7 +1021,7 @@ function artFor(item){
 }
 
 /* ---------------- Teacher settings ---------------- */
-const DEFAULTS = { objectSet:'animals', numCats:2, attr:'color', maxPer:6, graphQ:true };
+const DEFAULTS = { objectSet:'animals', numCats:2, attr:'color', maxPer:6, graphQ:true, patLevel:'prek4' };
 let SET = loadSet();
 function loadSet(){
   try{ return Object.assign({}, DEFAULTS, JSON.parse(safeGet('petParade.settings')||'{}')); }
@@ -1082,6 +1102,7 @@ const MODES = [
   {key:'fix',   ico:'🔧', color:'#f76b15'},
   {key:'build', ico:'📊', color:'#46a758'},
   {key:'read',  ico:'🔎', color:'#8e4ec6'},
+  {key:'pattern', ico:'🔁', color:'#d6336c'},
   {key:'class', ico:'🙋', color:'#e0a400'},
 ];
 function showMenu(){
@@ -1102,7 +1123,7 @@ function showMenu(){
   APP.appendChild(std);
 }
 function startMode(key){
-  ({sort:modeSort,guess:modeGuess,fix:modeFix,build:modeBuild,read:modeRead,class:modeClass})[key]();
+  ({sort:modeSort,guess:modeGuess,fix:modeFix,build:modeBuild,read:modeRead,pattern:modePattern,class:modeClass})[key]();
 }
 
 /* ---------------- Shared UI ---------------- */
@@ -1642,6 +1663,120 @@ function newRead(host){
   nb.addEventListener('click',()=>newRead(host)); row.appendChild(nb); host.appendChild(row);
 }
 
+/* ---------------- MODE 6: Parade Patterns (PK3.V.E.3 / PK4.V.E.3) ---------------- */
+const PAT_CORES={prek3:['AB'],prek4:['AB','AAB','ABB'],k:['AB','AAB','ABB','ABC']};
+function patLevel(){ return PAT_CORES[SET.patLevel]?SET.patLevel:'prek4'; }
+// one attribute changes (colour, or kind of pet); everything else stays the same so the pattern is easy to see
+function makePattern(maxN){
+  const by=rnd(['color','type']), core=rnd(PAT_CORES[patLevel()].filter(c=>!maxN||c.length<=maxN)).split(''), vals=shuffle(valuesFor(by).slice()), letters=uniq(core), map={};
+  letters.forEach((c,i)=>map[c]=vals[i]);
+  const ft=rnd(Object.keys(typeMap())), fc=rnd(Object.keys(COLORS));
+  return { by, core:core.map(c=>map[c]), outside:vals[letters.length], item:v=>by==='color'?makeItem(ft,v,'big'):makeItem(v,fc,'big') };
+}
+function patName(pt,v){ const s=pt.by==='color'?colorLabel(v):typeLabel(v); return ['en','es','vi'].includes(L)?s.toLocaleLowerCase(L):s; }
+function patList(pt,vs){ return vs.map(v=>patName(pt,v)).join(t('list.sep')); }
+function patCap(s){ return s.replace(/(^|[.!?…]\s+)(\p{Ll})/gu,(m,a,c)=>a+c.toUpperCase()); }
+function patCell(pt,v,tag){ const c=document.createElement(tag||'div'); c.className='patcell'; if(tag==='button') c.type='button'; else c.setAttribute('role','img');
+  c.innerHTML=artFor(pt.item(v)); c.setAttribute('aria-label',patName(pt,v)); c.__v=v; return c; }
+// Each parade stays on ONE line so the repeating part is never split: tiles shrink to fit (34px minimum),
+// and rounds show fewer repeats when even 34px tiles would not fit.
+const PAT_MIN=34, PAT_GAP=4;
+function patRoom(row){ return Math.floor((row.clientWidth-12+PAT_GAP)/(PAT_MIN+PAT_GAP)); } // clientWidth includes the 6px side padding
+function patFit(rows){ rows.forEach(r=>{ const n=r.children.length; if(!n) return; const avail=r.clientWidth-12;
+  r.style.setProperty('--ts', Math.max(PAT_MIN, Math.min(60, Math.floor((avail-PAT_GAP*(n-1))/n)))+'px'); });
+  const w=Math.min(...rows.map(r=>parseFloat(r.style.getPropertyValue('--ts'))||60)); rows.forEach(r=>r.style.setProperty('--ts',w+'px')); } // same size in both rows keeps the copy row aligned
+let PAT_ROWS=[];
+window.addEventListener('resize',()=>{ if(PAT_ROWS.length && PAT_ROWS[0].isConnected) patFit(PAT_ROWS); });
+function modePattern(){
+  CURRENT=modePattern; clearApp(); ACTIVE=null;
+  setDirection(APP, '');
+  const host=document.createElement('div'); APP.appendChild(host); newPattern(host);
+}
+function newPattern(host){
+  host.innerHTML=''; ACTIVE=null;
+  const lvl=patLevel(), kind=rnd(lvl==='prek3'?['next','next','copy']:['next','longer','fix']);
+  const row=document.createElement('div'); row.className='patrow'; host.appendChild(row);
+  const room=patRoom(row); // how many tiles fit on one line at the minimum size
+  // "find the mistake" needs three full repeats to be fair; on very narrow screens use a 2-long pattern
+  const pt=makePattern(kind==='fix'?Math.floor(room/3):0), n=pt.core.length, core=pt.core, coreTxt=patList(pt,core);
+  const dir=t('pat.'+kind+'.dir'); currentDirection=dir; const d=APP.querySelector('.direction .dtxt'); if(d) d.textContent=dir;
+  const fb=feedbackBox(); let done=false;
+  const ok=msg=>{ done=true; fb.show('ok','🎉',patCap(msg)); };
+  const tip=msg=>fb.show('tip','💡',patCap(msg));
+  if(kind==='next'){
+    let len=2*n+Math.floor(Math.random()*n); while(len+1>room && len>n+1) len--;
+    const seq=Array.from({length:len},(_,i)=>core[i%n]), ans=core[len%n];
+    seq.forEach(v=>row.appendChild(patCell(pt,v)));
+    const q=document.createElement('div'); q.className='patcell q'; q.textContent='?'; q.setAttribute('role','img'); q.setAttribute('aria-label',t('pat.q')); row.appendChild(q);
+    // choices: the answer, the "repeat the last pet" mistake, and another pet (from the pattern, or one that is not in it)
+    const opts=[ans]; if(seq[len-1]!==ans) opts.push(seq[len-1]);
+    core.forEach(v=>{ if(opts.length<3 && !opts.includes(v)) opts.push(v); }); if(opts.length<3) opts.push(pt.outside);
+    const ch=document.createElement('div'); ch.className='choices'; ch.style.justifyContent='center';
+    shuffle(opts).forEach(v=>{ const b=document.createElement('button'); b.type='button'; b.className='choice patopt'; b.innerHTML=artFor(pt.item(v))+'<span>'+(pt.by==='color'?colorLabel(v):typeLabel(v))+'</span>';
+      b.setAttribute('aria-label',patName(pt,v));
+      b.addEventListener('click',()=>{ if(done) return;
+        if(v===ans){ b.classList.add('correct'); ch.querySelectorAll('.choice').forEach(x=>x.disabled=true); const c=patCell(pt,ans); c.classList.add('right','pop'); row.replaceChild(c,q);
+          ok(t('pat.ok.next',{core:coreTxt, ans:patName(pt,ans)})); }
+        else { b.classList.add('incorrect'); b.disabled=true; tip(t('pat.hint.next',{seq:patList(pt,seq), core:coreTxt})); } });
+      ch.appendChild(b); });
+    host.appendChild(ch);
+  } else if(kind==='copy'||kind==='longer'){
+    const m=kind==='copy'?Math.min(2*n,room):Math.max(n+1,Math.min(2*n,room-2)), model=Array.from({length:m},(_,i)=>core[i%n]);
+    model.forEach(v=>row.appendChild(patCell(pt,v)));
+    const target=kind==='copy'?model:[core[m%n],core[(m+1)%n]];
+    let slotRow=row; if(kind==='copy'){ slotRow=document.createElement('div'); slotRow.className='patrow copy'; host.appendChild(slotRow); }
+    const slots=target.map(()=>{ const sl=document.createElement('button'); sl.type='button'; sl.className='patcell empty'; sl.textContent='?'; sl.setAttribute('aria-label',t('pat.empty')); sl.__v=null;
+      sl.addEventListener('click',()=>{ if(!done && sl.__v!=null) setSlot(sl,null); }); slotRow.appendChild(sl); return sl; });
+    function setSlot(sl,v){ sl.__v=v; sl.classList.remove('wrong','right');
+      if(v==null){ sl.className='patcell empty'; sl.textContent='?'; sl.setAttribute('aria-label',t('pat.empty')); }
+      else { sl.className='patcell pop'; sl.innerHTML=artFor(pt.item(v)); sl.setAttribute('aria-label',patName(pt,v)); } }
+    const tray=document.createElement('div'); tray.className='pattray';
+    const pool=uniq(core.slice()); if(lvl==='k') pool.push(pt.outside);
+    shuffle(pool).forEach(v=>{ const tl=document.createElement('button'); tl.type='button'; tl.className='pattile'; tl.innerHTML=artFor(pt.item(v)); tl.setAttribute('aria-label',t('pat.add',{item:patName(pt,v)}));
+      tl.addEventListener('click',()=>{ if(Date.now()-(tl.__dragT||0)<80) return; if(done) return; const e=slots.find(x=>x.__v==null); if(e) setSlot(e,v); });
+      patDrag(tl,v,slots,(sl)=>{ if(!done) setSlot(sl,v); });
+      tray.appendChild(tl); });
+    host.appendChild(tray);
+    const cb=document.createElement('button'); cb.type='button'; cb.className='btn'; cb.textContent='✅ '+t('pat.check');
+    cb.addEventListener('click',()=>{ if(done) return;
+      if(slots.some(x=>x.__v==null)){ tip(t('pat.fillAll')); return; }
+      let bad=0; slots.forEach((x,i)=>{ const r=x.__v===target[i]; x.classList.toggle('right',r); x.classList.toggle('wrong',!r); if(!r) bad++; });
+      if(!bad){ slots.forEach(x=>x.disabled=true); ok(kind==='copy'?t('pat.ok.copy',{seq:patList(pt,model)}):t('pat.ok.longer',{core:coreTxt})); }
+      else tip(kind==='copy'?t('pat.hint.copy'):t('pat.hint.longer',{seq:patList(pt,model), core:coreTxt})); });
+    const cr=document.createElement('div'); cr.className='btnrow'; cr.appendChild(cb); host.appendChild(cr);
+  } else { // fix: one pet (never in the first repeat) does not follow the pattern
+    const L=3*n, good=Array.from({length:L},(_,i)=>core[i%n]), bi=n+Math.floor(Math.random()*(L-n)), seq=good.slice();
+    seq[bi]=uniq(core).find(v=>v!==good[bi]);
+    seq.forEach((v,i)=>{ const c=patCell(pt,v,'button');
+      c.addEventListener('click',()=>{ if(done) return;
+        if(i===bi){ const f=patCell(pt,good[bi]); f.classList.add('right','pop'); row.replaceChild(f,c); row.querySelectorAll('button.patcell').forEach(x=>x.disabled=true);
+          ok(t('pat.ok.fix',{seq:patList(pt,good.slice(0,2*n))})); }
+        else { c.classList.add('wrong'); setTimeout(()=>c.classList.remove('wrong'),900); tip(t('pat.hint.fix',{core:coreTxt})); } });
+      row.appendChild(c); });
+  }
+  host.appendChild(fb);
+  PAT_ROWS=[...host.querySelectorAll('.patrow')]; patFit(PAT_ROWS);
+  const nr=document.createElement('div'); nr.className='btnrow';
+  const nb=document.createElement('button'); nb.className='btn ghost'; nb.type='button'; nb.textContent='🔁 '+t('pat.new');
+  nb.addEventListener('click',()=>newPattern(host)); nr.appendChild(nb); host.appendChild(nr);
+  speak(dir);
+}
+// drag a tray tile onto an empty or filled spot (tap still works; keyboard uses the tile buttons)
+function patDrag(el,v,slots,onDrop){
+  el.addEventListener('pointerdown',e=>{
+    if(e.pointerType==='mouse'&&e.button!==0) return;
+    const sx=e.clientX, sy=e.clientY; let g=null, hot=null;
+    const at=(x,y)=>{ const h=document.elementFromPoint(x,y); const s=h&&h.closest?h.closest('.patcell'):null; return slots.includes(s)?s:null; };
+    const mv=ev=>{ if(!g){ if(Math.abs(ev.clientX-sx)<6&&Math.abs(ev.clientY-sy)<6) return; g=document.createElement('div'); g.className='patghost'; g.innerHTML=el.innerHTML; document.body.appendChild(g); }
+      g.style.left=(ev.clientX-31)+'px'; g.style.top=(ev.clientY-31)+'px'; ev.preventDefault();
+      const s=at(ev.clientX,ev.clientY); if(s!==hot){ if(hot) hot.classList.remove('hot'); hot=s; if(hot) hot.classList.add('hot'); } };
+    const up=ev=>{ document.removeEventListener('pointermove',mv); document.removeEventListener('pointerup',up); document.removeEventListener('pointercancel',up);
+      if(hot) hot.classList.remove('hot');
+      if(g){ g.remove(); el.__dragT=Date.now(); const s=ev.type==='pointerup'?at(ev.clientX,ev.clientY):null; if(s) onDrop(s); } };
+    document.addEventListener('pointermove',mv); document.addEventListener('pointerup',up); document.addEventListener('pointercancel',up);
+  });
+}
+
 /* ---------------- Class Question ---------------- */
 const CLASS_TEMPLATES={
   fruit:{key:'fruit', emojis:['🍎','🍌','🍇']},
@@ -1721,6 +1856,7 @@ function showSettings(){
   p.appendChild(segGroup(t('set.objectSet'), [{val:'animals',label:'🐾 '+t('set.animals')},{val:'toys',label:'🧸 '+t('set.toys')}], SET.objectSet, v=>{ SET.objectSet=v; if(!availableAttrs().includes(SET.attr)) SET.attr='color'; saveSettings(); showSettings(); }));
   p.appendChild(segGroup(t('set.numGroups'), [{val:2,label:t('set.2groups')},{val:3,label:t('set.3groups')}], SET.numCats, v=>{ SET.numCats=v; saveSettings(); }));
   p.appendChild(segGroup(t('set.ruleDefault'), availableAttrs().map(a=>({val:a,label:attrIcon(a)+' '+attrLabel(a)})), SET.attr, v=>{ SET.attr=v; saveSettings(); }));
+  p.appendChild(segGroup(t('set.patLevel'), [{val:'prek3',label:t('set.pat3')},{val:'prek4',label:t('set.pat4')},{val:'k',label:t('set.patK')}], SET.patLevel, v=>{ SET.patLevel=v; saveSettings(); }));
   p.appendChild(segGroup(t('set.maxPets'), [{val:4,label:t('set.upto',{n:4})},{val:6,label:t('set.upto',{n:6})},{val:10,label:t('set.upto',{n:10})}], SET.maxPer, v=>{ SET.maxPer=v; saveSettings(); }));
   const gf=document.createElement('div'); gf.className='field';
   const gl=document.createElement('label'); gl.className='switch';
