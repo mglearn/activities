@@ -57,6 +57,7 @@
 
   /* Math: always left-to-right, even inside Arabic/Urdu sentences */
   .math{unicode-bidi:isolate;direction:ltr;display:inline;font-weight:800}
+  .math.nw{white-space:nowrap}
   .fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.05;font-weight:800;margin:0 .08em;white-space:nowrap;font-size:.92em}
   .fr>span{padding:0 .16em}
   .fr>span:first-child{border-bottom:.12em solid currentColor}
@@ -93,6 +94,11 @@
   .pc.red{fill:#e74c3c}
   .pc[tabindex]{cursor:pointer}
   .pc:focus{outline:none;stroke:var(--focus);stroke-width:5}
+  .mergeln{stroke:#3b1f4a;stroke-width:1.5;stroke-dasharray:4 4;opacity:.3;animation:mergeFade 1s ease}
+  @keyframes mergeFade{from{opacity:1;stroke-width:2}}
+  .gout{fill:none;stroke:#3b1f4a;stroke-width:2.5}
+  .thin .gout{stroke-width:1}
+  .pfill{fill:var(--sh)}
   .grpbox{fill:#faf6fd;stroke:#9b7bb0;stroke-width:2;stroke-dasharray:5 4}
   .acts{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:center;margin:.5rem 0}
   .acts:empty{display:none}
@@ -259,6 +265,10 @@ const T = {
     hintRead:"Count the equal jumps from 0 to 1. There are {d}, so each jump is {u}. Now count the jumps from 0 to the pin.",
     equivDir:"Find the missing number. Split the parts to help.", eqSay:"{f} equals how many {dn}?",
     splitBy:"Split each part into {k}", reset:"Reset",
+    simpDir:"Find the missing number. Join the parts to help.", groupBy:"Join every {k} parts",
+    goodSimp:"Yes! Join every {k} small parts into one bigger part. The shaded amount stays the same, but the top and bottom numbers are both divided by {k}: {d1} and {d2}. So {eq}.",
+    hintSimp:"Keep the same amount shaded. To get {b} parts in all, join every {k} of the {nb} small parts into one bigger part. Then the {na} shaded parts become {div} bigger parts.",
+    grpPart:"Some bigger parts are only partly shaded, because {n} shaded parts can't be joined in groups of {k}. Press {reset} and try another way.",
     goodEquiv:"Yes! Split every part into {k}. That makes {k} times as many shaded parts and {k} times as many parts in all: {eq}.",
     hintEquiv:"Keep the same amount shaded. When {b} parts are each split into {k}, there are {nb} parts in all, and the shaded parts become {ak}.",
     cmpDir:"Compare {f1} and {f2}. Which symbol is true?", showStrips:"Show strips", hideStrips:"Hide strips",
@@ -345,6 +355,10 @@ const T = {
     hintRead:"Cuenta los saltos iguales de 0 a 1. Hay {d}, así que cada salto es {u}. Ahora cuenta los saltos de 0 al marcador.",
     equivDir:"Encuentra el número que falta. Divide las partes para ayudarte.", eqSay:"¿{f} es igual a cuántos {dn}?",
     splitBy:"Divide cada parte en {k}", reset:"Reiniciar",
+    simpDir:"Encuentra el número que falta. Junta las partes para ayudarte.", groupBy:"Junta cada {k} partes",
+    goodSimp:"¡Sí! Junta cada {k} partes pequeñas en una parte más grande. La cantidad sombreada sigue igual, pero el número de arriba y el de abajo se dividen entre {k}: {d1} y {d2}. Así que {eq}.",
+    hintSimp:"Mantén la misma cantidad sombreada. Para tener {b} partes en total, junta cada {k} de las {nb} partes pequeñas en una parte más grande. Entonces las {na} partes sombreadas se vuelven {div} partes grandes.",
+    grpPart:"Algunas partes grandes quedaron sombreadas solo en parte, porque {n} partes sombreadas no se pueden juntar en grupos de {k}. Presiona {reset} y prueba otra forma.",
     goodEquiv:"¡Sí! Divide cada parte en {k}. Así hay {k} veces más partes sombreadas y {k} veces más partes en total: {eq}.",
     hintEquiv:"Mantén la misma cantidad sombreada. Si {b} partes se dividen en {k} cada una, hay {nb} partes en total, y las partes sombreadas son {ak}.",
     cmpDir:"Compara {f1} y {f2}. ¿Qué símbolo es verdadero?", showStrips:"Mostrar tiras", hideStrips:"Ocultar tiras",
@@ -431,6 +445,10 @@ const T = {
     hintRead:"Đếm các bước nhảy bằng nhau từ 0 đến 1. Có {d} bước, nên mỗi bước là {u}. Bây giờ đếm số bước từ 0 đến ghim.",
     equivDir:"Tìm số còn thiếu. Chia nhỏ các phần để giúp em.", eqSay:"{f} bằng bao nhiêu phần {d}?",
     splitBy:"Chia mỗi phần thành {k}", reset:"Đặt lại",
+    simpDir:"Tìm số còn thiếu. Gộp các phần lại để giúp em.", groupBy:"Gộp mỗi {k} phần thành 1",
+    goodSimp:"Đúng! Gộp mỗi {k} phần nhỏ thành một phần lớn hơn. Lượng được tô vẫn giữ nguyên, nhưng cả tử số và mẫu số đều được chia cho {k}: {d1} và {d2}. Vậy {eq}.",
+    hintSimp:"Giữ nguyên lượng được tô. Để có tất cả {b} phần, hãy gộp mỗi {k} phần trong {nb} phần nhỏ thành một phần lớn. Khi đó {na} phần được tô trở thành {div} phần lớn.",
+    grpPart:"Có phần lớn chỉ được tô một phần, vì {n} phần được tô không gộp đều thành từng nhóm {k} được. Bấm {reset} và thử cách khác.",
     goodEquiv:"Đúng! Chia mỗi phần thành {k}. Số phần được tô và tổng số phần đều gấp {k} lần: {eq}.",
     hintEquiv:"Giữ nguyên lượng được tô. Khi chia mỗi phần trong {b} phần thành {k}, sẽ có {nb} phần tất cả, và số phần được tô là {ak}.",
     cmpDir:"So sánh {f1} và {f2}. Dấu nào đúng?", showStrips:"Hiện thanh phân số", hideStrips:"Ẩn thanh phân số",
@@ -517,6 +535,10 @@ const T = {
     hintRead:"عُدّ القفزات المتساوية من 0 إلى 1. عددها {d}، فكل قفزة {u}. الآن عُدّ القفزات من 0 إلى الدبوس.",
     equivDir:"جِد العدد الناقص. قسّم الأجزاء لتساعدك.", eqSay:"{f} يساوي كم على {d}؟",
     splitBy:"قسّم كل جزء إلى {k}", reset:"إعادة",
+    simpDir:"جِد العدد الناقص. اجمع الأجزاء لتساعدك.", groupBy:"اجمع الأجزاء في مجموعات من {k}",
+    goodSimp:"نعم! اجمع الأجزاء الصغيرة في مجموعات من {k}، فتصبح كل مجموعة جزءاً واحداً أكبر. تبقى الكمية المظللة نفسها، لكن البسط والمقام يُقسمان كلاهما على {k}: {d1} و {d2}. إذن {eq}.",
+    hintSimp:"أبقِ الكمية المظللة نفسها. ليصبح عدد الأجزاء كلها {b}، اجمع الأجزاء الصغيرة ({nb}) في مجموعات من {k}، فتصبح كل مجموعة جزءاً واحداً أكبر. عندها يصبح عدد الأجزاء المظللة ({na}) من الأجزاء الكبيرة {div}.",
+    grpPart:"بعض الأجزاء الكبيرة مظللة جزئياً فقط، لأن عدد الأجزاء المظللة ({n}) لا يُقسم إلى مجموعات من {k} بالتساوي. اضغط {reset} وجرّب طريقة أخرى.",
     goodEquiv:"نعم! قسّم كل جزء إلى {k}. فيصبح عدد الأجزاء المظللة وعدد الأجزاء كلها {k} أضعاف: {eq}.",
     hintEquiv:"أبقِ الكمية المظللة نفسها. عندما يُقسّم كل جزء من {b} أجزاء إلى {k}، يصبح المجموع {nb} أجزاء، والأجزاء المظللة {ak}.",
     cmpDir:"قارن بين {f1} و{f2}. أي رمز صحيح؟", showStrips:"أظهر الأشرطة", hideStrips:"أخفِ الأشرطة",
@@ -603,6 +625,10 @@ const T = {
     hintRead:"0 से 1 तक बराबर छलाँगें गिनो। वे {d} हैं, इसलिए हर छलाँग {u} है। अब 0 से पिन तक छलाँगें गिनो।",
     equivDir:"छूटी हुई संख्या ढूँढो। मदद के लिए भागों को बाँटो।", eqSay:"{f} बराबर कितने बटा {d}?",
     splitBy:"हर भाग को {k} में बाँटो", reset:"फिर से",
+    simpDir:"छूटी हुई संख्या ढूँढो। मदद के लिए भागों को मिलाओ।", groupBy:"{k} भागों को एक में मिलाओ",
+    goodSimp:"हाँ! {k} छोटे भागों को मिलाकर एक बड़ा भाग बनता है। रंगी हुई मात्रा उतनी ही रहती है, पर ऊपर और नीचे की दोनों संख्याओं को {k} से भाग दिया जाता है: {d1} और {d2}। इसलिए {eq}।",
+    hintSimp:"रंगी हुई मात्रा उतनी ही रखो। कुल {b} भाग पाने के लिए, {nb} छोटे भागों में से हर {k} भागों को मिलाकर एक बड़ा भाग बनाओ। तब {na} रंगे हुए भाग {div} बड़े भाग बन जाते हैं।",
+    grpPart:"कुछ बड़े भाग केवल थोड़े-से रंगे हैं, क्योंकि {n} रंगे हुए भाग {k} के समूहों में पूरे नहीं बँटते। {reset} दबाओ और कोई दूसरा तरीका आज़माओ।",
     goodEquiv:"हाँ! हर भाग को {k} में बाँटो। तब रंगे हुए भाग और कुल भाग दोनों {k} गुना हो जाते हैं: {eq}।",
     hintEquiv:"रंगी हुई मात्रा उतनी ही रखो। जब {b} भागों में से हर एक को {k} में बाँटते हैं, तो कुल {nb} भाग होते हैं, और रंगे हुए भाग {ak} हो जाते हैं।",
     cmpDir:"{f1} और {f2} की तुलना करो। कौन-सा चिह्न सही है?", showStrips:"पट्टियाँ दिखाएँ", hideStrips:"पट्टियाँ छिपाएँ",
@@ -689,6 +715,10 @@ const T = {
     hintRead:"0 سے 1 تک برابر چھلانگیں گنو۔ وہ {d} ہیں، اس لیے ہر چھلانگ {u} ہے۔ اب 0 سے پن تک چھلانگیں گنو۔",
     equivDir:"غائب عدد تلاش کرو۔ مدد کے لیے حصوں کو تقسیم کرو۔", eqSay:"{f} برابر کتنے بٹا {d}؟",
     splitBy:"ہر حصے کو {k} میں بانٹو", reset:"دوبارہ",
+    simpDir:"غائب عدد تلاش کرو۔ مدد کے لیے حصوں کو ملاؤ۔", groupBy:"{k} حصوں کو ایک میں ملاؤ",
+    goodSimp:"ہاں! {k} چھوٹے حصوں کو ملا کر ایک بڑا حصہ بنتا ہے۔ رنگی ہوئی مقدار اتنی ہی رہتی ہے، لیکن اوپر اور نیچے والے دونوں اعداد کو {k} سے تقسیم کیا جاتا ہے: {d1} اور {d2}۔ اس لیے {eq}۔",
+    hintSimp:"رنگی ہوئی مقدار اتنی ہی رکھو۔ کل {b} حصے بنانے کے لیے {nb} چھوٹے حصوں میں سے ہر {k} حصوں کو ملا کر ایک بڑا حصہ بناؤ۔ تب {na} رنگے ہوئے حصے {div} بڑے حصے بن جاتے ہیں۔",
+    grpPart:"کچھ بڑے حصے صرف تھوڑے سے رنگے ہوئے ہیں، کیونکہ {n} رنگے ہوئے حصے {k} کے گروہوں میں پورے نہیں بٹتے۔ {reset} دباؤ اور کوئی اور طریقہ آزماؤ۔",
     goodEquiv:"ہاں! ہر حصے کو {k} میں بانٹو۔ تب رنگے ہوئے حصے اور کل حصے دونوں {k} گنا ہو جاتے ہیں: {eq}۔",
     hintEquiv:"رنگی ہوئی مقدار اتنی ہی رکھو۔ جب {b} حصوں میں سے ہر ایک کو {k} میں بانٹتے ہیں تو کل {nb} حصے ہوتے ہیں، اور رنگے ہوئے حصے {ak} ہو جاتے ہیں۔",
     cmpDir:"{f1} اور {f2} کا موازنہ کرو۔ کون سی علامت درست ہے؟", showStrips:"پٹیاں دکھائیں", hideStrips:"پٹیاں چھپائیں",
@@ -775,6 +805,10 @@ const T = {
     hintRead:"数一数从 0 到 1 有几个相等的间隔。有 {d} 个，所以每跳一次是 {u}。再数从 0 到图钉跳了几次。",
     equivDir:"找出缺少的数。可以把每份再分一分来帮忙。", eqSay:"{f}等于{d}分之几？",
     splitBy:"每份再分成 {k} 份", reset:"重置",
+    simpDir:"找出缺少的数。可以把几份合成一份来帮忙。", groupBy:"每 {k} 份合成 1 份",
+    goodSimp:"对了！把每 {k} 小份合成 1 大份。涂色的大小不变，但分子和分母都除以 {k}：{d1}，{d2}。所以 {eq}。",
+    hintSimp:"涂色的大小要保持不变。要得到一共 {b} 份，就把 {nb} 小份中每 {k} 份合成 1 大份。这样涂色的 {na} 小份就变成 {div} 大份。",
+    grpPart:"有的大份只涂了一部分，因为涂色的 {n} 份不能正好每 {k} 份合在一起。按“{reset}”，再试另一种方法。",
     goodEquiv:"对了！把每一份再分成 {k} 份，涂色的份数和总份数都变成原来的 {k} 倍：{eq}。",
     hintEquiv:"涂色的大小要保持不变。把 {b} 份中的每一份再分成 {k} 份，一共有 {nb} 份，涂色的份数变成 {ak}。",
     cmpDir:"比较 {f1} 和 {f2}。哪个符号是对的？", showStrips:"显示分数条", hideStrips:"隐藏分数条",
@@ -912,6 +946,8 @@ function X(...p){ const h=[],s=[];
     else if(x&&typeof x==="object"){ h.push(x.h); s.push(x.s); } else { h.push(""+x); s.push(""+x); } });
   return {h:M(h.join(" ")), s:s.join(" ")};
 }
+// A short expression kept on one line, so RTL wrapping can't split and reorder it.
+function XN(...p){ const x=X(...p); x.h=x.h.replace('class="math"','class="math nw"'); return x; }
 // A comparison statement, word order per language.
 function S3(a,sym,b){ return {h:M(a.h+" "+(sym==="<"?"&lt;":sym===">"?"&gt;":sym)+" "+b.h), s:t("cmpSay",{a:a.s,b:b.s,op:t(OPS[sym]||"eqW")})}; }
 function tm(key,vars){ const h={},s={}; vars=vars||{};
@@ -1181,7 +1217,7 @@ function equivPairs(){ const D=dens(), out=[];
   return out.length?out:[[2,2],[3,2],[4,2]]; }
 function newEquiv(){
   const m="equiv"; startRound(m); const s=st[m];
-  const type=rand(G()===3?["eq","eq","cmp","cmp"]:["eq","cmp","cmp"]);
+  const type=rand(G()===3?["eq","eq","cmp","cmp"]:["eq","simp","cmp","cmp"]);
   s.type=type; const w=$("#w-"+m);
   if(type==="eq"){
     const [b,k]=rand(equivPairs()), a=ri(1,b-1), nb=b*k, na=a*k;
@@ -1195,6 +1231,19 @@ function newEquiv(){
       if(it.ok){ s.cur=k; drawEq(); return win(m,tm("goodEquiv",{k,eq:X(F(a,b,false),"=",F(na,nb,false))})); }
       nope(m,cat(tm("youPicked",{x:F(it.v,nb,false)}),tm("hintEquiv",{b,k,nb,ak:X(a,"×",k)}))); });
     setPrompt(m,{h:t("equivDir"),s:t("eqSay",{f:F(a,b,false).s,d:nb,dn:ordPl(nb)})+" "+t("equivDir")});
+  }else if(type==="simp"){
+    // Grades 4–5: the reverse of splitting. Join k small parts into 1 bigger part = divide top and bottom by k.
+    const [b,k]=rand(equivPairs()), a=ri(1,b-1), nb=b*k, na=a*k;
+    Object.assign(s,{a,b,k,na,nb,g:1,prev:1});
+    w.innerHTML=`<div class="big">${M(frH(na,nb)+" = "+frH("?",b))}</div><div id="simpStrips"></div>`;
+    [2,3,5].forEach(f=>{ actBtn(m,"🧲 "+t("groupBy",{k:f}),()=>joinBy(f),"ghost").dataset.g=f; });
+    actBtn(m,"↺ "+t("reset"),()=>{ s.g=1; s.prev=1; hideFb($("#f-equiv")); drawSimp(); },"ghost");
+    drawSimp();
+    const opts=[...new Set([na,a+1,a-1,b-a,a+2,na-1,a+3,na+1])].filter(x=>x>=1&&x!==a).slice(0,3).concat([a]);
+    choices(m,shuffle(opts).map(x=>({h:M(frH(x,b)),s:F(x,b,false).s,ok:x===a,v:x})),it=>{
+      if(it.ok){ s.g=k; s.prev=1; drawSimp(); return win(m,tm("goodSimp",{k,d1:XN(na,"÷",k,"=",a),d2:XN(nb,"÷",k,"=",b),eq:X(F(na,nb,false),"=",F(a,b,false))})); }
+      nope(m,cat(tm("youPicked",{x:F(it.v,b,false)}),tm("hintSimp",{b,k,nb,na,div:XN(na,"÷",k)}))); });
+    setPrompt(m,{h:t("simpDir"),s:t("eqSay",{f:F(na,nb,false).s,d:b,dn:ordPl(b)})+" "+t("simpDir")});
   }else{
     const [a,b,c,d]=cmpPair(), F1=F(a,b,false), F2=F(c,d,false), sym=a*d>c*b?">":a*d<c*b?"<":"=";
     Object.assign(s,{a,b,c,d,sym,show:G()===3});
@@ -1211,6 +1260,23 @@ function newEquiv(){
 function drawEq(){ const s=st.equiv, n=s.b*s.cur;
   $("#eqStrips").innerHTML=stripRow(M(frH(s.a,s.b)),s.a,s.b)+stripRow(M(frH(s.a*s.cur,n)),s.a*s.cur,n);
   $$("#a-equiv button[data-f]").forEach(b=>b.disabled=s.done||s.b*s.cur*(+b.dataset.f)>120); }
+// Join every f current parts into one; partly shaded groups show why f must also divide the shaded count.
+function joinBy(f){ const s=st.equiv; if(s.done||(s.nb/s.g)%f||s.na%s.g) return;
+  s.prev=s.g; s.g*=f; hideFb($("#f-equiv")); drawSimp();
+  if(s.na%s.g) nope("equiv",tm("grpPart",{n:s.na/s.prev,k:f,reset:t("reset")})); }
+function drawSimp(){ const s=st.equiv, P=s.nb/s.g, part=s.na%s.g!==0;
+  const lab=M(frH(part?"?":s.na/s.g,P));
+  $("#simpStrips").innerHTML=stripRow(M(frH(s.na,s.nb)),s.na,s.nb)+
+    `<div class="stripRow" dir="ltr"><span class="lab">${lab}</span><div class="mdls col">${joinSVG(s.na,s.nb,s.g)}</div></div>`;
+  $$("#a-equiv button[data-g]").forEach(b=>b.disabled=s.done||part||P%(+b.dataset.g)!==0); }
+// Strip of d small parts (n shaded) joined into groups of g: old lines fade out as the parts merge.
+function joinSVG(n,d,g){ const P=d/g, pw=300/P, sw=300*n/d, X_=v=>(2+v).toFixed(2); let f="",l="",o="";
+  for(let i=0;i<P;i++){ const full=(i+1)*g<=n; f+=`<rect x="${X_(i*pw)}" y="2" width="${pw.toFixed(2)}" height="60" class="pc${full?" on":""}" style="stroke:none"/>`;
+    o+=`<rect x="${X_(i*pw)}" y="2" width="${pw.toFixed(2)}" height="60" class="gout"/>`; }
+  if(n%g) f+=`<rect x="${X_(Math.floor(n/g)*pw)}" y="2" width="${(sw-Math.floor(n/g)*pw).toFixed(2)}" height="60" class="pfill"/>`;
+  if(g>1) for(let j=1;j<d;j++) if(j%g) l+=`<line x1="${X_(300*j/d)}" x2="${X_(300*j/d)}" y1="2" y2="62" class="mergeln"${d>24?' style="stroke-width:.6"':""}/>`;
+  const lbl=n%g?t("modelLbl"):t("shadedLbl",{n:n/g,d:P});
+  return `<svg viewBox="0 0 304 64" class="mdl m-strip${P>24?" thin":""}" role="img" aria-label="${lbl}">${f}${l}${o}</svg>`; }
 function drawCmp(tog){ const s=st.equiv;
   $("#cmpStrips").innerHTML=s.show?stripRow(M(frH(s.a,s.b)),s.a,s.b)+stripRow(M(frH(s.c,s.d)),s.c,s.d,"on2"):"";
   tog.textContent=t(s.show?"hideStrips":"showStrips"); }
@@ -1462,7 +1528,7 @@ function buildPrintCards(){
   const cards=[
     {title:t("mModels"), body:t("cardModel"), html:`<div style="display:flex;gap:1rem;align-items:center">${wholeSVG(kind,d1,0,i=>i<n1?"on":"",false,t("modelLbl"))}${blank}</div>`},
     {title:t("mLine"), body:tm("cardLine",{f:F(n2,d2)}).h, html:nlSVG(settings.line,d2,{})},
-    {title:t("mEquiv"), body:t("cardEquiv"), html:`<p style="font-size:1.8rem">${M(frH(a,b)+" = "+frH("___",b*k))}</p>`},
+    {title:t("mEquiv"), body:t("cardEquiv"), html:`<p style="font-size:1.8rem">${M(G()>3&&Math.random()<.5?frH(a*k,b*k)+" = "+frH("___",b):frH(a,b)+" = "+frH("___",b*k))}</p>`},
     {title:t("mEquiv"), body:t("cardCmp"), html:`<p style="font-size:1.8rem">${M(frH(ca,cb)+" ◯ "+frH(cc,cd))}</p>`},
     {title:t("mAdd"), body:t("cardAdd"), html:`<p style="font-size:1.6rem">${X(...addExpr(p),"=","____").h}</p>`},
     {title:t("mStory"), body:S.q.h, html:`<p>${t("cardStory")} ${blank}</p>`}
