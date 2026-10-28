@@ -122,6 +122,12 @@
   .hit{cursor:pointer}
   .hit:focus{outline:none}
   .hit:focus-visible{stroke:rgba(10,88,202,.4)}
+  .wholes{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap}
+  .wholes .foodbox{flex:1 1 140px;max-width:300px;margin:0}
+  .piece:focus-visible{stroke:var(--focus);stroke-width:5;stroke-opacity:1}
+  .drawbox{max-width:320px;margin:0 auto;background:#fbfdff;border:2px solid var(--line);border-radius:14px;touch-action:manipulation}
+  .drawbox svg{width:100%;height:auto;display:block}
+  .gdot{cursor:pointer}
 
   .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
   .drawer.open{display:flex}
@@ -292,11 +298,11 @@ const T = {
     mSort:"Shape Sorter", mSolid:"Solid Detective", mCompose:"Shape Puzzles", mFair:"Fair Shares", mBig:"Bigger Slice",
     footNote:"No accounts · No data collected · Works offline",
     teacherTitle:"Teacher settings", close:"Close", setGrade:"Grade level", grade1:"Grade 1", grade2:"Grade 2",
-    gradeNote:"Grade 2 adds thirds, eighths, pentagons, octagons, edges, and puzzles that use an exact number of blocks.",
+    gradeNote:"Grade 2 adds thirds, eighths, pentagons, octagons, edges, puzzles that use an exact number of blocks, drawing shapes on dot paper, and counting parts beyond one whole.",
     setModes:"Modes", setCut:"Shapes to share", cutCircle:"Circles (pizzas)", cutRect:"Rectangles (sandwiches, brownies)",
     setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"🖨 Print challenge cards",
     setStored:"Settings are saved only on this device. No student information is ever stored.",
-    stds:"Aligned standards: Texas TEKS Grade 1: 1.6(A–H). Grade 2: 2.3(A, B, D), 2.3(C) (how many parts make one whole), 2.8(B–E). Common Core: 1.G.1, 1.G.2, 1.G.3, 2.G.1, 2.G.3. Grade 2 adds thirds (Common Core) and eighths (TEKS).",
+    stds:"Aligned standards: Texas TEKS Grade 1: 1.6(A–H). Grade 2: 2.3(A–D) (including counting parts beyond one whole), 2.8(A–E). Common Core: 1.G.1, 1.G.2, 1.G.3, 2.G.1, 2.G.3. Grade 2 adds thirds (Common Core) and eighths (TEKS).",
     cardTitle:"Pizza Party Shapes — Challenge Cards",
     yes:"Yes", no:"No", done:"Done",
     circle:"circle", triangle:"triangle", square:"square", rectangle:"rectangle", rhombus:"rhombus", trapezoid:"trapezoid", quad:"quadrilateral", pentagon:"pentagon", hexagon:"hexagon", octagon:"octagon", house:"house",
@@ -386,18 +392,19 @@ const T = {
     friendsDir:"Each group of friends shares one whole. The wholes are the same size. Which group gets bigger pieces?",
     friendsLbl:"{n} friends", goodFriends:"Yes! {n} friends each get {part}. Fewer friends sharing means bigger pieces.",
     hintFriends:"When more friends share the same whole, it is cut into more pieces, so each piece is smaller.",
-    choiceLbl:"Choice {i}", cutLine:"Cut line {i}", spot:"Spot {i}", ariaBoard:"Puzzle board", ariaBins:"Sorting boxes", dotLbl:"Vertex dot {i}"
+    choiceLbl:"Choice {i}", cutLine:"Cut line {i}", spot:"Spot {i}", ariaBoard:"Puzzle board", ariaBins:"Sorting boxes", dotLbl:"Vertex dot {i}",
+    drawDirS:"Make a shape with {n} sides.", drawDirV:"Make a shape with {n} vertices.", drawDirB:"Make a shape with {n} sides and {n} vertices.", drawHow:"Tap dots to make the vertices, then tap Done. The last dot joins back to the first dot.", goodDraw:"Yes! Your shape has {n} sides and {n} vertices. It is a {shape}.", hintDrawFew:"A closed shape needs at least 3 vertices. Tap at least 3 dots.", hintDrawCross:"Some sides cross or touch each other. Sides should meet only at the vertices. Tap Undo and try other dots.", hintDrawCount:"Your shape has {m} sides and {m} vertices, but we need {n}. A vertex is a corner where two straight sides meet. Tap Undo or Clear and try again.", drawLineNote:"Some dots are in the middle of a straight side, so they are not vertices.", dotUsed:"You already used that dot. Pick a new dot, or tap the first dot to close the shape.", gridDot:"Dot, row {r}, column {c}", gridA:"Dot paper", cnt2:"{k} halves", cnt3:"{k} thirds", cnt4:"{k} fourths", cnt8:"{k} eighths", beyondDir:"The two wholes are the same size. Each one is cut into {parts}. How many {parts} are blue in all?", makeDir:"The two wholes are the same size. Each one is cut into {parts}. Color {cnt} blue.", makeHow:"Tap the pieces to color them. Tap a piece again to undo it. Then tap Done.", goodBeyond:"Yes! {cnt}. {whole} So {cnt} is one whole and {rest} more.", hintBeyond:"Count every blue piece in both wholes. Each piece is {part}. {whole} Keep counting into the second whole.", hintMake:"You colored {m}, but we need {cnt}. {whole} Fill one whole, then keep going in the other one.", makeNone:"Tap a piece to color it blue.", blueLbl:"Blue pieces: {k}", pieceA:"Whole {w}, piece {i}", wholeA:"Whole {w}: {b} of {n} pieces are blue."
   },
   es:{
     appTitle:"Figuras de la Fiesta de Pizza", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", readAloud:"Leer en voz alta", newRound:"Nueva ronda", stars:"Estrellas",
     mSort:"Clasifica Figuras", mSolid:"Detective de Cuerpos", mCompose:"Rompecabezas", mFair:"Partes Iguales", mBig:"Pedazo Más Grande",
     footNote:"Sin cuentas · Sin datos · Funciona sin conexión",
     teacherTitle:"Ajustes del maestro", close:"Cerrar", setGrade:"Grado", grade1:"1.er grado", grade2:"2.º grado",
-    gradeNote:"2.º grado añade tercios, octavos, pentágonos, octágonos, aristas y rompecabezas con un número exacto de bloques.",
+    gradeNote:"2.º grado añade tercios, octavos, pentágonos, octágonos, aristas, rompecabezas con un número exacto de bloques, dibujar figuras en papel de puntos y contar partes más allá de un entero.",
     setModes:"Modos", setCut:"Figuras para repartir", cutCircle:"Círculos (pizzas)", cutRect:"Rectángulos (sándwiches, brownies)",
     setSpeech:"Voz", autoRead:"Leer instrucciones", printCards:"🖨 Imprimir tarjetas de reto",
     setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información del estudiante.",
-    stds:"Estándares alineados: TEKS de Texas, 1.er grado: 1.6(A–H). 2.º grado: 2.3(A, B, D), 2.3(C) (cuántas partes forman un entero), 2.8(B–E). Common Core: 1.G.1, 1.G.2, 1.G.3, 2.G.1, 2.G.3. 2.º grado añade tercios (Common Core) y octavos (TEKS).",
+    stds:"Estándares alineados: TEKS de Texas, 1.er grado: 1.6(A–H). 2.º grado: 2.3(A–D) (incluye contar partes más allá de un entero), 2.8(A–E). Common Core: 1.G.1, 1.G.2, 1.G.3, 2.G.1, 2.G.3. 2.º grado añade tercios (Common Core) y octavos (TEKS).",
     cardTitle:"Figuras de la Fiesta de Pizza — Tarjetas de reto",
     yes:"Sí", no:"No", done:"Listo",
     circle:"círculo", triangle:"triángulo", square:"cuadrado", rectangle:"rectángulo", rhombus:"rombo", trapezoid:"trapecio", quad:"cuadrilátero", pentagon:"pentágono", hexagon:"hexágono", octagon:"octágono", house:"casa",
@@ -487,18 +494,19 @@ const T = {
     friendsDir:"Cada grupo de amigos comparte un entero. Los enteros son del mismo tamaño. ¿Qué grupo recibe pedazos más grandes?",
     friendsLbl:"{n} amigos", goodFriends:"¡Sí! Cada uno de los {n} amigos recibe {part}. Entre menos amigos comparten, más grandes son los pedazos.",
     hintFriends:"Cuando más amigos comparten el mismo entero, se corta en más pedazos, así que cada pedazo es más pequeño.",
-    choiceLbl:"Opción {i}", cutLine:"Línea de corte {i}", spot:"Lugar {i}", ariaBoard:"Tablero del rompecabezas", ariaBins:"Cajas para clasificar", dotLbl:"Punto de vértice {i}"
+    choiceLbl:"Opción {i}", cutLine:"Línea de corte {i}", spot:"Lugar {i}", ariaBoard:"Tablero del rompecabezas", ariaBins:"Cajas para clasificar", dotLbl:"Punto de vértice {i}",
+    drawDirS:"Haz una figura con {n} lados.", drawDirV:"Haz una figura con {n} vértices.", drawDirB:"Haz una figura con {n} lados y {n} vértices.", drawHow:"Toca los puntos para hacer los vértices y luego toca Listo. El último punto se une con el primero.", goodDraw:"¡Sí! Tu figura tiene {n} lados y {n} vértices. Es un {shape}.", hintDrawFew:"Una figura cerrada necesita por lo menos 3 vértices. Toca por lo menos 3 puntos.", hintDrawCross:"Algunos lados se cruzan o se tocan. Los lados solo deben juntarse en los vértices. Toca Deshacer y prueba con otros puntos.", hintDrawCount:"Tu figura tiene {m} lados y {m} vértices, pero necesitamos {n}. Un vértice es una esquina donde se juntan dos lados rectos. Toca Deshacer o Borrar e inténtalo otra vez.", drawLineNote:"Algunos puntos están en medio de un lado recto, así que no son vértices.", dotUsed:"Ya usaste ese punto. Elige un punto nuevo o toca el primer punto para cerrar la figura.", gridDot:"Punto, fila {r}, columna {c}", gridA:"Papel de puntos", cnt2:"{k} medios", cnt3:"{k} tercios", cnt4:"{k} cuartos", cnt8:"{k} octavos", beyondDir:"Los dos enteros son del mismo tamaño. Cada uno está cortado en {parts}. ¿Cuántos {parts} son azules en total?", makeDir:"Los dos enteros son del mismo tamaño. Cada uno está cortado en {parts}. Pinta {cnt} de azul.", makeHow:"Toca los pedazos para pintarlos. Toca un pedazo otra vez para quitarle el color. Luego toca Listo.", goodBeyond:"¡Sí! {cnt}. {whole} Así que {cnt} son un entero y {rest} más.", hintBeyond:"Cuenta todos los pedazos azules de los dos enteros. Cada pedazo es {part}. {whole} Sigue contando en el segundo entero.", hintMake:"Pintaste {m}, pero necesitamos {cnt}. {whole} Llena un entero y luego sigue en el otro.", makeNone:"Toca un pedazo para pintarlo de azul.", blueLbl:"Pedazos azules: {k}", pieceA:"Entero {w}, pedazo {i}", wholeA:"Entero {w}: {b} de {n} pedazos son azules."
   },
   vi:{
     appTitle:"Hình Học Tiệc Pizza", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", readAloud:"Đọc to", newRound:"Vòng mới", stars:"Ngôi sao",
     mSort:"Phân Loại Hình", mSolid:"Thám Tử Khối", mCompose:"Ghép Hình", mFair:"Chia Đều", mBig:"Miếng Nào To Hơn",
     footNote:"Không tài khoản · Không thu thập dữ liệu · Hoạt động ngoại tuyến",
     teacherTitle:"Cài đặt giáo viên", close:"Đóng", setGrade:"Lớp", grade1:"Lớp 1", grade2:"Lớp 2",
-    gradeNote:"Lớp 2 thêm phần ba, phần tám, hình ngũ giác, hình bát giác, cạnh của khối và câu đố dùng đúng số khối cho trước.",
+    gradeNote:"Lớp 2 thêm phần ba, phần tám, hình ngũ giác, hình bát giác, cạnh của khối, câu đố dùng đúng số khối cho trước, vẽ hình trên giấy chấm và đếm các phần vượt quá một hình nguyên.",
     setModes:"Chế độ", setCut:"Hình để chia", cutCircle:"Hình tròn (pizza)", cutRect:"Hình chữ nhật (bánh mì kẹp, bánh brownie)",
     setSpeech:"Giọng nói", autoRead:"Tự động đọc hướng dẫn", printCards:"🖨 In thẻ thử thách",
     setStored:"Cài đặt chỉ lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
-    stds:"Tiêu chuẩn phù hợp: Texas TEKS Lớp 1: 1.6(A–H). Lớp 2: 2.3(A, B, D), 2.3(C) (bao nhiêu phần bằng một hình nguyên), 2.8(B–E). Common Core: 1.G.1, 1.G.2, 1.G.3, 2.G.1, 2.G.3. Lớp 2 thêm phần ba (Common Core) và phần tám (TEKS).",
+    stds:"Tiêu chuẩn phù hợp: Texas TEKS Lớp 1: 1.6(A–H). Lớp 2: 2.3(A–D) (gồm cả đếm các phần vượt quá một hình nguyên), 2.8(A–E). Common Core: 1.G.1, 1.G.2, 1.G.3, 2.G.1, 2.G.3. Lớp 2 thêm phần ba (Common Core) và phần tám (TEKS).",
     cardTitle:"Hình Học Tiệc Pizza — Thẻ Thử Thách",
     yes:"Có", no:"Không", done:"Xong",
     circle:"hình tròn", triangle:"hình tam giác", square:"hình vuông", rectangle:"hình chữ nhật", rhombus:"hình thoi", trapezoid:"hình thang", quad:"hình tứ giác", pentagon:"hình ngũ giác", hexagon:"hình lục giác", octagon:"hình bát giác", house:"ngôi nhà",
@@ -588,18 +596,19 @@ const T = {
     friendsDir:"Mỗi nhóm bạn chia nhau một hình nguyên. Các hình nguyên to bằng nhau. Nhóm nào được miếng to hơn?",
     friendsLbl:"{n} bạn", goodFriends:"Đúng rồi! Mỗi bạn trong {n} bạn được {part}. Càng ít bạn chia, miếng càng to.",
     hintFriends:"Khi nhiều bạn hơn chia cùng một hình nguyên, nó được cắt thành nhiều miếng hơn, nên mỗi miếng nhỏ hơn.",
-    choiceLbl:"Lựa chọn {i}", cutLine:"Đường cắt {i}", spot:"Ô {i}", ariaBoard:"Bảng ghép hình", ariaBins:"Các hộp phân loại", dotLbl:"Chấm đỉnh {i}"
+    choiceLbl:"Lựa chọn {i}", cutLine:"Đường cắt {i}", spot:"Ô {i}", ariaBoard:"Bảng ghép hình", ariaBins:"Các hộp phân loại", dotLbl:"Chấm đỉnh {i}",
+    drawDirS:"Hãy tạo một hình có {n} cạnh.", drawDirV:"Hãy tạo một hình có {n} đỉnh.", drawDirB:"Hãy tạo một hình có {n} cạnh và {n} đỉnh.", drawHow:"Chạm vào các chấm để tạo các đỉnh, rồi chạm Xong. Chấm cuối cùng sẽ nối về chấm đầu tiên.", goodDraw:"Đúng rồi! Hình của em có {n} cạnh và {n} đỉnh. Đó là {shape}.", hintDrawFew:"Một hình khép kín cần ít nhất 3 đỉnh. Hãy chạm ít nhất 3 chấm.", hintDrawCross:"Có cạnh cắt nhau hoặc chạm vào nhau. Các cạnh chỉ được gặp nhau ở đỉnh. Chạm Hoàn tác và thử các chấm khác.", hintDrawCount:"Hình của em có {m} cạnh và {m} đỉnh, nhưng mình cần {n}. Đỉnh là góc nơi hai cạnh thẳng gặp nhau. Chạm Hoàn tác hoặc Xóa rồi thử lại.", drawLineNote:"Có chấm nằm ở giữa một cạnh thẳng, nên chấm đó không phải là đỉnh.", dotUsed:"Em đã dùng chấm đó rồi. Hãy chọn chấm mới, hoặc chạm chấm đầu tiên để khép hình lại.", gridDot:"Chấm, hàng {r}, cột {c}", gridA:"Giấy chấm", cnt2:"{k} phần hai", cnt3:"{k} phần ba", cnt4:"{k} phần tư", cnt8:"{k} phần tám", beyondDir:"Hai hình nguyên to bằng nhau. Mỗi hình được chia thành các {parts}. Có tất cả bao nhiêu {parts} màu xanh?", makeDir:"Hai hình nguyên to bằng nhau. Mỗi hình được chia thành các {parts}. Hãy tô màu xanh {cnt}.", makeHow:"Chạm vào các miếng để tô màu. Chạm lại một miếng để bỏ màu. Rồi chạm Xong.", goodBeyond:"Đúng rồi! {cnt}. {whole} Vậy {cnt} là một hình nguyên và thêm {rest}.", hintBeyond:"Đếm tất cả các miếng màu xanh ở cả hai hình. Mỗi miếng là {part}. {whole} Đếm tiếp sang hình thứ hai.", hintMake:"Em đã tô {m}, nhưng mình cần {cnt}. {whole} Tô kín một hình, rồi tô tiếp sang hình kia.", makeNone:"Chạm vào một miếng để tô màu xanh.", blueLbl:"Số miếng màu xanh: {k}", pieceA:"Hình {w}, miếng {i}", wholeA:"Hình {w}: {b} trên {n} miếng màu xanh."
   },
   ar:{
     appTitle:"أشكال حفلة البيتزا", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", readAloud:"اقرأ بصوت عالٍ", newRound:"جولة جديدة", stars:"النجوم",
     mSort:"فرز الأشكال", mSolid:"محقق المجسمات", mCompose:"ألغاز الأشكال", mFair:"حصص متساوية", mBig:"القطعة الأكبر",
     footNote:"بدون حسابات · لا جمع للبيانات · يعمل بدون إنترنت",
     teacherTitle:"إعدادات المعلم", close:"إغلاق", setGrade:"الصف", grade1:"الصف الأول", grade2:"الصف الثاني",
-    gradeNote:"يضيف الصف الثاني الأثلاث والأثمان والخماسي والثماني والأحرف وألغازاً بعدد محدد من القطع.",
+    gradeNote:"يضيف الصف الثاني الأثلاث والأثمان والخماسي والثماني والأحرف وألغازاً بعدد محدد من القطع، ورسم الأشكال على ورقة النقاط، وعدّ الأجزاء بعد الواحد الكامل.",
     setModes:"الأنماط", setCut:"أشكال للمشاركة", cutCircle:"دوائر (بيتزا)", cutRect:"مستطيلات (شطائر، براونيز)",
     setSpeech:"النطق", autoRead:"قراءة التعليمات تلقائياً", printCards:"🖨 طباعة بطاقات التحدي",
     setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُحفظ أي معلومات عن الطالب أبداً.",
-    stds:"المعايير المتوافقة: Texas TEKS الصف الأول: 1.6(A–H). الصف الثاني: 2.3(A, B, D)، و2.3(C) (كم جزءاً يكوّن واحداً كاملاً)، و2.8(B–E). Common Core: ‏1.G.1، 1.G.2، 1.G.3، 2.G.1، 2.G.3. يضيف الصف الثاني الأثلاث (Common Core) والأثمان (TEKS).",
+    stds:"المعايير المتوافقة: Texas TEKS الصف الأول: 1.6(A–H). الصف الثاني: 2.3(A–D) (ومنها عدّ الأجزاء بعد الواحد الكامل)، و2.8(A–E). Common Core: ‏1.G.1، 1.G.2، 1.G.3، 2.G.1، 2.G.3. يضيف الصف الثاني الأثلاث (Common Core) والأثمان (TEKS).",
     cardTitle:"أشكال حفلة البيتزا — بطاقات التحدي",
     yes:"نعم", no:"لا", done:"تم",
     circle:"دائرة", triangle:"مثلث", square:"مربع", rectangle:"مستطيل", rhombus:"معيّن", trapezoid:"شبه منحرف", quad:"شكل رباعي", pentagon:"خماسي", hexagon:"سداسي", octagon:"ثماني", house:"بيت",
@@ -689,18 +698,19 @@ const T = {
     friendsDir:"كل مجموعة من الأصدقاء تتشارك شكلاً كاملاً واحداً. الأشكال بالحجم نفسه. أي مجموعة تحصل على قطع أكبر؟",
     friendsLbl:"{n} أصدقاء", goodFriends:"نعم! كل واحد من الأصدقاء الـ{n} يحصل على {part}. كلما قلّ عدد الأصدقاء، كبرت القطع.",
     hintFriends:"عندما يتشارك أصدقاء أكثر الشكل نفسه، يُقسم إلى قطع أكثر، فتصبح كل قطعة أصغر.",
-    choiceLbl:"الخيار {i}", cutLine:"خط القطع {i}", spot:"المكان {i}", ariaBoard:"لوحة اللغز", ariaBins:"صناديق الفرز", dotLbl:"نقطة الرأس {i}"
+    choiceLbl:"الخيار {i}", cutLine:"خط القطع {i}", spot:"المكان {i}", ariaBoard:"لوحة اللغز", ariaBins:"صناديق الفرز", dotLbl:"نقطة الرأس {i}",
+    drawDirS:"اصنع شكلاً له {n} أضلاع.", drawDirV:"اصنع شكلاً له {n} رؤوس.", drawDirB:"اصنع شكلاً له {n} أضلاع و{n} رؤوس.", drawHow:"المس النقاط لتصنع الرؤوس، ثم المس «تم». آخر نقطة تتصل بأول نقطة.", goodDraw:"نعم! لشكلك {n} أضلاع و{n} رؤوس. إنه {shape}.", hintDrawFew:"الشكل المغلق يحتاج إلى 3 رؤوس على الأقل. المس 3 نقاط على الأقل.", hintDrawCross:"بعض الأضلاع تتقاطع أو تتلامس. يجب أن تلتقي الأضلاع عند الرؤوس فقط. المس «تراجع» وجرّب نقاطاً أخرى.", hintDrawCount:"لشكلك {m} أضلاع و{m} رؤوس، لكننا نحتاج إلى {n}. الرأس زاوية يلتقي عندها ضلعان مستقيمان. المس «تراجع» أو «مسح» وحاول مرة أخرى.", drawLineNote:"بعض النقاط تقع في وسط ضلع مستقيم، لذلك ليست رؤوساً.", dotUsed:"استخدمت هذه النقطة من قبل. اختر نقطة جديدة، أو المس أول نقطة لتغلق الشكل.", gridDot:"نقطة، الصف {r}، العمود {c}", gridA:"ورقة النقاط", cnt2:"{k} من الأنصاف", cnt3:"{k} من الأثلاث", cnt4:"{k} من الأرباع", cnt8:"{k} من الأثمان", beyondDir:"الشكلان الكاملان بالحجم نفسه، وكل واحد مقسوم إلى {parts} متساوية. كل قطعة {part}. كم قطعة زرقاء في المجموع؟", makeDir:"الشكلان الكاملان بالحجم نفسه، وكل واحد مقسوم إلى {parts} متساوية. لوّن {cnt} باللون الأزرق.", makeHow:"المس القطع لتلوّنها. المس القطعة مرة أخرى لتزيل لونها. ثم المس «تم».", goodBeyond:"نعم! {cnt}. {whole} إذن {cnt} هي واحد كامل ومعه {rest}.", hintBeyond:"عُدّ كل القطع الزرقاء في الشكلين. كل قطعة {part}. {whole} تابع العدّ في الشكل الثاني.", hintMake:"لوّنت {m}، لكننا نحتاج إلى {cnt}. {whole} لوّن شكلاً كاملاً، ثم تابع في الشكل الآخر.", makeNone:"المس قطعة لتلوّنها بالأزرق.", blueLbl:"القطع الزرقاء: {k}", pieceA:"الشكل {w}، القطعة {i}", wholeA:"الشكل {w}: {b} من {n} قطع زرقاء."
   },
   hi:{
     appTitle:"पिज़्ज़ा पार्टी आकृतियाँ", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", readAloud:"ज़ोर से पढ़ें", newRound:"नया दौर", stars:"सितारे",
     mSort:"आकृति छँटाई", mSolid:"ठोस जासूस", mCompose:"आकृति पहेली", mFair:"बराबर हिस्से", mBig:"बड़ा टुकड़ा",
     footNote:"कोई खाता नहीं · कोई डेटा नहीं · ऑफ़लाइन काम करता है",
     teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setGrade:"कक्षा", grade1:"कक्षा 1", grade2:"कक्षा 2",
-    gradeNote:"कक्षा 2 में तिहाई, आठवाँ भाग, पंचभुज, अष्टभुज, किनारे और तय संख्या के ब्लॉक वाली पहेलियाँ जुड़ती हैं।",
+    gradeNote:"कक्षा 2 में तिहाई, आठवाँ भाग, पंचभुज, अष्टभुज, किनारे, तय संख्या के ब्लॉक वाली पहेलियाँ, बिंदु वाले काग़ज़ पर आकृतियाँ बनाना और एक पूरे से आगे के भाग गिनना जुड़ते हैं।",
     setModes:"मोड", setCut:"बाँटने की आकृतियाँ", cutCircle:"वृत्त (पिज़्ज़ा)", cutRect:"आयत (सैंडविच, ब्राउनी)",
     setSpeech:"आवाज़", autoRead:"निर्देश अपने आप पढ़ें", printCards:"🖨 चुनौती कार्ड छापें",
     setStored:"सेटिंग्स केवल इस डिवाइस पर सहेजी जाती हैं। छात्र की जानकारी कभी नहीं सहेजी जाती।",
-    stds:"संरेखित मानक: Texas TEKS कक्षा 1: 1.6(A–H)। कक्षा 2: 2.3(A, B, D), 2.3(C) (कितने भाग मिलकर एक पूरा बनाते हैं), 2.8(B–E)। Common Core: 1.G.1, 1.G.2, 1.G.3, 2.G.1, 2.G.3। कक्षा 2 में तिहाई (Common Core) और आठवाँ भाग (TEKS) जुड़ते हैं।",
+    stds:"संरेखित मानक: Texas TEKS कक्षा 1: 1.6(A–H)। कक्षा 2: 2.3(A–D) (एक पूरे से आगे के भाग गिनना भी), 2.8(A–E)। Common Core: 1.G.1, 1.G.2, 1.G.3, 2.G.1, 2.G.3। कक्षा 2 में तिहाई (Common Core) और आठवाँ भाग (TEKS) जुड़ते हैं।",
     cardTitle:"पिज़्ज़ा पार्टी आकृतियाँ — चुनौती कार्ड",
     yes:"हाँ", no:"नहीं", done:"हो गया",
     circle:"वृत्त", triangle:"त्रिभुज", square:"वर्ग", rectangle:"आयत", rhombus:"समचतुर्भुज", trapezoid:"समलंब", quad:"चतुर्भुज", pentagon:"पंचभुज", hexagon:"षट्भुज", octagon:"अष्टभुज", house:"घर",
@@ -790,18 +800,19 @@ const T = {
     friendsDir:"दोस्तों का हर समूह एक पूरा बाँटता है। सभी पूरे एक ही आकार के हैं। किस समूह को बड़े टुकड़े मिलेंगे?",
     friendsLbl:"{n} दोस्त", goodFriends:"हाँ! {n} दोस्तों में हर एक को {part} मिलता है। कम दोस्त बाँटें तो टुकड़े बड़े होते हैं।",
     hintFriends:"जब ज़्यादा दोस्त एक ही पूरा बाँटते हैं, तो वह ज़्यादा टुकड़ों में कटता है, इसलिए हर टुकड़ा छोटा होता है।",
-    choiceLbl:"विकल्प {i}", cutLine:"काटने की रेखा {i}", spot:"जगह {i}", ariaBoard:"पहेली बोर्ड", ariaBins:"छँटाई के डिब्बे", dotLbl:"शीर्ष बिंदु {i}"
+    choiceLbl:"विकल्प {i}", cutLine:"काटने की रेखा {i}", spot:"जगह {i}", ariaBoard:"पहेली बोर्ड", ariaBins:"छँटाई के डिब्बे", dotLbl:"शीर्ष बिंदु {i}",
+    drawDirS:"{n} भुजाओं वाली आकृति बनाओ।", drawDirV:"{n} शीर्षों वाली आकृति बनाओ।", drawDirB:"{n} भुजाओं और {n} शीर्षों वाली आकृति बनाओ।", drawHow:"शीर्ष बनाने के लिए बिंदुओं को छुओ, फिर हो गया दबाओ। आख़िरी बिंदु पहले बिंदु से जुड़ जाता है।", goodDraw:"हाँ! तुम्हारी आकृति में {n} भुजाएँ और {n} शीर्ष हैं। यह एक {shape} है।", hintDrawFew:"बंद आकृति के लिए कम से कम 3 शीर्ष चाहिए। कम से कम 3 बिंदु छुओ।", hintDrawCross:"कुछ भुजाएँ एक-दूसरे को काटती या छूती हैं। भुजाएँ सिर्फ़ शीर्षों पर मिलनी चाहिए। वापस दबाओ और दूसरे बिंदु आज़माओ।", hintDrawCount:"तुम्हारी आकृति में {m} भुजाएँ और {m} शीर्ष हैं, पर हमें {n} चाहिए। शीर्ष वह कोना है जहाँ दो सीधी भुजाएँ मिलती हैं। वापस या साफ़ करो दबाकर फिर कोशिश करो।", drawLineNote:"कुछ बिंदु किसी सीधी भुजा के बीच में हैं, इसलिए वे शीर्ष नहीं हैं।", dotUsed:"यह बिंदु तुम पहले ही ले चुके हो। नया बिंदु चुनो, या आकृति बंद करने के लिए पहला बिंदु छुओ।", gridDot:"बिंदु, पंक्ति {r}, स्तंभ {c}", gridA:"बिंदु वाला काग़ज़", cnt2:"{k} आधे", cnt3:"{k} तिहाई", cnt4:"{k} चौथाई", cnt8:"{k} आठवें भाग", beyondDir:"दोनों पूरे एक ही नाप के हैं। हर एक {parts} में बँटा है। कुल कितने {parts} नीले हैं?", makeDir:"दोनों पूरे एक ही नाप के हैं। हर एक {parts} में बँटा है। {cnt} को नीला रंगो।", makeHow:"टुकड़ों को रंगने के लिए उन्हें छुओ। रंग हटाने के लिए टुकड़े को फिर से छुओ। फिर हो गया दबाओ।", goodBeyond:"हाँ! {cnt}। {whole} तो {cnt} यानी एक पूरा और साथ में {rest}।", hintBeyond:"दोनों पूरों के सारे नीले टुकड़े गिनो। हर टुकड़ा {part} है। {whole} दूसरे पूरे में भी गिनती जारी रखो।", hintMake:"तुमने {m} रंगे, पर हमें {cnt} चाहिए। {whole} एक पूरा भरो, फिर दूसरे में आगे रंगो।", makeNone:"किसी टुकड़े को नीला रंगने के लिए उसे छुओ।", blueLbl:"नीले टुकड़े: {k}", pieceA:"पूरा {w}, टुकड़ा {i}", wholeA:"पूरा {w}: {n} में से {b} टुकड़े नीले हैं।"
   },
   ur:{
     appTitle:"پیزا پارٹی اشکال", home:"ہوم", privacy:"رازداری", teacher:"استاد", readAloud:"بلند آواز سے پڑھیں", newRound:"نیا دور", stars:"ستارے",
     mSort:"اشکال کی چھانٹی", mSolid:"ٹھوس جاسوس", mCompose:"اشکال کی پہیلیاں", mFair:"برابر حصے", mBig:"بڑا ٹکڑا",
     footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا نہیں · آف لائن کام کرتا ہے",
     teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setGrade:"جماعت", grade1:"جماعت 1", grade2:"جماعت 2",
-    gradeNote:"جماعت 2 میں تہائی، آٹھواں حصہ، مخمس، مثمن، کنارے اور مقررہ تعداد کے بلاکس والی پہیلیاں شامل ہوتی ہیں۔",
+    gradeNote:"جماعت 2 میں تہائی، آٹھواں حصہ، مخمس، مثمن، کنارے، مقررہ تعداد کے بلاکس والی پہیلیاں، نقطوں والے کاغذ پر شکلیں بنانا اور ایک پورے سے آگے کے حصے گننا شامل ہوتے ہیں۔",
     setModes:"موڈز", setCut:"بانٹنے کی اشکال", cutCircle:"دائرے (پیزا)", cutRect:"مستطیل (سینڈوچ، براؤنی)",
     setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں", printCards:"🖨 چیلنج کارڈ پرنٹ کریں",
     setStored:"ترتیبات صرف اسی ڈیوائس پر محفوظ ہوتی ہیں۔ طالب علم کی معلومات کبھی محفوظ نہیں ہوتیں۔",
-    stds:"منسلک معیارات: Texas TEKS جماعت 1: ‏1.6(A–H)۔ جماعت 2: ‏2.3(A, B, D)، 2.3(C) (کتنے حصے مل کر ایک پورا بناتے ہیں)، 2.8(B–E)۔ Common Core: ‏1.G.1، 1.G.2، 1.G.3، 2.G.1، 2.G.3۔ جماعت 2 میں تہائی (Common Core) اور آٹھواں حصہ (TEKS) شامل ہیں۔",
+    stds:"منسلک معیارات: Texas TEKS جماعت 1: ‏1.6(A–H)۔ جماعت 2: ‏2.3(A–D) (ایک پورے سے آگے کے حصے گننا بھی)، 2.8(A–E)۔ Common Core: ‏1.G.1، 1.G.2، 1.G.3، 2.G.1، 2.G.3۔ جماعت 2 میں تہائی (Common Core) اور آٹھواں حصہ (TEKS) شامل ہیں۔",
     cardTitle:"پیزا پارٹی اشکال — چیلنج کارڈ",
     yes:"ہاں", no:"نہیں", done:"ہو گیا",
     circle:"دائرہ", triangle:"مثلث", square:"مربع", rectangle:"مستطیل", rhombus:"معین", trapezoid:"ذوزنقہ", quad:"چوکور", pentagon:"مخمس", hexagon:"مسدس", octagon:"مثمن", house:"گھر",
@@ -891,18 +902,19 @@ const T = {
     friendsDir:"دوستوں کا ہر گروپ ایک پورا بانٹتا ہے۔ سب پورے ایک ہی سائز کے ہیں۔ کس گروپ کو بڑے ٹکڑے ملیں گے؟",
     friendsLbl:"{n} دوست", goodFriends:"ہاں! {n} دوستوں میں ہر ایک کو {part} ملتا ہے۔ کم دوست بانٹیں تو ٹکڑے بڑے ہوتے ہیں۔",
     hintFriends:"جب زیادہ دوست ایک ہی پورا بانٹتے ہیں تو وہ زیادہ ٹکڑوں میں کٹتا ہے، اس لیے ہر ٹکڑا چھوٹا ہوتا ہے۔",
-    choiceLbl:"انتخاب {i}", cutLine:"کاٹنے کی لکیر {i}", spot:"جگہ {i}", ariaBoard:"پہیلی کا بورڈ", ariaBins:"چھانٹی کے ڈبے", dotLbl:"راس کا نقطہ {i}"
+    choiceLbl:"انتخاب {i}", cutLine:"کاٹنے کی لکیر {i}", spot:"جگہ {i}", ariaBoard:"پہیلی کا بورڈ", ariaBins:"چھانٹی کے ڈبے", dotLbl:"راس کا نقطہ {i}",
+    drawDirS:"{n} اطراف والی شکل بناؤ۔", drawDirV:"{n} راس والی شکل بناؤ۔", drawDirB:"{n} اطراف اور {n} راس والی شکل بناؤ۔", drawHow:"راس بنانے کے لیے نقطوں کو چھوؤ، پھر ہو گیا دباؤ۔ آخری نقطہ پہلے نقطے سے جڑ جاتا ہے۔", goodDraw:"ہاں! تمہاری شکل کی {n} اطراف اور {n} راس ہیں۔ یہ ایک {shape} ہے۔", hintDrawFew:"بند شکل کے لیے کم از کم 3 راس چاہییں۔ کم از کم 3 نقطے چھوؤ۔", hintDrawCross:"کچھ اطراف ایک دوسرے کو کاٹتی یا چھوتی ہیں۔ اطراف صرف راسوں پر ملنی چاہییں۔ واپس دباؤ اور دوسرے نقطے آزماؤ۔", hintDrawCount:"تمہاری شکل کی {m} اطراف اور {m} راس ہیں، مگر ہمیں {n} چاہییں۔ راس وہ کونا ہے جہاں دو سیدھی اطراف ملتی ہیں۔ واپس یا صاف کرو دبا کر دوبارہ کوشش کرو۔", drawLineNote:"کچھ نقطے کسی سیدھی طرف کے بیچ میں ہیں، اس لیے وہ راس نہیں ہیں۔", dotUsed:"یہ نقطہ تم پہلے ہی لے چکے ہو۔ نیا نقطہ چنو، یا شکل بند کرنے کے لیے پہلا نقطہ چھوؤ۔", gridDot:"نقطہ، قطار {r}، کالم {c}", gridA:"نقطوں والا کاغذ", cnt2:"{k} آدھے", cnt3:"{k} تہائیاں", cnt4:"{k} چوتھائیاں", cnt8:"{k} آٹھویں حصے", beyondDir:"دونوں پورے ایک ہی ناپ کے ہیں۔ ہر ایک {parts} میں بٹا ہے۔ کل کتنے {parts} نیلے ہیں؟", makeDir:"دونوں پورے ایک ہی ناپ کے ہیں۔ ہر ایک {parts} میں بٹا ہے۔ {cnt} کو نیلا رنگو۔", makeHow:"ٹکڑوں کو رنگنے کے لیے انہیں چھوؤ۔ رنگ ہٹانے کے لیے ٹکڑے کو دوبارہ چھوؤ۔ پھر ہو گیا دباؤ۔", goodBeyond:"ہاں! {cnt}۔ {whole} تو {cnt} یعنی ایک پورا اور ساتھ میں {rest}۔", hintBeyond:"دونوں پوروں کے سارے نیلے ٹکڑے گنو۔ ہر ٹکڑا {part} ہے۔ {whole} دوسرے پورے میں بھی گنتی جاری رکھو۔", hintMake:"تم نے {m} رنگے، مگر ہمیں {cnt} چاہییں۔ {whole} ایک پورا بھرو، پھر دوسرے میں آگے رنگو۔", makeNone:"کسی ٹکڑے کو نیلا رنگنے کے لیے اسے چھوؤ۔", blueLbl:"نیلے ٹکڑے: {k}", pieceA:"پورا {w}، ٹکڑا {i}", wholeA:"پورا {w}: {n} میں سے {b} ٹکڑے نیلے ہیں۔"
   },
   zh:{
     appTitle:"披萨派对图形", home:"主页", privacy:"隐私", teacher:"教师", readAloud:"朗读", newRound:"新一轮", stars:"星星",
     mSort:"图形分类", mSolid:"立体侦探", mCompose:"图形拼图", mFair:"平均分", mBig:"哪块更大",
     footNote:"无账号 · 不收集数据 · 离线可用",
     teacherTitle:"教师设置", close:"关闭", setGrade:"年级", grade1:"一年级", grade2:"二年级",
-    gradeNote:"二年级增加三分之一、八分之一、五边形、八边形、棱，以及指定块数的拼图。",
+    gradeNote:"二年级增加三分之一、八分之一、五边形、八边形、棱、指定块数的拼图、在点子图上画图形，以及数超过一个整体的部分。",
     setModes:"模式", setCut:"要平分的图形", cutCircle:"圆形（披萨）", cutRect:"长方形（三明治、布朗尼）",
     setSpeech:"语音", autoRead:"自动朗读指令", printCards:"🖨 打印挑战卡",
     setStored:"设置只保存在本设备上。绝不保存任何学生信息。",
-    stds:"对应标准：Texas TEKS 一年级：1.6(A–H)。二年级：2.3(A, B, D)、2.3(C)（几份合成一个整体）、2.8(B–E)。Common Core：1.G.1、1.G.2、1.G.3、2.G.1、2.G.3。二年级增加三分之一（Common Core）和八分之一（TEKS）。",
+    stds:"对应标准：Texas TEKS 一年级：1.6(A–H)。二年级：2.3(A–D)（包括数超过一个整体的部分）、2.8(A–E)。Common Core：1.G.1、1.G.2、1.G.3、2.G.1、2.G.3。二年级增加三分之一（Common Core）和八分之一（TEKS）。",
     cardTitle:"披萨派对图形 — 挑战卡",
     yes:"是", no:"不是", done:"完成",
     circle:"圆形", triangle:"三角形", square:"正方形", rectangle:"长方形", rhombus:"菱形", trapezoid:"梯形", quad:"四边形", pentagon:"五边形", hexagon:"六边形", octagon:"八边形", house:"房子",
@@ -990,7 +1002,8 @@ const T = {
     friendsDir:"每组朋友分一个整体。整体都一样大。哪一组分到的块更大？",
     friendsLbl:"{n} 个朋友", goodFriends:"对了！{n} 个朋友每人分到{part}。分的人越少，每块越大。",
     hintFriends:"更多朋友分同一个整体时，要切成更多块，所以每块更小。",
-    choiceLbl:"选项 {i}", cutLine:"切线 {i}", spot:"位置 {i}", ariaBoard:"拼图板", ariaBins:"分类盒", dotLbl:"顶点圆点 {i}"
+    choiceLbl:"选项 {i}", cutLine:"切线 {i}", spot:"位置 {i}", ariaBoard:"拼图板", ariaBins:"分类盒", dotLbl:"顶点圆点 {i}",
+    drawDirS:"画一个有 {n} 条边的图形。", drawDirV:"画一个有 {n} 个顶点的图形。", drawDirB:"画一个有 {n} 条边、{n} 个顶点的图形。", drawHow:"点一点圆点来做顶点，然后点“完成”。最后一个点会连回第一个点。", goodDraw:"对了！你的图形有 {n} 条边、{n} 个顶点。它是{shape}。", hintDrawFew:"封闭图形至少要有 3 个顶点。至少点 3 个圆点。", hintDrawCross:"有的边交叉或碰在一起了。边只能在顶点处相连。点“撤销”，换别的点试试。", hintDrawCount:"你的图形有 {m} 条边、{m} 个顶点，可是我们需要 {n} 个。顶点是两条直边相交的角。点“撤销”或“清除”，再试一次。", drawLineNote:"有的圆点在一条直边的中间，所以它们不是顶点。", dotUsed:"这个圆点已经用过了。选一个新的圆点，或者点第一个圆点把图形封闭起来。", gridDot:"圆点，第 {r} 行第 {c} 列", gridA:"点子图", cnt2:"{k} 个二分之一", cnt3:"{k} 个三分之一", cnt4:"{k} 个四分之一", cnt8:"{k} 个八分之一", beyondDir:"这两个整体一样大，每个都平均分成了 {n} 份。一共有几个{part}是蓝色的？", makeDir:"这两个整体一样大，每个都平均分成了 {n} 份。把 {cnt} 涂成蓝色。", makeHow:"点一点小块来涂色，再点一次可以取消。然后点“完成”。", goodBeyond:"对了！{cnt}。{whole}所以 {cnt} 就是一个整体再多 {rest}。", hintBeyond:"把两个整体里的蓝色小块都数一数。每块是{part}。{whole}数完第一个，接着数第二个。", hintMake:"你涂了 {m}，可是我们需要 {cnt}。{whole}先涂满一个整体，再接着涂另一个。", makeNone:"点一个小块，把它涂成蓝色。", blueLbl:"蓝色小块：{k}", pieceA:"整体 {w}，第 {i} 块", wholeA:"整体 {w}：{n} 块中有 {b} 块是蓝色的。"
   }
 };
 
@@ -1154,14 +1167,14 @@ function makePart(shape,n,equal,simple){
   return {shape,n,equal,diff,pieces};
 }
 function foodSVG(p,hi,extra){
-  hi = hi===undefined?-1:hi; let s="";
+  const HS=Array.isArray(hi)?hi:hi===undefined||hi<0?[]:[hi]; let s="";
   if(p.shape==="circle"){
     s=`<circle cx="100" cy="100" r="95" fill="#d99a45" stroke="#8a5a1f" stroke-width="3"/><circle cx="100" cy="100" r="${CR}" fill="#f6cf5f"/>`+
       PEPP.map(([x,y])=>`<circle cx="${x}" cy="${y}" r="9" fill="#c0392b" opacity=".9"/>`).join("");
     s+=`<g transform="rotate(${p.rot||0} 100 100)">`;
-    if(hi>=0) s+=`<path d="${p.pieces[hi]}" fill="#2563eb" fill-opacity=".62"/>`;
+    HS.forEach(i=>s+=`<path d="${p.pieces[i]}" fill="#2563eb" fill-opacity=".62"/>`);
     p.pieces.forEach(d=>s+=`<path d="${d}" fill="none" stroke="#6b3d0e" stroke-width="3" stroke-linejoin="round"/>`);
-    if(hi>=0) s+=`<path d="${p.pieces[hi]}" fill="none" stroke="#1e3a8a" stroke-width="4" stroke-linejoin="round"/>`;
+    HS.forEach(i=>s+=`<path d="${p.pieces[i]}" fill="none" stroke="#1e3a8a" stroke-width="4" stroke-linejoin="round"/>`);
     s+="</g>"+(extra||"");
     return `<svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">${s}</svg>`;
   }
@@ -1169,9 +1182,9 @@ function foodSVG(p,hi,extra){
   s=`<rect x="3" y="3" width="234" height="154" rx="16" fill="${br?"#4a2816":"#c98a3d"}"/><rect x="${RX}" y="${RY}" width="${RW}" height="${RH}" rx="6" fill="${br?"#7b4a2d":"#f8e2b6"}"/>`;
   s+=(br?[[40,40],[90,70],[150,40],[200,90],[60,120],[130,125],[180,135],[110,30]]:[[50,50],[120,40],[190,60],[80,110],[160,115],[200,130]])
      .map(([x,y])=>`<ellipse cx="${x}" cy="${y}" rx="${br?4:3}" ry="${br?3:2}" fill="${br?"#d9b38c":"#d8b77c"}"/>`).join("");
-  if(hi>=0) s+=`<path d="${p.pieces[hi]}" fill="#2563eb" fill-opacity=".62"/>`;
+  HS.forEach(i=>s+=`<path d="${p.pieces[i]}" fill="#2563eb" fill-opacity=".62"/>`);
   p.pieces.forEach(d=>s+=`<path d="${d}" fill="none" stroke="${line}" stroke-width="3" stroke-linejoin="round"/>`);
-  if(hi>=0) s+=`<path d="${p.pieces[hi]}" fill="none" stroke="#1e3a8a" stroke-width="4" stroke-linejoin="round"/>`;
+  HS.forEach(i=>s+=`<path d="${p.pieces[i]}" fill="none" stroke="#1e3a8a" stroke-width="4" stroke-linejoin="round"/>`);
   s+=(extra||"");
   return `<svg viewBox="0 0 240 160" aria-hidden="true" focusable="false">${s}</svg>`;
 }
@@ -1278,8 +1291,8 @@ let sortS=null;
 const unitWord = u=>t(u==="sides"?"uSides":"uVerts");
 function newSort(){
   roundIds.sort++; hideFb($("#sortFb"));
-  const type=rand(G2()?["bins","bins","same","find","find"]:["bins","bins","same","find"]);
-  if(type==="bins") startBins(); else if(type==="same") startSame(); else startFind();
+  const type=rand(G2()?["bins","bins","same","find","find","draw","draw"]:["bins","bins","same","find"]);
+  if(type==="bins") startBins(); else if(type==="same") startSame(); else if(type==="draw") startDraw(); else startFind();
   maybeAuto("sort");
 }
 function kindsWith(n){ return pool().filter(k=>SIDES[k]===n); }
@@ -1373,6 +1386,79 @@ function checkFind(btn,it){
     const msg=s.by==="name"?t("hintFindName",{other:t(it.kind),m,shape:t(s.target),n:SIDES[s.target]}):t("hintFindCount",{m,unit:unitWord(unit),n:s.target});
     showFb(fb,"hint",msg); speak(msg);
   }
+}
+
+/* Draw a shape (Grade 2, TEKS 2.8(A) / CCSS 2.G.1): tap dots on dot paper to make a shape with a given number of sides or vertices. */
+const GN=5, GS=50, GO=25;
+function startDraw(){
+  const n=rand([3,4,5,6]), by=rand(["sides","verts","both"]);
+  sortS={type:"draw",n,by,path:[],done:false};
+  setPrompt("sort",t(by==="sides"?"drawDirS":by==="verts"?"drawDirV":"drawDirB",{n})+" "+t("drawHow"));
+  renderDraw();
+}
+function renderDraw(focusK){
+  const s=sortS, P=s.path.map(([c,r])=>[GO+c*GS,GO+r*GS]); let g="";
+  const E=GO+(GN-1)*GS;
+  for(let i=0;i<GN;i++){ const v=GO+i*GS; g+=`<line x1="${v}" y1="${GO}" x2="${v}" y2="${E}" stroke="#e3edf4"/><line x1="${GO}" y1="${v}" x2="${E}" y2="${v}" stroke="#e3edf4"/>`; }
+  if(s.done&&P.length>2) g+=`<polygon points="${ptsStr(P)}" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="5" stroke-linejoin="round"/>`;
+  else{
+    if(P.length>1) g+=`<polyline points="${ptsStr(P)}" fill="none" stroke="#1d4ed8" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>`;
+    if(P.length>2) g+=`<line x1="${P[P.length-1][0]}" y1="${P[P.length-1][1]}" x2="${P[0][0]}" y2="${P[0][1]}" stroke="#1d4ed8" stroke-width="3" stroke-dasharray="7 6" opacity=".6"/>`;
+  }
+  for(let r=0;r<GN;r++) for(let c=0;c<GN;c++){
+    const k=s.path.findIndex(([a,b])=>a===c&&b===r), x=GO+c*GS, y=GO+r*GS, on=k>=0;
+    g+=`<g class="vdot gdot${on?" on":""}" data-c="${c}" data-r="${r}" tabindex="0" role="button" aria-pressed="${on}" aria-label="${t("gridDot",{r:r+1,c:c+1})}"><circle cx="${x}" cy="${y}" r="22" fill="transparent"/>`+
+      (k===0?`<circle cx="${x}" cy="${y}" r="13" fill="none" stroke="#c2410c" stroke-width="3"/>`:"")+
+      `<circle class="dv" cx="${x}" cy="${y}" r="${on?8:6.5}" fill="${on?"#c2410c":"#475569"}" stroke="#fff" stroke-width="2"/></g>`;
+  }
+  $("#sortArea").innerHTML=`<div class="drawbox"><svg viewBox="0 0 ${2*GO+(GN-1)*GS} ${2*GO+(GN-1)*GS}" role="group" aria-label="${t("gridA")}">${g}</svg></div>`+
+    `<div class="yn"><button type="button" class="btn ghost" id="drawUndo">${t("btnUndo")}</button><button type="button" class="btn ghost" id="drawClear">${t("btnClear")}</button><button type="button" class="btn" id="drawDone">✔ ${t("done")}</button></div>`;
+  $$("#sortArea .gdot").forEach(d=>{ const go=()=>tapGrid(+d.dataset.c,+d.dataset.r);
+    d.addEventListener("click",go); d.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); go(); } }); });
+  $("#drawUndo").addEventListener("click",()=>{ if(s.done) return; s.path.pop(); hideFb($("#sortFb")); renderDraw(); });
+  $("#drawClear").addEventListener("click",()=>{ if(s.done) return; s.path=[]; hideFb($("#sortFb")); renderDraw(); });
+  $("#drawDone").addEventListener("click",checkDraw);
+  if(s.done) lockAll("#sortArea .yn .btn");
+  if(focusK){ const f=$(`#sortArea .gdot[data-c="${focusK[0]}"][data-r="${focusK[1]}"]`); if(f) f.focus(); }
+}
+function tapGrid(c,r){
+  const s=sortS; if(!s||s.type!=="draw"||s.done) return; const fb=$("#sortFb");
+  const k=s.path.findIndex(([a,b])=>a===c&&b===r);
+  if(k===0&&s.path.length>=3) return checkDraw();
+  if(k>=0){ const m=t("dotUsed"); showFb(fb,"hint",m); speak(m); return; }
+  if(s.path.length>=10) return;
+  s.path.push([c,r]); hideFb(fb); renderDraw([c,r]);
+}
+const crs=(a,b,c)=>(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);
+function simplePoly(P){   // drop dots that sit in the middle of a straight side (they are not vertices)
+  P=P.slice(); let ch=true;
+  while(ch&&P.length>2){ ch=false;
+    for(let i=0;i<P.length;i++){ const a=P[(i+P.length-1)%P.length], b=P[i], c=P[(i+1)%P.length]; if(crs(a,b,c)===0){ P.splice(i,1); ch=true; break; } } }
+  return P;
+}
+function segsHit(p1,p2,q1,q2){
+  const d1=crs(q1,q2,p1), d2=crs(q1,q2,p2), d3=crs(p1,p2,q1), d4=crs(p1,p2,q2);
+  if(((d1>0&&d2<0)||(d1<0&&d2>0))&&((d3>0&&d4<0)||(d3<0&&d4>0))) return true;
+  const on=(a,b,p)=>crs(a,b,p)===0&&Math.min(a[0],b[0])<=p[0]&&p[0]<=Math.max(a[0],b[0])&&Math.min(a[1],b[1])<=p[1]&&p[1]<=Math.max(a[1],b[1]);
+  return on(q1,q2,p1)||on(q1,q2,p2)||on(p1,p2,q1)||on(p1,p2,q2);
+}
+function checkDraw(){
+  const s=sortS; if(!s||s.type!=="draw"||s.done) return; const fb=$("#sortFb");
+  let m;
+  if(s.path.length<3) m=t("hintDrawFew");
+  else{
+    const V=simplePoly(s.path), L=V.length; let cross=L<3||areaOf(V)===0;
+    for(let i=0;i<L&&!cross;i++) for(let j=i+2;j<L;j++){ if(i===0&&j===L-1) continue; if(segsHit(V[i],V[(i+1)%L],V[j],V[(j+1)%L])){ cross=true; break; } }
+    if(cross) m=t("hintDrawCross");
+    else if(L!==s.n) m=t("hintDrawCount",{m:L,n:s.n})+(L<s.path.length?" "+t("drawLineNote"):"");
+    else{
+      const note=L<s.path.length?" "+t("drawLineNote"):"";
+      s.done=true; s.path=V; addStar(); renderDraw(); $("#drawDone").classList.add("correctpick");
+      m=t("goodDraw",{n:s.n,shape:t({3:"triangle",4:"quad",5:"pentagon",6:"hexagon"}[s.n])})+note;
+      showFb(fb,"good",m); afterPraise(m,"sort",newSort,1800); return;
+    }
+  }
+  showFb(fb,"hint",m); speak(m);
 }
 
 /* =========================================================================
@@ -1591,7 +1677,7 @@ const V=x=>[[x,0],[x,1]], H=y=>[[0,y],[1,y]], D1=[[0,0],[1,1]], D2=[[1,0],[0,1]]
 const RCUT={2:[V(.5),H(.5),V(.3),D1],3:[V(1/3),V(2/3),V(.5),H(.5)],4:[V(.25),V(.5),V(.75),H(.5),D1,D2],8:[V(.25),V(.5),V(.75),H(.5)]};
 function newFair(){
   roundIds.fair++; hideFb($("#fairFb"));
-  const g2=G2(), type=rand(g2?["fair","fair","name","example","how","cut","cut"]:["fair","fair","name","example","cut","cut"]);
+  const g2=G2(), type=rand(g2?["fair","fair","name","example","how","cut","cut","beyond","beyond"]:["fair","fair","name","example","cut","cut"]);
   const shape=rand(shapesAllowed()), food=foodFor(shape), n=rand(partsList()), fd=t("f_"+food), a=$("#fairArea");
   const ps={parts:t("parts"+n),part:t("part"+n)};
   fairS={type,n,food,done:false};
@@ -1614,7 +1700,8 @@ function newFair(){
     const g=document.createElement("div"); g.className="choices wide"; g.setAttribute("role","group");
     shuffle(cards).forEach((c,i)=>{ c.p.food=food; const b=cardBtn(foodSVG(c.p),t("choiceLbl",{i:i+1}),b=>checkExample(b,c)); b.dataset.ok=c.ok?1:0; g.appendChild(b); });
     a.innerHTML=""; a.appendChild(g);
-  }else{
+  }else if(type==="beyond") startBeyond(shape,food);
+  else{
     fairS.cut={shape,food,sel:new Set(),angles:shape==="circle"?Array.from({length:n===3?6:8},(_,i)=>i*(n===3?60:45)-90):null,lines:shape==="circle"?null:RCUT[n]};
     setPrompt("fair",t("cutDir",{food:fd,parts:ps.parts})+" "+t("cutHow"));
     renderCut();
@@ -1685,6 +1772,62 @@ function checkCut(){
     s.done=true; addStar(); $("#cutDone").classList.add("correctpick");
     m=t("goodCut",{n,part:t("part"+n),whole:t("whole"+n)}); showFb(fb,"good",m); afterPraise(m,"fair",newFair,1800); return;
   }
+  showFb(fb,"hint",m); speak(m);
+}
+
+/* Beyond one whole (Grade 2, TEKS 2.3(C)): count or color fractional parts across two same-size wholes. */
+const ri=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const cntW=(k,n)=>k===1?t("part"+n):t("cnt"+n,{k});
+function startBeyond(shape,food){
+  const sub=rand(["count","make"]), n=sub==="make"?rand([2,3,4]):rand([2,3,4,8]), k=ri(n+1,2*n-1);
+  const p=Object.assign(makePart(shape,n,true,true),{food});
+  Object.assign(fairS,{type:"beyond",sub,n,k,p,on:[[],[]]});
+  const O={parts:t("parts"+n),part:t("part"+n),n,cnt:cntW(k,n)};
+  setPrompt("fair",t(sub==="count"?"beyondDir":"makeDir",O)+(sub==="make"?" "+t("makeHow"):""));
+  if(sub==="count") fairS.on=[Array.from({length:n},(_,i)=>i),Array.from({length:k-n},(_,i)=>i)];
+  renderBeyond();
+  if(sub==="count"){
+    const opts=shuffle([...new Set([k,n,k-n,2*n,k+1].filter(v=>v>0))].slice(0,4));
+    $("#fairArea").insertAdjacentHTML("beforeend",`<div class="numrow" role="group">`+opts.map(v=>`<button type="button" class="numbtn word" data-v="${v}">${cntW(v,n)}</button>`).join("")+`</div>`);
+    $$("#fairArea .numbtn").forEach(b=>b.addEventListener("click",()=>checkBeyond(b,+b.dataset.v)));
+  }
+}
+function renderBeyond(focus){
+  const s=fairS, mk=s.sub==="make"&&!s.done, wrap=$("#fairArea");
+  const html=[0,1].map(w=>{
+    const extra=mk?s.p.pieces.map((d,i)=>`<path class="hit piece" data-w="${w}" data-i="${i}" d="${d}" fill="transparent" tabindex="0" role="button" aria-pressed="${s.on[w].includes(i)}" aria-label="${t("pieceA",{w:w+1,i:i+1})}"/>`).join(""):"";
+    const lbl=t("wholeA",{w:w+1,b:s.on[w].length,n:s.n});
+    return `<div class="foodbox"${mk?"":` role="img" aria-label="${lbl}"`}>${foodSVG(s.p,s.on[w],extra)}</div>`;
+  }).join("");
+  const tot=s.on[0].length+s.on[1].length;
+  wrap.innerHTML=`<div class="wholes">${html}</div>`+(s.sub==="make"?`<p class="counted" aria-live="polite">${t("blueLbl",{k:tot})}</p><div class="yn"><button type="button" class="btn" id="beyondDone">✔ ${t("done")}</button></div>`:"");
+  if(s.sub==="make"){
+    $$("#fairArea .piece").forEach(h=>{ const go=()=>tapPiece(+h.dataset.w,+h.dataset.i);
+      h.addEventListener("click",go); h.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); go(); } }); });
+    $("#beyondDone").addEventListener("click",checkMake);
+    if(s.done){ $("#beyondDone").disabled=true; $("#beyondDone").classList.add("correctpick"); }
+    if(focus){ const f=$(`#fairArea .piece[data-w="${focus[0]}"][data-i="${focus[1]}"]`); if(f) f.focus(); }
+  }
+}
+function tapPiece(w,i){
+  const s=fairS; if(s.done||s.type!=="beyond") return; const a=s.on[w], j=a.indexOf(i);
+  if(j>=0) a.splice(j,1); else a.push(i); hideFb($("#fairFb")); renderBeyond([w,i]);
+}
+function beyondGood(){
+  const s=fairS, n=s.n, cnt=cntW(s.k,n);
+  return t("goodBeyond",{cnt,whole:t("whole"+n),rest:cntW(s.k-n,n)});
+}
+function checkBeyond(btn,v){
+  const s=fairS; if(s.done) return; const fb=$("#fairFb"), n=s.n;
+  if(v===s.k){ s.done=true; btn.classList.add("correctpick"); lockAll("#fairArea .numbtn"); addStar();
+    const m=beyondGood(); showFb(fb,"good",m); afterPraise(m,"fair",newFair,2000); }
+  else{ flashWrong(btn); const m=t("hintBeyond",{part:t("part"+n),whole:t("whole"+n)}); showFb(fb,"hint",m); speak(m); }
+}
+function checkMake(){
+  const s=fairS; if(s.done) return; const fb=$("#fairFb"), n=s.n, tot=s.on[0].length+s.on[1].length; let m;
+  if(!tot) m=t("makeNone");
+  else if(tot!==s.k) m=t("hintMake",{m:cntW(tot,n),cnt:cntW(s.k,n),whole:t("whole"+n)});
+  else{ s.done=true; addStar(); renderBeyond(); m=beyondGood(); showFb(fb,"good",m); afterPraise(m,"fair",newFair,2000); return; }
   showFb(fb,"hint",m); speak(m);
 }
 
