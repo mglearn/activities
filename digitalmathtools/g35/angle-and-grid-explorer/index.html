@@ -247,7 +247,7 @@ const T = {
     setPrec:"Protractor precision", prec5:"To the nearest 5°", prec1:"To the nearest 1°", setGrid:"Coordinate grid size",
     setTilt:"Figures", tiltOn:"Tilt figures at any angle", setSpeech:"Speech", autoRead:"Auto-read directions",
     printCards:"Print challenge cards", setStored:"Settings are saved only on this device. No student information is ever stored.",
-    stds:"Aligned standards — Texas TEKS: Grade 3 3.6(A) (2-D figures), 3.6(B); Grade 4 4.6(A, B, C, D), 4.7(C, D, E); Grade 5 5.5(A), 5.8(A, B, C). Common Core: 3.G.1; 4.G.1, 4.G.2, 4.G.3, 4.MD.5, 4.MD.6, 4.MD.7; 5.G.1, 5.G.2, 5.G.3, 5.G.4.",
+    stds:"Aligned standards — Texas TEKS: Grade 3 3.6(A) (2-D figures), 3.6(B); Grade 4 4.6(A, B, C, D), 4.7(A, B, C, D, E); Grade 5 5.5(A), 5.8(A, B, C). Common Core: 3.G.1; 4.G.1, 4.G.2, 4.G.3, 4.MD.5, 4.MD.6, 4.MD.7; 5.G.1, 5.G.2, 5.G.3, 5.G.4.",
     cardTitle:"Angle & Grid Explorer — Challenge Cards",
     cardShapes:"Give the best name for each quadrilateral. Explain your thinking using parallel sides, right angles, and equal sides.",
     cardLines:"Which dashed lines are lines of symmetry? Fold or trace to check. Then draw a shape that has exactly 2 lines of symmetry.",
@@ -407,7 +407,34 @@ const T = {
     dirTable:"Graph the table. Point {k} of {n}: plot {p}, then tap Check.",
     goodPoint:"Yes! {p} is plotted.",
     goodTable:"You graphed every pair! The points line up because {rule}.",
-    ruleAdd:"each y is {k} more than its x", ruleMul:"each y is {k} times its x"
+    ruleAdd:"each y is {k} more than its x", ruleMul:"each y is {k} times its x",
+    frSay:"{a} over {b}",
+    turnFigN:"A circle cut into {n} equal parts, with an angle at its center",
+    turnFig:"A circle with an angle at its center",
+    dirSlice:"The circle is cut into {n} equal parts. The angle cuts out {k} of them. What is the measure of the angle?",
+    dirToFrac:"This angle measures {m}. What fraction of the whole circle does it cut out?",
+    dirToDeg:"This angle cuts out {f} of a circle. What is its measure?",
+    dirBuild:"The circle is cut into {n} equal parts. Drag the blue dot, or use the turn buttons, to make an angle of {m}. Then tap Check.",
+    buildLbl:"Turning ray: use the arrow keys to turn it one part at a time",
+    tuL:"Turn the ray one part counterclockwise",
+    tuR:"Turn the ray one part clockwise",
+    tuParts:"{j} of {n} parts",
+    goodSlice:"Yes! A full circle is 360°, so each of the {n} equal parts is {e1}. The angle cuts out {k} parts: {e2}. That is {f} of a full turn.",
+    hintSliceK:"The angle cuts out that many parts, but each part is much more than 1°. A full circle is 360°, so each part is {e1}.",
+    hintSliceHalf:"A full turn around the circle is 360°, not 180°. Each part is {e1}.",
+    hintSliceRest:"That is the part of the circle outside the angle. Count only the shaded parts between the two rays.",
+    hintSlice:"Count the shaded parts again. Each part is {e1}, so multiply that by the number of shaded parts.",
+    goodToFrac:"Yes! One degree is {one} of a circle, so an angle of {m} cuts out {f} of the circle.",
+    sameTurn:"That is the same as {u} of a full turn.",
+    hintFracHalf:"A whole circle is 360°, not 180°. Each degree is {one} of the circle.",
+    hintFracFlip:"The fraction tells how much of the circle the angle cuts out: {m} of the 360 one-degree parts. The part goes on top.",
+    hintFracHund:"A circle is made of 360 one-degree parts, not 100. Each degree is {one} of the circle.",
+    goodToDeg:"Yes! Each {one} of a circle is one degree, so {f} of a circle is {m}.",
+    hintDegRest:"{f} is the part the angle cuts out, not the part that is left over. Each {one} of a circle is 1°.",
+    hintDeg:"Each {one} of a circle is 1°. How many of those one-degree parts does the angle cut out?",
+    goodBuild:"Yes! Each part is {e1}, so {k} parts make {e2}. Your angle is {f} of a full turn.",
+    hintBuild0:"Turn the blue ray to open the angle first.",
+    hintBuild:"Your angle is {j} parts. Each part is {e1}, so your angle measures {e3}. You need {m}."
   },
   es:{
     appTitle:"Explorador de Ángulos y Cuadrículas", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", modesLbl:"Modos", stars:"Estrellas ganadas",
@@ -419,7 +446,7 @@ const T = {
     setPrec:"Precisión del transportador", prec5:"Al 5° más cercano", prec1:"Al 1° más cercano", setGrid:"Tamaño de la cuadrícula",
     setTilt:"Figuras", tiltOn:"Inclinar las figuras en cualquier ángulo", setSpeech:"Voz", autoRead:"Leer instrucciones automáticamente",
     printCards:"Imprimir tarjetas de reto", setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información del estudiante.",
-    stds:"Estándares alineados — TEKS de Texas: 3.er grado 3.6(A) (figuras 2-D), 3.6(B); 4.º grado 4.6(A, B, C, D), 4.7(C, D, E); 5.º grado 5.5(A), 5.8(A, B, C). Common Core: 3.G.1; 4.G.1, 4.G.2, 4.G.3, 4.MD.5, 4.MD.6, 4.MD.7; 5.G.1, 5.G.2, 5.G.3, 5.G.4.",
+    stds:"Estándares alineados — TEKS de Texas: 3.er grado 3.6(A) (figuras 2-D), 3.6(B); 4.º grado 4.6(A, B, C, D), 4.7(A, B, C, D, E); 5.º grado 5.5(A), 5.8(A, B, C). Common Core: 3.G.1; 4.G.1, 4.G.2, 4.G.3, 4.MD.5, 4.MD.6, 4.MD.7; 5.G.1, 5.G.2, 5.G.3, 5.G.4.",
     cardTitle:"Explorador de Ángulos y Cuadrículas — Tarjetas de Reto",
     cardShapes:"Da el mejor nombre para cada cuadrilátero. Explica tu razonamiento con lados paralelos, ángulos rectos y lados iguales.",
     cardLines:"¿Cuáles líneas punteadas son ejes de simetría? Dobla o calca para comprobar. Luego dibuja una figura con exactamente 2 ejes de simetría.",
@@ -579,7 +606,34 @@ const T = {
     dirTable:"Grafica la tabla. Punto {k} de {n}: ubica {p} y luego toca Revisar.",
     goodPoint:"¡Sí! {p} ya está ubicado.",
     goodTable:"¡Graficaste todos los pares! Los puntos quedan en línea porque {rule}.",
-    ruleAdd:"cada y es {k} más que su x", ruleMul:"cada y es {k} veces su x"
+    ruleAdd:"cada y es {k} más que su x", ruleMul:"cada y es {k} veces su x",
+    frSay:"{a} sobre {b}",
+    turnFigN:"Un círculo dividido en {n} partes iguales, con un ángulo en su centro",
+    turnFig:"Un círculo con un ángulo en su centro",
+    dirSlice:"El círculo está dividido en {n} partes iguales. El ángulo abarca {k} de ellas. ¿Cuánto mide el ángulo?",
+    dirToFrac:"Este ángulo mide {m}. ¿Qué fracción del círculo entero abarca?",
+    dirToDeg:"Este ángulo abarca {f} de un círculo. ¿Cuánto mide?",
+    dirBuild:"El círculo está dividido en {n} partes iguales. Arrastra el punto azul, o usa los botones de girar, para formar un ángulo de {m}. Luego toca Revisar.",
+    buildLbl:"Rayo que gira: usa las flechas del teclado para girarlo una parte a la vez",
+    tuL:"Girar el rayo una parte en sentido contrario a las agujas del reloj",
+    tuR:"Girar el rayo una parte en el sentido de las agujas del reloj",
+    tuParts:"{j} de {n} partes",
+    goodSlice:"¡Sí! Un círculo completo mide 360°, así que cada una de las {n} partes iguales mide {e1}. El ángulo abarca {k} partes: {e2}. Es {f} de un giro completo.",
+    hintSliceK:"El ángulo abarca esa cantidad de partes, pero cada parte mide mucho más que 1°. Un círculo completo mide 360°, así que cada parte mide {e1}.",
+    hintSliceHalf:"Un giro completo alrededor del círculo mide 360°, no 180°. Cada parte mide {e1}.",
+    hintSliceRest:"Esa es la parte del círculo que queda fuera del ángulo. Cuenta solo las partes sombreadas entre los dos rayos.",
+    hintSlice:"Vuelve a contar las partes sombreadas. Cada parte mide {e1}, así que multiplica eso por el número de partes sombreadas.",
+    goodToFrac:"¡Sí! Un grado es {one} de un círculo, así que un ángulo de {m} abarca {f} del círculo.",
+    sameTurn:"Es lo mismo que {u} de un giro completo.",
+    hintFracHalf:"Un círculo entero mide 360°, no 180°. Cada grado es {one} del círculo.",
+    hintFracFlip:"La fracción dice cuánto del círculo abarca el ángulo: {m} de las 360 partes de un grado. La parte va arriba.",
+    hintFracHund:"Un círculo tiene 360 partes de un grado, no 100. Cada grado es {one} del círculo.",
+    goodToDeg:"¡Sí! Cada {one} de un círculo es un grado, así que {f} de un círculo es {m}.",
+    hintDegRest:"{f} es la parte que abarca el ángulo, no la parte que sobra. Cada {one} de un círculo es 1°.",
+    hintDeg:"Cada {one} de un círculo es 1°. ¿Cuántas de esas partes de un grado abarca el ángulo?",
+    goodBuild:"¡Sí! Cada parte mide {e1}, así que {k} partes forman {e2}. Tu ángulo es {f} de un giro completo.",
+    hintBuild0:"Primero gira el rayo azul para abrir el ángulo.",
+    hintBuild:"Tu ángulo tiene {j} partes. Cada parte mide {e1}, así que tu ángulo mide {e3}. Necesitas {m}."
   },
   vi:{
     appTitle:"Khám Phá Góc và Lưới", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", modesLbl:"Chế độ", stars:"Số sao đạt được",
@@ -591,7 +645,7 @@ const T = {
     setPrec:"Độ chính xác của thước đo góc", prec5:"Tới 5° gần nhất", prec1:"Tới 1° gần nhất", setGrid:"Kích thước lưới tọa độ",
     setTilt:"Hình vẽ", tiltOn:"Xoay nghiêng hình theo mọi góc", setSpeech:"Giọng nói", autoRead:"Tự động đọc hướng dẫn",
     printCards:"In thẻ thử thách", setStored:"Cài đặt chỉ lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
-    stds:"Tiêu chuẩn phù hợp — Texas TEKS: Lớp 3 3.6(A) (hình 2-D), 3.6(B); Lớp 4 4.6(A, B, C, D), 4.7(C, D, E); Lớp 5 5.5(A), 5.8(A, B, C). Common Core: 3.G.1; 4.G.1, 4.G.2, 4.G.3, 4.MD.5, 4.MD.6, 4.MD.7; 5.G.1, 5.G.2, 5.G.3, 5.G.4.",
+    stds:"Tiêu chuẩn phù hợp — Texas TEKS: Lớp 3 3.6(A) (hình 2-D), 3.6(B); Lớp 4 4.6(A, B, C, D), 4.7(A, B, C, D, E); Lớp 5 5.5(A), 5.8(A, B, C). Common Core: 3.G.1; 4.G.1, 4.G.2, 4.G.3, 4.MD.5, 4.MD.6, 4.MD.7; 5.G.1, 5.G.2, 5.G.3, 5.G.4.",
     cardTitle:"Khám Phá Góc và Lưới — Thẻ Thử Thách",
     cardShapes:"Đặt tên đúng nhất cho mỗi tứ giác. Giải thích bằng cạnh song song, góc vuông và cạnh bằng nhau.",
     cardLines:"Những đường nét đứt nào là trục đối xứng? Gấp hoặc đồ lại để kiểm tra. Sau đó vẽ một hình có đúng 2 trục đối xứng.",
@@ -751,7 +805,34 @@ const T = {
     dirTable:"Vẽ đồ thị của bảng. Điểm {k} trên {n}: vẽ {p}, rồi chạm Kiểm tra.",
     goodPoint:"Đúng! Đã vẽ xong {p}.",
     goodTable:"Em đã vẽ mọi cặp số! Các điểm thẳng hàng vì {rule}.",
-    ruleAdd:"mỗi y lớn hơn x của nó {k} đơn vị", ruleMul:"mỗi y gấp {k} lần x của nó"
+    ruleAdd:"mỗi y lớn hơn x của nó {k} đơn vị", ruleMul:"mỗi y gấp {k} lần x của nó",
+    frSay:"{a} phần {b}",
+    turnFigN:"Hình tròn được chia thành {n} phần bằng nhau, có một góc ở tâm",
+    turnFig:"Hình tròn có một góc ở tâm",
+    dirSlice:"Hình tròn được chia thành {n} phần bằng nhau. Góc chiếm {k} phần trong số đó. Số đo của góc là bao nhiêu?",
+    dirToFrac:"Góc này có số đo {m}. Góc chiếm bao nhiêu phần của cả hình tròn?",
+    dirToDeg:"Góc này chiếm {f} hình tròn. Số đo của góc là bao nhiêu?",
+    dirBuild:"Hình tròn được chia thành {n} phần bằng nhau. Kéo chấm xanh, hoặc dùng các nút xoay, để tạo một góc {m}. Rồi chạm Kiểm tra.",
+    buildLbl:"Tia xoay: dùng các phím mũi tên để xoay mỗi lần một phần",
+    tuL:"Xoay tia một phần ngược chiều kim đồng hồ",
+    tuR:"Xoay tia một phần theo chiều kim đồng hồ",
+    tuParts:"{j} trên {n} phần",
+    goodSlice:"Đúng rồi! Cả hình tròn là 360°, nên mỗi phần trong {n} phần bằng nhau là {e1}. Góc chiếm {k} phần: {e2}. Đó là {f} của một vòng quay.",
+    hintSliceK:"Góc chiếm chừng đó phần, nhưng mỗi phần lớn hơn 1° rất nhiều. Cả hình tròn là 360°, nên mỗi phần là {e1}.",
+    hintSliceHalf:"Một vòng quanh hình tròn là 360°, không phải 180°. Mỗi phần là {e1}.",
+    hintSliceRest:"Đó là phần hình tròn nằm ngoài góc. Chỉ đếm các phần được tô màu giữa hai tia.",
+    hintSlice:"Hãy đếm lại các phần được tô màu. Mỗi phần là {e1}, nên nhân số đó với số phần được tô màu.",
+    goodToFrac:"Đúng rồi! Một độ là {one} hình tròn, nên góc {m} chiếm {f} hình tròn.",
+    sameTurn:"Như vậy bằng {u} của một vòng quay.",
+    hintFracHalf:"Cả hình tròn là 360°, không phải 180°. Mỗi độ là {one} hình tròn.",
+    hintFracFlip:"Phân số cho biết góc chiếm bao nhiêu phần hình tròn: {m} trong 360 phần một độ. Số phần được lấy viết ở trên.",
+    hintFracHund:"Hình tròn gồm 360 phần một độ, không phải 100. Mỗi độ là {one} hình tròn.",
+    goodToDeg:"Đúng rồi! Mỗi {one} hình tròn là một độ, nên {f} hình tròn là {m}.",
+    hintDegRest:"{f} là phần góc chiếm, không phải phần còn lại. Mỗi {one} hình tròn là 1°.",
+    hintDeg:"Mỗi {one} hình tròn là 1°. Góc chiếm bao nhiêu phần một độ như vậy?",
+    goodBuild:"Đúng rồi! Mỗi phần là {e1}, nên {k} phần tạo thành {e2}. Góc của em là {f} của một vòng quay.",
+    hintBuild0:"Trước tiên hãy xoay tia xanh để mở góc.",
+    hintBuild:"Góc của em có {j} phần. Mỗi phần là {e1}, nên góc của em có số đo {e3}. Em cần {m}."
   },
   ar:{
     appTitle:"مستكشف الزوايا والشبكة", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", modesLbl:"الأنماط", stars:"النجوم المكتسبة",
@@ -763,7 +844,7 @@ const T = {
     setPrec:"دقة المنقلة", prec5:"لأقرب 5°", prec1:"لأقرب 1°", setGrid:"حجم شبكة الإحداثيات",
     setTilt:"الأشكال", tiltOn:"إمالة الأشكال بأي زاوية", setSpeech:"النطق", autoRead:"قراءة التعليمات تلقائياً",
     printCards:"طباعة بطاقات التحدي", setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُحفظ أي معلومات عن الطالب أبداً.",
-    stds:"المعايير المتوافقة — Texas TEKS: الصف 3 3.6(A) (الأشكال ثنائية الأبعاد)، 3.6(B)؛ الصف 4 4.6(A, B, C, D)، 4.7(C, D, E)؛ الصف 5 5.5(A)، 5.8(A, B, C). Common Core: 3.G.1؛ 4.G.1، 4.G.2، 4.G.3، 4.MD.5، 4.MD.6، 4.MD.7؛ 5.G.1، 5.G.2، 5.G.3، 5.G.4.",
+    stds:"المعايير المتوافقة — Texas TEKS: الصف 3 3.6(A) (الأشكال ثنائية الأبعاد)، 3.6(B)؛ الصف 4 4.6(A, B, C, D)، 4.7(A, B, C, D, E)؛ الصف 5 5.5(A)، 5.8(A, B, C). Common Core: 3.G.1؛ 4.G.1، 4.G.2، 4.G.3، 4.MD.5، 4.MD.6، 4.MD.7؛ 5.G.1، 5.G.2، 5.G.3، 5.G.4.",
     cardTitle:"مستكشف الزوايا والشبكة — بطاقات التحدي",
     cardShapes:"أعطِ أفضل اسم لكل شكل رباعي. اشرح تفكيرك باستخدام الأضلاع المتوازية والزوايا القائمة والأضلاع المتساوية.",
     cardLines:"أي الخطوط المتقطعة محاور تماثل؟ اطوِ الشكل أو اشفّه لتتحقق. ثم ارسم شكلاً له محورا تماثل بالضبط.",
@@ -923,7 +1004,34 @@ const T = {
     dirTable:"مثّل الجدول بيانياً. النقطة {k} من {n}: عيّن {p}، ثم المس تحقّق.",
     goodPoint:"نعم! تم تعيين {p}.",
     goodTable:"مثّلت كل الأزواج! النقاط على خط واحد لأن {rule}.",
-    ruleAdd:"كل y أكبر من x الخاص به بمقدار {k}", ruleMul:"كل y يساوي {k} أمثال x الخاص به"
+    ruleAdd:"كل y أكبر من x الخاص به بمقدار {k}", ruleMul:"كل y يساوي {k} أمثال x الخاص به",
+    frSay:"{a} على {b}",
+    turnFigN:"دائرة مقسومة إلى {n} أجزاء متساوية، وفي مركزها زاوية",
+    turnFig:"دائرة في مركزها زاوية",
+    dirSlice:"الدائرة مقسومة إلى {n} أجزاء متساوية. الزاوية تقتطع {k} منها. ما قياس الزاوية؟",
+    dirToFrac:"قياس هذه الزاوية {m}. ما الكسر الذي تقتطعه من الدائرة كلها؟",
+    dirToDeg:"هذه الزاوية تقتطع {f} من الدائرة. ما قياسها؟",
+    dirBuild:"الدائرة مقسومة إلى {n} أجزاء متساوية. اسحب النقطة الزرقاء، أو استخدم أزرار التدوير، لتكوّن زاوية قياسها {m}. ثم المس تحقّق.",
+    buildLbl:"شعاع يدور: استخدم مفاتيح الأسهم لتدويره جزءًا واحدًا في كل مرة",
+    tuL:"أدر الشعاع جزءًا واحدًا عكس اتجاه عقارب الساعة",
+    tuR:"أدر الشعاع جزءًا واحدًا مع اتجاه عقارب الساعة",
+    tuParts:"{j} من {n} أجزاء",
+    goodSlice:"أحسنت! الدائرة الكاملة 360°، لذلك كل جزء من الأجزاء المتساوية الـ {n} قياسه {e1}. الزاوية تقتطع {k} من الأجزاء: {e2}. هذا {f} من دورة كاملة.",
+    hintSliceK:"الزاوية تقتطع هذا العدد من الأجزاء، لكن كل جزء أكبر بكثير من 1°. الدائرة الكاملة 360°، لذلك كل جزء قياسه {e1}.",
+    hintSliceHalf:"الدورة الكاملة حول الدائرة 360° وليست 180°. كل جزء قياسه {e1}.",
+    hintSliceRest:"هذا هو جزء الدائرة الذي يقع خارج الزاوية. عُدّ فقط الأجزاء الملوّنة بين الشعاعين.",
+    hintSlice:"عُدّ الأجزاء الملوّنة مرة أخرى. كل جزء قياسه {e1}، فاضرب ذلك في عدد الأجزاء الملوّنة.",
+    goodToFrac:"أحسنت! الدرجة الواحدة هي {one} من الدائرة، لذلك الزاوية التي قياسها {m} تقتطع {f} من الدائرة.",
+    sameTurn:"وهذا يساوي {u} من دورة كاملة.",
+    hintFracHalf:"الدائرة كلها 360° وليست 180°. كل درجة هي {one} من الدائرة.",
+    hintFracFlip:"الكسر يبيّن كم تقتطع الزاوية من الدائرة: {m} من الأجزاء الـ 360 التي كل منها درجة واحدة. الجزء يُكتب في الأعلى.",
+    hintFracHund:"الدائرة مكوّنة من 360 جزءًا كل منها درجة واحدة، وليس 100. كل درجة هي {one} من الدائرة.",
+    goodToDeg:"أحسنت! كل {one} من الدائرة هو درجة واحدة، لذلك {f} من الدائرة يساوي {m}.",
+    hintDegRest:"{f} هو الجزء الذي تقتطعه الزاوية، وليس الجزء الباقي. كل {one} من الدائرة يساوي 1°.",
+    hintDeg:"كل {one} من الدائرة يساوي 1°. كم جزءًا من هذه الأجزاء تقتطع الزاوية؟",
+    goodBuild:"أحسنت! كل جزء قياسه {e1}، لذلك {k} من الأجزاء تكوّن {e2}. زاويتك هي {f} من دورة كاملة.",
+    hintBuild0:"أدر الشعاع الأزرق أولًا لتفتح الزاوية.",
+    hintBuild:"زاويتك فيها {j} من الأجزاء. كل جزء قياسه {e1}، لذلك قياس زاويتك {e3}. أنت تحتاج إلى {m}."
   },
   hi:{
     appTitle:"कोण और ग्रिड खोजी", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", modesLbl:"मोड", stars:"मिले हुए तारे",
@@ -935,7 +1043,7 @@ const T = {
     setPrec:"चाँदे की परिशुद्धता", prec5:"निकटतम 5° तक", prec1:"निकटतम 1° तक", setGrid:"निर्देशांक ग्रिड का आकार",
     setTilt:"आकृतियाँ", tiltOn:"आकृतियों को किसी भी कोण पर झुकाएँ", setSpeech:"आवाज़", autoRead:"निर्देश अपने आप पढ़ें",
     printCards:"चुनौती कार्ड छापें", setStored:"सेटिंग्स केवल इस डिवाइस पर सहेजी जाती हैं। छात्र की जानकारी कभी नहीं सहेजी जाती।",
-    stds:"संरेखित मानक — Texas TEKS: कक्षा 3 3.6(A) (2-D आकृतियाँ), 3.6(B); कक्षा 4 4.6(A, B, C, D), 4.7(C, D, E); कक्षा 5 5.5(A), 5.8(A, B, C). Common Core: 3.G.1; 4.G.1, 4.G.2, 4.G.3, 4.MD.5, 4.MD.6, 4.MD.7; 5.G.1, 5.G.2, 5.G.3, 5.G.4.",
+    stds:"संरेखित मानक — Texas TEKS: कक्षा 3 3.6(A) (2-D आकृतियाँ), 3.6(B); कक्षा 4 4.6(A, B, C, D), 4.7(A, B, C, D, E); कक्षा 5 5.5(A), 5.8(A, B, C). Common Core: 3.G.1; 4.G.1, 4.G.2, 4.G.3, 4.MD.5, 4.MD.6, 4.MD.7; 5.G.1, 5.G.2, 5.G.3, 5.G.4.",
     cardTitle:"कोण और ग्रिड खोजी — चुनौती कार्ड",
     cardShapes:"हर चतुर्भुज का सबसे अच्छा नाम लिखो। समांतर भुजाओं, समकोणों और बराबर भुजाओं से अपनी सोच समझाओ।",
     cardLines:"कौन-सी बिंदुदार रेखाएँ सममिति रेखाएँ हैं? मोड़कर या ट्रेस करके जाँचो। फिर ऐसी आकृति बनाओ जिसकी ठीक 2 सममिति रेखाएँ हों।",
@@ -1095,7 +1203,34 @@ const T = {
     dirTable:"तालिका का ग्राफ़ बनाओ। बिंदु {k} / {n}: {p} अंकित करो, फिर जाँचो छुओ।",
     goodPoint:"हाँ! {p} अंकित हो गया।",
     goodTable:"तुमने हर युग्म का ग्राफ़ बना दिया! बिंदु एक सीध में हैं क्योंकि {rule}।",
-    ruleAdd:"हर y अपने x से {k} ज़्यादा है", ruleMul:"हर y अपने x का {k} गुना है"
+    ruleAdd:"हर y अपने x से {k} ज़्यादा है", ruleMul:"हर y अपने x का {k} गुना है",
+    frSay:"{a} बटा {b}",
+    turnFigN:"{n} बराबर भागों में बँटा वृत्त, जिसके केंद्र पर एक कोण है",
+    turnFig:"वृत्त, जिसके केंद्र पर एक कोण है",
+    dirSlice:"वृत्त {n} बराबर भागों में बँटा है। कोण उनमें से {k} भाग काटता है। कोण का माप क्या है?",
+    dirToFrac:"इस कोण का माप {m} है। यह पूरे वृत्त का कौन-सा भिन्न काटता है?",
+    dirToDeg:"यह कोण वृत्त का {f} भाग काटता है। इसका माप क्या है?",
+    dirBuild:"वृत्त {n} बराबर भागों में बँटा है। नीले बिंदु को खींचो, या घुमाने वाले बटन इस्तेमाल करो, और {m} का कोण बनाओ। फिर जाँचो छुओ।",
+    buildLbl:"घूमने वाली किरण: इसे एक बार में एक भाग घुमाने के लिए तीर वाली कुंजियाँ इस्तेमाल करो",
+    tuL:"किरण को एक भाग घड़ी की उलटी दिशा में घुमाओ",
+    tuR:"किरण को एक भाग घड़ी की दिशा में घुमाओ",
+    tuParts:"{n} में से {j} भाग",
+    goodSlice:"हाँ! पूरा वृत्त 360° का होता है, इसलिए {n} बराबर भागों में से हर भाग {e1} है। कोण {k} भाग काटता है: {e2}। यह पूरे चक्कर का {f} है।",
+    hintSliceK:"कोण इतने भाग काटता है, पर हर भाग 1° से बहुत बड़ा है। पूरा वृत्त 360° का है, इसलिए हर भाग {e1} है।",
+    hintSliceHalf:"वृत्त का पूरा चक्कर 360° होता है, 180° नहीं। हर भाग {e1} है।",
+    hintSliceRest:"यह वृत्त का वह भाग है जो कोण के बाहर है। सिर्फ़ दोनों किरणों के बीच के रंगे भाग गिनो।",
+    hintSlice:"रंगे भाग फिर से गिनो। हर भाग {e1} है, इसलिए इसे रंगे भागों की संख्या से गुणा करो।",
+    goodToFrac:"हाँ! एक डिग्री वृत्त का {one} भाग है, इसलिए {m} का कोण वृत्त का {f} भाग काटता है।",
+    sameTurn:"यह पूरे चक्कर के {u} भाग के बराबर है।",
+    hintFracHalf:"पूरा वृत्त 360° का होता है, 180° का नहीं। हर डिग्री वृत्त का {one} भाग है।",
+    hintFracFlip:"भिन्न बताती है कि कोण वृत्त का कितना भाग काटता है: 360 एक-डिग्री भागों में से {m}। लिया गया भाग ऊपर लिखा जाता है।",
+    hintFracHund:"वृत्त 360 एक-डिग्री भागों से बना है, 100 से नहीं। हर डिग्री वृत्त का {one} भाग है।",
+    goodToDeg:"हाँ! वृत्त का हर {one} भाग एक डिग्री है, इसलिए वृत्त का {f} भाग {m} है।",
+    hintDegRest:"{f} वह भाग है जो कोण काटता है, बचा हुआ भाग नहीं। वृत्त का हर {one} भाग 1° है।",
+    hintDeg:"वृत्त का हर {one} भाग 1° है। कोण ऐसे कितने एक-डिग्री भाग काटता है?",
+    goodBuild:"हाँ! हर भाग {e1} है, इसलिए {k} भाग मिलकर {e2} बनाते हैं। तुम्हारा कोण पूरे चक्कर का {f} है।",
+    hintBuild0:"पहले नीली किरण को घुमाकर कोण खोलो।",
+    hintBuild:"तुम्हारे कोण में {j} भाग हैं। हर भाग {e1} है, इसलिए तुम्हारे कोण का माप {e3} है। तुम्हें {m} चाहिए।"
   },
   ur:{
     appTitle:"زاویے اور گرڈ کا کھوجی", home:"ہوم", privacy:"رازداری", teacher:"استاد", modesLbl:"موڈ", stars:"حاصل کیے گئے ستارے",
@@ -1107,7 +1242,7 @@ const T = {
     setPrec:"زاویہ پیما کی درستگی", prec5:"قریب ترین 5° تک", prec1:"قریب ترین 1° تک", setGrid:"محدداتی گرڈ کا سائز",
     setTilt:"اشکال", tiltOn:"اشکال کو کسی بھی زاویے پر جھکائیں", setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں",
     printCards:"چیلنج کارڈ پرنٹ کریں", setStored:"ترتیبات صرف اسی ڈیوائس پر محفوظ ہوتی ہیں۔ طالب علم کی معلومات کبھی محفوظ نہیں ہوتیں۔",
-    stds:"منسلک معیارات — Texas TEKS: جماعت 3 3.6(A) (2-D اشکال)، 3.6(B)؛ جماعت 4 4.6(A, B, C, D)، 4.7(C, D, E)؛ جماعت 5 5.5(A)، 5.8(A, B, C)۔ Common Core: 3.G.1؛ 4.G.1، 4.G.2، 4.G.3، 4.MD.5، 4.MD.6، 4.MD.7؛ 5.G.1، 5.G.2، 5.G.3، 5.G.4۔",
+    stds:"منسلک معیارات — Texas TEKS: جماعت 3 3.6(A) (2-D اشکال)، 3.6(B)؛ جماعت 4 4.6(A, B, C, D)، 4.7(A, B, C, D, E)؛ جماعت 5 5.5(A)، 5.8(A, B, C)۔ Common Core: 3.G.1؛ 4.G.1، 4.G.2، 4.G.3، 4.MD.5، 4.MD.6، 4.MD.7؛ 5.G.1، 5.G.2، 5.G.3، 5.G.4۔",
     cardTitle:"زاویے اور گرڈ کا کھوجی — چیلنج کارڈ",
     cardShapes:"ہر چوکور کا بہترین نام لکھو۔ متوازی اضلاع، قائمہ زاویوں اور برابر اضلاع سے اپنی سوچ سمجھاؤ۔",
     cardLines:"کون سی نقطہ دار لکیریں تشاکل کے خط ہیں؟ موڑ کر یا ٹریس کر کے جانچو۔ پھر ایسی شکل بناؤ جس کے ٹھیک 2 تشاکل کے خط ہوں۔",
@@ -1267,7 +1402,34 @@ const T = {
     dirTable:"جدول کا گراف بناؤ۔ نقطہ {k} / {n}: {p} لگاؤ، پھر جانچو چھوؤ۔",
     goodPoint:"ہاں! {p} لگ گیا۔",
     goodTable:"تم نے ہر جوڑے کا گراف بنا دیا! نقاط ایک سیدھ میں ہیں کیونکہ {rule}۔",
-    ruleAdd:"ہر y اپنے x سے {k} زیادہ ہے", ruleMul:"ہر y اپنے x کا {k} گنا ہے"
+    ruleAdd:"ہر y اپنے x سے {k} زیادہ ہے", ruleMul:"ہر y اپنے x کا {k} گنا ہے",
+    frSay:"{a} بٹا {b}",
+    turnFigN:"{n} برابر حصوں میں بٹا دائرہ، جس کے مرکز پر ایک زاویہ ہے",
+    turnFig:"دائرہ، جس کے مرکز پر ایک زاویہ ہے",
+    dirSlice:"دائرہ {n} برابر حصوں میں بٹا ہے۔ زاویہ ان میں سے {k} حصے کاٹتا ہے۔ زاویے کی پیمائش کیا ہے؟",
+    dirToFrac:"اس زاویے کی پیمائش {m} ہے۔ یہ پورے دائرے کا کون سا کسر کاٹتا ہے؟",
+    dirToDeg:"یہ زاویہ دائرے کا {f} حصہ کاٹتا ہے۔ اس کی پیمائش کیا ہے؟",
+    dirBuild:"دائرہ {n} برابر حصوں میں بٹا ہے۔ نیلے نقطے کو کھینچو، یا گھمانے والے بٹن استعمال کرو، اور {m} کا زاویہ بناؤ۔ پھر جانچو چھوؤ۔",
+    buildLbl:"گھومنے والی شعاع: اسے ایک وقت میں ایک حصہ گھمانے کے لیے تیر والی کلیدیں استعمال کرو",
+    tuL:"شعاع کو ایک حصہ گھڑی کی الٹی سمت میں گھماؤ",
+    tuR:"شعاع کو ایک حصہ گھڑی کی سمت میں گھماؤ",
+    tuParts:"{n} میں سے {j} حصے",
+    goodSlice:"شاباش! پورا دائرہ 360° کا ہوتا ہے، اس لیے {n} برابر حصوں میں سے ہر حصہ {e1} ہے۔ زاویہ {k} حصے کاٹتا ہے: {e2}۔ یہ پورے چکر کا {f} ہے۔",
+    hintSliceK:"زاویہ اتنے حصے کاٹتا ہے، لیکن ہر حصہ 1° سے بہت بڑا ہے۔ پورا دائرہ 360° کا ہے، اس لیے ہر حصہ {e1} ہے۔",
+    hintSliceHalf:"دائرے کا پورا چکر 360° ہوتا ہے، 180° نہیں۔ ہر حصہ {e1} ہے۔",
+    hintSliceRest:"یہ دائرے کا وہ حصہ ہے جو زاویے سے باہر ہے۔ صرف دونوں شعاعوں کے درمیان رنگے ہوئے حصے گنو۔",
+    hintSlice:"رنگے ہوئے حصے دوبارہ گنو۔ ہر حصہ {e1} ہے، اس لیے اسے رنگے ہوئے حصوں کی تعداد سے ضرب دو۔",
+    goodToFrac:"شاباش! ایک ڈگری دائرے کا {one} حصہ ہے، اس لیے {m} کا زاویہ دائرے کا {f} حصہ کاٹتا ہے۔",
+    sameTurn:"یہ پورے چکر کے {u} حصے کے برابر ہے۔",
+    hintFracHalf:"پورا دائرہ 360° کا ہوتا ہے، 180° کا نہیں۔ ہر ڈگری دائرے کا {one} حصہ ہے۔",
+    hintFracFlip:"کسر بتاتا ہے کہ زاویہ دائرے کا کتنا حصہ کاٹتا ہے: 360 ایک ڈگری والے حصوں میں سے {m}۔ لیا گیا حصہ اوپر لکھا جاتا ہے۔",
+    hintFracHund:"دائرہ 360 ایک ڈگری والے حصوں سے بنا ہے، 100 سے نہیں۔ ہر ڈگری دائرے کا {one} حصہ ہے۔",
+    goodToDeg:"شاباش! دائرے کا ہر {one} حصہ ایک ڈگری ہے، اس لیے دائرے کا {f} حصہ {m} ہے۔",
+    hintDegRest:"{f} وہ حصہ ہے جو زاویہ کاٹتا ہے، بچا ہوا حصہ نہیں۔ دائرے کا ہر {one} حصہ 1° ہے۔",
+    hintDeg:"دائرے کا ہر {one} حصہ 1° ہے۔ زاویہ ایسے کتنے ایک ڈگری والے حصے کاٹتا ہے؟",
+    goodBuild:"شاباش! ہر حصہ {e1} ہے، اس لیے {k} حصے مل کر {e2} بناتے ہیں۔ تمہارا زاویہ پورے چکر کا {f} ہے۔",
+    hintBuild0:"پہلے نیلی شعاع کو گھما کر زاویہ کھولو۔",
+    hintBuild:"تمہارے زاویے میں {j} حصے ہیں۔ ہر حصہ {e1} ہے، اس لیے تمہارے زاویے کی پیمائش {e3} ہے۔ تمہیں {m} چاہیے۔"
   },
   zh:{
     appTitle:"角度与网格探索", home:"主页", privacy:"隐私", teacher:"教师", modesLbl:"模式", stars:"获得的星星",
@@ -1279,7 +1441,7 @@ const T = {
     setPrec:"量角器精度", prec5:"精确到 5°", prec1:"精确到 1°", setGrid:"坐标网格大小",
     setTilt:"图形", tiltOn:"图形可以任意角度倾斜", setSpeech:"语音", autoRead:"自动朗读说明",
     printCards:"打印挑战卡", setStored:"设置只保存在本设备上。从不保存任何学生信息。",
-    stds:"对应标准 — Texas TEKS：三年级 3.6(A)（二维图形）、3.6(B)；四年级 4.6(A, B, C, D)、4.7(C, D, E)；五年级 5.5(A)、5.8(A, B, C)。Common Core：3.G.1；4.G.1、4.G.2、4.G.3、4.MD.5、4.MD.6、4.MD.7；5.G.1、5.G.2、5.G.3、5.G.4。",
+    stds:"对应标准 — Texas TEKS：三年级 3.6(A)（二维图形）、3.6(B)；四年级 4.6(A, B, C, D)、4.7(A, B, C, D, E)；五年级 5.5(A)、5.8(A, B, C)。Common Core：3.G.1；4.G.1、4.G.2、4.G.3、4.MD.5、4.MD.6、4.MD.7；5.G.1、5.G.2、5.G.3、5.G.4。",
     cardTitle:"角度与网格探索 — 挑战卡",
     cardShapes:"给每个四边形起一个最准确的名字。用平行的边、直角和相等的边来说明你的想法。",
     cardLines:"哪些虚线是对称轴？折一折或描一描来检查。然后画一个正好有 2 条对称轴的图形。",
@@ -1439,7 +1601,34 @@ const T = {
     dirTable:"根据表格画图。第 {k} 个点（共 {n} 个）：描出 {p}，然后点“检查”。",
     goodPoint:"对了！{p} 已经描好了。",
     goodTable:"每一对数都描好了！这些点排成一条直线，因为{rule}。",
-    ruleAdd:"每个 y 都比它的 x 大 {k}", ruleMul:"每个 y 都是它的 x 的 {k} 倍"
+    ruleAdd:"每个 y 都比它的 x 大 {k}", ruleMul:"每个 y 都是它的 x 的 {k} 倍",
+    frSay:"{b}分之{a}",
+    turnFigN:"一个平均分成 {n} 份的圆，圆心处有一个角",
+    turnFig:"一个圆，圆心处有一个角",
+    dirSlice:"这个圆被平均分成 {n} 份。这个角占了其中 {k} 份。这个角是多少度？",
+    dirToFrac:"这个角是 {m}。它占整个圆的几分之几？",
+    dirToDeg:"这个角占圆的 {f}。它是多少度？",
+    dirBuild:"这个圆被平均分成 {n} 份。拖动蓝点，或者用旋转按钮，转出一个 {m} 的角。然后点“检查”。",
+    buildLbl:"旋转的射线：用方向键每次转一份",
+    tuL:"把射线逆时针转一份",
+    tuR:"把射线顺时针转一份",
+    tuParts:"{n} 份中的 {j} 份",
+    goodSlice:"对了！整个圆是 360°，所以 {n} 份中每一份是 {e1}。这个角占了 {k} 份：{e2}。它是一整圈的 {f}。",
+    hintSliceK:"这个角占了这么多份，但每一份都远远大于 1°。整个圆是 360°，所以每一份是 {e1}。",
+    hintSliceHalf:"绕圆一整圈是 360°，不是 180°。每一份是 {e1}。",
+    hintSliceRest:"那是角外面的部分。只数两条射线之间涂色的几份。",
+    hintSlice:"再数一数涂色的份数。每一份是 {e1}，用它乘涂色的份数。",
+    goodToFrac:"对了！1 度是圆的 {one}，所以 {m} 的角占圆的 {f}。",
+    sameTurn:"也就是一整圈的 {u}。",
+    hintFracHalf:"整个圆是 360°，不是 180°。每 1 度是圆的 {one}。",
+    hintFracFlip:"这个分数表示角占了圆的多少：360 个 1 度中的 {m} 个。所占的份数写在分子上。",
+    hintFracHund:"圆由 360 个 1 度组成，不是 100 个。每 1 度是圆的 {one}。",
+    goodToDeg:"对了！圆的每个 {one} 就是 1 度，所以圆的 {f} 就是 {m}。",
+    hintDegRest:"{f} 是角所占的部分，不是剩下的部分。圆的每个 {one} 是 1°。",
+    hintDeg:"圆的每个 {one} 是 1°。这个角占了多少个这样的 1 度？",
+    goodBuild:"对了！每一份是 {e1}，所以 {k} 份是 {e2}。你的角是一整圈的 {f}。",
+    hintBuild0:"先转动蓝色射线，把角张开。",
+    hintBuild:"你的角有 {j} 份。每一份是 {e1}，所以你的角是 {e3}。你需要的是 {m}。"
   }
 };
 
@@ -1665,12 +1854,13 @@ document.addEventListener("pointerdown",function firstTap(e){
 /* ---------- Round helpers ---------- */
 const NEW={};
 function area(m){ return $("#"+m+"Area"); }
-function setPrompt(m,html){ $("#"+m+"Prompt").innerHTML=html; setSpeech(m,plain(html)); hideFb($("#"+m+"Fb")); maybeAuto(m); }
+function setPrompt(m,html,say){ $("#"+m+"Prompt").innerHTML=html; setSpeech(m,plain(say||html)); hideFb($("#"+m+"Fb")); maybeAuto(m); }
 function showFb(el,type,msg){ el.className="feedback show "+type; el.innerHTML=(type==="good"?"✅ ":"💡 ")+msg; }
 function hideFb(el){ el.className="feedback"; el.innerHTML=""; }
 // final=true: round complete -> star, then next round after the praise is spoken
-function good(m,msg,final,minMs){ showFb($("#"+m+"Fb"),"good",msg); if(final){ addStar(); afterPraise(plain(msg),m,NEW[m],minMs||1800); } else speak(plain(msg)); }
-function hint(m,msg){ showFb($("#"+m+"Fb"),"hint",msg); speak(plain(msg)); }
+// say: optional spoken version (e.g. fractions as words)
+function good(m,msg,final,minMs,say){ showFb($("#"+m+"Fb"),"good",msg); if(final){ addStar(); afterPraise(plain(say||msg),m,NEW[m],minMs||1800); } else speak(plain(say||msg)); }
+function hint(m,msg,say){ showFb($("#"+m+"Fb"),"hint",msg); speak(plain(say||msg)); }
 function optButtons(el,opts,onPick,toggle){
   el.innerHTML="";
   opts.forEach(o=>{ const b=document.createElement("button"); b.type="button"; b.className="opt"; b.innerHTML=o.html;
@@ -2007,8 +2197,8 @@ function symCheck(){
 let anS={};
 NEW.angles=function(){
   roundIds.angles++;
-  const ty=pickType("angles",G()===3?["cls"]:["cls","meas","meas","draw","add"],anS.type);
-  ({cls:anCls,meas:anMeas,draw:anDraw,add:anAdd})[ty]();
+  const ty=pickType("angles",G()===3?["cls"]:["cls","meas","meas","draw","add","turn","turn"],anS.type);
+  ({cls:anCls,meas:anMeas,draw:anDraw,add:anAdd,turn:anTurn})[ty]();
 };
 const angType=m=>m===180?"straight":m===90?"right":m<90?"acute":"obtuse";
 const precN=()=>+settings.prec||5;
@@ -2144,6 +2334,76 @@ function anAdd(){
     if(v===ans){ anS.done=true; markOpt(b,1); lockAll("#anOpts .opt"); good("angles",t("goodAdd",{eq:M(`${a}° + ${b2}° = ${W}°`)}),true,2000); }
     else{ markOpt(b,0); hint("angles",ask==="W"?t("hintAddSum",{a:deg(a),b:deg(b2)}):t("hintAddPart",{a:deg(a),v:deg(v),s:deg(a+v),W:deg(W)})); } });
   setPrompt("angles",t({sum:"dirAddSum",part:"dirAddPart",right:"dirAddRight",straight:"dirAddStr"}[ctx]));
+}
+
+/* ----- Turns (4.7A-B): an angle cuts a part out of a circle centered at its vertex; 1° is 1/360 of a circle ----- */
+const SLICES=[4,6,8,10,12], TURNM=[20,30,40,45,50,60,72,80,90,100,120,135,150,180,200,210,240,270,300,315];
+const frD=(a,b)=>M(a+"/"+b), frSay=(a,b)=>t("frSay",{a,b}), gcd=(a,b)=>b?gcd(b,a%b):a;
+// The same message twice: on screen with a/b fractions, and spoken with the fractions as words.
+function two(key,v,fr){ const d=Object.assign({},v), s=Object.assign({},v); for(const k in fr||{}){ d[k]=frD(...fr[k]); s[k]=frSay(...fr[k]); } return [t(key,d),t(key,s)]; }
+function wedge(V,r,a1,a2){ const p=add(V,mul(dirV(a1),r)), q=add(V,mul(dirV(a2),r)); return `M${f1(V[0])} ${f1(V[1])}L${f1(p[0])} ${f1(p[1])}A${r} ${r} 0 ${a2-a1>180?1:0} 0 ${f1(q[0])} ${f1(q[1])}Z`; }
+function turnSVG(n,base,ang,lbl,ticks,dot){
+  const V=[150,125], R=100;
+  let s=ARROWDEF+`<circle cx="${V[0]}" cy="${V[1]}" r="${R}" fill="#f8fbff" stroke="#7b93ad" stroke-width="2"/>`;
+  if(ang>0) s+=`<path d="${wedge(V,R,base,base+ang)}" fill="rgba(234,88,12,.28)"/>`;
+  for(let i=0;i<n;i++){ const p=add(V,mul(dirV(base+i*360/n),R)); s+=`<line x1="${V[0]}" y1="${V[1]}" x2="${f1(p[0])}" y2="${f1(p[1])}" stroke="#7b93ad" stroke-width="1.5" stroke-dasharray="4 3"/>`; }
+  if(ticks) for(let a=0;a<360;a+=10){ const p=add(V,mul(dirV(base+a),R)), q=add(V,mul(dirV(base+a),R-(a%90?7:14))); s+=`<line x1="${f1(p[0])}" y1="${f1(p[1])}" x2="${f1(q[0])}" y2="${f1(q[1])}" stroke="#5b738d" stroke-width="1.5"/>`; }
+  s+=rayLine(V,base,R+16)+(ang>0?rayLine(V,base+ang,R+16):"");
+  if(ang>0){ s+=`<path d="${arcPath(V,24,base,base+ang)}" stroke="#c2410c" stroke-width="2.5" fill="none"/>`;
+    if(lbl){ const p=add(V,mul(dirV(base+ang/2),ang<60?72:50)); s+=`<text x="${f1(p[0])}" y="${f1(p[1])}" font-size="17" font-weight="800" fill="#9a3412" text-anchor="middle" dominant-baseline="middle">${lbl}</text>`; } }
+  if(dot){ const p=add(V,mul(dirV(base+ang),R)); s+=`<circle cx="${f1(p[0])}" cy="${f1(p[1])}" r="12" fill="#2980b9" stroke="#fff" stroke-width="2"/>`; }
+  return s+`<circle cx="${V[0]}" cy="${V[1]}" r="4.5" fill="#16263a"/>`;
+}
+function anTurn(){
+  const sub=rand(["slice","frac","build"]), base=settings.tilt?rand([0,90,180,270]):0;
+  if(sub==="build") return anBuild(base);
+  let n=0,k=0,m,ask="",c,pr;
+  if(sub==="slice"){ n=rand(SLICES); k=ri(1,n-1); m=k*360/n; } else { m=rand(TURNM); ask=rand(["toFrac","toDeg"]); }
+  const each=n?360/n:0, e1=M(`360° ÷ ${n} = ${each}°`);
+  anS={type:"turn",sub,n,k,m,ask,base};
+  if(sub==="slice"){ c=[{v:m},{v:k,w:"K"},{v:k*180/n,w:"Half"},{v:360-m,w:"Rest"},{v:m+each,w:""}]; pr=[t("dirSlice",{n:M(n),k:M(k)})]; }
+  else if(ask==="toFrac"){ c=[{v:"ok",f:[m,360]},{v:"half",f:[m,180]},{v:"flip",f:[360,m]},{v:"hund",f:[m,100]}]; pr=two("dirToFrac",{m:deg(m)}); }
+  else { c=[{v:m},{v:360-m,w:"Rest"},{v:m/2,w:""},{v:m+10,w:""}]; pr=two("dirToDeg",{},{f:[m,360]}); }
+  const seen=new Set(); c=c.filter(o=>{ const key=String(o.v); if(seen.has(key)||(typeof o.v==="number"&&(o.v<=0||o.v%1))) return false; seen.add(key); return true; }).slice(0,4);
+  area("angles").innerHTML=`<div class="figrow"><div class="fig wide"><svg viewBox="0 0 300 250" role="img" aria-label="${t(n?"turnFigN":"turnFig",{n})}">${turnSVG(n,base,m,ask==="toFrac"?m+"°":"?",sub==="frac",false)}</svg></div><div class="opts" id="anOpts"></div></div>`;
+  optButtons($("#anOpts"),shuffle(c).map(o=>o.f?{v:o.v,html:frD(...o.f),aria:frSay(...o.f)}:{v:o.v,html:deg(o.v),aria:o.v+"°"}),(v,b)=>{
+    if(anS.done) return; const o=c.find(x=>String(x.v)===String(v)); let r;
+    if(o.v===m||o.v==="ok"){ anS.done=true; markOpt(b,1); lockAll("#anOpts .opt");
+      if(sub==="slice") r=two("goodSlice",{n:M(n),k:M(k),e1,e2:M(`${k} × ${each}° = ${m}°`)},{f:[k,n]});
+      else if(ask==="toFrac"){ r=two("goodToFrac",{m:deg(m)},{f:[m,360],one:[1,360]}); const g=gcd(m,360);
+        if(g!==m&&m/g<=3&&360/g<=12){ const u=two("sameTurn",{},{u:[m/g,360/g]}); r=[r[0]+" "+u[0],r[1]+" "+u[1]]; } }
+      else r=two("goodToDeg",{m:deg(m)},{f:[m,360],one:[1,360]});
+      good("angles",r[0],true,2200,r[1]); return; }
+    markOpt(b,0);
+    if(sub==="slice") r=two("hintSlice"+(o.w||""),{e1},{});
+    else if(ask==="toFrac") r=two({half:"hintFracHalf",flip:"hintFracFlip",hund:"hintFracHund"}[o.v],{m:M(m)},{one:[1,360]});
+    else r=two(o.w==="Rest"?"hintDegRest":"hintDeg",{},{f:[m,360],one:[1,360]});
+    hint("angles",r[0],r[1]); });
+  setPrompt("angles",pr[0],pr[1]);
+}
+function anBuild(base){
+  const n=rand(SLICES), k=ri(1,n-1), each=360/n, m=k*each;
+  anS={type:"turn",sub:"build",n,k,m,base,j:0};
+  area("angles").innerHTML=`<div class="fig stage" id="anFig" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="${n-1}" aria-label="${t("buildLbl")}"><svg viewBox="0 0 300 250"></svg></div>
+    <div class="row no-print"><button class="btn ghost" type="button" id="tuL" aria-label="${t("tuL")}" title="${t("tuL")}">↺</button><span class="stmt" id="tuCount" aria-live="polite"></span><button class="btn ghost" type="button" id="tuR" aria-label="${t("tuR")}" title="${t("tuR")}">↻</button><button class="btn" type="button" id="tuCheck">${t("check")}</button></div>`;
+  const fig=$("#anFig"), svg=fig.querySelector("svg"), V=[150,125];
+  const render=()=>{ svg.innerHTML=turnSVG(n,base,anS.j*each,"",false,true); const c=t("tuParts",{j:anS.j,n}); $("#tuCount").textContent=c; fig.setAttribute("aria-valuenow",anS.j); fig.setAttribute("aria-valuetext",c); };
+  const setJ=j=>{ if(anS.done) return; anS.j=Math.max(0,Math.min(n-1,j)); render(); };
+  let dragging=false;
+  const fromEv=e=>{ const p=svgPt(svg,e.clientX,e.clientY), a=Math.atan2(V[1]-p.y,p.x-V[0])/D, rel=((a-base)%360+360)%360; setJ(Math.round(rel/each)%n); };
+  svg.addEventListener("pointerdown",e=>{ if(anS.done) return; dragging=true; try{ svg.setPointerCapture(e.pointerId); }catch(_){} fromEv(e); e.preventDefault(); });
+  svg.addEventListener("pointermove",e=>{ if(dragging) fromEv(e); });
+  svg.addEventListener("pointerup",()=>dragging=false); svg.addEventListener("pointercancel",()=>dragging=false);
+  fig.addEventListener("keydown",e=>{ const kk=e.key; if(kk==="ArrowLeft"||kk==="ArrowUp"){ setJ(anS.j+1); e.preventDefault(); } else if(kk==="ArrowRight"||kk==="ArrowDown"){ setJ(anS.j-1); e.preventDefault(); } else if(kk==="Enter"){ tuCheck(); e.preventDefault(); } });
+  $("#tuL").addEventListener("click",()=>setJ(anS.j+1)); $("#tuR").addEventListener("click",()=>setJ(anS.j-1));
+  $("#tuCheck").addEventListener("click",tuCheck);
+  render(); setPrompt("angles",t("dirBuild",{n:M(n),m:deg(m)}));
+}
+function tuCheck(){
+  if(anS.done) return; const {n,k,m,j}=anS, each=360/n, e1=M(`360° ÷ ${n} = ${each}°`);
+  if(j===k){ anS.done=true; $("#tuCheck").disabled=$("#tuL").disabled=$("#tuR").disabled=true;
+    const r=two("goodBuild",{k:M(k),e1,e2:M(`${k} × ${each}° = ${m}°`)},{f:[k,n]}); good("angles",r[0],true,2200,r[1]); return; }
+  hint("angles",j?t("hintBuild",{j:M(j),e1,e3:M(`${j} × ${each}° = ${j*each}°`),m:deg(m)}):t("hintBuild0"));
 }
 
 /* =========================================================================
