@@ -57,6 +57,7 @@
 
   /* Math: always left-to-right, even inside Arabic/Urdu sentences */
   .math{unicode-bidi:isolate;direction:ltr;display:inline;font-weight:800;white-space:nowrap}
+  .feedback .math,.prompt .math{white-space:normal}
   .fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.05;font-weight:800;margin:0 .08em;white-space:nowrap;font-size:.85em;font-style:normal}
   .fr>b{padding:0 .14em}
   .fr>b:first-child{border-bottom:.11em solid currentColor}
@@ -247,7 +248,7 @@ const T = {
     capL:"Split it into two rectangles: {r1} and {r2}. Add their areas.",
     capHouse:"Split it into a rectangle ({r}) and a triangle ({tr}). Add their areas.",
     hPar:"Area of a parallelogram = base × height. Use the dashed height, not the slanted side.",
-    hTri:"A triangle is half of a parallelogram with the same base and height: A = ½ × b × h.",
+    hTriA:"A triangle is half of a parallelogram with the same base and height: A = ½ × b × h.",
     hTrap:"Two copies of a trapezoid make a parallelogram with base b₁ + b₂, so A = ½ × (b₁ + b₂) × h.",
     hL:"Split the figure into two rectangles that do not overlap, find each area, then add.",
     hHouse:"Find the rectangle's area and the triangle's area (½ × b × h), then add them.",
@@ -418,7 +419,19 @@ const T = {
     hSubSq:"For the hypotenuse, add the squares; don't subtract them.",
     hLegAdd:"The hypotenuse is the longest side, so subtract: b² = c² − a².",
     hSubLen:"Subtract the squares, not the lengths: b² = c² − a².",
-    stds:"Aligned standards — Texas TEKS: Grade 6 6.8(A–D); Grade 7 7.5(B), 7.8(A, C), 7.9(A–D), 7.11(C); Grade 8 8.6(A–C), 8.7(A–D), 8.8(D), 8.10(A–D). Common Core: 6.G.1, 6.G.2, 6.G.4; 7.G.4, 7.G.5, 7.G.6; 8.G.1–8.G.9."
+    sTriPyr:"triangular pyramid", triPyrDims:"Its base is a triangle with base {b} and height {h}. The pyramid's height is {H}.",
+    hTriPyr:"A pyramid holds ⅓ of the prism with the same base and height. First find the area of the triangle base: B = ½ × b × h. Then V = ⅓ × B × H.",
+    bPourTriPyr:"Pour the pyramid into the prism", capPourTriPyr:"It takes 3 full pyramids to fill the prism with the same triangle base and height. So V(pyramid) = ⅓ × B × H.",
+    triSADims:"Each base is a right triangle with sides {a}, {b}, and {c}. The length of the prism is {l}.",
+    hTriSA:"A triangular prism has 5 faces: 2 triangle bases and 3 rectangles. SA = 2 × (½ × a × b) + (a + b + c) × L.",
+    hOneBaseT:"There are two triangle bases, one at each end of the prism. Count both.", capTriNet:"5 faces: 2 triangles of {T} each, plus 3 rectangles: {r}. Total: {S}.",
+    dirAA:"Are △ABC and △DEF similar? Use their angles.",
+    hAA:"First find the missing angle of each triangle: the three angles add to 180°. If two angles of △ABC equal two angles of △DEF, the triangles are similar (Angle-Angle).",
+    gAAY:"Yes! {e}. Two pairs of equal angles are enough: the triangles are similar (AA).", gAAN:"Right! {e}. The angles don't match, so the triangles are not similar.",
+    chAAY:"Yes, they are similar", chAAN:"No, they are not similar", bAA:"Move △DEF into the corner of △ABC",
+    capAAY:"△DEF fits right into the corner of △ABC, and its third side is parallel to BC. Same angles, same shape.",
+    capAAN:"△DEF does not line up with the sides of △ABC. The angles are different, so the shapes are different.",
+    stds:"Aligned standards — Texas TEKS: Grade 6 6.8(A–D); Grade 7 7.5(B), 7.8(A–C), 7.9(A–D), 7.11(C); Grade 8 8.6(A–C), 8.7(A–D), 8.8(D), 8.10(A–D). Common Core: 6.G.1, 6.G.2, 6.G.4; 7.G.4, 7.G.5, 7.G.6; 8.G.1–8.G.9."
   }
 };
 T.es={
@@ -445,7 +458,7 @@ T.es={
     capL:"Divídela en dos rectángulos: {r1} y {r2}. Suma sus áreas.",
     capHouse:"Divídela en un rectángulo ({r}) y un triángulo ({tr}). Suma sus áreas.",
     hPar:"Área de un paralelogramo = base × altura. Usa la altura punteada, no el lado inclinado.",
-    hTri:"Un triángulo es la mitad de un paralelogramo con la misma base y altura: A = ½ × b × h.",
+    hTriA:"Un triángulo es la mitad de un paralelogramo con la misma base y altura: A = ½ × b × h.",
     hTrap:"Dos copias de un trapecio forman un paralelogramo con base b₁ + b₂, así que A = ½ × (b₁ + b₂) × h.",
     hL:"Divide la figura en dos rectángulos que no se encimen, halla cada área y luego súmalas.",
     hHouse:"Halla el área del rectángulo y la del triángulo (½ × b × h), y luego súmalas.",
@@ -612,7 +625,19 @@ T.es={
     hSubSq:"Para la hipotenusa, suma los cuadrados; no los restes.",
     hLegAdd:"La hipotenusa es el lado más largo, así que resta: b² = c² − a².",
     hSubLen:"Resta los cuadrados, no las longitudes: b² = c² − a².",
-    stds:"Estándares alineados — TEKS de Texas: 6.º grado 6.8(A–D); 7.º grado 7.5(B), 7.8(A, C), 7.9(A–D), 7.11(C); 8.º grado 8.6(A–C), 8.7(A–D), 8.8(D), 8.10(A–D). Common Core: 6.G.1, 6.G.2, 6.G.4; 7.G.4, 7.G.5, 7.G.6; 8.G.1–8.G.9."
+    sTriPyr:"esta pirámide triangular", triPyrDims:"Su base es un triángulo con base {b} y altura {h}. La altura de la pirámide es {H}.",
+    hTriPyr:"Una pirámide contiene ⅓ del prisma con la misma base y altura. Primero halla el área del triángulo de la base: B = ½ × b × h. Luego V = ⅓ × B × H.",
+    bPourTriPyr:"Vaciar la pirámide en el prisma", capPourTriPyr:"Se necesitan 3 pirámides llenas para llenar el prisma con la misma base triangular y la misma altura. Así que V(pirámide) = ⅓ × B × H.",
+    triSADims:"Cada base es un triángulo rectángulo con lados {a}, {b} y {c}. El largo del prisma es {l}.",
+    hTriSA:"Un prisma triangular tiene 5 caras: 2 bases triangulares y 3 rectángulos. SA = 2 × (½ × a × b) + (a + b + c) × L.",
+    hOneBaseT:"Hay dos bases triangulares, una en cada extremo del prisma. Cuenta las dos.", capTriNet:"5 caras: 2 triángulos de {T} cada uno, más 3 rectángulos: {r}. Total: {S}.",
+    dirAA:"¿Son semejantes △ABC y △DEF? Usa sus ángulos.",
+    hAA:"Primero halla el ángulo que falta en cada triángulo: los tres ángulos suman 180°. Si dos ángulos de △ABC son iguales a dos ángulos de △DEF, los triángulos son semejantes (ángulo-ángulo).",
+    gAAY:"¡Sí! {e}. Con dos pares de ángulos iguales basta: los triángulos son semejantes (AA).", gAAN:"¡Correcto! {e}. Los ángulos no coinciden, así que los triángulos no son semejantes.",
+    chAAY:"Sí, son semejantes", chAAN:"No, no son semejantes", bAA:"Mover △DEF a la esquina de △ABC",
+    capAAY:"△DEF encaja justo en la esquina de △ABC, y su tercer lado es paralelo a BC. Mismos ángulos, misma forma.",
+    capAAN:"△DEF no coincide con los lados de △ABC. Los ángulos son distintos, así que las formas son distintas.",
+    stds:"Estándares alineados — TEKS de Texas: 6.º grado 6.8(A–D); 7.º grado 7.5(B), 7.8(A–C), 7.9(A–D), 7.11(C); 8.º grado 8.6(A–C), 8.7(A–D), 8.8(D), 8.10(A–D). Common Core: 6.G.1, 6.G.2, 6.G.4; 7.G.4, 7.G.5, 7.G.6; 8.G.1–8.G.9."
 };
 T.vi={
     appTitle:"Xưởng Biến Hình Hình Học", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", modesLbl:"Chế độ", score:"Số câu đúng",
@@ -638,7 +663,7 @@ T.vi={
     capL:"Chia thành hai hình chữ nhật: {r1} và {r2}. Cộng diện tích lại.",
     capHouse:"Chia thành một hình chữ nhật ({r}) và một tam giác ({tr}). Cộng diện tích lại.",
     hPar:"Diện tích hình bình hành = đáy × chiều cao. Dùng chiều cao nét đứt, không dùng cạnh xiên.",
-    hTri:"Tam giác là một nửa hình bình hành có cùng đáy và chiều cao: A = ½ × b × h.",
+    hTriA:"Tam giác là một nửa hình bình hành có cùng đáy và chiều cao: A = ½ × b × h.",
     hTrap:"Hai bản sao hình thang tạo thành hình bình hành có đáy b₁ + b₂, nên A = ½ × (b₁ + b₂) × h.",
     hL:"Chia hình thành hai hình chữ nhật không chồng lên nhau, tìm từng diện tích rồi cộng lại.",
     hHouse:"Tìm diện tích hình chữ nhật và diện tích tam giác (½ × b × h), rồi cộng lại.",
@@ -805,7 +830,19 @@ T.vi={
     hSubSq:"Với cạnh huyền, hãy cộng các bình phương; đừng trừ.",
     hLegAdd:"Cạnh huyền là cạnh dài nhất, nên hãy trừ: b² = c² − a².",
     hSubLen:"Trừ các bình phương, không trừ độ dài: b² = c² − a².",
-    stds:"Tiêu chuẩn phù hợp — TEKS Texas: Lớp 6 6.8(A–D); Lớp 7 7.5(B), 7.8(A, C), 7.9(A–D), 7.11(C); Lớp 8 8.6(A–C), 8.7(A–D), 8.8(D), 8.10(A–D). Common Core: 6.G.1, 6.G.2, 6.G.4; 7.G.4, 7.G.5, 7.G.6; 8.G.1–8.G.9."
+    sTriPyr:"hình chóp tam giác", triPyrDims:"Đáy của nó là tam giác có cạnh đáy {b} và chiều cao {h}. Chiều cao của hình chóp là {H}.",
+    hTriPyr:"Hình chóp chứa ⅓ lăng trụ có cùng đáy và chiều cao. Trước hết tìm diện tích tam giác đáy: B = ½ × b × h. Rồi V = ⅓ × B × H.",
+    bPourTriPyr:"Đổ hình chóp vào lăng trụ", capPourTriPyr:"Cần 3 hình chóp đầy mới đổ đầy lăng trụ có cùng đáy tam giác và chiều cao. Vậy V(hình chóp) = ⅓ × B × H.",
+    triSADims:"Mỗi đáy là một tam giác vuông có các cạnh {a}, {b} và {c}. Chiều dài lăng trụ là {l}.",
+    hTriSA:"Lăng trụ tam giác có 5 mặt: 2 đáy tam giác và 3 hình chữ nhật. SA = 2 × (½ × a × b) + (a + b + c) × L.",
+    hOneBaseT:"Có hai đáy tam giác, mỗi đầu lăng trụ có một đáy. Hãy tính cả hai.", capTriNet:"5 mặt: 2 tam giác, mỗi tam giác {T}, cộng 3 hình chữ nhật: {r}. Tổng: {S}.",
+    dirAA:"△ABC và △DEF có đồng dạng không? Hãy dùng các góc.",
+    hAA:"Trước hết tìm góc còn thiếu của mỗi tam giác: ba góc có tổng 180°. Nếu hai góc của △ABC bằng hai góc của △DEF thì hai tam giác đồng dạng (góc–góc).",
+    gAAY:"Đúng! {e}. Chỉ cần hai cặp góc bằng nhau: hai tam giác đồng dạng (góc–góc).", gAAN:"Đúng rồi! {e}. Các góc không bằng nhau, nên hai tam giác không đồng dạng.",
+    chAAY:"Có, chúng đồng dạng", chAAN:"Không, chúng không đồng dạng", bAA:"Đưa △DEF vào góc của △ABC",
+    capAAY:"△DEF vừa khít vào góc của △ABC, và cạnh thứ ba của nó song song với BC. Cùng các góc, cùng hình dạng.",
+    capAAN:"△DEF không khớp với các cạnh của △ABC. Các góc khác nhau, nên hình dạng khác nhau.",
+    stds:"Tiêu chuẩn phù hợp — TEKS Texas: Lớp 6 6.8(A–D); Lớp 7 7.5(B), 7.8(A–C), 7.9(A–D), 7.11(C); Lớp 8 8.6(A–C), 8.7(A–D), 8.8(D), 8.10(A–D). Common Core: 6.G.1, 6.G.2, 6.G.4; 7.G.4, 7.G.5, 7.G.6; 8.G.1–8.G.9."
 };
 T.ar={
     appTitle:"استوديو التحويلات الهندسية", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", modesLbl:"الأنماط", score:"الإجابات الصحيحة",
@@ -831,7 +868,7 @@ T.ar={
     capL:"قسّمه إلى مستطيلين: {r1} و{r2}. اجمع مساحتيهما.",
     capHouse:"قسّمه إلى مستطيل ({r}) ومثلث ({tr}). اجمع مساحتيهما.",
     hPar:"مساحة متوازي الأضلاع = القاعدة × الارتفاع. استخدم الارتفاع المنقّط، لا الضلع المائل.",
-    hTri:"المثلث نصف متوازي أضلاع له القاعدة والارتفاع نفسهما: A = ½ × b × h.",
+    hTriA:"المثلث نصف متوازي أضلاع له القاعدة والارتفاع نفسهما: A = ½ × b × h.",
     hTrap:"نسختان من شبه المنحرف تكوّنان متوازي أضلاع قاعدته b₁ + b₂، لذا A = ½ × (b₁ + b₂) × h.",
     hL:"قسّم الشكل إلى مستطيلين لا يتداخلان، وأوجد مساحة كل منهما، ثم اجمعهما.",
     hHouse:"أوجد مساحة المستطيل ومساحة المثلث (½ × b × h)، ثم اجمعهما.",
@@ -998,7 +1035,19 @@ T.ar={
     hSubSq:"لإيجاد الوتر اجمع المربعات؛ لا تطرحها.",
     hLegAdd:"الوتر هو الضلع الأطول، لذا اطرح: b² = c² − a².",
     hSubLen:"اطرح المربعات لا الأطوال: b² = c² − a².",
-    stds:"المعايير المتوافقة — TEKS تكساس: الصف 6 6.8(A–D)؛ الصف 7 7.5(B)، 7.8(A, C)، 7.9(A–D)، 7.11(C)؛ الصف 8 8.6(A–C)، 8.7(A–D)، 8.8(D)، 8.10(A–D). Common Core: 6.G.1، 6.G.2، 6.G.4؛ 7.G.4، 7.G.5، 7.G.6؛ 8.G.1–8.G.9."
+    sTriPyr:"الهرم الثلاثي", triPyrDims:"قاعدته مثلث طول قاعدته {b} وارتفاعه {h}. ارتفاع الهرم {H}.",
+    hTriPyr:"يتسع الهرم لـ⅓ المنشور الذي له القاعدة والارتفاع نفسهما. أوجد أولاً مساحة المثلث الذي في القاعدة: B = ½ × b × h. ثم V = ⅓ × B × H.",
+    bPourTriPyr:"اسكب الهرم في المنشور", capPourTriPyr:"يلزم 3 أهرام ممتلئة لملء المنشور الذي له القاعدة المثلثة والارتفاع نفسهما. إذن V(الهرم) = ⅓ × B × H.",
+    triSADims:"كل قاعدة مثلث قائم الزاوية أطوال أضلاعه {a} و{b} و{c}. طول المنشور {l}.",
+    hTriSA:"للمنشور الثلاثي 5 أوجه: قاعدتان مثلثتان و3 مستطيلات. SA = 2 × (½ × a × b) + (a + b + c) × L.",
+    hOneBaseT:"هناك قاعدتان مثلثتان، واحدة عند كل طرف من المنشور. احسب الاثنتين.", capTriNet:"5 أوجه: مثلثان مساحة كل منهما {T}، و3 مستطيلات: {r}. المجموع: {S}.",
+    dirAA:"هل △ABC و△DEF متشابهان؟ استخدم زواياهما.",
+    hAA:"أوجد أولاً الزاوية الناقصة في كل مثلث: مجموع الزوايا الثلاث 180°. إذا ساوت زاويتان من △ABC زاويتين من △DEF، فالمثلثان متشابهان (زاوية-زاوية).",
+    gAAY:"نعم! {e}. يكفي زوجان من الزوايا المتساوية: المثلثان متشابهان (AA).", gAAN:"صحيح! {e}. الزوايا غير متساوية، لذلك المثلثان غير متشابهين.",
+    chAAY:"نعم، هما متشابهان", chAAN:"لا، هما غير متشابهين", bAA:"حرّك △DEF إلى زاوية △ABC",
+    capAAY:"يستقر △DEF تماماً في زاوية △ABC، وضلعه الثالث يوازي BC. الزوايا نفسها، والشكل نفسه.",
+    capAAN:"لا ينطبق △DEF على أضلاع △ABC. الزوايا مختلفة، لذلك الشكلان مختلفان.",
+    stds:"المعايير المتوافقة — TEKS تكساس: الصف 6 6.8(A–D)؛ الصف 7 7.5(B)، 7.8(A–C)، 7.9(A–D)، 7.11(C)؛ الصف 8 8.6(A–C)، 8.7(A–D)، 8.8(D)، 8.10(A–D). Common Core: 6.G.1، 6.G.2، 6.G.4؛ 7.G.4، 7.G.5، 7.G.6؛ 8.G.1–8.G.9."
 };
 T.hi={
     appTitle:"ज्यामिति रूपांतरण स्टूडियो", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", modesLbl:"मोड", score:"सही उत्तर",
@@ -1024,7 +1073,7 @@ T.hi={
     capL:"इसे दो आयतों में बाँटो: {r1} और {r2}। उनके क्षेत्रफल जोड़ो।",
     capHouse:"इसे एक आयत ({r}) और एक त्रिभुज ({tr}) में बाँटो। उनके क्षेत्रफल जोड़ो।",
     hPar:"समांतर चतुर्भुज का क्षेत्रफल = आधार × ऊँचाई। डैश वाली ऊँचाई लो, तिरछी भुजा नहीं।",
-    hTri:"त्रिभुज उसी आधार और ऊँचाई वाले समांतर चतुर्भुज का आधा है: A = ½ × b × h।",
+    hTriA:"त्रिभुज उसी आधार और ऊँचाई वाले समांतर चतुर्भुज का आधा है: A = ½ × b × h।",
     hTrap:"समलंब की दो प्रतियाँ b₁ + b₂ आधार वाला समांतर चतुर्भुज बनाती हैं, इसलिए A = ½ × (b₁ + b₂) × h।",
     hL:"आकृति को ऐसे दो आयतों में बाँटो जो एक-दूसरे पर न चढ़ें, हर एक का क्षेत्रफल निकालो, फिर जोड़ो।",
     hHouse:"आयत का क्षेत्रफल और त्रिभुज का क्षेत्रफल (½ × b × h) निकालो, फिर जोड़ो।",
@@ -1191,7 +1240,19 @@ T.hi={
     hSubSq:"कर्ण के लिए वर्गों को जोड़ो; घटाओ मत।",
     hLegAdd:"कर्ण सबसे लंबी भुजा है, इसलिए घटाओ: b² = c² − a²।",
     hSubLen:"लंबाइयाँ नहीं, वर्ग घटाओ: b² = c² − a²।",
-    stds:"संरेखित मानक — Texas TEKS: कक्षा 6 6.8(A–D); कक्षा 7 7.5(B), 7.8(A, C), 7.9(A–D), 7.11(C); कक्षा 8 8.6(A–C), 8.7(A–D), 8.8(D), 8.10(A–D)। Common Core: 6.G.1, 6.G.2, 6.G.4; 7.G.4, 7.G.5, 7.G.6; 8.G.1–8.G.9।"
+    sTriPyr:"त्रिभुजाकार पिरामिड", triPyrDims:"इसका आधार एक त्रिभुज है जिसका आधार {b} और ऊँचाई {h} है। पिरामिड की ऊँचाई {H} है।",
+    hTriPyr:"पिरामिड उसी आधार और ऊँचाई वाले प्रिज़्म का ⅓ होता है। पहले आधार वाले त्रिभुज का क्षेत्रफल निकालो: B = ½ × b × h। फिर V = ⅓ × B × H।",
+    bPourTriPyr:"पिरामिड को प्रिज़्म में डालो", capPourTriPyr:"उसी त्रिभुजाकार आधार और ऊँचाई वाले प्रिज़्म को भरने के लिए 3 भरे हुए पिरामिड लगते हैं। इसलिए V(पिरामिड) = ⅓ × B × H।",
+    triSADims:"हर आधार एक समकोण त्रिभुज है जिसकी भुजाएँ {a}, {b} और {c} हैं। प्रिज़्म की लंबाई {l} है।",
+    hTriSA:"त्रिभुजाकार प्रिज़्म के 5 फलक होते हैं: 2 त्रिभुजाकार आधार और 3 आयत। SA = 2 × (½ × a × b) + (a + b + c) × L।",
+    hOneBaseT:"दो त्रिभुजाकार आधार हैं, प्रिज़्म के हर सिरे पर एक। दोनों गिनो।", capTriNet:"5 फलक: 2 त्रिभुज, हर एक {T}, और 3 आयत: {r}। कुल: {S}।",
+    dirAA:"क्या △ABC और △DEF समरूप हैं? उनके कोणों का उपयोग करो।",
+    hAA:"पहले हर त्रिभुज का छूटा हुआ कोण निकालो: तीनों कोणों का योग 180° होता है। अगर △ABC के दो कोण △DEF के दो कोणों के बराबर हैं, तो त्रिभुज समरूप हैं (कोण-कोण)।",
+    gAAY:"हाँ! {e}। बराबर कोणों के दो जोड़े काफ़ी हैं: त्रिभुज समरूप हैं (AA)।", gAAN:"सही! {e}। कोण मेल नहीं खाते, इसलिए त्रिभुज समरूप नहीं हैं।",
+    chAAY:"हाँ, ये समरूप हैं", chAAN:"नहीं, ये समरूप नहीं हैं", bAA:"△DEF को △ABC के कोने में ले जाओ",
+    capAAY:"△DEF, △ABC के कोने में ठीक बैठ जाता है, और इसकी तीसरी भुजा BC के समांतर है। वही कोण, वही आकार।",
+    capAAN:"△DEF, △ABC की भुजाओं से मेल नहीं खाता। कोण अलग हैं, इसलिए आकार अलग हैं।",
+    stds:"संरेखित मानक — Texas TEKS: कक्षा 6 6.8(A–D); कक्षा 7 7.5(B), 7.8(A–C), 7.9(A–D), 7.11(C); कक्षा 8 8.6(A–C), 8.7(A–D), 8.8(D), 8.10(A–D)। Common Core: 6.G.1, 6.G.2, 6.G.4; 7.G.4, 7.G.5, 7.G.6; 8.G.1–8.G.9।"
 };
 T.ur={
     appTitle:"جیومیٹری ٹرانسفارم اسٹوڈیو", home:"ہوم", privacy:"رازداری", teacher:"استاد", modesLbl:"موڈ", score:"درست جوابات",
@@ -1217,7 +1278,7 @@ T.ur={
     capL:"اسے دو مستطیلوں میں تقسیم کریں: {r1} اور {r2}۔ ان کے رقبے جمع کریں۔",
     capHouse:"اسے ایک مستطیل ({r}) اور ایک مثلث ({tr}) میں تقسیم کریں۔ ان کے رقبے جمع کریں۔",
     hPar:"متوازی الاضلاع کا رقبہ = قاعدہ × اونچائی۔ نقطے دار اونچائی لیں، ترچھا ضلع نہیں۔",
-    hTri:"مثلث اسی قاعدے اور اونچائی والے متوازی الاضلاع کا آدھا ہے: A = ½ × b × h۔",
+    hTriA:"مثلث اسی قاعدے اور اونچائی والے متوازی الاضلاع کا آدھا ہے: A = ½ × b × h۔",
     hTrap:"ذوزنقہ کی دو نقلیں b₁ + b₂ قاعدے والا متوازی الاضلاع بناتی ہیں، اس لیے A = ½ × (b₁ + b₂) × h۔",
     hL:"شکل کو ایسے دو مستطیلوں میں تقسیم کریں جو ایک دوسرے پر نہ چڑھیں، ہر ایک کا رقبہ نکالیں، پھر جمع کریں۔",
     hHouse:"مستطیل کا رقبہ اور مثلث کا رقبہ (½ × b × h) نکالیں، پھر جمع کریں۔",
@@ -1384,7 +1445,19 @@ T.ur={
     hSubSq:"وتر کے لیے مربع جمع کریں؛ تفریق نہ کریں۔",
     hLegAdd:"وتر سب سے لمبا ضلع ہے، اس لیے تفریق کریں: b² = c² − a²۔",
     hSubLen:"لمبائیاں نہیں، مربع تفریق کریں: b² = c² − a²۔",
-    stds:"منسلک معیارات — Texas TEKS: جماعت 6 6.8(A–D)؛ جماعت 7 7.5(B)، 7.8(A, C)، 7.9(A–D)، 7.11(C)؛ جماعت 8 8.6(A–C)، 8.7(A–D)، 8.8(D)، 8.10(A–D)۔ Common Core: 6.G.1، 6.G.2، 6.G.4؛ 7.G.4، 7.G.5، 7.G.6؛ 8.G.1–8.G.9۔"
+    sTriPyr:"مثلثی ہرم", triPyrDims:"اس کا قاعدہ ایک مثلث ہے جس کا قاعدہ {b} اور اونچائی {h} ہے۔ ہرم کی اونچائی {H} ہے۔",
+    hTriPyr:"ہرم اسی قاعدے اور اونچائی والے منشور کا ⅓ ہوتا ہے۔ پہلے قاعدے والے مثلث کا رقبہ معلوم کریں: B = ½ × b × h۔ پھر V = ⅓ × B × H۔",
+    bPourTriPyr:"ہرم کو منشور میں ڈالیں", capPourTriPyr:"اسی مثلثی قاعدے اور اونچائی والے منشور کو بھرنے کے لیے 3 بھرے ہوئے ہرم لگتے ہیں۔ اس لیے V(ہرم) = ⅓ × B × H۔",
+    triSADims:"ہر قاعدہ ایک قائمہ الزاویہ مثلث ہے جس کے اضلاع {a}، {b} اور {c} ہیں۔ منشور کی لمبائی {l} ہے۔",
+    hTriSA:"مثلثی منشور کے 5 رخ ہوتے ہیں: 2 مثلثی قاعدے اور 3 مستطیل۔ SA = 2 × (½ × a × b) + (a + b + c) × L۔",
+    hOneBaseT:"دو مثلثی قاعدے ہیں، منشور کے ہر سرے پر ایک۔ دونوں کو گنیں۔", capTriNet:"5 رخ: 2 مثلث، ہر ایک {T}، اور 3 مستطیل: {r}۔ کل: {S}۔",
+    dirAA:"کیا △ABC اور △DEF مشابہ ہیں؟ ان کے زاویے استعمال کریں۔",
+    hAA:"پہلے ہر مثلث کا غائب زاویہ معلوم کریں: تینوں زاویوں کا مجموعہ 180° ہوتا ہے۔ اگر △ABC کے دو زاویے △DEF کے دو زاویوں کے برابر ہوں تو مثلث مشابہ ہیں (زاویہ-زاویہ)۔",
+    gAAY:"ہاں! {e}۔ برابر زاویوں کے دو جوڑے کافی ہیں: مثلث مشابہ ہیں (AA)۔", gAAN:"درست! {e}۔ زاویے برابر نہیں، اس لیے مثلث مشابہ نہیں ہیں۔",
+    chAAY:"ہاں، یہ مشابہ ہیں", chAAN:"نہیں، یہ مشابہ نہیں ہیں", bAA:"△DEF کو △ABC کے کونے میں لے جائیں",
+    capAAY:"△DEF، △ABC کے کونے میں بالکل فٹ ہو جاتا ہے، اور اس کا تیسرا ضلع BC کے متوازی ہے۔ وہی زاویے، وہی شکل۔",
+    capAAN:"△DEF، △ABC کے اضلاع سے میل نہیں کھاتا۔ زاویے مختلف ہیں، اس لیے شکلیں مختلف ہیں۔",
+    stds:"منسلک معیارات — Texas TEKS: جماعت 6 6.8(A–D)؛ جماعت 7 7.5(B)، 7.8(A–C)، 7.9(A–D)، 7.11(C)؛ جماعت 8 8.6(A–C)، 8.7(A–D)، 8.8(D)، 8.10(A–D)۔ Common Core: 6.G.1، 6.G.2، 6.G.4؛ 7.G.4، 7.G.5، 7.G.6؛ 8.G.1–8.G.9۔"
 };
 T.zh={
     appTitle:"几何变换工作室", home:"主页", privacy:"隐私", teacher:"教师", modesLbl:"模式", score:"答对题数",
@@ -1410,7 +1483,7 @@ T.zh={
     capL:"把它分成两个长方形：{r1} 和 {r2}。把面积加起来。",
     capHouse:"把它分成一个长方形（{r}）和一个三角形（{tr}）。把面积加起来。",
     hPar:"平行四边形的面积 = 底 × 高。用虚线表示的高，不要用斜边。",
-    hTri:"三角形是等底等高的平行四边形的一半：A = ½ × b × h。",
+    hTriA:"三角形是等底等高的平行四边形的一半：A = ½ × b × h。",
     hTrap:"两个相同的梯形拼成底为 b₁ + b₂ 的平行四边形，所以 A = ½ × (b₁ + b₂) × h。",
     hL:"把图形分成两个不重叠的长方形，分别求面积，再相加。",
     hHouse:"分别求长方形和三角形（½ × b × h）的面积，再相加。",
@@ -1577,7 +1650,19 @@ T.zh={
     hSubSq:"求斜边要把平方相加，不是相减。",
     hLegAdd:"斜边是最长的边，所以要相减：b² = c² − a²。",
     hSubLen:"要减的是平方，不是长度：b² = c² − a²。",
-    stds:"对应标准 — 得州 TEKS：六年级 6.8(A–D)；七年级 7.5(B)、7.8(A, C)、7.9(A–D)、7.11(C)；八年级 8.6(A–C)、8.7(A–D)、8.8(D)、8.10(A–D)。Common Core：6.G.1、6.G.2、6.G.4；7.G.4、7.G.5、7.G.6；8.G.1–8.G.9。"
+    sTriPyr:"三棱锥", triPyrDims:"它的底面是一个三角形，底为 {b}，高为 {h}。棱锥的高是 {H}。",
+    hTriPyr:"棱锥的体积是等底等高的棱柱的 ⅓。先求底面三角形的面积：B = ½ × b × h。再算 V = ⅓ × B × H。",
+    bPourTriPyr:"把三棱锥倒进三棱柱", capPourTriPyr:"要倒满 3 个三棱锥才能装满等底等高的三棱柱。所以 V(棱锥) = ⅓ × B × H。",
+    triSADims:"每个底面都是直角三角形，三条边是 {a}、{b} 和 {c}。棱柱的长是 {l}。",
+    hTriSA:"三棱柱有 5 个面：2 个三角形底面和 3 个长方形。SA = 2 × (½ × a × b) + (a + b + c) × L。",
+    hOneBaseT:"棱柱两端各有一个三角形底面，两个都要算。", capTriNet:"5 个面：2 个三角形，每个 {T}，加上 3 个长方形：{r}。合计：{S}。",
+    dirAA:"△ABC 和 △DEF 相似吗？用它们的角来判断。",
+    hAA:"先求出每个三角形缺少的角：三个角的和是 180°。如果 △ABC 的两个角等于 △DEF 的两个角，这两个三角形就相似（角角）。",
+    gAAY:"对了！{e}。有两对角相等就够了：这两个三角形相似（AA）。", gAAN:"对！{e}。角不相等，所以这两个三角形不相似。",
+    chAAY:"是，它们相似", chAAN:"不，它们不相似", bAA:"把 △DEF 移到 △ABC 的角上",
+    capAAY:"△DEF 正好放进 △ABC 的角里，它的第三条边和 BC 平行。角相同，形状就相同。",
+    capAAN:"△DEF 和 △ABC 的边对不齐。角不同，所以形状不同。",
+    stds:"对应标准 — 得州 TEKS：六年级 6.8(A–D)；七年级 7.5(B)、7.8(A–C)、7.9(A–D)、7.11(C)；八年级 8.6(A–C)、8.7(A–D)、8.8(D)、8.10(A–D)。Common Core：6.G.1、6.G.2、6.G.4；7.G.4、7.G.5、7.G.6；8.G.1–8.G.9。"
 };
 
 let lang = "en";
@@ -1839,7 +1924,7 @@ function newArea(){
     opts=[[b*h/2,"hHalfPar"],[b+h,"hAdd"],[2*(b+h),"hPerim"],[b*(h+o),null]];
   }else if(type==="tri"){
     const b=ri(3,mx); let h=ri(2,Math.min(8,mx)); if(b*h%2) h=h<8?h+1:h-1; const p=ri(0,b);
-    s.ext=[0,b+p,0,h]; ans=b*h/2; nameK="nTri"; hint="hTri";
+    s.ext=[0,b+p,0,h]; ans=b*h/2; nameK="nTri"; hint="hTriA";
     s.shapes=[{p:[[0,0],[b,0],[p,h]],c:"sh1"},{p:[[0,0],[b,0],[p,h]],c:"sh2",rot:[(b+p)/2,h/2]}];
     s.hl=[[p,0],[p,h]]; s.lb=[[b/2,0,b,"b"],[p,h/2,h,p>b/2?"l":"r"]];
     eq=`A = ${HALF()} × b × h = ${HALF()} × ${b} × ${h} = ${ans}`; capH=()=>t("capTri",{b:M(b),h:M(h),bh:M(b*h)});
@@ -1927,9 +2012,26 @@ function triPrismSVG(x,y,b,ht,ap,D,fr,lab){ const dx=OB[0]*D, dy=OB[1]*D, F=[[x,
   z+=Ln(F[1][0],F[1][1],Bk[1][0],Bk[1][1])+Ln(F[2][0],F[2][1],Bk[2][0],Bk[2][1])+Ln(Bk[1][0],Bk[1][1],Bk[2][0],Bk[2][1])+PG(F,"sh2","fill-opacity='.6'")+Ln(x+ap,y,x+ap,y-ht,"dsh");
   z+=TX(x+b/2,y+19,lab[0])+TX(x+ap+6,y-ht/2+5,lab[1],"lb","start")+TX(x+b+dx/2+8,y+dy/2+14,lab[2],"lb","start");
   return z; }
+// Convex hull (for filling 3-D sketches)
+function hull(P){ P=P.slice().sort((a,b)=>a[0]-b[0]||a[1]-b[1]); const cr=(o,a,b)=>(a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]), lo=[], up=[];
+  for(const p of P){ while(lo.length>=2&&cr(lo[lo.length-2],lo[lo.length-1],p)<=0) lo.pop(); lo.push(p); }
+  for(const p of P.slice().reverse()){ while(up.length>=2&&cr(up[up.length-2],up[up.length-1],p)<=0) up.pop(); up.push(p); }
+  return lo.slice(0,-1).concat(up.slice(0,-1)); }
+// Triangle base lying on the ground: front edge b, triangle height t (into the page), apex foot at ap along the front edge
+const triBase=(x,y,b,t,ap)=>[[x,y],[x+b,y],[x+ap+OB[0]*t,y+OB[1]*t]];
+function triStandSVG(x,y,b,t,ap,H,fr){ const B=triBase(x,y,b,t,ap), T=B.map(p=>[p[0],p[1]-H]), out=B[2][0]>x+b; let z="";
+  z+=Ln(B[0][0],B[0][1],B[2][0],B[2][1],"hid")+(out?"":Ln(B[1][0],B[1][1],B[2][0],B[2][1],"hid")+Ln(B[2][0],B[2][1],T[2][0],T[2][1],"hid"));
+  if(fr>0){ const f=H*fr, L=B.map(p=>[p[0],p[1]-f]); z+=PG(hull(B.concat(L)),"liq")+PG(L,"thin","fill='none'"); }
+  z+=Ln(B[0][0],B[0][1],B[1][0],B[1][1])+Ln(B[0][0],B[0][1],T[0][0],T[0][1])+Ln(B[1][0],B[1][1],T[1][0],T[1][1])+PG(T,"ed","fill='none'");
+  if(out) z+=Ln(B[1][0],B[1][1],B[2][0],B[2][1])+Ln(B[2][0],B[2][1],T[2][0],T[2][1]);
+  return z; }
+function triPyrSVG(x,y,b,t,ap,H,lab){ const B=triBase(x,y,b,t,ap), c=[(B[0][0]+B[1][0]+B[2][0])/3,(B[0][1]+B[1][1]+B[2][1])/3], A=[c[0],c[1]-H], F=[x+ap,y];
+  return PG(hull(B.concat([A])),"ed","fill='#fdebd0' fill-opacity='.5' stroke='none'")+Ln(B[0][0],B[0][1],B[2][0],B[2][1],"hid")+Ln(B[1][0],B[1][1],B[2][0],B[2][1],"hid")+Ln(A[0],A[1],B[2][0],B[2][1],"hid")+
+    Ln(F[0],F[1],B[2][0],B[2][1],"dsh")+Ln(A[0],A[1],c[0],c[1],"dsh")+Ln(B[0][0],B[0][1],B[1][0],B[1][1])+Ln(A[0],A[1],B[0][0],B[0][1])+Ln(A[0],A[1],B[1][0],B[1][1])+
+    TX(x+b/2,y+19,lab[0])+TX((F[0]+B[2][0])/2+4,(F[1]+B[2][1])/2-3,lab[1],"lbs","start")+TX(c[0]-6,c[1]-H/2+5,lab[2],"lb","end"); }
 function newCircles(){
   const m="circles"; startRound(m); const s=st[m], g=G(), mx=Math.min(MX(),12), pi=PI();
-  const type=rand(g===6?["prism","prism","prismSA","prismSA"]:g===7?["circ","circA","circ","circA","triPrism","pyr","prismSA","prismLat"]:["cyl","cone","sphere","cylSA","circA","circ"]); s.type=type;
+  const type=rand(g===6?["prism","prism","prismSA","prismSA"]:g===7?["circ","circA","circ","circA","triPrism","pyr","triPyr","prismSA","prismLat","triSA"]:["cyl","cone","sphere","cylSA","circA","circ","triSA"]); s.type=type;
   let ans, eq, opts, hint, dir, kind=3, isPi=false, btn, capH;
   const W=330, H=230;
   if(type==="circ"||type==="circA"){
@@ -1993,6 +2095,32 @@ function newCircles(){
     const u=Math.min(230/(b+OB[0]*Lg),170/(ht+.32*Lg),28);
     s.draw=k=>SV(W,H,t("diagram"),triPrismSVG(40,H-34,b*u,ht*u,ap*u,Lg*u,k,["b = "+b,"h = "+ht,"L = "+Lg,Lg]));
     btn="🧊 "+t("bFill"); capH=()=>t("capTriLayers",{B:M(B),l:M(Lg),V:M(ans)});
+  }else if(type==="triPyr"){ // triangular pyramid poured into the triangular prism with the same base and height (7.8B)
+    let b=ri(3,Math.min(8,mx)), ht=ri(2,6); if(b*ht%2) ht++; const Hh=3*ri(1,Math.max(1,Math.floor(Math.min(9,mx)/3))), B=b*ht/2, ap=ri(0,b);
+    ans=B*Hh/3; hint="hTriPyr"; s.hv={B:M(B)}; s.pours=0;
+    dir=cat(tm("dirVol",{solid:t("sTriPyr")}),tm("triPyrDims",{b:M("b = "+b),h:M("h = "+ht),H:M("H = "+Hh)}));
+    eq=`V = ${THIRD()} × (${HALF()} × ${b} × ${ht}) × ${Hh} = ${nf(ans)}`;
+    opts=[[B*Hh,"hPrismF"],[b*ht*Hh/3,"hNoHalfB"],[B*Hh/2,"hHalfPyr"],[B,"hBaseOnly"]];
+    const u=Math.min(118/(b+OB[0]*ht),150/(Hh-OB[1]*ht),24);
+    s.draw=k=>SV(W,H,t("diagram"),triPyrSVG(22,H-34,b*u,ht*u,ap*u,Hh*u,["b = "+b,"h = "+ht,"H = "+Hh])+triStandSVG(W/2+22,H-34,b*u,ht*u,ap*u,Hh*u,k));
+    btn="⤵ "+t("bPourTriPyr"); capH=()=>t("capPourTriPyr"); s.pour=true; s.pourN=3;
+  }else if(type==="triSA"){ // surface area of a right-triangular prism from its net (7.9D, 8.7B)
+    const [a,bb,c]=rand([[3,4,5],[6,8,10],[5,12,13]].filter(x=>x[1]<=Math.max(4,mx))), Lg=ri(2,Math.min(9,mx)), Tr=a*bb/2, per=a+bb+c; kind=2;
+    ans=2*Tr+per*Lg; hint="hTriSA";
+    dir=cat(tm("dirSA",{solid:t("sTriPrism")}),tm("triSADims",{a:M(a),b:M(bb),c:M(c),l:M("L = "+Lg)}));
+    eq=`SA = 2 × ${Tr} + ${per} × ${Lg} = ${ans}`;
+    opts=[[Tr+per*Lg,"hOneBaseT"],[per*Lg,"hLatOnly"],[2*a*bb+per*Lg,"hNoHalfB"],[Tr*Lg,"hVol"]];
+    // net: rectangles a | bb | c in a row (height L); the two right triangles hang off the bb rectangle
+    const NW=per, NH=Lg+2*a, un=Math.min(150/NW,(H-16)/NH,20), ox=W/2+8+(W/2-16-NW*un)/2, oy=(H-NH*un)/2+a*un;
+    const u3=Math.min(118/(bb+OB[0]*Lg),150/(a-OB[1]*Lg),22);
+    const pcs=[{p:[[0,0],[a,0],[a,Lg],[0,Lg]],c:"sh1",A:a*Lg,dx:a},{p:[[a,0],[a+bb,0],[a+bb,Lg],[a,Lg]],c:"sh1",A:bb*Lg,dx:0},{p:[[a+bb,0],[per,0],[per,Lg],[a+bb,Lg]],c:"sh1",A:c*Lg,dx:-bb},
+      {p:[[a,0],[a+bb,0],[a,-a]],c:"sh2",A:Tr,dx:0,fy:0},{p:[[a,Lg],[a+bb,Lg],[a,Lg+a]],c:"sh2",A:Tr,dx:0,fy:Lg}];
+    s.draw=k=>{ const x0=12, y0=H/2+a*u3/2+10; let z=triPrismSVG(x0,y0,bb*u3,a*u3,0,Lg*u3,0,[bb,a,"L = "+Lg,Lg])+TX(x0+bb*u3/2+8,y0-a*u3/2-2,c,"lb","start");
+      pcs.forEach((q,i)=>{ const P=q.p.map(([px,py])=>[ox+(px+(1-k)*q.dx)*un,oy+(q.fy==null?py:q.fy+(py-q.fy)*k)*un]);
+        z+=PG(P,q.c,`opacity="${i===1?1:f1(Math.min(1,k*1.5))}"`);
+        if(k>=.99){ const cx=P.reduce((s_,p)=>s_+p[0],0)/P.length, cy=P.reduce((s_,p)=>s_+p[1],0)/P.length; z+=TX(cx,cy+4,q.A,"lbs"); } });
+      return SV(W,H,t("diagram"),z); };
+    btn="📦 "+t("bUnfold"); capH=()=>t("capTriNet",{T:M(Tr),r:M(`${a*Lg} + ${bb*Lg} + ${c*Lg}`),S:M(ans)});
   }else if(type==="pyr"||type==="cone"||type==="sphere"){
     // Pour: the small solid fills a fraction of the prism/cylinder with the same base (and height)
     const pours=type==="sphere"?1:3; s.pours=0;
@@ -2216,7 +2344,7 @@ function triPts(A,B,W,H,pad){ const C=180-A-B, ac=Math.sin(B*D2R)/Math.sin(C*D2R
 const ex=(p,q)=>`${p}x${q?` ${q<0?"−":"+"} ${Math.abs(q)}`:""}`.replace(/^1x/,"x");
 function newAngles(){
   const m="angles"; startRound(m); const s=st[m], g=G(), W=340, H=220;
-  const type=rand(g===6?["tri","tri","ineq","side"]:g===7?["comp","supp","vert","tri","eq","eq"]:["trans","tap","trans","tap","ext","tri","eq"]); s.type=type;
+  const type=rand(g===6?["tri","tri","ineq","side"]:g===7?["comp","supp","vert","tri","eq","eq"]:["trans","tap","trans","tap","ext","tri","eq","aa","aa"]); s.type=type;
   let ans, opts, good, hint, dir, z="";
   if(type==="comp"||type==="supp"){
     const tot=type==="comp"?90:180, a=type==="comp"?rand([ri(15,40),ri(50,75)]):rand([ri(20,80),ri(100,160)]), x=tot-a, swap=Math.random()<.5;
@@ -2284,6 +2412,30 @@ function newAngles(){
     s.draw=()=>SV(W,H,t("diagram"),z); setWork(m);
     choices(m,nOpts(ans,opts,v=>M("x = "+nf(v))),pickNum(m,good,hEq));
     setPrompt(m,dir); return maybeAuto(m);
+  }else if(type==="aa"){ // Angle-Angle similarity (8.8D, 8.G.5): find the third angles, then slide △DEF into the corner of △ABC
+    const yes=s.yes=Math.random()<.55; let A,B,D,E;
+    for(;;){ A=ri(35,80); B=ri(35,Math.min(85,145-A)); D=A; E=B;
+      if(!yes){ const d=rand([-1,1])*ri(8,16); if(Math.random()<.5) E+=d; else D+=d; }
+      if(Math.max(D,E)<=88&&Math.min(D,E)>=25&&180-D-E>=22) break; }
+    const C=180-A-B, F=180-D-E, v1=[A,B,C], v2=[D,E,F], h1=ri(0,2), h2=ri(0,2), NM2=["D","E","F"];
+    const cn=(a,b)=>{ const ac=Math.sin(b*D2R)/Math.sin((180-a-b)*D2R); return [[0,0],[1,0],[ac*Math.cos(a*D2R),ac*Math.sin(a*D2R)]]; };
+    const P1=cn(A,B), P2=cn(D,E), u1=Math.min(150,(H-44)/P1[2][1]), o1=[28,H-24], u2=Math.max(u1*rand([.6,.66]),84), th0=rand([-1,1])*ri(30,70);
+    const rot=(p,a)=>[p[0]*Math.cos(a*D2R)-p[1]*Math.sin(a*D2R),p[0]*Math.sin(a*D2R)+p[1]*Math.cos(a*D2R)];
+    const g2=[(P2[0][0]+P2[1][0]+P2[2][0])/3*u2,(P2[0][1]+P2[1][1]+P2[2][1])/3*u2], gr=rot(g2,th0), st0=[W-72-gr[0],H/2+12+gr[1]];
+    const px1=P1.map(p=>[o1[0]+p[0]*u1,o1[1]-p[1]*u1]);
+    const labs=(Pp,names,vals,hid,r)=>{ const cen=[(Pp[0][0]+Pp[1][0]+Pp[2][0])/3,(Pp[0][1]+Pp[1][1]+Pp[2][1])/3]; let z_="";
+      Pp.forEach((p,i)=>{ const dx=p[0]-cen[0], dy=p[1]-cen[1], n=Math.hypot(dx,dy); z_+=TX(p[0]+dx/n*15,p[1]+dy/n*15+5,names[i],"lbb");
+        if(i!==hid) z_+=angArc(p,Pp[(i+1)%3],Pp[(i+2)%3],r,vals[i]+"°","arc",r+15); }); return z_; };
+    s.draw=k=>{ const th=th0*(1-k), base=[st0[0]+(o1[0]-st0[0])*k,st0[1]+(o1[1]-st0[1])*k];
+      const px2=P2.map(p=>{ const q=rot([p[0]*u2,p[1]*u2],th); return [base[0]+q[0],base[1]-q[1]]; });
+      let z=PG(px1,"sh1","fill-opacity='.35'")+labs(px1,NM,v1,h1,24)+PG(px2,"sh2","fill-opacity='.6'");
+      if(k<.5) z+=labs(px2,NM2,v2,h2,18);
+      return SV(W,H,t("diagram"),z); };
+    const bx=h_=>h_.replace(/△[A-F]{3}/g,x=>`<bdi dir="ltr">${x}</bdi>`), bm=m_=>({h:bx(m_.h),s:m_.s}); // keep △ABC in order in Arabic/Urdu
+    setWork(m); toggleBtn(m,"🔍 "+bx(t("bAA")),()=>bx(t(yes?"capAAY":"capAAN")));
+    good=yes?tm("gAAY",{e:[0,1,2].map(i=>M(`∠${NM[i]} = ∠${NM2[i]} = ${v1[i]}°`)).join(", ")}):tm("gAAN",{e:M(`△ABC: ${A}°, ${B}°, ${C}°`)+"; "+M(`△DEF: ${D}°, ${E}°, ${F}°`)});
+    choices(m,[{h:t("chAAY"),ok:yes},{h:t("chAAN"),ok:!yes}],it=>{ if(it.ok) return win(m,bm(good)); nope(m,bm(tm("hAA"))); });
+    setPrompt(m,bm(tm("dirAA"))); return maybeAuto(m);
   }else if(type==="ineq"){
     let c=ri(5,Math.min(MX(),14)), a, b; const yes=Math.random()<.55;
     if(yes){ a=ri(2,c-1); b=ri(Math.max(c-a+1,2),c); } else { a=ri(1,c-2); b=ri(1,c-a); }
