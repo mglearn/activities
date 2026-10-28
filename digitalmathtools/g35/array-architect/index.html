@@ -106,6 +106,31 @@
   .ppcell input.num{width:100%}
   .pc0{background:#f5b7b1}.pc1{background:#fad7a0}.pc2{background:#aed6f1}.pc3{background:#d2b4de}.pc4{background:#a9dfbf}.pc5{background:#f9e79f}
 
+  /* Standard algorithm */
+  .stdcap{font-size:1.05rem;margin:.2rem 0 .3rem}
+  .std{display:grid;gap:3px;justify-content:center;margin:.3rem auto .5rem;font-size:1.45rem;font-weight:900;font-variant-numeric:tabular-nums;--sc:42px}
+  .sc{display:flex;align-items:center;justify-content:center;min-height:46px}
+  .sc.cy{min-height:34px;font-size:1rem;color:#b03a2e}
+  .sc.cy.r1{color:#2471a3}
+  .sc.ph{color:#9a8580}
+  .sc.okd{color:var(--good)}
+  .std .rule{grid-column:1/-1;border-top:3px solid var(--ink);margin:.1rem 0}
+  input.dg,input.cin{font:inherit;width:42px;height:48px;text-align:center;border:2px solid #b9a19c;border-radius:8px;padding:0;background:#fff;color:var(--ink)}
+  input.cin{height:44px;font-size:1rem;color:#b03a2e;border-style:dashed;background:#fffaf9}
+  input.dg.bad{border-color:#d08a00;background:var(--hint-bg)}
+  .stdlinks{margin:.2rem 0;padding-inline-start:1.2rem;font-weight:600}
+  .stdlinks li{margin:.2rem 0}
+  .stdlinks .math,.seqrow .math{white-space:normal}
+  .choice.wide .lbl{white-space:normal;direction:inherit;unicode-bidi:normal;font-size:1.02rem;text-align:center}
+  .seqrow{font-size:1.35rem;font-weight:900;text-align:center;margin:.4rem 0}
+  .ptable{border-collapse:collapse;margin:.3rem auto;font-size:1.15rem;font-weight:800}
+  .ptable th,.ptable td{border:2px solid var(--line);padding:.35rem .55rem;text-align:center;min-width:44px}
+  .ptable th{background:#fdecea;font-size:.95rem}
+  .ptable td.blank{background:var(--hint-bg);color:var(--hint)}
+  .strip{max-width:420px;width:100%;margin:.2rem auto}
+  .strip svg{display:block;width:100%;height:auto}
+  .stp{fill:#f5b7b1;stroke:#c0392b;stroke-width:2}.stq{fill:#aed6f1;stroke:#2471a3;stroke-width:2}
+  .stt{font:800 15px system-ui,sans-serif;fill:#1c2733}
   /* Division */
   .divbar{background:#fffaf9;border:2px solid var(--line);border-radius:14px;padding:.3rem;margin-bottom:.6rem}
   .divbar svg{display:block;width:100%;height:auto}
@@ -476,12 +501,130 @@ const T = {
     setRem:"Remainders", remOn:"Include remainders and remainder stories",
     setModes:"Modes", setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
     setStored:"Settings are saved only on this device. No student information is ever stored.",
-    stds:"Aligned standards — Texas TEKS: Grade 3 3.4(D, E, F, G, H, J, K), 3.5(B, D); Grade 4 4.4(C, D, E, F, G, H), 4.5(A); Grade 5 5.3(B, C), 5.4(A, B). Common Core: 3.OA.1–8, 3.NBT.3; 4.OA.3, 4.OA.4, 4.NBT.5, 4.NBT.6; 5.NBT.5, 5.NBT.6.",
+    stds:"Aligned standards — Texas TEKS: Grade 3 3.4(D, E, F, G, H, I, J, K), 3.5(B, C, D, E); Grade 4 4.4(B, C, D, E, F, G, H), 4.5(A); Grade 5 5.3(B, C), 5.4(A, B). Common Core: 3.OA.1–9, 3.NBT.3; 4.OA.1–5, 4.NBT.5, 4.NBT.6; 5.NBT.5, 5.NBT.6.",
     cardTitle:"Array Architect — Challenge Cards", cardName:"Name:",
     cardArr:"Draw an array with {r} rows of {c}. Write a multiplication equation for it.",
     cardArea:"Use an area model to find {eq}.", cardDiv:"Use partial quotients to find {eq}.",
     cardMiss:"Find the missing number.", cardFactors:"List all the factors of {n}.",
-    cardStory:"Write an equation with a letter for the unknown. Estimate, then solve."
+    cardStory:"Write an equation with a letter for the unknown. Estimate, then solve.",
+    emptyBox:"missing number",
+    tblAria:"Table of number pairs",
+    tblValDir:"Look at the number pairs in the table. What is the missing number?",
+    tblDescDir:"Look at the number pairs in the table. Which sentence describes the table?",
+    tSpider:"Each spider has {k} legs.",
+    tSpiderIn:"Spiders",
+    tSpiderOut:"Legs",
+    tCar:"Each car has {k} wheels.",
+    tCarIn:"Cars",
+    tCarOut:"Wheels",
+    tWeek:"Each week has {k} days.",
+    tWeekIn:"Weeks",
+    tWeekOut:"Days",
+    tPack:"Each pack has {k} juice boxes.",
+    tPackIn:"Packs",
+    tPackOut:"Juice boxes",
+    tBag:"Each bag holds {k} apples.",
+    tBagIn:"Bags",
+    tBagOut:"Apples",
+    goodTblV:"Yes! {desc} So {eq}.",
+    goodTblI:"Yes! {desc} So {eq}.",
+    goodTblD:"Yes! {desc} Check the pairs: {pairs}.",
+    hintTbl:"Look at the pairs: {pairs}. How does each top number turn into the bottom number? Do the same thing to {x}.",
+    hintTblI:"Look at the pairs: {pairs}. Each bottom number is the top number times the same number. Which top number goes with {y}?",
+    hintTblD:"Test a pair from the table: {pair}. Does the sentence work for that pair?",
+    stdDir:"Find {eq} with the standard algorithm. Multiply one row at a time, starting with the ones.",
+    stdStepRow:"Row {n}: multiply {eq}.",
+    stdStepSum:"Last step: add the rows.",
+    col0:"ones place",
+    col1:"tens place",
+    col2:"hundreds place",
+    col3:"thousands place",
+    col4:"ten thousands place",
+    col5:"hundred thousands place",
+    carryShown:"{c} carried above the {col}",
+    carryAria:"Carry box above the {col}",
+    phZero:"placeholder zero",
+    dgAria:"{row}, {col}",
+    rowN:"Row {n}",
+    sumRow:"Sum",
+    stdLinkNote:"Each row is partial products added together:",
+    stdLink:"Row {n}: {eq} is the same as {pp}",
+    stdGap:"Fill in the boxes from the ones place to the left, with no empty boxes in between.",
+    stdHintLast:"In the {col}: {eq}. This is the last digit to multiply, so write all of {v}.",
+    stdHintCol:"In the {col}: {eq}. Write {w} and carry {c} to the next place.",
+    stdHintCol0:"In the {col}: {eq}. Write {w}.",
+    stdHintCarry:"In the {col}, there are no digits left to add, only the carried {c}. Write {c}.",
+    stdGoodRow:"Yes! {eq}. That is the partial products {pp} added together.",
+    stdNextRow:"Now multiply {a} by the {d} in the tens place. It means {dd}, so write a 0 in the ones place first.",
+    stdNextSum:"Now add the rows.",
+    goodStd:"Yes! {eq}. The standard algorithm is a short way to write all the partial products: {pp}.",
+    goodStd1:"Yes! {eq}. The carries are a short way to add the partial products: {pp}.",
+    x10Dir:"Use place value to find the product.",
+    goodX10:"Yes! {eq}. Multiplying by 10 moves each digit of {n} one place to the left, and a 0 fills the ones place.",
+    goodX100:"Yes! {eq}. Multiplying by 100 moves each digit of {n} two places to the left, and 0s fill the tens and ones places.",
+    hintX10Add:"That answer adds {m} instead of multiplying by {m}.",
+    hintX10:"10 groups of {n} is {n} tens. Each digit moves one place to the left.",
+    hintX100:"100 groups of {n} is {n} hundreds. Each digit moves two places to the left.",
+    eoDir:"Is {n} even or odd?",
+    eoProdDir:"Is the product {n} even or odd? Try to decide without multiplying.",
+    even:"Even",
+    odd:"Odd",
+    evenSub:"ones digit 0, 2, 4, 6, 8",
+    oddSub:"ones digit 1, 3, 5, 7, 9",
+    goodEven:"Yes! The ones digit is {d}, so {n} is even. It splits into 2 equal groups: {eq}.",
+    goodOdd:"Yes! The ones digit is {d}, so {n} is odd. Splitting it into 2 equal groups leaves 1 extra: {eq}.",
+    goodEvenP:"Yes! {eq} is even. One factor, {e}, is even, and an even number times any whole number is even.",
+    goodOddP:"Yes! {eq} is odd. Both factors are odd, and odd times odd is always odd.",
+    hintEO:"Only the ones digit matters. The ones digit is {d}. Is {d} even or odd?",
+    hintEOP:"Look at the factors. If either factor is even, the product is even. If both factors are odd, the product is odd.",
+    tpatDir:"This row of the multiplication table counts by {r}s. Which pattern is true for every number in the row?",
+    patE:"Every number is even.",
+    patA:"The numbers switch: odd, even, odd, even…",
+    patF:"Every number ends in 0 or 5.",
+    patZ:"Every number ends in 0.",
+    patN:"The digits of every number add up to 9.",
+    patO:"Every number is odd.",
+    goodPat:"Yes! {why}",
+    whyE:"An even factor splits into two equal addends: {eq}. Two equal addends always make an even number.",
+    whyA:"{r} is odd. Adding an odd number switches even to odd and odd to even, so the pattern alternates.",
+    whyF:"Counting by {r}s, the ones digit goes 5, 0, 5, 0, because two 5s make a ten.",
+    whyZ:"Multiplying by {r} makes whole tens, so the ones digit is always 0.",
+    whyN:"Each step adds 9, which is 1 ten minus 1 one. The tens digit goes up 1 and the ones digit goes down 1, so the digit sum stays 9.",
+    hintPat:"Check {x}. Does it fit that pattern?",
+    cmpExprDir:"Which phrase describes {eq}?",
+    cmpTimes:"{a} times as much as {b}",
+    cmpMore:"{a} more than {b}",
+    cmpSplit:"{b} shared into {a} equal groups",
+    cmpLess:"{a} less than {b}",
+    goodCmpE:"Yes! {eq}. {p} is {a} times as much as {b}.",
+    hintCmpE:"The × sign means equal groups. {a} × {b} means {a} groups of {b}, so it is {a} times as much as {b}.",
+    cmpEqDir:"Which sentence matches {eq}?",
+    cmpIs:"{p} is {a} times as many as {b}.",
+    cmpIsMore:"{p} is {a} more than {b}.",
+    goodCmpQ:"Yes! {p} is {a} times as many as {b}. It is also {b} times as many as {a}.",
+    hintCmpQ:"{p} is the product, the larger amount. The × sign means times as many, not more than.",
+    cmpWordBig:"A puppy weighs {s} pounds. Its mother weighs {a} times as much. How many pounds does the mother weigh?",
+    cmpWordSmall:"Maya has {p} stickers. That is {a} times as many as Leo has. How many stickers does Leo have?",
+    lblSmall:"Smaller amount",
+    lblBig:"Larger amount",
+    stripAria:"Strip diagram: the larger amount is {a} times the smaller amount.",
+    goodCmpBig:"Yes! {a} times as much means {a} equal parts: {eq}.",
+    goodCmpSmall:"Yes! The larger amount is {a} equal parts, so divide: {eq}. Check: {chk}.",
+    hintCmpAdd:"That answer adds or subtracts {a}. Times as many is not the same as more than.",
+    hintCmpW:"Look at the strip diagram. The larger amount is {a} parts, each the same size as the smaller amount.",
+    ruleDir:"Start at {s}. The rule is “add {k}.” Which numbers come next?",
+    goodRule1:"Yes! Add {k} each time: {seq} …",
+    ruleQ2:"Look at the pattern: {seq}. Which feature is true, even though the rule does not say it?",
+    fAlt:"The numbers switch between odd and even.",
+    fOdd:"Every number is odd.",
+    fEven:"Every number is even.",
+    fOnes:"The ones digit never changes.",
+    whyOnes:"Yes! Adding 10 changes only the tens, so the ones digit stays {d}.",
+    whyAlt:"Yes! {k} is odd, and adding an odd number switches between odd and even.",
+    whyKeepO:"Yes! It starts at an odd number, {s}, and adding an even number like {k} keeps it odd.",
+    whyKeepE:"Yes! It starts at an even number, {s}, and adding an even number like {k} keeps it even.",
+    hintRule1:"Start at {s} and add {k}: {eq}. Keep adding {k}.",
+    hintRule2:"Check every number in the pattern. Is the feature true for all of them?"
   },
   es:{
     appTitle:"Arquitecto de Arreglos", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", language:"Idioma", readAloud:"Leer en voz alta",
@@ -607,12 +750,130 @@ const T = {
     setRem:"Residuos", remOn:"Incluir residuos y problemas con residuo",
     setModes:"Modos", setSpeech:"Voz", autoRead:"Leer instrucciones automáticamente", printCards:"Imprimir tarjetas de reto",
     setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información del estudiante.",
-    stds:"Estándares alineados — TEKS de Texas: 3.er grado 3.4(D, E, F, G, H, J, K), 3.5(B, D); 4.º grado 4.4(C, D, E, F, G, H), 4.5(A); 5.º grado 5.3(B, C), 5.4(A, B). Common Core: 3.OA.1–8, 3.NBT.3; 4.OA.3, 4.OA.4, 4.NBT.5, 4.NBT.6; 5.NBT.5, 5.NBT.6.",
+    stds:"Estándares alineados — TEKS de Texas: 3.er grado 3.4(D, E, F, G, H, I, J, K), 3.5(B, C, D, E); 4.º grado 4.4(B, C, D, E, F, G, H), 4.5(A); 5.º grado 5.3(B, C), 5.4(A, B). Common Core: 3.OA.1–9, 3.NBT.3; 4.OA.1–5, 4.NBT.5, 4.NBT.6; 5.NBT.5, 5.NBT.6.",
     cardTitle:"Arquitecto de Arreglos — Tarjetas de reto", cardName:"Nombre:",
     cardArr:"Dibuja un arreglo con {r} filas de {c}. Escribe una ecuación de multiplicación para él.",
     cardArea:"Usa un modelo de área para encontrar {eq}.", cardDiv:"Usa cocientes parciales para encontrar {eq}.",
     cardMiss:"Encuentra el número que falta.", cardFactors:"Escribe todos los factores de {n}.",
-    cardStory:"Escribe una ecuación con una letra para el número desconocido. Estima y luego resuelve."
+    cardStory:"Escribe una ecuación con una letra para el número desconocido. Estima y luego resuelve.",
+    emptyBox:"número que falta",
+    tblAria:"Tabla de pares de números",
+    tblValDir:"Observa los pares de números de la tabla. ¿Cuál es el número que falta?",
+    tblDescDir:"Observa los pares de números de la tabla. ¿Qué oración describe la tabla?",
+    tSpider:"Cada araña tiene {k} patas.",
+    tSpiderIn:"Arañas",
+    tSpiderOut:"Patas",
+    tCar:"Cada carro tiene {k} ruedas.",
+    tCarIn:"Carros",
+    tCarOut:"Ruedas",
+    tWeek:"Cada semana tiene {k} días.",
+    tWeekIn:"Semanas",
+    tWeekOut:"Días",
+    tPack:"Cada paquete tiene {k} cajitas de jugo.",
+    tPackIn:"Paquetes",
+    tPackOut:"Cajitas de jugo",
+    tBag:"Cada bolsa tiene {k} manzanas.",
+    tBagIn:"Bolsas",
+    tBagOut:"Manzanas",
+    goodTblV:"¡Sí! {desc} Entonces, {eq}.",
+    goodTblI:"¡Sí! {desc} Entonces, {eq}.",
+    goodTblD:"¡Sí! {desc} Revisa los pares: {pairs}.",
+    hintTbl:"Mira los pares: {pairs}. ¿Cómo se convierte cada número de arriba en el de abajo? Haz lo mismo con {x}.",
+    hintTblI:"Mira los pares: {pairs}. Cada número de abajo es el de arriba multiplicado por el mismo número. ¿Qué número de arriba va con {y}?",
+    hintTblD:"Prueba un par de la tabla: {pair}. ¿La oración funciona con ese par?",
+    stdDir:"Halla {eq} con el algoritmo estándar. Multiplica una fila a la vez, empezando por las unidades.",
+    stdStepRow:"Fila {n}: multiplica {eq}.",
+    stdStepSum:"Último paso: suma las filas.",
+    col0:"unidades",
+    col1:"decenas",
+    col2:"centenas",
+    col3:"unidades de millar",
+    col4:"decenas de millar",
+    col5:"centenas de millar",
+    carryShown:"{c} llevado sobre la columna de {col}",
+    carryAria:"Casilla para lo que se lleva, sobre la columna de {col}",
+    phZero:"cero de relleno",
+    dgAria:"{row}, {col}",
+    rowN:"Fila {n}",
+    sumRow:"Suma",
+    stdLinkNote:"Cada fila son productos parciales sumados:",
+    stdLink:"Fila {n}: {eq} es lo mismo que {pp}",
+    stdGap:"Llena las casillas desde las unidades hacia la izquierda, sin dejar casillas vacías en medio.",
+    stdHintLast:"En las {col}: {eq}. Es el último dígito que multiplicas, así que escribe todo el {v}.",
+    stdHintCol:"En las {col}: {eq}. Escribe {w} y lleva {c} a la siguiente posición.",
+    stdHintCol0:"En las {col}: {eq}. Escribe {w}.",
+    stdHintCarry:"En las {col} ya no hay dígitos que sumar, solo el {c} que llevas. Escribe {c}.",
+    stdGoodRow:"¡Sí! {eq}. Son los productos parciales {pp} sumados.",
+    stdNextRow:"Ahora multiplica {a} por el {d} de las decenas. Significa {dd}, así que primero escribe un 0 en las unidades.",
+    stdNextSum:"Ahora suma las filas.",
+    goodStd:"¡Sí! {eq}. El algoritmo estándar es una forma corta de escribir todos los productos parciales: {pp}.",
+    goodStd1:"¡Sí! {eq}. Lo que se lleva es una forma corta de sumar los productos parciales: {pp}.",
+    x10Dir:"Usa el valor posicional para hallar el producto.",
+    goodX10:"¡Sí! {eq}. Al multiplicar por 10, cada dígito de {n} se mueve una posición a la izquierda y un 0 llena las unidades.",
+    goodX100:"¡Sí! {eq}. Al multiplicar por 100, cada dígito de {n} se mueve dos posiciones a la izquierda y los 0 llenan las decenas y las unidades.",
+    hintX10Add:"Esa respuesta suma {m} en lugar de multiplicar por {m}.",
+    hintX10:"10 grupos de {n} son {n} decenas. Cada dígito se mueve una posición a la izquierda.",
+    hintX100:"100 grupos de {n} son {n} centenas. Cada dígito se mueve dos posiciones a la izquierda.",
+    eoDir:"¿{n} es par o impar?",
+    eoProdDir:"¿El producto {n} es par o impar? Intenta decidir sin multiplicar.",
+    even:"Par",
+    odd:"Impar",
+    evenSub:"unidades: 0, 2, 4, 6, 8",
+    oddSub:"unidades: 1, 3, 5, 7, 9",
+    goodEven:"¡Sí! El dígito de las unidades es {d}, así que {n} es par. Se reparte en 2 grupos iguales: {eq}.",
+    goodOdd:"¡Sí! El dígito de las unidades es {d}, así que {n} es impar. Al repartirlo en 2 grupos iguales sobra 1: {eq}.",
+    goodEvenP:"¡Sí! {eq} es par. Un factor, {e}, es par, y un número par por cualquier número entero da un número par.",
+    goodOddP:"¡Sí! {eq} es impar. Los dos factores son impares, e impar por impar siempre da impar.",
+    hintEO:"Solo importa el dígito de las unidades. Es {d}. ¿{d} es par o impar?",
+    hintEOP:"Mira los factores. Si alguno es par, el producto es par. Si los dos son impares, el producto es impar.",
+    tpatDir:"Esta fila de la tabla de multiplicar cuenta de {r} en {r}. ¿Qué patrón se cumple para todos los números de la fila?",
+    patE:"Todos los números son pares.",
+    patA:"Los números se alternan: impar, par, impar, par…",
+    patF:"Todos los números terminan en 0 o en 5.",
+    patZ:"Todos los números terminan en 0.",
+    patN:"Los dígitos de cada número suman 9.",
+    patO:"Todos los números son impares.",
+    goodPat:"¡Sí! {why}",
+    whyE:"Un factor par se separa en dos sumandos iguales: {eq}. Dos sumandos iguales siempre dan un número par.",
+    whyA:"{r} es impar. Sumar un número impar cambia de par a impar y de impar a par, así que el patrón se alterna.",
+    whyF:"Al contar de {r} en {r}, el dígito de las unidades va 5, 0, 5, 0, porque dos 5 forman una decena.",
+    whyZ:"Multiplicar por {r} forma decenas completas, así que el dígito de las unidades siempre es 0.",
+    whyN:"Cada paso suma 9, que es 1 decena menos 1 unidad. Las decenas suben 1 y las unidades bajan 1, así que la suma de los dígitos sigue siendo 9.",
+    hintPat:"Revisa {x}. ¿Cumple ese patrón?",
+    cmpExprDir:"¿Qué frase describe {eq}?",
+    cmpTimes:"{a} veces {b}",
+    cmpMore:"{a} más que {b}",
+    cmpSplit:"{b} repartido en {a} grupos iguales",
+    cmpLess:"{a} menos que {b}",
+    goodCmpE:"¡Sí! {eq}. {p} es {a} veces {b}.",
+    hintCmpE:"El signo × significa grupos iguales. {a} × {b} quiere decir {a} grupos de {b}, o sea, {a} veces {b}.",
+    cmpEqDir:"¿Qué oración corresponde a {eq}?",
+    cmpIs:"{p} es {a} veces {b}.",
+    cmpIsMore:"{p} es {a} más que {b}.",
+    goodCmpQ:"¡Sí! {p} es {a} veces {b}. También es {b} veces {a}.",
+    hintCmpQ:"{p} es el producto, la cantidad mayor. El signo × significa «veces», no «más que».",
+    cmpWordBig:"Un cachorro pesa {s} libras. Su mamá pesa {a} veces lo que pesa él. ¿Cuántas libras pesa la mamá?",
+    cmpWordSmall:"Maya tiene {p} calcomanías. Eso es {a} veces las que tiene Leo. ¿Cuántas calcomanías tiene Leo?",
+    lblSmall:"Cantidad menor",
+    lblBig:"Cantidad mayor",
+    stripAria:"Diagrama de tiras: la cantidad mayor es {a} veces la cantidad menor.",
+    goodCmpBig:"¡Sí! {a} veces significa {a} partes iguales: {eq}.",
+    goodCmpSmall:"¡Sí! La cantidad mayor son {a} partes iguales, así que divide: {eq}. Comprueba: {chk}.",
+    hintCmpAdd:"Esa respuesta suma o resta {a}. «Veces» no es lo mismo que «más que».",
+    hintCmpW:"Mira el diagrama de tiras. La cantidad mayor tiene {a} partes, cada una del mismo tamaño que la cantidad menor.",
+    ruleDir:"Empieza en {s}. La regla es «suma {k}». ¿Qué números siguen?",
+    goodRule1:"¡Sí! Suma {k} cada vez: {seq} …",
+    ruleQ2:"Mira el patrón: {seq}. ¿Qué característica se cumple, aunque la regla no lo diga?",
+    fAlt:"Los números se alternan entre impar y par.",
+    fOdd:"Todos los números son impares.",
+    fEven:"Todos los números son pares.",
+    fOnes:"El dígito de las unidades nunca cambia.",
+    whyOnes:"¡Sí! Sumar 10 solo cambia las decenas, así que el dígito de las unidades sigue siendo {d}.",
+    whyAlt:"¡Sí! {k} es impar, y sumar un número impar cambia entre impar y par.",
+    whyKeepO:"¡Sí! Empieza en un número impar, {s}, y sumar un número par como {k} lo mantiene impar.",
+    whyKeepE:"¡Sí! Empieza en un número par, {s}, y sumar un número par como {k} lo mantiene par.",
+    hintRule1:"Empieza en {s} y suma {k}: {eq}. Sigue sumando {k}.",
+    hintRule2:"Revisa todos los números del patrón. ¿La característica se cumple en todos?"
   },
   vi:{
     appTitle:"Kiến Trúc Sư Mảng", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", language:"Ngôn ngữ", readAloud:"Đọc to",
@@ -738,12 +999,130 @@ const T = {
     setRem:"Số dư", remOn:"Có số dư và bài toán có dư",
     setModes:"Chế độ", setSpeech:"Giọng nói", autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
     setStored:"Cài đặt chỉ lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
-    stds:"Tiêu chuẩn phù hợp — Texas TEKS: Lớp 3 3.4(D, E, F, G, H, J, K), 3.5(B, D); Lớp 4 4.4(C, D, E, F, G, H), 4.5(A); Lớp 5 5.3(B, C), 5.4(A, B). Common Core: 3.OA.1–8, 3.NBT.3; 4.OA.3, 4.OA.4, 4.NBT.5, 4.NBT.6; 5.NBT.5, 5.NBT.6.",
+    stds:"Tiêu chuẩn phù hợp — Texas TEKS: Lớp 3 3.4(D, E, F, G, H, I, J, K), 3.5(B, C, D, E); Lớp 4 4.4(B, C, D, E, F, G, H), 4.5(A); Lớp 5 5.3(B, C), 5.4(A, B). Common Core: 3.OA.1–9, 3.NBT.3; 4.OA.1–5, 4.NBT.5, 4.NBT.6; 5.NBT.5, 5.NBT.6.",
     cardTitle:"Kiến Trúc Sư Mảng — Thẻ thử thách", cardName:"Tên:",
     cardArr:"Vẽ một mảng có {r} hàng, mỗi hàng {c}. Viết phép nhân cho mảng đó.",
     cardArea:"Dùng mô hình diện tích để tìm {eq}.", cardDiv:"Dùng thương riêng phần để tìm {eq}.",
     cardMiss:"Tìm số còn thiếu.", cardFactors:"Viết tất cả các ước của {n}.",
-    cardStory:"Viết phép tính có một chữ cái cho số chưa biết. Ước lượng, rồi giải."
+    cardStory:"Viết phép tính có một chữ cái cho số chưa biết. Ước lượng, rồi giải.",
+    emptyBox:"số còn thiếu",
+    tblAria:"Bảng các cặp số",
+    tblValDir:"Hãy xem các cặp số trong bảng. Số còn thiếu là số nào?",
+    tblDescDir:"Hãy xem các cặp số trong bảng. Câu nào mô tả đúng bảng này?",
+    tSpider:"Mỗi con nhện có {k} chân.",
+    tSpiderIn:"Con nhện",
+    tSpiderOut:"Chân",
+    tCar:"Mỗi chiếc ô tô có {k} bánh xe.",
+    tCarIn:"Ô tô",
+    tCarOut:"Bánh xe",
+    tWeek:"Mỗi tuần có {k} ngày.",
+    tWeekIn:"Tuần",
+    tWeekOut:"Ngày",
+    tPack:"Mỗi lốc có {k} hộp nước trái cây.",
+    tPackIn:"Lốc",
+    tPackOut:"Hộp nước",
+    tBag:"Mỗi túi đựng {k} quả táo.",
+    tBagIn:"Túi",
+    tBagOut:"Quả táo",
+    goodTblV:"Đúng rồi! {desc} Vậy {eq}.",
+    goodTblI:"Đúng rồi! {desc} Vậy {eq}.",
+    goodTblD:"Đúng rồi! {desc} Kiểm tra các cặp: {pairs}.",
+    hintTbl:"Hãy xem các cặp: {pairs}. Mỗi số ở trên biến thành số ở dưới như thế nào? Làm y như vậy với {x}.",
+    hintTblI:"Hãy xem các cặp: {pairs}. Mỗi số ở dưới bằng số ở trên nhân với cùng một số. Số nào ở trên đi với {y}?",
+    hintTblD:"Thử một cặp trong bảng: {pair}. Câu đó có đúng với cặp này không?",
+    stdDir:"Tính {eq} bằng thuật toán chuẩn (đặt tính rồi tính). Nhân từng hàng một, bắt đầu từ hàng đơn vị.",
+    stdStepRow:"Dòng {n}: nhân {eq}.",
+    stdStepSum:"Bước cuối: cộng các dòng.",
+    col0:"hàng đơn vị",
+    col1:"hàng chục",
+    col2:"hàng trăm",
+    col3:"hàng nghìn",
+    col4:"hàng chục nghìn",
+    col5:"hàng trăm nghìn",
+    carryShown:"nhớ {c} ở trên {col}",
+    carryAria:"Ô số nhớ ở trên {col}",
+    phZero:"chữ số 0 giữ chỗ",
+    dgAria:"{row}, {col}",
+    rowN:"Dòng {n}",
+    sumRow:"Tổng",
+    stdLinkNote:"Mỗi dòng là các tích riêng phần cộng lại:",
+    stdLink:"Dòng {n}: {eq} cũng giống như {pp}",
+    stdGap:"Điền các ô từ hàng đơn vị sang trái, không để trống ô nào ở giữa.",
+    stdHintLast:"Ở {col}: {eq}. Đây là chữ số cuối cùng cần nhân, nên viết cả số {v}.",
+    stdHintCol:"Ở {col}: {eq}. Viết {w}, nhớ {c} sang hàng tiếp theo.",
+    stdHintCol0:"Ở {col}: {eq}. Viết {w}.",
+    stdHintCarry:"Ở {col} không còn chữ số nào để cộng, chỉ có {c} đã nhớ. Viết {c}.",
+    stdGoodRow:"Đúng rồi! {eq}. Đó chính là các tích riêng phần {pp} cộng lại.",
+    stdNextRow:"Bây giờ nhân {a} với chữ số {d} ở hàng chục. Nó có nghĩa là {dd}, nên trước tiên viết 0 ở hàng đơn vị.",
+    stdNextSum:"Bây giờ cộng các dòng.",
+    goodStd:"Đúng rồi! {eq}. Thuật toán chuẩn là cách viết gọn tất cả các tích riêng phần: {pp}.",
+    goodStd1:"Đúng rồi! {eq}. Số nhớ là cách gọn để cộng các tích riêng phần: {pp}.",
+    x10Dir:"Dùng giá trị theo vị trí để tìm tích.",
+    goodX10:"Đúng rồi! {eq}. Nhân với 10 làm mỗi chữ số của {n} dời sang trái một hàng, và chữ số 0 điền vào hàng đơn vị.",
+    goodX100:"Đúng rồi! {eq}. Nhân với 100 làm mỗi chữ số của {n} dời sang trái hai hàng, và các chữ số 0 điền vào hàng chục và hàng đơn vị.",
+    hintX10Add:"Đáp án đó là cộng {m} chứ không phải nhân với {m}.",
+    hintX10:"10 nhóm {n} là {n} chục. Mỗi chữ số dời sang trái một hàng.",
+    hintX100:"100 nhóm {n} là {n} trăm. Mỗi chữ số dời sang trái hai hàng.",
+    eoDir:"{n} là số chẵn hay số lẻ?",
+    eoProdDir:"Tích {n} là số chẵn hay số lẻ? Thử quyết định mà không cần nhân.",
+    even:"Chẵn",
+    odd:"Lẻ",
+    evenSub:"hàng đơn vị là 0, 2, 4, 6, 8",
+    oddSub:"hàng đơn vị là 1, 3, 5, 7, 9",
+    goodEven:"Đúng rồi! Chữ số hàng đơn vị là {d}, nên {n} là số chẵn. Nó chia được thành 2 nhóm bằng nhau: {eq}.",
+    goodOdd:"Đúng rồi! Chữ số hàng đơn vị là {d}, nên {n} là số lẻ. Chia thành 2 nhóm bằng nhau thì dư 1: {eq}.",
+    goodEvenP:"Đúng rồi! {eq} là số chẵn. Một thừa số, {e}, là số chẵn, và số chẵn nhân với bất kỳ số tự nhiên nào cũng là số chẵn.",
+    goodOddP:"Đúng rồi! {eq} là số lẻ. Cả hai thừa số đều lẻ, và lẻ nhân lẻ luôn là số lẻ.",
+    hintEO:"Chỉ cần xem chữ số hàng đơn vị. Đó là {d}. {d} là số chẵn hay lẻ?",
+    hintEOP:"Hãy xem các thừa số. Nếu có một thừa số chẵn, tích là số chẵn. Nếu cả hai đều lẻ, tích là số lẻ.",
+    tpatDir:"Dòng này của bảng nhân đếm thêm {r}. Quy luật nào đúng với mọi số trong dòng?",
+    patE:"Mọi số đều là số chẵn.",
+    patA:"Các số xen kẽ: lẻ, chẵn, lẻ, chẵn…",
+    patF:"Mọi số đều tận cùng là 0 hoặc 5.",
+    patZ:"Mọi số đều tận cùng là 0.",
+    patN:"Tổng các chữ số của mỗi số đều bằng 9.",
+    patO:"Mọi số đều là số lẻ.",
+    goodPat:"Đúng rồi! {why}",
+    whyE:"Thừa số chẵn tách được thành hai số hạng bằng nhau: {eq}. Hai số hạng bằng nhau luôn tạo thành số chẵn.",
+    whyA:"{r} là số lẻ. Cộng một số lẻ làm số chẵn thành lẻ và số lẻ thành chẵn, nên các số xen kẽ.",
+    whyF:"Khi đếm thêm {r}, chữ số hàng đơn vị lần lượt là 5, 0, 5, 0, vì hai số 5 tạo thành một chục.",
+    whyZ:"Nhân với {r} tạo ra các chục tròn, nên chữ số hàng đơn vị luôn là 0.",
+    whyN:"Mỗi bước cộng 9, tức là thêm 1 chục và bớt 1 đơn vị. Hàng chục tăng 1, hàng đơn vị giảm 1, nên tổng các chữ số vẫn là 9.",
+    hintPat:"Hãy kiểm tra {x}. Nó có theo quy luật đó không?",
+    cmpExprDir:"Cụm từ nào mô tả {eq}?",
+    cmpTimes:"gấp {a} lần {b}",
+    cmpMore:"nhiều hơn {b} {a} đơn vị",
+    cmpSplit:"{b} chia thành {a} nhóm bằng nhau",
+    cmpLess:"ít hơn {b} {a} đơn vị",
+    goodCmpE:"Đúng rồi! {eq}. {p} gấp {a} lần {b}.",
+    hintCmpE:"Dấu × nghĩa là các nhóm bằng nhau. {a} × {b} nghĩa là {a} nhóm {b}, tức là gấp {a} lần {b}.",
+    cmpEqDir:"Câu nào phù hợp với {eq}?",
+    cmpIs:"{p} gấp {a} lần {b}.",
+    cmpIsMore:"{p} nhiều hơn {b} {a} đơn vị.",
+    goodCmpQ:"Đúng rồi! {p} gấp {a} lần {b}. Nó cũng gấp {b} lần {a}.",
+    hintCmpQ:"{p} là tích, tức là lượng lớn hơn. Dấu × nghĩa là gấp bao nhiêu lần, không phải nhiều hơn bao nhiêu.",
+    cmpWordBig:"Một chú chó con nặng {s} pound. Chó mẹ nặng gấp {a} lần chó con. Chó mẹ nặng bao nhiêu pound?",
+    cmpWordSmall:"Maya có {p} nhãn dán. Số đó gấp {a} lần số nhãn dán của Leo. Leo có bao nhiêu nhãn dán?",
+    lblSmall:"Lượng nhỏ hơn",
+    lblBig:"Lượng lớn hơn",
+    stripAria:"Sơ đồ đoạn thẳng: lượng lớn hơn gấp {a} lần lượng nhỏ hơn.",
+    goodCmpBig:"Đúng rồi! Gấp {a} lần nghĩa là {a} phần bằng nhau: {eq}.",
+    goodCmpSmall:"Đúng rồi! Lượng lớn hơn gồm {a} phần bằng nhau, nên hãy chia: {eq}. Kiểm tra: {chk}.",
+    hintCmpAdd:"Đáp án đó là cộng hoặc trừ {a}. Gấp bao nhiêu lần không giống nhiều hơn bao nhiêu.",
+    hintCmpW:"Hãy xem sơ đồ. Lượng lớn hơn gồm {a} phần, mỗi phần bằng lượng nhỏ hơn.",
+    ruleDir:"Bắt đầu từ {s}. Quy tắc là “cộng {k}”. Những số nào tiếp theo?",
+    goodRule1:"Đúng rồi! Mỗi lần cộng {k}: {seq} …",
+    ruleQ2:"Hãy xem dãy số: {seq}. Đặc điểm nào đúng, dù quy tắc không nói ra?",
+    fAlt:"Các số xen kẽ giữa lẻ và chẵn.",
+    fOdd:"Mọi số đều là số lẻ.",
+    fEven:"Mọi số đều là số chẵn.",
+    fOnes:"Chữ số hàng đơn vị không bao giờ thay đổi.",
+    whyOnes:"Đúng rồi! Cộng 10 chỉ làm thay đổi hàng chục, nên chữ số hàng đơn vị vẫn là {d}.",
+    whyAlt:"Đúng rồi! {k} là số lẻ, và cộng một số lẻ làm các số đổi qua lại giữa lẻ và chẵn.",
+    whyKeepO:"Đúng rồi! Dãy bắt đầu từ số lẻ {s}, và cộng một số chẵn như {k} thì vẫn là số lẻ.",
+    whyKeepE:"Đúng rồi! Dãy bắt đầu từ số chẵn {s}, và cộng một số chẵn như {k} thì vẫn là số chẵn.",
+    hintRule1:"Bắt đầu từ {s} và cộng {k}: {eq}. Tiếp tục cộng {k}.",
+    hintRule2:"Hãy kiểm tra mọi số trong dãy. Đặc điểm đó có đúng với tất cả không?"
   },
   ar:{
     appTitle:"مهندس المصفوفات", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", language:"اللغة", readAloud:"اقرأ بصوت عالٍ",
@@ -869,12 +1248,130 @@ const T = {
     setRem:"الباقي", remOn:"تضمين الباقي وقصص الباقي",
     setModes:"الأنماط", setSpeech:"النطق", autoRead:"قراءة التعليمات تلقائيًا", printCards:"طباعة بطاقات التحدي",
     setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُحفظ أي معلومات عن الطالب أبدًا.",
-    stds:"المعايير المتوافقة — Texas TEKS: الصف الثالث 3.4(D, E, F, G, H, J, K)، 3.5(B, D)؛ الصف الرابع 4.4(C, D, E, F, G, H)، 4.5(A)؛ الصف الخامس 5.3(B, C)، 5.4(A, B). Common Core: 3.OA.1–8، 3.NBT.3؛ 4.OA.3، 4.OA.4، 4.NBT.5، 4.NBT.6؛ 5.NBT.5، 5.NBT.6.",
+    stds:"المعايير المتوافقة — Texas TEKS: الصف الثالث 3.4(D, E, F, G, H, I, J, K)، 3.5(B, C, D, E)؛ الصف الرابع 4.4(B, C, D, E, F, G, H)، 4.5(A)؛ الصف الخامس 5.3(B, C)، 5.4(A, B). Common Core: 3.OA.1–9، 3.NBT.3؛ 4.OA.1–5، 4.NBT.5، 4.NBT.6؛ 5.NBT.5، 5.NBT.6.",
     cardTitle:"مهندس المصفوفات — بطاقات التحدي", cardName:"الاسم:",
     cardArr:"ارسم مصفوفة من {r} صفوف، في كل صف {c}. اكتب معادلة ضرب لها.",
     cardArea:"استخدم نموذج المساحة لتجد {eq}.", cardDiv:"استخدم نواتج القسمة الجزئية لتجد {eq}.",
     cardMiss:"جِد العدد المفقود.", cardFactors:"اكتب كل عوامل {n}.",
-    cardStory:"اكتب معادلة فيها حرف للعدد المجهول. قدّر، ثم حُلّ."
+    cardStory:"اكتب معادلة فيها حرف للعدد المجهول. قدّر، ثم حُلّ.",
+    emptyBox:"عدد مفقود",
+    tblAria:"جدول أزواج الأعداد",
+    tblValDir:"انظر إلى أزواج الأعداد في الجدول. ما العدد المفقود؟",
+    tblDescDir:"انظر إلى أزواج الأعداد في الجدول. أي جملة تصف الجدول؟",
+    tSpider:"لكل عنكبوت {k} أرجل.",
+    tSpiderIn:"العناكب",
+    tSpiderOut:"الأرجل",
+    tCar:"لكل سيارة {k} عجلات.",
+    tCarIn:"السيارات",
+    tCarOut:"العجلات",
+    tWeek:"في كل أسبوع {k} أيام.",
+    tWeekIn:"الأسابيع",
+    tWeekOut:"الأيام",
+    tPack:"في كل عبوة {k} علب عصير.",
+    tPackIn:"العبوات",
+    tPackOut:"علب العصير",
+    tBag:"في كل كيس {k} تفاحات.",
+    tBagIn:"الأكياس",
+    tBagOut:"التفاحات",
+    goodTblV:"أحسنت! {desc} إذن {eq}.",
+    goodTblI:"أحسنت! {desc} إذن {eq}.",
+    goodTblD:"أحسنت! {desc} تحقق من الأزواج: {pairs}.",
+    hintTbl:"انظر إلى الأزواج: {pairs}. كيف يتحول كل عدد في الأعلى إلى العدد الذي تحته؟ افعل الشيء نفسه مع {x}.",
+    hintTblI:"انظر إلى الأزواج: {pairs}. كل عدد في الأسفل يساوي العدد الذي فوقه مضروبًا في العدد نفسه. أي عدد في الأعلى يقابل {y}؟",
+    hintTblD:"جرّب زوجًا من الجدول: {pair}. هل تصح الجملة مع هذا الزوج؟",
+    stdDir:"أوجد {eq} بالخوارزمية المعيارية. اضرب صفًا واحدًا في كل مرة، وابدأ بالآحاد.",
+    stdStepRow:"الصف {n}: اضرب {eq}.",
+    stdStepSum:"الخطوة الأخيرة: اجمع الصفوف.",
+    col0:"الآحاد",
+    col1:"العشرات",
+    col2:"المئات",
+    col3:"الآلاف",
+    col4:"عشرات الآلاف",
+    col5:"مئات الآلاف",
+    carryShown:"{c} محمول فوق منزلة {col}",
+    carryAria:"خانة المحمول فوق منزلة {col}",
+    phZero:"صفر لحفظ المنزلة",
+    dgAria:"{row}، منزلة {col}",
+    rowN:"الصف {n}",
+    sumRow:"المجموع",
+    stdLinkNote:"كل صف هو مجموع نواتج جزئية:",
+    stdLink:"الصف {n}: {eq} هو نفسه {pp}",
+    stdGap:"املأ الخانات من منزلة الآحاد نحو اليسار، دون ترك خانات فارغة بينها.",
+    stdHintLast:"في منزلة {col}: {eq}. هذا آخر رقم تضربه، فاكتب {v} كله.",
+    stdHintCol:"في منزلة {col}: {eq}. اكتب {w} واحمل {c} إلى المنزلة التالية.",
+    stdHintCol0:"في منزلة {col}: {eq}. اكتب {w}.",
+    stdHintCarry:"في منزلة {col} لا توجد أرقام للجمع، فقط المحمول {c}. اكتب {c}.",
+    stdGoodRow:"أحسنت! {eq}. هذا هو مجموع النواتج الجزئية {pp}.",
+    stdNextRow:"الآن اضرب {a} في الرقم {d} في منزلة العشرات. معناه {dd}، لذلك اكتب أولًا 0 في منزلة الآحاد.",
+    stdNextSum:"الآن اجمع الصفوف.",
+    goodStd:"أحسنت! {eq}. الخوارزمية المعيارية طريقة مختصرة لكتابة كل النواتج الجزئية: {pp}.",
+    goodStd1:"أحسنت! {eq}. الأعداد المحمولة طريقة مختصرة لجمع النواتج الجزئية: {pp}.",
+    x10Dir:"استخدم القيمة المنزلية لإيجاد ناتج الضرب.",
+    goodX10:"أحسنت! {eq}. الضرب في 10 ينقل كل رقم من أرقام {n} منزلة واحدة إلى اليسار، ويملأ 0 منزلة الآحاد.",
+    goodX100:"أحسنت! {eq}. الضرب في 100 ينقل كل رقم من أرقام {n} منزلتين إلى اليسار، وتملأ الأصفار منزلتي العشرات والآحاد.",
+    hintX10Add:"هذه الإجابة تجمع {m} بدلًا من الضرب في {m}.",
+    hintX10:"10 مجموعات من {n} تساوي {n} عشرات. كل رقم ينتقل منزلة واحدة إلى اليسار.",
+    hintX100:"100 مجموعة من {n} تساوي {n} مئات. كل رقم ينتقل منزلتين إلى اليسار.",
+    eoDir:"هل {n} عدد زوجي أم فردي؟",
+    eoProdDir:"هل ناتج الضرب {n} زوجي أم فردي؟ حاول أن تقرر دون أن تضرب.",
+    even:"زوجي",
+    odd:"فردي",
+    evenSub:"رقم الآحاد 0، 2، 4، 6، 8",
+    oddSub:"رقم الآحاد 1، 3، 5، 7، 9",
+    goodEven:"أحسنت! رقم الآحاد هو {d}، لذلك {n} عدد زوجي. ينقسم إلى مجموعتين متساويتين: {eq}.",
+    goodOdd:"أحسنت! رقم الآحاد هو {d}، لذلك {n} عدد فردي. عند تقسيمه إلى مجموعتين متساويتين يبقى 1: {eq}.",
+    goodEvenP:"أحسنت! {eq} عدد زوجي. أحد العاملين، {e}، زوجي، والعدد الزوجي مضروبًا في أي عدد كلي يكون زوجيًا.",
+    goodOddP:"أحسنت! {eq} عدد فردي. العاملان كلاهما فرديان، والفردي في الفردي يكون دائمًا فرديًا.",
+    hintEO:"المهم هو رقم الآحاد فقط. رقم الآحاد هو {d}. هل {d} زوجي أم فردي؟",
+    hintEOP:"انظر إلى العاملين. إذا كان أحدهما زوجيًا فالناتج زوجي. وإذا كان كلاهما فرديًا فالناتج فردي.",
+    tpatDir:"هذا الصف من جدول الضرب يعدّ بالقفز {r}. أي نمط يصح لكل الأعداد في الصف؟",
+    patE:"كل الأعداد زوجية.",
+    patA:"الأعداد تتبادل: فردي، زوجي، فردي، زوجي…",
+    patF:"كل عدد ينتهي بـ 0 أو 5.",
+    patZ:"كل عدد ينتهي بـ 0.",
+    patN:"مجموع أرقام كل عدد يساوي 9.",
+    patO:"كل الأعداد فردية.",
+    goodPat:"أحسنت! {why}",
+    whyE:"العامل الزوجي ينقسم إلى حدّين متساويين: {eq}. وحدّان متساويان يكوّنان دائمًا عددًا زوجيًا.",
+    whyA:"{r} عدد فردي. إضافة عدد فردي تحوّل الزوجي إلى فردي والفردي إلى زوجي، لذلك يتبادل النمط.",
+    whyF:"عند العدّ بالقفز {r}، يكون رقم الآحاد 5، 0، 5، 0، لأن 5 و5 تكوّنان عشرة.",
+    whyZ:"الضرب في {r} يكوّن عشرات كاملة، لذلك رقم الآحاد دائمًا 0.",
+    whyN:"كل خطوة تضيف 9، أي عشرة واحدة ناقص واحد. يزيد رقم العشرات 1 وينقص رقم الآحاد 1، فيبقى مجموع الأرقام 9.",
+    hintPat:"تحقق من {x}. هل يتبع هذا النمط؟",
+    cmpExprDir:"أي عبارة تصف {eq}؟",
+    cmpTimes:"{a} أمثال {b}",
+    cmpMore:"أكثر من {b} بمقدار {a}",
+    cmpSplit:"{b} مقسومة إلى {a} مجموعات متساوية",
+    cmpLess:"أقل من {b} بمقدار {a}",
+    goodCmpE:"أحسنت! {eq}. العدد {p} يساوي {a} أمثال {b}.",
+    hintCmpE:"إشارة × تعني مجموعات متساوية. {a} × {b} تعني {a} مجموعات من {b}، أي {a} أمثال {b}.",
+    cmpEqDir:"أي جملة تطابق {eq}؟",
+    cmpIs:"{p} يساوي {a} أمثال {b}.",
+    cmpIsMore:"{p} أكثر من {b} بمقدار {a}.",
+    goodCmpQ:"أحسنت! {p} يساوي {a} أمثال {b}. ويساوي أيضًا {b} أمثال {a}.",
+    hintCmpQ:"{p} هو ناتج الضرب، أي الكمية الأكبر. إشارة × تعني «أمثال» وليس «أكثر من».",
+    cmpWordBig:"وزن جرو {s} أرطال. وزن أمه {a} أمثال وزنه. كم رطلًا تزن الأم؟",
+    cmpWordSmall:"مع مايا {p} ملصقًا. هذا {a} أمثال ما مع ليو. كم ملصقًا مع ليو؟",
+    lblSmall:"الكمية الأصغر",
+    lblBig:"الكمية الأكبر",
+    stripAria:"مخطط الأشرطة: الكمية الأكبر تساوي {a} أمثال الكمية الأصغر.",
+    goodCmpBig:"أحسنت! {a} أمثال تعني {a} أجزاء متساوية: {eq}.",
+    goodCmpSmall:"أحسنت! الكمية الأكبر {a} أجزاء متساوية، لذلك اقسم: {eq}. تحقق: {chk}.",
+    hintCmpAdd:"هذه الإجابة تجمع {a} أو تطرحه. «أمثال» ليست مثل «أكثر من».",
+    hintCmpW:"انظر إلى مخطط الأشرطة. الكمية الأكبر {a} أجزاء، كل جزء بحجم الكمية الأصغر.",
+    ruleDir:"ابدأ من {s}. القاعدة هي «أضف {k}». ما الأعداد التالية؟",
+    goodRule1:"أحسنت! أضف {k} في كل مرة: {seq} …",
+    ruleQ2:"انظر إلى النمط: {seq}. أي خاصية صحيحة مع أن القاعدة لا تذكرها؟",
+    fAlt:"الأعداد تتبادل بين فردي وزوجي.",
+    fOdd:"كل الأعداد فردية.",
+    fEven:"كل الأعداد زوجية.",
+    fOnes:"رقم الآحاد لا يتغير أبدًا.",
+    whyOnes:"أحسنت! إضافة 10 تغيّر العشرات فقط، لذلك يبقى رقم الآحاد {d}.",
+    whyAlt:"أحسنت! {k} عدد فردي، وإضافة عدد فردي تبدّل بين الفردي والزوجي.",
+    whyKeepO:"أحسنت! النمط يبدأ بعدد فردي هو {s}، وإضافة عدد زوجي مثل {k} تُبقيه فرديًا.",
+    whyKeepE:"أحسنت! النمط يبدأ بعدد زوجي هو {s}، وإضافة عدد زوجي مثل {k} تُبقيه زوجيًا.",
+    hintRule1:"ابدأ من {s} وأضف {k}: {eq}. استمر في إضافة {k}.",
+    hintRule2:"تحقق من كل عدد في النمط. هل الخاصية صحيحة لها كلها؟"
   },
   hi:{
     appTitle:"ऐरे आर्किटेक्ट", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", language:"भाषा", readAloud:"ज़ोर से पढ़ें",
@@ -1000,12 +1497,130 @@ const T = {
     setRem:"शेषफल", remOn:"शेषफल और शेषफल वाली कहानियाँ शामिल करें",
     setModes:"मोड", setSpeech:"आवाज़", autoRead:"निर्देश अपने आप पढ़ें", printCards:"चुनौती कार्ड छापें",
     setStored:"सेटिंग्स केवल इस डिवाइस पर सहेजी जाती हैं। छात्र की जानकारी कभी नहीं सहेजी जाती।",
-    stds:"संरेखित मानक — Texas TEKS: कक्षा 3 3.4(D, E, F, G, H, J, K), 3.5(B, D); कक्षा 4 4.4(C, D, E, F, G, H), 4.5(A); कक्षा 5 5.3(B, C), 5.4(A, B)। Common Core: 3.OA.1–8, 3.NBT.3; 4.OA.3, 4.OA.4, 4.NBT.5, 4.NBT.6; 5.NBT.5, 5.NBT.6।",
+    stds:"संरेखित मानक — Texas TEKS: कक्षा 3 3.4(D, E, F, G, H, I, J, K), 3.5(B, C, D, E); कक्षा 4 4.4(B, C, D, E, F, G, H), 4.5(A); कक्षा 5 5.3(B, C), 5.4(A, B)। Common Core: 3.OA.1–9, 3.NBT.3; 4.OA.1–5, 4.NBT.5, 4.NBT.6; 5.NBT.5, 5.NBT.6।",
     cardTitle:"ऐरे आर्किटेक्ट — चुनौती कार्ड", cardName:"नाम:",
     cardArr:"{r} पंक्तियों वाली सरणी बनाओ, हर पंक्ति में {c}। इसके लिए गुणा का समीकरण लिखो।",
     cardArea:"क्षेत्रफल मॉडल से {eq} ज्ञात करो।", cardDiv:"आंशिक भागफलों से {eq} ज्ञात करो।",
     cardMiss:"लुप्त संख्या ज्ञात करो।", cardFactors:"{n} के सभी गुणनखंड लिखो।",
-    cardStory:"अज्ञात संख्या के लिए एक अक्षर वाला समीकरण लिखो। अनुमान लगाओ, फिर हल करो।"
+    cardStory:"अज्ञात संख्या के लिए एक अक्षर वाला समीकरण लिखो। अनुमान लगाओ, फिर हल करो।",
+    emptyBox:"छूटी हुई संख्या",
+    tblAria:"संख्या-जोड़ों की तालिका",
+    tblValDir:"तालिका में संख्या-जोड़े देखो। छूटी हुई संख्या क्या है?",
+    tblDescDir:"तालिका में संख्या-जोड़े देखो। कौन-सा वाक्य तालिका का वर्णन करता है?",
+    tSpider:"हर मकड़ी के {k} पैर होते हैं।",
+    tSpiderIn:"मकड़ियाँ",
+    tSpiderOut:"पैर",
+    tCar:"हर कार में {k} पहिए होते हैं।",
+    tCarIn:"कारें",
+    tCarOut:"पहिए",
+    tWeek:"हर हफ़्ते में {k} दिन होते हैं।",
+    tWeekIn:"हफ़्ते",
+    tWeekOut:"दिन",
+    tPack:"हर पैक में {k} जूस के डिब्बे हैं।",
+    tPackIn:"पैक",
+    tPackOut:"जूस के डिब्बे",
+    tBag:"हर थैले में {k} सेब हैं।",
+    tBagIn:"थैले",
+    tBagOut:"सेब",
+    goodTblV:"हाँ! {desc} इसलिए {eq}।",
+    goodTblI:"हाँ! {desc} इसलिए {eq}।",
+    goodTblD:"हाँ! {desc} जोड़ों की जाँच करो: {pairs}।",
+    hintTbl:"जोड़े देखो: {pairs}। ऊपर की हर संख्या नीचे की संख्या कैसे बनती है? {x} के साथ भी वही करो।",
+    hintTblI:"जोड़े देखो: {pairs}। नीचे की हर संख्या ऊपर की संख्या को एक ही संख्या से गुणा करके बनती है। {y} के साथ ऊपर कौन-सी संख्या आएगी?",
+    hintTblD:"तालिका का एक जोड़ा जाँचो: {pair}। क्या वह वाक्य इस जोड़े पर सही बैठता है?",
+    stdDir:"मानक विधि (मानक एल्गोरिथ्म) से {eq} निकालो। एक बार में एक पंक्ति गुणा करो, इकाई से शुरू करो।",
+    stdStepRow:"पंक्ति {n}: {eq} गुणा करो।",
+    stdStepSum:"आख़िरी चरण: पंक्तियों को जोड़ो।",
+    col0:"इकाई",
+    col1:"दहाई",
+    col2:"सैकड़ा",
+    col3:"हज़ार",
+    col4:"दस हज़ार",
+    col5:"लाख",
+    carryShown:"{col} के ऊपर हासिल {c}",
+    carryAria:"{col} के ऊपर हासिल का खाना",
+    phZero:"स्थान बचाने वाला शून्य",
+    dgAria:"{row}, {col} का अंक",
+    rowN:"पंक्ति {n}",
+    sumRow:"योग",
+    stdLinkNote:"हर पंक्ति आंशिक गुणनफलों का योग है:",
+    stdLink:"पंक्ति {n}: {eq} वही है जो {pp}",
+    stdGap:"इकाई से बाईं ओर खाने भरो, बीच में कोई खाना ख़ाली मत छोड़ो।",
+    stdHintLast:"{col} के स्थान में: {eq}। यह गुणा करने वाला आख़िरी अंक है, इसलिए पूरा {v} लिखो।",
+    stdHintCol:"{col} के स्थान में: {eq}। {w} लिखो और {c} हासिल अगले स्थान पर ले जाओ।",
+    stdHintCol0:"{col} के स्थान में: {eq}। {w} लिखो।",
+    stdHintCarry:"{col} के स्थान में जोड़ने को कोई अंक नहीं बचा, सिर्फ़ हासिल {c} है। {c} लिखो।",
+    stdGoodRow:"हाँ! {eq}। यह आंशिक गुणनफल {pp} का योग है।",
+    stdNextRow:"अब {a} को दहाई के अंक {d} से गुणा करो। इसका मतलब {dd} है, इसलिए पहले इकाई के स्थान पर 0 लिखो।",
+    stdNextSum:"अब पंक्तियों को जोड़ो।",
+    goodStd:"हाँ! {eq}। मानक विधि सभी आंशिक गुणनफलों को छोटे में लिखने का तरीक़ा है: {pp}।",
+    goodStd1:"हाँ! {eq}। हासिल आंशिक गुणनफलों को जोड़ने का छोटा तरीक़ा है: {pp}।",
+    x10Dir:"स्थानीय मान की मदद से गुणनफल निकालो।",
+    goodX10:"हाँ! {eq}। 10 से गुणा करने पर {n} का हर अंक एक स्थान बाईं ओर खिसकता है, और इकाई के स्थान पर 0 आता है।",
+    goodX100:"हाँ! {eq}। 100 से गुणा करने पर {n} का हर अंक दो स्थान बाईं ओर खिसकता है, और दहाई व इकाई के स्थानों पर 0 आते हैं।",
+    hintX10Add:"इस उत्तर में {m} से गुणा करने के बजाय {m} जोड़ा गया है।",
+    hintX10:"{n} के 10 समूह यानी {n} दहाई। हर अंक एक स्थान बाईं ओर खिसकता है।",
+    hintX100:"{n} के 100 समूह यानी {n} सैकड़े। हर अंक दो स्थान बाईं ओर खिसकता है।",
+    eoDir:"{n} सम है या विषम?",
+    eoProdDir:"गुणनफल {n} सम है या विषम? बिना गुणा किए तय करने की कोशिश करो।",
+    even:"सम",
+    odd:"विषम",
+    evenSub:"इकाई का अंक 0, 2, 4, 6, 8",
+    oddSub:"इकाई का अंक 1, 3, 5, 7, 9",
+    goodEven:"हाँ! इकाई का अंक {d} है, इसलिए {n} सम है। यह 2 बराबर समूहों में बँट जाता है: {eq}।",
+    goodOdd:"हाँ! इकाई का अंक {d} है, इसलिए {n} विषम है। 2 बराबर समूहों में बाँटने पर 1 बचता है: {eq}।",
+    goodEvenP:"हाँ! {eq} सम है। एक गुणनखंड, {e}, सम है, और सम संख्या को किसी भी पूर्ण संख्या से गुणा करने पर सम ही मिलता है।",
+    goodOddP:"हाँ! {eq} विषम है। दोनों गुणनखंड विषम हैं, और विषम गुणा विषम हमेशा विषम होता है।",
+    hintEO:"सिर्फ़ इकाई का अंक मायने रखता है। वह {d} है। {d} सम है या विषम?",
+    hintEOP:"गुणनखंडों को देखो। अगर कोई भी गुणनखंड सम है, तो गुणनफल सम है। अगर दोनों विषम हैं, तो गुणनफल विषम है।",
+    tpatDir:"पहाड़े की यह पंक्ति {r}-{r} करके गिनती है। पंक्ति की हर संख्या के लिए कौन-सा पैटर्न सही है?",
+    patE:"हर संख्या सम है।",
+    patA:"संख्याएँ बारी-बारी से आती हैं: विषम, सम, विषम, सम…",
+    patF:"हर संख्या 0 या 5 पर ख़त्म होती है।",
+    patZ:"हर संख्या 0 पर ख़त्म होती है।",
+    patN:"हर संख्या के अंकों का योग 9 है।",
+    patO:"हर संख्या विषम है।",
+    goodPat:"हाँ! {why}",
+    whyE:"सम गुणनखंड को दो बराबर योज्यों में बाँटा जा सकता है: {eq}। दो बराबर योज्य हमेशा सम संख्या बनाते हैं।",
+    whyA:"{r} विषम है। विषम संख्या जोड़ने से सम विषम बन जाता है और विषम सम, इसलिए पैटर्न बारी-बारी से बदलता है।",
+    whyF:"{r}-{r} करके गिनने पर इकाई का अंक 5, 0, 5, 0 आता है, क्योंकि दो 5 मिलकर एक दहाई बनाते हैं।",
+    whyZ:"{r} से गुणा करने पर पूरी दहाइयाँ बनती हैं, इसलिए इकाई का अंक हमेशा 0 होता है।",
+    whyN:"हर कदम पर 9 जुड़ता है, यानी 1 दहाई जुड़ती है और 1 इकाई घटती है। दहाई का अंक 1 बढ़ता है और इकाई का अंक 1 घटता है, इसलिए अंकों का योग 9 ही रहता है।",
+    hintPat:"{x} को जाँचो। क्या यह उस पैटर्न में बैठता है?",
+    cmpExprDir:"कौन-सा वाक्यांश {eq} का वर्णन करता है?",
+    cmpTimes:"{b} का {a} गुना",
+    cmpMore:"{b} से {a} ज़्यादा",
+    cmpSplit:"{b} को {a} बराबर समूहों में बाँटना",
+    cmpLess:"{b} से {a} कम",
+    goodCmpE:"हाँ! {eq}। {p}, {b} का {a} गुना है।",
+    hintCmpE:"× चिह्न का मतलब है बराबर समूह। {a} × {b} का मतलब है {b} के {a} समूह, यानी {b} का {a} गुना।",
+    cmpEqDir:"कौन-सा वाक्य {eq} से मेल खाता है?",
+    cmpIs:"{p}, {b} का {a} गुना है।",
+    cmpIsMore:"{p}, {b} से {a} ज़्यादा है।",
+    goodCmpQ:"हाँ! {p}, {b} का {a} गुना है। यह {a} का {b} गुना भी है।",
+    hintCmpQ:"{p} गुणनफल है, यानी बड़ी मात्रा। × चिह्न का मतलब है «गुना», «से ज़्यादा» नहीं।",
+    cmpWordBig:"एक पिल्ले का वज़न {s} पाउंड है। उसकी माँ का वज़न उससे {a} गुना है। माँ का वज़न कितने पाउंड है?",
+    cmpWordSmall:"माया के पास {p} स्टिकर हैं। यह लियो के स्टिकरों का {a} गुना है। लियो के पास कितने स्टिकर हैं?",
+    lblSmall:"छोटी मात्रा",
+    lblBig:"बड़ी मात्रा",
+    stripAria:"पट्टी आरेख: बड़ी मात्रा छोटी मात्रा की {a} गुना है।",
+    goodCmpBig:"हाँ! {a} गुना का मतलब है {a} बराबर हिस्से: {eq}।",
+    goodCmpSmall:"हाँ! बड़ी मात्रा {a} बराबर हिस्सों में है, इसलिए भाग दो: {eq}। जाँच: {chk}।",
+    hintCmpAdd:"इस उत्तर में {a} जोड़ा या घटाया गया है। «गुना» और «से ज़्यादा» एक जैसे नहीं हैं।",
+    hintCmpW:"पट्टी आरेख देखो। बड़ी मात्रा में {a} हिस्से हैं, और हर हिस्सा छोटी मात्रा जितना है।",
+    ruleDir:"{s} से शुरू करो। नियम है «{k} जोड़ो»। आगे कौन-सी संख्याएँ आएँगी?",
+    goodRule1:"हाँ! हर बार {k} जोड़ो: {seq} …",
+    ruleQ2:"पैटर्न देखो: {seq}। कौन-सी विशेषता सही है, भले ही नियम उसे नहीं बताता?",
+    fAlt:"संख्याएँ बारी-बारी से विषम और सम होती हैं।",
+    fOdd:"हर संख्या विषम है।",
+    fEven:"हर संख्या सम है।",
+    fOnes:"इकाई का अंक कभी नहीं बदलता।",
+    whyOnes:"हाँ! 10 जोड़ने से सिर्फ़ दहाई बदलती है, इसलिए इकाई का अंक {d} ही रहता है।",
+    whyAlt:"हाँ! {k} विषम है, और विषम संख्या जोड़ने से संख्या विषम और सम के बीच बदलती रहती है।",
+    whyKeepO:"हाँ! पैटर्न विषम संख्या {s} से शुरू होता है, और {k} जैसी सम संख्या जोड़ने से वह विषम ही रहती है।",
+    whyKeepE:"हाँ! पैटर्न सम संख्या {s} से शुरू होता है, और {k} जैसी सम संख्या जोड़ने से वह सम ही रहती है।",
+    hintRule1:"{s} से शुरू करके {k} जोड़ो: {eq}। {k} जोड़ते रहो।",
+    hintRule2:"पैटर्न की हर संख्या जाँचो। क्या वह विशेषता सब पर सही है?"
   },
   ur:{
     appTitle:"صف بندی کا معمار", home:"ہوم", privacy:"رازداری", teacher:"استاد", language:"زبان", readAloud:"بلند آواز سے پڑھیں",
@@ -1131,12 +1746,130 @@ const T = {
     setRem:"باقی", remOn:"باقی اور باقی والی کہانیاں شامل کریں",
     setModes:"موڈ", setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں", printCards:"چیلنج کارڈ پرنٹ کریں",
     setStored:"ترتیبات صرف اسی ڈیوائس پر محفوظ ہوتی ہیں۔ طالب علم کی معلومات کبھی محفوظ نہیں ہوتیں۔",
-    stds:"منسلک معیارات — Texas TEKS: جماعت 3 3.4(D, E, F, G, H, J, K)، 3.5(B, D)؛ جماعت 4 4.4(C, D, E, F, G, H)، 4.5(A)؛ جماعت 5 5.3(B, C)، 5.4(A, B)۔ Common Core: 3.OA.1–8، 3.NBT.3؛ 4.OA.3، 4.OA.4، 4.NBT.5، 4.NBT.6؛ 5.NBT.5، 5.NBT.6۔",
+    stds:"منسلک معیارات — Texas TEKS: جماعت 3 3.4(D, E, F, G, H, I, J, K)، 3.5(B, C, D, E)؛ جماعت 4 4.4(B, C, D, E, F, G, H)، 4.5(A)؛ جماعت 5 5.3(B, C)، 5.4(A, B)۔ Common Core: 3.OA.1–9، 3.NBT.3؛ 4.OA.1–5، 4.NBT.5، 4.NBT.6؛ 5.NBT.5، 5.NBT.6۔",
     cardTitle:"صف بندی کا معمار — چیلنج کارڈ", cardName:"نام:",
     cardArr:"{r} قطاروں والی صف بندی بناؤ، ہر قطار میں {c}۔ اس کے لیے ضرب کی مساوات لکھو۔",
     cardArea:"رقبے کے ماڈل سے {eq} معلوم کرو۔", cardDiv:"جزوی حاصلِ قسمت سے {eq} معلوم کرو۔",
     cardMiss:"گمشدہ عدد معلوم کرو۔", cardFactors:"{n} کے تمام اجزائے ضربی لکھو۔",
-    cardStory:"نامعلوم عدد کے لیے ایک حرف والی مساوات لکھو۔ اندازہ لگاؤ، پھر حل کرو۔"
+    cardStory:"نامعلوم عدد کے لیے ایک حرف والی مساوات لکھو۔ اندازہ لگاؤ، پھر حل کرو۔",
+    emptyBox:"غائب عدد",
+    tblAria:"عددی جوڑوں کی جدول",
+    tblValDir:"جدول میں عددی جوڑے دیکھو۔ غائب عدد کیا ہے؟",
+    tblDescDir:"جدول میں عددی جوڑے دیکھو۔ کون سا جملہ جدول کو بیان کرتا ہے؟",
+    tSpider:"ہر مکڑی کی {k} ٹانگیں ہوتی ہیں۔",
+    tSpiderIn:"مکڑیاں",
+    tSpiderOut:"ٹانگیں",
+    tCar:"ہر گاڑی کے {k} پہیے ہوتے ہیں۔",
+    tCarIn:"گاڑیاں",
+    tCarOut:"پہیے",
+    tWeek:"ہر ہفتے میں {k} دن ہوتے ہیں۔",
+    tWeekIn:"ہفتے",
+    tWeekOut:"دن",
+    tPack:"ہر پیک میں جوس کے {k} ڈبے ہیں۔",
+    tPackIn:"پیک",
+    tPackOut:"جوس کے ڈبے",
+    tBag:"ہر تھیلے میں {k} سیب ہیں۔",
+    tBagIn:"تھیلے",
+    tBagOut:"سیب",
+    goodTblV:"شاباش! {desc} اس لیے {eq}۔",
+    goodTblI:"شاباش! {desc} اس لیے {eq}۔",
+    goodTblD:"شاباش! {desc} جوڑوں کی جانچ کرو: {pairs}۔",
+    hintTbl:"جوڑے دیکھو: {pairs}۔ اوپر والا ہر عدد نیچے والا عدد کیسے بنتا ہے؟ {x} کے ساتھ بھی یہی کرو۔",
+    hintTblI:"جوڑے دیکھو: {pairs}۔ نیچے والا ہر عدد اوپر والے عدد کو ایک ہی عدد سے ضرب دینے سے بنتا ہے۔ {y} کے ساتھ اوپر کون سا عدد آئے گا؟",
+    hintTblD:"جدول کا ایک جوڑا آزماؤ: {pair}۔ کیا یہ جملہ اس جوڑے پر درست ہے؟",
+    stdDir:"معیاری طریقے (الگورتھم) سے {eq} معلوم کرو۔ ایک وقت میں ایک قطار ضرب دو، اکائی سے شروع کرو۔",
+    stdStepRow:"قطار {n}: {eq} ضرب دو۔",
+    stdStepSum:"آخری مرحلہ: قطاروں کو جمع کرو۔",
+    col0:"اکائی",
+    col1:"دہائی",
+    col2:"سینکڑا",
+    col3:"ہزار",
+    col4:"دس ہزار",
+    col5:"لاکھ",
+    carryShown:"{col} کے اوپر حاصل {c}",
+    carryAria:"{col} کے اوپر حاصل کا خانہ",
+    phZero:"جگہ رکھنے والا صفر",
+    dgAria:"{row}، {col} کا ہندسہ",
+    rowN:"قطار {n}",
+    sumRow:"مجموعہ",
+    stdLinkNote:"ہر قطار جزوی حاصل ضربوں کا مجموعہ ہے:",
+    stdLink:"قطار {n}: {eq} وہی ہے جو {pp}",
+    stdGap:"اکائی سے بائیں طرف خانے بھرو، درمیان میں کوئی خانہ خالی نہ چھوڑو۔",
+    stdHintLast:"{col} کے مقام پر: {eq}۔ یہ ضرب دینے والا آخری ہندسہ ہے، اس لیے پورا {v} لکھو۔",
+    stdHintCol:"{col} کے مقام پر: {eq}۔ {w} لکھو اور حاصل {c} اگلے مقام پر لے جاؤ۔",
+    stdHintCol0:"{col} کے مقام پر: {eq}۔ {w} لکھو۔",
+    stdHintCarry:"{col} کے مقام پر جمع کرنے کو کوئی ہندسہ نہیں بچا، صرف حاصل {c} ہے۔ {c} لکھو۔",
+    stdGoodRow:"شاباش! {eq}۔ یہ جزوی حاصل ضرب {pp} کا مجموعہ ہے۔",
+    stdNextRow:"اب {a} کو دہائی کے ہندسے {d} سے ضرب دو۔ اس کا مطلب {dd} ہے، اس لیے پہلے اکائی کے مقام پر 0 لکھو۔",
+    stdNextSum:"اب قطاروں کو جمع کرو۔",
+    goodStd:"شاباش! {eq}۔ معیاری طریقہ تمام جزوی حاصل ضربوں کو مختصر لکھنے کا طریقہ ہے: {pp}۔",
+    goodStd1:"شاباش! {eq}۔ حاصل جزوی حاصل ضربوں کو جمع کرنے کا مختصر طریقہ ہے: {pp}۔",
+    x10Dir:"مقامی قدر کی مدد سے حاصل ضرب معلوم کرو۔",
+    goodX10:"شاباش! {eq}۔ 10 سے ضرب دینے پر {n} کا ہر ہندسہ ایک مقام بائیں طرف چلا جاتا ہے، اور اکائی کے مقام پر 0 آتا ہے۔",
+    goodX100:"شاباش! {eq}۔ 100 سے ضرب دینے پر {n} کا ہر ہندسہ دو مقام بائیں طرف چلا جاتا ہے، اور دہائی اور اکائی کے مقامات پر 0 آتے ہیں۔",
+    hintX10Add:"اس جواب میں {m} سے ضرب دینے کے بجائے {m} جمع کیا گیا ہے۔",
+    hintX10:"{n} کے 10 گروہ یعنی {n} دہائیاں۔ ہر ہندسہ ایک مقام بائیں طرف جاتا ہے۔",
+    hintX100:"{n} کے 100 گروہ یعنی {n} سینکڑے۔ ہر ہندسہ دو مقام بائیں طرف جاتا ہے۔",
+    eoDir:"کیا {n} جفت ہے یا طاق؟",
+    eoProdDir:"کیا حاصل ضرب {n} جفت ہے یا طاق؟ ضرب دیے بغیر فیصلہ کرنے کی کوشش کرو۔",
+    even:"جفت",
+    odd:"طاق",
+    evenSub:"اکائی کا ہندسہ 0، 2، 4، 6، 8",
+    oddSub:"اکائی کا ہندسہ 1، 3، 5، 7، 9",
+    goodEven:"شاباش! اکائی کا ہندسہ {d} ہے، اس لیے {n} جفت ہے۔ یہ 2 برابر گروہوں میں بٹ جاتا ہے: {eq}۔",
+    goodOdd:"شاباش! اکائی کا ہندسہ {d} ہے، اس لیے {n} طاق ہے۔ 2 برابر گروہوں میں بانٹنے پر 1 بچتا ہے: {eq}۔",
+    goodEvenP:"شاباش! {eq} جفت ہے۔ ایک جزو ضربی، {e}، جفت ہے، اور جفت عدد کو کسی بھی مکمل عدد سے ضرب دینے پر جفت ہی ملتا ہے۔",
+    goodOddP:"شاباش! {eq} طاق ہے۔ دونوں اجزائے ضربی طاق ہیں، اور طاق ضرب طاق ہمیشہ طاق ہوتا ہے۔",
+    hintEO:"صرف اکائی کا ہندسہ اہم ہے۔ وہ {d} ہے۔ کیا {d} جفت ہے یا طاق؟",
+    hintEOP:"اجزائے ضربی دیکھو۔ اگر کوئی بھی جفت ہو تو حاصل ضرب جفت ہے۔ اگر دونوں طاق ہوں تو حاصل ضرب طاق ہے۔",
+    tpatDir:"پہاڑے کی یہ قطار {r}، {r} کر کے گنتی ہے۔ قطار کے ہر عدد کے لیے کون سا نمونہ درست ہے؟",
+    patE:"ہر عدد جفت ہے۔",
+    patA:"اعداد باری باری آتے ہیں: طاق، جفت، طاق، جفت…",
+    patF:"ہر عدد 0 یا 5 پر ختم ہوتا ہے۔",
+    patZ:"ہر عدد 0 پر ختم ہوتا ہے۔",
+    patN:"ہر عدد کے ہندسوں کا مجموعہ 9 ہے۔",
+    patO:"ہر عدد طاق ہے۔",
+    goodPat:"شاباش! {why}",
+    whyE:"جفت جزو ضربی کو دو برابر حصوں میں بانٹا جا سکتا ہے: {eq}۔ دو برابر حصے ہمیشہ جفت عدد بناتے ہیں۔",
+    whyA:"{r} طاق ہے۔ طاق عدد جمع کرنے سے جفت طاق بن جاتا ہے اور طاق جفت، اس لیے نمونہ باری باری بدلتا ہے۔",
+    whyF:"{r}، {r} کر کے گننے پر اکائی کا ہندسہ 5، 0، 5، 0 آتا ہے، کیونکہ دو 5 مل کر ایک دہائی بناتے ہیں۔",
+    whyZ:"{r} سے ضرب دینے پر پوری دہائیاں بنتی ہیں، اس لیے اکائی کا ہندسہ ہمیشہ 0 ہوتا ہے۔",
+    whyN:"ہر قدم پر 9 جمع ہوتا ہے، یعنی 1 دہائی بڑھتی ہے اور 1 اکائی گھٹتی ہے۔ دہائی کا ہندسہ 1 بڑھتا ہے اور اکائی کا ہندسہ 1 گھٹتا ہے، اس لیے ہندسوں کا مجموعہ 9 ہی رہتا ہے۔",
+    hintPat:"{x} کو جانچو۔ کیا یہ اس نمونے میں آتا ہے؟",
+    cmpExprDir:"کون سا فقرہ {eq} کو بیان کرتا ہے؟",
+    cmpTimes:"{b} کا {a} گنا",
+    cmpMore:"{b} سے {a} زیادہ",
+    cmpSplit:"{b} کو {a} برابر گروہوں میں بانٹنا",
+    cmpLess:"{b} سے {a} کم",
+    goodCmpE:"شاباش! {eq}۔ {p}، {b} کا {a} گنا ہے۔",
+    hintCmpE:"× کی علامت کا مطلب برابر گروہ ہے۔ {a} × {b} کا مطلب {b} کے {a} گروہ، یعنی {b} کا {a} گنا۔",
+    cmpEqDir:"کون سا جملہ {eq} سے میل کھاتا ہے؟",
+    cmpIs:"{p}، {b} کا {a} گنا ہے۔",
+    cmpIsMore:"{p}، {b} سے {a} زیادہ ہے۔",
+    goodCmpQ:"شاباش! {p}، {b} کا {a} گنا ہے۔ یہ {a} کا {b} گنا بھی ہے۔",
+    hintCmpQ:"{p} حاصل ضرب ہے، یعنی بڑی مقدار۔ × کی علامت کا مطلب «گنا» ہے، «سے زیادہ» نہیں۔",
+    cmpWordBig:"ایک پِلّے کا وزن {s} پاؤنڈ ہے۔ اس کی ماں کا وزن اس کا {a} گنا ہے۔ ماں کا وزن کتنے پاؤنڈ ہے؟",
+    cmpWordSmall:"مایا کے پاس {p} اسٹیکر ہیں۔ یہ لیو کے اسٹیکروں کا {a} گنا ہے۔ لیو کے پاس کتنے اسٹیکر ہیں؟",
+    lblSmall:"چھوٹی مقدار",
+    lblBig:"بڑی مقدار",
+    stripAria:"پٹی کا خاکہ: بڑی مقدار چھوٹی مقدار کا {a} گنا ہے۔",
+    goodCmpBig:"شاباش! {a} گنا کا مطلب {a} برابر حصے: {eq}۔",
+    goodCmpSmall:"شاباش! بڑی مقدار {a} برابر حصوں میں ہے، اس لیے تقسیم کرو: {eq}۔ جانچ: {chk}۔",
+    hintCmpAdd:"اس جواب میں {a} جمع یا تفریق کیا گیا ہے۔ «گنا» اور «سے زیادہ» ایک جیسے نہیں ہیں۔",
+    hintCmpW:"پٹی کا خاکہ دیکھو۔ بڑی مقدار میں {a} حصے ہیں، اور ہر حصہ چھوٹی مقدار جتنا ہے۔",
+    ruleDir:"{s} سے شروع کرو۔ اصول ہے «{k} جمع کرو»۔ آگے کون سے اعداد آئیں گے؟",
+    goodRule1:"شاباش! ہر بار {k} جمع کرو: {seq} …",
+    ruleQ2:"نمونہ دیکھو: {seq}۔ کون سی خصوصیت درست ہے، حالانکہ اصول اسے نہیں بتاتا؟",
+    fAlt:"اعداد باری باری طاق اور جفت ہوتے ہیں۔",
+    fOdd:"ہر عدد طاق ہے۔",
+    fEven:"ہر عدد جفت ہے۔",
+    fOnes:"اکائی کا ہندسہ کبھی نہیں بدلتا۔",
+    whyOnes:"شاباش! 10 جمع کرنے سے صرف دہائی بدلتی ہے، اس لیے اکائی کا ہندسہ {d} ہی رہتا ہے۔",
+    whyAlt:"شاباش! {k} طاق ہے، اور طاق عدد جمع کرنے سے عدد طاق اور جفت کے درمیان بدلتا رہتا ہے۔",
+    whyKeepO:"شاباش! نمونہ طاق عدد {s} سے شروع ہوتا ہے، اور {k} جیسا جفت عدد جمع کرنے سے وہ طاق ہی رہتا ہے۔",
+    whyKeepE:"شاباش! نمونہ جفت عدد {s} سے شروع ہوتا ہے، اور {k} جیسا جفت عدد جمع کرنے سے وہ جفت ہی رہتا ہے۔",
+    hintRule1:"{s} سے شروع کر کے {k} جمع کرو: {eq}۔ {k} جمع کرتے رہو۔",
+    hintRule2:"نمونے کا ہر عدد جانچو۔ کیا وہ خصوصیت سب پر درست ہے؟"
   },
   zh:{
     appTitle:"阵列建筑师", home:"主页", privacy:"隐私", teacher:"教师", language:"语言", readAloud:"朗读",
@@ -1262,12 +1995,130 @@ const T = {
     setRem:"余数", remOn:"包含余数和有余数的应用题",
     setModes:"模式", setSpeech:"语音", autoRead:"自动朗读说明", printCards:"打印挑战卡",
     setStored:"设置只保存在本设备上，绝不保存学生信息。",
-    stds:"对应标准 — Texas TEKS：三年级 3.4(D, E, F, G, H, J, K)、3.5(B, D)；四年级 4.4(C, D, E, F, G, H)、4.5(A)；五年级 5.3(B, C)、5.4(A, B)。Common Core：3.OA.1–8、3.NBT.3；4.OA.3、4.OA.4、4.NBT.5、4.NBT.6；5.NBT.5、5.NBT.6。",
+    stds:"对应标准 — Texas TEKS：三年级 3.4(D, E, F, G, H, I, J, K)、3.5(B, C, D, E)；四年级 4.4(B, C, D, E, F, G, H)、4.5(A)；五年级 5.3(B, C)、5.4(A, B)。Common Core：3.OA.1–9、3.NBT.3；4.OA.1–5、4.NBT.5、4.NBT.6；5.NBT.5、5.NBT.6。",
     cardTitle:"阵列建筑师 — 挑战卡", cardName:"姓名：",
     cardArr:"画一个 {r} 行、每行 {c} 个的阵列，并写出乘法算式。",
     cardArea:"用面积模型求 {eq}。", cardDiv:"用部分商求 {eq}。",
     cardMiss:"求出缺少的数。", cardFactors:"写出 {n} 的所有因数。",
-    cardStory:"用字母表示未知数，写出算式。先估算，再解答。"
+    cardStory:"用字母表示未知数，写出算式。先估算，再解答。",
+    emptyBox:"缺少的数",
+    tblAria:"数对表",
+    tblValDir:"看看表中的数对。缺少的数是多少？",
+    tblDescDir:"看看表中的数对。哪句话描述了这张表？",
+    tSpider:"每只蜘蛛有{k}条腿。",
+    tSpiderIn:"蜘蛛",
+    tSpiderOut:"腿",
+    tCar:"每辆汽车有{k}个轮子。",
+    tCarIn:"汽车",
+    tCarOut:"轮子",
+    tWeek:"每周有{k}天。",
+    tWeekIn:"周",
+    tWeekOut:"天",
+    tPack:"每包有{k}盒果汁。",
+    tPackIn:"包",
+    tPackOut:"果汁盒",
+    tBag:"每袋装{k}个苹果。",
+    tBagIn:"袋",
+    tBagOut:"苹果",
+    goodTblV:"对了！{desc}所以 {eq}。",
+    goodTblI:"对了！{desc}所以 {eq}。",
+    goodTblD:"对了！{desc}检查数对：{pairs}。",
+    hintTbl:"看看这些数对：{pairs}。上面的每个数是怎样变成下面的数的？对 {x} 也这样做。",
+    hintTblI:"看看这些数对：{pairs}。下面的每个数都是上面的数乘同一个数。哪个上面的数和 {y} 配对？",
+    hintTblD:"用表中的一个数对试一试：{pair}。这句话对这个数对成立吗？",
+    stdDir:"用标准算法（竖式）计算 {eq}。一次乘一行，从个位开始。",
+    stdStepRow:"第{n}行：计算 {eq}。",
+    stdStepSum:"最后一步：把各行相加。",
+    col0:"个位",
+    col1:"十位",
+    col2:"百位",
+    col3:"千位",
+    col4:"万位",
+    col5:"十万位",
+    carryShown:"{col}上方进位 {c}",
+    carryAria:"{col}上方的进位格",
+    phZero:"占位的零",
+    dgAria:"{row}，{col}",
+    rowN:"第{n}行",
+    sumRow:"和",
+    stdLinkNote:"每一行都是几个部分积的和：",
+    stdLink:"第{n}行：{eq} 就是 {pp}",
+    stdGap:"从个位向左依次填写，中间不要留空格。",
+    stdHintLast:"在{col}：{eq}。这是最后一个要乘的数字，所以把 {v} 整个写下来。",
+    stdHintCol:"在{col}：{eq}。写 {w}，向前一位进 {c}。",
+    stdHintCol0:"在{col}：{eq}。写 {w}。",
+    stdHintCarry:"{col}没有数字要加了，只有进上来的 {c}。写 {c}。",
+    stdGoodRow:"对了！{eq}。这就是部分积 {pp} 加起来。",
+    stdNextRow:"现在用十位上的 {d} 去乘 {a}。它表示 {dd}，所以先在个位写 0。",
+    stdNextSum:"现在把各行相加。",
+    goodStd:"对了！{eq}。标准算法是把所有部分积简写出来的方法：{pp}。",
+    goodStd1:"对了！{eq}。进位是把部分积相加的简便写法：{pp}。",
+    x10Dir:"用位值求积。",
+    goodX10:"对了！{eq}。乘 10 时，{n} 的每个数字都向左移一位，个位补 0。",
+    goodX100:"对了！{eq}。乘 100 时，{n} 的每个数字都向左移两位，十位和个位补 0。",
+    hintX10Add:"这个答案是加 {m}，而不是乘 {m}。",
+    hintX10:"10 个 {n} 就是 {n} 个十。每个数字向左移一位。",
+    hintX100:"100 个 {n} 就是 {n} 个百。每个数字向左移两位。",
+    eoDir:"{n} 是偶数还是奇数？",
+    eoProdDir:"积 {n} 是偶数还是奇数？试着不计算乘法就判断。",
+    even:"偶数",
+    odd:"奇数",
+    evenSub:"个位是 0、2、4、6、8",
+    oddSub:"个位是 1、3、5、7、9",
+    goodEven:"对了！个位是 {d}，所以 {n} 是偶数。它能平均分成 2 组：{eq}。",
+    goodOdd:"对了！个位是 {d}，所以 {n} 是奇数。平均分成 2 组会多出 1：{eq}。",
+    goodEvenP:"对了！{eq} 是偶数。其中一个因数 {e} 是偶数，偶数乘任何整数都是偶数。",
+    goodOddP:"对了！{eq} 是奇数。两个因数都是奇数，奇数乘奇数一定是奇数。",
+    hintEO:"只要看个位。个位是 {d}。{d} 是偶数还是奇数？",
+    hintEOP:"看看两个因数。只要有一个因数是偶数，积就是偶数。两个都是奇数，积就是奇数。",
+    tpatDir:"乘法表的这一行是 {r} 个 {r} 个地数。哪个规律对这一行的每个数都成立？",
+    patE:"每个数都是偶数。",
+    patA:"这些数交替出现：奇、偶、奇、偶……",
+    patF:"每个数的个位都是 0 或 5。",
+    patZ:"每个数的个位都是 0。",
+    patN:"每个数的各位数字之和都是 9。",
+    patO:"每个数都是奇数。",
+    goodPat:"对了！{why}",
+    whyE:"偶数因数可以拆成两个相同的加数：{eq}。两个相同的加数相加一定是偶数。",
+    whyA:"{r} 是奇数。加一个奇数会让偶数变奇数、奇数变偶数，所以规律是交替的。",
+    whyF:"{r} 个 {r} 个地数，个位依次是 5、0、5、0，因为两个 5 凑成一个十。",
+    whyZ:"乘 {r} 得到的都是整十，所以个位总是 0。",
+    whyN:"每一步加 9，也就是加 1 个十再减 1 个一。十位加 1，个位减 1，所以各位数字之和一直是 9。",
+    hintPat:"检查一下 {x}。它符合这个规律吗？",
+    cmpExprDir:"哪个说法描述了 {eq}？",
+    cmpTimes:"{b} 的 {a} 倍",
+    cmpMore:"比 {b} 多 {a}",
+    cmpSplit:"把 {b} 平均分成 {a} 组",
+    cmpLess:"比 {b} 少 {a}",
+    goodCmpE:"对了！{eq}。{p} 是 {b} 的 {a} 倍。",
+    hintCmpE:"× 表示相同的几组。{a} × {b} 表示 {a} 组 {b}，也就是 {b} 的 {a} 倍。",
+    cmpEqDir:"哪句话和 {eq} 相符？",
+    cmpIs:"{p} 是 {b} 的 {a} 倍。",
+    cmpIsMore:"{p} 比 {b} 多 {a}。",
+    goodCmpQ:"对了！{p} 是 {b} 的 {a} 倍，也是 {a} 的 {b} 倍。",
+    hintCmpQ:"{p} 是积，是较大的量。× 表示“几倍”，不是“多几”。",
+    cmpWordBig:"一只小狗重 {s} 磅。狗妈妈的体重是小狗的 {a} 倍。狗妈妈重多少磅？",
+    cmpWordSmall:"玛雅有 {p} 张贴纸，是利奥的 {a} 倍。利奥有多少张贴纸？",
+    lblSmall:"较小的量",
+    lblBig:"较大的量",
+    stripAria:"线段图：较大的量是较小的量的 {a} 倍。",
+    goodCmpBig:"对了！{a} 倍就是 {a} 个相等的部分：{eq}。",
+    goodCmpSmall:"对了！较大的量是 {a} 个相等的部分，所以用除法：{eq}。验算：{chk}。",
+    hintCmpAdd:"这个答案是加上或减去 {a}。“几倍”和“多几”不一样。",
+    hintCmpW:"看看线段图。较大的量有 {a} 份，每份和较小的量一样大。",
+    ruleDir:"从 {s} 开始。规则是“加 {k}”。接下来是哪些数？",
+    goodRule1:"对了！每次加 {k}：{seq} ……",
+    ruleQ2:"看看这个规律：{seq}。哪个特点是成立的，虽然规则里没有说？",
+    fAlt:"这些数在奇数和偶数之间交替。",
+    fOdd:"每个数都是奇数。",
+    fEven:"每个数都是偶数。",
+    fOnes:"个位数字始终不变。",
+    whyOnes:"对了！加 10 只改变十位，所以个位一直是 {d}。",
+    whyAlt:"对了！{k} 是奇数，加一个奇数会在奇数和偶数之间来回变化。",
+    whyKeepO:"对了！它从奇数 {s} 开始，加上像 {k} 这样的偶数后仍然是奇数。",
+    whyKeepE:"对了！它从偶数 {s} 开始，加上像 {k} 这样的偶数后仍然是偶数。",
+    hintRule1:"从 {s} 开始加 {k}：{eq}。继续加 {k}。",
+    hintRule2:"检查规律中的每个数。这个特点对所有数都成立吗？"
   }
 };
 
@@ -1282,7 +2133,7 @@ function t(key, vars){
 const MODES = ["arr","area","div","fact","story"];
 const MODE_KEY = {arr:"mArr",area:"mArea",div:"mDiv",fact:"mFact",story:"mStory"};
 const GRADE_DEF = {3:{maxFact:10,areaMax:"21",divLvl:"d100",rem:false}, 4:{maxFact:12,areaMax:"22",divLvl:"d1000",rem:true}, 5:{maxFact:12,areaMax:"32",divLvl:"d2dig",rem:true}};
-const AREA_POOL = {f:["f"], "21":["f","21","21"], "22":["21","31","22","22"], "32":["22","31","32","32"]};
+const AREA_POOL = {f:["f"], "21":["f","21","21"], "22":["21","31","22","22","s21","s31","s41","s22"], "32":["22","31","32","s22","s32","s32"]};
 const DIV_LVLS = ["d100","d1000","d9999","d2dig"];
 const DEFAULTS = Object.assign({grade:3, modes:{arr:true,area:true,div:true,fact:true,story:true}, autoRead:false}, GRADE_DEF[3]);
 const clone = o=>JSON.parse(JSON.stringify(o));
@@ -1430,7 +2281,7 @@ const made={};
 function mkChoices(wrap,opts,onPick){
   wrap.innerHTML="";
   opts.forEach(o=>{
-    const b=document.createElement("button"); b.type="button"; b.className="choice";
+    const b=document.createElement("button"); b.type="button"; b.className="choice"+(o.w?" wide":"");
     b.innerHTML=`<span class="lbl">${o.s}</span>`+(o.sub?`<span class="sub">${o.sub}</span>`:"");
     const al=sayMath(plain(o.s))+(o.sub?" — "+o.sub:""); b.setAttribute("aria-label",al);
     b.addEventListener("click",()=>onPick(b,o)); wrap.appendChild(b);
@@ -1457,7 +2308,8 @@ function groupsHTML(r,c){
 }
 function newArr(){
   roundIds.arr++; made.arr=true;
-  const mx=settings.maxFact, type=rand(["build","eq","turn","share","group"]);
+  const mx=settings.maxFact, type=rand(["build","eq","turn","share","group","tbl"]);
+  if(type==="tbl"){ newTbl(); return; }
   let R=ri(2,mx), C=ri(2,mx);
   if(type==="turn" && R===C) C=C>2?C-1:C+1;
   const show=type==="eq"&&Math.random()<.5?"groups":"array";
@@ -1466,7 +2318,7 @@ function newArr(){
   if(A.lockR) A.r=R; if(A.lockC) A.c=C;
   const dir = type==="build"?t("arrBuild",{r:R,c:C}) : type==="turn"?t("arrTurn",{r:R,c:C})
     : type==="share"?t("arrShare",{n:A.N,r:R}) : type==="group"?t("arrGroup",{n:A.N,c:C}) : t(show==="groups"?"arrEqG":"arrEqA");
-  setPrompt("arr",dir); hideFb($("#arrFb"));
+  setPrompt("arr",dir); hideFb($("#arrFb")); $("#arrModel").classList.remove("hidden");
   const model=$("#arrModel");
   model.innerHTML = type==="turn" ? `<span class="modelcap">${t("thisArr")}</span>`+staticArray(R,C)
     : type==="eq" ? (show==="groups"?groupsHTML(R,C):staticArray(R,C)) : "";
@@ -1525,6 +2377,7 @@ function checkArr(){
 }
 function checkArrEq(btn,o){
   if(!A||A.done) return;
+  if(A.type==="tbl"){ pickTbl(btn,o); return; }
   const {R,C,N,show}=A, fb=$("#arrFb");
   if(o.ok){
     A.done=true; lockChoices($("#arrChoices"),btn); addStar();
@@ -1533,6 +2386,41 @@ function checkArrEq(btn,o){
   }
   btn.classList.add("wrongpick"); btn.disabled=true;
   const m=(o.add?t("hintEqAdd",{s:M(`${R} + ${C}`)})+" ":"")+t(show==="groups"?"hintEqG":"hintEqA",{r:R,c:C});
+  fbSay(fb,"hint",m);
+}
+/* Number pairs in a table (3.5E): a real-world rule like "each spider has 8 legs". */
+const TBL=[{k:"tSpider",n:8},{k:"tCar",n:4},{k:"tWeek",n:7},{k:"tPack",n:0},{k:"tBag",n:0}];
+function newTbl(){
+  const cx=rand(TBL), k=cx.n||ri(3,Math.max(5,Math.min(9,settings.maxFact))), X=ri(6,10), xs=[1,2,3,4,X];
+  const sub=rand(["out","out","in","desc"]), desc=t(cx.k,{k});
+  A={type:"tbl",cx,k,X,xs,sub,desc,done:false};
+  setPrompt("arr",t(sub==="desc"?"tblDescDir":"tblValDir")); hideFb($("#arrFb"));
+  const cell=(v,bl)=>bl?`<td class="blank" aria-label="${t("emptyBox")}">?</td>`:`<td>${v}</td>`;
+  const model=$("#arrModel");
+  model.innerHTML=`<table class="ptable" aria-label="${t("tblAria")}"><tr><th scope="row">${t(cx.k+"In")}</th>${xs.map((x,i)=>cell(x,sub==="in"&&i===4)).join("")}</tr>`+
+    `<tr><th scope="row">${t(cx.k+"Out")}</th>${xs.map((x,i)=>cell(x*k,sub==="out"&&i===4)).join("")}</tr></table>`;
+  model.classList.remove("hidden"); $("#arrBuild").classList.add("hidden");
+  const ch=$("#arrChoices"); ch.classList.remove("hidden");
+  let opts;
+  if(sub==="out") opts=[k*X,5*k,X+k,k*X+k];
+  else if(sub==="in") opts=[X,5,X+1,X-1];
+  else { const w=[k+1,2*k,k-1].filter(v=>v>=2&&v!==k); opts=[k,...w]; }
+  const ans=sub==="out"?k*X:sub==="in"?X:k;
+  opts=[...new Set(opts)].filter(v=>v>=1).slice(0,4);
+  mkChoices(ch,shuffle(opts).map(v=>sub==="desc"?{s:t(cx.k,{k:v}),v,ok:v===ans,w:1}:{s:String(v),v,ok:v===ans}),checkArrEq);
+  maybeAuto("arr");
+}
+function pickTbl(btn,o){
+  const {k,X,xs,sub,desc}=A, fb=$("#arrFb"), pairs=M(xs.slice(0,3).map(x=>`${x} → ${x*k}`).join(", "));
+  if(o.ok){
+    A.done=true; lockChoices($("#arrChoices"),btn); addStar();
+    const m = sub==="out"?t("goodTblV",{desc,k,eq:M(`${X} × ${k} = ${X*k}`)})
+      : sub==="in"?t("goodTblI",{desc,k,eq:M(`${X*k} ÷ ${k} = ${X}`)}) : t("goodTblD",{desc,pairs});
+    showFb(fb,"good",m); afterPraise(m,"arr",newArr,1800); return;
+  }
+  btn.classList.add("wrongpick"); btn.disabled=true;
+  const m = sub==="out"?t("hintTbl",{pairs,x:X}) : sub==="in"?t("hintTblI",{pairs,y:X*k})
+    : t("hintTblD",{pair:M(`2 → ${2*k}`)});
   fbSay(fb,"hint",m);
 }
 function initArr(){
@@ -1562,6 +2450,7 @@ function placeParts(n){ const s=String(n), out=[]; for(let i=0;i<s.length;i++){ 
 function newArea(){
   roundIds.area++; made.area=true;
   const kind=rand(AREA_POOL[settings.areaMax]), mx=Math.max(6,settings.maxFact);
+  if(kind[0]==="s"){ newStd(kind); return; }
   let a,b;
   if(kind==="f"){ a=ri(3,mx); b=ri(6,mx); }
   else { a=pickDigits(+kind[0]); b=kind[1]==="1"?ri(3,9):pickDigits(2); }
@@ -1627,6 +2516,7 @@ function splitPoint(e){
 }
 function checkArea(){
   if(!AR||AR.done) return;
+  if(AR.kind[0]==="s"){ checkStd(); return; }
   const fb=$("#areaFb"), {a,b}=AR;
   if(AR.kind==="f"){
     const k=AR.k; if(!k){ fbSay(fb,"hint",t("splitTap")); return; }
@@ -1658,6 +2548,93 @@ function checkArea(){
   AR.done=true; addStar(); $("#areaCheck").disabled=true; $$("#areaWork input").forEach(el=>el.disabled=true);
   const m=t("goodPP",{sum:M(`${prods.join(" + ")} = ${total}`),eq:M(`${a} × ${b} = ${total}`)});
   showFb(fb,"good",m); afterPraise(m,"area",newArea,2000);
+}
+/* ---- Standard algorithm: vertical layout with carries; each row is linked to its partial products ---- */
+const dgs = n=>String(n).split("").reverse().map(Number); // ones digit first
+const dAt = (n,k)=>{ const s=String(n); return k<s.length?s[s.length-1-k]:""; };
+const normD = v=>String(v||"").replace(/[٠-٩]/g,d=>d.charCodeAt(0)-1632).replace(/[۰-۹]/g,d=>d.charCodeAt(0)-1776).replace(/[^\d]/g,"");
+// One row of a × d: each column's product, carry in, and the carry written above the next digit.
+function mulCols(a,d){ let c=0; return dgs(a).map(x=>{ const p=x*d+c, o={x,cin:c,p,cout:Math.floor(p/10)}; c=o.cout; return o; }); }
+function ppLine(a,m){ const pa=placeParts(a); return `${pa.map(x=>`${x} × ${m}`).join(" + ")} = ${pa.map(x=>x*m).join(" + ")}`; }
+function newStd(kind){
+  const a=pickDigits(+kind[1]), b=kind[2]==="1"?ri(3,9):pickDigits(2), bd=dgs(b), rows=bd.map((d,j)=>a*d*10**j);
+  AR={kind,a,b,bd,rows,W:String(a*b).length,step:0,steps:rows.length>1?rows.length+1:1,done:false};
+  setPrompt("area",t("stdDir",{eq:M(`${a} × ${b}`)}));
+  hideFb($("#areaFb")); $("#areaCheck").disabled=false;
+  renderStd(); maybeAuto("area");
+}
+function stdStepTxt(){
+  const {a,bd,rows,step}=AR;
+  return step<rows.length?t("stdStepRow",{n:step+1,eq:M(`${a} × ${bd[step]*10**step}`)}):t("stdStepSum");
+}
+function renderStd(){
+  const {a,b,bd,rows,W,step,steps,done}=AR, la=String(a).length, cur=!done&&step<rows.length?step:-1;
+  const sc=(h,cls,lab)=>`<span class="sc ${cls||""}"${lab?` role="img" aria-label="${lab}"`:""}>${h}</span>`;
+  const line=(sign,fn)=>{ let h=sc(sign,"sg"); for(let k=W-1;k>=0;k--) h+=fn(k); return h; };
+  let h=`<h3 class="stdcap" id="stdStep">${done?"":stdStepTxt()}</h3><div class="std" dir="ltr" style="grid-template-columns:repeat(${W+1},var(--sc))">`;
+  // Carries already written for finished rows, then scratch boxes for the row being worked on.
+  for(let j=0;j<Math.min(step,rows.length);j++){ const mc=mulCols(a,bd[j]);
+    h+=line("",k=>{ const i=k-1; const c=i>=0&&i<la-1?mc[i].cout:0; return sc(c?c:"","cy r"+(j%2),c?t("carryShown",{c,col:t("col"+k)}):""); }); }
+  if(cur>=0) h+=line("",k=>k>=1&&k<la?sc(`<input class="cin" id="cy${k}" inputmode="numeric" autocomplete="off" aria-label="${t("carryAria",{col:t("col"+k)})}" title="${t("carryAria",{col:t("col"+k)})}">`,"cy"):sc("","cy"));
+  h+=line("",k=>sc(dAt(a,k)))+line("×",k=>sc(dAt(b,k)))+`<span class="rule"></span>`;
+  const inRow=(n,j)=>line(j===rows.length-1&&rows.length>1?"+":"",k=>k<j?sc("0","ph",t("phZero")):
+    sc(`<input class="dg" id="sd${k}" inputmode="numeric" autocomplete="off" aria-label="${t("dgAria",{row:n,col:t("col"+k)})}" title="${t("dgAria",{row:n,col:t("col"+k)})}">`));
+  rows.forEach((r,j)=>{
+    if(j<step||done) h+=line(j===rows.length-1&&rows.length>1?"+":"",k=>sc(dAt(r,k),"okd"));
+    else if(j===cur) h+=inRow(t("rowN",{n:j+1}),j);
+  });
+  if(steps>1&&(step>=rows.length||done)){ h+=`<span class="rule"></span>`;
+    h+=done?line("",k=>sc(dAt(a*b,k),"okd")):inRow(t("sumRow"),0); }
+  let li="";
+  rows.forEach((r,j)=>{ if(j<step||done){ const m=bd[j]*10**j; li+=`<li>${t("stdLink",{n:j+1,eq:M(`${a} × ${m} = ${r}`),pp:M(ppLine(a,m))})}</li>`; } });
+  h+=`</div>`+(li?`<p class="muted">${t("stdLinkNote")}</p><ul class="stdlinks">${li}</ul>`:"");
+  $("#areaWork").innerHTML=h;
+  setSpeech("area",$("#areaPrompt").innerHTML+" "+(done?"":stdStepTxt()));
+  const ins=$$("#areaWork input.dg");
+  ins.forEach(el=>{ const k=+el.id.slice(2);
+    el.addEventListener("input",()=>{ const v=normD(el.value).slice(-1); el.value=v; el.classList.remove("bad"); if(v){ const nx=$("#sd"+(k+1)); if(nx) nx.focus(); } });
+    el.addEventListener("keydown",e=>{
+      if(e.key==="Enter"){ e.preventDefault(); checkArea(); }
+      else if(e.key==="ArrowLeft"){ const x=$("#sd"+(k+1)); if(x){ e.preventDefault(); x.focus(); } }
+      else if(e.key==="ArrowRight"){ const x=$("#sd"+(k-1)); if(x){ e.preventDefault(); x.focus(); } }
+      else if(e.key==="Backspace"&&!el.value){ const x=$("#sd"+(k-1)); if(x){ e.preventDefault(); x.focus(); } }
+    }); });
+  $$("#areaWork input.cin").forEach(el=>el.addEventListener("input",()=>{ el.value=normD(el.value).slice(-1); }));
+}
+function stdFocus(){ const els=$$("#areaWork input.dg"); if(els.length) els[els.length-1].focus(); }
+function checkStd(){
+  const fb=$("#areaFb"), {a,bd,rows,step}=AR, isSum=step>=rows.length, j=isSum?0:step, target=isSum?AR.a*AR.b:rows[step];
+  let s=""; for(let k=AR.W-1;k>=j;k--){ const el=$("#sd"+k); s+=(el&&normD(el.value))||" "; }
+  s=s.replace(/^ +/,""); if(!s){ fbSay(fb,"hint",t("fillAll")); return; }
+  if(s.includes(" ")){ fbSay(fb,"hint",t("stdGap")); return; }
+  const v=parseInt(s+"0".repeat(j),10);
+  if(v!==target){
+    let k=j; while(dAt(v,k)===dAt(target,k)) k++;
+    const el=$("#sd"+k); if(el) el.classList.add("bad");
+    let m;
+    if(!isSum){
+      const mc=mulCols(a,bd[j]), la=mc.length, i=Math.min(k-j,la-1), o=mc[i], col=t("col"+(i+j));
+      const eq=M(o.cin?`${o.x} × ${bd[j]} + ${o.cin} = ${o.p}`:`${o.x} × ${bd[j]} = ${o.p}`);
+      m= i===la-1?t("stdHintLast",{col,eq,a,v:o.p}) : o.cout?t("stdHintCol",{col,eq,w:o.p%10,c:o.cout}) : t("stdHintCol0",{col,eq,w:o.p});
+    } else {
+      let c=0, o=null; for(let q=0;q<=k;q++){ const ds=rows.map(r=>dAt(r,q)).filter(x=>x!=="").map(Number), tot=ds.reduce((x,y)=>x+y,0)+c; o={ds,cin:c,tot}; c=Math.floor(tot/10); }
+      const col=t("col"+k), terms=o.ds.concat(o.cin?[o.cin]:[]);
+      m= !o.ds.length?t("stdHintCarry",{col,c:o.cin}) : o.tot>=10&&k<AR.W-1?t("stdHintCol",{col,eq:M(`${terms.join(" + ")} = ${o.tot}`),w:o.tot%10,c:Math.floor(o.tot/10)})
+        : t("stdHintCol0",{col,eq:M(`${terms.join(" + ")} = ${o.tot}`),w:o.tot});
+    }
+    fbSay(fb,"hint",m); return;
+  }
+  const last=step===AR.steps-1, all=placeParts(a).flatMap(x=>bd.map((d,q)=>x*d*10**q));
+  if(last){
+    AR.done=true; addStar(); $("#areaCheck").disabled=true; renderStd();
+    const eq=M(`${a} × ${AR.b} = ${a*AR.b}`), pp=M(`${all.join(" + ")} = ${a*AR.b}`);
+    const m=t(rows.length>1?"goodStd":"goodStd1",{eq,pp});
+    showFb(fb,"good",m); afterPraise(m,"area",newArea,2600); return;
+  }
+  const mm=bd[step]*10**step, m=t("stdGoodRow",{eq:M(`${a} × ${mm} = ${rows[step]}`),pp:M(ppLine(a,mm))});
+  AR.step++; renderStd();
+  const nx=AR.step<rows.length?t("stdNextRow",{a:M(String(a)),d:bd[AR.step],dd:bd[AR.step]*10**AR.step}):t("stdNextSum");
+  showFb(fb,"good",m+" "+nx); speak(m+" "+nx); stdFocus();
 }
 function renderSplitLock(){ $("#splitL").disabled=$("#splitR").disabled=true; }
 
@@ -1791,7 +2768,7 @@ const TRICKY=[9,15,21,25,27,33,35,39,49,51,57,63,65,69,77,81,85,87,91,93,95,4,6,
 function newFact(){
   roundIds.fact++; made.fact=true;
   const mx=settings.maxFact, g4=settings.grade>=4;
-  const type=rand(["mul","div","fam"].concat(g4?["mul","factors","mult","prime"]:["mul","div"]));
+  const type=rand(["mul","div","fam"].concat(g4?["mul","factors","mult","prime","x10","cmp","rule"]:["mul","div","eo","tpat","cmp"]));
   const show=$("#factShow"), ch=$("#factChoices"), chips=$("#factChips");
   ch.innerHTML=""; chips.innerHTML=""; hideFb($("#factFb"));
   ch.classList.toggle("hidden",type==="factors"||type==="mult");
@@ -1829,6 +2806,55 @@ function newFact(){
     Object.assign(F,{k,want:new Set(mul)});
     setPrompt("fact",t("multDir",{k})); show.innerHTML="";
     mkChips([...mul,...non].sort((x,y)=>x-y));
+  } else if(type==="x10"){
+    // 4.4(B): products with 10 and 100 by place value
+    const n=rand([ri(2,9),ri(11,99),ri(11,99),ri(101,999)]), m=rand([10,100]), p=n*m, shown=Math.random()<.5?`${m} × ${n} = ▢`:`${n} × ${m} = ▢`;
+    Object.assign(F,{n,m,p,shown});
+    setPrompt("fact",t("x10Dir")+" "+M(shown)); show.innerHTML=`<p class="big">${M(shown)}</p>`;
+    mkChoices(ch,shuffle([...new Set([p,n*(m===10?100:10),n+m,n*1000])]).map(v=>({s:String(v),v,ok:v===p,add:v===n+m})),pickFact);
+  } else if(type==="eo"){
+    // 3.4(I) even/odd by the ones digit; 3.OA.9 parity of products
+    const prod=Math.random()<.5, a2=ri(2,mx), b2=ri(2,mx), n=prod?a2*b2:ri(10,9999), shown=prod?`${a2} × ${b2}`:`${n}`;
+    Object.assign(F,{n,a:a2,b:b2,prod,even:n%2===0});
+    setPrompt("fact",t(prod?"eoProdDir":"eoDir",{n:M(shown)})); show.innerHTML=`<p class="big">${M(shown)}</p>`;
+    mkChoices(ch,[{s:t("even"),sub:t("evenSub"),ok:F.even},{s:t("odd"),sub:t("oddSub"),ok:!F.even}],pickFact);
+  } else if(type==="tpat"){
+    // 3.OA.9 patterns in a row of the multiplication table
+    const r=rand([2,3,4,5,6,7,8,9,10]), seq=Array.from({length:10},(_,i)=>r*(i+1)), ds=x=>String(x).split("").reduce((u,v)=>u+ +v,0);
+    const fails={E:seq.find(x=>x%2), A:seq.find((x,i)=>i&&x%2===seq[i-1]%2), F:seq.find(x=>x%5), Z:seq.find(x=>x%10), N:seq.find(x=>ds(x)!==9), O:seq.find(x=>x%2===0)};
+    const key=r===10?"Z":r===9?"N":r===5?"F":r%2?"A":"E", wrong=shuffle(Object.keys(fails).filter(x=>fails[x]!==undefined)).slice(0,3);
+    Object.assign(F,{r,seq,key,fails});
+    setPrompt("fact",t("tpatDir",{r})); show.innerHTML=`<p class="seqrow">${M(seq.join(", "))}</p>`;
+    mkChoices(ch,shuffle([key,...wrong]).map(x=>({s:t("pat"+x),v:x,ok:x===key,w:1})),pickFact);
+  } else if(type==="cmp"){
+    // 3.5(C) a product as a comparison; 4.OA.1-2 multiplicative comparison
+    const sub=g4?rand(["eq","big","small","big"]):"expr";
+    if(sub==="expr"){
+      const a2=ri(2,6), b2=ri(10,30);
+      Object.assign(F,{sub,a:a2,b:b2,p:a2*b2});
+      setPrompt("fact",t("cmpExprDir",{eq:M(`${a2} × ${b2}`)})); show.innerHTML=`<p class="big">${M(`${a2} × ${b2}`)}</p>`;
+      mkChoices(ch,shuffle([{s:t("cmpTimes",{a:a2,b:b2}),ok:1},{s:t("cmpMore",{a:a2,b:b2}),add:1},{s:t("cmpSplit",{a:a2,b:b2})},{s:t("cmpLess",{a:a2,b:b2})}]).map(o=>Object.assign(o,{w:1})),pickFact);
+    } else if(sub==="eq"){
+      const a2=ri(2,9); let b2=ri(2,mx); if(b2===a2) b2++; const p=a2*b2;
+      Object.assign(F,{sub,a:a2,b:b2,p});
+      setPrompt("fact",t("cmpEqDir",{eq:M(`${p} = ${a2} × ${b2}`)})); show.innerHTML=`<p class="big">${M(`${p} = ${a2} × ${b2}`)}</p>`;
+      mkChoices(ch,shuffle([{s:t("cmpIs",{p,a:a2,b:b2}),ok:1},{s:t("cmpIsMore",{p,a:a2,b:b2}),add:1},{s:t("cmpIs",{p:b2,a:a2,b:p})},{s:t("cmpIs",{p:a2,a:b2,b:p})}]).map(o=>Object.assign(o,{w:1})),pickFact);
+    } else {
+      const sm=ri(3,12), a2=ri(2,9), p=sm*a2, big=sub==="big", ans=big?p:sm;
+      Object.assign(F,{sub,s:sm,a:a2,p,ans});
+      setPrompt("fact",t(big?"cmpWordBig":"cmpWordSmall",{s:sm,a:a2,p}));
+      show.innerHTML=stripSVG(a2,big?sm:"?",big?"?":p);
+      const add=big?sm+a2:p-a2, o=new Set([ans,add]); [big?p+sm:sm+1, big?(a2+1)*sm:sm*2, big?p-sm:sm-1].forEach(v=>{ if(o.size<4&&v>=1) o.add(v); });
+      mkChoices(ch,shuffle([...o]).map(v=>({s:String(v),v,ok:v===ans,add:v===add})),pickFact);
+    }
+  } else if(type==="rule"){
+    // 4.OA.5 generate a pattern from a rule, then notice a feature the rule doesn't say
+    const k=rand([2,3,4,5,6,7,9,10]), st=k===10?ri(1,9):ri(1,20), seq=Array.from({length:6},(_,i)=>st+k*i);
+    const L=(a0,d)=>Array.from({length:4},(_,i)=>a0+d*(i+1)).join(", "), good=L(st,k);
+    Object.assign(F,{k,st,seq,step:1});
+    setPrompt("fact",t("ruleDir",{k,s:st})); show.innerHTML=`<p class="seqrow">${M(`${st}, ▢, ▢, ▢, ▢`)}</p>`;
+    const o=[...new Set([good,L(0,k),L(st,k+1),L(st,k-1)])].filter((x,i,arr)=>arr.indexOf(x)===i);
+    mkChoices(ch,shuffle(o.slice(0,4)).map(x=>({s:x,ok:x===good})),pickFact);
   } else {
     const n=Math.random()<.5?rand(PRIMES.filter(p=>p>3)):rand(TRICKY);
     Object.assign(F,{n,isPrime:PRIMES.includes(n)});
@@ -1846,6 +2872,7 @@ function mkChips(list){
 }
 function pickFact(btn,o){
   if(!F||F.done) return;
+  if(["x10","eo","tpat","cmp","rule"].includes(F.type)){ pickFact2(btn,o); return; }
   const fb=$("#factFb"); let m;
   if(o.ok){
     F.done=true; lockChoices($("#factChoices"),btn); addStar();
@@ -1862,6 +2889,61 @@ function pickFact(btn,o){
   else if(F.type==="fam") m=t("hintFam");
   else if(F.isPrime) m=t("hintPrime",{eq:M(`1 × ${F.n}`),n:F.n});
   else m=t("hintComp",{x:factorsOf(F.n)[1],n:F.n});
+  fbSay(fb,"hint",m);
+}
+// Strip diagram for multiplicative comparison: one small part, and the big amount as a equal parts.
+function stripSVG(a,part,total){
+  const u=Math.min(64,300/a), W=Math.max(330,40+a*u);
+  let s=`<div class="strip" dir="ltr"><svg viewBox="0 0 ${W} 150" role="img" aria-label="${t("stripAria",{a})}" focusable="false">`;
+  s+=`<text class="stt" x="4" y="16">${t("lblSmall")}</text><rect class="stp" x="4" y="24" width="${u}" height="32" rx="4"/><text class="stt" x="${4+u/2}" y="46" text-anchor="middle">${part}</text>`;
+  s+=`<text class="stt" x="4" y="80">${t("lblBig")}</text>`;
+  for(let i=0;i<a;i++) s+=`<rect class="stq" x="${4+i*u}" y="88" width="${u}" height="32" rx="4"/><text class="stt" x="${4+i*u+u/2}" y="110" text-anchor="middle">${part}</text>`;
+  s+=`<path d="M4 126 v6 h${a*u} v-6" fill="none" stroke="#1c2733" stroke-width="2"/><text class="stt" x="${4+a*u/2}" y="148" text-anchor="middle">${total}</text>`;
+  return s+`</svg></div>`;
+}
+function pickFact2(btn,o){
+  const fb=$("#factFb"), ch=$("#factChoices"); let m;
+  if(o.ok){
+    if(F.type==="rule"&&F.step===1){
+      // Step 2: notice a feature that the rule does not say.
+      const {k,st,seq}=F, odd=seq.every(x=>x%2), even=seq.every(x=>x%2===0), alt=k%2===1, ones=k===10;
+      const truth={Alt:alt,Odd:odd,Even:even,Ones:ones}, key=ones?"Ones":alt?"Alt":odd?"Odd":"Even";
+      F.step=2; F.key=key;
+      m=t("goodRule1",{k,seq:M(seq.slice(0,5).join(", "))});
+      const q=t("ruleQ2",{seq:M(seq.join(", "))});
+      $("#factShow").innerHTML=`<p class="seqrow">${M(seq.join(", "))} …</p>`;
+      setPrompt("fact",q);
+      mkChoices(ch,shuffle([key,...Object.keys(truth).filter(x=>!truth[x])]).map(x=>({s:t("f"+x),v:x,ok:x===key,w:1})),pickFact);
+      showFb(fb,"good",m); speak(m+" "+q); return;
+    }
+    F.done=true; lockChoices(ch,btn); addStar();
+    if(F.type==="x10") m=t(F.m===10?"goodX10":"goodX100",{eq:M(`${F.n} × ${F.m} = ${F.p}`),n:F.n});
+    else if(F.type==="eo"){
+      if(F.prod){ const e=F.a%2?F.b:F.a; m=F.even?t("goodEvenP",{eq:M(`${F.a} × ${F.b} = ${F.n}`),e}):t("goodOddP",{eq:M(`${F.a} × ${F.b} = ${F.n}`)}); }
+      else m=t(F.even?"goodEven":"goodOdd",{n:F.n,d:F.n%10,eq:M(`${F.n} ÷ 2 = ${remTxt(Math.floor(F.n/2),F.n%2)}`)});
+    }
+    else if(F.type==="tpat"){ const r=F.r, h=r/2;
+      m=t("goodPat",{why:F.key==="E"?t("whyE",{eq:M(`${r} × n = ${h} × n + ${h} × n`)}):t("why"+F.key,{r})}); }
+    else if(F.type==="cmp"){
+      if(F.sub==="expr") m=t("goodCmpE",{eq:M(`${F.a} × ${F.b} = ${F.p}`),a:F.a,b:F.b,p:F.p});
+      else if(F.sub==="eq") m=t("goodCmpQ",{p:F.p,a:F.a,b:F.b});
+      else if(F.sub==="big") m=t("goodCmpBig",{eq:M(`${F.a} × ${F.s} = ${F.p}`),a:F.a});
+      else m=t("goodCmpSmall",{eq:M(`${F.p} ÷ ${F.a} = ${F.s}`),chk:M(`${F.a} × ${F.s} = ${F.p}`),a:F.a});
+    }
+    else { const {k,st,seq}=F;
+      m=F.key==="Ones"?t("whyOnes",{d:st%10}):F.key==="Alt"?t("whyAlt",{k}):t(F.key==="Odd"?"whyKeepO":"whyKeepE",{k,s:st}); }
+    showFb(fb,"good",m); afterPraise(m,"fact",newFact,2200); return;
+  }
+  btn.classList.add("wrongpick"); btn.disabled=true;
+  if(F.type==="x10") m=(o.add?t("hintX10Add",{m:F.m})+" ":"")+t(F.m===10?"hintX10":"hintX100",{n:F.n});
+  else if(F.type==="eo") m=F.prod?t("hintEOP"):t("hintEO",{d:F.n%10});
+  else if(F.type==="tpat") m=t("hintPat",{x:F.fails[o.v]});
+  else if(F.type==="cmp"){
+    if(F.sub==="expr") m=t("hintCmpE",{a:F.a,b:F.b});
+    else if(F.sub==="eq") m=t("hintCmpQ",{p:F.p,a:F.a,b:F.b});
+    else m=(o.add?t("hintCmpAdd",{a:F.a})+" ":"")+t("hintCmpW",{a:F.a});
+  }
+  else m=F.step===1?t("hintRule1",{k:F.k,s:F.st,eq:M(`${F.st} + ${F.k} = ${F.st+F.k}`)}):t("hintRule2");
   fbSay(fb,"hint",m);
 }
 function checkChips(){
@@ -2052,7 +3134,7 @@ function initSettings(){
 /* ---------- Print cards ---------- */
 function buildPrintCards(){
   const mx=settings.maxFact, r=ri(3,Math.min(mx,9)), c=ri(3,mx);
-  const kind=rand(AREA_POOL[settings.areaMax].filter(k=>k!=="f").concat(["21"])), a=pickDigits(+kind[0]), b=kind[1]==="1"?ri(3,9):pickDigits(2);
+  const kind=rand(AREA_POOL[settings.areaMax].filter(k=>/^\d/.test(k)).concat(["21"])), a=pickDigits(+kind[0]), b=kind[1]==="1"?ri(3,9):pickDigits(2);
   const ap=placeParts(a), bp=placeParts(b);
   const tab=`<table class="ptab" dir="ltr"><tr><td class="h">×</td>${ap.map(x=>`<td class="h">${x}</td>`).join("")}</tr>`+
     bp.map(y=>`<tr><td class="h">${y}</td>${ap.map(()=>"<td></td>").join("")}</tr>`).join("")+`</table>`;
