@@ -120,6 +120,11 @@
   .legend .sw{display:inline-block;width:26px;height:5px;border-radius:3px;vertical-align:middle;margin-inline-end:.3rem;background:var(--accent)}
   .legend .sw.l2{background:var(--l2)}
   .stylebar{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+  .tw{max-width:100%;overflow-x:auto}
+  table.io{border-collapse:collapse;margin:.2rem auto;font-weight:800;font-size:1.05rem;direction:ltr}
+  table.io th,table.io td{border:2px solid #b9cde0;padding:.3rem .45rem;min-width:2.2rem;text-align:center}
+  table.io th{background:#eaf2fa;font-family:Georgia,serif}
+  table.io td.hi{background:#dcfce7}
 
   .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
   .drawer.open{display:flex}
@@ -390,7 +395,11 @@ const T = {
     cardElim:"Solve by elimination. Show every step, then check your answer in both equations.",
     cardIneq:"Graph the inequality: choose a solid or dashed boundary, then use a test point to decide which side to shade.",
     cardModel:"Write a system of equations, solve it, and explain what the solution means.",
-    stds:"Aligned standards — Texas TEKS Algebra I: A1.2(B, C, E, F, H, I), A1.3(A, B, C, D, F, G), A1.5(C). Common Core: HSA-CED.A.2, HSA-CED.A.3, HSA-REI.C.5, HSA-REI.C.6, HSA-REI.D.10, HSA-REI.D.12, HSF-LE.A.2, HSG-GPE.B.5."
+    fOfX:"{f} of x", fgDir:"{f} and {g}. Use the graph or the table to solve the equation f(x) = g(x).", goodFG:"Yes! At x = {x}, both functions give {y}: f({x}) = g({x}) = {y}. The graphs cross at {p}, and the x-coordinate of that point is the solution of f(x) = g(x).",
+    hFGy:"{y} is the output where the graphs cross (the y-coordinate). The equation f(x) = g(x) asks for the input x that makes the two outputs equal.", hFGn:"At x = {x}, f(x) = {f} but g(x) = {g}. The outputs are not equal, so it is not a solution. Find the point where the graphs cross, or the table column where f(x) and g(x) match.", sdDir:"Graph this system yourself. Inequality (1) first: drag the two points onto its boundary line and choose solid or dashed. Then press Check.",
+    sdBoundS:"The boundary is right, and solid is correct: the symbol includes “or equal to”, so points on the line are solutions.", sdBoundD:"The boundary is right, and dashed is correct: the inequality is strict, so points on the line are not solutions.", sdShade:"Tap a point on the side of boundary line {n} that should be shaded, then press Check.",
+    sdBound2:"Now inequality (2): drag the two new points onto its boundary line and choose solid or dashed. Then press Check.", sdOver:"Both inequalities are graphed. The solutions of the system are where the two shaded regions overlap. Tap a point in the overlap, then press Check.",
+    stds:"Aligned standards — Texas TEKS Algebra I: A1.2(B, C, E, F, H, I), A1.3(A, B, C, D, F, G, H), A1.5(C). Common Core: HSA-CED.A.2, HSA-CED.A.3, HSA-REI.C.5, HSA-REI.C.6, HSA-REI.D.10, HSA-REI.D.11, HSA-REI.D.12, HSF-LE.A.2, HSG-GPE.B.5."
   },
 
   es:{
@@ -551,7 +560,11 @@ const T = {
     cardElim:"Resuelve por eliminación. Muestra cada paso y luego comprueba tu respuesta en ambas ecuaciones.",
     cardIneq:"Grafica la desigualdad: elige una frontera continua o punteada y luego usa un punto de prueba para decidir qué lado sombrear.",
     cardModel:"Escribe un sistema de ecuaciones, resuélvelo y explica qué significa la solución.",
-    stds:"Estándares alineados — TEKS de Texas, Álgebra I: A1.2(B, C, E, F, H, I), A1.3(A, B, C, D, F, G), A1.5(C). Common Core: HSA-CED.A.2, HSA-CED.A.3, HSA-REI.C.5, HSA-REI.C.6, HSA-REI.D.10, HSA-REI.D.12, HSF-LE.A.2, HSG-GPE.B.5."
+    fOfX:"{f} de x", fgDir:"{f} y {g}. Usa la gráfica o la tabla para resolver la ecuación f(x) = g(x).", goodFG:"¡Sí! En x = {x}, las dos funciones dan {y}: f({x}) = g({x}) = {y}. Las gráficas se cruzan en {p}, y la coordenada x de ese punto es la solución de f(x) = g(x).",
+    hFGy:"{y} es la salida donde se cruzan las gráficas (la coordenada y). La ecuación f(x) = g(x) pide la entrada x que hace iguales las dos salidas.", hFGn:"En x = {x}, f(x) = {f} pero g(x) = {g}. Las salidas no son iguales, así que no es solución. Busca el punto donde se cruzan las gráficas, o la columna de la tabla donde f(x) y g(x) coinciden.", sdDir:"Grafica tú mismo este sistema. Primero la desigualdad (1): arrastra los dos puntos sobre su recta frontera y elige continua o punteada. Luego presiona Comprobar.",
+    sdBoundS:"La frontera está bien, y continua es correcto: el símbolo incluye “o igual a”, así que los puntos de la recta son soluciones.", sdBoundD:"La frontera está bien, y punteada es correcto: la desigualdad es estricta, así que los puntos de la recta no son soluciones.", sdShade:"Toca un punto del lado de la recta frontera {n} que debe sombrearse y presiona Comprobar.",
+    sdBound2:"Ahora la desigualdad (2): arrastra los dos puntos nuevos sobre su recta frontera y elige continua o punteada. Luego presiona Comprobar.", sdOver:"Las dos desigualdades están graficadas. Las soluciones del sistema están donde se superponen las dos regiones sombreadas. Toca un punto de la superposición y presiona Comprobar.",
+    stds:"Estándares alineados — TEKS de Texas, Álgebra I: A1.2(B, C, E, F, H, I), A1.3(A, B, C, D, F, G, H), A1.5(C). Common Core: HSA-CED.A.2, HSA-CED.A.3, HSA-REI.C.5, HSA-REI.C.6, HSA-REI.D.10, HSA-REI.D.11, HSA-REI.D.12, HSF-LE.A.2, HSG-GPE.B.5."
   },
 
   vi:{
@@ -712,7 +725,11 @@ const T = {
     cardElim:"Giải bằng phương pháp cộng đại số. Trình bày từng bước, rồi kiểm tra đáp án trong cả hai phương trình.",
     cardIneq:"Vẽ đồ thị bất phương trình: chọn đường biên liền hoặc nét đứt, rồi dùng một điểm thử để quyết định phía cần tô màu.",
     cardModel:"Viết một hệ phương trình, giải hệ, và giải thích ý nghĩa của nghiệm.",
-    stds:"Chuẩn tương ứng — TEKS Texas Đại số I: A1.2(B, C, E, F, H, I), A1.3(A, B, C, D, F, G), A1.5(C). Common Core: HSA-CED.A.2, HSA-CED.A.3, HSA-REI.C.5, HSA-REI.C.6, HSA-REI.D.10, HSA-REI.D.12, HSF-LE.A.2, HSG-GPE.B.5."
+    fOfX:"{f} của x", fgDir:"{f} và {g}. Dùng đồ thị hoặc bảng để giải phương trình f(x) = g(x).", goodFG:"Đúng rồi! Tại x = {x}, cả hai hàm số đều cho {y}: f({x}) = g({x}) = {y}. Hai đồ thị cắt nhau tại {p}, và hoành độ của điểm đó là nghiệm của f(x) = g(x).",
+    hFGy:"{y} là giá trị đầu ra tại nơi hai đồ thị cắt nhau (tung độ). Phương trình f(x) = g(x) hỏi giá trị đầu vào x làm hai đầu ra bằng nhau.", hFGn:"Tại x = {x}, f(x) = {f} nhưng g(x) = {g}. Hai đầu ra không bằng nhau, nên đó không phải là nghiệm. Hãy tìm điểm hai đồ thị cắt nhau, hoặc cột trong bảng mà f(x) và g(x) bằng nhau.", sdDir:"Tự vẽ đồ thị hệ này. Trước hết là bất phương trình (1): kéo hai điểm lên đường biên của nó và chọn đường liền hoặc nét đứt. Sau đó nhấn Kiểm tra.",
+    sdBoundS:"Đường biên đúng rồi, và đường liền là đúng: dấu có “hoặc bằng”, nên các điểm trên đường thẳng là nghiệm.", sdBoundD:"Đường biên đúng rồi, và nét đứt là đúng: bất phương trình là chặt, nên các điểm trên đường thẳng không phải là nghiệm.", sdShade:"Chạm vào một điểm ở phía của đường biên {n} cần tô màu, rồi nhấn Kiểm tra.",
+    sdBound2:"Bây giờ là bất phương trình (2): kéo hai điểm mới lên đường biên của nó và chọn đường liền hoặc nét đứt. Sau đó nhấn Kiểm tra.", sdOver:"Cả hai bất phương trình đã được vẽ. Nghiệm của hệ nằm ở nơi hai vùng tô màu chồng lên nhau. Chạm vào một điểm trong phần chồng lên nhau, rồi nhấn Kiểm tra.",
+    stds:"Chuẩn tương ứng — TEKS Texas Đại số I: A1.2(B, C, E, F, H, I), A1.3(A, B, C, D, F, G, H), A1.5(C). Common Core: HSA-CED.A.2, HSA-CED.A.3, HSA-REI.C.5, HSA-REI.C.6, HSA-REI.D.10, HSA-REI.D.11, HSA-REI.D.12, HSF-LE.A.2, HSG-GPE.B.5."
   },
 
   ar:{
@@ -873,7 +890,11 @@ const T = {
     cardElim:"حُلّ بالحذف. اعرض كل خطوة، ثم تحقّق من إجابتك في المعادلتين.",
     cardIneq:"مثّل المتباينة بيانيًا: اختر حدًّا متصلًا أو متقطعًا، ثم استخدم نقطة اختبار لتحديد الجهة التي تظلّلها.",
     cardModel:"اكتب نظام معادلات، وحُلّه، واشرح ماذا يعني الحل.",
-    stds:"المعايير المتوافقة — معايير TEKS في تكساس، الجبر 1: A1.2(B, C, E, F, H, I)، A1.3(A, B, C, D, F, G)، A1.5(C). معايير Common Core: HSA-CED.A.2، HSA-CED.A.3، HSA-REI.C.5، HSA-REI.C.6، HSA-REI.D.10، HSA-REI.D.12، HSF-LE.A.2، HSG-GPE.B.5."
+    fOfX:"{f} لـ x", fgDir:"{f} و {g}. استخدم التمثيل البياني أو الجدول لحل المعادلة f(x) = g(x).", goodFG:"أحسنت! عندما x = {x} تعطي الدالتان {y}: f({x}) = g({x}) = {y}. يتقاطع التمثيلان البيانيان عند {p}، والإحداثي x لهذه النقطة هو حل f(x) = g(x).",
+    hFGy:"{y} هو المُخرَج عند نقطة التقاطع (الإحداثي y). المعادلة f(x) = g(x) تسأل عن المُدخَل x الذي يجعل المُخرَجين متساويين.", hFGn:"عندما x = {x}، f(x) = {f} لكن g(x) = {g}. المُخرَجان غير متساويين، لذا هذا ليس حلًا. ابحث عن نقطة تقاطع التمثيلين، أو عمود الجدول الذي تتساوى فيه f(x) و g(x).", sdDir:"مثّل هذا النظام بيانيًا بنفسك. ابدأ بالمتباينة (1): اسحب النقطتين إلى مستقيمها الحدّي واختر متصلًا أو متقطعًا. ثم اضغط تحقّق.",
+    sdBoundS:"الحدّ صحيح، والخط المتصل صحيح: الرمز يتضمن «أو يساوي»، لذا النقاط الواقعة على المستقيم حلول.", sdBoundD:"الحدّ صحيح، والخط المتقطع صحيح: المتباينة تامة، لذا النقاط الواقعة على المستقيم ليست حلولًا.", sdShade:"انقر على نقطة في جهة المستقيم الحدّي {n} التي يجب تظليلها، ثم اضغط تحقّق.",
+    sdBound2:"الآن المتباينة (2): اسحب النقطتين الجديدتين إلى مستقيمها الحدّي واختر متصلًا أو متقطعًا. ثم اضغط تحقّق.", sdOver:"تم تمثيل المتباينتين. حلول النظام تقع حيث تتداخل المنطقتان المظللتان. انقر على نقطة في منطقة التداخل، ثم اضغط تحقّق.",
+    stds:"المعايير المتوافقة — معايير TEKS في تكساس، الجبر 1: A1.2(B, C, E, F, H, I)، A1.3(A, B, C, D, F, G, H)، A1.5(C). معايير Common Core: HSA-CED.A.2، HSA-CED.A.3، HSA-REI.C.5، HSA-REI.C.6، HSA-REI.D.10، HSA-REI.D.11، HSA-REI.D.12، HSF-LE.A.2، HSG-GPE.B.5."
   },
 
   hi:{
@@ -1034,7 +1055,11 @@ const T = {
     cardElim:"विलोपन विधि से हल करें। हर चरण दिखाएँ, फिर अपना उत्तर दोनों समीकरणों में जाँचें।",
     cardIneq:"असमिका का आलेख बनाएँ: ठोस या डैश वाली सीमा चुनें, फिर परीक्षण बिंदु से तय करें कि कौन-सी तरफ़ छायांकित करनी है।",
     cardModel:"समीकरणों का निकाय लिखें, उसे हल करें, और समझाएँ कि हल का क्या अर्थ है।",
-    stds:"संरेखित मानक — टेक्सास TEKS बीजगणित I: A1.2(B, C, E, F, H, I), A1.3(A, B, C, D, F, G), A1.5(C)। Common Core: HSA-CED.A.2, HSA-CED.A.3, HSA-REI.C.5, HSA-REI.C.6, HSA-REI.D.10, HSA-REI.D.12, HSF-LE.A.2, HSG-GPE.B.5।"
+    fOfX:"x का {f}", fgDir:"{f} और {g}। आलेख या तालिका का उपयोग करके समीकरण f(x) = g(x) हल करें।", goodFG:"हाँ! x = {x} पर दोनों फलन {y} देते हैं: f({x}) = g({x}) = {y}। आलेख {p} पर काटते हैं, और उस बिंदु का x-निर्देशांक f(x) = g(x) का हल है।",
+    hFGy:"{y} वह आउटपुट है जहाँ आलेख काटते हैं (y-निर्देशांक)। समीकरण f(x) = g(x) वह इनपुट x पूछता है जिससे दोनों आउटपुट बराबर हों।", hFGn:"x = {x} पर f(x) = {f} पर g(x) = {g}। आउटपुट बराबर नहीं हैं, इसलिए यह हल नहीं है। वह बिंदु खोजें जहाँ आलेख काटते हैं, या तालिका का वह स्तंभ जहाँ f(x) और g(x) बराबर हैं।", sdDir:"इस निकाय का आलेख स्वयं बनाएँ। पहले असमिका (1): दोनों बिंदुओं को उसकी सीमा रेखा पर खींचें और ठोस या डैश रेखा चुनें। फिर जाँचें दबाएँ।",
+    sdBoundS:"सीमा सही है, और ठोस रेखा सही है: चिह्न में “या बराबर” शामिल है, इसलिए रेखा पर के बिंदु हल हैं।", sdBoundD:"सीमा सही है, और डैश रेखा सही है: असमिका सख़्त है, इसलिए रेखा पर के बिंदु हल नहीं हैं।", sdShade:"सीमा रेखा {n} की उस तरफ़ के किसी बिंदु पर टैप करें जिसे छायांकित करना है, फिर जाँचें दबाएँ।",
+    sdBound2:"अब असमिका (2): दोनों नए बिंदुओं को उसकी सीमा रेखा पर खींचें और ठोस या डैश रेखा चुनें। फिर जाँचें दबाएँ।", sdOver:"दोनों असमिकाओं का आलेख बन गया। निकाय के हल वहाँ हैं जहाँ दोनों छायांकित क्षेत्र मिलते हैं। उस साझा क्षेत्र में किसी बिंदु पर टैप करें, फिर जाँचें दबाएँ।",
+    stds:"संरेखित मानक — टेक्सास TEKS बीजगणित I: A1.2(B, C, E, F, H, I), A1.3(A, B, C, D, F, G, H), A1.5(C)। Common Core: HSA-CED.A.2, HSA-CED.A.3, HSA-REI.C.5, HSA-REI.C.6, HSA-REI.D.10, HSA-REI.D.11, HSA-REI.D.12, HSF-LE.A.2, HSG-GPE.B.5।"
   },
 
   ur:{
@@ -1195,7 +1220,11 @@ const T = {
     cardElim:"اخراج سے حل کریں۔ ہر قدم دکھائیں، پھر اپنے جواب کو دونوں مساوات میں جانچیں۔",
     cardIneq:"عدم مساوات کا گراف بنائیں: ٹھوس یا ٹوٹی ہوئی حد چنیں، پھر آزمائشی نقطے سے طے کریں کہ کس طرف سایہ کرنا ہے۔",
     cardModel:"مساوات کا ایک نظام لکھیں، اسے حل کریں، اور بتائیں کہ حل کا کیا مطلب ہے۔",
-    stds:"ہم آہنگ معیارات — ٹیکساس TEKS الجبرا 1: A1.2(B, C, E, F, H, I)، A1.3(A, B, C, D, F, G)، A1.5(C)۔ Common Core: HSA-CED.A.2، HSA-CED.A.3، HSA-REI.C.5، HSA-REI.C.6، HSA-REI.D.10، HSA-REI.D.12، HSF-LE.A.2، HSG-GPE.B.5۔"
+    fOfX:"x کا {f}", fgDir:"{f} اور {g}۔ گراف یا جدول استعمال کر کے مساوات f(x) = g(x) حل کریں۔", goodFG:"بالکل درست! x = {x} پر دونوں فنکشن {y} دیتے ہیں: f({x}) = g({x}) = {y}۔ گراف {p} پر ایک دوسرے کو کاٹتے ہیں، اور اس نقطے کا x محدد f(x) = g(x) کا حل ہے۔",
+    hFGy:"{y} وہ آؤٹ پٹ ہے جہاں گراف کاٹتے ہیں (y محدد)۔ مساوات f(x) = g(x) وہ ان پٹ x پوچھتی ہے جس سے دونوں آؤٹ پٹ برابر ہوں۔", hFGn:"x = {x} پر f(x) = {f} لیکن g(x) = {g} ہے۔ آؤٹ پٹ برابر نہیں ہیں، اس لیے یہ حل نہیں ہے۔ وہ نقطہ ڈھونڈیں جہاں گراف کاٹتے ہیں، یا جدول کا وہ کالم جہاں f(x) اور g(x) برابر ہیں۔", sdDir:"اس نظام کا گراف خود بنائیں۔ پہلے عدم مساوات (1): دونوں نقطوں کو اس کے حدی خط پر گھسیٹیں اور ٹھوس یا ٹوٹا ہوا چنیں۔ پھر جانچیں دبائیں۔",
+    sdBoundS:"حد درست ہے، اور ٹھوس خط درست ہے: علامت میں «یا برابر» شامل ہے، اس لیے خط پر موجود نقطے حل ہیں۔", sdBoundD:"حد درست ہے، اور ٹوٹا ہوا خط درست ہے: عدم مساوات سخت ہے، اس لیے خط پر موجود نقطے حل نہیں ہیں۔", sdShade:"حدی خط {n} کی اس طرف کسی نقطے پر ٹیپ کریں جسے سایہ دار ہونا چاہیے، پھر جانچیں دبائیں۔",
+    sdBound2:"اب عدم مساوات (2): دونوں نئے نقطوں کو اس کے حدی خط پر گھسیٹیں اور ٹھوس یا ٹوٹا ہوا چنیں۔ پھر جانچیں دبائیں۔", sdOver:"دونوں عدم مساوات کے گراف بن گئے۔ نظام کے حل وہاں ہیں جہاں دونوں سایہ دار علاقے ملتے ہیں۔ مشترک علاقے میں کسی نقطے پر ٹیپ کریں، پھر جانچیں دبائیں۔",
+    stds:"ہم آہنگ معیارات — ٹیکساس TEKS الجبرا 1: A1.2(B, C, E, F, H, I)، A1.3(A, B, C, D, F, G, H)، A1.5(C)۔ Common Core: HSA-CED.A.2، HSA-CED.A.3، HSA-REI.C.5، HSA-REI.C.6، HSA-REI.D.10، HSA-REI.D.11، HSA-REI.D.12، HSF-LE.A.2، HSG-GPE.B.5۔"
   },
 
   zh:{
@@ -1356,7 +1385,11 @@ const T = {
     cardElim:"用加减消元法求解。写出每一步，再把答案代入两个方程检验。",
     cardIneq:"画出这个不等式的图像：选择实线或虚线作为边界，再用测试点判断涂哪一侧。",
     cardModel:"列出方程组，求解，并解释这个解的含义。",
-    stds:"对应标准 — 德克萨斯州 TEKS 代数一：A1.2(B, C, E, F, H, I)、A1.3(A, B, C, D, F, G)、A1.5(C)。Common Core：HSA-CED.A.2、HSA-CED.A.3、HSA-REI.C.5、HSA-REI.C.6、HSA-REI.D.10、HSA-REI.D.12、HSF-LE.A.2、HSG-GPE.B.5。"
+    fOfX:"{f}(x)", fgDir:"{f}，{g}。用图像或表格解方程 f(x) = g(x)。", goodFG:"对！当 x = {x} 时，两个函数都得到 {y}：f({x}) = g({x}) = {y}。两条图像交于 {p}，这个点的 x 坐标就是 f(x) = g(x) 的解。",
+    hFGy:"{y} 是两条图像相交处的输出值（y 坐标）。方程 f(x) = g(x) 要找的是使两个输出相等的输入 x。", hFGn:"当 x = {x} 时，f(x) = {f}，而 g(x) = {g}。两个输出不相等，所以它不是解。找出两条图像的交点，或表格中 f(x) 与 g(x) 相等的那一列。", sdDir:"自己画出这个不等式组的图像。先画不等式 (1)：把两个点拖到它的边界线上，并选择实线或虚线。然后按“检查”。",
+    sdBoundS:"边界线正确，用实线也正确：符号中包含“等于”，所以直线上的点是解。", sdBoundD:"边界线正确，用虚线也正确：这是严格不等式，所以直线上的点不是解。", sdShade:"点击边界线 {n} 应该涂色的那一侧中的一个点，然后按“检查”。",
+    sdBound2:"现在画不等式 (2)：把两个新点拖到它的边界线上，并选择实线或虚线。然后按“检查”。", sdOver:"两个不等式都画好了。不等式组的解在两个涂色区域的重叠部分。点击重叠部分中的一个点，然后按“检查”。",
+    stds:"对应标准 — 德克萨斯州 TEKS 代数一：A1.2(B, C, E, F, H, I)、A1.3(A, B, C, D, F, G, H)、A1.5(C)。Common Core：HSA-CED.A.2、HSA-CED.A.3、HSA-REI.C.5、HSA-REI.C.6、HSA-REI.D.10、HSA-REI.D.11、HSA-REI.D.12、HSF-LE.A.2、HSG-GPE.B.5。"
   }
 };
 
@@ -1812,7 +1845,21 @@ function gPair(kind){
 }
 function newGraph(){
   const m="graph"; startRound(m); const s=st[m], lv=LV(), R=RR(), w=$("#w-"+m);
-  const type=rand(lv==="f"?["tap","draw","draw","count"]:lv==="a1"?["draw","draw","count","tap"]:["draw","draw","count"]); s.type=type;
+  const type=rand(lv==="f"?["tap","draw","draw","count","fg"]:lv==="a1"?["draw","draw","count","tap","fg"]:["draw","draw","count","fg"]); s.type=type;
+  if(type==="fg"){ // HSA-REI.D.11: where y = f(x) and y = g(x) cross, the x-coordinate solves f(x) = g(x).
+    const {L1,L2,x0,y0}=gPair("one"), FX=(n,L)=>EQN({h:`<i>${n}</i>(<i>x</i>)`,s:t("fOfX",{f:n})},"=",lin([{c:L.m,v:"x"},{c:L.b}]));
+    const xs=[-3,-2,-1,0,1,2,3].map(d=>x0+d), row=(n,fn,hi)=>`<tr><th scope="row">${n}</th>${xs.map(x=>`<td${hi&&x===x0?' class="hi"':""}>${fn(x)}</td>`).join("")}</tr>`;
+    const tbl=hi=>`<table class="io" dir="ltr">${row("<i>x</i>",x=>nH(x),hi)}${row("<i>f</i>(<i>x</i>)",x=>qH(at(L1,x)),hi)}${row("<i>g</i>(<i>x</i>)",x=>qH(at(L2,x)),hi)}</table>`;
+    const gr=done=>planeStatic({R,lines:[{...L1,lab:"f"},{...L2,cls:"l2",lab:"g"}],pts:done?[{x:x0,y:y0,cls:"ok"}]:[]});
+    w.innerHTML=`<div class="split"><div class="side"><div class="legend"><span><span class="sw"></span>${FX("f",L1).h}</span><span><span class="sw l2"></span>${FX("g",L2).h}</span></div><div class="tw" id="fgT">${tbl(false)}</div></div><div class="pwrap" dir="ltr" id="fgG">${gr(false)}</div></div>`;
+    const XV=v=>({h:M(`<i>x</i> = ${nH(v)}`),s:"x "+t("wEq")+" "+nS(v)}), items=[], seen=[];
+    [[x0,"ok"],[y0,"y"],[-x0,"n"],[x0+1,"n"],[x0-1,"n"],[x0+2,"n"]].forEach(([v,k])=>{ if(items.length<4&&!seen.includes(v)){ seen.push(v); items.push({...XV(v),ok:k==="ok",k,v}); } });
+    choices(m,shuffle(items),it=>{
+      if(it.ok){ $("#fgG").innerHTML=gr(true); $("#fgT").innerHTML=tbl(true); return win(m,tm("goodFG",{x:NM(x0),y:NM(y0),p:PT(x0,y0)})); }
+      if(it.k==="y") return nope(m,tm("hFGy",{y:NM(y0)}));
+      nope(m,tm("hFGn",{x:NM(it.v),f:QV(at(L1,it.v)),g:QV(at(L2,it.v))})); });
+    setPrompt(m,tm("fgDir",{f:FX("f",L1),g:FX("g",L2)})); return maybeAuto(m);
+  }
   if(type==="count"){
     const kind=rand(["one","none","inf"]), G_=gPair(kind), {L1,L2}=G_, k=rand([2,3,-2]);
     const f1=lv==="adv"?rand(["si","st"]):"si";
@@ -1971,7 +2018,7 @@ function genIneq(f){ const R=RR(), Ls=slopes(3); let L;
 function ineqF(){ const lv=LV(); return lv==="f"?"si":lv==="a1"?(Math.random()<.3?"st":"si"):(Math.random()<.6?"st":"si"); }
 function newIneq(){
   const m="ineq"; startRound(m); const s=st[m], lv=LV(), R=RR(), w=$("#w-"+m);
-  const type=rand(lv==="f"?["draw","draw","test","pick"]:lv==="a1"?["draw","pick","sys","test"]:["draw","pick","sys","sys"]); s.type=type;
+  const type=rand(lv==="f"?["draw","draw","test","pick"]:lv==="a1"?["draw","pick","sys","test","sysdraw","sysdraw"]:["draw","pick","sys","sysdraw","sysdraw"]); s.type=type;
   const sty=I=>strict(I.rel)?"dash":"";
   if(type==="test"){
     const I=genIneq(ineqF()); let p;
@@ -2012,6 +2059,54 @@ function newIneq(){
       p.cls="bad"; redraw(m); const i=c[0].ok?1:0;
       nope(m,onL(I[i].L,p.x,p.y)&&strict(I[i].rel)?tm("hSysEdge",{p:P_,n:i+1}):tm("hSysFail",{p:P_,n:i+1,calc:c[i]})); });
     setPrompt(m,TX("sysDir")); return maybeAuto(m);
+  }
+  if(type==="sysdraw"){ // A1.3(H): the student graphs both inequalities, then finds the overlap.
+    let I1,I2,n=0;
+    do{ I1=genIneq(ineqF()); I2=genIneq(ineqF()); n++;
+      if(qeq(I1.L.m,I2.L.m)) continue;
+      let cnt=0; for(let x=-R+1;x<R;x++) for(let y=-R+1;y<R;y++) if(satI(I1,x,y)&&satI(I2,x,y)) cnt++;
+      if(cnt>=6&&cnt<(2*R-1)*(2*R-1)*.45) break; }while(n<400);
+    const I=[I1,I2], H0=()=>[{x:-R+1,y:-R+1},{x:-R+3,y:-R+1}], side=(J,p)=>qv(qs(Q(p.y),at(J.L,p.x)))>0;
+    Object.assign(s,{I,k:0,phase:1,solid:null,tp:null,pt:null,got:[],H:H0()});
+    const drag={get:()=>s.H,set:(i,x,y)=>{ s.H[i]={x,y}; hideFb($("#f-"+m)); redraw(m); }};
+    const legend=`<div class="legend"><span><span class="sw"></span>(1) ${dispI(I1).h}</span><span><span class="sw l2"></span>(2) ${dispI(I2).h}</span></div>`;
+    w.innerHTML=`<div class="split"><div class="side">${legend}<div class="stylebar">
+      <button type="button" class="btn ghost" id="stS" aria-pressed="false">━ ${t("solidB")}</button>
+      <button type="button" class="btn ghost" id="stD" aria-pressed="false">╍ ${t("dashedB")}</button></div></div><div>${planeBox(m,{
+      view:()=>{ const o={shades:[],lines:[],pts:[]}, c2=k=>k?"l2 ":"";
+        s.got.forEach((abv,i)=>{ o.shades.push({L:I[i].L,abv,cls:i?"l2":""}); o.lines.push({...I[i].L,cls:c2(i)+sty(I[i]),lab:""+(i+1)}); });
+        if(s.phase===1){ const L=lineFrom(s.H[0],s.H[1]); if(L) o.lines.push({...L,cls:c2(s.k)+(s.solid===false?"dash":"")+(s.solid===null?" pre":"")});
+          o.pts=s.H.map((p,i)=>({...p,cls:"dr"+(s.k?" l2":"")+(PL[m]&&PL[m].sel===i?" sel":"")})); }
+        else if(s.phase===2){ const J=I[s.k]; if(s.tp){ o.shades.push({L:J.L,abv:side(J,s.tp),cls:s.k?"l2":""}); o.pts.push({...s.tp}); } o.lines.push({...J.L,cls:c2(s.k)+sty(J),lab:""+(s.k+1)}); }
+        else if(s.pt) o.pts.push({...s.pt});
+        return o; },
+      drag,
+      tap:(x,y)=>{ if(s.phase===2){ if(onL(I[s.k].L,x,y)) return nope(m,TX("hOnLine")); s.tp={x,y,cls:"tp"}; }
+        else if(s.phase===3) s.pt={x,y,cls:"tp"}; else return; hideFb($("#f-"+m)); redraw(m); } })}</div></div>`;
+    const setSty=v=>{ if(s.phase!==1) return; s.solid=v; $("#stS").setAttribute("aria-pressed",v?"true":"false"); $("#stD").setAttribute("aria-pressed",v?"false":"true"); hideFb($("#f-"+m)); redraw(m); };
+    $("#stS").addEventListener("click",()=>setSty(true)); $("#stD").addEventListener("click",()=>setSty(false));
+    const next=(msg,q)=>{ setPrompt(m,q); showFb($("#f-"+m),"good",msg.h); speak(cat(msg,q).s); };
+    checkBtn(m,()=>{ const J=I[s.k];
+      if(s.phase===1){ const [A,B]=s.H;
+        if(!handlesOn(J.L,A,B)) return nope(m,A.x===B.x&&A.y===B.y?TX("hSame"):drawHint(J.L,J.f,t("boundL")));
+        if(s.solid===null) return nope(m,TX("hStyleNone"));
+        if(s.solid===strict(J.rel)) return nope(m,TX(strict(J.rel)?"hStyleD":"hStyleS"));
+        s.phase=2; $("#stS").disabled=true; $("#stD").disabled=true; toTap(m);
+        return next(TX(s.solid?"sdBoundS":"sdBoundD"),tm("sdShade",{n:s.k+1})); }
+      if(s.phase===2){ const p=s.tp; if(!p) return nope(m,TX("hTapSide"));
+        const c=chkI(J,p.x,p.y), P_=PT(p.x,p.y); if(!c.ok) return nope(m,tm("hShade",{p:P_,calc:c}));
+        s.got.push(side(J,p)); s.tp=null;
+        if(s.k===0){ Object.assign(s,{k:1,phase:1,solid:null,H:H0()}); const c_=PL[m]; c_.drag=drag; c_.sel=0;
+          const svg=$(`#w-${m} svg.plane`); if(svg) svg.setAttribute("aria-label",t("kbDrag"));
+          ["stS","stD"].forEach(id=>{ $("#"+id).disabled=false; $("#"+id).setAttribute("aria-pressed","false"); }); redraw(m);
+          return next(tm("goodShade",{p:P_,calc:c}),TX("sdBound2")); }
+        s.phase=3; redraw(m); return next(tm("goodShade",{p:P_,calc:c}),TX("sdOver")); }
+      const p=s.pt; if(!p) return nope(m,TX("hTapFirst"));
+      const c=I.map(K=>chkI(K,p.x,p.y)), P_=PT(p.x,p.y);
+      if(c[0].ok&&c[1].ok){ p.cls="ok"; redraw(m); return win(m,tm("goodSys",{p:P_,c1:c[0],c2:c[1]})); }
+      p.cls="bad"; redraw(m); const i=c[0].ok?1:0;
+      nope(m,onL(I[i].L,p.x,p.y)&&strict(I[i].rel)?tm("hSysEdge",{p:P_,n:i+1}):tm("hSysFail",{p:P_,n:i+1,calc:c[i]})); });
+    setPrompt(m,TX("sdDir")); return maybeAuto(m);
   }
   // draw: boundary by dragging two points, choose solid/dashed, then shade by tapping a side
   const I=genIneq(ineqF()), E=dispI(I);
