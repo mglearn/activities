@@ -99,6 +99,16 @@
   .pt.bad{fill:#e3a008}
   .pt.yi{fill:var(--tgt)}
   .pt.tr{fill:#d35400;stroke:#fff;stroke-width:3}
+  .pt.fc{fill:#d35400}
+  .pt.dp{fill:#2471a3;stroke-width:2}
+  .vl.dx{stroke:#2471a3;stroke-dasharray:12 6;stroke-width:3}
+  .cv.wf{stroke:#7f8c8d;stroke-dasharray:10 7;stroke-width:3}
+  .dtab{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;direction:ltr;font-weight:700}
+  .dtab>div{display:flex;flex-direction:column;align-items:center;border:2px solid #9fb6c9;border-radius:8px;min-width:2.9rem;overflow:hidden}
+  .dtab>div>span{padding:.1rem .3rem;width:100%;text-align:center}
+  .dtab>div>span:first-child{background:#d6e9f8;border-bottom:1px solid #9fb6c9}
+  .dtab>div.hd{border-color:var(--accentD)}
+  .attrs{margin:.2rem 0 0;padding-inline-start:1.2rem;font-weight:700;line-height:2}
   .ptl{font:800 16px system-ui,sans-serif;fill:#22161a;paint-order:stroke;stroke:#fff;stroke-width:4}
   .cur{fill:none;stroke:var(--focus);stroke-width:3;display:none}
   .plane:focus-visible .cur{display:inline}
@@ -243,7 +253,7 @@ const T = {
     footNote:"No accounts · No data collected · Works offline",
     mBuild:"Parabola Builder", mFactor:"Factor It", mSolve:"Solve It", mConnect:"Connect Forms", mModel:"Projectiles & Area",
     teacherTitle:"Teacher settings", close:"Close", setLevel:"Course level", lvF:"Foundations", lvA1:"Algebra I", lvA2:"Algebra II",
-    lvNote:"Foundations: vertex form with whole-number a, factoring with positive numbers, solving by factoring and square roots. Algebra I: fractional a, all factoring types, completing the square and the quadratic formula with real solutions. Algebra II: vertex from standard form, a ≠ 1, radicals and complex solutions. Choosing a level resets the options below.",
+    lvNote:"Foundations: vertex form with whole-number a, factoring with positive numbers, solving by factoring and square roots. Algebra I: fractional a, all factoring types, completing the square and the quadratic formula with real solutions, fitting quadratic models to data. Algebra II: vertex from standard form, a ≠ 1, radicals and complex solutions, focus and directrix, the parabola through three points, quadratic and square-root regression. Choosing a level resets the options below.",
     setRange:"Grid size", setOpts:"Options", aNot1On:"Leading coefficient a ≠ 1 (factor by grouping, converting forms)", cplxOn:"Complex solutions with i",
     setModes:"Modes", setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
     setStored:"Settings are saved only on this device. No student information is ever stored.",
@@ -368,7 +378,24 @@ const T = {
     goodRevP:"Yes! The best x is {xv} increases, so the price is ${pp}.", goodRevR:"Yes! R({xv}) = {r} dollars is the maximum revenue.",
     trL:"Trace left", trR:"Trace right",
     uFt:"{v} ft", sFt:"{v} feet", uS:"{v} s", sS:"{v} seconds", uM:"{v} m", sM:"{v} meters", uM2:"{v} m²", sM2:"{v} square meters", uD:"${v}", sD:"{v} dollars",
-    stds:"Aligned standards — Texas TEKS: Algebra I A1.6(A, B, C), A1.7(A, B, C), A1.8(A), A1.10(D, E, F); Algebra II A2.4(D, F). Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSN-CN.C.7.",
+    atVtx:"Vertex: {v}", atFoc:"Focus: {f}", atDir:"Directrix: {d}",
+    atAx:"Axis of symmetry: {ax}", atUp:"Opens up", atDn:"Opens down",
+    atRt:"Opens to the right", atLt:"Opens to the left", atThru:"Passes through {p}",
+    attrDir:"Which equation describes the parabola with these attributes?", hAttrP:"Every point of a parabola is the same distance from the focus and the directrix, so the vertex is halfway between them. From the vertex to the focus is p = {p} (negative if the focus is below or to the left). Use {f} with a = 1 ÷ (4p).", hAttrPt:"Start with {f} and fill in h and k from the vertex. Then substitute the point {p} for x and y and solve for a.",
+    hAttrSg:"Check the direction: a is positive when the parabola opens up or to the right, and negative when it opens down or to the left.", hAttrV:"Check the shifts. The vertex is {v}. Inside the parentheses you subtract the vertex coordinate, so a coordinate of 3 gives x − 3 (or y − 3), and −3 gives x + 3.", hAttrOr:"Check which way it opens. A parabola that opens up or down has the form y = a(x − h)² + k. One that opens left or right lies sideways: x = a(y − k)² + h.",
+    gAttrPt:"Yes! Substituting {p} gives a = {a}.", gAttrFD:"The vertex is halfway between the focus {f} and the directrix {d}. The focus is p = {p} from the vertex, so a = 1 ÷ (4p) = {a}: {e}.", hP3:"Check {p}: when x = {x}, this equation gives y = {y}, not {w}. The right equation passes through all three points.",
+    p3Dir:"Which quadratic function passes through the points {p1}, {p2} and {p3}?", gP3:"Yes! Substituting each point into y = ax² + bx + c gives a system of three equations: {e1}, {e2}, {e3}. Its solution is a = {a}, b = {b}, c = {c}, so the function is {e}.", fitCx_ball:"A ball is thrown into the air. The table shows its height h in feet, t seconds after it is thrown.",
+    fitCx_mpg:"The table shows a car's gas mileage m, in miles per gallon, when it drives at a speed of s miles per hour.", fitCx_stop:"The table shows how many feet, d, a car needs to stop when it is going s miles per hour.", fitCx_skid:"After a crash, police measure the skid marks. The table shows a car's speed s, in miles per hour, for skid marks d feet long.",
+    fitCx_pend:"The table shows the time T, in seconds, for one full swing of a pendulum that is L centimeters long.", fitQ1:"Which kind of model fits these data best? Pick one and the technology draws its best-fit curve.", fLin:"Linear model",
+    fQuad:"Quadratic model", fSqrt:"Square-root model", hFitLin:"That is the best line, but the points bend away from it. A line changes by the same amount at every step, and these data do not.",
+    hFitSqrtQ:"A square-root graph only rises, and more and more slowly. These data turn around or rise faster and faster: that is the shape of a parabola.", hFitQuadS:"The parabola fits these points, but it would turn back down for larger inputs, and this quantity keeps growing. The data start near 0, rise fast and then more and more slowly: that is the shape of a square-root graph.", fitGoodQ:"Yes! The data follow a parabola. Quadratic regression gives the model {e}.",
+    fitGoodS:"Yes! The data follow a square-root curve. Square-root regression gives the model {e}.", fitModel:"Model: {e}", qFitPred:"Use the model to estimate {y} when {x} = {v}.",
+    hFitPred:"Substitute {x} = {v} into the model and evaluate. On the graph, follow the dashed line to the curve to check your estimate.", qFitRoot:"Use the model to estimate when the ball hits the ground.", hFitRoot:"The ball hits the ground when h = 0. Find the positive zero of the model with the quadratic formula, or see where the curve meets the t-axis.",
+    qFitPeak:"Use the model: at what speed is the gas mileage greatest?", hFitPeak:"The greatest mileage is at the vertex of the parabola. Its s-coordinate is −b ÷ (2a), using a and b from the model.", qFitInv:"Use the model to estimate {x} when {y} = {v}.",
+    hFitInv:"Set the model equal to {v} (follow the dashed line across to the curve). Subtract the constant, divide by the coefficient of the square root, then square both sides to find {x}.", gFitPred:"Yes! Substituting {x} into the model gives {a}.", gFitRoot:"Yes! The positive zero of the model is {a}: the ball lands after about that many seconds.",
+    gFitPeak:"Yes! The vertex of the model is at {a}: the car gets its best mileage at about that speed.", gFitInv:"Yes! Setting {y} and solving gives {a}.", wApprox:"is about",
+    tblLbl:"Data table",
+    stds:"Aligned standards — Texas TEKS: Algebra I A1.6(A, B, C), A1.7(A, B, C), A1.8(A, B), A1.10(D, E, F); Algebra II A2.4(A, B, D, E, F). Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSG-GPE.A.2, HSN-CN.C.7, HSS-ID.B.6a.",
     cardTitle:"Quadratic Explorer — Challenge Cards", cardName:"Name:",
     cardBuild:"Graph the function. Label the vertex, the axis of symmetry and the y-intercept. State the domain, the range, and the maximum or minimum value.",
     cardFactor:"Factor completely. Draw an area model for the trinomial.",
@@ -382,7 +409,7 @@ const T = {
     footNote:"Sin cuentas · No se recopilan datos · Funciona sin conexión",
     mBuild:"Constructor de parábolas", mFactor:"Factoriza", mSolve:"Resuelve", mConnect:"Conecta formas", mModel:"Proyectiles y área",
     teacherTitle:"Ajustes del maestro", close:"Cerrar", setLevel:"Nivel del curso", lvF:"Fundamentos", lvA1:"Álgebra I", lvA2:"Álgebra II",
-    lvNote:"Fundamentos: forma vértice con a entero, factorización con números positivos, resolver por factorización y raíces cuadradas. Álgebra I: a fraccionario, todos los tipos de factorización, completar el cuadrado y la fórmula cuadrática con soluciones reales. Álgebra II: vértice a partir de la forma estándar, a ≠ 1, radicales y soluciones complejas. Al elegir un nivel se restablecen las opciones de abajo.",
+    lvNote:"Fundamentos: forma vértice con a entero, factorización con números positivos, resolver por factorización y raíces cuadradas. Álgebra I: a fraccionario, todos los tipos de factorización, completar el cuadrado y la fórmula cuadrática con soluciones reales, ajustar modelos cuadráticos a datos. Álgebra II: vértice a partir de la forma estándar, a ≠ 1, radicales y soluciones complejas, foco y directriz, la parábola que pasa por tres puntos, regresión cuadrática y de raíz cuadrada. Al elegir un nivel se restablecen las opciones de abajo.",
     setRange:"Tamaño de la cuadrícula", setOpts:"Opciones", aNot1On:"Coeficiente principal a ≠ 1 (factorizar por agrupación, convertir formas)", cplxOn:"Soluciones complejas con i",
     setModes:"Modos", setSpeech:"Voz", autoRead:"Leer instrucciones automáticamente", printCards:"Imprimir tarjetas de desafío",
     setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información de los estudiantes.",
@@ -507,7 +534,24 @@ const T = {
     goodRevP:"¡Sí! El mejor x es {xv} aumentos, así que el precio es ${pp}.", goodRevR:"¡Sí! R({xv}) = {r} dólares es el ingreso máximo.",
     trL:"Recorrer a la izquierda", trR:"Recorrer a la derecha",
     uFt:"{v} pies", sFt:"{v} pies", uS:"{v} s", sS:"{v} segundos", uM:"{v} m", sM:"{v} metros", uM2:"{v} m²", sM2:"{v} metros cuadrados", uD:"${v}", sD:"{v} dólares",
-    stds:"Estándares alineados — Texas TEKS: Álgebra I A1.6(A, B, C), A1.7(A, B, C), A1.8(A), A1.10(D, E, F); Álgebra II A2.4(D, F). Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSN-CN.C.7.",
+    atVtx:"Vértice: {v}", atFoc:"Foco: {f}", atDir:"Directriz: {d}",
+    atAx:"Eje de simetría: {ax}", atUp:"Abre hacia arriba", atDn:"Abre hacia abajo",
+    atRt:"Abre hacia la derecha", atLt:"Abre hacia la izquierda", atThru:"Pasa por {p}",
+    attrDir:"¿Qué ecuación describe la parábola con estas características?", hAttrP:"Cada punto de una parábola está a la misma distancia del foco y de la directriz, así que el vértice está justo en medio de ellos. Del vértice al foco hay p = {p} (negativo si el foco está abajo o a la izquierda). Usa {f} con a = 1 ÷ (4p).", hAttrPt:"Empieza con {f} y completa h y k con el vértice. Luego sustituye x e y por el punto {p} y despeja a.",
+    hAttrSg:"Revisa la dirección: a es positivo cuando la parábola abre hacia arriba o hacia la derecha, y negativo cuando abre hacia abajo o hacia la izquierda.", hAttrV:"Revisa los desplazamientos. El vértice es {v}. Dentro del paréntesis se resta la coordenada del vértice, así que una coordenada 3 da x − 3 (o y − 3), y −3 da x + 3.", hAttrOr:"Revisa hacia dónde abre. Una parábola que abre hacia arriba o hacia abajo tiene la forma y = a(x − h)² + k. Una que abre a la izquierda o a la derecha está de lado: x = a(y − k)² + h.",
+    gAttrPt:"¡Sí! Al sustituir {p} se obtiene a = {a}.", gAttrFD:"El vértice está justo en medio del foco {f} y la directriz {d}. El foco está a p = {p} del vértice, así que a = 1 ÷ (4p) = {a}: {e}.", hP3:"Comprueba {p}: cuando x = {x}, esta ecuación da y = {y}, no {w}. La ecuación correcta pasa por los tres puntos.",
+    p3Dir:"¿Qué función cuadrática pasa por los puntos {p1}, {p2} y {p3}?", gP3:"¡Sí! Al sustituir cada punto en y = ax² + bx + c se obtiene un sistema de tres ecuaciones: {e1}, {e2}, {e3}. Su solución es a = {a}, b = {b}, c = {c}, así que la función es {e}.", fitCx_ball:"Se lanza una pelota al aire. La tabla muestra su altura h en pies, t segundos después del lanzamiento.",
+    fitCx_mpg:"La tabla muestra el rendimiento de gasolina m de un auto, en millas por galón, cuando va a s millas por hora.", fitCx_stop:"La tabla muestra cuántos pies, d, necesita un auto para detenerse cuando va a s millas por hora.", fitCx_skid:"Después de un choque, la policía mide las marcas de frenado. La tabla muestra la velocidad s de un auto, en millas por hora, para marcas de d pies de largo.",
+    fitCx_pend:"La tabla muestra el tiempo T, en segundos, de una oscilación completa de un péndulo de L centímetros de largo.", fitQ1:"¿Qué tipo de modelo se ajusta mejor a estos datos? Elige uno y la tecnología dibujará su curva de mejor ajuste.", fLin:"Modelo lineal",
+    fQuad:"Modelo cuadrático", fSqrt:"Modelo de raíz cuadrada", hFitLin:"Esa es la mejor recta, pero los puntos se curvan alejándose de ella. Una recta cambia lo mismo en cada paso, y estos datos no.",
+    hFitSqrtQ:"Una gráfica de raíz cuadrada solo sube, y cada vez más despacio. Estos datos dan la vuelta o suben cada vez más rápido: esa es la forma de una parábola.", hFitQuadS:"La parábola se ajusta a estos puntos, pero volvería a bajar para entradas más grandes, y esta cantidad sigue creciendo. Los datos empiezan cerca de 0, suben rápido y luego cada vez más despacio: esa es la forma de una gráfica de raíz cuadrada.", fitGoodQ:"¡Sí! Los datos siguen una parábola. La regresión cuadrática da el modelo {e}.",
+    fitGoodS:"¡Sí! Los datos siguen una curva de raíz cuadrada. La regresión de raíz cuadrada da el modelo {e}.", fitModel:"Modelo: {e}", qFitPred:"Usa el modelo para estimar {y} cuando {x} = {v}.",
+    hFitPred:"Sustituye {x} = {v} en el modelo y calcula. En la gráfica, sigue la línea discontinua hasta la curva para comprobar tu estimación.", qFitRoot:"Usa el modelo para estimar cuándo la pelota toca el suelo.", hFitRoot:"La pelota toca el suelo cuando h = 0. Halla el cero positivo del modelo con la fórmula cuadrática, o mira dónde la curva corta el eje t.",
+    qFitPeak:"Usa el modelo: ¿a qué velocidad es mayor el rendimiento de gasolina?", hFitPeak:"El mayor rendimiento está en el vértice de la parábola. Su coordenada s es −b ÷ (2a), con a y b del modelo.", qFitInv:"Usa el modelo para estimar {x} cuando {y} = {v}.",
+    hFitInv:"Iguala el modelo a {v} (sigue la línea discontinua hasta la curva). Resta la constante, divide entre el coeficiente de la raíz cuadrada y luego eleva al cuadrado ambos lados para hallar {x}.", gFitPred:"¡Sí! Al sustituir {x} en el modelo se obtiene {a}.", gFitRoot:"¡Sí! El cero positivo del modelo es {a}: la pelota cae al suelo después de aproximadamente esos segundos.",
+    gFitPeak:"¡Sí! El vértice del modelo está en {a}: el auto rinde más a aproximadamente esa velocidad.", gFitInv:"¡Sí! Con {y} y despejando se obtiene {a}.", wApprox:"es aproximadamente",
+    tblLbl:"Tabla de datos",
+    stds:"Estándares alineados — Texas TEKS: Álgebra I A1.6(A, B, C), A1.7(A, B, C), A1.8(A, B), A1.10(D, E, F); Álgebra II A2.4(A, B, D, E, F). Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSG-GPE.A.2, HSN-CN.C.7, HSS-ID.B.6a.",
     cardTitle:"Explorador de cuadráticas — Tarjetas de desafío", cardName:"Nombre:",
     cardBuild:"Grafica la función. Rotula el vértice, el eje de simetría y la intersección con el eje y. Indica el dominio, el rango y el valor máximo o mínimo.",
     cardFactor:"Factoriza completamente. Dibuja un modelo de área para el trinomio.",
@@ -522,7 +566,7 @@ const T = {
     footNote:"Không cần tài khoản · Không thu thập dữ liệu · Dùng được khi ngoại tuyến",
     mBuild:"Dựng parabol", mFactor:"Phân tích nhân tử", mSolve:"Giải phương trình", mConnect:"Liên kết các dạng", mModel:"Chuyển động ném và diện tích",
     teacherTitle:"Cài đặt của giáo viên", close:"Đóng", setLevel:"Cấp độ khóa học", lvF:"Cơ bản", lvA1:"Đại số I", lvA2:"Đại số II",
-    lvNote:"Cơ bản: dạng đỉnh với a là số nguyên, phân tích nhân tử với số dương, giải bằng phân tích nhân tử và căn bậc hai. Đại số I: a là phân số, mọi kiểu phân tích nhân tử, hoàn thành bình phương và công thức nghiệm với nghiệm thực. Đại số II: tìm đỉnh từ dạng tổng quát, a ≠ 1, căn thức và nghiệm phức. Khi chọn cấp độ, các tùy chọn bên dưới sẽ được đặt lại.",
+    lvNote:"Cơ bản: dạng đỉnh với a là số nguyên, phân tích nhân tử với số dương, giải bằng phân tích nhân tử và căn bậc hai. Đại số I: a là phân số, mọi kiểu phân tích nhân tử, hoàn thành bình phương và công thức nghiệm với nghiệm thực, mô hình bậc hai khớp với dữ liệu. Đại số II: tìm đỉnh từ dạng tổng quát, a ≠ 1, căn thức và nghiệm phức, tiêu điểm và đường chuẩn, parabol đi qua ba điểm, hồi quy bậc hai và căn bậc hai. Khi chọn cấp độ, các tùy chọn bên dưới sẽ được đặt lại.",
     setRange:"Kích thước lưới", setOpts:"Tùy chọn", aNot1On:"Hệ số cao nhất a ≠ 1 (phân tích nhân tử bằng cách nhóm, chuyển đổi các dạng)", cplxOn:"Nghiệm phức với i",
     setModes:"Chế độ", setSpeech:"Giọng đọc", autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
     setStored:"Cài đặt chỉ được lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
@@ -647,7 +691,24 @@ const T = {
     goodRevP:"Đúng rồi! x tốt nhất là {xv} lần tăng giá, nên giá bán là ${pp}.", goodRevR:"Đúng rồi! R({xv}) = {r} đô la là doanh thu lớn nhất.",
     trL:"Dò sang trái", trR:"Dò sang phải",
     uFt:"{v} ft", sFt:"{v} feet", uS:"{v} s", sS:"{v} giây", uM:"{v} m", sM:"{v} mét", uM2:"{v} m²", sM2:"{v} mét vuông", uD:"${v}", sD:"{v} đô la",
-    stds:"Các chuẩn liên quan — Texas TEKS: Đại số I A1.6(A, B, C), A1.7(A, B, C), A1.8(A), A1.10(D, E, F); Đại số II A2.4(D, F). Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSN-CN.C.7.",
+    atVtx:"Đỉnh: {v}", atFoc:"Tiêu điểm: {f}", atDir:"Đường chuẩn: {d}",
+    atAx:"Trục đối xứng: {ax}", atUp:"Hướng lên", atDn:"Hướng xuống",
+    atRt:"Hướng sang phải", atLt:"Hướng sang trái", atThru:"Đi qua {p}",
+    attrDir:"Phương trình nào mô tả parabol có các đặc điểm này?", hAttrP:"Mọi điểm trên parabol cách đều tiêu điểm và đường chuẩn, nên đỉnh nằm chính giữa chúng. Từ đỉnh đến tiêu điểm là p = {p} (âm nếu tiêu điểm ở dưới hoặc bên trái). Dùng {f} với a = 1 ÷ (4p).", hAttrPt:"Bắt đầu với {f} và điền h, k từ đỉnh. Sau đó thay điểm {p} vào x và y rồi giải tìm a.",
+    hAttrSg:"Kiểm tra hướng: a dương khi parabol hướng lên hoặc sang phải, và âm khi hướng xuống hoặc sang trái.", hAttrV:"Kiểm tra phép tịnh tiến. Đỉnh là {v}. Trong ngoặc ta trừ tọa độ của đỉnh, nên tọa độ 3 cho x − 3 (hoặc y − 3), còn −3 cho x + 3.", hAttrOr:"Kiểm tra hướng mở. Parabol hướng lên hoặc xuống có dạng y = a(x − h)² + k. Parabol hướng sang trái hoặc phải nằm ngang: x = a(y − k)² + h.",
+    gAttrPt:"Đúng rồi! Thay {p} vào ta được a = {a}.", gAttrFD:"Đỉnh nằm chính giữa tiêu điểm {f} và đường chuẩn {d}. Tiêu điểm cách đỉnh p = {p}, nên a = 1 ÷ (4p) = {a}: {e}.", hP3:"Kiểm tra {p}: khi x = {x}, phương trình này cho y = {y}, không phải {w}. Phương trình đúng phải đi qua cả ba điểm.",
+    p3Dir:"Hàm số bậc hai nào đi qua các điểm {p1}, {p2} và {p3}?", gP3:"Đúng rồi! Thay từng điểm vào y = ax² + bx + c ta được hệ ba phương trình: {e1}, {e2}, {e3}. Nghiệm của hệ là a = {a}, b = {b}, c = {c}, nên hàm số là {e}.", fitCx_ball:"Một quả bóng được ném lên không trung. Bảng cho biết độ cao h (feet) của nó t giây sau khi ném.",
+    fitCx_mpg:"Bảng cho biết số dặm m mà một ô tô đi được với mỗi gallon xăng khi chạy với tốc độ s dặm mỗi giờ.", fitCx_stop:"Bảng cho biết quãng đường d (feet) mà một ô tô cần để dừng lại khi đang chạy s dặm mỗi giờ.", fitCx_skid:"Sau một vụ va chạm, cảnh sát đo vết phanh. Bảng cho biết tốc độ s (dặm mỗi giờ) của ô tô ứng với vết phanh dài d feet.",
+    fitCx_pend:"Bảng cho biết thời gian T (giây) của một lần dao động đầy đủ của con lắc dài L xentimét.", fitQ1:"Loại mô hình nào khớp với dữ liệu này nhất? Chọn một loại và công nghệ sẽ vẽ đường cong khớp nhất của nó.", fLin:"Mô hình tuyến tính",
+    fQuad:"Mô hình bậc hai", fSqrt:"Mô hình căn bậc hai", hFitLin:"Đó là đường thẳng khớp nhất, nhưng các điểm cong ra xa nó. Đường thẳng thay đổi cùng một lượng sau mỗi bước, còn dữ liệu này thì không.",
+    hFitSqrtQ:"Đồ thị căn bậc hai chỉ đi lên, và ngày càng chậm. Dữ liệu này đổi chiều hoặc tăng ngày càng nhanh: đó là hình dạng của parabol.", hFitQuadS:"Parabol khớp với các điểm này, nhưng nó sẽ đi xuống lại khi đầu vào lớn hơn, trong khi đại lượng này cứ tăng. Dữ liệu bắt đầu gần 0, tăng nhanh rồi ngày càng chậm: đó là hình dạng của đồ thị căn bậc hai.", fitGoodQ:"Đúng rồi! Dữ liệu đi theo một parabol. Hồi quy bậc hai cho mô hình {e}.",
+    fitGoodS:"Đúng rồi! Dữ liệu đi theo đường cong căn bậc hai. Hồi quy căn bậc hai cho mô hình {e}.", fitModel:"Mô hình: {e}", qFitPred:"Dùng mô hình để ước tính {y} khi {x} = {v}.",
+    hFitPred:"Thay {x} = {v} vào mô hình rồi tính. Trên đồ thị, đi theo đường nét đứt đến đường cong để kiểm tra ước tính của em.", qFitRoot:"Dùng mô hình để ước tính khi nào quả bóng chạm đất.", hFitRoot:"Quả bóng chạm đất khi h = 0. Tìm nghiệm dương của mô hình bằng công thức nghiệm, hoặc xem đường cong cắt trục t ở đâu.",
+    qFitPeak:"Dùng mô hình: ở tốc độ nào thì số dặm đi được trên mỗi gallon lớn nhất?", hFitPeak:"Số dặm lớn nhất nằm ở đỉnh parabol. Tọa độ s của đỉnh là −b ÷ (2a), với a và b lấy từ mô hình.", qFitInv:"Dùng mô hình để ước tính {x} khi {y} = {v}.",
+    hFitInv:"Cho mô hình bằng {v} (đi theo đường nét đứt sang đường cong). Trừ hằng số, chia cho hệ số của căn bậc hai, rồi bình phương hai vế để tìm {x}.", gFitPred:"Đúng rồi! Thay {x} vào mô hình ta được {a}.", gFitRoot:"Đúng rồi! Nghiệm dương của mô hình là {a}: quả bóng chạm đất sau khoảng chừng ấy giây.",
+    gFitPeak:"Đúng rồi! Đỉnh của mô hình ở {a}: ô tô đi được nhiều dặm nhất trên mỗi gallon ở khoảng tốc độ đó.", gFitInv:"Đúng rồi! Cho {y} rồi giải ta được {a}.", wApprox:"xấp xỉ",
+    tblLbl:"Bảng dữ liệu",
+    stds:"Các chuẩn liên quan — Texas TEKS: Đại số I A1.6(A, B, C), A1.7(A, B, C), A1.8(A, B), A1.10(D, E, F); Đại số II A2.4(A, B, D, E, F). Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSG-GPE.A.2, HSN-CN.C.7, HSS-ID.B.6a.",
     cardTitle:"Khám phá hàm bậc hai — Thẻ thử thách", cardName:"Họ tên:",
     cardBuild:"Vẽ đồ thị hàm số. Ghi rõ đỉnh, trục đối xứng và giao điểm với trục y. Nêu tập xác định, tập giá trị, và giá trị lớn nhất hoặc nhỏ nhất.",
     cardFactor:"Phân tích hoàn toàn thành nhân tử. Vẽ mô hình diện tích cho tam thức.",
@@ -662,7 +723,7 @@ const T = {
     footNote:"بلا حسابات · لا تُجمع أي بيانات · يعمل دون اتصال",
     mBuild:"بناء القطع المكافئ", mFactor:"حلّل", mSolve:"حُلّ", mConnect:"الربط بين الصيغ", mModel:"المقذوفات والمساحة",
     teacherTitle:"إعدادات المعلم", close:"إغلاق", setLevel:"مستوى المقرر", lvF:"الأساسيات", lvA1:"الجبر 1", lvA2:"الجبر 2",
-    lvNote:"الأساسيات: صيغة الرأس مع a عدد صحيح، والتحليل بأعداد موجبة، والحل بالتحليل والجذور التربيعية. الجبر 1: a كسري، وجميع أنواع التحليل، وإكمال المربع والقانون العام بحلول حقيقية. الجبر 2: إيجاد الرأس من الصيغة القياسية، و a ≠ 1، والجذور والحلول المركبة. اختيار المستوى يعيد ضبط الخيارات أدناه.",
+    lvNote:"الأساسيات: صيغة الرأس مع a عدد صحيح، والتحليل بأعداد موجبة، والحل بالتحليل والجذور التربيعية. الجبر 1: a كسري، وجميع أنواع التحليل، وإكمال المربع والقانون العام بحلول حقيقية، وملاءمة نماذج تربيعية للبيانات. الجبر 2: إيجاد الرأس من الصيغة القياسية، و a ≠ 1، والجذور والحلول المركبة، والبؤرة والدليل، والقطع المكافئ المار بثلاث نقاط، والانحدار التربيعي وانحدار الجذر التربيعي. اختيار المستوى يعيد ضبط الخيارات أدناه.",
     setRange:"حجم الشبكة", setOpts:"الخيارات", aNot1On:"المعامل الرئيسي a ≠ 1 (التحليل بالتجميع، والتحويل بين الصيغ)", cplxOn:"حلول مركبة باستخدام i",
     setModes:"الأنماط", setSpeech:"النطق", autoRead:"قراءة التعليمات تلقائيًا", printCards:"طباعة بطاقات التحدي",
     setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُخزَّن أي معلومات عن الطلاب إطلاقًا.",
@@ -787,7 +848,24 @@ const T = {
     goodRevP:"أحسنت! أفضل قيمة لـ x هي {xv} زيادات، إذن السعر ${pp}.", goodRevR:"أحسنت! R({xv}) = {r} دولار هو أقصى إيراد.",
     trL:"تتبّع إلى اليسار", trR:"تتبّع إلى اليمين",
     uFt:"{v} قدم", sFt:"{v} قدم", uS:"{v} s", sS:"{v} ثانية", uM:"{v} m", sM:"{v} متر", uM2:"{v} m²", sM2:"{v} متر مربع", uD:"${v}", sD:"{v} دولار",
-    stds:"المعايير المتوافقة — Texas TEKS: الجبر 1 A1.6(A, B, C), A1.7(A, B, C), A1.8(A), A1.10(D, E, F)؛ الجبر 2 A2.4(D, F). Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSN-CN.C.7.",
+    atVtx:"الرأس: {v}", atFoc:"البؤرة: {f}", atDir:"الدليل: {d}",
+    atAx:"محور التماثل: {ax}", atUp:"مفتوح إلى أعلى", atDn:"مفتوح إلى أسفل",
+    atRt:"مفتوح إلى اليمين", atLt:"مفتوح إلى اليسار", atThru:"يمر بالنقطة {p}",
+    attrDir:"أي معادلة تصف القطع المكافئ الذي له هذه الخصائص؟", hAttrP:"كل نقطة على القطع المكافئ تبعد المسافة نفسها عن البؤرة وعن الدليل، لذا يقع الرأس في منتصف المسافة بينهما. المسافة من الرأس إلى البؤرة هي p = {p} (سالبة إذا كانت البؤرة أسفل الرأس أو يساره). استخدم {f} حيث a = 1 ÷ (4p).", hAttrPt:"ابدأ بـ {f} وعوّض h و k من الرأس. ثم عوّض النقطة {p} بدلًا من x و y وحُلّ لإيجاد a.",
+    hAttrSg:"تحقق من الاتجاه: a موجبة عندما يكون القطع مفتوحًا إلى أعلى أو إلى اليمين، وسالبة عندما يكون مفتوحًا إلى أسفل أو إلى اليسار.", hAttrV:"تحقق من الإزاحات. الرأس هو {v}. داخل القوسين نطرح إحداثي الرأس، لذا الإحداثي 3 يعطي x − 3 (أو y − 3)، و −3 يعطي x + 3.", hAttrOr:"تحقق من اتجاه الفتح. القطع المفتوح إلى أعلى أو إلى أسفل صيغته y = a(x − h)² + k. أما المفتوح إلى اليسار أو اليمين فهو أفقي: x = a(y − k)² + h.",
+    gAttrPt:"أحسنت! بتعويض {p} نحصل على a = {a}.", gAttrFD:"يقع الرأس في منتصف المسافة بين البؤرة {f} والدليل {d}. البؤرة تبعد p = {p} عن الرأس، لذا a = 1 ÷ (4p) = {a}: {e}.", hP3:"تحقق من {p}: عندما x = {x}، تعطي هذه المعادلة y = {y} وليس {w}. المعادلة الصحيحة تمر بالنقاط الثلاث.",
+    p3Dir:"أي دالة تربيعية تمر بالنقاط {p1} و {p2} و {p3}؟", gP3:"أحسنت! بتعويض كل نقطة في y = ax² + bx + c نحصل على نظام من ثلاث معادلات: {e1}، {e2}، {e3}. حلّه هو a = {a}، b = {b}، c = {c}، لذا الدالة هي {e}.", fitCx_ball:"قُذفت كرة في الهواء. يبيّن الجدول ارتفاعها h بالأقدام بعد t ثانية من قذفها.",
+    fitCx_mpg:"يبيّن الجدول عدد الأميال m التي تقطعها سيارة بكل غالون من الوقود عندما تسير بسرعة s ميلًا في الساعة.", fitCx_stop:"يبيّن الجدول المسافة d بالأقدام التي تحتاجها سيارة لتتوقف عندما تسير بسرعة s ميلًا في الساعة.", fitCx_skid:"بعد حادث، تقيس الشرطة آثار الانزلاق. يبيّن الجدول سرعة السيارة s بالأميال في الساعة لآثار انزلاق طولها d قدمًا.",
+    fitCx_pend:"يبيّن الجدول الزمن T بالثواني لتأرجح كامل واحد لبندول طوله L سنتيمترًا.", fitQ1:"أي نوع من النماذج يلائم هذه البيانات أكثر؟ اختر نوعًا وسترسم التقنية منحنى أفضل ملاءمة له.", fLin:"نموذج خطي",
+    fQuad:"نموذج تربيعي", fSqrt:"نموذج الجذر التربيعي", hFitLin:"هذا أفضل خط مستقيم، لكن النقاط تنحني بعيدًا عنه. الخط يتغير بالمقدار نفسه في كل خطوة، وهذه البيانات لا تفعل ذلك.",
+    hFitSqrtQ:"منحنى الجذر التربيعي يصعد فقط، وببطء متزايد. هذه البيانات تنعطف أو تصعد بسرعة متزايدة: هذا شكل القطع المكافئ.", hFitQuadS:"القطع المكافئ يلائم هذه النقاط، لكنه سيعود إلى النزول عند مدخلات أكبر، وهذه الكمية تستمر في الزيادة. البيانات تبدأ قرب 0 وتصعد بسرعة ثم ببطء متزايد: هذا شكل منحنى الجذر التربيعي.", fitGoodQ:"أحسنت! البيانات تتبع قطعًا مكافئًا. الانحدار التربيعي يعطي النموذج {e}.",
+    fitGoodS:"أحسنت! البيانات تتبع منحنى جذر تربيعي. انحدار الجذر التربيعي يعطي النموذج {e}.", fitModel:"النموذج: {e}", qFitPred:"استخدم النموذج لتقدير {y} عندما {x} = {v}.",
+    hFitPred:"عوّض {x} = {v} في النموذج واحسب. على التمثيل البياني، تتبّع الخط المتقطع حتى المنحنى لتتحقق من تقديرك.", qFitRoot:"استخدم النموذج لتقدير متى تصطدم الكرة بالأرض.", hFitRoot:"تصطدم الكرة بالأرض عندما h = 0. أوجد الصفر الموجب للنموذج بالقانون العام، أو انظر أين يقطع المنحنى محور t.",
+    qFitPeak:"استخدم النموذج: عند أي سرعة يكون عدد الأميال لكل غالون أكبر ما يمكن؟", hFitPeak:"أكبر عدد من الأميال يكون عند رأس القطع المكافئ. إحداثيه s هو −b ÷ (2a)، باستخدام a و b من النموذج.", qFitInv:"استخدم النموذج لتقدير {x} عندما {y} = {v}.",
+    hFitInv:"اجعل النموذج يساوي {v} (تتبّع الخط المتقطع أفقيًا حتى المنحنى). اطرح الثابت، واقسم على معامل الجذر التربيعي، ثم ربّع الطرفين لإيجاد {x}.", gFitPred:"أحسنت! بتعويض {x} في النموذج نحصل على {a}.", gFitRoot:"أحسنت! الصفر الموجب للنموذج هو {a}: تهبط الكرة بعد هذا العدد من الثواني تقريبًا.",
+    gFitPeak:"أحسنت! رأس النموذج عند {a}: تقطع السيارة أكبر عدد من الأميال لكل غالون عند هذه السرعة تقريبًا.", gFitInv:"أحسنت! بوضع {y} والحل نحصل على {a}.", wApprox:"يساوي تقريبًا",
+    tblLbl:"جدول البيانات",
+    stds:"المعايير المتوافقة — Texas TEKS: الجبر 1 A1.6(A, B, C), A1.7(A, B, C), A1.8(A, B), A1.10(D, E, F)؛ الجبر 2 A2.4(A, B, D, E, F). Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSG-GPE.A.2, HSN-CN.C.7, HSS-ID.B.6a.",
     cardTitle:"مستكشف الدوال التربيعية — بطاقات التحدي", cardName:"الاسم:",
     cardBuild:"مثّل الدالة بيانيًا. حدّد الرأس ومحور التماثل والمقطع الصادي. اذكر المجال والمدى والقيمة العظمى أو الصغرى.",
     cardFactor:"حلّل تحليلًا كاملًا. ارسم نموذج مساحة لثلاثية الحدود.",
@@ -802,7 +880,7 @@ const T = {
     footNote:"कोई खाता नहीं · कोई डेटा एकत्र नहीं · ऑफ़लाइन चलता है",
     mBuild:"परवलय निर्माता", mFactor:"गुणनखंड करें", mSolve:"हल करें", mConnect:"रूपों को जोड़ें", mModel:"प्रक्षेप्य और क्षेत्रफल",
     teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setLevel:"पाठ्यक्रम स्तर", lvF:"आधारभूत", lvA1:"बीजगणित I", lvA2:"बीजगणित II",
-    lvNote:"आधारभूत: पूर्ण संख्या a के साथ शीर्ष रूप, धनात्मक संख्याओं के साथ गुणनखंडन, गुणनखंडन और वर्गमूल द्वारा हल करना। बीजगणित I: भिन्नात्मक a, सभी प्रकार के गुणनखंडन, पूर्ण वर्ग बनाना और वास्तविक हलों के साथ द्विघात सूत्र। बीजगणित II: मानक रूप से शीर्ष, a ≠ 1, करणी और सम्मिश्र हल। स्तर चुनने पर नीचे के विकल्प रीसेट हो जाते हैं।",
+    lvNote:"आधारभूत: पूर्ण संख्या a के साथ शीर्ष रूप, धनात्मक संख्याओं के साथ गुणनखंडन, गुणनखंडन और वर्गमूल द्वारा हल करना। बीजगणित I: भिन्नात्मक a, सभी प्रकार के गुणनखंडन, पूर्ण वर्ग बनाना और वास्तविक हलों के साथ द्विघात सूत्र, आँकड़ों पर द्विघात मॉडल बैठाना। बीजगणित II: मानक रूप से शीर्ष, a ≠ 1, करणी और सम्मिश्र हल, नाभि और नियता, तीन बिंदुओं से होकर जाने वाला परवलय, द्विघात और वर्गमूल समाश्रयण। स्तर चुनने पर नीचे के विकल्प रीसेट हो जाते हैं।",
     setRange:"ग्रिड का आकार", setOpts:"विकल्प", aNot1On:"अग्रग गुणांक a ≠ 1 (समूहन द्वारा गुणनखंडन, रूप बदलना)", cplxOn:"i के साथ सम्मिश्र हल",
     setModes:"मोड", setSpeech:"वाणी", autoRead:"निर्देश अपने-आप पढ़ें", printCards:"चुनौती कार्ड प्रिंट करें",
     setStored:"सेटिंग्स केवल इसी डिवाइस पर सहेजी जाती हैं। किसी भी विद्यार्थी की जानकारी कभी संग्रहीत नहीं की जाती।",
@@ -927,7 +1005,24 @@ const T = {
     goodRevP:"सही! सबसे अच्छा x = {xv} वृद्धियाँ है, इसलिए कीमत ${pp} है।", goodRevR:"सही! R({xv}) = {r} डॉलर अधिकतम आय है।",
     trL:"बाएँ ट्रेस करें", trR:"दाएँ ट्रेस करें",
     uFt:"{v} फुट", sFt:"{v} फुट", uS:"{v} s", sS:"{v} सेकंड", uM:"{v} m", sM:"{v} मीटर", uM2:"{v} m²", sM2:"{v} वर्ग मीटर", uD:"${v}", sD:"{v} डॉलर",
-    stds:"संरेखित मानक — Texas TEKS: बीजगणित I A1.6(A, B, C), A1.7(A, B, C), A1.8(A), A1.10(D, E, F); बीजगणित II A2.4(D, F)। Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSN-CN.C.7।",
+    atVtx:"शीर्ष: {v}", atFoc:"नाभि: {f}", atDir:"नियता: {d}",
+    atAx:"सममिति अक्ष: {ax}", atUp:"ऊपर की ओर खुलता है", atDn:"नीचे की ओर खुलता है",
+    atRt:"दाईं ओर खुलता है", atLt:"बाईं ओर खुलता है", atThru:"{p} से होकर जाता है",
+    attrDir:"इन गुणों वाले परवलय को कौन-सा समीकरण दर्शाता है?", hAttrP:"परवलय का हर बिंदु नाभि और नियता से बराबर दूरी पर होता है, इसलिए शीर्ष उनके ठीक बीच में होता है। शीर्ष से नाभि तक p = {p} है (यदि नाभि नीचे या बाईं ओर हो तो ऋणात्मक)। {f} का उपयोग करें, जहाँ a = 1 ÷ (4p)।", hAttrPt:"{f} से शुरू करें और शीर्ष से h और k भरें। फिर x और y की जगह बिंदु {p} रखें और a ज्ञात करें।",
+    hAttrSg:"दिशा जाँचें: जब परवलय ऊपर या दाईं ओर खुलता है तो a धनात्मक होता है, और जब नीचे या बाईं ओर खुलता है तो ऋणात्मक।", hAttrV:"खिसकाव जाँचें। शीर्ष {v} है। कोष्ठक के अंदर शीर्ष का निर्देशांक घटाया जाता है, इसलिए निर्देशांक 3 से x − 3 (या y − 3) बनता है, और −3 से x + 3।", hAttrOr:"जाँचें कि यह किस ओर खुलता है। ऊपर या नीचे खुलने वाले परवलय का रूप y = a(x − h)² + k होता है। बाएँ या दाएँ खुलने वाला परवलय आड़ा होता है: x = a(y − k)² + h।",
+    gAttrPt:"सही! {p} रखने पर a = {a} मिलता है।", gAttrFD:"शीर्ष नाभि {f} और नियता {d} के ठीक बीच में है। नाभि शीर्ष से p = {p} दूर है, इसलिए a = 1 ÷ (4p) = {a}: {e}।", hP3:"{p} जाँचें: जब x = {x}, यह समीकरण y = {y} देता है, {w} नहीं। सही समीकरण तीनों बिंदुओं से होकर जाता है।",
+    p3Dir:"कौन-सा द्विघात फलन बिंदुओं {p1}, {p2} और {p3} से होकर जाता है?", gP3:"सही! हर बिंदु को y = ax² + bx + c में रखने पर तीन समीकरणों का निकाय मिलता है: {e1}, {e2}, {e3}। इसका हल a = {a}, b = {b}, c = {c} है, इसलिए फलन {e} है।", fitCx_ball:"एक गेंद हवा में फेंकी जाती है। तालिका फेंकने के t सेकंड बाद फुट में उसकी ऊँचाई h दिखाती है।",
+    fitCx_mpg:"तालिका दिखाती है कि s मील प्रति घंटा की गति से चलने पर एक कार प्रति गैलन ईंधन में कितने मील m चलती है।", fitCx_stop:"तालिका दिखाती है कि s मील प्रति घंटा की गति से चल रही कार को रुकने के लिए कितने फुट d चाहिए।", fitCx_skid:"दुर्घटना के बाद पुलिस फिसलन के निशान नापती है। तालिका d फुट लंबे निशानों के लिए कार की गति s (मील प्रति घंटा) दिखाती है।",
+    fitCx_pend:"तालिका L सेंटीमीटर लंबे लोलक के एक पूरे दोलन का समय T (सेकंड में) दिखाती है।", fitQ1:"इन आँकड़ों पर कौन-सा मॉडल सबसे अच्छा बैठता है? एक चुनें और तकनीक उसका सबसे उपयुक्त वक्र खींचेगी।", fLin:"रैखिक मॉडल",
+    fQuad:"द्विघात मॉडल", fSqrt:"वर्गमूल मॉडल", hFitLin:"यह सबसे अच्छी रेखा है, पर बिंदु उससे दूर मुड़ जाते हैं। रेखा हर कदम पर बराबर बदलती है, और ये आँकड़े ऐसा नहीं करते।",
+    hFitSqrtQ:"वर्गमूल का ग्राफ़ केवल ऊपर जाता है, और धीरे-धीरे और धीमा होता जाता है। ये आँकड़े मुड़ जाते हैं या और तेज़ी से बढ़ते जाते हैं: यह परवलय का आकार है।", hFitQuadS:"परवलय इन बिंदुओं पर बैठता है, पर बड़े इनपुट के लिए वह फिर नीचे आने लगेगा, जबकि यह राशि बढ़ती रहती है। आँकड़े 0 के पास से शुरू होकर पहले तेज़ी से और फिर धीरे-धीरे बढ़ते हैं: यह वर्गमूल ग्राफ़ का आकार है।", fitGoodQ:"सही! आँकड़े एक परवलय के अनुसार चलते हैं। द्विघात समाश्रयण मॉडल {e} देता है।",
+    fitGoodS:"सही! आँकड़े वर्गमूल वक्र के अनुसार चलते हैं। वर्गमूल समाश्रयण मॉडल {e} देता है।", fitModel:"मॉडल: {e}", qFitPred:"मॉडल से {y} का अनुमान लगाएँ जब {x} = {v}।",
+    hFitPred:"मॉडल में {x} = {v} रखें और मान निकालें। ग्राफ़ पर टूटी रेखा के सहारे वक्र तक जाकर अपना अनुमान जाँचें।", qFitRoot:"मॉडल से अनुमान लगाएँ कि गेंद ज़मीन से कब टकराती है।", hFitRoot:"गेंद ज़मीन से तब टकराती है जब h = 0। द्विघात सूत्र से मॉडल का धनात्मक शून्यक निकालें, या देखें कि वक्र t-अक्ष से कहाँ मिलता है।",
+    qFitPeak:"मॉडल का उपयोग करें: किस गति पर प्रति गैलन मील सबसे अधिक हैं?", hFitPeak:"सबसे अधिक मील परवलय के शीर्ष पर हैं। उसका s-निर्देशांक −b ÷ (2a) है, जिसमें a और b मॉडल से लें।", qFitInv:"मॉडल से {x} का अनुमान लगाएँ जब {y} = {v}।",
+    hFitInv:"मॉडल को {v} के बराबर रखें (टूटी रेखा के सहारे वक्र तक जाएँ)। अचर घटाएँ, वर्गमूल के गुणांक से भाग दें, फिर {x} निकालने के लिए दोनों पक्षों का वर्ग करें।", gFitPred:"सही! मॉडल में {x} रखने पर {a} मिलता है।", gFitRoot:"सही! मॉडल का धनात्मक शून्यक {a} है: गेंद लगभग इतने सेकंड बाद ज़मीन पर गिरती है।",
+    gFitPeak:"सही! मॉडल का शीर्ष {a} पर है: लगभग इसी गति पर कार प्रति गैलन सबसे ज़्यादा मील चलती है।", gFitInv:"सही! {y} रखकर हल करने पर {a} मिलता है।", wApprox:"लगभग",
+    tblLbl:"आँकड़ों की तालिका",
+    stds:"संरेखित मानक — Texas TEKS: बीजगणित I A1.6(A, B, C), A1.7(A, B, C), A1.8(A, B), A1.10(D, E, F); बीजगणित II A2.4(A, B, D, E, F)। Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSG-GPE.A.2, HSN-CN.C.7, HSS-ID.B.6a।",
     cardTitle:"द्विघात एक्सप्लोरर — चुनौती कार्ड", cardName:"नाम:",
     cardBuild:"फलन का ग्राफ़ बनाएँ। शीर्ष, सममिति अक्ष और y-अंतःखंड को अंकित करें। प्रांत, परिसर और अधिकतम या न्यूनतम मान बताएँ।",
     cardFactor:"पूर्णतः गुणनखंड करें। त्रिपद के लिए क्षेत्रफल मॉडल बनाएँ।",
@@ -942,7 +1037,7 @@ const T = {
     footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا جمع نہیں · آف لائن کام کرتا ہے",
     mBuild:"قطع مکافی بنائیں", mFactor:"اجزائے ضربی بنائیں", mSolve:"حل کریں", mConnect:"صورتوں کو جوڑیں", mModel:"مقذوفات اور رقبہ",
     teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setLevel:"نصاب کی سطح", lvF:"بنیادی", lvA1:"الجبرا I", lvA2:"الجبرا II",
-    lvNote:"بنیادی: مکمل عدد a کے ساتھ راس کی صورت، مثبت اعداد کے ساتھ تجزی، تجزی اور جذر المربع سے حل۔ الجبرا I: کسری a، تجزی کی تمام اقسام، مربع مکمل کرنا اور حقیقی حلوں کے ساتھ دو درجی کلیہ۔ الجبرا II: معیاری صورت سے راس، a ≠ 1، جذری مقداریں اور مختلط حل۔ سطح منتخب کرنے سے نیچے کے اختیارات دوبارہ ترتیب پا جاتے ہیں۔",
+    lvNote:"بنیادی: مکمل عدد a کے ساتھ راس کی صورت، مثبت اعداد کے ساتھ تجزی، تجزی اور جذر المربع سے حل۔ الجبرا I: کسری a، تجزی کی تمام اقسام، مربع مکمل کرنا اور حقیقی حلوں کے ساتھ دو درجی کلیہ، اعداد و شمار پر دو درجی ماڈل بٹھانا۔ الجبرا II: معیاری صورت سے راس، a ≠ 1، جذری مقداریں اور مختلط حل، ماسکہ اور ہادی خط، تین نقاط سے گزرنے والا قطع مکافی، دو درجی اور جذر المربع رجعت۔ سطح منتخب کرنے سے نیچے کے اختیارات دوبارہ ترتیب پا جاتے ہیں۔",
     setRange:"گرڈ کا سائز", setOpts:"اختیارات", aNot1On:"سرکردہ عددی سر a ≠ 1 (گروہ بندی سے تجزی، صورتیں بدلنا)", cplxOn:"i کے ساتھ مختلط حل",
     setModes:"موڈ", setSpeech:"آواز", autoRead:"ہدایات خودکار طور پر پڑھیں", printCards:"چیلنج کارڈ پرنٹ کریں",
     setStored:"ترتیبات صرف اسی آلے پر محفوظ ہوتی ہیں۔ کسی طالب علم کی کوئی معلومات کبھی محفوظ نہیں کی جاتی۔",
@@ -1067,7 +1162,24 @@ const T = {
     goodRevP:"بالکل درست! بہترین x = {xv} اضافے ہیں، اس لیے قیمت ${pp} ہے۔", goodRevR:"بالکل درست! R({xv}) = {r} ڈالر زیادہ سے زیادہ آمدنی ہے۔",
     trL:"بائیں ٹریس کریں", trR:"دائیں ٹریس کریں",
     uFt:"{v} فٹ", sFt:"{v} فٹ", uS:"{v} s", sS:"{v} سیکنڈ", uM:"{v} m", sM:"{v} میٹر", uM2:"{v} m²", sM2:"{v} مربع میٹر", uD:"${v}", sD:"{v} ڈالر",
-    stds:"ہم آہنگ معیارات — Texas TEKS: الجبرا I A1.6(A, B, C), A1.7(A, B, C), A1.8(A), A1.10(D, E, F)؛ الجبرا II A2.4(D, F)۔ Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSN-CN.C.7۔",
+    atVtx:"راس: {v}", atFoc:"ماسکہ: {f}", atDir:"ہادی خط: {d}",
+    atAx:"محورِ تشاکل: {ax}", atUp:"اوپر کی طرف کھلتا ہے", atDn:"نیچے کی طرف کھلتا ہے",
+    atRt:"دائیں طرف کھلتا ہے", atLt:"بائیں طرف کھلتا ہے", atThru:"نقطہ {p} سے گزرتا ہے",
+    attrDir:"کون سی مساوات ان خصوصیات والے قطع مکافی کو ظاہر کرتی ہے؟", hAttrP:"قطع مکافی کا ہر نقطہ ماسکہ اور ہادی خط سے برابر فاصلے پر ہوتا ہے، اس لیے راس ان دونوں کے عین درمیان ہوتا ہے۔ راس سے ماسکہ تک p = {p} ہے (اگر ماسکہ نیچے یا بائیں طرف ہو تو منفی)۔ {f} استعمال کریں جہاں a = 1 ÷ (4p)۔", hAttrPt:"{f} سے شروع کریں اور راس سے h اور k بھریں۔ پھر x اور y کی جگہ نقطہ {p} رکھیں اور a معلوم کریں۔",
+    hAttrSg:"سمت جانچیں: جب قطع مکافی اوپر یا دائیں طرف کھلتا ہے تو a مثبت ہوتا ہے، اور جب نیچے یا بائیں طرف کھلتا ہے تو منفی۔", hAttrV:"کھسکاؤ جانچیں۔ راس {v} ہے۔ قوسین کے اندر راس کا محدد تفریق کیا جاتا ہے، اس لیے محدد 3 سے x − 3 (یا y − 3) بنتا ہے، اور −3 سے x + 3۔", hAttrOr:"جانچیں کہ یہ کس طرف کھلتا ہے۔ اوپر یا نیچے کھلنے والے قطع مکافی کی صورت y = a(x − h)² + k ہوتی ہے۔ بائیں یا دائیں کھلنے والا آڑا ہوتا ہے: x = a(y − k)² + h۔",
+    gAttrPt:"بالکل درست! {p} رکھنے سے a = {a} ملتا ہے۔", gAttrFD:"راس ماسکہ {f} اور ہادی خط {d} کے عین درمیان ہے۔ ماسکہ راس سے p = {p} دور ہے، اس لیے a = 1 ÷ (4p) = {a}: {e}۔", hP3:"{p} جانچیں: جب x = {x} ہو تو یہ مساوات y = {y} دیتی ہے، {w} نہیں۔ درست مساوات تینوں نقاط سے گزرتی ہے۔",
+    p3Dir:"کون سا دو درجی تفاعل نقاط {p1}، {p2} اور {p3} سے گزرتا ہے؟", gP3:"بالکل درست! ہر نقطے کو y = ax² + bx + c میں رکھنے سے تین مساواتوں کا نظام ملتا ہے: {e1}، {e2}، {e3}۔ اس کا حل a = {a}، b = {b}، c = {c} ہے، اس لیے تفاعل {e} ہے۔", fitCx_ball:"ایک گیند ہوا میں پھینکی جاتی ہے۔ جدول پھینکنے کے t سیکنڈ بعد فٹ میں اس کی اونچائی h دکھاتا ہے۔",
+    fitCx_mpg:"جدول دکھاتا ہے کہ s میل فی گھنٹہ کی رفتار سے چلتے ہوئے ایک گاڑی فی گیلن ایندھن میں کتنے میل m چلتی ہے۔", fitCx_stop:"جدول دکھاتا ہے کہ s میل فی گھنٹہ کی رفتار سے چلتی گاڑی کو رکنے کے لیے کتنے فٹ d درکار ہیں۔", fitCx_skid:"حادثے کے بعد پولیس پھسلن کے نشان ناپتی ہے۔ جدول d فٹ لمبے نشانوں کے لیے گاڑی کی رفتار s (میل فی گھنٹہ) دکھاتا ہے۔",
+    fitCx_pend:"جدول L سینٹی میٹر لمبے پنڈولم کے ایک پورے جھولے کا وقت T (سیکنڈ میں) دکھاتا ہے۔", fitQ1:"ان اعداد و شمار پر کون سا ماڈل سب سے بہتر بیٹھتا ہے؟ ایک چنیں اور ٹیکنالوجی اس کا بہترین موزوں خم کھینچے گی۔", fLin:"خطی ماڈل",
+    fQuad:"دو درجی ماڈل", fSqrt:"جذر المربع ماڈل", hFitLin:"یہ بہترین خط ہے، لیکن نقاط اس سے دور مڑ جاتے ہیں۔ خط ہر قدم پر برابر بدلتا ہے، اور یہ اعداد و شمار ایسا نہیں کرتے۔",
+    hFitSqrtQ:"جذر المربع کا گراف صرف اوپر جاتا ہے، اور آہستہ سے آہستہ تر۔ یہ اعداد و شمار مڑ جاتے ہیں یا تیز سے تیز تر بڑھتے ہیں: یہ قطع مکافی کی شکل ہے۔", hFitQuadS:"قطع مکافی ان نقاط پر بیٹھتا ہے، لیکن بڑے داخلوں کے لیے وہ پھر نیچے آنے لگے گا، جبکہ یہ مقدار بڑھتی رہتی ہے۔ اعداد و شمار 0 کے قریب سے شروع ہو کر پہلے تیزی سے اور پھر آہستہ آہستہ بڑھتے ہیں: یہ جذر المربع گراف کی شکل ہے۔", fitGoodQ:"بالکل درست! اعداد و شمار ایک قطع مکافی کی پیروی کرتے ہیں۔ دو درجی رجعت ماڈل {e} دیتی ہے۔",
+    fitGoodS:"بالکل درست! اعداد و شمار جذر المربع خم کی پیروی کرتے ہیں۔ جذر المربع رجعت ماڈل {e} دیتی ہے۔", fitModel:"ماڈل: {e}", qFitPred:"ماڈل سے {y} کا اندازہ لگائیں جب {x} = {v} ہو۔",
+    hFitPred:"ماڈل میں {x} = {v} رکھیں اور قیمت نکالیں۔ گراف پر ٹوٹی لکیر کے ساتھ خم تک جا کر اپنا اندازہ جانچیں۔", qFitRoot:"ماڈل سے اندازہ لگائیں کہ گیند زمین سے کب ٹکراتی ہے۔", hFitRoot:"گیند زمین سے تب ٹکراتی ہے جب h = 0۔ دو درجی کلیے سے ماڈل کا مثبت صفر نکالیں، یا دیکھیں کہ خم t محور سے کہاں ملتا ہے۔",
+    qFitPeak:"ماڈل استعمال کریں: کس رفتار پر فی گیلن میل سب سے زیادہ ہیں؟", hFitPeak:"سب سے زیادہ میل قطع مکافی کے راس پر ہیں۔ اس کا s محدد −b ÷ (2a) ہے، جس میں a اور b ماڈل سے لیں۔", qFitInv:"ماڈل سے {x} کا اندازہ لگائیں جب {y} = {v} ہو۔",
+    hFitInv:"ماڈل کو {v} کے برابر رکھیں (ٹوٹی لکیر کے ساتھ خم تک جائیں)۔ مستقل تفریق کریں، جذر المربع کے عددی سر سے تقسیم کریں، پھر {x} معلوم کرنے کے لیے دونوں اطراف کا مربع لیں۔", gFitPred:"بالکل درست! ماڈل میں {x} رکھنے سے {a} ملتا ہے۔", gFitRoot:"بالکل درست! ماڈل کا مثبت صفر {a} ہے: گیند تقریباً اتنے سیکنڈ بعد زمین پر گرتی ہے۔",
+    gFitPeak:"بالکل درست! ماڈل کا راس {a} پر ہے: تقریباً اسی رفتار پر گاڑی فی گیلن سب سے زیادہ میل چلتی ہے۔", gFitInv:"بالکل درست! {y} رکھ کر حل کرنے سے {a} ملتا ہے۔", wApprox:"تقریباً",
+    tblLbl:"اعداد و شمار کا جدول",
+    stds:"ہم آہنگ معیارات — Texas TEKS: الجبرا I A1.6(A, B, C), A1.7(A, B, C), A1.8(A, B), A1.10(D, E, F)؛ الجبرا II A2.4(A, B, D, E, F)۔ Common Core: HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSG-GPE.A.2, HSN-CN.C.7, HSS-ID.B.6a۔",
     cardTitle:"دو درجی ایکسپلورر — چیلنج کارڈ", cardName:"نام:",
     cardBuild:"تفاعل کا گراف بنائیں۔ راس، محورِ تشاکل اور y-قطع کو نشان زد کریں۔ ڈومین، رینج اور زیادہ سے زیادہ یا کم سے کم قیمت بتائیں۔",
     cardFactor:"مکمل تجزی کریں۔ سہ رکنی کے لیے رقبے کا ماڈل بنائیں۔",
@@ -1082,7 +1194,7 @@ const T = {
     footNote:"无需账号 · 不收集数据 · 可离线使用",
     mBuild:"抛物线构建", mFactor:"因式分解", mSolve:"解方程", mConnect:"形式互化", mModel:"抛体与面积",
     teacherTitle:"教师设置", close:"关闭", setLevel:"课程水平", lvF:"基础", lvA1:"代数 I", lvA2:"代数 II",
-    lvNote:"基础：a 为整数的顶点式，正数的因式分解，用因式分解法和开平方法解方程。代数 I：分数 a，各类因式分解，配方法及有实数解的求根公式。代数 II：由一般式求顶点，a ≠ 1，根式与复数解。选择水平会重置下方选项。",
+    lvNote:"基础：a 为整数的顶点式，正数的因式分解，用因式分解法和开平方法解方程。代数 I：分数 a，各类因式分解，配方法及有实数解的求根公式，用二次模型拟合数据。代数 II：由一般式求顶点，a ≠ 1，根式与复数解，焦点与准线，过三点的抛物线，二次回归与平方根回归。选择水平会重置下方选项。",
     setRange:"网格大小", setOpts:"选项", aNot1On:"二次项系数 a ≠ 1（分组分解法、形式互化）", cplxOn:"含 i 的复数解",
     setModes:"模式", setSpeech:"语音", autoRead:"自动朗读题目说明", printCards:"打印挑战卡",
     setStored:"设置仅保存在本设备上。从不存储任何学生信息。",
@@ -1207,7 +1319,24 @@ const T = {
     goodRevP:"对！最佳的 x 是涨价 {xv} 次，所以价格是 ${pp}。", goodRevR:"对！R({xv}) = {r} 美元是最大收入。",
     trL:"向左追踪", trR:"向右追踪",
     uFt:"{v} 英尺", sFt:"{v} 英尺", uS:"{v} 秒", sS:"{v} 秒", uM:"{v} 米", sM:"{v} 米", uM2:"{v} 平方米", sM2:"{v} 平方米", uD:"${v}", sD:"{v} 美元",
-    stds:"对应标准 — Texas TEKS：代数 I A1.6(A, B, C), A1.7(A, B, C), A1.8(A), A1.10(D, E, F)；代数 II A2.4(D, F)。Common Core：HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSN-CN.C.7。",
+    atVtx:"顶点：{v}", atFoc:"焦点：{f}", atDir:"准线：{d}",
+    atAx:"对称轴：{ax}", atUp:"开口向上", atDn:"开口向下",
+    atRt:"开口向右", atLt:"开口向左", atThru:"经过点 {p}",
+    attrDir:"哪个方程描述了具有这些特征的抛物线？", hAttrP:"抛物线上每一点到焦点和准线的距离相等，所以顶点在它们的正中间。从顶点到焦点是 p = {p}（焦点在下方或左方时为负）。使用 {f}，其中 a = 1 ÷ (4p)。", hAttrPt:"从 {f} 开始，用顶点填入 h 和 k。然后把点 {p} 代入 x 和 y，求出 a。",
+    hAttrSg:"检查开口方向：抛物线开口向上或向右时 a 为正，开口向下或向左时 a 为负。", hAttrV:"检查平移。顶点是 {v}。括号里要减去顶点的坐标，所以坐标 3 得到 x − 3（或 y − 3），坐标 −3 得到 x + 3。", hAttrOr:"检查开口方向。开口向上或向下的抛物线形如 y = a(x − h)² + k。开口向左或向右的抛物线是横着的：x = a(y − k)² + h。",
+    gAttrPt:"对！代入 {p} 得到 a = {a}。", gAttrFD:"顶点在焦点 {f} 和准线 {d} 的正中间。焦点距顶点 p = {p}，所以 a = 1 ÷ (4p) = {a}：{e}。", hP3:"检查 {p}：当 x = {x} 时，这个方程得到 y = {y}，而不是 {w}。正确的方程经过全部三个点。",
+    p3Dir:"哪个二次函数经过点 {p1}、{p2} 和 {p3}？", gP3:"对！把每个点代入 y = ax² + bx + c，得到含三个方程的方程组：{e1}，{e2}，{e3}。它的解是 a = {a}，b = {b}，c = {c}，所以函数是 {e}。", fitCx_ball:"把一个球抛向空中。表格给出抛出 t 秒后球的高度 h（单位：英尺）。",
+    fitCx_mpg:"表格给出一辆汽车以每小时 s 英里的速度行驶时，每加仑油能行驶的英里数 m。", fitCx_stop:"表格给出一辆汽车以每小时 s 英里的速度行驶时，停下来所需的距离 d（单位：英尺）。", fitCx_skid:"事故发生后，警察测量刹车痕迹。表格给出刹车痕迹长 d 英尺时汽车的速度 s（单位：英里每小时）。",
+    fitCx_pend:"表格给出长 L 厘米的单摆完整摆动一次所需的时间 T（单位：秒）。", fitQ1:"哪种模型最适合这些数据？选一种，技术工具会画出它的最佳拟合曲线。", fLin:"线性模型",
+    fQuad:"二次模型", fSqrt:"平方根模型", hFitLin:"这是最佳拟合直线，但数据点弯离了它。直线每一步的变化量都相同，而这些数据不是。",
+    hFitSqrtQ:"平方根函数的图像只会上升，而且越来越慢。这些数据会转向，或者上升得越来越快：这是抛物线的形状。", hFitQuadS:"抛物线能拟合这些点，但输入更大时它会转而下降，而这个量会一直增大。数据从 0 附近开始，先快速上升，然后越来越慢：这是平方根函数图像的形状。", fitGoodQ:"对！数据呈抛物线趋势。二次回归得到模型 {e}。",
+    fitGoodS:"对！数据呈平方根曲线趋势。平方根回归得到模型 {e}。", fitModel:"模型：{e}", qFitPred:"用模型估计 {x} = {v} 时 {y} 的值。",
+    hFitPred:"把 {x} = {v} 代入模型计算。在图上沿虚线走到曲线，检查你的估计。", qFitRoot:"用模型估计球何时落地。", hFitRoot:"球落地时 h = 0。用求根公式求模型的正零点，或看曲线与 t 轴的交点。",
+    qFitPeak:"用模型回答：速度为多少时每加仑行驶的英里数最多？", hFitPeak:"英里数最多的地方在抛物线的顶点。它的 s 坐标是 −b ÷ (2a)，a 和 b 取自模型。", qFitInv:"用模型估计 {y} = {v} 时 {x} 的值。",
+    hFitInv:"令模型等于 {v}（沿虚线横向走到曲线）。减去常数，除以平方根的系数，再两边平方，求出 {x}。", gFitPred:"对！把 {x} 代入模型得到 {a}。", gFitRoot:"对！模型的正零点是 {a}：球大约在这么多秒后落地。",
+    gFitPeak:"对！模型的顶点在 {a}：汽车大约在这个速度下每加仑行驶的英里数最多。", gFitInv:"对！令 {y} 并求解，得到 {a}。", wApprox:"约等于",
+    tblLbl:"数据表",
+    stds:"对应标准 — Texas TEKS：代数 I A1.6(A, B, C), A1.7(A, B, C), A1.8(A, B), A1.10(D, E, F)；代数 II A2.4(A, B, D, E, F)。Common Core：HSA-SSE.A.2, HSA-SSE.B.3a, HSA-SSE.B.3b, HSA-APR.B.3, HSA-REI.B.4a, HSA-REI.B.4b, HSF-IF.B.4, HSF-IF.C.7a, HSF-IF.C.8a, HSF-BF.B.3, HSG-GPE.A.2, HSN-CN.C.7, HSS-ID.B.6a。",
     cardTitle:"二次函数探索 — 挑战卡", cardName:"姓名：",
     cardBuild:"画出函数图像。标出顶点、对称轴和 y 轴截距。写出定义域、值域以及最大值或最小值。",
     cardFactor:"完全分解因式。为三项式画出面积模型。",
@@ -1306,9 +1435,10 @@ function FACT(pre,bins){
 }
 const coefPre = a=>{ a=toQ(a); return qeq(a,Q(1))?null:qeq(a,Q(-1))?{h:MINUS,s:t("neg",{n:""}).trim()}:QV(a); };
 // y = a(x − h)² + k
-function VF(a,h,k){ a=toQ(a);
-  if(!h) return poly([[a,...VX2()],[k,...VC()]]);
-  const b=SQ(lin(1,-h)), pre=coefPre(a);
+// v (optional) names the squared variable: x = a(y − k)² + h uses VF(a,k,h,"y").
+function VF(a,h,k,v){ a=toQ(a);
+  if(!h) return poly([[a,...VX2(v)],[k,...VC()]]);
+  const b=SQ(poly([[1,...VX(v)],[-h,...VC()]])), pre=coefPre(a);
   let H=(pre?pre.h:"")+b.h, S=(pre?pre.s+" "+(qeq(a,Q(-1))?"":t("wTimes")+" "):"")+b.s;
   if(k){ H+=(k<0?" − ":" + ")+Math.abs(k); S+=" "+t(k<0?"wMinus":"wPlus")+" "+Math.abs(k); }
   return {h:H, s:S};
@@ -1365,12 +1495,17 @@ function graph(o,attrs){
   s+=`<text class="axn" x="${GX+GW-6}" y="${F(ax-8)}" text-anchor="end">${o.xn||"x"}</text><text class="axn" x="${F(ay+8)}" y="${GY+16}">${o.yn||"y"}</text>`;
   let g="";
   (o.vl||[]).forEach(v=>g+=`<line class="vl ${v.cls||""}" x1="${F(X(v.x))}" y1="${GY}" x2="${F(X(v.x))}" y2="${GY+GH}"/>`);
-  (o.curves||[]).forEach(c=>{ const a=c.a!=null?c.a:x0, b=c.b!=null?c.b:x1, span=y1-y0, P=[];
+  (o.hl||[]).forEach(v=>g+=`<line class="vl ${v.cls||""}" x1="${GX}" y1="${F(Y(v.y))}" x2="${GX+GW}" y2="${F(Y(v.y))}"/>`);
+  // c.fy: a sideways curve x = fy(y)
+  (o.curves||[]).filter(c=>c.fy).forEach(c=>{ const span=x1-x0, P=[];
+    for(let i=0;i<=200;i++){ const y=y0+(y1-y0)*i/200, x=Math.max(x0-span,Math.min(x1+span,c.fy(y))); P.push(F(X(x))+" "+F(Y(y))); }
+    g+=`<path class="cv ${c.cls||""}" d="M${P.join("L")}"/>`; });
+  (o.curves||[]).filter(c=>!c.fy).forEach(c=>{ const a=c.a!=null?c.a:x0, b=c.b!=null?c.b:x1, span=y1-y0, P=[];
     for(let i=0;i<=200;i++){ const x=a+(b-a)*i/200, y=Math.max(y0-span,Math.min(y1+span,c.f(x))); P.push(F(X(x))+" "+F(Y(y))); }
     g+=`<path class="cv ${c.cls||""}" d="M${P.join("L")}"/>`; });
   s+=`<g clip-path="url(#${id})">${g}</g>`;
-  (o.pts||[]).forEach(p=>{ if(p.x<x0||p.x>x1||p.y<y0||p.y>y1) return; s+=`<circle class="pt ${p.cls||""}" cx="${F(X(p.x))}" cy="${F(Y(p.y))}" r="8"/>`;
-    if(p.lab) s+=`<text class="ptl" x="${F(Math.min(X(p.x)+11,GX+GW-60))}" y="${F(Math.max(Y(p.y)-11,GY+14))}">${p.lab}</text>`; });
+  (o.pts||[]).forEach(p=>{ if(p.x<x0||p.x>x1||p.y<y0||p.y>y1) return; s+=`<circle class="pt ${p.cls||""}" cx="${F(X(p.x))}" cy="${F(Y(p.y))}" r="${p.r||8}"/>`;
+    if(p.lab) s+=`<text class="ptl" x="${F(Math.max(GX+2,Math.min(X(p.x)+(p.lx||11),GX+GW-60)))}" y="${F(Math.min(GY+GH-4,Math.max(Y(p.y)+(p.ly||-11),GY+14)))}">${p.lab}</text>`; });
   if(o.cur) s+=`<circle class="cur" cx="${F(X(o.cur.x))}" cy="${F(Y(o.cur.y))}" r="15"/>`;
   return `<svg class="plane" viewBox="0 0 440 430" ${attrs||`role="img" aria-label="${t("planeLbl")}"`}>${s}</svg>`;
 }
@@ -1515,7 +1650,8 @@ function aList(){ const L=LV();
   if(L==="a1") return [Q(-2),Q(-1),Q(-1,2),Q(1,2),Q(1),Q(2)];
   return [Q(-3),Q(-2),Q(-1),Q(-1,2),Q(-1,3),Q(1,3),Q(1,2),Q(1),Q(2),Q(3)]; }
 const fAt = (a,h,k)=>x=>qv(a)*(x-h)*(x-h)+k;
-function newBuild(){ const m="build"; startRound(m); st[m].type=rand(["match","match","feat","feat","feat"]); return st[m].type==="match"?buildMatch():buildFeat(); }
+function newBuild(){ const m="build"; startRound(m); st[m].type=rand(["match","match","feat","feat","feat"].concat(LV()==="a2"?["attr","attr","attr"]:[]));
+  return ({match:buildMatch,feat:buildFeat,attr:buildAttr})[st[m].type](); }
 function buildMatch(){
   const m="build", s=st[m], R=RR(), AL=aList(); let a,h,k;
   do{ a=rand(AL); h=ri(-(R-3),R-3); k=ri(-(R-2),R-2); }while((qeq(a,Q(1))&&!h&&!k)||(qv(a)>0?k>R-4:k<-(R-4)));
@@ -1565,6 +1701,42 @@ function buildFeat(){
   else { dir="fOpenDir"; items=[TCH(up?"opUp":"opDn",1),TCH(up?"opDn":"opUp")]; why=tm(up?"whyOpenUp":"whyOpenDn",{a:QV(a)}); hint=TX("hintOpen"); }
   choices(m,items,it=>{ if(it.ok) return win(m,cat(TX("yes"),why)); nope(m,hint); });
   setPrompt(m,TX(dir)); maybeAuto(m);
+}
+
+/* Algebra II: write the equation of a parabola from its attributes (vertex, focus, directrix, axis, direction). */
+function buildAttr(){
+  const m="build", s=st[m], R=RR(), hor=Math.random()<.4, g=rand(["vf","fd","vd","pt"]);
+  let h,k,a,p,d=0,P0=null;
+  if(g==="pt"){ // vertex + axis + direction + one point: a comes from the point
+    do{ a=rand(aList()); h=ri(-(R-4),R-4); k=ri(-(R-4),R-4); d=rand([1,2,-1,-2,3,-3]); P0=hor?[h+qv(a)*d*d,k+d]:[h+d,k+qv(a)*d*d]; }
+    while(!Number.isInteger(qv(a)*d*d)||Math.abs(P0[0])>R-1||Math.abs(P0[1])>R-1);
+    p=Q(a.q,4*a.p); }
+  else { p=rand([Q(1,4),Q(1,2),Q(1),Q(2),Q(-1,4),Q(-1,2),Q(-1),Q(-2)]); a=Q(p.q,4*p.p); h=ri(-(R-4),R-4); k=ri(-(R-4),R-4); }
+  // vertical: y = a(x − h)² + k, focus (h, k + p), directrix y = k − p. Sideways: x = a(y − k)² + h, focus (h + p, k), directrix x = h − p.
+  const up=qv(a)>0, EQ=(aa,hh,kk,hz)=>hz?eqV("x",VF(aa,kk,hh,"y")):eqY(VF(aa,hh,kk)), OK=EQ(a,h,k,hor);
+  const FO=hor?PT(qa(Q(h),p),Q(k)):PT(Q(h),qa(Q(k),p)), DR=hor?eqV("x",QV(qa(Q(h),Q(-p.p,p.q)))):eqV("y",QV(qa(Q(k),Q(-p.p,p.q)))), V=PT(h,k);
+  const AX=hor?eqV("y",N2(k)):eqV("x",N2(h)), dirK=hor?(up?"atRt":"atLt"):(up?"atUp":"atDn");
+  const at={vf:[["atVtx",{v:V}],["atFoc",{f:FO}]],fd:[["atFoc",{f:FO}],["atDir",{d:DR}]],vd:[["atVtx",{v:V}],["atDir",{d:DR}]],
+    pt:[["atVtx",{v:V}],["atAx",{ax:AX}],[dirK,{}],["atThru",{p:P0&&PT(P0[0],P0[1])}]]}[g].map(([kk,v])=>tm(kk,v));
+  $("#w-"+m).innerHTML=`<div class="split"><div class="pwrap" dir="ltr" id="bG"></div><div class="side"><ul class="attrs">${at.map(x=>"<li>"+x.h+"</li>").join("")}</ul><div class="rule hidden" id="bRO"></div></div></div>`;
+  const pv=qv(p), fx=hor?h+pv:h, fy=hor?k:k+pv, show=done=>{ const o=Object.assign(sqWin(),{curves:[],vl:[],hl:[],pts:[]});
+    if(g!=="pt"||done){ if(g!=="vf"||done){ if(hor) o.vl.push({x:h-pv,cls:"dx"}); else o.hl.push({y:k-pv,cls:"dx"}); } if(g!=="vd"||done) o.pts.push({x:fx,y:fy,cls:"fc",lab:"F",lx:-24,ly:26}); }
+    else { if(hor) o.hl.push({y:k}); else o.vl.push({x:h}); o.pts.push({x:P0[0],y:P0[1],cls:"yi"}); }
+    if(g!=="fd"||done) o.pts.push({x:h,y:k,cls:"vx",lab:"V"});
+    if(done) o.curves.push(hor?{fy:y=>qv(a)*(y-k)*(y-k)+h}:{f:fAt(a,h,k)});
+    $("#bG").innerHTML=graph(o); };
+  show(false);
+  const form=hor?{h:"<i>x</i> = <i>a</i>(<i>y</i> − <i>k</i>)<sup>2</sup> + <i>h</i>",s:"x "+t("wEq")+" a "+t("wTimes")+" "+t("sqOf",{e:t("qty",{e:"y "+t("wMinus")+" k"})})+" "+t("wPlus")+" h"}
+    :{h:"<i>y</i> = <i>a</i>(<i>x</i> − <i>h</i>)<sup>2</sup> + <i>k</i>",s:"y "+t("wEq")+" a "+t("wTimes")+" "+t("sqOf",{e:t("qty",{e:"x "+t("wMinus")+" h"})})+" "+t("wPlus")+" k"};
+  const hA=g==="pt"?tm("hAttrPt",{p:P0&&PT(P0[0],P0[1]),f:form}):tm("hAttrP",{p:QV(p),f:form}), hS=TX("hAttrSg"), hV=tm("hAttrV",{v:V}), hO=TX("hAttrOr");
+  const items=[CH(OK,1),CH(EQ(Q(-a.p,a.q),h,k,hor),0,{why:hS}),CH(EQ(h||k?a:Q(-a.p,a.q),-h,-k,hor),0,{why:h||k?hV:hS}),CH(EQ(a,h,k,!hor),0,{why:hO})];
+  if(g==="pt") items.splice(1,0,CH(EQ(qm(a,Q(d)),h,k,hor),0,{why:hA}),CH(EQ(Q(a.q,a.p),h,k,hor),0,{why:hA}));
+  else items.splice(1,0,CH(EQ(qm(p,Q(4)),h,k,hor),0,{why:hA}),CH(EQ(Q(p.q,p.p),h,k,hor),0,{why:hA}));
+  items.forEach(it=>it.key=it.h);
+  choices(m,items,it=>{ if(!it.ok) return nope(m,it.why);
+    show(true); const ro=$("#bRO"); ro.classList.remove("hidden"); ro.innerHTML=M(OK.h)+"<br>"+t("vtxW")+" "+M(V.h)+" · "+t("axisW")+" "+M(AX.h);
+    win(m,cat(g==="pt"?tm("gAttrPt",{p:PT(P0[0],P0[1]),a:QV(a),e:OK}):TX("yes"),tm("gAttrFD",{f:FO,d:DR,p:QV(p),a:QV(a),e:OK}))); },true);
+  setPrompt(m,cat(TX("attrDir"),{h:"",s:at.map(x=>x.s).join("; ")+"."})); maybeAuto(m);
 }
 
 /* =========================================================================
@@ -1744,8 +1916,26 @@ function solveQf(){
    4. CONNECT FORMS — zeros ↔ factors ↔ graph; standard ↔ vertex form.
    ========================================================================= */
 function newConnect(){ const m="connect"; startRound(m); const L=LV();
-  const type=rand(L==="f"?["tapz","tapz","g2f","f2s"]:["tapz","g2f","s2v","s2v","v2s","f2s"]); st[m].type=type;
-  ({tapz:connTap,g2f:connG2F,s2v:connS2V,v2s:connV2S,f2s:connF2S})[type](); }
+  const type=rand(L==="f"?["tapz","tapz","g2f","f2s"]:["tapz","g2f","s2v","s2v","v2s","f2s"].concat(L==="a2"?["p3","p3"]:[])); st[m].type=type;
+  ({tapz:connTap,g2f:connG2F,s2v:connS2V,v2s:connV2S,f2s:connF2S,p3:connP3})[type](); }
+/* Algebra II: the quadratic through three given points (a system in a, b, c). */
+function connP3(){
+  const m="connect"; let a,b,c,xs,ys;
+  do{ a=rand([1,-1,2,-2]); b=ri(-4,4); c=ri(-6,6); xs=shuffle([-3,-2,-1,0,1,2,3]).slice(0,3).sort((u,v)=>u-v); ys=xs.map(x=>a*x*x+b*x+c); }while(ys.some(y=>Math.abs(y)>9)||!b);
+  const E=eqY(std(a,b,c)), P=xs.map((x,i)=>PT(x,ys[i])), miss=(A,B,C)=>{ const i=xs.findIndex((x,j)=>A*x*x+B*x+C!==ys[j]);
+    return tm("hP3",{p:P[i],x:N2(xs[i]),y:N2(A*xs[i]*xs[i]+B*xs[i]+C),w:N2(ys[i])}); };
+  const items=[CH(E,1)];
+  // Each distractor passes through two of the points but misses the third: f(x) ± (x − xi)(x − xj).
+  [[0,1],[0,2],[1,2]].forEach(([i,j])=>{ const d=rand([1,-1]), X=expand(1,-xs[i],1,-xs[j]), A=a+d*X[0], B=b+d*X[1], C=c+d*X[2]; if(A) items.push(CH(eqY(std(A,B,C)),0,{why:miss(A,B,C)})); });
+  items.push(CH(eqY(std(a,-b,c)),0,{why:miss(a,-b,c)}));
+  items.forEach(it=>it.key=it.h);
+  const sys=xs.map((x,i)=>eqR(N2(ys[i]),poly([[x*x,"<i>a</i>","a"],[x,"<i>b</i>","b"],[1,"<i>c</i>","c"]])));
+  const draw=done=>{ $("#cG").innerHTML=graph({x0:-5,x1:5,y0:-10,y1:10,xs:1,ys:2,curves:done?[{f:x=>a*x*x+b*x+c}]:[],pts:xs.map((x,i)=>({x,y:ys[i],cls:done?"ok":"yi",lab:P[i].h}))}); };
+  $("#w-"+m).innerHTML=`<div class="pwrap" dir="ltr" id="cG"></div>`; draw(false);
+  choices(m,items,it=>{ if(!it.ok) return nope(m,it.why); draw(true);
+    win(m,tm("gP3",{e1:sys[0],e2:sys[1],e3:sys[2],a:N2(a),b:N2(b),c:N2(c),e:E})); },true);
+  setPrompt(m,tm("p3Dir",{p1:P[0],p2:P[1],p3:P[2]})); maybeAuto(m);
+}
 const aConn = ()=>LV()==="a2"&&settings.aNot1?rand([1,-1,2,-2]):(LV()==="f"?1:rand([1,1,-1]));
 function connTap(){
   const m="connect", s=st[m], R=RR(); let r,sv; do{ r=ri(-(R-1),R-1); sv=ri(-(R-1),R-1); }while(r===sv||(LV()!=="f"&&!r&&!sv));
@@ -1808,7 +1998,7 @@ function connF2S(){
 /* =========================================================================
    5. PROJECTILES & AREA — vertex and zeros in context, with a trace point.
    ========================================================================= */
-function newModel(){ const m="model"; startRound(m); const type=rand(["proj","proj","area","rev"]); st[m].type=type; ({proj:modelProj,area:modelArea,rev:modelRev})[type](); }
+function newModel(){ const m="model"; startRound(m); const type=rand(["proj","proj","area","rev"].concat(LV()==="f"?[]:["fit","fit"])); st[m].type=type; ({proj:modelProj,area:modelArea,rev:modelRev,fit:modelFit})[type](); }
 // Graph with a trace point moved by buttons.
 function traceUI(m,f,xmax,ymax,stepX,xn,yn){
   const s=st[m]; s.tx=0;
@@ -1857,6 +2047,72 @@ function modelRev(){
   const hint=tm(q==="p"?"hintRevP":"hintRevR",{z1:N2(-p0),z2:N2(z2),p:N2(p0)});
   choices(m,items,it=>{ if(it.ok) return win(m,why); nope(m,hint); });
   setPrompt(m,cat(tm("revCx",{n:N2(n0),p:N2(p0),k:N2(k),e:E}),TX(q==="p"?"qRevP":"qRevR"))); maybeAuto(m);
+}
+
+/* Algebra I / II: fit a model to data with least squares ("technology"), then estimate and predict. */
+const FITCX={ball:{xn:"t",yn:"h",k:"q",yd:1,xd:1},mpg:{xn:"s",yn:"m",k:"q",yd:1,xd:0},stop:{xn:"s",yn:"d",k:"q",yd:0,xd:0},skid:{xn:"d",yn:"s",k:"s",yd:0,xd:0},pend:{xn:"L",yn:"T",k:"s",yd:2,xd:0}};
+const rnd=(v,d)=>+(+v).toFixed(d), jit=a=>(Math.random()*2-1)*a;
+// Least squares: "q" y = ax² + bx + c, "l" y = mx + b, "s" y = a√x + b. Coefficients rounded to 3 significant digits, as a calculator shows them.
+function lsq(X,Y,k){
+  const fx=k==="q"?x=>[x*x,x,1]:k==="s"?x=>[Math.sqrt(x),1]:x=>[x,1], n=fx(1).length, A=Array.from({length:n},()=>Array(n+1).fill(0));
+  X.forEach((x,i)=>{ const r=fx(x); for(let j=0;j<n;j++){ for(let l=0;l<n;l++) A[j][l]+=r[j]*r[l]; A[j][n]+=r[j]*Y[i]; } });
+  for(let j=0;j<n;j++){ let pv=j; for(let i=j+1;i<n;i++) if(Math.abs(A[i][j])>Math.abs(A[pv][j])) pv=i; [A[j],A[pv]]=[A[pv],A[j]];
+    for(let i=0;i<n;i++) if(i!==j){ const f=A[i][j]/A[j][j]; for(let l=j;l<=n;l++) A[i][l]-=f*A[j][l]; } }
+  return A.map((r,j)=>+(r[n]/r[j]).toPrecision(3));
+}
+const fitF=(k,c)=>k==="q"?x=>c[0]*x*x+c[1]*x+c[2]:k==="s"?x=>c[0]*Math.sqrt(Math.max(0,x))+c[1]:x=>c[0]*x+c[1];
+function decPoly(terms){ const H=[],S=[];
+  terms.forEach(([c,vh,vs])=>{ if(!c) return; const ng=c<0, a=Math.abs(c), ms=(a+" "+vs).trim();
+    if(!H.length){ H.push((ng?MINUS:"")+a+vh); S.push(ng?t("neg",{n:ms}):ms); } else { H.push((ng?" − ":" + ")+a+vh); S.push(t(ng?"wMinus":"wPlus")+" "+ms); } });
+  return H.length?{h:H.join(""),s:S.join(" ")}:{h:"0",s:"0"}; }
+const fitEq=(k,c,xn,yn)=>eqV(yn,decPoly(k==="q"?[[c[0],...VX2(xn)],[c[1],...VX(xn)],[c[2],...VC()]]:k==="s"?[[c[0],RAD(`<i>${xn}</i>`),t("sqrtSay",{n:xn})],[c[1],...VC()]]:[[c[0],...VX(xn)],[c[1],...VC()]]));
+function fitData(cx){ const X=[],Y=[]; let qs,xp=0,yv=0;
+  if(cx==="ball"){ const v0=rand([32,40,48,56]), h0=rand([3,4,5,6]), tl=(v0+Math.sqrt(v0*v0+64*h0))/32, sp=tl<2.6?.25:.5;
+    for(let i=0;i*sp<tl;i++){ const x=i*sp, y=-16*x*x+v0*x+h0; if(i&&y<3) break; X.push(x); Y.push(rnd(y+jit(1.5),1)); }
+    qs=["root","root","pred"]; xp=X[Math.floor(X.length/2)]+sp/2; }
+  else if(cx==="mpg"){ const sp=rand([45,50,55]), M0=ri(30,36), c=rand([.008,.01,.012]);
+    [25,35,45,55,65,75].forEach(x=>{ X.push(x); Y.push(rnd(M0-c*(x-sp)*(x-sp)+jit(.6),1)); }); qs=["pred","peak"]; xp=rand([30,50,70,80]); }
+  else if(cx==="stop"){ const k=rand([.045,.05,.055]); [20,30,40,50,60].forEach(x=>{ X.push(x); Y.push(rnd(k*x*x+1.1*x+jit(3),0)); }); qs=["pred"]; xp=rand([70,80]); }
+  else if(cx==="skid"){ const c=rand([5,5.5,6]); [10,25,50,75,100,150,200].forEach(x=>{ X.push(x); Y.push(rnd(c*Math.sqrt(x)+jit(1.2),0)); }); qs=["pred","inv"]; xp=rand([250,300]); yv=rand([90,100]); }
+  else { [10,25,40,55,70,85,100].forEach(x=>{ X.push(x); Y.push(rnd(.2*Math.sqrt(x)+jit(.03),2)); }); qs=["pred","inv"]; xp=rand([150,200]); yv=rand([2.5,3]); }
+  return {X,Y,qs,xp,yv};
+}
+function modelFit(){
+  const m="model", s=st[m], L=LV(), cx=rand(L==="a2"?["ball","mpg","stop","skid","pend"]:["ball","mpg","stop"]), C=FITCX[cx], D=fitData(cx), X=D.X, Y=D.Y;
+  const kinds=L==="a2"?["l","q","s"]:["l","q"], co={}; kinds.forEach(k=>co[k]=lsq(X,Y,k));
+  const k0=C.k, c0=co[k0], F=fitF(k0,c0), E=fitEq(k0,c0,C.xn,C.yn), q=rand(D.qs), VR=v=>({h:`<i>${v}</i>`,s:v});
+  let raw, ansV, dig, alt=null, why, hint, qm_, guide={};
+  if(q==="pred"){ raw=F(D.xp); ansV=C.yn; dig=C.yd; alt=fitF("l",co.l)(D.xp); guide={vl:[{x:D.xp,cls:"tg"}]};
+    qm_=tm("qFitPred",{y:VR(C.yn),x:VR(C.xn),v:N2(D.xp)}); hint=tm("hFitPred",{x:VR(C.xn),v:N2(D.xp)}); }
+  else if(q==="root"){ const [A,B,Cc]=c0, Dd=Math.sqrt(Math.max(0,B*B-4*A*Cc)); raw=Math.max((-B+Dd)/(2*A),(-B-Dd)/(2*A)); ansV=C.xn; dig=C.xd;
+    qm_=TX("qFitRoot"); hint=TX("hFitRoot"); }
+  else if(q==="peak"){ raw=-c0[1]/(2*c0[0]); ansV=C.xn; dig=0; qm_=TX("qFitPeak"); hint=TX("hFitPeak"); }
+  else { raw=Math.pow((D.yv-c0[1])/c0[0],2); ansV=C.xn; dig=C.xd; guide={hl:[{y:D.yv,cls:"tg"}]};
+    qm_=tm("qFitInv",{x:VR(C.xn),y:VR(C.yn),v:N2(D.yv)}); hint=tm("hFitInv",{y:VR(C.yn),v:N2(D.yv),x:VR(C.xn)}); }
+  const ans=rnd(raw,dig), AE=v=>({h:M(`<i>${ansV}</i> ≈ ${nH(v)}`),s:ansV+" "+t("wApprox")+" "+nS(v)});
+  if(q==="pred") why=tm("gFitPred",{x:{h:`<i>${C.xn}</i> = ${nH(D.xp)}`,s:C.xn+" "+t("wEq")+" "+nS(D.xp)},a:AE(ans)});
+  else if(q==="root") why=tm("gFitRoot",{a:AE(ans)});
+  else if(q==="peak") why=tm("gFitPeak",{a:AE(ans)});
+  else why=tm("gFitInv",{y:{h:`<i>${C.yn}</i> = ${nH(D.yv)}`,s:C.yn+" "+t("wEq")+" "+nS(D.yv)},a:AE(ans)});
+  // Distractors: the line's prediction (when it differs) and clearly different estimates.
+  const vals=[ans], far=v=>v>0&&vals.every(u=>Math.abs(v-u)>Math.max(.12*Math.abs(ans),Math.pow(10,-dig)));
+  [alt,raw*1.35,raw*.7,raw*1.7,raw*.5,raw*2].forEach(v=>{ if(v!=null&&vals.length<4){ v=rnd(v,dig); if(far(v)) vals.push(v); } });
+  const items=vals.map((v,i)=>Object.assign(AE(v),{ok:!i,key:"v"+v}));
+  // Window: the data, the prediction or solution, and the curve.
+  const xr=Math.max(...X,q==="pred"?D.xp:raw)*1.08, x1=Math.ceil(xr/niceStep(xr))*niceStep(xr);
+  let ym=Math.max(...Y); for(let i=0;i<=40;i++) ym=Math.max(ym,F(x1*i/40)); ym*=1.12; const y1=Math.ceil(ym/niceStep(ym))*niceStep(ym);
+  const draw=extra=>{ $("#fG").innerHTML=graph(Object.assign({x0:0,x1,y0:0,y1,xn:C.xn,yn:C.yn},extra||{},{pts:X.map((x,i)=>({x,y:Y[i],cls:"dp",r:6}))})); };
+  $("#w-"+m).innerHTML=`<div class="split"><div class="pwrap" dir="ltr" id="fG"></div><div class="side"><div class="dtab" role="group" aria-label="${t("tblLbl")}">
+    <div class="hd"><span><i>${C.xn}</i></span><span><i>${C.yn}</i></span></div>${X.map((x,i)=>`<div><span>${nH(x)}</span><span>${nH(Y[i])}</span></div>`).join("")}</div><div class="rule hidden" id="fRO"></div></div></div>`;
+  draw();
+  const KK={l:"fLin",q:"fQuad",s:"fSqrt"};
+  const stage2=()=>{ setPrompt(m,cat(TX("fitCx_"+cx),qm_));
+    choices(m,items,it=>{ if(it.ok) return win(m,why); nope(m,hint); }); };
+  choices(m,kinds.map(k=>TCH(KK[k],k===k0,{kd:k})),it=>{
+    if(!it.ok){ draw({curves:[{f:fitF(it.kd,co[it.kd]),cls:"wf"}]}); return nope(m,TX(it.kd==="l"?"hFitLin":it.kd==="s"?"hFitSqrtQ":"hFitQuadS")); }
+    draw(Object.assign({curves:[{f:F}]},guide)); const ro=$("#fRO"); ro.classList.remove("hidden"); ro.innerHTML=tm("fitModel",{e:E}).h;
+    const g=tm(k0==="q"?"fitGoodQ":"fitGoodS",{e:E}); showFb($("#f-"+m),"good",g.h); stage2(); speak(cat(g,qm_).s); });
+  setPrompt(m,cat(TX("fitCx_"+cx),TX("fitQ1"))); maybeAuto(m);
 }
 
 /* ---------- Mode switching ---------- */
