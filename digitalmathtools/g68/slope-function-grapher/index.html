@@ -113,6 +113,10 @@
   table.io td.blank{background:#fff8e1;color:#b45309}
   table.io td.act{outline:3px solid var(--tgt);outline-offset:-3px}
   table.io td.done{background:var(--good-bg);color:var(--good)}
+  table.io.qt{direction:inherit}
+  table.io.qt th{font:700 .95rem system-ui,sans-serif;font-style:normal;max-width:10rem}
+  .qa{font:700 13px system-ui,sans-serif;fill:#14212d}
+  .skb{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:.6rem}
   .rule{background:#f5f9fc;border:2px dashed #b9d5ea;border-radius:12px;padding:.45rem .7rem;text-align:center;font-weight:700;line-height:1.8}
   .big{font-size:1.5rem;text-align:center;margin:.2rem 0}
   .readout{font-weight:700;text-align:center;line-height:1.9;min-height:2em}
@@ -363,7 +367,28 @@ const T = {
     hintMeet0:"{p} is not on either line. Look for the point where the two lines cross.",
     goodMeet:"Yes! {p} is on both lines: it makes {e1} and {e2} true. It is the solution to the system.",
     lineA:"A", lineB:"B",
-    stds:"Aligned standards — Texas TEKS: Grade 6 6.6(B, C), 6.11(A); Grade 7 7.4(A), 7.7(A); Grade 8 8.4(A, B, C), 8.5(A, B, F, G, H, I), 8.9(A). Common Core: 6.EE.9, 6.NS.6c, 6.NS.8; 7.RP.2a, 7.RP.2b, 7.RP.2c; 8.EE.5, 8.EE.6, 8.EE.8a; 8.F.1, 8.F.2, 8.F.3, 8.F.4.",
+    qPayI:"Hours worked", qPayD:"Money earned (dollars)", qPayS:"The money you earn depends on how many hours you work.",
+    qTixI:"Number of tickets", qTixD:"Total cost (dollars)", qTixS:"The total cost depends on how many tickets you buy.",
+    qPlantI:"Days", qPlantD:"Plant height (centimeters)", qPlantS:"The plant's height depends on how many days it has been growing.",
+    qPizzaI:"Number of pizzas", qPizzaD:"Number of slices", qPizzaS:"The number of slices depends on how many pizzas there are.",
+    idDirI:"Which quantity is the independent quantity?", idDirD:"Which quantity is the dependent quantity?",
+    goodID:"Yes! {s} So “{i}” is the independent quantity and “{d}” is the dependent quantity.",
+    hintID:"Ask: which quantity depends on the other one? The dependent quantity changes because the independent quantity changes. On a graph, the independent quantity goes on the horizontal axis.",
+    yWalk:"Distance from home", yTub:"Water in the tub", yPlane:"Height of the plane", xTime:"Time",
+    wU:"you walk away from home", wF:"you stop to talk with a friend", wD:"you walk back toward home",
+    tU:"water pours into the bathtub", tF:"the water is turned off, so the level stays the same", tD:"the drain is opened and the water runs out",
+    pU:"the plane climbs higher", pF:"the plane flies at the same height", pD:"the plane comes down",
+    storyTpl:"First, {a}. Then, {b}. Finally, {c}.",
+    sketchDir:"Sketch the graph for this story. Tap each part (1, 2, 3) to make it go up, stay flat, or go down. Then press Check.",
+    qInc:"increasing (going up)", qCon:"constant (flat)", qDec:"decreasing (going down)", segAria:"Part {n}: {d}. Tap to change.",
+    goodSk:"Yes! The graph is {a}, then {b}, then {c}, just like the story.",
+    hintSeg:"Look at part {n} of the story: {p}. So that part of the graph should be {d}.",
+    dDir:"Read the graph from left to right. Which description matches it?",
+    dLinUp:"Increasing at a constant rate (linear)", dFastUp:"Increasing faster and faster (nonlinear)", dSlowUp:"Increasing more and more slowly (nonlinear)",
+    dLinDn:"Decreasing at a constant rate (linear)", dFastDn:"Decreasing faster and faster (nonlinear)", dSlowDn:"Decreasing more and more slowly (nonlinear)",
+    goodDesc:"Yes! From left to right: {d}.",
+    hintDesc:"Read from left to right. Going up means increasing; going down means decreasing. A straight line changes at a constant rate (linear). A curve that gets steeper changes faster and faster; a curve that flattens out changes more and more slowly.",
+    stds:"Aligned standards — Texas TEKS: Grade 6 6.6(A, B, C), 6.11(A); Grade 7 7.4(A), 7.7(A); Grade 8 8.4(A, B, C), 8.5(A, B, F, G, H, I), 8.9(A). Common Core: 6.EE.9, 6.NS.6c, 6.NS.8; 7.RP.2a, 7.RP.2b, 7.RP.2c; 8.EE.5, 8.EE.6, 8.EE.8a; 8.F.1, 8.F.2, 8.F.3, 8.F.4, 8.F.5.",
     cardTitle:"Slope & Function Grapher — Challenge Cards", cardName:"Name:",
     cardTable:"Complete the table, then graph the points.", cardSlope:"Find the slope of the line through these two points.",
     cardEq:"Write the equation of the line in the form y = mx + b.", cardFunc:"Is this relation a function? Explain.",
@@ -493,7 +518,28 @@ const T = {
     hintMeet0:"{p} no está en ninguna de las rectas. Busca el punto donde se cruzan.",
     goodMeet:"¡Sí! {p} está en las dos rectas: hace verdaderas {e1} y {e2}. Es la solución del sistema.",
     lineA:"A", lineB:"B",
-    stds:"Estándares alineados — TEKS de Texas: 6.º grado 6.6(B, C), 6.11(A); 7.º grado 7.4(A), 7.7(A); 8.º grado 8.4(A, B, C), 8.5(A, B, F, G, H, I), 8.9(A). Common Core: 6.EE.9, 6.NS.6c, 6.NS.8; 7.RP.2a, 7.RP.2b, 7.RP.2c; 8.EE.5, 8.EE.6, 8.EE.8a; 8.F.1, 8.F.2, 8.F.3, 8.F.4.",
+    qPayI:"Horas trabajadas", qPayD:"Dinero ganado (dólares)", qPayS:"El dinero que ganas depende de cuántas horas trabajas.",
+    qTixI:"Número de boletos", qTixD:"Costo total (dólares)", qTixS:"El costo total depende de cuántos boletos compras.",
+    qPlantI:"Días", qPlantD:"Altura de la planta (centímetros)", qPlantS:"La altura de la planta depende de cuántos días lleva creciendo.",
+    qPizzaI:"Número de pizzas", qPizzaD:"Número de rebanadas", qPizzaS:"El número de rebanadas depende de cuántas pizzas hay.",
+    idDirI:"¿Cuál es la cantidad independiente?", idDirD:"¿Cuál es la cantidad dependiente?",
+    goodID:"¡Sí! {s} Así que «{i}» es la cantidad independiente y «{d}» es la cantidad dependiente.",
+    hintID:"Pregúntate: ¿qué cantidad depende de la otra? La cantidad dependiente cambia porque cambia la cantidad independiente. En una gráfica, la cantidad independiente va en el eje horizontal.",
+    yWalk:"Distancia desde la casa", yTub:"Agua en la tina", yPlane:"Altura del avión", xTime:"Tiempo",
+    wU:"caminas alejándote de tu casa", wF:"te detienes a hablar con un amigo", wD:"caminas de regreso a tu casa",
+    tU:"el agua cae en la tina", tF:"se cierra la llave, así que el nivel del agua no cambia", tD:"se abre el desagüe y el agua se va",
+    pU:"el avión sube", pF:"el avión vuela a la misma altura", pD:"el avión baja",
+    storyTpl:"Primero, {a}. Luego, {b}. Al final, {c}.",
+    sketchDir:"Dibuja la gráfica de esta historia. Toca cada parte (1, 2, 3) para que suba, se quede plana o baje. Luego presiona Comprobar.",
+    qInc:"creciente (sube)", qCon:"constante (plana)", qDec:"decreciente (baja)", segAria:"Parte {n}: {d}. Toca para cambiarla.",
+    goodSk:"¡Sí! La gráfica es {a}, luego {b} y luego {c}, igual que la historia.",
+    hintSeg:"Mira la parte {n} de la historia: {p}. Entonces esa parte de la gráfica debe ser {d}.",
+    dDir:"Lee la gráfica de izquierda a derecha. ¿Qué descripción le corresponde?",
+    dLinUp:"Crece a una tasa constante (lineal)", dFastUp:"Crece cada vez más rápido (no lineal)", dSlowUp:"Crece cada vez más despacio (no lineal)",
+    dLinDn:"Decrece a una tasa constante (lineal)", dFastDn:"Decrece cada vez más rápido (no lineal)", dSlowDn:"Decrece cada vez más despacio (no lineal)",
+    goodDesc:"¡Sí! De izquierda a derecha: {d}.",
+    hintDesc:"Lee de izquierda a derecha. Si sube, es creciente; si baja, es decreciente. Una recta cambia a una tasa constante (lineal). Una curva que se vuelve más empinada cambia cada vez más rápido; una curva que se aplana cambia cada vez más despacio.",
+    stds:"Estándares alineados — TEKS de Texas: 6.º grado 6.6(A, B, C), 6.11(A); 7.º grado 7.4(A), 7.7(A); 8.º grado 8.4(A, B, C), 8.5(A, B, F, G, H, I), 8.9(A). Common Core: 6.EE.9, 6.NS.6c, 6.NS.8; 7.RP.2a, 7.RP.2b, 7.RP.2c; 8.EE.5, 8.EE.6, 8.EE.8a; 8.F.1, 8.F.2, 8.F.3, 8.F.4, 8.F.5.",
     cardTitle:"Graficador de pendientes y funciones — Tarjetas de reto", cardName:"Nombre:",
     cardTable:"Completa la tabla y luego grafica los puntos.", cardSlope:"Encuentra la pendiente de la recta que pasa por estos dos puntos.",
     cardEq:"Escribe la ecuación de la recta en la forma y = mx + b.", cardFunc:"¿Esta relación es una función? Explica.",
@@ -623,7 +669,28 @@ const T = {
     hintMeet0:"{p} không nằm trên đường nào. Hãy tìm điểm mà hai đường cắt nhau.",
     goodMeet:"Đúng! {p} nằm trên cả hai đường: nó làm cho {e1} và {e2} đều đúng. Đó là nghiệm của hệ.",
     lineA:"A", lineB:"B",
-    stds:"Tiêu chuẩn phù hợp — TEKS Texas: Lớp 6 6.6(B, C), 6.11(A); Lớp 7 7.4(A), 7.7(A); Lớp 8 8.4(A, B, C), 8.5(A, B, F, G, H, I), 8.9(A). Common Core: 6.EE.9, 6.NS.6c, 6.NS.8; 7.RP.2a, 7.RP.2b, 7.RP.2c; 8.EE.5, 8.EE.6, 8.EE.8a; 8.F.1, 8.F.2, 8.F.3, 8.F.4.",
+    qPayI:"Số giờ làm việc", qPayD:"Số tiền kiếm được (đô la)", qPayS:"Số tiền em kiếm được phụ thuộc vào số giờ em làm việc.",
+    qTixI:"Số vé", qTixD:"Tổng chi phí (đô la)", qTixS:"Tổng chi phí phụ thuộc vào số vé em mua.",
+    qPlantI:"Số ngày", qPlantD:"Chiều cao của cây (xăng-ti-mét)", qPlantS:"Chiều cao của cây phụ thuộc vào số ngày cây đã mọc.",
+    qPizzaI:"Số bánh pizza", qPizzaD:"Số miếng bánh", qPizzaS:"Số miếng bánh phụ thuộc vào số bánh pizza.",
+    idDirI:"Đại lượng nào là đại lượng độc lập?", idDirD:"Đại lượng nào là đại lượng phụ thuộc?",
+    goodID:"Đúng! {s} Vậy “{i}” là đại lượng độc lập và “{d}” là đại lượng phụ thuộc.",
+    hintID:"Hãy tự hỏi: đại lượng nào phụ thuộc vào đại lượng kia? Đại lượng phụ thuộc thay đổi vì đại lượng độc lập thay đổi. Trên đồ thị, đại lượng độc lập nằm trên trục ngang.",
+    yWalk:"Khoảng cách từ nhà", yTub:"Lượng nước trong bồn", yPlane:"Độ cao của máy bay", xTime:"Thời gian",
+    wU:"em đi bộ ra xa nhà", wF:"em dừng lại nói chuyện với một người bạn", wD:"em đi bộ trở về nhà",
+    tU:"nước chảy vào bồn tắm", tF:"vòi nước được khóa lại, nên mực nước không đổi", tD:"lỗ thoát nước được mở và nước chảy ra",
+    pU:"máy bay bay lên cao", pF:"máy bay bay ở cùng một độ cao", pD:"máy bay hạ xuống",
+    storyTpl:"Đầu tiên, {a}. Sau đó, {b}. Cuối cùng, {c}.",
+    sketchDir:"Hãy phác họa đồ thị cho câu chuyện này. Chạm vào từng phần (1, 2, 3) để làm nó đi lên, nằm ngang hoặc đi xuống. Rồi bấm Kiểm tra.",
+    qInc:"tăng (đi lên)", qCon:"không đổi (nằm ngang)", qDec:"giảm (đi xuống)", segAria:"Phần {n}: {d}. Chạm để đổi.",
+    goodSk:"Đúng! Đồ thị {a}, rồi {b}, rồi {c}, đúng như câu chuyện.",
+    hintSeg:"Xem phần {n} của câu chuyện: {p}. Vậy phần đó của đồ thị phải {d}.",
+    dDir:"Đọc đồ thị từ trái sang phải. Mô tả nào phù hợp với nó?",
+    dLinUp:"Tăng với tốc độ không đổi (tuyến tính)", dFastUp:"Tăng ngày càng nhanh (phi tuyến)", dSlowUp:"Tăng ngày càng chậm (phi tuyến)",
+    dLinDn:"Giảm với tốc độ không đổi (tuyến tính)", dFastDn:"Giảm ngày càng nhanh (phi tuyến)", dSlowDn:"Giảm ngày càng chậm (phi tuyến)",
+    goodDesc:"Đúng! Từ trái sang phải: {d}.",
+    hintDesc:"Đọc từ trái sang phải. Đi lên nghĩa là tăng; đi xuống nghĩa là giảm. Đường thẳng thay đổi với tốc độ không đổi (tuyến tính). Đường cong ngày càng dốc thì thay đổi ngày càng nhanh; đường cong ngày càng thoải thì thay đổi ngày càng chậm.",
+    stds:"Tiêu chuẩn phù hợp — TEKS Texas: Lớp 6 6.6(A, B, C), 6.11(A); Lớp 7 7.4(A), 7.7(A); Lớp 8 8.4(A, B, C), 8.5(A, B, F, G, H, I), 8.9(A). Common Core: 6.EE.9, 6.NS.6c, 6.NS.8; 7.RP.2a, 7.RP.2b, 7.RP.2c; 8.EE.5, 8.EE.6, 8.EE.8a; 8.F.1, 8.F.2, 8.F.3, 8.F.4, 8.F.5.",
     cardTitle:"Vẽ Độ Dốc & Hàm Số — Thẻ thử thách", cardName:"Tên:",
     cardTable:"Hoàn thành bảng, rồi vẽ các điểm.", cardSlope:"Tìm độ dốc của đường thẳng đi qua hai điểm này.",
     cardEq:"Viết phương trình đường thẳng dưới dạng y = mx + b.", cardFunc:"Quan hệ này có phải là hàm số không? Giải thích.",
@@ -753,7 +820,28 @@ const T = {
     hintMeet0:"{p} لا تقع على أي من الخطين. ابحث عن النقطة التي يتقاطع عندها الخطان.",
     goodMeet:"نعم! {p} تقع على الخطين: تجعل {e1} و{e2} صحيحتين. إنها حل النظام.",
     lineA:"A", lineB:"B",
-    stds:"المعايير المتوافقة — TEKS تكساس: الصف السادس 6.6(B, C)، 6.11(A)؛ الصف السابع 7.4(A)، 7.7(A)؛ الصف الثامن 8.4(A, B, C)، 8.5(A, B, F, G, H, I)، 8.9(A). Common Core: 6.EE.9، 6.NS.6c، 6.NS.8؛ 7.RP.2a، 7.RP.2b، 7.RP.2c؛ 8.EE.5، 8.EE.6، 8.EE.8a؛ 8.F.1، 8.F.2، 8.F.3، 8.F.4.",
+    qPayI:"عدد ساعات العمل", qPayD:"المال المكتسب (بالدولار)", qPayS:"المال الذي تكسبه يعتمد على عدد الساعات التي تعملها.",
+    qTixI:"عدد التذاكر", qTixD:"التكلفة الكلية (بالدولار)", qTixS:"التكلفة الكلية تعتمد على عدد التذاكر التي تشتريها.",
+    qPlantI:"عدد الأيام", qPlantD:"طول النبتة (بالسنتيمتر)", qPlantS:"طول النبتة يعتمد على عدد الأيام التي نمت فيها.",
+    qPizzaI:"عدد فطائر البيتزا", qPizzaD:"عدد الشرائح", qPizzaS:"عدد الشرائح يعتمد على عدد فطائر البيتزا.",
+    idDirI:"أي كمية هي الكمية المستقلة؟", idDirD:"أي كمية هي الكمية التابعة؟",
+    goodID:"نعم! {s} إذن «{i}» هي الكمية المستقلة و«{d}» هي الكمية التابعة.",
+    hintID:"اسأل نفسك: أي كمية تعتمد على الأخرى؟ الكمية التابعة تتغير لأن الكمية المستقلة تتغير. في التمثيل البياني، توضع الكمية المستقلة على المحور الأفقي.",
+    yWalk:"المسافة عن البيت", yTub:"الماء في حوض الاستحمام", yPlane:"ارتفاع الطائرة", xTime:"الزمن",
+    wU:"تمشي مبتعداً عن البيت", wF:"تتوقف لتتحدث مع صديق", wD:"تمشي عائداً إلى البيت",
+    tU:"يتدفق الماء إلى حوض الاستحمام", tF:"يُغلق الصنبور، فيبقى مستوى الماء كما هو", tD:"تُفتح فتحة التصريف فيخرج الماء",
+    pU:"ترتفع الطائرة", pF:"تطير الطائرة على الارتفاع نفسه", pD:"تهبط الطائرة",
+    storyTpl:"في البداية، {a}. ثم {b}. وأخيراً، {c}.",
+    sketchDir:"ارسم التمثيل البياني لهذه القصة. اضغط على كل جزء (1، 2، 3) ليصعد أو يبقى أفقياً أو ينزل. ثم اضغط تحقّق.",
+    qInc:"متزايداً (يصعد)", qCon:"ثابتاً (أفقياً)", qDec:"متناقصاً (ينزل)", segAria:"الجزء {n}: {d}. اضغط للتغيير.",
+    goodSk:"نعم! التمثيل البياني يكون {a}، ثم {b}، ثم {c}، تماماً كما في القصة.",
+    hintSeg:"انظر إلى الجزء {n} من القصة: {p}. إذن يجب أن يكون هذا الجزء من التمثيل البياني {d}.",
+    dDir:"اقرأ التمثيل البياني من اليسار إلى اليمين. أي وصف يطابقه؟",
+    dLinUp:"تتزايد بمعدل ثابت (خطية)", dFastUp:"تتزايد بسرعة أكبر فأكبر (غير خطية)", dSlowUp:"تتزايد ببطء أكثر فأكثر (غير خطية)",
+    dLinDn:"تتناقص بمعدل ثابت (خطية)", dFastDn:"تتناقص بسرعة أكبر فأكبر (غير خطية)", dSlowDn:"تتناقص ببطء أكثر فأكثر (غير خطية)",
+    goodDesc:"نعم! من اليسار إلى اليمين: {d}.",
+    hintDesc:"اقرأ من اليسار إلى اليمين. الصعود يعني التزايد، والنزول يعني التناقص. الخط المستقيم يتغير بمعدل ثابت (خطية). المنحنى الذي يزداد انحداره يتغير بسرعة أكبر فأكبر، والمنحنى الذي يصبح أكثر استواءً يتغير ببطء أكثر فأكثر.",
+    stds:"المعايير المتوافقة — TEKS تكساس: الصف السادس 6.6(A, B, C)، 6.11(A)؛ الصف السابع 7.4(A)، 7.7(A)؛ الصف الثامن 8.4(A, B, C)، 8.5(A, B, F, G, H, I)، 8.9(A). Common Core: 6.EE.9، 6.NS.6c، 6.NS.8؛ 7.RP.2a، 7.RP.2b، 7.RP.2c؛ 8.EE.5، 8.EE.6، 8.EE.8a؛ 8.F.1، 8.F.2، 8.F.3، 8.F.4، 8.F.5.",
     cardTitle:"راسم الميل والدوال — بطاقات التحدي", cardName:"الاسم:",
     cardTable:"أكمل الجدول، ثم مثّل النقاط بيانياً.", cardSlope:"أوجد ميل الخط المار بهاتين النقطتين.",
     cardEq:"اكتب معادلة الخط على الصورة y = mx + b.", cardFunc:"هل هذه العلاقة دالة؟ اشرح.",
@@ -883,7 +971,28 @@ const T = {
     hintMeet0:"{p} किसी भी रेखा पर नहीं है। वह बिंदु ढूँढें जहाँ दोनों रेखाएँ कटती हैं।",
     goodMeet:"हाँ! {p} दोनों रेखाओं पर है: यह {e1} और {e2} दोनों को सही बनाता है। यही निकाय का हल है।",
     lineA:"A", lineB:"B",
-    stds:"संरेखित मानक — टेक्सास TEKS: कक्षा 6 6.6(B, C), 6.11(A); कक्षा 7 7.4(A), 7.7(A); कक्षा 8 8.4(A, B, C), 8.5(A, B, F, G, H, I), 8.9(A)। Common Core: 6.EE.9, 6.NS.6c, 6.NS.8; 7.RP.2a, 7.RP.2b, 7.RP.2c; 8.EE.5, 8.EE.6, 8.EE.8a; 8.F.1, 8.F.2, 8.F.3, 8.F.4।",
+    qPayI:"काम के घंटे", qPayD:"कमाई (डॉलर में)", qPayS:"आप कितना कमाते हैं, यह इस पर निर्भर करता है कि आप कितने घंटे काम करते हैं।",
+    qTixI:"टिकटों की संख्या", qTixD:"कुल लागत (डॉलर में)", qTixS:"कुल लागत इस पर निर्भर करती है कि आप कितने टिकट खरीदते हैं।",
+    qPlantI:"दिन", qPlantD:"पौधे की ऊँचाई (सेंटीमीटर में)", qPlantS:"पौधे की ऊँचाई इस पर निर्भर करती है कि वह कितने दिनों से बढ़ रहा है।",
+    qPizzaI:"पिज़्ज़ा की संख्या", qPizzaD:"टुकड़ों की संख्या", qPizzaS:"टुकड़ों की संख्या इस पर निर्भर करती है कि कितने पिज़्ज़ा हैं।",
+    idDirI:"स्वतंत्र राशि कौन-सी है?", idDirD:"आश्रित राशि कौन-सी है?",
+    goodID:"हाँ! {s} इसलिए “{i}” स्वतंत्र राशि है और “{d}” आश्रित राशि है।",
+    hintID:"सोचें: कौन-सी राशि दूसरी पर निर्भर करती है? आश्रित राशि इसलिए बदलती है क्योंकि स्वतंत्र राशि बदलती है। ग्राफ़ पर स्वतंत्र राशि क्षैतिज अक्ष पर होती है।",
+    yWalk:"घर से दूरी", yTub:"टब में पानी", yPlane:"विमान की ऊँचाई", xTime:"समय",
+    wU:"आप घर से दूर चलते हैं", wF:"आप किसी दोस्त से बात करने के लिए रुकते हैं", wD:"आप वापस घर की ओर चलते हैं",
+    tU:"टब में पानी भरता है", tF:"नल बंद कर दिया जाता है, इसलिए पानी का स्तर वैसा ही रहता है", tD:"नाली खोल दी जाती है और पानी बाहर निकल जाता है",
+    pU:"विमान ऊपर चढ़ता है", pF:"विमान एक ही ऊँचाई पर उड़ता है", pD:"विमान नीचे उतरता है",
+    storyTpl:"पहले, {a}। फिर, {b}। आख़िर में, {c}।",
+    sketchDir:"इस कहानी का ग्राफ़ बनाएँ। हर भाग (1, 2, 3) पर टैप करके उसे ऊपर, सपाट या नीचे करें। फिर जाँचें दबाएँ।",
+    qInc:"बढ़ता हुआ (ऊपर जाता)", qCon:"स्थिर (सपाट)", qDec:"घटता हुआ (नीचे जाता)", segAria:"भाग {n}: {d}। बदलने के लिए टैप करें।",
+    goodSk:"हाँ! ग्राफ़ पहले {a}, फिर {b}, फिर {c} है, बिल्कुल कहानी की तरह।",
+    hintSeg:"कहानी का भाग {n} देखें: {p}। इसलिए ग्राफ़ का वह भाग {d} होना चाहिए।",
+    dDir:"ग्राफ़ को बाएँ से दाएँ पढ़ें। कौन-सा विवरण इससे मेल खाता है?",
+    dLinUp:"स्थिर दर से बढ़ता है (रैखिक)", dFastUp:"और तेज़ी से बढ़ता जाता है (अरैखिक)", dSlowUp:"और धीरे-धीरे बढ़ता जाता है (अरैखिक)",
+    dLinDn:"स्थिर दर से घटता है (रैखिक)", dFastDn:"और तेज़ी से घटता जाता है (अरैखिक)", dSlowDn:"और धीरे-धीरे घटता जाता है (अरैखिक)",
+    goodDesc:"हाँ! बाएँ से दाएँ: {d}।",
+    hintDesc:"बाएँ से दाएँ पढ़ें। ऊपर जाना मतलब बढ़ना; नीचे जाना मतलब घटना। सीधी रेखा स्थिर दर से बदलती है (रैखिक)। जो वक्र खड़ा होता जाता है वह और तेज़ी से बदलता है; जो वक्र सपाट होता जाता है वह और धीरे बदलता है।",
+    stds:"संरेखित मानक — टेक्सास TEKS: कक्षा 6 6.6(A, B, C), 6.11(A); कक्षा 7 7.4(A), 7.7(A); कक्षा 8 8.4(A, B, C), 8.5(A, B, F, G, H, I), 8.9(A)। Common Core: 6.EE.9, 6.NS.6c, 6.NS.8; 7.RP.2a, 7.RP.2b, 7.RP.2c; 8.EE.5, 8.EE.6, 8.EE.8a; 8.F.1, 8.F.2, 8.F.3, 8.F.4, 8.F.5।",
     cardTitle:"ढलान और फलन ग्राफ़र — चुनौती कार्ड", cardName:"नाम:",
     cardTable:"तालिका पूरी करें, फिर बिंदुओं को आलेखित करें।", cardSlope:"इन दो बिंदुओं से होकर जाने वाली रेखा का ढलान ज्ञात करें।",
     cardEq:"रेखा का समीकरण y = mx + b के रूप में लिखें।", cardFunc:"क्या यह संबंध एक फलन है? समझाइए।",
@@ -1013,7 +1122,28 @@ const T = {
     hintMeet0:"{p} کسی بھی خط پر نہیں ہے۔ وہ نقطہ تلاش کریں جہاں دونوں خط کٹتے ہیں۔",
     goodMeet:"جی ہاں! {p} دونوں خطوط پر ہے: یہ {e1} اور {e2} دونوں کو درست بناتا ہے۔ یہی نظام کا حل ہے۔",
     lineA:"A", lineB:"B",
-    stds:"ہم آہنگ معیارات — ٹیکساس TEKS: جماعت 6 6.6(B, C)، 6.11(A)؛ جماعت 7 7.4(A)، 7.7(A)؛ جماعت 8 8.4(A, B, C)، 8.5(A, B, F, G, H, I)، 8.9(A)۔ Common Core: 6.EE.9، 6.NS.6c، 6.NS.8؛ 7.RP.2a، 7.RP.2b، 7.RP.2c؛ 8.EE.5، 8.EE.6، 8.EE.8a؛ 8.F.1، 8.F.2، 8.F.3، 8.F.4۔",
+    qPayI:"کام کے گھنٹے", qPayD:"کمائی (ڈالر میں)", qPayS:"آپ کتنا کماتے ہیں، یہ اس پر منحصر ہے کہ آپ کتنے گھنٹے کام کرتے ہیں۔",
+    qTixI:"ٹکٹوں کی تعداد", qTixD:"کل لاگت (ڈالر میں)", qTixS:"کل لاگت اس پر منحصر ہے کہ آپ کتنے ٹکٹ خریدتے ہیں۔",
+    qPlantI:"دن", qPlantD:"پودے کی اونچائی (سینٹی میٹر میں)", qPlantS:"پودے کی اونچائی اس پر منحصر ہے کہ وہ کتنے دنوں سے بڑھ رہا ہے۔",
+    qPizzaI:"پیزا کی تعداد", qPizzaD:"ٹکڑوں کی تعداد", qPizzaS:"ٹکڑوں کی تعداد اس پر منحصر ہے کہ کتنے پیزا ہیں۔",
+    idDirI:"آزاد مقدار کون سی ہے؟", idDirD:"تابع مقدار کون سی ہے؟",
+    goodID:"ہاں! {s} اس لیے «{i}» آزاد مقدار ہے اور «{d}» تابع مقدار ہے۔",
+    hintID:"سوچیں: کون سی مقدار دوسری پر منحصر ہے؟ تابع مقدار اس لیے بدلتی ہے کیونکہ آزاد مقدار بدلتی ہے۔ گراف پر آزاد مقدار افقی محور پر ہوتی ہے۔",
+    yWalk:"گھر سے فاصلہ", yTub:"ٹب میں پانی", yPlane:"ہوائی جہاز کی اونچائی", xTime:"وقت",
+    wU:"آپ گھر سے دور چلتے ہیں", wF:"آپ کسی دوست سے بات کرنے کے لیے رکتے ہیں", wD:"آپ واپس گھر کی طرف چلتے ہیں",
+    tU:"ٹب میں پانی بھرتا ہے", tF:"نل بند کر دیا جاتا ہے، اس لیے پانی کی سطح ویسی ہی رہتی ہے", tD:"نالی کھول دی جاتی ہے اور پانی باہر نکل جاتا ہے",
+    pU:"ہوائی جہاز اوپر چڑھتا ہے", pF:"ہوائی جہاز ایک ہی اونچائی پر اڑتا ہے", pD:"ہوائی جہاز نیچے اترتا ہے",
+    storyTpl:"پہلے، {a}۔ پھر، {b}۔ آخر میں، {c}۔",
+    sketchDir:"اس کہانی کا گراف بنائیں۔ ہر حصے (1، 2، 3) کو چھو کر اسے اوپر، سیدھا یا نیچے کریں۔ پھر جانچیں دبائیں۔",
+    qInc:"بڑھتا ہوا (اوپر جاتا)", qCon:"مستقل (سیدھا)", qDec:"گھٹتا ہوا (نیچے جاتا)", segAria:"حصہ {n}: {d}۔ بدلنے کے لیے چھوئیں۔",
+    goodSk:"ہاں! گراف پہلے {a}، پھر {b}، پھر {c} ہے، بالکل کہانی کی طرح۔",
+    hintSeg:"کہانی کا حصہ {n} دیکھیں: {p}۔ اس لیے گراف کا وہ حصہ {d} ہونا چاہیے۔",
+    dDir:"گراف کو بائیں سے دائیں پڑھیں۔ کون سی وضاحت اس سے میل کھاتی ہے؟",
+    dLinUp:"مستقل شرح سے بڑھتا ہے (خطی)", dFastUp:"تیز سے تیز تر بڑھتا ہے (غیر خطی)", dSlowUp:"آہستہ سے آہستہ تر بڑھتا ہے (غیر خطی)",
+    dLinDn:"مستقل شرح سے گھٹتا ہے (خطی)", dFastDn:"تیز سے تیز تر گھٹتا ہے (غیر خطی)", dSlowDn:"آہستہ سے آہستہ تر گھٹتا ہے (غیر خطی)",
+    goodDesc:"ہاں! بائیں سے دائیں: {d}۔",
+    hintDesc:"بائیں سے دائیں پڑھیں۔ اوپر جانا یعنی بڑھنا؛ نیچے جانا یعنی گھٹنا۔ سیدھا خط مستقل شرح سے بدلتا ہے (خطی)۔ جو خم دار لکیر زیادہ ڈھلوان ہوتی جائے وہ تیز سے تیز تر بدلتی ہے؛ جو ہموار ہوتی جائے وہ آہستہ سے آہستہ تر بدلتی ہے۔",
+    stds:"ہم آہنگ معیارات — ٹیکساس TEKS: جماعت 6 6.6(A, B, C)، 6.11(A)؛ جماعت 7 7.4(A)، 7.7(A)؛ جماعت 8 8.4(A, B, C)، 8.5(A, B, F, G, H, I)، 8.9(A)۔ Common Core: 6.EE.9، 6.NS.6c، 6.NS.8؛ 7.RP.2a، 7.RP.2b، 7.RP.2c؛ 8.EE.5، 8.EE.6، 8.EE.8a؛ 8.F.1، 8.F.2، 8.F.3، 8.F.4، 8.F.5۔",
     cardTitle:"ڈھلان اور تفاعل گرافر — چیلنج کارڈ", cardName:"نام:",
     cardTable:"جدول مکمل کریں، پھر نقاط کا گراف بنائیں۔", cardSlope:"ان دو نقاط سے گزرنے والے خط کی ڈھلان معلوم کریں۔",
     cardEq:"خط کی مساوات y = mx + b کی شکل میں لکھیں۔", cardFunc:"کیا یہ تعلق ایک تفاعل ہے؟ وضاحت کریں۔",
@@ -1143,7 +1273,28 @@ const T = {
     hintMeet0:"{p} 不在任何一条直线上。找一找两条直线相交的点。",
     goodMeet:"对了！{p} 在两条直线上：它使 {e1} 和 {e2} 都成立。它就是这个方程组的解。",
     lineA:"A", lineB:"B",
-    stds:"对应标准 — 德州 TEKS：六年级 6.6(B, C)、6.11(A)；七年级 7.4(A)、7.7(A)；八年级 8.4(A, B, C)、8.5(A, B, F, G, H, I)、8.9(A)。Common Core：6.EE.9、6.NS.6c、6.NS.8；7.RP.2a、7.RP.2b、7.RP.2c；8.EE.5、8.EE.6、8.EE.8a；8.F.1、8.F.2、8.F.3、8.F.4。",
+    qPayI:"工作时数", qPayD:"赚的钱（美元）", qPayS:"赚多少钱取决于工作了多少小时。",
+    qTixI:"票数", qTixD:"总费用（美元）", qTixS:"总费用取决于买了多少张票。",
+    qPlantI:"天数", qPlantD:"植物高度（厘米）", qPlantS:"植物的高度取决于它长了多少天。",
+    qPizzaI:"比萨的个数", qPizzaD:"比萨的块数", qPizzaS:"比萨的块数取决于有多少个比萨。",
+    idDirI:"哪个量是自变量？", idDirD:"哪个量是因变量？",
+    goodID:"对了！{s}所以“{i}”是自变量，“{d}”是因变量。",
+    hintID:"想一想：哪个量取决于另一个量？因变量随着自变量的变化而变化。在图像上，自变量画在水平轴上。",
+    yWalk:"离家的距离", yTub:"浴缸里的水量", yPlane:"飞机的高度", xTime:"时间",
+    wU:"你从家里往外走", wF:"你停下来和朋友说话", wD:"你往回走向家里",
+    tU:"水流进浴缸", tF:"关上水龙头，水位保持不变", tD:"打开排水口，水流出去",
+    pU:"飞机往上爬升", pF:"飞机在同一高度飞行", pD:"飞机往下降落",
+    storyTpl:"先是{a}；然后{b}；最后{c}。",
+    sketchDir:"画出这个故事的图像。点每一段（1、2、3），让它上升、保持水平或下降。然后按检查。",
+    qInc:"递增（上升）", qCon:"不变（水平）", qDec:"递减（下降）", segAria:"第 {n} 段：{d}。点一下可以改变。",
+    goodSk:"对了！图像先{a}，然后{b}，最后{c}，和故事一样。",
+    hintSeg:"看故事的第 {n} 部分：{p}。所以图像的这一段应该是{d}。",
+    dDir:"从左往右读这个图像。哪个描述和它相符？",
+    dLinUp:"以不变的速率增加（线性）", dFastUp:"增加得越来越快（非线性）", dSlowUp:"增加得越来越慢（非线性）",
+    dLinDn:"以不变的速率减少（线性）", dFastDn:"减少得越来越快（非线性）", dSlowDn:"减少得越来越慢（非线性）",
+    goodDesc:"对了！从左往右看：{d}。",
+    hintDesc:"从左往右读。往上走表示增加，往下走表示减少。直线以不变的速率变化（线性）。越来越陡的曲线变化得越来越快；越来越平的曲线变化得越来越慢。",
+    stds:"对应标准 — 德州 TEKS：六年级 6.6(A, B, C)、6.11(A)；七年级 7.4(A)、7.7(A)；八年级 8.4(A, B, C)、8.5(A, B, F, G, H, I)、8.9(A)。Common Core：6.EE.9、6.NS.6c、6.NS.8；7.RP.2a、7.RP.2b、7.RP.2c；8.EE.5、8.EE.6、8.EE.8a；8.F.1、8.F.2、8.F.3、8.F.4、8.F.5。",
     cardTitle:"斜率与函数绘图器 — 挑战卡", cardName:"姓名：",
     cardTable:"完成表格，然后描出这些点。", cardSlope:"求经过这两个点的直线的斜率。",
     cardEq:"用 y = mx + b 的形式写出这条直线的方程。", cardFunc:"这个关系是函数吗？说明理由。",
@@ -1323,6 +1474,20 @@ function ioTable(xs,ys,act,done){
     y===null?`<td class="blank${i===act?" act":""}">?</td>`:`<td${done&&done.includes(i)?' class="done"':""}>${typeof y==="object"?y.h:nH(y)}</td>`).join("")}</tr></table>`;
 }
 
+/* ---------- Quantities in context (6.6A) and qualitative graphs (8.F.5) ---------- */
+const IDC=[["Pay",10,0,[1,2,3,4]],["Tix",6,0,[2,3,4,5]],["Plant",2,3,[0,1,2,3]],["Pizza",8,0,[1,2,3,4]]]; // [key, rate, start, x values]
+// First-quadrant graph with axis titles (independent quantity across, dependent quantity up)
+function qGraph(xs,ys,xl,yl){
+  const W=320,H=250,x0=58,y0=H-50,xm=Math.max(...xs)+1,ym=Math.max(...ys),yt=ym<=12?2:ym<=30?5:10,yM=Math.ceil(ym/yt)*yt,
+    X=x=>(x0+(W-x0-14)*x/xm).toFixed(1), Y=y=>(y0-(y0-14)*y/yM).toFixed(1); let z="";
+  for(let y=yt;y<=yM;y+=yt) z+=`<line class="gl" x1="${x0}" x2="${W-6}" y1="${Y(y)}" y2="${Y(y)}"/><text class="tl" x="${x0-6}" y="${(+Y(y)+5).toFixed(1)}" text-anchor="end">${y}</text>`;
+  z+=`<line class="ax" x1="${x0}" y1="${y0}" x2="${W-6}" y2="${y0}"/><line class="ax" x1="${x0}" y1="${y0}" x2="${x0}" y2="8"/>`;
+  for(let x=0;x<=xm;x++) z+=`<text class="tl" x="${X(x)}" y="${y0+18}" text-anchor="middle">${x}</text>`;
+  xs.forEach((x,i)=>z+=`<circle class="pt" cx="${X(x)}" cy="${Y(ys[i])}" r="7"/>`);
+  z+=`<text class="qa" x="${(x0+W)/2}" y="${H-10}" text-anchor="middle">${xl}</text><text class="qa" transform="translate(16 ${y0/2}) rotate(-90)" text-anchor="middle">${yl}</text>`;
+  return `<div class="pwrap" dir="ltr"><svg class="plane" viewBox="0 0 ${W} ${H}" role="img" aria-label="${yl} / ${xl}">${z}</svg></div>`;
+}
+
 /* ---------- Speech ---------- */
 const speechOK = ("speechSynthesis" in window);
 function bcpFor(l){ const m=LANGS.find(x=>x.code===l); return m?m.bcp:"en-US"; }
@@ -1468,7 +1633,17 @@ function ruleH(r){
 }
 function newTables(){
   const m="tables"; startRound(m); const s=st[m], R=RR(), w=$("#w-"+m);
-  const type=rand(["fill","fill","fill","read","eq"]); s.type=type;
+  const type=rand(["fill","fill","fill","read","eq"].concat(G()===6?["indep","indep"]:G()===7?["indep"]:[])); s.type=type;
+  if(type==="indep"){ // 6.6(A): which quantity is independent / dependent?
+    const [k,mm,bb,xs]=rand(IDC), ys=xs.map(x=>mm*x+bb), iN=t("q"+k+"I"), dN=t("q"+k+"D"), askI=Math.random()<.5;
+    if(Math.random()<.5) w.innerHTML=qGraph(xs,ys,iN,dN);
+    else { const cols=Math.random()<.5?[[dN,ys],[iN,xs]]:[[iN,xs],[dN,ys]]; // labels matter, not column order
+      w.innerHTML=`<div class="side"><table class="io qt"><tr>${cols.map(c=>`<th scope="col">${c[0]}</th>`).join("")}</tr>${xs.map((_,r)=>`<tr>${cols.map(c=>`<td>${c[1][r]}</td>`).join("")}</tr>`).join("")}</table></div>`; }
+    const good=tm("goodID",{s:t("q"+k+"S"),i:iN,d:dN}), bd=x=>({h:`<bdi>${x.h}</bdi>`,s:x.s});
+    choices(m,shuffle([{...TX("q"+k+"I"),ok:askI,txt:true},{...TX("q"+k+"D"),ok:!askI,txt:true}]),it=>{
+      if(it.ok) return win(m,good); nope(m,cat(tm("youPicked",{x:bd(it)}),TX("hintID"))); });
+    setPrompt(m,TX(askI?"idDirI":"idDirD")); return maybeAuto(m);
+  }
   if(type==="read"){
     let x,y; do{ x=ri(-R+1,R-1); y=ri(-R+1,R-1); }while(!x||!y||Math.abs(x)===Math.abs(y));
     w.innerHTML=planeBox(m,{view:()=>({pts:[{x,y,lab:"P"}]})});
@@ -1719,7 +1894,37 @@ function mapSVG(P){
 }
 function newFunc(){
   const m="func"; startRound(m); const s=st[m], g=G(), R=RR(), w=$("#w-"+m);
-  const type=rand(g<8?["f","f","f","prop","prop"]:["f","f","f","lin","lin","prop"]); s.type=type;
+  const type=rand(g<8?["f","f","f","prop","prop"]:["f","f","f","lin","lin","prop","sketch","desc"]); s.type=type;
+  if(type==="sketch"){ // 8.F.5: sketch a graph from a story (increasing / constant / decreasing pieces)
+    const ctx=rand(["Walk","Tub","Plane"]), P=ctx[0].toLowerCase(), pat=["u",rand(["f","d"])]; pat.push(rand(["u","f","d"].filter(x=>x!==pat[1])));
+    const ph=c=>t(P+c.toUpperCase()), story=t("storyTpl",{a:ph(pat[0]),b:ph(pat[1]),c:ph(pat[2])});
+    const AR={u:"↗",f:"→",d:"↘"}, AD={u:"qInc",f:"qCon",d:"qDec"}, NX={u:"f",f:"d",d:"u"}; s.sk=["f","f","f"];
+    w.innerHTML=`<div class="pwrap" dir="ltr"><svg class="plane" id="skG" viewBox="0 0 320 210" role="img" aria-label="${t("y"+ctx)} / ${t("xTime")}"></svg></div><div class="skb" dir="ltr">${[0,1,2].map(i=>`<button type="button" class="btn ghost" id="sk${i}"></button>`).join("")}</div>`;
+    const draw=()=>{ const lv=[0]; s.sk.forEach(c=>lv.push(lv[lv.length-1]+(c==="u"?1:c==="d"?-1:0)));
+      const lo=Math.min(0,...lv), hi=Math.max(1,...lv), W=320, x0=40, yb=176, top=28, X=i=>(x0+i*(W-x0-16)/3).toFixed(1), Y=v=>(yb-(v-lo)*(yb-top)/(hi-lo)).toFixed(1), ya=+Y(0);
+      let z=`<line class="ax" x1="${x0}" y1="${ya}" x2="${W-6}" y2="${ya}"/><line class="ax" x1="${x0}" y1="12" x2="${x0}" y2="${yb+8}"/>`;
+      for(let i=0;i<3;i++) z+=(i?`<line class="gl" x1="${X(i)}" x2="${X(i)}" y1="${top}" y2="${yb}" stroke-dasharray="4 4"/>`:"")+`<text class="tl" x="${((+X(i)+ +X(i+1))/2).toFixed(1)}" y="20" text-anchor="middle">${i+1}</text>`;
+      z+=`<polyline points="${lv.map((v,i)=>X(i)+","+Y(v)).join(" ")}" fill="none" class="ln"/>`+lv.map((v,i)=>`<circle class="pt" cx="${X(i)}" cy="${Y(v)}" r="5"/>`).join("");
+      z+=`<text class="qa" x="${W-8}" y="${ya+18}" text-anchor="end">${t("xTime")}</text><text class="qa" transform="translate(16 ${(top+yb)/2}) rotate(-90)" text-anchor="middle">${t("y"+ctx)}</text>`;
+      $("#skG").innerHTML=z;
+      s.sk.forEach((c,i)=>{ const b=$("#sk"+i); b.innerHTML=`<b>${i+1}</b> <span aria-hidden="true">${AR[c]}</span> ${t(AD[c])}`; b.setAttribute("aria-label",t("segAria",{n:i+1,d:t(AD[c])})); }); };
+    [0,1,2].forEach(i=>$("#sk"+i).addEventListener("click",()=>{ if(s.done) return; s.sk[i]=NX[s.sk[i]]; hideFb($("#f-"+m)); draw(); }));
+    draw();
+    checkBtn(m,()=>{ const j=pat.findIndex((c,i)=>s.sk[i]!==c);
+      if(j<0) return win(m,tm("goodSk",{a:t(AD[pat[0]]),b:t(AD[pat[1]]),c:t(AD[pat[2]])}));
+      nope(m,tm("hintSeg",{n:j+1,p:ph(pat[j]),d:t(AD[pat[j]])})); });
+    setPrompt(m,cat({h:story,s:story},TX("sketchDir"))); return maybeAuto(m);
+  }
+  if(type==="desc"){ // 8.F.5: describe a graph qualitatively (increasing/decreasing, linear/nonlinear)
+    const F={LinUp:x=>x,FastUp:x=>x*x,SlowUp:x=>Math.sqrt(x),LinDn:x=>1-x,FastDn:x=>1-x*x,SlowDn:x=>(1-x)*(1-x)}, K=Object.keys(F), k=rand(K), up=/Up/.test(k);
+    const opts=[k,...K.filter(q=>q!==k&&/Up/.test(q)===up),k.replace(up?"Up":"Dn",up?"Dn":"Up")];
+    const W=320,H=220,x0=40,yb=H-34,X=x=>(x0+18+x*(W-x0-40)).toFixed(1),Y=y=>(yb-14-y*(yb-40)).toFixed(1);
+    const z=`<line class="ax" x1="${x0}" y1="${yb}" x2="${W-6}" y2="${yb}"/><line class="ax" x1="${x0}" y1="12" x2="${x0}" y2="${yb}"/><text class="axn" x="${W-14}" y="${yb+24}">x</text><text class="axn" x="${x0-24}" y="26">y</text>`+
+      `<polyline points="${range(0,20).map(i=>X(i/20)+","+Y(F[k](i/20))).join(" ")}" fill="none" class="ln"/>`;
+    w.innerHTML=`<div class="pwrap" dir="ltr"><svg class="plane" viewBox="0 0 ${W} ${H}" role="img" aria-label="${t("planeLbl")}">${z}</svg></div>`;
+    choices(m,shuffle(opts.map(q=>({...TX("d"+q),ok:q===k,txt:true}))),it=>{ if(it.ok) return win(m,tm("goodDesc",{d:t("d"+k)})); nope(m,cat(tm("youPicked",{x:{h:`<bdi>${it.h}</bdi>`,s:it.s}}),TX("hintDesc"))); });
+    setPrompt(m,TX("dDir")); return maybeAuto(m);
+  }
   if(type==="f"){
     const isF=Math.random()<.5, rep=rand(g<8?["map","table","pairs"]:["map","table","pairs","graph","graph"]), {P,info}=relGen(isF,R);
     const why=isF?(info.rep!=null?tm("whyFRep",{y:N2(info.rep)}):TX("whyF")):tm("whyNotF",{x:N2(info.x),y1:N2(info.y1),y2:N2(info.y2)});
