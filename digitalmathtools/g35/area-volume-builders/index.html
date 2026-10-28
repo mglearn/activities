@@ -60,6 +60,10 @@
   .fig.paint{touch-action:none}
   .cell{fill:#fff;stroke:#8cc9b9;stroke-width:1.5;stroke-dasharray:4 3;cursor:pointer}
   .cell.on{fill:var(--tile);stroke:#0e6e5c;stroke-dasharray:none}
+  .cell[role=button]:focus{outline:none;stroke:var(--focus);stroke-width:5;stroke-dasharray:none}
+  .partpair{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center}
+  .partpair .fig{flex:1 1 140px;max-width:280px;margin:0}
+  .choice .lbl.txt{direction:inherit;unicode-bidi:normal;text-align:center}
   .cut{cursor:pointer}
   .cut .vis{stroke:#7a3fb5;stroke-width:4;stroke-dasharray:10 8}
   .cut:hover .vis,.cut:focus .vis{stroke:#0a58ca;stroke-width:6}
@@ -339,7 +343,26 @@ const T = {
     hintEnd:"That is not quite it. Start at {t1} and count on {d} minutes. Remember: 60 minutes make 1 hour.",
     tlLbl:"Timeline",
     cardTitle:"Area & Volume Builders — Challenge Cards", cardComp:"Find the area of this shape. Split it into two rectangles first.",
-    stds:"Aligned standards: Texas TEKS 3.6(C), 3.6(D), 3.7(B), 3.7(C); 4.5(D), 4.8(A), 4.8(B), 4.8(C); 5.4(G), 5.4(H), 5.6(A), 5.6(B), 5.7(A). Common Core 3.MD.1, 3.MD.5, 3.MD.6, 3.MD.7, 3.MD.8; 4.MD.1, 4.MD.2, 4.MD.3; 5.MD.1, 5.MD.3, 5.MD.4, 5.MD.5."
+    stds:"Aligned standards: Texas TEKS 3.6(C), 3.6(D), 3.6(E), 3.7(B), 3.7(C); 4.5(D), 4.8(A), 4.8(B), 4.8(C); 5.4(G), 5.4(H), 5.6(A), 5.6(B), 5.7(A). Common Core 3.MD.1, 3.MD.5, 3.MD.6, 3.MD.7, 3.MD.8, 3.G.2; 4.MD.1, 4.MD.2, 4.MD.3; 5.MD.1, 5.MD.3, 5.MD.4, 5.MD.5.",
+    fr2:"one half",
+    fr3:"one third",
+    fr4:"one fourth",
+    fr6:"one sixth",
+    fr8:"one eighth",
+    cellLbl:"Square in row {r}, column {c}",
+    choicesLbl:"Answer choices",
+    partShade:"Shade {f} of the rectangle. Your shaded part can be any shape you like.",
+    partSame:"These two rectangles are the same size. Each one is split into {n} equal parts in a different way. What fraction of each rectangle is shaded?",
+    partDiff:"Different amounts, because the parts are different shapes",
+    partFig:"Rectangle split into {n} equal parts. One part is shaded.",
+    partNeed:"Tap or drag across squares to shade them first.",
+    partGoodShade:"Yes! The whole has {A} squares, and {eq}. You shaded {k} squares, so your part is {f} of the rectangle. Any shape with {k} squares is {f}!",
+    partHintShade:"The rectangle has {A} squares. To make {n} equal parts, every part needs the same number of squares: {hq}. You shaded {s}.",
+    partGoodSame:"Yes! Each rectangle has {n} equal parts with {k} squares in each part, so each shaded part is {f} of its rectangle. Equal parts can have different shapes!",
+    partHintShape:"Count the squares in each shaded part. Both have {k} squares, so they have the same area. Equal parts of the same whole can have different shapes.",
+    partHintK:"{k} is the number of squares in one part, not the number of parts. Count the equal parts in one rectangle.",
+    partHintA:"{A} is the number of squares in the whole rectangle. Count the equal parts in one rectangle instead.",
+    partHint2n:"Look at one rectangle at a time. Each rectangle is its own whole, split into {n} equal parts."
   },
   es:{
     appTitle:"Constructores de Área y Volumen", home:"Inicio", privacy:"Privacidad", teacher:"Maestro", language:"Idioma", readAloud:"Leer en voz alta",
@@ -425,7 +448,26 @@ const T = {
     hintEnd:"Todavía no. Empieza en las {t1} y cuenta {d} minutos hacia adelante. Recuerda: 60 minutos forman 1 hora.",
     tlLbl:"Línea de tiempo",
     cardTitle:"Constructores de Área y Volumen — Tarjetas de Reto", cardComp:"Encuentra el área de esta figura. Primero divídela en dos rectángulos.",
-    stds:"Estándares alineados: Texas TEKS 3.6(C), 3.6(D), 3.7(B), 3.7(C); 4.5(D), 4.8(A), 4.8(B), 4.8(C); 5.4(G), 5.4(H), 5.6(A), 5.6(B), 5.7(A). Common Core 3.MD.1, 3.MD.5, 3.MD.6, 3.MD.7, 3.MD.8; 4.MD.1, 4.MD.2, 4.MD.3; 5.MD.1, 5.MD.3, 5.MD.4, 5.MD.5."
+    stds:"Estándares alineados: Texas TEKS 3.6(C), 3.6(D), 3.6(E), 3.7(B), 3.7(C); 4.5(D), 4.8(A), 4.8(B), 4.8(C); 5.4(G), 5.4(H), 5.6(A), 5.6(B), 5.7(A). Common Core 3.MD.1, 3.MD.5, 3.MD.6, 3.MD.7, 3.MD.8, 3.G.2; 4.MD.1, 4.MD.2, 4.MD.3; 5.MD.1, 5.MD.3, 5.MD.4, 5.MD.5.",
+    fr2:"un medio",
+    fr3:"un tercio",
+    fr4:"un cuarto",
+    fr6:"un sexto",
+    fr8:"un octavo",
+    cellLbl:"Cuadrado en la fila {r}, columna {c}",
+    choicesLbl:"Opciones de respuesta",
+    partShade:"Sombrea {f} del rectángulo. La parte sombreada puede tener la forma que quieras.",
+    partSame:"Estos dos rectángulos son del mismo tamaño. Cada uno está dividido en {n} partes iguales de otra manera. ¿Qué fracción de cada rectángulo está sombreada?",
+    partDiff:"Cantidades diferentes, porque las partes tienen formas diferentes",
+    partFig:"Rectángulo dividido en {n} partes iguales. Una parte está sombreada.",
+    partNeed:"Primero toca o arrastra sobre los cuadrados para sombrearlos.",
+    partGoodShade:"¡Sí! El entero tiene {A} cuadrados, y {eq}. Sombreaste {k} cuadrados, así que tu parte es {f} del rectángulo. ¡Cualquier forma con {k} cuadrados es {f}!",
+    partHintShade:"El rectángulo tiene {A} cuadrados. Para hacer {n} partes iguales, cada parte necesita el mismo número de cuadrados: {hq}. Sombreaste {s}.",
+    partGoodSame:"¡Sí! Cada rectángulo tiene {n} partes iguales con {k} cuadrados en cada parte, así que cada parte sombreada es {f} de su rectángulo. ¡Las partes iguales pueden tener formas diferentes!",
+    partHintShape:"Cuenta los cuadrados de cada parte sombreada. Las dos tienen {k} cuadrados, así que tienen la misma área. Las partes iguales de un mismo entero pueden tener formas diferentes.",
+    partHintK:"{k} es el número de cuadrados de una parte, no el número de partes. Cuenta las partes iguales de un rectángulo.",
+    partHintA:"{A} es el número de cuadrados de todo el rectángulo. Mejor cuenta las partes iguales de un rectángulo.",
+    partHint2n:"Mira un rectángulo a la vez. Cada rectángulo es un entero, dividido en {n} partes iguales."
   },
   vi:{
     appTitle:"Xây Diện Tích & Thể Tích", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", language:"Ngôn ngữ", readAloud:"Đọc to",
@@ -511,7 +553,26 @@ const T = {
     hintEnd:"Chưa đúng. Bắt đầu từ {t1} và đếm tiếp {d} phút. Nhớ nhé: 60 phút là 1 giờ.",
     tlLbl:"Trục thời gian",
     cardTitle:"Xây Diện Tích & Thể Tích — Thẻ Thử Thách", cardComp:"Tìm diện tích hình này. Trước tiên hãy chia nó thành hai hình chữ nhật.",
-    stds:"Tiêu chuẩn phù hợp: Texas TEKS 3.6(C), 3.6(D), 3.7(B), 3.7(C); 4.5(D), 4.8(A), 4.8(B), 4.8(C); 5.4(G), 5.4(H), 5.6(A), 5.6(B), 5.7(A). Common Core 3.MD.1, 3.MD.5, 3.MD.6, 3.MD.7, 3.MD.8; 4.MD.1, 4.MD.2, 4.MD.3; 5.MD.1, 5.MD.3, 5.MD.4, 5.MD.5."
+    stds:"Tiêu chuẩn phù hợp: Texas TEKS 3.6(C), 3.6(D), 3.6(E), 3.7(B), 3.7(C); 4.5(D), 4.8(A), 4.8(B), 4.8(C); 5.4(G), 5.4(H), 5.6(A), 5.6(B), 5.7(A). Common Core 3.MD.1, 3.MD.5, 3.MD.6, 3.MD.7, 3.MD.8, 3.G.2; 4.MD.1, 4.MD.2, 4.MD.3; 5.MD.1, 5.MD.3, 5.MD.4, 5.MD.5.",
+    fr2:"một phần hai",
+    fr3:"một phần ba",
+    fr4:"một phần tư",
+    fr6:"một phần sáu",
+    fr8:"một phần tám",
+    cellLbl:"Ô vuông ở hàng {r}, cột {c}",
+    choicesLbl:"Các lựa chọn trả lời",
+    partShade:"Tô màu {f} hình chữ nhật. Phần em tô có thể có hình dạng bất kỳ.",
+    partSame:"Hai hình chữ nhật này có cùng kích thước. Mỗi hình được chia thành {n} phần bằng nhau theo một cách khác. Phân số nào chỉ phần được tô màu của mỗi hình?",
+    partDiff:"Khác nhau, vì các phần có hình dạng khác nhau",
+    partFig:"Hình chữ nhật được chia thành {n} phần bằng nhau. Một phần được tô màu.",
+    partNeed:"Trước tiên hãy chạm hoặc kéo qua các ô vuông để tô màu.",
+    partGoodShade:"Đúng rồi! Cả hình có {A} ô vuông, và {eq}. Em đã tô {k} ô, nên phần của em là {f} hình chữ nhật. Hình nào có {k} ô vuông cũng là {f}!",
+    partHintShade:"Hình chữ nhật có {A} ô vuông. Để có {n} phần bằng nhau, mỗi phần cần cùng một số ô vuông: {hq}. Em đã tô {s} ô.",
+    partGoodSame:"Đúng rồi! Mỗi hình chữ nhật có {n} phần bằng nhau, mỗi phần có {k} ô vuông, nên mỗi phần tô màu là {f} hình của nó. Các phần bằng nhau có thể có hình dạng khác nhau!",
+    partHintShape:"Hãy đếm số ô vuông trong mỗi phần tô màu. Cả hai đều có {k} ô, nên chúng có diện tích bằng nhau. Các phần bằng nhau của cùng một hình có thể có hình dạng khác nhau.",
+    partHintK:"{k} là số ô vuông trong một phần, không phải số phần. Hãy đếm số phần bằng nhau trong một hình chữ nhật.",
+    partHintA:"{A} là số ô vuông của cả hình chữ nhật. Thay vào đó, hãy đếm số phần bằng nhau trong một hình.",
+    partHint2n:"Hãy xem từng hình chữ nhật một. Mỗi hình là một hình nguyên, được chia thành {n} phần bằng nhau."
   },
   ar:{
     appTitle:"بُناة المساحة والحجم", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", language:"اللغة", readAloud:"اقرأ بصوت عالٍ",
@@ -597,7 +658,26 @@ const T = {
     hintEnd:"ليس تمامًا. ابدأ من {t1} وعُدّ {d} دقيقة إلى الأمام. تذكّر: 60 دقيقة تساوي ساعة واحدة.",
     tlLbl:"خط زمني",
     cardTitle:"بُناة المساحة والحجم — بطاقات التحدي", cardComp:"جِد مساحة هذا الشكل. قسّمه أولًا إلى مستطيلين.",
-    stds:"المعايير المتوافقة: Texas TEKS 3.6(C)، 3.6(D)، 3.7(B)، 3.7(C)؛ 4.5(D)، 4.8(A)، 4.8(B)، 4.8(C)؛ 5.4(G)، 5.4(H)، 5.6(A)، 5.6(B)، 5.7(A). Common Core 3.MD.1، 3.MD.5، 3.MD.6، 3.MD.7، 3.MD.8؛ 4.MD.1، 4.MD.2، 4.MD.3؛ 5.MD.1، 5.MD.3، 5.MD.4، 5.MD.5."
+    stds:"المعايير المتوافقة: Texas TEKS 3.6(C)، 3.6(D)، 3.6(E)، 3.7(B)، 3.7(C)؛ 4.5(D)، 4.8(A)، 4.8(B)، 4.8(C)؛ 5.4(G)، 5.4(H)، 5.6(A)، 5.6(B)، 5.7(A). Common Core 3.MD.1، 3.MD.5، 3.MD.6، 3.MD.7، 3.MD.8، 3.G.2؛ 4.MD.1، 4.MD.2، 4.MD.3؛ 5.MD.1، 5.MD.3، 5.MD.4، 5.MD.5.",
+    fr2:"نصف",
+    fr3:"ثلث",
+    fr4:"ربع",
+    fr6:"سدس",
+    fr8:"ثُمن",
+    cellLbl:"مربع في الصف {r}، العمود {c}",
+    choicesLbl:"خيارات الإجابة",
+    partShade:"لوّن {f} المستطيل. يمكن أن يكون الجزء الملوّن بأي شكل تريده.",
+    partSame:"هذان المستطيلان لهما الحجم نفسه. كل منهما مقسوم إلى {n} أجزاء متساوية بطريقة مختلفة. ما الكسر الملوّن من كل مستطيل؟",
+    partDiff:"كميتان مختلفتان، لأن الأجزاء مختلفة الشكل",
+    partFig:"مستطيل مقسوم إلى {n} أجزاء متساوية. جزء واحد ملوّن.",
+    partNeed:"المس المربعات أو اسحب فوقها لتلوينها أولًا.",
+    partGoodShade:"أحسنت! في الكل {A} من المربعات، و{eq}. لوّنت {k} من المربعات، إذن جزؤك هو {f} المستطيل. أي شكل فيه {k} من المربعات هو {f}!",
+    partHintShade:"في المستطيل {A} من المربعات. لعمل {n} أجزاء متساوية، يحتاج كل جزء إلى العدد نفسه من المربعات: {hq}. أنت لوّنت {s}.",
+    partGoodSame:"أحسنت! في كل مستطيل {n} أجزاء متساوية، في كل جزء {k} من المربعات، إذن كل جزء ملوّن هو {f} مستطيله. الأجزاء المتساوية يمكن أن تكون مختلفة الشكل!",
+    partHintShape:"عُدّ المربعات في كل جزء ملوّن. في كل منهما {k} من المربعات، إذن لهما المساحة نفسها. الأجزاء المتساوية من الكل نفسه يمكن أن تكون مختلفة الشكل.",
+    partHintK:"{k} هو عدد المربعات في جزء واحد، وليس عدد الأجزاء. عُدّ الأجزاء المتساوية في مستطيل واحد.",
+    partHintA:"{A} هو عدد المربعات في المستطيل كله. عُدّ بدلًا من ذلك الأجزاء المتساوية في مستطيل واحد.",
+    partHint2n:"انظر إلى مستطيل واحد في كل مرة. كل مستطيل هو كل قائم بذاته، مقسوم إلى {n} أجزاء متساوية."
   },
   hi:{
     appTitle:"क्षेत्रफल और आयतन बिल्डर", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", language:"भाषा", readAloud:"ज़ोर से पढ़ें",
@@ -683,7 +763,26 @@ const T = {
     hintEnd:"अभी नहीं। {t1} से शुरू करो और {d} मिनट आगे गिनो। याद रखो: 60 मिनट = 1 घंटा।",
     tlLbl:"समय रेखा",
     cardTitle:"क्षेत्रफल और आयतन बिल्डर — चुनौती कार्ड", cardComp:"इस आकृति का क्षेत्रफल ज्ञात करो। पहले इसे दो आयतों में बाँटो।",
-    stds:"संरेखित मानक: Texas TEKS 3.6(C), 3.6(D), 3.7(B), 3.7(C); 4.5(D), 4.8(A), 4.8(B), 4.8(C); 5.4(G), 5.4(H), 5.6(A), 5.6(B), 5.7(A)। Common Core 3.MD.1, 3.MD.5, 3.MD.6, 3.MD.7, 3.MD.8; 4.MD.1, 4.MD.2, 4.MD.3; 5.MD.1, 5.MD.3, 5.MD.4, 5.MD.5।"
+    stds:"संरेखित मानक: Texas TEKS 3.6(C), 3.6(D), 3.6(E), 3.7(B), 3.7(C); 4.5(D), 4.8(A), 4.8(B), 4.8(C); 5.4(G), 5.4(H), 5.6(A), 5.6(B), 5.7(A)। Common Core 3.MD.1, 3.MD.5, 3.MD.6, 3.MD.7, 3.MD.8, 3.G.2; 4.MD.1, 4.MD.2, 4.MD.3; 5.MD.1, 5.MD.3, 5.MD.4, 5.MD.5।",
+    fr2:"एक बटा दो",
+    fr3:"एक बटा तीन",
+    fr4:"एक बटा चार",
+    fr6:"एक बटा छह",
+    fr8:"एक बटा आठ",
+    cellLbl:"पंक्ति {r}, स्तंभ {c} का वर्ग",
+    choicesLbl:"उत्तर के विकल्प",
+    partShade:"आयत का {f} भाग रंगो। रंगा हुआ भाग किसी भी आकार का हो सकता है।",
+    partSame:"ये दोनों आयत एक ही नाप के हैं। हर एक को अलग तरीक़े से {n} बराबर भागों में बाँटा गया है। हर आयत का कितना भिन्न भाग रंगा है?",
+    partDiff:"अलग-अलग मात्रा, क्योंकि भागों के आकार अलग हैं",
+    partFig:"आयत {n} बराबर भागों में बँटा है। एक भाग रंगा है।",
+    partNeed:"पहले वर्गों पर टैप करो या उन पर खींचकर उन्हें रंगो।",
+    partGoodShade:"हाँ! पूरे में {A} वर्ग हैं, और {eq}। तुमने {k} वर्ग रंगे, इसलिए तुम्हारा भाग आयत का {f} है। {k} वर्गों वाला कोई भी आकार {f} है!",
+    partHintShade:"आयत में {A} वर्ग हैं। {n} बराबर भाग बनाने के लिए हर भाग में उतने ही वर्ग चाहिए: {hq}। तुमने {s} रंगे।",
+    partGoodSame:"हाँ! हर आयत में {n} बराबर भाग हैं और हर भाग में {k} वर्ग हैं, इसलिए हर रंगा भाग अपने आयत का {f} है। बराबर भागों के आकार अलग हो सकते हैं!",
+    partHintShape:"हर रंगे भाग के वर्ग गिनो। दोनों में {k} वर्ग हैं, इसलिए उनका क्षेत्रफल बराबर है। एक ही पूरे के बराबर भागों के आकार अलग हो सकते हैं।",
+    partHintK:"{k} एक भाग में वर्गों की संख्या है, भागों की संख्या नहीं। एक आयत के बराबर भाग गिनो।",
+    partHintA:"{A} पूरे आयत में वर्गों की संख्या है। इसके बजाय एक आयत के बराबर भाग गिनो।",
+    partHint2n:"एक बार में एक आयत देखो। हर आयत अपने आप में एक पूरा है, जो {n} बराबर भागों में बँटा है।"
   },
   ur:{
     appTitle:"رقبہ اور حجم بلڈرز", home:"ہوم", privacy:"رازداری", teacher:"استاد", language:"زبان", readAloud:"بلند آواز سے پڑھیں",
@@ -769,7 +868,26 @@ const T = {
     hintEnd:"ابھی نہیں۔ {t1} سے شروع کرو اور {d} منٹ آگے گنو۔ یاد رکھو: 60 منٹ = 1 گھنٹہ۔",
     tlLbl:"وقت کی لکیر",
     cardTitle:"رقبہ اور حجم بلڈرز — چیلنج کارڈ", cardComp:"اس شکل کا رقبہ معلوم کرو۔ پہلے اسے دو مستطیلوں میں بانٹو۔",
-    stds:"منسلک معیارات: Texas TEKS 3.6(C)، 3.6(D)، 3.7(B)، 3.7(C)؛ 4.5(D)، 4.8(A)، 4.8(B)، 4.8(C)؛ 5.4(G)، 5.4(H)، 5.6(A)، 5.6(B)، 5.7(A)۔ Common Core 3.MD.1، 3.MD.5، 3.MD.6، 3.MD.7، 3.MD.8؛ 4.MD.1، 4.MD.2، 4.MD.3؛ 5.MD.1، 5.MD.3، 5.MD.4، 5.MD.5۔"
+    stds:"منسلک معیارات: Texas TEKS 3.6(C)، 3.6(D)، 3.6(E)، 3.7(B)، 3.7(C)؛ 4.5(D)، 4.8(A)، 4.8(B)، 4.8(C)؛ 5.4(G)، 5.4(H)، 5.6(A)، 5.6(B)، 5.7(A)۔ Common Core 3.MD.1، 3.MD.5، 3.MD.6، 3.MD.7، 3.MD.8، 3.G.2؛ 4.MD.1، 4.MD.2، 4.MD.3؛ 5.MD.1، 5.MD.3، 5.MD.4، 5.MD.5۔",
+    fr2:"ایک بٹا دو",
+    fr3:"ایک بٹا تین",
+    fr4:"ایک بٹا چار",
+    fr6:"ایک بٹا چھ",
+    fr8:"ایک بٹا آٹھ",
+    cellLbl:"قطار {r}، کالم {c} کا مربع",
+    choicesLbl:"جواب کے انتخاب",
+    partShade:"مستطیل کا {f} حصہ رنگو۔ رنگا ہوا حصہ کسی بھی شکل کا ہو سکتا ہے۔",
+    partSame:"یہ دونوں مستطیل ایک ہی سائز کے ہیں۔ ہر ایک کو الگ طریقے سے {n} برابر حصوں میں بانٹا گیا ہے۔ ہر مستطیل کا کتنا کسر رنگا ہوا ہے؟",
+    partDiff:"الگ الگ مقدار، کیونکہ حصوں کی شکلیں الگ ہیں",
+    partFig:"مستطیل {n} برابر حصوں میں بٹا ہے۔ ایک حصہ رنگا ہوا ہے۔",
+    partNeed:"پہلے مربعوں کو چھوؤ یا ان پر کھینچ کر رنگو۔",
+    partGoodShade:"شاباش! پورے میں {A} مربع ہیں، اور {eq}۔ تم نے {k} مربع رنگے، اس لیے تمہارا حصہ مستطیل کا {f} ہے۔ {k} مربعوں والی کوئی بھی شکل {f} ہے!",
+    partHintShade:"مستطیل میں {A} مربع ہیں۔ {n} برابر حصے بنانے کے لیے ہر حصے میں اتنے ہی مربع چاہئیں: {hq}۔ تم نے {s} رنگے۔",
+    partGoodSame:"شاباش! ہر مستطیل میں {n} برابر حصے ہیں اور ہر حصے میں {k} مربع ہیں، اس لیے ہر رنگا حصہ اپنے مستطیل کا {f} ہے۔ برابر حصوں کی شکلیں الگ ہو سکتی ہیں!",
+    partHintShape:"ہر رنگے حصے کے مربع گنو۔ دونوں میں {k} مربع ہیں، اس لیے ان کا رقبہ برابر ہے۔ ایک ہی پورے کے برابر حصوں کی شکلیں الگ ہو سکتی ہیں۔",
+    partHintK:"{k} ایک حصے میں مربعوں کی تعداد ہے، حصوں کی تعداد نہیں۔ ایک مستطیل کے برابر حصے گنو۔",
+    partHintA:"{A} پورے مستطیل میں مربعوں کی تعداد ہے۔ اس کے بجائے ایک مستطیل کے برابر حصے گنو۔",
+    partHint2n:"ایک وقت میں ایک مستطیل دیکھو۔ ہر مستطیل اپنی جگہ ایک پورا ہے، جو {n} برابر حصوں میں بٹا ہے۔"
   },
   zh:{
     appTitle:"面积与体积建造师", home:"主页", privacy:"隐私", teacher:"教师", language:"语言", readAloud:"朗读",
@@ -855,7 +973,26 @@ const T = {
     hintEnd:"还不对。从{t1}开始，往后数{d}分钟。记住：60分钟是1小时。",
     tlLbl:"时间轴",
     cardTitle:"面积与体积建造师 — 挑战卡", cardComp:"求这个图形的面积。先把它分成两个长方形。",
-    stds:"对应标准：Texas TEKS 3.6(C)、3.6(D)、3.7(B)、3.7(C)；4.5(D)、4.8(A)、4.8(B)、4.8(C)；5.4(G)、5.4(H)、5.6(A)、5.6(B)、5.7(A)。Common Core 3.MD.1、3.MD.5、3.MD.6、3.MD.7、3.MD.8；4.MD.1、4.MD.2、4.MD.3；5.MD.1、5.MD.3、5.MD.4、5.MD.5。"
+    stds:"对应标准：Texas TEKS 3.6(C)、3.6(D)、3.6(E)、3.7(B)、3.7(C)；4.5(D)、4.8(A)、4.8(B)、4.8(C)；5.4(G)、5.4(H)、5.6(A)、5.6(B)、5.7(A)。Common Core 3.MD.1、3.MD.5、3.MD.6、3.MD.7、3.MD.8、3.G.2；4.MD.1、4.MD.2、4.MD.3；5.MD.1、5.MD.3、5.MD.4、5.MD.5。",
+    fr2:"二分之一",
+    fr3:"三分之一",
+    fr4:"四分之一",
+    fr6:"六分之一",
+    fr8:"八分之一",
+    cellLbl:"第{r}行第{c}列的小方格",
+    choicesLbl:"答案选项",
+    partShade:"把长方形的 {f} 涂上颜色。涂色部分可以是任何形状。",
+    partSame:"这两个长方形一样大。每个都用不同的方法平均分成了 {n} 份。每个长方形涂色部分是几分之几？",
+    partDiff:"不一样多，因为每份的形状不同",
+    partFig:"长方形被平均分成 {n} 份，其中一份涂了颜色。",
+    partNeed:"先点击或拖过小方格来涂色。",
+    partGoodShade:"对了！整个长方形有 {A} 个小方格，{eq}。你涂了 {k} 个小方格，所以涂色部分是长方形的 {f}。任何由 {k} 个小方格组成的形状都是 {f}！",
+    partHintShade:"长方形有 {A} 个小方格。要平均分成 {n} 份，每份的小方格数要一样多：{hq}。你涂了 {s} 个。",
+    partGoodSame:"对了！每个长方形都平均分成 {n} 份，每份有 {k} 个小方格，所以每个涂色部分都是它所在长方形的 {f}。相等的部分可以有不同的形状！",
+    partHintShape:"数一数每个涂色部分的小方格。两个都有 {k} 个，所以面积一样大。同一个整体的相等部分可以有不同的形状。",
+    partHintK:"{k} 是一份里小方格的个数，不是份数。数一数一个长方形被平均分成了几份。",
+    partHintA:"{A} 是整个长方形的小方格个数。请改为数一数一个长方形被平均分成了几份。",
+    partHint2n:"一次只看一个长方形。每个长方形都是一个整体，被平均分成 {n} 份。"
   }
 };
 /* Unit names: [singular, plural] */
@@ -1027,17 +1164,18 @@ function readNum(m){
 }
 function submit(m){
   const s=S[m]; if(!s||s.done) return;
+  if(s.noNum){ CHECK[m](null); return; }
   const v=readNum(m);
   if(v===null){ showFb($("#"+m+"Fb"),"hint",t("needNum")); speak(t("needNum")); const el=$("#"+m+"In"); if(el) el.focus(); return; }
   CHECK[m](v);
 }
-function win(m,msg){
+function win(m,msg,say){
   S[m].done=true; showFb($("#"+m+"Fb"),"good",msg); addStar();
   $$("#mode-"+m+" .ans, #mode-"+m+" .chk, #mode-"+m+" .tool, #mode-"+m+" .choice").forEach(e=>e.disabled=true);
-  afterPraise(plain(msg),m,()=>NEWFN[m](),2000);
+  afterPraise(plain(say||msg),m,()=>NEWFN[m](),2000);
 }
-function miss(m,msg){
-  showFb($("#"+m+"Fb"),"hint",msg); speak(plain(msg));
+function miss(m,msg,say){
+  showFb($("#"+m+"Fb"),"hint",msg); speak(plain(say||msg));
   const el=$("#"+m+"In"); if(el && document.activeElement===el) el.select();
 }
 function focusAns(m){ if(!viaKey) return; viaKey=false; const el=$("#mode-"+m+" .ans")||$("#mode-"+m+" .choice"); if(el) el.focus(); }
@@ -1069,7 +1207,7 @@ function shapeSVG(o){
   let s=svgOpen(vw,vh,o.role,o.cls);
   s+=`<polygon points="${pts}" fill="#effaf6"/>`;
   if(o.parts) o.parts.forEach(r=>{ s+=`<rect x="${P+r.x*cs}" y="${P+r.y*cs}" width="${r.w*cs}" height="${r.h*cs}" fill="${r.col}" opacity=".85"/>`; });
-  if(o.cells){ for(let i=0;i<o.H;i++) for(let j=0;j<o.W;j++){ const k=i*o.W+j; s+=`<rect class="cell${o.on.has(k)?" on":""}" data-c="${k}" x="${P+j*cs}" y="${P+i*cs}" width="${cs}" height="${cs}"/>`; } }
+  if(o.cells){ for(let i=0;i<o.H;i++) for(let j=0;j<o.W;j++){ const k=i*o.W+j; s+=`<rect class="cell${o.on.has(k)?" on":""}" data-c="${k}" x="${P+j*cs}" y="${P+i*cs}" width="${cs}" height="${cs}"${o.cellKeys?` tabindex="0" role="button" aria-pressed="${o.on.has(k)}" aria-label="${t("cellLbl",{r:i+1,c:j+1})}"`:""}/>`; } }
   else if(o.grid) s+=gridLines(o.poly,o.W,o.H,P,cs);
   else if(o.ticks){ // unit ticks on the edges so lengths still read as units
     o.poly.forEach((p,i)=>{ const q=o.poly[(i+1)%o.poly.length], L=Math.abs(q[0]-p[0])+Math.abs(q[1]-p[1]), dx=Math.sign(q[0]-p[0]), dy=Math.sign(q[1]-p[1]);
@@ -1144,7 +1282,8 @@ function isoSVG(boxes,opts){
 function newTile(){
   roundIds.tile++; made.tile=true;
   const g=G(), mx=MX();
-  const type=rand(g===3?["tile","tile","mul","comp"]:["mul","comp","comp","miss"]);
+  const type=rand(g===3?["tile","tile","mul","comp","shade","same"]:["mul","comp","comp","miss"]);
+  if(type==="shade"||type==="same") return newPart(type);
   const s={type,done:false,grid:type==="tile",cut:null,on:new Set()};
   if(type==="comp"){
     s.W=ri(4,Math.max(5,mx)); s.H=ri(4,Math.max(5,Math.min(mx,9)));
@@ -1168,6 +1307,7 @@ function tileParts(s){
 }
 function renderTile(){
   const s=S.tile; let o;
+  if(s.type==="shade"||s.type==="same") return renderPart();
   if(s.type==="comp"){
     const L=s.W-s.cw, poly=lPoly(s.W,s.H,s.cw,s.ch);
     const labels=s.full?[L,s.ch,s.cw,s.H-s.ch,s.W,s.H]:[L,null,null,s.H-s.ch,s.W,s.H];
@@ -1202,13 +1342,75 @@ function tileAct(act){
   renderTile();
 }
 let painting=null;
-function paintCell(el){ const s=S.tile; if(!el||!s||s.done||s.type!=="tile") return; const k=+el.dataset.c;
+function paintCell(el){ const s=S.tile; if(!el||!s||s.done||(s.type!=="tile"&&s.type!=="shade")) return; const k=+el.dataset.c;
   if(painting===null) painting=!s.on.has(k);
   if(painting) s.on.add(k); else s.on.delete(k);
-  el.classList.toggle("on",painting); $("#tileWork").innerHTML=t("tilesN",{n:M(s.on.size)}); }
+  el.classList.toggle("on",painting); if(el.hasAttribute("aria-pressed")) el.setAttribute("aria-pressed",String(painting)); $("#tileWork").innerHTML=t("tilesN",{n:M(s.on.size)}); }
 function compSplit(s){ const p=tileParts(s.cut?s:Object.assign({},s,{cut:"v"})); return p.map(r=>({e:`${r.w} × ${r.h} = ${r.w*r.h}`,a:r.w*r.h})); }
+/* ---- Equal parts (3.6E, 3.G.2): shade a unit fraction in any shape; two same-size wholes split in different ways ---- */
+const PARTS=[[4,3,2],[4,3,3],[4,3,4],[6,2,3],[6,2,4],[4,4,2],[4,4,4],[6,3,2],[6,3,3],[6,4,3],[6,4,4],[6,4,6],[8,2,4],[8,3,4],[8,3,6],[6,4,8]];
+const SAME=[[4,3,2],[4,3,4],[6,2,3],[6,3,2],[6,3,3],[6,4,2],[6,4,3],[8,2,4],[8,3,4]];
+const frS=n=>M("1/"+n), frW=n=>t("fr"+n);
+// Snake through the rows and cut every k squares: equal areas, but not the same shapes as strips.
+function snakeParts(W,H,k){ const o=new Array(W*H); let i=0; for(let r=0;r<H;r++) for(let j=0;j<W;j++){ o[r*W+(r%2?W-1-j:j)]=Math.floor(i++/k); } return o; }
+function stripParts(W,H,n){ const o=[]; for(let r=0;r<H;r++) for(let c=0;c<W;c++) o.push(Math.floor(c/(W/n))); return o; }
+function partSVG(W,H,own,sh,lbl){
+  const cs=40,P=8,cols=["#e3f2fd","#fff1d6","#efe3fb","#e4f6ec"];
+  let s=`<svg viewBox="0 0 ${W*cs+P*2} ${H*cs+P*2}" class="fig" dir="ltr" role="img" aria-label="${lbl}" focusable="false">`;
+  for(let r=0;r<H;r++) for(let c=0;c<W;c++){ const p=own[r*W+c]; s+=`<rect x="${P+c*cs}" y="${P+r*cs}" width="${cs}" height="${cs}" fill="${p===sh?"var(--tile)":cols[p%4]}" stroke="#9ccfc2" stroke-width="1.5"/>`; }
+  for(let r=0;r<H;r++) for(let c=0;c<W;c++){ const p=own[r*W+c], x=P+c*cs, y=P+r*cs;
+    if(c<W-1&&own[r*W+c+1]!==p) s+=`<line x1="${x+cs}" y1="${y}" x2="${x+cs}" y2="${y+cs}" stroke="#0e5e50" stroke-width="5" stroke-linecap="round"/>`;
+    if(r<H-1&&own[(r+1)*W+c]!==p) s+=`<line x1="${x}" y1="${y+cs}" x2="${x+cs}" y2="${y+cs}" stroke="#0e5e50" stroke-width="5" stroke-linecap="round"/>`; }
+  return s+`<rect x="${P}" y="${P}" width="${W*cs}" height="${H*cs}" fill="none" stroke="#0e5e50" stroke-width="5"/></svg>`;
+}
+function newPart(type){
+  const s={type,done:false,on:new Set()};
+  if(type==="shade"){ const [W,H,n]=rand(PARTS); Object.assign(s,{W,H,n,A:W*H,k:W*H/n,noNum:true}); }
+  else { const [W,H,n]=rand(SAME), k=W*H/n, a=stripParts(W,H,n), b=snakeParts(W,H,k);
+    Object.assign(s,{W,H,n,A:W*H,k,owns:Math.random()<.5?[a,b]:[b,a],sh:[ri(0,n-1),ri(0,n-1)],
+      opts:shuffle([{v:"ok"},{v:"diff"},{v:k!==n?"k":"A"},{v:"2n"}])}); }
+  S.tile=s; renderTile();
+  if(type==="shade"){ setPrompt("tile",t("partShade",{f:frS(s.n)})); setSpeech("tile",t("partShade",{f:frW(s.n)})); $("#tileAns").innerHTML=chkBtn("tile"); }
+  else { setPrompt("tile",t("partSame",{n:M(s.n)})); renderPartAns(); }
+  maybeAuto("tile"); focusAns("tile");
+}
+function renderPart(){
+  const s=S.tile;
+  if(s.type==="shade"){
+    $("#tileFig").innerHTML=shapeSVG({poly:rectPoly(s.W,s.H),W:s.W,H:s.H,cells:true,cellKeys:true,on:s.on,role:"group",cls:"paint"});
+    $("#tileTools").innerHTML=`<button type="button" class="btn ghost tool" data-act="clr">${t("clearTiles")}</button>`;
+    $("#tileWork").innerHTML=t("tilesN",{n:M(s.on.size)});
+  } else {
+    const lbl=t("partFig",{n:s.n});
+    $("#tileFig").innerHTML=`<div class="partpair">${s.owns.map((o,i)=>partSVG(s.W,s.H,o,s.sh[i],lbl)).join("")}</div>`;
+    $("#tileTools").innerHTML=""; $("#tileWork").innerHTML="";
+  }
+  if(s.done) $$("#tileTools .tool").forEach(b=>b.disabled=true);
+}
+function renderPartAns(){
+  const s=S.tile;
+  $("#tileAns").innerHTML=`<div class="choices" role="group" aria-label="${t("choicesLbl")}">`+s.opts.map((o,i)=>
+    `<button type="button" class="choice${o.cls?" "+o.cls:""}" data-pick="${i}"${s.done||o.cls?" disabled":""}>`+
+    (o.v==="diff"?`<span class="lbl txt">${t("partDiff")}</span>`:`<span class="lbl">${frS(o.v==="ok"?s.n:o.v==="k"?s.k:o.v==="A"?s.A:2*s.n)}</span>`)+`</button>`).join("")+`</div>`;
+}
+function pickPart(i){
+  const s=S.tile; if(!s||s.done||s.type!=="same") return; const o=s.opts[i];
+  const d={n:M(s.n),k:M(s.k),A:M(s.A),f:frS(s.n)}, sp=Object.assign({},d,{f:frW(s.n)});
+  if(o.v==="ok"){ o.cls="correctpick"; renderPartAns(); return win("tile",t("partGoodSame",d),t("partGoodSame",sp)); }
+  o.cls="wrongpick"; renderPartAns();
+  const key={diff:"partHintShape",k:"partHintK",A:"partHintA","2n":"partHint2n"}[o.v];
+  miss("tile",t(key,d),t(key,sp));
+}
+function checkShade(){
+  const s=S.tile, c=s.on.size;
+  if(!c) return miss("tile",t("partNeed"));
+  const d={A:M(s.A),n:M(s.n),k:M(s.k),s:M(c),eq:M(`${s.A} ÷ ${s.n} = ${s.k}`),hq:M(`${s.A} ÷ ${s.n}`)};
+  if(c===s.k) return win("tile",t("partGoodShade",Object.assign({},d,{f:frS(s.n)})),t("partGoodShade",Object.assign({},d,{f:frW(s.n)})));
+  miss("tile",t("partHintShade",d));
+}
 CHECK.tile=v=>{
   const s=S.tile;
+  if(s.type==="shade") return checkShade();
   if(s.type==="miss"){
     if(v===s.r) return win("tile",t("goodMiss",{eq:M(`${s.c} × ${s.r} = ${s.A}`),b:M(s.r)}));
     s.grid=true; renderTile();
@@ -1619,6 +1821,7 @@ function init(){
   document.addEventListener("click",e=>{
     const c=e.target.closest("[data-chk]"); if(c) return submit(c.dataset.chk);
     const a=e.target.closest("#tileTools [data-act]"); if(a) return tileAct(a.dataset.act);
+    const pp=e.target.closest("#tileAns .choice"); if(pp) return pickPart(+pp.dataset.pick);
     const b=e.target.closest("#boxTools [data-act]"); if(b) return boxAct(b.dataset.act);
     const cut=e.target.closest("#tileFig .cut"); if(cut){ const s=S.tile; if(s&&!s.done){ s.cut=cut.dataset.cut; renderTile(); } return; }
     const sd=e.target.closest("#perimFig .side"); if(sd) return walkSide(+sd.dataset.side);
@@ -1631,6 +1834,7 @@ function init(){
       const el=e.target.closest("[role=button]");
       if(el.classList.contains("cut")){ const s=S.tile; if(s&&!s.done){ s.cut=el.dataset.cut; renderTile(); const f=$(`#tileFig .cut[data-cut="${el.dataset.cut}"]`); if(f) f.focus(); } }
       else if(el.classList.contains("side")) walkSide(+el.dataset.side);
+      else if(el.classList.contains("cell")){ painting=null; paintCell(el); painting=null; }
       viaKey=false; }
     if(e.key==="Enter" && e.target.classList && e.target.classList.contains("chk")) viaKey=true;
   });
