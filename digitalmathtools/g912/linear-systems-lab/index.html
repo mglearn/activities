@@ -67,6 +67,8 @@
   .choices:empty{display:none}
   .choice{background:var(--panel);border:3px solid var(--line);border-radius:16px;padding:.5rem;min-height:64px;display:flex;align-items:center;justify-content:center;position:relative;font-size:1.15rem;font-weight:800;color:var(--ink);min-width:0;line-height:1.7}
   .choice .lbl{unicode-bidi:isolate;direction:ltr;min-width:0}
+  /* Long equations in narrow answer buttons and step logs wrap at their spaces (around operators) instead of overflowing. */
+  .choice .math,ol.log .math,.sys .math{white-space:normal}
   .choice.txt{font-size:1rem;font-weight:700;padding-inline:1.5rem}
   .choice.txt .lbl{direction:inherit}
   .choice.correctpick{border-color:var(--good);background:var(--good-bg)}
