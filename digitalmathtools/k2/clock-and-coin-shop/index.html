@@ -72,6 +72,12 @@
   .digital{font-size:2.6rem;font-weight:900;font-variant-numeric:tabular-nums;background:#14212b;color:#7cf0c8;border-radius:14px;padding:.3rem 1rem;letter-spacing:.04em;direction:ltr;unicode-bidi:isolate}
   .legend{font-size:.9rem;color:var(--muted);text-align:center;margin:.4rem 0}
   .legend b.h{color:var(--hourc)} .legend b.m{color:var(--minc)}
+  .settgt{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+  .apbtn[aria-pressed="true"]{background:var(--accent-dk);color:#fff}
+  .story{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:center}
+  .story .box{margin:0;display:flex;flex-direction:column;align-items:center;gap:.3rem;max-width:100%}
+  .story .em{font-size:2.4rem;line-height:1}
+  .story .op{font-size:2rem;font-weight:900}
   .tip{font-size:.95rem;color:var(--muted);text-align:center;margin:.3rem 0}
 
   .coin{display:inline-block;line-height:0}
@@ -170,7 +176,11 @@
       <button class="btn ghost no-print" id="setNew" data-t="newRound">New round</button></div>
     <div class="prompt"><button class="speaker" data-speak="set" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="setPrompt">…</span></div>
     <div class="clockarea">
-      <div class="digital" id="setTarget">0:00</div>
+      <div class="cue hidden" id="setCue"></div>
+      <div class="settgt"><div class="digital" id="setTarget">0:00</div>
+        <div class="row hidden" id="setAPRow" role="group" data-ta="apPick" aria-label="a.m. or p.m.">
+          <button type="button" class="btn ghost apbtn" data-ap="am" aria-pressed="false">a.m.</button>
+          <button type="button" class="btn ghost apbtn" data-ap="pm" aria-pressed="false">p.m.</button></div></div>
       <div class="clockbox" id="setClock" tabindex="0" role="group" data-ta="setAria" aria-label="Clock"></div>
     </div>
     <p class="legend" id="setLegend"></p>
@@ -239,6 +249,8 @@
     <div class="setrow"><span class="lab" data-t="setMoney">Money up to</span>
       <select class="diff" id="setMax">
         <option value="20">20¢</option><option value="50">50¢</option><option value="99">99¢</option></select></div>
+    <div class="setrow"><span class="lab" data-t="setBills">Dollar bills</span>
+      <label class="toggle"><input type="checkbox" id="setBillsCb"> <span data-t="billsOn">Use $1, $5, and $10 bills (Grade 2)</span></label></div>
     <div class="setrow"><span class="lab" data-t="setLabels">Coin values</span>
       <label class="toggle"><input type="checkbox" id="setLabelsCb"> <span data-t="labelsOn">Show values under coins</span></label></div>
     <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
@@ -278,7 +290,7 @@ const T = {
     footNote:"No accounts · No data collected · Works offline",
     teacherTitle:"Teacher settings", close:"Close",
     setGrade:"Grade level", grade1:"Grade 1", grade2:"Grade 2",
-    gradeNote:"Grade 1: hour and half hour; pennies, nickels, and dimes. Grade 2: every 5 minutes, a.m./p.m., and quarters, up to 99¢.",
+    gradeNote:"Grade 1: hour and half hour; pennies, nickels, and dimes. Grade 2: every 5 minutes, a.m./p.m., quarters up to 99¢, and $1, $5, and $10 bills with money word problems.",
     setTime:"Clock times", tsHour:"O'clock only", tsHalf:"Hour and half hour", ts5:"Every 5 minutes", ts1:"Every minute",
     setAP:"a.m. / p.m. activity clues", on:"On",
     setMoney:"Money up to", setLabels:"Coin values", labelsOn:"Show values under coins",
@@ -325,7 +337,7 @@ const T = {
     hintRel:"A {small} is worth {sv}. A {big} is worth {bv}. Count by {k} until you reach {b}: {seq}.",
     countDir:"How much money is this?", countTip:"Tap each coin to count it. Start with the coin worth the most!",
     sortBtn:"Most first", recount:"Count again", counted:"Counted:",
-    goodCount:"Yes! The coins are worth {v}.", sameAs:"{c} is the same as {d}.",
+    goodCount:"Yes! The coins are worth {v}.", goodCountB:"Yes! The bills and coins are worth {v}.", sameAs:"{c} is the same as {d}.",
     hintCount:"Count on from the coin worth the most: {seq}. Count each coin only once.",
     it_apple:"apple", it_pencil:"pencil", it_juice:"juice box", it_cookie:"cookie", it_car:"toy car",
     it_ball:"ball", it_banana:"banana", it_crayon:"crayon", it_lollipop:"lollipop", it_balloon:"balloon",
@@ -341,7 +353,8 @@ const T = {
     hintEnough:"This purse has {v}. {v} is less than {p}, so it is not enough. Count each purse, starting with the coin worth the most.",
     cent1:"1 cent", centsSay:"{n} cents",
     addCoin:"Add a {coin}", removeCoin:"Take out a {coin}",
-    stds:"Aligned standards — Telling time: Texas TEKS 1.7(E), 2.9(G); Common Core 1.MD.3, 2.MD.7. Coins and money: TEKS 1.4(A), 1.4(B), 1.4(C), 2.5(A), 2.5(B); Common Core 2.MD.8 (coins only).",
+    bill1:"one-dollar bill", bill5:"five-dollar bill", bill10:"ten-dollar bill", dollar1:"1 dollar", dollarsSay:"{n} dollars", dcSay:"{d} and {c}", setBills:"Dollar bills", billsOn:"Use $1, $5, and $10 bills (Grade 2)", countTipB:"Tap each bill and coin to count it. Start with the one worth the most!", hintCountB:"Count the bills first, then keep counting on with the coins: {seq}. Count each one only once.", payDirB:"Buy the {item}! It costs {p}. Tap bills and coins to put exactly {p} in the tray.", bankB:"Bills and coins to use", trayHintB:"Tap a bill or coin in the tray to take it out.", hintMoreB:"You have {v}. That is {d} too much. Tap a bill or coin in the tray to take it out.", addBill:"Add a {coin}", removeBill:"Take out a {coin}", rel_q1:"How many quarters make 1 dollar?", rel_d1:"How many dimes make 1 dollar?", hintRelB:"A {small} is worth {sv}. One dollar is worth {bv}, the same as {h}. Count by {k} until you reach {b}: {seq}.", storyAdd:"You have {a} in your piggy bank. Grandma gives you {b}. How much money do you have now?", storySub:"You have {a}. You buy the {item} for {b}. How much money do you have left?", goodStoryAdd:"Yes! Now you have {v}.", goodStorySub:"Yes! You have {v} left.", hLead:"Dollars go with dollars, and cents go with cents.", hAddD:"Add the dollars: {e}.", hAddC:"Add the cents: {e}.", hSubD:"Take away the dollars: {e}.", hSubC:"Take away the cents: {e}.", hKeepD:"The dollars stay the same: {x}.", plusW:"plus", minusW:"minus", eqW:"equals", setDirAP:"Move the hands to show {time}. Then tap {am} or {pm}.", setPickAP:"The hands are right! Now tap {am} or {pm}.", apPick:"a.m. or p.m.",
+    stds:"Aligned standards — Telling time: Texas TEKS 1.7(E), 2.9(G); Common Core 1.MD.3, 2.MD.7. Coins and money: TEKS 1.4(A), 1.4(B), 1.4(C), 2.5(A), 2.5(B); Common Core 2.MD.8.",
     cardTitle:"Clock & Coin Shop — Challenge Cards",
     cardWrite:"Write the time: ______", cardDraw:"Draw the hands to show {time}.",
     cardCount:"How much money? ______", cardPay:"Draw coins that pay exactly {p} for the {item}."
@@ -353,7 +366,7 @@ const T = {
     footNote:"Sin cuentas · No se recopilan datos · Funciona sin conexión",
     teacherTitle:"Ajustes del maestro", close:"Cerrar",
     setGrade:"Grado", grade1:"1.er grado", grade2:"2.º grado",
-    gradeNote:"1.er grado: en punto y media hora; monedas de 1, 5 y 10 centavos. 2.º grado: cada 5 minutos, a. m./p. m. y monedas de 25 centavos, hasta 99¢.",
+    gradeNote:"1.er grado: en punto y media hora; monedas de 1, 5 y 10 centavos. 2.º grado: cada 5 minutos, a. m./p. m., monedas de 25 centavos hasta 99¢, y billetes de $1, $5 y $10 con problemas de dinero.",
     setTime:"Horas del reloj", tsHour:"Solo en punto", tsHalf:"En punto y media hora", ts5:"Cada 5 minutos", ts1:"Cada minuto",
     setAP:"Pistas de actividades a. m. / p. m.", on:"Activado",
     setMoney:"Dinero hasta", setLabels:"Valor de las monedas", labelsOn:"Mostrar el valor debajo de las monedas",
@@ -401,7 +414,7 @@ const T = {
     hintRel:"Una {small} vale {sv}. Una {big} vale {bv}. Cuenta de {k} en {k} hasta llegar a {b}: {seq}.",
     countDir:"¿Cuánto dinero hay?", countTip:"Toca cada moneda para contarla. ¡Empieza con la moneda que vale más!",
     sortBtn:"La que vale más primero", recount:"Contar otra vez", counted:"Contado:",
-    goodCount:"¡Sí! Las monedas valen {v}.", sameAs:"{c} es lo mismo que {d}.",
+    goodCount:"¡Sí! Las monedas valen {v}.", goodCountB:"¡Sí! Los billetes y las monedas valen {v}.", sameAs:"{c} es lo mismo que {d}.",
     hintCount:"Sigue contando desde la moneda que vale más: {seq}. Cuenta cada moneda una sola vez.",
     it_apple:"la manzana", it_pencil:"el lápiz", it_juice:"el jugo", it_cookie:"la galleta", it_car:"el carrito",
     it_ball:"la pelota", it_banana:"el plátano", it_crayon:"el crayón", it_lollipop:"la paleta", it_balloon:"el globo",
@@ -417,7 +430,8 @@ const T = {
     hintEnough:"Este monedero tiene {v}. {v} es menos que {p}, así que no alcanza. Cuenta cada monedero empezando por la moneda que vale más.",
     cent1:"1 centavo", centsSay:"{n} centavos",
     addCoin:"Agregar una {coin}", removeCoin:"Sacar una {coin}",
-    stds:"Estándares alineados — Decir la hora: TEKS de Texas 1.7(E), 2.9(G); Common Core 1.MD.3, 2.MD.7. Monedas y dinero: TEKS 1.4(A), 1.4(B), 1.4(C), 2.5(A), 2.5(B); Common Core 2.MD.8 (solo monedas).",
+    bill1:"billete de 1 dólar", bill5:"billete de 5 dólares", bill10:"billete de 10 dólares", dollar1:"1 dólar", dollarsSay:"{n} dólares", dcSay:"{d} con {c}", setBills:"Billetes", billsOn:"Usar billetes de $1, $5 y $10 (2.º grado)", countTipB:"Toca cada billete y cada moneda para contarlos. ¡Empieza con el que vale más!", hintCountB:"Cuenta primero los billetes y luego sigue contando con las monedas: {seq}. Cuenta cada uno una sola vez.", payDirB:"¡Compra {item}! Cuesta {p}. Toca billetes y monedas para poner exactamente {p} en la bandeja.", bankB:"Billetes y monedas para usar", trayHintB:"Toca un billete o una moneda de la bandeja para sacarlo.", hintMoreB:"Tienes {v}. Eso es {d} de más. Toca un billete o una moneda de la bandeja para sacarlo.", addBill:"Agregar un {coin}", removeBill:"Sacar un {coin}", rel_q1:"¿Cuántas monedas de 25 centavos valen lo mismo que 1 dólar?", rel_d1:"¿Cuántas monedas de 10 centavos valen lo mismo que 1 dólar?", hintRelB:"Una {small} vale {sv}. Un dólar vale {bv}, lo mismo que {h}. Cuenta de {k} en {k} hasta llegar a {b}: {seq}.", storyAdd:"Tienes {a} en tu alcancía. Tu abuela te da {b}. ¿Cuánto dinero tienes ahora?", storySub:"Tienes {a}. Compras {item} por {b}. ¿Cuánto dinero te queda?", goodStoryAdd:"¡Sí! Ahora tienes {v}.", goodStorySub:"¡Sí! Te quedan {v}.", hLead:"Los dólares van con los dólares y los centavos con los centavos.", hAddD:"Suma los dólares: {e}.", hAddC:"Suma los centavos: {e}.", hSubD:"Resta los dólares: {e}.", hSubC:"Resta los centavos: {e}.", hKeepD:"Los dólares no cambian: {x}.", plusW:"más", minusW:"menos", eqW:"es igual a", setDirAP:"Mueve las manecillas para mostrar {time}. Luego toca {am} o {pm}.", setPickAP:"¡Las manecillas están bien! Ahora toca {am} o {pm}.", apPick:"a. m. o p. m.",
+    stds:"Estándares alineados — Decir la hora: TEKS de Texas 1.7(E), 2.9(G); Common Core 1.MD.3, 2.MD.7. Monedas y dinero: TEKS 1.4(A), 1.4(B), 1.4(C), 2.5(A), 2.5(B); Common Core 2.MD.8.",
     cardTitle:"Tienda del Reloj y las Monedas — Tarjetas de reto",
     cardWrite:"Escribe la hora: ______", cardDraw:"Dibuja las manecillas para mostrar {time}.",
     cardCount:"¿Cuánto dinero hay? ______", cardPay:"Dibuja monedas que paguen exactamente {p} por {item}."
@@ -429,7 +443,7 @@ const T = {
     footNote:"Không cần tài khoản · Không thu thập dữ liệu · Dùng được khi không có mạng",
     teacherTitle:"Cài đặt của giáo viên", close:"Đóng",
     setGrade:"Lớp", grade1:"Lớp 1", grade2:"Lớp 2",
-    gradeNote:"Lớp 1: giờ đúng và giờ rưỡi; đồng 1, 5 và 10 xu. Lớp 2: mỗi 5 phút, SA/CH và đồng 25 xu, tới 99¢.",
+    gradeNote:"Lớp 1: giờ đúng và giờ rưỡi; đồng 1, 5 và 10 xu. Lớp 2: mỗi 5 phút, SA/CH, đồng 25 xu tới 99¢, và tờ $1, $5, $10 với bài toán có lời văn về tiền.",
     setTime:"Giờ trên đồng hồ", tsHour:"Chỉ giờ đúng", tsHalf:"Giờ đúng và giờ rưỡi", ts5:"Mỗi 5 phút", ts1:"Mỗi phút",
     setAP:"Gợi ý hoạt động SA / CH", on:"Bật",
     setMoney:"Số tiền tối đa", setLabels:"Giá trị đồng xu", labelsOn:"Hiện giá trị dưới đồng xu",
@@ -476,7 +490,7 @@ const T = {
     hintRel:"Một {small} có giá trị {sv}. Một {big} có giá trị {bv}. Đếm cách {k} cho tới {b}: {seq}.",
     countDir:"Đây là bao nhiêu tiền?", countTip:"Chạm vào từng đồng xu để đếm. Bắt đầu với đồng xu có giá trị lớn nhất!",
     sortBtn:"Giá trị lớn trước", recount:"Đếm lại", counted:"Đã đếm:",
-    goodCount:"Đúng rồi! Các đồng xu có giá trị {v}.", sameAs:"{c} bằng {d}.",
+    goodCount:"Đúng rồi! Các đồng xu có giá trị {v}.", goodCountB:"Đúng rồi! Tiền giấy và đồng xu có giá trị {v}.", sameAs:"{c} bằng {d}.",
     hintCount:"Đếm tiếp từ đồng xu có giá trị lớn nhất: {seq}. Mỗi đồng xu chỉ đếm một lần.",
     it_apple:"quả táo", it_pencil:"cây bút chì", it_juice:"hộp nước ép", it_cookie:"cái bánh quy", it_car:"chiếc xe đồ chơi",
     it_ball:"quả bóng", it_banana:"quả chuối", it_crayon:"cây bút sáp", it_lollipop:"cây kẹo mút", it_balloon:"quả bóng bay",
@@ -492,7 +506,8 @@ const T = {
     hintEnough:"Ví này có {v}. {v} ít hơn {p}, nên không đủ. Đếm từng ví, bắt đầu với đồng xu có giá trị lớn nhất.",
     cent1:"1 xu", centsSay:"{n} xu",
     addCoin:"Thêm {coin}", removeCoin:"Lấy ra {coin}",
-    stds:"Chuẩn liên quan — Xem giờ: TEKS Texas 1.7(E), 2.9(G); Common Core 1.MD.3, 2.MD.7. Tiền xu: TEKS 1.4(A), 1.4(B), 1.4(C), 2.5(A), 2.5(B); Common Core 2.MD.8 (chỉ tiền xu).",
+    bill1:"tờ 1 đô la", bill5:"tờ 5 đô la", bill10:"tờ 10 đô la", dollar1:"1 đô la", dollarsSay:"{n} đô la", dcSay:"{d} {c}", setBills:"Tiền giấy", billsOn:"Dùng tờ $1, $5 và $10 (Lớp 2)", countTipB:"Chạm vào từng tờ tiền và từng đồng xu để đếm. Bắt đầu với cái có giá trị lớn nhất!", hintCountB:"Đếm tiền giấy trước, rồi đếm tiếp các đồng xu: {seq}. Mỗi tờ, mỗi đồng chỉ đếm một lần.", payDirB:"Hãy mua {item}! Giá {p}. Chạm vào tiền giấy và đồng xu để đặt đúng {p} vào khay.", bankB:"Tiền giấy và đồng xu để dùng", trayHintB:"Chạm vào tờ tiền hoặc đồng xu trong khay để lấy ra.", hintMoreB:"Con có {v}. Như vậy là dư {d}. Chạm vào tờ tiền hoặc đồng xu trong khay để lấy ra.", addBill:"Thêm {coin}", removeBill:"Lấy ra {coin}", rel_q1:"Bao nhiêu đồng 25 xu bằng 1 đô la?", rel_d1:"Bao nhiêu đồng 10 xu bằng 1 đô la?", hintRelB:"Một {small} có giá trị {sv}. Một đô la có giá trị {bv}, bằng {h}. Đếm cách {k} cho tới {b}: {seq}.", storyAdd:"Con có {a} trong heo đất. Bà cho con thêm {b}. Bây giờ con có bao nhiêu tiền?", storySub:"Con có {a}. Con mua {item} giá {b}. Con còn lại bao nhiêu tiền?", goodStoryAdd:"Đúng rồi! Bây giờ con có {v}.", goodStorySub:"Đúng rồi! Con còn lại {v}.", hLead:"Đô la tính với đô la, xu tính với xu.", hAddD:"Cộng số đô la: {e}.", hAddC:"Cộng số xu: {e}.", hSubD:"Trừ số đô la: {e}.", hSubC:"Trừ số xu: {e}.", hKeepD:"Số đô la vẫn giữ nguyên: {x}.", plusW:"cộng", minusW:"trừ", eqW:"bằng", setDirAP:"Di chuyển kim để chỉ {time}. Sau đó chạm vào {am} hoặc {pm}.", setPickAP:"Kim đã đúng rồi! Bây giờ chạm vào {am} hoặc {pm}.", apPick:"SA hoặc CH",
+    stds:"Chuẩn liên quan — Xem giờ: TEKS Texas 1.7(E), 2.9(G); Common Core 1.MD.3, 2.MD.7. Tiền xu và tiền giấy: TEKS 1.4(A), 1.4(B), 1.4(C), 2.5(A), 2.5(B); Common Core 2.MD.8.",
     cardTitle:"Cửa hàng Đồng hồ và Tiền xu — Thẻ thử thách",
     cardWrite:"Viết giờ: ______", cardDraw:"Vẽ kim đồng hồ để chỉ {time}.",
     cardCount:"Bao nhiêu tiền? ______", cardPay:"Vẽ đồng xu để trả đúng {p} cho {item}."
@@ -504,7 +519,7 @@ const T = {
     footNote:"بلا حسابات · لا تُجمع أي بيانات · يعمل دون اتصال",
     teacherTitle:"إعدادات المعلم", close:"إغلاق",
     setGrade:"الصف", grade1:"الصف الأول", grade2:"الصف الثاني",
-    gradeNote:"الصف الأول: الساعة الكاملة ونصف الساعة، وقطع 1 و5 و10 سنتات. الصف الثاني: كل 5 دقائق، وصباحًا/مساءً، وقطعة 25 سنتًا، حتى 99¢.",
+    gradeNote:"الصف الأول: الساعة الكاملة ونصف الساعة، وقطع 1 و5 و10 سنتات. الصف الثاني: كل 5 دقائق، وصباحًا/مساءً، وقطعة 25 سنتًا حتى 99¢، وأوراق 1 و5 و10 دولارات مع مسائل كلامية عن النقود.",
     setTime:"أوقات الساعة", tsHour:"الساعات الكاملة فقط", tsHalf:"الساعة الكاملة ونصف الساعة", ts5:"كل 5 دقائق", ts1:"كل دقيقة",
     setAP:"تلميحات الأنشطة صباحًا / مساءً", on:"تشغيل",
     setMoney:"النقود حتى", setLabels:"قيم القطع النقدية", labelsOn:"إظهار القيمة تحت القطع النقدية",
@@ -552,7 +567,7 @@ const T = {
     hintRel:"{small} قيمتها {sv}. {big} قيمتها {bv}. عُدّ بـ{k} حتى تصل إلى {b}: {seq}.",
     countDir:"كم من المال هنا؟", countTip:"المس كل قطعة لتعدّها. ابدأ بالقطعة الأعلى قيمة!",
     sortBtn:"الأعلى قيمة أولًا", recount:"عُدّ من جديد", counted:"تم العدّ:",
-    goodCount:"أحسنت! قيمة القطع {v}.", sameAs:"{c} يساوي {d}.",
+    goodCount:"أحسنت! قيمة القطع {v}.", goodCountB:"أحسنت! قيمة الأوراق والقطع {v}.", sameAs:"{c} يساوي {d}.",
     hintCount:"تابع العدّ من القطعة الأعلى قيمة: {seq}. عُدّ كل قطعة مرة واحدة فقط.",
     it_apple:"التفاحة", it_pencil:"قلم الرصاص", it_juice:"علبة العصير", it_cookie:"الكعكة", it_car:"السيارة اللعبة",
     it_ball:"الكرة", it_banana:"الموزة", it_crayon:"قلم التلوين", it_lollipop:"المصاصة", it_balloon:"البالون",
@@ -568,7 +583,8 @@ const T = {
     hintEnough:"في هذه المحفظة {v}. {v} أقل من {p}، إذن لا يكفي. عُدّ كل محفظة بدءًا بالقطعة الأعلى قيمة.",
     cent1:"سنت واحد", centsSay:"{n} سنت",
     addCoin:"أضف {coin}", removeCoin:"أخرج {coin}",
-    stds:"المعايير المرتبطة — قراءة الوقت: معايير TEKS في تكساس 1.7(E)، 2.9(G)؛ Common Core ‏1.MD.3، 2.MD.7. القطع النقدية والنقود: TEKS ‏1.4(A)، 1.4(B)، 1.4(C)، 2.5(A)، 2.5(B)؛ Common Core ‏2.MD.8 (القطع النقدية فقط).",
+    bill1:"ورقة الدولار الواحد", bill5:"ورقة الخمسة دولارات", bill10:"ورقة العشرة دولارات", dollar1:"دولار واحد", dollarsSay:"{n} دولار", dcSay:"{d} و{c}", setBills:"الأوراق النقدية", billsOn:"استخدام أوراق 1 و5 و10 دولارات (الصف الثاني)", countTipB:"المس كل ورقة وكل قطعة لتعدّها. ابدأ بالأعلى قيمة!", hintCountB:"عُدّ الأوراق النقدية أولًا، ثم تابع العدّ بالقطع النقدية: {seq}. عُدّ كل واحدة مرة واحدة فقط.", payDirB:"اشترِ {item}! السعر {p}. المس الأوراق والقطع لتضع {p} بالضبط في الصينية.", bankB:"الأوراق والقطع المتاحة", trayHintB:"المس ورقة أو قطعة في الصينية لإخراجها.", hintMoreB:"معك {v}. هذا أكثر من اللازم بـ{d}. المس ورقة أو قطعة في الصينية لإخراجها.", addBill:"أضف {coin}", removeBill:"أخرج {coin}", rel_q1:"كم قطعة خمسة وعشرين سنتًا تساوي دولارًا واحدًا؟", rel_d1:"كم قطعة عشرة سنتات تساوي دولارًا واحدًا؟", hintRelB:"{small} قيمتها {sv}. الدولار الواحد قيمته {bv}، أي ما يساوي {h}. عُدّ بـ{k} حتى تصل إلى {b}: {seq}.", storyAdd:"معك {a} في حصّالتك. أعطتك جدتك {b}. كم معك من المال الآن؟", storySub:"معك {a}. اشتريت {item} بـ{b}. كم بقي معك من المال؟", goodStoryAdd:"أحسنت! معك الآن {v}.", goodStorySub:"أحسنت! بقي معك {v}.", hLead:"الدولارات مع الدولارات، والسنتات مع السنتات.", hAddD:"اجمع الدولارات: {e}.", hAddC:"اجمع السنتات: {e}.", hSubD:"اطرح الدولارات: {e}.", hSubC:"اطرح السنتات: {e}.", hKeepD:"تبقى الدولارات كما هي: {x}.", plusW:"زائد", minusW:"ناقص", eqW:"يساوي", setDirAP:"حرّك العقربين لتُظهر {time}. ثم المس {am} أو {pm}.", setPickAP:"العقربان في المكان الصحيح! الآن المس {am} أو {pm}.", apPick:"صباحًا أو مساءً",
+    stds:"المعايير المرتبطة — قراءة الوقت: معايير TEKS في تكساس 1.7(E)، 2.9(G)؛ Common Core ‏1.MD.3، 2.MD.7. القطع النقدية والنقود: TEKS ‏1.4(A)، 1.4(B)، 1.4(C)، 2.5(A)، 2.5(B)؛ Common Core ‏2.MD.8.",
     cardTitle:"متجر الساعة والنقود — بطاقات التحدي",
     cardWrite:"اكتب الوقت: ______", cardDraw:"ارسم العقربين لتُظهر {time}.",
     cardCount:"كم من المال؟ ______", cardPay:"ارسم قطعًا نقدية مجموعها {p} بالضبط لشراء {item}."
@@ -580,7 +596,7 @@ const T = {
     footNote:"कोई खाता नहीं · कोई डेटा नहीं · ऑफ़लाइन काम करता है",
     teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें",
     setGrade:"कक्षा", grade1:"कक्षा 1", grade2:"कक्षा 2",
-    gradeNote:"कक्षा 1: पूरे घंटे और साढ़े; पेनी, निकल और डाइम। कक्षा 2: हर 5 मिनट, पूर्वाह्न/अपराह्न, और क्वार्टर, 99¢ तक।",
+    gradeNote:"कक्षा 1: पूरे घंटे और साढ़े; पेनी, निकल और डाइम। कक्षा 2: हर 5 मिनट, पूर्वाह्न/अपराह्न, 99¢ तक क्वार्टर, और पैसों के शब्द-सवालों के साथ $1, $5 और $10 के नोट।",
     setTime:"घड़ी के समय", tsHour:"केवल पूरे घंटे", tsHalf:"पूरे घंटे और साढ़े", ts5:"हर 5 मिनट", ts1:"हर मिनट",
     setAP:"पूर्वाह्न / अपराह्न गतिविधि संकेत", on:"चालू",
     setMoney:"पैसे की सीमा", setLabels:"सिक्कों का मूल्य", labelsOn:"सिक्कों के नीचे मूल्य दिखाएँ",
@@ -627,7 +643,7 @@ const T = {
     hintRel:"एक {small} का मूल्य {sv} है। एक {big} का मूल्य {bv} है। {k}-{k} करके {b} तक गिनो: {seq}।",
     countDir:"यह कितने पैसे हैं?", countTip:"हर सिक्के को छूकर गिनो। सबसे ज़्यादा मूल्य वाले सिक्के से शुरू करो!",
     sortBtn:"ज़्यादा मूल्य पहले", recount:"फिर से गिनो", counted:"गिने गए:",
-    goodCount:"हाँ! सिक्कों का मूल्य {v} है।", sameAs:"{c} और {d} बराबर हैं।",
+    goodCount:"हाँ! सिक्कों का मूल्य {v} है।", goodCountB:"हाँ! नोटों और सिक्कों का मूल्य {v} है।", sameAs:"{c} और {d} बराबर हैं।",
     hintCount:"सबसे ज़्यादा मूल्य वाले सिक्के से आगे गिनो: {seq}। हर सिक्का सिर्फ़ एक बार गिनो।",
     it_apple:"सेब", it_pencil:"पेंसिल", it_juice:"जूस का डिब्बा", it_cookie:"बिस्किट", it_car:"खिलौना कार",
     it_ball:"गेंद", it_banana:"केला", it_crayon:"क्रेयॉन", it_lollipop:"लॉलीपॉप", it_balloon:"गुब्बारा",
@@ -643,7 +659,8 @@ const T = {
     hintEnough:"इस बटुए में {v} हैं। {v}, {p} से कम है, इसलिए काफ़ी नहीं है। हर बटुए को सबसे ज़्यादा मूल्य वाले सिक्के से गिनो।",
     cent1:"1 सेंट", centsSay:"{n} सेंट",
     addCoin:"{coin} जोड़ो", removeCoin:"{coin} निकालो",
-    stds:"संरेखित मानक — समय बताना: टेक्सास TEKS 1.7(E), 2.9(G); कॉमन कोर 1.MD.3, 2.MD.7। सिक्के और पैसे: TEKS 1.4(A), 1.4(B), 1.4(C), 2.5(A), 2.5(B); कॉमन कोर 2.MD.8 (केवल सिक्के)।",
+    bill1:"1 डॉलर का नोट", bill5:"5 डॉलर का नोट", bill10:"10 डॉलर का नोट", dollar1:"1 डॉलर", dollarsSay:"{n} डॉलर", dcSay:"{d} {c}", setBills:"डॉलर के नोट", billsOn:"$1, $5 और $10 के नोट इस्तेमाल करें (कक्षा 2)", countTipB:"हर नोट और सिक्के को छूकर गिनो। सबसे ज़्यादा मूल्य वाले से शुरू करो!", hintCountB:"पहले नोट गिनो, फिर सिक्कों के साथ आगे गिनते जाओ: {seq}। हर एक को सिर्फ़ एक बार गिनो।", payDirB:"{item} खरीदो! इसकी कीमत {p} है। नोटों और सिक्कों को छूकर ट्रे में ठीक {p} रखो।", bankB:"इस्तेमाल के नोट और सिक्के", trayHintB:"ट्रे के किसी नोट या सिक्के को छूकर बाहर निकालो।", hintMoreB:"तुम्हारे पास {v} हैं। यह {d} ज़्यादा है। ट्रे के किसी नोट या सिक्के को छूकर बाहर निकालो।", addBill:"{coin} जोड़ो", removeBill:"{coin} निकालो", rel_q1:"कितने क्वार्टर मिलकर 1 डॉलर के बराबर होते हैं?", rel_d1:"कितने डाइम मिलकर 1 डॉलर के बराबर होते हैं?", hintRelB:"एक {small} का मूल्य {sv} है। एक डॉलर का मूल्य {bv} है, यानी {h}। {k}-{k} करके {b} तक गिनो: {seq}।", storyAdd:"तुम्हारी गुल्लक में {a} हैं। दादी तुम्हें {b} देती हैं। अब तुम्हारे पास कितने पैसे हैं?", storySub:"तुम्हारे पास {a} हैं। तुम {b} में {item} खरीदते हो। अब तुम्हारे पास कितने पैसे बचे?", goodStoryAdd:"हाँ! अब तुम्हारे पास {v} हैं।", goodStorySub:"हाँ! तुम्हारे पास {v} बचे।", hLead:"डॉलर को डॉलर के साथ और सेंट को सेंट के साथ गिनो।", hAddD:"डॉलर जोड़ो: {e}।", hAddC:"सेंट जोड़ो: {e}।", hSubD:"डॉलर घटाओ: {e}।", hSubC:"सेंट घटाओ: {e}।", hKeepD:"डॉलर उतने ही रहते हैं: {x}।", plusW:"जमा", minusW:"घटा", eqW:"बराबर", setDirAP:"सुइयों को घुमाकर {time} दिखाओ। फिर {am} या {pm} छुओ।", setPickAP:"सुइयाँ सही हैं! अब {am} या {pm} छुओ।", apPick:"पूर्वाह्न या अपराह्न",
+    stds:"संरेखित मानक — समय बताना: टेक्सास TEKS 1.7(E), 2.9(G); कॉमन कोर 1.MD.3, 2.MD.7। सिक्के और पैसे: TEKS 1.4(A), 1.4(B), 1.4(C), 2.5(A), 2.5(B); कॉमन कोर 2.MD.8।",
     cardTitle:"घड़ी और सिक्कों की दुकान — चुनौती कार्ड",
     cardWrite:"समय लिखो: ______", cardDraw:"{time} दिखाने के लिए सुइयाँ बनाओ।",
     cardCount:"कितने पैसे हैं? ______", cardPay:"{item} के लिए ठीक {p} देने वाले सिक्के बनाओ।"
@@ -655,7 +672,7 @@ const T = {
     footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا جمع نہیں ہوتا · آف لائن کام کرتا ہے",
     teacherTitle:"استاد کی ترتیبات", close:"بند کریں",
     setGrade:"جماعت", grade1:"جماعت 1", grade2:"جماعت 2",
-    gradeNote:"جماعت 1: پورے گھنٹے اور ساڑھے؛ پینی، نکل اور ڈائم۔ جماعت 2: ہر 5 منٹ، قبل دوپہر/بعد دوپہر، اور کوارٹر، 99¢ تک۔",
+    gradeNote:"جماعت 1: پورے گھنٹے اور ساڑھے؛ پینی، نکل اور ڈائم۔ جماعت 2: ہر 5 منٹ، قبل دوپہر/بعد دوپہر، 99¢ تک کوارٹر، اور پیسوں کے عبارتی سوالوں کے ساتھ 1، 5 اور 10 ڈالر کے نوٹ۔",
     setTime:"گھڑی کے اوقات", tsHour:"صرف پورے گھنٹے", tsHalf:"پورے گھنٹے اور ساڑھے", ts5:"ہر 5 منٹ", ts1:"ہر منٹ",
     setAP:"قبل دوپہر / بعد دوپہر سرگرمی اشارے", on:"چالو",
     setMoney:"رقم کی حد", setLabels:"سکوں کی قیمت", labelsOn:"سکوں کے نیچے قیمت دکھائیں",
@@ -702,7 +719,7 @@ const T = {
     hintRel:"ایک {small} کی قیمت {sv} ہے۔ ایک {big} کی قیمت {bv} ہے۔ {k}-{k} کر کے {b} تک گنو: {seq}۔",
     countDir:"یہ کتنے پیسے ہیں؟", countTip:"ہر سکے کو چھو کر گنو۔ سب سے زیادہ قیمت والے سکے سے شروع کرو!",
     sortBtn:"زیادہ قیمت پہلے", recount:"دوبارہ گنو", counted:"گنے گئے:",
-    goodCount:"جی ہاں! سکوں کی قیمت {v} ہے۔", sameAs:"{c} اور {d} برابر ہیں۔",
+    goodCount:"جی ہاں! سکوں کی قیمت {v} ہے۔", goodCountB:"جی ہاں! نوٹوں اور سکوں کی قیمت {v} ہے۔", sameAs:"{c} اور {d} برابر ہیں۔",
     hintCount:"سب سے زیادہ قیمت والے سکے سے آگے گنو: {seq}۔ ہر سکہ صرف ایک بار گنو۔",
     it_apple:"سیب", it_pencil:"پنسل", it_juice:"جوس کا ڈبہ", it_cookie:"بسکٹ", it_car:"کھلونا گاڑی",
     it_ball:"گیند", it_banana:"کیلا", it_crayon:"کریون", it_lollipop:"لالی پاپ", it_balloon:"غبارہ",
@@ -718,7 +735,8 @@ const T = {
     hintEnough:"اس بٹوے میں {v} ہیں۔ {v}، {p} سے کم ہے، اس لیے کافی نہیں۔ ہر بٹوے کو سب سے زیادہ قیمت والے سکے سے گنو۔",
     cent1:"1 سینٹ", centsSay:"{n} سینٹ",
     addCoin:"{coin} ڈالو", removeCoin:"{coin} نکالو",
-    stds:"متعلقہ معیارات — وقت بتانا: ٹیکساس TEKS ‏1.7(E)، 2.9(G)؛ کامن کور ‏1.MD.3، 2.MD.7۔ سکے اور رقم: TEKS ‏1.4(A)، 1.4(B)، 1.4(C)، 2.5(A)، 2.5(B)؛ کامن کور ‏2.MD.8 (صرف سکے)۔",
+    bill1:"1 ڈالر کا نوٹ", bill5:"5 ڈالر کا نوٹ", bill10:"10 ڈالر کا نوٹ", dollar1:"1 ڈالر", dollarsSay:"{n} ڈالر", dcSay:"{d} {c}", setBills:"ڈالر کے نوٹ", billsOn:"1، 5 اور 10 ڈالر کے نوٹ استعمال کریں (جماعت 2)", countTipB:"ہر نوٹ اور سکے کو چھو کر گنو۔ سب سے زیادہ قیمت والے سے شروع کرو!", hintCountB:"پہلے نوٹ گنو، پھر سکوں کے ساتھ آگے گنتے جاؤ: {seq}۔ ہر ایک کو صرف ایک بار گنو۔", payDirB:"{item} خریدو! اس کی قیمت {p} ہے۔ نوٹوں اور سکوں کو چھو کر ٹرے میں ٹھیک {p} رکھو۔", bankB:"استعمال کے نوٹ اور سکے", trayHintB:"ٹرے کے کسی نوٹ یا سکے کو چھو کر باہر نکالو۔", hintMoreB:"تمہارے پاس {v} ہیں۔ یہ {d} زیادہ ہے۔ ٹرے کے کسی نوٹ یا سکے کو چھو کر باہر نکالو۔", addBill:"{coin} ڈالو", removeBill:"{coin} نکالو", rel_q1:"کتنے کوارٹر مل کر 1 ڈالر کے برابر ہوتے ہیں؟", rel_d1:"کتنے ڈائم مل کر 1 ڈالر کے برابر ہوتے ہیں؟", hintRelB:"ایک {small} کی قیمت {sv} ہے۔ ایک ڈالر کی قیمت {bv} ہے، یعنی {h}۔ {k}-{k} کر کے {b} تک گنو: {seq}۔", storyAdd:"تمہاری گلک میں {a} ہیں۔ دادی تمہیں {b} دیتی ہیں۔ اب تمہارے پاس کتنے پیسے ہیں؟", storySub:"تمہارے پاس {a} ہیں۔ تم {b} میں {item} خریدتے ہو۔ اب تمہارے پاس کتنے پیسے بچے؟", goodStoryAdd:"جی ہاں! اب تمہارے پاس {v} ہیں۔", goodStorySub:"جی ہاں! تمہارے پاس {v} بچے۔", hLead:"ڈالر کو ڈالر کے ساتھ اور سینٹ کو سینٹ کے ساتھ گنو۔", hAddD:"ڈالر جمع کرو: {e}۔", hAddC:"سینٹ جمع کرو: {e}۔", hSubD:"ڈالر گھٹاؤ: {e}۔", hSubC:"سینٹ گھٹاؤ: {e}۔", hKeepD:"ڈالر اتنے ہی رہتے ہیں: {x}۔", plusW:"جمع", minusW:"منفی", eqW:"برابر", setDirAP:"سوئیاں گھما کر {time} دکھاؤ۔ پھر {am} یا {pm} کو چھوؤ۔", setPickAP:"سوئیاں درست ہیں! اب {am} یا {pm} کو چھوؤ۔", apPick:"قبل دوپہر یا بعد دوپہر",
+    stds:"متعلقہ معیارات — وقت بتانا: ٹیکساس TEKS ‏1.7(E)، 2.9(G)؛ کامن کور ‏1.MD.3، 2.MD.7۔ سکے اور رقم: TEKS ‏1.4(A)، 1.4(B)، 1.4(C)، 2.5(A)، 2.5(B)؛ کامن کور ‏2.MD.8۔",
     cardTitle:"گھڑی اور سکوں کی دکان — چیلنج کارڈ",
     cardWrite:"وقت لکھو: ______", cardDraw:"{time} دکھانے کے لیے سوئیاں بناؤ۔",
     cardCount:"کتنے پیسے ہیں؟ ______", cardPay:"{item} کے لیے ٹھیک {p} دینے والے سکے بناؤ۔"
@@ -730,7 +748,7 @@ const T = {
     footNote:"无需账号 · 不收集数据 · 可离线使用",
     teacherTitle:"老师设置", close:"关闭",
     setGrade:"年级", grade1:"一年级", grade2:"二年级",
-    gradeNote:"一年级：整点和半点；1美分、5美分和10美分硬币。二年级：每5分钟、上午/下午，以及25美分硬币，最多99¢。",
+    gradeNote:"一年级：整点和半点；1美分、5美分和10美分硬币。二年级：每5分钟、上午/下午、最多99¢的25美分硬币，以及1美元、5美元和10美元纸币和关于钱的应用题。",
     setTime:"钟表时间", tsHour:"只有整点", tsHalf:"整点和半点", ts5:"每5分钟", ts1:"每1分钟",
     setAP:"上午/下午活动提示", on:"开",
     setMoney:"金额上限", setLabels:"硬币面值", labelsOn:"在硬币下方显示面值",
@@ -777,7 +795,7 @@ const T = {
     hintRel:"一枚{small}值{sv}。一枚{big}值{bv}。{k}个{k}个地数，数到{b}：{seq}。",
     countDir:"这里一共有多少钱？", countTip:"点每一枚硬币来数。从面值最大的硬币开始！",
     sortBtn:"面值大的先", recount:"重新数", counted:"已数：",
-    goodCount:"对了！这些硬币一共值{v}。", sameAs:"{c}和{d}一样多。",
+    goodCount:"对了！这些硬币一共值{v}。", goodCountB:"对了！这些纸币和硬币一共值{v}。", sameAs:"{c}和{d}一样多。",
     hintCount:"从面值最大的硬币开始接着数：{seq}。每枚硬币只数一次。",
     it_apple:"苹果", it_pencil:"铅笔", it_juice:"盒装果汁", it_cookie:"饼干", it_car:"玩具车",
     it_ball:"球", it_banana:"香蕉", it_crayon:"蜡笔", it_lollipop:"棒棒糖", it_balloon:"气球",
@@ -793,7 +811,8 @@ const T = {
     hintEnough:"这个钱包有{v}。{v}比{p}少，所以不够。从面值最大的硬币开始数每个钱包。",
     cent1:"1美分", centsSay:"{n}美分",
     addCoin:"放入{coin}", removeCoin:"拿出{coin}",
-    stds:"对应标准 — 认识时间：德州 TEKS 1.7(E)、2.9(G)；共同核心 1.MD.3、2.MD.7。硬币与钱：TEKS 1.4(A)、1.4(B)、1.4(C)、2.5(A)、2.5(B)；共同核心 2.MD.8（仅硬币）。",
+    bill1:"1美元纸币", bill5:"5美元纸币", bill10:"10美元纸币", dollar1:"1美元", dollarsSay:"{n}美元", dcSay:"{d}{c}", setBills:"美元纸币", billsOn:"使用1美元、5美元和10美元纸币（二年级）", countTipB:"点每一张纸币和每一枚硬币来数。从面值最大的开始！", hintCountB:"先数纸币，再接着数硬币：{seq}。每张、每枚只数一次。", payDirB:"买{item}吧！它要{p}。点纸币和硬币，在托盘里正好放{p}。", bankB:"可以用的纸币和硬币", trayHintB:"点托盘里的纸币或硬币可以把它拿出来。", hintMoreB:"你有{v}。多了{d}。点托盘里的纸币或硬币把它拿出来。", addBill:"放入{coin}", removeBill:"拿出{coin}", rel_q1:"几枚25美分硬币等于1美元？", rel_d1:"几枚10美分硬币等于1美元？", hintRelB:"一枚{small}值{sv}。1美元值{bv}，也就是{h}。{k}个{k}个地数，数到{b}：{seq}。", storyAdd:"你的存钱罐里有{a}。奶奶又给了你{b}。你现在一共有多少钱？", storySub:"你有{a}。你花{b}买了{item}。你还剩多少钱？", goodStoryAdd:"对了！你现在有{v}。", goodStorySub:"对了！你还剩{v}。", hLead:"美元和美元一起算，美分和美分一起算。", hAddD:"把美元相加：{e}。", hAddC:"把美分相加：{e}。", hSubD:"把美元相减：{e}。", hSubC:"把美分相减：{e}。", hKeepD:"美元不变：{x}。", plusW:"加", minusW:"减", eqW:"等于", setDirAP:"转动指针，拨出{time}。然后点{am}或{pm}。", setPickAP:"指针拨对了！现在点{am}或{pm}。", apPick:"上午或下午",
+    stds:"对应标准 — 认识时间：德州 TEKS 1.7(E)、2.9(G)；共同核心 1.MD.3、2.MD.7。硬币与钱：TEKS 1.4(A)、1.4(B)、1.4(C)、2.5(A)、2.5(B)；共同核心 2.MD.8。",
     cardTitle:"时钟与硬币商店 — 挑战卡",
     cardWrite:"写出时间：______", cardDraw:"画出指针，表示{time}。",
     cardCount:"一共有多少钱？______", cardPay:"画出正好{p}的硬币来买{item}。"
@@ -814,15 +833,15 @@ const isRTL=()=>(LANGS.find(x=>x.code===lang)||{}).dir==="rtl";
 const ISO=s=>(isRTL()&&!SAY)?"\u2066"+s+"\u2069":s;
 
 /* ---------- Settings ---------- */
-const GRADE_DEF = {1:{tstep:30,ampm:false,max:50}, 2:{tstep:5,ampm:true,max:99}};
-const DEFAULTS = { grade:1, tstep:30, ampm:false, max:50, labels:true,
+const GRADE_DEF = {1:{tstep:30,ampm:false,max:50,bills:false}, 2:{tstep:5,ampm:true,max:99,bills:true}};
+const DEFAULTS = { grade:1, tstep:30, ampm:false, max:50, bills:false, labels:true,
   modes:{read:true,set:true,coin:true,shop:true}, autoRead:true };
 const MODES = ["read","set","coin","shop"];
 let settings = loadSettings();
 function loadSettings(){
   try{
     const raw = localStorage.getItem("ccs_settings");
-    if(raw){ const o=JSON.parse(raw); return Object.assign(JSON.parse(JSON.stringify(DEFAULTS)), o, {modes:Object.assign({},DEFAULTS.modes,o.modes)}); }
+    if(raw){ const o=JSON.parse(raw); if(o.bills===undefined) o.bills=o.grade==2; return Object.assign(JSON.parse(JSON.stringify(DEFAULTS)), o, {modes:Object.assign({},DEFAULTS.modes,o.modes)}); }
   }catch(e){}
   return JSON.parse(JSON.stringify(DEFAULTS));
 }
@@ -851,11 +870,32 @@ function randTime(){ let tot,n=0; do{ tot=(ri(1,12)%12)*60+rand(stepMins()); }wh
 function snapStep(){ return +settings.tstep===1?1:5; }
 
 /* ---------- Money helpers ---------- */
-const VAL = {penny:1,nickel:5,dime:10,quarter:25};
+const VAL = {penny:1,nickel:5,dime:10,quarter:25,bill1:100,bill5:500,bill10:1000};
+const isBill=k=>k.slice(0,4)==="bill";
+const BILLS=["bill10","bill5","bill1"];
+function useBills(){ return settings.grade==2 && settings.bills; }
 const ALLCOINS = ["quarter","dime","nickel","penny"];
 function coinTypes(){ return settings.grade==1?["dime","nickel","penny"]:ALLCOINS.slice(); }
 function dollars(v){ return "$"+Math.floor(v/100)+"."+pad2(v%100); }
-function money(v,dollar){ if(SAY) return t(v===1?"cent1":"centsSay",{n:v}); return ISO(dollar?dollars(v):v+"¢"); }
+function dollarSay(d){ return t(d===1?"dollar1":"dollarsSay",{n:d}); }
+// Amounts of $1 or more always use the dollar sign and decimal point; speech says "3 dollars and 45 cents".
+function money(v,dollar){
+  if(SAY){ const d=Math.floor(v/100), c=v%100, cs=()=>t(c===1?"cent1":"centsSay",{n:c});
+    return d<1?cs():c?t("dcSay",{d:dollarSay(d),c:cs()}):dollarSay(d); }
+  return ISO((dollar||v>=100)?dollars(v):v+"¢"); }
+function wholeDollars(d){ return SAY?dollarSay(d):ISO("$"+d); }
+/* "x + y = z" as one LTR unit on screen; spoken with words. */
+function eqStr(x,op,y,z){ return SAY?[x,t(op==="+"?"plusW":"minusW"),y,t("eqW"),z].join(" "):ISO(x+" "+op+" "+y+" = "+z); }
+/* Random set of bills worth exactly d dollars (at most maxN bills). */
+function genBills(d,maxN){
+  for(let tries=0;tries<40;tries++){
+    const list=[]; let rem=d*100;
+    while(rem>0){ const opts=BILLS.filter(k=>VAL[k]<=rem); const k=Math.random()<.6?opts[0]:rand(opts); list.push(k); rem-=VAL[k]; }
+    if(list.length<=maxN) return list;
+  }
+  const list=[]; let rem=d*100; for(const k of BILLS){ while(VAL[k]<=rem){ list.push(k); rem-=VAL[k]; } } return list;
+}
+function genMoney(v,maxCoins){ const d=Math.floor(v/100), c=v%100; return (d?genBills(d,4):[]).concat(c?genCoins(c,coinTypes(),maxCoins):[]); }
 function sumCoins(list){ return list.reduce((s,k)=>s+VAL[k],0); }
 function sortCoins(list){ return list.slice().sort((a,b)=>VAL[b]-VAL[a]); }
 function countOnSeq(list){ let s=0; return sortCoins(list).map(k=>money(s+=VAL[k])).join(", "); }
@@ -904,7 +944,17 @@ function coinSVG(k){
     <g transform="translate(50 51) scale(${cu?-s:s} ${s})"><path d="${HEAD}" fill="${head}" stroke="${edge}" stroke-width="1.5"/></g>
     <ellipse cx="${50-r*.42}" cy="${50-r*.42}" rx="${(r*.22).toFixed(1)}" ry="${(r*.1).toFixed(1)}" fill="#fff" opacity=".45" transform="rotate(-45 ${50-r*.42} ${50-r*.42})"/></svg>`;
 }
+function billSVG(k){
+  const n=VAL[k]/100, num=(x,y)=>`<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" font-size="15" font-weight="900" fill="#24461d" font-family="system-ui,sans-serif">${n}</text>`;
+  return `<svg viewBox="0 0 156 66" direction="ltr" role="img" aria-label="${t(k)}">
+    <rect x="1" y="1" width="154" height="64" rx="4" fill="#d7e8c9" stroke="#3d6b35" stroke-width="2"/>
+    <rect x="7" y="7" width="142" height="52" rx="3" fill="none" stroke="#5e8a4f" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <ellipse cx="78" cy="33" rx="20" ry="23" fill="#eef5e6" stroke="#3d6b35" stroke-width="1.6"/>
+    <g transform="translate(78 35) scale(.55)"><path d="${HEAD}" fill="#7fa86f" stroke="#3d6b35" stroke-width="2.4"/></g>
+    ${num(20,19)}${num(136,19)}${num(20,47)}${num(136,47)}</svg>`;
+}
 function coinEl(k,base,label){
+  if(isBill(k)) return `<span class="coinwrap"><span class="coin bill" style="width:${Math.round(base*1.5)}px">${billSVG(k)}</span>${label?`<span class="cval">$${VAL[k]/100}</span>`:""}</span>`;
   const w=Math.round(base*COIN_R[k]/48);
   return `<span class="coinwrap"><span class="coin" style="width:${w}px">${coinSVG(k)}</span>${label?`<span class="cval">${VAL[k]}¢</span>`:""}</span>`;
 }
@@ -1021,12 +1071,19 @@ const ACTS = [
   {k:"recess",ic:"⚽",ap:"am",a:570,b:660},{k:"lunch",ic:"🥪",ap:"am",a:660,b:705},{k:"home",ic:"🎒",ap:"pm",a:180,b:240},
   {k:"park",ic:"🌳",ap:"pm",a:240,b:330},{k:"dinner",ic:"🍝",ap:"pm",a:330,b:420},{k:"bath",ic:"🛁",ap:"pm",a:420,b:480},
   {k:"bed",ic:"🌙",ap:"pm",a:450,b:525}];
+/* A time for the round: with a.m./p.m. on, pick an activity and a time inside its range. */
+function actTime(){
+  if(!settings.ampm) return {tot:randTime(),act:null};
+  const st=+settings.tstep, act=rand(ACTS), c=[]; for(let x=act.a;x<=act.b;x++) if(x%st===0) c.push(x);
+  return {tot:rand(c),act};
+}
+function showCue(sel,act){ const cue=$(sel);
+  if(act){ cue.classList.remove("hidden"); cue.innerHTML=`<span class="em" aria-hidden="true">${act.ic}</span><span>${t("act_"+act.k)}</span>`; }
+  else cue.classList.add("hidden"); }
 let readR=null;
 function newRead(){
   roundIds.read++;
-  const st=+settings.tstep; let tot, act=null;
-  if(settings.ampm){ act=rand(ACTS); const c=[]; for(let x=act.a;x<=act.b;x++) if(x%st===0) c.push(x); tot=rand(c); }
-  else tot=randTime();
+  const pick=actTime(), tot=pick.tot, act=pick.act;
   const ap=act?act.ap:null; readR={tot,act,ap,done:false};
   const o=hm(tot), key=c=>c.tot+"|"+c.ap, seen=new Set([key({tot,ap})]), cands=[];
   const add=(tt,a)=>{ const c={tot:norm(tt),ap:a===undefined?ap:a}; if(!seen.has(key(c))){ seen.add(key(c)); cands.push(c); } };
@@ -1040,9 +1097,7 @@ function newRead(){
   let opts=first.filter(Boolean).concat(shuffle(cands)).slice(0,nChoices()-1);
   opts=shuffle(opts.concat([{tot,ap}]));
   $("#readClock").innerHTML=clockSVG(tot);
-  const cue=$("#readCue");
-  if(act){ cue.classList.remove("hidden"); cue.innerHTML=`<span class="em" aria-hidden="true">${act.ic}</span><span>${t("act_"+act.k)}</span>`; }
-  else cue.classList.add("hidden");
+  showCue("#readCue",act);
   $("#readLegend").innerHTML=legendHTML();
   const grid=$("#readGrid"); grid.innerHTML="";
   opts.forEach(c=>{ const lbl=fmtTime(c.tot,c.ap);
@@ -1079,12 +1134,15 @@ function checkRead(btn,c){
 let setR=null;
 function newSet(){
   roundIds.set++;
-  const target=randTime(); let cur=0; if(cur===target) cur=360;
-  setR={target,cur,done:false};
+  const pick=actTime(), target=pick.tot, act=pick.act; let cur=0; if(cur===target) cur=360;
+  setR={target,cur,act,ap:act?act.ap:null,curAp:null,done:false};
   const box=$("#setClock"); box.innerHTML=clockSVG(cur,{knob:true});
   $("#setTarget").textContent=clockStr(target);
+  showCue("#setCue",act);
+  $("#setAPRow").classList.toggle("hidden",!act);
+  $$("#setAPRow .apbtn").forEach(b=>{ b.textContent=t(b.dataset.ap); b.setAttribute("aria-pressed","false"); });
   $("#setLegend").innerHTML=legendHTML();
-  const dir=both(()=>t("setDir",{time:fmtTime(target)}));
+  const dir=both(()=>act?t("act_"+act.k)+" "+t("setDirAP",{time:fmtTime(target),am:apWord("am"),pm:apWord("pm")}):t("setDir",{time:fmtTime(target)}));
   $("#setPrompt").textContent=dir[0]; setSpeech("set",dir[1]); hideFb($("#setFb")); maybeAuto("set");
 }
 function setCur(tot){ if(!setR||setR.done) return; setR.cur=norm(tot); updHands($("#setClock"),setR.cur); }
@@ -1115,12 +1173,16 @@ function initSetClock(){
   $("#hBack").addEventListener("click",()=>nudgeMin(-60)); $("#hFwd").addEventListener("click",()=>nudgeMin(60));
   $("#mBack").addEventListener("click",()=>nudgeMin(-snapStep())); $("#mFwd").addEventListener("click",()=>nudgeMin(snapStep()));
   $("#setCheck").addEventListener("click",checkSet);
+  $$("#setAPRow .apbtn").forEach(b=>b.addEventListener("click",()=>{ if(!setR||setR.done||!setR.ap) return;
+    setR.curAp=b.dataset.ap; $$("#setAPRow .apbtn").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false")); }));
 }
 function checkSet(){
   const r=setR; if(!r||r.done) return;
-  if(r.cur===r.target){ r.done=true; praise("#setFb",both(()=>t("goodSet",{time:fmtTime(r.target)})),"set",newSet); return; }
+  const apOk=!r.ap||r.curAp===r.ap;
+  if(r.cur===r.target && apOk){ r.done=true; praise("#setFb",both(()=>t("goodSet",{time:fmtTime(r.target,r.ap)})),"set",newSet); return; }
   const m=r.target%60, cm=r.cur%60, o=hm(r.target);
   hint("#setFb",both(()=>{
+    if(r.cur===r.target) return r.curAp?apHint(r.ap):t("setPickAP",{am:apWord("am"),pm:apWord("pm")});
     if(cm!==m){ const n=Math.floor(m/5);
       return t("hSetMin",{cm,m})+" "+(m===0?t("hPoint12"):m%5===0?t("hPointTo",{n}):t("hPointPast",{n:n||12,k:m%5})); }
     return m===0?t("hSetHourOn",{time:fmtTime(r.target),h:o.h}):t("hSetHourPast",{time:fmtTime(r.target),h:o.h,h2:o.h%12+1});
@@ -1130,11 +1192,12 @@ function checkSet(){
 /* =========================================================================
    COIN COUNTER
    ========================================================================= */
-const RELS = {pn:["penny","nickel"],pd:["penny","dime"],nd:["nickel","dime"],nq:["nickel","quarter"],pq:["penny","quarter"]};
+const RELS = {pn:["penny","nickel"],pd:["penny","dime"],nd:["nickel","dime"],nq:["nickel","quarter"],pq:["penny","quarter"],q1:["quarter","bill1"],d1:["dime","bill1"]};
 let coinR=null;
 function newCoin(){
   roundIds.coin++;
-  const x=Math.random(), kind=x<.2?"name":x<.35?"value":x<.5?"rel":"count";
+  const x=Math.random(), g2=settings.grade==2;
+  const kind=g2?(x<.15?"name":x<.27?"value":x<.42?"rel":x<.62?"story":"count"):(x<.2?"name":x<.35?"value":x<.5?"rel":"count");
   coinR={kind,done:false};
   $("#coinArea").innerHTML=""; $("#coinGrid").innerHTML="";
   $("#coinTools").classList.toggle("hidden",kind!=="count"); $("#coinTally").classList.toggle("hidden",kind!=="count");
@@ -1145,23 +1208,65 @@ function newCoin(){
     opts.forEach(k=>{ const b=choiceBtn(coinEl(k,96,false),t(k)); b.addEventListener("click",()=>checkCoinPick(b,k)); $("#coinGrid").appendChild(b); });
     dir=both(()=>kind==="name"?t("coinNameDir",{coin:t(target)}):t("coinValueDir",{v:money(VAL[target])}));
   }else if(kind==="rel"){
-    const rk=rand(settings.grade==1?["pn","pd","nd"]:Object.keys(RELS)), s=RELS[rk][0], g=RELS[rk][1], n=VAL[g]/VAL[s];
+    const rk=rand(settings.grade==1?["pn","pd","nd"]:["pn","pd","nd","nq","pq"].concat(useBills()?["q1","d1"]:[])), s=RELS[rk][0], g=RELS[rk][1], n=VAL[g]/VAL[s];
     Object.assign(coinR,{rk,s,g,n});
     $("#coinArea").innerHTML=`<div class="eq">${coinEl(s,80,settings.labels)}<span>× ?</span><span>=</span>${coinEl(g,80,settings.labels)}</div>`;
     const opts=shuffle([n].concat(shuffle([2,3,4,5,10,15,20,25].filter(v=>v!==n)).slice(0,nChoices()-1)));
     opts.forEach(v=>{ const b=choiceBtn(`<span>${v}</span>`,String(v),"num"); b.addEventListener("click",()=>checkRel(b,v)); $("#coinGrid").appendChild(b); });
     dir=both(()=>t("rel_"+rk));
+  }else if(kind==="story"){
+    newStory(); return;
   }else{
-    const max=+settings.max, total=ri(settings.grade==1?5:10,max);
-    Object.assign(coinR,{coins:genCoins(total,coinTypes(),settings.grade==1?8:9),total,counted:[],dollar:settings.grade==2&&Math.random()<.5});
+    const max=+settings.max, bills=useBills()&&Math.random()<.4;
+    let total, coins, wrong;
+    if(bills){ // Grade 2: dollar bills and coins together
+      const d=ri(1,12), c=ri(5,max), bl=genBills(d,4);
+      coins=shuffle(bl.concat(genCoins(c,coinTypes(),6))); total=d*100+c;
+      wrong=[total+100,total-100,total+10,total-10,total+5,total-5,total+1,total-1,c+bl.length];
+    }else{
+      total=ri(settings.grade==1?5:10,max); coins=genCoins(total,coinTypes(),settings.grade==1?8:9);
+      wrong=[total+5,total-5,total+10,total-10,total+1,total-1,coins.length,total+25,total-25];
+    }
+    Object.assign(coinR,{coins,total,bills,counted:[],dollar:bills||(settings.grade==2&&Math.random()<.5)});
     renderCount();
     const cand=new Set([total]), opts=[];
-    [total+5,total-5,total+10,total-10,total+1,total-1,coinR.coins.length,total+25,total-25].forEach(v=>{ if(v>0 && v<=max+25 && !cand.has(v)){ cand.add(v); opts.push(v); } });
+    wrong.forEach(v=>{ if(v>0 && (bills||v<=max+25) && !cand.has(v)){ cand.add(v); opts.push(v); } });
     shuffle(opts).slice(0,nChoices()-1).concat([total]).sort(()=>Math.random()-.5).forEach(v=>{
       const lbl=money(v,coinR.dollar); const b=choiceBtn(`<span>${lbl}</span>`,lbl,"num"); b.addEventListener("click",()=>checkCount(b,v)); $("#coinGrid").appendChild(b); });
-    dir=both(()=>t("countDir")+" "+t("countTip"));
+    dir=both(()=>t("countDir")+" "+t(bills?"countTipB":"countTip"));
   }
   $("#coinPrompt").textContent=dir[0]; setSpeech("coin",dir[1]); hideFb($("#coinFb")); maybeAuto("coin");
+}
+/* Grade 2 money word problems (CCSS 2.MD.8): add or take away, with $ and ¢.
+   Dollars and cents are kept separate (no regrouping) so the hint can model "dollars with dollars, cents with cents". */
+function newStory(){
+  const sub=Math.random()<.5, bl=useBills(), max=+settings.max, item=rand(ITEMS);
+  let ad=0,bd=0,ac,bc;
+  if(bl){ if(sub){ ad=ri(2,9); bd=ri(0,ad-1); ac=ri(20,95); bc=ri(5,ac-5); } else { ad=ri(1,7); bd=ri(0,3); ac=ri(5,70); bc=ri(5,99-ac); } }
+  else if(sub){ ac=ri(15,max); bc=ri(5,ac-5); } else { ac=ri(5,max-10); bc=ri(5,max-ac); }
+  const a=ad*100+ac, b=bd*100+bc, v=sub?a-b:a+b;
+  Object.assign(coinR,{sub,bl,item,ad,bd,ac,bc,a,b,v});
+  const pics=x=>`<span class="coinrow">${sortCoins(genMoney(x,6)).map(k=>coinEl(k,50,settings.labels)).join("")}</span>`;
+  $("#coinArea").innerHTML=`<div class="story"><div class="box"><span class="em" aria-hidden="true">${sub?"👛":"🐷"}</span>${pics(a)}</div>`+
+    (sub?`<span class="op" aria-hidden="true">−</span><div class="itemcard"><span class="em" aria-hidden="true">${item.ic}</span><span class="pricetag">${money(b,bl)}</span><span>${t("it_"+item.k)}</span></div>`
+        :`<span class="op" aria-hidden="true">+</span><div class="box"><span class="em" aria-hidden="true">🎁</span>${pics(b)}</div>`)+`</div>`;
+  const cand=new Set([v]), opts=[];
+  (sub?[a+b,v+100,v-100,v+10,v-10,v+1]:[v+100,v-100,v+10,v-10,a-b,v+5]).forEach(x=>{ if(x>0 && (bl||x<100) && !cand.has(x)){ cand.add(x); opts.push(x); } });
+  shuffle(opts).slice(0,nChoices()-1).concat([v]).sort(()=>Math.random()-.5).forEach(x=>{
+    const lbl=money(x,bl); const btn=choiceBtn(`<span>${lbl}</span>`,lbl,"num"); btn.addEventListener("click",()=>checkStory(btn,x)); $("#coinGrid").appendChild(btn); });
+  const dir=both(()=>t(sub?"storySub":"storyAdd",{a:money(a,bl),b:money(b,bl),item:t("it_"+item.k)}));
+  $("#coinPrompt").textContent=dir[0]; setSpeech("coin",dir[1]); hideFb($("#coinFb")); maybeAuto("coin");
+}
+function checkStory(btn,x){
+  const r=coinR; if(r.done) return;
+  if(x===r.v){ r.done=true; btn.classList.add("correctpick"); lockAll("#coinGrid .choice");
+    praise("#coinFb",both(()=>t(r.sub?"goodStorySub":"goodStoryAdd",{v:money(r.v,r.bl)})),"coin",newCoin); return; }
+  markWrong(btn);
+  hint("#coinFb",both(()=>{ const p=[], op=r.sub?"−":"+";
+    if(r.ad||r.bd){ p.push(t("hLead"));
+      p.push(r.bd?t(r.sub?"hSubD":"hAddD",{e:eqStr(wholeDollars(r.ad),op,wholeDollars(r.bd),wholeDollars(r.sub?r.ad-r.bd:r.ad+r.bd))}):t("hKeepD",{x:wholeDollars(r.ad)})); }
+    p.push(t(r.sub?"hSubC":"hAddC",{e:eqStr(money(r.ac),op,money(r.bc),money(r.sub?r.ac-r.bc:r.ac+r.bc))}));
+    return p.join(" "); }));
 }
 function renderCount(){
   const c=coinR, row=document.createElement("div"); row.className="coinrow";
@@ -1188,13 +1293,13 @@ function checkRel(btn,v){
   else{ markWrong(btn);
     const k=VAL[r.s], b=VAL[r.g]; let seq=[]; for(let x=k;x<=b;x+=k) seq.push(x);
     if(seq.length>10) seq=seq.slice(0,5).concat(["…",b]);
-    hint("#coinFb",both(()=>t("hintRel",{small:t(r.s),big:t(r.g),sv:money(k),bv:money(b),k,b,seq:seq.join(", ")}))); }
+    hint("#coinFb",both(()=>t(isBill(r.g)?"hintRelB":"hintRel",{small:t(r.s),big:t(r.g),sv:money(k),bv:money(b),h:SAY?t("centsSay",{n:b}):ISO(b+"¢"),k,b,seq:seq.join(", ")}))); }
 }
 function checkCount(btn,v){
   const r=coinR; if(r.done) return;
   if(v===r.total){ r.done=true; btn.classList.add("correctpick"); lockAll("#coinGrid .choice");
-    praise("#coinFb",both(()=>t("goodCount",{v:money(r.total,r.dollar)})+(settings.grade==2&&!SAY?" "+t("sameAs",{c:ISO(r.total+"¢"),d:ISO(dollars(r.total))}):"")),"coin",newCoin); }
-  else{ markWrong(btn); hint("#coinFb",both(()=>t("hintCount",{seq:countOnSeq(r.coins)}))); }
+    praise("#coinFb",both(()=>t(r.bills?"goodCountB":"goodCount",{v:money(r.total,r.dollar)})+(settings.grade==2&&r.total<100&&!SAY?" "+t("sameAs",{c:ISO(r.total+"¢"),d:ISO(dollars(r.total))}):"")),"coin",newCoin); }
+  else{ markWrong(btn); hint("#coinFb",both(()=>t(r.bills?"hintCountB":"hintCount",{seq:countOnSeq(r.coins)}))); }
 }
 
 /* =========================================================================
@@ -1206,27 +1311,28 @@ let shopR=null;
 function newShop(){
   roundIds.shop++;
   const kind=Math.random()<.6?"pay":"enough", item=rand(ITEMS), max=+settings.max, g1=settings.grade==1;
-  shopR={kind,item,done:false,dollar:!g1&&Math.random()<.4};
+  const bills=kind==="pay"&&useBills()&&Math.random()<.4;  // Grade 2: prices over $1, paid with bills and coins
+  shopR={kind,item,done:false,bills,dollar:bills||(!g1&&Math.random()<.4)};
   const area=$("#shopArea"); area.innerHTML="";
   const iname=()=>t("it_"+item.k);
   let dir;
   if(kind==="pay"){
-    const p=ri(g1?3:10,max); Object.assign(shopR,{p,tray:[]});
+    const p=bills?ri(1,9)*100+ri(5,99):ri(g1?3:10,max); Object.assign(shopR,{p,tray:[]});
     area.innerHTML=`<div class="shopgrid">
       <div class="itemcard"><span class="em" aria-hidden="true">${item.ic}</span><span class="pricetag">${money(p,shopR.dollar)}</span><span>${iname()}</span></div>
-      <div><div class="box"><h3>${t("bank")}</h3><div class="coinrow" id="bankRow"></div></div>
+      <div><div class="box"><h3>${t(bills?"bankB":"bank")}</h3><div class="coinrow" id="bankRow"></div></div>
         <div class="box"><h3>${t("tray")}</h3><div class="coinrow" id="trayRow"></div>
-          <div class="traytotal" id="trayTotal" aria-live="polite"></div><p class="tiny">${t("trayHint")}</p>
+          <div class="traytotal" id="trayTotal" aria-live="polite"></div><p class="tiny">${t(bills?"trayHintB":"trayHint")}</p>
           <div class="row"><button class="btn big" id="payBtn" type="button">${t("pay")}</button>
           <button class="btn ghost" id="emptyBtn" type="button">${t("emptyTray")}</button></div></div></div></div>`;
-    coinTypes().forEach(k=>{ const b=document.createElement("button"); b.type="button"; b.className="coinbtn";
-      b.innerHTML=coinEl(k,72,settings.labels); b.setAttribute("aria-label",t("addCoin",{coin:t(k)}));
-      b.addEventListener("click",()=>{ if(shopR.done||shopR.tray.length>=15) return; shopR.tray.push(k); renderTray(true); });
+    (bills?["bill5","bill1"]:[]).concat(coinTypes()).forEach(k=>{ const b=document.createElement("button"); b.type="button"; b.className="coinbtn";
+      b.innerHTML=coinEl(k,72,settings.labels); b.setAttribute("aria-label",t(isBill(k)?"addBill":"addCoin",{coin:t(k)}));
+      b.addEventListener("click",()=>{ if(shopR.done||shopR.tray.length>=20) return; shopR.tray.push(k); renderTray(true); });
       $("#bankRow").appendChild(b); });
     $("#payBtn").addEventListener("click",checkPay);
     $("#emptyBtn").addEventListener("click",()=>{ if(shopR.done) return; shopR.tray=[]; renderTray(); });
     renderTray();
-    dir=both(()=>t("payDir",{item:iname(),p:money(p,shopR.dollar)}));
+    dir=both(()=>t(bills?"payDirB":"payDir",{item:iname(),p:money(p,shopR.dollar)}));
   }else{
     const p=ri(g1?10:20,Math.max(g1?12:25,max-5)); shopR.p=p;
     const good=Math.random()<.3?p:ri(p,Math.min(p+15,99)), bad=new Set();
@@ -1246,7 +1352,7 @@ function newShop(){
 function renderTray(added){
   const r=shopR, row=$("#trayRow"); row.innerHTML="";
   sortCoins(r.tray).forEach((k,i,arr)=>{ const b=document.createElement("button"); b.type="button"; b.className="coinbtn"+(added&&i===arr.lastIndexOf(r.tray[r.tray.length-1])?" tray-in":"");
-    b.innerHTML=coinEl(k,56,settings.labels); b.setAttribute("aria-label",t("removeCoin",{coin:t(k)}));
+    b.innerHTML=coinEl(k,56,settings.labels); b.setAttribute("aria-label",t(isBill(k)?"removeBill":"removeCoin",{coin:t(k)}));
     b.addEventListener("click",()=>{ if(r.done) return; r.tray.splice(r.tray.lastIndexOf(k),1); renderTray(); });
     row.appendChild(b); });
   $("#trayTotal").textContent=t("inTray",{v:money(sumCoins(r.tray),r.dollar)});
@@ -1256,7 +1362,7 @@ function checkPay(){
   if(!r.tray.length){ hint("#shopFb",both(()=>t("payEmpty"))); return; }
   if(v===r.p){ r.done=true; praise("#shopFb",both(()=>t("goodPay",{p:money(r.p,r.dollar)})),"shop",newShop); }
   else if(v<r.p) hint("#shopFb",both(()=>t("hintLess",{v:money(v,r.dollar),item:name(),p:money(r.p,r.dollar),d:money(r.p-v,r.dollar)})));
-  else hint("#shopFb",both(()=>t("hintMore",{v:money(v,r.dollar),d:money(v-r.p,r.dollar)})));
+  else hint("#shopFb",both(()=>t(r.bills?"hintMoreB":"hintMore",{v:money(v,r.dollar),d:money(v-r.p,r.dollar)})));
 }
 function checkEnough(btn,v){
   const r=shopR; if(r.done) return;
@@ -1299,7 +1405,7 @@ function buildModeToggles(){
 }
 function syncSettingsUI(){
   $("#setGradeSel").value=String(settings.grade); $("#setStep").value=String(settings.tstep);
-  $("#setAmpm").checked=settings.ampm; $("#setMax").value=String(settings.max);
+  $("#setAmpm").checked=settings.ampm; $("#setMax").value=String(settings.max); $("#setBillsCb").checked=settings.bills; $("#setBillsCb").disabled=settings.grade!=2;
   $("#setLabelsCb").checked=settings.labels; $("#setAuto").checked=settings.autoRead;
   buildModeToggles();
 }
@@ -1314,6 +1420,7 @@ function initSettings(){
   $("#setStep").addEventListener("change",e=>{ settings.tstep=+e.target.value; saveSettings(); rebuildAll(); });
   $("#setAmpm").addEventListener("change",e=>{ settings.ampm=e.target.checked; saveSettings(); rebuildAll(); });
   $("#setMax").addEventListener("change",e=>{ settings.max=+e.target.value; saveSettings(); rebuildAll(); });
+  $("#setBillsCb").addEventListener("change",e=>{ settings.bills=e.target.checked; saveSettings(); rebuildAll(); });
   $("#setLabelsCb").addEventListener("change",e=>{ settings.labels=e.target.checked; saveSettings(); rebuildAll(); });
   $("#setAuto").addEventListener("change",e=>{ settings.autoRead=e.target.checked; saveSettings(); });
   $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
@@ -1328,7 +1435,7 @@ function buildPrintCards(){
     {title:t("mRead"), body:t("cardWrite"), svg:sz(220)+clockSVG(g2?10*60+10:9*60)+"</div>"},
     {title:t("mSet"), body:t("cardDraw",{time:ISO(g2?"7:15":"3:00")}), svg:sz(220)+clockSVG(0,{noHands:true})+"</div>"},
     {title:t("mSet"), body:t("cardDraw",{time:ISO(g2?"2:50":"8:30")}), svg:sz(220)+clockSVG(0,{noHands:true})+"</div>"},
-    {title:t("mCoin"), body:t("cardCount"), svg:coinsRow(g2?["quarter","dime","dime","nickel","penny","penny"]:["dime","dime","nickel","penny","penny","penny"])},
+    {title:t("mCoin"), body:t("cardCount"), svg:coinsRow(g2?(settings.bills?["bill5","bill1","quarter","dime","nickel","penny"]:["quarter","dime","dime","nickel","penny","penny"]):["dime","dime","nickel","penny","penny","penny"])},
     {title:t("mCoin"), body:t("rel_pd"), svg:coinsRow(["penny","dime"])},
     {title:t("mShop"), body:t("cardPay",{p:ISO(g2?"68¢":"37¢"),item:t("it_apple")}), svg:`<div style="font-size:4rem">🍎 <span style="border:3px dashed #c0392b;border-radius:10px;padding:0 .5rem;font-size:2.4rem;font-weight:900">${g2?"68¢":"37¢"}</span></div>`}
   ];
