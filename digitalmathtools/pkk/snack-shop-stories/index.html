@@ -90,6 +90,12 @@
   .feedback.show{display:flex}
   .feedback.good{background:#e6f4e9;border:3px solid var(--ok);color:var(--green-d)}
   .feedback.retry{background:#fff4e0;border:3px solid #d99a2b;color:#7a4f0c}
+  .eqopt{flex:1 1 240px;display:flex;align-items:center;gap:8px;min-width:0}
+  .eqopt .choicebig{min-width:0;direction:ltr;font-size:1.7rem;letter-spacing:1px}
+  .eqmat{display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;padding:10px}
+  .eqmat .eqtok{width:50px;height:50px;transition:opacity .6s ease,transform .6s ease}
+  .eqmat .eqtok.new{transform:scale(0);} .eqmat .eqtok.new.in{transform:scale(1);outline:3px dashed var(--ok);outline-offset:2px;border-radius:12px}
+  .eqmat .eqtok.gone{opacity:.22;filter:grayscale(1)}
   .equation{font-size:1.5rem;font-weight:900;letter-spacing:1px;margin-top:8px;color:var(--accent-d);direction:ltr;text-align:center}
   .controls{display:flex;gap:12px;flex-wrap:wrap;margin-top:4px}
   .overlay{position:fixed;inset:0;background:rgba(40,25,10,.55);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
@@ -345,9 +351,9 @@ I18N.en={
     levPrek3:'PreK 3',levPrek4:'PreK 4',levK:'Kindergarten',levKC:'Kindergarten Challenge',
     descPrek3:'Totals up to 3',descPrek4:'Joining up to 5 and separating from sets up to 5',descK:'Sums and differences within 10',descKC:'Make 10 in different ways',
     stdSummary:'Aligned standards',
-    stdP1:'Texas Prekindergarten Guidelines: PK3.V.B.1–2 and PK4.V.B.1–2 (joining and separating small sets).',
-    stdP2:'Texas Essential Knowledge and Skills — Kindergarten: K.3(A) model joining and separating; K.3(B) solve word problems within 10; K.3(C) explain strategies.',
-    stdP3:'Common Core — Kindergarten: K.OA.1–5 (represent, solve, and decompose within 10).',
+    stdP1:"Texas Prekindergarten Guidelines: PK3.V.B.1–2 and PK4.V.B.1–2 (joining and separating small sets); PK4.V.A.7 (compose and decompose numbers to 10).",
+    stdP2:"Texas Essential Knowledge and Skills — Kindergarten: K.2(I) compose and decompose numbers up to 10; K.3(A) model joining and separating; K.3(B) solve word problems within 10; K.3(C) explain strategies with objects, pictures, and number sentences.",
+    stdP3:"Common Core — Kindergarten: K.OA.1–4 (represent with objects and equations, solve word problems, decompose numbers, make 10).",
     footerLine:'No accounts · No data collected · Works offline',homeLink:'Home',privacyLink:'Privacy',
     teacherTitle:'Teacher Settings',numLevel:'Number level',optPrek3:'PreK 3 · to 3',optPrek4:'PreK 4 · to 5',optK:'Kindergarten · to 10',optKC:'K Challenge · make 10',
     practiceLabel:'Practice type for Join / Separate tabs',practiceFollow:'Follow the tab',practiceMixed:'Mixed (add & subtract)',
@@ -358,7 +364,8 @@ I18N.en={
     hintMain:'Tap or drag snacks from below.',hintMake:'Tap snacks below to add here.',
     readStory:'Read the story aloud',readFeedback:'Read the feedback aloud',addOne:'Add one snack',tapRemove:'tap to remove',choose:'Choose',
     storyJoinOpt:'They joined together',storySepOpt:'Some went away',
-    tab_ppw:'Part–Part–Whole',lunchbox:'Lunchbox',whole:'Whole',eatenPlate:'Eaten plate',hintHere:'Drag snacks here',tapEat:'drag or tap to take away',tapBack:'tap to put back',tapMove:'drag or tap to move',bondCap:'Number bond: the whole is on top, the two parts are below.'},
+    tab_ppw:'Part–Part–Whole',lunchbox:'Lunchbox',whole:'Whole',eatenPlate:'Eaten plate',hintHere:'Drag snacks here',tapEat:'drag or tap to take away',tapBack:'tap to put back',tapMove:'drag or tap to move',bondCap:'Number bond: the whole is on top, the two parts are below.',
+    eqInstr:"Which number sentence tells the story? Tap it.",eqHear:"Hear this number sentence",eqPlusSay:"{a} plus {b} equals {c}",eqMinusSay:"{a} minus {b} equals {c}",eqWinJoin:"Yes! {a} and {b} more make {c}. Plus means we join.",eqWinSep:"Yes! {a} take away {b} leaves {c}. Minus means we take away.",eqOpJoin:"Look again. In this story more snacks came. Joining makes more, so we use plus.",eqOpSep:"Look again. In this story some snacks were eaten. Taking away makes fewer, so we use minus.",eqNum:"Check the numbers. The story has {a} and {b}. Find the sentence that uses {a} and {b}."},
   ppw:{
     story:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],nf=function(n){return n===1?sp.s:sp.p},W=p.total,k=p.a,r=p.b;
       if(p.kind==='part')return 'There are '+w(W)+' '+nf(W)+' on the plate. Put '+w(k)+' in the lunchbox. How many '+sp.p+' are left on the plate?';
@@ -409,9 +416,9 @@ I18N.es={
     levPrek3:'PreK 3',levPrek4:'PreK 4',levK:'Kínder',levKC:'Kínder Desafío',
     descPrek3:'Totales hasta 3',descPrek4:'Unir hasta 5 y separar de conjuntos hasta 5',descK:'Sumas y restas hasta 10',descKC:'Formar 10 de diferentes maneras',
     stdSummary:'Estándares alineados',
-    stdP1:'Guías de Prekínder de Texas: PK3.V.B.1–2 y PK4.V.B.1–2 (unir y separar conjuntos pequeños).',
-    stdP2:'TEKS — Kínder: K.3(A) modelar unir y separar; K.3(B) resolver problemas hasta 10; K.3(C) explicar estrategias.',
-    stdP3:'Common Core — Kínder: K.OA.1–5 (representar, resolver y descomponer hasta 10).',
+    stdP1:"Guías de Prekínder de Texas: PK3.V.B.1–2 y PK4.V.B.1–2 (unir y separar conjuntos pequeños); PK4.V.A.7 (componer y descomponer números hasta 10).",
+    stdP2:"TEKS — Kínder: K.2(I) componer y descomponer números hasta 10; K.3(A) modelar unir y separar; K.3(B) resolver problemas hasta 10; K.3(C) explicar estrategias con objetos, dibujos y oraciones numéricas.",
+    stdP3:"Common Core — Kínder: K.OA.1–4 (representar con objetos y ecuaciones, resolver problemas, descomponer números, formar 10).",
     footerLine:'Sin cuentas · Sin datos · Funciona sin conexión',homeLink:'Inicio',privacyLink:'Privacidad',
     teacherTitle:'Ajustes del maestro',numLevel:'Nivel numérico',optPrek3:'PreK 3 · hasta 3',optPrek4:'PreK 4 · hasta 5',optK:'Kínder · hasta 10',optKC:'Kínder Desafío · formar 10',
     practiceLabel:'Tipo de práctica para Unir / Separar',practiceFollow:'Seguir la pestaña',practiceMixed:'Mixto (sumar y restar)',
@@ -422,7 +429,8 @@ I18N.es={
     hintMain:'Toca o arrastra snacks desde abajo.',hintMake:'Toca los snacks de abajo para agregarlos aquí.',
     readStory:'Leer el cuento en voz alta',readFeedback:'Leer la respuesta en voz alta',addOne:'Agregar un snack',tapRemove:'toca para quitar',choose:'Elige',
     storyJoinOpt:'Se unieron',storySepOpt:'Algunos se fueron',
-    tab_ppw:'Parte–Parte–Todo',lunchbox:'Lonchera',whole:'Todo',eatenPlate:'Plato de lo comido',hintHere:'Arrastra snacks aquí',tapEat:'arrastra o toca para quitar',tapBack:'toca para regresar',tapMove:'arrastra o toca para mover',bondCap:'Vínculo numérico: el todo está arriba y las dos partes abajo.'},
+    tab_ppw:'Parte–Parte–Todo',lunchbox:'Lonchera',whole:'Todo',eatenPlate:'Plato de lo comido',hintHere:'Arrastra snacks aquí',tapEat:'arrastra o toca para quitar',tapBack:'toca para regresar',tapMove:'arrastra o toca para mover',bondCap:'Vínculo numérico: el todo está arriba y las dos partes abajo.',
+    eqInstr:"¿Qué oración numérica cuenta la historia? Tócala.",eqHear:"Escuchar esta oración numérica",eqPlusSay:"{a} más {b} es igual a {c}",eqMinusSay:"{a} menos {b} es igual a {c}",eqWinJoin:"¡Sí! {a} y {b} más son {c}. Más significa que juntamos.",eqWinSep:"¡Sí! A {a} le quitamos {b} y quedan {c}. Menos significa que quitamos.",eqOpJoin:"Mira otra vez. En esta historia llegaron más snacks. Juntar da más, por eso usamos más (+).",eqOpSep:"Mira otra vez. En esta historia se comieron algunos snacks. Quitar da menos, por eso usamos menos (−).",eqNum:"Revisa los números. La historia tiene {a} y {b}. Busca la oración que usa {a} y {b}."},
   ppw:{
     story:function(Q,p){var sp=Q.snacks[p.snack],w=function(n){return Q.words[n]},c=function(n){return n===1?(sp.g==='f'?'una':'un'):w(n)},cu=sp.g==='f'?'Cuántas':'Cuántos',nf=function(n){return n===1?sp.s:sp.p},W=p.total,k=p.a,r=p.b;
       if(p.kind==='part')return 'Hay '+c(W)+' '+nf(W)+' en el plato. Pon '+c(k)+' en la lonchera. ¿'+cu+' '+sp.p+' quedan en el plato?';
@@ -473,9 +481,9 @@ I18N.vi={
     levPrek3:'Mầm non 3',levPrek4:'Mầm non 4',levK:'Mẫu giáo',levKC:'Mẫu giáo Thử thách',
     descPrek3:'Tổng đến 3',descPrek4:'Gộp đến 5 và tách từ nhóm đến 5',descK:'Cộng và trừ trong phạm vi 10',descKC:'Tạo số 10 theo nhiều cách',
     stdSummary:'Tiêu chuẩn liên quan',
-    stdP1:'Hướng dẫn Mầm non Texas: PK3.V.B.1–2 và PK4.V.B.1–2 (gộp và tách nhóm nhỏ).',
-    stdP2:'TEKS — Mẫu giáo: K.3(A) mô hình gộp và tách; K.3(B) giải toán đố trong phạm vi 10; K.3(C) giải thích cách làm.',
-    stdP3:'Common Core — Mẫu giáo: K.OA.1–5 (biểu diễn, giải và phân tách trong phạm vi 10).',
+    stdP1:"Hướng dẫn Mầm non Texas: PK3.V.B.1–2 và PK4.V.B.1–2 (gộp và tách nhóm nhỏ); PK4.V.A.7 (gộp và tách số đến 10).",
+    stdP2:"TEKS — Mẫu giáo: K.2(I) gộp và tách số đến 10; K.3(A) mô hình gộp và tách; K.3(B) giải toán đố trong phạm vi 10; K.3(C) giải thích cách làm bằng đồ vật, hình vẽ và phép tính.",
+    stdP3:"Common Core — Mẫu giáo: K.OA.1–4 (biểu diễn bằng đồ vật và phép tính, giải toán đố, tách số, tạo số 10).",
     footerLine:'Không tài khoản · Không thu thập dữ liệu · Dùng ngoại tuyến',homeLink:'Trang chủ',privacyLink:'Quyền riêng tư',
     teacherTitle:'Cài đặt cho giáo viên',numLevel:'Mức số',optPrek3:'Mầm non 3 · đến 3',optPrek4:'Mầm non 4 · đến 5',optK:'Mẫu giáo · đến 10',optKC:'Thử thách · tạo 10',
     practiceLabel:'Kiểu luyện cho thẻ Gộp / Tách',practiceFollow:'Theo thẻ',practiceMixed:'Hỗn hợp (cộng và trừ)',
@@ -486,7 +494,8 @@ I18N.vi={
     hintMain:'Chạm hoặc kéo món ăn từ bên dưới.',hintMake:'Chạm món ăn bên dưới để thêm vào đây.',
     readStory:'Đọc to câu chuyện',readFeedback:'Đọc to phản hồi',addOne:'Thêm một món',tapRemove:'chạm để bỏ',choose:'Chọn',
     storyJoinOpt:'Chúng gộp lại',storySepOpt:'Một số rời đi',
-    tab_ppw:'Phần–Phần–Tổng',lunchbox:'Hộp cơm',whole:'Tổng',eatenPlate:'Đĩa đồ đã ăn',hintHere:'Kéo món ăn vào đây',tapEat:'kéo hoặc chạm để lấy đi',tapBack:'chạm để đặt lại',tapMove:'kéo hoặc chạm để di chuyển',bondCap:'Sơ đồ tách gộp: tổng ở trên, hai phần ở dưới.'},
+    tab_ppw:'Phần–Phần–Tổng',lunchbox:'Hộp cơm',whole:'Tổng',eatenPlate:'Đĩa đồ đã ăn',hintHere:'Kéo món ăn vào đây',tapEat:'kéo hoặc chạm để lấy đi',tapBack:'chạm để đặt lại',tapMove:'kéo hoặc chạm để di chuyển',bondCap:'Sơ đồ tách gộp: tổng ở trên, hai phần ở dưới.',
+    eqInstr:"Phép tính nào kể đúng câu chuyện? Hãy chạm vào nó.",eqHear:"Nghe phép tính này",eqPlusSay:"{a} cộng {b} bằng {c}",eqMinusSay:"{a} trừ {b} bằng {c}",eqWinJoin:"Đúng rồi! {a} thêm {b} là {c}. Dấu cộng nghĩa là gộp lại.",eqWinSep:"Đúng rồi! {a} bớt {b} còn {c}. Dấu trừ nghĩa là lấy đi.",eqOpJoin:"Nhìn lại nhé. Trong chuyện này có thêm món ăn đến. Gộp lại thì nhiều hơn, nên ta dùng dấu cộng (+).",eqOpSep:"Nhìn lại nhé. Trong chuyện này có món ăn bị ăn mất. Lấy đi thì ít hơn, nên ta dùng dấu trừ (−).",eqNum:"Kiểm tra các số. Câu chuyện có {a} và {b}. Hãy tìm phép tính có {a} và {b}."},
   ppw:{
     story:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
       if(p.kind==='part')return 'Có '+w(W)+' '+sp.p+' trên đĩa. Bỏ '+w(k)+' cái vào hộp cơm. Còn lại bao nhiêu '+sp.p+' trên đĩa?';
@@ -537,9 +546,9 @@ I18N.ar={
     levPrek3:'روضة 3',levPrek4:'روضة 4',levK:'الروضة',levKC:'الروضة تحدٍّ',
     descPrek3:'مجاميع حتى 3',descPrek4:'الجمع حتى 5 والطرح من مجموعات حتى 5',descK:'الجمع والطرح ضمن 10',descKC:'تكوين 10 بطرق مختلفة',
     stdSummary:'المعايير المرتبطة',
-    stdP1:'إرشادات ما قبل الروضة في تكساس: PK3.V.B.1–2 وPK4.V.B.1–2 (جمع وفصل مجموعات صغيرة).',
-    stdP2:'TEKS — الروضة: K.3(A) تمثيل الجمع والفصل؛ K.3(B) حل المسائل ضمن 10؛ K.3(C) شرح الاستراتيجيات.',
-    stdP3:'Common Core — الروضة: K.OA.1–5 (التمثيل والحل والتحليل ضمن 10).',
+    stdP1:"إرشادات ما قبل الروضة في تكساس: PK3.V.B.1–2 وPK4.V.B.1–2 (جمع وفصل مجموعات صغيرة)؛ PK4.V.A.7 (تركيب الأعداد حتى 10 وتحليلها).",
+    stdP2:"TEKS — الروضة: K.2(I) تركيب الأعداد حتى 10 وتحليلها؛ K.3(A) تمثيل الجمع والفصل؛ K.3(B) حل المسائل ضمن 10؛ K.3(C) شرح الاستراتيجيات بالأشياء والصور والجمل العددية.",
+    stdP3:"Common Core — الروضة: K.OA.1–4 (التمثيل بالأشياء والمعادلات، حل المسائل، تحليل الأعداد، تكوين 10).",
     footerLine:'بلا حسابات · بلا جمع بيانات · يعمل دون اتصال',homeLink:'الرئيسية',privacyLink:'الخصوصية',
     teacherTitle:'إعدادات المعلّم',numLevel:'مستوى الأعداد',optPrek3:'روضة 3 · حتى 3',optPrek4:'روضة 4 · حتى 5',optK:'الروضة · حتى 10',optKC:'تحدٍّ · تكوين 10',
     practiceLabel:'نوع التمرين لتبويبَي الجمع / الطرح',practiceFollow:'اتبع التبويب',practiceMixed:'مختلط (جمع وطرح)',
@@ -550,7 +559,8 @@ I18N.ar={
     hintMain:'انقر أو اسحب الوجبات من الأسفل.',hintMake:'انقر الوجبات في الأسفل لإضافتها هنا.',
     readStory:'اقرأ القصة بصوت عالٍ',readFeedback:'اقرأ الملاحظة بصوت عالٍ',addOne:'أضف وجبة',tapRemove:'انقر للإزالة',choose:'اختر',
     storyJoinOpt:'اجتمعت معاً',storySepOpt:'ذهب بعضها',
-    tab_ppw:'جزء–جزء–كل',lunchbox:'علبة الغداء',whole:'الكل',eatenPlate:'طبق المأكول',hintHere:'اسحب الوجبات إلى هنا',tapEat:'اسحب أو انقر للأخذ',tapBack:'انقر للإرجاع',tapMove:'اسحب أو انقر للنقل',bondCap:'رابطة الأعداد: الكل في الأعلى، والجزءان في الأسفل.'},
+    tab_ppw:'جزء–جزء–كل',lunchbox:'علبة الغداء',whole:'الكل',eatenPlate:'طبق المأكول',hintHere:'اسحب الوجبات إلى هنا',tapEat:'اسحب أو انقر للأخذ',tapBack:'انقر للإرجاع',tapMove:'اسحب أو انقر للنقل',bondCap:'رابطة الأعداد: الكل في الأعلى، والجزءان في الأسفل.',
+    eqInstr:"أي جملة عددية تحكي القصة؟ المسها.",eqHear:"استمع إلى هذه الجملة العددية",eqPlusSay:"{a} زائد {b} يساوي {c}",eqMinusSay:"{a} ناقص {b} يساوي {c}",eqWinJoin:"نعم! {a} زائد {b} يساوي {c}. علامة زائد تعني أننا نجمع.",eqWinSep:"نعم! {a} ناقص {b} يساوي {c}. علامة ناقص تعني أننا نأخذ.",eqOpJoin:"انظر مرة أخرى. في هذه القصة جاءت وجبات أكثر. الجمع يجعلها أكثر، لذلك نستخدم زائد (+).",eqOpSep:"انظر مرة أخرى. في هذه القصة أُكلت بعض الوجبات. الأخذ يجعلها أقل، لذلك نستخدم ناقص (−).",eqNum:"تحقّق من الأعداد. في القصة {a} و{b}. ابحث عن الجملة التي فيها {a} و{b}."},
   ppw:{
     story:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
       if(p.kind==='part')return 'يوجد '+w(W)+' '+sp.p+' في الطبق. ضع '+w(k)+' في علبة الغداء. كم عدد '+sp.p+' الباقية في الطبق؟';
@@ -601,9 +611,9 @@ I18N.hi={
     levPrek3:'प्री-के 3',levPrek4:'प्री-के 4',levK:'किंडरगार्टन',levKC:'किंडरगार्टन चुनौती',
     descPrek3:'योग 3 तक',descPrek4:'5 तक जोड़ना और 5 तक के समूह से घटाना',descK:'10 के भीतर जोड़ और घटाव',descKC:'10 को अलग-अलग तरीकों से बनाना',
     stdSummary:'संरेखित मानक',
-    stdP1:'टेक्सास प्री-किंडरगार्टन दिशानिर्देश: PK3.V.B.1–2 और PK4.V.B.1–2 (छोटे समूह जोड़ना और अलग करना)।',
-    stdP2:'TEKS — किंडरगार्टन: K.3(A) जोड़ना-अलग करना मॉडल; K.3(B) 10 के भीतर शब्द-समस्याएँ; K.3(C) रणनीति समझाना।',
-    stdP3:'Common Core — किंडरगार्टन: K.OA.1–5 (10 के भीतर दर्शाना, हल करना और विभाजित करना)।',
+    stdP1:"टेक्सास प्री-किंडरगार्टन दिशानिर्देश: PK3.V.B.1–2 और PK4.V.B.1–2 (छोटे समूह जोड़ना और अलग करना); PK4.V.A.7 (10 तक की संख्याएँ बनाना और तोड़ना)।",
+    stdP2:"TEKS — किंडरगार्टन: K.2(I) 10 तक की संख्याएँ बनाना और तोड़ना; K.3(A) जोड़ना-अलग करना मॉडल; K.3(B) 10 के भीतर शब्द-समस्याएँ; K.3(C) वस्तुओं, चित्रों और संख्या वाक्यों से रणनीति समझाना।",
+    stdP3:"Common Core — किंडरगार्टन: K.OA.1–4 (वस्तुओं और समीकरणों से दर्शाना, शब्द-समस्याएँ हल करना, संख्याएँ तोड़ना, 10 बनाना)।",
     footerLine:'कोई खाता नहीं · कोई डेटा नहीं · ऑफ़लाइन काम करता है',homeLink:'होम',privacyLink:'गोपनीयता',
     teacherTitle:'शिक्षक सेटिंग्स',numLevel:'संख्या स्तर',optPrek3:'प्री-के 3 · 3 तक',optPrek4:'प्री-के 4 · 5 तक',optK:'किंडरगार्टन · 10 तक',optKC:'चुनौती · 10 बनाओ',
     practiceLabel:'जोड़ना / अलग करना टैब के लिए अभ्यास प्रकार',practiceFollow:'टैब के अनुसार',practiceMixed:'मिश्रित (जोड़ और घटाव)',
@@ -614,7 +624,8 @@ I18N.hi={
     hintMain:'नीचे से नाश्ते टैप या खींचो।',hintMake:'यहाँ जोड़ने के लिए नीचे के नाश्ते टैप करो।',
     readStory:'कहानी ज़ोर से पढ़ो',readFeedback:'प्रतिक्रिया ज़ोर से पढ़ो',addOne:'एक नाश्ता जोड़ो',tapRemove:'हटाने के लिए टैप',choose:'चुनो',
     storyJoinOpt:'वे जुड़ गए',storySepOpt:'कुछ चले गए',
-    tab_ppw:'भाग–भाग–पूर्ण',lunchbox:'लंचबॉक्स',whole:'पूरा',eatenPlate:'खाए हुए की प्लेट',hintHere:'नाश्ते यहाँ खींचो',tapEat:'हटाने के लिए खींचो या टैप करो',tapBack:'वापस रखने के लिए टैप',tapMove:'हिलाने के लिए खींचो या टैप करो',bondCap:'संख्या बंधन: ऊपर पूरा, नीचे दो भाग।'},
+    tab_ppw:'भाग–भाग–पूर्ण',lunchbox:'लंचबॉक्स',whole:'पूरा',eatenPlate:'खाए हुए की प्लेट',hintHere:'नाश्ते यहाँ खींचो',tapEat:'हटाने के लिए खींचो या टैप करो',tapBack:'वापस रखने के लिए टैप',tapMove:'हिलाने के लिए खींचो या टैप करो',bondCap:'संख्या बंधन: ऊपर पूरा, नीचे दो भाग।',
+    eqInstr:"कौन-सा संख्या वाक्य कहानी बताता है? उसे छुओ।",eqHear:"यह संख्या वाक्य सुनो",eqPlusSay:"{a} जमा {b} बराबर {c}",eqMinusSay:"{a} घटा {b} बराबर {c}",eqWinJoin:"हाँ! {a} जमा {b} बराबर {c}। जमा का मतलब है जोड़ना।",eqWinSep:"हाँ! {a} घटा {b} बराबर {c}। घटा का मतलब है निकालना।",eqOpJoin:"फिर से देखो। इस कहानी में और नाश्ता आया। जोड़ने से ज़्यादा होता है, इसलिए हम जमा (+) लगाते हैं।",eqOpSep:"फिर से देखो। इस कहानी में कुछ नाश्ता खा लिया गया। निकालने से कम होता है, इसलिए हम घटा (−) लगाते हैं।",eqNum:"संख्याएँ जाँचो। कहानी में {a} और {b} हैं। वह वाक्य ढूँढो जिसमें {a} और {b} हों।"},
   ppw:{
     story:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
       if(p.kind==='part')return 'प्लेट पर '+w(W)+' '+sp.p+' हैं। '+w(k)+' लंचबॉक्स में रखो। प्लेट पर कितने '+sp.p+' बचे हैं?';
@@ -665,9 +676,9 @@ I18N.ur={
     levPrek3:'پری-کے 3',levPrek4:'پری-کے 4',levK:'کنڈرگارٹن',levKC:'کنڈرگارٹن چیلنج',
     descPrek3:'مجموعے 3 تک',descPrek4:'5 تک جوڑنا اور 5 تک کے مجموعوں سے گھٹانا',descK:'10 کے اندر جمع اور تفریق',descKC:'10 کو مختلف طریقوں سے بنانا',
     stdSummary:'ہم آہنگ معیارات',
-    stdP1:'ٹیکساس پری-کنڈرگارٹن رہنما اصول: PK3.V.B.1–2 اور PK4.V.B.1–2 (چھوٹے مجموعے جوڑنا اور الگ کرنا)۔',
-    stdP2:'TEKS — کنڈرگارٹن: K.3(A) جوڑنا اور الگ کرنا؛ K.3(B) 10 کے اندر مسائل حل کرنا؛ K.3(C) طریقے سمجھانا۔',
-    stdP3:'Common Core — کنڈرگارٹن: K.OA.1–5 (10 کے اندر ظاہر کرنا، حل کرنا اور تقسیم کرنا)۔',
+    stdP1:"ٹیکساس پری-کنڈرگارٹن رہنما اصول: PK3.V.B.1–2 اور PK4.V.B.1–2 (چھوٹے مجموعے جوڑنا اور الگ کرنا)؛ PK4.V.A.7 (10 تک کے اعداد بنانا اور توڑنا)۔",
+    stdP2:"TEKS — کنڈرگارٹن: K.2(I) 10 تک کے اعداد بنانا اور توڑنا؛ K.3(A) جوڑنا اور الگ کرنا؛ K.3(B) 10 کے اندر مسائل حل کرنا؛ K.3(C) چیزوں، تصویروں اور عددی جملوں سے طریقے سمجھانا۔",
+    stdP3:"Common Core — کنڈرگارٹن: K.OA.1–4 (چیزوں اور مساواتوں سے ظاہر کرنا، مسائل حل کرنا، اعداد توڑنا، 10 بنانا)۔",
     footerLine:'کوئی اکاؤنٹ نہیں · کوئی ڈیٹا نہیں · آف لائن چلتا ہے',homeLink:'ہوم',privacyLink:'رازداری',
     teacherTitle:'استاد کی ترتیبات',numLevel:'عدد کی سطح',optPrek3:'پری-کے 3 · 3 تک',optPrek4:'پری-کے 4 · 5 تک',optK:'کنڈرگارٹن · 10 تک',optKC:'چیلنج · 10 بناؤ',
     practiceLabel:'جوڑنا / الگ کرنا ٹیب کے لیے مشق کی قسم',practiceFollow:'ٹیب کے مطابق',practiceMixed:'ملا جلا (جمع اور تفریق)',
@@ -678,7 +689,8 @@ I18N.ur={
     hintMain:'نیچے سے ناشتے ٹیپ یا کھینچو۔',hintMake:'یہاں جوڑنے کے لیے نیچے کے ناشتے ٹیپ کرو۔',
     readStory:'کہانی بلند آواز میں پڑھو',readFeedback:'جواب بلند آواز میں پڑھو',addOne:'ایک ناشتہ جوڑو',tapRemove:'ہٹانے کے لیے ٹیپ',choose:'چنو',
     storyJoinOpt:'وہ مل گئے',storySepOpt:'کچھ چلے گئے',
-    tab_ppw:'حصہ–حصہ–کل',lunchbox:'لنچ باکس',whole:'پورا',eatenPlate:'کھائے ہوئے کی پلیٹ',hintHere:'ناشتے یہاں کھینچو',tapEat:'ہٹانے کے لیے کھینچو یا ٹیپ کرو',tapBack:'واپس رکھنے کے لیے ٹیپ',tapMove:'ہلانے کے لیے کھینچو یا ٹیپ کرو',bondCap:'عددی بندھن: اوپر پورا، نیچے دو حصے۔'},
+    tab_ppw:'حصہ–حصہ–کل',lunchbox:'لنچ باکس',whole:'پورا',eatenPlate:'کھائے ہوئے کی پلیٹ',hintHere:'ناشتے یہاں کھینچو',tapEat:'ہٹانے کے لیے کھینچو یا ٹیپ کرو',tapBack:'واپس رکھنے کے لیے ٹیپ',tapMove:'ہلانے کے لیے کھینچو یا ٹیپ کرو',bondCap:'عددی بندھن: اوپر پورا، نیچے دو حصے۔',
+    eqInstr:"کون سا عددی جملہ کہانی بتاتا ہے؟ اسے چھوؤ۔",eqHear:"یہ عددی جملہ سنو",eqPlusSay:"{a} جمع {b} برابر {c}",eqMinusSay:"{a} منفی {b} برابر {c}",eqWinJoin:"ہاں! {a} جمع {b} برابر {c}۔ جمع کا مطلب ہے ملانا۔",eqWinSep:"ہاں! {a} منفی {b} برابر {c}۔ منفی کا مطلب ہے ہٹانا۔",eqOpJoin:"دوبارہ دیکھو۔ اس کہانی میں اور ناشتے آئے۔ ملانے سے زیادہ ہوتے ہیں، اس لیے ہم جمع (+) لگاتے ہیں۔",eqOpSep:"دوبارہ دیکھو۔ اس کہانی میں کچھ ناشتے کھا لیے گئے۔ ہٹانے سے کم ہوتے ہیں، اس لیے ہم منفی (−) لگاتے ہیں۔",eqNum:"نمبر جانچو۔ کہانی میں {a} اور {b} ہیں۔ وہ جملہ ڈھونڈو جس میں {a} اور {b} ہوں۔"},
   ppw:{
     story:function(Q,p){var w=function(n){return Q.words[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
       if(p.kind==='part')return 'پلیٹ پر '+w(W)+' '+sp.p+' ہیں۔ '+w(k)+' لنچ باکس میں رکھو۔ پلیٹ پر کتنے '+sp.p+' بچے ہیں؟';
@@ -730,9 +742,9 @@ I18N.zh={
     levPrek3:'幼儿园小班',levPrek4:'幼儿园中班',levK:'幼儿园大班',levKC:'大班挑战',
     descPrek3:'总数不超过 3',descPrek4:'合并到 5，从不超过 5 的组里分开',descK:'10 以内的加减法',descKC:'用不同方法凑成 10',
     stdSummary:'对应标准',
-    stdP1:'德州学前指南：PK3.V.B.1–2 和 PK4.V.B.1–2（合并与分开小的集合）。',
-    stdP2:'TEKS — 幼儿园：K.3(A) 建立合并与分开模型；K.3(B) 解决 10 以内应用题；K.3(C) 说明策略。',
-    stdP3:'共同核心 — 幼儿园：K.OA.1–5（在 10 以内表示、求解与分解）。',
+    stdP1:"德州学前指南：PK3.V.B.1–2 和 PK4.V.B.1–2（合并与分开小的集合）；PK4.V.A.7（10以内数的组成与分解）。",
+    stdP2:"TEKS — 幼儿园：K.2(I) 10以内数的组成与分解；K.3(A) 建立合并与分开模型；K.3(B) 解决 10 以内应用题；K.3(C) 用实物、图画和算式说明策略。",
+    stdP3:"共同核心 — 幼儿园：K.OA.1–4（用实物和算式表示、解决应用题、分解数、凑成 10）。",
     footerLine:'无账户 · 不收集数据 · 可离线使用',homeLink:'首页',privacyLink:'隐私',
     teacherTitle:'老师设置',numLevel:'数字级别',optPrek3:'小班 · 到 3',optPrek4:'中班 · 到 5',optK:'大班 · 到 10',optKC:'挑战 · 凑 10',
     practiceLabel:'合并/分开标签的练习类型',practiceFollow:'跟随标签',practiceMixed:'混合（加与减）',
@@ -743,7 +755,8 @@ I18N.zh={
     hintMain:'点击或拖动下面的零食。',hintMake:'点击下面的零食加到这里。',
     readStory:'朗读故事',readFeedback:'朗读反馈',addOne:'加一个零食',tapRemove:'点击移除',choose:'选择',
     storyJoinOpt:'它们合在一起了',storySepOpt:'一些离开了',
-    tab_ppw:'部分–部分–整体',lunchbox:'午餐盒',whole:'整体',eatenPlate:'吃掉的盘子',hintHere:'把零食拖到这里',tapEat:'拖动或点击拿走',tapBack:'点击放回',tapMove:'拖动或点击移动',bondCap:'数的分合：整体在上面，两个部分在下面。'},
+    tab_ppw:'部分–部分–整体',lunchbox:'午餐盒',whole:'整体',eatenPlate:'吃掉的盘子',hintHere:'把零食拖到这里',tapEat:'拖动或点击拿走',tapBack:'点击放回',tapMove:'拖动或点击移动',bondCap:'数的分合：整体在上面，两个部分在下面。',
+    eqInstr:"哪个算式讲的是这个故事？点一点它。",eqHear:"听这个算式",eqPlusSay:"{a}加{b}等于{c}",eqMinusSay:"{a}减{b}等于{c}",eqWinJoin:"对了！{a}再来{b}个，一共是{c}。加号表示合起来。",eqWinSep:"对了！{a}拿走{b}，还剩{c}。减号表示拿走。",eqOpJoin:"再看一看。这个故事里又来了一些零食。合起来会变多，所以用加号（+）。",eqOpSep:"再看一看。这个故事里有些零食被吃掉了。拿走会变少，所以用减号（−）。",eqNum:"检查一下数字。故事里有{a}和{b}。找出用了{a}和{b}的算式。"},
   ppw:{
     story:function(Q,p){var c=function(n){return Q.cw[n]},sp=Q.snacks[p.snack],W=p.total,k=p.a,r=p.b;
       if(p.kind==='part')return '盘子上有'+c(W)+'个'+sp.p+'。把'+c(k)+'个放进午餐盒。盘子上还剩几个'+sp.p+'？';
@@ -899,6 +912,7 @@ function makeProblem(){
   if(op==='join'){ total=rand(2,Math.max(2,max)); a=rand(1,total-1); b=total-a; answer=total; }
   else if(op==='separate'){ a=rand(2,Math.max(2,max)); b=rand(1,a-1); answer=a-b; }
   else{ total=rand(2,Math.max(2,max)); answer=total; }
+  if(op==='story'&&settings.equations&&(settings.level==='k'||settings.level==='kchallenge')&&Math.random()<0.5) return eqProblem(scene,snack);
   return {op:op,storyOp:(op==='story'?(Math.random()<0.5?'join':'separate'):null),snack:snack,scene:scene,max:max,a:a,b:b,answer:answer,total:total,
     phase:(op==='make'?'build':(mode==='story'?'watch':'start')),
     zones:(op==='make'?{g1:[],g2:[]}:{main:[]}),activeZone:'g1',solved:false};
@@ -910,7 +924,21 @@ function ppwProblem(max,scene,snack){
   ppwReset(p); return p;
 }
 function ppwReset(p){ p.zones={plate:[],box:[]}; for(var i=0;i<p.total;i++) p.zones.plate.push({}); p.phase='split'; p.solved=false; }
-function storyText(){ return P.op==='ppw'?L().ppw.story(L(),P):L().story(L(),P); }
+/* Tell the Story, Kindergarten: which number sentence matches a join / separate story? (K.3C, K.OA.1)
+   Choices: the match, the same numbers with the other sign, and the same sign with a different change amount. */
+function eqProblem(scene,snack){
+  var eo=Math.random()<0.5?'join':'separate',a,b;
+  if(eo==='join'){ a=rand(2,7); b=rand(1,Math.min(a-1,10-a)); } else { a=rand(3,10); b=rand(1,a-1); }
+  var b2=(eo==='join'||b+1<a)?b+1:b-1;
+  function eq(o,x,y){ return {op:o,a:x,b:y,c:o==='join'?x+y:x-y}; }
+  var opts=[eq(eo,a,b),eq(eo==='join'?'separate':'join',a,b),eq(eo,a,b2)];
+  opts[0].ok=true; opts[1].why='op'; opts[2].why='num';
+  return {op:'story',storyOp:'eq',eqOp:eo,snack:snack,scene:scene,max:10,a:a,b:b,answer:opts[0].c,total:null,eqOpts:shuffle(opts),phase:'watch',zones:{main:[]},activeZone:'g1',solved:false};
+}
+function fmt(k,o){ var s=T(k); for(var x in o) s=s.split('{'+x+'}').join(o[x]); return s.replace(/(^|[.!?]\s+)(\p{Ll})/gu,function(m,a,c){ return a+c.toUpperCase(); }); } // number words may start a sentence
+function eqStr(e){ return e.a+(e.op==='join'?' + ':' − ')+e.b+' = '+e.c; }
+function eqSay(e){ var w=L().words; return fmt(e.op==='join'?'eqPlusSay':'eqMinusSay',{a:w[e.a]||e.a,b:w[e.b]||e.b,c:w[e.c]||e.c}); }
+function storyText(){ if(P.storyOp==='eq') return L().story(L(),{op:P.eqOp,a:P.a,b:P.b,snack:P.snack,scene:P.scene}); return P.op==='ppw'?L().ppw.story(L(),P):L().story(L(),P); }
 function ownProblem(snack,op,a,b){
   var scene=pick(SCENES);
   var answer=op==='join'?a+b:a-b;
@@ -1070,7 +1098,7 @@ function refreshStepBtn(){
   if(P.phase==='answer'||P.phase==='done'){ els.stepBtn.style.display='none'; return; }
   els.stepBtn.style.display=''; els.stepBtn.disabled=(P.zones.main.length!==neededForStep());
 }
-function setInstruction(){ els.instruction.textContent=P.op==='ppw'?L().ppw.instr(L(),P):L().instr(L(),P); }
+function setInstruction(){ els.instruction.textContent=P.storyOp==='eq'?T('eqInstr'):(P.op==='ppw'?L().ppw.instr(L(),P):L().instr(L(),P)); }
 function onStep(){
   if(P.op==='ppw'){
     if(P.phase!=='split') return;
@@ -1122,7 +1150,37 @@ function addTryAnother(){
 }
 
 /* ===== Tell the Story ===== */
+function renderEqAnim(){
+  els.matWrap.innerHTML='';
+  var mat=document.createElement('div'), toks=[]; mat.className='mat eqmat '+P.scene.id;
+  for(var i=0;i<P.a;i++){ var d=mkStatic(); d.className='eqtok'; mat.appendChild(d); toks.push(d); }
+  var add=[]; if(P.eqOp==='join') for(var j=0;j<P.b;j++){ var n=mkStatic(); n.className='eqtok new'; mat.appendChild(n); add.push(n); }
+  els.matWrap.appendChild(mat);
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches, q=P;
+  setTimeout(function(){ if(P!==q) return; if(q.eqOp==='join') add.forEach(function(n){ n.classList.add('in'); }); else toks.slice(q.a-q.b).forEach(function(t){ t.classList.add('gone'); }); }, reduce?0:700);
+}
+function showEqChoices(){
+  els.storyChoices.style.display='flex'; els.storyChoices.innerHTML='';
+  P.eqOpts.forEach(function(e){
+    var row=document.createElement('div'); row.className='eqopt';
+    var b=document.createElement('button'); b.className='choicebig'; b.textContent=eqStr(e); b.setAttribute('aria-label',eqSay(e));
+    b.addEventListener('click',function(){ chooseEq(e,b); });
+    var sp=document.createElement('button'); sp.className='speaker sm'; sp.textContent='🔊'; sp.setAttribute('aria-label',T('eqHear')); sp.title=T('eqHear');
+    sp.addEventListener('click',function(){ speak(eqSay(e)); });
+    row.appendChild(b); row.appendChild(sp); els.storyChoices.appendChild(row);
+  });
+}
+function chooseEq(e,btn){
+  if(P.solved) return;
+  var w=L().words;
+  if(e.ok){ P.solved=true; btn.style.borderColor='var(--ok)'; btn.style.background='#e6f4e9';
+    els.storyChoices.querySelectorAll('.choicebig').forEach(function(x){ x.disabled=true; });
+    showFeedback(fmt(P.eqOp==='join'?'eqWinJoin':'eqWinSep',{a:w[P.a],b:w[P.b],c:w[P.answer]}),'good'); finishSolved(); }
+  else{ btn.style.borderColor='#b23'; btn.style.background='#fbe7ea'; btn.disabled=true;
+    showFeedback(e.why==='op'?T(P.eqOp==='join'?'eqOpJoin':'eqOpSep'):fmt('eqNum',{a:w[P.a],b:w[P.b]}),'retry'); }
+}
 function renderStoryAnim(){
+  if(P.storyOp==='eq'){ renderEqAnim(); return; }
   els.matWrap.innerHTML='';
   var mat=document.createElement('div'); mat.className='mat '+P.scene.id; mat.style.minHeight='170px'; mat.style.position='relative'; mat.style.overflow='hidden';
   var leftN,rightN;
@@ -1138,6 +1196,7 @@ function renderStoryAnim(){
 }
 function mkStatic(){ var d=document.createElement('div'); d.style.width='60px'; d.style.height='60px'; d.innerHTML=ART[P.snack]; return d; }
 function showStoryChoices(){
+  if(P.storyOp==='eq'){ showEqChoices(); return; }
   els.storyChoices.style.display='flex'; els.storyChoices.innerHTML='';
   var opts=[{k:'join',t:'➕ '+T('storyJoinOpt')},{k:'separate',t:'➖ '+T('storySepOpt')}];
   shuffle(opts).forEach(function(o){ var b=document.createElement('button'); b.className='choicebig'; b.textContent=o.t; b.addEventListener('click',function(){ chooseStory(o.k,b); }); els.storyChoices.appendChild(b); });
