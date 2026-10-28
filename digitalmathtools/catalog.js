@@ -245,7 +245,7 @@ window.MATHTOOLS = (function () {
     { id:"clock-and-coin-shop", collection:"k2", bandId:"k-2", icon:"🕒", accent:"#16a085",
       title:"Clock & Coin Shop", href:"k2/clock-and-coin-shop/index.html",
       tags:["Time","Money","Counting","Compare"],
-      kw:"time clock analog digital hour half hour minutes a.m. p.m. tell time money coins penny nickel dime quarter cents cent symbol count coins skip count shop pay purse reloj hora monedas dinero 时钟 硬币",
+      kw:"time clock analog digital hour half hour minutes a.m. p.m. tell time money coins penny nickel dime quarter cents cent symbol count coins skip count shop pay purse reloj hora monedas dinero 时钟 硬币 dollar bill dollars money word problems",
       desc:{
         en:"Read and set analog clocks to the hour, half hour, and 5 minutes, tell a.m. from p.m., identify U.S. coins, count collections, and pay exact prices in a play shop.",
         es:"Lee y pon la hora en relojes de manecillas (en punto, y media y cada 5 minutos), distingue a. m. de p. m., identifica monedas de EE. UU., cuenta colecciones y paga precios exactos en una tienda.",
@@ -257,7 +257,7 @@ window.MATHTOOLS = (function () {
     { id:"garden-measure-graph-lab", collection:"k2", bandId:"k-2", icon:"🌻", accent:"#8e44ad",
       title:"Garden Measure & Graph Lab", href:"k2/garden-measure-graph-lab/index.html",
       tags:["Length","Compare","Data","Picture graph","Bar graph","Line plot"],
-      kw:"measure measurement length units ruler inch inches centimeter cm gaps overlaps unit size estimate longer shorter order data tally sort picture graph pictograph bar graph line plot how many more fewer total garden medir regla gráfica 测量 图表",
+      kw:"measure measurement length units ruler inch inches centimeter cm gaps overlaps unit size estimate longer shorter order data tally sort picture graph pictograph bar graph line plot how many more fewer total garden medir regla gráfica 测量 图表 area square units cover rows string indirect compare scale key count by twos",
       desc:{
         en:"Measure garden objects with units and rulers, see why smaller units give bigger numbers, then sort data and build and read picture graphs, bar graphs, and line plots.",
         es:"Mide objetos del jardín con unidades y reglas, descubre por qué las unidades más pequeñas dan números más grandes, y luego clasifica datos y crea y lee pictogramas, gráficas de barras y diagramas de puntos.",
@@ -269,7 +269,7 @@ window.MATHTOOLS = (function () {
     { id:"base-ten-builders", collection:"k2", bandId:"k-2", icon:"🧱", accent:"#d35400",
       title:"Base-Ten Builders", href:"k2/base-ten-builders/index.html",
       tags:["Place value","Counting","Compare","Compose"],
-      kw:"place value base ten blocks hundreds tens ones flat rod cube regroup trade expanded form compare greater less equal 10 more 10 less 100 more hundred chart skip count number line valor posicional decenas unidades 位值",
+      kw:"place value base ten blocks hundreds tens ones flat rod cube regroup trade expanded form compare greater less equal 10 more 10 less 100 more hundred chart skip count number line valor posicional decenas unidades 位值 number names word form 1,200",
       desc:{
         en:"Build, read, and compare numbers to 1,000 with base-ten blocks, trade 10 ones for a ten, find 10 more and 10 less, and skip count on a number line.",
         es:"Construye, lee y compara números hasta 1,000 con bloques de base diez, cambia 10 unidades por una decena, encuentra 10 más y 10 menos, y cuenta salteado en la recta numérica.",
@@ -281,7 +281,7 @@ window.MATHTOOLS = (function () {
     { id:"pizza-party-shapes", collection:"k2", bandId:"k-2", icon:"🍕", accent:"#2980b9",
       title:"Pizza Party Shapes", href:"k2/pizza-party-shapes/index.html",
       tags:["2-D shapes","3-D solids","Attributes","Sort","Compose","Fractions"],
-      kw:"shape shapes geometry attribute sides vertices faces edges rhombus trapezoid pentagon hexagon octagon cube prism sphere cone cylinder pattern blocks compose fair shares equal parts half halves third thirds fourth fourths quarter eighth fraction pizza sandwich brownie figuras fracciones mitad 图形 分数",
+      kw:"shape shapes geometry attribute sides vertices faces edges rhombus trapezoid pentagon hexagon octagon cube prism sphere cone cylinder pattern blocks compose fair shares equal parts half halves third thirds fourth fourths quarter eighth fraction pizza sandwich brownie figuras fracciones mitad 图形 分数 draw shapes dot paper create shape beyond one whole count fourths",
       desc:{
         en:"Sort 2-D shapes by sides and vertices, investigate 3-D solids, fill puzzles with pattern blocks, and cut pizzas and sandwiches into fair shares.",
         es:"Clasifica figuras 2-D por lados y vértices, investiga cuerpos 3-D, completa rompecabezas con bloques y corta pizzas y sándwiches en partes iguales.",
@@ -293,7 +293,7 @@ window.MATHTOOLS = (function () {
     { id:"fact-family-fair", collection:"k2", bandId:"k-2", icon:"🎡", accent:"#c0392b",
       title:"Fact Family Fair", href:"k2/fact-family-fair/index.html",
       tags:["Addition","Subtraction","Fact families","Story problems"],
-      kw:"addition subtraction fact family fluency within 20 within 100 ten frame make ten doubles near doubles number line hops missing number unknown addend true false equal sign bar model word problems join separate compare part-part-whole suma resta familia de operaciones 加法 减法",
+      kw:"addition subtraction fact family fluency within 20 within 100 ten frame make ten doubles near doubles number line hops missing number unknown addend true false equal sign bar model word problems join separate compare part-part-whole suma resta familia de operaciones 加法 减法 three addends tens and ones story problems match a story to a number sentence",
       desc:{
         en:"Build fluency within 20 and 100 with ten frames, number line hops, missing numbers, true/false equations, fact families, and story problems with bar models.",
         es:"Desarrolla fluidez hasta 20 y 100 con marcos de diez, saltos en la recta numérica, números que faltan, igualdades verdaderas o falsas, familias de operaciones y problemas con modelos de barras.",
@@ -305,7 +305,7 @@ window.MATHTOOLS = (function () {
     { id:"area-volume-builders", collection:"g35", bandId:"3-5", icon:"📐", accent:"#16a085",
       title:"Area & Volume Builders", href:"g35/area-volume-builders/index.html",
       tags:["Area","Perimeter","Volume","Conversions","Story problems","Time"],
-      kw:"area perimeter volume unit square tiling rows columns multiply composite rectilinear decompose missing side same area different perimeter unit cube layers base rectangular prism V=lwh V=Bh convert conversion measurement feet inches yards pounds ounces meters centimeters kilograms grams liters milliliters elapsed time minutes área perímetro volumen 面积 周长 体积",
+      kw:"area perimeter volume unit square tiling rows columns multiply composite rectilinear decompose missing side same area different perimeter unit cube layers base rectangular prism V=lwh V=Bh convert conversion measurement feet inches yards pounds ounces meters centimeters kilograms grams liters milliliters elapsed time minutes área perímetro volumen 面积 周长 体积 equal parts partition unit fraction equal areas",
       desc:{
         en:"Tile rectangles to find area, walk the sides for perimeter, pack boxes with unit cubes for volume, convert units with tables, and solve measurement stories.",
         es:"Cubre rectángulos para hallar el área, recorre los lados para el perímetro, llena cajas con cubos para el volumen, convierte unidades con tablas y resuelve problemas de medición.",
@@ -317,7 +317,7 @@ window.MATHTOOLS = (function () {
     { id:"fraction-forge", collection:"g35", bandId:"3-5", icon:"🧪", accent:"#8e44ad",
       title:"Fraction Forge", href:"g35/fraction-forge/index.html",
       tags:["Fractions","Compare","Addition","Subtraction","Story problems","Compose"],
-      kw:"fractions fraction strips area model circle set unit fraction numerator denominator number line mixed numbers improper equivalent fractions compare benchmark half greater less equal add subtract like unlike common denominator decompose multiply fraction by whole number fraction of a set divide unit fraction word problems fracciones recta numérica fracciones equivalentes 分数",
+      kw:"fractions fraction strips area model circle set unit fraction numerator denominator number line mixed numbers improper equivalent fractions compare benchmark half greater less equal add subtract like unlike common denominator decompose multiply fraction by whole number fraction of a set divide unit fraction word problems fracciones recta numérica fracciones equivalentes 分数 simplify simplest form join parts",
       desc:{
         en:"Build and name fractions with strips, circles, and sets, place them on a number line, find equivalent fractions, compare, add and subtract, and solve fraction story problems.",
         es:"Forma y nombra fracciones con tiras, círculos y conjuntos, ubícalas en la recta numérica, encuentra fracciones equivalentes, compara, suma y resta, y resuelve problemas con fracciones.",
@@ -329,7 +329,7 @@ window.MATHTOOLS = (function () {
     { id:"array-architect", collection:"g35", bandId:"3-5", icon:"🏗️", accent:"#c0392b",
       title:"Array Architect", href:"g35/array-architect/index.html",
       tags:["Multiplication","Division","Fact families","Story problems"],
-      kw:"multiply multiplication divide division array arrays equal groups skip count commutative distributive property area model partial products partial quotients remainder interpret remainders fact family missing factor factors multiples prime composite two-step multi-step estimate reasonableness letter unknown multiplicación división arreglo 乘法 除法",
+      kw:"multiply multiplication divide division array arrays equal groups skip count commutative distributive property area model partial products partial quotients remainder interpret remainders fact family missing factor factors multiples prime composite two-step multi-step estimate reasonableness letter unknown multiplicación división arreglo 乘法 除法 standard algorithm input-output table even and odd multiplicative comparison patterns",
       desc:{
         en:"Build arrays and equal groups, split area models into partial products, divide with partial quotients and interpret remainders, practice fact families, factors and primes, and solve multi-step stories.",
         es:"Construye arreglos y grupos iguales, divide modelos de área en productos parciales, divide con cocientes parciales e interpreta residuos, practica familias de operaciones, factores y números primos, y resuelve problemas de varios pasos.",
@@ -341,7 +341,7 @@ window.MATHTOOLS = (function () {
     { id:"angle-and-grid-explorer", collection:"g35", bandId:"3-5", icon:"🧭", accent:"#2980b9",
       title:"Angle & Grid Explorer", href:"g35/angle-and-grid-explorer/index.html",
       tags:["2-D shapes","Attributes","Classify","Angles","Lines & symmetry","Coordinate plane"],
-      kw:"geometry quadrilateral rhombus trapezoid parallelogram rectangle square hierarchy venn parallel perpendicular point line ray segment symmetry fold angle acute right obtuse straight protractor degrees measure draw additive triangle equilateral isosceles scalene coordinate plane ordered pair plot quadrant x y axis origin table ángulo transportador simetría coordenadas 角 量角器 对称 坐标",
+      kw:"geometry quadrilateral rhombus trapezoid parallelogram rectangle square hierarchy venn parallel perpendicular point line ray segment symmetry fold angle acute right obtuse straight protractor degrees measure draw additive triangle equilateral isosceles scalene coordinate plane ordered pair plot quadrant x y axis origin table ángulo transportador simetría coordenadas 角 量角器 对称 坐标 degrees 1/360 fraction of a turn",
       desc:{
         en:"Classify quadrilaterals and triangles, spot parallel and perpendicular lines, fold to find lines of symmetry, measure and draw angles with a protractor, and plot ordered pairs on the coordinate plane.",
         es:"Clasifica cuadriláteros y triángulos, identifica rectas paralelas y perpendiculares, dobla para hallar ejes de simetría, mide y dibuja ángulos con un transportador y ubica pares ordenados en el plano de coordenadas.",
@@ -353,7 +353,7 @@ window.MATHTOOLS = (function () {
     { id:"decimal-dash", collection:"g35", bandId:"3-5", icon:"🏁", accent:"#d35400",
       title:"Decimal Dash", href:"g35/decimal-dash/index.html",
       tags:["Place value","Decimals","Compare","Rounding","Addition","Subtraction","Money"],
-      kw:"place value decimals tenths hundredths thousandths expanded form word form standard form value of a digit 10 times place value chart decimal grid shade money dimes pennies compare order greater less round rounding halfway number line estimate add subtract line up decimal point powers of 10 multiply divide by 10 100 1000 millions billion valor posicional decimales redondear 小数 位值",
+      kw:"place value decimals tenths hundredths thousandths expanded form word form standard form value of a digit 10 times place value chart decimal grid shade money dimes pennies compare order greater less round rounding halfway number line estimate add subtract line up decimal point powers of 10 multiply divide by 10 100 1000 millions billion valor posicional decimales redondear 小数 位值 word form decimal words",
       desc:{
         en:"Build and read numbers to the billions and decimals to thousandths in standard, expanded, and word form; shade tenths and hundredths grids and count money; compare and order; round on a number line; and add, subtract, and multiply or divide by powers of 10.",
         es:"Forma y lee números hasta los miles de millones y decimales hasta los milésimos en forma estándar, desarrollada y en palabras; sombrea cuadrículas de décimos y centésimos y cuenta dinero; compara y ordena; redondea en la recta numérica; y suma, resta, multiplica y divide entre potencias de 10.",
@@ -389,7 +389,7 @@ window.MATHTOOLS = (function () {
     { id:"slope-function-grapher", collection:"g68", bandId:"6-8", icon:"📈", accent:"#2980b9",
       title:"Slope & Function Grapher", href:"g68/slope-function-grapher/index.html",
       tags:["Coordinate plane","Slope","Functions","Proportional reasoning","Compare"],
-      kw:"slope rise run rate of change y-intercept y=mx+b linear function nonlinear proportional y=kx constant of proportionality unit rate input output table rule graph ordered pair four quadrants coordinate plane vertical line test mapping diagram similar triangles slope triangle system of equations intersection compare functions pendiente función 斜率 函数",
+      kw:"slope rise run rate of change y-intercept y=mx+b linear function nonlinear proportional y=kx constant of proportionality unit rate input output table rule graph ordered pair four quadrants coordinate plane vertical line test mapping diagram similar triangles slope triangle system of equations intersection compare functions pendiente función 斜率 函数 independent and dependent quantities sketch a graph from a story increasing decreasing qualitative graphs",
       desc:{
         en:"Complete tables from rules and graph points, explore slope with draggable points and slope triangles, build y = mx + b lines, decide whether relations are functions, and compare lines and find where they intersect.",
         es:"Completa tablas a partir de reglas y grafica puntos, explora la pendiente con puntos que se arrastran y triángulos de pendiente, construye rectas y = mx + b, decide si una relación es función, y compara rectas y encuentra dónde se intersecan.",
@@ -401,7 +401,7 @@ window.MATHTOOLS = (function () {
     { id:"geometry-transform-studio", collection:"g68", bandId:"6-8", icon:"📐", accent:"#d35400",
       title:"Geometry Transform Studio", href:"g68/geometry-transform-studio/index.html",
       tags:["Area","Volume","Circles","Transformations","Coordinate plane","Angles","Pythagorean theorem","3-D solids"],
-      kw:"geometry area parallelogram triangle trapezoid composite decompose rearrange circle circumference pi volume prism pyramid cylinder cone sphere surface area net lateral translation reflection rotation dilation congruent similar coordinate rule complementary supplementary vertical adjacent transversal parallel lines exterior angle triangle inequality pythagorean theorem hypotenuse distance converse geometría transformaciones pitágoras 几何 勾股定理",
+      kw:"geometry area parallelogram triangle trapezoid composite decompose rearrange circle circumference pi volume prism pyramid cylinder cone sphere surface area net lateral translation reflection rotation dilation congruent similar coordinate rule complementary supplementary vertical adjacent transversal parallel lines exterior angle triangle inequality pythagorean theorem hypotenuse distance converse geometría transformaciones pitágoras 几何 勾股定理 triangular pyramid triangular prism surface area net AA similarity",
       desc:{
         en:"Cut and rearrange shapes to discover area formulas, roll circles and pour solids to see π and ⅓, plot transformations on the coordinate plane, find missing angles, and see the Pythagorean theorem proved.",
         es:"Corta y reacomoda figuras para descubrir fórmulas de área, haz rodar círculos y vacía cuerpos para ver π y ⅓, traza transformaciones en el plano de coordenadas, halla ángulos que faltan y mira una demostración del teorema de Pitágoras.",
@@ -413,7 +413,7 @@ window.MATHTOOLS = (function () {
     { id:"integer-number-line-lab", collection:"g68", bandId:"6-8", icon:"🌡️", accent:"#c0392b",
       title:"Integer & Rational Number Lab", href:"g68/integer-number-line-lab/index.html",
       tags:["Integers","Rational numbers","Real numbers","Number line","Compare","Classify","Story problems"],
-      kw:"integer integers negative positive opposite opposites absolute value number line rational irrational real numbers venn natural whole two-color counters zero pair add the opposite sign rules multiply divide repeating decimal terminating square root estimate temperature elevation sea level debt money enteros números racionales 整数 有理数",
+      kw:"integer integers negative positive opposite opposites absolute value number line rational irrational real numbers venn natural whole two-color counters zero pair add the opposite sign rules multiply divide repeating decimal terminating square root estimate temperature elevation sea level debt money enteros números racionales 整数 有理数 fraction as division",
       desc:{
         en:"Place integers and rational numbers on number lines, use counters and number-line moves to add and subtract, discover sign rules for multiplying and dividing, sort real numbers in a Venn diagram, and solve temperature, elevation, and money stories.",
         es:"Ubica enteros y números racionales en rectas numéricas, usa fichas y saltos para sumar y restar, descubre las reglas de los signos al multiplicar y dividir, clasifica números reales en un diagrama de Venn y resuelve situaciones de temperatura, elevación y dinero.",
@@ -425,7 +425,7 @@ window.MATHTOOLS = (function () {
     { id:"quadratic-explorer", collection:"g912", bandId:"9-12", icon:"🎯", accent:"#c0392b",
       title:"Quadratic Explorer", href:"g912/quadratic-explorer/index.html",
       tags:["Quadratics","Factoring","Functions","Equations","Coordinate plane","Story problems"],
-      kw:"quadratic quadratics parabola vertex form standard form factored form axis of symmetry maximum minimum domain range y-intercept zeros x-intercepts roots factoring trinomial area model algebra tiles grouping ac method gcf difference of squares zero product property square roots completing the square quadratic formula discriminant complex roots imaginary i projectile motion maximize area revenue cuadrática parábola vértice fórmula cuadrática 二次函数 抛物线",
+      kw:"quadratic quadratics parabola vertex form standard form factored form axis of symmetry maximum minimum domain range y-intercept zeros x-intercepts roots factoring trinomial area model algebra tiles grouping ac method gcf difference of squares zero product property square roots completing the square quadratic formula discriminant complex roots imaginary i projectile motion maximize area revenue cuadrática parábola vértice fórmula cuadrática 二次函数 抛物线 focus directrix regression curve of best fit three points",
       desc:{
         en:"Build parabolas from vertex form and read their key features, factor trinomials with area models and grouping, solve by factoring, square roots, completing the square and the quadratic formula, connect zeros, factors and graphs, and model projectiles, area and revenue.",
         es:"Construye parábolas en forma de vértice y lee sus características clave, factoriza trinomios con modelos de área y por agrupación, resuelve ecuaciones factorizando, con raíces cuadradas, completando el cuadrado y con la fórmula cuadrática, relaciona ceros, factores y gráficas, y modela proyectiles, áreas e ingresos.",
@@ -437,7 +437,7 @@ window.MATHTOOLS = (function () {
     { id:"function-families-studio", collection:"g912", bandId:"9-12", icon:"🧬", accent:"#8e44ad",
       title:"Function Families Studio", href:"g912/function-families-studio/index.html",
       tags:["Functions","Transformations","Exponential functions","Logarithms","Inequalities","Number line"],
-      kw:"parent function family linear quadratic cubic absolute value square root cube root exponential logarithmic reciprocal transformations shift stretch compress reflect vertex asymptote domain range interval notation end behavior increasing decreasing growth decay compound interest half-life doubling constant ratio inverse function reflect y=x restrict domain logarithm log ln solve exponential equation composition f(g(x)) combine functions función exponencial logaritmo 函数 对数",
+      kw:"parent function family linear quadratic cubic absolute value square root cube root exponential logarithmic reciprocal transformations shift stretch compress reflect vertex asymptote domain range interval notation end behavior increasing decreasing growth decay compound interest half-life doubling constant ratio inverse function reflect y=x restrict domain logarithm log ln solve exponential equation composition f(g(x)) combine functions función exponencial logaritmo 函数 对数 exponential regression exponential vs linear",
       desc:{
         en:"Explore the nine parent functions and their key features, transform graphs with live a, h, k sliders, model exponential growth and decay, reflect to find inverses, work with logarithms, and compose functions and build domains on a number line.",
         es:"Explora las nueve funciones madre y sus características, transforma gráficas con deslizadores a, h, k en vivo, modela crecimiento y decaimiento exponencial, refleja para hallar inversas, trabaja con logaritmos, compón funciones y construye dominios en la recta numérica.",
@@ -449,7 +449,7 @@ window.MATHTOOLS = (function () {
     { id:"linear-systems-lab", collection:"g912", bandId:"9-12", icon:"📉", accent:"#2980b9",
       title:"Linear Systems Lab", href:"g912/linear-systems-lab/index.html",
       tags:["Equations","Systems","Inequalities","Slope","Coordinate plane","Story problems"],
-      kw:"linear equation slope-intercept point-slope standard form Ax+By=C parallel perpendicular system of equations graphing intersection substitution elimination one solution no solution infinitely many linear inequality half-plane boundary solid dashed test point feasible region systems of inequalities word problem mixture tickets break-even modeling sistema de ecuaciones desigualdad 方程组 不等式",
+      kw:"linear equation slope-intercept point-slope standard form Ax+By=C parallel perpendicular system of equations graphing intersection substitution elimination one solution no solution infinitely many linear inequality half-plane boundary solid dashed test point feasible region systems of inequalities word problem mixture tickets break-even modeling sistema de ecuaciones desigualdad 方程组 不等式 f(x)=g(x) graph systems of inequalities",
       desc:{
         en:"Convert between slope-intercept, point-slope and standard form, graph systems and find the intersection, solve step by step by substitution and elimination, graph linear inequalities with test points, and model word problems with systems.",
         es:"Convierte entre las formas pendiente-intersección, punto-pendiente y estándar, grafica sistemas y halla la intersección, resuelve paso a paso por sustitución y eliminación, grafica desigualdades lineales con puntos de prueba y modela problemas verbales con sistemas.",
@@ -461,7 +461,7 @@ window.MATHTOOLS = (function () {
     { id:"data-chance-lab", collection:"g912", bandId:"9-12", icon:"🎲", accent:"#d35400",
       title:"Data & Chance Lab", href:"g912/data-chance-lab/index.html",
       tags:["Data","Statistics","Probability","Line plot","Compare","Percent"],
-      kw:"statistics probability mean median mode range IQR interquartile MAD standard deviation dot plot histogram box plot skew outlier compare groups scatter plot line of fit least squares regression residual correlation coefficient r causation interpolation extrapolation sample space tree diagram simulation experimental theoretical independent dependent addition rule complement two-way table relative frequency conditional probability estadística probabilidad media mediana 统计 概率",
+      kw:"statistics probability mean median mode range IQR interquartile MAD standard deviation dot plot histogram box plot skew outlier compare groups scatter plot line of fit least squares regression residual correlation coefficient r causation interpolation extrapolation sample space tree diagram simulation experimental theoretical independent dependent addition rule complement two-way table relative frequency conditional probability estadística probabilidad media mediana 统计 概率 normal distribution normal curve bell curve 68-95-99.7 empirical rule z-score",
       desc:{
         en:"Build dot plots, histograms and box plots from generated data; find center and spread; compare groups; fit lines to scatter plots and interpret r and residuals; run probability simulations and tree diagrams; and read two-way tables for conditional probability and independence.",
         es:"Construye diagramas de puntos, histogramas y diagramas de caja con datos generados; halla el centro y la dispersión; compara grupos; ajusta rectas a diagramas de dispersión e interpreta r y los residuos; realiza simulaciones de probabilidad y diagramas de árbol; y lee tablas de doble entrada para la probabilidad condicional y la independencia.",
@@ -473,7 +473,7 @@ window.MATHTOOLS = (function () {
     { id:"proof-and-trig-lab", collection:"g912", bandId:"9-12", icon:"📏", accent:"#16a085",
       title:"Proof & Trig Lab", href:"g912/proof-and-trig-lab/index.html",
       tags:["Congruence","Similarity","Proofs","Trigonometry","Circles","Coordinate plane"],
-      kw:"geometry congruence SSS SAS ASA AAS HL SSA CPCTC similarity AA similar triangles scale factor two-column proof reasons vertical angles alternate interior angles midpoint bisector right triangle trigonometry SOHCAHTOA sine cosine tangent inverse angle of elevation depression special right triangles 45-45-90 30-60-90 radicals circles central inscribed angle arc tangent chord arc length sector area radians equation of a circle completing the square distance midpoint partition slope quadrilateral parallelogram congruencia demostración trigonometría 全等 三角函数 圆",
+      kw:"geometry congruence SSS SAS ASA AAS HL SSA CPCTC similarity AA similar triangles scale factor two-column proof reasons vertical angles alternate interior angles midpoint bisector right triangle trigonometry SOHCAHTOA sine cosine tangent inverse angle of elevation depression special right triangles 45-45-90 30-60-90 radicals circles central inscribed angle arc tangent chord arc length sector area radians equation of a circle completing the square distance midpoint partition slope quadrilateral parallelogram congruencia demostración trigonometría 全等 三角函数 圆 unit circle law of sines law of cosines constructions compass straightedge perpendicular bisector angle bisector triangle proportionality geometric mean composite area",
       desc:{
         en:"Decide which shortcut proves triangles congruent or similar, build two-column proofs, solve right triangles with SOH-CAH-TOA and special right triangles, explore circle angles, arcs and equations, and use distance, midpoint and slope on the coordinate plane.",
         es:"Decide qué criterio demuestra que dos triángulos son congruentes o semejantes, construye demostraciones de dos columnas, resuelve triángulos rectángulos con SOH-CAH-TOA y triángulos rectángulos especiales, explora ángulos, arcos y ecuaciones de círculos, y usa distancia, punto medio y pendiente en el plano de coordenadas.",
