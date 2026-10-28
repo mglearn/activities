@@ -81,6 +81,19 @@
   .bench{position:absolute;display:flex;align-items:center;gap:.4rem;font-weight:700;font-size:.9rem}
   .bench i{display:inline-block;height:26px;border:2px solid #5b2c83;border-radius:4px;background:rgba(142,68,173,.55)}
   .tip{color:var(--muted);font-size:.9rem;margin:.4rem 0 0}
+  /* area: cover a garden bed with square units */
+  .abed{position:absolute;background:#d9b98f;border:4px solid #6d4c2f;border-radius:6px}
+  .acell{position:absolute;padding:0;border:0;background:transparent;touch-action:none;border-radius:3px;color:#fff;font-weight:800;font-size:.95rem}
+  .acell.on{background:rgba(142,68,173,.78);border:2px solid #4a235f}
+  .acell.gap{outline:3px dashed #c2410c;outline-offset:-5px;background:rgba(255,244,214,.55)}
+  .aghost{position:absolute;pointer-events:none;background:rgba(142,68,173,.6);border:2px solid #4a235f;border-radius:3px;z-index:5}
+  /* indirect comparison: a string carries one length to the other */
+  .vzone{position:absolute;left:0;right:0;background:#eaf6e4}
+  .vzone.pond{background:#e3f0fb;border-top:3px dashed #8aa9c4}
+  .vzone .ve{position:absolute;inset-inline-end:8px;top:4px;font-size:1.3rem}
+  .vstr{position:absolute;height:16px;padding:0;border:0;border-radius:8px;background:repeating-linear-gradient(45deg,#c0392b 0 6px,#e74c3c 6px 12px);touch-action:none;cursor:grab;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+  .vstr.drag{cursor:grabbing;z-index:5}
+  .vobs{margin:.4rem 0 0;font-weight:700;color:var(--ink)}
 
   .srow{display:block;width:100%;text-align:start;background:transparent;border:2px solid transparent;border-radius:12px;padding:.25rem;margin:0 0 .3rem}
   button.srow{border-color:#dcc6ec;background:#fbf7fe}
@@ -121,6 +134,7 @@
   .gaxis .gnum span{position:absolute;top:0;inset-inline-end:2px;transform:translateY(-50%)}
   .gaxis .glabel{border-top-color:transparent}
   .gkey{text-align:center;color:var(--muted);font-size:.9rem;font-weight:600}
+  .gkey2{width:max-content;max-width:100%;margin:.3rem auto 0;padding:.2rem .7rem;border:2px solid #d4a017;border-radius:10px;background:#fff7d6;color:var(--ink);font-size:1rem;font-weight:800}
 
   .drawer{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:50;align-items:flex-start;justify-content:center;padding:1rem}
   .drawer.open{display:flex}
@@ -293,7 +307,7 @@ const T = {
     teacherTitle:"Teacher settings", close:"Close", setGrade:"Grade level", grade1:"Grade 1", grade2:"Grade 2",
     setUnits:"Ruler units", unitsCm:"Centimeters", unitsIn:"Inches", setModes:"Modes", setSpeech:"Speech", autoRead:"Auto-read directions",
     printCards:"Print challenge cards", setStored:"Settings are saved only on this device. No student information is ever stored.",
-    gradeNote:"Grade 1: cubes, rulers that start at 0, ordering by length, 3-group graphs. Grade 2: centimeter cubes or inch tiles, rulers that do not start at 0, how much longer, estimating, 4-group graphs, line plots, and graph story problems.",
+    gradeNote:"Grade 1: cubes, rulers that start at 0, ordering by length, comparing two lengths with a string, 3-group graphs. Grade 2: centimeter cubes or inch tiles, rulers that do not start at 0, how much longer, estimating, area with square units, 4-group graphs, picture graphs where each picture = 2, line plots, and graph story problems.",
     o_worm:"the worm", o_carrot:"the carrot", o_sunflower:"the sunflower", o_caterpillar:"the caterpillar",
     o_peapod:"the pea pod", o_cucumber:"the cucumber", o_leaf:"the leaf", o_twig:"the twig",
     uCubes:"cubes", uCmCubes:"centimeter cubes", uInTiles:"inch tiles", uCm:"centimeters", uIn:"inches",
@@ -374,7 +388,34 @@ const T = {
     hintTotal:"There are {x} {a} and {y} {b}. Put them together: add.",
     hintAll:"Add up every column: {list}.", hintStory:"Start with {x} {a}. {n} more come. Add {n}.",
     ansIsC:"The answer is {c}.", yes:"Yes!",
-    stds:"Aligned standards: Texas TEKS Grade 1: 1.7(A–D) length, 1.8(A–C) data; Grade 2: 2.9(A–E) length, 2.10(A–D) data. Common Core: 1.MD.1, 1.MD.2, 1.MD.4, 2.MD.1–5, 2.MD.9, 2.MD.10.",
+    stds:"Aligned standards: Texas TEKS Grade 1: 1.7(A–D) length, 1.8(A–C) data; Grade 2: 2.9(A–F) length and area, 2.10(A–D) data. Common Core: 1.MD.1, 1.MD.2, 1.MD.4, 2.MD.1–5, 2.MD.9, 2.MD.10, 2.G.2.",
+    areaDir:"Find the area of the garden bed. Cover it with square units, with no gaps and no overlaps. Tap the bed or drag squares onto it. Then tap Check.",
+    areaNone:"Put some square units on the garden bed first.",
+    areaGap:"There are gaps. A gap is part of the bed we did not count, so the area would come out too small. Cover the dashed spots.",
+    areaCount:"The bed is covered, with no gaps and no overlaps. Now count the squares. What is the area of the garden bed?",
+    goodArea:"Yes! {r} rows with {c} squares in each row. The area of the garden bed is {n} square units.",
+    hintArea:"Count each square just once. Go row by row: there are {r} rows, with {c} squares in each row.",
+    bedA:"Garden bed",
+    sqOffA:"Row {r}, spot {c}: empty. Tap to put a square unit here.",
+    sqOnA:"Row {r}, spot {c}: square unit. Tap to take it off.",
+    viaDir:"{a} is in the garden. {b} is by the pond. We can't put them side by side! Use the red string: tap it or drag it to each one.",
+    viaLonger:"The string is longer than {obj}.",
+    viaShorter:"The string is shorter than {obj}.",
+    viaQLong:"Which is longer, {a} or {b}?",
+    viaQShort:"Which is shorter, {a} or {b}?",
+    goodViaL:"Yes! {s} is shorter than the string, and the string is shorter than {l}. So {l} is longer than {s}.",
+    goodViaS:"Yes! {s} is shorter than the string, and the string is shorter than {l}. So {s} is shorter than {l}.",
+    hintVia:"Use what the string showed. The string is shorter than {l}, so {l} is longer than the string. The string is longer than {s}, so {s} is shorter than the string.",
+    strA:"Red string for measuring. Tap it to move it under the next object, or drag it.",
+    strTo:"{obj}. Tap to lay the string under it.",
+    keyEach2:"Each picture = {k}",
+    graphDir2:"Graph it! Each picture stands for 2. Tap the squares so each column shows your count. Count by 2s! Then tap Check.",
+    hintGraph2:"Check the {c}. You counted {n}. Each picture = 2, so you need {p} pictures. Right now the column shows {v}.",
+    cellA2:"{c}: up to picture {n}, which shows {v}",
+    goodPic2:"Your picture graph matches your counts! Each picture stands for 2, so we count by 2s to read each group.",
+    whyHow2:"The {a} column has {p} pictures. Each picture = 2, so count by 2s: {list}. There are {x}.",
+    hintHow2:"Find the {a} column. Each picture stands for 2, so count by 2s: 2, 4, 6…",
+    keyRemind:"Remember: each picture stands for 2, so count by 2s.",
     cardTitle:"Garden Measure & Graph Lab — Challenge Cards",
     cardUnit:"Is this measured the right way? What went wrong? How long is the carrot really?",
     cardRuler:"How long is the worm? (Careful: it does not start at 0.)",
@@ -390,7 +431,7 @@ const T = {
     teacherTitle:"Ajustes del maestro", close:"Cerrar", setGrade:"Grado", grade1:"1.er grado", grade2:"2.º grado",
     setUnits:"Unidades de la regla", unitsCm:"Centímetros", unitsIn:"Pulgadas", setModes:"Modos", setSpeech:"Voz", autoRead:"Leer instrucciones en voz alta",
     printCards:"Imprimir tarjetas de reto", setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información del estudiante.",
-    gradeNote:"1.er grado: cubos, reglas que empiezan en 0, ordenar por largo, gráficas de 3 grupos. 2.º grado: cubos de un centímetro o fichas de una pulgada, reglas que no empiezan en 0, cuánto más mide, estimar, gráficas de 4 grupos, diagramas de puntos y problemas con gráficas.",
+    gradeNote:"1.er grado: cubos, reglas que empiezan en 0, ordenar por largo, comparar dos largos con una cuerda, gráficas de 3 grupos. 2.º grado: cubos de un centímetro o fichas de una pulgada, reglas que no empiezan en 0, cuánto más mide, estimar, área con unidades cuadradas, gráficas de 4 grupos, pictogramas donde cada dibujo vale 2, diagramas de puntos y problemas con gráficas.",
     o_worm:"el gusano", o_carrot:"la zanahoria", o_sunflower:"el girasol", o_caterpillar:"la oruga",
     o_peapod:"la vaina de chícharos", o_cucumber:"el pepino", o_leaf:"la hoja", o_twig:"la ramita",
     uCubes:"cubos", uCubesN:"cubos", uCmCubes:"cubos de un centímetro", uInTiles:"fichas de una pulgada", uCm:"centímetros", uIn:"pulgadas",
@@ -471,7 +512,34 @@ const T = {
     hintTotal:"{a}: {x}. {b}: {y}. Júntalos: suma.",
     hintAll:"Suma todas las columnas: {list}.", hintStory:"Empieza con {x}. Llegan {n} más. Suma {n}.",
     ansIsC:"La respuesta es: {c}.", yes:"¡Sí!",
-    stds:"Estándares alineados: TEKS de Texas, 1.er grado: 1.7(A–D) longitud, 1.8(A–C) datos; 2.º grado: 2.9(A–E) longitud, 2.10(A–D) datos. Common Core: 1.MD.1, 1.MD.2, 1.MD.4, 2.MD.1–5, 2.MD.9, 2.MD.10.",
+    stds:"Estándares alineados: TEKS de Texas, 1.er grado: 1.7(A–D) longitud, 1.8(A–C) datos; 2.º grado: 2.9(A–F) longitud y área, 2.10(A–D) datos. Common Core: 1.MD.1, 1.MD.2, 1.MD.4, 2.MD.1–5, 2.MD.9, 2.MD.10, 2.G.2.",
+    areaDir:"Encuentra el área del huerto. Cúbrelo con unidades cuadradas, sin huecos y sin encimar. Toca el huerto o arrastra cuadrados hasta él. Luego toca Revisar.",
+    areaNone:"Primero pon algunas unidades cuadradas en el huerto.",
+    areaGap:"Hay huecos. Un hueco es una parte del huerto que no contamos, así que el área saldría muy pequeña. Cubre los lugares marcados con línea punteada.",
+    areaCount:"El huerto está cubierto, sin huecos y sin encimar. Ahora cuenta los cuadrados. ¿Cuál es el área del huerto?",
+    goodArea:"¡Sí! {r} filas con {c} cuadrados en cada fila. El área del huerto es {n} unidades cuadradas.",
+    hintArea:"Cuenta cada cuadrado solo una vez. Ve fila por fila: hay {r} filas, con {c} cuadrados en cada fila.",
+    bedA:"Huerto",
+    sqOffA:"Fila {r}, lugar {c}: vacío. Toca para poner aquí una unidad cuadrada.",
+    sqOnA:"Fila {r}, lugar {c}: unidad cuadrada. Toca para quitarla.",
+    viaDir:"{a} está en el jardín. {b} está junto al estanque. ¡No podemos ponerlos uno al lado del otro! Usa la cuerda roja: tócala o arrástrala hasta cada uno.",
+    viaLonger:"La cuerda mide más que {obj}.",
+    viaShorter:"La cuerda mide menos que {obj}.",
+    viaQLong:"¿Cuál mide más, {a} o {b}?",
+    viaQShort:"¿Cuál mide menos, {a} o {b}?",
+    goodViaL:"¡Sí! {s} mide menos que la cuerda, y la cuerda mide menos que {l}. Así que {l} mide más que {s}.",
+    goodViaS:"¡Sí! {s} mide menos que la cuerda, y la cuerda mide menos que {l}. Así que {s} mide menos que {l}.",
+    hintVia:"Usa lo que mostró la cuerda. La cuerda mide menos que {l}, así que {l} mide más que la cuerda. La cuerda mide más que {s}, así que {s} mide menos que la cuerda.",
+    strA:"Cuerda roja para medir. Tócala para moverla debajo del siguiente objeto, o arrástrala.",
+    strTo:"{obj}. Toca para poner la cuerda debajo.",
+    keyEach2:"Cada dibujo = {k}",
+    graphDir2:"¡Haz la gráfica! Cada dibujo vale 2. Toca los cuadros para que cada columna muestre tu conteo. ¡Cuenta de 2 en 2! Luego toca Revisar.",
+    hintGraph2:"Revisa la columna de {c}. Contaste {n}. Cada dibujo vale 2, así que necesitas {p} dibujos. Ahora la columna muestra {v}.",
+    cellA2:"{c}: hasta el dibujo {n}, que muestra {v}",
+    goodPic2:"¡Tu pictograma coincide con tu conteo! Cada dibujo vale 2, así que contamos de 2 en 2 para leer cada grupo.",
+    whyHow2:"La columna de {a} tiene {p} dibujos. Cada dibujo vale 2, así que cuenta de 2 en 2: {list}. Hay {x}.",
+    hintHow2:"Busca la columna de {a}. Cada dibujo vale 2, así que cuenta de 2 en 2: 2, 4, 6…",
+    keyRemind:"Recuerda: cada dibujo vale 2, así que cuenta de 2 en 2.",
     cardTitle:"Laboratorio del Jardín: Medir y Graficar — Tarjetas de reto",
     cardUnit:"¿Está bien medida? ¿Qué salió mal? ¿Cuánto mide en realidad la zanahoria?",
     cardRuler:"¿Cuánto mide el gusano? (Cuidado: no empieza en 0.)",
@@ -487,7 +555,7 @@ const T = {
     teacherTitle:"Cài đặt giáo viên", close:"Đóng", setGrade:"Lớp", grade1:"Lớp 1", grade2:"Lớp 2",
     setUnits:"Đơn vị của thước", unitsCm:"Xăng-ti-mét", unitsIn:"In-sơ", setModes:"Chế độ", setSpeech:"Giọng nói", autoRead:"Tự động đọc hướng dẫn",
     printCards:"In thẻ thử thách", setStored:"Cài đặt chỉ lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
-    gradeNote:"Lớp 1: khối lập phương, thước bắt đầu từ 0, xếp theo chiều dài, biểu đồ 3 nhóm. Lớp 2: khối 1 xăng-ti-mét hoặc miếng 1 in-sơ, thước không bắt đầu từ 0, dài hơn bao nhiêu, ước lượng, biểu đồ 4 nhóm, biểu đồ chấm và bài toán đố với biểu đồ.",
+    gradeNote:"Lớp 1: khối lập phương, thước bắt đầu từ 0, xếp theo chiều dài, so sánh hai độ dài bằng sợi dây, biểu đồ 3 nhóm. Lớp 2: khối 1 xăng-ti-mét hoặc miếng 1 in-sơ, thước không bắt đầu từ 0, dài hơn bao nhiêu, ước lượng, diện tích bằng đơn vị vuông, biểu đồ 4 nhóm, biểu đồ tranh mỗi hình là 2, biểu đồ chấm và bài toán đố với biểu đồ.",
     o_worm:"con giun", o_carrot:"củ cà rốt", o_sunflower:"bông hoa hướng dương", o_caterpillar:"con sâu",
     o_peapod:"quả đậu Hà Lan", o_cucumber:"quả dưa leo", o_leaf:"chiếc lá", o_twig:"cành cây nhỏ",
     uCubes:"khối", uCubesN:"khối", uCmCubes:"khối 1 xăng-ti-mét", uInTiles:"miếng 1 in-sơ", uCm:"xăng-ti-mét", uIn:"in-sơ",
@@ -568,7 +636,34 @@ const T = {
     hintTotal:"Có {x} {a} và {y} {b}. Gộp lại: làm phép cộng.",
     hintAll:"Cộng tất cả các cột: {list}.", hintStory:"Bắt đầu với {x} {a}. Có thêm {n}. Cộng thêm {n}.",
     ansIsC:"Đáp án là {c}.", yes:"Đúng rồi!",
-    stds:"Tiêu chuẩn phù hợp: Texas TEKS Lớp 1: 1.7(A–D) chiều dài, 1.8(A–C) dữ liệu; Lớp 2: 2.9(A–E) chiều dài, 2.10(A–D) dữ liệu. Common Core: 1.MD.1, 1.MD.2, 1.MD.4, 2.MD.1–5, 2.MD.9, 2.MD.10.",
+    stds:"Tiêu chuẩn phù hợp: Texas TEKS Lớp 1: 1.7(A–D) chiều dài, 1.8(A–C) dữ liệu; Lớp 2: 2.9(A–F) chiều dài và diện tích, 2.10(A–D) dữ liệu. Common Core: 1.MD.1, 1.MD.2, 1.MD.4, 2.MD.1–5, 2.MD.9, 2.MD.10, 2.G.2.",
+    areaDir:"Tìm diện tích của luống vườn. Phủ kín luống bằng các đơn vị vuông, không có khoảng hở và không chồng lên nhau. Chạm vào luống hoặc kéo ô vuông vào đó. Rồi chạm Kiểm tra.",
+    areaNone:"Hãy đặt vài đơn vị vuông lên luống vườn trước.",
+    areaGap:"Vẫn còn khoảng hở. Khoảng hở là phần của luống mà mình chưa đếm, nên diện tích sẽ bị ít đi. Hãy phủ kín những chỗ có viền nét đứt.",
+    areaCount:"Luống vườn đã được phủ kín, không có khoảng hở và không chồng lên nhau. Bây giờ hãy đếm các ô vuông. Diện tích của luống vườn là bao nhiêu?",
+    goodArea:"Đúng rồi! {r} hàng, mỗi hàng có {c} ô vuông. Diện tích của luống vườn là {n} đơn vị vuông.",
+    hintArea:"Mỗi ô vuông chỉ đếm một lần. Đếm từng hàng: có {r} hàng, mỗi hàng có {c} ô vuông.",
+    bedA:"Luống vườn",
+    sqOffA:"Hàng {r}, chỗ {c}: còn trống. Chạm để đặt một đơn vị vuông vào đây.",
+    sqOnA:"Hàng {r}, chỗ {c}: đơn vị vuông. Chạm để lấy ra.",
+    viaDir:"{a} ở trong vườn. {b} ở cạnh ao. Mình không thể đặt chúng cạnh nhau! Hãy dùng sợi dây đỏ: chạm hoặc kéo dây đến từng vật.",
+    viaLonger:"Sợi dây dài hơn {obj}.",
+    viaShorter:"Sợi dây ngắn hơn {obj}.",
+    viaQLong:"Cái nào dài hơn, {a} hay {b}?",
+    viaQShort:"Cái nào ngắn hơn, {a} hay {b}?",
+    goodViaL:"Đúng rồi! {s} ngắn hơn sợi dây, và sợi dây ngắn hơn {l}. Vậy {l} dài hơn {s}.",
+    goodViaS:"Đúng rồi! {s} ngắn hơn sợi dây, và sợi dây ngắn hơn {l}. Vậy {s} ngắn hơn {l}.",
+    hintVia:"Hãy dùng điều sợi dây cho thấy. Sợi dây ngắn hơn {l}, nên {l} dài hơn sợi dây. Sợi dây dài hơn {s}, nên {s} ngắn hơn sợi dây.",
+    strA:"Sợi dây đỏ để đo. Chạm để chuyển dây xuống dưới vật tiếp theo, hoặc kéo dây.",
+    strTo:"{obj}. Chạm để đặt sợi dây bên dưới.",
+    keyEach2:"Mỗi hình = {k}",
+    graphDir2:"Vẽ biểu đồ nào! Mỗi hình là 2. Chạm vào các ô để mỗi cột cho thấy số em đã đếm. Hãy đếm cách 2! Rồi chạm Kiểm tra.",
+    hintGraph2:"Kiểm tra cột {c}. Em đếm được {n}. Mỗi hình là 2, nên em cần {p} hình. Biểu đồ đang có {g} hình, tức là {v}.",
+    cellA2:"{c}: làm thành {n} hình, tức là {v}",
+    goodPic2:"Biểu đồ tranh của em khớp với số đếm! Mỗi hình là 2, nên mình đếm cách 2 để đọc từng nhóm.",
+    whyHow2:"Cột {a} có {p} hình. Mỗi hình là 2, nên đếm cách 2: {list}. Có {x}.",
+    hintHow2:"Tìm cột {a}. Mỗi hình là 2, nên hãy đếm cách 2: 2, 4, 6…",
+    keyRemind:"Nhớ nhé: mỗi hình là 2, nên hãy đếm cách 2.",
     cardTitle:"Phòng Thí Nghiệm Đo và Vẽ Biểu Đồ Trong Vườn — Thẻ Thử Thách",
     cardUnit:"Đo như vậy có đúng không? Sai ở đâu? Củ cà rốt thật sự dài bao nhiêu?",
     cardRuler:"Con giun dài bao nhiêu? (Cẩn thận: nó không bắt đầu ở số 0.)",
@@ -584,7 +679,7 @@ const T = {
     teacherTitle:"إعدادات المعلم", close:"إغلاق", setGrade:"الصف", grade1:"الصف الأول", grade2:"الصف الثاني",
     setUnits:"وحدات المسطرة", unitsCm:"سنتيمترات", unitsIn:"بوصات", setModes:"الأنماط", setSpeech:"النطق", autoRead:"قراءة التعليمات تلقائياً",
     printCards:"طباعة بطاقات التحدي", setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُحفظ أي معلومات عن الطالب أبداً.",
-    gradeNote:"الصف الأول: مكعبات، مساطر تبدأ من 0، الترتيب حسب الطول، رسوم بيانية لثلاث مجموعات. الصف الثاني: مكعبات سنتيمتر أو بلاطات بوصة، مساطر لا تبدأ من 0، كم أطول، التقدير، رسوم بيانية لأربع مجموعات، التمثيل بالنقاط، ومسائل قصصية من الرسوم البيانية.",
+    gradeNote:"الصف الأول: مكعبات، مساطر تبدأ من 0، الترتيب حسب الطول، مقارنة طولين بخيط، رسوم بيانية لثلاث مجموعات. الصف الثاني: مكعبات سنتيمتر أو بلاطات بوصة، مساطر لا تبدأ من 0، كم أطول، التقدير، المساحة بوحدات مربعة، رسوم بيانية لأربع مجموعات، تمثيل بالصور كل صورة فيه تساوي 2، التمثيل بالنقاط، ومسائل قصصية من الرسوم البيانية.",
     o_worm:"الدودة", o_carrot:"الجزرة", o_sunflower:"زهرة عبّاد الشمس", o_caterpillar:"اليرقة",
     o_peapod:"قرن البازلاء", o_cucumber:"الخيارة", o_leaf:"الورقة", o_twig:"الغصن الصغير",
     uCubes:"مكعبات", uCubesN:"مكعبات", uCmCubes:"مكعبات سنتيمتر", uInTiles:"بلاطات بوصة", uCm:"سنتيمترات", uIn:"بوصات",
@@ -665,7 +760,34 @@ const T = {
     hintTotal:"عدد {a} هو {x}، وعدد {b} هو {y}. اجمعهما معاً.",
     hintAll:"اجمع كل الأعمدة: {list}.", hintStory:"ابدأ بـ {x}. جاء {n} أخرى. أضف {n}.",
     ansIsC:"الإجابة هي: {c}.", yes:"نعم!",
-    stds:"المعايير المتوافقة: Texas TEKS الصف الأول: 1.7(A–D) الطول، 1.8(A–C) البيانات؛ الصف الثاني: 2.9(A–E) الطول، 2.10(A–D) البيانات. Common Core: 1.MD.1، 1.MD.2، 1.MD.4، 2.MD.1–5، 2.MD.9، 2.MD.10.",
+    stds:"المعايير المتوافقة: Texas TEKS الصف الأول: 1.7(A–D) الطول، 1.8(A–C) البيانات؛ الصف الثاني: 2.9(A–F) الطول والمساحة، 2.10(A–D) البيانات. Common Core: 1.MD.1، 1.MD.2، 1.MD.4، 2.MD.1–5، 2.MD.9، 2.MD.10، 2.G.2.",
+    areaDir:"جِد مساحة حوض الحديقة. غطِّه بوحدات مربعة، بلا فراغات ولا تداخل. المس الحوض أو اسحب المربعات إليه. ثم المس «تحقّق».",
+    areaNone:"ضع بعض الوحدات المربعة على حوض الحديقة أولًا.",
+    areaGap:"توجد فراغات. الفراغ جزء من الحوض لم نعدّه، فتخرج المساحة أصغر مما هي. غطِّ الأماكن المحددة بخط متقطع.",
+    areaCount:"الحوض مغطّى بلا فراغات ولا تداخل. الآن عُدّ المربعات. ما مساحة حوض الحديقة؟",
+    goodArea:"نعم! عدد الصفوف {r}، وفي كل صف {c} من المربعات. مساحة حوض الحديقة هي {n} من الوحدات المربعة.",
+    hintArea:"عُدّ كل مربع مرة واحدة فقط. عُدّ صفًا بعد صف: عدد الصفوف {r}، وفي كل صف {c} من المربعات.",
+    bedA:"حوض الحديقة",
+    sqOffA:"الصف {r}، المكان {c}: فارغ. المس لتضع وحدة مربعة هنا.",
+    sqOnA:"الصف {r}، المكان {c}: وحدة مربعة. المس لترفعها.",
+    viaDir:"{a} في الحديقة. {b} بجانب البركة. لا نستطيع وضعهما جنبًا إلى جنب! استخدم الخيط الأحمر: المسه أو اسحبه إلى كل واحد منهما.",
+    viaLonger:"الخيط أطول من {obj}.",
+    viaShorter:"الخيط أقصر من {obj}.",
+    viaQLong:"أيهما أطول: {a} أم {b}؟",
+    viaQShort:"أيهما أقصر: {a} أم {b}؟",
+    goodViaL:"نعم! {s} أقصر من الخيط، والخيط أقصر من {l}. إذن {l} أطول من {s}.",
+    goodViaS:"نعم! {s} أقصر من الخيط، والخيط أقصر من {l}. إذن {s} أقصر من {l}.",
+    hintVia:"انظر إلى ما أظهره الخيط. الخيط أقصر من {l}، إذن {l} أطول من الخيط. والخيط أطول من {s}، إذن {s} أقصر من الخيط.",
+    strA:"خيط أحمر للقياس. المسه لتنقله تحت الشيء التالي، أو اسحبه.",
+    strTo:"{obj}. المس لتضع الخيط تحته.",
+    keyEach2:"كل صورة = {k}",
+    graphDir2:"ارسم التمثيل! كل صورة تساوي 2. المس المربعات حتى يُظهر كل عمود العدد الذي عددته. عُدّ بالاثنينات! ثم المس «تحقّق».",
+    hintGraph2:"راجع عمود {c}. عددت {n}. كل صورة تساوي 2، إذن تحتاج إلى {p} من الصور. الرسم يُظهر {g} من الصور، أي {v}.",
+    cellA2:"{c}: اجعله {n} من الصور، أي {v}",
+    goodPic2:"رسمك بالصور يطابق عدّك! كل صورة تساوي 2، لذلك نعدّ بالاثنينات لنقرأ كل مجموعة.",
+    whyHow2:"في عمود {a} عدد الصور {p}. كل صورة تساوي 2، فنعدّ بالاثنينات: {list}. العدد هو {x}.",
+    hintHow2:"جِد عمود {a}. كل صورة تساوي 2، فعُدّ بالاثنينات: 2، 4، 6…",
+    keyRemind:"تذكّر: كل صورة تساوي 2، فعُدّ بالاثنينات.",
     cardTitle:"مختبر الحديقة للقياس والرسوم البيانية — بطاقات التحدي",
     cardUnit:"هل القياس صحيح؟ ما الخطأ؟ كم طول الجزرة حقاً؟",
     cardRuler:"كم طول الدودة؟ (انتبه: إنها لا تبدأ من 0.)",
@@ -681,7 +803,7 @@ const T = {
     teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setGrade:"कक्षा", grade1:"कक्षा 1", grade2:"कक्षा 2",
     setUnits:"स्केल की इकाई", unitsCm:"सेंटीमीटर", unitsIn:"इंच", setModes:"मोड", setSpeech:"आवाज़", autoRead:"निर्देश अपने आप पढ़ें",
     printCards:"चुनौती कार्ड छापें", setStored:"सेटिंग्स केवल इस डिवाइस पर सहेजी जाती हैं। छात्र की जानकारी कभी नहीं सहेजी जाती।",
-    gradeNote:"कक्षा 1: घन, 0 से शुरू होने वाले स्केल, लंबाई के क्रम में लगाना, 3 समूहों वाले ग्राफ़। कक्षा 2: सेंटीमीटर घन या इंच टाइलें, 0 से शुरू न होने वाले स्केल, कितना ज़्यादा लंबा, अनुमान, 4 समूहों वाले ग्राफ़, लाइन प्लॉट और ग्राफ़ वाले कहानी सवाल।",
+    gradeNote:"कक्षा 1: घन, 0 से शुरू होने वाले स्केल, लंबाई के क्रम में लगाना, रस्सी से दो लंबाइयों की तुलना, 3 समूहों वाले ग्राफ़। कक्षा 2: सेंटीमीटर घन या इंच टाइलें, 0 से शुरू न होने वाले स्केल, कितना ज़्यादा लंबा, अनुमान, वर्ग इकाइयों से क्षेत्रफल, 4 समूहों वाले ग्राफ़, चित्र ग्राफ़ जिनमें हर चित्र = 2, लाइन प्लॉट और ग्राफ़ वाले कहानी सवाल।",
     o_worm:"केंचुआ", o_carrot:"गाजर", o_sunflower:"सूरजमुखी", o_caterpillar:"इल्ली",
     o_peapod:"मटर की फली", o_cucumber:"खीरा", o_leaf:"पत्ता", o_twig:"टहनी",
     uCubes:"घन", uCubesN:"घन", uCmCubes:"सेंटीमीटर घन", uInTiles:"इंच टाइलें", uCm:"सेंटीमीटर", uIn:"इंच",
@@ -762,7 +884,34 @@ const T = {
     hintTotal:"{a}: {x}। {b}: {y}। दोनों को जोड़ो।",
     hintAll:"हर स्तंभ जोड़ो: {list}।", hintStory:"{x} से शुरू करो। {n} और आए। {n} जोड़ो।",
     ansIsC:"उत्तर है: {c}।", yes:"हाँ!",
-    stds:"संरेखित मानक: Texas TEKS कक्षा 1: 1.7(A–D) लंबाई, 1.8(A–C) आँकड़े; कक्षा 2: 2.9(A–E) लंबाई, 2.10(A–D) आँकड़े। Common Core: 1.MD.1, 1.MD.2, 1.MD.4, 2.MD.1–5, 2.MD.9, 2.MD.10।",
+    stds:"संरेखित मानक: Texas TEKS कक्षा 1: 1.7(A–D) लंबाई, 1.8(A–C) आँकड़े; कक्षा 2: 2.9(A–F) लंबाई और क्षेत्रफल, 2.10(A–D) आँकड़े। Common Core: 1.MD.1, 1.MD.2, 1.MD.4, 2.MD.1–5, 2.MD.9, 2.MD.10, 2.G.2।",
+    areaDir:"बगीचे की क्यारी का क्षेत्रफल पता करो। इसे वर्ग इकाइयों से ढको, बिना खाली जगह और बिना एक-दूसरे पर चढ़ाए। क्यारी को छुओ या वर्ग खींचकर उस पर रखो। फिर जाँचो दबाओ।",
+    areaNone:"पहले क्यारी पर कुछ वर्ग इकाइयाँ रखो।",
+    areaGap:"अभी खाली जगहें हैं। खाली जगह क्यारी का वह हिस्सा है जिसे हमने नहीं गिना, इसलिए क्षेत्रफल कम आएगा। बिंदीदार निशान वाली जगहें ढको।",
+    areaCount:"क्यारी पूरी ढक गई, बिना खाली जगह और बिना एक-दूसरे पर चढ़ाए। अब वर्ग गिनो। बगीचे की क्यारी का क्षेत्रफल कितना है?",
+    goodArea:"हाँ! {r} पंक्तियाँ, हर पंक्ति में {c} वर्ग। बगीचे की क्यारी का क्षेत्रफल {n} वर्ग इकाई है।",
+    hintArea:"हर वर्ग को बस एक बार गिनो। एक-एक पंक्ति करके गिनो: {r} पंक्तियाँ हैं, हर पंक्ति में {c} वर्ग।",
+    bedA:"बगीचे की क्यारी",
+    sqOffA:"पंक्ति {r}, जगह {c}: खाली। यहाँ वर्ग इकाई रखने के लिए छुओ।",
+    sqOnA:"पंक्ति {r}, जगह {c}: वर्ग इकाई। हटाने के लिए छुओ।",
+    viaDir:"{a} बगीचे में है। {b} तालाब के पास है। हम इन्हें साथ-साथ नहीं रख सकते! लाल रस्सी से तुलना करो: उसे छुओ या खींचकर हर एक के नीचे ले जाओ।",
+    viaLonger:"रस्सी की लंबाई {obj} से ज़्यादा है।",
+    viaShorter:"रस्सी की लंबाई {obj} से कम है।",
+    viaQLong:"किसकी लंबाई ज़्यादा है, {a} की या {b} की?",
+    viaQShort:"किसकी लंबाई कम है, {a} की या {b} की?",
+    goodViaL:"हाँ! {s} की लंबाई रस्सी से कम है, और रस्सी की लंबाई {l} से कम है। तो {l} की लंबाई {s} से ज़्यादा है।",
+    goodViaS:"हाँ! {s} की लंबाई रस्सी से कम है, और रस्सी की लंबाई {l} से कम है। तो {s} की लंबाई {l} से कम है।",
+    hintVia:"देखो रस्सी ने क्या दिखाया। रस्सी की लंबाई {l} से कम है, इसलिए {l} की लंबाई रस्सी से ज़्यादा है। रस्सी की लंबाई {s} से ज़्यादा है, इसलिए {s} की लंबाई रस्सी से कम है।",
+    strA:"मापने के लिए लाल रस्सी। इसे अगली चीज़ के नीचे ले जाने के लिए छुओ, या खींचो।",
+    strTo:"{obj}। इसके नीचे रस्सी रखने के लिए छुओ।",
+    keyEach2:"हर चित्र = {k}",
+    graphDir2:"ग्राफ़ बनाओ! हर चित्र 2 के बराबर है। खानों को छुओ ताकि हर स्तंभ तुम्हारी गिनती दिखाए। 2-2 करके गिनो! फिर जाँचो दबाओ।",
+    hintGraph2:"{c} का स्तंभ जाँचो। तुमने {n} गिने। हर चित्र 2 के बराबर है, इसलिए {p} चित्र चाहिए। अभी स्तंभ {v} दिखाता है।",
+    cellA2:"{c}: चित्र {n} तक, यानी {v}",
+    goodPic2:"तुम्हारा चित्र ग्राफ़ तुम्हारी गिनती से मेल खाता है! हर चित्र 2 के बराबर है, इसलिए हर समूह पढ़ने के लिए हम 2-2 करके गिनते हैं।",
+    whyHow2:"{a} के स्तंभ में {p} चित्र हैं। हर चित्र 2 के बराबर है, तो 2-2 करके गिनो: {list}। कुल {x} हैं।",
+    hintHow2:"{a} का स्तंभ ढूँढो। हर चित्र 2 के बराबर है, तो 2-2 करके गिनो: 2, 4, 6…",
+    keyRemind:"याद रखो: हर चित्र 2 के बराबर है, तो 2-2 करके गिनो।",
     cardTitle:"बगीचा मापन और ग्राफ़ प्रयोगशाला — चुनौती कार्ड",
     cardUnit:"क्या यह सही तरीके से मापा गया है? क्या गलत हुआ? गाजर की असली लंबाई कितनी है?",
     cardRuler:"केंचुए की लंबाई कितनी है? (ध्यान दो: यह 0 से शुरू नहीं होता।)",
@@ -778,7 +927,7 @@ const T = {
     teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setGrade:"جماعت", grade1:"جماعت 1", grade2:"جماعت 2",
     setUnits:"پیمانے کی اکائی", unitsCm:"سینٹی میٹر", unitsIn:"انچ", setModes:"موڈ", setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں",
     printCards:"چیلنج کارڈ پرنٹ کریں", setStored:"ترتیبات صرف اسی ڈیوائس پر محفوظ ہوتی ہیں۔ طالب علم کی معلومات کبھی محفوظ نہیں ہوتیں۔",
-    gradeNote:"جماعت 1: مکعب، 0 سے شروع ہونے والے پیمانے، لمبائی کی ترتیب، 3 گروپوں والے گراف۔ جماعت 2: سینٹی میٹر مکعب یا انچ ٹائلیں، 0 سے شروع نہ ہونے والے پیمانے، کتنا زیادہ لمبا، اندازہ، 4 گروپوں والے گراف، لائن پلاٹ اور گراف والے کہانی سوال۔",
+    gradeNote:"جماعت 1: مکعب، 0 سے شروع ہونے والے پیمانے، لمبائی کی ترتیب، دھاگے سے دو لمبائیوں کا موازنہ، 3 گروپوں والے گراف۔ جماعت 2: سینٹی میٹر مکعب یا انچ ٹائلیں، 0 سے شروع نہ ہونے والے پیمانے، کتنا زیادہ لمبا، اندازہ، مربع اکائیوں سے رقبہ، 4 گروپوں والے گراف، تصویری گراف جن میں ہر تصویر = 2، لائن پلاٹ اور گراف والے کہانی سوال۔",
     o_worm:"کیچوا", o_carrot:"گاجر", o_sunflower:"سورج مکھی", o_caterpillar:"سنڈی",
     o_peapod:"مٹر کی پھلی", o_cucumber:"کھیرا", o_leaf:"پتا", o_twig:"ٹہنی",
     uCubes:"مکعب", uCubesN:"مکعب", uCmCubes:"سینٹی میٹر مکعب", uInTiles:"انچ ٹائلیں", uCm:"سینٹی میٹر", uIn:"انچ",
@@ -859,7 +1008,34 @@ const T = {
     hintTotal:"{a}: {x}۔ {b}: {y}۔ دونوں کو جمع کرو۔",
     hintAll:"ہر کالم جمع کرو: {list}۔", hintStory:"{x} سے شروع کرو۔ {n} اور آئے۔ {n} جمع کرو۔",
     ansIsC:"جواب ہے: {c}۔", yes:"ہاں!",
-    stds:"منسلک معیارات: Texas TEKS جماعت 1: 1.7(A–D) لمبائی، 1.8(A–C) ڈیٹا؛ جماعت 2: 2.9(A–E) لمبائی، 2.10(A–D) ڈیٹا۔ Common Core: 1.MD.1، 1.MD.2، 1.MD.4، 2.MD.1–5، 2.MD.9، 2.MD.10۔",
+    stds:"منسلک معیارات: Texas TEKS جماعت 1: 1.7(A–D) لمبائی، 1.8(A–C) ڈیٹا؛ جماعت 2: 2.9(A–F) لمبائی اور رقبہ، 2.10(A–D) ڈیٹا۔ Common Core: 1.MD.1، 1.MD.2، 1.MD.4، 2.MD.1–5، 2.MD.9، 2.MD.10، 2.G.2۔",
+    areaDir:"باغ کی کیاری کا رقبہ معلوم کرو۔ اسے مربع اکائیوں سے ڈھانپو، بغیر خالی جگہ اور بغیر ایک دوسرے پر چڑھائے۔ کیاری کو چھوؤ یا مربع گھسیٹ کر اس پر رکھو۔ پھر جانچو دباؤ۔",
+    areaNone:"پہلے کیاری پر کچھ مربع اکائیاں رکھو۔",
+    areaGap:"ابھی خالی جگہیں ہیں۔ خالی جگہ کیاری کا وہ حصہ ہے جو ہم نے نہیں گنا، اس لیے رقبہ کم آئے گا۔ نقطہ دار نشان والی جگہیں ڈھانپو۔",
+    areaCount:"کیاری پوری ڈھک گئی، بغیر خالی جگہ اور بغیر ایک دوسرے پر چڑھائے۔ اب مربع گنو۔ باغ کی کیاری کا رقبہ کتنا ہے؟",
+    goodArea:"ہاں! {r} قطاریں، ہر قطار میں {c} مربع۔ باغ کی کیاری کا رقبہ {n} مربع اکائیاں ہے۔",
+    hintArea:"ہر مربع کو بس ایک بار گنو۔ ایک ایک قطار کر کے گنو: {r} قطاریں ہیں، ہر قطار میں {c} مربع۔",
+    bedA:"باغ کی کیاری",
+    sqOffA:"قطار {r}، جگہ {c}: خالی۔ یہاں مربع اکائی رکھنے کے لیے چھوؤ۔",
+    sqOnA:"قطار {r}، جگہ {c}: مربع اکائی۔ ہٹانے کے لیے چھوؤ۔",
+    viaDir:"{a} باغ میں ہے۔ {b} تالاب کے پاس ہے۔ ہم انہیں ساتھ ساتھ نہیں رکھ سکتے! سرخ دھاگے سے موازنہ کرو: اسے چھوؤ یا گھسیٹ کر ہر ایک کے نیچے لے جاؤ۔",
+    viaLonger:"دھاگے کی لمبائی {obj} سے زیادہ ہے۔",
+    viaShorter:"دھاگے کی لمبائی {obj} سے کم ہے۔",
+    viaQLong:"کس کی لمبائی زیادہ ہے، {a} کی یا {b} کی؟",
+    viaQShort:"کس کی لمبائی کم ہے، {a} کی یا {b} کی؟",
+    goodViaL:"ہاں! {s} کی لمبائی دھاگے سے کم ہے، اور دھاگے کی لمبائی {l} سے کم ہے۔ تو {l} کی لمبائی {s} سے زیادہ ہے۔",
+    goodViaS:"ہاں! {s} کی لمبائی دھاگے سے کم ہے، اور دھاگے کی لمبائی {l} سے کم ہے۔ تو {s} کی لمبائی {l} سے کم ہے۔",
+    hintVia:"دیکھو دھاگے نے کیا دکھایا۔ دھاگے کی لمبائی {l} سے کم ہے، اس لیے {l} کی لمبائی دھاگے سے زیادہ ہے۔ دھاگے کی لمبائی {s} سے زیادہ ہے، اس لیے {s} کی لمبائی دھاگے سے کم ہے۔",
+    strA:"ناپنے کے لیے سرخ دھاگا۔ اسے اگلی چیز کے نیچے لے جانے کے لیے چھوؤ، یا گھسیٹو۔",
+    strTo:"{obj}۔ اس کے نیچے دھاگا رکھنے کے لیے چھوؤ۔",
+    keyEach2:"ہر تصویر = {k}",
+    graphDir2:"گراف بناؤ! ہر تصویر 2 کے برابر ہے۔ خانوں کو چھوؤ تاکہ ہر کالم تمہاری گنتی دکھائے۔ دو دو کر کے گنو! پھر جانچو دباؤ۔",
+    hintGraph2:"{c} کا کالم جانچو۔ تم نے {n} گنے۔ ہر تصویر 2 کے برابر ہے، اس لیے {p} تصویریں چاہییں۔ ابھی کالم {v} دکھاتا ہے۔",
+    cellA2:"{c}: تصویر {n} تک، یعنی {v}",
+    goodPic2:"تمہارا تصویری گراف تمہاری گنتی سے ملتا ہے! ہر تصویر 2 کے برابر ہے، اس لیے ہر گروپ پڑھنے کے لیے ہم دو دو کر کے گنتے ہیں۔",
+    whyHow2:"{a} کے کالم میں {p} تصویریں ہیں۔ ہر تصویر 2 کے برابر ہے، تو دو دو کر کے گنو: {list}۔ کل {x} ہیں۔",
+    hintHow2:"{a} کا کالم تلاش کرو۔ ہر تصویر 2 کے برابر ہے، تو دو دو کر کے گنو: 2، 4، 6…",
+    keyRemind:"یاد رکھو: ہر تصویر 2 کے برابر ہے، تو دو دو کر کے گنو۔",
     cardTitle:"باغ میں پیمائش اور گراف کی لیب — چیلنج کارڈ",
     cardUnit:"کیا یہ ٹھیک طریقے سے ناپا گیا ہے؟ کیا غلط ہوا؟ گاجر کی اصل لمبائی کتنی ہے؟",
     cardRuler:"کیچوے کی لمبائی کتنی ہے؟ (دھیان دو: یہ 0 سے شروع نہیں ہوتا۔)",
@@ -875,7 +1051,7 @@ const T = {
     teacherTitle:"教师设置", close:"关闭", setGrade:"年级", grade1:"一年级", grade2:"二年级",
     setUnits:"尺子单位", unitsCm:"厘米", unitsIn:"英寸", setModes:"模式", setSpeech:"语音", autoRead:"自动朗读指令",
     printCards:"打印挑战卡", setStored:"设置只保存在本设备上。从不保存任何学生信息。",
-    gradeNote:"一年级：小方块、从 0 开始的尺子、按长短排序、3 组的图表。二年级：1 厘米方块或 1 英寸方片、不从 0 开始的尺子、长多少、估计、4 组的图表、点图和图表应用题。",
+    gradeNote:"一年级：小方块、从 0 开始的尺子、按长短排序、用绳子比较两个长度、3 组的图表。二年级：1 厘米方块或 1 英寸方片、不从 0 开始的尺子、长多少、估计、用正方形单位求面积、4 组的图表、每个图画代表 2 的象形统计图、点图和图表应用题。",
     o_worm:"蚯蚓", o_carrot:"胡萝卜", o_sunflower:"向日葵", o_caterpillar:"毛毛虫",
     o_peapod:"豌豆荚", o_cucumber:"黄瓜", o_leaf:"叶子", o_twig:"小树枝",
     uCubes:"小方块", uCubesN:"个小方块", uCmCubes:"厘米方块", uInTiles:"英寸方片", uCm:"厘米", uIn:"英寸",
@@ -956,7 +1132,34 @@ const T = {
     hintTotal:"{a}有 {x}，{b}有 {y}。合起来：用加法。",
     hintAll:"把每一列加起来：{list}。", hintStory:"从 {x} 开始。又来了 {n}。加上 {n}。",
     ansIsC:"答案是：{c}。", yes:"对了！",
-    stds:"对应标准：德州 TEKS 一年级：1.7(A–D) 长度，1.8(A–C) 数据；二年级：2.9(A–E) 长度，2.10(A–D) 数据。Common Core：1.MD.1、1.MD.2、1.MD.4、2.MD.1–5、2.MD.9、2.MD.10。",
+    stds:"对应标准：德州 TEKS 一年级：1.7(A–D) 长度，1.8(A–C) 数据；二年级：2.9(A–F) 长度和面积，2.10(A–D) 数据。Common Core：1.MD.1、1.MD.2、1.MD.4、2.MD.1–5、2.MD.9、2.MD.10、2.G.2。",
+    areaDir:"求出小菜地的面积。用正方形单位把它铺满，不留空隙，也不重叠。点一点菜地，或者把正方形拖到上面。然后点“检查”。",
+    areaNone:"先在小菜地上放一些正方形单位。",
+    areaGap:"还有空隙。空隙是菜地上没有数到的部分，这样面积就会算少了。把虚线框的地方铺满。",
+    areaCount:"菜地铺满了，没有空隙，也没有重叠。现在数一数正方形。小菜地的面积是多少？",
+    goodArea:"对了！{r} 行，每行 {c} 个正方形。小菜地的面积是 {n} 个正方形单位。",
+    hintArea:"每个正方形只数一次。一行一行地数：有 {r} 行，每行 {c} 个正方形。",
+    bedA:"小菜地",
+    sqOffA:"第 {r} 行第 {c} 个：空的。点一下，在这里放一个正方形单位。",
+    sqOnA:"第 {r} 行第 {c} 个：正方形单位。点一下拿走它。",
+    viaDir:"{a}在花园里，{b}在池塘边。我们没法把它们并排放在一起！用红绳子来比：点一点或拖动绳子，放到每一个下面。",
+    viaLonger:"绳子比{obj}长。",
+    viaShorter:"绳子比{obj}短。",
+    viaQLong:"{a}和{b}，哪个更长？",
+    viaQShort:"{a}和{b}，哪个更短？",
+    goodViaL:"对了！{s}比绳子短，绳子比{l}短。所以{l}比{s}长。",
+    goodViaS:"对了！{s}比绳子短，绳子比{l}短。所以{s}比{l}短。",
+    hintVia:"想想绳子告诉了我们什么。绳子比{l}短，所以{l}比绳子长。绳子比{s}长，所以{s}比绳子短。",
+    strA:"用来量长短的红绳子。点一下把它移到下一个东西下面，也可以拖动它。",
+    strTo:"{obj}。点一下把绳子放到它下面。",
+    keyEach2:"每个图画 = {k}",
+    graphDir2:"画图表！每个图画代表 2。点格子，让每一列显示你数的数。两个两个地数！然后点“检查”。",
+    hintGraph2:"检查一下{c}这一列。你数到 {n}。每个图画代表 2，所以需要 {p} 个图画。图表上有 {g} 个图画，也就是 {v}。",
+    cellA2:"{c}：变成 {n} 个图画，也就是 {v}",
+    goodPic2:"你的象形统计图和你数的一样！每个图画代表 2，所以我们两个两个地数，读出每一组有多少。",
+    whyHow2:"{a}这一列有 {p} 个图画。每个图画代表 2，两个两个地数：{list}。一共 {x}。",
+    hintHow2:"找到{a}这一列。每个图画代表 2，所以两个两个地数：2、4、6……",
+    keyRemind:"记住：每个图画代表 2，所以要两个两个地数。",
     cardTitle:"花园测量与图表实验室 — 挑战卡",
     cardUnit:"这样量对吗？哪里出错了？胡萝卜到底有多长？",
     cardRuler:"蚯蚓有多长？（小心：它不是从 0 开始的。）",
@@ -1191,6 +1394,7 @@ function flagWrong(b){ b.classList.add("wrongpick"); setTimeout(()=>b.classList.
 let udrag=null;
 function newUnit(){
   roundIds.unit++;
+  if(G2() && Math.random()<.3) return newArea();
   const L=ri(3,G2()?10:8), kind=rand(OBJS), fix=Math.random()<.34;
   const s={L,kind,cubes:[],fix,stage:"place",tries:0,nid:0,nums:false};
   if(fix){
@@ -1206,6 +1410,7 @@ function newUnit(){
   renderUnit(); maybeAuto("unit");
 }
 function renderUnit(){
+  if(ST.unit.area) return renderArea();
   const s=ST.unit, tr=$("#unitTrack"), W=tr.clientWidth||trackW("#unitTrack");
   const u=Math.max(22,Math.min(56,Math.floor((W-24)/(s.L+1.6)))), x0=12, oh=Math.min(50,Math.max(36,u));
   s.u=u; s.x0=x0; s.laneY=oh+16; s.W=W;
@@ -1239,6 +1444,7 @@ function cubeDown(e,c){
 }
 function srcDown(e){
   const s=ST.unit; if(!s||s.stage!=="place") return; e.preventDefault();
+  if(s.area) return areaSrcDown(e);
   const r=$("#unitTrack").getBoundingClientRect();
   const c={x:(e.clientX-r.left-s.x0-s.u/2)/s.u,id:++s.nid}; clampX(c); s.cubes.push(c);
   const b=document.createElement("button"); b.type="button"; b.className="cube drag"; b.style.width=b.style.height=s.u+"px";
@@ -1271,12 +1477,14 @@ function cubeKey(e,c){
 function removeCube(c){ const s=ST.unit; s.cubes=s.cubes.filter(x=>x!==c); if(c.el) c.el.remove(); clearErr(); }
 function addOne(){
   const s=ST.unit; if(s.stage!=="place") return;
+  if(s.area){ const i=s.on.indexOf(false); if(i>=0){ s.on[i]=true; hideFb($("#unitFb")); renderArea(); } return; }
   const x=s.cubes.length?Math.max(...s.cubes.map(c=>c.x+1)):0;
   if(x>maxX()) return;
   s.cubes.push({x,id:++s.nid}); hideFb($("#unitFb")); clearErr(); renderUnit();
 }
-function takeOne(){ const s=ST.unit; if(s.stage!=="place"||!s.cubes.length) return; let m=s.cubes[0]; s.cubes.forEach(c=>{ if(c.x>m.x) m=c; }); removeCube(m); }
+function takeOne(){ const s=ST.unit; if(s.stage!=="place") return; if(s.area){ const i=s.on.lastIndexOf(true); if(i>=0){ s.on[i]=false; renderArea(); } return; } if(!s.cubes.length) return; let m=s.cubes[0]; s.cubes.forEach(c=>{ if(c.x>m.x) m=c; }); removeCube(m); }
 function checkUnit(){
+  if(ST.unit.area) return checkArea();
   const s=ST.unit, fb=$("#unitFb"), cs=s.cubes.slice().sort((a,b)=>a.x-b.x), tol=.2, O={obj:oName(s.kind),units:unitPieces()};
   let k=null, bad=[];
   clearErr();
@@ -1307,6 +1515,79 @@ function pickUnitCount(b,v){
 }
 
 /* =========================================================================
+   AREA (Grade 2) — cover a garden bed with square units, then count them
+   ========================================================================= */
+let adrag=null;
+function newArea(){
+  const cols=ri(2,5), rows=ri(2,cols>=5?3:4);
+  ST.unit={area:true,cols,rows,n:cols*rows,on:Array(cols*rows).fill(false),stage:"place",tries:0,nums:false,gaps:false};
+  setPrompt("unit",t("areaDir"));
+  hideFb($("#unitFb")); $("#unitNums").innerHTML="";
+  renderArea(); maybeAuto("unit");
+}
+function renderArea(){
+  const s=ST.unit, tr=$("#unitTrack"), W=tr.clientWidth||trackW("#unitTrack");
+  const u=Math.max(36,Math.min(60,Math.floor((W-40)/s.cols))), x0=Math.round((W-u*s.cols)/2), y0=16;
+  s.u=u; s.ax=x0; s.ay=y0;
+  tr.style.height=(2*y0+u*s.rows)+"px";
+  tr.innerHTML=`<div class="abed" role="img" aria-label="${t("bedA")}" style="left:${x0-6}px;top:${y0-6}px;width:${u*s.cols+12}px;height:${u*s.rows+12}px"></div>`;
+  let k=0;
+  s.on.forEach((on,i)=>{
+    const b=document.createElement("button"); b.type="button";
+    b.className="acell"+(on?" on":"")+(!on&&s.gaps?" gap":""); b.dataset.i=i;
+    Object.assign(b.style,{left:(x0+(i%s.cols)*u)+"px",top:(y0+Math.floor(i/s.cols)*u)+"px",width:u+"px",height:u+"px"});
+    if(on){ k++; if(s.nums==="all"||(s.nums==="row"&&i<s.cols)) b.textContent=k; }   // numbers teach, never pre-answer
+    b.setAttribute("aria-label",t(on?"sqOnA":"sqOffA",{r:Math.floor(i/s.cols)+1,c:i%s.cols+1}));
+    if(s.stage!=="place") b.disabled=true; else b.addEventListener("click",()=>tapArea(i));
+    tr.appendChild(b);
+  });
+  $("#unitTools").classList.toggle("hidden",s.stage!=="place");
+}
+function tapArea(i){
+  const s=ST.unit; if(s.stage!=="place") return;
+  s.on[i]=!s.on[i]; s.gaps=false; hideFb($("#unitFb")); renderArea();
+  const nb=$(`#unitTrack .acell[data-i="${i}"]`); if(nb) nb.focus({preventScroll:true});
+}
+function areaSrcDown(e){
+  const s=ST.unit, r=$("#unitTrack").getBoundingClientRect(), g=document.createElement("div");
+  g.className="aghost"; g.style.width=g.style.height=s.u+"px"; $("#unitTrack").appendChild(g);
+  adrag={g,r,sx:e.clientX,sy:e.clientY,moved:false}; areaMove(e);
+}
+function areaMove(e){
+  if(!adrag) return; const d=adrag, s=ST.unit;
+  if(Math.abs(e.clientX-d.sx)+Math.abs(e.clientY-d.sy)>5) d.moved=true;
+  d.g.style.left=(e.clientX-d.r.left-s.u/2)+"px"; d.g.style.top=(e.clientY-d.r.top-s.u/2)+"px";
+}
+window.addEventListener("pointermove",areaMove);
+function areaUp(e){
+  if(!adrag) return; const d=adrag; adrag=null; d.g.remove(); const s=ST.unit;
+  if(!d.moved){ addOne(); return; }
+  const c=Math.floor((e.clientX-d.r.left-s.ax)/s.u), r=Math.floor((e.clientY-d.r.top-s.ay)/s.u);
+  if(c>=0&&c<s.cols&&r>=0&&r<s.rows){ s.on[r*s.cols+c]=true; s.gaps=false; hideFb($("#unitFb")); renderArea(); }
+}
+window.addEventListener("pointerup",areaUp); window.addEventListener("pointercancel",areaUp);
+function checkArea(){
+  const s=ST.unit, fb=$("#unitFb");
+  if(!s.on.some(Boolean)){ const m=t("areaNone"); showFb(fb,"hint",m); speak(m); return; }
+  if(!s.on.every(Boolean)){ s.gaps=true; renderArea(); const m=t("areaGap"); showFb(fb,"hint",m); speak(m); return; }
+  s.stage="count"; renderArea();
+  const dir=t("areaCount"); setPrompt("unit",dir); hideFb(fb); speak(dir);
+  choiceButtons($("#unitNums"),numOpts(s.n,[s.cols+s.rows,s.n+1,s.n-s.cols]).map(v=>({v,label:v})),pickArea);
+}
+function pickArea(b,v){
+  const s=ST.unit, fb=$("#unitFb");
+  if(v===s.n){
+    b.classList.add("correctpick"); lockChoices($("#unitNums")); addStar(); s.nums="all"; renderArea();
+    const m=t("goodArea",{r:s.rows,c:s.cols,n:s.n}); showFb(fb,"good",m);
+    afterPraise(m,"unit",newUnit,1800);
+  }else{
+    flagWrong(b); s.tries++; s.nums="row"; renderArea();
+    let m=t("hintArea",{c:s.cols,r:s.rows}); if(s.tries>=2) m+=" "+t("ansIs",{n:s.n});
+    showFb(fb,"hint",m); speak(m);
+  }
+}
+
+/* =========================================================================
    RULER READ — inch / centimeter ruler; objects may not start at 0 (G2)
    ========================================================================= */
 let rdrag=null;
@@ -1314,11 +1595,13 @@ function rulerMax(W){ return settings.units==="cm"?(W>=700?20:W>=480?15:12):(W>=
 function newRuler(){
   roundIds.ruler++;
   const g2=G2(), W=trackW("#rulerTrack"), max=rulerMax(W);
-  const type=g2?wpick([["read",5],["compare",2],["est",2],["order",1]]):wpick([["read",7],["order",3]]);
+  const type=g2?wpick([["read",5],["compare",2],["est",2],["order",1]]):wpick([["read",6],["order",2],["via",2]]);
   const s={type,max,tries:0,picked:[]}, kinds=shuffle(OBJS);
   if(type==="read"){ const L=ri(2,max-(g2?2:1)), s0=g2&&Math.random()<.65?ri(1,max-L):0; s.objs=[{kind:kinds[0],L,s:s0}]; s.ans=L; }
   else if(type==="compare"){ const a=ri(4,max-1), b=ri(2,a-2); s.objs=[{kind:kinds[0],L:a,s:0},{kind:kinds[1],L:b,s:0}]; s.ans=a-b; }
   else if(type==="est"){ const L=ri(3,Math.min(9,max-1)); s.objs=[{kind:kinds[0],L,s:0}]; s.ans=L; s.hidden=true; }
+  else if(type==="via"){ let a,b,sa,sb; do{ a=ri(2,max-2); b=ri(2,max-2); sa=ri(0,max-a); sb=ri(0,max-b); }while(Math.abs(a-b)<2||sa===sb);
+    s.objs=[{kind:kinds[0],L:a,s:sa},{kind:kinds[1],L:b,s:sb}]; s.S=ri(Math.min(a,b)+1,Math.max(a,b)-1); s.at=-1; s.obs=["",""]; s.q=rand(["long","short"]); }
   else{ let ls; do{ ls=[ri(2,max-1),ri(2,max-1),ri(2,max-1)]; }while(new Set(ls).size<3 || Math.min(Math.abs(ls[0]-ls[1]),Math.abs(ls[1]-ls[2]),Math.abs(ls[0]-ls[2]))<(g2?1:2));
     s.objs=ls.map((L,i)=>({kind:kinds[i],L,s:0})); }
   ST.ruler=s;
@@ -1327,6 +1610,7 @@ function newRuler(){
   if(type==="read") dir=t("rulerDir",O);
   else if(type==="compare") dir=t("compareDir",{a:oName(s.objs[0].kind),b:oName(s.objs[1].kind)});
   else if(type==="est") dir=t("estDir",O);
+  else if(type==="via") dir=t("viaDir",{a:oName(s.objs[0].kind),b:oName(s.objs[1].kind)});
   else dir=t("orderDir");
   setPrompt("ruler",dir); hideFb($("#rulerFb"));
   $("#rulerTip").textContent=type==="read"&&s.objs[0].s>0?t("slideTip",O):"";
@@ -1337,6 +1621,8 @@ function newRuler(){
   renderRuler(); maybeAuto("ruler");
 }
 function renderRuler(){
+  if(ST.ruler.type==="via") return renderVia();
+  $("#rulerTip").classList.remove("vobs");
   const s=ST.ruler, tr=$("#rulerTrack"), W=tr.clientWidth||trackW("#rulerTrack"), pad=18, ppu=(W-2*pad)/s.max;
   s.ppu=ppu; s.pad=pad;
   const oh=40, gap=14, lanes=s.objs.length+(s.type==="est"?1:0), rulerY=10+lanes*(oh+gap);
@@ -1389,6 +1675,61 @@ function pickOrder(b,i){
     if(s.picked.length===2){ const last=left.find(j=>j!==i); s.picked.push(last); s.objs[last].el.insertAdjacentHTML("beforeend",`<span class="obadge">3</span>`); }
     if(s.picked.length===3){ addStar(); const m=t("goodOrder"); showFb(fb,"good",m); afterPraise(m,"ruler",newRuler,1700); }
   }else{ b.classList.add("wrongpick"); setTimeout(()=>b.classList.remove("wrongpick"),1400); const m=t("hintOrder"); showFb(fb,"hint",m); speak(m); }
+}
+
+/* Indirect comparison (Grade 1, 1.MD.1): the two objects are far apart, so a string carries one length to the other. */
+let vdrag=null;
+function renderVia(){
+  const s=ST.ruler, tr=$("#rulerTrack"), W=tr.clientWidth||trackW("#rulerTrack"), pad=18, ppu=(W-2*pad)/s.max, oh=40;
+  s.ppu=ppu; s.pad=pad; s.slotY=[10+oh+6,114+oh+6]; s.homeY=218;
+  tr.style.height="248px";
+  tr.innerHTML=`<div class="vzone" style="top:0;height:100px"><span class="ve" aria-hidden="true">🌱</span></div><div class="vzone pond" style="top:104px;height:100px"><span class="ve" aria-hidden="true">💧</span></div>`;
+  s.objs.forEach((o,i)=>{
+    const b=document.createElement("button"); b.type="button"; b.className="robj order";
+    Object.assign(b.style,{top:(i?114:10)+"px",height:oh+"px",left:(pad+o.s*ppu)+"px",width:(o.L*ppu)+"px"});
+    b.style.setProperty("--gh",(s.at===i?24:0)+"px");
+    b.innerHTML=objSVG(o.kind,o.L*ppu,oh); b.setAttribute("aria-label",capFirst(t("strTo",{obj:oName(o.kind)})));
+    b.addEventListener("click",()=>placeStr(i)); o.el=b; tr.appendChild(b);
+  });
+  const st=document.createElement("button"); st.type="button"; st.className="vstr";
+  const x=s.at<0?pad:pad+s.objs[s.at].s*ppu, y=s.at<0?s.homeY:s.slotY[s.at];
+  Object.assign(st.style,{left:x+"px",top:y+"px",width:(s.S*ppu)+"px"});
+  st.setAttribute("aria-label",t("strA")); st.title=t("strA");
+  st.addEventListener("pointerdown",e=>{ e.preventDefault(); const r=tr.getBoundingClientRect(); vdrag={el:st,r,sx:e.clientX,sy:e.clientY,x0:x,y0:y,moved:false}; st.classList.add("drag"); });
+  st.addEventListener("click",()=>{ if(vdrag===false){ vdrag=null; return; } placeStr(s.at===0?1:0); });
+  s.strEl=st; tr.appendChild(st);
+  const tip=$("#rulerTip"); tip.classList.add("vobs"); tip.textContent=s.obs.filter(Boolean).map(capFirst).join(" ");
+}
+window.addEventListener("pointermove",e=>{ if(!vdrag) return; const d=vdrag;
+  if(Math.abs(e.clientX-d.sx)+Math.abs(e.clientY-d.sy)>6) d.moved=true;
+  d.el.style.left=(d.x0+e.clientX-d.sx)+"px"; d.el.style.top=(d.y0+e.clientY-d.sy)+"px"; });
+function vUp(e){
+  if(!vdrag) return; const d=vdrag; d.el.classList.remove("drag");
+  if(!d.moved){ vdrag=null; return; }   // a plain tap: the click handler moves the string
+  vdrag=false; setTimeout(()=>{ if(vdrag===false) vdrag=null; },0);
+  const y=e.clientY-d.r.top; placeStr(y<102?0:y<206?1:-1);
+}
+window.addEventListener("pointerup",vUp); window.addEventListener("pointercancel",vUp);
+function placeStr(i){
+  const s=ST.ruler; if(s.type!=="via"||s.done) return;
+  s.at=i; renderVia(); if(i<0) return;
+  const o=s.objs[i], first=!s.obs[0]||!s.obs[1];
+  s.obs[i]=t(s.S>o.L?"viaLonger":"viaShorter",{obj:oName(o.kind)});
+  renderVia(); if(s.strEl) s.strEl.focus({preventScroll:true});
+  let m=capFirst(s.obs[i]);
+  if(first&&s.obs[0]&&s.obs[1]){
+    const q=t(s.q==="long"?"viaQLong":"viaQShort",{a:oName(s.objs[0].kind),b:oName(s.objs[1].kind)});
+    setPrompt("ruler",q); m+=" "+capFirst(q);
+    choiceButtons($("#rulerNums"),s.objs.map((x,j)=>({v:j,label:cap(oName(x.kind)),word:true})),pickVia);
+  }
+  hideFb($("#rulerFb")); speak(m);
+}
+function pickVia(b,v){
+  const s=ST.ruler, fb=$("#rulerFb"), li=s.objs[0].L>s.objs[1].L?0:1, si=1-li, ans=s.q==="long"?li:si;
+  const O={l:oName(s.objs[li].kind),s:oName(s.objs[si].kind)};
+  if(v===ans){ b.classList.add("correctpick"); lockChoices($("#rulerNums")); addStar(); s.done=true;
+    const m=capFirst(t(s.q==="long"?"goodViaL":"goodViaS",O)); showFb(fb,"good",m); afterPraise(m,"ruler",newRuler,2000); }
+  else{ flagWrong(b); s.tries++; let m=capFirst(t("hintVia",O)); if(s.tries>=2) m+=" "+capFirst(t("ansIsC",{c:oName(s.objs[ans].kind)})); showFb(fb,"hint",m); speak(m); }
 }
 
 /* =========================================================================
@@ -1485,21 +1826,21 @@ function miniWorm(L,max){
   return s+`</svg>`;
 }
 function graphHTML(g){
-  const pic=g.type==="pic", lp=g.type==="lp", bar=g.type==="bar";
+  const pic=g.type==="pic", lp=g.type==="lp", bar=g.type==="bar", k=g.k||1;
   let h=`<div class="gtitle">${g.title}</div><div class="gwrap"${lp?' dir="ltr"':""}>`;
   if(bar){ h+=`<div class="gaxis" aria-hidden="true"><div class="gnums">`; for(let i=1;i<=g.rows;i++) h+=`<div class="gnum"><span>${i}</span></div>`; h+=`</div><div class="glabel"></div></div>`; }
   g.cats.forEach((c,ci)=>{
     h+=`<div class="gcol${(g.hl||[]).includes(ci)?" hl":""}" style="--c:${c.color}"><div class="gcells">`;
     for(let i=1;i<=g.rows;i++){
       const on=i<=g.vals[ci], inner=on?(pic?c.emoji:lp?"✕":""):"", cls=`gcell ${g.type}${on?" on":""}`;
-      h+=g.interactive?`<button type="button" class="${cls}" data-c="${ci}" data-i="${i}" aria-label="${t("cellA",{c:c.label,n:i})}">${inner}</button>`:`<div class="${cls}">${inner}</div>`;
+      h+=g.interactive?`<button type="button" class="${cls}" data-c="${ci}" data-i="${i}" aria-label="${k>1?t("cellA2",{c:c.label,n:i,v:i*k}):t("cellA",{c:c.label,n:i})}">${inner}</button>`:`<div class="${cls}">${inner}</div>`;
     }
     h+=`</div><div class="glabel">${lp?"":`<span class="ge" aria-hidden="true">${c.emoji}</span>`}${c.label}</div></div>`;
   });
   h+=`</div>`;
-  if(pic) h+=`<div class="gkey">${t("keyEach")}</div>`;
+  if(pic) h+=k>1?`<div class="gkey gkey2">${t("keyEach2",{k})}</div>`:`<div class="gkey">${t("keyEach")}</div>`;
   if(lp) h+=`<div class="gkey">${t("lpAxis",{u:rulerUnit()})}</div>`;
-  if(!g.interactive){ const sr=g.cats.map((c,i)=>c.label+": "+g.vals[i]).join(", "); h=`<div role="img" aria-label="${g.title}. ${sr}">${h}</div>`; }
+  if(!g.interactive){ const sr=g.cats.map((c,i)=>c.label+": "+g.vals[i]*k).join(", "); h=`<div role="img" aria-label="${g.title}. ${sr}">${h}</div>`; }
   return h;
 }
 let gdrag=null, gSuppressClick=false;
@@ -1513,9 +1854,11 @@ function newGraph(){
     do{ s.counts=s.cats.map(()=>ri(0,3)); }while(s.counts.reduce((a,b)=>a+b,0)<6||s.counts.reduce((a,b)=>a+b,0)>10||s.counts.filter(Boolean).length<3);
   }else{
     const th=rand(Object.keys(THEMES)); s.title=t(THEMES[th].title); s.cats=themeCats(th,g2?4:3);
-    s.counts=s.cats.map(()=>ri(1,g2?7:5));
+    // Grade 2 picture graphs sometimes use a key where each picture = 2 (TEKS 2.10(B): intervals of one or more)
+    s.k=g2&&type==="pic"&&Math.random()<.45?2:1;
+    s.counts=s.k>1?s.cats.map(()=>2*ri(2,4)):s.cats.map(()=>ri(1,g2?7:5));
   }
-  s.rows=Math.min(8,Math.max(5,Math.max(...s.counts)+ri(1,2)));
+  s.rows=Math.min(8,Math.max(5,Math.max(...s.counts)/(s.k||1)+ri(1,2)));
   s.tally=s.cats.map(()=>0); s.built=s.cats.map(()=>0);
   s.items=[]; s.counts.forEach((n,ci)=>{ for(let i=0;i<n;i++) s.items.push({ci,id:s.items.length}); }); s.items=shuffle(s.items);
   ST.graph=s;
@@ -1535,7 +1878,7 @@ function renderGraph(){
     h+=`</div>`;
   }else{
     h+=`<div class="bins">`+s.cats.map((c,ci)=>`<div class="bin ro${s.type==="lp"?" lpbin":""}">${binLbl(c,ci)}</div>`).join("")+`</div>`;
-    h+=graphHTML({type:s.type,cats:s.cats,vals:s.built,rows:s.rows,interactive:true,title:s.title,hl:s.hl});
+    h+=graphHTML({type:s.type,cats:s.cats,vals:s.built,rows:s.rows,interactive:true,title:s.title,hl:s.hl,k:s.k});
   }
   A.innerHTML=h;
   $("#graphTools").classList.toggle("hidden",s.phase!=="graph");
@@ -1555,7 +1898,7 @@ function dropInto(ci,binEl){
   const it=s.items.find(x=>x.id===s.sel);
   if(it.ci===ci){
     it.done=true; s.tally[ci]++; s.sel=null; hideFb(fb); renderGraph();
-    if(s.items.every(x=>x.done)){ s.phase="graph"; renderGraph(); const d=t(s.type==="lp"?"lpDir":"graphDir"); setPrompt("graph",d); speak(d); }
+    if(s.items.every(x=>x.done)){ s.phase="graph"; renderGraph(); const d=t(s.type==="lp"?"lpDir":s.k>1?"graphDir2":"graphDir"); setPrompt("graph",d); speak(d); }
     else { const nx=$("#graphArea .item"); if(nx) nx.focus({preventScroll:true}); }
   }else{
     if(binEl){ binEl.classList.add("wrongpick"); setTimeout(()=>binEl.classList.remove("wrongpick"),1200); }
@@ -1581,11 +1924,12 @@ window.addEventListener("pointerup",e=>{
 });
 function checkGraph(){
   const s=ST.graph, fb=$("#graphFb"); if(s.phase!=="graph") return;
-  const i=s.cats.findIndex((c,ci)=>s.built[ci]!==s.counts[ci]);
-  if(i<0){ addStar(); s.phase="done"; const m=t(s.type==="pic"?"goodPic":s.type==="bar"?"goodBar":"goodLP"); showFb(fb,"good",m);
+  const k=s.k||1, i=s.cats.findIndex((c,ci)=>s.built[ci]*k!==s.counts[ci]);
+  if(i<0){ addStar(); s.phase="done"; const m=t(s.type==="pic"?(k>1?"goodPic2":"goodPic"):s.type==="bar"?"goodBar":"goodLP"); showFb(fb,"good",m);
     $$("#graphArea button.gcell").forEach(b=>b.disabled=true); afterPraise(m,"graph",newGraph,2000); return; }
   s.hl=[i]; renderGraph();
-  const m=t("hintGraph",{c:s.cats[i].label,n:s.counts[i],g:s.built[i]})+" "+t(s.type==="lp"?"hintGraphLP":"hintGraphEach");
+  const m=k>1?t("hintGraph2",{c:s.cats[i].label,n:s.counts[i],p:s.counts[i]/k,g:s.built[i],v:s.built[i]*k})
+    :t("hintGraph",{c:s.cats[i].label,n:s.counts[i],g:s.built[i]})+" "+t(s.type==="lp"?"hintGraphLP":"hintGraphEach");
   showFb(fb,"hint",m); speak(m);
 }
 
@@ -1595,19 +1939,23 @@ function checkGraph(){
 function newAsk(){
   roundIds.ask++;
   const g2=G2(), nc=g2?4:3, th=rand(Object.keys(THEMES)), cats=themeCats(th,nc);
-  const vals=shuffle(Array.from({length:g2?9:7},(_,i)=>i+1)).slice(0,nc);
-  const s={type:rand(["pic","bar"]),cats,vals,title:t(THEMES[th].title),tries:0,rows:Math.max(...vals)};
+  const type=rand(["pic","bar"]), k=g2&&type==="pic"&&Math.random()<.45?2:1;
+  const vals=shuffle(k>1?Array.from({length:6},(_,i)=>(i+2)*k):Array.from({length:g2?9:7},(_,i)=>i+1)).slice(0,nc);
+  const s={type,k,cats,vals,title:t(THEMES[th].title),tries:0,rows:Math.max(...vals)/k};
   const q=wpick(g2?[["how",1],["most",1],["least",1],["more",2],["fewer",2],["total",2],["all",1],["story",2]]:[["how",2],["most",1],["least",1],["more",2],["fewer",1],["total",2]]);
   const idx=shuffle(cats.map((c,i)=>i)); let a=idx[0], b=idx[1]; if(vals[a]<vals[b]) [a,b]=[b,a];
   const A=cats[a].label, B=cats[b].label, x=vals[a], y=vals[b];
   s.q=q; s.a=a; s.b=b;
-  if(q==="how"){ s.ans=x; s.text=t("qHow",{a:A}); s.why=t("whyHow",{a:A,x}); s.hint=t("hintHow",{a:A}); s.hl=[a]; s.ex=[x+1,x-1]; }
+  if(q==="how"){ s.ans=x; s.text=t("qHow",{a:A}); s.hl=[a];
+    if(k>1){ const steps=Array.from({length:x/k},(_,i)=>(i+1)*k).join(", "); s.why=t("whyHow2",{a:A,p:x/k,list:steps,x}); s.hint=t("hintHow2",{a:A}); s.ex=[x/k,x+k,x-1]; }
+    else{ s.why=t("whyHow",{a:A,x}); s.hint=t("hintHow",{a:A}); s.ex=[x+1,x-1]; } }
   else if(q==="most"||q==="least"){ const v=q==="most"?Math.max(...vals):Math.min(...vals), k=vals.indexOf(v); s.ansC=k;
     s.text=t(q==="most"?"qMost":"qLeast"); s.why=t(q==="most"?"whyMost":"whyLeast",{a:cats[k].label,x:v}); s.hint=t(q==="most"?"hintMost":"hintLeast"); s.hl=[]; }
   else if(q==="more"||q==="fewer"){ s.ans=x-y; s.text=t(q==="more"?"qMore":"qFewer",{a:A,b:B}); s.why=t("whyMore",{x,y,n:x-y}); s.hint=t("hintMore",{a:A,b:B,x,y}); s.hl=[a,b]; s.ex=[x,x+y]; }
   else if(q==="total"){ s.ans=x+y; s.text=t("qTotal",{a:A,b:B}); s.why=t("whyTotal",{x,y,n:x+y}); s.hint=t("hintTotal",{a:A,b:B,x,y}); s.hl=[a,b]; s.ex=[x,x-y]; }
   else if(q==="all"){ const tot=vals.reduce((p,c)=>p+c,0), list=vals.join(" + "); s.ans=tot; s.text=t("qAll"); s.why=t("whyAll",{list,n:tot}); s.hint=t("hintAll",{list}); s.hl=cats.map((c,i)=>i); s.ex=[tot-1,tot+1]; }
-  else{ const n=ri(2,g2?5:3); s.ans=x+n; s.text=t("qStory",{a:A,n}); s.why=t("whyTotal",{x,y:n,n:x+n}); s.hint=t("hintStory",{a:A,x,n}); s.hl=[a]; s.ex=[x,n]; }
+  else{ const n=k>1?k*ri(1,3):ri(2,g2?5:3); s.ans=x+n; s.text=t("qStory",{a:A,n}); s.why=t("whyTotal",{x,y:n,n:x+n}); s.hint=t("hintStory",{a:A,x,n}); s.hl=[a]; s.ex=[x,n]; }
+  if(k>1&&q!=="how"&&q!=="most"&&q!=="least"){ s.hint=t("keyRemind",{k})+" "+s.hint; if(s.ex) s.ex=[x/k].concat(s.ex); }
   ST.ask=s;
   setPrompt("ask",capFirst(s.text)); hideFb($("#askFb")); s.showHl=false;
   renderAsk();
@@ -1616,7 +1964,7 @@ function newAsk(){
   else choiceButtons(nums,numOpts(s.ans,s.ex).map(v=>({v,label:v})),pickAsk);
   maybeAuto("ask");
 }
-function renderAsk(){ const s=ST.ask; $("#askGraph").innerHTML=graphHTML({type:s.type,cats:s.cats,vals:s.vals,rows:s.rows,interactive:false,title:s.title,hl:s.showHl?s.hl:[]}); }
+function renderAsk(){ const s=ST.ask, k=s.k||1; $("#askGraph").innerHTML=graphHTML({type:s.type,cats:s.cats,vals:s.vals.map(v=>v/k),rows:s.rows,interactive:false,title:s.title,hl:s.showHl?s.hl:[],k}); }
 function pickAsk(b,v){
   const s=ST.ask, fb=$("#askFb"), isC=s.ansC!==undefined, ok=isC?v===s.ansC:v===s.ans;
   if(ok){ b.classList.add("correctpick"); lockChoices($("#askNums")); addStar(); s.showHl=true; if(isC) s.hl=[s.ansC]; renderAsk();
@@ -1645,7 +1993,7 @@ function showMode(mode){
 }
 function refreshAll(){ const lo=$("#gType option[value='lp']"); if(lo) lo.hidden=!G2(); MODES.forEach(m=>dirty[m]=true); const m=currentMode(); dirty[m]=false; NEWR[m](); }
 let rsT=null, lastW=window.innerWidth;
-window.addEventListener("resize",()=>{ clearTimeout(rsT); rsT=setTimeout(()=>{ if(window.innerWidth===lastW||udrag||rdrag) return; lastW=window.innerWidth; const m=currentMode(); if(ST[m]&&(m==="unit"||m==="ruler"||m==="size")) RENDER[m](); },200); });
+window.addEventListener("resize",()=>{ clearTimeout(rsT); rsT=setTimeout(()=>{ if(window.innerWidth===lastW||udrag||rdrag||adrag||vdrag) return; lastW=window.innerWidth; const m=currentMode(); if(ST[m]&&(m==="unit"||m==="ruler"||m==="size")) RENDER[m](); },200); });
 
 /* ---------- Settings drawer ---------- */
 function applyModeVis(){
@@ -1726,7 +2074,8 @@ function applyLang(){
   const sel=$("#langSelect"); if(sel) sel.value=lang;
   $$("[data-t]").forEach(el=>{ el.textContent=t(el.getAttribute("data-t")); });
   $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
-  $("#stdsNote").textContent=t("stds");
+  // Keep standard codes like "2.9(A–F)" readable inside right-to-left text.
+  $("#stdsNote").textContent=meta.dir==="rtl"?t("stds").replace(/[A-Za-z0-9][A-Za-z0-9.()–, ]*[A-Za-z0-9)]/g,"\u2066$&\u2069"):t("stds");
   $("#stars").setAttribute("aria-label",t("starsA",{n:stars}));
   buildModeToggles();
   refreshAll();
@@ -1750,7 +2099,7 @@ function init(){
   $("#unitSrc").addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); addOne(); } });
   $("#unitAdd").addEventListener("click",addOne);
   $("#unitTake").addEventListener("click",takeOne);
-  $("#unitClear").addEventListener("click",()=>{ const s=ST.unit; if(s.stage!=="place") return; s.cubes=[]; hideFb($("#unitFb")); renderUnit(); });
+  $("#unitClear").addEventListener("click",()=>{ const s=ST.unit; if(s.stage!=="place") return; if(s.area) s.on=s.on.map(()=>false); else s.cubes=[]; hideFb($("#unitFb")); renderUnit(); });
   $("#unitCheck").addEventListener("click",checkUnit);
   $("#graphArea").addEventListener("click",graphClick);
   $("#graphArea").addEventListener("pointerdown",graphDown);
