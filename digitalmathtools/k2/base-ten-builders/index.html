@@ -58,6 +58,8 @@
   .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem;margin-top:.7rem}
   .choice{background:var(--panel);border:3px solid var(--line);border-radius:16px;padding:.5rem;min-height:72px;display:flex;align-items:center;justify-content:center;position:relative;font-size:1.5rem;font-weight:800;color:var(--ink)}
   .choice .lbl{unicode-bidi:isolate;direction:ltr;white-space:nowrap}
+  .choice.word .lbl{direction:inherit;white-space:normal;font-size:1.15rem;line-height:1.3;text-align:center}
+  .wordcard{text-align:center;font-size:1.7rem;font-weight:800;background:#fff;border:2px solid var(--line);border-radius:14px;padding:.8rem 1rem;overflow-wrap:anywhere}
   .choice.correctpick,.symbtn.correctpick,.cell.correctpick{border-color:var(--good);background:var(--good-bg)}
   .choice.wrongpick,.symbtn.wrongpick,.cell.wrongpick{border-color:var(--hint);background:var(--hint-bg)}
   .choice:disabled,.symbtn:disabled{opacity:.6}
@@ -294,7 +296,7 @@
       <select class="diff" id="setRange">
         <option value="r20" data-t="r20">Up to 20 (Kindergarten)</option>
         <option value="r120" data-t="r120">Up to 120 (Grade 1)</option>
-        <option value="r1000" data-t="r1000">Up to 1,000 (Grade 2)</option></select></div>
+        <option value="r1200" data-t="r1200">Up to 1,200 (Grade 2)</option></select></div>
     <div class="setrow"><span class="lab" data-t="setModes">Modes</span>
       <div id="modeToggles" style="display:flex;flex-wrap:wrap;gap:.4rem"></div></div>
     <div class="setrow"><span class="lab" data-t="setBuildOpts">Build It</span>
@@ -345,7 +347,7 @@ const T = {
     hintLess:"You built {v}. That is less than {n}. Add more blocks.", hintMore:"You built {v}. That is more than {n}. Take some blocks away.",
     hintNeed:"{n} is {parts}.", hintWay:"That makes {n}! But this time, use exactly {k}.",
     tipBreakT:"Try breaking a ten into 10 ones.", tipBreakH:"Try breaking a hundred into 10 tens.", tipTradeO:"Try trading 10 ones for 1 ten.",
-    readDirNum:"What number do the blocks show?", readDirExp:"Which one matches the blocks?", choicesLbl:"Answer choices",
+    readDirWord:"Which number name matches the blocks?", readDirName:"Read the number name. Which number is it?", wordMeans:"{w} means {parts}.", zeroH:"There are no hundreds, so write 0 in the hundreds place.", zeroT:"There are no tens, so write 0 in the tens place.", sayParts:"Say the hundreds first, then the tens and ones.", wordIs:"{w} is {n}.", thouNote:"10 hundreds make 1 thousand.", cnt_k1:"1 thousand", readDirNum:"What number do the blocks show?", readDirExp:"Which one matches the blocks?", choicesLbl:"Answer choices",
     yes:"Yes!", hintRead:"You picked {x}. Count the blocks in each place.", placeIs:"{c} is {v}.", placeIs1:"{c} is {v}.", regroupNote:"{a} is the same as {b}.",
     cmpDir:"Compare the numbers. Tap >, <, or =.", cmpSay:"Compare {a} and {b}. Is {a} greater than, less than, or equal to {b}?",
     gtW:"is greater than", ltW:"is less than", eqW:"is equal to",
@@ -363,7 +365,7 @@ const T = {
     goodSkip:"Yes! You counted by {s}s:", goodSkipBack:"Yes! You counted back by {s}s:",
     cnt_h:"{n} hundreds", cnt_h1:"1 hundred", cnt_t:"{n} tens", cnt_t1:"1 ten", cnt_o:"{n} ones", cnt_o1:"1 one",
     pl_h:"hundreds", pl_t:"tens", pl_o:"ones", comma:", ", andSep:" and ",
-    teacherTitle:"Teacher settings", close:"Close", setRange:"Number range", r20:"Up to 20 (Kindergarten)", r120:"Up to 120 (Grade 1)", r1000:"Up to 1,000 (Grade 2)",
+    teacherTitle:"Teacher settings", close:"Close", setRange:"Number range", r20:"Up to 20 (Kindergarten)", r120:"Up to 120 (Grade 1)", r1200:"Up to 1,200 (Grade 2)",
     setModes:"Modes", setBuildOpts:"Build It", setAutoTrade:"Auto-trade 10 ones for a ten", setShowTotal:"Show the total while building",
     setChallenge:"Challenges", chalOn:"Regrouping puzzles (more than 9 ones, build another way)",
     setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
@@ -387,7 +389,7 @@ const T = {
     hintLess:"Construiste {v}. Eso es menos que {n}. Agrega más bloques.", hintMore:"Construiste {v}. Eso es más que {n}. Quita algunos bloques.",
     hintNeed:"{n} es {parts}.", hintWay:"¡Eso forma {n}! Pero esta vez usa exactamente {k}.",
     tipBreakT:"Intenta romper una decena en 10 unidades.", tipBreakH:"Intenta romper una centena en 10 decenas.", tipTradeO:"Intenta cambiar 10 unidades por 1 decena.",
-    readDirNum:"¿Qué número muestran los bloques?", readDirExp:"¿Cuál corresponde a los bloques?", choicesLbl:"Opciones de respuesta",
+    readDirWord:"¿Qué nombre de número corresponde a los bloques?", readDirName:"Lee el nombre del número. ¿Qué número es?", wordMeans:"{w} quiere decir {parts}.", zeroH:"No hay centenas, así que escribe 0 en el lugar de las centenas.", zeroT:"No hay decenas, así que escribe 0 en el lugar de las decenas.", sayParts:"Di primero las centenas y luego las decenas y las unidades.", wordIs:"{w} es {n}.", thouNote:"10 centenas forman 1 millar.", cnt_k1:"1 millar", readDirNum:"¿Qué número muestran los bloques?", readDirExp:"¿Cuál corresponde a los bloques?", choicesLbl:"Opciones de respuesta",
     yes:"¡Sí!", hintRead:"Escogiste {x}. Cuenta los bloques de cada lugar.", placeIs:"{c} son {v}.", placeIs1:"{c} es {v}.", regroupNote:"{a} son lo mismo que {b}.",
     cmpDir:"Compara los números. Toca >, < o =.", cmpSay:"Compara {a} y {b}. ¿{a} es mayor que, menor que o igual a {b}?",
     gtW:"es mayor que", ltW:"es menor que", eqW:"es igual a",
@@ -405,7 +407,7 @@ const T = {
     goodSkip:"¡Sí! Contaste de {s} en {s}:", goodSkipBack:"¡Sí! Contaste hacia atrás de {s} en {s}:",
     cnt_h:"{n} centenas", cnt_h1:"1 centena", cnt_t:"{n} decenas", cnt_t1:"1 decena", cnt_o:"{n} unidades", cnt_o1:"1 unidad",
     pl_h:"centenas", pl_t:"decenas", pl_o:"unidades", comma:", ", andSep:" y ",
-    teacherTitle:"Ajustes del maestro", close:"Cerrar", setRange:"Rango de números", r20:"Hasta 20 (Kínder)", r120:"Hasta 120 (1.er grado)", r1000:"Hasta 1,000 (2.º grado)",
+    teacherTitle:"Ajustes del maestro", close:"Cerrar", setRange:"Rango de números", r20:"Hasta 20 (Kínder)", r120:"Hasta 120 (1.er grado)", r1200:"Hasta 1,200 (2.º grado)",
     setModes:"Modos", setBuildOpts:"Constrúyelo", setAutoTrade:"Cambiar 10 unidades por una decena automáticamente", setShowTotal:"Mostrar el total al construir",
     setChallenge:"Retos", chalOn:"Acertijos de reagrupar (más de 9 unidades, construir de otra manera)",
     setSpeech:"Voz", autoRead:"Leer instrucciones", printCards:"Imprimir tarjetas de reto",
@@ -429,7 +431,7 @@ const T = {
     hintLess:"Em đã xây {v}. Số đó nhỏ hơn {n}. Hãy thêm khối.", hintMore:"Em đã xây {v}. Số đó lớn hơn {n}. Hãy bớt khối.",
     hintNeed:"{n} gồm {parts}.", hintWay:"Đúng là {n}! Nhưng lần này hãy dùng đúng {k}.",
     tipBreakT:"Thử tách một chục thành 10 đơn vị.", tipBreakH:"Thử tách một trăm thành 10 chục.", tipTradeO:"Thử đổi 10 đơn vị lấy 1 chục.",
-    readDirNum:"Các khối cho thấy số nào?", readDirExp:"Cái nào khớp với các khối?", choicesLbl:"Các lựa chọn",
+    readDirWord:"Cách đọc số nào khớp với các khối?", readDirName:"Đọc số được viết bằng chữ. Đó là số nào?", wordMeans:"{w} nghĩa là {parts}.", zeroH:"Không có trăm nào, nên viết 0 ở hàng trăm.", zeroT:"Không có chục nào, nên viết 0 ở hàng chục.", sayParts:"Đọc hàng trăm trước, rồi đến hàng chục và hàng đơn vị.", wordIs:"{w} là {n}.", thouNote:"10 trăm là 1 nghìn.", cnt_k1:"1 nghìn", readDirNum:"Các khối cho thấy số nào?", readDirExp:"Cái nào khớp với các khối?", choicesLbl:"Các lựa chọn",
     yes:"Đúng rồi!", hintRead:"Em đã chọn {x}. Hãy đếm khối ở mỗi hàng.", placeIs:"{c} là {v}.", placeIs1:"{c} là {v}.", regroupNote:"{a} bằng {b}.",
     cmpDir:"So sánh hai số. Chạm >, < hoặc =.", cmpSay:"So sánh {a} và {b}. {a} lớn hơn, nhỏ hơn hay bằng {b}?",
     gtW:"lớn hơn", ltW:"nhỏ hơn", eqW:"bằng",
@@ -447,7 +449,7 @@ const T = {
     goodSkip:"Đúng rồi! Em đã đếm thêm {s}:", goodSkipBack:"Đúng rồi! Em đã đếm lùi {s}:",
     cnt_h:"{n} trăm", cnt_h1:"1 trăm", cnt_t:"{n} chục", cnt_t1:"1 chục", cnt_o:"{n} đơn vị", cnt_o1:"1 đơn vị",
     pl_h:"trăm", pl_t:"chục", pl_o:"đơn vị", comma:", ", andSep:" và ",
-    teacherTitle:"Cài đặt giáo viên", close:"Đóng", setRange:"Phạm vi số", r20:"Đến 20 (Mẫu giáo)", r120:"Đến 120 (Lớp 1)", r1000:"Đến 1.000 (Lớp 2)",
+    teacherTitle:"Cài đặt giáo viên", close:"Đóng", setRange:"Phạm vi số", r20:"Đến 20 (Mẫu giáo)", r120:"Đến 120 (Lớp 1)", r1200:"Đến 1.200 (Lớp 2)",
     setModes:"Chế độ", setBuildOpts:"Xây Số", setAutoTrade:"Tự động đổi 10 đơn vị lấy 1 chục", setShowTotal:"Hiện tổng khi xây",
     setChallenge:"Thử thách", chalOn:"Câu đố đổi hàng (hơn 9 đơn vị, xây theo cách khác)",
     setSpeech:"Giọng nói", autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
@@ -471,7 +473,7 @@ const T = {
     hintLess:"بنيت {v}. هذا أقل من {n}. أضف مكعبات أكثر.", hintMore:"بنيت {v}. هذا أكثر من {n}. أزِل بعض المكعبات.",
     hintNeed:"العدد {n} يتكون من {parts}.", hintWay:"هذا يساوي {n}! لكن هذه المرة استخدم {k} بالضبط.",
     tipBreakT:"جرّب فكّ عشرة إلى 10 وحدات.", tipBreakH:"جرّب فكّ مئة إلى 10 عشرات.", tipTradeO:"جرّب تبديل 10 وحدات بعشرة واحدة.",
-    readDirNum:"ما العدد الذي تُظهره المكعبات؟", readDirExp:"أيّها يطابق المكعبات؟", choicesLbl:"خيارات الإجابة",
+    readDirWord:"أيّ اسم عدد يطابق المكعبات؟", readDirName:"اقرأ اسم العدد. ما هذا العدد؟", wordMeans:"{w} يعني {parts}.", zeroH:"لا توجد مئات، لذلك اكتب 0 في منزلة المئات.", zeroT:"لا توجد عشرات، لذلك اكتب 0 في منزلة العشرات.", sayParts:"قل المئات أولًا، ثم الآحاد والعشرات.", wordIs:"{w} هو {n}.", thouNote:"10 مئات تساوي ألفًا واحدًا.", cnt_k1:"ألف واحد", readDirNum:"ما العدد الذي تُظهره المكعبات؟", readDirExp:"أيّها يطابق المكعبات؟", choicesLbl:"خيارات الإجابة",
     yes:"نعم!", hintRead:"اخترت {x}. عُدّ المكعبات في كل منزلة.", placeIs:"{c} تساوي {v}.", placeIs1:"{c} تساوي {v}.", regroupNote:"{a} تساوي {b}.",
     cmpDir:"قارن بين العددين. المس > أو < أو =.", cmpSay:"قارن بين {a} و{b}. هل {a} أكبر من {b} أم أصغر منه أم يساويه؟",
     gtW:"أكبر من", ltW:"أصغر من", eqW:"يساوي",
@@ -489,7 +491,7 @@ const T = {
     goodSkip:"نعم! عددت بالقفز {s} في كل مرة:", goodSkipBack:"نعم! عددت تنازلياً بالقفز {s} في كل مرة:",
     cnt_h:"{n} مئات", cnt_h1:"مئة واحدة", cnt_t:"{n} عشرات", cnt_t1:"عشرة واحدة", cnt_o:"{n} وحدات", cnt_o1:"وحدة واحدة",
     pl_h:"المئات", pl_t:"العشرات", pl_o:"الآحاد", comma:"، ", andSep:" و",
-    teacherTitle:"إعدادات المعلم", close:"إغلاق", setRange:"نطاق الأعداد", r20:"حتى 20 (الروضة)", r120:"حتى 120 (الصف الأول)", r1000:"حتى 1000 (الصف الثاني)",
+    teacherTitle:"إعدادات المعلم", close:"إغلاق", setRange:"نطاق الأعداد", r20:"حتى 20 (الروضة)", r120:"حتى 120 (الصف الأول)", r1200:"حتى 1200 (الصف الثاني)",
     setModes:"الأنماط", setBuildOpts:"ابنِ العدد", setAutoTrade:"تبديل 10 وحدات بعشرة تلقائياً", setShowTotal:"إظهار المجموع أثناء البناء",
     setChallenge:"التحديات", chalOn:"ألغاز إعادة التجميع (أكثر من 9 وحدات، البناء بطريقة أخرى)",
     setSpeech:"النطق", autoRead:"قراءة التعليمات تلقائياً", printCards:"طباعة بطاقات التحدي",
@@ -513,7 +515,7 @@ const T = {
     hintLess:"तुमने {v} बनाया। यह {n} से कम है। और ब्लॉक जोड़ो।", hintMore:"तुमने {v} बनाया। यह {n} से ज़्यादा है। कुछ ब्लॉक हटाओ।",
     hintNeed:"{n} में {parts} होते हैं।", hintWay:"यह {n} है! पर इस बार ठीक {k} का उपयोग करो।",
     tipBreakT:"एक दहाई को 10 इकाइयों में तोड़कर देखो।", tipBreakH:"एक सैकड़े को 10 दहाइयों में तोड़कर देखो।", tipTradeO:"10 इकाइयों के बदले 1 दहाई लेकर देखो।",
-    readDirNum:"ब्लॉक कौन सी संख्या दिखाते हैं?", readDirExp:"कौन सा उत्तर ब्लॉक से मेल खाता है?", choicesLbl:"उत्तर विकल्प",
+    readDirWord:"कौन सा संख्या-नाम ब्लॉक से मेल खाता है?", readDirName:"संख्या का नाम पढ़ो। यह कौन सी संख्या है?", wordMeans:"{w} का मतलब है {parts}।", zeroH:"कोई सैकड़ा नहीं है, इसलिए सैकड़े के स्थान पर 0 लिखो।", zeroT:"कोई दहाई नहीं है, इसलिए दहाई के स्थान पर 0 लिखो।", sayParts:"पहले सैकड़े बोलो, फिर दहाई और इकाई को मिलाकर एक संख्या बोलो।", wordIs:"{w} यानी {n}।", thouNote:"10 सैकड़े मिलकर 1 हज़ार बनाते हैं।", cnt_k1:"1 हज़ार", readDirNum:"ब्लॉक कौन सी संख्या दिखाते हैं?", readDirExp:"कौन सा उत्तर ब्लॉक से मेल खाता है?", choicesLbl:"उत्तर विकल्प",
     yes:"हाँ!", hintRead:"तुमने {x} चुना। हर स्थान के ब्लॉक गिनो।", placeIs:"{c} यानी {v}।", placeIs1:"{c} यानी {v}।", regroupNote:"{a}, {b} के बराबर हैं।",
     cmpDir:"संख्याओं की तुलना करो। >, < या = छुओ।", cmpSay:"{a} और {b} की तुलना करो। क्या {a}, {b} से बड़ा है, छोटा है, या बराबर है?",
     gtW:"से बड़ा है", ltW:"से छोटा है", eqW:"के बराबर है",
@@ -531,7 +533,7 @@ const T = {
     goodSkip:"हाँ! तुमने {s}-{s} करके गिना:", goodSkipBack:"हाँ! तुमने {s}-{s} करके उल्टा गिना:",
     cnt_h:"{n} सैकड़े", cnt_h1:"1 सैकड़ा", cnt_t:"{n} दहाइयाँ", cnt_t1:"1 दहाई", cnt_o:"{n} इकाइयाँ", cnt_o1:"1 इकाई",
     pl_h:"सैकड़े", pl_t:"दहाइयाँ", pl_o:"इकाइयाँ", comma:", ", andSep:" और ",
-    teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setRange:"संख्या सीमा", r20:"20 तक (किंडरगार्टन)", r120:"120 तक (कक्षा 1)", r1000:"1,000 तक (कक्षा 2)",
+    teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setRange:"संख्या सीमा", r20:"20 तक (किंडरगार्टन)", r120:"120 तक (कक्षा 1)", r1200:"1,200 तक (कक्षा 2)",
     setModes:"मोड", setBuildOpts:"बनाओ", setAutoTrade:"10 इकाइयों को अपने आप 1 दहाई में बदलें", setShowTotal:"बनाते समय कुल दिखाएँ",
     setChallenge:"चुनौतियाँ", chalOn:"पुनर्समूहन पहेलियाँ (9 से ज़्यादा इकाइयाँ, दूसरे तरीके से बनाना)",
     setSpeech:"आवाज़", autoRead:"निर्देश अपने आप पढ़ें", printCards:"चुनौती कार्ड छापें",
@@ -555,7 +557,7 @@ const T = {
     hintLess:"تم نے {v} بنایا۔ یہ {n} سے کم ہے۔ مزید بلاک جوڑو۔", hintMore:"تم نے {v} بنایا۔ یہ {n} سے زیادہ ہے۔ کچھ بلاک ہٹاؤ۔",
     hintNeed:"{n} میں {parts} ہوتے ہیں۔", hintWay:"یہ {n} ہے! مگر اس بار بالکل {k} استعمال کرو۔",
     tipBreakT:"ایک دہائی کو 10 اکائیوں میں توڑ کر دیکھو۔", tipBreakH:"ایک سینکڑے کو 10 دہائیوں میں توڑ کر دیکھو۔", tipTradeO:"10 اکائیوں کے بدلے 1 دہائی لے کر دیکھو۔",
-    readDirNum:"بلاک کون سا عدد دکھاتے ہیں؟", readDirExp:"کون سا جواب بلاکوں سے ملتا ہے؟", choicesLbl:"جواب کے اختیارات",
+    readDirWord:"کون سا عددی نام بلاکوں سے ملتا ہے؟", readDirName:"عدد کا نام پڑھو۔ یہ کون سا عدد ہے؟", wordMeans:"{w} کا مطلب ہے {parts}۔", zeroH:"کوئی سینکڑا نہیں ہے، اس لیے سینکڑے کی جگہ 0 لکھو۔", zeroT:"کوئی دہائی نہیں ہے، اس لیے دہائی کی جگہ 0 لکھو۔", sayParts:"پہلے سینکڑے بولو، پھر دہائی اور اکائی کو ملا کر ایک عدد بولو۔", wordIs:"{w} یعنی {n}۔", thouNote:"10 سینکڑے مل کر 1 ہزار بناتے ہیں۔", cnt_k1:"1 ہزار", readDirNum:"بلاک کون سا عدد دکھاتے ہیں؟", readDirExp:"کون سا جواب بلاکوں سے ملتا ہے؟", choicesLbl:"جواب کے اختیارات",
     yes:"ہاں!", hintRead:"تم نے {x} چنا۔ ہر مقام کے بلاک گنو۔", placeIs:"{c} یعنی {v}۔", placeIs1:"{c} یعنی {v}۔", regroupNote:"{a}، {b} کے برابر ہیں۔",
     cmpDir:"عددوں کا موازنہ کرو۔ >، < یا = چھوؤ۔", cmpSay:"{a} اور {b} کا موازنہ کرو۔ کیا {a}، {b} سے بڑا ہے، چھوٹا ہے، یا برابر ہے؟",
     gtW:"سے بڑا ہے", ltW:"سے چھوٹا ہے", eqW:"کے برابر ہے",
@@ -573,7 +575,7 @@ const T = {
     goodSkip:"ہاں! تم نے {s}-{s} کر کے گنا:", goodSkipBack:"ہاں! تم نے {s}-{s} کر کے الٹا گنا:",
     cnt_h:"{n} سینکڑے", cnt_h1:"1 سینکڑا", cnt_t:"{n} دہائیاں", cnt_t1:"1 دہائی", cnt_o:"{n} اکائیاں", cnt_o1:"1 اکائی",
     pl_h:"سینکڑے", pl_t:"دہائیاں", pl_o:"اکائیاں", comma:"، ", andSep:" اور ",
-    teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setRange:"عددوں کی حد", r20:"20 تک (کنڈرگارٹن)", r120:"120 تک (جماعت 1)", r1000:"1,000 تک (جماعت 2)",
+    teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setRange:"عددوں کی حد", r20:"20 تک (کنڈرگارٹن)", r120:"120 تک (جماعت 1)", r1200:"1,200 تک (جماعت 2)",
     setModes:"موڈ", setBuildOpts:"بناؤ", setAutoTrade:"10 اکائیوں کو خود بخود 1 دہائی میں بدلیں", setShowTotal:"بناتے وقت کل دکھائیں",
     setChallenge:"چیلنج", chalOn:"دوبارہ گروہ بندی کی پہیلیاں (9 سے زیادہ اکائیاں، دوسرے طریقے سے بنانا)",
     setSpeech:"آواز", autoRead:"ہدایات خود بخود پڑھیں", printCards:"چیلنج کارڈ پرنٹ کریں",
@@ -597,7 +599,7 @@ const T = {
     hintLess:"你搭出了{v}。它比{n}小。再加一些积木。", hintMore:"你搭出了{v}。它比{n}大。拿走一些积木。",
     hintNeed:"{n}是{parts}。", hintWay:"这是{n}！但这次要正好用{k}。",
     tipBreakT:"试试把一个十拆成10个一。", tipBreakH:"试试把一个百拆成10个十。", tipTradeO:"试试用10个一换1个十。",
-    readDirNum:"积木表示的是哪个数？", readDirExp:"哪一个和积木相符？", choicesLbl:"答案选项",
+    readDirWord:"哪个读法和积木相符？", readDirName:"读一读这个数的读法。它是哪个数？", wordMeans:"{w}就是{parts}。", zeroH:"百位上一个也没有，所以百位上写0。", zeroT:"十位上一个也没有，所以十位上写0。", sayParts:"从高位读起：先读百位，再读十位和个位。", wordIs:"{w}写作{n}。", thouNote:"10个百是1个千。", cnt_k1:"1个千", readDirNum:"积木表示的是哪个数？", readDirExp:"哪一个和积木相符？", choicesLbl:"答案选项",
     yes:"对了！", hintRead:"你选了{x}。数一数每个数位上的积木。", placeIs:"{c}是{v}。", placeIs1:"{c}是{v}。", regroupNote:"{a}就是{b}。",
     cmpDir:"比较两个数。点 >、< 或 =。", cmpSay:"比较{a}和{b}。{a}大于、小于还是等于{b}？",
     gtW:"大于", ltW:"小于", eqW:"等于",
@@ -615,7 +617,7 @@ const T = {
     goodSkip:"对了！你{s}个{s}个地数：", goodSkipBack:"对了！你{s}个{s}个地倒着数：",
     cnt_h:"{n}个百", cnt_h1:"1个百", cnt_t:"{n}个十", cnt_t1:"1个十", cnt_o:"{n}个一", cnt_o1:"1个一",
     pl_h:"百位", pl_t:"十位", pl_o:"个位", comma:"、", andSep:"和",
-    teacherTitle:"教师设置", close:"关闭", setRange:"数的范围", r20:"20以内（幼儿园）", r120:"120以内（一年级）", r1000:"1000以内（二年级）",
+    teacherTitle:"教师设置", close:"关闭", setRange:"数的范围", r20:"20以内（幼儿园）", r120:"120以内（一年级）", r1200:"1200以内（二年级）",
     setModes:"模式", setBuildOpts:"搭一搭", setAutoTrade:"自动用10个一换1个十", setShowTotal:"搭积木时显示合计",
     setChallenge:"挑战", chalOn:"重组谜题（超过9个一、用另一种方法搭）",
     setSpeech:"语音", autoRead:"自动朗读说明", printCards:"打印挑战卡",
@@ -634,7 +636,7 @@ function t(key, vars){
 }
 
 /* ---------- Settings ---------- */
-const RANGES = {r20:20, r120:120, r1000:1000};
+const RANGES = {r20:20, r120:120, r1200:1200};
 const MODES = ["build","read","cmp","chart","skip"];
 const MODE_KEY = {build:"mBuild",read:"mRead",cmp:"mCmp",chart:"mChart",skip:"mSkip"};
 const DEFAULTS = {range:"r120", modes:{build:true,read:true,cmp:true,chart:true,skip:true},
@@ -645,6 +647,7 @@ function loadSettings(){
   try{
     const raw = localStorage.getItem("btb_settings");
     if(raw){ const o=JSON.parse(raw), s=Object.assign(clone(DEFAULTS), o, {modes:Object.assign({},DEFAULTS.modes,o.modes)});
+      if(s.range==="r1000") s.range="r1200";   // Grade 2 range grew from 1,000 to 1,200 (TEKS 2.2)
       if(!RANGES[s.range]) s.range=DEFAULTS.range;
       if(!MODES.some(m=>s.modes[m])) s.modes=clone(DEFAULTS.modes);
       return s; }
@@ -661,7 +664,8 @@ function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.flo
 const ri = (a,b)=>a+Math.floor(Math.random()*(b-a+1));
 const maxN = ()=>RANGES[settings.range];
 const useH = ()=>maxN()>20;
-const hCap = ()=>maxN()>=1000?9:1;
+const hCap = ()=>maxN()>=1000?12:1;
+const g2 = ()=>maxN()>=1000;
 const PV = {h:100,t:10,o:1}, PL = ["h","t","o"], CAP = {t:29,o:29};
 const split = n=>({h:Math.floor(n/100), t:Math.floor(n%100/10), o:n%10});
 const val = c=>c.h*100+c.t*10+c.o;
@@ -671,13 +675,51 @@ const reduced = ()=>!!(window.matchMedia && matchMedia("(prefers-reduced-motion:
 function cnt(p,n){ return t(n===1?"cnt_"+p+"1":"cnt_"+p,{n}); }
 function joinList(a){ return a.length<2 ? (a[0]||"") : a.slice(0,-1).join(t("comma"))+t("andSep")+a[a.length-1]; }
 function partsText(c){ const a=PL.filter(p=>c[p]).map(p=>cnt(p,c[p])); return a.length?joinList(a):cnt("o",0); }
-function expanded(c){ const a=PL.filter(p=>c[p]).map(p=>c[p]*PV[p]); return a.length?a.join(" + "):"0"; }
+function expanded(c){ const a=PL.filter(p=>c[p]).map(p=>c[p]*PV[p]);
+  if(c.h>=10){ a.shift(); if(c.h>10) a.unshift((c.h-10)*100); a.unshift(1000); }   // 1150 → 1000 + 100 + 50
+  return a.length?a.join(" + "):"0"; }
+/* ---------- Number names (word form) in every language, 0–1200 ---------- */
+const NAMES=(function(){
+  const sp=x=>x.split(" ");
+  const EN=sp("zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen"), EN10=sp("_ _ twenty thirty forty fifty sixty seventy eighty ninety");
+  const ES=sp("cero uno dos tres cuatro cinco seis siete ocho nueve diez once doce trece catorce quince dieciséis diecisiete dieciocho diecinueve veinte veintiuno veintidós veintitrés veinticuatro veinticinco veintiséis veintisiete veintiocho veintinueve"),
+    ES10=sp("_ _ _ treinta cuarenta cincuenta sesenta setenta ochenta noventa"), ES100=sp("_ ciento doscientos trescientos cuatrocientos quinientos seiscientos setecientos ochocientos novecientos");
+  const VI=sp("không một hai ba bốn năm sáu bảy tám chín");
+  const AR=["صفر","واحد","اثنان","ثلاثة","أربعة","خمسة","ستة","سبعة","ثمانية","تسعة","عشرة","أحد عشر","اثنا عشر","ثلاثة عشر","أربعة عشر","خمسة عشر","ستة عشر","سبعة عشر","ثمانية عشر","تسعة عشر"],
+    AR10=sp("_ _ عشرون ثلاثون أربعون خمسون ستون سبعون ثمانون تسعون"), AR100=sp("_ مئة مئتان ثلاثمئة أربعمئة خمسمئة ستمئة سبعمئة ثمانمئة تسعمئة");
+  const HI=sp("शून्य एक दो तीन चार पाँच छह सात आठ नौ दस ग्यारह बारह तेरह चौदह पंद्रह सोलह सत्रह अठारह उन्नीस बीस इक्कीस बाईस तेईस चौबीस पच्चीस छब्बीस सत्ताईस अट्ठाईस उनतीस तीस इकतीस बत्तीस तैंतीस चौंतीस पैंतीस छत्तीस सैंतीस अड़तीस उनतालीस चालीस इकतालीस बयालीस तैंतालीस चवालीस पैंतालीस छियालीस सैंतालीस अड़तालीस उनचास पचास इक्यावन बावन तिरपन चौवन पचपन छप्पन सत्तावन अट्ठावन उनसठ साठ इकसठ बासठ तिरसठ चौंसठ पैंसठ छियासठ सड़सठ अड़सठ उनहत्तर सत्तर इकहत्तर बहत्तर तिहत्तर चौहत्तर पचहत्तर छिहत्तर सतहत्तर अठहत्तर उन्यासी अस्सी इक्यासी बयासी तिरासी चौरासी पचासी छियासी सत्तासी अट्ठासी नवासी नब्बे इक्यानवे बानवे तिरानवे चौरानवे पचानवे छियानवे सत्तानवे अट्ठानवे निन्यानवे");
+  const UR=sp("صفر ایک دو تین چار پانچ چھ سات آٹھ نو دس گیارہ بارہ تیرہ چودہ پندرہ سولہ سترہ اٹھارہ انیس بیس اکیس بائیس تئیس چوبیس پچیس چھبیس ستائیس اٹھائیس انتیس تیس اکتیس بتیس تینتیس چونتیس پینتیس چھتیس سینتیس اڑتیس انتالیس چالیس اکتالیس بیالیس تینتالیس چوالیس پینتالیس چھیالیس سینتالیس اڑتالیس انچاس پچاس اکیاون باون ترپن چون پچپن چھپن ستاون اٹھاون انسٹھ ساٹھ اکسٹھ باسٹھ تریسٹھ چونسٹھ پینسٹھ چھیاسٹھ سڑسٹھ اڑسٹھ انہتر ستر اکہتر بہتر تہتر چوہتر پچہتر چھہتر ستتر اٹھہتر اناسی اسی اکیاسی بیاسی تراسی چوراسی پچاسی چھیاسی ستاسی اٹھاسی نواسی نوے اکانوے بانوے ترانوے چورانوے پچانوے چھیانوے ستانوے اٹھانوے ننانوے");
+  const ZH=sp("零 一 二 三 四 五 六 七 八 九");
+  // each: (k thousands, h hundreds, r = tens-and-ones 0–99)
+  const F={
+    en:(k,h,r)=>[k?EN[k]+" thousand":"", h?EN[h]+" hundred":"", r?(r<20?EN[r]:EN10[r/10|0]+(r%10?"-"+EN[r%10]:"")):""].filter(Boolean).join(" "),
+    es:(k,h,r)=>[k?"mil":"", h?(h===1&&!r?"cien":ES100[h]):"", r?(r<30?ES[r]:ES10[r/10|0]+(r%10?" y "+ES[r%10]:"")):""].filter(Boolean).join(" "),
+    vi:(k,h,r)=>{ const a=[]; if(k) a.push(VI[k]+" nghìn"); if(h) a.push(VI[h]+" trăm"); else if(k&&r) a.push("không trăm");
+      if(r){ const tn=r/10|0, o=r%10;
+        if(tn===0) a.push(((k||h)?"linh ":"")+VI[o]);
+        else a.push((tn===1?"mười":VI[tn]+" mươi")+(o?" "+(o===5?"lăm":o===1&&tn>1?"mốt":VI[o]):"")); }
+      return a.join(" "); },
+    ar:(k,h,r)=>[k?"ألف":"", h?AR100[h]:"", r?(r<20?AR[r]:(r%10?AR[r%10]+" و":"")+AR10[r/10|0]):""].filter(Boolean).join(" و"),
+    hi:(k,h,r)=>[k?HI[k]+" हज़ार":"", h?HI[h]+" सौ":"", r?HI[r]:""].filter(Boolean).join(" "),
+    ur:(k,h,r)=>[k?UR[k]+" ہزار":"", h?UR[h]+" سو":"", r?UR[r]:""].filter(Boolean).join(" "),
+    zh:(k,h,r)=>{ let s=(k?ZH[k]+"千":"")+(h?ZH[h]+"百":""); const tn=r/10|0, o=r%10;
+      if(r){ if((k||h)&&(!h||tn===0)) s+="零";
+        s+=tn?((tn===1&&!(k||h))?"十":ZH[tn]+"十")+(o?ZH[o]:""):ZH[o]; }
+      return s; }
+  };
+  return F;
+})();
+function numWord(n){ if(!n) return ({en:"zero",es:"cero",vi:"không",ar:"صفر",hi:"शून्य",ur:"صفر",zh:"零"})[lang]||"zero";
+  return (NAMES[lang]||NAMES.en)(Math.floor(n/1000),Math.floor(n%1000/100),n%100); }
+// "1 thousand, 1 hundred and 5 tens" — the places a number name says out loud
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);   // a number name can start a sentence
+function wordParts(n){ const s=split(n), a=[]; if(s.h>=10){ a.push(t("cnt_k1")); s.h-=10; } PL.forEach(p=>{ if(s[p]) a.push(cnt(p,s[p])); }); return joinList(a); }
 // A number for the current teacher range, weighted toward the grade's focus.
 function pickNum(){
   const m=maxN();
   if(m===20) return Math.random()<.75?ri(11,20):ri(1,10);
   if(m===120) return Math.random()<.85?ri(10,120):ri(1,9);
-  return Math.random()<.85?ri(100,999):ri(10,99);
+  return Math.random()<.85?ri(100,1200):ri(10,99);
 }
 let stars=0;
 function addStar(){ stars++; $("#starCount").textContent=stars; const w=$("#stars"); w.classList.remove("pop"); void w.offsetWidth; w.classList.add("pop"); }
@@ -808,14 +850,16 @@ const made={};
 let bState=null, drag=null;
 function newBuild(){
   roundIds.build++; made.build=true;
-  const n=Math.min(pickNum(),999), s=split(n); let req=null;
+  const n=pickNum(), s=split(n); let req=null;
   // "Build it another way": require a non-standard number of tens (1.2B / 2.2A).
   if(settings.challenge && Math.random()<.3){
     const o=[]; if(s.t>=1) o.push(s.t-1); if(s.h>=1) o.push(s.t+10);
     if(o.length) req=rand(o);
   }
-  bState={n,req,c:{h:0,t:0,o:0},done:false,busy:false};
-  const dir=req===null?t("buildDir",{n}):t("buildWay",{n,k:cnt("t",req)});
+  // Grade 2: sometimes give the number as a number name ("Build forty-seven") — 2.2(B) / 2.NBT.3.
+  const w=req===null && g2() && Math.random()<.3;
+  bState={n,req,w,c:{h:0,t:0,o:0},done:false,busy:false};
+  const dir=req===null?t("buildDir",{n:w?numWord(n):n}):t("buildWay",{n,k:cnt("t",req)});
   $("#buildPrompt").textContent=dir; setSpeech("build",dir); hideFb($("#buildFb")); renderMat(); maybeAuto("build");
 }
 function renderMat(){
@@ -888,7 +932,8 @@ function checkBuild(){
   let m;
   if(!v){ m=t("buildEmpty"); showFb(fb,"hint",m); speak(m); return; }
   if(v!==n){
-    m=t(v<n?"hintLess":"hintMore",{v,n})+" "+t("hintNeed",{n,parts:partsText(split(n))});
+    const nn=bState.w?numWord(n):n;
+    m=t(v<n?"hintLess":"hintMore",{v,n:nn})+" "+(bState.w?cap(t("wordMeans",{w:nn,parts:wordParts(n)})):t("hintNeed",{n,parts:partsText(split(n))}));
     showFb(fb,"hint",m); speak(m); return;
   }
   if(req!==null && c.t!==req){
@@ -898,6 +943,8 @@ function checkBuild(){
   bState.done=true; addStar(); renderMat();
   m=t("goodBuild",{n,parts:partsText(c)});
   if(req!==null) m+=" "+t("goodWay"); else if(c.o>9||c.t>9) m+=" "+t("goodBuildNS",{n});
+  if(bState.w) m+=" "+cap(t("wordIs",{w:numWord(n),n}));
+  if(c.h>=10) m+=" "+t("thouNote");
   showFb(fb,"good",m); afterPraise(m,"build",newBuild,1800);
 }
 function overMat(e){ const r=$("#mat").getBoundingClientRect(); return e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom; }
@@ -974,49 +1021,60 @@ let rState=null;
 function newRead(){
   roundIds.read++; made.read=true;
   const n=pickNum(), S=split(n), c=split(n);
+  // Grade 2 adds number names: blocks → name ("word"), and name → numeral ("name").
+  const type=n<10?"num":rand(g2()?["num","exp","word","name"]:["num","exp"]);
   // Regrouping puzzle: show a ten as 10 loose ones (or a hundred as 10 tens).
-  if(settings.challenge && n>=10 && Math.random()<.3){
+  if(type!=="name" && settings.challenge && n>=10 && Math.random()<.3){
     if(c.h && Math.random()<.4){ c.h--; c.t+=10; } else if(c.t){ c.t--; c.o+=10; }
   }
   const ns=c.h!==S.h||c.t!==S.t;
-  const type=n<10?"num":rand(["num","exp"]);
   const pool=[];
+  if(type==="word"||type==="name"){ const nz=Number(String(n).replace(/0/g,"")); if(nz!==n) pool.push(nz);   // "dropped the zero" mistake
+    if(S.t===0 && n>=100) pool.push(n+10*(n%10)-(n%10)); }                                          // 305 → 350
   if(ns) pool.push(Number(""+(c.h||"")+c.t+c.o));          // "write the counts side by side" mistake
   const sw=n<100?S.o*10+S.t:S.h*100+S.o*10+S.t;             // digit-reversal mistake
   pool.push(sw, ...shuffle([n+10,n-10,n+1,n-1].concat(n>=100?[n+100,n-100,S.t*100+S.h*10+S.o]:[])));
   const nums=[...new Set(pool)].filter(x=>x>=1&&x<=maxN()&&x!==n);
   let ch;
-  if(type==="num") ch=[n,...nums.slice(0,3)].map(v=>({v,label:String(v)}));
+  if(type==="num"||type==="name") ch=[n,...nums.slice(0,3)].map(v=>({v,label:String(v)}));
+  else if(type==="word") ch=[n,...nums.slice(0,3)].map(v=>({v,label:numWord(v)}));
   else{
     const d=[], dig=String(n).split("").filter(x=>x!=="0").join(" + ");
     if(dig!==expanded(S)) d.push({v:-1,label:dig});      // "just add the digits" mistake
     nums.forEach(v=>{ const l=expanded(split(v)); if(d.length<3 && !d.some(x=>x.label===l)) d.push({v,label:l}); });
     ch=[{v:n,label:expanded(S)},...d];
   }
-  rState={n,c,ns,done:false};
-  $("#readBlocks").innerHTML=showBlocks(c,"");
+  rState={n,c,ns,type,done:false};
+  $("#readBlocks").innerHTML=type==="name"?`<div class="wordcard">${numWord(n)}</div>`:showBlocks(c,"");
   const grid=$("#readChoices"); grid.innerHTML="";
   shuffle(ch).forEach(o=>{
-    const b=document.createElement("button"); b.type="button"; b.className="choice";
+    const b=document.createElement("button"); b.type="button"; b.className="choice"+(type==="word"?" word":"");
     b.innerHTML=`<span class="lbl">${o.label}</span>`; b.setAttribute("aria-label",o.label);
     b.addEventListener("click",()=>checkRead(b,o)); grid.appendChild(b);
   });
-  const dir=t(type==="num"?"readDirNum":"readDirExp");
+  const dir=t({num:"readDirNum",exp:"readDirExp",word:"readDirWord",name:"readDirName"}[type]);
   $("#readPrompt").textContent=dir; setSpeech("read",dir); hideFb($("#readFb")); maybeAuto("read");
 }
 function checkRead(btn,o){
   if(!rState||rState.done) return;
-  const {n,c,ns}=rState, fb=$("#readFb");
+  const {n,c,ns,type}=rState, fb=$("#readFb"), wd=type==="word"||type==="name";
   if(o.v===n){
     rState.done=true; btn.classList.add("correctpick"); $$("#readChoices .choice").forEach(b=>b.disabled=true); addStar();
-    let h=t("yes")+" "+M(expanded(c)+" = "+n);
+    let h=t("yes")+" "+(wd?cap(t("wordIs",{w:numWord(n),n:M(n)}))+" ":"")+(n>=1000?t("thouNote")+" ":"")+M(expanded(type==="name"?split(n):c)+" = "+n);
     if(ns){ const p=c.o>9?"o":"t", up=p==="o"?"t":"h", r={h:0,t:0,o:0}; r[up]=1; r[p]=c[p]-10;
       h+=" "+t("regroupNote",{a:cnt(p,c[p]),b:partsText(r)}); }
     showFb(fb,"good",h); afterPraise(plain(h),"read",newRead,1800);
   }else{
     btn.classList.add("wrongpick"); btn.disabled=true;
+    if(type==="name"){   // name → numeral: say what each part of the name means; flag a missing place (the zero)
+      const S=split(n), hd=S.h%10, z=[];
+      if(n>=1000 && hd===0) z.push(t("zeroH"));
+      if(n>=100 && S.t===0 && S.o) z.push(t("zeroT"));
+      const h=t("notYet")+" "+cap(t("wordMeans",{w:numWord(n),parts:wordParts(n)}))+(z.length?" "+z.join(" "):"");
+      showFb(fb,"hint",h); speak(plain(h)); return;
+    }
     const lines=PL.filter(p=>c[p]).map(p=>t(c[p]===1?"placeIs1":"placeIs",{c:cnt(p,c[p]),v:M(c[p]*PV[p])})).join(" ");
-    const h=t("hintRead",{x:M(o.label)})+" "+lines+" "+M(expanded(c)+" = ?");
+    const h=t("hintRead",{x:type==="word"?`<b>${o.label}</b>`:M(o.label)})+" "+lines+" "+(type==="word"?t("sayParts"):M(expanded(c)+" = ?"));
     showFb(fb,"hint",h); speak(plain(h));
   }
 }
@@ -1026,7 +1084,7 @@ function checkRead(btn,o){
    ========================================================================= */
 let cState=null;
 function cmpPair(){
-  const m=maxN(), hi=Math.min(m,999);
+  const m=maxN(), hi=m;
   const lo=m===20?1:m===120?(Math.random()<.85?10:1):(Math.random()<.85?100:10);
   const a=ri(lo,hi), r=Math.random(); let b;
   if(r<.15) return [a,a];
@@ -1232,8 +1290,8 @@ function initSettings(){
 
 /* ---------- Print cards ---------- */
 function buildPrintCards(){
-  const mx=maxN(), n1=Math.min(pickNum(),999), n2=pickNum(), n3=Math.max(pickNum(),11), [a,b]=cmpPair();
-  const ml=mx===20?["r1m","r1l"]:["r10m","r10l"], n4=mx===20?ri(2,19):ri(11,Math.min(mx,999)-10);
+  const mx=maxN(), n1=pickNum(), n2=pickNum(), n3=Math.max(pickNum(),11), [a,b]=cmpPair();
+  const ml=mx===20?["r1m","r1l"]:["r10m","r10l"], n4=mx===20?ri(2,19):ri(11,mx-10);
   const sk=makeSkip(), seq=sk.terms.map((v,i)=>i===2||i===4?"_____":v).join(", ");
   const blank=`<span style="font-size:1.4rem">______</span>`;
   const cards=[
