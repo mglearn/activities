@@ -449,7 +449,7 @@ const T = {
     cnt1:"{c} {u}", cntN:"{c} {u}", fracSay:"{n} phần {d}", monSay:"{d} đô la {c} xu",
     nearM:"đến {p}", nearF:"đến {p}",
     tenX:"Mỗi hàng có giá trị gấp 10 lần hàng ở bên phải nó.", worth:"Đó là {c}, có giá trị {v}.", youPicked:"Em đã chọn {x}.", yourNum:"Số của em:",
-    fStd:"Dạng chuẩn:", fExp:"Dạng khai triển:", fWord:"Theo tên hàng:",
+    fStd:"Dạng chuẩn:", fExp:"Dạng khai triển:", fWord:"Viết bằng chữ:",
     upL:"Thêm 1 ở {pl}", downL:"Bớt 1 ở {pl}", addL:"Tô thêm {x}", subL:"Bớt tô {x}",
     pvBuildW:"Lập số này trên bảng: {w}", pvBuildE:"Lập số này trên bảng: {e}", pvBuilt:"Em đã lập được {n}.",
     pvEmpty:"Trước tiên, hãy chạm vào mũi tên lên để đặt chữ số vào các hàng.", pvBuildHint:"Hãy nhìn {pl}: em có {x}, nhưng số cần {y}.",
@@ -457,7 +457,7 @@ const T = {
     pvValWhere:"Chữ số {c} ở {pl}.", pvValAsk:"{k} có giá trị là bao nhiêu?",
     pvTimesQ:"Trong {n}, chữ số {c} bên trái có giá trị gấp mấy lần chữ số {c} bên phải?",
     pvTimesGood:"{a} gấp {x} lần {b}.", pvTimesWhere:"Chữ số bên trái có giá trị {a}, chữ số bên phải có giá trị {b}.",
-    pvFormE:"Cách nào ghi {n} ở dạng khai triển?", pvFormW:"Cách nào ghi {n} theo tên các hàng?", pvFormGood:"Đó là {n}.",
+    pvFormE:"Cách nào ghi {n} ở dạng khai triển?", pvFormW:"Cách nào ghi {n} bằng chữ?", pvFormGood:"Đó là {n}.",
     pvFormHint:"Cách đó là số {x}.", pvLookPl:"Hãy nhìn {pl}.",
     gShadeQ:"Tô màu {x} của lưới.", gCount:"Đã tô {k} trên {u} phần",
     gTipH:"Mỗi cột là một phần mười. Mỗi ô vuông nhỏ là một phần trăm.", gTipT:"Mỗi dải là một phần mười của cả lưới.",
@@ -520,7 +520,7 @@ const T = {
     cnt1:"{c} {u}", cntN:"{c} من {p}", fracSay:"{n} من {d}", monSay:"{d} دولار و{c} سنت",
     nearM:"إلى أقرب {u}", nearF:"إلى أقرب {u}",
     tenX:"كل منزلة قيمتها 10 أمثال المنزلة التي على يمينها.", worth:"هذا {c}، وقيمته {v}.", youPicked:"اخترت {x}.", yourNum:"عددك:",
-    fStd:"الصيغة القياسية:", fExp:"الصيغة الموسّعة:", fWord:"بأسماء المنازل:",
+    fStd:"الصيغة القياسية:", fExp:"الصيغة الموسّعة:", fWord:"الصيغة اللفظية:",
     upL:"واحد أكثر في منزلة {pl}", downL:"واحد أقل في منزلة {pl}", addL:"ظلّل {x} أكثر", subL:"ظلّل {x} أقل",
     pvBuildW:"كوّن هذا العدد في الجدول: {w}", pvBuildE:"كوّن هذا العدد في الجدول: {e}", pvBuilt:"كوّنت العدد {n}.",
     pvEmpty:"اضغط أولًا على الأسهم إلى الأعلى لتضع أرقامًا في المنازل.", pvBuildHint:"انظر إلى منزلة {pl}: لديك {x}، لكن العدد يحتاج إلى {y}.",
@@ -528,7 +528,7 @@ const T = {
     pvValWhere:"الرقم {c} في منزلة {pl}.", pvValAsk:"ما قيمة {k}؟",
     pvTimesQ:"في العدد {n}، كم مثلًا تساوي قيمة الرقم {c} الذي على اليسار قيمة الرقم {c} الذي على اليمين؟",
     pvTimesGood:"{a} يساوي {x} أمثال {b}.", pvTimesWhere:"قيمة الرقم الذي على اليسار {a}، وقيمة الرقم الذي على اليمين {b}.",
-    pvFormE:"أيّها يُظهر {n} بالصيغة الموسّعة؟", pvFormW:"أيّها يُظهر {n} بأسماء المنازل؟", pvFormGood:"هذا هو {n}.",
+    pvFormE:"أيّها يُظهر {n} بالصيغة الموسّعة؟", pvFormW:"أيّها يُظهر {n} بالصيغة اللفظية؟", pvFormGood:"هذا هو {n}.",
     pvFormHint:"هذا الخيار يُظهر {x}.", pvLookPl:"انظر إلى منزلة {pl}.",
     gShadeQ:"ظلّل {x} من الشبكة.", gCount:"{k} من {u} جزءًا مظلّلة",
     gTipH:"كل عمود جزء من عشرة. كل مربع صغير جزء من مئة.", gTipT:"كل شريط جزء من عشرة من الشبكة كلها.",
@@ -591,7 +591,7 @@ const T = {
     cnt1:"{c} {u}", cntN:"{c} {u}", fracSay:"{d} में से {n}", monSay:"{d} डॉलर {c} सेंट",
     nearM:"निकटतम {u} तक", nearF:"निकटतम {u} तक",
     tenX:"हर स्थान का मान अपने दाएँ वाले स्थान का 10 गुना होता है।", worth:"यह {c} है, जिसका मान {v} है।", youPicked:"आपने {x} चुना।", yourNum:"आपकी संख्या:",
-    fStd:"मानक रूप:", fExp:"विस्तारित रूप:", fWord:"स्थानों के नाम से:",
+    fStd:"मानक रूप:", fExp:"विस्तारित रूप:", fWord:"शब्दों में:",
     upL:"{pl} के स्थान में एक और", downL:"{pl} के स्थान में एक कम", addL:"{x} और रंगें", subL:"{x} कम रंगें",
     pvBuildW:"सारणी पर यह संख्या बनाएँ: {w}", pvBuildE:"सारणी पर यह संख्या बनाएँ: {e}", pvBuilt:"आपने {n} बनाया।",
     pvEmpty:"पहले ऊपर वाले तीरों को दबाकर स्थानों में अंक रखें।", pvBuildHint:"{pl} के स्थान को देखें: आपके पास {x} है, पर संख्या को {y} चाहिए।",
@@ -599,7 +599,7 @@ const T = {
     pvValWhere:"{c} {pl} के स्थान पर है।", pvValAsk:"{k} का मान क्या है?",
     pvTimesQ:"{n} में बाईं ओर वाले {c} का मान दाईं ओर वाले {c} के मान का कितने गुना है?",
     pvTimesGood:"{a}, {b} का {x} गुना है।", pvTimesWhere:"बाईं ओर वाले अंक का मान {a} है और दाईं ओर वाले अंक का मान {b} है।",
-    pvFormE:"कौन-सा विकल्प {n} को विस्तारित रूप में दिखाता है?", pvFormW:"कौन-सा विकल्प {n} को स्थानों के नाम से दिखाता है?", pvFormGood:"यह {n} है।",
+    pvFormE:"कौन-सा विकल्प {n} को विस्तारित रूप में दिखाता है?", pvFormW:"कौन-सा विकल्प {n} को शब्दों में दिखाता है?", pvFormGood:"यह {n} है।",
     pvFormHint:"यह विकल्प {x} दिखाता है।", pvLookPl:"{pl} के स्थान को देखें।",
     gShadeQ:"ग्रिड का {x} भाग रंगें।", gCount:"{u} में से {k} भाग रंगे",
     gTipH:"हर स्तंभ एक दशांश है। हर छोटा वर्ग एक शतांश है।", gTipT:"हर पट्टी पूरे ग्रिड का एक दशांश है।",
@@ -662,7 +662,7 @@ const T = {
     cnt1:"{c} {u}", cntN:"{c} {u}", fracSay:"{d} میں سے {n}", monSay:"{d} ڈالر {c} سینٹ",
     nearM:"قریب ترین {u} تک", nearF:"قریب ترین {u} تک",
     tenX:"ہر مقام کی قدر اپنے دائیں والے مقام کی 10 گنا ہوتی ہے۔", worth:"یہ {c} ہے، جس کی قدر {v} ہے۔", youPicked:"آپ نے {x} چنا۔", yourNum:"آپ کا عدد:",
-    fStd:"معیاری شکل:", fExp:"پھیلی ہوئی شکل:", fWord:"مقامات کے ناموں سے:",
+    fStd:"معیاری شکل:", fExp:"پھیلی ہوئی شکل:", fWord:"الفاظ میں:",
     upL:"{pl} کے مقام میں ایک زیادہ", downL:"{pl} کے مقام میں ایک کم", addL:"{x} اور رنگیں", subL:"{x} کم رنگیں",
     pvBuildW:"چارٹ پر یہ عدد بنائیں: {w}", pvBuildE:"چارٹ پر یہ عدد بنائیں: {e}", pvBuilt:"آپ نے {n} بنایا۔",
     pvEmpty:"پہلے اوپر والے تیر دبا کر مقامات میں ہندسے رکھیں۔", pvBuildHint:"{pl} کے مقام کو دیکھیں: آپ کے پاس {x} ہے، مگر عدد کو {y} چاہیے۔",
@@ -670,7 +670,7 @@ const T = {
     pvValWhere:"{c}، {pl} کے مقام پر ہے۔", pvValAsk:"{k} کی قدر کیا ہے؟",
     pvTimesQ:"{n} میں بائیں طرف والے {c} کی قدر دائیں طرف والے {c} کی قدر کا کتنے گنا ہے؟",
     pvTimesGood:"{a}، {b} کا {x} گنا ہے۔", pvTimesWhere:"بائیں والے ہندسے کی قدر {a} ہے اور دائیں والے ہندسے کی قدر {b} ہے۔",
-    pvFormE:"کون سا انتخاب {n} کو پھیلی ہوئی شکل میں دکھاتا ہے؟", pvFormW:"کون سا انتخاب {n} کو مقامات کے ناموں سے دکھاتا ہے؟", pvFormGood:"یہ {n} ہے۔",
+    pvFormE:"کون سا انتخاب {n} کو پھیلی ہوئی شکل میں دکھاتا ہے؟", pvFormW:"کون سا انتخاب {n} کو الفاظ میں دکھاتا ہے؟", pvFormGood:"یہ {n} ہے۔",
     pvFormHint:"یہ انتخاب {x} دکھاتا ہے۔", pvLookPl:"{pl} کے مقام کو دیکھیں۔",
     gShadeQ:"گرڈ کا {x} حصہ رنگیں۔", gCount:"{u} میں سے {k} حصے رنگے گئے",
     gTipH:"ہر کالم ایک دسواں حصہ ہے۔ ہر چھوٹا مربع ایک سوواں حصہ ہے۔", gTipT:"ہر پٹی پورے گرڈ کا ایک دسواں حصہ ہے۔",
@@ -873,7 +873,7 @@ function pickK(d){
   return ri(Math.max(2,wd-4),wd);
 }
 
-/* ---------- Number words (en, es, zh); place-value unit form elsewhere ---------- */
+/* ---------- Number words (all 7 languages) ---------- */
 const EN1=["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
 const EN10=["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
 function en999(n){
@@ -924,34 +924,83 @@ function zhWhole(n){
     if(s && (v<1000||gap)) s+="零"; s+=zh4(v)+w; gap=false; });
   return s.replace(/^一十/,"十");
 }
-const WORDLANGS={en:1,es:1,zh:1};
-// Word form of a number in the current language (or place-value unit form when no word form is built in).
+// Vietnamese (SGK Toán reading: groups with "không trăm"/"linh"; decimal part read as a whole number after the point, leading zeros as "không")
+const VI1=["không","một","hai","ba","bốn","năm","sáu","bảy","tám","chín"];
+function vi999(n,full){
+  const h=Math.floor(n/100), te=Math.floor(n/10)%10, u=n%10, a=[];
+  if(h||full) a.push(VI1[h]+" trăm");
+  if(te===0){ if(u) a.push((h||full?"linh ":"")+VI1[u]); }
+  else if(te===1) a.push("mười"+(u?" "+(u===5?"lăm":VI1[u]):""));
+  else a.push(VI1[te]+" mươi"+(u?" "+(u===1?"mốt":u===5?"lăm":VI1[u]):""));
+  return a.join(" ");
+}
+function viWhole(n){
+  if(!n) return "không";
+  const a=[]; [[1e9,"tỷ"],[1e6,"triệu"],[1e3,"nghìn"],[1,""]].forEach(([v,w])=>{ const g=Math.floor(n/v)%1000; if(g) a.push((vi999(g,a.length>0)+" "+w).trim()); });
+  return a.join(" ");
+}
+// Arabic (school "word form": whole part + صحيح + fraction read as "N من عشرة/مئة/ألف"; numbers are abstract, so the counting forms are used)
+const AR1=["صفر","واحد","اثنان","ثلاثة","أربعة","خمسة","ستة","سبعة","ثمانية","تسعة","عشرة","أحد عشر","اثنا عشر"];
+const AR10=["","","عشرون","ثلاثون","أربعون","خمسون","ستون","سبعون","ثمانون","تسعون"];
+const AR100=["","مئة","مئتان","ثلاثمئة","أربعمئة","خمسمئة","ستمئة","سبعمئة","ثمانمئة","تسعمئة"];
+function ar999(n){
+  const h=Math.floor(n/100), r=n%100, a=[];
+  if(h) a.push(AR100[h]);
+  if(r) a.push(r<13?AR1[r]:r<20?AR1[r%10]+" عشر":(r%10?AR1[r%10]+" و":"")+AR10[Math.floor(r/10)]);
+  return a.join(" و");
+}
+// g thousands / millions: 1 ألف, 2 ألفان, 3–10 آلاف (plural), 11–99 ألفًا, otherwise ألف
+function arScale(g,one,two,pl,acc){
+  if(g===1) return one; if(g===2) return two;
+  const r=g%100;
+  return ar999(g)+" "+(g<=10||(r>=3&&r<=10)?pl:r>=11?acc:one);
+}
+function arWhole(n){
+  if(!n) return "صفر";
+  const a=[], m=Math.floor(n/1e6)%1000, k=Math.floor(n/1e3)%1000, r=n%1000, b=Math.floor(n/1e9);
+  if(b) a.push(arScale(b,"مليار","ملياران","مليارات","مليارًا"));
+  if(m) a.push(arScale(m,"مليون","مليونان","ملايين","مليونًا"));
+  if(k) a.push(arScale(k,"ألف","ألفان","آلاف","ألفًا"));
+  if(r) a.push(ar999(r));
+  return a.join(" و");
+}
+// Hindi / Urdu (read as in school: whole number in words, then दशमलव / اعشاریہ and each decimal digit)
+const HI1="शून्य एक दो तीन चार पाँच छह सात आठ नौ दस ग्यारह बारह तेरह चौदह पंद्रह सोलह सत्रह अठारह उन्नीस बीस इक्कीस बाईस तेईस चौबीस पच्चीस छब्बीस सत्ताईस अट्ठाईस उनतीस तीस इकतीस बत्तीस तैंतीस चौंतीस पैंतीस छत्तीस सैंतीस अड़तीस उनतालीस चालीस इकतालीस बयालीस तैंतालीस चवालीस पैंतालीस छियालीस सैंतालीस अड़तालीस उनचास पचास इक्यावन बावन तिरपन चौवन पचपन छप्पन सत्तावन अट्ठावन उनसठ साठ इकसठ बासठ तिरसठ चौंसठ पैंसठ छियासठ सड़सठ अड़सठ उनहत्तर सत्तर इकहत्तर बहत्तर तिहत्तर चौहत्तर पचहत्तर छिहत्तर सतहत्तर अठहत्तर उन्यासी अस्सी इक्यासी बयासी तिरासी चौरासी पचासी छियासी सत्तासी अट्ठासी नवासी नब्बे इक्यानवे बानवे तिरानवे चौरानवे पंचानवे छियानवे सत्तानवे अट्ठानवे निन्यानवे".split(" ");
+const UR1="صفر ایک دو تین چار پانچ چھ سات آٹھ نو دس گیارہ بارہ تیرہ چودہ پندرہ سولہ سترہ اٹھارہ انیس بیس اکیس بائیس تئیس چوبیس پچیس چھبیس ستائیس اٹھائیس انتیس تیس اکتیس بتیس تینتیس چونتیس پینتیس چھتیس سینتیس اڑتیس انتالیس چالیس اکتالیس بیالیس تینتالیس چوالیس پینتالیس چھیالیس سینتالیس اڑتالیس انچاس پچاس اکیاون باون ترپن چون پچپن چھپن ستاون اٹھاون انسٹھ ساٹھ اکسٹھ باسٹھ تریسٹھ چونسٹھ پینسٹھ چھیاسٹھ سڑسٹھ اڑسٹھ انہتر ستر اکہتر بہتر تہتر چوہتر پچھتر چھہتر ستتر اٹھہتر اناسی اسی اکیاسی بیاسی تراسی چوراسی پچاسی چھیاسی ستاسی اٹھاسی نواسی نوے اکانوے بانوے ترانوے چورانوے پچانوے چھیانوے ستانوے اٹھانوے ننانوے".split(" ");
+// International grouping (thousand, million), matching the place-value chart and the comma groups
+function hiurWhole(n,W,sc){
+  if(!n) return W[0];
+  const a=[]; [[1e9,sc[2]],[1e6,sc[1]],[1e3,sc[0]],[1,""]].forEach(([v,w])=>{ const g=Math.floor(n/v)%1000; if(!g) return;
+    const h=Math.floor(g/100), r=g%100, s=[]; if(h) s.push(W[h]+" "+sc[3]); if(r) s.push(W[r]); if(w) s.push(w); a.push(s.join(" ")); });
+  return a.join(" ");
+}
+const HISC=["हज़ार","मिलियन","बिलियन","सौ"], URSC=["ہزار","ملین","بلین","سو"];
+// Word form of a number in the current language (all 7 languages build real words).
 function words(n){
-  const w=Math.floor(n.u/1000), f=Math.floor((n.u%1000)/P10(3-n.d)), d=n.d;
-  if(lang==="en"){ const fw=["","tenth","hundredth","thousandth"][d];
-    if(!d||!f) return enWhole(w);
-    const fs=enWhole(f)+" "+fw+(f===1?"":"s");
-    return w? enWhole(w)+" and "+fs : fs; }
+  const w=Math.floor(n.u/1000), f=Math.floor((n.u%1000)/P10(3-n.d)), d=n.d, ds=String(n.u%1000).padStart(3,"0").slice(0,d);
   if(lang==="es"){ const fw=["","décimo","centésimo","milésimo"][d];
     if(!d||!f) return esWhole(w);
-    const fs=(f===1?"un":esWhole(f).replace(/veintiuno$/,"veintiún").replace(/uno$/,"un"))+" "+fw+(f===1?"":"s");
-    return w? esWhole(w)+" y "+fs : fs; }
+    const ap=x=>esWhole(x).replace(/veintiuno$/,"veintiún").replace(/uno$/,"un");
+    const fs=ap(f)+" "+fw+(f===1?"":"s");
+    return w? ap(w)+" "+(w===1?"entero":"enteros")+" y "+fs : fs; }
   if(lang==="zh"){ let s=zhWhole(w);
-    if(d) s+="点"+String(n.u%1000).padStart(3,"0").slice(0,d).split("").map(c=>ZD[+c]).join("");
+    if(d) s+="点"+ds.split("").map(c=>ZD[+c]).join("");
     return s; }
-  return unitForm(n);
+  if(lang==="vi"){ if(!d||!f) return viWhole(w);
+    const lz=ds.match(/^0*/)[0].length;
+    return viWhole(w)+" "+t("ptW")+" "+Array(lz).fill("không").concat(viWhole(+ds.slice(lz))).join(" "); }
+  if(lang==="ar"){ if(!d||!f) return arWhole(w);
+    const fs=ar999(f)+" من "+["","عشرة","مئة","ألف"][d];
+    return w? arWhole(w)+" صحيح و"+fs : fs; }
+  if(lang==="hi"||lang==="ur"){ const W=lang==="hi"?HI1:UR1, s=hiurWhole(w,W,lang==="hi"?HISC:URSC);
+    return d&&f? s+" "+t("ptW")+" "+ds.split("").map(c=>W[+c]).join(" ") : s; }
+  const fw=["","tenth","hundredth","thousandth"][d];
+  if(!d||!f) return enWhole(w);
+  const fs=enWhole(f)+" "+fw+(f===1?"":"s");
+  return w? enWhole(w)+" and "+fs : fs;
 }
-function unitForm(n){
-  const a=[]; for(let p=topP(n.u);p>=-n.d;p--){ const c=dig(n.u,p); if(c) a.push(cntPl(c,p)); }
-  return a.length?a.join(t("comma")):"0";
-}
-// How a number is spoken: real words where we build them, else digits + the spoken decimal point.
-function sayNum(n){
-  if(WORDLANGS[lang]) return words(n);
-  let s=String(Math.floor(n.u/1000));
-  if(n.d) s+=" "+t("ptW")+" "+String(n.u%1000).padStart(3,"0").slice(0,n.d).split("").join(" ");
-  return s;
-}
+// How a number is spoken: the same word form in every language.
+const sayNum = n=>words(n);
 // Expanded form, e.g. 40,000 + 300 + 5 + 0.07
 function expTerms(n){ const a=[]; for(let p=topP(n.u);p>=-n.d;p--){ const c=dig(n.u,p); if(c) a.push(N(c*P10(p+3),Math.max(0,-p))); } return a; }
 const expStr = terms=>terms.length?terms.map(fmt).join(" + "):"0";
