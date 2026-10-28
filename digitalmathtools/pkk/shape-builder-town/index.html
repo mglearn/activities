@@ -86,8 +86,39 @@
   .thumb{background:#fff;border:2px solid var(--line);border-radius:12px;padding:.2rem}
   .thumb svg{width:120px;height:90px;display:block}
 
-  .scene{position:relative;width:100%;height:360px;border:2px solid var(--line);border-radius:14px;background:linear-gradient(var(--sky) 0 68%, var(--ground) 68% 100%);overflow:hidden}
-  .spot{position:absolute;transform:translate(-50%,-50%);background:transparent;border:0;padding:0;width:96px;height:96px;border-radius:14px}
+  .scene{position:relative;width:100%;max-width:520px;margin:0 auto;height:360px;border:2px solid var(--line);border-radius:14px;background:linear-gradient(var(--sky) 0 68%, var(--ground) 68% 100%);overflow:hidden}
+  .spot{position:absolute;transform:translate(-50%,-50%);background:transparent;border:0;padding:0;width:80px;height:80px;border-radius:14px}
+  .spot.house{width:110px;height:110px;pointer-events:none}
+  .spot.house.small{width:84px;height:84px}
+  .spot.house.big{width:140px;height:140px}
+  .spot.mini{width:64px;height:64px}
+
+  /* hide shape names while a question is open (they would give the answer away) */
+  .hidelbl .choice:not(.revealed) .lbl{visibility:hidden}
+
+  /* Shape Detective: sorting baskets */
+  .sortwrap{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;gap:.7rem}
+  .sortitem{width:150px;height:150px;display:flex;align-items:center;justify-content:center}
+  .sortitem svg{width:100%;height:100%}
+  .bins{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;width:100%}
+  .bin{min-height:150px;border:3px dashed #8fb3c7;border-radius:18px;background:#f8fbfd;display:flex;flex-direction:column;align-items:center;gap:.25rem;padding:.5rem;font-weight:800;font-size:1.1rem;color:var(--ink)}
+  .bin .binic svg{width:56px;height:56px;pointer-events:none}
+  .binheap{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;min-height:30px}
+  .binheap svg{width:30px;height:30px}
+  .bin.wrongpick{border-color:var(--hint);background:var(--hint-bg)}
+  .bin.correctpick{border-color:var(--good);background:var(--good-bg)}
+
+  /* Make a Shape */
+  .dotboard{position:relative;width:100%;max-width:340px;aspect-ratio:1/1;margin:0 auto;background:#fbfdff;border:2px solid var(--line);border-radius:16px;touch-action:manipulation}
+  .dotboard>svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .dot{position:absolute;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:transparent;border:0;padding:0;display:flex;align-items:center;justify-content:center}
+  .dot::after{content:"";width:20px;height:20px;border-radius:50%;background:#33536b;display:block}
+  .dot.on::after{background:var(--accent);width:24px;height:24px}
+  .dot.first::after{background:#16a34a;width:26px;height:26px;box-shadow:0 0 0 5px rgba(22,163,74,.3)}
+  .fillboard{display:block;width:100%;max-width:320px;margin:0 auto}
+  .maketray{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-top:.6rem}
+  .maketray .choice{width:120px;min-height:110px}
+  .maketools{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-top:.6rem}
   .spot:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
   .spot svg{width:100%;height:100%;pointer-events:none}
   .spot .ring{position:absolute;inset:-6px;border:3px dashed transparent;border-radius:16px}
@@ -142,6 +173,7 @@
     <button role="tab" aria-selected="false" data-mode="detective"><span class="ic">🕵️</span><span data-t="mDet">Shape Detective</span></button>
     <button role="tab" aria-selected="false" data-mode="where"><span class="ic">🧭</span><span data-t="mWhere">Where Is It?</span></button>
     <button role="tab" aria-selected="false" data-mode="solids"><span class="ic">🧊</span><span data-t="mSolid">Solid Shapes</span></button>
+    <button role="tab" aria-selected="false" data-mode="make"><span class="ic">✏️</span><span data-t="mMake">Make a Shape</span></button>
   </div>
 
   <!-- FIND IT -->
@@ -215,10 +247,19 @@
           <button class="btn" id="solidRotL" data-ta="rotL" aria-label="Turn left">↺</button>
           <button class="btn" id="solidRotR" data-ta="rotR" aria-label="Turn right">↻</button></div>
       </div>
-      <div><p style="font-weight:700;margin:.2rem 0" data-t="matchObj">Tap the object with this shape:</p>
+      <div><p style="font-weight:700;margin:.2rem 0" id="solidTapLbl" data-t="matchObj">Tap the object with this shape:</p>
         <div class="choices" id="solidGrid" role="group" aria-label="Objects"></div></div>
     </div>
     <div class="feedback" id="solidFb" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- MAKE A SHAPE -->
+  <section id="mode-make" class="panel modepanel hidden" role="tabpanel">
+    <div class="panelhead"><h2 data-t="mMake">Make a Shape</h2>
+      <button class="btn ghost no-print" id="makeNew" data-t="newRound">New round</button></div>
+    <div class="prompt"><button class="speaker" data-speak="make" data-ta="readAloud" aria-label="Read aloud">🔊</button><span id="makePrompt">…</span></div>
+    <div id="makeArea"></div>
+    <div class="feedback" id="makeFb" role="status" aria-live="polite"></div>
   </section>
 
   <div class="stds" id="stdsNote"></div>
@@ -297,7 +338,7 @@ const T = {
     clue_circle:"no corners and no straight sides — it is perfectly round",
     clue_triangle:"three straight sides and three corners",
     clue_square:"four equal sides and four corners",
-    clue_rectangle:"four sides and four corners, with two long sides and two short sides",
+    clue_rectangle:"four straight sides and four square corners, like a door",
     clue_hexagon:"six straight sides and six corners",
     detSides:"Find a shape with {n} sides.", detNoCorner:"Which shape has no corners?",
     detAlike:"Tap the two shapes that are alike.", detDifferent:"Which shape is different?",
@@ -317,8 +358,8 @@ const T = {
     goodWhere:"Yes! The {shape} is {pos} the {ref}.",
     hintWhere:"Not yet. Remember, {pos} means {mean}. Try again.",
     mean_above:"higher up", mean_below:"lower down", mean_beside:"right next to, side by side",
-    mean_between:"in the middle of two things", mean_front:"closer to you, in front",
-    mean_behind:"farther back, behind", mean_near:"close by", mean_far:"far away",
+    mean_between:"in the middle of two things", mean_front:"closer to you, covering part of it",
+    mean_behind:"farther back, partly hidden by it", mean_near:"close by", mean_far:"far away",
     solidDir:"This is a {solid}. Tap the object shaped like a {solid}.",
     cube:"cube", sphere:"sphere", cylinder:"cylinder", cone:"cone",
     obj_ball:"ball", obj_can:"can", obj_block:"block", obj_hat:"party hat",
@@ -329,10 +370,11 @@ const T = {
     picClear:"Cleared. Start building!", doneBuildOne:"Nice building! You used 1 shape.", doneBuild:"Nice building! You used {n} shapes.",
     picHouse:"House", picRobot:"Robot", picTree:"Tree", picBoat:"Boat", picCat:"Cat", picFree:"Free build",
     composeDir:"Compose: put two triangles together to make a rectangle.",
-    stds:"Aligned standards: Texas PreK PK3.V.C.1–4 and PK4.V.C.1–4; Kindergarten TEKS K.6(A–F); Common Core Kindergarten K.G.1–6.",
+    stds:"Aligned standards: Texas PreK PK3.V.C.1–4 and PK4.V.C.1–4 (naming, building, and recognizing shapes; position words) and PK3/PK4.V.E.1 (sorting); Kindergarten TEKS K.6(A–F); Common Core Kindergarten K.G.1–6.",
     cardTitle:"Shape Builder Town — Challenge Cards",
     unitSides:"sides", noStraightSidesText:"no straight sides", refHouse:"house",
-    readAloud:"Read aloud", needShapes:"Turn on more shapes in Teacher settings.", needPos:"Turn on position words in Teacher settings.", rotL:"Turn left", rotR:"Turn right", doneBtn:"I'm done!", doneEmpty:"Put some shapes on the board first.", goodCorners:"Yes! A {shape} has {n} corners.", hintCorners:"Count the corners. That {shape} has {has}. We need a shape with {n} corners.", unitCorners:"corners", noCornersText:"no corners"
+    readAloud:"Read aloud", needShapes:"Turn on more shapes in Teacher settings.", needPos:"Turn on position words in Teacher settings.", rotL:"Turn left", rotR:"Turn right", doneBtn:"I'm done!", doneEmpty:"Put some shapes on the board first.", goodCorners:"Yes! A {shape} has {n} corners. Corners are also called vertices.", hintCorners:"Count the corners. That {shape} has {has}. We need a shape with {n} corners.", unitCorners:"corners", noCornersText:"no corners",
+    mMake:"Make a Shape", goodSquareRect:"Yes! A square is a special rectangle. It has 4 square corners, and all 4 sides are the same length.", sortDirRound:"Sort the shapes. Is it round, or does it have corners? Tap a basket.", sortDirSides:"Sort the shapes. Does it have 3 sides or 4 sides? Tap a basket.", sortDirFlat:"Sort them. Is it a flat shape or a solid shape? Tap a basket.", binRound:"Round", binCorners:"Has corners", bin3:"3 sides", bin4:"4 sides", binFlat:"Flat", binSolid:"Solid", hintSortRound:"Look for corners. A {shape} has corners, so it goes with the shapes that have corners.", hintSortCorner:"A {shape} is round. It has no corners, so it goes with the round shapes.", hintSortSides:"Count its straight sides. This {shape} has {n} sides.", hintSortFlat:"A {shape} is solid. You can hold it in your hand, like a ball or a block. It goes with the solid shapes.", hintSortSolid:"A {shape} is flat, like a paper cut-out. It goes with the flat shapes.", goodSortAll:"You sorted them all!", sortDoneRound:"Round shapes have no corners. The others have corners.", sortDoneSides:"Triangles have 3 sides. Squares and rectangles have 4 sides.", sortDoneFlat:"Flat shapes lie flat like paper. Solid shapes are ones you can hold, like a ball or a block.", sortItem:"Shape to sort", faceDir:"Look at the yellow part of the {solid}. It is a flat face. What shape is it?", faceTap:"Tap the shape of the yellow face:", goodFace:"Yes! The {solid} has a flat face shaped like a {shape}.", faceFact_cube:"A cube has 6 flat faces. They are all squares.", faceFact_cylinder:"A cylinder has 2 flat faces. Both are circles.", faceFact_cone:"A cone has 1 flat face. It is a circle.", hintFace:"That is a {shape}. Look again. The yellow face has {clue}.", dotDir:"Make a {shape}. Tap the dots to draw its sides. Tap the first dot again to finish.", fillDir:"Fill the {shape}. Tap the piece that fits.", undo:"Undo", startOver:"Start over", goodDot:"You made a {shape}! It has {n} sides and {n} corners.", goodDotSquareRect:"You made a square! A square is a special rectangle, so it counts.", hintDotCount:"Your shape has {has} corners. A {shape} has {n} corners. Try again!", hintDotCorners:"Good, 4 sides! But a {shape} needs square corners, like the corner of a book. Try again.", hintDotEqual:"That is a rectangle. A square has 4 sides that are all the same length. Try again.", hintDotCross:"The lines cross each other. The sides of a shape go around the outside without crossing. Try again.", hintDotFew:"A shape needs at least 3 corners. Tap more dots before you go back to the first one.", fillRectTri:"Two triangles make a rectangle!", fillSquareRect:"Two rectangles make a square!", fillBigSquare:"Four small squares make a big square!", fillHexTri:"Six triangles make a hexagon!", fillSquareTri:"Two triangles make a square!", fillRectSq:"Two squares make a rectangle!", hintFill:"A {shape} does not fit here. Look at an empty space. It has {clue}.", pieceTray:"Pieces", dotGridAria:"Dot board", dotAria:"Dot {n}"
   },
   es:{
     appTitle:"Pueblo de Formas", home:"Inicio", privacy:"Privacidad", teacher:"Maestro",
@@ -354,7 +396,7 @@ const T = {
     clue_circle:"ningún vértice y ningún lado recto — es totalmente redondo",
     clue_triangle:"tres lados rectos y tres vértices",
     clue_square:"cuatro lados iguales y cuatro vértices",
-    clue_rectangle:"cuatro lados y cuatro vértices, con dos lados largos y dos cortos",
+    clue_rectangle:"cuatro lados rectos y cuatro esquinas rectas, como una puerta",
     clue_hexagon:"seis lados rectos y seis vértices",
     detSides:"Encuentra una forma con {n} lados.", detNoCorner:"¿Cuál forma no tiene vértices?",
     detAlike:"Toca las dos formas que son iguales.", detDifferent:"¿Cuál forma es diferente?",
@@ -374,22 +416,23 @@ const T = {
     goodWhere:"¡Sí! El {shape} está {pos} la {ref}.",
     hintWhere:"Todavía no. Recuerda, {pos} significa {mean}. Intenta otra vez.",
     mean_above:"más arriba", mean_below:"más abajo", mean_beside:"justo al lado",
-    mean_between:"en medio de dos cosas", mean_front:"más cerca de ti, delante",
-    mean_behind:"más atrás, detrás", mean_near:"muy cerca", mean_far:"muy lejos",
+    mean_between:"en medio de dos cosas", mean_front:"más cerca de ti, tapando una parte",
+    mean_behind:"más atrás, un poco escondido", mean_near:"muy cerca", mean_far:"muy lejos",
     solidDir:"Esto es un {solid}. Toca el objeto con forma de {solid}.",
     cube:"cubo", sphere:"esfera", cylinder:"cilindro", cone:"cono",
     obj_ball:"pelota", obj_can:"lata", obj_block:"bloque", obj_hat:"gorro de fiesta",
     obj_dice:"dado", obj_globe:"globo terráqueo", obj_drum:"tambor", obj_icecream:"cono de helado",
-    goodSolid:"¡Sí! Una {obj} tiene forma de {solid}.",
+    goodSolid:"¡Sí! Este objeto ({obj}) tiene forma de {solid}.",
     hintSolid:"Eso no es un {solid}. Un {solid} se ve como la forma mostrada. Intenta otra vez.",
     buildDir:"Arrastra formas para construir el dibujo. Toca una forma para girarla o cambiar su tamaño.",
     picClear:"Borrado. ¡A construir!", doneBuildOne:"¡Buena construcción! Usaste 1 forma.", doneBuild:"¡Buena construcción! Usaste {n} formas.",
     picHouse:"Casa", picRobot:"Robot", picTree:"Árbol", picBoat:"Barco", picCat:"Gato", picFree:"Construcción libre",
     composeDir:"Compón: junta dos triángulos para formar un rectángulo.",
-    stds:"Estándares alineados: Texas PreK PK3.V.C.1–4 y PK4.V.C.1–4; Kindergarten TEKS K.6(A–F); Common Core Kindergarten K.G.1–6.",
+    stds:"Estándares alineados: Texas PreK PK3.V.C.1–4 y PK4.V.C.1–4 (nombrar, construir y reconocer formas; palabras de posición) y PK3/PK4.V.E.1 (clasificar); Kindergarten TEKS K.6(A–F); Common Core Kindergarten K.G.1–6.",
     cardTitle:"Pueblo de Formas — Tarjetas de Reto",
     unitSides:"lados", noStraightSidesText:"ningún lado recto", refHouse:"casa",
-    readAloud:"Leer en voz alta", needShapes:"Activa más formas en la configuración del maestro.", needPos:"Activa palabras de posición en la configuración del maestro.", rotL:"Girar a la izquierda", rotR:"Girar a la derecha", doneBtn:"¡Terminé!", doneEmpty:"Primero pon algunas formas en el tablero.", goodCorners:"¡Sí! Un {shape} tiene {n} vértices.", hintCorners:"Cuenta los vértices. Ese {shape} tiene {has}. Buscamos una forma con {n} vértices.", unitCorners:"vértices", noCornersText:"ningún vértice"
+    readAloud:"Leer en voz alta", needShapes:"Activa más formas en la configuración del maestro.", needPos:"Activa palabras de posición en la configuración del maestro.", rotL:"Girar a la izquierda", rotR:"Girar a la derecha", doneBtn:"¡Terminé!", doneEmpty:"Primero pon algunas formas en el tablero.", goodCorners:"¡Sí! Un {shape} tiene {n} vértices. A los vértices también les decimos esquinas.", hintCorners:"Cuenta los vértices. Ese {shape} tiene {has}. Buscamos una forma con {n} vértices.", unitCorners:"vértices", noCornersText:"ningún vértice",
+    mMake:"Haz una Forma", goodSquareRect:"¡Sí! Un cuadrado es un rectángulo especial. Tiene 4 esquinas rectas y sus 4 lados miden lo mismo.", sortDirRound:"Ordena las formas. ¿Es redonda o tiene vértices? Toca una canasta.", sortDirSides:"Ordena las formas. ¿Tiene 3 lados o 4 lados? Toca una canasta.", sortDirFlat:"Ordénalas. ¿Es una forma plana o un cuerpo sólido? Toca una canasta.", binRound:"Redondas", binCorners:"Con vértices", bin3:"3 lados", bin4:"4 lados", binFlat:"Planas", binSolid:"Sólidos", hintSortRound:"Busca los vértices. Un {shape} tiene vértices, así que va con las formas que tienen vértices.", hintSortCorner:"Un {shape} es redondo. No tiene vértices, así que va con las formas redondas.", hintSortSides:"Cuenta sus lados rectos. Este {shape} tiene {n} lados.", hintSortFlat:"Es un cuerpo sólido: lo puedes tomar en la mano, como una pelota o un bloque. Va con los sólidos.", hintSortSolid:"Un {shape} es plano, como un recorte de papel. Va con las formas planas.", goodSortAll:"¡Las ordenaste todas!", sortDoneRound:"Las formas redondas no tienen vértices. Las otras sí tienen.", sortDoneSides:"Los triángulos tienen 3 lados. Los cuadrados y los rectángulos tienen 4 lados.", sortDoneFlat:"Las formas planas son lisas como el papel. Los sólidos se pueden tomar en la mano, como una pelota o un bloque.", sortItem:"Forma para ordenar", faceDir:"Mira la parte amarilla del {solid}. Es una cara plana. ¿Qué forma tiene?", faceTap:"Toca la forma de la cara amarilla:", goodFace:"¡Sí! El {solid} tiene una cara plana con forma de {shape}.", faceFact_cube:"Un cubo tiene 6 caras planas. Todas son cuadrados.", faceFact_cylinder:"Un cilindro tiene 2 caras planas. Las dos son círculos.", faceFact_cone:"Un cono tiene 1 cara plana. Es un círculo.", hintFace:"Ese es un {shape}. Mira otra vez la cara amarilla: tiene {clue}.", dotDir:"Haz un {shape}. Toca los puntos para dibujar sus lados. Toca otra vez el primer punto para terminar.", fillDir:"Llena el {shape}. Toca la pieza que cabe.", undo:"Deshacer", startOver:"Empezar de nuevo", goodDot:"¡Hiciste un {shape}! Tiene {n} lados y {n} vértices.", goodDotSquareRect:"¡Hiciste un cuadrado! Un cuadrado es un rectángulo especial, así que vale.", hintDotCount:"Tu forma tiene {has} vértices. Un {shape} tiene {n} vértices. ¡Intenta otra vez!", hintDotCorners:"¡Bien, 4 lados! Pero un {shape} necesita esquinas rectas, como la esquina de un libro. Intenta otra vez.", hintDotEqual:"Eso es un rectángulo. Un cuadrado tiene 4 lados que miden lo mismo. Intenta otra vez.", hintDotCross:"Las líneas se cruzan. Los lados de una forma van por fuera sin cruzarse. Intenta otra vez.", hintDotFew:"Una forma necesita por lo menos 3 vértices. Toca más puntos antes de volver al primero.", fillRectTri:"¡Dos triángulos forman un rectángulo!", fillSquareRect:"¡Dos rectángulos forman un cuadrado!", fillBigSquare:"¡Cuatro cuadrados pequeños forman un cuadrado grande!", fillHexTri:"¡Seis triángulos forman un hexágono!", fillSquareTri:"¡Dos triángulos forman un cuadrado!", fillRectSq:"¡Dos cuadrados forman un rectángulo!", hintFill:"Un {shape} no cabe aquí. Mira un espacio vacío: tiene {clue}.", pieceTray:"Piezas", dotGridAria:"Tablero de puntos", dotAria:"Punto {n}"
   },
   vi:{
     appTitle:"Thị Trấn Xây Hình", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên",
@@ -411,7 +454,7 @@ const T = {
     clue_circle:"không có góc và không có cạnh thẳng — nó tròn hoàn toàn",
     clue_triangle:"ba cạnh thẳng và ba góc",
     clue_square:"bốn cạnh bằng nhau và bốn góc",
-    clue_rectangle:"bốn cạnh và bốn góc, hai cạnh dài và hai cạnh ngắn",
+    clue_rectangle:"bốn cạnh thẳng và bốn góc vuông, giống cánh cửa",
     clue_hexagon:"sáu cạnh thẳng và sáu góc",
     detSides:"Tìm hình có {n} cạnh.", detNoCorner:"Hình nào không có góc?",
     detAlike:"Chạm vào hai hình giống nhau.", detDifferent:"Hình nào khác biệt?",
@@ -431,8 +474,8 @@ const T = {
     goodWhere:"Đúng! {shape} ở {pos} {ref}.",
     hintWhere:"Chưa đúng. Nhớ nhé, {pos} nghĩa là {mean}. Thử lại nào.",
     mean_above:"cao hơn", mean_below:"thấp hơn", mean_beside:"ngay bên cạnh",
-    mean_between:"ở giữa hai vật", mean_front:"gần em hơn, phía trước",
-    mean_behind:"xa hơn, phía sau", mean_near:"ở gần", mean_far:"ở xa",
+    mean_between:"ở giữa hai vật", mean_front:"gần em hơn, che mất một phần",
+    mean_behind:"ở xa hơn, bị che khuất một phần", mean_near:"ở gần", mean_far:"ở xa",
     solidDir:"Đây là {solid}. Chạm vào đồ vật có hình {solid}.",
     cube:"khối lập phương", sphere:"khối cầu", cylinder:"khối trụ", cone:"khối nón",
     obj_ball:"quả bóng", obj_can:"lon", obj_block:"khối gỗ", obj_hat:"mũ sinh nhật",
@@ -443,10 +486,11 @@ const T = {
     picClear:"Đã xóa. Bắt đầu xây nào!", doneBuildOne:"Xây đẹp lắm! Em đã dùng 1 hình.", doneBuild:"Xây đẹp lắm! Em đã dùng {n} hình.",
     picHouse:"Ngôi nhà", picRobot:"Người máy", picTree:"Cây", picBoat:"Thuyền", picCat:"Con mèo", picFree:"Xây tự do",
     composeDir:"Ghép: đặt hai hình tam giác lại để tạo hình chữ nhật.",
-    stds:"Tiêu chuẩn phù hợp: Texas PreK PK3.V.C.1–4 và PK4.V.C.1–4; Kindergarten TEKS K.6(A–F); Common Core Kindergarten K.G.1–6.",
+    stds:"Tiêu chuẩn phù hợp: Texas PreK PK3.V.C.1–4 và PK4.V.C.1–4 (gọi tên, tạo và nhận biết hình; từ chỉ vị trí) và PK3/PK4.V.E.1 (phân loại); Kindergarten TEKS K.6(A–F); Common Core Kindergarten K.G.1–6.",
     cardTitle:"Thị Trấn Xây Hình — Thẻ Thử Thách",
     unitSides:"cạnh", noStraightSidesText:"không có cạnh thẳng", refHouse:"ngôi nhà",
-    readAloud:"Đọc to", needShapes:"Hãy bật thêm hình trong phần cài đặt của giáo viên.", needPos:"Hãy bật từ chỉ vị trí trong phần cài đặt của giáo viên.", rotL:"Xoay trái", rotR:"Xoay phải", doneBtn:"Em xong rồi!", doneEmpty:"Hãy đặt vài hình lên bảng trước nhé.", goodCorners:"Đúng! {shape} có {n} góc.", hintCorners:"Đếm các góc. {shape} đó có {has}. Ta cần hình có {n} góc.", unitCorners:"góc", noCornersText:"không có góc nào"
+    readAloud:"Đọc to", needShapes:"Hãy bật thêm hình trong phần cài đặt của giáo viên.", needPos:"Hãy bật từ chỉ vị trí trong phần cài đặt của giáo viên.", rotL:"Xoay trái", rotR:"Xoay phải", doneBtn:"Em xong rồi!", doneEmpty:"Hãy đặt vài hình lên bảng trước nhé.", goodCorners:"Đúng! {shape} có {n} góc. Góc còn được gọi là đỉnh.", hintCorners:"Đếm các góc. {shape} đó có {has}. Ta cần hình có {n} góc.", unitCorners:"góc", noCornersText:"không có góc nào",
+    mMake:"Tạo Hình", goodSquareRect:"Đúng! Hình vuông là một hình chữ nhật đặc biệt. Nó có 4 góc vuông và 4 cạnh dài bằng nhau.", sortDirRound:"Phân loại các hình. Hình này tròn hay có góc? Chạm vào một giỏ.", sortDirSides:"Phân loại các hình. Hình này có 3 cạnh hay 4 cạnh? Chạm vào một giỏ.", sortDirFlat:"Phân loại nhé. Đây là hình phẳng hay khối đặc? Chạm vào một giỏ.", binRound:"Tròn", binCorners:"Có góc", bin3:"3 cạnh", bin4:"4 cạnh", binFlat:"Hình phẳng", binSolid:"Khối đặc", hintSortRound:"Hãy tìm các góc. {shape} có góc, nên nó thuộc nhóm hình có góc.", hintSortCorner:"{shape} tròn. Nó không có góc, nên nó thuộc nhóm hình tròn.", hintSortSides:"Đếm các cạnh thẳng. {shape} này có {n} cạnh.", hintSortFlat:"{shape} là khối đặc. Em có thể cầm nó trên tay, như quả bóng hay khối gỗ. Nó thuộc nhóm khối đặc.", hintSortSolid:"{shape} là hình phẳng, như hình cắt bằng giấy. Nó thuộc nhóm hình phẳng.", goodSortAll:"Em đã phân loại xong hết rồi!", sortDoneRound:"Hình tròn không có góc. Các hình còn lại có góc.", sortDoneSides:"Hình tam giác có 3 cạnh. Hình vuông và hình chữ nhật có 4 cạnh.", sortDoneFlat:"Hình phẳng nằm phẳng như tờ giấy. Khối đặc thì em cầm được, như quả bóng hay khối gỗ.", sortItem:"Hình cần phân loại", faceDir:"Nhìn phần màu vàng của {solid}. Đó là một mặt phẳng. Nó có hình gì?", faceTap:"Chạm vào hình của mặt màu vàng:", goodFace:"Đúng! {solid} có một mặt phẳng là {shape}.", faceFact_cube:"Khối lập phương có 6 mặt phẳng. Tất cả đều là hình vuông.", faceFact_cylinder:"Khối trụ có 2 mặt phẳng. Cả hai đều là hình tròn.", faceFact_cone:"Khối nón có 1 mặt phẳng. Đó là hình tròn.", hintFace:"Đó là {shape}. Nhìn lại mặt màu vàng nhé: nó có {clue}.", dotDir:"Hãy tạo {shape}. Chạm vào các chấm để vẽ các cạnh. Chạm lại chấm đầu tiên để hoàn thành.", fillDir:"Lấp đầy {shape}. Chạm vào mảnh ghép vừa khít.", undo:"Hoàn tác", startOver:"Làm lại", goodDot:"Em đã tạo {shape}! Nó có {n} cạnh và {n} góc.", goodDotSquareRect:"Em đã tạo hình vuông! Hình vuông là hình chữ nhật đặc biệt, nên vẫn đúng.", hintDotCount:"Hình của em có {has} góc. {shape} có {n} góc. Thử lại nhé!", hintDotCorners:"Tốt, có 4 cạnh rồi! Nhưng {shape} cần góc vuông, như góc quyển sách. Thử lại nhé.", hintDotEqual:"Đó là hình chữ nhật. Hình vuông có 4 cạnh dài bằng nhau. Thử lại nhé.", hintDotCross:"Các đường cắt nhau rồi. Cạnh của một hình đi vòng bên ngoài, không cắt nhau. Thử lại nhé.", hintDotFew:"Một hình cần ít nhất 3 góc. Chạm thêm chấm trước khi quay lại chấm đầu tiên.", fillRectTri:"Hai hình tam giác ghép thành một hình chữ nhật!", fillSquareRect:"Hai hình chữ nhật ghép thành một hình vuông!", fillBigSquare:"Bốn hình vuông nhỏ ghép thành một hình vuông lớn!", fillHexTri:"Sáu hình tam giác ghép thành một hình lục giác!", fillSquareTri:"Hai hình tam giác ghép thành một hình vuông!", fillRectSq:"Hai hình vuông ghép thành một hình chữ nhật!", hintFill:"{shape} không vừa chỗ này. Nhìn một chỗ trống: nó có {clue}.", pieceTray:"Mảnh ghép", dotGridAria:"Bảng chấm", dotAria:"Chấm {n}"
   },
   ar:{
     appTitle:"بلدة بناء الأشكال", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم",
@@ -468,7 +512,7 @@ const T = {
     clue_circle:"لا زوايا ولا أضلاع مستقيمة — إنه مستدير تماماً",
     clue_triangle:"ثلاثة أضلاع مستقيمة وثلاث زوايا",
     clue_square:"أربعة أضلاع متساوية وأربع زوايا",
-    clue_rectangle:"أربعة أضلاع وأربع زوايا، ضلعان طويلان وضلعان قصيران",
+    clue_rectangle:"أربعة أضلاع مستقيمة وأربع زوايا قائمة، مثل الباب",
     clue_hexagon:"ستة أضلاع مستقيمة وست زوايا",
     detSides:"جِد شكلاً له {n} أضلاع.", detNoCorner:"أي شكل ليس له زوايا؟",
     detAlike:"المس الشكلين المتشابهين.", detDifferent:"أي شكل مختلف؟",
@@ -488,8 +532,8 @@ const T = {
     goodWhere:"نعم! {shape} يقع {pos} {ref}.",
     hintWhere:"ليس بعد. تذكّر، {pos} تعني {mean}. حاول مرة أخرى.",
     mean_above:"أعلى", mean_below:"أسفل", mean_beside:"بجانبه تماماً",
-    mean_between:"في منتصف شيئين", mean_front:"أقرب إليك، في المقدمة",
-    mean_behind:"إلى الخلف", mean_near:"قريب", mean_far:"بعيد",
+    mean_between:"في منتصف شيئين", mean_front:"أقرب إليك، ويغطي جزءاً منه",
+    mean_behind:"إلى الخلف، ومختبئ جزئياً", mean_near:"قريب", mean_far:"بعيد",
     solidDir:"هذا {solid}. المس الشيء الذي على شكل {solid}.",
     cube:"مكعب", sphere:"كرة", cylinder:"أسطوانة", cone:"مخروط",
     obj_ball:"كرة", obj_can:"علبة", obj_block:"مكعب لعب", obj_hat:"قبعة حفلة",
@@ -500,10 +544,11 @@ const T = {
     picClear:"تم المسح. ابدأ البناء!", doneBuildOne:"بناء رائع! استخدمت شكلاً واحداً.", doneBuild:"بناء رائع! استخدمت {n} أشكال.",
     picHouse:"بيت", picRobot:"روبوت", picTree:"شجرة", picBoat:"قارب", picCat:"قطة", picFree:"بناء حر",
     composeDir:"ركّب: ضع مثلثين معاً لتصنع مستطيلاً.",
-    stds:"المعايير المتوافقة: Texas PreK PK3.V.C.1–4 و PK4.V.C.1–4؛ Kindergarten TEKS K.6(A–F)؛ Common Core Kindergarten K.G.1–6.",
+    stds:"المعايير المتوافقة: Texas PreK PK3.V.C.1–4 و PK4.V.C.1–4 (تسمية الأشكال وبناؤها والتعرف عليها؛ كلمات الموقع) و PK3/PK4.V.E.1 (التصنيف)؛ Kindergarten TEKS K.6(A–F)؛ Common Core Kindergarten K.G.1–6.",
     cardTitle:"بلدة بناء الأشكال — بطاقات التحدي",
     unitSides:"أضلاع", noStraightSidesText:"لا أضلاع مستقيمة", refHouse:"بيت",
-    readAloud:"اقرأ بصوت عالٍ", needShapes:"فعّل أشكالاً أكثر في إعدادات المعلم.", needPos:"فعّل كلمات المواقع في إعدادات المعلم.", rotL:"أدِر لليسار", rotR:"أدِر لليمين", doneBtn:"انتهيت!", doneEmpty:"ضع بعض الأشكال على اللوحة أولاً.", goodCorners:"نعم! {shape} له {n} زوايا.", hintCorners:"عُدّ الزوايا. هذا {shape} له {has}. نحتاج شكلاً له {n} زوايا.", unitCorners:"زوايا", noCornersText:"صفر زوايا"
+    readAloud:"اقرأ بصوت عالٍ", needShapes:"فعّل أشكالاً أكثر في إعدادات المعلم.", needPos:"فعّل كلمات المواقع في إعدادات المعلم.", rotL:"أدِر لليسار", rotR:"أدِر لليمين", doneBtn:"انتهيت!", doneEmpty:"ضع بعض الأشكال على اللوحة أولاً.", goodCorners:"نعم! {shape} له {n} زوايا. وتُسمّى الزوايا أيضاً رؤوساً.", hintCorners:"عُدّ الزوايا. هذا {shape} له {has}. نحتاج شكلاً له {n} زوايا.", unitCorners:"زوايا", noCornersText:"صفر زوايا",
+    mMake:"اصنع شكلاً", goodSquareRect:"نعم! المربع مستطيل خاص. له 4 زوايا قائمة، وأضلاعه الأربعة متساوية في الطول.", sortDirRound:"صنّف الأشكال. هل الشكل مستدير أم له زوايا؟ المس سلة.", sortDirSides:"صنّف الأشكال. هل له 3 أضلاع أم 4 أضلاع؟ المس سلة.", sortDirFlat:"صنّفها. هل هو شكل مسطح أم مجسم؟ المس سلة.", binRound:"مستديرة", binCorners:"لها زوايا", bin3:"3 أضلاع", bin4:"4 أضلاع", binFlat:"مسطحة", binSolid:"مجسمات", hintSortRound:"ابحث عن الزوايا. هذا الشكل ({shape}) له زوايا، لذلك يذهب مع الأشكال التي لها زوايا.", hintSortCorner:"هذا الشكل ({shape}) مستدير وليس له زوايا، لذلك يذهب مع الأشكال المستديرة.", hintSortSides:"عُدّ أضلاعه المستقيمة. هذا الشكل له {n} أضلاع.", hintSortFlat:"هذا مجسم ({shape}). يمكنك أن تمسكه بيدك، مثل الكرة أو المكعب. يذهب مع المجسمات.", hintSortSolid:"هذا شكل مسطح ({shape})، مثل قصاصة الورق. يذهب مع الأشكال المسطحة.", goodSortAll:"لقد صنّفتها كلها!", sortDoneRound:"الأشكال المستديرة ليس لها زوايا. والأشكال الأخرى لها زوايا.", sortDoneSides:"للمثلث 3 أضلاع. وللمربع والمستطيل 4 أضلاع.", sortDoneFlat:"الأشكال المسطحة ملساء مثل الورق. والمجسمات يمكنك أن تمسكها بيدك، مثل الكرة أو المكعب.", sortItem:"الشكل المراد تصنيفه", faceDir:"انظر إلى الجزء الأصفر من {solid}. إنه وجه مسطح. ما شكله؟", faceTap:"المس شكل الوجه الأصفر:", goodFace:"نعم! في {solid} وجه مسطح على شكل {shape}.", faceFact_cube:"للمكعب 6 وجوه مسطحة، كلها مربعات.", faceFact_cylinder:"للأسطوانة وجهان مسطحان، كلاهما دائرة.", faceFact_cone:"للمخروط وجه مسطح واحد، وهو دائرة.", hintFace:"هذا {shape}. انظر مرة أخرى إلى الوجه الأصفر: {clue}.", dotDir:"اصنع {shape}. المس النقاط لترسم أضلاعه. المس النقطة الأولى مرة أخرى لتنتهي.", fillDir:"املأ {shape}. المس القطعة التي تناسب المكان.", undo:"تراجع", startOver:"ابدأ من جديد", goodDot:"أحسنت! هذا {shape}، له {n} أضلاع و{n} زوايا.", goodDotSquareRect:"لقد صنعت مربعاً! المربع مستطيل خاص، لذلك هو صحيح.", hintDotCount:"شكلك له {has} زوايا. {shape} له {n} زوايا. حاول مرة أخرى!", hintDotCorners:"أحسنت، 4 أضلاع! لكن {shape} يحتاج إلى زوايا قائمة، مثل زاوية الكتاب. حاول مرة أخرى.", hintDotEqual:"هذا مستطيل. أضلاع المربع الأربعة متساوية في الطول. حاول مرة أخرى.", hintDotCross:"الخطوط تتقاطع. أضلاع الشكل تدور حوله من الخارج دون أن تتقاطع. حاول مرة أخرى.", hintDotFew:"يحتاج الشكل إلى 3 زوايا على الأقل. المس نقاطاً أكثر قبل أن تعود إلى النقطة الأولى.", fillRectTri:"مثلثان يصنعان مستطيلاً!", fillSquareRect:"مستطيلان يصنعان مربعاً!", fillBigSquare:"أربعة مربعات صغيرة تصنع مربعاً كبيراً!", fillHexTri:"ستة مثلثات تصنع شكلاً سداسياً!", fillSquareTri:"مثلثان يصنعان مربعاً!", fillRectSq:"مربعان يصنعان مستطيلاً!", hintFill:"هذا الشكل ({shape}) لا يناسب هنا. انظر إلى مكان فارغ: له {clue}.", pieceTray:"القطع", dotGridAria:"لوحة النقاط", dotAria:"نقطة {n}"
   },
   hi:{
     appTitle:"आकृति नगर", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक",
@@ -525,7 +570,7 @@ const T = {
     clue_circle:"कोई कोना नहीं और कोई सीधी भुजा नहीं — यह पूरी तरह गोल है",
     clue_triangle:"तीन सीधी भुजाएँ और तीन कोने",
     clue_square:"चार बराबर भुजाएँ और चार कोने",
-    clue_rectangle:"चार भुजाएँ और चार कोने, दो लंबी और दो छोटी भुजाएँ",
+    clue_rectangle:"चार सीधी भुजाएँ और चार समकोण कोने, दरवाज़े की तरह",
     clue_hexagon:"छह सीधी भुजाएँ और छह कोने",
     detSides:"{n} भुजाओं वाली आकृति ढूँढो।", detNoCorner:"किस आकृति में कोई कोना नहीं है?",
     detAlike:"एक जैसी दो आकृतियों को छुओ।", detDifferent:"कौन सी आकृति अलग है?",
@@ -545,8 +590,8 @@ const T = {
     goodWhere:"हाँ! {shape} {ref} {pos} है।",
     hintWhere:"अभी नहीं। याद रखो, {pos} का मतलब {mean} है। फिर कोशिश करो।",
     mean_above:"ऊँचाई पर", mean_below:"नीचे", mean_beside:"बिलकुल बगल में",
-    mean_between:"दो चीज़ों के बीच", mean_front:"तुम्हारे नज़दीक, आगे",
-    mean_behind:"पीछे की ओर", mean_near:"पास में", mean_far:"दूर",
+    mean_between:"दो चीज़ों के बीच", mean_front:"तुम्हारे ज़्यादा पास, उसका कुछ हिस्सा ढकते हुए",
+    mean_behind:"पीछे की ओर, थोड़ा छिपा हुआ", mean_near:"पास में", mean_far:"दूर",
     solidDir:"यह {solid} है। {solid} के आकार वाली वस्तु छुओ।",
     cube:"घन", sphere:"गोला", cylinder:"बेलन", cone:"शंकु",
     obj_ball:"गेंद", obj_can:"डिब्बा", obj_block:"ब्लॉक", obj_hat:"पार्टी टोपी",
@@ -557,10 +602,11 @@ const T = {
     picClear:"साफ़ हो गया। बनाना शुरू करो!", doneBuildOne:"बढ़िया रचना! तुमने 1 आकृति उपयोग की।", doneBuild:"बढ़िया रचना! तुमने {n} आकृतियाँ उपयोग कीं।",
     picHouse:"घर", picRobot:"रोबोट", picTree:"पेड़", picBoat:"नाव", picCat:"बिल्ली", picFree:"स्वतंत्र निर्माण",
     composeDir:"जोड़ो: दो त्रिभुजों को मिलाकर एक आयत बनाओ।",
-    stds:"संरेखित मानक: Texas PreK PK3.V.C.1–4 और PK4.V.C.1–4; Kindergarten TEKS K.6(A–F); Common Core Kindergarten K.G.1–6.",
+    stds:"संरेखित मानक: Texas PreK PK3.V.C.1–4 और PK4.V.C.1–4 (आकृतियों के नाम, बनाना और पहचानना; स्थिति शब्द) और PK3/PK4.V.E.1 (छाँटना); Kindergarten TEKS K.6(A–F); Common Core Kindergarten K.G.1–6.",
     cardTitle:"आकृति नगर — चुनौती कार्ड",
     unitSides:"भुजाएँ", noStraightSidesText:"कोई सीधी भुजा नहीं", refHouse:"घर",
-    readAloud:"ज़ोर से पढ़ें", needShapes:"शिक्षक सेटिंग में और आकृतियाँ चालू करें।", needPos:"शिक्षक सेटिंग में स्थिति वाले शब्द चालू करें।", rotL:"बाएँ घुमाएँ", rotR:"दाएँ घुमाएँ", doneBtn:"मेरा हो गया!", doneEmpty:"पहले बोर्ड पर कुछ आकृतियाँ रखो।", goodCorners:"हाँ! {shape} में {n} कोने होते हैं।", hintCorners:"कोने गिनो। उस {shape} में {has} हैं। हमें {n} कोनों वाली आकृति चाहिए।", unitCorners:"कोने", noCornersText:"शून्य कोने"
+    readAloud:"ज़ोर से पढ़ें", needShapes:"शिक्षक सेटिंग में और आकृतियाँ चालू करें।", needPos:"शिक्षक सेटिंग में स्थिति वाले शब्द चालू करें।", rotL:"बाएँ घुमाएँ", rotR:"दाएँ घुमाएँ", doneBtn:"मेरा हो गया!", doneEmpty:"पहले बोर्ड पर कुछ आकृतियाँ रखो।", goodCorners:"हाँ! {shape} में {n} कोने होते हैं। कोनों को शीर्ष भी कहते हैं।", hintCorners:"कोने गिनो। उस {shape} में {has} हैं। हमें {n} कोनों वाली आकृति चाहिए।", unitCorners:"कोने", noCornersText:"शून्य कोने",
+    mMake:"आकृति बनाओ", goodSquareRect:"हाँ! वर्ग एक खास आयत है। इसके 4 समकोण कोने हैं और चारों भुजाएँ बराबर लंबी हैं।", sortDirRound:"आकृतियों को छाँटो। यह गोल है या इसमें कोने हैं? एक टोकरी छुओ।", sortDirSides:"आकृतियों को छाँटो। इसकी 3 भुजाएँ हैं या 4? एक टोकरी छुओ।", sortDirFlat:"इन्हें छाँटो। यह सपाट आकृति है या ठोस आकृति? एक टोकरी छुओ।", binRound:"गोल", binCorners:"कोने वाली", bin3:"3 भुजाएँ", bin4:"4 भुजाएँ", binFlat:"सपाट", binSolid:"ठोस", hintSortRound:"कोने ढूँढो। {shape} में कोने हैं, इसलिए यह कोने वाली आकृतियों के साथ जाएगा।", hintSortCorner:"{shape} गोल है। इसमें कोई कोना नहीं, इसलिए यह गोल आकृतियों के साथ जाएगा।", hintSortSides:"इसकी सीधी भुजाएँ गिनो। इस {shape} की {n} भुजाएँ हैं।", hintSortFlat:"{shape} ठोस है। इसे तुम हाथ में पकड़ सकते हो, जैसे गेंद या ब्लॉक। यह ठोस आकृतियों के साथ जाएगा।", hintSortSolid:"{shape} सपाट है, कागज़ से कटी आकृति जैसा। यह सपाट आकृतियों के साथ जाएगा।", goodSortAll:"तुमने सब छाँट दीं!", sortDoneRound:"गोल आकृतियों में कोने नहीं होते। बाकी आकृतियों में कोने होते हैं।", sortDoneSides:"त्रिभुज की 3 भुजाएँ होती हैं। वर्ग और आयत की 4 भुजाएँ होती हैं।", sortDoneFlat:"सपाट आकृतियाँ कागज़ जैसी चपटी होती हैं। ठोस आकृतियों को हाथ में पकड़ सकते हैं, जैसे गेंद या ब्लॉक।", sortItem:"छाँटने वाली आकृति", faceDir:"{solid} का पीला हिस्सा देखो। यह एक सपाट फलक है। इसका आकार क्या है?", faceTap:"पीले फलक की आकृति छुओ:", goodFace:"हाँ! {solid} का एक सपाट फलक {shape} जैसा है।", faceFact_cube:"घन के 6 सपाट फलक होते हैं। सभी वर्ग हैं।", faceFact_cylinder:"बेलन के 2 सपाट फलक होते हैं। दोनों वृत्त हैं।", faceFact_cone:"शंकु का 1 सपाट फलक होता है। वह वृत्त है।", hintFace:"वह {shape} है। पीले फलक को फिर से देखो: {clue}।", dotDir:"{shape} बनाओ। भुजाएँ बनाने के लिए बिंदु छुओ। पूरा करने के लिए पहला बिंदु फिर से छुओ।", fillDir:"{shape} को भरो। जो टुकड़ा ठीक बैठे, उसे छुओ।", undo:"वापस लो", startOver:"फिर से शुरू करो", goodDot:"तुमने {shape} बनाया! इसकी {n} भुजाएँ और {n} कोने हैं।", goodDotSquareRect:"तुमने वर्ग बनाया! वर्ग एक खास आयत है, इसलिए यह सही है।", hintDotCount:"तुम्हारी आकृति में {has} कोने हैं। {shape} में {n} कोने होते हैं। फिर कोशिश करो!", hintDotCorners:"बढ़िया, 4 भुजाएँ! पर {shape} के कोने किताब के कोने जैसे समकोण होने चाहिए। फिर कोशिश करो।", hintDotEqual:"यह आयत है। वर्ग की चारों भुजाएँ बराबर लंबी होती हैं। फिर कोशिश करो।", hintDotCross:"रेखाएँ एक-दूसरे को काट रही हैं। आकृति की भुजाएँ बिना काटे बाहर-बाहर घूमती हैं। फिर कोशिश करो।", hintDotFew:"आकृति में कम से कम 3 कोने चाहिए। पहले बिंदु पर लौटने से पहले और बिंदु छुओ।", fillRectTri:"दो त्रिभुज मिलकर एक आयत बनाते हैं!", fillSquareRect:"दो आयत मिलकर एक वर्ग बनाते हैं!", fillBigSquare:"चार छोटे वर्ग मिलकर एक बड़ा वर्ग बनाते हैं!", fillHexTri:"छह त्रिभुज मिलकर एक षट्भुज बनाते हैं!", fillSquareTri:"दो त्रिभुज मिलकर एक वर्ग बनाते हैं!", fillRectSq:"दो वर्ग मिलकर एक आयत बनाते हैं!", hintFill:"{shape} यहाँ ठीक नहीं बैठता। एक खाली जगह देखो: उसमें {clue} हैं।", pieceTray:"टुकड़े", dotGridAria:"बिंदु बोर्ड", dotAria:"बिंदु {n}"
   },
   ur:{
     appTitle:"شکل سازی کا شہر", home:"ہوم", privacy:"رازداری", teacher:"استاد",
@@ -582,7 +628,7 @@ const T = {
     clue_circle:"کوئی کونہ نہیں اور کوئی سیدھی سمت نہیں — یہ بالکل گول ہے",
     clue_triangle:"تین سیدھی اطراف اور تین کونے",
     clue_square:"چار برابر اطراف اور چار کونے",
-    clue_rectangle:"چار اطراف اور چار کونے، دو لمبی اور دو چھوٹی اطراف",
+    clue_rectangle:"چار سیدھی اطراف اور چار قائمہ کونے، دروازے کی طرح",
     clue_hexagon:"چھ سیدھی اطراف اور چھ کونے",
     detSides:"{n} اطراف والی شکل تلاش کرو۔", detNoCorner:"کس شکل کا کوئی کونہ نہیں؟",
     detAlike:"ایک جیسی دو اشکال کو چھوؤ۔", detDifferent:"کون سی شکل مختلف ہے؟",
@@ -602,8 +648,8 @@ const T = {
     goodWhere:"ہاں! {shape} {ref} {pos} ہے۔",
     hintWhere:"ابھی نہیں۔ یاد رکھو، {pos} کا مطلب {mean} ہے۔ دوبارہ کوشش کرو۔",
     mean_above:"زیادہ اوپر", mean_below:"زیادہ نیچے", mean_beside:"بالکل ساتھ",
-    mean_between:"دو چیزوں کے بیچ", mean_front:"تمہارے قریب، سامنے",
-    mean_behind:"پیچھے کی طرف", mean_near:"قریب", mean_far:"دور",
+    mean_between:"دو چیزوں کے بیچ", mean_front:"تمہارے زیادہ قریب، اس کا کچھ حصہ ڈھانپتے ہوئے",
+    mean_behind:"پیچھے کی طرف، تھوڑا سا چھپا ہوا", mean_near:"قریب", mean_far:"دور",
     solidDir:"یہ {solid} ہے۔ {solid} کی شکل والی چیز چھوؤ۔",
     cube:"مکعب", sphere:"کرہ", cylinder:"استوانہ", cone:"مخروط",
     obj_ball:"گیند", obj_can:"کین", obj_block:"بلاک", obj_hat:"پارٹی ٹوپی",
@@ -614,10 +660,11 @@ const T = {
     picClear:"صاف ہو گیا۔ بنانا شروع کرو!", doneBuildOne:"اچھی تعمیر! تم نے 1 شکل استعمال کی۔", doneBuild:"اچھی تعمیر! تم نے {n} اشکال استعمال کیں۔",
     picHouse:"گھر", picRobot:"روبوٹ", picTree:"درخت", picBoat:"کشتی", picCat:"بلی", picFree:"آزاد تعمیر",
     composeDir:"جوڑو: دو مثلثوں کو ملا کر مستطیل بناؤ۔",
-    stds:"منسلک معیارات: Texas PreK PK3.V.C.1–4 اور PK4.V.C.1–4؛ Kindergarten TEKS K.6(A–F)؛ Common Core Kindergarten K.G.1–6۔",
+    stds:"منسلک معیارات: Texas PreK PK3.V.C.1–4 اور PK4.V.C.1–4 (اشکال کے نام، بنانا اور پہچاننا؛ مقام کے الفاظ) اور PK3/PK4.V.E.1 (چھانٹنا)؛ Kindergarten TEKS K.6(A–F)؛ Common Core Kindergarten K.G.1–6۔",
     cardTitle:"شکل سازی کا شہر — چیلنج کارڈ",
     unitSides:"اطراف", noStraightSidesText:"کوئی سیدھی سمت نہیں", refHouse:"گھر",
-    readAloud:"بلند آواز سے پڑھیں", needShapes:"استاد کی ترتیبات میں مزید اشکال چالو کریں۔", needPos:"استاد کی ترتیبات میں مقام کے الفاظ چالو کریں۔", rotL:"بائیں گھمائیں", rotR:"دائیں گھمائیں", doneBtn:"میں نے مکمل کر لیا!", doneEmpty:"پہلے بورڈ پر کچھ اشکال رکھو۔", goodCorners:"ہاں! {shape} کے {n} کونے ہوتے ہیں۔", hintCorners:"کونے گنو۔ اس {shape} کے {has} ہیں۔ ہمیں {n} کونوں والی شکل چاہیے۔", unitCorners:"کونے", noCornersText:"صفر کونے"
+    readAloud:"بلند آواز سے پڑھیں", needShapes:"استاد کی ترتیبات میں مزید اشکال چالو کریں۔", needPos:"استاد کی ترتیبات میں مقام کے الفاظ چالو کریں۔", rotL:"بائیں گھمائیں", rotR:"دائیں گھمائیں", doneBtn:"میں نے مکمل کر لیا!", doneEmpty:"پہلے بورڈ پر کچھ اشکال رکھو۔", goodCorners:"ہاں! {shape} کے {n} کونے ہوتے ہیں۔ کونوں کو راس بھی کہتے ہیں۔", hintCorners:"کونے گنو۔ اس {shape} کے {has} ہیں۔ ہمیں {n} کونوں والی شکل چاہیے۔", unitCorners:"کونے", noCornersText:"صفر کونے",
+    mMake:"شکل بناؤ", goodSquareRect:"ہاں! مربع ایک خاص مستطیل ہے۔ اس کے 4 قائمہ کونے ہیں اور چاروں اطراف برابر لمبی ہیں۔", sortDirRound:"اشکال کو الگ الگ کرو۔ یہ گول ہے یا اس کے کونے ہیں؟ ایک ٹوکری چھوؤ۔", sortDirSides:"اشکال کو الگ الگ کرو۔ اس کی 3 اطراف ہیں یا 4؟ ایک ٹوکری چھوؤ۔", sortDirFlat:"انہیں الگ الگ کرو۔ یہ چپٹی شکل ہے یا ٹھوس شکل؟ ایک ٹوکری چھوؤ۔", binRound:"گول", binCorners:"کونوں والی", bin3:"3 اطراف", bin4:"4 اطراف", binFlat:"چپٹی", binSolid:"ٹھوس", hintSortRound:"کونے تلاش کرو۔ {shape} کے کونے ہیں، اس لیے یہ کونوں والی اشکال کے ساتھ جائے گا۔", hintSortCorner:"{shape} گول ہے۔ اس کا کوئی کونہ نہیں، اس لیے یہ گول اشکال کے ساتھ جائے گا۔", hintSortSides:"اس کی سیدھی اطراف گنو۔ اس {shape} کی {n} اطراف ہیں۔", hintSortFlat:"{shape} ٹھوس ہے۔ تم اسے ہاتھ میں پکڑ سکتے ہو، جیسے گیند یا بلاک۔ یہ ٹھوس اشکال کے ساتھ جائے گا۔", hintSortSolid:"{shape} چپٹی شکل ہے، کاغذ سے کٹی شکل کی طرح۔ یہ چپٹی اشکال کے ساتھ جائے گی۔", goodSortAll:"تم نے سب الگ الگ کر دیں!", sortDoneRound:"گول اشکال کے کونے نہیں ہوتے۔ باقی اشکال کے کونے ہوتے ہیں۔", sortDoneSides:"مثلث کی 3 اطراف ہوتی ہیں۔ مربع اور مستطیل کی 4 اطراف ہوتی ہیں۔", sortDoneFlat:"چپٹی اشکال کاغذ کی طرح سپاٹ ہوتی ہیں۔ ٹھوس اشکال ہاتھ میں پکڑی جا سکتی ہیں، جیسے گیند یا بلاک۔", sortItem:"الگ کرنے والی شکل", faceDir:"{solid} کا پیلا حصہ دیکھو۔ یہ ایک چپٹا رخ ہے۔ اس کی شکل کیا ہے؟", faceTap:"پیلے رخ کی شکل چھوؤ:", goodFace:"ہاں! {solid} کا ایک چپٹا رخ {shape} جیسا ہے۔", faceFact_cube:"مکعب کے 6 چپٹے رخ ہوتے ہیں۔ سب مربع ہیں۔", faceFact_cylinder:"استوانے کے 2 چپٹے رخ ہوتے ہیں۔ دونوں دائرے ہیں۔", faceFact_cone:"مخروط کا 1 چپٹا رخ ہوتا ہے۔ وہ دائرہ ہے۔", hintFace:"وہ {shape} ہے۔ پیلے رخ کو دوبارہ دیکھو: {clue}۔", dotDir:"{shape} بناؤ۔ اطراف بنانے کے لیے نقطے چھوؤ۔ مکمل کرنے کے لیے پہلا نقطہ دوبارہ چھوؤ۔", fillDir:"{shape} کو بھرو۔ جو ٹکڑا ٹھیک بیٹھے، اسے چھوؤ۔", undo:"واپس", startOver:"دوبارہ شروع کرو", goodDot:"تم نے {shape} بنایا! اس کی {n} اطراف اور {n} کونے ہیں۔", goodDotSquareRect:"تم نے مربع بنایا! مربع ایک خاص مستطیل ہے، اس لیے یہ درست ہے۔", hintDotCount:"تمہاری شکل کے {has} کونے ہیں۔ {shape} کے {n} کونے ہوتے ہیں۔ دوبارہ کوشش کرو!", hintDotCorners:"شاباش، 4 اطراف! مگر {shape} کے کونے کتاب کے کونے جیسے قائمہ ہونے چاہییں۔ دوبارہ کوشش کرو۔", hintDotEqual:"یہ مستطیل ہے۔ مربع کی چاروں اطراف برابر لمبی ہوتی ہیں۔ دوبارہ کوشش کرو۔", hintDotCross:"لکیریں ایک دوسرے کو کاٹ رہی ہیں۔ شکل کی اطراف بغیر کاٹے باہر کی طرف گھومتی ہیں۔ دوبارہ کوشش کرو۔", hintDotFew:"شکل کے کم از کم 3 کونے ہونے چاہییں۔ پہلے نقطے پر واپس جانے سے پہلے اور نقطے چھوؤ۔", fillRectTri:"دو مثلث مل کر ایک مستطیل بناتے ہیں!", fillSquareRect:"دو مستطیل مل کر ایک مربع بناتے ہیں!", fillBigSquare:"چار چھوٹے مربع مل کر ایک بڑا مربع بناتے ہیں!", fillHexTri:"چھ مثلث مل کر ایک چھ گوشہ بناتے ہیں!", fillSquareTri:"دو مثلث مل کر ایک مربع بناتے ہیں!", fillRectSq:"دو مربع مل کر ایک مستطیل بناتے ہیں!", hintFill:"{shape} یہاں ٹھیک نہیں بیٹھتا۔ ایک خالی جگہ دیکھو: اس میں {clue} ہیں۔", pieceTray:"ٹکڑے", dotGridAria:"نقطوں کا بورڈ", dotAria:"نقطہ {n}"
   },
   zh:{
     appTitle:"形状建造小镇", home:"主页", privacy:"隐私", teacher:"教师",
@@ -639,7 +686,7 @@ const T = {
     clue_circle:"没有角也没有直边——它是完全圆的",
     clue_triangle:"三条直边和三个角",
     clue_square:"四条相等的边和四个角",
-    clue_rectangle:"四条边和四个角，两条长边两条短边",
+    clue_rectangle:"四条直边和四个直角，像一扇门",
     clue_hexagon:"六条直边和六个角",
     detSides:"找出有 {n} 条边的形状。", detNoCorner:"哪个形状没有角？",
     detAlike:"点一点两个一样的形状。", detDifferent:"哪个形状不一样？",
@@ -659,8 +706,8 @@ const T = {
     goodWhere:"对了！{shape}在{ref}{pos}。",
     hintWhere:"还不对。记住，{pos}的意思是{mean}。再试一次。",
     mean_above:"更高的位置", mean_below:"更低的位置", mean_beside:"紧挨着，在旁边",
-    mean_between:"在两样东西中间", mean_front:"离你更近，在前面",
-    mean_behind:"在后面更远处", mean_near:"在附近", mean_far:"在远处",
+    mean_between:"在两样东西中间", mean_front:"离你更近，挡住它的一部分",
+    mean_behind:"在更后面，被它挡住一部分", mean_near:"在附近", mean_far:"在远处",
     solidDir:"这是一个{solid}。点一点形状像{solid}的物品。",
     cube:"正方体", sphere:"球体", cylinder:"圆柱体", cone:"圆锥体",
     obj_ball:"球", obj_can:"罐子", obj_block:"积木", obj_hat:"派对帽",
@@ -671,10 +718,11 @@ const T = {
     picClear:"已清除。开始搭建吧！", doneBuildOne:"搭得真好！你用了 1 个形状。", doneBuild:"搭得真好！你用了 {n} 个形状。",
     picHouse:"房子", picRobot:"机器人", picTree:"树", picBoat:"船", picCat:"猫", picFree:"自由搭建",
     composeDir:"拼一拼：把两个三角形拼成一个长方形。",
-    stds:"对应标准：Texas PreK PK3.V.C.1–4 和 PK4.V.C.1–4；Kindergarten TEKS K.6(A–F)；Common Core Kindergarten K.G.1–6。",
+    stds:"对应标准：Texas PreK PK3.V.C.1–4 和 PK4.V.C.1–4（认识、搭建和辨认形状；方位词）以及 PK3/PK4.V.E.1（分类）；Kindergarten TEKS K.6(A–F)；Common Core Kindergarten K.G.1–6。",
     cardTitle:"形状建造小镇 — 挑战卡",
     unitSides:"条边", noStraightSidesText:"没有直边", refHouse:"房子",
-    readAloud:"朗读", needShapes:"请在教师设置中打开更多形状。", needPos:"请在教师设置中打开位置词。", rotL:"向左转", rotR:"向右转", doneBtn:"我做好了！", doneEmpty:"先在板上放一些形状吧。", goodCorners:"对了！{shape}有 {n} 个角。", hintCorners:"数一数角。那个{shape}有{has}。我们要找有 {n} 个角的形状。", unitCorners:"个角", noCornersText:"0 个角"
+    readAloud:"朗读", needShapes:"请在教师设置中打开更多形状。", needPos:"请在教师设置中打开位置词。", rotL:"向左转", rotR:"向右转", doneBtn:"我做好了！", doneEmpty:"先在板上放一些形状吧。", goodCorners:"对了！{shape}有 {n} 个角，也就是 {n} 个顶点。", hintCorners:"数一数角。那个{shape}有{has}。我们要找有 {n} 个角的形状。", unitCorners:"个角", noCornersText:"0 个角",
+    mMake:"做个形状", goodSquareRect:"对了！正方形是一种特别的长方形。它有 4 个直角，4 条边一样长。", sortDirRound:"给形状分类。它是圆圆的，还是有角？点一个篮子。", sortDirSides:"给形状分类。它有 3 条边还是 4 条边？点一个篮子。", sortDirFlat:"分一分。它是平面图形还是立体图形？点一个篮子。", binRound:"圆圆的", binCorners:"有角的", bin3:"3 条边", bin4:"4 条边", binFlat:"平面图形", binSolid:"立体图形", hintSortRound:"找一找角。{shape}有角，所以它和有角的形状放在一起。", hintSortCorner:"{shape}是圆圆的，没有角，所以它和圆圆的形状放在一起。", hintSortSides:"数一数它的直边。这个{shape}有 {n} 条边。", hintSortFlat:"{shape}是立体的，可以拿在手里，像球或积木。它和立体图形放在一起。", hintSortSolid:"{shape}是平的，像剪下来的纸片。它和平面图形放在一起。", goodSortAll:"你全部分好了！", sortDoneRound:"圆圆的形状没有角，其他形状都有角。", sortDoneSides:"三角形有 3 条边。正方形和长方形有 4 条边。", sortDoneFlat:"平面图形像纸一样平。立体图形可以拿在手里，像球或积木。", sortItem:"要分类的形状", faceDir:"看{solid}上黄色的部分。它是一个平平的面。它是什么形状？", faceTap:"点一点黄色面的形状：", goodFace:"对了！{solid}有一个平平的面，是{shape}。", faceFact_cube:"正方体有 6 个平平的面，都是正方形。", faceFact_cylinder:"圆柱体有 2 个平平的面，都是圆形。", faceFact_cone:"圆锥体有 1 个平平的面，是圆形。", hintFace:"那是{shape}。再看看黄色的面：{clue}。", dotDir:"做一个{shape}。点圆点画出它的边。再点第一个圆点就完成了。", fillDir:"把{shape}填满。点一点放得进去的那一块。", undo:"撤销", startOver:"重新开始", goodDot:"你做出了{shape}！它有 {n} 条边和 {n} 个角。", goodDotSquareRect:"你做出了正方形！正方形是一种特别的长方形，所以也对。", hintDotCount:"你的形状有 {has} 个角。{shape}有 {n} 个角。再试一次！", hintDotCorners:"很好，有 4 条边！但是{shape}要有直角，就像书本的角。再试一次。", hintDotEqual:"那是长方形。正方形的 4 条边一样长。再试一次。", hintDotCross:"线交叉了。形状的边要沿着外面围一圈，不能交叉。再试一次。", hintDotFew:"一个形状至少要有 3 个角。回到第一个圆点之前，再多点几个圆点。", fillRectTri:"两个三角形拼成一个长方形！", fillSquareRect:"两个长方形拼成一个正方形！", fillBigSquare:"四个小正方形拼成一个大正方形！", fillHexTri:"六个三角形拼成一个六边形！", fillSquareTri:"两个三角形拼成一个正方形！", fillRectSq:"两个正方形拼成一个长方形！", hintFill:"{shape}放不进这里。看一个空位：它有{clue}。", pieceTray:"拼块", dotGridAria:"圆点板", dotAria:"圆点 {n}"
   }
 };
 
@@ -725,33 +773,37 @@ function shapeSVG(kind, opts){
   switch(kind){
     case "circle": inner=`<circle cx="50" cy="50" r="40" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>`; break;
     case "oval": inner=`<ellipse cx="50" cy="50" rx="44" ry="30" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" ${g}/>`; break;
-    case "triangle": inner=`<polygon points="50,12 88,84 12,84" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round" ${g}/>`; break;
+    case "triangle": inner=`<polygon points="${["50,12 88,84 12,84","14,86 88,86 14,20","8,82 92,64 40,14","50,6 70,94 30,94"][opts.v||0]||"50,12 88,84 12,84"}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round" ${g}/>`; break;
     case "square": inner=`<rect x="14" y="14" width="72" height="72" rx="4" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" ${g}/>`; break;
-    case "rectangle": inner=`<rect x="8" y="26" width="84" height="48" rx="4" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" ${g}/>`; break;
-    case "hexagon": inner=`<polygon points="${hexPoints(50,50,42)}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round" ${g}/>`; break;
+    case "rectangle": inner=opts.v===1?`<rect x="4" y="36" width="92" height="28" rx="3" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" ${g}/>`:`<rect x="8" y="26" width="84" height="48" rx="4" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" ${g}/>`; break;
+    case "hexagon": inner=`<polygon points="${opts.v===1?"22,28 58,10 90,36 84,72 44,92 10,64":hexPoints(50,50,42)}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round" ${g}/>`; break;
   }
   return `<svg viewBox="${opts.vb||'0 0 100 100'}" role="img" aria-label="${shapeName(kind)}">${inner}</svg>`;
 }
+/* Irregular look-alikes (K.6(E): sort regular and irregular figures). 0 = the regular drawing. */
+const VARIANTS={triangle:3,rectangle:1,hexagon:1};
+function pickVariant(kind){ if(settings.diff==="easy") return 0; const n=VARIANTS[kind]||0; return n&&Math.random()<0.6? 1+Math.floor(Math.random()*n):0; }
+function sibling(k){ return k==="square"?"rectangle":k==="rectangle"?"square":null; }
 function hexPoints(cx,cy,r){ let p=[]; for(let i=0;i<6;i++){ const a=Math.PI/180*(60*i-90); p.push((cx+r*Math.cos(a)).toFixed(1)+","+(cy+r*Math.sin(a)).toFixed(1)); } return p.join(" "); }
 
 /* ---------- SVG solids ---------- */
-function solidSVG(kind, rot){
-  rot=rot||0; const g=`transform="rotate(${rot} 60 60)"`; const line="#12303f";
+function solidSVG(kind, rot, hl){
+  rot=rot||0; const HL="#fde047"; const g=`transform="rotate(${rot} 60 60)"`; const line="#12303f";
   switch(kind){
     case "cube": return `<svg viewBox="0 0 120 120" role="img" aria-label="${t('cube')}"><g ${g}>
       <polygon points="30,45 75,45 90,30 45,30" fill="#9ec7dc" stroke="${line}" stroke-width="3" stroke-linejoin="round"/>
-      <polygon points="75,45 90,30 90,80 75,95" fill="#5f97b6" stroke="${line}" stroke-width="3" stroke-linejoin="round"/>
-      <rect x="30" y="45" width="45" height="50" fill="#c7e2f0" stroke="${line}" stroke-width="3"/></g></svg>`;
+      <polygon points="75,45 90,30 90,75 75,90" fill="#5f97b6" stroke="${line}" stroke-width="3" stroke-linejoin="round"/>
+      <rect x="30" y="45" width="45" height="45" fill="${hl?HL:"#c7e2f0"}" stroke="${line}" stroke-width="3"/></g></svg>`;
     case "sphere": return `<svg viewBox="0 0 120 120" role="img" aria-label="${t('sphere')}"><g ${g}>
       <circle cx="60" cy="62" r="40" fill="#f6b8b8" stroke="${line}" stroke-width="3"/>
       <ellipse cx="60" cy="62" rx="40" ry="14" fill="none" stroke="${line}" stroke-width="2.5" stroke-dasharray="4 4" opacity=".6"/>
       <ellipse cx="48" cy="48" rx="12" ry="8" fill="#fff" opacity=".55"/></g></svg>`;
     case "cylinder": return `<svg viewBox="0 0 120 120" role="img" aria-label="${t('cylinder')}"><g ${g}>
       <path d="M30 35 A30 12 0 0 0 90 35 L90 90 A30 12 0 0 1 30 90 Z" fill="#bfe3c8" stroke="${line}" stroke-width="3"/>
-      <ellipse cx="60" cy="35" rx="30" ry="12" fill="#8fce9f" stroke="${line}" stroke-width="3"/></g></svg>`;
+      <ellipse cx="60" cy="35" rx="30" ry="12" fill="${hl?HL:"#8fce9f"}" stroke="${line}" stroke-width="3"/></g></svg>`;
     case "cone": return `<svg viewBox="0 0 120 120" role="img" aria-label="${t('cone')}"><g ${g}>
       <path d="M60 22 L88 92 A30 11 0 0 1 32 92 Z" fill="#e7c58a" stroke="${line}" stroke-width="3" stroke-linejoin="round"/>
-      <ellipse cx="60" cy="92" rx="28" ry="11" fill="#d9ad63" stroke="${line}" stroke-width="3"/></g></svg>`;
+      <ellipse cx="60" cy="92" rx="28" ry="11" fill="${hl?HL:"#d9ad63"}" stroke="${line}" stroke-width="3"/></g></svg>`;
   }
 }
 function objectSVG(obj){
@@ -835,7 +887,7 @@ function speak(text,onDone){
   if(onDone) setTimeout(done,speechEstimateMs(text)+2500);
 }
 /* Speak praise, then start the next round once it finishes (never sooner than minMs). */
-const roundIds={find:0,det:0,where:0,solid:0};
+const roundIds={find:0,det:0,where:0,solid:0,make:0};
 function afterPraise(msg,key,next,minMs){
   const id=roundIds[key], t0=Date.now();
   speak(msg,()=>{
@@ -846,8 +898,8 @@ function afterPraise(msg,key,next,minMs){
 if(speechOK){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){} }
 if(!speechOK){ document.addEventListener("DOMContentLoaded",()=>$$(".speaker").forEach(b=>b.style.display="none")); }
 
-const currentSpeech = {find:"",build:"",det:"",where:"",solid:""};
-const SPEECH_MODE = {find:"find",build:"build",det:"detective",where:"where",solid:"solids"};
+const currentSpeech = {find:"",build:"",det:"",where:"",solid:"",make:""};
+const SPEECH_MODE = {find:"find",build:"build",det:"detective",where:"where",solid:"solids",make:"make"};
 function setSpeech(mode,text){ currentSpeech[mode]=text; }
 // Only auto-read for the panel that is on screen (rounds can refresh in the background).
 function maybeAuto(mode){ if(settings.autoRead && currentMode()===SPEECH_MODE[mode]) speak(currentSpeech[mode]); }
@@ -866,7 +918,7 @@ document.addEventListener("pointerdown",function firstTap(e){
 let findTarget=null;
 function newFind(){
   roundIds.find++;
-  const grid=$("#findGrid"); grid.innerHTML="";
+  const grid=$("#findGrid"); grid.innerHTML=""; grid.classList.add("hidelbl");
   const pool=enabledShapes();
   if(pool.length<2){ grid.innerHTML="<p>"+t("needShapes")+"</p>"; return; }
   const n=Math.min(numChoices(),6);
@@ -882,7 +934,7 @@ function newFind(){
     const fill=rand(["#e11d48","#2563eb","#16a34a","#d97706","#7c3aed","#0891b2","#db2777"]);
     const size=rand([70,84,96]);
     btn.innerHTML=`<span class="badge ok" aria-hidden="true">✅</span><span class="badge no" aria-hidden="true">↻</span>
-      <div style="height:96px;display:flex;align-items:center;justify-content:center;width:100%"><div style="width:${size}%">${shapeSVG(kind,{rot,fill})}</div></div>
+      <div style="height:96px;display:flex;align-items:center;justify-content:center;width:100%"><div style="width:${size}%">${shapeSVG(kind,{rot,fill,v:pickVariant(kind)})}</div></div>
       <span class="lbl">${shapeName(kind)}</span>`;
     btn.setAttribute("aria-label",shapeName(kind)); btn.dataset.kind=kind;
     btn.addEventListener("click",()=>checkFind(btn,kind));
@@ -893,13 +945,14 @@ function newFind(){
 }
 function checkFind(btn,kind){
   const fb=$("#findFb");
-  if(kind===findTarget){
-    btn.classList.add("correctpick");
-    const m=t("goodFind",{shape:shapeName(kind)}); showFb(fb,"good",m);
+  // K.6(A): a square is a special rectangle, so it also answers "find the rectangle".
+  if(kind===findTarget || (findTarget==="rectangle" && kind==="square")){
+    btn.classList.add("correctpick"); $("#findGrid").classList.remove("hidelbl");
+    const m=kind===findTarget? t("goodFind",{shape:shapeName(kind)}) : t("goodSquareRect"); showFb(fb,"good",m);
     $$("#findGrid .choice").forEach(c=>c.disabled=true);
     afterPraise(m,"find",newFind,1600);
   }else{
-    btn.classList.add("wrongpick");
+    btn.classList.add("wrongpick","revealed");
     const m=t("fbFindHint",{shape:shapeName(kind),target:shapeName(findTarget),clue:t("clue_"+findTarget)});
     showFb(fb,"hint",m); speak(m);
     setTimeout(()=>btn.classList.remove("wrongpick"),1400);
@@ -912,15 +965,16 @@ function checkFind(btn,kind){
 let detState=null;
 function newDetective(){
   roundIds.det++;
-  const grid=$("#detGrid"); grid.innerHTML="";
+  const grid=$("#detGrid"); grid.innerHTML=""; grid.classList.add("hidelbl");
   const pool=enabledShapes();
   if(pool.length<2){ grid.innerHTML="<p>"+t("needShapes")+"</p>"; return; }
   const n=Math.min(numChoices(),6);
   const types=["sides","corners"];
   if(pool.includes("circle")) types.push("nocorner");
-  types.push("alike","different");
+  types.push("alike","different","sort","sort");
   const type=rand(types);
   detState={type,picked:[],done:false};
+  if(type==="sort"){ newSort(grid,pool); return; }
   let kinds=[], dir="";
   if(type==="sides"){
     const target=shuffle(pool.filter(k=>sidesOf(k)>0))[0];
@@ -947,12 +1001,12 @@ function newDetective(){
     kinds=shuffle(kinds); dir=t("detNoCorner");
   }else if(type==="alike"){
     const matchKind=rand(pool); kinds=[matchKind,matchKind];
-    const others=shuffle(pool.filter(k=>k!==matchKind));
+    const others=shuffle(pool.filter(k=>k!==matchKind && k!==sibling(matchKind)));
     let i=0; while(kinds.length<Math.max(4,n) && others.length){ kinds.push(others[i%others.length]); i++; if(i>20)break; }
     kinds=shuffle(kinds.slice(0,Math.max(4,n)));
     detState.matchKind=matchKind; detState.needCount=2; dir=t("detAlike");
   }else{
-    const groupKind=rand(pool); const oddKind=rand(pool.filter(k=>k!==groupKind))||pool[0];
+    const groupKind=rand(pool); const oddKind=rand(pool.filter(k=>k!==groupKind && k!==sibling(groupKind)))||rand(pool.filter(k=>k!==groupKind));
     kinds=[groupKind,groupKind,groupKind,oddKind]; if(n>4) kinds.push(groupKind);
     kinds=shuffle(kinds); detState.oddKind=oddKind; detState.groupKind=groupKind; dir=t("detDifferent");
   }
@@ -960,7 +1014,7 @@ function newDetective(){
     const btn=document.createElement("button"); btn.className="choice"; btn.type="button";
     const rot=rand([0,25,45,90,120,180]); const fill=rand(["#e11d48","#2563eb","#16a34a","#d97706","#7c3aed","#0891b2"]);
     btn.innerHTML=`<span class="badge ok">✅</span><span class="badge no">↻</span>
-      <div style="height:96px;display:flex;align-items:center;justify-content:center;width:100%"><div style="width:82%">${shapeSVG(kind,{rot,fill})}</div></div>
+      <div style="height:96px;display:flex;align-items:center;justify-content:center;width:100%"><div style="width:82%">${shapeSVG(kind,{rot,fill,v:(type==="alike"||type==="different")?0:pickVariant(kind)})}</div></div>
       <span class="lbl">${shapeName(kind)}</span>`;
     btn.setAttribute("aria-label",shapeName(kind)); btn.dataset.kind=kind;
     btn.addEventListener("click",()=>checkDet(btn,kind));
@@ -981,7 +1035,7 @@ function checkDet(btn,kind){
       btn.classList.add("correctpick"); s.done=true;
       const m=t("goodCorners",{shape:shapeName(kind),n:s.nSides}); showFb(fb,"good",m); lockDet(); afterPraise(m,"det",newDetective,1700);
     }else{
-      btn.classList.add("wrongpick");
+      btn.classList.add("wrongpick","revealed");
       const m=t("hintCorners",{shape:shapeName(kind),has:hasCornersText(kind),n:s.nSides}); showFb(fb,"hint",m); speak(m);
       setTimeout(()=>btn.classList.remove("wrongpick"),1400);
     }
@@ -990,7 +1044,7 @@ function checkDet(btn,kind){
       btn.classList.add("correctpick"); s.done=true;
       const m=t("goodSides",{shape:shapeName(kind),n:s.nSides}); showFb(fb,"good",m); lockDet(); afterPraise(m,"det",newDetective,1700);
     }else{
-      btn.classList.add("wrongpick");
+      btn.classList.add("wrongpick","revealed");
       const m=t("hintSides",{shape:shapeName(kind),has:hasSidesText(kind),n:s.nSides}); showFb(fb,"hint",m); speak(m);
       setTimeout(()=>btn.classList.remove("wrongpick"),1400);
     }
@@ -999,18 +1053,18 @@ function checkDet(btn,kind){
       btn.classList.add("correctpick"); s.done=true;
       const m=t("goodNoCorner",{shape:shapeName(kind)}); showFb(fb,"good",m); lockDet(); afterPraise(m,"det",newDetective,1700);
     }else{
-      btn.classList.add("wrongpick");
+      btn.classList.add("wrongpick","revealed");
       const m=t("hintNoCorner",{shape:shapeName(kind)}); showFb(fb,"hint",m); speak(m);
       setTimeout(()=>btn.classList.remove("wrongpick"),1400);
     }
   }else if(s.type==="alike"){
     if(kind===s.matchKind){
-      if(!s.picked.includes(btn)){ s.picked.push(btn); btn.classList.add("correctpick"); }
+      if(!s.picked.includes(btn)){ s.picked.push(btn); btn.classList.add("correctpick","revealed"); }
       if(s.picked.length>=s.needCount){ s.done=true;
         const m=t("goodAlike",{shape:shapeName(s.matchKind)}); showFb(fb,"good",m); lockDet(); afterPraise(m,"det",newDetective,1800);
       }else{ showFb(fb,"hint",t("detNeedTwo")); speak(t("detNeedTwo")); }
     }else{
-      btn.classList.add("wrongpick"); showFb(fb,"hint",t("hintAlike")); speak(t("hintAlike"));
+      btn.classList.add("wrongpick","revealed"); showFb(fb,"hint",t("hintAlike")); speak(t("hintAlike"));
       setTimeout(()=>btn.classList.remove("wrongpick"),1400);
     }
   }else if(s.type==="different"){
@@ -1018,12 +1072,80 @@ function checkDet(btn,kind){
       btn.classList.add("correctpick"); s.done=true;
       const m=t("goodDiff",{group:shapeName(s.groupKind),shape:shapeName(s.oddKind)}); showFb(fb,"good",m); lockDet(); afterPraise(m,"det",newDetective,1900);
     }else{
-      btn.classList.add("wrongpick"); showFb(fb,"hint",t("hintDiff")); speak(t("hintDiff"));
+      btn.classList.add("wrongpick","revealed"); showFb(fb,"hint",t("hintDiff")); speak(t("hintDiff"));
       setTimeout(()=>btn.classList.remove("wrongpick"),1400);
     }
   }
 }
-function lockDet(){ $$("#detGrid .choice").forEach(c=>c.disabled=true); }
+function lockDet(){ $$("#detGrid .choice, #detGrid .bin").forEach(c=>c.disabled=true); $("#detGrid").classList.remove("hidelbl"); }
+
+/* ---- Sort into two baskets (PK V.E.1; TEKS K.6(E); CCSS K.G.3 flat vs solid) ---- */
+const SOLIDS=["cube","sphere","cylinder","cone"];
+const SORT_DIR={round:"sortDirRound",sides:"sortDirSides",flat:"sortDirFlat"};
+const SORT_DONE={round:"sortDoneRound",sides:"sortDoneSides",flat:"sortDoneFlat"};
+const SORT_BINS={round:["binRound","binCorners"],sides:["bin3","bin4"],flat:["binFlat","binSolid"]};
+function binIcon(rule,b){
+  const o=`fill="none" stroke="#33536b" stroke-width="6" stroke-linejoin="round"`;
+  if(rule==="round") return b===0?`<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="38" ${o}/></svg>`
+    :`<svg viewBox="0 0 100 100" aria-hidden="true"><rect x="16" y="16" width="68" height="68" ${o}/>${[[16,16],[84,16],[16,84],[84,84]].map(c=>`<circle cx="${c[0]}" cy="${c[1]}" r="9" fill="#e11d48"/>`).join("")}</svg>`;
+  if(rule==="sides") return b===0?`<svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,12 90,86 10,86" ${o}/><text x="50" y="74" font-size="30" font-weight="800" text-anchor="middle" fill="#33536b" font-family="system-ui">3</text></svg>`
+    :`<svg viewBox="0 0 100 100" aria-hidden="true"><rect x="14" y="14" width="72" height="72" ${o}/><text x="50" y="62" font-size="30" font-weight="800" text-anchor="middle" fill="#33536b" font-family="system-ui">4</text></svg>`;
+  return b===0?`<svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="10,62 62,48 90,62 38,78" fill="#dbeafe" stroke="#33536b" stroke-width="4" stroke-linejoin="round"/></svg>`
+    :solidSVG("cube",0).replace('role="img"','aria-hidden="true"');
+}
+function sortItemSVG(it){ return it.solid? solidSVG(it.kind,0) : shapeSVG(it.kind,{rot:it.rot,fill:it.fill,v:it.v}); }
+function sortName(it){ return it.solid? t(it.kind) : shapeName(it.kind); }
+function newSort(grid,pool){
+  const rules=["round"];
+  if(pool.includes("triangle")&&(pool.includes("square")||pool.includes("rectangle"))) rules.push("sides");
+  if(settings.solids) rules.push("flat");
+  const rule=rand(rules), n=settings.diff==="easy"?4:settings.diff==="hard"?6:5;
+  let A,B;
+  if(rule==="round"){ A=["circle","oval"].filter(k=>k==="oval"||pool.includes(k)); B=pool.filter(k=>sidesOf(k)>0); }
+  else if(rule==="sides"){ A=["triangle"]; B=pool.filter(k=>sidesOf(k)===4); }
+  else { A=pool.slice(); B=SOLIDS.slice(); }
+  const fills=["#e11d48","#2563eb","#16a34a","#d97706","#7c3aed","#0891b2"];
+  const mk=(kind,bin)=>({kind,bin,solid:rule==="flat"&&bin===1,v:pickVariant(kind),rot:rand([0,20,45,90,160]),fill:rand(fills)});
+  let items=[], aBag=shuffle(A), bBag=shuffle(B);
+  for(let i=0;i<n;i++){ const bin=i<Math.ceil(n/2)?0:1; const bag=bin?bBag:aBag; items.push(mk(bag[i%bag.length],bin)); }
+  items=shuffle(items);
+  detState={type:"sort",rule,items,idx:0,done:false};
+  const wrap=document.createElement("div"); wrap.className="sortwrap";
+  wrap.innerHTML=`<div class="sortitem" id="sortItem" role="img"></div><div class="bins"></div>`;
+  const bins=wrap.querySelector(".bins");
+  [0,1].forEach(b=>{
+    const btn=document.createElement("button"); btn.type="button"; btn.className="bin"; btn.dataset.bin=b;
+    btn.innerHTML=`<span class="binic">${binIcon(rule,b)}</span><span>${t(SORT_BINS[rule][b])}</span><span class="binheap"></span>`;
+    btn.setAttribute("aria-label",t(SORT_BINS[rule][b]));
+    btn.addEventListener("click",()=>placeSort(b,btn)); bins.appendChild(btn);
+  });
+  grid.appendChild(wrap); showSortItem();
+  const dir=t(SORT_DIR[rule]);
+  $("#detPrompt").textContent=dir; setSpeech("det",dir); hideFb($("#detFb")); maybeAuto("det");
+}
+function showSortItem(){
+  const s=detState, it=s.items[s.idx], box=$("#sortItem");
+  box.innerHTML=sortItemSVG(it); box.setAttribute("aria-label",t("sortItem")+": "+sortName(it));
+}
+function placeSort(b,btn){
+  const s=detState, fb=$("#detFb"); if(!s||s.type!=="sort"||s.done) return;
+  const it=s.items[s.idx];
+  if(it.bin===b){
+    const mini=document.createElement("span"); mini.innerHTML=sortItemSVG(it); btn.querySelector(".binheap").appendChild(mini);
+    btn.classList.add("correctpick"); setTimeout(()=>btn.classList.remove("correctpick"),600);
+    s.idx++;
+    if(s.idx>=s.items.length){ s.done=true;
+      const m=t("goodSortAll")+" "+t(SORT_DONE[s.rule]); showFb(fb,"good",m); lockDet(); afterPraise(m,"det",newDetective,2000);
+    }else{ showSortItem(); showFb(fb,"good",t("goodGen")); speak(t("goodGen")); }
+  }else{
+    btn.classList.add("wrongpick"); setTimeout(()=>btn.classList.remove("wrongpick"),1400);
+    const nm=sortName(it); let m;
+    if(s.rule==="round") m=t(it.bin===1?"hintSortRound":"hintSortCorner",{shape:nm});
+    else if(s.rule==="sides") m=t("hintSortSides",{shape:nm,n:sidesOf(it.kind)});
+    else m=t(it.solid?"hintSortFlat":"hintSortSolid",{shape:nm});
+    showFb(fb,"hint",m); speak(m);
+  }
+}
 
 /* =========================================================================
    WHERE IS IT
@@ -1036,6 +1158,20 @@ function houseSVG(){
     <rect x="20" y="46" width="60" height="44" fill="#f4d58d" stroke="#12303f" stroke-width="4"/>
     <rect x="44" y="64" width="16" height="26" fill="#8b5e34" stroke="#12303f" stroke-width="3"/></svg>`;
 }
+/* Each position word gets its own layout so the target is the ONLY shape that fits the word
+   (e.g. "behind" is drawn partly hidden by the house, "far" distractors sit right next to it). */
+function whereLayout(pos){
+  switch(pos){
+    case "above": return {refs:[[50,54]],target:[50,15],dists:[[50,88],[15,54],[85,54]]};
+    case "below": return {refs:[[50,42]],target:[50,85],dists:[[50,11],[15,42],[85,42]]};
+    case "beside": { const r=Math.random()<.5; return {refs:[[50,50]],target:[r?83:17,50],dists:[[50,12],[50,88],[r?15:85,88]]}; }
+    case "near": return {refs:[[68,58]],target:[34,58],dists:[[14,14],[14,86],[86,14]]};
+    case "far": return {refs:[[68,58]],target:[14,14],dists:[[34,58],[68,87]]};
+    case "between": return {refs:[[22,40],[78,40]],small:true,target:[50,40],dists:[[12,86],[88,86]]};
+    case "front": return {refs:[[50,50]],big:true,target:[61,65],dists:[[41,36]],under:[false,true]};
+    case "behind": return {refs:[[50,50]],big:true,target:[41,36],dists:[[61,65]],under:[true,false]};
+  }
+}
 function newWhere(){
   roundIds.where++;
   const scene=$("#whereScene"); scene.innerHTML="";
@@ -1043,48 +1179,31 @@ function newWhere(){
   if(!posList.length){ scene.innerHTML="<p style='padding:1rem'>"+t("needPos")+"</p>"; return; }
   const pos=rand(posList);
   const pool=enabledShapes().length? enabledShapes():["circle","square","triangle"];
-  const refKind="square", refX=50, refY=50;
-  const items=[];
-  function add(x,y,kind,role){ items.push({x,y,kind,role}); }
-  const targetKind=rand(pool);
-  const distractKinds=shuffle(pool);
+  const L=whereLayout(pos);
+  const kinds=shuffle(pool);
+  const nd=Math.max(1,Math.min(L.dists.length,numChoices()-2+ (settings.diff==="easy"?0:1)));
+  const items=[{x:L.target[0],y:L.target[1],kind:kinds[0],role:"target",under:L.under?L.under[0]:false}];
+  shuffle(L.dists).slice(0,nd).forEach((d,i)=>items.push({x:d[0],y:d[1],kind:kinds[(i+1)%kinds.length],role:"dist",under:L.under?L.under[1]:false}));
   const refWord=t("refHouse");
-  let dir="";
-  if(pos==="between"){
-    add(22,50,refKind,"ref"); add(78,50,refKind,"ref");
-    add(50,50,targetKind,"target"); add(50,20,distractKinds[0]||"triangle","dist");
-    dir=t("whereDirBetween",{ref:refWord});
-  }else{
-    add(refX,refY,refKind,"ref");
-    const map={above:[50,18],below:[50,82],beside:[80,50],front:[50,80],behind:[50,20],near:[68,50],far:[15,15]};
-    const tp=map[pos]||[50,18];
-    add(tp[0],tp[1],targetKind,"target");
-    const spots=[[20,20],[80,80],[20,80],[80,22],[50,50]];
-    let di=0;
-    shuffle(spots).forEach(sp=>{
-      if(di>=(numChoices()>=4?3:2)) return;
-      if(Math.abs(sp[0]-tp[0])<10&&Math.abs(sp[1]-tp[1])<10) return;
-      if(Math.abs(sp[0]-refX)<10&&Math.abs(sp[1]-refY)<10) return;
-      add(sp[0],sp[1],distractKinds[di%distractKinds.length]||"triangle","dist"); di++;
-    });
-    dir=t("whereDir",{pos:t("pos"+cap(pos)),ref:refWord});
-  }
-  whereState={pos,targetKind};
-  items.forEach(it=>{
-    if(it.role==="ref"){
-      const el=document.createElement("div"); el.className="spot";
-      el.style.left=it.x+"%"; el.style.top=it.y+"%";
-      el.innerHTML=`<div style="position:relative;width:100%;height:100%">${houseSVG()}</div>`;
-      el.setAttribute("aria-hidden","true"); scene.appendChild(el);
-    }else{
-      const btn=document.createElement("button"); btn.className="spot"; btn.type="button";
-      btn.style.left=it.x+"%"; btn.style.top=it.y+"%";
-      const fill=rand(["#e11d48","#2563eb","#16a34a","#d97706","#7c3aed"]);
-      btn.innerHTML=`<div class="ring"></div>${shapeSVG(it.kind,{fill,rot:rand([0,30,90])})}`;
-      btn.setAttribute("aria-label",shapeName(it.kind)); btn.dataset.role=it.role;
-      btn.addEventListener("click",()=>checkWhere(btn,it.role)); scene.appendChild(btn);
-    }
+  const dir= pos==="between"? t("whereDirBetween",{ref:refWord}) : t("whereDir",{pos:t("pos"+cap(pos)),ref:refWord});
+  whereState={pos,targetKind:kinds[0]};
+  const fills=shuffle(["#e11d48","#2563eb","#16a34a","#d97706","#7c3aed"]);
+  const addShape=(it,i)=>{
+    const btn=document.createElement("button"); btn.className="spot"+(pos==="between"?" mini":""); btn.type="button";
+    btn.style.left=it.x+"%"; btn.style.top=it.y+"%";
+    btn.innerHTML=`<div class="ring"></div>${shapeSVG(it.kind,{fill:fills[i%fills.length],rot:rand([0,30,90])})}`;
+    btn.setAttribute("aria-label",shapeName(it.kind)); btn.dataset.role=it.role;
+    btn.addEventListener("click",()=>checkWhere(btn,it.role)); scene.appendChild(btn);
+  };
+  // draw order: shapes hidden behind the house first, then the house(s), then everything else
+  items.forEach((it,i)=>{ if(it.under) addShape(it,i); });
+  L.refs.forEach(r=>{
+    const el=document.createElement("div"); el.className="spot house"+(L.small?" small":"")+(L.big?" big":"");
+    el.style.left=r[0]+"%"; el.style.top=r[1]+"%";
+    el.innerHTML=`<div style="position:relative;width:100%;height:100%">${houseSVG()}</div>`;
+    el.setAttribute("aria-hidden","true"); scene.appendChild(el);
   });
+  items.forEach((it,i)=>{ if(!it.under) addShape(it,i); });
   $("#wherePrompt").textContent=dir; setSpeech("where",dir); hideFb($("#whereFb")); maybeAuto("where");
 }
 function checkWhere(btn,role){
@@ -1109,6 +1228,9 @@ let solidState=null, solidRot=0;
 function newSolid(){
   roundIds.solid++;
   const bigWrap=$("#solidBig"), grid=$("#solidGrid"); bigWrap.innerHTML=""; grid.innerHTML="";
+  // ~2 in 5 rounds: name the flat face of a solid (TEKS K.6(C) 2-D parts of 3-D objects)
+  if(Math.random()<0.4){ newFace(bigWrap,grid); return; }
+  $("#solidTapLbl").textContent=t("matchObj"); grid.classList.remove("hidelbl");
   const solids=["cube","sphere","cylinder","cone"]; const target=rand(solids); solidRot=0; solidState={target};
   bigWrap.innerHTML=`<div id="solidGfx" style="width:150px">${solidSVG(target,0)}</div><strong style="font-size:1.1rem">${t(target)}</strong>`;
   const correctObj=rand(SOLID_OBJECTS[target]); let objs=[correctObj];
@@ -1140,7 +1262,180 @@ function checkSolid(btn,objSolid,obj){
     setTimeout(()=>btn.classList.remove("wrongpick"),1500);
   }
 }
-function rotateSolid(dir){ if(!solidState) return; solidRot=(solidRot+dir*30)%360; $("#solidGfx").innerHTML=solidSVG(solidState.target,solidRot); }
+function rotateSolid(dir){ if(!solidState) return; solidRot=(solidRot+dir*30)%360; $("#solidGfx").innerHTML=solidSVG(solidState.target,solidRot,solidState.type==="face"); }
+const FACE_OF={cube:"square",cylinder:"circle",cone:"circle"};
+// Distractors never include the look-alike outline of the solid (no triangle for a cone, no rectangle for a cube).
+const FACE_DISTRACT={cube:["circle","triangle","hexagon"],cylinder:["square","triangle","hexagon"],cone:["square","hexagon"]};
+function newFace(bigWrap,grid){
+  const target=rand(["cube","cylinder","cone"]), ans=FACE_OF[target]; solidRot=0;
+  solidState={target,type:"face",ans,done:false};
+  bigWrap.innerHTML=`<div id="solidGfx" style="width:150px">${solidSVG(target,0,true)}</div><strong style="font-size:1.1rem">${t(target)}</strong>`;
+  $("#solidTapLbl").textContent=t("faceTap"); grid.classList.add("hidelbl");
+  const n=Math.min(numChoices(),1+FACE_DISTRACT[target].length);
+  const kinds=shuffle([ans].concat(shuffle(FACE_DISTRACT[target]).slice(0,n-1)));
+  kinds.forEach(kind=>{
+    const btn=document.createElement("button"); btn.className="choice"; btn.type="button";
+    btn.innerHTML=`<span class="badge ok">✅</span><span class="badge no">↻</span>
+      <div style="height:96px;width:100%;display:flex;align-items:center;justify-content:center"><div style="width:76%">${shapeSVG(kind,{fill:"#fde047"})}</div></div>
+      <span class="lbl">${shapeName(kind)}</span>`;
+    btn.setAttribute("aria-label",shapeName(kind));
+    btn.addEventListener("click",()=>checkFace(btn,kind)); grid.appendChild(btn);
+  });
+  const dir=t("faceDir",{solid:t(target)});
+  $("#solidPrompt").textContent=dir; setSpeech("solid",dir); hideFb($("#solidFb")); maybeAuto("solid");
+}
+function checkFace(btn,kind){
+  const fb=$("#solidFb"), s=solidState; if(s.done) return;
+  if(kind===s.ans){
+    s.done=true; btn.classList.add("correctpick"); $("#solidGrid").classList.remove("hidelbl");
+    const m=t("goodFace",{solid:t(s.target),shape:shapeName(kind)})+" "+t("faceFact_"+s.target); showFb(fb,"good",m);
+    $$("#solidGrid .choice").forEach(c=>c.disabled=true); afterPraise(m,"solid",newSolid,2000);
+  }else{
+    btn.classList.add("wrongpick","revealed");
+    const m=t("hintFace",{shape:shapeName(kind),clue:t("clue_"+s.ans)}); showFb(fb,"hint",m); speak(m);
+    setTimeout(()=>btn.classList.remove("wrongpick"),1500);
+  }
+}
+
+/* =========================================================================
+   MAKE A SHAPE — draw shapes on a dot board (TEKS K.6(F), CCSS K.G.5, PK V.C.2)
+   and fill a big shape with smaller pieces (CCSS K.G.6)
+   ========================================================================= */
+let makeState=null;
+const DOT_N=4, DOT_POS=[45,115,185,255]; // 4x4 board in a 300x300 viewBox
+function hexVerts(){ const v=[]; for(let i=0;i<6;i++){ const a=Math.PI/3*i; v.push([+(100+85*Math.cos(a)).toFixed(1),+(100+85*Math.sin(a)).toFixed(1)]); } return v; }
+function fillPuzzles(){
+  const sq=[[30,30],[170,30],[170,170],[30,170]], rc=[[10,50],[190,50],[190,150],[10,150]], hv=hexVerts();
+  return [
+    {id:"rectTri",shape:"rectangle",piece:"triangle",key:"fillRectTri",outline:rc,slots:[[[10,50],[190,50],[10,150]],[[190,50],[190,150],[10,150]]]},
+    {id:"squareTri",shape:"square",piece:"triangle",key:"fillSquareTri",outline:sq,slots:[[[30,30],[170,30],[30,170]],[[170,30],[170,170],[30,170]]]},
+    {id:"squareRect",shape:"square",piece:"rectangle",key:"fillSquareRect",outline:sq,slots:[[[30,30],[100,30],[100,170],[30,170]],[[100,30],[170,30],[170,170],[100,170]]]},
+    {id:"rectSq",shape:"rectangle",piece:"square",key:"fillRectSq",outline:[[10,55],[190,55],[190,145],[10,145]],slots:[[[10,55],[100,55],[100,145],[10,145]],[[100,55],[190,55],[190,145],[100,145]]]},
+    {id:"bigSquare",shape:"square",piece:"square",key:"fillBigSquare",minDiff:"med",outline:[[20,20],[180,20],[180,180],[20,180]],
+      slots:[[[20,20],[100,20],[100,100],[20,100]],[[100,20],[180,20],[180,100],[100,100]],[[20,100],[100,100],[100,180],[20,180]],[[100,100],[180,100],[180,180],[100,180]]]},
+    {id:"hexTri",shape:"hexagon",piece:"triangle",key:"fillHexTri",minDiff:"hard",outline:hv,slots:hv.map((v,i)=>[[100,100],v,hv[(i+1)%6]])}
+  ];
+}
+const DIFF_RANK={easy:0,med:1,hard:2};
+function newMake(){
+  roundIds.make++;
+  const area=$("#makeArea"); area.innerHTML=""; hideFb($("#makeFb"));
+  const pool=enabledShapes();
+  const dotTargets=["triangle","square","rectangle"].filter(k=>pool.includes(k));
+  const puzzles=fillPuzzles().filter(z=>pool.includes(z.shape)&&pool.includes(z.piece)&&DIFF_RANK[settings.diff]>=DIFF_RANK[z.minDiff||"easy"]);
+  if(!dotTargets.length && !puzzles.length){ area.innerHTML="<p>"+t("needShapes")+"</p>"; $("#makePrompt").textContent=""; setSpeech("make",""); return; }
+  const type=!dotTargets.length?"fill":!puzzles.length?"dots":rand(["dots","fill"]);
+  if(type==="dots") newDots(area,rand(dotTargets)); else newFill(area,rand(puzzles));
+}
+/* ---- dot board ---- */
+function newDots(area,target){
+  makeState={type:"dots",target,path:[],closed:false,done:false};
+  const board=document.createElement("div"); board.className="dotboard"; board.setAttribute("role","group"); board.setAttribute("aria-label",t("dotGridAria"));
+  board.innerHTML=`<svg viewBox="0 0 300 300" aria-hidden="true"><polygon id="dotPoly" points="" fill="rgba(31,111,139,.15)" stroke="none"/><polyline id="dotLine" points="" fill="none" stroke="#1f6f8b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  for(let r=0;r<DOT_N;r++) for(let c=0;c<DOT_N;c++){
+    const i=r*DOT_N+c, d=document.createElement("button"); d.type="button"; d.className="dot"; d.dataset.i=i;
+    d.style.left=(DOT_POS[c]/3)+"%"; d.style.top=(DOT_POS[r]/3)+"%";
+    d.setAttribute("aria-label",t("dotAria",{n:i+1})); d.addEventListener("click",()=>tapDot(i)); board.appendChild(d);
+  }
+  const tools=document.createElement("div"); tools.className="maketools no-print";
+  tools.innerHTML=`<button type="button" class="btn ghost" id="dotUndo">↶ ${t("undo")}</button><button type="button" class="btn ghost" id="dotClear">${t("startOver")}</button>`;
+  area.appendChild(board); area.appendChild(tools);
+  $("#dotUndo").addEventListener("click",()=>{ const s=makeState; if(s.done) return; if(s.closed){ s.closed=false; } else s.path.pop(); drawDots(); hideFb($("#makeFb")); });
+  $("#dotClear").addEventListener("click",()=>{ const s=makeState; if(s.done) return; s.path=[]; s.closed=false; drawDots(); hideFb($("#makeFb")); });
+  drawDots();
+  const dir=t("dotDir",{shape:shapeName(target)});
+  $("#makePrompt").textContent=dir; setSpeech("make",dir); maybeAuto("make");
+}
+function dotXY(i){ return {x:i%DOT_N, y:Math.floor(i/DOT_N)}; }
+function drawDots(){
+  const s=makeState, pts=s.path.map(i=>DOT_POS[i%DOT_N]+","+DOT_POS[Math.floor(i/DOT_N)]);
+  $("#dotLine").setAttribute("points",(s.closed&&pts.length?pts.concat(pts[0]):pts).join(" "));
+  $("#dotPoly").setAttribute("points",s.closed?pts.join(" "):"");
+  $$(".dotboard .dot").forEach(d=>{ const i=+d.dataset.i; d.classList.toggle("first",s.path.length>0&&s.path[0]===i&&!s.closed); d.classList.toggle("on",s.path.includes(i)); });
+}
+function tapDot(i){
+  const s=makeState, fb=$("#makeFb"); if(!s||s.type!=="dots"||s.done) return;
+  if(s.closed){ s.path=[]; s.closed=false; hideFb(fb); }   // a wrong shape stays on the board until the next tap
+  if(s.path.length && i===s.path[0]){
+    if(s.path.length<3){ showFb(fb,"hint",t("hintDotFew")); speak(t("hintDotFew")); return; }
+    s.closed=true; drawDots(); checkDots(); return;
+  }
+  if(s.path.includes(i)) return;
+  s.path.push(i); drawDots();
+}
+function corners(pts){ // drop points that sit on a straight line, so only real corners count
+  let a=pts.slice(), changed=true;
+  while(changed && a.length>=3){ changed=false;
+    for(let k=0;k<a.length;k++){ const p=a[(k-1+a.length)%a.length], c=a[k], n=a[(k+1)%a.length];
+      if((c.x-p.x)*(n.y-c.y)-(c.y-p.y)*(n.x-c.x)===0){ a.splice(k,1); changed=true; break; } } }
+  return a;
+}
+function segCross(p1,p2,p3,p4){
+  const o=(a,b,c)=>Math.sign((b.x-a.x)*(c.y-a.y)-(b.y-a.y)*(c.x-a.x));
+  const on=(a,b,c)=>Math.min(a.x,b.x)<=c.x&&c.x<=Math.max(a.x,b.x)&&Math.min(a.y,b.y)<=c.y&&c.y<=Math.max(a.y,b.y);
+  const d1=o(p3,p4,p1),d2=o(p3,p4,p2),d3=o(p1,p2,p3),d4=o(p1,p2,p4);
+  if(d1!==d2&&d3!==d4) return true;
+  return (d1===0&&on(p3,p4,p1))||(d2===0&&on(p3,p4,p2))||(d3===0&&on(p1,p2,p3))||(d4===0&&on(p1,p2,p4));
+}
+function selfCrossing(pts){
+  const n=pts.length;
+  for(let i=0;i<n;i++) for(let j=i+1;j<n;j++){
+    if(j===i+1 || (i===0&&j===n-1)) continue;
+    if(segCross(pts[i],pts[(i+1)%n],pts[j],pts[(j+1)%n])) return true;
+  }
+  return false;
+}
+function checkDots(){
+  const s=makeState, fb=$("#makeFb"), raw=s.path.map(dotXY);
+  const fail=m=>{ showFb(fb,"hint",m); speak(m); };
+  if(selfCrossing(raw)) return fail(t("hintDotCross"));
+  const c=corners(raw), need=s.target==="triangle"?3:4;
+  if(c.length<3) return fail(t("hintDotFew"));
+  if(c.length!==need) return fail(t("hintDotCount",{has:c.length,shape:shapeName(s.target),n:need}));
+  let square=false;
+  if(need===4){
+    const e=c.map((p,k)=>{ const q=c[(k+1)%4]; return {x:q.x-p.x,y:q.y-p.y}; });
+    const right=e.every((v,k)=>{ const w=e[(k+1)%4]; return v.x*w.x+v.y*w.y===0; });
+    if(!right) return fail(t("hintDotCorners",{shape:shapeName(s.target)}));
+    const L=e.map(v=>v.x*v.x+v.y*v.y); square=L.every(l=>l===L[0]);
+    if(s.target==="square" && !square) return fail(t("hintDotEqual"));
+  }
+  s.done=true; $$(".dotboard .dot").forEach(d=>d.disabled=true);
+  const m=(s.target==="rectangle"&&square)? t("goodDotSquareRect") : t("goodDot",{shape:shapeName(s.target),n:need});
+  showFb(fb,"good",m); afterPraise(m,"make",newMake,1900);
+}
+/* ---- fill a big shape with pieces ---- */
+function newFill(area,pz){
+  makeState={type:"fill",pz,filled:0,done:false};
+  const pts=a=>a.map(p=>p.join(",")).join(" ");
+  const svg=`<svg class="fillboard" viewBox="0 0 200 200" role="img" aria-label="${shapeName(pz.shape)}">
+    ${pz.slots.map((sl,k)=>`<polygon id="slot${k}" points="${pts(sl)}" fill="#ffffff" stroke="#8aa0ba" stroke-width="2" stroke-dasharray="6 5" stroke-linejoin="round"/>`).join("")}
+    <polygon points="${pts(pz.outline)}" fill="none" stroke="#12303f" stroke-width="5" stroke-linejoin="round"/></svg>`;
+  const tray=document.createElement("div"); tray.className="maketray hidelbl"; tray.setAttribute("role","group"); tray.setAttribute("aria-label",t("pieceTray"));
+  const others=pz.piece==="triangle"?["circle","square"]:["circle","triangle"];
+  shuffle([pz.piece].concat(others)).forEach(kind=>{
+    const btn=document.createElement("button"); btn.type="button"; btn.className="choice";
+    btn.innerHTML=`<span class="badge ok">✅</span><span class="badge no">↻</span><div style="width:70px;height:70px">${shapeSVG(kind,{fill:PALETTE[kind]})}</div><span class="lbl">${shapeName(kind)}</span>`;
+    btn.setAttribute("aria-label",shapeName(kind)); btn.addEventListener("click",()=>tapPiece(btn,kind)); tray.appendChild(btn);
+  });
+  area.insertAdjacentHTML("beforeend",svg); area.appendChild(tray);
+  const dir=t("fillDir",{shape:shapeName(pz.shape)});
+  $("#makePrompt").textContent=dir; setSpeech("make",dir); maybeAuto("make");
+}
+function tapPiece(btn,kind){
+  const s=makeState, fb=$("#makeFb"); if(!s||s.type!=="fill"||s.done) return;
+  if(kind!==s.pz.piece){
+    btn.classList.add("wrongpick","revealed"); setTimeout(()=>btn.classList.remove("wrongpick"),1400);
+    const m=t("hintFill",{shape:shapeName(kind),clue:t("clue_"+s.pz.piece)}); showFb(fb,"hint",m); speak(m); return;
+  }
+  const slot=$("#slot"+s.filled); slot.setAttribute("fill",PALETTE[kind]); slot.setAttribute("stroke","#12303f"); slot.removeAttribute("stroke-dasharray"); slot.setAttribute("stroke-width","3");
+  s.filled++; hideFb(fb);
+  if(s.filled>=s.pz.slots.length){
+    s.done=true; btn.classList.add("correctpick"); btn.parentNode.classList.remove("hidelbl");
+    $$("#makeArea .maketray .choice").forEach(c=>c.disabled=true);
+    const m=t(s.pz.key); showFb(fb,"good",m); afterPraise(m,"make",newMake,1900);
+  }
+}
 
 /* =========================================================================
    BUILD IT
@@ -1327,6 +1622,7 @@ function showMode(mode){
   if(mode==="detective" && !$("#detGrid").children.length) newDetective();
   if(mode==="where" && !$("#whereScene").children.length) newWhere();
   if(mode==="solids" && !$("#solidGrid").children.length) newSolid();
+  if(mode==="make" && !$("#makeArea").children.length) newMake();
   if(mode==="build"){ buildTray(); if(!$("#buildPick").children.length) fillBuildPicker(); renderModel(); updateBuildManipVisibility();
     setSpeech("build",t("buildDir")); $("#buildPrompt").textContent=t("buildDir"); }
   // Returning to a tab: read its current directions (unless a new round just did).
@@ -1370,7 +1666,7 @@ function initSettings(){
   $("#setSolids").addEventListener("change",e=>{settings.solids=e.target.checked;saveSettings();
     $(".tabs button[data-mode='solids']").style.display=settings.solids?"":"none";
     if(!settings.solids && !$("#mode-solids").classList.contains("hidden")) showMode("find");});
-  $("#setDiff").addEventListener("change",e=>{settings.diff=e.target.value;saveSettings(); newFind();newDetective();newWhere();newSolid();});
+  $("#setDiff").addEventListener("change",e=>{settings.diff=e.target.value;saveSettings(); newFind();newDetective();newWhere();newSolid();newMake();});
   $("#setAuto").addEventListener("change",e=>{settings.autoRead=e.target.checked;saveSettings();});
   $("#printCards").addEventListener("click",()=>{ buildPrintCards(); window.print(); });
 }
@@ -1408,12 +1704,14 @@ function applyLang(){
   $$("[data-ta]").forEach(el=>{ const v=t(el.getAttribute("data-ta")); el.setAttribute("aria-label",v); el.title=v; });
   $("#stdsNote").textContent=t("stds");
   if($("#buildPick").children.length) fillBuildPicker();
-  // refresh dynamic content in current mode
+  // refresh dynamic content in current mode; other modes rebuild in the new language when opened
   const mode=currentMode();
+  [["find","#findGrid"],["detective","#detGrid"],["where","#whereScene"],["solids","#solidGrid"],["make","#makeArea"]].forEach(([m,sel])=>{ if(m!==mode) $(sel).innerHTML=""; });
   if(mode==="find") newFind();
   else if(mode==="detective") newDetective();
   else if(mode==="where") newWhere();
   else if(mode==="solids") newSolid();
+  else if(mode==="make") newMake();
   else if(mode==="build"){ buildTray(); renderModel(); $("#buildPrompt").textContent=t("buildDir"); setSpeech("build",t("buildDir")); }
 }
 function setLang(l){ if(!T[l]) l="en"; lang=l; try{ localStorage.setItem(LANG_KEY,l); }catch(e){} applyLang(); }
@@ -1434,6 +1732,7 @@ function init(){
   $("#detNew").addEventListener("click",newDetective);
   $("#whereNew").addEventListener("click",newWhere);
   $("#solidNew").addEventListener("click",newSolid);
+  $("#makeNew").addEventListener("click",newMake);
   $("#solidRotL").addEventListener("click",()=>rotateSolid(-1));
   $("#solidRotR").addEventListener("click",()=>rotateSolid(1));
   initSettings();
