@@ -108,6 +108,13 @@
   .mini .cv{stroke-width:7}
   .mini .cv.par{stroke-width:4}
   .asy{stroke:#c0392b;stroke-width:2.5;stroke-dasharray:8 7}
+  .cv.g2{stroke:#16a34a}
+  .cv.wf{stroke:#7f8c8d;stroke-width:3;stroke-dasharray:10 7}
+  .pt.dp{fill:#2471a3;stroke-width:2}
+  .pt.g2{fill:#16a34a}
+  .vtr{stroke:#2471a3;stroke-width:2.5;stroke-dasharray:6 5}
+  table.io td.hi{background:#fff3c4}
+  .legend .sw.g2{background:#16a34a}
   .pt{fill:var(--accent);stroke:#fff;stroke-width:2.5}
   .pt.tg{fill:var(--tgt)}
   .pt.ok{fill:#16a34a}
@@ -265,7 +272,7 @@ const T = {
     footNote:"No accounts · No data collected · Works offline",
     mParent:"Parent Functions", mTrans:"Transformations", mGrowth:"Growth & Decay", mLogs:"Logs & Inverses", mOps:"Operations & Domain",
     teacherTitle:"Teacher settings", close:"Close", setLevel:"Course", lv1:"Algebra I", lv2:"Algebra II", lv3:"Precalculus preview",
-    levelNote:"Algebra I: linear, quadratic, absolute value, square root and exponential functions; shifts and stretches; growth and decay; inverses of linear functions; domain and range as inequalities. Algebra II: all nine parent functions, logarithms, inverses with domain restrictions, composition, interval notation. Precalculus preview adds horizontal stretches f(bx), end behavior, base e and continuous growth. Choosing a course resets the options below.",
+    levelNote:"Algebra I: linear, quadratic, absolute value, square root and exponential functions; shifts and stretches; growth and decay, exponential models fit to data, and how exponential growth overtakes linear and quadratic growth; inverses of linear functions; domain and range as inequalities. Algebra II: all nine parent functions, logarithms, inverses with domain restrictions, composition, interval notation. Precalculus preview adds horizontal stretches f(bx), end behavior, base e and continuous growth. Choosing a course resets the options below.",
     setRange:"Grid size", setOpts:"Options", bOn:"Horizontal stretch b in f(b(x − h))", eOn:"Base e, ln, and continuous growth",
     setModes:"Modes", setSpeech:"Speech", autoRead:"Auto-read directions", printCards:"Print challenge cards",
     setStored:"Settings are saved only on this device. No student information is ever stored.",
@@ -431,7 +438,15 @@ const T = {
     cardParent:"Name the parent function. State its domain and range.", cardTrans:"Describe the transformations, then sketch the graph over the dashed parent.",
     cardGrowth:"Linear or exponential? Write a function for the table.", cardLogs:"Evaluate the logarithm. Explain what question it asks.",
     cardOps:"Find f(g({x})) and g(f({x})). Are they equal?", cardDom:"Write the domain and range in interval notation and as inequalities.",
-    stds:"Standards — Texas TEKS: Algebra I A1.3(E), A1.6(A), A1.7(C), A1.9(A–D), A1.12(B); Algebra II A2.2(A–D), A2.4(C), A2.5(A–D), A2.6(A, C, G, J), A2.7(I). Common Core: HSF-IF.A.2, HSF-IF.B.4, HSF-IF.B.5, HSF-IF.C.7b, HSF-IF.C.7e, HSF-IF.C.8b, HSF-BF.A.1c, HSF-BF.B.3, HSF-BF.B.4a, HSF-BF.B.4c, HSF-BF.B.4d, HSF-BF.B.5, HSF-LE.A.1, HSF-LE.A.2, HSF-LE.A.4, HSF-LE.B.5."
+    trL:"Trace left", trR:"Trace right", fitCx_bac:"A scientist counts the bacteria in a dish every hour. The table shows the count y after t hours.",
+    fitCx_views:"The table shows the total number of views y of a new video, t days after it was posted.", fitCx_car:"The table shows the value y, in dollars, of a car t years after it was bought.", fitCx_med:"The table shows the amount y, in milligrams, of a medicine left in a patient's body t hours after a dose.",
+    fitQ1:"Which kind of model fits these data best? Pick one and the technology draws its best-fit curve.", fLin:"Linear model", fQuad:"Quadratic model",
+    fExpo:"Exponential model", hFitLin:"That is the best line, but the points curve away from it. A line changes by the same amount each step, and these data do not. Divide each y-value by the one before: the ratios are all about {r}.", hFitQuad:"The parabola is close inside the table, but outside it the parabola turns around, and this quantity does not. Divide each y-value by the one before: the ratios are all about {r}.",
+    fitGoodE:"Yes! Each y-value is about {r} times the one before. A constant ratio means exponential. Exponential regression gives the model {e}.", fitModel:"Model: {e}", qFitPred:"Use the model to predict y when t = {v}.",
+    hFitPred:"Substitute t = {v} into the model: multiply {a} by {b} to the power {v}. The table stops at t = {n}, so this is a prediction beyond the data.", gFitPred:"Yes! {calc}. Predictions far beyond the data are less certain, because real growth or decay can change.", qFitRate:"According to the model, is this growth or decay, and what is the rate per time period?",
+    raceCx:"Compare {f} and {g} for x ≥ 0.", raceQ:"From what whole number x on is g(x) always greater than f(x)? Trace the graphs or read the table.", hRaceNot:"At x = {w}, f({w}) = {fv} and g({w}) = {gv}, so g is not ahead yet. Look further to the right.",
+    hRaceLate:"At x = {w}, g is ahead, but it was already ahead before that. Check x = {p}.", gRaceLin:"Yes! From x = {x} on, g(x) > f(x), and the gap keeps growing. f adds {m} at every step, but g multiplies by {b}, so the steps of g keep getting bigger. A growing exponential function always passes a linear one eventually.", gRaceQuad:"Yes! From x = {x} on, g(x) > f(x), and the gap keeps growing. The steps of f grow by the same amount each time, but g multiplies by {b} at every step. A growing exponential function always passes a quadratic one, or any polynomial, eventually.",
+    stds:"Standards — Texas TEKS: Algebra I A1.3(E), A1.6(A), A1.7(C), A1.9(A–E), A1.12(B); Algebra II A2.2(A–D), A2.4(C), A2.5(A–D), A2.6(A, C, G, J), A2.7(I). Common Core: HSF-IF.A.2, HSF-IF.B.4, HSF-IF.B.5, HSF-IF.C.7b, HSF-IF.C.7e, HSF-IF.C.8b, HSF-BF.A.1c, HSF-BF.B.3, HSF-BF.B.4a, HSF-BF.B.4c, HSF-BF.B.4d, HSF-BF.B.5, HSF-LE.A.1, HSF-LE.A.2, HSF-LE.A.3, HSF-LE.A.4, HSF-LE.B.5."
   },
   es:{
     appTitle:"Estudio de Familias de Funciones", home:"Inicio", privacy:"Privacidad", teacher:"Docente", modesLbl:"Modos", stars:"Respuestas correctas",
@@ -439,7 +454,7 @@ const T = {
     footNote:"Sin cuentas · No se recopilan datos · Funciona sin conexión",
     mParent:"Funciones madre", mTrans:"Transformaciones", mGrowth:"Crecimiento y decaimiento", mLogs:"Logaritmos e inversas", mOps:"Operaciones y dominio",
     teacherTitle:"Ajustes del docente", close:"Cerrar", setLevel:"Curso", lv1:"Álgebra I", lv2:"Álgebra II", lv3:"Introducción a Precálculo",
-    levelNote:"Álgebra I: funciones lineales, cuadráticas, de valor absoluto, de raíz cuadrada y exponenciales; traslaciones y estiramientos; crecimiento y decaimiento; inversas de funciones lineales; dominio y rango como desigualdades. Álgebra II: las nueve funciones madre, logaritmos, inversas con restricción de dominio, composición y notación de intervalos. Precálculo agrega estiramientos horizontales f(bx), comportamiento en los extremos, la base e y el crecimiento continuo. Al elegir un curso se restablecen las opciones de abajo.",
+    levelNote:"Álgebra I: funciones lineales, cuadráticas, de valor absoluto, de raíz cuadrada y exponenciales; traslaciones y estiramientos; crecimiento y decaimiento, modelos exponenciales ajustados a datos y cómo el crecimiento exponencial supera al lineal y al cuadrático; inversas de funciones lineales; dominio y rango como desigualdades. Álgebra II: las nueve funciones madre, logaritmos, inversas con restricción de dominio, composición y notación de intervalos. Precálculo agrega estiramientos horizontales f(bx), comportamiento en los extremos, la base e y el crecimiento continuo. Al elegir un curso se restablecen las opciones de abajo.",
     setRange:"Tamaño de la cuadrícula", setOpts:"Opciones", bOn:"Estiramiento horizontal b en f(b(x − h))", eOn:"Base e, ln y crecimiento continuo",
     setModes:"Modos", setSpeech:"Voz", autoRead:"Leer instrucciones automáticamente", printCards:"Imprimir tarjetas de reto",
     setStored:"Los ajustes se guardan solo en este dispositivo. Nunca se guarda información de los estudiantes.",
@@ -605,7 +620,15 @@ const T = {
     cardParent:"Nombra la función madre. Escribe su dominio y su rango.", cardTrans:"Describe las transformaciones y luego dibuja la gráfica sobre la madre punteada.",
     cardGrowth:"¿Lineal o exponencial? Escribe una función para la tabla.", cardLogs:"Evalúa el logaritmo. Explica qué pregunta hace.",
     cardOps:"Encuentra f(g({x})) y g(f({x})). ¿Son iguales?", cardDom:"Escribe el dominio y el rango en notación de intervalos y como desigualdades.",
-    stds:"Estándares — TEKS de Texas: Álgebra I A1.3(E), A1.6(A), A1.7(C), A1.9(A–D), A1.12(B); Álgebra II A2.2(A–D), A2.4(C), A2.5(A–D), A2.6(A, C, G, J), A2.7(I). Common Core: HSF-IF.A.2, HSF-IF.B.4, HSF-IF.B.5, HSF-IF.C.7b, HSF-IF.C.7e, HSF-IF.C.8b, HSF-BF.A.1c, HSF-BF.B.3, HSF-BF.B.4a, HSF-BF.B.4c, HSF-BF.B.4d, HSF-BF.B.5, HSF-LE.A.1, HSF-LE.A.2, HSF-LE.A.4, HSF-LE.B.5."
+    trL:"Trazar a la izquierda", trR:"Trazar a la derecha", fitCx_bac:"Una científica cuenta las bacterias de un plato cada hora. La tabla muestra la cantidad y después de t horas.",
+    fitCx_views:"La tabla muestra el total de reproducciones y de un video nuevo, t días después de publicarlo.", fitCx_car:"La tabla muestra el valor y, en dólares, de un auto t años después de comprarlo.", fitCx_med:"La tabla muestra la cantidad y, en miligramos, de un medicamento que queda en el cuerpo de un paciente t horas después de una dosis.",
+    fitQ1:"¿Qué tipo de modelo se ajusta mejor a estos datos? Elige uno y la tecnología dibujará su curva de mejor ajuste.", fLin:"Modelo lineal", fQuad:"Modelo cuadrático",
+    fExpo:"Modelo exponencial", hFitLin:"Esa es la mejor recta, pero los puntos se curvan alejándose de ella. Una recta cambia lo mismo en cada paso, y estos datos no. Divide cada valor de y entre el anterior: las razones son todas de aproximadamente {r}.", hFitQuad:"La parábola se acerca dentro de la tabla, pero fuera de ella da la vuelta, y esta cantidad no. Divide cada valor de y entre el anterior: las razones son todas de aproximadamente {r}.",
+    fitGoodE:"¡Sí! Cada valor de y es aproximadamente {r} veces el anterior. Una razón constante significa exponencial. La regresión exponencial da el modelo {e}.", fitModel:"Modelo: {e}", qFitPred:"Usa el modelo para predecir y cuando t = {v}.",
+    hFitPred:"Sustituye t = {v} en el modelo: multiplica {a} por {b} elevado a {v}. La tabla termina en t = {n}, así que es una predicción más allá de los datos.", gFitPred:"¡Sí! {calc}. Las predicciones muy lejos de los datos son menos seguras, porque el crecimiento o el decaimiento reales pueden cambiar.", qFitRate:"Según el modelo, ¿es crecimiento o decaimiento, y cuál es la tasa por periodo?",
+    raceCx:"Compara {f} y {g} para x ≥ 0.", raceQ:"¿A partir de qué número entero x es g(x) siempre mayor que f(x)? Traza las gráficas o lee la tabla.", hRaceNot:"En x = {w}, f({w}) = {fv} y g({w}) = {gv}, así que g todavía no va adelante. Mira más a la derecha.",
+    hRaceLate:"En x = {w}, g va adelante, pero ya iba adelante antes. Revisa x = {p}.", gRaceLin:"¡Sí! A partir de x = {x}, g(x) > f(x), y la diferencia sigue creciendo. f suma {m} en cada paso, pero g multiplica por {b}, así que los pasos de g son cada vez más grandes. Una función exponencial creciente siempre termina superando a una lineal.", gRaceQuad:"¡Sí! A partir de x = {x}, g(x) > f(x), y la diferencia sigue creciendo. Los pasos de f crecen la misma cantidad cada vez, pero g multiplica por {b} en cada paso. Una función exponencial creciente siempre termina superando a una cuadrática, o a cualquier polinomio.",
+    stds:"Estándares — TEKS de Texas: Álgebra I A1.3(E), A1.6(A), A1.7(C), A1.9(A–E), A1.12(B); Álgebra II A2.2(A–D), A2.4(C), A2.5(A–D), A2.6(A, C, G, J), A2.7(I). Common Core: HSF-IF.A.2, HSF-IF.B.4, HSF-IF.B.5, HSF-IF.C.7b, HSF-IF.C.7e, HSF-IF.C.8b, HSF-BF.A.1c, HSF-BF.B.3, HSF-BF.B.4a, HSF-BF.B.4c, HSF-BF.B.4d, HSF-BF.B.5, HSF-LE.A.1, HSF-LE.A.2, HSF-LE.A.3, HSF-LE.A.4, HSF-LE.B.5."
   },
   vi:{
     appTitle:"Xưởng Họ Hàm Số", home:"Trang chủ", privacy:"Quyền riêng tư", teacher:"Giáo viên", modesLbl:"Chế độ", stars:"Số câu đúng",
@@ -613,7 +636,7 @@ const T = {
     footNote:"Không cần tài khoản · Không thu thập dữ liệu · Dùng được khi ngoại tuyến",
     mParent:"Hàm số cơ bản", mTrans:"Phép biến đổi", mGrowth:"Tăng & giảm", mLogs:"Logarit & hàm ngược", mOps:"Phép toán & tập xác định",
     teacherTitle:"Cài đặt giáo viên", close:"Đóng", setLevel:"Khóa học", lv1:"Đại số I", lv2:"Đại số II", lv3:"Làm quen Tiền giải tích",
-    levelNote:"Đại số I: hàm bậc nhất, bậc hai, giá trị tuyệt đối, căn bậc hai và hàm mũ; tịnh tiến và co giãn; tăng trưởng và suy giảm; hàm ngược của hàm bậc nhất; tập xác định và tập giá trị dưới dạng bất đẳng thức. Đại số II: cả chín hàm cơ bản, logarit, hàm ngược với giới hạn tập xác định, hàm hợp, ký hiệu khoảng. Tiền giải tích bổ sung co giãn ngang f(bx), dáng điệu ở hai đầu, cơ số e và tăng trưởng liên tục. Chọn khóa học sẽ đặt lại các tùy chọn bên dưới.",
+    levelNote:"Đại số I: hàm bậc nhất, bậc hai, giá trị tuyệt đối, căn bậc hai và hàm mũ; tịnh tiến và co giãn; tăng trưởng và suy giảm, mô hình hàm mũ khớp với dữ liệu, và cách tăng trưởng hàm mũ vượt qua tăng trưởng bậc nhất và bậc hai; hàm ngược của hàm bậc nhất; tập xác định và tập giá trị dưới dạng bất đẳng thức. Đại số II: cả chín hàm cơ bản, logarit, hàm ngược với giới hạn tập xác định, hàm hợp, ký hiệu khoảng. Tiền giải tích bổ sung co giãn ngang f(bx), dáng điệu ở hai đầu, cơ số e và tăng trưởng liên tục. Chọn khóa học sẽ đặt lại các tùy chọn bên dưới.",
     setRange:"Kích thước lưới", setOpts:"Tùy chọn", bOn:"Co giãn ngang b trong f(b(x − h))", eOn:"Cơ số e, ln và tăng trưởng liên tục",
     setModes:"Chế độ", setSpeech:"Giọng đọc", autoRead:"Tự động đọc hướng dẫn", printCards:"In thẻ thử thách",
     setStored:"Cài đặt chỉ được lưu trên thiết bị này. Không bao giờ lưu thông tin học sinh.",
@@ -779,7 +802,15 @@ const T = {
     cardParent:"Gọi tên hàm số cơ bản. Nêu tập xác định và tập giá trị của nó.", cardTrans:"Mô tả các phép biến đổi, rồi phác họa đồ thị trên hàm cơ bản nét đứt.",
     cardGrowth:"Bậc nhất hay hàm mũ? Viết một hàm số cho bảng.", cardLogs:"Tính giá trị logarit. Giải thích nó đặt ra câu hỏi gì.",
     cardOps:"Tìm f(g({x})) và g(f({x})). Chúng có bằng nhau không?", cardDom:"Viết tập xác định và tập giá trị bằng ký hiệu khoảng và bằng bất đẳng thức.",
-    stds:"Chuẩn — TEKS Texas: Đại số I A1.3(E), A1.6(A), A1.7(C), A1.9(A–D), A1.12(B); Đại số II A2.2(A–D), A2.4(C), A2.5(A–D), A2.6(A, C, G, J), A2.7(I). Common Core: HSF-IF.A.2, HSF-IF.B.4, HSF-IF.B.5, HSF-IF.C.7b, HSF-IF.C.7e, HSF-IF.C.8b, HSF-BF.A.1c, HSF-BF.B.3, HSF-BF.B.4a, HSF-BF.B.4c, HSF-BF.B.4d, HSF-BF.B.5, HSF-LE.A.1, HSF-LE.A.2, HSF-LE.A.4, HSF-LE.B.5."
+    trL:"Dò sang trái", trR:"Dò sang phải", fitCx_bac:"Một nhà khoa học đếm vi khuẩn trong đĩa mỗi giờ. Bảng cho biết số lượng y sau t giờ.",
+    fitCx_views:"Bảng cho biết tổng số lượt xem y của một video mới, t ngày sau khi đăng.", fitCx_car:"Bảng cho biết giá trị y (đô la) của một ô tô t năm sau khi mua.", fitCx_med:"Bảng cho biết lượng thuốc y (miligam) còn lại trong cơ thể bệnh nhân t giờ sau một liều.",
+    fitQ1:"Loại mô hình nào khớp với dữ liệu này nhất? Chọn một loại và công nghệ sẽ vẽ đường cong khớp nhất của nó.", fLin:"Mô hình tuyến tính", fQuad:"Mô hình bậc hai",
+    fExpo:"Mô hình hàm mũ", hFitLin:"Đó là đường thẳng khớp nhất, nhưng các điểm cong ra xa nó. Đường thẳng thay đổi cùng một lượng sau mỗi bước, còn dữ liệu này thì không. Chia mỗi giá trị y cho giá trị trước nó: các tỉ số đều khoảng {r}.", hFitQuad:"Parabol khá sát trong phạm vi bảng, nhưng ra ngoài thì nó đổi chiều, còn đại lượng này thì không. Chia mỗi giá trị y cho giá trị trước nó: các tỉ số đều khoảng {r}.",
+    fitGoodE:"Đúng rồi! Mỗi giá trị y gấp khoảng {r} lần giá trị trước. Tỉ số không đổi nghĩa là hàm mũ. Hồi quy hàm mũ cho mô hình {e}.", fitModel:"Mô hình: {e}", qFitPred:"Dùng mô hình để dự đoán y khi t = {v}.",
+    hFitPred:"Thay t = {v} vào mô hình: nhân {a} với {b} mũ {v}. Bảng dừng ở t = {n}, nên đây là dự đoán vượt ra ngoài dữ liệu.", gFitPred:"Đúng rồi! {calc}. Dự đoán càng xa dữ liệu thì càng kém chắc chắn, vì sự tăng hay giảm thực tế có thể thay đổi.", qFitRate:"Theo mô hình, đây là tăng trưởng hay suy giảm, và tỉ lệ mỗi kỳ là bao nhiêu?",
+    raceCx:"So sánh {f} và {g} với x ≥ 0.", raceQ:"Từ số nguyên x nào trở đi thì g(x) luôn lớn hơn f(x)? Hãy dò đồ thị hoặc đọc bảng.", hRaceNot:"Tại x = {w}, f({w}) = {fv} và g({w}) = {gv}, nên g chưa vượt lên. Hãy nhìn xa hơn về bên phải.",
+    hRaceLate:"Tại x = {w}, g đang dẫn trước, nhưng nó đã dẫn trước từ sớm hơn. Hãy kiểm tra x = {p}.", gRaceLin:"Đúng rồi! Từ x = {x} trở đi, g(x) > f(x), và khoảng cách ngày càng lớn. f cộng thêm {m} mỗi bước, còn g nhân với {b}, nên các bước của g ngày càng lớn. Hàm mũ tăng luôn vượt qua hàm bậc nhất vào một lúc nào đó.", gRaceQuad:"Đúng rồi! Từ x = {x} trở đi, g(x) > f(x), và khoảng cách ngày càng lớn. Các bước của f tăng thêm một lượng như nhau mỗi lần, còn g nhân với {b} mỗi bước. Hàm mũ tăng luôn vượt qua hàm bậc hai, hay bất kỳ đa thức nào, vào một lúc nào đó.",
+    stds:"Chuẩn — TEKS Texas: Đại số I A1.3(E), A1.6(A), A1.7(C), A1.9(A–E), A1.12(B); Đại số II A2.2(A–D), A2.4(C), A2.5(A–D), A2.6(A, C, G, J), A2.7(I). Common Core: HSF-IF.A.2, HSF-IF.B.4, HSF-IF.B.5, HSF-IF.C.7b, HSF-IF.C.7e, HSF-IF.C.8b, HSF-BF.A.1c, HSF-BF.B.3, HSF-BF.B.4a, HSF-BF.B.4c, HSF-BF.B.4d, HSF-BF.B.5, HSF-LE.A.1, HSF-LE.A.2, HSF-LE.A.3, HSF-LE.A.4, HSF-LE.B.5."
   },
   ar:{
     appTitle:"استوديو عائلات الدوال", home:"الرئيسية", privacy:"الخصوصية", teacher:"المعلم", modesLbl:"الأنماط", stars:"الإجابات الصحيحة",
@@ -787,7 +818,7 @@ const T = {
     footNote:"بلا حسابات · لا تُجمع أي بيانات · يعمل دون اتصال",
     mParent:"الدوال الأم", mTrans:"التحويلات", mGrowth:"النمو والاضمحلال", mLogs:"اللوغاريتمات والدوال العكسية", mOps:"العمليات والمجال",
     teacherTitle:"إعدادات المعلم", close:"إغلاق", setLevel:"المقرر", lv1:"الجبر 1", lv2:"الجبر 2", lv3:"تمهيد لما قبل التفاضل والتكامل",
-    levelNote:"الجبر 1: الدوال الخطية والتربيعية ودوال القيمة المطلقة والجذر التربيعي والدوال الأسية؛ الإزاحات والتمددات؛ النمو والاضمحلال؛ الدوال العكسية للدوال الخطية؛ المجال والمدى في صورة متباينات. الجبر 2: الدوال الأم التسع جميعها، واللوغاريتمات، والدوال العكسية مع تقييد المجال، وتركيب الدوال، وترميز الفترات. التمهيد لما قبل التفاضل يضيف التمدد الأفقي f(bx)، وسلوك الطرفين، والأساس e، والنمو المستمر. اختيار مقرر يعيد ضبط الخيارات أدناه.",
+    levelNote:"الجبر 1: الدوال الخطية والتربيعية ودوال القيمة المطلقة والجذر التربيعي والدوال الأسية؛ الإزاحات والتمددات؛ النمو والاضمحلال، والنماذج الأسية الملائمة للبيانات، وكيف يتجاوز النمو الأسي النمو الخطي والتربيعي؛ الدوال العكسية للدوال الخطية؛ المجال والمدى في صورة متباينات. الجبر 2: الدوال الأم التسع جميعها، واللوغاريتمات، والدوال العكسية مع تقييد المجال، وتركيب الدوال، وترميز الفترات. التمهيد لما قبل التفاضل يضيف التمدد الأفقي f(bx)، وسلوك الطرفين، والأساس e، والنمو المستمر. اختيار مقرر يعيد ضبط الخيارات أدناه.",
     setRange:"حجم الشبكة", setOpts:"خيارات", bOn:"التمدد الأفقي b في f(b(x − h))", eOn:"الأساس e و ln والنمو المستمر",
     setModes:"الأنماط", setSpeech:"الصوت", autoRead:"قراءة التعليمات تلقائيًا", printCards:"اطبع بطاقات التحدي",
     setStored:"تُحفظ الإعدادات على هذا الجهاز فقط. لا تُخزَّن أي معلومات عن الطلاب.",
@@ -953,7 +984,15 @@ const T = {
     cardParent:"سمِّ الدالة الأم. واذكر مجالها ومداها.", cardTrans:"صِف التحويلات، ثم ارسم التمثيل فوق الدالة الأم المتقطعة.",
     cardGrowth:"خطية أم أسية؟ اكتب دالة للجدول.", cardLogs:"احسب قيمة اللوغاريتم. واشرح ما السؤال الذي يطرحه.",
     cardOps:"أوجد f(g({x})) و g(f({x})). هل هما متساويتان؟", cardDom:"اكتب المجال والمدى بترميز الفترات وفي صورة متباينات.",
-    stds:"المعايير — TEKS تكساس: الجبر 1 A1.3(E), A1.6(A), A1.7(C), A1.9(A–D), A1.12(B)؛ الجبر 2 A2.2(A–D), A2.4(C), A2.5(A–D), A2.6(A, C, G, J), A2.7(I). Common Core: HSF-IF.A.2, HSF-IF.B.4, HSF-IF.B.5, HSF-IF.C.7b, HSF-IF.C.7e, HSF-IF.C.8b, HSF-BF.A.1c, HSF-BF.B.3, HSF-BF.B.4a, HSF-BF.B.4c, HSF-BF.B.4d, HSF-BF.B.5, HSF-LE.A.1, HSF-LE.A.2, HSF-LE.A.4, HSF-LE.B.5."
+    trL:"تتبّع إلى اليسار", trR:"تتبّع إلى اليمين", fitCx_bac:"تعدّ عالمة البكتيريا في طبق كل ساعة. يبيّن الجدول العدد y بعد t ساعة.",
+    fitCx_views:"يبيّن الجدول العدد الكلي لمشاهدات y لمقطع فيديو جديد بعد t يومًا من نشره.", fitCx_car:"يبيّن الجدول قيمة y بالدولار لسيارة بعد t سنة من شرائها.", fitCx_med:"يبيّن الجدول كمية الدواء y بالمليغرام المتبقية في جسم مريض بعد t ساعة من الجرعة.",
+    fitQ1:"أي نوع من النماذج يلائم هذه البيانات أكثر؟ اختر نوعًا وسترسم التقنية منحنى أفضل ملاءمة له.", fLin:"نموذج خطي", fQuad:"نموذج تربيعي",
+    fExpo:"نموذج أسي", hFitLin:"هذا أفضل خط مستقيم، لكن النقاط تنحني بعيدًا عنه. الخط يتغير بالمقدار نفسه في كل خطوة، وهذه البيانات لا تفعل ذلك. اقسم كل قيمة لـ y على القيمة التي قبلها: النسب كلها تقريبًا {r}.", hFitQuad:"القطع المكافئ قريب داخل الجدول، لكنه خارجه ينعطف، وهذه الكمية لا تنعطف. اقسم كل قيمة لـ y على القيمة التي قبلها: النسب كلها تقريبًا {r}.",
+    fitGoodE:"نعم! كل قيمة لـ y تساوي تقريبًا {r} مرة القيمة التي قبلها. النسبة الثابتة تعني دالة أسية. الانحدار الأسي يعطي النموذج {e}.", fitModel:"النموذج: {e}", qFitPred:"استخدم النموذج للتنبؤ بقيمة y عندما t = {v}.",
+    hFitPred:"عوّض t = {v} في النموذج: اضرب {a} في {b} مرفوعًا للقوة {v}. ينتهي الجدول عند t = {n}، لذا هذا تنبؤ خارج البيانات.", gFitPred:"نعم! {calc}. التنبؤات البعيدة عن البيانات أقل يقينًا، لأن النمو أو الاضمحلال الحقيقي قد يتغير.", qFitRate:"بحسب النموذج، هل هذا نمو أم اضمحلال، وما المعدل لكل فترة زمنية؟",
+    raceCx:"قارن {f} و {g} عندما x ≥ 0.", raceQ:"ابتداءً من أي عدد صحيح x تكون g(x) دائمًا أكبر من f(x)؟ تتبّع التمثيلين البيانيين أو اقرأ الجدول.", hRaceNot:"عندما x = {w}، f({w}) = {fv} و g({w}) = {gv}، لذا لم تتقدم g بعد. انظر أبعد إلى اليمين.",
+    hRaceLate:"عندما x = {w} تكون g متقدمة، لكنها كانت متقدمة قبل ذلك أيضًا. تحقق من x = {p}.", gRaceLin:"نعم! ابتداءً من x = {x} تكون g(x) > f(x)، والفرق يزداد باستمرار. الدالة f تضيف {m} في كل خطوة، أما g فتضرب في {b}، لذا تكبر خطوات g باستمرار. الدالة الأسية المتزايدة تتجاوز دائمًا الدالة الخطية في النهاية.", gRaceQuad:"نعم! ابتداءً من x = {x} تكون g(x) > f(x)، والفرق يزداد باستمرار. خطوات f تزداد بالمقدار نفسه في كل مرة، أما g فتضرب في {b} في كل خطوة. الدالة الأسية المتزايدة تتجاوز دائمًا الدالة التربيعية، أو أي كثيرة حدود، في النهاية.",
+    stds:"المعايير — TEKS تكساس: الجبر 1 A1.3(E), A1.6(A), A1.7(C), A1.9(A–E), A1.12(B)؛ الجبر 2 A2.2(A–D), A2.4(C), A2.5(A–D), A2.6(A, C, G, J), A2.7(I). Common Core: HSF-IF.A.2, HSF-IF.B.4, HSF-IF.B.5, HSF-IF.C.7b, HSF-IF.C.7e, HSF-IF.C.8b, HSF-BF.A.1c, HSF-BF.B.3, HSF-BF.B.4a, HSF-BF.B.4c, HSF-BF.B.4d, HSF-BF.B.5, HSF-LE.A.1, HSF-LE.A.2, HSF-LE.A.3, HSF-LE.A.4, HSF-LE.B.5."
   },
   hi:{
     appTitle:"फलन परिवार स्टूडियो", home:"होम", privacy:"गोपनीयता", teacher:"शिक्षक", modesLbl:"मोड", stars:"सही उत्तर",
@@ -961,7 +1000,7 @@ const T = {
     footNote:"कोई खाता नहीं · कोई डेटा एकत्र नहीं · ऑफ़लाइन चलता है",
     mParent:"मूल फलन", mTrans:"रूपांतरण", mGrowth:"वृद्धि और क्षय", mLogs:"लघुगणक और व्युत्क्रम", mOps:"संक्रियाएँ और प्रांत",
     teacherTitle:"शिक्षक सेटिंग्स", close:"बंद करें", setLevel:"पाठ्यक्रम", lv1:"बीजगणित I", lv2:"बीजगणित II", lv3:"प्री-कैलकुलस परिचय",
-    levelNote:"बीजगणित I: रैखिक, द्विघात, निरपेक्ष मान, वर्गमूल और घातीय फलन; स्थानांतरण और खिंचाव; वृद्धि और क्षय; रैखिक फलनों के व्युत्क्रम; असमिकाओं के रूप में प्रांत और परिसर। बीजगणित II: सभी नौ मूल फलन, लघुगणक, प्रांत-प्रतिबंध के साथ व्युत्क्रम, संयोजन, अंतराल संकेतन। प्री-कैलकुलस परिचय में क्षैतिज खिंचाव f(bx), अंत्य व्यवहार, आधार e और सतत वृद्धि जुड़ते हैं। पाठ्यक्रम चुनने पर नीचे के विकल्प रीसेट हो जाते हैं।",
+    levelNote:"बीजगणित I: रैखिक, द्विघात, निरपेक्ष मान, वर्गमूल और घातीय फलन; स्थानांतरण और खिंचाव; वृद्धि और क्षय, आँकड़ों पर बैठाए गए घातीय मॉडल, और घातीय वृद्धि कैसे रैखिक और द्विघात वृद्धि से आगे निकलती है; रैखिक फलनों के व्युत्क्रम; असमिकाओं के रूप में प्रांत और परिसर। बीजगणित II: सभी नौ मूल फलन, लघुगणक, प्रांत-प्रतिबंध के साथ व्युत्क्रम, संयोजन, अंतराल संकेतन। प्री-कैलकुलस परिचय में क्षैतिज खिंचाव f(bx), अंत्य व्यवहार, आधार e और सतत वृद्धि जुड़ते हैं। पाठ्यक्रम चुनने पर नीचे के विकल्प रीसेट हो जाते हैं।",
     setRange:"ग्रिड का आकार", setOpts:"विकल्प", bOn:"f(b(x − h)) में क्षैतिज खिंचाव b", eOn:"आधार e, ln और सतत वृद्धि",
     setModes:"मोड", setSpeech:"आवाज़", autoRead:"निर्देश अपने-आप पढ़ें", printCards:"चुनौती कार्ड प्रिंट करें",
     setStored:"सेटिंग्स केवल इसी डिवाइस पर सहेजी जाती हैं। विद्यार्थियों की कोई जानकारी कभी सहेजी नहीं जाती।",
@@ -1127,7 +1166,15 @@ const T = {
     cardParent:"मूल फलन का नाम बताएँ। उसका प्रांत और परिसर लिखें।", cardTrans:"रूपांतरणों का वर्णन करें, फिर बिंदुदार मूल ग्राफ़ पर ग्राफ़ बनाएँ।",
     cardGrowth:"रैखिक या घातीय? तालिका के लिए एक फलन लिखें।", cardLogs:"लघुगणक का मान ज्ञात करें। बताएँ कि यह कौन-सा प्रश्न पूछता है।",
     cardOps:"f(g({x})) और g(f({x})) ज्ञात करें। क्या वे बराबर हैं?", cardDom:"प्रांत और परिसर को अंतराल संकेतन और असमिकाओं के रूप में लिखें।",
-    stds:"मानक — टेक्सास TEKS: बीजगणित I A1.3(E), A1.6(A), A1.7(C), A1.9(A–D), A1.12(B); बीजगणित II A2.2(A–D), A2.4(C), A2.5(A–D), A2.6(A, C, G, J), A2.7(I)। Common Core: HSF-IF.A.2, HSF-IF.B.4, HSF-IF.B.5, HSF-IF.C.7b, HSF-IF.C.7e, HSF-IF.C.8b, HSF-BF.A.1c, HSF-BF.B.3, HSF-BF.B.4a, HSF-BF.B.4c, HSF-BF.B.4d, HSF-BF.B.5, HSF-LE.A.1, HSF-LE.A.2, HSF-LE.A.4, HSF-LE.B.5।"
+    trL:"बाईं ओर अनुरेखण", trR:"दाईं ओर अनुरेखण", fitCx_bac:"एक वैज्ञानिक हर घंटे एक डिश में बैक्टीरिया गिनती है। तालिका t घंटे बाद की संख्या y दिखाती है।",
+    fitCx_views:"तालिका एक नए वीडियो के पोस्ट होने के t दिन बाद उसके कुल व्यूज़ y दिखाती है।", fitCx_car:"तालिका एक कार की खरीद के t साल बाद डॉलर में उसका मूल्य y दिखाती है।", fitCx_med:"तालिका एक खुराक के t घंटे बाद मरीज़ के शरीर में बची दवा की मात्रा y (मिलीग्राम में) दिखाती है।",
+    fitQ1:"इन आँकड़ों पर कौन-सा मॉडल सबसे अच्छा बैठता है? एक चुनें और तकनीक उसका सबसे उपयुक्त वक्र खींचेगी।", fLin:"रैखिक मॉडल", fQuad:"द्विघात मॉडल",
+    fExpo:"घातीय मॉडल", hFitLin:"यह सबसे अच्छी रेखा है, पर बिंदु उससे दूर मुड़ जाते हैं। रेखा हर कदम पर बराबर बदलती है, और ये आँकड़े ऐसा नहीं करते। हर y-मान को उससे पहले वाले से भाग दें: सभी अनुपात लगभग {r} हैं।", hFitQuad:"तालिका के अंदर परवलय पास है, पर उसके बाहर परवलय मुड़ जाता है, और यह राशि नहीं मुड़ती। हर y-मान को उससे पहले वाले से भाग दें: सभी अनुपात लगभग {r} हैं।",
+    fitGoodE:"हाँ! हर y-मान पिछले वाले का लगभग {r} गुना है। स्थिर अनुपात का अर्थ है घातीय। घातीय समाश्रयण मॉडल {e} देता है।", fitModel:"मॉडल: {e}", qFitPred:"मॉडल से y का अनुमान लगाएँ जब t = {v}।",
+    hFitPred:"मॉडल में t = {v} रखें: {a} को {b} की घात {v} से गुणा करें। तालिका t = {n} पर रुकती है, इसलिए यह आँकड़ों से आगे का अनुमान है।", gFitPred:"हाँ! {calc}। आँकड़ों से बहुत आगे के अनुमान कम पक्के होते हैं, क्योंकि असली वृद्धि या क्षय बदल सकता है।", qFitRate:"मॉडल के अनुसार, यह वृद्धि है या क्षय, और प्रति अवधि दर क्या है?",
+    raceCx:"x ≥ 0 के लिए {f} और {g} की तुलना करें।", raceQ:"किस पूर्ण संख्या x से आगे g(x) हमेशा f(x) से बड़ा रहता है? ग्राफ़ का अनुरेखण करें या तालिका पढ़ें।", hRaceNot:"x = {w} पर f({w}) = {fv} और g({w}) = {gv}, इसलिए g अभी आगे नहीं है। और दाईं ओर देखें।",
+    hRaceLate:"x = {w} पर g आगे है, पर वह उससे पहले भी आगे था। x = {p} जाँचें।", gRaceLin:"हाँ! x = {x} से आगे g(x) > f(x), और अंतर बढ़ता जाता है। f हर कदम पर {m} जोड़ता है, पर g {b} से गुणा करता है, इसलिए g के कदम बड़े होते जाते हैं। बढ़ता हुआ घातीय फलन आखिरकार हमेशा रैखिक फलन से आगे निकल जाता है।", gRaceQuad:"हाँ! x = {x} से आगे g(x) > f(x), और अंतर बढ़ता जाता है। f के कदम हर बार उतनी ही मात्रा से बढ़ते हैं, पर g हर कदम पर {b} से गुणा करता है। बढ़ता हुआ घातीय फलन आखिरकार हमेशा द्विघात फलन, या किसी भी बहुपद, से आगे निकल जाता है।",
+    stds:"मानक — टेक्सास TEKS: बीजगणित I A1.3(E), A1.6(A), A1.7(C), A1.9(A–E), A1.12(B); बीजगणित II A2.2(A–D), A2.4(C), A2.5(A–D), A2.6(A, C, G, J), A2.7(I)। Common Core: HSF-IF.A.2, HSF-IF.B.4, HSF-IF.B.5, HSF-IF.C.7b, HSF-IF.C.7e, HSF-IF.C.8b, HSF-BF.A.1c, HSF-BF.B.3, HSF-BF.B.4a, HSF-BF.B.4c, HSF-BF.B.4d, HSF-BF.B.5, HSF-LE.A.1, HSF-LE.A.2, HSF-LE.A.3, HSF-LE.A.4, HSF-LE.B.5।"
   },
   ur:{
     appTitle:"فنکشن فیملیز اسٹوڈیو", home:"ہوم", privacy:"رازداری", teacher:"استاد", modesLbl:"موڈز", stars:"درست جوابات",
@@ -1135,7 +1182,7 @@ const T = {
     footNote:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا جمع نہیں ہوتا · آف لائن کام کرتا ہے",
     mParent:"بنیادی فنکشنز", mTrans:"تبدیلیاں", mGrowth:"اضافہ اور کمی", mLogs:"لوگارتھم اور معکوس", mOps:"عملیات اور ڈومین",
     teacherTitle:"استاد کی ترتیبات", close:"بند کریں", setLevel:"کورس", lv1:"الجبرا I", lv2:"الجبرا II", lv3:"پری کیلکولس کا تعارف",
-    levelNote:"الجبرا I: خطی، دو درجی، مطلق قدر، جذر المربع اور قوت نمائی فنکشنز؛ منتقلی اور کھنچاؤ؛ اضافہ اور کمی؛ خطی فنکشنز کے معکوس؛ ڈومین اور رینج بطور عدم مساوات۔ الجبرا II: تمام نو بنیادی فنکشنز، لوگارتھم، ڈومین کی پابندی کے ساتھ معکوس، ترکیب، وقفہ نوٹیشن۔ پری کیلکولس میں افقی کھنچاؤ f(bx)، سروں کا رویہ، بنیاد e اور مسلسل اضافہ شامل ہیں۔ کورس منتخب کرنے سے نیچے کے اختیارات دوبارہ ترتیب پا جاتے ہیں۔",
+    levelNote:"الجبرا I: خطی، دو درجی، مطلق قدر، جذر المربع اور قوت نمائی فنکشنز؛ منتقلی اور کھنچاؤ؛ اضافہ اور کمی، اعداد و شمار پر بٹھائے گئے قوت نمائی ماڈل، اور قوت نمائی اضافہ کیسے خطی اور دو درجی اضافے سے آگے نکلتا ہے؛ خطی فنکشنز کے معکوس؛ ڈومین اور رینج بطور عدم مساوات۔ الجبرا II: تمام نو بنیادی فنکشنز، لوگارتھم، ڈومین کی پابندی کے ساتھ معکوس، ترکیب، وقفہ نوٹیشن۔ پری کیلکولس میں افقی کھنچاؤ f(bx)، سروں کا رویہ، بنیاد e اور مسلسل اضافہ شامل ہیں۔ کورس منتخب کرنے سے نیچے کے اختیارات دوبارہ ترتیب پا جاتے ہیں۔",
     setRange:"گرڈ کا سائز", setOpts:"اختیارات", bOn:"f(b(x − h)) میں افقی کھنچاؤ b", eOn:"بنیاد e، ln اور مسلسل اضافہ",
     setModes:"موڈز", setSpeech:"آواز", autoRead:"ہدایات خودکار طور پر پڑھیں", printCards:"چیلنج کارڈز پرنٹ کریں",
     setStored:"ترتیبات صرف اسی آلے پر محفوظ ہوتی ہیں۔ طلبہ کی کوئی معلومات کبھی محفوظ نہیں ہوتی۔",
@@ -1301,7 +1348,15 @@ const T = {
     cardParent:"بنیادی فنکشن کا نام بتائیں۔ اس کا ڈومین اور رینج لکھیں۔", cardTrans:"تبدیلیاں بیان کریں، پھر نقطہ دار بنیادی گراف پر گراف بنائیں۔",
     cardGrowth:"خطی یا قوت نمائی؟ جدول کے لیے فنکشن لکھیں۔", cardLogs:"لوگارتھم کی قدر معلوم کریں۔ وضاحت کریں کہ یہ کیا سوال پوچھتا ہے۔",
     cardOps:"f(g({x})) اور g(f({x})) معلوم کریں۔ کیا یہ برابر ہیں؟", cardDom:"ڈومین اور رینج کو وقفہ نوٹیشن میں اور عدم مساوات کے طور پر لکھیں۔",
-    stds:"معیارات — ٹیکساس TEKS: الجبرا I A1.3(E), A1.6(A), A1.7(C), A1.9(A–D), A1.12(B)؛ الجبرا II A2.2(A–D), A2.4(C), A2.5(A–D), A2.6(A, C, G, J), A2.7(I)۔ Common Core: HSF-IF.A.2, HSF-IF.B.4, HSF-IF.B.5, HSF-IF.C.7b, HSF-IF.C.7e, HSF-IF.C.8b, HSF-BF.A.1c, HSF-BF.B.3, HSF-BF.B.4a, HSF-BF.B.4c, HSF-BF.B.4d, HSF-BF.B.5, HSF-LE.A.1, HSF-LE.A.2, HSF-LE.A.4, HSF-LE.B.5۔"
+    trL:"بائیں طرف ٹریس کریں", trR:"دائیں طرف ٹریس کریں", fitCx_bac:"ایک سائنس دان ہر گھنٹے ایک ڈش میں بیکٹیریا گنتی ہے۔ جدول t گھنٹے بعد کی تعداد y دکھاتا ہے۔",
+    fitCx_views:"جدول ایک نئی ویڈیو کے پوسٹ ہونے کے t دن بعد اس کے کل ویوز y دکھاتا ہے۔", fitCx_car:"جدول ایک گاڑی کی خریداری کے t سال بعد ڈالر میں اس کی قیمت y دکھاتا ہے۔", fitCx_med:"جدول ایک خوراک کے t گھنٹے بعد مریض کے جسم میں باقی دوا کی مقدار y (ملی گرام میں) دکھاتا ہے۔",
+    fitQ1:"ان اعداد و شمار پر کون سا ماڈل سب سے بہتر بیٹھتا ہے؟ ایک چنیں اور ٹیکنالوجی اس کا بہترین موزوں خم کھینچے گی۔", fLin:"خطی ماڈل", fQuad:"دو درجی ماڈل",
+    fExpo:"قوت نمائی ماڈل", hFitLin:"یہ بہترین خط ہے، لیکن نقاط اس سے دور مڑ جاتے ہیں۔ خط ہر قدم پر برابر بدلتا ہے، اور یہ اعداد و شمار ایسا نہیں کرتے۔ ہر y قیمت کو اس سے پہلے والی سے تقسیم کریں: سب نسبتیں تقریباً {r} ہیں۔", hFitQuad:"جدول کے اندر پیرابولا قریب ہے، لیکن اس کے باہر وہ مڑ جاتا ہے، اور یہ مقدار نہیں مڑتی۔ ہر y قیمت کو اس سے پہلے والی سے تقسیم کریں: سب نسبتیں تقریباً {r} ہیں۔",
+    fitGoodE:"جی ہاں! ہر y قیمت پچھلی کا تقریباً {r} گنا ہے۔ مستقل نسبت کا مطلب قوت نمائی ہے۔ قوت نمائی رجعت ماڈل {e} دیتی ہے۔", fitModel:"ماڈل: {e}", qFitPred:"ماڈل سے y کا اندازہ لگائیں جب t = {v} ہو۔",
+    hFitPred:"ماڈل میں t = {v} رکھیں: {a} کو {b} کی طاقت {v} سے ضرب دیں۔ جدول t = {n} پر رکتا ہے، اس لیے یہ اعداد و شمار سے آگے کا اندازہ ہے۔", gFitPred:"جی ہاں! {calc}۔ اعداد و شمار سے بہت آگے کے اندازے کم یقینی ہوتے ہیں، کیونکہ اصل اضافہ یا کمی بدل سکتی ہے۔", qFitRate:"ماڈل کے مطابق، یہ اضافہ ہے یا کمی، اور فی مدت شرح کیا ہے؟",
+    raceCx:"x ≥ 0 کے لیے {f} اور {g} کا موازنہ کریں۔", raceQ:"کس مکمل عدد x سے آگے g(x) ہمیشہ f(x) سے بڑا رہتا ہے؟ گراف ٹریس کریں یا جدول پڑھیں۔", hRaceNot:"x = {w} پر f({w}) = {fv} اور g({w}) = {gv} ہے، اس لیے g ابھی آگے نہیں ہے۔ مزید دائیں طرف دیکھیں۔",
+    hRaceLate:"x = {w} پر g آگے ہے، لیکن وہ اس سے پہلے بھی آگے تھا۔ x = {p} جانچیں۔", gRaceLin:"جی ہاں! x = {x} سے آگے g(x) > f(x)، اور فرق بڑھتا جاتا ہے۔ f ہر قدم پر {m} جمع کرتا ہے، لیکن g {b} سے ضرب دیتا ہے، اس لیے g کے قدم بڑے ہوتے جاتے ہیں۔ بڑھتا ہوا قوت نمائی فنکشن آخرکار ہمیشہ خطی فنکشن سے آگے نکل جاتا ہے۔", gRaceQuad:"جی ہاں! x = {x} سے آگے g(x) > f(x)، اور فرق بڑھتا جاتا ہے۔ f کے قدم ہر بار اتنی ہی مقدار سے بڑھتے ہیں، لیکن g ہر قدم پر {b} سے ضرب دیتا ہے۔ بڑھتا ہوا قوت نمائی فنکشن آخرکار ہمیشہ دو درجی فنکشن، یا کسی بھی کثیر رقمی، سے آگے نکل جاتا ہے۔",
+    stds:"معیارات — ٹیکساس TEKS: الجبرا I A1.3(E), A1.6(A), A1.7(C), A1.9(A–E), A1.12(B)؛ الجبرا II A2.2(A–D), A2.4(C), A2.5(A–D), A2.6(A, C, G, J), A2.7(I)۔ Common Core: HSF-IF.A.2, HSF-IF.B.4, HSF-IF.B.5, HSF-IF.C.7b, HSF-IF.C.7e, HSF-IF.C.8b, HSF-BF.A.1c, HSF-BF.B.3, HSF-BF.B.4a, HSF-BF.B.4c, HSF-BF.B.4d, HSF-BF.B.5, HSF-LE.A.1, HSF-LE.A.2, HSF-LE.A.3, HSF-LE.A.4, HSF-LE.B.5۔"
   },
   zh:{
     appTitle:"函数家族工作室", home:"首页", privacy:"隐私", teacher:"教师", modesLbl:"模式", stars:"答对次数",
@@ -1309,7 +1364,7 @@ const T = {
     footNote:"无需账号 · 不收集数据 · 可离线使用",
     mParent:"基本初等函数", mTrans:"函数图像变换", mGrowth:"指数增长与衰减", mLogs:"对数与反函数", mOps:"函数运算与定义域",
     teacherTitle:"教师设置", close:"关闭", setLevel:"课程", lv1:"代数 I", lv2:"代数 II", lv3:"微积分预备预览",
-    levelNote:"代数 I：一次函数、二次函数、绝对值函数、平方根函数和指数函数；平移与伸缩；增长与衰减；一次函数的反函数；用不等式表示定义域和值域。代数 II：全部九种基本函数、对数、限制定义域后的反函数、复合函数、区间表示法。微积分预备预览增加水平伸缩 f(bx)、端点行为、底数 e 和连续增长。选择课程会重置下面的选项。",
+    levelNote:"代数 I：一次函数、二次函数、绝对值函数、平方根函数和指数函数；平移与伸缩；增长与衰减，用指数模型拟合数据，以及指数增长如何超过线性增长和二次增长；一次函数的反函数；用不等式表示定义域和值域。代数 II：全部九种基本函数、对数、限制定义域后的反函数、复合函数、区间表示法。微积分预备预览增加水平伸缩 f(bx)、端点行为、底数 e 和连续增长。选择课程会重置下面的选项。",
     setRange:"网格大小", setOpts:"选项", bOn:"f(b(x − h)) 中的水平伸缩 b", eOn:"底数 e、ln 和连续增长",
     setModes:"模式", setSpeech:"语音", autoRead:"自动朗读题目说明", printCards:"打印挑战卡",
     setStored:"设置只保存在这台设备上。从不保存任何学生信息。",
@@ -1475,7 +1530,15 @@ const T = {
     cardParent:"说出这个基本函数的名称。写出它的定义域和值域。", cardTrans:"描述这些变换，然后在虚线基本函数图像上画出草图。",
     cardGrowth:"是一次函数还是指数函数？为这个表格写出一个函数。", cardLogs:"求这个对数的值。说明它在问什么问题。",
     cardOps:"求 f(g({x})) 和 g(f({x}))。它们相等吗？", cardDom:"用区间表示法和不等式写出定义域和值域。",
-    stds:"对应标准 — 德州 TEKS：代数 I A1.3(E)、A1.6(A)、A1.7(C)、A1.9(A–D)、A1.12(B)；代数 II A2.2(A–D)、A2.4(C)、A2.5(A–D)、A2.6(A, C, G, J)、A2.7(I)。Common Core：HSF-IF.A.2、HSF-IF.B.4、HSF-IF.B.5、HSF-IF.C.7b、HSF-IF.C.7e、HSF-IF.C.8b、HSF-BF.A.1c、HSF-BF.B.3、HSF-BF.B.4a、HSF-BF.B.4c、HSF-BF.B.4d、HSF-BF.B.5、HSF-LE.A.1、HSF-LE.A.2、HSF-LE.A.4、HSF-LE.B.5。"
+    trL:"向左追踪", trR:"向右追踪", fitCx_bac:"一位科学家每小时数一次培养皿中的细菌。表格给出 t 小时后的数量 y。",
+    fitCx_views:"表格给出一个新视频发布 t 天后的总播放量 y。", fitCx_car:"表格给出一辆汽车购买 t 年后的价值 y（单位：美元）。", fitCx_med:"表格给出服药 t 小时后病人体内剩余的药量 y（单位：毫克）。",
+    fitQ1:"哪种模型最适合这些数据？选一种，技术工具会画出它的最佳拟合曲线。", fLin:"线性模型", fQuad:"二次模型",
+    fExpo:"指数模型", hFitLin:"这是最佳拟合直线，但数据点弯离了它。直线每一步的变化量都相同，而这些数据不是。用每个 y 值除以前一个：比值都约为 {r}。", hFitQuad:"在表格范围内抛物线很接近，但在范围外抛物线会转向，而这个量不会。用每个 y 值除以前一个：比值都约为 {r}。",
+    fitGoodE:"对了！每个 y 值约是前一个的 {r} 倍。比值不变就是指数关系。指数回归得到模型 {e}。", fitModel:"模型：{e}", qFitPred:"用模型预测 t = {v} 时 y 的值。",
+    hFitPred:"把 t = {v} 代入模型：用 {a} 乘以 {b} 的 {v} 次方。表格只到 t = {n}，所以这是超出数据范围的预测。", gFitPred:"对了！{calc}。离数据越远的预测越不确定，因为实际的增长或衰减可能会变化。", qFitRate:"根据模型，这是增长还是衰减？每个周期的变化率是多少？",
+    raceCx:"当 x ≥ 0 时，比较 {f} 和 {g}。", raceQ:"从哪个整数 x 开始，g(x) 一直大于 f(x)？追踪图像或读表格。", hRaceNot:"当 x = {w} 时，f({w}) = {fv}，g({w}) = {gv}，所以 g 还没有领先。再往右看。",
+    hRaceLate:"当 x = {w} 时 g 领先，但在这之前它就已经领先了。检查 x = {p}。", gRaceLin:"对了！从 x = {x} 开始，g(x) > f(x)，而且差距越来越大。f 每一步加 {m}，而 g 每一步乘以 {b}，所以 g 的每一步越来越大。递增的指数函数最终总会超过一次函数。", gRaceQuad:"对了！从 x = {x} 开始，g(x) > f(x)，而且差距越来越大。f 每一步的增量每次增加相同的量，而 g 每一步乘以 {b}。递增的指数函数最终总会超过二次函数，或任何多项式函数。",
+    stds:"对应标准 — 德州 TEKS：代数 I A1.3(E)、A1.6(A)、A1.7(C)、A1.9(A–E)、A1.12(B)；代数 II A2.2(A–D)、A2.4(C)、A2.5(A–D)、A2.6(A, C, G, J)、A2.7(I)。Common Core：HSF-IF.A.2、HSF-IF.B.4、HSF-IF.B.5、HSF-IF.C.7b、HSF-IF.C.7e、HSF-IF.C.8b、HSF-BF.A.1c、HSF-BF.B.3、HSF-BF.B.4a、HSF-BF.B.4c、HSF-BF.B.4d、HSF-BF.B.5、HSF-LE.A.1、HSF-LE.A.2、HSF-LE.A.3、HSF-LE.A.4、HSF-LE.B.5。"
   },
 };
 
@@ -1985,7 +2048,9 @@ function powEq(lhs,P,bh,bs,eh,es){ // A(t) = P(b)^e
   return {h:M(`${V(lhs)}(${V("t")}) = ${P}${bh}<sup>${eh}</sup>`), s:t("fOf",{f:lhs,x:"t"})+" "+t("wEq")+" "+P+" "+t("wTimes")+" "+t("powS",{b:bs,u:es})}; }
 function newGrowth(){
   const m="growth"; startRound(m); const s=st[m], w=$("#w-"+m), lv=L();
-  const type=rand(["table","table","rate","build","build","eval"]); s.type=type;
+  const type=rand(["table","table","rate","build","build","eval","fit","race"]); s.type=type;
+  if(type==="fit") return growFit();
+  if(type==="race") return growRace();
   if(type==="table"){
     const isExp=Math.random()<.55, xs=[0,1,2,3,4]; let ys, step;
     if(isExp){ const c=rand([[2,[1,2,3,5,6]],[3,[1,2,4]],[0.5,[32,48,64,80,96,160]],[1.5,[16,32]],[1/3,[81,162]]]); step=c[0]; const a=rand(c[1]); ys=xs.map(x=>rnd(a*Math.pow(step,x),6)); }
@@ -2065,6 +2130,101 @@ function newGrowth(){
   const calc={h:M(`${k==="int"?"$":""}${P} · (${fh})<sup>${n}</sup> = ${k==="int"?money(ans):qH(ans)}`), s:P+" "+t("wTimes")+" "+t("powS",{b:k==="half"?t("frSay",{n:1,d:2}):f,u:n})+" "+t("wEq")+" "+(k==="int"?money(ans):nS(ans))};
   choices(m,numOpts(ans,k==="int"?c:c.filter(v=>Number.isInteger(rnd(v,6))),fmt),it=>{ if(it.ok) return win(m,tm("goodEv",{calc})); nope(m,k==="int"?TX("hintEvInt"):tm("hintEv",{t:d*n,d,n,f:{h:fh,s:k==="half"?t("frSay",{n:1,d:2}):""+f}})); });
   setPrompt(m,ctx); maybeAuto(m);
+}
+
+/* Scaled first-quadrant chart for data and races. o: {x1,y1,xn,yn,xs,curves:[{f,cls}],pts:[{x,y,cls}],vl:[x]} */
+function niceStep(span){ const raw=span/7, mag=Math.pow(10,Math.floor(Math.log10(raw))), n=raw/mag; return (n<1.5?1:n<3.5?2:n<7.5?5:10)*mag; }
+function chartSVG(o){
+  const GX=56,GY=14,GW=370,GH=380, X=x=>(GX+x/o.x1*GW).toFixed(1), Y=y=>(GY+GH-y/o.y1*GH).toFixed(1), cid="cp"+(++clipN), xs=o.xs||niceStep(o.x1), ys=niceStep(o.y1); let s="";
+  for(let i=0;i*xs<=o.x1+1e-9;i++) s+=`<line class="gl" x1="${X(i*xs)}" y1="${GY}" x2="${X(i*xs)}" y2="${GY+GH}"/><text class="tl" x="${X(i*xs)}" y="${GY+GH+20}" text-anchor="middle">${nH(i*xs)}</text>`;
+  for(let i=0;i*ys<=o.y1+1e-9;i++) s+=`<line class="gl" x1="${GX}" y1="${Y(i*ys)}" x2="${GX+GW}" y2="${Y(i*ys)}"/><text class="tl" x="${GX-5}" y="${(+Y(i*ys)+5).toFixed(1)}" text-anchor="end">${nH(i*ys)}</text>`;
+  s+=`<line class="ax" x1="${GX}" y1="${GY+GH}" x2="${GX+GW}" y2="${GY+GH}"/><line class="ax" x1="${GX}" y1="${GY}" x2="${GX}" y2="${GY+GH}"/>`;
+  s+=`<text class="axn" x="${GX+GW-4}" y="${GY+GH-8}" text-anchor="end">${o.xn||"x"}</text><text class="axn" x="${GX+8}" y="${GY+18}">${o.yn||"y"}</text>`;
+  s+=`<clipPath id="${cid}"><rect x="${GX}" y="${GY}" width="${GW}" height="${GH}"/></clipPath><g clip-path="url(#${cid})">`;
+  (o.vl||[]).forEach(x=>s+=`<line class="vtr" x1="${X(x)}" y1="${GY}" x2="${X(x)}" y2="${GY+GH}"/>`);
+  (o.curves||[]).forEach(c=>{ const P=[]; for(let i=0;i<=240;i++){ const x=o.x1*i/240, y=Math.max(-o.y1,Math.min(3*o.y1,c.f(x))); P.push(X(x)+" "+Y(y)); } s+=`<path class="cv ${c.cls||""}" d="M${P.join("L")}"/>`; });
+  s+=`</g>`;
+  (o.pts||[]).forEach(p=>{ if(p.y>=0&&p.y<=o.y1) s+=`<circle class="pt ${p.cls||""}" cx="${X(p.x)}" cy="${Y(p.y)}" r="${p.r||7}"/>`; });
+  return `<svg class="plane" viewBox="0 0 440 424" role="img" aria-label="${t("planeLbl")}">${s}</svg>`;
+}
+/* Least squares like a graphing calculator: "l" y = mx + c, "q" y = ax² + bx + c, "e" y = a·bˣ (a line through ln y). Coefficients to 3 significant digits. */
+const sig3 = v=>+(+v).toPrecision(3);
+function regr(X,Y,k){
+  if(k==="e"){ const c=regr(X,Y.map(Math.log),"raw"); return [sig3(Math.exp(c[1])),sig3(Math.exp(c[0]))]; }
+  const fx=k==="q"?x=>[x*x,x,1]:x=>[x,1], n=fx(1).length, A=Array.from({length:n},()=>Array(n+1).fill(0));
+  X.forEach((x,i)=>{ const r=fx(x); for(let j=0;j<n;j++){ for(let l=0;l<n;l++) A[j][l]+=r[j]*r[l]; A[j][n]+=r[j]*Y[i]; } });
+  for(let j=0;j<n;j++){ let pv=j; for(let i=j+1;i<n;i++) if(Math.abs(A[i][j])>Math.abs(A[pv][j])) pv=i; [A[j],A[pv]]=[A[pv],A[j]];
+    for(let i=0;i<n;i++) if(i!==j){ const f=A[i][j]/A[j][j]; for(let l=j;l<=n;l++) A[i][l]-=f*A[j][l]; } }
+  const c=A.map((r,j)=>r[n]/r[j]); return k==="raw"?c:c.map(sig3);
+}
+const regF = (k,c)=>k==="q"?x=>c[0]*x*x+c[1]*x+c[2]:k==="e"?x=>c[0]*Math.pow(c[1],x):x=>c[0]*x+c[1];
+function decTerms(terms){ const H=[],S=[];
+  terms.forEach(([c,vh,vs])=>{ if(!c) return; const ng=c<0, a=Math.abs(c), ms=(a+" "+vs).trim();
+    if(!H.length){ H.push((ng?MINUS:"")+a+vh); S.push(ng?t("neg",{n:ms}):ms); } else { H.push((ng?" − ":" + ")+a+vh); S.push(t(ng?"wMinus":"wPlus")+" "+ms); } });
+  return {h:H.join("")||"0", s:S.join(" ")||"0"}; }
+function regEq(k,c){ const e=k==="e"?{h:`${c[0]}(${c[1]})<sup>${V("t")}</sup>`,s:c[0]+" "+t("wTimes")+" "+t("powS",{b:c[1],u:"t"})}
+    :decTerms(k==="q"?[[c[0],V("t")+"<sup>2</sup>",t("sqS",{u:"t"})],[c[1],V("t"),"t"],[c[2],"",""]]:[[c[0],V("t"),"t"],[c[1],"",""]]);
+  return {h:M(`${V("y")} = ${e.h}`), s:"y "+t("wEq")+" "+e.s}; }
+const FITX={bac:{a:[60,80,120,150,200],b:[1.4,1.5,1.6,1.8],n:7,xp:[9,10]},views:{a:[200,300,500,800],b:[1.3,1.4,1.5],n:8,xp:[10,11,12]},
+  car:{a:[18000,24000,30000,36000],b:[0.8,0.82,0.85,0.88],n:7,xp:[10,12,15]},med:{a:[400,500,600,800],b:[0.7,0.75,0.8],n:7,xp:[8,9,10]}};
+/* Algebra I: write an exponential model for data with technology, then predict or read the growth/decay rate. */
+function growFit(){
+  const m="growth", s=st[m], w=$("#w-"+m), cx=rand(Object.keys(FITX)), C=FITX[cx], a0=rand(C.a), b0=rand(C.b);
+  const X=[...Array(C.n).keys()], Y=X.map(x=>Math.round(a0*Math.pow(b0,x)*(1+(Math.random()*2-1)*.04)));
+  const co={l:regr(X,Y,"l"),q:regr(X,Y,"q"),e:regr(X,Y,"e")}, [A,B]=co.e, F=regF("e",co.e), E=regEq("e",co.e);
+  const rats=Y.slice(1).map((y,i)=>y/Y[i]).sort((p,q)=>p-q), r=rnd(rats[Math.floor(rats.length/2)],2), q=rand(["pred","pred","rate"]), xp=rand(C.xp);
+  const y1=(()=>{ let v=Math.max(...Y); if(q==="pred") v=Math.max(v,F(xp)); v*=1.12; const st_=niceStep(v); return Math.ceil(v/st_)*st_; })(), x1=q==="pred"?xp+1:C.n;
+  const draw=extra=>{ $("#gfG").innerHTML=chartSVG(Object.assign({x1,y1,xs:1,xn:"t",yn:"y"},extra||{},{pts:X.map((x,i)=>({x,y:Y[i],cls:"dp",r:6}))})); };
+  w.innerHTML=`<div class="split"><div class="side"><div class="tw">${ioTable(X,Y,"t","y")}</div><div class="rule hidden" id="gfRO"></div></div><div class="pwrap" dir="ltr" id="gfG"></div></div>`;
+  draw();
+  const ctx=TX("fitCx_"+cx), KK={l:"fLin",q:"fQuad",e:"fExpo"};
+  const stage2=()=>{
+    if(q==="pred"){ const ans=Math.round(F(xp)), far=v=>v>0&&Math.abs(v-ans)>.08*ans;
+      const c=[regF("l",co.l)(xp),regF("q",co.q)(xp),A*Math.pow(B,xp-1),A*Math.pow(B,xp+1),A*B*xp,A*Math.pow(B,xp)*1.5].map(Math.round).filter(far);
+      const items=numOpts(ans,c), calc={h:M(`${A}(${B})<sup>${xp}</sup> ≈ ${nH(ans)}`),s:A+" "+t("wTimes")+" "+t("powS",{b:B,u:xp})+" "+t("approx",{v:nS(ans)})};
+      choices(m,items,it=>{ if(it.ok) return win(m,tm("gFitPred",{calc})); nope(m,tm("hFitPred",{v:xp,a:A,b:B,n:C.n-1})); });
+      return cat(ctx,tm("qFitPred",{v:xp})); }
+    const grow=B>1, pct=rnd(Math.abs(B-1)*100,1), bp=rnd(B*100,1), Ch=(g,p)=>({...tm(g?"chGrow":"chDecay",{p}),txt:true,gr:g,p});
+    const cand=[Ch(grow,pct),Ch(!grow,pct),Ch(grow,bp),Ch(!grow,bp),Ch(grow,rnd(pct/10,2))], out=[], seen=[];
+    cand.forEach((c,i)=>{ const k=c.gr+"/"+c.p; if(out.length<4&&!seen.includes(k)&&c.p>0){ seen.push(k); out.push({...c,ok:i===0}); } });
+    choices(m,shuffle(out),it=>{ if(it.ok) return win(m,tm(grow?"goodGrow":"goodDecay",{b:N2(B),p:pct,a:A})); nope(m,it.gr!==grow?tm("hintKind",{b:N2(B)}):TX("hintRateVal")); });
+    return cat(ctx,TX("qFitRate")); };
+  choices(m,["l","q","e"].map(k=>({...TX(KK[k]),ok:k==="e",kd:k})),it=>{
+    if(!it.ok){ draw({curves:[{f:regF(it.kd,co[it.kd]),cls:"wf"}]}); return nope(m,tm(it.kd==="l"?"hFitLin":"hFitQuad",{r:N2(r)})); }
+    draw({curves:[{f:F}],vl:q==="pred"?[xp]:[]}); const ro=$("#gfRO"); ro.classList.remove("hidden"); ro.innerHTML=tm("fitModel",{e:E}).h;
+    const g=tm("fitGoodE",{r:N2(r),e:E}); showFb($("#f-"+m),"good",g.h); const p2=stage2(); setPrompt(m,p2); speak(cat(g,p2).s); });
+  setPrompt(m,cat(ctx,TX("fitQ1"))); maybeAuto(m);
+}
+/* HSF-LE.A.3: a growing exponential eventually passes a linear or quadratic function (graph + table, trace). */
+function growRace(){
+  const m="growth", s=st[m], w=$("#w-"+m); let kind,f,g,fp,ga,gb,X;
+  for(let tries=0;;tries++){ kind=rand(["lin","lin","quad"]); ga=rand([1,2,3]); gb=rand([2,2,3]);
+    fp=kind==="lin"?{m:rand([20,30,40,50,60,80,100]),c:rand([0,10,20,50,100])}:{q:rand([2,3,4,5,8,10])};
+    f=kind==="lin"?x=>fp.m*x+fp.c:x=>fp.q*x*x; g=x=>ga*Math.pow(gb,x);
+    X=0; for(let x=60;x>=0;x--) if(g(x)<=f(x)){ X=x+1; break; }
+    if(X>=4&&X<=13&&f(1)>g(1)) break; }
+  const xmax=X+3, xs=[...Array(xmax+1).keys()], y1=(()=>{ const v=Math.max(f(xmax),g(X))*1.15, k=niceStep(v); return Math.ceil(v/k)*k; })();
+  const FE=kind==="lin"?{h:`${fp.m}${V("x")}`+(fp.c?` + ${fp.c}`:""),s:fp.m+" x"+(fp.c?" "+t("wPlus")+" "+fp.c:"")}:{h:`${fp.q}${V("x")}<sup>2</sup>`,s:fp.q+" "+t("sqS",{u:"x"})};
+  const GE={h:(ga===1?"":ga+" · ")+`${gb}<sup>${V("x")}</sup>`,s:(ga===1?"":ga+" "+t("wTimes")+" ")+t("powS",{b:gb,u:"x"})};
+  const fE={h:`${V("f")}(${V("x")}) = ${FE.h}`,s:t("fOf",{f:"f",x:"x"})+" "+t("wEq")+" "+FE.s}, gE={h:`${V("g")}(${V("x")}) = ${GE.h}`,s:t("fOf",{f:"g",x:"x"})+" "+t("wEq")+" "+GE.s};
+  s.tx=0;
+  const draw=()=>{ const x=s.tx;
+    $("#grG").innerHTML=chartSVG({x1:xmax,y1,xs:1,curves:[{f},{f:g,cls:"g2"}],vl:[x],pts:[{x,y:f(x)},{x,y:g(x),cls:"g2"}]});
+    const row=(n,fn)=>`<tr><th scope="row">${n}</th>${xs.map(v=>`<td${v===x?' class="hi"':""}>${nH(fn(v))}</td>`).join("")}</tr>`;
+    $("#grT").innerHTML=`<table class="io" dir="ltr">${row(V("x"),v=>v)}${row(V("f")+"("+V("x")+")",f)}${row(V("g")+"("+V("x")+")",g)}</table>`;
+    const c=g(x)>f(x)?">":g(x)<f(x)?"<":"=";
+    $("#grRO").innerHTML=M(`${V("x")} = ${x}: ${V("g")}(${x}) = ${nH(g(x))} ${c} ${nH(f(x))} = ${V("f")}(${x})`); };
+  w.innerHTML=`<div class="big">${M(fE.h)}<br>${M(gE.h)}</div><div class="split"><div class="side"><div class="legend"><span><span class="sw"></span>${M(V("f")+"("+V("x")+")")}</span><span><span class="sw g2"></span>${M(V("g")+"("+V("x")+")")}</span></div>
+    <div class="acts" style="width:100%"><button type="button" class="btn sq" id="grL" aria-label="${t("trL")}" title="${t("trL")}">◀</button><span class="rule" id="grRO" style="flex:1 1 auto"></span><button type="button" class="btn sq" id="grR" aria-label="${t("trR")}" title="${t("trR")}">▶</button></div>
+    <div class="tw" id="grT"></div></div><div class="pwrap" dir="ltr" id="grG"></div></div>`;
+  const mv=d=>{ s.tx=Math.max(0,Math.min(xmax,s.tx+d)); draw(); };
+  $("#grL").addEventListener("click",()=>mv(-1)); $("#grR").addEventListener("click",()=>mv(1)); draw();
+  const P=v=>({h:M(`${V("x")} = ${v}`),s:"x "+t("wEq")+" "+v});
+  choices(m,numOpts(X,[X-1,X+1,X+2,X-2].filter(v=>v>=1),P),it=>{
+    if(it.ok) return win(m,tm(kind==="lin"?"gRaceLin":"gRaceQuad",{x:X,m:kind==="lin"?fp.m:0,b:gb}));
+    const v=it.v; if(g(v)<=f(v)) return nope(m,tm("hRaceNot",{w:v,fv:N2(f(v)),gv:N2(g(v))}));
+    nope(m,tm("hRaceLate",{w:v,p:v-1})); });
+  setPrompt(m,cat(tm("raceCx",{f:{h:fE.h,s:fE.s},g:{h:gE.h,s:gE.s}}),TX("raceQ"))); maybeAuto(m);
 }
 
 /* =========================================================================
