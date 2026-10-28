@@ -162,6 +162,18 @@
     background:#fff;border:2px solid var(--accent);border-radius:12px;box-shadow:var(--shadow);
   }
   .float-food svg{width:44px;height:44px;}
+  .bowl .slots.many .food.inbowl{width:24px;height:24px;} .bowl .slots.many .food.inbowl svg{width:22px;height:22px;}
+  .bowl .slots.lots{gap:2px;} .bowl .slots.lots .food.inbowl{width:18px;height:18px;} .bowl .slots.lots .food.inbowl svg{width:17px;height:17px;}
+  .bowl .slots.tiny{gap:1px;padding:2px;} .bowl .slots.tiny .food.inbowl{width:14px;height:14px;} .bowl .slots.tiny .food.inbowl svg{width:13px;height:13px;}
+  .refgrp{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;max-width:180px;background:#fff;border:4px solid var(--accent);border-radius:16px;padding:6px;margin:0 auto;}
+  .refgrp .obj{width:34px;height:34px;}
+  .bowl-target .num.sm{font-size:1.6rem;min-width:56px;margin-top:.3rem;}
+  .pathrow{display:flex;gap:8px;justify-content:center;align-items:flex-end;flex-wrap:wrap;padding:46px 0 .5rem;}
+  .stone{width:62px;height:62px;border-radius:50%;background:#fff;border:4px solid var(--accent);font-size:1.9rem;font-weight:900;color:var(--accent-dark);display:flex;align-items:center;justify-content:center;position:relative;}
+  .stone.q{border-style:dashed;color:var(--muted);background:#eef4f9;}
+  .stone.q.filled{border-style:solid;color:var(--good);border-color:var(--good);background:var(--good-bg);}
+  .stone .obj{position:absolute;top:-44px;left:50%;margin-left:-20px;width:40px;height:40px;}
+  .compare .side .numcard{text-align:center;font-size:5rem;font-weight:900;color:var(--accent-dark);line-height:1.1;padding:1rem 0;}
   .feedcount{font-size:1.2rem;font-weight:700;text-align:center;margin:.4rem 0;color:var(--muted);}
   .feedcount b{color:var(--accent-dark);font-size:1.4rem;}
 
@@ -281,7 +293,7 @@
       <button class="card" role="listitem" type="button" data-mode="feed">
         <svg class="ico" viewBox="0 0 100 100" aria-hidden="true"><rect x="15" y="55" width="70" height="30" rx="12" fill="#d9822b"/><rect x="10" y="52" width="80" height="12" rx="6" fill="#b96a1c"/><circle cx="35" cy="45" r="7" fill="#7ed957"/><circle cx="52" cy="42" r="7" fill="#ff8a5c"/><circle cx="66" cy="47" r="7" fill="#5cb8ff"/></svg>
         <h3 data-i18n="mode_feed_t">Count &amp; Feed</h3>
-        <p data-i18n="mode_feed_d">Drag exactly the right number of treats into the bowl.</p>
+        <p data-i18n="mode_feed_d">Drag treats into the bowl: the right number, one more, or more than a group.</p>
       </button>
       <button class="card" role="listitem" type="button" data-mode="howmany">
         <svg class="ico" viewBox="0 0 100 100" aria-hidden="true"><g fill="#1668b0"><circle cx="30" cy="30" r="9"/><circle cx="55" cy="30" r="9"/><circle cx="80" cy="30" r="9"/><circle cx="42" cy="58" r="9"/><circle cx="67" cy="58" r="9"/></g><text x="50" y="90" font-size="20" font-weight="800" text-anchor="middle" fill="#0f4e86">5</text></svg>
@@ -304,9 +316,9 @@
       <summary data-i18n="info_summary">ℹ️ For teachers · Aligned standards</summary>
       <div class="standards">
         <p><b data-i18n="info_skills_l">Skills:</b> <span data-i18n="info_skills">one-to-one correspondence, cardinality, numeral recognition, subitizing, comparing quantities.</span></p>
-        <p><b data-i18n="info_tx_l">Texas Prekindergarten Guidelines:</b> <code>PK3.V.A.2–6</code>, <code>PK4.V.A.2–6</code>, <code>PK4.V.A.8</code>.</p>
-        <p><b data-i18n="info_teks_l">Kindergarten TEKS:</b> <code>K.2(B–H)</code>.</p>
-        <p><b data-i18n="info_cc_l">Common Core (K):</b> <code>K.CC.4</code>, <code>K.CC.5</code>, <code>K.CC.6</code>, <code>K.CC.7</code>.</p>
+        <p><b data-i18n="info_tx_l">Texas Prekindergarten Guidelines:</b> <code>PK3.V.A.2–6</code>, <code>PK3.V.A.8</code>, <code>PK4.V.A.2–6</code>, <code>PK4.V.A.8</code>.</p>
+        <p><b data-i18n="info_teks_l">Kindergarten TEKS:</b> <code>K.2(A–H)</code>.</p>
+        <p><b data-i18n="info_cc_l">Common Core (K):</b> <code>K.CC.2</code>, <code>K.CC.4</code>, <code>K.CC.5</code>, <code>K.CC.6</code>, <code>K.CC.7</code>.</p>
         <p data-i18n="info_use">Use the ⚙️ Settings to pick a level, theme, and turn features on or off.</p>
       </div>
     </details>
@@ -354,7 +366,7 @@
     <details class="info">
       <summary data-i18n="info_summary2">ℹ️ Aligned standards</summary>
       <div class="standards">
-        <p>Texas PreK <code>PK3.V.A.2–6</code>, <code>PK4.V.A.2–6</code>, <code>PK4.V.A.8</code>; Kindergarten TEKS <code>K.2(B–H)</code>; Common Core <code>K.CC.4–7</code>.</p>
+        <p>Texas PreK <code>PK3.V.A.2–6</code>, <code>PK3.V.A.8</code>, <code>PK4.V.A.2–6</code>, <code>PK4.V.A.8</code>; Kindergarten TEKS <code>K.2(A–H)</code>; Common Core <code>K.CC.2</code>, <code>K.CC.4–7</code>.</p>
         <p data-i18n="set_levels_note">PreK 3: quantities 0–5, subitizing 1–3. PreK 4: 0–10, subitizing 1–6. Kindergarten: 0–20, comparisons to 20.</p>
       </div>
     </details>
@@ -451,12 +463,12 @@
       nav_home:"Home", nav_settings:"Settings", nav_menu:"Menu",
       menu_title:"Pick a game!", menu_sub:"Tap a card to play. Tap the speaker to hear the words.",
       menu_welcome:"Welcome! Pick a game to play. Count and Feed, How Many, Quick Look, or More, Fewer, or Same.",
-      mode_feed_t:"Count & Feed", mode_feed_d:"Drag exactly the right number of treats into the bowl.",
-      mode_howmany_t:"How Many?", mode_howmany_d:"Count the objects and pick the number.",
+      mode_feed_t:"Count & Feed", mode_feed_d:"Drag treats into the bowl: the right number, one more, or more than a group.",
+      mode_howmany_t:"How Many?", mode_howmany_d:"Count the objects and pick the number. Find what comes next.",
       mode_quick_t:"Quick Look", mode_quick_d:"See the group for a moment, then pick how many.",
-      mode_compare_t:"More, Fewer, or Same", mode_compare_d:"Compare two groups of critters.",
+      mode_compare_t:"More, Fewer, or Same", mode_compare_d:"Compare two groups of critters, or two numbers.",
       info_summary:"ℹ️ For teachers · Aligned standards", info_summary2:"ℹ️ Aligned standards",
-      info_skills_l:"Skills:", info_skills:"one-to-one correspondence, cardinality, numeral recognition, subitizing, comparing quantities.",
+      info_skills_l:"Skills:", info_skills:"one-to-one correspondence, cardinality, numeral recognition, subitizing, comparing quantities, one more and one less, making a set with more, fewer, or the same, counting forward and back, comparing numerals.",
       info_tx_l:"Texas Prekindergarten Guidelines:", info_teks_l:"Kindergarten TEKS:", info_cc_l:"Common Core (K):",
       info_use:"Use the ⚙️ Settings to pick a level, theme, and turn features on or off.",
       set_title:"Teacher Settings", set_sub:"Changes are saved on this device only. No student data is stored.",
@@ -464,7 +476,7 @@
       set_level:"Level", lvl_prek3:"PreK 3", lvl_prek4:"PreK 4", lvl_k:"Kindergarten",
       set_theme:"Theme", set_features:"Features",
       feat_audio:"Audio directions", feat_ten:"Ten-frames", feat_scatter:"Scattered groups", feat_numerals:"Show numerals",
-      set_done:"Done", set_levels_note:"PreK 3: quantities 0–5, subitizing 1–3. PreK 4: 0–10, subitizing 1–6. Kindergarten: 0–20, comparisons to 20.",
+      set_done:"Done", set_levels_note:"PreK 3: quantities 0–5, subitizing 1–3. PreK 4: 0–10, subitizing 1–6, comparing numbers to 10. Kindergarten: 0–20, counting back, comparisons to 20. Number paths and number comparisons appear only when Show numerals is on.",
       act_next:"Next", act_replay:"Try Again", act_back:"Back to Games",
       rp_bowl:"New Bowl", rp_group:"New Group", rp_flash:"New Flash", rp_pair:"New Pair",
       footer_line:"No accounts · No data collected · Works offline", footer_home:"Home", footer_privacy:"Privacy",
@@ -489,19 +501,37 @@
       fb_cmp_fewer_ok:"Yes! This group has fewer. {a} is fewer than {b}.",
       fb_cmp_hint:"Let's touch each one once and count both groups. Try the other group.",
       fb_cmp_notsame:"Let's touch each one once in both groups. These are not the same. One has more.",
-      pick_menu:"Pick a game.", settings_open:"Teacher settings."
+      pick_menu:"Pick a game.", settings_open:"Teacher settings.",
+      feed_one_cap:"One more than", feed_less_cap:"One less than", feed_ref_cap:"This group", dir_onemore:"There are {w} in the bowl. Make it one more!",
+      dir_oneless:"There are {w} in the bowl. Make it one less!", fb_onemore_ok:"Yes! One more than {s} is {t}. When we add one, we say the next number.",
+      fb_oneless_ok:"Yes! One less than {s} is {t}. When we take one away, we say the number before.",
+      fb_onemore_hint:"One more means add just one. Start with {s} in the bowl, then add one.",
+      fb_oneless_hint:"One less means take out just one. Start with {s} in the bowl, then take one out.",
+      dir_rel_more:"Put MORE in the bowl than in this group.", dir_rel_fewer:"Put FEWER in the bowl than in this group.",
+      dir_rel_same:"Put the SAME number in the bowl as in this group.", fb_rel_more_ok:"Yes! {w} is more than {r}.",
+      fb_rel_fewer_ok:"Yes! {w} is fewer than {r}.", fb_rel_same_ok:"Yes! {w} and {r} are the same.",
+      fb_rel_more_hint:"This group has {r}. You have {w}. More than {r} means you need some extra.",
+      fb_rel_fewer_hint:"This group has {r}. You have {w}. Fewer than {r} means you need less than that.",
+      fb_rel_same_hint:"This group has {r}. You have {w}. The same means both groups count to {r}.", dir_path:"Count with me: {seq}… What number comes next?",
+      dir_pathback:"Count back with me: {seq}… What number comes next?", fb_path_ok:"Yes! After {a} comes {b}. Each number is one more.",
+      fb_pathback_ok:"Yes! Counting back, after {a} comes {b}. Each number is one less.",
+      fb_path_hint:"Point to each number and say it: {seq}. What do you say next?", seq_sep:", ", path_aria:"Number path", rp_path:"New Path",
+      rp_nums:"New Numbers", dir_ncmp_more:"Which number is more? Tap it.", dir_ncmp_less:"Which number is less? Tap it.",
+      fb_ncmp_more_ok:"Yes! {a} is more than {b}. When we count, {a} comes later.",
+      fb_ncmp_less_ok:"Yes! {a} is less than {b}. When we count, {a} comes first.", fb_ncmp_more_hint:"Count up from one. The number you say later is more.",
+      fb_ncmp_less_hint:"Count up from one. The number you say first is less."
     },
     es:{
       skip:"Saltar a la actividad", brand:"Cuenta los Bichitos", lang_label:"Idioma",
       nav_home:"Inicio", nav_settings:"Ajustes", nav_menu:"Menú",
       menu_title:"¡Elige un juego!", menu_sub:"Toca una tarjeta para jugar. Toca el altavoz para oír las palabras.",
       menu_welcome:"¡Bienvenido! Elige un juego. Cuenta y Alimenta, Cuántos Hay, Mira Rápido, o Más, Menos o Igual.",
-      mode_feed_t:"Cuenta y Alimenta", mode_feed_d:"Arrastra exactamente la cantidad correcta de golosinas al tazón.",
-      mode_howmany_t:"¿Cuántos Hay?", mode_howmany_d:"Cuenta los objetos y elige el número.",
+      mode_feed_t:"Cuenta y Alimenta", mode_feed_d:"Arrastra golosinas al tazón: la cantidad correcta, uno más, o más que un grupo.",
+      mode_howmany_t:"¿Cuántos Hay?", mode_howmany_d:"Cuenta los objetos y elige el número. Descubre qué número sigue.",
       mode_quick_t:"Mira Rápido", mode_quick_d:"Mira el grupo un momento y elige cuántos hay.",
-      mode_compare_t:"Más, Menos o Igual", mode_compare_d:"Compara dos grupos de bichitos.",
+      mode_compare_t:"Más, Menos o Igual", mode_compare_d:"Compara dos grupos de bichitos, o dos números.",
       info_summary:"ℹ️ Para maestros · Estándares alineados", info_summary2:"ℹ️ Estándares alineados",
-      info_skills_l:"Habilidades:", info_skills:"correspondencia uno a uno, cardinalidad, reconocimiento de números, subitización, comparar cantidades.",
+      info_skills_l:"Habilidades:", info_skills:"correspondencia uno a uno, cardinalidad, reconocimiento de números, subitización, comparar cantidades, uno más y uno menos, formar un conjunto con más, menos o la misma cantidad, contar hacia adelante y hacia atrás, comparar números escritos.",
       info_tx_l:"Guías de Prekínder de Texas:", info_teks_l:"TEKS de Kínder:", info_cc_l:"Estándares comunes (K):",
       info_use:"Usa ⚙️ Ajustes para elegir nivel, tema y activar o desactivar funciones.",
       set_title:"Ajustes del maestro", set_sub:"Los cambios se guardan solo en este dispositivo. No se guardan datos del estudiante.",
@@ -509,7 +539,7 @@
       set_level:"Nivel", lvl_prek3:"PreK 3", lvl_prek4:"PreK 4", lvl_k:"Kínder",
       set_theme:"Tema", set_features:"Funciones",
       feat_audio:"Instrucciones habladas", feat_ten:"Marcos de diez", feat_scatter:"Grupos dispersos", feat_numerals:"Mostrar números",
-      set_done:"Listo", set_levels_note:"PreK 3: cantidades 0–5, subitización 1–3. PreK 4: 0–10, subitización 1–6. Kínder: 0–20, comparaciones hasta 20.",
+      set_done:"Listo", set_levels_note:"PreK 3: cantidades 0–5, subitización 1–3. PreK 4: 0–10, subitización 1–6, comparar números hasta 10. Kínder: 0–20, contar hacia atrás, comparaciones hasta 20. Los caminos de números y las comparaciones de números solo aparecen con Mostrar números activado.",
       act_next:"Siguiente", act_replay:"Intentar de nuevo", act_back:"Volver a los juegos",
       rp_bowl:"Nuevo tazón", rp_group:"Nuevo grupo", rp_flash:"Nuevo destello", rp_pair:"Nuevo par",
       footer_line:"Sin cuentas · No se recopilan datos · Funciona sin conexión", footer_home:"Inicio", footer_privacy:"Privacidad",
@@ -536,19 +566,38 @@
       fb_cmp_fewer_ok:"¡Sí! Este grupo tiene menos. {a} es menos que {b}.",
       fb_cmp_hint:"Toquemos cada uno una vez y contemos los dos grupos. Prueba el otro grupo.",
       fb_cmp_notsame:"Toquemos cada uno una vez en los dos grupos. No son iguales. Uno tiene más.",
-      pick_menu:"Elige un juego.", settings_open:"Ajustes del maestro."
+      pick_menu:"Elige un juego.", settings_open:"Ajustes del maestro.",
+      feed_one_cap:"Uno más que", feed_less_cap:"Uno menos que", feed_ref_cap:"Este grupo", dir_onemore:"Hay {w} en el tazón. ¡Haz que haya uno más!",
+      dir_oneless:"Hay {w} en el tazón. ¡Haz que haya uno menos!",
+      fb_onemore_ok:"¡Sí! Uno más que {s} es {t}. Cuando agregamos uno, decimos el número que sigue.",
+      fb_oneless_ok:"¡Sí! Uno menos que {s} es {t}. Cuando quitamos uno, decimos el número de antes.",
+      fb_onemore_hint:"Uno más significa agregar solo uno. Empieza con {s} en el tazón y agrega uno.",
+      fb_oneless_hint:"Uno menos significa quitar solo uno. Empieza con {s} en el tazón y quita uno.", dir_rel_more:"Pon MÁS en el tazón que en este grupo.",
+      dir_rel_fewer:"Pon MENOS en el tazón que en este grupo.", dir_rel_same:"Pon la MISMA cantidad en el tazón que en este grupo.",
+      fb_rel_more_ok:"¡Sí! {w} es más que {r}.", fb_rel_fewer_ok:"¡Sí! {w} es menos que {r}.", fb_rel_same_ok:"¡Sí! {w} y {r} son la misma cantidad.",
+      fb_rel_more_hint:"Este grupo tiene {r}. Tú tienes {w}. Más que {r} significa que necesitas algunos de más.",
+      fb_rel_fewer_hint:"Este grupo tiene {r}. Tú tienes {w}. Menos que {r} significa que necesitas menos que eso.",
+      fb_rel_same_hint:"Este grupo tiene {r}. Tú tienes {w}. La misma cantidad significa que los dos grupos llegan a {r} al contar.",
+      dir_path:"Cuenta conmigo: {seq}… ¿Qué número sigue?", dir_pathback:"Cuenta hacia atrás conmigo: {seq}… ¿Qué número sigue?",
+      fb_path_ok:"¡Sí! Después del {a} viene el {b}. Cada número es uno más.",
+      fb_pathback_ok:"¡Sí! Contando hacia atrás, después del {a} viene el {b}. Cada número es uno menos.",
+      fb_path_hint:"Señala cada número y dilo: {seq}. ¿Qué dices después?", seq_sep:", ", path_aria:"Camino de números", rp_path:"Nuevo camino",
+      rp_nums:"Nuevos números", dir_ncmp_more:"¿Qué número es mayor? Tócalo.", dir_ncmp_less:"¿Qué número es menor? Tócalo.",
+      fb_ncmp_more_ok:"¡Sí! {a} es mayor que {b}. Al contar, el {a} viene después.",
+      fb_ncmp_less_ok:"¡Sí! {a} es menor que {b}. Al contar, el {a} viene primero.",
+      fb_ncmp_more_hint:"Cuenta desde uno. El número que dices después es mayor.", fb_ncmp_less_hint:"Cuenta desde uno. El número que dices primero es menor."
     },
     vi:{
       skip:"Bỏ qua đến hoạt động", brand:"Đếm Các Con Vật", lang_label:"Ngôn ngữ",
       nav_home:"Trang chủ", nav_settings:"Cài đặt", nav_menu:"Menu",
       menu_title:"Chọn một trò chơi!", menu_sub:"Chạm vào thẻ để chơi. Chạm loa để nghe lời.",
       menu_welcome:"Chào mừng! Hãy chọn một trò chơi. Đếm và Cho Ăn, Bao Nhiêu, Nhìn Nhanh, hoặc Nhiều, Ít hay Bằng nhau.",
-      mode_feed_t:"Đếm và Cho Ăn", mode_feed_d:"Kéo đúng số món ăn vào bát.",
-      mode_howmany_t:"Bao Nhiêu?", mode_howmany_d:"Đếm các vật và chọn con số.",
+      mode_feed_t:"Đếm và Cho Ăn", mode_feed_d:"Kéo thức ăn vào bát: đúng số lượng, thêm một, hoặc nhiều hơn một nhóm.",
+      mode_howmany_t:"Bao Nhiêu?", mode_howmany_d:"Đếm đồ vật và chọn số. Tìm số tiếp theo.",
       mode_quick_t:"Nhìn Nhanh", mode_quick_d:"Nhìn nhóm trong giây lát, rồi chọn bao nhiêu.",
-      mode_compare_t:"Nhiều, Ít hay Bằng nhau", mode_compare_d:"So sánh hai nhóm con vật.",
+      mode_compare_t:"Nhiều, Ít hay Bằng nhau", mode_compare_d:"So sánh hai nhóm con vật, hoặc hai số.",
       info_summary:"ℹ️ Dành cho giáo viên · Chuẩn phù hợp", info_summary2:"ℹ️ Chuẩn phù hợp",
-      info_skills_l:"Kỹ năng:", info_skills:"tương ứng một-một, số lượng, nhận biết chữ số, ước lượng nhanh, so sánh số lượng.",
+      info_skills_l:"Kỹ năng:", info_skills:"tương ứng một-một, số lượng, nhận biết chữ số, ước lượng nhanh, so sánh số lượng, thêm một và bớt một, tạo nhóm nhiều hơn, ít hơn hoặc bằng, đếm xuôi và đếm ngược, so sánh chữ số.",
       info_tx_l:"Hướng dẫn Mầm non Texas:", info_teks_l:"TEKS Mẫu giáo:", info_cc_l:"Chuẩn chung (K):",
       info_use:"Dùng ⚙️ Cài đặt để chọn cấp độ, chủ đề và bật hoặc tắt tính năng.",
       set_title:"Cài đặt của giáo viên", set_sub:"Thay đổi chỉ lưu trên thiết bị này. Không lưu dữ liệu học sinh.",
@@ -556,7 +605,7 @@
       set_level:"Cấp độ", lvl_prek3:"Mầm 3", lvl_prek4:"Mầm 4", lvl_k:"Mẫu giáo",
       set_theme:"Chủ đề", set_features:"Tính năng",
       feat_audio:"Hướng dẫn bằng âm thanh", feat_ten:"Khung mười", feat_scatter:"Nhóm rải rác", feat_numerals:"Hiện chữ số",
-      set_done:"Xong", set_levels_note:"Mầm 3: số lượng 0–5, ước lượng 1–3. Mầm 4: 0–10, ước lượng 1–6. Mẫu giáo: 0–20, so sánh tới 20.",
+      set_done:"Xong", set_levels_note:"Mầm 3: số lượng 0–5, ước lượng 1–3. Mầm 4: 0–10, ước lượng 1–6, so sánh số tới 10. Mẫu giáo: 0–20, đếm ngược, so sánh tới 20. Đường số và so sánh số chỉ xuất hiện khi bật Hiện chữ số.",
       act_next:"Tiếp theo", act_replay:"Thử lại", act_back:"Về các trò chơi",
       rp_bowl:"Bát mới", rp_group:"Nhóm mới", rp_flash:"Lượt mới", rp_pair:"Cặp mới",
       footer_line:"Không tài khoản · Không thu thập dữ liệu · Hoạt động ngoại tuyến", footer_home:"Trang chủ", footer_privacy:"Quyền riêng tư",
@@ -581,19 +630,35 @@
       fb_cmp_fewer_ok:"Đúng rồi! Nhóm này ít hơn. {a} ít hơn {b}.",
       fb_cmp_hint:"Hãy chạm từng cái một lần và đếm cả hai nhóm. Thử nhóm kia.",
       fb_cmp_notsame:"Hãy chạm từng cái một lần ở cả hai nhóm. Chúng không bằng nhau. Một nhóm nhiều hơn.",
-      pick_menu:"Chọn một trò chơi.", settings_open:"Cài đặt của giáo viên."
+      pick_menu:"Chọn một trò chơi.", settings_open:"Cài đặt của giáo viên.",
+      feed_one_cap:"Thêm một vào", feed_less_cap:"Bớt một từ", feed_ref_cap:"Nhóm này", dir_onemore:"Trong bát có {w}. Hãy thêm một nữa!",
+      dir_oneless:"Trong bát có {w}. Hãy bớt đi một!", fb_onemore_ok:"Đúng rồi! {s} thêm một là {t}. Khi thêm một, ta đếm sang số tiếp theo.",
+      fb_oneless_ok:"Đúng rồi! {s} bớt một là {t}. Khi bớt một, ta lùi về số đứng trước.",
+      fb_onemore_hint:"Thêm một nghĩa là chỉ thêm một cái. Hãy để {s} cái trong bát, rồi thêm một.",
+      fb_oneless_hint:"Bớt một nghĩa là chỉ lấy ra một cái. Hãy để {s} cái trong bát, rồi lấy ra một.", dir_rel_more:"Bỏ vào bát NHIỀU HƠN nhóm này.",
+      dir_rel_fewer:"Bỏ vào bát ÍT HƠN nhóm này.", dir_rel_same:"Bỏ vào bát số lượng BẰNG nhóm này.", fb_rel_more_ok:"Đúng rồi! {w} nhiều hơn {r}.",
+      fb_rel_fewer_ok:"Đúng rồi! {w} ít hơn {r}.", fb_rel_same_ok:"Đúng rồi! {w} và {r} bằng nhau.",
+      fb_rel_more_hint:"Nhóm này có {r}. Bát của bạn có {w}. Nhiều hơn {r} nghĩa là cần thêm vài cái nữa.",
+      fb_rel_fewer_hint:"Nhóm này có {r}. Bát của bạn có {w}. Ít hơn {r} nghĩa là cần ít hơn số đó.",
+      fb_rel_same_hint:"Nhóm này có {r}. Bát của bạn có {w}. Bằng nhau nghĩa là cả hai nhóm đều đếm được {r}.",
+      dir_path:"Cùng đếm nào: {seq}… Số tiếp theo là số mấy?", dir_pathback:"Cùng đếm lùi nào: {seq}… Số tiếp theo là số mấy?",
+      fb_path_ok:"Đúng rồi! Sau {a} là {b}. Mỗi số lại nhiều hơn một.", fb_pathback_ok:"Đúng rồi! Đếm lùi thì sau {a} là {b}. Mỗi số lại ít hơn một.",
+      fb_path_hint:"Chỉ vào từng số và đọc to: {seq}. Tiếp theo bạn đọc số nào?", seq_sep:", ", path_aria:"Đường số", rp_path:"Đường số mới", rp_nums:"Số mới",
+      dir_ncmp_more:"Số nào lớn hơn? Hãy chạm vào số đó.", dir_ncmp_less:"Số nào bé hơn? Hãy chạm vào số đó.",
+      fb_ncmp_more_ok:"Đúng rồi! {a} lớn hơn {b}. Khi đếm, {a} đến sau.", fb_ncmp_less_ok:"Đúng rồi! {a} bé hơn {b}. Khi đếm, {a} đến trước.",
+      fb_ncmp_more_hint:"Hãy đếm từ một. Số nào bạn đọc sau thì lớn hơn.", fb_ncmp_less_hint:"Hãy đếm từ một. Số nào bạn đọc trước thì bé hơn."
     },
     ar:{
       skip:"تخطَّ إلى النشاط", brand:"عُدّ المخلوقات", lang_label:"اللغة",
       nav_home:"الرئيسية", nav_settings:"الإعدادات", nav_menu:"القائمة",
       menu_title:"اختر لعبة!", menu_sub:"المس بطاقة للعب. المس السماعة لسماع الكلمات.",
       menu_welcome:"أهلاً! اختر لعبة. عُدّ وأطعم، أو كم العدد، أو نظرة سريعة، أو أكثر أو أقل أو نفس العدد.",
-      mode_feed_t:"عُدّ وأطعم", mode_feed_d:"اسحب العدد الصحيح تماماً من الطعام إلى الوعاء.",
-      mode_howmany_t:"كم العدد؟", mode_howmany_d:"عُدّ الأشياء واختر الرقم.",
+      mode_feed_t:"عُدّ وأطعم", mode_feed_d:"اسحب الطعام إلى الوعاء: العدد الصحيح، أو أكثر بواحد، أو أكثر من مجموعة.",
+      mode_howmany_t:"كم العدد؟", mode_howmany_d:"عُدّ الأشياء واختر الرقم. واكتشف العدد التالي.",
       mode_quick_t:"نظرة سريعة", mode_quick_d:"انظر إلى المجموعة للحظة ثم اختر العدد.",
-      mode_compare_t:"أكثر أو أقل أو نفس العدد", mode_compare_d:"قارن بين مجموعتين من المخلوقات.",
+      mode_compare_t:"أكثر أو أقل أو نفس العدد", mode_compare_d:"قارن بين مجموعتين من المخلوقات، أو بين عددين.",
       info_summary:"ℹ️ للمعلمين · المعايير المتوافقة", info_summary2:"ℹ️ المعايير المتوافقة",
-      info_skills_l:"المهارات:", info_skills:"التطابق واحد لواحد، والعدّية، وتمييز الأرقام، والعدّ السريع، ومقارنة الكميات.",
+      info_skills_l:"المهارات:", info_skills:"التطابق واحد لواحد، والعدّية، وتمييز الأرقام، والعدّ السريع، ومقارنة الكميات، وواحد أكثر وواحد أقل، وتكوين مجموعة أكثر أو أقل أو مساوية، والعدّ إلى الأمام وإلى الوراء، ومقارنة الأعداد المكتوبة.",
       info_tx_l:"إرشادات ما قبل الروضة في تكساس:", info_teks_l:"معايير الروضة TEKS:", info_cc_l:"المعايير المشتركة (روضة):",
       info_use:"استخدم ⚙️ الإعدادات لاختيار المستوى والموضوع وتشغيل الميزات أو إيقافها.",
       set_title:"إعدادات المعلم", set_sub:"تُحفظ التغييرات على هذا الجهاز فقط. لا تُخزَّن بيانات الطلاب.",
@@ -601,7 +666,7 @@
       set_level:"المستوى", lvl_prek3:"تمهيدي ٣", lvl_prek4:"تمهيدي ٤", lvl_k:"الروضة",
       set_theme:"الموضوع", set_features:"الميزات",
       feat_audio:"التعليمات الصوتية", feat_ten:"إطارات العشرة", feat_scatter:"مجموعات متناثرة", feat_numerals:"إظهار الأرقام",
-      set_done:"تم", set_levels_note:"تمهيدي ٣: كميات ٠–٥، عدّ سريع ١–٣. تمهيدي ٤: ٠–١٠، عدّ سريع ١–٦. الروضة: ٠–٢٠، مقارنات حتى ٢٠.",
+      set_done:"تم", set_levels_note:"تمهيدي ٣: كميات ٠–٥، عدّ سريع ١–٣. تمهيدي ٤: ٠–١٠، عدّ سريع ١–٦، مقارنة الأعداد حتى ١٠. الروضة: ٠–٢٠، العدّ إلى الوراء، مقارنات حتى ٢٠. تظهر مسارات الأعداد ومقارنة الأعداد فقط عند تشغيل إظهار الأرقام.",
       act_next:"التالي", act_replay:"حاول مرة أخرى", act_back:"العودة إلى الألعاب",
       rp_bowl:"وعاء جديد", rp_group:"مجموعة جديدة", rp_flash:"عرض جديد", rp_pair:"زوج جديد",
       footer_line:"لا حسابات · لا تُجمع بيانات · يعمل دون اتصال", footer_home:"الرئيسية", footer_privacy:"الخصوصية",
@@ -626,19 +691,35 @@
       fb_cmp_fewer_ok:"نعم! هذه المجموعة أقل. {a} أقل من {b}.",
       fb_cmp_hint:"لنلمس كل واحدة مرة واحدة ونعدّ المجموعتين. جرّب المجموعة الأخرى.",
       fb_cmp_notsame:"لنلمس كل واحدة مرة واحدة في المجموعتين. إنهما غير متساويتين. واحدة فيها أكثر.",
-      pick_menu:"اختر لعبة.", settings_open:"إعدادات المعلم."
+      pick_menu:"اختر لعبة.", settings_open:"إعدادات المعلم.",
+      feed_one_cap:"واحد أكثر من", feed_less_cap:"واحد أقل من", feed_ref_cap:"هذه المجموعة", dir_onemore:"في الوعاء {w}. اجعلها أكثر بواحد!",
+      dir_oneless:"في الوعاء {w}. اجعلها أقل بواحد!", fb_onemore_ok:"نعم! واحد أكثر من {s} هو {t}. عندما نضيف واحداً نقول العدد التالي.",
+      fb_oneless_ok:"نعم! واحد أقل من {s} هو {t}. عندما نأخذ واحداً نقول العدد الذي قبله.",
+      fb_onemore_hint:"أكثر بواحد يعني أن نضيف واحداً فقط. ابدأ بـ{s} في الوعاء ثم أضف واحداً.",
+      fb_oneless_hint:"أقل بواحد يعني أن نُخرج واحداً فقط. ابدأ بـ{s} في الوعاء ثم أخرج واحداً.", dir_rel_more:"ضع في الوعاء عدداً أكثر من هذه المجموعة.",
+      dir_rel_fewer:"ضع في الوعاء عدداً أقل من هذه المجموعة.", dir_rel_same:"ضع في الوعاء العدد نفسه الذي في هذه المجموعة.",
+      fb_rel_more_ok:"نعم! {w} أكثر من {r}.", fb_rel_fewer_ok:"نعم! {w} أقل من {r}.", fb_rel_same_ok:"نعم! {w} و{r} متساويان.",
+      fb_rel_more_hint:"في هذه المجموعة {r}. لديك {w}. أكثر من {r} يعني أن تضع بعضها زيادة.",
+      fb_rel_fewer_hint:"في هذه المجموعة {r}. لديك {w}. أقل من {r} يعني أن تضع عدداً أصغر منه.",
+      fb_rel_same_hint:"في هذه المجموعة {r}. لديك {w}. العدد نفسه يعني أن نعدّ في المجموعتين حتى {r}.", dir_path:"عُدّ معي: {seq}… ما العدد التالي؟",
+      dir_pathback:"عُدّ معي إلى الوراء: {seq}… ما العدد التالي؟", fb_path_ok:"نعم! بعد {a} يأتي {b}. كل عدد أكثر بواحد.",
+      fb_pathback_ok:"نعم! في العدّ إلى الوراء، بعد {a} يأتي {b}. كل عدد أقل بواحد.", fb_path_hint:"أشِر إلى كل عدد وقُله: {seq}. ماذا تقول بعد ذلك؟",
+      seq_sep:"، ", path_aria:"مسار الأعداد", rp_path:"مسار جديد", rp_nums:"أعداد جديدة", dir_ncmp_more:"أي عدد أكبر؟ المسه.",
+      dir_ncmp_less:"أي عدد أصغر؟ المسه.", fb_ncmp_more_ok:"نعم! {a} أكبر من {b}. عندما نعدّ، يأتي {a} بعده.",
+      fb_ncmp_less_ok:"نعم! {a} أصغر من {b}. عندما نعدّ، يأتي {a} قبله.", fb_ncmp_more_hint:"عُدّ من واحد. العدد الذي تقوله لاحقاً هو الأكبر.",
+      fb_ncmp_less_hint:"عُدّ من واحد. العدد الذي تقوله أولاً هو الأصغر."
     },
     hi:{
       skip:"गतिविधि पर जाएँ", brand:"जीवों को गिनो", lang_label:"भाषा",
       nav_home:"होम", nav_settings:"सेटिंग", nav_menu:"मेन्यू",
       menu_title:"एक खेल चुनो!", menu_sub:"खेलने के लिए कार्ड छुओ। शब्द सुनने के लिए स्पीकर छुओ।",
       menu_welcome:"स्वागत है! एक खेल चुनो। गिनो और खिलाओ, कितने हैं, झटपट देखो, या ज़्यादा, कम या बराबर।",
-      mode_feed_t:"गिनो और खिलाओ", mode_feed_d:"कटोरे में बिल्कुल सही संख्या में दाने खींचो।",
-      mode_howmany_t:"कितने हैं?", mode_howmany_d:"वस्तुओं को गिनो और संख्या चुनो।",
+      mode_feed_t:"गिनो और खिलाओ", mode_feed_d:"कटोरे में खाना खींचो: सही गिनती, एक ज़्यादा, या किसी समूह से ज़्यादा।",
+      mode_howmany_t:"कितने हैं?", mode_howmany_d:"चीज़ें गिनो और संख्या चुनो। अगली संख्या ढूँढो।",
       mode_quick_t:"झटपट देखो", mode_quick_d:"समूह को एक पल देखो, फिर चुनो कितने थे।",
-      mode_compare_t:"ज़्यादा, कम या बराबर", mode_compare_d:"जीवों के दो समूहों की तुलना करो।",
+      mode_compare_t:"ज़्यादा, कम या बराबर", mode_compare_d:"जीवों के दो समूहों या दो संख्याओं की तुलना करो।",
       info_summary:"ℹ️ शिक्षकों के लिए · संरेखित मानक", info_summary2:"ℹ️ संरेखित मानक",
-      info_skills_l:"कौशल:", info_skills:"एक-से-एक संगति, गणनसंख्या, अंक पहचान, झटपट गिनती, मात्राओं की तुलना।",
+      info_skills_l:"कौशल:", info_skills:"एक-से-एक संगति, गणनसंख्या, अंक पहचान, झटपट गिनती, मात्राओं की तुलना, एक ज़्यादा और एक कम, ज़्यादा, कम या बराबर वाला समूह बनाना, आगे और उल्टा गिनना, लिखी संख्याओं की तुलना।",
       info_tx_l:"टेक्सास प्री-किंडरगार्टन दिशानिर्देश:", info_teks_l:"किंडरगार्टन TEKS:", info_cc_l:"कॉमन कोर (K):",
       info_use:"स्तर, थीम चुनने और सुविधाएँ चालू/बंद करने के लिए ⚙️ सेटिंग का उपयोग करें।",
       set_title:"शिक्षक सेटिंग", set_sub:"बदलाव केवल इसी डिवाइस पर सहेजे जाते हैं। कोई छात्र डेटा संग्रहीत नहीं होता।",
@@ -646,7 +727,7 @@
       set_level:"स्तर", lvl_prek3:"प्री-के 3", lvl_prek4:"प्री-के 4", lvl_k:"किंडरगार्टन",
       set_theme:"थीम", set_features:"सुविधाएँ",
       feat_audio:"बोली गई निर्देश", feat_ten:"दस-खाने", feat_scatter:"बिखरे समूह", feat_numerals:"अंक दिखाएँ",
-      set_done:"हो गया", set_levels_note:"प्री-के 3: मात्राएँ 0–5, झटपट गिनती 1–3। प्री-के 4: 0–10, झटपट गिनती 1–6। किंडरगार्टन: 0–20, 20 तक तुलना।",
+      set_done:"हो गया", set_levels_note:"प्री-के 3: मात्राएँ 0–5, झटपट गिनती 1–3। प्री-के 4: 0–10, झटपट गिनती 1–6, 10 तक संख्याओं की तुलना। किंडरगार्टन: 0–20, उल्टी गिनती, 20 तक तुलना। संख्या पथ और संख्याओं की तुलना तभी आते हैं जब अंक दिखाएँ चालू हो।",
       act_next:"अगला", act_replay:"फिर कोशिश करो", act_back:"खेलों पर लौटें",
       rp_bowl:"नया कटोरा", rp_group:"नया समूह", rp_flash:"नई झलक", rp_pair:"नई जोड़ी",
       footer_line:"कोई खाता नहीं · कोई डेटा नहीं · ऑफ़लाइन काम करता है", footer_home:"होम", footer_privacy:"गोपनीयता",
@@ -673,19 +754,35 @@
       fb_cmp_fewer_ok:"हाँ! इस समूह में कम हैं। {a}, {b} से कम है।",
       fb_cmp_hint:"हर एक को एक बार छूएँ और दोनों समूह गिनें। दूसरा समूह आज़माओ।",
       fb_cmp_notsame:"दोनों समूहों में हर एक को एक बार छूएँ। ये बराबर नहीं हैं। एक में ज़्यादा हैं।",
-      pick_menu:"एक खेल चुनो।", settings_open:"शिक्षक सेटिंग।"
+      pick_menu:"एक खेल चुनो।", settings_open:"शिक्षक सेटिंग।",
+      feed_one_cap:"इससे एक ज़्यादा", feed_less_cap:"इससे एक कम", feed_ref_cap:"यह समूह", dir_onemore:"कटोरे में {w} हैं। इसे एक ज़्यादा करो!",
+      dir_oneless:"कटोरे में {w} हैं। इसे एक कम करो!", fb_onemore_ok:"हाँ! {s} से एक ज़्यादा {t} होता है। एक जोड़ने पर हम अगली संख्या बोलते हैं।",
+      fb_oneless_ok:"हाँ! {s} से एक कम {t} होता है। एक निकालने पर हम पिछली संख्या बोलते हैं।",
+      fb_onemore_hint:"एक ज़्यादा का मतलब है सिर्फ़ एक जोड़ना। कटोरे में {s} से शुरू करो, फिर एक जोड़ो।",
+      fb_oneless_hint:"एक कम का मतलब है सिर्फ़ एक निकालना। कटोरे में {s} से शुरू करो, फिर एक निकालो।", dir_rel_more:"कटोरे में इस समूह से ज़्यादा रखो।",
+      dir_rel_fewer:"कटोरे में इस समूह से कम रखो।", dir_rel_same:"कटोरे में इस समूह जितने ही रखो।", fb_rel_more_ok:"हाँ! {w}, {r} से ज़्यादा है।",
+      fb_rel_fewer_ok:"हाँ! {w}, {r} से कम है।", fb_rel_same_ok:"हाँ! {w} और {r} बराबर हैं।",
+      fb_rel_more_hint:"इस समूह में {r} हैं। तुम्हारे पास {w} हैं। {r} से ज़्यादा का मतलब है कुछ और डालना।",
+      fb_rel_fewer_hint:"इस समूह में {r} हैं। तुम्हारे पास {w} हैं। {r} से कम का मतलब है उससे कम रखना।",
+      fb_rel_same_hint:"इस समूह में {r} हैं। तुम्हारे पास {w} हैं। बराबर का मतलब है दोनों समूहों में गिनती {r} तक जाए।",
+      dir_path:"मेरे साथ गिनो: {seq}… अगली संख्या कौन-सी है?", dir_pathback:"मेरे साथ उल्टा गिनो: {seq}… अगली संख्या कौन-सी है?",
+      fb_path_ok:"हाँ! {a} के बाद {b} आता है। हर संख्या एक ज़्यादा है।", fb_pathback_ok:"हाँ! उल्टा गिनने पर {a} के बाद {b} आता है। हर संख्या एक कम है।",
+      fb_path_hint:"हर संख्या पर उँगली रखकर बोलो: {seq}। इसके बाद क्या बोलोगे?", seq_sep:", ", path_aria:"संख्या पथ", rp_path:"नया पथ", rp_nums:"नई संख्याएँ",
+      dir_ncmp_more:"कौन-सी संख्या बड़ी है? उसे छुओ।", dir_ncmp_less:"कौन-सी संख्या छोटी है? उसे छुओ।",
+      fb_ncmp_more_ok:"हाँ! {a}, {b} से बड़ा है। गिनती में {a} बाद में आता है।", fb_ncmp_less_ok:"हाँ! {a}, {b} से छोटा है। गिनती में {a} पहले आता है।",
+      fb_ncmp_more_hint:"एक से गिनो। जो संख्या बाद में बोलते हो, वह बड़ी है।", fb_ncmp_less_hint:"एक से गिनो। जो संख्या पहले बोलते हो, वह छोटी है।"
     },
     ur:{
       skip:"سرگرمی پر جائیں", brand:"مخلوقات گنیں", lang_label:"زبان",
       nav_home:"ہوم", nav_settings:"ترتیبات", nav_menu:"مینو",
       menu_title:"ایک کھیل چنیں!", menu_sub:"کھیلنے کے لیے کارڈ چھوئیں۔ الفاظ سننے کے لیے اسپیکر چھوئیں۔",
       menu_welcome:"خوش آمدید! ایک کھیل چنیں۔ گنیں اور کھلائیں، کتنے ہیں، جھٹ سے دیکھیں، یا زیادہ، کم یا برابر۔",
-      mode_feed_t:"گنیں اور کھلائیں", mode_feed_d:"پیالے میں بالکل درست تعداد میں کھانا کھینچیں۔",
-      mode_howmany_t:"کتنے ہیں؟", mode_howmany_d:"چیزوں کو گنیں اور نمبر چنیں۔",
+      mode_feed_t:"گنیں اور کھلائیں", mode_feed_d:"پیالے میں کھانا کھینچیں: صحیح گنتی، ایک زیادہ، یا کسی گروپ سے زیادہ۔",
+      mode_howmany_t:"کتنے ہیں؟", mode_howmany_d:"چیزیں گنیں اور نمبر چنیں۔ اگلا نمبر تلاش کریں۔",
       mode_quick_t:"جھٹ سے دیکھیں", mode_quick_d:"گروپ کو ایک لمحہ دیکھیں، پھر چنیں کتنے تھے۔",
-      mode_compare_t:"زیادہ، کم یا برابر", mode_compare_d:"مخلوقات کے دو گروپوں کا موازنہ کریں۔",
+      mode_compare_t:"زیادہ، کم یا برابر", mode_compare_d:"جانوروں کے دو گروپوں یا دو نمبروں کا موازنہ کریں۔",
       info_summary:"ℹ️ اساتذہ کے لیے · ہم آہنگ معیار", info_summary2:"ℹ️ ہم آہنگ معیار",
-      info_skills_l:"مہارتیں:", info_skills:"ایک بہ ایک مطابقت، مجموعیت، ہندسوں کی پہچان، فوری گنتی، مقداروں کا موازنہ۔",
+      info_skills_l:"مہارتیں:", info_skills:"ایک بہ ایک مطابقت، مجموعیت، ہندسوں کی پہچان، فوری گنتی، مقداروں کا موازنہ، ایک زیادہ اور ایک کم، زیادہ، کم یا برابر والا گروپ بنانا، آگے اور الٹا گننا، لکھے ہوئے نمبروں کا موازنہ۔",
       info_tx_l:"ٹیکساس پری کنڈرگارٹن رہنما اصول:", info_teks_l:"کنڈرگارٹن TEKS:", info_cc_l:"کامن کور (K):",
       info_use:"سطح، تھیم چننے اور خصوصیات آن/آف کرنے کے لیے ⚙️ ترتیبات استعمال کریں۔",
       set_title:"استاد کی ترتیبات", set_sub:"تبدیلیاں صرف اسی آلے پر محفوظ ہوتی ہیں۔ طالبعلم کا کوئی ڈیٹا محفوظ نہیں ہوتا۔",
@@ -693,7 +790,7 @@
       set_level:"سطح", lvl_prek3:"پری کے 3", lvl_prek4:"پری کے 4", lvl_k:"کنڈرگارٹن",
       set_theme:"تھیم", set_features:"خصوصیات",
       feat_audio:"بولی گئی ہدایات", feat_ten:"دس کے خانے", feat_scatter:"بکھرے گروپ", feat_numerals:"ہندسے دکھائیں",
-      set_done:"ہو گیا", set_levels_note:"پری کے 3: مقداریں 0–5، فوری گنتی 1–3۔ پری کے 4: 0–10، فوری گنتی 1–6۔ کنڈرگارٹن: 0–20، 20 تک موازنہ۔",
+      set_done:"ہو گیا", set_levels_note:"پری کے 3: مقداریں 0–5، فوری گنتی 1–3۔ پری کے 4: 0–10، فوری گنتی 1–6، 10 تک نمبروں کا موازنہ۔ کنڈرگارٹن: 0–20، الٹی گنتی، 20 تک موازنہ۔ نمبروں کا راستہ اور نمبروں کا موازنہ صرف تب آتے ہیں جب ہندسے دکھائیں آن ہو۔",
       act_next:"اگلا", act_replay:"دوبارہ کوشش کریں", act_back:"کھیلوں پر واپس",
       rp_bowl:"نیا پیالہ", rp_group:"نیا گروپ", rp_flash:"نئی جھلک", rp_pair:"نیا جوڑا",
       footer_line:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا جمع نہیں · آف لائن کام کرتا ہے", footer_home:"ہوم", footer_privacy:"رازداری",
@@ -720,19 +817,35 @@
       fb_cmp_fewer_ok:"جی ہاں! اس گروپ میں کم ہیں۔ {a}، {b} سے کم ہے۔",
       fb_cmp_hint:"ہر ایک کو ایک بار چھوئیں اور دونوں گروپ گنیں۔ دوسرا گروپ آزمائیں۔",
       fb_cmp_notsame:"دونوں گروپوں میں ہر ایک کو ایک بار چھوئیں۔ یہ برابر نہیں ہیں۔ ایک میں زیادہ ہیں۔",
-      pick_menu:"ایک کھیل چنیں۔", settings_open:"استاد کی ترتیبات۔"
+      pick_menu:"ایک کھیل چنیں۔", settings_open:"استاد کی ترتیبات۔",
+      feed_one_cap:"اس سے ایک زیادہ", feed_less_cap:"اس سے ایک کم", feed_ref_cap:"یہ گروپ", dir_onemore:"پیالے میں {w} ہیں۔ اسے ایک زیادہ کریں!",
+      dir_oneless:"پیالے میں {w} ہیں۔ اسے ایک کم کریں!", fb_onemore_ok:"جی ہاں! {s} سے ایک زیادہ {t} ہوتا ہے۔ ایک جوڑنے پر ہم اگلا نمبر بولتے ہیں۔",
+      fb_oneless_ok:"جی ہاں! {s} سے ایک کم {t} ہوتا ہے۔ ایک نکالنے پر ہم پچھلا نمبر بولتے ہیں۔",
+      fb_onemore_hint:"ایک زیادہ کا مطلب ہے صرف ایک جوڑنا۔ پیالے میں {s} سے شروع کریں، پھر ایک جوڑیں۔",
+      fb_oneless_hint:"ایک کم کا مطلب ہے صرف ایک نکالنا۔ پیالے میں {s} سے شروع کریں، پھر ایک نکالیں۔", dir_rel_more:"پیالے میں اس گروپ سے زیادہ رکھیں۔",
+      dir_rel_fewer:"پیالے میں اس گروپ سے کم رکھیں۔", dir_rel_same:"پیالے میں اس گروپ جتنے ہی رکھیں۔", fb_rel_more_ok:"جی ہاں! {w}، {r} سے زیادہ ہے۔",
+      fb_rel_fewer_ok:"جی ہاں! {w}، {r} سے کم ہے۔", fb_rel_same_ok:"جی ہاں! {w} اور {r} برابر ہیں۔",
+      fb_rel_more_hint:"اس گروپ میں {r} ہیں۔ آپ کے پاس {w} ہیں۔ {r} سے زیادہ کا مطلب ہے کچھ اور ڈالنا۔",
+      fb_rel_fewer_hint:"اس گروپ میں {r} ہیں۔ آپ کے پاس {w} ہیں۔ {r} سے کم کا مطلب ہے اس سے کم رکھنا۔",
+      fb_rel_same_hint:"اس گروپ میں {r} ہیں۔ آپ کے پاس {w} ہیں۔ برابر کا مطلب ہے دونوں گروپوں میں گنتی {r} تک جائے۔",
+      dir_path:"میرے ساتھ گنیں: {seq}… اگلا نمبر کون سا ہے؟", dir_pathback:"میرے ساتھ الٹا گنیں: {seq}… اگلا نمبر کون سا ہے؟",
+      fb_path_ok:"جی ہاں! {a} کے بعد {b} آتا ہے۔ ہر نمبر ایک زیادہ ہے۔", fb_pathback_ok:"جی ہاں! الٹا گننے پر {a} کے بعد {b} آتا ہے۔ ہر نمبر ایک کم ہے۔",
+      fb_path_hint:"ہر نمبر پر انگلی رکھ کر بولیں: {seq}۔ اس کے بعد آپ کیا بولیں گے؟", seq_sep:"، ", path_aria:"نمبروں کا راستہ", rp_path:"نیا راستہ",
+      rp_nums:"نئے نمبر", dir_ncmp_more:"کون سا نمبر بڑا ہے؟ اسے چھوئیں۔", dir_ncmp_less:"کون سا نمبر چھوٹا ہے؟ اسے چھوئیں۔",
+      fb_ncmp_more_ok:"جی ہاں! {a}، {b} سے بڑا ہے۔ گنتی میں {a} بعد میں آتا ہے۔", fb_ncmp_less_ok:"جی ہاں! {a}، {b} سے چھوٹا ہے۔ گنتی میں {a} پہلے آتا ہے۔",
+      fb_ncmp_more_hint:"ایک سے گنیں۔ جو نمبر آپ بعد میں بولتے ہیں، وہ بڑا ہے۔", fb_ncmp_less_hint:"ایک سے گنیں۔ جو نمبر آپ پہلے بولتے ہیں، وہ چھوٹا ہے۔"
     },
     zh:{
       skip:"跳到活动", brand:"数小动物", lang_label:"语言",
       nav_home:"首页", nav_settings:"设置", nav_menu:"菜单",
       menu_title:"选一个游戏！", menu_sub:"点卡片开始玩。点喇叭听说明。",
       menu_welcome:"欢迎！选一个游戏。数一数喂一喂、有几个、快看一眼，或者更多、更少还是一样。",
-      mode_feed_t:"数一数喂一喂", mode_feed_d:"把正好这么多的食物拖进碗里。",
-      mode_howmany_t:"有几个？", mode_howmany_d:"数一数物品，选出数字。",
+      mode_feed_t:"数一数喂一喂", mode_feed_d:"把食物拖进碗里：数量正好、多一个，或比一组多。",
+      mode_howmany_t:"有几个？", mode_howmany_d:"数一数，选出数字。找出下一个数。",
       mode_quick_t:"快看一眼", mode_quick_d:"看一下这组，然后选出有几个。",
-      mode_compare_t:"更多、更少还是一样", mode_compare_d:"比较两组小动物。",
+      mode_compare_t:"更多、更少还是一样", mode_compare_d:"比较两组小动物，或比较两个数。",
       info_summary:"ℹ️ 给老师 · 对应标准", info_summary2:"ℹ️ 对应标准",
-      info_skills_l:"技能：", info_skills:"一一对应、基数、数字辨识、快速估数、比较数量。",
+      info_skills_l:"技能：", info_skills:"一一对应、基数、数字辨识、快速估数、比较数量、多一和少一、摆出比一组多、少或一样多、顺数和倒数、比较数字大小。",
       info_tx_l:"德州学前指南：", info_teks_l:"幼儿园 TEKS：", info_cc_l:"共同核心（K）：",
       info_use:"用 ⚙️ 设置来选择级别、主题，并打开或关闭功能。",
       set_title:"教师设置", set_sub:"更改仅保存在本设备上。不存储任何学生数据。",
@@ -740,7 +853,7 @@
       set_level:"级别", lvl_prek3:"学前3", lvl_prek4:"学前4", lvl_k:"幼儿园",
       set_theme:"主题", set_features:"功能",
       feat_audio:"语音说明", feat_ten:"十格框", feat_scatter:"散乱排列", feat_numerals:"显示数字",
-      set_done:"完成", set_levels_note:"学前3：数量0–5，估数1–3。学前4：0–10，估数1–6。幼儿园：0–20，比较到20。",
+      set_done:"完成", set_levels_note:"学前3：数量0–5，估数1–3。学前4：0–10，估数1–6，比较10以内的数。幼儿园：0–20，倒着数，比较到20。只有打开“显示数字”时才会出现数字路和比较数字。",
       act_next:"下一个", act_replay:"再试一次", act_back:"返回游戏",
       rp_bowl:"新的碗", rp_group:"新的一组", rp_flash:"新的一闪", rp_pair:"新的一对",
       footer_line:"无账户 · 不收集数据 · 离线可用", footer_home:"首页", footer_privacy:"隐私",
@@ -765,7 +878,16 @@
       fb_cmp_fewer_ok:"对了！这一组更少。{a} 比 {b} 少。",
       fb_cmp_hint:"我们一个一个点一下，两组都数一数。试试另一组。",
       fb_cmp_notsame:"两组都一个一个点一下。它们不一样多。有一组更多。",
-      pick_menu:"选一个游戏。", settings_open:"教师设置。"
+      pick_menu:"选一个游戏。", settings_open:"教师设置。",
+      feed_one_cap:"比这个多一", feed_less_cap:"比这个少一", feed_ref_cap:"这一组", dir_onemore:"碗里有{w}个。让它多一个！", dir_oneless:"碗里有{w}个。让它少一个！",
+      fb_onemore_ok:"对了！比{s}多一是{t}。加上一个，就数到下一个数。", fb_oneless_ok:"对了！比{s}少一是{t}。拿走一个，就是前一个数。", fb_onemore_hint:"多一个就是只加一个。先在碗里放{s}个，再加一个。",
+      fb_oneless_hint:"少一个就是只拿走一个。先在碗里放{s}个，再拿走一个。", dir_rel_more:"往碗里放的要比这一组多。", dir_rel_fewer:"往碗里放的要比这一组少。", dir_rel_same:"往碗里放的要和这一组一样多。",
+      fb_rel_more_ok:"对了！{w}比{r}多。", fb_rel_fewer_ok:"对了！{w}比{r}少。", fb_rel_same_ok:"对了！{w}和{r}一样多。", fb_rel_more_hint:"这一组有{r}个。你有{w}个。比{r}多，就要再多放几个。",
+      fb_rel_fewer_hint:"这一组有{r}个。你有{w}个。比{r}少，就要放得比它少。", fb_rel_same_hint:"这一组有{r}个。你有{w}个。一样多，就是两组都数到{r}。", dir_path:"跟我一起数：{seq}……下一个数是几？",
+      dir_pathback:"跟我倒着数：{seq}……下一个数是几？", fb_path_ok:"对了！{a}后面是{b}。每个数都多一。", fb_pathback_ok:"对了！倒着数，{a}后面是{b}。每个数都少一。", fb_path_hint:"指着每个数大声读：{seq}。接下来读什么？",
+      seq_sep:"、", path_aria:"数字路", rp_path:"换一条数字路", rp_nums:"换一组数", dir_ncmp_more:"哪个数大？点一点它。", dir_ncmp_less:"哪个数小？点一点它。",
+      fb_ncmp_more_ok:"对了！{a}比{b}大。数数时，{a}在后面。", fb_ncmp_less_ok:"对了！{a}比{b}小。数数时，{a}在前面。", fb_ncmp_more_hint:"从一开始数。后数到的数比较大。",
+      fb_ncmp_less_hint:"从一开始数。先数到的数比较小。"
     }
   };
 
@@ -942,6 +1064,7 @@
   var fbText=document.getElementById("fbText");
   function showFeedback(kind, ico, text, speak){
     feedback.className="feedback show "+(kind==="good"?"good":"hint");
+    text=String(text).replace(/(^|[.!?]\s+)(\p{Ll})/gu,function(m,a,c){ return a+c.toUpperCase(); }); // number words may start a sentence
     fbIco.textContent=ico; fbText.textContent=text;
     if(speak) say(text);
   }
@@ -986,9 +1109,25 @@
   function generateRound(){
     var lv=L();
     if(currentMode==="feed"){
-      var target = settings.level==="prek3" ? rint(1,5) : rint(Math.max(1,lv.minQty), lv.maxQty);
-      var supply = Math.min(target + rint(1,3), target+5);
-      roundState={mode:"feed", target:target, supply:supply};
+      var fr=Math.random();
+      if(fr<0.25){ // one more / one less (K.2F): the bowl starts with some treats
+        var less=Math.random()<0.5, s0=less?rint(1,Math.min(lv.maxQty,10)):rint(1,Math.min(lv.maxQty-1,9));
+        roundState={mode:"feed", ftype:less?"oneless":"onemore", start:s0, target:less?s0-1:s0+1, supply:rint(2,3)};
+      }else if(fr<0.5){ // make a set with more / fewer / the same as a shown group (K.2E)
+        var rn=rint(2,Math.min(lv.maxQty-1,8)), rq=["more","fewer","same"][rint(0,2)];
+        roundState={mode:"feed", ftype:"rel", rel:rq, ref:rn, supply:rn+3};
+      }else{
+        var target = settings.level==="prek3" ? rint(1,5) : rint(Math.max(1,lv.minQty), lv.maxQty);
+        var supply = Math.min(target + rint(1,3), target+5);
+        roundState={mode:"feed", ftype:"plain", target:target, supply:supply};
+      }
+    }else if(currentMode==="howmany" && settings.numerals && Math.random()<0.3){
+      // number path (K.2A, K.CC.2): what number comes next? Counting back only at Kindergarten.
+      var back=settings.level==="k" && Math.random()<0.4, top=lv.maxQty, st=back?rint(4,top):rint(1,top-3), seq=[];
+      for(var q=0;q<3;q++) seq.push(back?st-q:st+q);
+      var ans=back?st-3:st+3, pool=[];
+      for(var c=Math.max(0,ans-5);c<=Math.min(20,ans+4);c++) if(c!==ans && seq.indexOf(c)===-1) pool.push(c);
+      roundState={mode:"howmany", path:true, back:back, seq:seq, ans:ans, opts:shuffle([ans].concat(shuffle(pool).slice(0,2)))};
     }else if(currentMode==="howmany"){
       var n=rint(0, lv.maxQty);
       roundState={mode:"howmany", n:n, arr:pickArrangement(n), opts:buildOpts(n,0,lv.maxQty,Math.min(4,lv.maxQty+1))};
@@ -997,6 +1136,10 @@
       var organized = Math.random()<0.6 || !settings.scattered;
       var useTen = organized && settings.tenframes && Math.random()<0.5;
       roundState={mode:"quick", n:qn, organized:organized, useTen:useTen, opts:buildOpts(qn,1,lv.subMax,Math.min(4,lv.subMax+1))};
+    }else if(currentMode==="compare" && settings.level!=="prek3" && settings.numerals && Math.random()<0.3){
+      // compare two written numerals, no objects (K.2H, K.CC.7)
+      var na=rint(1,lv.cmpMax), nb=rint(1,lv.cmpMax-1); if(nb>=na) nb++;
+      roundState={mode:"compare", num:true, a:na, b:nb, qtype:Math.random()<0.5?"more":"less"};
     }else if(currentMode==="compare"){
       var max=lv.cmpMax;
       var a=rint(0,max), b=rint(0,max), qtype;
@@ -1041,7 +1184,9 @@
     renderId++; stage.innerHTML="";
     if(!roundState) return;
     if(roundState.mode==="feed"){ replayLabel.textContent=t("rp_bowl"); renderFeed(); }
+    else if(roundState.mode==="howmany" && roundState.path){ replayLabel.textContent=t("rp_path"); renderPath(); }
     else if(roundState.mode==="howmany"){ replayLabel.textContent=t("rp_group"); renderHowMany(); }
+    else if(roundState.mode==="compare" && roundState.num){ replayLabel.textContent=t("rp_nums"); renderNumCompare(); }
     else if(roundState.mode==="quick"){ replayLabel.textContent=t("rp_flash"); renderQuick(); }
     else if(roundState.mode==="compare"){ replayLabel.textContent=t("rp_pair"); renderCompare(); }
   }
@@ -1119,13 +1264,21 @@
 
   /* ================= MODE 1: COUNT & FEED ================= */
   function renderFeed(){
-    var target=roundState.target, supply=roundState.supply;
-    setDirection(t("dir_feed", {n:target, items:itemWord()}));
+    var ft=roundState.ftype||"plain", target=roundState.target, supply=roundState.supply, st0=roundState.start, ref=roundState.ref, rel=roundState.rel;
+    if(ft==="onemore"||ft==="oneless") setDirection(t("dir_"+ft, {w:word(st0)}));
+    else if(ft==="rel") setDirection(t("dir_rel_"+rel));
+    else setDirection(t("dir_feed", {n:target, items:itemWord()}));
 
     var scene=el("div","feedscene");
     var hero=el("div","hero", heroSVG());
     var mid=el("div","bowl-target");
-    mid.innerHTML='<div class="cap">'+t("feed_cap")+'</div><div class="num">'+(settings.numerals?target:'?')+'</div>';
+    if(ft==="onemore"||ft==="oneless") mid.innerHTML='<div class="cap">'+t(ft==="onemore"?"feed_one_cap":"feed_less_cap")+'</div><div class="num">'+(settings.numerals?st0:dotsFor(st0))+'</div>';
+    else if(ft==="rel"){ // the comparison group (given), shown as critters; the answer is never shown
+      mid.innerHTML='<div class="cap">'+t("feed_ref_cap")+'</div>';
+      var rg=el("div","refgrp"); for(var ri=0;ri<ref;ri++) rg.appendChild(makeObj(false)); mid.appendChild(rg);
+      if(settings.numerals) mid.appendChild(el("div","num sm", String(ref)));
+    }
+    else mid.innerHTML='<div class="cap">'+t("feed_cap")+'</div><div class="num">'+(settings.numerals?target:'?')+'</div>';
     var bowl=el("div","bowl");
     bowl.innerHTML='<svg class="bowlsvg" viewBox="0 0 230 150" aria-hidden="true"><ellipse cx="115" cy="120" rx="95" ry="22" fill="#b96a1c"/><path d="M25 78 Q115 150 205 78 Q205 108 115 130 Q25 108 25 78 Z" fill="#d9822b"/><ellipse cx="115" cy="78" rx="90" ry="24" fill="#e79a4b"/><ellipse cx="115" cy="78" rx="72" ry="17" fill="#f6b877"/></svg><div class="slots"></div>';
     scene.appendChild(hero); scene.appendChild(mid); scene.appendChild(bowl);
@@ -1136,7 +1289,9 @@
     var actions=el("div","row-actions"); var feedBtn=el("button","btn primary big","🍽️ "+t("feed_check")); feedBtn.type="button"; actions.appendChild(feedBtn); stage.appendChild(actions);
 
     var slots=bowl.querySelector(".slots"); var fedNumEl=count.querySelector(".fedNum"); var fedCount=0;
-    function updateCount(){ fedCount=slots.children.length; fedNumEl.textContent=fedCount; }
+    function updateCount(){ fedCount=slots.children.length; fedNumEl.textContent=fedCount; fitBowl(); }
+    // shrink the treats in the bowl when they would not all fit, so every one stays visible and countable
+    function fitBowl(){ var c=["many","lots","tiny"]; slots.classList.remove.apply(slots.classList,c); for(var i=0;i<c.length && slots.scrollHeight>slots.clientHeight+1;i++){ if(i) slots.classList.remove(c[i-1]); slots.classList.add(c[i]); } }
     function sendToBowl(f){ if(f.parentNode===slots) return; f.classList.add("inbowl"); slots.appendChild(f); updateCount(); }
     function sendToTray(f){ if(f.parentNode===tray) return; f.classList.remove("inbowl"); tray.appendChild(f); updateCount(); }
     function attach(f){
@@ -1159,9 +1314,22 @@
     }
     function makeFood(){ var f=el("div","food", itemSVG()); f.setAttribute("role","button"); f.setAttribute("tabindex","0"); f.setAttribute("aria-label", itemWord()); attach(f); return f; }
     for(var i=0;i<supply;i++) tray.appendChild(makeFood());
+    if(ft==="onemore"||ft==="oneless"){ for(var j=0;j<st0;j++) sendToBowl(makeFood()); }
 
+    function win(msg){ showFeedback("good","🎉", msg, true); celebrate(); scene.classList.add("pop"); feedBtn.disabled=true; }
     feedBtn.addEventListener("click", function(){
       updateCount();
+      if(ft==="onemore"||ft==="oneless"){
+        if(fedCount===target) win(t("fb_"+ft+"_ok",{s:word(st0), t:word(target)}));
+        else showFeedback("hint","🖐️", t("fb_"+ft+"_hint",{s:word(st0)}), true);
+        return;
+      }
+      if(ft==="rel"){
+        var okRel = rel==="more" ? fedCount>ref : rel==="fewer" ? fedCount<ref : fedCount===ref;
+        if(okRel) win(t("fb_rel_"+rel+"_ok",{w:word(fedCount), r:word(ref)}));
+        else showFeedback("hint","🖐️", t("fb_rel_"+rel+"_hint",{w:word(fedCount), r:word(ref)}), true);
+        return;
+      }
       if(fedCount===target){
         showFeedback("good","🎉", t("fb_feed_ok",{w:word(target)}), true); celebrate(); scene.classList.add("pop"); feedBtn.disabled=true;
       }else if(fedCount<target){
@@ -1184,6 +1352,22 @@
       }else{ b.classList.add("wrong"); b.disabled=true; showFeedback("hint","🖐️", t("fb_howmany_hint"), true); }
     });
     stage.appendChild(row);
+  }
+
+  /* ---- How Many: number path round — count on (or back) and pick the next number ---- */
+  function renderPath(){
+    var rs=roundState, sep=t("seq_sep"), seqTxt=rs.seq.join(sep);
+    setDirection(t(rs.back?"dir_pathback":"dir_path",{seq:seqTxt}));
+    var row=el("div","pathrow"); row.setAttribute("role","group"); row.setAttribute("aria-label", t("path_aria"));
+    rs.seq.forEach(function(v,i){ var s=el("div","stone", String(v)); if(i===rs.seq.length-1) s.appendChild(makeObj(false)); row.appendChild(s); });
+    var qs=el("div","stone q","?"); row.appendChild(qs); stage.appendChild(row);
+    var crow=makeChoiceRow(rs.opts, function(v,b,rw){
+      if(v===rs.ans){ rw.querySelectorAll(".chip").forEach(function(c){ c.disabled=true; }); b.classList.add("correct");
+        var hop=row.querySelector(".stone .obj"); qs.textContent=String(rs.ans); qs.classList.add("filled","pop"); if(hop) qs.appendChild(hop);
+        showFeedback("good","🎉", t(rs.back?"fb_pathback_ok":"fb_path_ok",{a:rs.seq[rs.seq.length-1], b:rs.ans}), true); celebrate();
+      }else{ b.classList.add("wrong"); b.disabled=true; showFeedback("hint","👉", t("fb_path_hint",{seq:seqTxt}), true); }
+    });
+    stage.appendChild(crow);
   }
 
   /* ================= MODE 3: QUICK LOOK ================= */
@@ -1259,6 +1443,28 @@
       if(qtype==="same" || a===b){ sideA.classList.add("pick-correct"); sideB.classList.add("pick-correct"); finishGood(t("fb_cmp_same_ok",{w:word(a)})); }
       else{ showFeedback("hint","🖐️", t("fb_cmp_notsame"), true); }
     });
+  }
+
+  /* ---- Compare: two written numerals, no objects ---- */
+  function renderNumCompare(){
+    var a=roundState.a, b=roundState.b, more=roundState.qtype==="more";
+    setDirection(t(more?"dir_ncmp_more":"dir_ncmp_less"));
+    var wrap=el("div","compare"), done=false, sides=[];
+    [a,b].forEach(function(v){
+      var sd=el("div","side"); sd.appendChild(el("div","numcard", String(v)));
+      sd.setAttribute("role","button"); sd.setAttribute("tabindex","0"); sd.setAttribute("aria-label", word(v));
+      function pick(){
+        if(done) return;
+        var o=(v===a)?b:a;
+        if(more? v>o : v<o){ done=true; sd.classList.add("pick-correct"); sides.forEach(function(x){ x.style.cursor="default"; });
+          showFeedback("good","🎉", t(more?"fb_ncmp_more_ok":"fb_ncmp_less_ok",{a:v, b:o}), true); celebrate(); }
+        else{ sd.classList.add("pick-wrong"); showFeedback("hint","🖐️", t(more?"fb_ncmp_more_hint":"fb_ncmp_less_hint"), true); setTimeout(function(){ sd.classList.remove("pick-wrong"); },1200); }
+      }
+      sd.addEventListener("click", pick);
+      sd.addEventListener("keydown", function(e){ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); pick(); } });
+      sides.push(sd); wrap.appendChild(sd);
+    });
+    stage.appendChild(wrap);
   }
 
   /* ================= i18n apply / re-render ================= */
