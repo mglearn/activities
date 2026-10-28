@@ -100,6 +100,8 @@
     padding:10px;margin:12px 0;overflow-x:auto;
   }
   .stage svg{display:block;margin:0 auto;max-width:100%;height:auto}
+  /* drawings are not mirrored in RTL, so keep SVG label anchors physical (Arabic/Urdu text still shapes RTL) */
+  .stage svg text{direction:ltr}
 
   /* Choice buttons */
   .choices{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:6px}
@@ -115,6 +117,7 @@
   .choice.wrong{border-color:var(--accent);background:#fde8dd}
   @media (prefers-color-scheme: dark){.choice.wrong{background:#3a1e12}}
   .choice .csvg{width:60px;height:44px}
+  .choice .csvg.tool{width:116px;height:96px}
 
   .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center}
   .btn{
@@ -269,6 +272,7 @@
         <button class="chip" data-attr="weight" aria-pressed="true" data-i18n="chip_weight">⚖️ Heavier/Lighter</button>
         <button class="chip" data-attr="capacity" aria-pressed="true" data-i18n="chip_capacity">🪣 Holds More/Less</button>
         <button class="chip" data-attr="cubes" aria-pressed="true" data-i18n="chip_cubes">🧊 Measure with Cubes</button>
+        <button class="chip" data-attr="measure" aria-pressed="true" data-i18n="chip_measure">🔎 What Can We Measure?</button>
       </div>
     </div>
 
@@ -313,7 +317,7 @@
 const SKEY = "pmq_settings_v1";
 const defaults = {
   mode:"k", audio:true, vocab:true, maxUnits:8,
-  attrs:{length:true,height:true,weight:true,capacity:true,cubes:true}
+  attrs:{length:true,height:true,weight:true,capacity:true,cubes:true,measure:true}
 };
 let settings = loadSettings();
 function loadSettings(){
@@ -375,6 +379,7 @@ const OBJ = {
   wide_tub:{en:"short wide tub",es:"cubeta baja y ancha",vi:"chậu thấp rộng",ar:"حوض قصير وعريض",hi:"छोटा चौड़ा टब",ur:"چھوٹا چوڑا ٹب",zh:"矮宽盆"},
   cup:{en:"cup",es:"taza",vi:"cái cốc",ar:"الكوب",hi:"कप",ur:"کپ",zh:"杯子"},
   bottle:{en:"bottle",es:"botella",vi:"cái chai",ar:"الزجاجة",hi:"बोतल",ur:"بوتل",zh:"瓶子"},
+  bucket:{en:"bucket",es:"cubeta",vi:"cái xô",ar:"الدلو",hi:"बाल्टी",ur:"بالٹی",zh:"水桶"},
   bowl:{en:"bowl",es:"tazón",vi:"cái bát",ar:"الوعاء",hi:"कटोरा",ur:"پیالہ",zh:"碗"}
 };
 function objName(key){ const o=OBJ[key]; if(!o) return key; return (o[lang]!=null?o[lang]:o.en); }
@@ -389,20 +394,12 @@ const TR = {
   mode_k:{en:"Kindergarten",es:"Kínder",vi:"Mẫu giáo",ar:"الروضة",hi:"किंडरगार्टन",ur:"کنڈرگارٹن",zh:"幼儿园"},
   footer_tag:{en:"No accounts · No data collected · Works offline",es:"Sin cuentas · No se recopilan datos · Funciona sin conexión",vi:"Không tài khoản · Không thu thập dữ liệu · Hoạt động ngoại tuyến",ar:"بدون حسابات · لا يتم جمع بيانات · يعمل دون اتصال",hi:"कोई खाता नहीं · कोई डेटा एकत्र नहीं · ऑफ़लाइन काम करता है",ur:"کوئی اکاؤنٹ نہیں · کوئی ڈیٹا جمع نہیں · آف لائن کام کرتا ہے",zh:"无需账户 · 不收集数据 · 离线可用"},
   standards_summary:{en:"Aligned standards",es:"Estándares alineados",vi:"Chuẩn liên kết",ar:"المعايير المتوافقة",hi:"संरेखित मानक",ur:"منسلک معیارات",zh:"对应标准"},
-  standards_html:{
-    en:"<strong>Texas Prekindergarten Guidelines:</strong> PK3.V.D.1–3, PK4.V.D.1–3 (measurement &amp; comparing objects).<br><strong>Kindergarten TEKS:</strong> K.7(A) give an example of a measurable attribute; K.7(B) compare two objects with a common measurable attribute.<br><strong>Common Core (Kindergarten):</strong> K.MD.1 describe measurable attributes; K.MD.2 directly compare two objects with a common attribute.",
-    es:"<strong>Guías de Prekínder de Texas:</strong> PK3.V.D.1–3, PK4.V.D.1–3 (medición y comparación de objetos).<br><strong>TEKS de Kínder:</strong> K.7(A) dar un ejemplo de un atributo medible; K.7(B) comparar dos objetos con un atributo medible común.<br><strong>Estándares Comunes (Kínder):</strong> K.MD.1 describir atributos medibles; K.MD.2 comparar directamente dos objetos con un atributo común.",
-    vi:"<strong>Hướng dẫn Mầm non Texas:</strong> PK3.V.D.1–3, PK4.V.D.1–3 (đo lường và so sánh vật thể).<br><strong>TEKS Mẫu giáo:</strong> K.7(A) nêu ví dụ về thuộc tính đo được; K.7(B) so sánh hai vật có cùng thuộc tính đo được.<br><strong>Chuẩn Chung (Mẫu giáo):</strong> K.MD.1 mô tả thuộc tính đo được; K.MD.2 so sánh trực tiếp hai vật có thuộc tính chung.",
-    ar:"<strong>إرشادات ما قبل الروضة في تكساس:</strong> PK3.V.D.1–3، PK4.V.D.1–3 (القياس ومقارنة الأشياء).<br><strong>معايير TEKS للروضة:</strong> K.7(A) إعطاء مثال على خاصية قابلة للقياس؛ K.7(B) مقارنة شيئين لهما خاصية قابلة للقياس مشتركة.<br><strong>المعايير الأساسية المشتركة (الروضة):</strong> K.MD.1 وصف الخصائص القابلة للقياس؛ K.MD.2 المقارنة المباشرة بين شيئين لهما خاصية مشتركة.",
-    hi:"<strong>टेक्सास प्री-किंडरगार्टन दिशानिर्देश:</strong> PK3.V.D.1–3, PK4.V.D.1–3 (मापन और वस्तुओं की तुलना)।<br><strong>किंडरगार्टन TEKS:</strong> K.7(A) मापने योग्य गुण का उदाहरण दें; K.7(B) समान मापने योग्य गुण वाली दो वस्तुओं की तुलना करें।<br><strong>कॉमन कोर (किंडरगार्टन):</strong> K.MD.1 मापने योग्य गुणों का वर्णन; K.MD.2 समान गुण वाली दो वस्तुओं की सीधी तुलना।",
-    ur:"<strong>ٹیکساس پری کنڈرگارٹن رہنما اصول:</strong> PK3.V.D.1–3، PK4.V.D.1–3 (پیمائش اور اشیاء کا موازنہ)۔<br><strong>کنڈرگارٹن TEKS:</strong> K.7(A) قابلِ پیمائش خصوصیت کی مثال دیں؛ K.7(B) مشترکہ قابلِ پیمائش خصوصیت والی دو اشیاء کا موازنہ کریں۔<br><strong>کامن کور (کنڈرگارٹن):</strong> K.MD.1 قابلِ پیمائش خصوصیات بیان کریں؛ K.MD.2 مشترکہ خصوصیت والی دو اشیاء کا براہِ راست موازنہ۔",
-    zh:"<strong>德州学前教育指南：</strong>PK3.V.D.1–3、PK4.V.D.1–3（测量与比较物体）。<br><strong>幼儿园 TEKS：</strong>K.7(A) 举出一个可测量属性的例子；K.7(B) 比较具有共同可测量属性的两个物体。<br><strong>共同核心标准（幼儿园）：</strong>K.MD.1 描述可测量属性；K.MD.2 直接比较具有共同属性的两个物体。"
-  },
+  standards_html:{"en":"<strong>Texas Prekindergarten Guidelines:</strong> PK3.V.D.1–3, PK4.V.D.1–3 (compare length and height, capacity, and weight).<br><strong>Kindergarten TEKS:</strong> K.7(A) give an example of a measurable attribute (What Can We Measure?); K.7(B) compare two objects to see which has more of or less of an attribute, and describe the difference.<br><strong>Common Core (Kindergarten):</strong> K.MD.1 describe measurable attributes, including several attributes of one object; K.MD.2 directly compare two objects (more of / less of).<br><strong>Grade 1 preview (Measure with Cubes):</strong> TEKS 1.7(B); Common Core 1.MD.2 — same-size units laid end to end with no gaps or overlaps.","es":"<strong>Guías de Prekínder de Texas:</strong> PK3.V.D.1–3, PK4.V.D.1–3 (comparar longitud y altura, capacidad y peso).<br><strong>TEKS de Kínder:</strong> K.7(A) dar un ejemplo de un atributo medible (¿Qué podemos medir?); K.7(B) comparar dos objetos para ver cuál tiene más o menos de un atributo y describir la diferencia.<br><strong>Estándares Comunes (Kínder):</strong> K.MD.1 describir atributos medibles, incluso varios atributos de un mismo objeto; K.MD.2 comparar directamente dos objetos (más / menos).<br><strong>Adelanto de 1.er grado (Medir con cubos):</strong> TEKS 1.7(B); Estándares Comunes 1.MD.2 — unidades del mismo tamaño puestas una tras otra, sin huecos ni superposiciones.","vi":"<strong>Hướng dẫn Mầm non Texas:</strong> PK3.V.D.1–3, PK4.V.D.1–3 (so sánh độ dài và chiều cao, sức chứa, cân nặng).<br><strong>TEKS Mẫu giáo:</strong> K.7(A) nêu ví dụ về thuộc tính đo được (Ta đo được gì?); K.7(B) so sánh hai vật để xem vật nào có nhiều hơn hoặc ít hơn một thuộc tính và mô tả sự khác biệt.<br><strong>Chuẩn Chung (Mẫu giáo):</strong> K.MD.1 mô tả thuộc tính đo được, kể cả nhiều thuộc tính của cùng một vật; K.MD.2 so sánh trực tiếp hai vật (nhiều hơn / ít hơn).<br><strong>Làm quen Lớp 1 (Đo bằng khối):</strong> TEKS 1.7(B); Chuẩn Chung 1.MD.2 — các đơn vị cùng cỡ đặt nối tiếp, không hở, không chồng.","ar":"<strong>إرشادات ما قبل الروضة في تكساس:</strong> PK3.V.D.1–3، PK4.V.D.1–3 (مقارنة الطول والارتفاع والسعة والوزن).<br><strong>معايير TEKS للروضة:</strong> K.7(A) إعطاء مثال على خاصية قابلة للقياس (ماذا نقيس؟)؛ K.7(B) مقارنة شيئين لمعرفة أيهما له أكثر أو أقل من خاصية ما ووصف الفرق.<br><strong>المعايير الأساسية المشتركة (الروضة):</strong> K.MD.1 وصف الخصائص القابلة للقياس، ومنها عدة خصائص لشيء واحد؛ K.MD.2 المقارنة المباشرة بين شيئين (أكثر / أقل).<br><strong>تمهيد للصف الأول (القياس بالمكعبات):</strong> TEKS 1.7(B)؛ المعايير المشتركة 1.MD.2 — وحدات متساوية متتالية بلا فجوات ولا تداخل.","hi":"<strong>टेक्सास प्री-किंडरगार्टन दिशानिर्देश:</strong> PK3.V.D.1–3, PK4.V.D.1–3 (लंबाई और ऊँचाई, क्षमता और वज़न की तुलना)।<br><strong>किंडरगार्टन TEKS:</strong> K.7(A) मापने योग्य गुण का उदाहरण दें (हम क्या माप सकते हैं?); K.7(B) दो वस्तुओं की तुलना करके देखें कि किसमें गुण ज़्यादा या कम है, और अंतर बताएँ।<br><strong>कॉमन कोर (किंडरगार्टन):</strong> K.MD.1 मापने योग्य गुणों का वर्णन, एक ही वस्तु के कई गुणों सहित; K.MD.2 दो वस्तुओं की सीधी तुलना (ज़्यादा / कम)।<br><strong>कक्षा 1 की झलक (घनों से मापें):</strong> TEKS 1.7(B); कॉमन कोर 1.MD.2 — एक जैसी इकाइयाँ सिरे से सिरे तक, बिना अंतराल या ओवरलैप।","ur":"<strong>ٹیکساس پری کنڈرگارٹن رہنما اصول:</strong> PK3.V.D.1–3، PK4.V.D.1–3 (لمبائی اور اونچائی، گنجائش اور وزن کا موازنہ)۔<br><strong>کنڈرگارٹن TEKS:</strong> K.7(A) قابلِ پیمائش خصوصیت کی مثال دیں (ہم کیا ناپ سکتے ہیں؟)؛ K.7(B) دو اشیاء کا موازنہ کر کے دیکھیں کہ کس میں خصوصیت زیادہ یا کم ہے، اور فرق بیان کریں۔<br><strong>کامن کور (کنڈرگارٹن):</strong> K.MD.1 قابلِ پیمائش خصوصیات بیان کریں، ایک ہی چیز کی کئی خصوصیات سمیت؛ K.MD.2 دو اشیاء کا براہِ راست موازنہ (زیادہ / کم)۔<br><strong>پہلی جماعت کی جھلک (کیوبز سے ناپیں):</strong> TEKS 1.7(B)؛ کامن کور 1.MD.2 — ایک جیسی اکائیاں سرے سے سرے تک، بغیر خلا یا اوورلیپ۔","zh":"<strong>德州学前教育指南：</strong>PK3.V.D.1–3、PK4.V.D.1–3（比较长度和高度、容量、重量）。<br><strong>幼儿园 TEKS：</strong>K.7(A) 举出一个可测量属性的例子（可以量什么？）；K.7(B) 比较两个物体，看哪个某种属性更多或更少，并描述差别。<br><strong>共同核心标准（幼儿园）：</strong>K.MD.1 描述可测量属性，包括同一物体的多种属性；K.MD.2 直接比较两个物体（多 / 少）。<br><strong>一年级预习（用方块测量）：</strong>TEKS 1.7(B)；共同核心 1.MD.2 —— 同样大小的单位首尾相接，不留空隙也不重叠。"},
   set_title:{en:"Teacher Settings",es:"Ajustes del maestro",vi:"Cài đặt giáo viên",ar:"إعدادات المعلم",hi:"शिक्षक सेटिंग्स",ur:"استاد کی ترتیبات",zh:"教师设置"},
   close:{en:"Close",es:"Cerrar",vi:"Đóng",ar:"إغلاق",hi:"बंद करें",ur:"بند کریں",zh:"关闭"},
   done:{en:"Done",es:"Listo",vi:"Xong",ar:"تم",hi:"पूर्ण",ur:"مکمل",zh:"完成"},
   set_grade:{en:"Grade mode",es:"Modo de grado",vi:"Chế độ lớp",ar:"وضع الصف",hi:"ग्रेड मोड",ur:"گریڈ موڈ",zh:"年级模式"},
-  set_grade_note:{en:"PreK shows shorter sentence frames and simpler numbers.",es:"PreK muestra frases más cortas y números más simples.",vi:"Mầm non hiển thị câu ngắn hơn và số đơn giản hơn.",ar:"يعرض وضع ما قبل الروضة جملاً أقصر وأرقاماً أبسط.",hi:"प्री-के छोटे वाक्य और सरल संख्याएँ दिखाता है।",ur:"پری کے چھوٹے جملے اور آسان اعداد دکھاتا ہے۔",zh:"学前班模式使用更短的句子和更简单的数字。"},
+  set_grade_note:{"en":"PreK uses numbers up to 5, bigger differences, and fewer choices.","es":"PreK usa números hasta 5, diferencias más grandes y menos opciones.","vi":"Mầm non dùng số đến 5, khác biệt lớn hơn và ít lựa chọn hơn.","ar":"مرحلة ما قبل الروضة: أعداد حتى 5، وفروق أكبر، وخيارات أقل.","hi":"PreK में 5 तक की संख्याएँ, बड़े अंतर और कम विकल्प होते हैं।","ur":"پری کے میں 5 تک کے اعداد، بڑے فرق اور کم اختیارات ہوتے ہیں۔","zh":"学前班：数字到 5，差别更明显，选项更少。"},
   set_attrs:{en:"Attributes to include",es:"Atributos a incluir",vi:"Thuộc tính đưa vào",ar:"الخصائص المضمّنة",hi:"शामिल करने योग्य गुण",ur:"شامل کرنے والی خصوصیات",zh:"包含的属性"},
   chip_length:{en:"📏 Longer/Shorter",es:"📏 Más largo/corto",vi:"📏 Dài/Ngắn",ar:"📏 أطول/أقصر",hi:"📏 लंबा/छोटा",ur:"📏 لمبا/چھوٹا",zh:"📏 更长/更短"},
   chip_height:{en:"🌳 Taller/Shorter",es:"🌳 Más alto/bajo",vi:"🌳 Cao/Thấp",ar:"🌳 أعلى/أقصر",hi:"🌳 ऊँचा/नाटा",ur:"🌳 اونچا/نیچا",zh:"🌳 更高/更矮"},
@@ -504,7 +501,36 @@ Object.assign(TR, {
   lbl_longer_end:{en:"longer end",es:"extremo más largo",vi:"đầu dài hơn",ar:"الطرف الأطول",hi:"लंबा सिरा",ur:"لمبا سرا",zh:"更长的一端"},
   say_align:{en:"Watch. We line up the start of each one at the same line.",es:"Mira. Alineamos el inicio de cada uno en la misma línea.",vi:"Xem nhé. Ta xếp điểm bắt đầu của mỗi vật vào cùng một vạch.",ar:"شاهد. نحاذي بداية كل واحد عند نفس الخط.",hi:"देखिए। हम हर एक की शुरुआत को एक ही रेखा पर मिलाते हैं।",ur:"دیکھیں۔ ہم ہر ایک کی شروعات کو ایک ہی لکیر پر ملاتے ہیں۔",zh:"看。我们把每个物体的起点对齐到同一条线。"},
   say_ht_rise:{en:"Watch a line rise to the top of the taller one.",es:"Mira cómo una línea sube hasta la parte de arriba del más alto.",vi:"Xem một đường kẻ dâng lên đỉnh của vật cao hơn.",ar:"شاهد خطاً يرتفع إلى قمة الأطول.",hi:"देखिए एक रेखा ऊँची वस्तु के शीर्ष तक उठती है।",ur:"دیکھیں ایک لکیر اونچی چیز کے سرے تک اٹھتی ہے۔",zh:"看一条线升到更高物体的顶端。"},
-  say_cubes_place:{en:"Watch. I place cubes end to end, with no gaps and no overlaps.",es:"Mira. Coloco cubos uno tras otro, sin huecos ni superposiciones.",vi:"Xem nhé. Tôi đặt các khối nối tiếp nhau, không hở, không chồng.",ar:"شاهد. أضع المكعبات طرفاً لطرف، دون فجوات أو تداخل.",hi:"देखिए। मैं घनों को सिरे से सिरे तक रखता हूँ, बिना अंतराल और बिना ओवरलैप।",ur:"دیکھیں۔ میں کیوبز کو سرے سے سرے تک رکھتا ہوں، بغیر خلا اور بغیر اوورلیپ۔",zh:"看。我把方块首尾相接排列，不留空隙也不重叠。"}
+  say_cubes_place:{en:"Watch. I place cubes end to end, with no gaps and no overlaps.",es:"Mira. Coloco cubos uno tras otro, sin huecos ni superposiciones.",vi:"Xem nhé. Tôi đặt các khối nối tiếp nhau, không hở, không chồng.",ar:"شاهد. أضع المكعبات طرفاً لطرف، دون فجوات أو تداخل.",hi:"देखिए। मैं घनों को सिरे से सिरे तक रखता हूँ, बिना अंतराल और बिना ओवरलैप।",ur:"دیکھیں۔ میں کیوبز کو سرے سے سرے تک رکھتا ہوں، بغیر خلا اور بغیر اوورلیپ۔",zh:"看。我把方块首尾相接排列，不留空隙也不重叠。"},
+  tab_measure:{"en":"What Can We Measure?","es":"¿Qué podemos medir?","vi":"Ta đo được gì?","ar":"ماذا نقيس؟","hi":"हम क्या माप सकते हैं?","ur":"ہم کیا ناپ سکتے ہیں؟","zh":"可以量什么？"},
+  chip_measure:{"en":"🔎 What Can We Measure?","es":"🔎 ¿Qué podemos medir?","vi":"🔎 Ta đo được gì?","ar":"🔎 ماذا نقيس؟","hi":"🔎 हम क्या माप सकते हैं?","ur":"🔎 ہم کیا ناپ سکتے ہیں؟","zh":"🔎 可以量什么？"},
+  q_measure_tall:{"en":"How tall is the {o}? Tap how to find out.","es":"¿Qué tan alta es la {o}? Toca cómo averiguarlo.","vi":"{o} cao bao nhiêu? Chạm vào cách để biết.","ar":"ما ارتفاع {o}؟ المس الطريقة التي تعرف بها.","hi":"{o} की ऊँचाई कितनी है? पता करने का तरीका छुएँ।","ur":"{o} کی اونچائی کتنی ہے؟ پتا کرنے کا طریقہ چھوئیں۔","zh":"{o}有多高？点一点怎样知道。"},
+  q_measure_heavy:{"en":"How heavy is the {o}? Tap how to find out.","es":"¿Cuánto pesa la {o}? Toca cómo averiguarlo.","vi":"{o} nặng bao nhiêu? Chạm vào cách để biết.","ar":"ما وزن {o}؟ المس الطريقة التي تعرف بها.","hi":"{o} का वज़न कितना है? पता करने का तरीका छुएँ।","ur":"{o} کا وزن کتنا ہے؟ پتا کرنے کا طریقہ چھوئیں۔","zh":"{o}有多重？点一点怎样知道。"},
+  q_measure_holds:{"en":"How much water does the {o} hold? Tap how to find out.","es":"¿Cuánta agua le cabe a la {o}? Toca cómo averiguarlo.","vi":"{o} chứa được bao nhiêu nước? Chạm vào cách để biết.","ar":"كم ماءً يسع {o}؟ المس الطريقة التي تعرف بها.","hi":"{o} में कितना पानी आता है? पता करने का तरीका छुएँ।","ur":"{o} میں کتنا پانی آتا ہے؟ پتا کرنے کا طریقہ چھوئیں۔","zh":"{o}能装多少水？点一点怎样知道。"},
+  sub_measure:{"en":"Each picture shows a different way to measure.","es":"Cada dibujo muestra una forma diferente de medir.","vi":"Mỗi hình cho thấy một cách đo khác nhau.","ar":"كل صورة تُظهر طريقة مختلفة للقياس.","hi":"हर चित्र मापने का अलग तरीका दिखाता है।","ur":"ہر تصویر ناپنے کا الگ طریقہ دکھاتی ہے۔","zh":"每张图是一种不同的测量方法。"},
+  tool_scale:{"en":"scale","es":"balanza","vi":"cái cân","ar":"الميزان","hi":"तराज़ू","ur":"ترازو","zh":"天平"},
+  tool_cubes:{"en":"cubes","es":"cubos","vi":"khối vuông","ar":"مكعبات","hi":"घन","ur":"کیوبز","zh":"方块"},
+  tool_scoops:{"en":"scoops","es":"cucharadas","vi":"muỗng","ar":"مغارف","hi":"स्कूप","ur":"اسکوپ","zh":"勺子"},
+  frame_measure_tall:{"en":"Cubes show how tall the {o} is.","es":"Los cubos muestran qué tan alta es la {o}.","vi":"Các khối vuông cho biết {o} cao bao nhiêu.","ar":"المكعبات تُبيّن ارتفاع {o}.","hi":"घन दिखाते हैं कि {o} की ऊँचाई कितनी है।","ur":"کیوبز بتاتے ہیں کہ {o} کی اونچائی کتنی ہے۔","zh":"方块告诉我们{o}有多高。"},
+  frame_measure_heavy:{"en":"A scale shows how heavy the {o} is.","es":"La balanza muestra cuánto pesa la {o}.","vi":"Cái cân cho biết {o} nặng bao nhiêu.","ar":"الميزان يُبيّن وزن {o}.","hi":"तराज़ू दिखाता है कि {o} का वज़न कितना है।","ur":"ترازو بتاتا ہے کہ {o} کا وزن کتنا ہے۔","zh":"天平告诉我们{o}有多重。"},
+  frame_measure_holds:{"en":"Scoops of water show how much the {o} holds.","es":"Las cucharadas de agua muestran cuánta agua le cabe a la {o}.","vi":"Những muỗng nước cho biết {o} chứa được bao nhiêu.","ar":"مغارف الماء تُبيّن كم يسع {o}.","hi":"पानी के स्कूप दिखाते हैं कि {o} में कितना आता है।","ur":"پانی کے اسکوپ بتاتے ہیں کہ {o} میں کتنا آتا ہے۔","zh":"一勺一勺的水告诉我们{o}能装多少。"},
+  measure_more:{"en":"We can measure the {o} in more than one way: how tall it is, how heavy it is, and how much it holds.","es":"Podemos medir la {o} de varias maneras: qué tan alta es, cuánto pesa y cuánta agua le cabe.","vi":"Ta có thể đo {o} theo nhiều cách: cao bao nhiêu, nặng bao nhiêu và chứa được bao nhiêu.","ar":"يمكننا قياس {o} بأكثر من طريقة: كم ارتفاعه، وكم وزنه، وكم يسع.","hi":"हम {o} को कई तरह से माप सकते हैं: उसकी ऊँचाई, उसका वज़न, और उसमें कितना आता है।","ur":"ہم {o} کو کئی طرح سے ناپ سکتے ہیں: اس کی اونچائی، اس کا وزن، اور اس میں کتنا آتا ہے۔","zh":"我们可以用不同的方法量{o}：有多高、有多重、能装多少。"},
+  hint_tool_cubes:{"en":"Cubes show how tall something is.","es":"Los cubos muestran qué tan alto es algo.","vi":"Khối vuông cho biết một vật cao bao nhiêu.","ar":"المكعبات تُبيّن ارتفاع الشيء.","hi":"घन बताते हैं कि कोई चीज़ कितनी ऊँची है।","ur":"کیوبز بتاتے ہیں کہ کوئی چیز کتنی اونچی ہے۔","zh":"方块告诉我们东西有多高。"},
+  hint_tool_scale:{"en":"A scale shows how heavy something is.","es":"La balanza muestra cuánto pesa algo.","vi":"Cái cân cho biết một vật nặng bao nhiêu.","ar":"الميزان يُبيّن وزن الشيء.","hi":"तराज़ू बताता है कि कोई चीज़ कितनी भारी है।","ur":"ترازو بتاتا ہے کہ کوئی چیز کتنی بھاری ہے۔","zh":"天平告诉我们东西有多重。"},
+  hint_tool_scoops:{"en":"Scoops show how much something holds.","es":"Las cucharadas muestran cuánto le cabe a algo.","vi":"Những muỗng cho biết một vật chứa được bao nhiêu.","ar":"المغارف تُبيّن كم يسع الشيء.","hi":"स्कूप बताते हैं कि किसी चीज़ में कितना आता है।","ur":"اسکوپ بتاتے ہیں کہ کسی چیز میں کتنا آتا ہے۔","zh":"勺子告诉我们东西能装多少。"},
+  hint_need_tall:{"en":"We want to know how tall the {o} is.","es":"Queremos saber qué tan alta es la {o}.","vi":"Ta muốn biết {o} cao bao nhiêu.","ar":"نريد أن نعرف ارتفاع {o}.","hi":"हमें {o} की ऊँचाई जाननी है।","ur":"ہمیں {o} کی اونچائی جاننی ہے۔","zh":"我们想知道{o}有多高。"},
+  hint_need_heavy:{"en":"We want to know how heavy the {o} is.","es":"Queremos saber cuánto pesa la {o}.","vi":"Ta muốn biết {o} nặng bao nhiêu.","ar":"نريد أن نعرف وزن {o}.","hi":"हमें {o} का वज़न जानना है।","ur":"ہمیں {o} کا وزن جاننا ہے۔","zh":"我们想知道{o}有多重。"},
+  hint_need_holds:{"en":"We want to know how much the {o} holds.","es":"Queremos saber cuánta agua le cabe a la {o}.","vi":"Ta muốn biết {o} chứa được bao nhiêu.","ar":"نريد أن نعرف كم يسع {o}.","hi":"हमें जानना है कि {o} में कितना आता है।","ur":"ہمیں جاننا ہے کہ {o} میں کتنا آتا ہے۔","zh":"我们想知道{o}能装多少。"},
+  tryit_9:{"en":"Pick one thing in the room. Tell a friend two ways to measure it: how long or tall it is, how heavy it is, or how much it holds.","es":"Elige una cosa del salón. Dile a un amigo dos maneras de medirla: qué tan larga o alta es, cuánto pesa o cuánto le cabe.","vi":"Chọn một đồ vật trong lớp. Nói với bạn hai cách đo nó: dài hay cao bao nhiêu, nặng bao nhiêu, hoặc chứa được bao nhiêu.","ar":"اختر شيئاً في الغرفة. أخبر صديقك بطريقتين لقياسه: كم طوله، أو كم وزنه، أو كم يسع.","hi":"कमरे में एक चीज़ चुनें। दोस्त को उसे मापने के दो तरीके बताएँ: कितनी लंबी या ऊँची है, कितनी भारी है, या उसमें कितना आता है।","ur":"کمرے میں ایک چیز چنیں۔ دوست کو اسے ناپنے کے دو طریقے بتائیں: کتنی لمبی یا اونچی ہے، کتنی بھاری ہے، یا اس میں کتنا آتا ہے۔","zh":"在教室里选一样东西。告诉朋友两种量它的方法：有多长或多高、有多重、能装多少。"},
+  q_lighter:{"en":"Which is lighter?","es":"¿Cuál es más ligero?","vi":"Cái nào nhẹ hơn?","ar":"أيهما أخف؟","hi":"कौन-सा अधिक हल्का है?","ur":"کون سا ہلکا ہے؟","zh":"哪个更轻？"},
+  step_predict_lighter:{"en":"👉 Step 1: Predict which object is lighter.","es":"👉 Paso 1: Predice cuál objeto es más ligero.","vi":"👉 Bước 1: Đoán xem vật nào nhẹ hơn.","ar":"👉 الخطوة 1: توقّع أي الشيئين أخف.","hi":"👉 चरण 1: अनुमान लगाएँ कौन-सी वस्तु हल्की है।","ur":"👉 مرحلہ 1: اندازہ لگائیں کون سی چیز ہلکی ہے۔","zh":"👉 第 1 步：猜一猜哪个更轻。"},
+  hint_weight_predict_light:{"en":"First tap the object you think is lighter, then weigh them.","es":"Primero toca el objeto que crees que es más ligero y luego pésalos.","vi":"Trước tiên chạm vào vật em nghĩ là nhẹ hơn, rồi cân chúng.","ar":"المس أولاً الشيء الذي تظن أنه أخف، ثم زِنهما.","hi":"पहले उस वस्तु को छुएँ जो आपको हल्की लगती है, फिर उन्हें तौलें।","ur":"پہلے اس چیز کو چھوئیں جو آپ کو ہلکی لگتی ہے، پھر انہیں تولیں۔","zh":"先点你觉得更轻的东西，再称一称。"},
+  frame_lighter:{"en":"The {a} is lighter than the {b}.","es":"{a} es más ligero que {b}.","vi":"{a} nhẹ hơn {b}.","ar":"{a} أخف من {b}.","hi":"{a} {b} से हल्का है।","ur":"{a} {b} سے ہلکا ہے۔","zh":"{a}比{b}轻。"},
+  q_capacity_less:{"en":"Which container holds less?","es":"¿Cuál recipiente contiene menos?","vi":"Đồ đựng nào chứa ít hơn?","ar":"أي وعاء يسع أقل؟","hi":"कौन-सा पात्र कम भरता है?","ur":"کون سا برتن کم سماتا ہے؟","zh":"哪个容器装得少？"},
+  step_predict_less:{"en":"👉 Step 1: Predict which holds less.","es":"👉 Paso 1: Predice cuál contiene menos.","vi":"👉 Bước 1: Đoán xem cái nào chứa ít hơn.","ar":"👉 الخطوة 1: توقّع أيهما يسع أقل.","hi":"👉 चरण 1: अनुमान लगाएँ कौन कम भरता है।","ur":"👉 مرحلہ 1: اندازہ لگائیں کون کم سماتا ہے۔","zh":"👉 第 1 步：猜一猜哪个装得少。"},
+  hint_capacity_predict_less:{"en":"Tap the container you think holds less first.","es":"Primero toca el recipiente que crees que contiene menos.","vi":"Trước tiên chạm vào đồ đựng em nghĩ là chứa ít hơn.","ar":"المس أولاً الوعاء الذي تظن أنه يسع أقل.","hi":"पहले उस पात्र को छुएँ जो आपको लगता है कम भरता है।","ur":"پہلے اس برتن کو چھوئیں جو آپ کو لگتا ہے کم سماتا ہے۔","zh":"先点你觉得装得少的容器。"},
+  frame_capacity_less:{"en":"The {a} holds less.","es":"{a} contiene menos.","vi":"{a} chứa ít hơn.","ar":"{a} يسع أقل.","hi":"{a} कम भरता है।","ur":"{a} میں کم سماتا ہے۔","zh":"{a}装得少。"},
+  fb_capacity_counts_less:{"en":"The {a} took {na} scoops and the {b} took {nb} scoops. {small} is less than {big}, so the {less} holds less.","es":"{a} tomó {na} cucharadas y {b} tomó {nb} cucharadas. {small} es menos que {big}, así que {less} contiene menos.","vi":"{a} cần {na} muỗng và {b} cần {nb} muỗng. {small} ít hơn {big}, nên {less} chứa ít hơn.","ar":"احتاج {a} إلى {na} مغارف واحتاج {b} إلى {nb} مغارف. {small} أقل من {big}، لذلك {less} يسع أقل.","hi":"{a} में {na} स्कूप लगे और {b} में {nb} स्कूप लगे। {small}, {big} से कम है, इसलिए {less} कम भरता है।","ur":"{a} میں {na} اسکوپ لگے اور {b} میں {nb} اسکوپ لگے۔ {small}، {big} سے کم ہے، اس لیے {less} میں کم سماتا ہے۔","zh":"{a}装了 {na} 勺，{b}装了 {nb} 勺。{small} 比 {big} 少，所以{less}装得少。"}
 });
 
 /* ---------- Speech ---------- */
@@ -590,8 +616,10 @@ function svg(w,h,vb){
   s.setAttribute("role","img");
   return s;
 }
-function e(tag,attrs={}){const n=document.createElementNS(SVGNS,tag);
-  for(const k in attrs) n.setAttribute(k,attrs[k]); return n;}
+function e(tag,attrs={},txt){const n=document.createElementNS(SVGNS,tag);
+  for(const k in attrs) n.setAttribute(k,attrs[k]);
+  if(txt!=null) n.textContent=txt;   // labels such as "A: slide" and "start" are passed as a 3rd argument
+  return n;}
 
 /* Object drawings anchored so their LEFT edge = x, BASE = y (baseline for height).
    Each returns a <g>. length item is horizontal; height item vertical. */
@@ -765,7 +793,8 @@ const activities = [
   {id:"height", labelKey:"tab_height", icon:iconHeight, need:"height"},
   {id:"weight", labelKey:"tab_weight", icon:iconWeight, need:"weight"},
   {id:"capacity", labelKey:"tab_capacity", icon:iconCapacity, need:"capacity"},
-  {id:"cubes", labelKey:"tab_cubes", icon:iconCubes, need:"cubes"}
+  {id:"cubes", labelKey:"tab_cubes", icon:iconCubes, need:"cubes"},
+  {id:"measure", labelKey:"tab_measure", icon:iconMeasure, need:"measure"}
 ];
 function activeActivities(){ return activities.filter(a=>settings.attrs[a.need]); }
 
@@ -775,6 +804,9 @@ let solvedSinceTip = 0;
 let roundIndex = 0;
 
 /* ---------- Icons (mini svg) ---------- */
+function iconMeasure(){const s=svg(26,26);s.classList.add("ic");
+  s.appendChild(e("circle",{cx:11,cy:11,r:7,fill:"none",stroke:"#125a8a","stroke-width":3}));
+  s.appendChild(e("line",{x1:16,y1:16,x2:23,y2:23,stroke:"#125a8a","stroke-width":3,"stroke-linecap":"round"}));return s;}
 function iconLength(){const s=svg(26,26);s.classList.add("ic");
   s.appendChild(e("line",{x1:3,y1:16,x2:23,y2:16,stroke:"#125a8a","stroke-width":3,"stroke-linecap":"round"}));
   s.appendChild(e("line",{x1:3,y1:12,x2:3,y2:20,stroke:"#125a8a","stroke-width":3}));
@@ -848,7 +880,8 @@ const tryIts = [
   {k:"tryit_5", need:["height"]},
   {k:"tryit_6", need:["cubes","length"]},
   {k:"tryit_7", need:["length"]},
-  {k:"tryit_8", need:["capacity"]}
+  {k:"tryit_8", need:["capacity"]},
+  {k:"tryit_9", need:["measure"]}
 ];
 function tryItCard(){
   const active=Object.keys(settings.attrs).filter(k=>settings.attrs[k]);
@@ -877,9 +910,11 @@ function newRound(){
   renderTabs();
   const app=$("#app"); app.innerHTML="";
   const builder={length:buildLength,height:buildHeight,weight:buildWeight,
-    capacity:buildCapacity,cubes:buildCubes}[current];
+    capacity:buildCapacity,cubes:buildCubes,measure:buildMeasure}[current];
+  lastQ="";
   builder(app);
   maybeTryIt(app);
+  if(lastQ) speak(lastQ);   // speech-first: read the question aloud for pre-readers
   window.scrollTo({top:0,behavior: prefersReduced()?"auto":"smooth"});
 }
 function prefersReduced(){return window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;}
@@ -891,8 +926,9 @@ function buildLength(app){
   // ~1 in 4 rounds is a misaligned teaching example
   const misaligned = Math.random()<0.28;
   const keys=shuffle(Object.keys(lengthKinds)).slice(0,2);
+  const minGap=settings.mode==="prek"?70:40;   // PreK: differences are easier to see
   let lenA=rnd(120,240), lenB=rnd(120,240);
-  while(Math.abs(lenA-lenB)<40){ lenB=rnd(120,240); }
+  while(Math.abs(lenA-lenB)<minGap){ lenB=rnd(120,240); }
   const askLonger = Math.random()<0.5;
   const A={key:keys[0],len:lenA};
   const B={key:keys[1],len:lenB};
@@ -977,8 +1013,10 @@ function buildLength(app){
     const g1=lengthKinds[A.key].draw(60,55,A.len,lengthKinds[A.key].color);
     const g2=lengthKinds[B.key].draw(60,110,B.len,lengthKinds[B.key].color);
     cs.appendChild(g1); cs.appendChild(g2);
-    cs.appendChild(e("line",{x1:60+longer.len,y1:20,x2:60+longer.len,y2:130,stroke:"#0b7a53","stroke-width":3,"stroke-dasharray":"4 4"}));
-    cs.appendChild(e("text",{x:62+longer.len,y:130,fill:"#0b7a53","font-size":12,"font-weight":"700"},t("lbl_longer_end")));
+    if(done){   // mark the longer end only after the child has answered
+      cs.appendChild(e("line",{x1:60+longer.len,y1:20,x2:60+longer.len,y2:130,stroke:"#0b7a53","stroke-width":3,"stroke-dasharray":"4 4"}));
+      cs.appendChild(e("text",{x:62+longer.len,y:130,fill:"#0b7a53","font-size":12,"font-weight":"700"},t("lbl_longer_end")));
+    }
     stage.after(cmp);
     setTimeout(()=>{ if(cmp.parentNode) cmp.remove(); }, prefersReduced()?4000:5000);
   }
@@ -995,7 +1033,7 @@ function makeMiniLength(o){
 function buildHeight(app){
   const keys=shuffle(Object.keys(heightKinds)).slice(0,2);
   let hA=rnd(90,180), hB=rnd(90,180);
-  while(Math.abs(hA-hB)<30) hB=rnd(90,180);
+  while(Math.abs(hA-hB)<(settings.mode==="prek"?50:30)) hB=rnd(90,180);
   const askTaller=Math.random()<0.5;
   const A={key:keys[0],ht:hA};
   const B={key:keys[1],ht:hB};
@@ -1084,15 +1122,17 @@ function buildWeight(app){
   if(kB.weight===kA.weight) kB={...kB,weight:kA.weight+2};
   const heavier = kA.weight>kB.weight?kA:kB;
   const lighter = kA.weight>kB.weight?kB:kA;
+  const askLighter = Math.random()<0.4;   // K.7(B)/K.MD.2: "more of" AND "less of"
+  const answerW = askLighter?lighter:heavier;
 
   const panel=el("div",{class:"panel"});
-  panel.appendChild(promptRow(t("q_heavier"), t("sub_weight")));
+  panel.appendChild(promptRow(t(askLighter?"q_lighter":"q_heavier"), t("sub_weight")));
 
   // Prediction
   const predWrap=el("div",{class:"choices"});
   const pA=choiceObj(objName(kA.key), makeWeightMini(kA), ()=>predict(kA));
   const pB=choiceObj(objName(kB.key), makeWeightMini(kB), ()=>predict(kB));
-  const predLabel=el("p",{class:"instr"},t("step_predict_heavier"));
+  const predLabel=el("p",{class:"instr"},t(askLighter?"step_predict_lighter":"step_predict_heavier"));
   predWrap.append(pA,pB);
   panel.appendChild(predLabel); panel.appendChild(predWrap);
 
@@ -1121,9 +1161,9 @@ function buildWeight(app){
   panR.append(ropeR1,panRbowl,itemRg);
   function panBowl(){return "M -34 0 Q 0 34 34 0";}
   panel.appendChild(stage);
-  s.setAttribute("aria-label",t("q_heavier")+" "+objName(kA.key)+" / "+objName(kB.key));
+  s.setAttribute("aria-label",t(askLighter?"q_lighter":"q_heavier")+" "+objName(kA.key)+" / "+objName(kB.key));
 
-  let angle=0; // radians, positive tilts left down
+  let angle=0; // radians, negative tilts left down
   function updateBeam(){
     beam.setAttribute("transform",`rotate(${angle*57.3} ${W/2} ${beamY})`);
     const lx=W/2-halfLen, rx=W/2+halfLen;
@@ -1162,18 +1202,19 @@ function buildWeight(app){
     showFB("hint", t("hint_weight_after"), t("hint_weight_after"));
   }
   function runScale(){
-    if(!predicted){ showFB("hint", t("hint_weight_predict"), t("hint_weight_predict")); return; }
+    if(!predicted){ const k=askLighter?"hint_weight_predict_light":"hint_weight_predict"; showFB("hint", t(k), t(k)); return; }
     weighed=true; weighBtn.disabled=true;
     const rid=roundIndex;
     // heavier side goes down. left = kA, right = kB
     const leftHeavier = kA.weight>kB.weight;
-    const target = (leftHeavier? 0.20 : -0.20); // radians
+    const target = (leftHeavier? -0.20 : 0.20); // radians; SVG rotate() is clockwise, so a NEGATIVE angle lowers the left pan
     animateAngle(target, ()=>{
       if(rid!==roundIndex) return;
-      const correct = predicted===heavier;
-      const sent=tf("frame_heavier",{a:objName(heavier.key),b:objName(lighter.key)});
+      const correct = predicted===answerW;
+      const sent=askLighter? tf("frame_lighter",{a:objName(lighter.key),b:objName(heavier.key)})
+                           : tf("frame_heavier",{a:objName(heavier.key),b:objName(lighter.key)});
       pA.classList.remove("sel");pB.classList.remove("sel");
-      (heavier===kA?pA:pB).classList.add("correct");
+      (answerW===kA?pA:pB).classList.add("correct");
       if(!correct){ (predicted===kA?pA:pB).classList.add("wrong"); }
       const pred = correct? t("pred_right") : t("pred_diff");
       showFB("good", sent+" "+t("exp_weight")+" "+pred, sent+" "+t("exp_weight"));
@@ -1200,7 +1241,7 @@ function makeWeightMini(k){ const s=svg(60,44); s.appendChild(drawWeightItem(30,
    ============================================================ */
 function buildCapacity(app){
   // Container shapes. Capacity = scoops (NOT height). Include tall-thin vs short-wide.
-  const maxScoops = Math.min(settings.maxUnits, 8);
+  const maxScoops = Math.min(settings.maxUnits, settings.mode==="prek"?5:8);   // PreK: count to 5
   // Build two containers with different scoop capacities and varied shapes
   const shapes=[
     {key:"tall_jar", w:70, h:150, kind:"tall"},
@@ -1226,15 +1267,17 @@ function buildCapacity(app){
   B.scoops=Math.max(2,Math.min(maxScoops,B.scoops));
   if(A.scoops===B.scoops) B.scoops = A.scoops+1<=maxScoops?A.scoops+1:A.scoops-1;
   const more = A.scoops>B.scoops?A:B, less=A.scoops>B.scoops?B:A;
+  const askLess = Math.random()<0.4;   // K.7(B)/K.MD.2: "more of" AND "less of"
+  const answerC = askLess?less:more, qC=t(askLess?"q_capacity_less":"q_capacity");
 
   const panel=el("div",{class:"panel"});
-  panel.appendChild(promptRow(t("q_capacity"), t("sub_capacity")));
+  panel.appendChild(promptRow(qC, t("sub_capacity")));
 
   const predWrap=el("div",{class:"choices"});
   const pA=choiceObj("A: "+objName(A.key), makeContainerMini(A), ()=>predict(A));
   const pB=choiceObj("B: "+objName(B.key), makeContainerMini(B), ()=>predict(B));
   predWrap.append(pA,pB);
-  panel.appendChild(el("p",{class:"instr"},t("step_predict_more")));
+  panel.appendChild(el("p",{class:"instr"},t(askLess?"step_predict_less":"step_predict_more")));
   panel.appendChild(predWrap);
 
   const stage=el("div",{class:"stage"});
@@ -1243,7 +1286,7 @@ function buildCapacity(app){
   const cB=drawContainer(s,310,H-20,B,"#0b7a53");
   s.appendChild(e("text",{x:110,y:H-4,fill:"var(--ink)","font-size":13,"font-weight":"700","text-anchor":"middle"},"A: "+objName(A.key)));
   s.appendChild(e("text",{x:310,y:H-4,fill:"var(--ink)","font-size":13,"font-weight":"700","text-anchor":"middle"},"B: "+objName(B.key)));
-  s.setAttribute("aria-label",`A ${objName(A.key)}, B ${objName(B.key)}. ${t("q_capacity")}`);
+  s.setAttribute("aria-label",`A ${objName(A.key)}, B ${objName(B.key)}. ${qC}`);
   panel.appendChild(stage);
 
   const countLine=el("p",{class:"instr",id:"scoopCount"},tf("scoops_poured",{a:0,b:0}));
@@ -1266,7 +1309,7 @@ function buildCapacity(app){
     showFB("hint", t("hint_capacity_after"), t("hint_capacity_after"));
   }
   function fill(){
-    if(!predicted){ showFB("hint", t("hint_capacity_predict"), t("hint_capacity_predict")); return; }
+    if(!predicted){ const k=askLess?"hint_capacity_predict_less":"hint_capacity_predict"; showFB("hint", t(k), t(k)); return; }
     filled=true; fillBtn.disabled=true;
     const rid=roundIndex; let a=0,b=0;
     const dur=prefersReduced()?0:420;
@@ -1281,13 +1324,13 @@ function buildCapacity(app){
     if(prefersReduced()){ cA.setLevel(1);cB.setLevel(1); countLine.textContent=tf("scoops_poured",{a:A.scoops,b:B.scoops}); finish(); }
     else pour();
     function finish(){
-      const correct=predicted===more;
-      const sent=tf("frame_capacity_more",{a:objName(more.key)});
+      const correct=predicted===answerC;
+      const sent=askLess? tf("frame_capacity_less",{a:objName(less.key)}) : tf("frame_capacity_more",{a:objName(more.key)});
       pA.classList.remove("sel");pB.classList.remove("sel");
-      (more===A?pA:pB).classList.add("correct");
+      (answerC===A?pA:pB).classList.add("correct");
       if(!correct)(predicted===A?pA:pB).classList.add("wrong");
       const taller = A.h>B.h?A:B;
-      const counts=tf("fb_capacity_counts",{a:objName(A.key),na:A.scoops,b:objName(B.key),nb:B.scoops,big:more.scoops,small:less.scoops,more:objName(more.key)});
+      const counts=tf(askLess?"fb_capacity_counts_less":"fb_capacity_counts",{a:objName(A.key),na:A.scoops,b:objName(B.key),nb:B.scoops,big:more.scoops,small:less.scoops,more:objName(more.key),less:objName(less.key)});
       let extra="";
       if(taller===less){ extra=" "+tf("exp_capacity_tall",{t:objName(taller.key)}); }
       const pr = correct ? " "+t("pred_right") : "";
@@ -1329,7 +1372,7 @@ function makeContainerMini(spec){
    ACTIVITY 5 — Measure with Cubes (drag & snap)
    ============================================================ */
 function buildCubes(app){
-  const maxU=Math.min(settings.maxUnits,10);
+  const maxU=Math.min(settings.maxUnits,settings.mode==="prek"?5:10);   // PreK: count to 5
   const kinds=Object.keys(lengthKinds);
   const key=pick(kinds);
   const CUBE=40; // px per cube in stage coords
@@ -1475,9 +1518,99 @@ function buildCubes(app){
 }
 
 /* ============================================================
+   ACTIVITY 6 — What Can We Measure? (TEKS K.7(A), CCSS K.MD.1)
+   One object, one question: tap the way to find out how tall /
+   how heavy / how much it holds.
+   ============================================================ */
+const MEASURE_TOOL={tall:"cubes",heavy:"scale",holds:"scoops"};
+function drawMeasureObj(key,cx,baseY,sc){
+  const g=e("g",{transform:`translate(${cx} ${baseY}) scale(${sc})`}), ln="#0d2a44";
+  if(key==="bottle"){
+    g.appendChild(e("rect",{x:-14,y:-44,width:28,height:44,rx:5,fill:"#7cc4e8",stroke:ln,"stroke-width":2}));
+    g.appendChild(e("rect",{x:-6,y:-56,width:12,height:13,fill:"#7cc4e8",stroke:ln,"stroke-width":2}));
+    g.appendChild(e("rect",{x:-7,y:-62,width:14,height:7,rx:2,fill:"#e0554f",stroke:ln,"stroke-width":2}));
+  }else if(key==="bucket"){
+    g.appendChild(e("path",{d:"M -22 -40 Q 0 -72 22 -40",fill:"none",stroke:ln,"stroke-width":3}));
+    g.appendChild(e("polygon",{points:"-22,-40 22,-40 16,0 -16,0",fill:"#f2b134",stroke:ln,"stroke-width":2,"stroke-linejoin":"round"}));
+  }else{
+    g.appendChild(e("path",{d:"M 15 -30 q 15 4 0 22",fill:"none",stroke:ln,"stroke-width":4}));
+    g.appendChild(e("polygon",{points:"-16,-36 16,-36 12,0 -12,0",fill:"#c65a9c",stroke:ln,"stroke-width":2,"stroke-linejoin":"round"}));
+  }
+  return g;
+}
+const MEASURE_H={bottle:62,bucket:40,cup:36};
+function toolMini(key,tool){
+  const s=svg(120,100), ln="#0d2a44";
+  if(tool==="scale"){
+    s.appendChild(e("rect",{x:44,y:90,width:32,height:7,rx:2,fill:"#8a5a2b"}));
+    s.appendChild(e("rect",{x:57,y:26,width:6,height:66,fill:"#6b4a1f"}));
+    s.appendChild(e("rect",{x:12,y:24,width:96,height:5,rx:2,fill:"#94714a"}));
+    [[26,0],[94,0]].forEach(([x])=>{ s.appendChild(e("line",{x1:x,y1:26,x2:x,y2:60,stroke:"#5a6b80","stroke-width":1.5}));
+      s.appendChild(e("path",{d:`M ${x-18} 60 Q ${x} 76 ${x+18} 60 Z`,fill:"#c9d7e6",stroke:"#5a6b80","stroke-width":1.5})); });
+    s.appendChild(drawMeasureObj(key,26,60,0.55));
+  }else if(tool==="cubes"){
+    s.appendChild(e("line",{x1:4,y1:92,x2:116,y2:92,stroke:"#3f9c53","stroke-width":3}));
+    const h=MEASURE_H[key]*1.15; s.appendChild(drawMeasureObj(key,44,92,1.15));
+    const n=Math.max(2,Math.round(h/12)), c=h/n;
+    for(let i=0;i<n;i++) s.appendChild(e("rect",{x:76,y:92-(i+1)*c+0.5,width:c-1,height:c-1,rx:2,fill:["#c2410c","#0b7a53","#7b3fb0","#2f7dbb","#d4a017","#c65a9c"][i%6],stroke:ln,"stroke-width":1}));
+  }else{
+    const sc=key==="bottle"?0.95:1.1; s.appendChild(drawMeasureObj(key,42,96,sc));
+    const top=96-MEASURE_H[key]*sc;
+    // a scoop tipping water into the object
+    const sg=e("g",{transform:`rotate(-30 86 18)`});
+    sg.appendChild(e("path",{d:"M 70 14 A 16 14 0 0 0 102 14 Z",fill:"#9aa7b4",stroke:ln,"stroke-width":2}));
+    sg.appendChild(e("path",{d:"M 72 14 A 14 6 0 0 0 100 14 Z",fill:"#3b8fd6"}));
+    sg.appendChild(e("line",{x1:101,y1:14,x2:118,y2:4,stroke:ln,"stroke-width":4,"stroke-linecap":"round"}));
+    s.appendChild(sg);
+    for(let y=30;y<top-2;y+=9) s.appendChild(e("ellipse",{cx:58-(y-30)*0.35,cy:y,rx:2.8,ry:3.8,fill:"#3b8fd6"}));
+  }
+  s.classList.add("tool");
+  return s;
+}
+function buildMeasure(app){
+  const key=pick(["bottle","bucket","cup"]), attr=pick(["tall","heavy","holds"]), name=objName(key);
+  const q=tf("q_measure_"+attr,{o:name});
+  const panel=el("div",{class:"panel"});
+  panel.appendChild(promptRow(q, t("sub_measure")));
+  const stage=el("div",{class:"stage"});
+  const s=svg(220,130); s.appendChild(drawMeasureObj(key,110,120,1.6));
+  s.appendChild(e("text",{x:150,y:118,fill:"var(--ink)","font-size":14,"font-weight":"700"},name));
+  s.setAttribute("aria-label",name); stage.appendChild(s); panel.appendChild(stage);
+  const answer=MEASURE_TOOL[attr];
+  let tools=["cubes","scale","scoops"];
+  if(settings.mode==="prek") tools=[answer, pick(tools.filter(x=>x!==answer))];   // PreK: 2 choices
+  tools=shuffle(tools);
+  const choicesWrap=el("div",{class:"choices"}); const btns={};
+  tools.forEach(tl=>{ btns[tl]=choiceObj(t("tool_"+tl), toolMini(key,tl), ()=>choose(tl)); choicesWrap.appendChild(btns[tl]); });
+  panel.appendChild(choicesWrap);
+  panel.appendChild(feedbackBox());
+  const frameSlot=el("div",{id:"frameSlot"}); panel.appendChild(frameSlot);
+  const actions=el("div",{class:"actions"}); const nb=nextButton(); actions.append(nb); panel.appendChild(actions);
+  app.appendChild(panel);
+  let done=false;
+  function choose(tl){
+    if(done) return;
+    if(tl===answer){
+      done=true; btns[tl].classList.add("correct");
+      const sent=tf("frame_measure_"+attr,{o:name});
+      const more=settings.mode==="prek"?"":" "+tf("measure_more",{o:name});   // K.MD.1: several attributes of one object
+      showFB("good", t("yes_excl")+" "+sent+more, t("yes_excl")+" "+sent+more);
+      frameSlot.innerHTML=""; const f=frameLine(sent); if(f) frameSlot.appendChild(f);
+      nb.disabled=false;
+    }else{
+      btns[tl].classList.add("wrong"); setTimeout(()=>btns[tl].classList.remove("wrong"),900);
+      const h=t("hint_tool_"+tl)+" "+tf("hint_need_"+attr,{o:name});
+      showFB("hint", h, h);
+    }
+  }
+}
+
+/* ============================================================
    Shared UI builders
    ============================================================ */
+let lastQ="";
 function promptRow(q, sub){
+  lastQ=q;
   const row=el("div",{});
   const pr=el("div",{class:"prompt"},
     el("button",{class:"speak",title:t("aria_read_q"),"aria-label":t("aria_read_q"),
