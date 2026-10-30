@@ -42,6 +42,8 @@
        chrome and this search are English.
      - printables/ — print packs whose parent activity page is
        already indexed.
+     - wordcloud/ is a single-page tool, so its index.html IS the
+       activity and is harvested with { landing: true }.
      - science/case-files/ — a single landing page plus PDF/PPTX
        downloads. Landing pages are skipped by design, so it
        keeps hand-written data-kw in index.html like gtky/ and
@@ -88,7 +90,7 @@ const STOP = new Set(("a an the and or but if of to in on at by for with from as
  *     this pass, searching "Shakespeare" finds nothing.
  *   - words: everything else visible, as a deduped bag for single-word terms.
  */
-function harvestArea(dir) {
+function harvestArea(dir, { landing = false } = {}) {
   const phrases = [];
   const words = new Set();
   const base = path.join(ROOT, dir);
@@ -113,8 +115,9 @@ function harvestArea(dir) {
       }
       if (!entry.name.endsWith(".html") || SKIP_FILE.test(entry.name)) continue;
       const rel = path.relative(base, full);
-      // The area's own landing page says nothing the card does not already say.
-      if (rel === "index.html" || rel === "about.html") continue;
+      // The area's own landing page says nothing the card does not already say —
+      // unless the area is a single-page tool, where the landing page is the tool.
+      if (!landing && (rel === "index.html" || rel === "about.html")) continue;
 
       pages++;
       const src = fs.readFileSync(full, "utf8");
@@ -300,6 +303,13 @@ for (const dir of [
   "eventmaps", "sst", "curiosity",
 ]) {
   const { phrases, words, pages } = harvestArea(dir);
+  add(`${dir}/`, ...phrases);
+  wordBags[`${dir}/`] = words;
+  console.log(`  ${(dir + "/").padEnd(18)}${String(pages).padStart(4)} pages, ${phrases.length} phrases, ${words.size} words`);
+}
+// Single-page tools: the landing page is the whole activity, so harvest it.
+for (const dir of ["wordcloud"]) {
+  const { phrases, words, pages } = harvestArea(dir, { landing: true });
   add(`${dir}/`, ...phrases);
   wordBags[`${dir}/`] = words;
   console.log(`  ${(dir + "/").padEnd(18)}${String(pages).padStart(4)} pages, ${phrases.length} phrases, ${words.size} words`);

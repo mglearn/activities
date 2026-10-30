@@ -14,6 +14,7 @@ languages — no logins, no data collected. Published at
 | `digcit/`       | Digital Citizenship Breakouts     | K–8    | `digcit` repo |
 | `genailit/`     | Gen AI Literacy Breakouts         | K–8    | `genailit` repo |
 | `science/case-files/`| CER & ACE Case Files (printable packets) | 5–8 | — |
+| `wordcloud/`    | CLEARER Word Cloud Studio (single-page tool) | 3–12 | — |
 
 `science/index.html` is a legacy redirect to `ctobs/science/`. **Do not delete
 that folder** — `science/case-files/` lives inside it and is a real activity.
