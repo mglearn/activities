@@ -189,7 +189,7 @@
       '<footer class="sheet-footer">' +
         '<div class="source-lines"><strong>' + T('sources_used') + ':</strong> 1.<span></span> 2.<span></span> 3.<span></span></div>' +
         '<div class="skill-note"><strong>' + T('teks_focus') + ':</strong> ' + skills + '</div>' +
-        '<div class="credit-note">CC-BY-NC TCEA.org by Miguel Guhlin (mguhlin.org)</div>' +
+        '<div class="credit-note">CC-BY-NC TCEA.org by Miguel Guhlin (mguhlin@tcea.org)</div>' +
       '</footer>';
   }
 

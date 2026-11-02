@@ -2,7 +2,7 @@
 
 Three self-contained digital breakouts that teach real-world reasoning — logic, media literacy, and scientific skepticism — to grades 3–12. No logins, no server, no data collection. Each page is a single HTML file; the only external request is Google Fonts.
 
-By Miguel Guhlin (MGuhlin.org). Contact: mguhlin@tcea.org
+By Miguel Guhlin (blog.tcea.org). Contact: mguhlin@tcea.org
 
 ## The breakouts
 - **grade35/** — 🍎 The Mixed-Up Lunchroom (logic & observation)
