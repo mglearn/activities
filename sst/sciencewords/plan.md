@@ -2812,7 +2812,6 @@ Only after the core resource is stable:
 * Random Mystery Word generator
 * Teacher-selected printable packet generator
 * QR codes to individual activities
-* DrawSplat concept-map extensions
 * Classroom projection mode
 * "Word Part of the Day"
 * CSV export of word-part bank

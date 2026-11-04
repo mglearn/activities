@@ -1,6 +1,6 @@
 /* TCEA Freedom Days Breakouts — i18n engine.
    ---------------------------------------------------------------------------
-   Modeled on the DrawSplat WidgetI18n engine (assets/js/widget-i18n.js):
+   Modeled on the WidgetI18n engine (assets/js/widget-i18n.js):
    a shared language switcher for self-contained educational pages.
 
    Seven languages, a shared preference (localStorage `tcea.breakouts.lang`),
